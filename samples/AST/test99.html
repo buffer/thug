@@ -1,0 +1,51 @@
+<html>  
+<head>  
+      
+<title>onload test</title>     
+<script type="text/javascript">
+
+function my_func(t)
+{
+	var s = "foo";
+	var i = 10;
+	var j = 0;
+	var ar = Array('a', 'b', 'c');
+	s += "bar";
+	i = i - 6;
+
+	if (i > 100) {
+		alert("Mmmmh");
+	}
+
+	for (i = 0; i < 3; i++) {
+		s += "a";
+	}
+
+	do {
+		s += "b";
+		j += 2;
+		i--;
+	} while (i > 1); 
+
+	while (t > 0) {
+		s += "c";
+		t--;
+	}
+
+	for (a in ar) {
+		alert(a);
+	}
+
+	alert(s);
+	return 0;
+}
+
+my_func(3);
+
+</script>  
+</head>  
+   
+<body>  
+<p>The load event fires when the document has finished loading!</p>  
+</body>  
+</html>  

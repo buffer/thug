@@ -1,0 +1,82 @@
+#!/usr/bin/env python
+#
+# History.py
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA  02111-1307  USA
+
+import PyV8
+
+class History(PyV8.JSClass):
+    def __init__(self, window):
+        self._window = window
+        self.urls    = []
+        self.pos     = None
+
+    @property
+    def window(self):
+        return self._window
+
+    @property
+    def length(self):
+        return len(self.urls)
+
+    @property
+    def current(self):
+        if self.pos:
+            return self.urls[self.pos]
+        return None
+
+    @property
+    def next(self):
+        if self.pos and len(self.urls) > self.pos + 1:
+            return self.urls[self.pos + 1]
+        return None
+
+    @property
+    def previous(self):
+        if self.pos and self.pos > 0:
+            return self.urls[self.pos - 1]
+        return None
+
+    def back(self):
+        """Loads the previous URL in the history list"""
+        return self.go(-1)
+
+    def forward(self):
+        """Loads the next URL in the history list"""
+        return self.go(1)
+
+    def go(self, num_or_url):
+        """Loads a specific URL from the history list"""
+        try:
+            off = int(num_or_url)
+
+            self.pos += off
+            self.pos = min(max(0, self.pos), len(self.urls) - 1)
+            self._window.open(self.urls[self.pos])
+        except ValueError:
+            self._window.open(num_or_url)
+
+    def update(self, url, replace = False):
+        if self.pos is None:
+            self.urls.append(url)
+            self.pos = 0
+        elif replace:
+            self.urls[self.pos] = url
+        elif self.urls[self.pos] != url:
+            self.urls = self.urls[:self.pos + 1]
+            self.urls.append(url)
+            self.pos += 1
+

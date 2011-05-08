@@ -1,0 +1,10 @@
+<object classid='clsid:B617B991-A767-4F05-99BA-AC6FCABB102E' id='test' style='width: 250px; height: 75px'></object>     
+<input language=VBScript onclick=tryMe() type=button value='Click here to start the test'>
+
+<script>
+function tryMe() {
+    test.Text = "@echo off\n" + "cmd.exe /c notepad.exe\n" + "echo Hello World!\n" + "pause\n";
+    test.SaveFile('C:\\shinnai.bat', 1);
+}
+</script>
+
