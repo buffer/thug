@@ -16,11 +16,16 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import logging
 from ActiveX.ActiveX import _ActiveXObject
 
 class DFT(object):
-    def __init__(self, window):
+    log = logging.getLogger("DFT")
+
+    def __init__(self, window, debug = True):
         self.window = window
+        if debug:
+            self.log.setLevel(logging.DEBUG)
     
     def __enter__(self):
         return self
@@ -58,7 +63,8 @@ class DFT(object):
                     self.window.evalScript(self.fix(v))
 
     def handle_object(self, object):
-        print object
+        self.log.debug(object)
+
         classid = object.get('classid', None)
         id      = object.get('id', None)
 

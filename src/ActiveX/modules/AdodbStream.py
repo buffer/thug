@@ -1,22 +1,22 @@
 
 
 def Open():
-	print "Adodb.Stream Open"
+	add_alert("Adodb.Stream Open")
 
 def Write(s):
-	print "Adodb.Stream Write"
-	print s
+	add_alert("Adodb.Stream Write"
+	add_alert(s)
 
 def SaveToFile(filename, opt):
-	print "Adodb.Stream SaveToFile"
-	print filename
-	print opt
+	add_alert("Adodb.Stream SaveToFile")
+	add_alert(filename)
+	add_alert(opt)
 
 def Close():
-	print "Adodb.Stream Close"
+	add_alert("Adodb.Stream Close")
 
 
-self.Open	= Open
-self.Write	= Write
+self.Open	    = Open
+self.Write	    = Write
 self.SaveToFile = SaveToFile
-self.Close	= Close
+self.Close	    = Close

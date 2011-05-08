@@ -18,7 +18,7 @@
 
 
 import os
-#from utils import *
+import logging
 from CLSID import *
 
 ACTIVEX_MODULES = "ActiveX/modules/%s.py"
@@ -26,6 +26,8 @@ MAX_ARG_LENGTH  = 50
 
 eventlist = []
 modules   = []
+
+log = logging.getLogger("ActiveX")
 
 class _ActiveXObject:
     global opts
@@ -43,25 +45,16 @@ class _ActiveXObject:
                 _module = clsnamelist[cls]
             
         if not _module:
-            self.__check_raise_warning(cls)
+            log.warning("Unknown ActiveX Object: %s" % (cls, ))
             return
             
         module = ACTIVEX_MODULES % (_module, )
         if not os.access(module, os.F_OK):
-            self.__check_raise_warning(cls)
+            log.warning("Unknown ActiveX Object: %s" % (cls, ))
             return
 
         modules.append(_module)
         exec self.__load_module(module)
-
-    def __check_raise_warning(self, cls):
-        print "[WARNING] Unknown ActiveX Object: %s" % (cls, )
-        #if opts['mock_activex']:
-        if True:
-            print "[WARNING] Emulating Mock ActiveX Object"
-            return
-        
-        raise UserWarning
     
     def __check_length(self, length):
         return length > MAX_ARG_LENGTH
@@ -86,11 +79,11 @@ class _ActiveXObject:
         length = len(value)
 
         if self.__check_length(length):
-            print '[Attribute %s Length: %d]' % (name, length, )
+            log.warning("[Attribute %s Length: %d]" % (name, length, ))
         if self.__check_for_url(value):
-            print '[Attribute %s contains URL: %s]' % (name, value, )
+            log.warning("[Attribute %s contains URL: %s]" % (name, value, ))
         if self.__check_for_path(value):
-            print '[Attribute %s contains filename: %s]' % (name, value, )
+            log.warning("[Attribute %s contains filename: %s]" % (name, value, ))
 
     def __call__(self, *args):
         self.__add_event('call', args)
@@ -101,13 +94,13 @@ class _ActiveXObject:
 
         for arg in args:
             if isinstance(arg, (str, )):
-                print '[Function: %s [Argument: %d]' % (name, arg,)
+                log.warning("[Function: %s [Argument: %d]" % (name, arg,))
                 if self.__check_length(len(arg)):
-                    print 'Function: %s [Argument length: %d]' % (name, len(arg), )
+                    log.warning("Function: %s [Argument length: %d]" % (name, len(arg), ))
                 if self.__check_for_url(arg):
-                    print 'Function: %s [URL in argument: %s]' % (name, arg, )
+                    log.warning("Function: %s [URL in argument: %s]" % (name, arg, ))
                 if self.__check_for_path(arg):
-                    print 'Function: %s [Filename in argument: %s]' % (name, arg, )
+                    log.warning("Function: %s [Filename in argument: %s]" % (name, arg, ))
 
     def __load_module(self, module):
         script = ''
@@ -124,11 +117,9 @@ class _ActiveXObject:
         if evttype == 'call': 
             eventlog += 'CALL ' + str(args[0])
         eventlist.append(eventlog)
-        #print eventlist
-
 
 def add_alert(alert):
-    print alert
+    log.warning(alert)
 
 def write_log(md5, filename):
     if not eventlist:
@@ -138,4 +129,4 @@ def write_log(md5, filename):
     with open(logfile, 'wb') as fd:
         for log in eventlist: 
             fd.write(log + '\n')
-        print 'Log saved into %s' % (logfile, )
+        log.warning("Log saved into %s" % (logfile, ))

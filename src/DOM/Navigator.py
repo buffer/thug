@@ -20,15 +20,19 @@
 import PyV8
 import httplib2
 import urlparse
+import logging
 from Personality import Personality
 from Plugins import Plugins
 
+log = logging.getLogger("Navigator")
 
 class Navigator(PyV8.JSClass):
-    def __init__(self, personality, window = None):
+    def __init__(self, personality, window = None, debug = True):
         self.personality = Personality[personality]
         self.plugins     = Plugins  # An array of the plugins installed in the browser
         self._window     = window
+        if debug:
+            log.setLevel(logging.DEBUG)
       
     @property
     def window(self):
@@ -212,9 +216,10 @@ class Navigator(PyV8.JSClass):
 
         _url = urlparse.urlparse(url)
         if not _url.netloc:
-            print "[RELATIVE TRANSLATION] %s --> " % (url, ),
+            debug_msg = "[Navigator URL Translation] %s --> " % (url, )
             url = urlparse.urljoin(self._window.url, _url.path)
-            print url
+            debug_msg = "%s %s" % (debug_msg, url)
+            log.debug(debug_msg)
 
         response, content = h.request(url, headers = headers)
         return response, content

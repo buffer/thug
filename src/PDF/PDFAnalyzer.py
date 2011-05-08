@@ -13,6 +13,7 @@ import re
 import hashlib
 import zlib
 import binascii
+import logging
 import traceback
 
 try:
@@ -25,8 +26,12 @@ except:
 PDF_FILE = "log/downloads/pdf/%s.pdf"
 
 class PDFAnalyzer:
-    def __init__(self, sample):
+    log = logging.getLogger("PDFAnalyzer")
+
+    def __init__(self, sample, debug = True):
         self.sample = sample
+        if debug:
+            self.log.setLevel(logging.DEBUG)
 
     def preparse_sample(self):
         sample = self.sample
@@ -94,7 +99,7 @@ class PDFAnalyzer:
                 id  = int(js_ref_stream.group(1))
                 ver = int(js_ref_stream.group(2))
                 o.append([id, ver])
-                print "[*] Extracted Javascript Referenced Stream Object: [%d, %d]" % (id, ver, ) 
+                self.log.debug("[PDFAnalyzer] Extracted Javascript Referenced Stream Object: [%d, %d]" % (id, ver, ))
         return o
 
     def find_embedded_js(self, str):
@@ -107,7 +112,6 @@ class PDFAnalyzer:
 
         ret = []
         for js in r:
-            print js
             p = str.rfind('obj', 0, js.start(1))
             if p == -1:
                 return None
@@ -190,7 +194,7 @@ class PDFAnalyzer:
         h = hashlib.md5()
         h.update(buf)
         self.filename = PDF_FILE % (h.hexdigest(), )
-        print "[*] Saving PDF file: %s" % (self.filename, )
+        self.log.debug("[PDFAnalyzer] Saving PDF file: %s" % (self.filename, ))
         fd = open(self.filename, 'wb')
         fd.write(buf)
         fd.close()
@@ -200,7 +204,7 @@ class PDFAnalyzer:
         samples.append(self.sample)
 
         self.store_sample()
-        print "[*] Starting PDF Analysis"
+        self.log.debug("[PDFAnalyzer] Starting PDF Analysis")
         try:
             parsed_sample = self.preparse_sample()
             samples.append(parsed_sample)
@@ -220,7 +224,7 @@ class PDFAnalyzer:
         
                 # extract the JS stream object
                 objfile = '%s_obj_%d_%d.bin' % (self.filename, id, ver)
-                print "[*] Saving Javascript Object Stream [%d, %d] (%s)" % (id, ver, objfile)
+                self.log.debug("[PDFAnalyzer] Saving Javascript Object Stream [%d, %d] (%s)" % (id, ver, objfile))
                 f = file(objfile, 'wb')
                 f.write(obj)
                 f.close()
@@ -231,7 +235,7 @@ class PDFAnalyzer:
                     continue
                 
                 decfile = '%s_dec_%d_%d.bin' % (self.filename, id, ver)
-                print "[*] Saving Decoded Javascript Object Stream [%d, %d] (%s)" % (id, ver, decfile)
+                self.log.debug("[PDFAnalyzer] Saving Decoded Javascript Object Stream [%d, %d] (%s)" % (id, ver, decfile))
                 f = file(decfile, 'wb')
                 f.write(stream)
                 f.close()

@@ -26,7 +26,7 @@ def PrintSnapshot(SnapshotPath = None, CompressedPath = None):
 		urls.add(url)
 
 	for url in urls:
-		print "[*] Fetching %s" % (url, )
+		add_alert("[*] Fetching %s" % (url, ))
 		h = hashlib.md5()
 		content, headers = hc.get(str(url))
 		h.update(content)

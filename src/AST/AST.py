@@ -17,11 +17,18 @@
 # MA  02111-1307  USA
 
 import PyV8
+import logging
 
 class AST(object):
-    def __init__(self, script):
+    log = logging.getLogger("AST")
+
+    def __init__(self, script, debug = True):
         self.prog  = None
+        self.debug = False
         self.names = set()
+        if debug:
+            self.log.setLevel(logging.DEBUG)
+
         self.walk(script)
 
     def walk(self, script):
@@ -30,10 +37,10 @@ class AST(object):
             PyV8.JSEngine().compile(script).visit(self)
 
     def onProgram(self, prog):
-        print "[onProgram]"
-        print dir(prog)
-        print "Program startPos:  %d" % (prog.startPos, )
-        print "Program endPos:    %d" % (prog.endPos, )
+        self.log.debug("[*] Program")
+        self.log.debug("\tProgram startPos:  %d" % (prog.startPos, ))
+        self.log.debug("\tProgram endPos:    %d" % (prog.endPos, ))
+        
         for decl in prog.scope.declarations:
             decl.visit(self)
 
@@ -41,41 +48,45 @@ class AST(object):
             stmt.visit(self)
 
     def onBlock(self, block):
-        print "[*************] Entering Block #%d [*************]" % (self.block_no, )
+        self.log.debug("[*************] Entering Block #%d [*************]" % (self.block_no, ))
+        
         for stmt in block.statements:
             stmt.visit(self)
-        print "[*************] Exiting Block  #%d [*************]" % (self.block_no, )
+        
+        self.log.debug("[*************] Exiting Block  #%d [*************]" % (self.block_no, ))
         self.block_no += 1
 
     def onExpressionStatement(self, stmt):
-        print "Statement:         %s" % (stmt, )
-        print "Statement type:    %s" % (stmt.type, )
-        #print "Expression type:   %s" % (stmt.expression.type, )
-        #print "Expression pos:    %s" % (stmt.pos, )
+        self.log.debug("[*] Expression Statement")
+        self.log.debug("\tStatement:         %s" % (stmt, ))
+        self.log.debug("\tStatement type:    %s" % (stmt.type, ))
+        
         stmt.expression.visit(self)
 
     def onDeclaration(self, decl):
         var = decl.proxy
          
         if decl.mode == PyV8.AST.VarMode.var and not decl.function:
-            print "Variable Decl:     %s" % (var.name, )
             self.names.add(var.name)
         if decl.function:
             decl.function.visit(self)
 
     def onAssignment(self, expr):
-        print "Assignment Op:     %s" % (expr.op, )
-        print "Assignment Pos:    %s" % (expr.pos, )
-        print "Assignment Target: %s" % (expr.target, )
-        print "Assignment Value:  %s" % (expr.value, )
+        self.log.debug("[*] Assignment Statement")
+        self.log.debug("\tAssignment Op:     %s" % (expr.op, ))
+        self.log.debug("\tAssignment Pos:    %s" % (expr.pos, ))
+        self.log.debug("\tAssignment Target: %s" % (expr.target, ))
+        self.log.debug("\tAssignment Value:  %s" % (expr.value, ))
+        
         self.names.add(str(expr.target))
         expr.target.visit(self)
         expr.value.visit(self)
 
     def onIfStatement(self, stmt):
-        print "[*] If Statement"
-        print "If condition:      %s" % (stmt.condition, )
-        print "If position:       %s" % (stmt.pos, )
+        self.log.debug("[*] If Statement")
+        self.log.debug("\tIf condition:      %s" % (stmt.condition, ))
+        self.log.debug("\tIf position:       %s" % (stmt.pos, ))
+        
         stmt.condition.visit(self)
         if stmt.hasThenStatement:
             stmt.thenStatement.visit(self)
@@ -83,45 +94,47 @@ class AST(object):
             stmt.elseStatement.visit(self)
 
     def onForStatement(self, stmt):
-        print "[*] For Statement"
-        print "Init condition:    %s" % (stmt.init, )
-        print "Next condition:    %s" % (stmt.next, )
-        print "End condition:     %s" % (stmt.condition, )
-        print "For position:      %s" % (stmt.pos)
+        self.log.debug("[*] For Statement")
+        self.log.debug("\tInit condition:    %s" % (stmt.init, ))
+        self.log.debug("\tNext condition:    %s" % (stmt.next, ))
+        self.log.debug("\tEnd condition:     %s" % (stmt.condition, ))
+        self.log.debug("\tFor position:      %s" % (stmt.pos))
+        
         stmt.init.visit(self)
         stmt.next.visit(self)
         stmt.condition.visit(self)
         stmt.body.visit(self)
 
     def onWhileStatement(self, stmt):
-        print "[*] While Statement"
-        print "While position:    %s" % (stmt.pos)
+        self.log.debug("[*] While Statement")
+        self.log.debug("\tWhile position:    %s" % (stmt.pos,))
+        
         stmt.condition.visit(self)
         stmt.body.visit(self)
 
     def onDoWhileStatement(self, stmt):
-        print "[*] Do-While Statement"
-        print "Do-While position: %s" % (stmt.pos)
+        self.log.debug("[*] Do-While Statement")
+        self.log.debug("\tDo-While position: %s" % (stmt.pos,))
+        
         stmt.condition.visit(self)
         stmt.body.visit(self)
 
     def onForInStatement(self, stmt):
-        print "[*] For-In Statement"
-        print "For-In position:   %s" % (stmt.pos)
+        self.log.debug("[*] For-In Statement")
+        self.log.debug("\tFor-In position:   %s" % (stmt.pos,))
+        
         stmt.enumerable.visit(self)
         stmt.body.visit(self)
 
     def handle_eval(self, args):
         for arg in args:
-            #print arg
             if len(str(arg)) > 64:
-                print "[WARNING]: Eval argument length > 64"
+                self.log.warning("[AST]: Eval argument length > 64")
 
     def onCall(self, expr):
-        print "[*] Call"
-        print "[*] Call position: %s" % (expr.pos)
-        print "[*] Call expr:     %s" % (expr.expression, )
-        #print "[*] Call loopcond: %s" % (expr.loopCondition, )
+        self.log.debug("[*] Call")
+        self.log.debug("\tCall position: %s" % (expr.pos, ))
+        self.log.debug("\tCall expr:     %s" % (expr.expression, ))
     
         handle = getattr(self, "handle_%s" % (expr.expression, ), None)
         if handle:
@@ -133,10 +146,9 @@ class AST(object):
             arg.visit(self)
 
     def onCallNew(self, expr):
-        print "[*] CallNew"
-        print "[*] Call position: %s" % (expr.pos)
-        print "[*] Call expr:     %s" % (expr.expression, )
-        #print "[*] Call loopcond: %s" % (expr.loopCondition, )
+        self.log.debug("[*] CallNew")
+        self.log.debug("\tCall position: %s" % (expr.pos, ))
+        self.log.debug("\tCall expr:     %s" % (expr.expression, ))
 
         handle = getattr(self, "handle_%s" % (expr.expression, ), None)
         if handle:
@@ -146,13 +158,14 @@ class AST(object):
             arg.visit(self)
 
     def onCallRuntime(self, expr):
-        print "[*] CallRuntime"
+        self.log.debug("[*] CallRuntime")
 
         for arg in expr.args:
             arg.visit(self)
 
     def onFunctionLiteral(self, litr):
-        print "Function Literal:  %s" % (litr.name, )
+        self.log.debug("\tFunction Literal:  %s" % (litr.name, ))
+        
         for decl in litr.scope.declarations:
             decl.visit(self)
         
@@ -160,25 +173,26 @@ class AST(object):
             e.visit(self)
 
     def onLiteral(self, litr):
-        print "Literal:           %s" % (litr, )
+        self.log.debug("Literal:           %s" % (litr, ))
 
     def onReturnStatement(self, stmt):
-        print "[*] Return Statement"
-        print "Return position:   %s" % (stmt.pos)
+        self.log.debug("[*] Return Statement")
+        self.log.debug("\tReturn position:   %s" % (stmt.pos, ))
+        
         stmt.expression.visit(self)
 
     def onCompareOperation(self, stmt):
-        print "Compare Left:      %s" % (stmt.left, )
+        self.log.debug("[*] Compare Operation")
+        self.log.debug("\tCompare Left:      %s" % (stmt.left, ))
+        self.log.debug("\tCompare Operation: %s" % (stmt.op, ))
+        self.log.debug("\tCompare Right:     %s" % (stmt.right, ))
+        
         stmt.left.visit(self)
-        print "Compare Operation: %s" % (stmt.op, )
-        print "Compare Right:     %s" % (stmt.right, )
         stmt.right.visit(self)
-        #print "Loop Condition:    %s" % (stmt.loopCondition, )
 
     def onCountOperation(self, stmt):
-        print "Count Operation:   %s" % (stmt.op, )
-        #print "Count Increment:   %s" % (stmt.increment, )
-        #print "Loop Condition:    %s" % (stmt.loopCondition, )
+        self.log.debug("[*] Count Operation:   %s" % (stmt.op, ))
+        
         stmt.expression.visit(self)
 
     def onVariableProxy(self, expr):

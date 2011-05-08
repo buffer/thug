@@ -18,7 +18,7 @@
 
 import sched
 import time
-
+import logging
 import PyV8 
 import BeautifulSoup
 import w3c
@@ -33,6 +33,7 @@ from AST.AST import AST
 from Debugger import Shellcode, Global
 
 sched = sched.scheduler(time.time, time.sleep)
+log = logging.getLogger("Window")
 
 class Window(PyV8.JSClass):
 
@@ -64,7 +65,10 @@ class Window(PyV8.JSClass):
         
     def __init__(self, url, dom_or_doc, navigator = None, personality = 'xpie61', name="", 
                  target='_blank', parent = None, opener = None, replace = False, screen = None, 
-                 width = 800, height = 600, left = 0, top = 0, **kwds):
+                 width = 800, height = 600, left = 0, top = 0, debug = True, **kwds):
+
+        if debug:
+            log.setLevel(logging.DEBUG)
 
         self.url = url
         self.doc = w3c.getDOMImplementation(dom_or_doc, **kwds) if isinstance(dom_or_doc, BeautifulSoup.BeautifulSoup) else dom_or_doc
@@ -212,7 +216,7 @@ class Window(PyV8.JSClass):
 
         text is a string of the text you want displayed in the alert dialog.
         """
-        print '[ALERT] Message: %s' % (str(text), )
+        log.debug('[Window] Alert Text: %s' % (str(text), ))
 
     def back(self):
         """
@@ -650,7 +654,6 @@ class Window(PyV8.JSClass):
         tags  = self._findAll('script')
         while index < len(self._findAll('script')):
             tag = self._findAll('script')[index]
-            #print tag
             if not tag.string:
                 src = tag.get('src', None)
                 if src:

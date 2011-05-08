@@ -18,24 +18,26 @@
 
 import PyV8
 import struct
+import logging
 import pylibemu
 from Debugger import Debugger
 
 class Shellcode:
-    def __init__(self, ctxt, ast, script):
+    log = logging.getLogger("Shellcode")
+
+    def __init__(self, ctxt, ast, script, debug = True):
         self.script = script
         self.ctxt   = ctxt
         self.ast    = ast
         self.emu    = pylibemu.Emulator()
+        if debug:
+            self.log.setLevel(logging.DEBUG)
 
     def run(self):
         with Debugger() as dbg:
             emu = pylibemu.Emulator()
             vars = self.ctxt.locals
             self.ctxt.eval(self.script)
-
-            #print self.ast.names
-            #print vars.keys()
 
             for name in self.ast.names:
                 s    = None
@@ -46,9 +48,9 @@ class Shellcode:
                 if not s:
                     continue
               
-                print "[*] Testing variable: %s" % (name, )
+                self.log.debug("[Shellcode] Testing variable: %s" % (name, ))
                 emu.new()
-                #print s
+                
                 try:
                     shellcode = s.decode('utf-8')
                 except:

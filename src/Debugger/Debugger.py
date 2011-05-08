@@ -22,9 +22,9 @@ import logging
 import PyV8
 
 class Debugger(PyV8.JSDebugger, threading.Thread):
-    logger = logging.getLogger("dbg")
+    log = logging.getLogger("dbg")
 
-    def __init__(self):
+    def __init__(self, debug = False):
         PyV8.JSDebugger.__init__(self)
         threading.Thread.__init__(self, name='dbg')
         
@@ -33,10 +33,13 @@ class Debugger(PyV8.JSDebugger, threading.Thread):
         self.daemon      = True
         self.evalContext = PyV8.JSContext()
 
+        if debug:
+            self.log.setLevel(logging.DEBUG)
+
     def __enter__(self):
         script_filename = os.path.join(os.path.dirname(__file__), 'd8.js')
 
-        self.logger.debug("loading d8.js from %s", script_filename)
+        self.log.debug("loading d8.js from %s", script_filename)
 
         with self.context as ctxt:
             ctxt.eval(open(script_filename, 'r').read())
@@ -44,7 +47,7 @@ class Debugger(PyV8.JSDebugger, threading.Thread):
         return PyV8.JSDebugger.__enter__(self)
 
     def onMessage(self, msg):
-        print "Debug message: %s" % (msg, )
+        self.log.debug("Debug message: %s" % (msg, ))
         
         if msg['type'] == 'event' and msg['event'] == 'break':
             self.stepNext()
@@ -53,20 +56,20 @@ class Debugger(PyV8.JSDebugger, threading.Thread):
 
     def onDebugEvent(self, type, state, evt):
         json = evt.toJSONProtocol()
-        print "%s event: %s" % (type, json, )
+        self.log.debug("%s event: %s" % (type, json, ))
 
     def onBreak(self, evt):
-        print "Break event: %s" % (evt, )
+        self.log.debug("Break event: %s" % (evt, ))
 
     def onException(self, evt):
-        print "Exception event: %s" % (evt, )
+        self.log.debug("Exception event: %s" % (evt, ))
 
     def onNewFunction(self, evt):
-        print "New function event: %s" % (evt, )
+        self.log.debug("New function event: %s" % (evt, ))
 
     def onBeforeCompile(self, evt):
-        print "Before compile event: %s" % (evt, )
+        self.log.debug("Before compile event: %s" % (evt, ))
 
     def onAfterCompile(self, evt):
-        print "After compile event: %s" % (evt, )
+        self.log.debug("After compile event: %s" % (evt, ))
 

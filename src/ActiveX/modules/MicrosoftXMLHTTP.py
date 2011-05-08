@@ -21,7 +21,7 @@ def open(arg0, arg1, arg2 = True, arg3 = None, arg4 = None):
 
 	for url in urls:
 		h = hashlib.md5()
-		print "[*] Fetching %s" % (url, )
+		add_alert("[*] Fetching %s" % (url, ))
 		content, headers = hc.get(str(url))
 		h.update(content)
 		filename = "log/downloads/binaries/%s" % (h.hexdigest(), )
