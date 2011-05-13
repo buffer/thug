@@ -1,0 +1,37 @@
+<html>  
+<head>  
+      
+<title>onload test</title>     
+<script type="text/javascript">
+
+function my_func(t)
+{
+	var s = "foo";
+	var i = 10;
+
+	if (i > 100) {
+		alert("Mmmmh");
+	}
+
+	for (i = 0; i < 3; i++) {
+		s += "a";
+	}
+
+	while (t > 0) {
+		s += "c";
+		t--;
+	}
+
+	alert(s);
+	return 0;
+}
+
+my_func(3);
+
+</script>  
+</head>  
+   
+<body>  
+<p>The load event fires when the document has finished loading!</p>  
+</body>  
+</html>  
