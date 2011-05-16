@@ -51,7 +51,7 @@ class AST(object):
             self.log.setLevel(logging.DEBUG)
 
         self.walk(script)
-        self.log.warning("Breakpoints: ", str(self.breakpoints))
+        self.log.warning(self.breakpoints)
 
     def checkExitingLoop(self, pos):
         if self.exitingLoop > 0:
