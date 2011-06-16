@@ -2,7 +2,7 @@
 # CVE-2009-1800
 
 def CreateChinagames(arg0):
-	if len(arg0)>428:
-		add_alert('CGAgent ActiveX CreateChinagames Method BUffer Overflow')
+	if len(arg0) > 428:
+		add_alert('CGAgent ActiveX CreateChinagames Method Buffer Overflow')
 
-self.CreateChinagames=CreateChinagames
+self.CreateChinagames = CreateChinagames

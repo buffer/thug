@@ -1,6 +1,7 @@
 # Microsoft XMLHTTP
 
 object = self
+#FIXME
 hc = self.__dict__['__options']['hc']
 
 def open(arg0, arg1, arg2 = True, arg3 = None, arg4 = None):

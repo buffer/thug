@@ -4,4 +4,4 @@
 def createobject(*args):
 	add_alert("Microsoft MDAC RDS.Dataspace ActiveX attack in createobject function");
 
-self.createobject=createobject;
+self.createobject = createobject;

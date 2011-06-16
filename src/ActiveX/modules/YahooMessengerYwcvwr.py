@@ -3,9 +3,8 @@
 
 
 def Setserver(name):
-	if len(name)>255:
+	if len(name) > 255:
 		add_alert('Yahoo! server console overflow')
-
 
 def GetComponentVersion(arg):
 	add_alert('Yahoo! GetComponentVersion() overflow')

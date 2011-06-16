@@ -2,7 +2,7 @@
 # CVE-NOMATCH
 
 def SetUrl(val):
-	if len(val)>1024:
+	if len(val) > 1024:
 		add_alert('DLinkMPEG overflow in Url property')
 
-Attr2Fun['Url']=SetUrl
+Attr2Fun['Url'] = SetUrl

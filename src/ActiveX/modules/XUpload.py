@@ -10,4 +10,4 @@ def AddFile(arg):
         add_alert('XUpload overflow in AddFile()')
 
 self.AddFolder = AddFolder
-self.AddFile = AddFile
+self.AddFile   = AddFile

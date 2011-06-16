@@ -4,25 +4,22 @@
 def Setsrc(* args):
 	add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the src')
 
-
 def setPageMode(* args):
 	add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the setPageMode()')
 
-
 def setLayoutMode(* args):
 	add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the setLayoutMode()')
-
 
 def setNamedDest(* args):
 	add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the seNamedDest()')
 
 def LoadFile(arg0):
-	if len(arg0)>6000:
+	if len(arg0) > 6000:
 		add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the LoadFile()')
 
-Attr2Fun['src']=Setsrc
+Attr2Fun['src'] =Setsrc
 
-self.setPageMode=setPageMode
-self.setLayoutMode=setLayoutMode
-self.setNamedDest=setNamedDest
-self.LoadFile=LoadFile
+self.setPageMode   = setPageMode
+self.setLayoutMode = setLayoutMode
+self.setNamedDest  = setNamedDest
+self.LoadFile      = LoadFile

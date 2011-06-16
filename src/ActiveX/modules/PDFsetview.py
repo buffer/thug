@@ -5,4 +5,4 @@ def setview(* args):
 	add_alert('Buffer overflow in PDF.PdfCtrl.1 by setview method')
 
 
-self.setview=setview
+self.setview = setview

@@ -4,4 +4,4 @@
 def Setdata(val):
 	add_alert('Microsoft DirectShow MPEG2TuneRequest Component Stack Overflow in data property')
 
-Attr2Fun['data']=Setdata
+Attr2Fun['data'] = Setdata

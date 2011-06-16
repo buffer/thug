@@ -2,8 +2,8 @@
 # CVE-NOMATCH
 
 def SetAction(val):
-	if len(val)>512:
+	if len(val) > 512:
 		add_alert('Myspace UPloader overflow with Action property')
 
 
-Attr2Fun['Action']=SetAction
+Attr2Fun['Action'] = SetAction

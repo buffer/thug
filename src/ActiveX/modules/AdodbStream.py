@@ -4,7 +4,7 @@ def Open():
 	add_alert("Adodb.Stream Open")
 
 def Write(s):
-	add_alert("Adodb.Stream Write"
+	add_alert("Adodb.Stream Write")
 	add_alert(s)
 
 def SaveToFile(filename, opt):

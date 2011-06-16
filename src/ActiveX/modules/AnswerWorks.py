@@ -13,6 +13,6 @@ def SetSeedQuery(arg):
 	if len(arg)>215:
 		add_alert('AnswerWorks overflow in SetSeedQuery()')
 
-self.GetHistory=GetHistory
-self.GetSeedQuery=GetSeedQuery
-self.SetSeedQuery=SetSeedQuery
+self.GetHistory   = GetHistory
+self.GetSeedQuery = GetSeedQuery
+self.SetSeedQuery = SetSeedQuery

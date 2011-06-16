@@ -8,6 +8,6 @@ def SaveAsWMF(arg0):
 	add_alert('Overwrite arbitrary files in MW6PDF417Lib.PDF417 SaveAsWMF() method')
 
 
-self.SaveAsBMP=SaveAsBMP
-self.SaveAsWMF=SaveAsWMF
+self.SaveAsBMP = SaveAsBMP
+self.SaveAsWMF = SaveAsWMF
 

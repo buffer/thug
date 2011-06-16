@@ -2,7 +2,7 @@
 # CVE-NOMATCH
 
 def ConnectServer(server,user):
-	if len(user)>1024:
+	if len(user) > 1024:
 		add_alert('PTZCamPanel ConnectServer() overflow in user arg')
 
-self.ConnectServer=ConnectServer
+self.ConnectServer = ConnectServer

@@ -33,7 +33,7 @@ class _ActiveXObject:
     global opts
 
     def __init__(self, cls, type = 'name'):
-        _module       = None
+        _module = None
         
         if type == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':

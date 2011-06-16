@@ -7,7 +7,7 @@ def _Evaluate(*args):
 def Evaluate(*args):
 		add_alert('OWC 10/11.Spreadsheet ActiveX attack in Evaluate function')	
 
-self._Evaluate=_Evaluate
-self.Evaluate=Evaluate
+self._Evaluate = _Evaluate
+self.Evaluate  = Evaluate
 
 

@@ -3,7 +3,7 @@
 # CVE-2008-5492
 
 def OpenPDF(arg0, *args):
-	if len(arg0)>1000:
+	if len(arg0) > 1000:
 		add_alert('The OpenPDF method overflow in PDFVIEW.PdfviewCtrl.1 ActiveX control')
 
-self.OpenPDF=OpenPDF
+self.OpenPDF = OpenPDF

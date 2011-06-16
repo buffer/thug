@@ -5,4 +5,4 @@
 def extractPagesToFile(arg0, *arg):
 	add_alert('VSPDFEditorX.VSPDFEdit ActiveX is to create or overwrite file: ' + arg0)
 
-self.extractPagesToFile=extractPagesToFile
+self.extractPagesToFile = extractPagesToFile

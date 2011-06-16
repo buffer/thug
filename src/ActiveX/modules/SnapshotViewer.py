@@ -2,6 +2,7 @@
 # CVE-2008-2463
 
 object = self
+#FIXME
 hc = self.__dict__['__options']['hc']
 
 def PrintSnapshot(SnapshotPath = None, CompressedPath = None):
