@@ -24,6 +24,7 @@ from CLSID import *
 ACTIVEX_MODULES = "ActiveX/modules/%s.py"
 MAX_ARG_LENGTH  = 50
 
+alerts    = set()
 eventlist = []
 modules   = []
 
@@ -67,9 +68,10 @@ class _ActiveXObject:
 
     def __setattr__(self, name, val):
         self.__add_event('set', name, val)
+
         self.__dict__[name] = val
-        module = modules[-1]
-        key    = "%s@%s" % (name, module, )
+        module              = modules[-1]
+        key                 = "%s@%s" % (name, module, )
 
         if key in Attr2Fun.keys():
             Attr2Fun[name](val)
@@ -108,18 +110,30 @@ class _ActiveXObject:
             script = fd.read()
         return script
 
-    def __add_event(self, evttype, *args):
-        eventlog = 'ActiveXObject: '
-        if evttype == 'get': 
-            eventlog += 'GET ' + args[0]
-        if evttype == 'set': 
-            eventlog += 'SET ' + args[0] + ' = ' + str(args[1])
-        if evttype == 'call': 
-            eventlog += 'CALL ' + str(args[0])
+    def __add_event_get(self, args):
+        eventlog = 'ActiveXObject: GET ' + args[0]
         eventlist.append(eventlog)
 
+    def __add_event_set(self, args):
+        eventlog = 'ActiveXObject: SET ' + args[0] + ' = ' + str(args[1])
+        eventlist.append(eventlog)
+
+    def __add_event_call(self, args):
+        eventlog = 'ActiveXObject: CALL ' + str(args[0])
+        eventlist.append(eventlog)
+
+    def __add_event(self, evttype, *args):
+        m = getattr(self, '_ActiveXObject__add_event_%s' % (evttype), None)
+        if not m:
+            log.warning("Unknown ActiveX Event: %s" % (evttype, ))
+            return
+            
+        m(args)
+
 def add_alert(alert):
-    log.warning(alert)
+    if alert not in alerts:
+        alerts.add(alert)
+        log.warning(alert)
 
 def write_log(md5, filename):
     if not eventlist:
