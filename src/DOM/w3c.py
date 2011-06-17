@@ -3,17 +3,21 @@ from __future__ import with_statement
 
 import sys, re, string
 
-from urlparse import urlparse
+try:
+    from urllib.parse import urlparse # Python 3
+except ImportError:
+    from urlparse import urlparse
 
 try:
-    from cStringIO import StringIO
+    from io import StringIO # Python 3
 except ImportError:
-    from StringIO import StringIO
+    try:
+        from cStringIO import StringIO
+    except ImportError:
+        from StringIO import StringIO
 
 import logging
-
 import BeautifulSoup
-
 import PyV8
 
 class abstractmethod(object):
