@@ -16,13 +16,25 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import os
 import logging
 from ActiveX.ActiveX import _ActiveXObject
 
+vbs_parser = True
+
+try:
+    from vb2py.vbparser import convertVBtoPython, VBCodeModule
+    #import pyjs
+except ImportError:
+    vbs_parser = False
+    pass
+    
 class DFT(object):
     log = logging.getLogger("DFT")
+    javascript = ('javascript', )
+    vbscript   = ('vbs', 'vbscript', 'visualbasic')
 
-    def __init__(self, window, debug = True):
+    def __init__(self, window, debug = False):
         self.window = window
         if debug:
             self.log.setLevel(logging.DEBUG)
@@ -72,6 +84,16 @@ class DFT(object):
             self.window.__dict__[id] = _ActiveXObject(classid, 'id')
 
     def handle_script(self, script):
+        language = script.get('language', 'javascript').lower()
+        handler  = getattr(self, "handle_%s" % (language, ), None)
+                
+        if not handler:
+            self.log.warning("Unhandled script language: %s" % (language, ))
+            return
+
+        handler(script)
+            
+    def handle_javascript(self, script):
         if not script.string:
             src = script.get('src', None)
             if not src:
@@ -81,6 +103,27 @@ class DFT(object):
             script.setString(js)
 
         self.window.evalScript(script.string, tag = script)
+
+    def handle_vbscript(self, script):
+        if not vbs_parser:
+            self.log.warning("VBScript parsing not enabled (vb2py is needed)")
+            return
+
+        vbs_py = convertVBtoPython(script.string, container = VBCodeModule())
+        self.log.warning(vbs_py)
+
+        #pyjs_js = os.path.join(os.path.dirname(__file__), 'py.js')
+        #self.window.evalScript(open(pyjs_js, 'r').read())
+
+       # vbs_js = pyjs.compile(vbs_py)
+        #print vbs_js
+        #self.window.evalScript(vbs_js)
+
+    def handle_vbs(self, script):
+        self.handle_vbscript(script)
+
+    def handle_visualbasic(self, script):
+        self.handle_vbscript(script)
 
     def handle_onclick(self):
         inputs = self.window._findAll('input')
