@@ -30,7 +30,8 @@ class abstractmethod(object):
 class DOMException(RuntimeError, PyV8.JSClass):
     def __init__(self, code):
         self.code = code
-        
+
+    # ExceptionCode
     INDEX_SIZE_ERR                 = 1  # If index or size is negative, or greater than the allowed value
     DOMSTRING_SIZE_ERR             = 2  # If the specified range of text does not fit into a DOMString
     HIERARCHY_REQUEST_ERR          = 3  # If any node is inserted somewhere it doesn't belong
@@ -287,7 +288,7 @@ class Element(Node):
         
     def __eq__(self, other):
         return Node.__eq__(self, other) and hasattr(other, "tag") and self.tag == other.tag
-        
+
     @property
     def nodeType(self):
         return Node.ELEMENT_NODE
@@ -442,7 +443,7 @@ class CharacterData(Node):
         raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
         
     data = property(getData, setData)
-    
+
     @property
     def length(self):
         return len(self.tag)
@@ -468,19 +469,37 @@ class Text(CharacterData):
     
     def splitText(self, offset):
         raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
-        
+
+    @property
+    def nodeValue(self):
+        return self.data
+
+    @property
+    def nodeName(self):
+        return "#text"
+
 class CDATASection(Text):
     def __repr__(self):
         return "<CDATA '%s' at 0x%08X>" % (self.tag, id(self))
 
+    @property 
+    def nodeName(self):
+        return "#cdata-section"
+
 class Comment(CharacterData):
-    pass
+    @property
+    def nodeName(self):
+        return "#comment"
 
 class DocumentFragment(Node):
     def __init__(self, doc, tags):
         Node.__init__(self, doc)
         
         self.tags = tags
+
+    @property
+    def nodeName(self):
+        return "#document-fragment"
 
 class DocumentType(Node):
     RE_DOCTYPE = re.compile("^DOCTYPE (\w+)", re.M + re.S)
@@ -497,6 +516,10 @@ class DocumentType(Node):
         
     @property
     def name(self):
+        return self._name
+
+    @property
+    def nodeName(self):
         return self._name
     
     @property
@@ -515,6 +538,10 @@ class Notation(Node):
     @property
     def systemId(self):
         pass
+
+    @property
+    def nodeName(self):
+        pass
     
 class Entity(Node):
     @property
@@ -527,6 +554,10 @@ class Entity(Node):
     
     @property
     def notationName(self):
+        pass
+
+    @property
+    def nodeName(self):
         pass
     
 class EntityReference(Node):
@@ -545,7 +576,11 @@ class ProcessingInstruction(Node):
         
     @property
     def target(self):
-        return self._target   
+        return self._target
+
+    @property
+    def nodeName(self):
+        return self._target
 
 class Document(Node):
     def __str__(self):
@@ -634,7 +669,7 @@ def attr_property(name, attrtype=str, readonly=False, default=None):
         
 def text_property(readonly=False):
     def getter(self):
-        return self.tag.string
+        return str(self.tag.string)
     
     def setter(self, text):
         if self.tag.string:
@@ -735,7 +770,8 @@ class HTMLElement(Element, ElementCSSInlineStyle):
     lang = attr_property("lang")
     dir = attr_property("dir")
     className = attr_property("class")    
-    
+    innerHTML = text_property()
+
 class HTMLHtmlElement(HTMLElement):
     version = attr_property("version")
     
@@ -1099,6 +1135,7 @@ class HTMLDocument(Document):
     forms = xpath_property("//form", readonly=True)
     links = xpath_property("//a[@href]", readonly=True)
     anchors = xpath_property("//a[@name]", readonly=True)
+    innerHTML = text_property()
 
     def __init__(self, doc, win=None, referer=None, lastModified=None, cookie=''):
         Document.__init__(self, doc)
