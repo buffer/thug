@@ -51,14 +51,23 @@ Synopsis:
         print msg
         sys.exit(0)
 
+    def run(self, window):
+        dft = DFT.DFT(window)
+        dft.run()
+
     def run_local(self, url):
         html   = open(url, 'r').read()
         doc    = w3c.parseString(html)
         window = Window.Window('about:blank', doc)
         window.open()
-    
-        dft = DFT.DFT(window)
-        dft.run()
+        self.run(window)
+
+    def run_remote(self, url):
+        doc    = w3c.parseString('')
+        window = Window.Window('about:blank', doc)
+        window = window.open(url)
+        #print window.document
+        self.run(window)
 
     def analyze(self):
         p = getattr(self, 'run_remote', None)
