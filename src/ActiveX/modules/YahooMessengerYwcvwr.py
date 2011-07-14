@@ -1,13 +1,18 @@
 # Yahoo! Messenger 8.x Ywcvwr ActiveX Control
 # CVE-2007-4391
 
+acct = ActiveXAcct[self]
 
 def Setserver(name):
+    global acct
+
 	if len(name) > 255:
-		add_alert('Yahoo! server console overflow')
+		acct.add_alert('Yahoo! server console overflow')
 
 def GetComponentVersion(arg):
-	add_alert('Yahoo! GetComponentVersion() overflow')
+    global acct
+
+	acct.add_alert('Yahoo! GetComponentVersion() overflow')
 
 def initialize():
     return

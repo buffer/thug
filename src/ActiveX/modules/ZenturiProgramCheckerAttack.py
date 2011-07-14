@@ -1,12 +1,20 @@
 
+acct = ActiveXAcct[self]
+
 def DownloadFile(* arg):
-	add_alert('ZenturiProgramCheckerAttack attack in DownloadFile function')
+    global acct
+
+	acct.add_alert('ZenturiProgramCheckerAttack attack in DownloadFile function')
 
 def DebugMsgLog(* arg):
-	add_alert('ZenturiProgramCheckerAttack attack in DebugMsgLog function')
+    global acct
+
+	acct.add_alert('ZenturiProgramCheckerAttack attack in DebugMsgLog function')
 
 def NavigateUrl(* arg):
-	add_alert('ZenturiProgramCheckerAttack attack in NavigateUrl function')
+    global acct
+
+	acct.add_alert('ZenturiProgramCheckerAttack attack in NavigateUrl function')
 
 self.DownloadFile = DownloadFile
 self.DebugMsgLog  = DebugMsgLog

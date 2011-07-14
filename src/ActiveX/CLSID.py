@@ -127,6 +127,7 @@ clsidlist['AE93C5DF-A990-11D1-AEBD-5254ABDD2B69']       = 'ConnectAndEnterRoom'
 clsidlist['BD103B2B-30FB-4F1E-8C17-D8F6AADBCC05']       = 'StormConfig'
 clsidlist['0955AC62-BF2E-4CBA-A2B9-A63F772D46CF']       = 'DirectShow'
 clsidlist['E8F92847-7C21-452B-91A5-49D93AA18F30']       = 'InternetCleverSuite'
+clsidlist['7966A32A-5783-4F0B-824C-09077C023080']       = 'Gogago'
 
 clsnamelist = {}
 clsnamelist['WebViewFolderIcon.WebViewFolderIcon.1']    = 'WebViewFolderIcon'

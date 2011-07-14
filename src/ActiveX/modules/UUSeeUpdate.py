@@ -1,7 +1,11 @@
 # UUSee UUUpgrade ActiveX Control 'Update' Method Arbitrary File Download Vulnerability
 # CVE...
 
+acct = ActiveXAcct[self]
+
 def Update(*args):
-	add_alert('UUsee UUPgrade ActiveX attack in Update Methond')
+    global acct
+
+	acct.add_alert('UUsee UUPgrade ActiveX attack in Update Methond')
 
 self.Update=Update

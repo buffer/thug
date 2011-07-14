@@ -22,20 +22,77 @@ import logging
 from CLSID import *
 
 ACTIVEX_MODULES = "ActiveX/modules/%s.py"
-MAX_ARG_LENGTH  = 50
-
-alerts    = set()
-eventlist = []
-modules   = []
+ActiveXAcct = dict()
+modules     = []
 
 log = logging.getLogger("ActiveX")
 
-class _ActiveXObject:
-    global opts
+class ActiveXRecord:
+    MAX_ARG_LENGTH = 50
 
-    def __init__(self, cls, type = 'name'):
-        _module = None
+    def __init__(self, cls, type):
+        self.cls    = cls
+        self.type   = type
+        self.alerts = set()
+        self.events = []
         
+    def check_length(self, length):
+        return length > self.MAX_ARG_LENGTH
+
+    def check_for_url(self, value):
+        return value.lower().find('http://') != -1
+    
+    def check_for_path(self, value):
+        return value.lower().find('c:\\') != -1
+
+    def setattr_checks(self, value):
+        if self.check_length(len(value)):
+            log.warning("[Attribute %s Length: %d]" % (name, len(value), ))
+        if self.check_for_url(value):
+            log.warning("[Attribute %s contains URL: %s]" % (name, value, ))
+        if self.check_for_path(value):
+            log.warning("[Attribute %s contains filename: %s]" % (name, value, ))
+
+    def nosuchmethod_checks(self, name, arg):
+        log.warning("[Function: %s [Argument: %d]" % (name, arg,))
+
+        if self.check_length(len(arg)):
+            log.warning("Function: %s [Argument length: %d]" % (name, len(arg), ))
+        if self.check_for_url(arg):
+            log.warning("Function: %s [URL in argument: %s]" % (name, arg, ))
+        if self.check_for_path(arg):
+            log.warning("Function: %s [Filename in argument: %s]" % (name, arg, ))
+
+    def add_event_get(self, args):
+        eventlog = 'ActiveXObject: GET ' + args[0]
+        self.events.append(eventlog)
+
+    def add_event_set(self, args):
+        eventlog = 'ActiveXObject: SET ' + args[0] + ' = ' + str(args[1])
+        self.events.append(eventlog)
+
+    def add_event_call(self, args):
+        eventlog = 'ActiveXObject: CALL ' + str(args[0])
+        self.events.append(eventlog)
+
+    def add_event(self, evttype, *args):
+        m = getattr(self, 'add_event_%s' % (evttype), None)
+        if not m:
+            log.warning("Unknown ActiveX Event: %s" % (evttype, ))
+            return
+
+        m(args)
+
+    def add_alert(self, alert):
+        log.warning(alert)
+        self.alerts.add(alert)
+
+
+class _ActiveXObject:
+    def __init__(self, cls, type = 'name'):
+        ActiveXAcct[self] = ActiveXRecord(cls, type)
+        _module = None
+                
         if type == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':
                 cls = cls[6:].upper()
@@ -56,18 +113,10 @@ class _ActiveXObject:
 
         modules.append(_module)
         exec self.__load_module(module)
-    
-    def __check_length(self, length):
-        return length > MAX_ARG_LENGTH
-
-    def __check_for_url(self, value):
-        return value.lower().find('http://') != -1
-
-    def __check_for_path(self, value):
-        return value.lower().find('c:\\') != -1
 
     def __setattr__(self, name, val):
-        self.__add_event('set', name, val)
+        acct = ActiveXAcct[self]
+        acct.add_event('set', name, val)
 
         self.__dict__[name] = val
         module              = modules[-1]
@@ -77,32 +126,22 @@ class _ActiveXObject:
             Attr2Fun[name](val)
             return
         
-        value  = str([val])
-        length = len(value)
-
-        if self.__check_length(length):
-            log.warning("[Attribute %s Length: %d]" % (name, length, ))
-        if self.__check_for_url(value):
-            log.warning("[Attribute %s contains URL: %s]" % (name, value, ))
-        if self.__check_for_path(value):
-            log.warning("[Attribute %s contains filename: %s]" % (name, value, ))
+        acct.setattr_checks(str([val]))
 
     def __call__(self, *args):
-        self.__add_event('call', args)
+        acct = ActiveXAcct[self]
+        acct.add_event('call', args)
         return self
         
     def __noSuchMethod__(self, name, *args):
-        self.__add_event('call', args)
+        acct = ActiveXAcct[self]
+        acct.add_event('call', args)
 
         for arg in args:
-            if isinstance(arg, (str, )):
-                log.warning("[Function: %s [Argument: %d]" % (name, arg,))
-                if self.__check_length(len(arg)):
-                    log.warning("Function: %s [Argument length: %d]" % (name, len(arg), ))
-                if self.__check_for_url(arg):
-                    log.warning("Function: %s [URL in argument: %s]" % (name, arg, ))
-                if self.__check_for_path(arg):
-                    log.warning("Function: %s [Filename in argument: %s]" % (name, arg, ))
+            if not isinstance(arg, (str, )):
+                continue
+
+            acct.nosuchmethod_checks(name, arg)
 
     def __load_module(self, module):
         script = ''
@@ -110,31 +149,14 @@ class _ActiveXObject:
             script = fd.read()
         return script
 
-    def __add_event_get(self, args):
-        eventlog = 'ActiveXObject: GET ' + args[0]
-        eventlist.append(eventlog)
-
-    def __add_event_set(self, args):
-        eventlog = 'ActiveXObject: SET ' + args[0] + ' = ' + str(args[1])
-        eventlist.append(eventlog)
-
-    def __add_event_call(self, args):
-        eventlog = 'ActiveXObject: CALL ' + str(args[0])
-        eventlist.append(eventlog)
-
-    def __add_event(self, evttype, *args):
-        m = getattr(self, '_ActiveXObject__add_event_%s' % (evttype), None)
-        if not m:
-            log.warning("Unknown ActiveX Event: %s" % (evttype, ))
-            return
-            
-        m(args)
-
+# DEPRECATED 
 def add_alert(alert):
-    if alert not in alerts:
-        alerts.add(alert)
-        log.warning(alert)
+    #acct = ActiveXAcct[-1][1]
+    #acct.alerts.add(alert)
+    log.warning(alert)
 
+
+# DEPRECATED
 def write_log(md5, filename):
     if not eventlist:
         return

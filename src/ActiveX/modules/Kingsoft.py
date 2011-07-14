@@ -1,8 +1,12 @@
 # Kingsoft Antivirus
 # CVE-NOMATCH
 
+acct = ActiveXAcct[self]
+
 def SetUninstallName(arg):
-	if len(arg) > 900:
-		add_alert('Kingsoft SetUninstallName() heap overflow')
+    global acct
+
+    if len(arg) > 900:
+        acct.add_alert('Kingsoft SetUninstallName() heap overflow')
 
 self.SetUninstallName = SetUninstallName

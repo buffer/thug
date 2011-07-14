@@ -2,11 +2,13 @@
 # CVE-2008-2463
 
 object = self
-#FIXME
-hc = self.__dict__['__options']['hc']
+acct   = ActiveXAcct[self]
 
 def PrintSnapshot(SnapshotPath = None, CompressedPath = None):
-	global hc, object
+	global object
+    global acct
+    
+    import httplib2
 	import hashlib
 
 	if SnapshotPath:
@@ -14,27 +16,29 @@ def PrintSnapshot(SnapshotPath = None, CompressedPath = None):
 	if CompressedPath:
 		object.CompressedPath = CompressedPath
 
-	add_alert('[*] Microsoft Access Snapshot Viewer')
-	add_alert("[*] SnapshotPath     : " + object.SnapshotPath)
-	add_alert("[*] CompressedPath   : " + object.CompressedPath)
+	acct.add_alert('[*] Microsoft Access Snapshot Viewer')
+	acct.add_alert("[*] SnapshotPath     : " + object.SnapshotPath)
+	acct.add_alert("[*] CompressedPath   : " + object.CompressedPath)
 
 	url = object.SnapshotPath
-	urls = set()
-	if url.startswith("/"):
-		for base in os.environ['PHONEYC_URLBASE'].split(";"):
-			urls.add(base + url)       
-	else:
-		urls.add(url)
 
-	for url in urls:
-		add_alert("[*] Fetching %s" % (url, ))
-		h = hashlib.md5()
-		content, headers = hc.get(str(url))
-		h.update(content)
-		filename = "log/downloads/binaries/%s" % (h.hexdigest(), )
-		add_alert("[*] Saving File: " + filename)
-		fd = open(filename, 'wb')
+    # FIXME: Relative URL
+	acct.add_alert("[*] Fetching %s" % (url, ))
+
+    headers = {
+        'user-agent' : 'Mozilla/4.0 (compatible; MSIE 6.1; Windows XP; .NET CLR 1.1.4322; .NET CLR 2.0.50727)'
+    }
+
+    h = httplib2.Http('/tmp/.cache')
+	content, headers = h.request(str(url), headers = headers)
+
+    md5 = hashlib.md5()
+	md5.update(content)
+
+	filename = md5.hexdigest()
+		
+    acct.add_alert("[*] Saving File: " + filename)
+    with open(filename, 'wb') as fd:
 		fd.write(content)
-		fd.close()
 	
 self.PrintSnapshot = PrintSnapshot

@@ -1,8 +1,12 @@
 # CA BrightStor
 # CVE-NOMATCH
 
+acct = ActiveXAcct[self]
+
 def AddColumn(arg0, arg1):
-	if len(arg0) > 100:
-		add_alert('CA BrightStor overflow in AddColumn()')
+    global acct
+
+    if len(arg0) > 100:
+        acct.add_alert('CA BrightStor overflow in AddColumn()')
 
 self.AddColumn = AddColumn

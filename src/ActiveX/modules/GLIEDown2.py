@@ -1,7 +1,11 @@
 # Ourgame GLWorld GLIEDown2.dll ActiveX Control Vulnerabilities
 
+acct = ActiveXAcct[self]
+
 def IEStartNative(arg0, arg1, arg2):
-	if len(arg0) > 220:
-		add_alert('GLWorld GLIEDown2.dll ActiveX IEStartNative Method Buffer Overflow')
+    global acct
+
+    if len(arg0) > 220:
+        acct.add_alert('GLWorld GLIEDown2.dll ActiveX IEStartNative Method Buffer Overflow')
 
 self.IEStartNative = IEStartNative

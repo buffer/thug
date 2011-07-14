@@ -1,35 +1,39 @@
 # Microsoft XMLHTTP
 
 object = self
-#FIXME
-hc = self.__dict__['__options']['hc']
+acct   = ActiveXAcct[self]
 
 def open(arg0, arg1, arg2 = True, arg3 = None, arg4 = None):
-	global hc, object
-	_url = str(arg1)
-	add_alert('[*] Microsoft XMLHTTP')
-	add_alert("[*] Method : " + arg0)
-	add_alert("[*] URL    : " + _url)
+	global object
+    global acct
 
-	urls = set()
-	if _url.startswith("/"):
-		for base in os.environ['PHONEYC_URLBASE'].split(";"):
-			urls.add(base + _url)       
-	else:
-		urls.add(_url)
+    import httplib2
+    import hashlib
 
-	import hashlib
+	url = str(arg1)
+	
+    acct.add_alert('[*] Microsoft XMLHTTP')
+	acct.add_alert("[*] Method : " + arg0)
+	acct.add_alert("[*] URL    : " + url)
+	acct.add_alert("[*] Fetching %s" % (url, ))
 
-	for url in urls:
-		h = hashlib.md5()
-		add_alert("[*] Fetching %s" % (url, ))
-		content, headers = hc.get(str(url))
-		h.update(content)
-		filename = "log/downloads/binaries/%s" % (h.hexdigest(), )
-		add_alert("[*] Saving File: " + filename)
-		fd = open(filename, 'wb')
-		fd.write(content)
-		fd.close()
-		object.responseBody = content
+    headers = {
+        'user-agent' : 'Mozilla/4.0 (compatible; MSIE 6.1; Windows XP; .NET CLR 1.1.4322; .NET CLR 2.0.50727)'
+    }
+
+    h = httplib2.Http('/tmp/.cache')
+
+    #FIXME: Relative URLs
+	content, headers = h.get(str(url), headers = headers)
+
+    md5 = hashlib.md5()
+	md5.update(content)
+	filename = md5.hexdigest()
+	acct.add_alert("[*] Saving File: " + filename)
+    
+    with open(filename, 'wb') as fd:
+	    fd.write(content)
+		
+    object.responseBody = content
 	
 self.open = open

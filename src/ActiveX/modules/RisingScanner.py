@@ -1,9 +1,12 @@
 # Rising Online Virus Scanner Web Scan ActiveX Control
 # CVE-NOMATCH
 
-self.BaseURL = ''
+acct = ActiveXAcct[self]
 
 def UpdateEngine():
-	add_alert('Rising Scanner UpdateEngine Method vulnerability' )
+    global acct
 
+	acct.add_alert('Rising Scanner UpdateEngine Method vulnerability' )
+
+self.BaseURL      = ''
 self.UpdateEngine = UpdateEngine

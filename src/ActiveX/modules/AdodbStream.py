@@ -1,19 +1,29 @@
 
 
+acct = ActiveXAcct[self]
+
 def Open():
-	add_alert("Adodb.Stream Open")
+    global acct
+    
+    acct.add_alert("Adodb.Stream Open")
 
 def Write(s):
-	add_alert("Adodb.Stream Write")
-	add_alert(s)
+    global acct
+    
+    acct.add_alert("Adodb.Stream Write")
+    acct.add_alert(s)
 
 def SaveToFile(filename, opt):
-	add_alert("Adodb.Stream SaveToFile")
-	add_alert(filename)
-	add_alert(opt)
+    global acct
+
+    acct.add_alert("Adodb.Stream SaveToFile")
+    acct.add_alert(filename)
+    acct.add_alert(opt)
 
 def Close():
-	add_alert("Adodb.Stream Close")
+    global acct
+
+    acct.add_alert("Adodb.Stream Close")
 
 
 self.Open	    = Open
