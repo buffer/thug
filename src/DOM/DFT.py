@@ -17,25 +17,29 @@
 # MA  02111-1307  USA
 
 import os
+import w3c
+import hashlib
 import logging
+import Window
 from ActiveX.ActiveX import _ActiveXObject
 
 vbs_parser = True
 
 try:
-    from vb2py.vbparser import convertVBtoPython, VBCodeModule
-    #import pyjs
+    #from vb2py.vbparser import convertVBtoPython, VBCodeModule
+    import pyjs
 except ImportError:
     vbs_parser = False
     pass
     
 class DFT(object):
-    log = logging.getLogger("DFT")
+    log        = logging.getLogger("DFT")
     javascript = ('javascript', )
     vbscript   = ('vbs', 'vbscript', 'visualbasic')
 
     def __init__(self, window, debug = False):
         self.window = window
+
         if debug:
             self.log.setLevel(logging.DEBUG)
     
@@ -67,7 +71,7 @@ class DFT(object):
         if hasattr(self.window, 'onload'):
             self.window.evalScript(self.fix(self.window.onload))
 
-    def handle_onclick(self, f):
+    def handle_onclick(self):
         inputs = self.window._findAll('input')
         for input in inputs:
             for k, v in input.attrs:
@@ -84,6 +88,8 @@ class DFT(object):
             self.window.__dict__[id] = _ActiveXObject(classid, 'id')
 
     def handle_script(self, script):
+        self.log.debug(script)
+
         language = script.get('language', 'javascript').lower()
         handler  = getattr(self, "handle_%s" % (language, ), None)
                 
@@ -94,6 +100,8 @@ class DFT(object):
         handler(script)
             
     def handle_javascript(self, script):
+        self.log.debug(script)
+
         if not script.string:
             src = script.get('src', None)
             if not src:
@@ -105,6 +113,8 @@ class DFT(object):
         self.window.evalScript(script.string, tag = script)
 
     def handle_vbscript(self, script):
+        self.log.debug(script)
+
         if not vbs_parser:
             self.log.warning("VBScript parsing not enabled (vb2py is needed)")
             return
@@ -115,7 +125,7 @@ class DFT(object):
         #pyjs_js = os.path.join(os.path.dirname(__file__), 'py.js')
         #self.window.evalScript(open(pyjs_js, 'r').read())
 
-       # vbs_js = pyjs.compile(vbs_py)
+        #vbs_js = pyjs.compile(vbs_py)
         #print vbs_js
         #self.window.evalScript(vbs_js)
 
@@ -125,14 +135,93 @@ class DFT(object):
     def handle_visualbasic(self, script):
         self.handle_vbscript(script)
 
-    def handle_onclick(self):
-        inputs = self.window._findAll('input')
-        for input in inputs:
-            for k, v in input.attrs:
-                if k in ('onclick', ):
-                    self.window.evalScript(self.fix(v))
+    def handle_param(self, param):
+        self.log.debug(param)
+
+        name  = param.get('name' , None)
+        value = param.get('value', None)
+
+        if 'http' not in value:
+            return
+
+        urls = [p for p in value.split() if p.startswith('http')]
+
+        for url in urls:
+            response, content = self.window._navigator.fetch(url)
+            m = hashlib.md5()
+            m.update(content)
+            h = m.hexdigest()
+
+            self.log.warning('Saving remote content at %s (MD5: %s)' % (url, h, ))
+            with open(h, 'wb') as fd:
+                fd.write(content)
+
+    def handle_applet(self, applet):
+        self.log.debug(applet)
+
+        archive = applet.get('archive', None)
+        if not archive:
+            return
+
+        response, content = self.window._navigator.fetch(archive)
+        self.log.warning('Saving applet %s' % (archive, ))
+        with open(archive, 'wb') as fd:
+            fd.write(content)
+
+    def handle_meta(self, meta):
+        self.log.debug(meta)
+
+        http_equiv = meta.get('http-equiv', None)
+        if not http_equiv or http_equiv != 'refresh':
+            return
+
+        content = meta.get('content', None)
+        if not content or not 'url' in content:
+            return
+
+        timeout = 0
+        url     = None
+
+        for s in content.split(';'):
+            if s.startswith('url='):
+                url = s[4:]
+            try:
+                timeout = int(s)
+            except:
+                pass
+
+        if not url:
+            return
+
+        response, content = self.window._navigator.fetch(url)
+        self.window.doc   = w3c.parseString(content)
+        self.window.open(url)
+        self.run()
+
+    def handle_frame(self, frame):
+        self.log.warning(frame)
+        
+        if not frame.string:
+            src = frame.get('src', None)
+            if not src:
+                return 
+
+            # FIXME Dirty code should not be allowed :)
+            response, content = self.window._navigator.fetch(src)
+            
+            doc    = w3c.parseString(content)
+            window = Window.Window(src, doc)
+            window.open(src)
+            
+            dft = DFT(window)
+            dft.run()
+
+    def handle_iframe(self, iframe):
+        self.handle_frame(iframe)
 
     def run(self):
+        self.log.warning(self.window.doc)
+
         soup = self.window.doc.doc
 
         for child in soup.recursiveChildGenerator():
