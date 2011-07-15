@@ -6,7 +6,7 @@ acct = ActiveXAcct[self]
 def GetDetailsString(arg0, arg1):
     global acct
 
-	if len(arg0) > 1023:
-		acct.add_alert('WMEX.DLL ActiveX GetDetailsString Method Overflow')
+    if len(arg0) > 1023:
+        acct.add_alert('WMEX.DLL ActiveX GetDetailsString Method Overflow')
 
 self.GetDetailsString = GetDetailsString

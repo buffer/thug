@@ -27,7 +27,6 @@ def SaveToFile(path):
     global acct
 
     acct.add_alert("HP Software Update SaveToFile(), writes to %s" % (path, ))
-    acct.add_alert("HP Software Update SaveToFile(), writes to %s" % (path, ))
 
 def ProcessRegistryData(parm):
     global acct

@@ -6,20 +6,20 @@ acct = ActiveXAcct[self]
 def AddBitmap(arg0, arg1, arg2, arg3, arg4, arg5):
     global acct
 
-	if len(arg1) > 256:
-		acct.add_alert('Yahoo Jukebox overflow in AddBitmap()')
+    if len(arg1) > 256:
+        acct.add_alert('Yahoo Jukebox overflow in AddBitmap()')
 
 def AddButton(arg0, arg1):
     global acct
 
-	if len(arg0) > 256:
-		acct.add_alert('Yahoo Jukebox overflow in AddButton()')
+    if len(arg0) > 256:
+        acct.add_alert('Yahoo Jukebox overflow in AddButton()')
 
 def AddImage(arg0, arg1):
     global acct
 
-	if len(arg0) > 256:
-		acct.add_alert('Yahoo Jukebox overflow in AddImage()')
+    if len(arg0) > 256:
+        acct.add_alert('Yahoo Jukebox overflow in AddImage()')
 
 self.AddBitmap = AddBitmap
 self.AddButton = AddButton

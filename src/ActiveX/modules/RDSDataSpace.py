@@ -6,6 +6,6 @@ acct = ActiveXAcct[self]
 def createobject(*args):
     global acct
 
-	acct.add_alert("Microsoft MDAC RDS.Dataspace ActiveX attack in createobject function");
+    acct.add_alert("Microsoft MDAC RDS.Dataspace ActiveX attack in createobject function");
 
 self.createobject = createobject;

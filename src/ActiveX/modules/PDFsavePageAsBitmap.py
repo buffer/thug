@@ -6,6 +6,6 @@ acct = ActiveXAcct[self]
 def savePageAsBitmap(arg0):
     global acct
 
-	acct.add_alert('Overwrite arbitrary files via a full pathname:' + arg0 + ' in the savePageAsBitmap method')
+    acct.add_alert('Overwrite arbitrary files via a full pathname:' + arg0 + ' in the savePageAsBitmap method')
 
 self.savePageAsBitmap = savePageAsBitmap

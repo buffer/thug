@@ -6,12 +6,12 @@ acct = ActiveXAcct[self]
 def SaveAsBMP(arg0):
     global acct
 
-	acct.add_alert('Overwrite arbitrary files in MW6PDF417Lib.PDF417 SaveAsBMP() method')
+    acct.add_alert('Overwrite arbitrary files in MW6PDF417Lib.PDF417 SaveAsBMP() method')
 
 def SaveAsWMF(arg0):
     global acct
 
-	acct.add_alert('Overwrite arbitrary files in MW6PDF417Lib.PDF417 SaveAsWMF() method')
+    acct.add_alert('Overwrite arbitrary files in MW6PDF417Lib.PDF417 SaveAsWMF() method')
 
 
 self.SaveAsBMP = SaveAsBMP

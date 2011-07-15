@@ -6,7 +6,7 @@ acct = ActiveXAcct[self]
 def UpdateEngine():
     global acct
 
-	acct.add_alert('Rising Scanner UpdateEngine Method vulnerability' )
+    acct.add_alert('Rising Scanner UpdateEngine Method vulnerability' )
 
 self.BaseURL      = ''
 self.UpdateEngine = UpdateEngine

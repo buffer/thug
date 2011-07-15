@@ -6,6 +6,6 @@ acct = ActiveXAcct[self]
 def RemoveFileOrDir(arg0, arg1):
     global acct
 
-	acct.add_alert('UniversalUpload deleted ' + arg0)
+    acct.add_alert('UniversalUpload deleted ' + arg0)
 
 self.RemoveFileOrDir = RemoveFileOrDir

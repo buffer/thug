@@ -6,7 +6,7 @@ acct = ActiveXAcct[self]
 def CreateNewFolderFromName(arg):
     global acct
 
-	if len(arg) > 230:
-		acct.add_alert('WinZip CreateNewFolderFromName overflow')
+    if len(arg) > 230:
+        acct.add_alert('WinZip CreateNewFolderFromName overflow')
 
 self.CreateNewFolderFromName = CreateNewFolderFromName

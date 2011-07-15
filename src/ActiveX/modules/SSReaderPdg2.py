@@ -12,7 +12,7 @@ def Register(arg0, arg1):
 def LoadPage(arg0,arg1,arg2,arg3):
     global acct
 
-    if(len(arg0)>255):
+    if len(arg0) > 255:
         acct.add_alert('SSReader Pdg2 ActiveX LoadPage Method Overflow')
 
 self.Register = Register

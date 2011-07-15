@@ -6,32 +6,31 @@ acct = ActiveXAcct[self]
 def Setsrc(* args):
     global acct
 
-	acct.add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the src')
+    acct.add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the src')
 
 def setPageMode(* args):
     global acct
 
-	acct.add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the setPageMode()')
+    acct.add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the setPageMode()')
 
 def setLayoutMode(* args):
     global acct
 
-	acct.add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the setLayoutMode()')
+    acct.add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the setLayoutMode()')
 
 def setNamedDest(* args):
     global acct
 
-	acct.add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the seNamedDest()')
+    acct.add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the seNamedDest()')
 
 def LoadFile(arg0):
     global acct
 
-	if len(arg0) > 6000:
-		acct.add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the LoadFile()')
+    if len(arg0) > 6000:
+        acct.add_alert('AcroPDF ActiveX control is to execute arbitrary code via a long argument string to the LoadFile()')
 
 
 Attr2Fun['src']    = Setsrc
-
 self.setPageMode   = setPageMode
 self.setLayoutMode = setLayoutMode
 self.setNamedDest  = setNamedDest

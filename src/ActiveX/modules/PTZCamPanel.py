@@ -6,7 +6,7 @@ acct = ActiveXAcct[self]
 def ConnectServer(server,user):
     global acct
 
-	if len(user) > 1024:
-		acct.add_alert('PTZCamPanel ConnectServer() overflow in user arg')
+    if len(user) > 1024:
+        acct.add_alert('PTZCamPanel ConnectServer() overflow in user arg')
 
 self.ConnectServer = ConnectServer

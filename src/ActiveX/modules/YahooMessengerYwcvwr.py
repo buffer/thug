@@ -6,13 +6,13 @@ acct = ActiveXAcct[self]
 def Setserver(name):
     global acct
 
-	if len(name) > 255:
-		acct.add_alert('Yahoo! server console overflow')
+    if len(name) > 255:
+        acct.add_alert('Yahoo! server console overflow')
 
 def GetComponentVersion(arg):
     global acct
 
-	acct.add_alert('Yahoo! GetComponentVersion() overflow')
+    acct.add_alert('Yahoo! GetComponentVersion() overflow')
 
 def initialize():
     return

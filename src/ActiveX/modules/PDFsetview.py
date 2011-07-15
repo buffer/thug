@@ -4,6 +4,6 @@
 acct = ActiveXAcct[self]
 
 def setview(* args):
-	acct.add_alert('Buffer overflow in PDF.PdfCtrl.1 by setview method')
+    acct.add_alert('Buffer overflow in PDF.PdfCtrl.1 by setview method')
 
 self.setview = setview
