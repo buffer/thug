@@ -16,8 +16,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import PyV8
 import logging
+import PyV8
+import json
+import chardet
 
 class AST(object):
     log = logging.getLogger("AST")
@@ -39,7 +41,7 @@ class AST(object):
                  PyV8.AST.Op.ASSIGN_SUB,
                  PyV8.AST.Op.INIT_VAR]
 
-    def __init__(self, script, debug = True):
+    def __init__(self, script, debug = False):
         self.names           = set()
         self.inLoop          = False
         self.inBlock         = True
@@ -51,7 +53,7 @@ class AST(object):
             self.log.setLevel(logging.DEBUG)
 
         self.walk(script)
-        self.log.warning(self.breakpoints)
+        self.log.debug(self.breakpoints)
 
     def checkExitingLoop(self, pos):
         if self.exitingLoop > 0:
@@ -62,13 +64,21 @@ class AST(object):
     def walk(self, script):
         self.block_no = 1
         with PyV8.JSContext() as ctxt:
+            s = chardet.detect(script)
+            self.log.debug(s)
+
             PyV8.JSEngine().compile(script).visit(self)
 
     def onProgram(self, prog):
         self.log.debug("[*] Program")
         self.log.debug("\tProgram startPos:   %d" % (prog.startPos, ))
         self.log.debug("\tProgram endPos:     %d" % (prog.endPos, ))
-        
+       
+        self.json = prog.toJSON()
+        self.ast  = prog.toAST()
+
+        self.log.debug(self.json)
+
         for decl in prog.scope.declarations:
             decl.visit(self)
 
@@ -102,7 +112,12 @@ class AST(object):
         stmt.expression.visit(self)
         if self.assignStatement:
             if self.inBlock:
-                pos = stmt.expression.pos
+                # FIXME
+                # AstCallRuntime has no 'pos' attribute
+                try:
+                    pos = stmt.expression.pos
+                except:
+                    return
             else:
                 pos = stmt.pos
                 
@@ -161,8 +176,11 @@ class AST(object):
 
         self.checkExitingLoop(stmt.pos)
         self.enterLoop()
-        stmt.init.visit(self)
-        stmt.next.visit(self)
+        if stmt.init:
+            stmt.init.visit(self)
+
+        if stmt.next:
+            stmt.next.visit(self)
         stmt.condition.visit(self)
         stmt.body.visit(self)
         self.exitLoop()
