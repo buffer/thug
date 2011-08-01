@@ -42,7 +42,14 @@ class DOMException(RuntimeError, PyV8.JSClass):
     NOT_FOUND_ERR                  = 8  # If an attempt is made to reference a node in a context where it does not exist
     NOT_SUPPORTED_ERR              = 9  # If the implementation does not support the type of object requested
     INUSE_ATTRIBUTE_ERR            = 10 # If an attempt is made to add an attribute that is already in use elsewhere    
-    
+
+    # Introduced in Level 2
+    INVALID_STATE_ERR              = 11 # If an attempt is made to use an object that is not, or is no longer, usable
+    SYNTAX_ERR                     = 12 # If an invalid or illegal string is specified
+    INVALID_MODIFICATION_ERR       = 13 # If an attempt is made to modify the type of the underlying object
+    NAMESPACE_ERR                  = 14 # If an attempt is made to create or change an object in a way which is incorrect with regards to namespaces
+    INVALID_ACCESS_ERR             = 15 # If a parameter or an operation is not supported by the underlying object
+
 class Node(PyV8.JSClass):
     # NodeType
     ELEMENT_NODE                   = 1
@@ -626,7 +633,7 @@ class Document(Node):
         
     onCreateElement = None
     
-    def createElement(self, tagname):        
+    def createElement(self, tagname):
         element = DOMImplementation.createHTMLElement(self.doc, BeautifulSoup.Tag(self.doc, tagname))
         
         if self.onCreateElement:
@@ -765,61 +772,61 @@ class ElementCSSInlineStyle(object):
         return CSSStyleDeclaration(self.tag['style'] if self.tag.has_key('style') else '')
 
 class HTMLElement(Element, ElementCSSInlineStyle):    
-    id = attr_property("id")
-    title = attr_property("title")
-    lang = attr_property("lang")
-    dir = attr_property("dir")
-    className = attr_property("class")    
-    innerHTML = text_property()
+    id              = attr_property("id")
+    title           = attr_property("title")
+    lang            = attr_property("lang")
+    dir             = attr_property("dir")
+    className       = attr_property("class")    
+    innerHTML       = text_property()
 
 class HTMLHtmlElement(HTMLElement):
-    version = attr_property("version")
+    version         = attr_property("version")
     
 class HTMLHeadElement(HTMLElement):
-    profile = attr_property("profile")
+    profile         = attr_property("profile")
     
 class HTMLLinkElement(HTMLElement):
     disabled = False
     
-    charset = attr_property("charset")
-    href = attr_property("href")
-    hreflang = attr_property("hreflang")
-    media = attr_property("media")
-    rel = attr_property("rel")
-    rev = attr_property("rev")
-    target = attr_property("target")
-    type = attr_property("type")
+    charset         = attr_property("charset")
+    href            = attr_property("href")
+    hreflang        = attr_property("hreflang")
+    media           = attr_property("media")
+    rel             = attr_property("rel")
+    rev             = attr_property("rev")
+    target          = attr_property("target")
+    type            = attr_property("type")
     
 class HTMLTitleElement(HTMLElement):
-    text = text_property()
+    text            = text_property()
     
 class HTMLMetaElement(HTMLElement):
-    content = attr_property("content")
-    httpEquiv = attr_property("http-equiv")
-    name = attr_property("name")
-    scheme = attr_property("scheme")
+    content         = attr_property("content")
+    httpEquiv       = attr_property("http-equiv")
+    name            = attr_property("name")
+    scheme          = attr_property("scheme")
     
 class HTMLBaseElement(HTMLElement):
-    href = attr_property("href")
-    target = attr_property("target")
+    href            = attr_property("href")
+    target          = attr_property("target")
     
 class HTMLIsIndexElement(HTMLElement):
-    form = None
-    prompt = attr_property("prompt")
+    form            = None
+    prompt          = attr_property("prompt")
     
 class HTMLStyleElement(HTMLElement):
     disabled = False
-    
-    media = attr_property("media")
-    type = attr_property("type")
+
+    media           = attr_property("media")
+    type            = attr_property("type")
     
 class HTMLBodyElement(HTMLElement):
-    background = attr_property("background")
-    bgColor = attr_property("bgcolor")
-    link = attr_property("link")
-    aLink = attr_property("alink")
-    vLink = attr_property("vlink")
-    text = attr_property("text")
+    background      = attr_property("background")
+    bgColor         = attr_property("bgcolor")
+    link            = attr_property("link")
+    aLink           = attr_property("alink")
+    vLink           = attr_property("vlink")
+    text            = attr_property("text")
     
 class HTMLFormElement(HTMLElement):
     @property
@@ -830,12 +837,12 @@ class HTMLFormElement(HTMLElement):
     def length(self):
         raise NotImplementedError()
     
-    name = attr_property("name")
-    acceptCharset = attr_property("accept-charset", default="UNKNOWN")
-    action = attr_property("action")
-    enctype = attr_property("enctype", default="application/x-www-form-urlencoded")
-    method = attr_property("method", default="get")
-    target = attr_property("target")
+    name            = attr_property("name")
+    acceptCharset   = attr_property("accept-charset", default="UNKNOWN")
+    action          = attr_property("action")
+    enctype         = attr_property("enctype", default="application/x-www-form-urlencoded")
+    method          = attr_property("method", default="get")
+    target          = attr_property("target")
     
     def submit(self):
         raise NotImplementedError()
@@ -863,11 +870,11 @@ class HTMLSelectElement(HTMLElement):
     def options(self):
         raise NotImplementedError()
         
-    disabled = attr_property("disabled", bool)
-    multiple = attr_property("multiple", bool)    
-    name = attr_property("name")
-    size = attr_property("size", long)
-    tabIndex = attr_property("tabindex", long)
+    disabled        = attr_property("disabled", bool)
+    multiple        = attr_property("multiple", bool)    
+    name            = attr_property("name")
+    size            = attr_property("size", long)
+    tabIndex        = attr_property("tabindex", long)
     
     def add(self, element, before):
         raise NotImplementedError()
@@ -891,12 +898,12 @@ class HTMLOptionElement(HTMLElement):
         raise NotImplementedError()
         
     defaultSelected = attr_property("selected", bool)    
-    text = text_property(readonly=True)    
-    index = attr_property("index", long)
-    disabled = attr_property("disabled", bool)    
-    label = attr_property("label")
-    selected = False
-    value = attr_property("value")
+    text            = text_property(readonly=True)    
+    index           = attr_property("index", long)
+    disabled        = attr_property("disabled", bool)    
+    label           = attr_property("label")
+    selected        = False
+    value           = attr_property("value")
     
 class HTMLInputElement(HTMLElement):    
     defaultValue = attr_property("value")
@@ -906,20 +913,20 @@ class HTMLInputElement(HTMLElement):
     def form(self):
         raise NotImplementedError()
     
-    accept = attr_property("accept")
-    accessKey = attr_property("accesskey")
-    align = attr_property("align")
-    alt = attr_property("alt")
-    checked = attr_property("checked", bool)
-    disabled = attr_property("disabled", bool)
-    maxLength = attr_property("maxlength", long, default=sys.maxint)
-    name = attr_property("name")
-    readOnly = attr_property("readonly", bool)
-    size = attr_property("size")
-    src = attr_property("src")
-    tabIndex = attr_property("tabindex", long)
-    type = attr_property("type", readonly=True, default="text")
-    useMap = attr_property("usermap")
+    accept          = attr_property("accept")
+    accessKey       = attr_property("accesskey")
+    align           = attr_property("align")
+    alt             = attr_property("alt")
+    checked         = attr_property("checked", bool)
+    disabled        = attr_property("disabled", bool)
+    maxLength       = attr_property("maxlength", long, default=sys.maxint)
+    name            = attr_property("name")
+    readOnly        = attr_property("readonly", bool)
+    size            = attr_property("size")
+    src             = attr_property("src")
+    tabIndex        = attr_property("tabindex", long)
+    type            = attr_property("type", readonly=True, default="text")
+    useMap          = attr_property("usermap")
     
     @abstractmethod
     def getValue(self):
@@ -950,14 +957,14 @@ class HTMLTextAreaElement(HTMLElement):
     def form(self):
         pass
     
-    accessKey = attr_property("accesskey")
-    cols = attr_property("cols", long)
-    disabled = attr_property("disabled", bool)
-    name = attr_property("name")
-    readOnly = attr_property("readonly", bool)
-    rows = attr_property("rows", long)
-    tabIndex = attr_property("tabindex", long)
-    value = text_property()
+    accessKey       = attr_property("accesskey")
+    cols            = attr_property("cols", long)
+    disabled        = attr_property("disabled", bool)
+    name            = attr_property("name")
+    readOnly        = attr_property("readonly", bool)
+    rows            = attr_property("rows", long)
+    tabIndex        = attr_property("tabindex", long)
+    value           = text_property()
     
     @property
     def type(self):
@@ -968,75 +975,75 @@ class HTMLButtonElement(HTMLElement):
     def form(self):
         pass    
     
-    accessKey = attr_property("accesskey")
-    disabled = attr_property("disabled", bool)
-    name = attr_property("name")
-    tabIndex = attr_property("tabindex", long)
-    type = attr_property("type")
-    value = attr_property("value")
+    accessKey       = attr_property("accesskey")
+    disabled        = attr_property("disabled", bool)
+    name            = attr_property("name")
+    tabIndex        = attr_property("tabindex", long)
+    type            = attr_property("type")
+    value           = attr_property("value")
     
 class HTMLAppletElement(HTMLElement):
-    align = attr_property("align")
-    alt = attr_property("alt")
-    archive = attr_property("archive")
-    code = attr_property("code")
-    codeBase = attr_property("codebase")
-    height = attr_property("height")
-    hspace = attr_property("hspace")
-    name = attr_property("name")
-    object = attr_property("object")
-    vspace = attr_property("vspace")
-    width = attr_property("width")
+    align           = attr_property("align")
+    alt             = attr_property("alt")
+    archive         = attr_property("archive")
+    code            = attr_property("code")
+    codeBase        = attr_property("codebase")
+    height          = attr_property("height")
+    hspace          = attr_property("hspace")
+    name            = attr_property("name")
+    object          = attr_property("object")
+    vspace          = attr_property("vspace")
+    width           = attr_property("width")
     
 class HTMLImageElement(HTMLElement):
-    align = attr_property("align")
-    alt = attr_property("alt")
-    border = attr_property("border")
-    height = attr_property("height")
-    hspace = attr_property("hspace")
-    isMap = attr_property("ismap")
-    longDesc = attr_property("longdesc")
-    lowSrc = attr_property("lowsrc")
-    name = attr_property("name")
-    src = attr_property("src")
-    useMap = attr_property("usemap")
-    vspace = attr_property("vspace")
-    width = attr_property("width")
+    align           = attr_property("align")
+    alt             = attr_property("alt")
+    border          = attr_property("border")
+    height          = attr_property("height")
+    hspace          = attr_property("hspace")
+    isMap           = attr_property("ismap")
+    longDesc        = attr_property("longdesc")
+    lowSrc          = attr_property("lowsrc")
+    name            = attr_property("name")
+    src             = attr_property("src")
+    useMap          = attr_property("usemap")
+    vspace          = attr_property("vspace")
+    width           = attr_property("width")
     
 class HTMLScriptElement(HTMLElement):
-    text = text_property()    
-    htmlFor = None
-    event = None
-    charset = attr_property("charset")
-    defer = attr_property("defer", bool)
-    src = attr_property("src")
-    type = attr_property("type")
+    text            = text_property()    
+    htmlFor         = None
+    event           = None
+    charset         = attr_property("charset")
+    defer           = attr_property("defer", bool)
+    src             = attr_property("src")
+    type            = attr_property("type")
     
 class HTMLFrameSetElement(HTMLElement):
-    cols = attr_property("cols")
-    rows = attr_property("rows")
+    cols            = attr_property("cols")
+    rows            = attr_property("rows")
 
 class HTMLFrameElement(HTMLElement):
-    frameBorder = attr_property("frameborder")
-    longDesc = attr_property("longdesc")
-    marginHeight = attr_property("marginheight")
-    marginWidth = attr_property("marginwidth")
-    name = attr_property("name")
-    noResize = attr_property("noresize", bool)
-    scrolling = attr_property("scrolling")
-    src = attr_property("src")
+    frameBorder     = attr_property("frameborder")
+    longDesc        = attr_property("longdesc")
+    marginHeight    = attr_property("marginheight")
+    marginWidth     = attr_property("marginwidth")
+    name            = attr_property("name")
+    noResize        = attr_property("noresize", bool)
+    scrolling       = attr_property("scrolling")
+    src             = attr_property("src")
     
 class HTMLIFrameElement(HTMLElement):
-    align = attr_property("align")
-    frameBorder = attr_property("frameborder")
-    height = attr_property("height")
-    longDesc = attr_property("longdesc")
-    marginHeight = attr_property("marginheight")
-    marginWidth = attr_property("marginwidth")
-    name = attr_property("name")    
-    scrolling = attr_property("scrolling")
-    src = attr_property("src")
-    width = attr_property("width")
+    align           = attr_property("align")
+    frameBorder     = attr_property("frameborder")
+    height          = attr_property("height")
+    longDesc        = attr_property("longdesc")
+    marginHeight    = attr_property("marginheight")
+    marginWidth     = attr_property("marginwidth")
+    name            = attr_property("name")    
+    scrolling       = attr_property("scrolling")
+    src             = attr_property("src")
+    width           = attr_property("width")
 
 def xpath_property(xpath, readonly=False):
     RE_INDEXED = re.compile("(\w+)\[([^\]]+)\]")
@@ -1127,15 +1134,14 @@ def xpath_property(xpath, readonly=False):
     return property(getter) if readonly else property(getter, setter)
 
 class HTMLDocument(Document):
-    title = xpath_property("/html/head/title/text()")
-    body = xpath_property("/html/body[1]")
-
-    images = xpath_property("//img", readonly=True)
-    applets = xpath_property("//applet", readonly=True)
-    forms = xpath_property("//form", readonly=True)
-    links = xpath_property("//a[@href]", readonly=True)
-    anchors = xpath_property("//a[@name]", readonly=True)
-    innerHTML = text_property()
+    title       = xpath_property("/html/head/title/text()")
+    body        = xpath_property("/html/body[1]")
+    images      = xpath_property("//img", readonly=True)
+    applets     = xpath_property("//applet", readonly=True)
+    forms       = xpath_property("//form", readonly=True)
+    links       = xpath_property("//a[@href]", readonly=True)
+    anchors     = xpath_property("//a[@name]", readonly=True)
+    innerHTML   = text_property()
 
     def __init__(self, doc, win=None, referer=None, lastModified=None, cookie=''):
         Document.__init__(self, doc)
@@ -1219,28 +1225,28 @@ class DOMImplementation(HTMLDocument):
         return feature == "HTML" and version == "1.0"
         
     TAGS = {
-        "html" : HTMLHtmlElement,
-        "head" : HTMLHeadElement,
-        "link" : HTMLLinkElement,
-        "title" : HTMLTitleElement,
-        "meta" : HTMLMetaElement,
-        "base" : HTMLBaseElement,
-        "isindex" : HTMLIsIndexElement,
-        "style" : HTMLStyleElement,
-        "body" : HTMLBodyElement,
-        "form" : HTMLFormElement,
-        "select" : HTMLSelectElement,
-        "optgroup" : HTMLOptGroupElement,
-        "option" : HTMLOptionElement,
-        "input" : HTMLInputElement,
-        "textarea" : HTMLTextAreaElement,
-        "button" : HTMLButtonElement,
-        "applet" : HTMLAppletElement,
-        "img" : HTMLImageElement,
-        "script" : HTMLScriptElement,
-        "frameset" : HTMLFrameSetElement,
-        "frame" : HTMLFrameElement,
-        "iframe" : HTMLIFrameElement,
+        "html"      : HTMLHtmlElement,
+        "head"      : HTMLHeadElement,
+        "link"      : HTMLLinkElement,
+        "title"     : HTMLTitleElement,
+        "meta"      : HTMLMetaElement,
+        "base"      : HTMLBaseElement,
+        "isindex"   : HTMLIsIndexElement,
+        "style"     : HTMLStyleElement,
+        "body"      : HTMLBodyElement,
+        "form"      : HTMLFormElement,
+        "select"    : HTMLSelectElement,
+        "optgroup"  : HTMLOptGroupElement,
+        "option"    : HTMLOptionElement,
+        "input"     : HTMLInputElement,
+        "textarea"  : HTMLTextAreaElement,
+        "button"    : HTMLButtonElement,
+        "applet"    : HTMLAppletElement,
+        "img"       : HTMLImageElement,
+        "script"    : HTMLScriptElement,
+        "frameset"  : HTMLFrameSetElement,
+        "frame"     : HTMLFrameElement,
+        "iframe"    : HTMLIFrameElement,
     }
         
     @staticmethod
