@@ -9,4 +9,5 @@ def UpdateEngine():
     acct.add_alert('Rising Scanner UpdateEngine Method vulnerability' )
 
 self.BaseURL      = ''
+self.Encardid     = ''
 self.UpdateEngine = UpdateEngine

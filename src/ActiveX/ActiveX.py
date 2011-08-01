@@ -92,7 +92,7 @@ class _ActiveXObject:
     def __init__(self, cls, type = 'name'):
         ActiveXAcct[self] = ActiveXRecord(cls, type)
         _module = None
-                
+
         if type == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':
                 cls = cls[6:].upper()
