@@ -1129,9 +1129,22 @@ class HTMLDListElement(HTMLElement):
     compact         = False
 
 
+class HTMLDirectoryElement(HTMLElement):
+    compact         = False
+
+
+class HTMLMenuElement(HTMLElement):
+    compact         = False
+
+
 class HTMLLIElement(HTMLElement):
     type            = attr_property("type")
     value           = attr_property("value", long)
+
+
+class HTMLDivElement(HTMLElement):
+    align           = attr_property("align")
+
 
 class HTMLImageElement(HTMLElement):
     align           = attr_property("align")
@@ -1453,7 +1466,10 @@ class DOMImplementation(HTMLDocument):
         "ul"        : HTMLUListElement,
         "ol"        : HTMLOListElement,
         "dl"        : HTMLDListElement,
+        "dir"       : HTMLDirectoryElement,
+        "menu"      : HTMLMenuElement,
         "li"        : HTMLLIElement,
+        "div"       : HTMLDivElement,
         "object"    : HTMLObjectElement,
         "param"     : HTMLParamElement,
         "img"       : HTMLImageElement,
