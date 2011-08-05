@@ -1114,20 +1114,6 @@ class HTMLButtonElement(HTMLElement):
     value           = attr_property("value")
     
 
-class HTMLAppletElement(HTMLElement):
-    align           = attr_property("align")
-    alt             = attr_property("alt")
-    archive         = attr_property("archive")
-    code            = attr_property("code")
-    codeBase        = attr_property("codebase")
-    height          = attr_property("height")
-    hspace          = attr_property("hspace", long)
-    name            = attr_property("name")
-    object          = attr_property("object")
-    vspace          = attr_property("vspace", long)
-    width           = attr_property("width")
-    
-
 class HTMLImageElement(HTMLElement):
     align           = attr_property("align")
     alt             = attr_property("alt")
@@ -1143,6 +1129,51 @@ class HTMLImageElement(HTMLElement):
     useMap          = attr_property("usemap")
     vspace          = attr_property("vspace", long)
     width           = attr_property("width", long)
+
+
+class HTMLObjectElement(HTMLElement):
+    @property
+    def form(self):
+        pass
+
+    code            = attr_property("code")
+    align           = attr_property("align")
+    archive         = attr_property("archive")
+    border          = attr_property("border")
+    codeBase        = attr_property("codebase")
+    codeType        = attr_property("codetype")
+    data            = attr_property("data")
+    declare         = False
+    height          = attr_property("height")
+    hspace          = attr_property("hspace", long)
+    name            = attr_property("name")
+    standBy         = attr_property("standby")
+    tabIndex        = attr_property("tabindex", long, default = 0)
+    type            = attr_property("type")
+    useMap          = attr_property("usemap")
+    vspace          = attr_property("vspace", long)
+    width           = attr_property("width")
+
+
+class HTMLParamElement(HTMLElement):
+    name            = attr_property("name")
+    type            = attr_property("type")
+    value           = attr_property("value")
+    valueType       = attr_property("valuetype")
+
+
+class HTMLAppletElement(HTMLElement):
+    align           = attr_property("align")
+    alt             = attr_property("alt")
+    archive         = attr_property("archive")
+    code            = attr_property("code")
+    codeBase        = attr_property("codebase")
+    height          = attr_property("height")
+    hspace          = attr_property("hspace", long)
+    name            = attr_property("name")
+    object          = attr_property("object")
+    vspace          = attr_property("vspace", long)
+    width           = attr_property("width")
     
 
 class HTMLScriptElement(HTMLElement):
@@ -1400,8 +1431,10 @@ class DOMImplementation(HTMLDocument):
         "input"     : HTMLInputElement,
         "textarea"  : HTMLTextAreaElement,
         "button"    : HTMLButtonElement,
-        "applet"    : HTMLAppletElement,
+        "object"    : HTMLObjectElement,
+        "param"     : HTMLParamElement,
         "img"       : HTMLImageElement,
+        "applet"    : HTMLAppletElement,
         "script"    : HTMLScriptElement,
         "frameset"  : HTMLFrameSetElement,
         "frame"     : HTMLFrameElement,
