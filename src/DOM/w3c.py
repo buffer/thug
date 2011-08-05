@@ -1114,6 +1114,25 @@ class HTMLButtonElement(HTMLElement):
     value           = attr_property("value")
     
 
+class HTMLUListElement(HTMLElement):
+    compact         = False
+    type            = attr_property("type")
+
+
+class HTMLOListElement(HTMLElement):
+    compact         = False
+    start           = attr_property("start", long)
+    type            = attr_property("type")
+
+
+class HTMLDListElement(HTMLElement):
+    compact         = False
+
+
+class HTMLLIElement(HTMLElement):
+    type            = attr_property("type")
+    value           = attr_property("value", long)
+
 class HTMLImageElement(HTMLElement):
     align           = attr_property("align")
     alt             = attr_property("alt")
@@ -1431,6 +1450,10 @@ class DOMImplementation(HTMLDocument):
         "input"     : HTMLInputElement,
         "textarea"  : HTMLTextAreaElement,
         "button"    : HTMLButtonElement,
+        "ul"        : HTMLUListElement,
+        "ol"        : HTMLOListElement,
+        "dl"        : HTMLDListElement,
+        "li"        : HTMLLIElement,
         "object"    : HTMLObjectElement,
         "param"     : HTMLParamElement,
         "img"       : HTMLImageElement,
