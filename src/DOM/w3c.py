@@ -3,22 +3,17 @@ from __future__ import with_statement
 
 import sys, re, string
 
-try:
-    from urllib.parse import urlparse # Python 3
-except ImportError:
-    from urlparse import urlparse
+from urlparse import urlparse
 
 try:
-    from io import StringIO # Python 3
+    from cStringIO import StringIO
 except ImportError:
-    try:
-        from cStringIO import StringIO
-    except ImportError:
-        from StringIO import StringIO
+    from StringIO import StringIO
 
 import logging
 import BeautifulSoup
 import PyV8
+
 
 class abstractmethod(object):
     def __init__(self, func):
@@ -26,6 +21,7 @@ class abstractmethod(object):
 
     def __call__(self, *args, **kwds):
         raise NotImplementedError("method %s is abstract." % self.func.func_name)
+
 
 class DOMException(RuntimeError, PyV8.JSClass):
     def __init__(self, code):
@@ -49,6 +45,7 @@ class DOMException(RuntimeError, PyV8.JSClass):
     INVALID_MODIFICATION_ERR       = 13 # If an attempt is made to modify the type of the underlying object
     NAMESPACE_ERR                  = 14 # If an attempt is made to create or change an object in a way which is incorrect with regards to namespaces
     INVALID_ACCESS_ERR             = 15 # If a parameter or an operation is not supported by the underlying object
+
 
 class Node(PyV8.JSClass):
     # NodeType
@@ -124,7 +121,23 @@ class Node(PyV8.JSClass):
     @property
     def parentNode(self):
         return None
-    
+
+    # Introduced in DOM Level 2
+    @property
+    def namespaceURI(self):
+        return None
+
+    # Introduced in DOM Level 2
+    @property
+    def prefix(self):
+        return None
+
+    # Introduced in DOM Level 2
+    @property 
+    def localName(self):
+        return None
+   
+    # Modified in DOM Level 2
     @property
     def ownerDocument(self):
         return self.doc
@@ -146,6 +159,18 @@ class Node(PyV8.JSClass):
     
     def hasChildNodes(self):
         return False
+
+    # Modified in DOM Level 2
+    def normalize(self):
+        pass
+
+    # Introduced in DOM Level 2
+    def isSupported(self, feature, version):
+        return DOMImplementation.hasFeature(feature, version)
+
+    # Introduced in DOM Level 2
+    def hasAttributes(self):
+        return False
     
     @abstractmethod
     def cloneNode(self, deep):
@@ -163,7 +188,8 @@ class Node(PyV8.JSClass):
             return Text(doc, obj)        
         
         return Element(doc, obj)
-    
+
+
 class NodeList(PyV8.JSClass):
     def __init__(self, doc, nodes):
         self.doc = doc
@@ -181,6 +207,7 @@ class NodeList(PyV8.JSClass):
     @property
     def length(self):
         return len(self.nodes)
+
 
 class NamedNodeMap(PyV8.JSClass):
     def __init__(self, parent):        
@@ -211,14 +238,15 @@ class NamedNodeMap(PyV8.JSClass):
     @property
     def length(self):        
         return len(self.parent.tag._getAttrMap()) 
-        
+
+
 class Attr(Node):
     _value = ""
     
     def __init__(self, parent, attr):
         self.parent = parent
-        self.attr = attr
-        
+        self.attr   = attr
+
         self._value = self.getValue()
         
     def __repr__(self):
@@ -251,6 +279,15 @@ class Attr(Node):
     @property
     def parentNode(self):
         return self.parent
+
+    # Introduced in DOM Level 2
+    @property
+    def ownerElement(self):
+        if self.parent: 
+            if self.parent.nodeType == Node.ELEMENT_NODE:
+                return self.parent
+        
+        return None
         
     @property
     def ownerDocument(self):
@@ -277,7 +314,8 @@ class Attr(Node):
             self.parent.tag[self.attr] = value
         
     value = property(getValue, setValue)
-    
+
+
 class Element(Node):
     def __init__(self, doc, tag):
         Node.__init__(self, doc)
@@ -335,6 +373,14 @@ class Element(Node):
     @property
     def previousSibling(self):
         return Node.wrap(self.doc, self.tag.previousSibling)
+  
+    # Introduced in DOM Level 2
+    def hasAttributes(self):
+        return self.attributes.length > 0
+
+    # Introduced in DOM Level 2
+    def hasAttribute(self, name):
+        return self.tag.has_key(name)
         
     def checkChild(self, child):
         if not isinstance(child, Node):
@@ -430,9 +476,14 @@ class Element(Node):
     
     def getElementsByTagName(self, name):
         return NodeList(self.doc, self.tag.findAll(name))
-    
-    def normalize(self):
-        pass
+   
+    # DOM Level 2 Core [Appendix A]
+    # The method normalize is now inherited from the Node interface where
+    # it was moved
+    #
+    #def normalize(self):
+    #    pass
+
 
 class CharacterData(Node):
     def __init__(self, doc, tag):
@@ -470,6 +521,7 @@ class CharacterData(Node):
     def replaceData(self, offset, count, arg):
         raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
 
+
 class Text(CharacterData):
     def __repr__(self):
         return "<Text '%s' at 0x%08X>" % (self.tag, id(self))
@@ -485,6 +537,7 @@ class Text(CharacterData):
     def nodeName(self):
         return "#text"
 
+
 class CDATASection(Text):
     def __repr__(self):
         return "<CDATA '%s' at 0x%08X>" % (self.tag, id(self))
@@ -493,10 +546,12 @@ class CDATASection(Text):
     def nodeName(self):
         return "#cdata-section"
 
+
 class Comment(CharacterData):
     @property
     def nodeName(self):
         return "#comment"
+
 
 class DocumentFragment(Node):
     def __init__(self, doc, tags):
@@ -507,6 +562,7 @@ class DocumentFragment(Node):
     @property
     def nodeName(self):
         return "#document-fragment"
+
 
 class DocumentType(Node):
     RE_DOCTYPE = re.compile("^DOCTYPE (\w+)", re.M + re.S)
@@ -536,7 +592,29 @@ class DocumentType(Node):
     @property
     def notations(self):
         raise NotImplementedError()
-    
+
+    # Modified in DOM Level 2
+    @property
+    def ownerDocument(self):
+        # FIXME
+        return None
+
+    # Introduced in DOM Level 2
+    @property
+    def publicId(self):
+        pass
+
+    # Introduced in DOM Level 2
+    @property
+    def systemId(self):
+        pass
+
+    # Introduced in DOM Level 2
+    @property
+    def internalSubset(self):
+        pass
+
+
 class Notation(Node):
     @property
     def publicId(self):
@@ -549,7 +627,8 @@ class Notation(Node):
     @property
     def nodeName(self):
         pass
-    
+
+
 class Entity(Node):
     @property
     def publicId(self):
@@ -566,7 +645,8 @@ class Entity(Node):
     @property
     def nodeName(self):
         pass
-    
+
+
 class EntityReference(Node):
     def __init__(self, doc, name):
         Node.__init__(self, doc)
@@ -575,7 +655,8 @@ class EntityReference(Node):
         
     def nodeName(self):
         return self.name
-    
+
+
 class ProcessingInstruction(Node):
     def __init__(self, doc, target, data):
         self._target = target
@@ -588,6 +669,7 @@ class ProcessingInstruction(Node):
     @property
     def nodeName(self):
         return self._target
+
 
 class Document(Node):
     def __str__(self):
@@ -664,7 +746,23 @@ class Document(Node):
     
     def getElementsByTagName(self, tagname):
         return NodeList(self.doc, self.doc.findAll(tagname.lower()))
-        
+
+    # Introduced in DOM Level 2
+    def getElementById(self, elementId):
+        tag = self.doc.find(id = elementId)
+        return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None 
+
+    # Introduced in DOM Level 2
+    def importNode(self, importedNode, deep):
+        # TODO
+        pass
+
+    # Modified in DOM Level 2
+    @property
+    def ownerDocument(self):
+        return None
+
+
 def attr_property(name, attrtype=str, readonly=False, default=None):
     def getter(self):
         return attrtype(self.tag[name]) if self.tag.has_key(name) else default
@@ -673,8 +771,9 @@ def attr_property(name, attrtype=str, readonly=False, default=None):
         self.tag[name] = attrtype(value)
         
     return property(getter) if readonly else property(getter, setter)
-        
-def text_property(readonly=False):
+
+
+def text_property(readonly = False):
     def getter(self):
         return str(self.tag.string)
     
@@ -687,7 +786,8 @@ def text_property(readonly=False):
         self.tag.string = self.tag.contents[0]
         
     return property(getter) if readonly else property(getter, setter)
-        
+
+
 class HTMLCollection(PyV8.JSClass):
     def __init__(self, doc, nodes):
         self.doc = doc
@@ -717,7 +817,8 @@ class HTMLCollection(PyV8.JSClass):
                 return DOMImplementation.createHTMLElement(self.doc, node) if node else None
             
         return None
-    
+
+
 class CSSStyleDeclaration(object):
     def __init__(self, style):
         self.props = dict([prop.strip().split(': ') for prop in style.split(';') if prop])
@@ -765,11 +866,13 @@ class CSSStyleDeclaration(object):
             object.__setattr__(self, name, value)
         else:
             object.__getattribute__(self, 'props')[name] = value
-    
+
+
 class ElementCSSInlineStyle(object):
     @property
     def style(self):
         return CSSStyleDeclaration(self.tag['style'] if self.tag.has_key('style') else '')
+
 
 class HTMLElement(Element, ElementCSSInlineStyle):    
     id              = attr_property("id")
@@ -779,12 +882,15 @@ class HTMLElement(Element, ElementCSSInlineStyle):
     className       = attr_property("class")    
     innerHTML       = text_property()
 
+
 class HTMLHtmlElement(HTMLElement):
     version         = attr_property("version")
-    
+
+
 class HTMLHeadElement(HTMLElement):
     profile         = attr_property("profile")
-    
+
+
 class HTMLLinkElement(HTMLElement):
     disabled = False
     
@@ -796,30 +902,36 @@ class HTMLLinkElement(HTMLElement):
     rev             = attr_property("rev")
     target          = attr_property("target")
     type            = attr_property("type")
-    
+
+
 class HTMLTitleElement(HTMLElement):
     text            = text_property()
-    
+
+
 class HTMLMetaElement(HTMLElement):
     content         = attr_property("content")
     httpEquiv       = attr_property("http-equiv")
     name            = attr_property("name")
     scheme          = attr_property("scheme")
-    
+
+
 class HTMLBaseElement(HTMLElement):
     href            = attr_property("href")
     target          = attr_property("target")
-    
+
+
 class HTMLIsIndexElement(HTMLElement):
     form            = None
     prompt          = attr_property("prompt")
-    
+
+
 class HTMLStyleElement(HTMLElement):
     disabled = False
 
     media           = attr_property("media")
     type            = attr_property("type")
-    
+
+
 class HTMLBodyElement(HTMLElement):
     background      = attr_property("background")
     bgColor         = attr_property("bgcolor")
@@ -827,7 +939,8 @@ class HTMLBodyElement(HTMLElement):
     aLink           = attr_property("alink")
     vLink           = attr_property("vlink")
     text            = attr_property("text")
-    
+
+
 class HTMLFormElement(HTMLElement):
     @property
     def elements(self):
@@ -849,7 +962,8 @@ class HTMLFormElement(HTMLElement):
     
     def reset(self):
         raise NotImplementedError()
-    
+
+
 class HTMLSelectElement(HTMLElement):
     @property
     def type(self):
@@ -887,11 +1001,13 @@ class HTMLSelectElement(HTMLElement):
 
     def focus(self):
         raise NotImplementedError()
-        
+
+
 class HTMLOptGroupElement(HTMLElement):
-    disabled = attr_property("disabled", bool)    
-    label = attr_property("label")
-    
+    disabled        = attr_property("disabled", bool)    
+    label           = attr_property("label")
+
+
 class HTMLOptionElement(HTMLElement):
     @property
     def form(self):
@@ -905,9 +1021,10 @@ class HTMLOptionElement(HTMLElement):
     selected        = False
     value           = attr_property("value")
     
+
 class HTMLInputElement(HTMLElement):    
-    defaultValue = attr_property("value")
-    defaultChecked = attr_property("checked")
+    defaultValue    = attr_property("value")
+    defaultChecked  = attr_property("checked")
     
     @property
     def form(self):
@@ -950,6 +1067,7 @@ class HTMLInputElement(HTMLElement):
     def click(self):
         pass
     
+
 class HTMLTextAreaElement(HTMLElement):
     defaultValue = None
     
@@ -970,6 +1088,7 @@ class HTMLTextAreaElement(HTMLElement):
     def type(self):
         return "textarea"
     
+
 class HTMLButtonElement(HTMLElement):
     @property
     def form(self):
@@ -982,6 +1101,7 @@ class HTMLButtonElement(HTMLElement):
     type            = attr_property("type")
     value           = attr_property("value")
     
+
 class HTMLAppletElement(HTMLElement):
     align           = attr_property("align")
     alt             = attr_property("alt")
@@ -995,6 +1115,7 @@ class HTMLAppletElement(HTMLElement):
     vspace          = attr_property("vspace")
     width           = attr_property("width")
     
+
 class HTMLImageElement(HTMLElement):
     align           = attr_property("align")
     alt             = attr_property("alt")
@@ -1010,6 +1131,7 @@ class HTMLImageElement(HTMLElement):
     vspace          = attr_property("vspace")
     width           = attr_property("width")
     
+
 class HTMLScriptElement(HTMLElement):
     text            = text_property()    
     htmlFor         = None
@@ -1019,9 +1141,11 @@ class HTMLScriptElement(HTMLElement):
     src             = attr_property("src")
     type            = attr_property("type")
     
+
 class HTMLFrameSetElement(HTMLElement):
     cols            = attr_property("cols")
     rows            = attr_property("rows")
+
 
 class HTMLFrameElement(HTMLElement):
     frameBorder     = attr_property("frameborder")
@@ -1032,7 +1156,8 @@ class HTMLFrameElement(HTMLElement):
     noResize        = attr_property("noresize", bool)
     scrolling       = attr_property("scrolling")
     src             = attr_property("src")
-    
+
+
 class HTMLIFrameElement(HTMLElement):
     align           = attr_property("align")
     frameBorder     = attr_property("frameborder")
@@ -1045,12 +1170,13 @@ class HTMLIFrameElement(HTMLElement):
     src             = attr_property("src")
     width           = attr_property("width")
 
-def xpath_property(xpath, readonly=False):
+
+def xpath_property(xpath, readonly = False):
     RE_INDEXED = re.compile("(\w+)\[([^\]]+)\]")
     
     parts = xpath.split('/')
     
-    def getChildren(tag, parts, recursive=False):
+    def getChildren(tag, parts, recursive = False):
         if len(parts) == 0:
             return [tag]
         
@@ -1073,7 +1199,7 @@ def xpath_property(xpath, readonly=False):
 
         children = []
 
-        tags = tag.findAll(name, recursive=recursive)
+        tags = tag.findAll(name, recursive = recursive)
 
         if idx:
             if idx[0] == '@':
@@ -1117,7 +1243,6 @@ def xpath_property(xpath, readonly=False):
                     tag.append(value)                    
                     
                 tag.string = tag.contents[0]
-
                 return
             else:
                 child = tag.find(part)
@@ -1132,6 +1257,7 @@ def xpath_property(xpath, readonly=False):
         tag.append(value)
 
     return property(getter) if readonly else property(getter, setter)
+
 
 class HTMLDocument(Document):
     title       = xpath_property("/html/head/title/text()")
@@ -1210,19 +1336,31 @@ class HTMLDocument(Document):
 
     def writeln(self, text):
         self.write(text + "\n")
-    
-    def getElementById(self, elementId):
-        tag = self.doc.find(id=elementId)
-        return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None
+   
+    # DOM Level 2 moves getElementbyId in Document object inherited by 
+    # HTMLDocument
+    #
+    #def getElementById(self, elementId):
+    #    tag = self.doc.find(id = elementId)
+    #    return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None
 
     def getElementsByName(self, elementName):
         tags = self.doc.findAll(attrs={'name': elementName})
         
         return HTMLCollection(self.doc, tags)
 
+
 class DOMImplementation(HTMLDocument):
-    def hasFeature(self, feature, version):
-        return feature == "HTML" and version == "1.0"
+    features = ( ('HTML', '1.0'),
+                 ('Core', '2.0'),
+                 ('HTML', '2.0'), )
+    
+    #def hasFeature(self, feature, version):
+    #    return feature == "HTML" and version == "1.0"
+
+    @staticmethod
+    def hasFeature(feature, version):
+        return (feature, version) in DOMImplementation.features
         
     TAGS = {
         "html"      : HTMLHtmlElement,
@@ -1286,7 +1424,7 @@ TEST_HTML = """
         }
         function unload()
         {
-            alsert("unload");
+            alert("unload");
         }
         //]]>
         </script>         
@@ -1317,6 +1455,10 @@ class DocumentTest(unittest.TestCase):
         self.assertEquals(Node.ELEMENT_NODE, html.nodeType)
         self.assertEquals("HTML", html.nodeName)
         self.failIf(html.nodeValue)
+
+        self.assertEquals(True, html.isSupported("HTML", "1.0"))
+        self.assertEquals(True, html.isSupported("HTML", "2.0"))
+        self.assertEquals(False, html.isSupported("HTML", "3.0"))
         
         attr = html.getAttributeNode("xmlns")
         
@@ -1438,7 +1580,11 @@ class DocumentTest(unittest.TestCase):
         body = html.getElementsByTagName("body").item(0)
         
         self.assert_(body)
-        
+        self.assertEquals(True, body.hasAttributes())
+        self.assertEquals(True, body.hasAttribute("onload"))
+        self.assertEquals(True, body.hasAttribute("onunload"))
+        self.assertEquals(False, body.hasAttribute("onmouseover"))
+
         onload = body.getAttributeNode("onload")
         onunload = body.getAttributeNode("onunload")
         
@@ -1505,6 +1651,7 @@ class DocumentTest(unittest.TestCase):
         self.assertEquals("world", old.value)
         self.failIf(old.parent)
 
+
 class HTMLDocumentTest(unittest.TestCase):
     def setUp(self):
         self.doc = parseString(TEST_HTML)
@@ -1568,7 +1715,8 @@ class HTMLDocumentTest(unittest.TestCase):
         doc.write("<meta/>")
 
         self.assertEquals("<head><title>Hello World</title><meta /></head>", str(doc.getElementsByTagName('head')[0]))
-        
+
+
 class CSSStyleDeclarationTest(unittest.TestCase):
     def testParse(self):
         style = 'width: "auto"; border: "none"; font-family: "serif"; background: "red"'
@@ -1590,6 +1738,7 @@ class CSSStyleDeclarationTest(unittest.TestCase):
         self.assertEquals('none', css.getPropertyValue('width'))
         self.assertEquals('none', css.item(0))
         self.assertEquals('none', css.width)
+
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG if "-v" in sys.argv else logging.WARN,
