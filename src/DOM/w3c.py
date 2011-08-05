@@ -1115,26 +1115,26 @@ class HTMLButtonElement(HTMLElement):
     
 
 class HTMLUListElement(HTMLElement):
-    compact         = False
+    compact         = attr_property("compact", bool)
     type            = attr_property("type")
 
 
 class HTMLOListElement(HTMLElement):
-    compact         = False
+    compact         = attr_property("compact", bool)
     start           = attr_property("start", long)
     type            = attr_property("type")
 
 
 class HTMLDListElement(HTMLElement):
-    compact         = False
+    compact         = attr_property("compact", bool)
 
 
 class HTMLDirectoryElement(HTMLElement):
-    compact         = False
+    compact         = attr_property("compact", bool)
 
 
 class HTMLMenuElement(HTMLElement):
-    compact         = False
+    compact         = attr_property("compact", bool)
 
 
 class HTMLLIElement(HTMLElement):
@@ -1175,7 +1175,7 @@ class HTMLObjectElement(HTMLElement):
     codeBase        = attr_property("codebase")
     codeType        = attr_property("codetype")
     data            = attr_property("data")
-    declare         = False
+    declare         = attr_property("declare", bool)
     height          = attr_property("height")
     hspace          = attr_property("hspace", long)
     name            = attr_property("name")
@@ -1186,6 +1186,10 @@ class HTMLObjectElement(HTMLElement):
     vspace          = attr_property("vspace", long)
     width           = attr_property("width")
 
+    # Introduced in DOM Level 2
+    @property
+    def contentDocument(self):
+        return self.doc if self.doc else Non
 
 class HTMLParamElement(HTMLElement):
     name            = attr_property("name")
