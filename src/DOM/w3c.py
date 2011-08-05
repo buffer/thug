@@ -1185,6 +1185,32 @@ class HTMLHRElement(HTMLElement):
     width           = attr_property("width")
 
 
+class HTMLModElement(HTMLElement):
+    cite            = attr_property("cite")
+    dateTime        = attr_property("datetime")
+
+
+class HTMLAnchorElement(HTMLElement):
+    accessKey       = attr_property("accesskey")
+    charset         = attr_property("charset")
+    coords          = attr_property("coords")
+    href            = attr_property("href")
+    hreflang        = attr_property("hreflang")
+    name            = attr_property("name")
+    rel             = attr_property("rel")
+    rev             = attr_property("rev")
+    shape           = attr_property("shape")
+    tabIndex        = attr_property("tabindex", long)
+    target          = attr_property("target")
+    type            = attr_property("type")
+
+    def blur(self):
+        pass
+
+    def focus(self):
+        pass
+
+
 class HTMLImageElement(HTMLElement):
     align           = attr_property("align")
     alt             = attr_property("alt")
@@ -1527,6 +1553,9 @@ class DOMImplementation(HTMLDocument):
         "basefont"      : HTMLBaseFontElement,
         "font"          : HTMLFontElement,
         "hr"            : HTMLHRElement,
+        "ins"           : HTMLModElement,
+        "del"           : HTMLModElement,
+        "a"             : HTMLAnchorElement,
         "object"        : HTMLObjectElement,
         "param"         : HTMLParamElement,
         "img"           : HTMLImageElement,
