@@ -763,7 +763,7 @@ class Document(Node):
         return None
 
 
-def attr_property(name, attrtype=str, readonly=False, default=None):
+def attr_property(name, attrtype = str, readonly = False, default = None):
     def getter(self):
         return attrtype(self.tag[name]) if self.tag.has_key(name) else default
         
@@ -790,7 +790,7 @@ def text_property(readonly = False):
 
 class HTMLCollection(PyV8.JSClass):
     def __init__(self, doc, nodes):
-        self.doc = doc
+        self.doc   = doc
         self.nodes = nodes
         
     def __len__(self):
@@ -817,6 +817,12 @@ class HTMLCollection(PyV8.JSClass):
                 return DOMImplementation.createHTMLElement(self.doc, node) if node else None
             
         return None
+
+
+# Introduced in DOM Level 2
+class HTMLOptionsCollection(HTMLCollection):
+    def __init__(self, doc, nodes):
+        HTMLCollection.__init__(self, doc, nodes) 
 
 
 class CSSStyleDeclaration(object):
@@ -892,8 +898,7 @@ class HTMLHeadElement(HTMLElement):
 
 
 class HTMLLinkElement(HTMLElement):
-    disabled = False
-    
+    disabled        = False
     charset         = attr_property("charset")
     href            = attr_property("href")
     hreflang        = attr_property("hreflang")
@@ -926,8 +931,7 @@ class HTMLIsIndexElement(HTMLElement):
 
 
 class HTMLStyleElement(HTMLElement):
-    disabled = False
-
+    disabled        = False
     media           = attr_property("media")
     type            = attr_property("type")
 
@@ -951,10 +955,10 @@ class HTMLFormElement(HTMLElement):
         raise NotImplementedError()
     
     name            = attr_property("name")
-    acceptCharset   = attr_property("accept-charset", default="UNKNOWN")
+    acceptCharset   = attr_property("accept-charset", default = "UNKNOWN")
     action          = attr_property("action")
-    enctype         = attr_property("enctype", default="application/x-www-form-urlencoded")
-    method          = attr_property("method", default="get")
+    enctype         = attr_property("enctype", default = "application/x-www-form-urlencoded")
+    method          = attr_property("method", default = "get")
     target          = attr_property("target")
     
     def submit(self):
@@ -1036,13 +1040,13 @@ class HTMLInputElement(HTMLElement):
     alt             = attr_property("alt")
     checked         = attr_property("checked", bool)
     disabled        = attr_property("disabled", bool)
-    maxLength       = attr_property("maxlength", long, default=sys.maxint)
+    maxLength       = attr_property("maxlength", long, default = sys.maxint)
     name            = attr_property("name")
     readOnly        = attr_property("readonly", bool)
     size            = attr_property("size")
     src             = attr_property("src")
     tabIndex        = attr_property("tabindex", long)
-    type            = attr_property("type", readonly=True, default="text")
+    type            = attr_property("type", readonly = True, default = "text")
     useMap          = attr_property("usermap")
     
     @abstractmethod
@@ -1069,7 +1073,7 @@ class HTMLInputElement(HTMLElement):
     
 
 class HTMLTextAreaElement(HTMLElement):
-    defaultValue = None
+    defaultValue    = None
     
     @property
     def form(self):
@@ -1262,24 +1266,22 @@ def xpath_property(xpath, readonly = False):
 class HTMLDocument(Document):
     title       = xpath_property("/html/head/title/text()")
     body        = xpath_property("/html/body[1]")
-    images      = xpath_property("//img", readonly=True)
-    applets     = xpath_property("//applet", readonly=True)
-    forms       = xpath_property("//form", readonly=True)
-    links       = xpath_property("//a[@href]", readonly=True)
-    anchors     = xpath_property("//a[@name]", readonly=True)
+    images      = xpath_property("//img", readonly = True)
+    applets     = xpath_property("//applet", readonly = True)
+    forms       = xpath_property("//form", readonly = True)
+    links       = xpath_property("//a[@href]", readonly = True)
+    anchors     = xpath_property("//a[@name]", readonly = True)
     innerHTML   = text_property()
 
-    def __init__(self, doc, win=None, referer=None, lastModified=None, cookie=''):
+    def __init__(self, doc, win = None, referer = None, lastModified = None, cookie = ''):
         Document.__init__(self, doc)
 
-        self._win = win
-        self._referer = referer
-        self._lastModified = lastModified
-        self._cookie = cookie
-
-        self._html = None
-
-        self.current = None
+        self._win           = win
+        self._referer       = referer
+        self._lastModified  = lastModified
+        self._cookie        = cookie
+        self._html          = None
+        self.current        = None
 
     @property
     def window(self):
