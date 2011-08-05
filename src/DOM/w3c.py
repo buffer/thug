@@ -1158,6 +1158,14 @@ class HTMLQuoteElement(HTMLElement):
     cite            = attr_property("cite")
 
 
+class HTMLPreElement(HTMLElement):
+    width           = attr_property("width", long)
+
+
+class HTMLBRElement(HTMLElement):
+    clear           = attr_property("clear")
+
+
 class HTMLImageElement(HTMLElement):
     align           = attr_property("align")
     alt             = attr_property("alt")
@@ -1495,6 +1503,8 @@ class DOMImplementation(HTMLDocument):
         "h6"            : HTMLHeadingElement,
         "q"             : HTMLQuoteElement,
         "blockquote"    : HTMLQuoteElement,
+        "pre"           : HTMLPreElement,
+        "br"            : HTMLBRElement,
         "object"        : HTMLObjectElement,
         "param"         : HTMLParamElement,
         "img"           : HTMLImageElement,
