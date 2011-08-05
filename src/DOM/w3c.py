@@ -982,7 +982,7 @@ class HTMLSelectElement(HTMLElement):
         raise NotImplementedError()
         
     selectedIndex = 0
-    value = None
+    value         = None
     
     @property
     def length(self):
@@ -1026,8 +1026,8 @@ class HTMLOptionElement(HTMLElement):
         raise NotImplementedError()
         
     defaultSelected = attr_property("selected", bool)    
-    text            = text_property(readonly=True)    
-    index           = attr_property("index", long)
+    text            = text_property(readonly = True)    
+    index           = attr_property("index", long, readonly = True)
     disabled        = attr_property("disabled", bool)    
     label           = attr_property("label")
     selected        = False
@@ -1036,7 +1036,7 @@ class HTMLOptionElement(HTMLElement):
 
 class HTMLInputElement(HTMLElement):    
     defaultValue    = attr_property("value")
-    defaultChecked  = attr_property("checked")
+    defaultChecked  = attr_property("checked", bool)
     
     @property
     def form(self):
@@ -1051,10 +1051,10 @@ class HTMLInputElement(HTMLElement):
     maxLength       = attr_property("maxlength", long, default = sys.maxint)
     name            = attr_property("name")
     readOnly        = attr_property("readonly", bool)
-    size            = attr_property("size")
+    size            = attr_property("size", long)
     src             = attr_property("src")
     tabIndex        = attr_property("tabindex", long)
-    type            = attr_property("type", readonly = True, default = "text")
+    type            = attr_property("type", default = "text")
     useMap          = attr_property("usermap")
     
     @abstractmethod
@@ -1121,10 +1121,10 @@ class HTMLAppletElement(HTMLElement):
     code            = attr_property("code")
     codeBase        = attr_property("codebase")
     height          = attr_property("height")
-    hspace          = attr_property("hspace")
+    hspace          = attr_property("hspace", long)
     name            = attr_property("name")
     object          = attr_property("object")
-    vspace          = attr_property("vspace")
+    vspace          = attr_property("vspace", long)
     width           = attr_property("width")
     
 
@@ -1132,16 +1132,17 @@ class HTMLImageElement(HTMLElement):
     align           = attr_property("align")
     alt             = attr_property("alt")
     border          = attr_property("border")
-    height          = attr_property("height")
-    hspace          = attr_property("hspace")
-    isMap           = attr_property("ismap")
+    height          = attr_property("height", long)
+    hspace          = attr_property("hspace", long)
+    isMap           = attr_property("ismap", bool)
     longDesc        = attr_property("longdesc")
-    lowSrc          = attr_property("lowsrc")
+    # Removed in DOM Level 2
+    #lowSrc          = attr_property("lowsrc")
     name            = attr_property("name")
     src             = attr_property("src")
     useMap          = attr_property("usemap")
-    vspace          = attr_property("vspace")
-    width           = attr_property("width")
+    vspace          = attr_property("vspace", long)
+    width           = attr_property("width", long)
     
 
 class HTMLScriptElement(HTMLElement):
@@ -1169,6 +1170,11 @@ class HTMLFrameElement(HTMLElement):
     scrolling       = attr_property("scrolling")
     src             = attr_property("src")
 
+    # Introduced in DOM Level 2
+    @property
+    def contentDocument(self):
+        return self.doc if self.doc else None
+
 
 class HTMLIFrameElement(HTMLElement):
     align           = attr_property("align")
@@ -1181,6 +1187,11 @@ class HTMLIFrameElement(HTMLElement):
     scrolling       = attr_property("scrolling")
     src             = attr_property("src")
     width           = attr_property("width")
+
+    # Introduced in DOM Level 2
+    @property
+    def contentDocument(self):
+        return self.doc if self.doc else None
 
 
 def xpath_property(xpath, readonly = False):
@@ -1319,7 +1330,7 @@ class HTMLDocument(Document):
     def URL(self):
         return self._win.url if self._win else ''
 
-    def open(self, mimetype='text/html', replace=False):
+    def open(self, mimetype = 'text/html', replace = False):
         self._html = StringIO()
 
         return self
@@ -1355,7 +1366,7 @@ class HTMLDocument(Document):
     #    return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None
 
     def getElementsByName(self, elementName):
-        tags = self.doc.findAll(attrs={'name': elementName})
+        tags = self.doc.findAll(attrs = {'name': elementName})
         
         return HTMLCollection(self.doc, tags)
 
