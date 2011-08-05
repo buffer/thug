@@ -1146,6 +1146,14 @@ class HTMLDivElement(HTMLElement):
     align           = attr_property("align")
 
 
+class HTMLParagraphElement(HTMLElement):
+    align           = attr_property("align")
+
+
+class HTMLHeadingElement(HTMLElement):
+    align           = attr_property("align")
+
+
 class HTMLImageElement(HTMLElement):
     align           = attr_property("align")
     alt             = attr_property("alt")
@@ -1474,6 +1482,13 @@ class DOMImplementation(HTMLDocument):
         "menu"      : HTMLMenuElement,
         "li"        : HTMLLIElement,
         "div"       : HTMLDivElement,
+        "p"         : HTMLParagraphElement,
+        "h1"        : HTMLHeadingElement,
+        "h2"        : HTMLHeadingElement,
+        "h3"        : HTMLHeadingElement,
+        "h4"        : HTMLHeadingElement,
+        "h5"        : HTMLHeadingElement,
+        "h6"        : HTMLHeadingElement,
         "object"    : HTMLObjectElement,
         "param"     : HTMLParamElement,
         "img"       : HTMLImageElement,
