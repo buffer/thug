@@ -1166,6 +1166,25 @@ class HTMLBRElement(HTMLElement):
     clear           = attr_property("clear")
 
 
+class HTMLBaseFontElement(HTMLElement):
+    color           = attr_property("color")
+    face            = attr_property("face")
+    size            = attr_property("size", long)
+
+
+class HTMLFontElement(HTMLElement):
+    color           = attr_property("color")
+    face            = attr_property("face")
+    size            = attr_property("size")
+    
+
+class HTMLHRElement(HTMLElement):
+    align           = attr_property("align")
+    noShade         = attr_property("noshade", bool)
+    size            = attr_property("size")
+    width           = attr_property("width")
+
+
 class HTMLImageElement(HTMLElement):
     align           = attr_property("align")
     alt             = attr_property("alt")
@@ -1505,6 +1524,9 @@ class DOMImplementation(HTMLDocument):
         "blockquote"    : HTMLQuoteElement,
         "pre"           : HTMLPreElement,
         "br"            : HTMLBRElement,
+        "basefont"      : HTMLBaseFontElement,
+        "font"          : HTMLFontElement,
+        "hr"            : HTMLHRElement,
         "object"        : HTMLObjectElement,
         "param"         : HTMLParamElement,
         "img"           : HTMLImageElement,
