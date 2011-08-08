@@ -1114,6 +1114,30 @@ class HTMLButtonElement(HTMLElement):
     value           = attr_property("value")
     
 
+class HTMLLabelElement(HTMLElement):
+    @property
+    def form(self):
+        pass
+
+    accessKey       = attr_property("accesskey")
+    htmlFor         = attr_property("for")
+
+
+class HTMLFieldSetElement(HTMLElement):
+    @property
+    def form(self):
+        pass
+
+
+class HTMLLegendElement(HTMLElement):
+    @property
+    def form(self):
+        pass
+
+    accessKey       = attr_property("accesskey")
+    align           = attr_property("align")
+
+
 class HTMLUListElement(HTMLElement):
     compact         = attr_property("compact", bool)
     type            = attr_property("type")
@@ -1532,6 +1556,9 @@ class DOMImplementation(HTMLDocument):
         "input"         : HTMLInputElement,
         "textarea"      : HTMLTextAreaElement,
         "button"        : HTMLButtonElement,
+        "label"         : HTMLLabelElement,
+        "fieldset"      : HTMLFieldSetElement,
+        "legend"        : HTMLLegendElement,
         "ul"            : HTMLUListElement,
         "ol"            : HTMLOListElement,
         "dl"            : HTMLDListElement,
