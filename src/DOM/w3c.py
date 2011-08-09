@@ -1316,6 +1316,135 @@ class HTMLFrameSetElement(HTMLElement):
     rows            = attr_property("rows")
 
 
+class HTMLTableElement(HTMLElement):
+    @property
+    def caption(self):
+        raise NotImplementedError()
+
+    @property
+    def tHead(self):
+        raise NotImplementedError()
+
+    @property
+    def tFoot(self):
+        raise NotImplementedError()
+
+    @property
+    def rows(self):
+        raise NotImplementedError()
+
+    @property
+    def tBodies(self):
+        raise NotImplementedError()
+
+    align           = attr_property("align")
+    bgColor         = attr_property("bgcolor")
+    border          = attr_property("border")
+    cellPadding     = attr_property("cellpadding")
+    cellSpacing     = attr_property("cellspacing")
+    frame           = attr_property("frame")
+    rules           = attr_property("rules")
+    summary         = attr_property("summary")
+    width           = attr_property("width")
+
+    def createTHead():
+        pass
+
+    def deleteTHead():
+        pass
+
+    def createTFoot():
+        pass
+
+    def deleteTFoot():
+        pass
+
+    def createCaption():
+        pass
+
+    def deleteCaption():
+        pass
+
+    # Modified in DOM Level 2
+    def insertRow(self, index):
+        pass
+
+
+class HTMLTableCaptionElement(HTMLElement):
+    align           = attr_property("align")
+
+
+class HTMLTableSectionElement(HTMLElement):
+    align           = attr_property("align")
+    ch              = attr_property("char")
+    chOff           = attr_property("charoff")
+    vAlign          = attr_property("valign")
+
+    @property
+    def rows(self):
+        raise NotImplementedError()
+
+    # Modified in DOM Level 2
+    def insertRow(self, index):
+        pass
+
+    # Modified in DOM Level 2
+    def deleteRow(self, index):
+        pass
+
+
+class HTMLTableRowElement(HTMLElement):
+    # Modified in DOM Level 2
+    @property
+    def rowIndex(self):
+        raise NotImplementedError()
+
+    # Modified in DOM Level 2
+    @property
+    def sectionRowIndex(self):
+        raise NotImplementedError()
+
+    # Modified in DOM Level 2
+    @property
+    def cells(self):
+        raise NotImplementedError()
+
+    align           = attr_property("align")
+    bgColor         = attr_property("bgcolor")
+    ch              = attr_property("char")
+    chOff           = attr_property("charoff")
+    vAlign          = attr_property("valign")
+
+    # Modified in DOM Level 2
+    def insertCell(self, index):
+        pass
+
+    # Modified in DOM Level 2
+    def deleteCell(self, index):
+        pass
+
+
+class HTMLTableCellElement(HTMLElement):
+    @property
+    def cellIndex(self):
+        raise NotImplementedError()
+
+    abbr            = attr_property("abbr")
+    align           = attr_property("align")
+    axis            = attr_property("axis")
+    bgColor         = attr_property("bgcolor")
+    ch              = attr_property("char")
+    chOff           = attr_property("charoff")
+    colSpan         = attr_property("colspan", long)
+    headers         = attr_property("headers")
+    height          = attr_property("height")
+    noWrap          = attr_property("nowrap", bool)
+    rowSpan         = attr_property("rowspan", long)
+    scope           = attr_property("scope")
+    vAlign          = attr_property("valign")
+    width           = attr_property("width")
+
+
 class HTMLFrameElement(HTMLElement):
     frameBorder     = attr_property("frameborder")
     longDesc        = attr_property("longdesc")
