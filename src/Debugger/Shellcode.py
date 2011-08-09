@@ -62,10 +62,12 @@ class Shellcode:
         return sc
 
     def run(self):
+        result = None
+
         with Debugger() as dbg:
             vars = self.ctxt.locals
             #dbg.debugBreak()
-            self.ctxt.eval(self.script)
+            result = self.ctxt.eval(self.script)
 
             for name in self.ast.names:
                 s      = None
@@ -99,4 +101,5 @@ class Shellcode:
                 
                 if not libemu:
                     self.search_url(sc)
-
+            
+        return result

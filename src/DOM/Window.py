@@ -609,7 +609,7 @@ class Window(PyV8.JSClass):
             self.removeEventListener = self._removeEventListener
 
     def eval(self, script):
-        self.evalScript(script)
+        return self.evalScript(script)
 
     @property
     def context(self):
@@ -625,7 +625,12 @@ class Window(PyV8.JSClass):
         if tag:
             self.doc.current = tag
         else:
-            body = self.doc.body
+            try:
+                body = self.doc.body
+            except:
+                # This code is for when you are desperate :)
+                body = self.doc.getElementsByTagName('body')[0]
+
             if body:
                 self.doc.current = body.tag.contents[-1]
             else:
@@ -633,12 +638,13 @@ class Window(PyV8.JSClass):
 
         ast = AST(script)
         with self.context as ctxt:
-            #ctxt.eval(script)
             # FIXME
             ctxt.eval('window.unescape = unescape;') 
             ctxt.eval('window.Array = Array;')
             shellcode = Shellcode.Shellcode(ctxt, ast, script)
-            shellcode.run()
+            result = shellcode.run()
+
+        return result
 
     def fireOnloadEvents(self):
         #for tag in self._findAll('script'):
