@@ -18,8 +18,8 @@
 
 import sys
 import getopt
-from DOM import w3c, Window, DFT
-
+from DOM.W3C import w3c
+from DOM import Window, DFT
 
 class Thug:
     def __init__(self, args):
@@ -66,7 +66,6 @@ Synopsis:
         doc    = w3c.parseString('')
         window = Window.Window('about:blank', doc)
         window = window.open(url)
-        #print window.document
         self.run(window)
 
     def analyze(self):
@@ -80,7 +79,7 @@ Synopsis:
                 'verbose',
                 'debug', 
                 ])
-        except getopt.GetoptError, exp:
+        except getopt.GetoptError:
             self.usage()
 
         if not options and not args:

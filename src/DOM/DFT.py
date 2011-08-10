@@ -17,7 +17,7 @@
 # MA  02111-1307  USA
 
 import os
-import w3c
+import W3C.w3c as w3c
 import hashlib
 import logging
 import Window
@@ -63,16 +63,17 @@ class DFT(object):
     def handle_onload(self):
         try:
             body = self.window.doc.body
-            if body and body.tag.has_key('onload'):
-                self.window.evalScript(self.fix(body.tag['onload']), tag = body.tag.contents[-1])
         except:
-            pass
+            body = self.window.doc.getElementsByTagName('body')[0]
+
+        if body and body.tag.has_key('onload'):
+            self.window.evalScript(self.fix(body.tag['onload']), tag = body.tag.contents[-1])
 
         if hasattr(self.window, 'onload'):
             self.window.evalScript(self.fix(self.window.onload))
 
     def handle_onclick(self):
-        inputs = self.window._findAll('input')
+        inputs = self.window._findAll(('input', 'a'))
         for input in inputs:
             for k, v in input.attrs:
                 if k in ('onclick', ):
@@ -163,7 +164,11 @@ class DFT(object):
         if not archive:
             return
 
-        response, content = self.window._navigator.fetch(archive)
+        try:
+            response, content = self.window._navigator.fetch(archive)
+        except:
+            return
+
         self.log.warning('Saving applet %s' % (archive, ))
         with open(archive, 'wb') as fd:
             fd.write(content)
@@ -219,17 +224,26 @@ class DFT(object):
     def handle_iframe(self, iframe):
         self.handle_frame(iframe)
 
+    def handle_body(self, body):
+        pass
+
     def run(self):
-        self.log.warning(self.window.doc)
+        self.log.debug(self.window.doc)
 
         soup = self.window.doc.doc
 
+        # Dirty hack
+        for p in soup.findAll('object'):
+            self.handle_object(p)
+
         for child in soup.recursiveChildGenerator():
             name = getattr(child, "name", None)
-            if name is not None:
-                handler = getattr(self, "handle_%s" % (name, ), None)
-                if handler: 
-                    handler(child)
+            if name is None or name in ('object', ):
+                continue
+
+            handler = getattr(self, "handle_%s" % (name, ), None)
+            if handler:
+                handler(child)
 
         self.handle_onload()
         self.handle_onclick()

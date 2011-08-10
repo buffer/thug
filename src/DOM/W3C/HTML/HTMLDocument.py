@@ -1,0 +1,107 @@
+#!/usr/bin/env python
+from __future__ import with_statement
+
+import sys, re, string
+
+from urlparse import urlparse
+
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from StringIO import StringIO
+
+import BeautifulSoup
+import PyV8
+
+from Document import Document
+from .HTMLCollection import HTMLCollection
+from .text_property import text_property
+from .xpath_property import xpath_property
+
+class HTMLDocument(Document):
+    title       = xpath_property("/html/head/title/text()")
+    body        = xpath_property("/html/body[1]")
+    images      = xpath_property("//img", readonly = True)
+    applets     = xpath_property("//applet", readonly = True)
+    forms       = xpath_property("//form", readonly = True)
+    links       = xpath_property("//a[@href]", readonly = True)
+    anchors     = xpath_property("//a[@name]", readonly = True)
+    innerHTML   = text_property()
+
+    def __init__(self, doc, win = None, referer = None, lastModified = None, cookie = ''):
+        Document.__init__(self, doc)
+
+        self._win           = win
+        self._referer       = referer
+        self._lastModified  = lastModified
+        self._cookie        = cookie
+        self._html          = None
+        self.current        = None
+
+    @property
+    def window(self):
+        return self._win
+
+    @window.setter
+    def window(self, win):
+        self._win = win
+
+    @property
+    def referrer(self):
+        return self._referer
+
+    @property
+    def lastModified(self):
+        return self._lastModified
+
+    @property
+    def cookie(self):
+        return self._cookie
+        
+    @property
+    def domain(self):
+        return urlparse(self._win.url).hostname if self._win else ''
+        
+    @property
+    def URL(self):
+        return self._win.url if self._win else ''
+
+    def open(self, mimetype = 'text/html', replace = False):
+        self._html = StringIO()
+
+        return self
+    
+    def close(self):
+        html = self._html.getvalue()
+        self._html.close()
+        self._html = None
+
+        self.doc = BeautifulSoup.BeautifulSoup(html)
+
+    def write(self, html):
+        if self._html:
+            self._html.write(html)
+        else:
+            tag = self.current
+            parent = tag.parent
+            pos = parent.contents.index(tag) + 1
+
+            for tag in BeautifulSoup.BeautifulSoup(html).contents:
+                parent.insert(pos, tag)
+
+                pos += 1
+
+    def writeln(self, text):
+        self.write(text + "\n")
+   
+    # DOM Level 2 moves getElementbyId in Document object inherited by 
+    # HTMLDocument
+    #
+    #def getElementById(self, elementId):
+    #    tag = self.doc.find(id = elementId)
+    #    return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None
+
+    def getElementsByName(self, elementName):
+        tags = self.doc.findAll(attrs = {'name': elementName})
+        
+        return HTMLCollection(self.doc, tags)

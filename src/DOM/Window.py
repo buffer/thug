@@ -21,7 +21,7 @@ import time
 import logging
 import PyV8 
 import BeautifulSoup
-import w3c
+import W3C.w3c as w3c
 
 from Personality import Personality
 from Navigator import Navigator
@@ -545,7 +545,7 @@ class Window(PyV8.JSClass):
 
         ID is the interval ID.
         """
-        timer = Window.Timer(self, f, delay, True, lang)
+        timer = Window.Timer(self, str(f), delay, True, lang)
         self.timers.append(timer)
         timer.start()
 
@@ -568,7 +568,7 @@ class Window(PyV8.JSClass):
 
         ID is the interval ID.
         """
-        timer = Window.Timer(self, f, delay, False, lang)
+        timer = Window.Timer(self, str(f), delay, False, lang)
         self.timers.append(timer)
         timer.start()
 

@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+from __future__ import with_statement
+
+from DOMException import DOMException
+from Node import Node
+
+
+class Entity(Node):
+    @property
+    def publicId(self):
+        pass
+
+    @property
+    def systemId(self):
+        pass
+
+    @property
+    def notationName(self):
+        pass
+
+    @property
+    def nodeName(self):
+        pass
+
