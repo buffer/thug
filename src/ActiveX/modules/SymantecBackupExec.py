@@ -27,7 +27,11 @@ def Set_MonthText11(val):
     if len(val) > 255:
         acct.add_alert('SymantecBackupExec overflow with property _MonthText11')
 
+def Save(a, b):
+    return
+
 Attr2Fun['_DOWText0']    = Set_DOWText0
 Attr2Fun['_DOWtext6']    = Set_DOWText6
 Attr2Fun['_MonthText0']  = Set_MonthText0
 Attr2Fun['_MonthText11'] = Set_MonthText11
+self.Save                = Save

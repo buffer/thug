@@ -21,6 +21,10 @@ def SetMail_MailDbPath(val):
     if len(val) > 1024:
         acct.add_alert('Domino overflow with Mail_MailDbPath property')
 
+def InstallBrowserHelperDll():
+    pass
+
 Attr2Fun['General_ServerName']   = SetGeneral_ServerName
 Attr2Fun['General_JunctionName'] = SetGeneral_JunctionName
 Attr2Fun['Mail_MailDbPath']      = SetMail_MailDbPath
+self.InstallBrowserHelperDll     = InstallBrowserHelperDll
