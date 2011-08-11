@@ -5,7 +5,7 @@ import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from Element import Element
-from ElementCSSInlineStyle import ElementCSSInlineStyle
+from Style.ElementCSSInlineStyle import ElementCSSInlineStyle
 from attr_property import attr_property
 from text_property import text_property
 
