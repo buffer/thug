@@ -48,7 +48,6 @@ class Element(Node):
     @property
     def attributes(self):
         from NamedNodeMap import NamedNodeMap
-
         return NamedNodeMap(self)    
     
     @property

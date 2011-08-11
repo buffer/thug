@@ -14,11 +14,19 @@ class Text(CharacterData):
     def splitText(self, offset):
         raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
 
-    @property
-    def nodeValue(self):
+    def getNodeValue(self):
         return self.data
+
+    def setNodeValue(self, data):
+        self.data = data
+
+    nodeValue = property(getNodeValue, setNodeValue)
 
     @property
     def nodeName(self):
         return "#text"
+
+    @property
+    def nodeType(self):
+        return Node.TEXT_NODE
 

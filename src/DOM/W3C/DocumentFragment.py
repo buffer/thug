@@ -15,3 +15,11 @@ class DocumentFragment(Node):
     def nodeName(self):
         return "#document-fragment"
 
+    @property
+    def nodeType(self):
+        return Node.DOCUMENT_FRAGMENT_NODE
+
+    @property
+    def nodeValue(self):
+        return None
+

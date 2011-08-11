@@ -12,6 +12,14 @@ class EntityReference(Node):
 
         self.name = name
 
+    @property
     def nodeName(self):
         return self.name
 
+    @property
+    def nodeType(self):
+        return Node.ENTITY_REFERENCE_NODE
+
+    @property
+    def nodeValue(self):
+        return None

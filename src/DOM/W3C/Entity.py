@@ -22,3 +22,11 @@ class Entity(Node):
     def nodeName(self):
         pass
 
+    @property
+    def nodeType(self):
+        return Node.ENTITY_NODE
+
+    @property
+    def nodeValue(self):
+        return None
+

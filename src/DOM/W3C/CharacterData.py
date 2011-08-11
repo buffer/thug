@@ -10,7 +10,6 @@ from Node import Node
 class CharacterData(Node):
     def __init__(self, doc, tag):
         Node.__init__(self, doc)
-
         self.tag = tag
 
     def __str__(self):

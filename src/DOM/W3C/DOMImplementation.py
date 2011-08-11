@@ -56,16 +56,21 @@ from HTML.HTMLIFrameElement import HTMLIFrameElement
 from HTML.HTMLDocument import HTMLDocument
 
 class DOMImplementation(HTMLDocument):
-    features = ( ('HTML', '1.0'),
-                 ('Core', '2.0'),
-                 ('HTML', '2.0'), )
+    features = ( ('core', '1.0'),
+                 ('core', '2.0'),
+                 ('core', None),
+                 ('html', '1.0'),
+                 ('html', '2.0'), 
+                 ('html', None),)
     
     #def hasFeature(self, feature, version):
     #    return feature == "HTML" and version == "1.0"
 
     @staticmethod
     def hasFeature(feature, version):
-        return (feature, version) in DOMImplementation.features
+        if version == "":
+            version = None
+        return (feature.lower(), version) in DOMImplementation.features
         
     TAGS = {
         "html"          : HTMLHtmlElement,

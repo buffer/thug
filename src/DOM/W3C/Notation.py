@@ -17,3 +17,11 @@ class Notation(Node):
     def nodeName(self):
         pass
 
+    @property
+    def nodeType(self):
+        return Node.NOTATION_NODE
+
+    @property
+    def nodeValue(self):
+        return None
+

@@ -14,3 +14,7 @@ class CDATASection(Text):
     def nodeName(self):
         return "#cdata-section"
 
+    @property
+    def nodeType(self):
+        return Node.CDATA_SECTION_NODE
+

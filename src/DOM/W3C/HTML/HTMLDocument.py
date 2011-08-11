@@ -54,9 +54,13 @@ class HTMLDocument(Document):
     def lastModified(self):
         return self._lastModified
 
-    @property
-    def cookie(self):
+    def getCookie(self):
         return self._cookie
+
+    def setCookie(self, value):
+        self._cookie = value
+
+    cookie = property(getCookie, setCookie)
         
     @property
     def domain(self):

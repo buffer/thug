@@ -28,6 +28,14 @@ class DocumentType(Node):
     @property
     def nodeName(self):
         return self._name
+
+    @property
+    def nodeType(self):
+        return Node.DOCUMENT_TYPE_NODE
+
+    @property
+    def nodeValue(self):
+        return None
     
     @property
     def entities(self):

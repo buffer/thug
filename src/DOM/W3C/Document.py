@@ -23,7 +23,7 @@ from Comment import Comment
 from CDATASection import CDATASection
 from Attr import Attr
 from EntityReference import EntityReference
-
+from ProcessingInstruction import ProcessingInstruction
 
 class Document(Node):
     def __str__(self):
