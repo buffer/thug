@@ -67,7 +67,7 @@ class DFT(object):
             body = self.window.doc.getElementsByTagName('body')[0]
 
         if body and body.tag.has_key('onload'):
-            self.window.evalScript(self.fix(body.tag['onload']), tag = body.tag.contents[-1])
+            self.window.evalScript(self.fix(body.tag['onload']), tag = 'body')
 
         if hasattr(self.window, 'onload'):
             self.window.evalScript(self.fix(self.window.onload))
@@ -109,7 +109,7 @@ class DFT(object):
                 return
 
             response, js = self.window._navigator.fetch(src)
-            script.setString(js)
+            script.string = js
 
         self.window.evalScript(script.string, tag = script)
 
