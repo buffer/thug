@@ -16,6 +16,8 @@ Requirements
 	http://libemu.carnivore.it/
 - Pylibemu
 	https://github.com/buffer/pylibemu
+- Chardet
+	http://chardet.feedparser.org/
 
 
 Installation
