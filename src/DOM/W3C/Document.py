@@ -24,8 +24,10 @@ from CDATASection import CDATASection
 from Attr import Attr
 from EntityReference import EntityReference
 from ProcessingInstruction import ProcessingInstruction
+from Events.DocumentEvent import DocumentEvent
 
-class Document(Node):
+
+class Document(Node, DocumentEvent):
     def __str__(self):
         return str(self.doc)
 

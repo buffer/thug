@@ -698,7 +698,7 @@ class Window(PyV8.JSClass):
             kwds = {}
         
         dom = BeautifulSoup.BeautifulSoup(html)
-
+        
         for spec in specs.split(','):
             spec = [s.strip() for s in spec.split('=')]
 

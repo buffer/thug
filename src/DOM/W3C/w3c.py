@@ -22,7 +22,8 @@ def parse(file, **kwds):
             return parseString(f.read())
     
     return parseString(file.read(), **kwds)
-    
+
+
 import unittest
 from DOMException import DOMException
 from Node import Node
@@ -107,7 +108,7 @@ class DocumentTest(unittest.TestCase):
         nodes = self.doc.getElementsByTagName("body")
         
         body = nodes.item(0)
-        
+        self.assertRaises(DOMException, self.doc.createEvent, 'foo')
         self.assertEquals("BODY", body.tagName)   
     
     def testDocumentType(self):
