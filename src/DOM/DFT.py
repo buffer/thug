@@ -23,6 +23,7 @@ import logging
 import Window
 from ActiveX.ActiveX import _ActiveXObject
 
+log        = logging.getLogger("Thug.DOM.DFT")
 vbs_parser = True
 
 try:
@@ -33,15 +34,11 @@ except ImportError:
     pass
     
 class DFT(object):
-    log        = logging.getLogger("DFT")
     javascript = ('javascript', )
     vbscript   = ('vbs', 'vbscript', 'visualbasic')
 
-    def __init__(self, window, debug = False):
+    def __init__(self, window):
         self.window = window
-
-        if debug:
-            self.log.setLevel(logging.DEBUG)
     
     def __enter__(self):
         return self
@@ -80,7 +77,7 @@ class DFT(object):
                     self.window.evalScript(self.fix(v))
 
     def handle_object(self, object):
-        self.log.debug(object)
+        log.info(object)
 
         classid = object.get('classid', None)
         id      = object.get('id', None)
@@ -89,19 +86,17 @@ class DFT(object):
             self.window.__dict__[id] = _ActiveXObject(classid, 'id')
 
     def handle_script(self, script):
-        self.log.debug(script)
-
         language = script.get('language', 'javascript').lower()
         handler  = getattr(self, "handle_%s" % (language, ), None)
                 
         if not handler:
-            self.log.warning("Unhandled script language: %s" % (language, ))
+            log.warning("Unhandled script language: %s" % (language, ))
             return
 
         handler(script)
             
     def handle_javascript(self, script):
-        self.log.debug(script)
+        log.info(script)
 
         if not script.string:
             src = script.get('src', None)
@@ -114,14 +109,14 @@ class DFT(object):
         self.window.evalScript(script.string, tag = script)
 
     def handle_vbscript(self, script):
-        self.log.debug(script)
+        log.info(script)
 
         if not vbs_parser:
             self.log.warning("VBScript parsing not enabled (vb2py is needed)")
             return
 
         vbs_py = convertVBtoPython(script.string, container = VBCodeModule())
-        self.log.warning(vbs_py)
+        log.warning(vbs_py)
 
         #pyjs_js = os.path.join(os.path.dirname(__file__), 'py.js')
         #self.window.evalScript(open(pyjs_js, 'r').read())
@@ -137,7 +132,7 @@ class DFT(object):
         self.handle_vbscript(script)
 
     def handle_param(self, param):
-        self.log.debug(param)
+        log.info(param)
 
         name  = param.get('name' , None)
         value = param.get('value', None)
@@ -153,12 +148,12 @@ class DFT(object):
             m.update(content)
             h = m.hexdigest()
 
-            self.log.warning('Saving remote content at %s (MD5: %s)' % (url, h, ))
+            log.info('Saving remote content at %s (MD5: %s)' % (url, h, ))
             with open(h, 'wb') as fd:
                 fd.write(content)
 
     def handle_applet(self, applet):
-        self.log.debug(applet)
+        log.info(applet)
 
         archive = applet.get('archive', None)
         if not archive:
@@ -169,12 +164,13 @@ class DFT(object):
         except:
             return
 
-        self.log.warning('Saving applet %s' % (archive, ))
-        with open(archive, 'wb') as fd:
+        log.info('Saving applet %s' % (archive, ))
+        _log = logging.getLogger("Thug")
+        with open(os.path.join(_log.baseDir, archive.split('/')[-1]), 'wb') as fd:
             fd.write(content)
 
     def handle_meta(self, meta):
-        self.log.debug(meta)
+        log.info(meta)
 
         http_equiv = meta.get('http-equiv', None)
         if not http_equiv or http_equiv != 'refresh':
@@ -204,7 +200,7 @@ class DFT(object):
         self.run()
 
     def handle_frame(self, frame):
-        self.log.warning(frame)
+        log.info(frame)
         
         if not frame.string:
             src = frame.get('src', None)
@@ -213,7 +209,7 @@ class DFT(object):
 
             # FIXME Dirty code should not be allowed :)
             response, content = self.window._navigator.fetch(src)
-            
+
             doc    = w3c.parseString(content)
             window = Window.Window(src, doc)
             window.open(src)
@@ -228,10 +224,9 @@ class DFT(object):
         pass
 
     def run(self):
-        self.log.debug(self.window.doc)
+        log.info(self.window.doc)
 
         soup = self.window.doc.doc
-
         # Dirty hack
         for p in soup.findAll('object'):
             self.handle_object(p)
