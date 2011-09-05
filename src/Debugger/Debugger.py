@@ -20,15 +20,12 @@ import os
 import logging
 import PyV8
 
-class Debugger(PyV8.JSDebugger):
-    log = logging.getLogger("dbg")
+log = logging.getLogger("Thug.Debugger.Debugger")
 
-    def __init__(self, debug = False):
+class Debugger(PyV8.JSDebugger):
+    def __init__(self):
         PyV8.JSDebugger.__init__(self)
         self.evalContext = PyV8.JSContext()
-
-        if debug:
-            self.log.setLevel(logging.DEBUG)
 
     def __enter__(self):
         script_filename = os.path.join(os.path.dirname(__file__), 'd8.js')
@@ -40,7 +37,7 @@ class Debugger(PyV8.JSDebugger):
         return PyV8.JSDebugger.__enter__(self)
         
     def onMessage(self, msg):
-        self.log.debug("Debug message: %s" % (msg, ))
+        log.debug("Debug message: %s" % (msg, ))
        
         if msg['type'] == 'event' and msg['event'] == 'break':
            self.stepNext()
@@ -48,28 +45,28 @@ class Debugger(PyV8.JSDebugger):
 
     def onDebugEvent(self, type, state, evt):
         json = evt.toJSONProtocol()
-        self.log.debug("%s event: %s" % (type, json, ))
+        log.debug("%s event: %s" % (type, json, ))
 
     def onBreakEvent(self, evt):
-        self.log.debug("Break event: %s" % (evt, ))
+        log.debug("Break event: %s" % (evt, ))
 
     def onException(self, evt):
-        self.log.debug("Exception event: %s" % (evt, ))
+        log.debug("Exception event: %s" % (evt, ))
 
     def onNewFunction(self, evt):
-        self.log.debug("New function event: %s" % (evt, ))
+        log.debug("New function event: %s" % (evt, ))
 
     def onBeforeCompile(self, evt):
-        self.log.debug("Before compile event: %s" % (evt, ))
+        log.debug("Before compile event: %s" % (evt, ))
         return True
 
     def onAfterCompile(self, evt):
-        self.log.debug("After compile event: %s" % (evt, ))
+        log.debug("After compile event: %s" % (evt, ))
         return True
 
     def processDebugEvent(self, evt):
-        self.log.debug("Received debug event: %s", repr(event))
+        log.debug("Received debug event: %s", repr(event))
 
     def onBreak(self):
-        self.log.debug("onBreak")
+        log.debug("onBreak")
 
