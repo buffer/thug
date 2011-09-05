@@ -3,7 +3,6 @@ from __future__ import with_statement
 
 import sys, re, string
 
-import logging
 from HTML import BeautifulSoup
 import PyV8
 
