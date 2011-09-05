@@ -23,27 +23,23 @@ import logging
 import pylibemu
 from Debugger import Debugger
 
-logging.basicConfig()
+log = logging.getLogger("Thug.Debugger.Shellcode")
 
 class Shellcode:
-    log = logging.getLogger("Shellcode")
     emu = pylibemu.Emulator()
 
-    def __init__(self, ctxt, ast, script, debug = False):
+    def __init__(self, ctxt, ast, script):
         self.script  = script
         self.ctxt    = ctxt
         self.ast     = ast
         self.offsets = set()
-
-        if debug:
-            self.log.setLevel(logging.DEBUG)
             
     def search_url(self, sc):
         offset = sc.find('http')
         
         if offset > 0:
             url = sc[offset:].split()[0]
-            self.log.debug('[Shellcode] URL Detected: %s' % (url, ))
+            log.debug('[Shellcode] URL Detected: %s' % (url, ))
 
     def build_shellcode(self, s):
         try:
@@ -56,7 +52,7 @@ class Shellcode:
             for c in shellcode:
                 sc += struct.pack('<H', ord(c))
         except:
-            self.log.debug(traceback.print_exc())
+            log.debug(traceback.print_exc())
             return None
 
         return sc
@@ -78,7 +74,7 @@ class Shellcode:
                 if not s:
                     continue
               
-                self.log.debug("[Shellcode] Testing variable: %s" % (name, ))
+                log.debug("[Shellcode] Testing variable: %s" % (name, ))
                 
                 try:
                     shellcode = s.decode('utf-8')
@@ -94,7 +90,7 @@ class Shellcode:
 
                 self.emu.run(sc)
                 if self.emu.emu_profile_output:
-                    self.log.warning(self.emu.emu_profile_output)
+                    log.warning(self.emu.emu_profile_output)
                     libemu = True
 
                 self.emu.free()
