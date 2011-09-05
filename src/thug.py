@@ -17,17 +17,23 @@
 # MA  02111-1307  USA
 
 import sys
+import os
 import getopt
+import datetime
+import urlparse
+import hashlib
+import logging
+
 from DOM.W3C import w3c
 from DOM import Window, DFT
+
+log = logging.getLogger('Thug')
+log.setLevel(logging.WARN)
 
 class Thug:
     def __init__(self, args):
         self.args      = args
-        self.debug     = False
-        self.verbose   = False
-        self.output    = None
-        self.useragent = None
+        self.useragent = 'xpie61'
 
     def __call__(self):
         self.analyze()
@@ -58,17 +64,27 @@ Synopsis:
     def run_local(self, url):
         html   = open(url, 'r').read()
         doc    = w3c.parseString(html)
-        window = Window.Window('about:blank', doc)
+        window = Window.Window('about:blank', doc, personality = self.useragent)
         window.open()
         self.run(window)
 
     def run_remote(self, url):
         doc    = w3c.parseString('')
-        window = Window.Window('about:blank', doc)
+        window = Window.Window('about:blank', doc, personality = self.useragent)
         window = window.open(url)
         self.run(window)
 
+    def build_logbasedir(self, url):
+        t = datetime.datetime.now()
+        m = hashlib.md5()
+        m.update(url)
+
+        base = os.getenv('THUG_LOGBASE', '..')
+        log.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
+        os.makedirs(log.baseDir)
+
     def analyze(self):
+        t = datetime.datetime.now()
         p = getattr(self, 'run_remote', None)
 
         try:
@@ -85,21 +101,25 @@ Synopsis:
         if not options and not args:
             self.usage()
 
+        self.build_logbasedir(args[0])
+
         for option in options:
             if option[0] == '-h' or option[0] == '--help':
                 self.usage()
             if option[0] == '-u' or option[0] == '--useragent':
                 self.useragent = option[1]
             if option[0] == '-o' or option[0] == '--output':
-                self.output = option[1]
+                fh = logging.FileHandler(os.path.join(log.baseDir, option[1]))
+                log.addHandler(fh)
             if option[0] == '-l' or option[0] == '--local':
                 p = getattr(self, 'run_local')
             if option[0] == '-v' or option[0] == '--verbose':
-                self.verbose = True
+                log.setLevel(logging.INFO)
             if option[0] == '-d' or option[0] == '--debug':
-                self.debug = True
+                log.setLevel(logging.DEBUG)
 
         if p:
+            log.info(args[0])
             p(args[0])
 
 if __name__ == "__main__":
