@@ -38,13 +38,13 @@ class HTMLDocument(Document):
         self._html          = None
         self.current        = None
 
-    @property
-    def window(self):
+    def getWindow(self):
         return self._win
 
-    @window.setter
-    def window(self, win):
+    def setWindow(self, win):
         self._win = win
+
+    window = property(getWindow, setWindow)
 
     @property
     def referrer(self):

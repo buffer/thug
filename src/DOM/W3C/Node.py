@@ -26,7 +26,7 @@ class Node(PyV8.JSClass, EventTarget):
     NOTATION_NODE                  = 12
     
     def __init__(self, doc):
-        self.doc = doc        
+        self.doc = doc
 
     def __repr__(self):
         return "<Node %s at 0x%08X>" % (self.nodeName, id(self))

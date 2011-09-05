@@ -10,7 +10,7 @@ import site
 from HTML import BeautifulSoup
 from DOMImplementation import DOMImplementation
 
-def getDOMImplementation(dom=None, **kwds):    
+def getDOMImplementation(dom = None, **kwds):
     return DOMImplementation(dom if dom else BeautifulSoup.BeautifulSoup(), **kwds)
     
 def parseString(html, **kwds):
