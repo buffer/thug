@@ -7,16 +7,18 @@ TEST_HTML = """
         <title>this is a test</title>
         <script type="text/javascript"> 
         var s = document.getElementById("hello");
-        s.addEventListener('load', load);
-	s.removeEventListener('load', load);
+        s.addEventListener('load', function() { add();});
+	s.removeEventListener('load', remove);
         //<![CDATA[
-        function load()
+        function add()
         {
-            alert("load");
+            alert("add");
+	    alert(s);
         }
-        function unload()
+        function remove()
         {
-            alert("unload");
+            alert("remove");
+	    alert(s);
         }
         //]]>
         </script>         
