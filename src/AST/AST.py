@@ -21,9 +21,9 @@ import PyV8
 import json
 import chardet
 
-class AST(object):
-    log = logging.getLogger("AST")
+log = logging.getLogger("Thug.AST.AST")
 
+class AST(object):
     (AssignBreakPoint, 
      LoopBreakPoint) = range(0, 2)
 
@@ -41,7 +41,7 @@ class AST(object):
                  PyV8.AST.Op.ASSIGN_SUB,
                  PyV8.AST.Op.INIT_VAR]
 
-    def __init__(self, script, debug = False):
+    def __init__(self, script):
         self.names           = set()
         self.inLoop          = False
         self.inBlock         = True
@@ -49,15 +49,12 @@ class AST(object):
         self.assignStatement = False
         self.breakpoints     = set()
 
-        if debug:
-            self.log.setLevel(logging.DEBUG)
-
         self.walk(script)
-        self.log.debug(self.breakpoints)
+        log.info(self.breakpoints)
 
     def checkExitingLoop(self, pos):
         if self.exitingLoop > 0:
-            self.log.debug("\tExiting Loop:       %d" % (self.exitingLoop, ))
+            log.debug("\tExiting Loop:       %d" % (self.exitingLoop, ))
             self.exitingLoop -= 1
             self.breakpoints.add((self.LoopBreakPoint, pos))
 
@@ -65,19 +62,19 @@ class AST(object):
         self.block_no = 1
         with PyV8.JSContext() as ctxt:
             s = chardet.detect(script)
-            self.log.debug(s)
+            log.debug(s)
 
             PyV8.JSEngine().compile(script).visit(self)
 
     def onProgram(self, prog):
-        self.log.debug("[*] Program")
-        self.log.debug("\tProgram startPos:   %d" % (prog.startPos, ))
-        self.log.debug("\tProgram endPos:     %d" % (prog.endPos, ))
+        log.debug("[*] Program")
+        log.debug("\tProgram startPos:   %d" % (prog.startPos, ))
+        log.debug("\tProgram endPos:     %d" % (prog.endPos, ))
        
         self.json = prog.toJSON()
         self.ast  = prog.toAST()
 
-        self.log.debug(self.json)
+        log.debug(self.json)
 
         for decl in prog.scope.declarations:
             decl.visit(self)
@@ -92,21 +89,21 @@ class AST(object):
         self.inBlock = False
 
     def onBlock(self, block):
-        self.log.debug("[***] Entering Block #%d [***]" % (self.block_no, ))
+        log.debug("[***] Entering Block #%d [***]" % (self.block_no, ))
         
         self._enterBlock()
         for stmt in block.statements:
             stmt.visit(self)
         
         self._exitBlock()
-        self.log.debug("[***] Exiting Block  #%d [***]" % (self.block_no, ))
+        log.debug("[***] Exiting Block  #%d [***]" % (self.block_no, ))
         self.block_no += 1
 
     def onExpressionStatement(self, stmt):
-        self.log.debug("[*] Expression Statement")
-        self.log.debug("\tStatement:          %s" % (stmt, ))
-        self.log.debug("\tStatement type:     %s" % (stmt.type, ))
-        self.log.debug("\tStatement position: %s" % (stmt.pos, ))
+        log.debug("[*] Expression Statement")
+        log.debug("\tStatement:          %s" % (stmt, ))
+        log.debug("\tStatement type:     %s" % (stmt.type, ))
+        log.debug("\tStatement position: %s" % (stmt.pos, ))
 
         self.checkExitingLoop(stmt.pos)
         stmt.expression.visit(self)
@@ -126,8 +123,8 @@ class AST(object):
 
     def onDeclaration(self, decl):
         var = decl.proxy
-        self.log.debug("[*] Declaration Statement")
-        self.log.debug("\tDeclaration:        %s" % (var.name, ))
+        log.debug("[*] Declaration Statement")
+        log.debug("\tDeclaration:        %s" % (var.name, ))
 
         if decl.mode == PyV8.AST.VarMode.var and not decl.function:
             self.names.add(var.name)
@@ -135,11 +132,11 @@ class AST(object):
             decl.function.visit(self)
 
     def onAssignment(self, expr):
-        self.log.debug("[*] Assignment Statement")
-        self.log.debug("\tAssignment op:      %s" % (expr.op, ))
-        self.log.debug("\tAssignment pos:     %s" % (expr.pos, ))
-        self.log.debug("\tAssignment target:  %s" % (expr.target, ))
-        self.log.debug("\tAssignment value:   %s" % (expr.value, ))
+        log.debug("[*] Assignment Statement")
+        log.debug("\tAssignment op:      %s" % (expr.op, ))
+        log.debug("\tAssignment pos:     %s" % (expr.pos, ))
+        log.debug("\tAssignment target:  %s" % (expr.target, ))
+        log.debug("\tAssignment value:   %s" % (expr.value, ))
         
         if not self.inLoop:
             if expr.op in self.AssignOps:
@@ -150,9 +147,9 @@ class AST(object):
         expr.value.visit(self)
 
     def onIfStatement(self, stmt):
-        self.log.debug("[*] If Statement")
-        self.log.debug("\tIf condition:       %s" % (stmt.condition, ))
-        self.log.debug("\tIf position:        %s" % (stmt.pos, ))
+        log.debug("[*] If Statement")
+        log.debug("\tIf condition:       %s" % (stmt.condition, ))
+        log.debug("\tIf position:        %s" % (stmt.pos, ))
 
         stmt.condition.visit(self)
         if stmt.hasThenStatement:
@@ -168,11 +165,11 @@ class AST(object):
         self.exitingLoop += 1
 
     def onForStatement(self, stmt):
-        self.log.debug("[*] For Statement")
-        self.log.debug("\tInit condition:     %s" % (stmt.init, ))
-        self.log.debug("\tNext condition:     %s" % (stmt.next, ))
-        self.log.debug("\tEnd condition:      %s" % (stmt.condition, ))
-        self.log.debug("\tFor position:       %s" % (stmt.pos))
+        log.debug("[*] For Statement")
+        log.debug("\tInit condition:     %s" % (stmt.init, ))
+        log.debug("\tNext condition:     %s" % (stmt.next, ))
+        log.debug("\tEnd condition:      %s" % (stmt.condition, ))
+        log.debug("\tFor position:       %s" % (stmt.pos))
 
         self.checkExitingLoop(stmt.pos)
         self.enterLoop()
@@ -186,8 +183,8 @@ class AST(object):
         self.exitLoop()
 
     def onWhileStatement(self, stmt):
-        self.log.debug("[*] While Statement")
-        self.log.debug("\tWhile position:     %s" % (stmt.pos,))
+        log.debug("[*] While Statement")
+        log.debug("\tWhile position:     %s" % (stmt.pos,))
 
         self.checkExitingLoop(stmt.pos)
         self.enterLoop()
@@ -196,8 +193,8 @@ class AST(object):
         self.exitLoop()
 
     def onDoWhileStatement(self, stmt):
-        self.log.debug("[*] Do-While Statement")
-        self.log.debug("\tDo-While position:  %s" % (stmt.pos,))
+        log.debug("[*] Do-While Statement")
+        log.debug("\tDo-While position:  %s" % (stmt.pos,))
 
         self.checkExitingLoop(stmt.pos)
         self.enterLoop()
@@ -206,8 +203,8 @@ class AST(object):
         self.exitLoop()
 
     def onForInStatement(self, stmt):
-        self.log.debug("[*] For-In Statement")
-        self.log.debug("\tFor-In position:    %s" % (stmt.pos,))
+        log.debug("[*] For-In Statement")
+        log.debug("\tFor-In position:    %s" % (stmt.pos,))
 
         self.checkExitingLoop(stmt.pos)
         self.enterLoop()
@@ -218,12 +215,12 @@ class AST(object):
     def handle_eval(self, args):
         for arg in args:
             if len(str(arg)) > 64:
-                self.log.warning("[AST]: Eval argument length > 64")
+                log.warning("[AST]: Eval argument length > 64")
 
     def onCall(self, expr):
-        self.log.debug("[*] Call")
-        self.log.debug("\tCall position:  %s" % (expr.pos, ))
-        self.log.debug("\tCall expr:      %s" % (expr.expression, ))
+        log.debug("[*] Call")
+        log.debug("\tCall position:  %s" % (expr.pos, ))
+        log.debug("\tCall expr:      %s" % (expr.expression, ))
    
         handle = getattr(self, "handle_%s" % (expr.expression, ), None)
         if handle:
@@ -235,9 +232,9 @@ class AST(object):
             arg.visit(self)
 
     def onCallNew(self, expr):
-        self.log.debug("[*] CallNew")
-        self.log.debug("\tCall position:  %s" % (expr.pos, ))
-        self.log.debug("\tCall expr:      %s" % (expr.expression, ))
+        log.debug("[*] CallNew")
+        log.debug("\tCall position:  %s" % (expr.pos, ))
+        log.debug("\tCall expr:      %s" % (expr.expression, ))
 
         handle = getattr(self, "handle_%s" % (expr.expression, ), None)
         if handle:
@@ -247,13 +244,13 @@ class AST(object):
             arg.visit(self)
 
     def onCallRuntime(self, expr):
-        self.log.debug("[*] CallRuntime")
+        log.debug("[*] CallRuntime")
 
         for arg in expr.args:
             arg.visit(self)
 
     def onFunctionLiteral(self, litr):
-        self.log.debug("\tFunction Literal:   %s" % (litr.name, ))
+        log.debug("\tFunction Literal:   %s" % (litr.name, ))
         
         for decl in litr.scope.declarations:
             decl.visit(self)
@@ -262,25 +259,25 @@ class AST(object):
             e.visit(self)
 
     def onLiteral(self, litr):
-        self.log.debug("Literal:            %s" % (litr, ))
+        log.debug("Literal:            %s" % (litr, ))
 
     def onReturnStatement(self, stmt):
-        self.log.debug("[*] Return Statement")
-        self.log.debug("\tReturn position:    %s" % (stmt.pos, ))
+        log.debug("[*] Return Statement")
+        log.debug("\tReturn position:    %s" % (stmt.pos, ))
         
         stmt.expression.visit(self)
 
     def onCompareOperation(self, stmt):
-        self.log.debug("[*] Compare Operation")
-        self.log.debug("\tCompare Left:       %s" % (stmt.left, ))
-        self.log.debug("\tCompare Operation:  %s" % (stmt.op, ))
-        self.log.debug("\tCompare Right:      %s" % (stmt.right, ))
+        log.debug("[*] Compare Operation")
+        log.debug("\tCompare Left:       %s" % (stmt.left, ))
+        log.debug("\tCompare Operation:  %s" % (stmt.op, ))
+        log.debug("\tCompare Right:      %s" % (stmt.right, ))
         
         stmt.left.visit(self)
         stmt.right.visit(self)
 
     def onCountOperation(self, stmt):
-        self.log.debug("[*] Count Operation:    %s" % (stmt.op, ))
+        log.debug("[*] Count Operation:    %s" % (stmt.op, ))
         
         stmt.expression.visit(self)
 
