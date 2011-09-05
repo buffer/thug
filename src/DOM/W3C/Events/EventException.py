@@ -2,7 +2,6 @@
 from __future__ import with_statement
 
 import PyV8
-import logging
 
 # Introduced in DOM Level 2
 class EventException(RuntimeError, PyV8.JSClass):

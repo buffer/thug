@@ -3,15 +3,11 @@ from __future__ import with_statement
 
 import sys, re, string
 
-import logging
 from HTML import BeautifulSoup
 import PyV8
 
 from Node import Node
 from Text import Text
-#from Attr import Attr
-#from NodeList import NodeList
-#from NamedNodeMap import NamedNodeMap
 from DOMException import DOMException
 
 

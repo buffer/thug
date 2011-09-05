@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 from __future__ import with_statement
 
-import logging
-
 # Introduced in DOM Level 2
 class Event:
     CAPTURING_PHASE     = 1 # The current event phase is the capturing phase.
