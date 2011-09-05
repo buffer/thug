@@ -25,7 +25,7 @@ ACTIVEX_MODULES = "ActiveX/modules/%s.py"
 ActiveXAcct = dict()
 modules     = []
 
-log = logging.getLogger("ActiveX")
+log = logging.getLogger("Thug.ActiveX.ActiveX")
 
 class ActiveXRecord:
     MAX_ARG_LENGTH = 50
