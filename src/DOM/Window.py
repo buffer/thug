@@ -21,6 +21,7 @@ import time
 import logging
 import PyV8 
 import BeautifulSoup
+import traceback
 import W3C.w3c as w3c
 
 from Personality import Personality
@@ -33,7 +34,7 @@ from AST.AST import AST
 from Debugger import Shellcode, Global
 
 sched = sched.scheduler(time.time, time.sleep)
-log = logging.getLogger("Window")
+log = logging.getLogger("Thug.DOM.Window")
 
 class Window(PyV8.JSClass):
 
@@ -65,17 +66,14 @@ class Window(PyV8.JSClass):
         
     def __init__(self, url, dom_or_doc, navigator = None, personality = 'xpie61', name="", 
                  target='_blank', parent = None, opener = None, replace = False, screen = None, 
-                 width = 800, height = 600, left = 0, top = 0, debug = True, **kwds):
-
-        if debug:
-            log.setLevel(logging.DEBUG)
+                 width = 800, height = 600, left = 0, top = 0, **kwds):
 
         self.url = url
         self.doc = w3c.getDOMImplementation(dom_or_doc, **kwds) if isinstance(dom_or_doc, BeautifulSoup.BeautifulSoup) else dom_or_doc
         
         self.doc.window        = self
         self.doc.contentWindow = self
-
+         
         self._navigator = navigator if navigator else Navigator(personality, self)
         self._location  = Location(self)
         self._history   = History(self)
@@ -216,7 +214,7 @@ class Window(PyV8.JSClass):
 
         text is a string of the text you want displayed in the alert dialog.
         """
-        log.debug('[Window] Alert Text: %s' % (str(text), ))
+        log.warn('[Window] Alert Text: %s' % (str(text), ))
 
     def back(self):
         """
@@ -589,6 +587,7 @@ class Window(PyV8.JSClass):
 
     def _attachEvent(self, sEvent, fpNotify):
         self.alert("[attachEvent] %s %s" % (sEvent, fpNotify, ))
+        fpNotify.__call__()
 
     def _detachEvent(self, sEvent, fpNotify):
         self.alert("[detachEvent] %s %s" % (sEvent, fpNotify, ))
@@ -636,7 +635,12 @@ class Window(PyV8.JSClass):
             else:
                 self.doc.current = self.doc.doc.contents[-1]
 
-        ast = AST(script)
+        try:
+            ast = AST(script)
+        except:
+            log.warn(traceback.format_exc())
+            return 0
+
         with self.context as ctxt:
             # FIXME
             ctxt.eval('window.unescape = unescape;') 
@@ -668,8 +672,8 @@ class Window(PyV8.JSClass):
             try:
                 self.evalScript(tag.string, tag = tag)
             except:
-                import traceback
-                traceback.print_exc()
+                log.warn(traceback.format_exc())
+
             index += 1
 
         body = self.doc.body
