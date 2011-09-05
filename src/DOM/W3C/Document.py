@@ -8,7 +8,6 @@ try:
 except ImportError:
     from StringIO import StringIO
 
-import logging
 from HTML import BeautifulSoup
 import PyV8
 
@@ -18,7 +17,6 @@ from NodeList import NodeList
 from DocumentFragment import DocumentFragment
 from DocumentType import DocumentType
 from Element import Element
-#from Text import Text
 from Comment import Comment
 from CDATASection import CDATASection
 from Attr import Attr
@@ -74,7 +72,9 @@ class Document(Node, DocumentEvent):
     def createElement(self, tagname):
         from DOMImplementation import DOMImplementation
 
-        element = DOMImplementation.createHTMLElement(self.doc, BeautifulSoup.Tag(self.doc, tagname))
+        # FIXME
+        #element = DOMImplementation.createHTMLElement(self.doc, BeautifulSoup.Tag(self.doc, tagname))
+        element = DOMImplementation.createHTMLElement(self, BeautifulSoup.Tag(self.doc, tagname))
         
         if self.onCreateElement:
             self.onCreateElement(element)
@@ -111,7 +111,9 @@ class Document(Node, DocumentEvent):
         from DOMImplementation import DOMImplementation
 
         tag = self.doc.find(id = elementId)
-        return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None 
+        # FIXME
+        #return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None
+        return DOMImplementation.createHTMLElement(self, tag) if tag else None
 
     # Introduced in DOM Level 2
     def importNode(self, importedNode, deep):
