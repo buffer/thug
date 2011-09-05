@@ -24,15 +24,13 @@ import logging
 from Personality import Personality
 from Plugins import Plugins
 
-log = logging.getLogger("Navigator")
+log = logging.getLogger("Thug.DOM.Navigator")
 
 class Navigator(PyV8.JSClass):
-    def __init__(self, personality, window = None, debug = True):
+    def __init__(self, personality, window = None):
         self.personality = Personality[personality]
         self.plugins     = Plugins  # An array of the plugins installed in the browser
         self._window     = window
-        if debug:
-            log.setLevel(logging.DEBUG)
       
     @property
     def window(self):
