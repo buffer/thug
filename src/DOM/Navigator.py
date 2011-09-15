@@ -201,7 +201,8 @@ class Navigator(PyV8.JSClass):
         return False
 
     def fetch(self, url):
-        h = httplib2.Http('.cache')
+        h = httplib2.Http('.cache', 
+                          disable_ssl_certificate_validation = True)
         
         headers = {
             'cache-control' : 'no-cache',
@@ -219,6 +220,8 @@ class Navigator(PyV8.JSClass):
             debug_msg = "%s %s" % (debug_msg, url)
             log.debug(debug_msg)
 
-        response, content = h.request(url, headers = headers)
+        response, content = h.request(url, 
+                                      redirections = 1024,
+                                      headers = headers)
         return response, content
 
