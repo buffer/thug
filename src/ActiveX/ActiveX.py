@@ -99,8 +99,11 @@ class _ActiveXObject:
             if cls in clsidlist.keys(): 
                 _module = clsidlist[cls]
         else:
-            if cls in clsnamelist: 
-                _module = clsnamelist[cls]
+            for _clsname_key, _clsname_module in clsnamelist.items():
+                if cls.lower() == _clsname_key.lower():
+                    _module = _clsname_module
+            #if cls in clsnamelist: 
+            #    _module = clsnamelist[cls]
             
         if not _module:
             log.warning("Unknown ActiveX Object: %s" % (cls, ))
