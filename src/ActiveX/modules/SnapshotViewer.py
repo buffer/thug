@@ -30,7 +30,7 @@ def PrintSnapshot(SnapshotPath = None, CompressedPath = None):
     }
 
     h = httplib2.Http('/tmp/.cache')
-    content, headers = h.request(str(url), headers = headers)
+    response, content = h.request(str(url), headers = headers)
 
     md5 = hashlib.md5()
     md5.update(content)

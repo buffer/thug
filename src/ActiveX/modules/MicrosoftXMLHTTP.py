@@ -24,7 +24,7 @@ def open(arg0, arg1, arg2 = True, arg3 = None, arg4 = None):
     h = httplib2.Http('/tmp/.cache')
 
     #FIXME: Relative URLs
-    content, headers = h.get(str(url), headers = headers)
+    response, content = h.request(str(url), headers = headers)
 
     md5 = hashlib.md5()
     md5.update(content)
