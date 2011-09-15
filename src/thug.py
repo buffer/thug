@@ -101,11 +101,13 @@ Synopsis:
         if not options and not args:
             self.usage()
 
-        self.build_logbasedir(args[0])
-
         for option in options:
             if option[0] == '-h' or option[0] == '--help':
                 self.usage()
+
+        self.build_logbasedir(args[0])
+
+        for option in options:
             if option[0] == '-u' or option[0] == '--useragent':
                 self.useragent = option[1]
             if option[0] == '-o' or option[0] == '--output':
