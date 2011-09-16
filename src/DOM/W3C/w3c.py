@@ -293,6 +293,21 @@ class HTMLDocumentTest(unittest.TestCase):
         forms = self.doc.getElementsByName('first')
         
         self.assertEquals(1, len(forms))
+
+        self.assertEquals('<p id="test">Hello World!</p>' +
+                          '<form name="first"></form>' +
+                          '<form name="second"></form>' +
+                          '<a href="#">link</a>' +
+                          '<a name="#">anchor</a>',
+                          self.doc.getElementsByTagName('body')[0].innerHTML)
+        self.assertEquals("Hello World!", p.innerHTML)
+        self.assertEquals("", self.doc.getElementsByTagName('form')[0].innerHTML)
+
+        self.assertEquals(None, self.doc.getElementById('inner'))
+
+        self.doc.getElementsByTagName('form')[0].innerHTML = "<div id='inner'/>"
+
+        self.assertEquals(u'DIV', self.doc.getElementById('inner').tagName)
         
     def testDocument(self):
         self.assertEquals("this is a test", self.doc.title)
