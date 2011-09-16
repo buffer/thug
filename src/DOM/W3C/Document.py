@@ -72,10 +72,7 @@ class Document(Node, DocumentEvent):
     def createElement(self, tagname):
         from DOMImplementation import DOMImplementation
 
-        # FIXME
-        #element = DOMImplementation.createHTMLElement(self.doc, BeautifulSoup.Tag(self.doc, tagname))
         element = DOMImplementation.createHTMLElement(self, BeautifulSoup.Tag(self.doc, tagname))
-        
         if self.onCreateElement:
             self.onCreateElement(element)
         
@@ -111,8 +108,6 @@ class Document(Node, DocumentEvent):
         from DOMImplementation import DOMImplementation
 
         tag = self.doc.find(id = elementId)
-        # FIXME
-        #return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None
         return DOMImplementation.createHTMLElement(self, tag) if tag else None
 
     # Introduced in DOM Level 2
