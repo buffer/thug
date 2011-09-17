@@ -618,9 +618,6 @@ class Window(PyV8.JSClass):
         return self._context
 
     def evalScript(self, script, tag = None):
-        if isinstance(script, unicode):
-            script = script.encode('utf-8')
-
         if tag:
             self.doc.current = tag
         else:

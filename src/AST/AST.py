@@ -19,7 +19,6 @@
 import logging
 import PyV8
 import json
-import chardet
 
 log = logging.getLogger("Thug.AST.AST")
 
@@ -61,9 +60,6 @@ class AST(object):
     def walk(self, script):
         self.block_no = 1
         with PyV8.JSContext() as ctxt:
-            s = chardet.detect(script)
-            log.debug(s)
-
             PyV8.JSEngine().compile(script).visit(self)
 
     def onProgram(self, prog):
