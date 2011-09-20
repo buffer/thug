@@ -84,7 +84,7 @@ class DFT(object):
 
         if classid and id:
             self.window.__dict__[id] = _ActiveXObject(classid, 'id')
-
+    
     def handle_script(self, script):
         language = script.get('language', 'javascript').lower()
         handler  = getattr(self, "handle_%s" % (language, ), None)
@@ -112,7 +112,7 @@ class DFT(object):
         log.info(script)
 
         if not vbs_parser:
-            self.log.warning("VBScript parsing not enabled (vb2py is needed)")
+            log.warning("VBScript parsing not enabled (vb2py is needed)")
             return
 
         vbs_py = convertVBtoPython(script.string, container = VBCodeModule())
