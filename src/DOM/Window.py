@@ -655,7 +655,8 @@ class Window(PyV8.JSClass):
             id      = tag.get('id', None)
             if not classid or not id:
                 continue
-            self.__dict__[id] = _ActiveXObject(classid, 'id')
+            #self.__dict__[id] = _ActiveXObject(classid, 'id')
+            setattr(self, id, _ActiveXObject(classid, 'id'))
 
         index = 0
         tags  = self._findAll('script')
