@@ -37,7 +37,13 @@ class HTMLElement(Element, ElementCSSInlineStyle):
 
     @innerHTML.setter
     def innerHTML(self, html):
-        dom = BeautifulSoup.BeautifulSoup(html)
+        # FIXME
+        #dom = BeautifulSoup.BeautifulSoup(html)
+        dom = BeautifulSoup.BeautifulSoup(unicode(html))
+
+        # FIXME
+        self.tag.contents = []
 
         for node in dom.contents:
             self.tag.append(node)
+
