@@ -83,8 +83,9 @@ class DFT(object):
         id      = object.get('id', None)
 
         if classid and id:
-            self.window.__dict__[id] = _ActiveXObject(classid, 'id')
-    
+            #self.window.__dict__[id] = _ActiveXObject(classid, 'id')
+            setattr(self.window, id, _ActiveXObject(classid, 'id'))
+
     def handle_script(self, script):
         language = script.get('language', 'javascript').lower()
         handler  = getattr(self, "handle_%s" % (language, ), None)
