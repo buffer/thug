@@ -41,4 +41,4 @@ def PrintSnapshot(SnapshotPath = None, CompressedPath = None):
     with open(filename, 'wb') as fd:
         fd.write(content)
 	
-self.PrintSnapshot = PrintSnapshot
+self.PrintSnapshot  = PrintSnapshot
