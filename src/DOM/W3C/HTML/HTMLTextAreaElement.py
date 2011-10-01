@@ -26,3 +26,12 @@ class HTMLTextAreaElement(HTMLElement):
     def type(self):
         return "textarea"
 
+    def focus(self):
+        pass
+
+    def blur(self):
+        pass
+
+    def select(self):
+        pass
+
