@@ -216,9 +216,9 @@ class Navigator(PyV8.JSClass):
         _url = urlparse.urlparse(url)
         if not _url.netloc:
             debug_msg = "[Navigator URL Translation] %s --> " % (url, )
-            url = urlparse.urljoin(self._window.url, _url.path)
+            url = urlparse.urljoin(self._window.url, url)
             debug_msg = "%s %s" % (debug_msg, url)
-            log.debug(debug_msg)
+            log.warning(debug_msg)
 
         response, content = h.request(url, 
                                       redirections = 1024,
