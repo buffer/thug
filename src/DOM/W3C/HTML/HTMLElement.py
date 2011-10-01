@@ -40,10 +40,12 @@ class HTMLElement(Element, ElementCSSInlineStyle):
         # FIXME
         #dom = BeautifulSoup.BeautifulSoup(html)
         dom = BeautifulSoup.BeautifulSoup(unicode(html))
-
         # FIXME
         self.tag.contents = []
 
         for node in dom.contents:
             self.tag.append(node)
 
+    # WARNING: NOT DEFINED IN W3C SPECS!
+    def focus(self):
+        pass
