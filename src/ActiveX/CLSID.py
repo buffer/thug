@@ -168,6 +168,7 @@ clsnamelist['Microsoft.XMLHTTP']                        = 'MicrosoftXMLHTTP'
 clsnamelist['MSXML2.XMLHTTP']                           = 'MicrosoftXMLHTTP'
 clsnamelist['AcroPDF.PDF']                              = 'AcroPDF'
 clsnamelist['ShockwaveFlash.ShockwaveFlash.9']          = 'ShockwaveFlash9'
+clsnamelist['ShockwaveFlash.ShockwaveFlash.10']         = 'ShockwaveFlash10'
 clsnamelist['ShockwaveFlash.ShockwaveFlash']            = 'ShockwaveFlash9'
 clsnamelist['snpvw.Snapshot Viewer Control.1']          = 'SnapshotViewer'
 clsnamelist['SWCtl.SWCtl']								= 'Shockwave'
@@ -190,7 +191,7 @@ clsnamelist['Config']                                   = 'StormConfig'
 clsnamelist['SB.SuperBuddy']                            = 'AOLAttack'
 clsnamelist['SB.SuperBuddy.1']                          = 'AOLAttack'
 clsnamelist['snpvw.Snapshot Viewer Control.1']          = 'SnapshotViewer'
-
+clsnamelist['JavaPlugin.131']                           = 'JavaPlugin'
 
 Attr2Fun = {}
 Attr2Fun['URL@StormMps']                                = 'SetURL'
