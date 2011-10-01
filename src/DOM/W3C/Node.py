@@ -142,6 +142,8 @@ class Node(PyV8.JSClass, EventTarget):
     
     @staticmethod
     def wrap(doc, obj):
+        from Element import Element
+
         if obj is None:
             return None
         
@@ -154,6 +156,6 @@ class Node(PyV8.JSClass, EventTarget):
             from Text import Text
 
             return Text(doc, obj)        
-        
+       
         return Element(doc, obj)
 
