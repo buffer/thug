@@ -60,7 +60,9 @@ class Window(PyV8.JSClass):
             if not self.running:
                 return
 
-            self.window.evalScript(self.code)
+            print str(self.code)
+            #self.window.evalScript(self.code)
+            self.code.__call__()
             if self.repeat:
                 self.start()
         
@@ -543,7 +545,7 @@ class Window(PyV8.JSClass):
 
         ID is the interval ID.
         """
-        timer = Window.Timer(self, str(f), delay, True, lang)
+        timer = Window.Timer(self, f, delay, True, lang)
         self.timers.append(timer)
         timer.start()
 
@@ -566,7 +568,7 @@ class Window(PyV8.JSClass):
 
         ID is the interval ID.
         """
-        timer = Window.Timer(self, str(f), delay, False, lang)
+        timer = Window.Timer(self, f, delay, False, lang)
         self.timers.append(timer)
         timer.start()
 
@@ -642,6 +644,13 @@ class Window(PyV8.JSClass):
             # FIXME
             ctxt.eval('window.unescape = unescape;') 
             ctxt.eval('window.Array = Array;')
+            if self._personality.startswith(('xpie', 'w2kie')):
+                script = script.replace('@cc_on!@', '*/!/*')
+            # HCP quick test (it works!)
+            # TODO: Move it to HTMLIFrameElement setAttribute and
+            # implement an heuristic for detecting URLs within svr
+            #ctxt.eval('window.Run = alert;')
+            print script
             shellcode = Shellcode.Shellcode(ctxt, ast, script)
             result = shellcode.run()
 
