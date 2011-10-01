@@ -58,9 +58,13 @@ AdobePDFPlugin       = Plugin({'name'        : 'Adobe PDF',
                                'filename'    : 'C:\\Program Files\\Internet Explorer\\PLUGINS\\nppdf32.dll',
                                'description' : 'Adobe PDF Plug-In'})
 
+JavaPlugin           = Plugin({'name'        : 'Java(tm) Plug-In 2 SSV Helper',
+                               'filename'    : 'C:\\Program Files\\\Java\\jre6\\bin\\jp2ssv.dll',
+                               'description' : 'Java(tm) Plug-In 2 SSV Helper'})
 
 Plugins = [
             ShockwaveFlashPlugin,
             AdobeAcrobatPlugin,
-            AdobePDFPlugin
+            AdobePDFPlugin,
+            JavaPlugin
           ]
