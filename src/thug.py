@@ -25,6 +25,7 @@ import hashlib
 import logging
 
 from DOM.W3C import w3c
+from DOM.Personality import Personality
 from DOM import Window, DFT
 
 log = logging.getLogger('Thug')
@@ -47,13 +48,18 @@ Synopsis:
         python thug.py [ options ] url
 
     Options:
-        -h, --help          Display this help information
+        -h, --help          \tDisplay this help information
         -u, --useragent=    
-        -o, --output=       Log to a specified file
+        -o, --output=       \tLog to a specified file
         -l, --local         
-        -v, --verbose       Enable verbose mode    
-        -d, --debug         Enable debug mode
+        -v, --verbose       \tEnable verbose mode    
+        -d, --debug         \tEnable debug mode
+
+    Available User-Agents:
 """
+        for key, value in sorted(Personality.iteritems(), key = lambda (k, v): (v['id'], k)):
+            msg += "\t%s\t\t\t%s\n" % (key, value['description'], )
+
         print msg
         sys.exit(0)
 
@@ -82,6 +88,9 @@ Synopsis:
         base = os.getenv('THUG_LOGBASE', '..')
         log.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
         os.makedirs(log.baseDir)
+
+        with open(os.path.join(base, 'logs', 'thug.csv'), 'a') as fd:
+            fd.write('%s,%s\n' % (m.hexdigest(), url, ))
 
     def analyze(self):
         t = datetime.datetime.now()
