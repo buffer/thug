@@ -30,3 +30,7 @@ class Text(CharacterData):
     def nodeType(self):
         return Node.TEXT_NODE
 
+    def replaceData(self, offset, count, arg):
+        s = self.data[:offset] + arg + self.data[offset + count:]
+        self.data = s
+        #raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)

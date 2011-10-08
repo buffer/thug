@@ -18,8 +18,10 @@ class CharacterData(Node):
     def getData(self):
         return unicode(self.tag)
 
+    # FIXME
     def setData(self, data):
-        raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
+        self.tag = data
+        #raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
 
     data = property(getData, setData)
 
