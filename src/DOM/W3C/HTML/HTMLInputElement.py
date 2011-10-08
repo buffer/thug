@@ -8,7 +8,12 @@ from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 
 class HTMLInputElement(HTMLElement):
-    defaultValue    = attr_property("value")
+    def __init__(self, doc, tag):
+        HTMLElement.__init__(self, doc, tag)
+        print dir(tag)
+
+    #defaultValue    = attr_property("value")
+    value           = attr_property("value")
     defaultChecked  = attr_property("checked", bool)
 
     @property
@@ -38,7 +43,7 @@ class HTMLInputElement(HTMLElement):
     def setValue(self, value):
         pass
 
-    value = property(getValue, setValue)
+    #value = property(getValue, setValue)
 
     def blur(self):
         pass
