@@ -21,6 +21,7 @@ Personality = {
     # Windows XP personalities
     'xpie60':   
             {
+            "id"              : 1,
             "description"     : "Internet Explorer 6.0 (Windows XP)",
             "userAgent"       : "Mozilla/4.0 (Windows;  MSIE 6.0;  Windows NT 5.1;  SV1; .NET CLR 2.0.50727)",
             "appCodeName"     : "Mozilla",
@@ -31,6 +32,7 @@ Personality = {
             },
     'xpie61':
             { 
+            "id"              : 2,
             "description"     : "Internet Explorer 6.1 (Windows XP)", 
             "userAgent"       : "Mozilla/4.0 (compatible; MSIE 6.1; Windows XP; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
             "appCodeName"     : "Mozilla",
@@ -41,6 +43,7 @@ Personality = {
             },
     'xpie70':
             { 
+            "id"              : 3,
             "description"     : "Internet Explorer 7.0 (Windows XP)",
             "userAgent"       : "Mozilla/4.0 (Windows; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)",
             "appCodeName"     : "Mozilla",
@@ -51,6 +54,7 @@ Personality = {
             },
     'xpie80':
             {
+            "id"              : 4,
             "description"     : "Internet Explorer 8.0 (Windows XP)",
             "userAgent"       : "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; (R1 1.5); .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
             "appCodeName"     : "Mozilla",
@@ -62,6 +66,7 @@ Personality = {
     # Windows 2000 personalities
     'w2kie60':
             {
+            "id"              : 5,
             "description"     : "Internet Explorer 6.0 (Windows 2000)",
             "userAgent"       : "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
             "appCodeName"     : "Mozilla",
@@ -72,6 +77,7 @@ Personality = {
             },
     'w2kie80':
             {
+            "id"              : 6,
             "description"     : "Internet Explorer 8.0 (Windows 2000)",
             "userAgent"       : "Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.0; Trident/4.0; InfoPath.1; SV1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 3.0.04506.30)",
             "appCodeName"     : "Mozilla",
