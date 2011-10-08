@@ -14,7 +14,7 @@ from DOMException import DOMException
 class Element(Node):
     def __init__(self, doc, tag):
         Node.__init__(self, doc)
-        
+         
         self.tag = tag
 
     def __str__(self):
@@ -137,13 +137,15 @@ class Element(Node):
     
     def appendChild(self, newChild):
         if newChild:            
-            if isinstance(newChild, Text):            
+            if isinstance(newChild, Text):
                 self.tag.append(str(newChild))
             else:
                 self.checkChild(newChild)
-                
+              
+                # FIXME
                 self.tag.append(newChild.tag)
-            
+                #self.tag.append(str(newChild))
+
         return newChild
     
     def hasChildNodes(self):
@@ -155,9 +157,20 @@ class Element(Node):
     
     def getAttribute(self, name):
         return self.tag[name] if self.tag.has_key(name) else ""
-        
+
     def setAttribute(self, name, value):
         self.tag[name] = value
+
+        if name in ('src', 'code'):
+            import urlparse
+            #print value
+
+            s = urlparse.urlparse(value)
+            if s.scheme == 'hcp':
+                return
+
+            response, content = self.doc.window.navigator.fetch(value)
+            #print response
         
     def removeAttribute(self, name):
         del self.tag[name]
