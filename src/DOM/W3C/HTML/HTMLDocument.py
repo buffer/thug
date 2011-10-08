@@ -86,9 +86,9 @@ class HTMLDocument(Document):
         if self._html:
             self._html.write(html)
         else:
-            tag = self.current
+            tag    = self.current
             parent = tag.parent
-            pos = parent.contents.index(tag) + 1
+            pos    = parent.contents.index(tag) + 1
 
             for tag in BeautifulSoup.BeautifulSoup(html).contents:
                 parent.insert(pos, tag)
