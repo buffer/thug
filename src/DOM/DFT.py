@@ -174,7 +174,7 @@ class DFT(object):
         log.info(meta)
 
         http_equiv = meta.get('http-equiv', None)
-        if not http_equiv or http_equiv != 'refresh':
+        if not http_equiv or http_equiv.lower() != 'refresh':
             return
 
         content = meta.get('content', None)
@@ -185,6 +185,7 @@ class DFT(object):
         url     = None
 
         for s in content.split(';'):
+            s = s.strip()
             if s.startswith('url='):
                 url = s[4:]
             try:
@@ -225,7 +226,7 @@ class DFT(object):
         pass
 
     def run(self):
-        log.info(self.window.doc)
+        log.debug(self.window.doc)
 
         soup = self.window.doc.doc
         # Dirty hack
