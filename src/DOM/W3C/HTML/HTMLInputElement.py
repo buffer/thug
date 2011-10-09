@@ -10,7 +10,6 @@ from .attr_property import attr_property
 class HTMLInputElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-        print dir(tag)
 
     #defaultValue    = attr_property("value")
     value           = attr_property("value")
