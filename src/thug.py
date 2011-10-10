@@ -129,6 +129,8 @@ Synopsis:
             if option[0] == '-d' or option[0] == '--debug':
                 log.setLevel(logging.DEBUG)
 
+        log.userAgent = Personality[self.useragent]['userAgent']
+
         if p:
             log.info(args[0])
             p(args[0])
