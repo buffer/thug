@@ -18,9 +18,12 @@
 
 
 import PyV8
+import os
 import httplib2
 import urlparse
+import hashlib
 import logging
+import socket
 from Personality import Personality
 from Plugins import Plugins
 
@@ -201,7 +204,11 @@ class Navigator(PyV8.JSClass):
         return False
 
     def fetch(self, url):
-        h = httplib2.Http('.cache', 
+        response = dict()
+        content  = ''
+
+        h = httplib2.Http('.cache',
+                          timeout = 10,
                           disable_ssl_certificate_validation = True)
         
         headers = {
@@ -215,13 +222,32 @@ class Navigator(PyV8.JSClass):
 
         _url = urlparse.urlparse(url)
         if not _url.netloc:
-            debug_msg = "[Navigator URL Translation] %s --> " % (url, )
+            msg = "[Navigator URL Translation] %s --> " % (url, )
             url = urlparse.urljoin(self._window.url, url)
-            debug_msg = "%s %s" % (debug_msg, url)
-            log.warning(debug_msg)
+            msg = "%s %s" % (msg, url)
+            log.warning(msg)
 
-        response, content = h.request(url, 
-                                      redirections = 1024,
-                                      headers = headers)
+        mime_base = logging.getLogger("Thug").baseDir
+
+        try:
+            response, content = h.request(url, redirections = 1024, headers = headers)
+            if 'content-type' in response:
+                mime_base = os.path.join(mime_base, response['content-type'])
+        except socket.timeout:
+            log.warning("Timeout reached while fetching %s" % (url, ))
+            return response, content
+            
+        md5 = hashlib.md5()
+        md5.update(content)
+        filename = md5.hexdigest()
+
+        try:
+            os.makedirs(mime_base)
+        except:
+            pass
+
+        with open(os.path.join(mime_base, filename), 'wb') as fd:
+            fd.write(content)
+
         return response, content
 
