@@ -32,6 +32,7 @@ from History import History
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
 from Debugger import Shellcode, Global
+from Java.java import java
 
 sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug.DOM.Window")
@@ -60,8 +61,7 @@ class Window(PyV8.JSClass):
             if not self.running:
                 return
 
-            print str(self.code)
-            #self.window.evalScript(self.code)
+            log.debug(str(self.code))
             self.code.__call__()
             if self.repeat:
                 self.start()
@@ -102,6 +102,7 @@ class Window(PyV8.JSClass):
         self.outerWidth    = width
         self.outerHeight   = height
         self.timers        = []
+        self.java          = java()
 
     @property 
     def closed(self):
@@ -216,7 +217,7 @@ class Window(PyV8.JSClass):
 
         text is a string of the text you want displayed in the alert dialog.
         """
-        log.warn('[Window] Alert Text: %s' % (str(text), ))
+        log.warning('[Window] Alert Text: %s' % (str(text), ))
 
     def back(self):
         """
@@ -637,7 +638,7 @@ class Window(PyV8.JSClass):
         try:
             ast = AST(script)
         except:
-            log.warn(traceback.format_exc())
+            log.warning(traceback.format_exc())
             return 0
 
         with self.context as ctxt:
@@ -649,8 +650,7 @@ class Window(PyV8.JSClass):
             # HCP quick test (it works!)
             # TODO: Move it to HTMLIFrameElement setAttribute and
             # implement an heuristic for detecting URLs within svr
-            #ctxt.eval('window.Run = alert;')
-            print script
+            ctxt.eval('window.Run = alert;')
             shellcode = Shellcode.Shellcode(ctxt, ast, script)
             result = shellcode.run()
 
@@ -679,7 +679,7 @@ class Window(PyV8.JSClass):
             try:
                 self.evalScript(tag.string, tag = tag)
             except:
-                log.warn(traceback.format_exc())
+                log.warning(traceback.format_exc())
 
             index += 1
 
@@ -693,8 +693,10 @@ class Window(PyV8.JSClass):
     def Image(self):
         return self.doc.createElement('img')
 
-    def open(self, url = None, name = '_blank', specs = '', replace = False):
+    def XMLHttpRequest(self):
+        return _ActiveXObject('microsoft.xmlhttp')
 
+    def open(self, url = None, name = '_blank', specs = '', replace = False):
         if url:
             response, html = self._navigator.fetch(url)
             # Log response here
