@@ -236,7 +236,13 @@ class Navigator(PyV8.JSClass):
         except socket.timeout:
             log.warning("Timeout reached while fetching %s" % (url, ))
             return response, content
-            
+        except socket.error as e:
+            log.warning("Socket error [%s]: %s" % (url, e.strerror))
+            return response, content
+        except httplib2.ServerNotFoundError as e:
+            log.warning("ServerNotFoundError: %s" % (e, ))
+            return response, content
+
         md5 = hashlib.md5()
         md5.update(content)
         filename = md5.hexdigest()
