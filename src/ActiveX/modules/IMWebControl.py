@@ -1,19 +1,13 @@
 # iMesh<= 7.1.0.x IMWebControl Class
 # CVE-2007-6493, CVE-2007-6492
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def ProcessRequestEx(arg):
-    global acct
-
+def ProcessRequestEx(self, arg):
     if len(arg) == 0:
-        acct.add_alert('IMWebControl NULL value in ProcessRequestEx()')
+        log.warning('IMWebControl NULL value in ProcessRequestEx()')
 
-def SetHandler(arg):
-    global acct
-
+def SetHandler(self, arg):
     if str([arg]) == '218959117':
-        acct.add_alert('IMWebControl overflow in SetHandler()')
-
-self.ProcessRequestEx = ProcessRequestEx
-self.SetHandler       = SetHandler
+        log.warning('IMWebControl overflow in SetHandler()')

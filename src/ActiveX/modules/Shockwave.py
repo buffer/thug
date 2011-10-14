@@ -1,10 +1,8 @@
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def ShockwaveVersion(arg):
-    global acct
-
+def ShockwaveVersion(self, arg):
     if len(arg) >= 768 * 768:
-        acct.add_alert('Adobe Shockwave ShockwaveVersion() Stack Overflow')
+        log.warning('Adobe Shockwave ShockwaveVersion Stack Overflow')
 
-self.ShockwaveVersion = ShockwaveVersion

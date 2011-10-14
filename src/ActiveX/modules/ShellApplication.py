@@ -1,10 +1,13 @@
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def ShellExecute(arg1, arg2 = None, arg3 = None):
-    global acct
+def ShellExecute(self, *args):
+    cmdLine = ''
+    for arg in args:
+        if len(arg) == 0:
+            break
+        cmdLine += str(arg)
+    
+    log.warning('[Shell.Application ActiveX] ShellExecute command: ' + cmdLine)
 
-    acct.add_alert(arg1)
-
-self.ShellExecute = ShellExecute
-self.shellexecute = ShellExecute

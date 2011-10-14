@@ -1,12 +1,11 @@
 # D-Link MPEG4 SHM Audio Control
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def SetUrl(val):
-    global acct
-
+def SetUrl(self, val):
+    self.__dict__['Url'] = val
     if len(val) > 1024:
-        acct.add_alert('DLinkMPEG overflow in Url property')
+        log.warning('DLinkMPEG overflow in Url property')
 
-Attr2Fun['Url'] = SetUrl

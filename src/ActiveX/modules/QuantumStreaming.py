@@ -1,12 +1,9 @@
 # Move Networks Quantum Streaming Player Control
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def UploadLogs(url, arg):
-    global acct
-
+def UploadLogs(self, url, arg):
     if len(url) > 20000:
-        acct.add_alert('Quantum Streaming Player overflow in UploadLogs()')
-
-self.UploadLogs = UploadLogs
+        log.warning('Quantum Streaming Player overflow in UploadLogs method')

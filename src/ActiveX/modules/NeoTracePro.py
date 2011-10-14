@@ -1,13 +1,10 @@
 # NeoTraceExplorer.NeoTraceLoader ActiveX control (NeoTraceExplorer.dll)
 # CVE-2006-06707
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def TraceTarget(target):
-    global acct
-
+def TraceTarget(self, target):
     if len(target) > 255:
-        acct.add_alert('NeoTracePro.TraceTarget overflow in arg0')
+        log.warning('NeoTracePro.TraceTarget overflow in arg0')
 
-self.TraceTarget = TraceTarget
-	

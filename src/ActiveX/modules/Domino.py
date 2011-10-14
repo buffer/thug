@@ -1,30 +1,27 @@
 # IBM Lotus Domino Web Access Control ActiveX Control
 # CVE-2007-4474
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def SetGeneral_ServerName(val):
-    global acct
-
-    if len(val) > 1024:
-        acct.add_alert('Domino overflow with General_ServerName property')
-
-def SetGeneral_JunctionName(val):
-    global acct
+def SetGeneral_ServerName(self, val):
+    self.__dict__['General_ServerName'] = val
 
     if len(val) > 1024:
-        acct.add_alert('Domino overflow with General_JunctionName property')
+        log.warning('Domino overflow in General_ServerName property')
 
-def SetMail_MailDbPath(val):
-    global acct
+def SetGeneral_JunctionName(self, val):
+    self.__dict__['General_JunctionName'] = val
 
     if len(val) > 1024:
-        acct.add_alert('Domino overflow with Mail_MailDbPath property')
+        log.warning('Domino overflow in General_JunctionName property')
 
-def InstallBrowserHelperDll():
+def SetMail_MailDbPath(self, val):
+    self.__dict__['Mail_MailDbPath'] = val
+
+    if len(val) > 1024:
+        log.warning('Domino overflow in Mail_MailDbPath property')
+
+def InstallBrowserHelperDll(self):
     pass
 
-Attr2Fun['General_ServerName']   = SetGeneral_ServerName
-Attr2Fun['General_JunctionName'] = SetGeneral_JunctionName
-Attr2Fun['Mail_MailDbPath']      = SetMail_MailDbPath
-self.InstallBrowserHelperDll     = InstallBrowserHelperDll

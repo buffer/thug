@@ -1,25 +1,21 @@
 # Xunlei Thunder PPLAYER.DLL_1.WORK ActiveX Control
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def DownURL2(arg0, arg1, arg2, arg3):
-    global acct
-
+def DownURL2(self, arg0, arg1, arg2, arg3):
     if len(arg0) > 1024:
-        acct.add_alert('Xunlei Thunder 5.x DownURL2() overflow')
+        log.warning('Xunlei Thunder 5.x DownURL2 Overflow')
 
-def SetFlvPlayerUrl(val):
-    global acct
+def SetFlvPlayerUrl(self, val):
+    self.__dict__['FlvPlayerUrl'] = val
 
     if len(val) > 1060:
-        acct.add_alert('Xunlei Thunder XPPlayer Class \"FlvPlayerUrl\" Property Handling Buffer Overflow')
+        log.warning('Xunlei Thunder XPPlayer Class FlvPlayerUrl Property Handling Buffer Overflow')
 
-def SetLogo(val):
-    global acct
+def SetLogo(self, val):
+    self.__dict__['Logo'] = val
 
     if len(val) > 128:
-        acct.add_alert('PPStream (PowerPlayer.dll 2.0.1.3829) ActiveX Remote Overflow Exploit in Logo property')
+        log.warning('PPStream (PowerPlayer.dll 2.0.1.3829) ActiveX Remote Overflow Exploit in Logo property')
 
-self.DownURL2            = DownURL2
-Attr2Fun['FlvPlayerUrl'] = SetFlvPlayerUrl
-Attr2Fun['Logo']         = SetLogo

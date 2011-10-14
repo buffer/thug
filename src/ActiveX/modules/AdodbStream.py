@@ -1,32 +1,16 @@
 
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-acct = ActiveXAcct[self]
+def open(self):
+    log.warning("[Adodb.Stream ActiveX] open")
 
-def Open():
-    global acct
-    
-    acct.add_alert("Adodb.Stream Open")
+def Write(self, s):
+    log.warning("[Adodb.Stream ActiveX] Write")
 
-def Write(s):
-    global acct
-    
-    acct.add_alert("Adodb.Stream Write")
-    acct.add_alert(s)
+def SaveToFile(self, filename, opt):
+    log.warning("[Adodb.Stream ActiveX] SaveToFile (%s)" % (filename, ))
 
-def SaveToFile(filename, opt):
-    global acct
+def Close(self):
+    log.warning("[Adodb.Stream ActiveX] Close")
 
-    acct.add_alert("Adodb.Stream SaveToFile")
-    acct.add_alert(filename)
-    acct.add_alert(opt)
-
-def Close():
-    global acct
-
-    acct.add_alert("Adodb.Stream Close")
-
-
-self.Open	    = Open
-self.Write	    = Write
-self.SaveToFile = SaveToFile
-self.Close	    = Close

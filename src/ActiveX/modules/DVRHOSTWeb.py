@@ -1,12 +1,10 @@
 # DVRHOST Web CMS OCX 1.x
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def TimeSpanFormat(arg0, arg1):
-    global acct
-
+def TimeSpanFormat(self, arg0, arg1):
     if len(arg1) > 512:
-        acct.add_alert('DVRHOST Web CMS OCX overflow in TimeSpanFormat()')
+        log.warning('DVRHOST Web CMS OCX Overflow in TimeSpanFormat')
 
-self.TimeSpanFormat = TimeSpanFormat

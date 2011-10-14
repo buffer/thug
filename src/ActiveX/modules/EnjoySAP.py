@@ -1,30 +1,26 @@
 
+import hashlib
+import httplib2
+import logging
 
-acct = ActiveXAcct[self]
+log = logging.getLogger("Thug.ActiveX")
 
-def LaunchGui(arg0, arg1, arg2):
-    global acct
-
+def LaunchGui(self, arg0, arg1, arg2):
     if len(arg0) > 1500:
-        acct.add_alert('EnjoySAP.LaunchGUI overflow in arg0')
+        log.warning('EnjoySAP.LaunchGUI overflow in arg0')
 
-def PrepareToPostHTML(arg):
-    global acct
-
+def PrepareToPostHTML(self, arg):
     if len(arg) > 1000:
-        acct.add_alert('EnjoySAP.PrepareToPostHTML overflow in arg0')
+        log.warning('EnjoySAP.PrepareToPostHTML overflow in arg0')
 
-def Comp_Download(arg0, arg1):
-    global acct
-
-    acct.add_alert(arg0)
-    acct.add_alert(arg1)
+def Comp_Download(self, arg0, arg1):
+    log.warning(arg0)
+    log.warning(arg1)
 
     headers = {
-        'user-agent' : 'Mozilla/4.0 (compatible; MSIE 6.1; Windows XP; .NET CLR 1.1.4322; .NET CLR 2.0.50727)'
+        'user-agent' : logging.getLogger("Thug").userAgent,
     }
 
-    import hashlib, httplib2
     h = httplib2.Http('/tmp/.cache')
 
     #FIXME: Relative URLs
@@ -32,12 +28,8 @@ def Comp_Download(arg0, arg1):
     md5 = hashlib.md5()
     md5.update(content)
     filename = md5.hexdigest()
-    acct.add_alert("[*] Saving File: " + filename)
+    log.warning("[*] Saving File: " + filename)
     
     with open(filename, 'wb') as fd:
         fd.write(content)
 
-
-self.LaunchGui         = LaunchGui
-self.PrepareToPostHTML = PrepareToPostHTML
-self.Comp_Download     = Comp_Download

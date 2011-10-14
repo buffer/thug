@@ -1,13 +1,13 @@
 # Qvod Player QvodCtrl Class ActiveX Control
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def SetURL(val):
-    global acct
+def SetURL(self, val):
+    self.__dict__['URL'] = val
+    self.__dict__['url'] = val
 
     if len(val) > 800:
-        acct.add_alert('Qvod Player QvodCtrl Class ActiveX Control overflow in URL property')
+        log.warning('Qvod Player QvodCtrl Class ActiveX Overflow in URL property')
 
-Attr2Fun['URL'] = SetURL
-Attr2Fun['url'] = SetURL

@@ -1,50 +1,18 @@
 # Nessus Vunlnerability Scanner ScanCtrl ActiveX COntrol
 # CVE-2007-4061, CVE-2007-4062, CVE-2007-4031
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def deleteReport(arg):
-    global acct
+def deleteReport(self, arg):
+    log.warning('[Nessus ScanCtrl] deleteReport(%s)' % (arg, ))
 
-    if arg.find('SYSTEM32') != -1:
-        acct.add_alert('Nessus ScanCtrl SYSTEM32 activity')
-    if arg.find('Autostart') != -1:
-        acct.add_alert('Nessus ScanCtrl Autostart activity')
-    if arg.find('../') != -1:
-        acct.add_alert('Nessus ScanCtrl ../ activity')
+def deleteNessusRC(self, arg):
+    log.warning('[Nessus ScanCtrl] deleteNessusRC(%s)' % (arg, ))
 
-def deleteNessusRC(arg):
-    global acct
+def saveNessusRC(self, arg):
+    log.warning('[Nessus ScanCtrl] saveNessusRC(%s)' % (arg, ))
 
-    if arg.find('SYSTEM32') != -1:
-        acct.add_alert('Nessus ScanCtrl SYSTEM32 activity')
-    if arg.find('Autostart') != -1:
-        acct.add_alert('Nessus ScanCtrl Autostart activity')
-    if arg.find('../') != -1:
-        acct.add_alert('Nessus ScanCtrl ../ activity')
+def addsetConfig(self, arg, arg1, arg2):
+    log.warning('[Nessus ScanCtrl] saveNessusRC(%s, %s, %s)' % (arg, arg1, arg2, ))
 
-def saveNessusRC(arg):
-    global acct
-
-    if arg.find('SYSTEM32') != -1:
-        acct.add_alert('Nessus ScanCtrl SYSTEM32 activity')
-    if arg.find('Autostart') != -1:
-        acct.add_alert('Nessus ScanCtrl Autostart activity')
-    if arg.find('../') != -1:
-        acct.add_alert('Nessus ScanCtrl ../ activity')
-
-def addsetConfig(arg, arg1, arg2):
-    global acct
-
-    if arg.find('SYSTEM32') != -1:
-        acct.add_alert('Nessus ScanCtrl SYSTEM32 activity')
-    if arg.find('Autostart') != -1:
-        acct.add_alert('Nessus ScanCtrl Autostart activity')
-    if arg.find('../') != -1:
-        acct.add_alert('Nessus ScanCtrl ../ activity')
-
-
-self.deleteReport   = deleteReport
-self.deleteNessusRC = deleteNessusRC
-self.saveNessusRC   = saveNessusRC
-self.addsetConfig   = addsetConfig

@@ -1,14 +1,12 @@
 # Gateway Weblaunch ActiveX Control
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def DoWebLaunch(arg0, arg1, arg2, arg3):
-    global acct
-
+def DoWebLaunch(self, arg0, arg1, arg2, arg3):
     if len(arg1) > 512 or len(arg3) > 512:
-        acct.add_alert('GatewayWeblaunch overflow')
+        log.warning('GatewayWeblaunch overflow')
     else:
-        acct.add_alert('GatewayWeblaunch will try to execute '+ arg1 + ' ' + arg2 + ' ' + arg3)
+        log.warning('GatewayWeblaunch is trying to execute '+ arg1 + ' ' + arg2 + ' ' + arg3)
 
-self.DoWebLaunch = DoWebLaunch

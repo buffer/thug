@@ -1,30 +1,23 @@
 # Yahoo! Messenger 8.x Ywcvwr ActiveX Control
 # CVE-2007-4391
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def Setserver(name):
-    global acct
+def Setserver(self, name):
+    self.__dict__['server'] = val
 
     if len(name) > 255:
-        acct.add_alert('Yahoo! server console overflow')
+        log.warning('Yahoo! Messenger ActiveX Server Console Overflow')
 
-def GetComponentVersion(arg):
-    global acct
+def GetComponentVersion(self, arg):
+    log.warning('Yahoo! Messenger ActiveX GetComponentVersion Overflow')
 
-    acct.add_alert('Yahoo! GetComponentVersion() overflow')
-
-def initialize():
+def initialize(self):
     return
 
-def send():
+def send(self):
     return
 
-def receive():
+def receive(self):
     return
-
-self.GetComponentVersion = GetComponentVersion
-self.initialize          = initialize
-self.send                = send
-self.receive             = receive
-Attr2Fun['server']       = Setserver

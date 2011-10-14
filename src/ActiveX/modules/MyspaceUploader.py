@@ -1,12 +1,12 @@
 # MySpace Uploader Control 1.x
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def SetAction(val):
-    global acct
+def SetAction(self, val):
+    self.__dict__['Action'] = val
 
     if len(val) > 512:
-        acct.add_alert('Myspace UPloader overflow with Action property')
+        log.warning('Myspace UPloader overflow in Action property')
 
-Attr2Fun['Action'] = SetAction

@@ -1,12 +1,10 @@
 # Move Networks Upgrade Manager 1.x
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def Upgrade(arg0, arg1, arg2, arg3):
-    global acct
-
+def Upgrade(self, arg0, arg1, arg2, arg3):
     if len(arg0) > 6000:
-        acct.add_alert('Move Networks Upgrade Manager overflow in Upgrade()')
+        log.warning('Move Networks Upgrade Manager ActiveX Overflow in Upgrade')
 
-self.Upgrade = Upgrade

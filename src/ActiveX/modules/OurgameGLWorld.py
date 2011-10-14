@@ -1,19 +1,14 @@
 # Ourgame GLWorld HanGamePluginCn18 Class ActiveX Control
 # CVE-2008-0647
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def hgs_startGame(arg):
-    global acct
-
+def hgs_startGame(self, arg):
     if len(arg) > 1000:
-        acct.add_alert('Overflow in Ourgame GLWorld hgs_startGame()')
+        log.warning('Ourgame GLWorld ActiveX Overflow in hgs_startGame')
 
-def hgs_startNotify(arg):
-    global acct
-
+def hgs_startNotify(self, arg):
     if len(arg) > 1000:
-        acct.add_alert('Overflow in Ourgame GLWorld hgs_startNotify()')
+        log.warning('Ourgame GLWorld ActiveX Overflow in hgs_startNotify')
 
-self.hgs_startGame   = hgs_startGame
-self.hgs_startNotify = hgs_startNotify

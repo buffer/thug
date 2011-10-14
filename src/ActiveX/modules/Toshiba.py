@@ -1,19 +1,14 @@
 # Toshiba Surveillance (Surveillix) RecordSend Class (MeIpCamX.DLL 1.0.0.4)
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def SetPort(arg):
-    global acct
-
+def SetPort(self, arg):
     if len(arg) > 10:
-        acct.add_alert('Toshiba Surveillance overflow in SetPort()')
+        log.warning('Toshiba Surveillance ActiveX Overflow in SetPort')
 
-def SetIpAddress(arg):
-    global acct
-
+def SetIpAddress(self, arg):
     if len(arg) > 18:
-        acct.add_alert('Toshiba Surveillance overflow in SetIpAddress()')
+        log.warning('Toshiba Surveillance ActiveX Overflow in SetIpAddress')
 
-self.SetPort      = SetPort
-self.SetIpAddress = SetIpAddress

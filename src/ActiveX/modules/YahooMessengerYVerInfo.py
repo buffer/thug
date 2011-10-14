@@ -1,19 +1,14 @@
 # Yahoo! Messenger 8.x YVerInfo.dll ActiveX Control
 # CVE-2007-4515
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def fvcom(arg0):
-    global acct
-
+def fvcom(self, arg0):
     if len(arg0) > 20:
-        acct.add_alert('Overflow in YahooYVerInfo.fvCom() arg0')
+        log.warning('YahooYVerInfo ActiveX Overflow in fvCom arg0')
 
-def info(arg0):
-    global acct
-
+def info(self, arg0):
     if len(arg0) > 20:
-        acct.add_alert('Overflow in YahooYVerInfo.info() arg0')
+        log.warning('YahooYVerInfo ActiveX Overflow in info arg0')
 
-self.fvcom = fvcom
-self.info  = info

@@ -1,12 +1,9 @@
 # CA BrightStor
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def AddColumn(arg0, arg1):
-    global acct
-
+def AddColumn(self, arg0, arg1):
     if len(arg0) > 100:
-        acct.add_alert('CA BrightStor overflow in AddColumn()')
-
-self.AddColumn = AddColumn
+        log.warning('CA BrightStor overflow in AddColumn()')

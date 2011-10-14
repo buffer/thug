@@ -1,45 +1,29 @@
 # MacrovisionJob, MacrovisionFlexNet
 # CVE-2007-2419, CVE-2007-5660, CVE-2007-6654, CVE-2007-0321, CVE-2007-0328
 
-object = self
-acct   = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def CreateJob(name, arg, job_id):
-    global object
-    
-    return object
+def CreateJob(self, name, arg, job_id):
+    log.warning('Macrovision ActiveX CreateObject("%s", "%s", "%s")' % (name, arg, job_id, ))
+    return self
 
-def DownloadAndExecute(arg0, arg1, arg2, arg3, arg4):
-    global acct
-
+def DownloadAndExecute(self, arg0, arg1, arg2, arg3, arg4):
     if len(arg1) > 512:	
-        acct.add_alert('Macrovision ActiveX DownloadAndExecute overflow')
+        log.warning('Macrovision ActiveX DownloadAndExecute overflow')
 
-def AddFileEx(arg0, arg1, arg2, arg3, arg4, arg5, arg6):
-    global acct
-
+def AddFileEx(self, arg0, arg1, arg2, arg3, arg4, arg5, arg6):
     if len(arg2) > 512:
-        acct.add_alert('Macrovision ActiveX AddFileEx overflow')
+        log.warning('Macrovision ActiveX AddFileEx overflow')
 
-def AddFile(arg0, arg1):
-    global acct
+def AddFile(self, arg0, arg1):
+    log.warning('Macrovision ActiveX AddFile("%s", "%s")' % (arg0, arg1))
 
-    acct.add_alert('Macrovision ActiveX AddFile Arguments')
-    acct.add_alert("%s ---> %s" % (arg0, arg1))
+def SetPriority(self, priority):
+    log.warning('Macrovision ActiveX SetPriority(%s)' % (priority, ))
 
-def SetPriority(priority):
-    return
+def SetNotifyFlags(self, flags):
+    log.warning('Macrovision ActiveX SetNotifyFlags(%s)' % (flags, ))
 
-def SetNotifyFlags(flags):
-    return
-
-def RunScheduledJobs():
-    return
-
-self.CreateJob          = CreateJob
-self.DownloadAndExecute = DownloadAndExecute
-self.AddFileEx          = AddFileEx
-self.AddFile            = AddFile
-self.SetPriority        = SetPriority
-self.SetNotifyFlags     = SetNotifyFlags
-self.RunScheduledJobs   = RunScheduledJobs
+def RunScheduledJobs(self):
+    log.warning('Macrovision ActiveX RunScheduledJobs()')

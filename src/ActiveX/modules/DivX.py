@@ -1,12 +1,9 @@
 # DivX Player 6.6.0 ActiveX Control
 # CVE-NOMATCHd
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def SetPassword(arg0):
-    global acct
-
+def SetPassword(self, arg0):
     if len(arg0) > 128:
-        acct.add_alert('DivX overflow in SetPassword()');
-
-self.SetPassword = SetPassword
+        log.warning('DivX overflow in SetPassword');

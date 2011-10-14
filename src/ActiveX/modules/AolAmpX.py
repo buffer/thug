@@ -1,20 +1,15 @@
 # AOL Radio AOLMediaPlaybackControl.exe 
 # CVE-2007-6250
 
-acct   = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def AppendFileToPlayList(arg):
-    global acct
-
+def AppendFileToPlayList(self, arg):
     if len(arg) > 512: 
-        acct.add_alert('AOL AmpX overflow in AppendFileToPlayList')
+        log.warning('AOL AmpX overflow in AppendFileToPlayList')
 
-def ConvertFile(*arg):
-    global acct
-
+def ConvertFile(self, *arg):
     #FIXME
     if len(arg[0]) > 512:
-        acct.add_alert('AOL AmpX overflow in ConvertFile')
+        log.warning('AOL AmpX overflow in ConvertFile')
 
-self.AppendFileToPlayList = AppendFileToPlayList
-self.ConvertFile          = ConvertFile

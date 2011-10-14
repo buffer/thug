@@ -1,12 +1,9 @@
 # Sina DLoader Class ActiveX Control 'DonwloadAndInstall' 
 # Method Arbitrary File Download Vulnerability
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def DownloadAndInstall(url):
-    global acct
+def DownloadAndInstall(self, url):
+    log.warning('SinaDLoader Downloader ActiveX Vulnerability (URL: %s)' % (url, )) 
 
-    acct.add_alert('Downloader ActiveX Vulnerability')
-    acct.add_alert('URL : ' + url)
-
-self.DownloadAndInstall = DownloadAndInstall

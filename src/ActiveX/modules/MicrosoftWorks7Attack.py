@@ -1,9 +1,9 @@
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def SetWksPictureInterface(val):
-    global acct
+def SetWksPictureInterface(self, val):
+    self.__dict__['WksPictureInterface'] = val
 
-    acct.add_alert('MicrosoftWorks7 ActiveX overflow in WksPictureInterface property')
+    log.warning('MicrosoftWorks7 ActiveX overflow in WksPictureInterface property')
 
-Attr2Fun['WksPictureInterface'] = SetWksPictureInterface

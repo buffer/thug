@@ -1,11 +1,9 @@
 # Comodo AntiVirus 2.0
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def ExecuteStr(cmd, args):
-    global acct
+def ExecuteStr(self, cmd, args):
+    log.warning('Comodo will execute: ' + cmd + ' ' + args)
 
-    acct.add_alert('Comodo will execute: ' + cmd + ' ' + args)
-
-self.ExecuteStr = ExecuteStr

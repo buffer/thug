@@ -1,11 +1,12 @@
 # Microsoft MDAC RDS.Dataspace ActiveX
 # CVE-2006-0003
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger('Thug.ActiveX')
 
-def createobject(*args):
-    global acct
+def CreateObject(self, object, param = ''):
+    import ActiveX
 
-    acct.add_alert("Microsoft MDAC RDS.Dataspace ActiveX attack in createobject function");
+    log.warning("[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (%s)" % (object))
+    return ActiveX.ActiveX._ActiveXObject(object)
 
-self.createobject = createobject;

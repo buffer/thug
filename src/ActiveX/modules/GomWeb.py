@@ -1,12 +1,10 @@
 # GOM Player GOM Manager ActiveX Control
 # CVE-2007-5779
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def OpenURL(arg):
-    global acct
-
+def OpenURL(self, arg):
     if len(arg) > 500:
-        acct.add_alert('GOM Player 2 overflow in OpenURL()')
+        log.warning('GOM Player 2 overflow in OpenURL')
 
-self.OpenURL = OpenURL

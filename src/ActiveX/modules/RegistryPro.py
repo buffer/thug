@@ -1,19 +1,12 @@
 # Registry Pro (epRegPro.ocx)
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def DeleteKey(arg0, arg1):
-    global acct
-
+def DeleteKey(self, arg0, arg1):
     if arg0 in (80000001, 80000002, ):
-        acct.add_alert('RegistryPro deleting HKEY_LOCAL_MACHINE key ' + arg1)
+        log.warning('RegistryPro ActiveX deleting [HKEY_LOCAL_MACHINE/%s]' % (arg1, ))
 	
-def About():
-    global acct
-
-    acct.add_alert('RegistryPro called About()')
-
-
-self.DeleteKey = DeleteKey
-self.About     = About
+def About(self):
+    log.warning('RegistryPro ActiveX About called')

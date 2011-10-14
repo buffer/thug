@@ -1,9 +1,9 @@
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def Setcachefolder(val):
-    global acct
+def Setcachefolder(self, val):
+    log.warning('CreativeSoft ActiveX overflow in cachefolder property')
 
-    acct.add_alert('CreativeSoft ActiveX overflow in cachefolder property')
-
-Attr2Fun['cachefolder'] = Setcachefolder
+# UH?!
+#Attr2Fun['cachefolder'] = Setcachefolder

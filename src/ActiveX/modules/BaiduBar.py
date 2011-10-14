@@ -1,12 +1,9 @@
 # BaiduBar.dll ActiveX DloadDS() Remote Code Execution Vulnerability
 # BUGTRAQ  ID: 25121
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def DloadDS(arg0, arg1, arg2):
-    global acct
-
+def DloadDS(self, arg0, arg1, arg2):
     if str(arg0).lower().find(".cab") != -1:
-        acct.add_alert('BaiduBar.dll ActiveX DloadDS() function is trying to download %s' % (arg0, ))
-
-self.DloadDS = DloadDS
+        log.warning('BaiduBar.dll ActiveX DloadDS() function is trying to download %s' % (arg0, ))

@@ -1,12 +1,10 @@
 # RTS Sentry Digital Surveillance PTZCamPanel Class (CamPanel.dll 2.1.0.2)
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def ConnectServer(server,user):
-    global acct
-
+def ConnectServer(self, server, user):
     if len(user) > 1024:
-        acct.add_alert('PTZCamPanel ConnectServer() overflow in user arg')
+        log.warning('PTZCamPanel ActiveX Overflow in ConnectServer user arg')
 
-self.ConnectServer = ConnectServer

@@ -1,12 +1,12 @@
 # Lycos FileUploader Module 2.x
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def SetHandwriterFilename(val):
-    global acct
+def SetHandwriterFilename(self, val):
+    self.__dict__['HandwriterFilename'] = val
 
     if len(val) > 1024:
-        acct.add_alert('FileUploader() overflow in HandwriterFilename property')
+        log.warning('FileUploader ActiveX overflow in HandwriterFilename property')
 
-Attr2Fun['HandwriterFilename'] = SetHandwriterFilename

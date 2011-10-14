@@ -1,12 +1,11 @@
 # BitDefender Online Scanner ActiveX Control
 # CVE-2007-5775
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def initx(arg):
-    global acct
+def initx(self, arg):
 
     if len(arg) > 1024:
-        acct.add_alert('BitDefender Online Scanner InitX() overflow')
+        log.warning('BitDefender Online Scanner InitX() overflow')
 
-self.initx = initx

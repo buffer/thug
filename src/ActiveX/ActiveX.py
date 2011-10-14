@@ -16,156 +16,84 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-
 import os
+import new
 import logging
-from CLSID import *
+from CLSID import CLSID
 
-ACTIVEX_MODULES = "ActiveX/modules/%s.py"
-ActiveXAcct = dict()
-modules     = []
-
-log = logging.getLogger("Thug.ActiveX.ActiveX")
-
-class ActiveXRecord:
-    MAX_ARG_LENGTH = 50
-
-    def __init__(self, cls, type):
-        self.cls    = cls
-        self.type   = type
-        self.alerts = set()
-        self.events = []
-        
-    def check_length(self, length):
-        return length > self.MAX_ARG_LENGTH
-
-    def check_for_url(self, value):
-        return value.lower().find('http://') != -1
-    
-    def check_for_path(self, value):
-        return value.lower().find('c:\\') != -1
-
-    def setattr_checks(self, value):
-        if self.check_length(len(value)):
-            log.warning("[Attribute %s Length: %d]" % (name, len(value), ))
-        if self.check_for_url(value):
-            log.warning("[Attribute %s contains URL: %s]" % (name, value, ))
-        if self.check_for_path(value):
-            log.warning("[Attribute %s contains filename: %s]" % (name, value, ))
-
-    def nosuchmethod_checks(self, name, arg):
-        log.warning("[Function: %s [Argument: %d]" % (name, arg,))
-
-        if self.check_length(len(arg)):
-            log.warning("Function: %s [Argument length: %d]" % (name, len(arg), ))
-        if self.check_for_url(arg):
-            log.warning("Function: %s [URL in argument: %s]" % (name, arg, ))
-        if self.check_for_path(arg):
-            log.warning("Function: %s [Filename in argument: %s]" % (name, arg, ))
-
-    def add_event_get(self, args):
-        eventlog = 'ActiveXObject: GET ' + args[0]
-        self.events.append(eventlog)
-
-    def add_event_set(self, args):
-        eventlog = 'ActiveXObject: SET ' + args[0] + ' = ' + str(args[1])
-        self.events.append(eventlog)
-
-    def add_event_call(self, args):
-        eventlog = 'ActiveXObject: CALL ' + str(args[0])
-        self.events.append(eventlog)
-
-    def add_event(self, evttype, *args):
-        m = getattr(self, 'add_event_%s' % (evttype), None)
-        if not m:
-            log.warning("Unknown ActiveX Event: %s" % (evttype, ))
-            return
-
-        m(args)
-
-    def add_alert(self, alert):
-        log.warning(alert)
-        self.alerts.add(alert)
-
+log = logging.getLogger("Thug.ActiveX")
 
 class _ActiveXObject:
     def __init__(self, cls, type = 'name'):
-        ActiveXAcct[self] = ActiveXRecord(cls, type)
-        _module = None
+        self.funcattrs = dict()
+        object         = None
+        methods        = dict()
 
         if type == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':
                 cls = cls[6:].upper()
-            if cls in clsidlist.keys(): 
-                _module = clsidlist[cls]
-        else:
-            for _clsname_key, _clsname_module in clsnamelist.items():
-                if cls.lower() == _clsname_key.lower():
-                    _module = _clsname_module
-            #if cls in clsnamelist: 
-            #    _module = clsnamelist[cls]
-            
-        if not _module:
-            log.warning("Unknown ActiveX Object: %s" % (cls, ))
-            return
-            
-        module = ACTIVEX_MODULES % (_module, )
-        if not os.access(module, os.F_OK):
-            log.warning("Unknown ActiveX Object: %s" % (cls, ))
-            return
-
-        modules.append(_module)
-        exec self.__load_module(module)
-
-    def __setattr__(self, name, val):
-        acct = ActiveXAcct[self]
-        acct.add_event('set', name, val)
-
-        self.__dict__[name] = val
-        module              = modules[-1]
-        key                 = "%s@%s" % (name, module, )
-
-        if key in Attr2Fun.keys():
-            Attr2Fun[name](val)
-            return
         
-        acct.setattr_checks(str([val]))
+        if type == 'name':
+            cls = cls.lower()
 
-    def __call__(self, *args):
-        acct = ActiveXAcct[self]
-        acct.add_event('call', args)
-        return self
-        
-    def __noSuchMethod__(self, name, *args):
-        acct = ActiveXAcct[self]
-        acct.add_event('call', args)
+        for c in CLSID:
+            if cls in c[type]:
+                object = c
+                break
 
-        for arg in args:
-            if not isinstance(arg, (str, )):
-                continue
+        if not object:
+            log.warning("Unknown ActiveX Object: %s" % (cls, ))
+            raise
 
-            acct.nosuchmethod_checks(name, arg)
+        log.debug("ActiveXObject: %s" % (cls, ))
 
-    def __load_module(self, module):
-        script = ''
-        with open(module, 'r') as fd:
-            script = fd.read()
-        return script
+        for method_name, method in c['methods'].items():
+            _method = new.instancemethod(method, self, _ActiveXObject)
+            setattr(self, method_name, _method)
+            methods[method] = _method
 
-# DEPRECATED 
-def add_alert(alert):
-    #acct = ActiveXAcct[-1][1]
-    #acct.alerts.add(alert)
-    log.warning(alert)
+        for attr_name, attr_value in c['attrs'].items():
+            setattr(self, attr_name, attr_value)
+
+        for attr_name, attr_value in c['funcattrs'].items():
+            self.funcattrs[attr_name] = methods[attr_value]
+
+    def __setattr__(self, name, value):
+        self.__dict__[name] = value
+        if name in self.funcattrs:
+            self.funcattrs[name](value)
 
 
-# DEPRECATED
-def write_log(md5, filename):
-    if not eventlist:
-        return
+def register_object(s, clsid):
+    funcattrs = dict()
+    methods   = dict()
+    object    = None
 
-    logfile = 'log/%s/%s' % (md5, filename, )
-    with open(logfile, 'wb') as fd:
-        for log in eventlist: 
-            fd.write(log + '\n')
-        log.warning("Log saved into %s" % (logfile, ))
+    if not clsid.startswith('clsid:'):
+        log.warning("Unknown ActiveX object: %s" % (clsid, ))
+        raise
+
+    clsid = clsid[6:].upper()
+    for c in CLSID:
+        if clsid in c['id']:
+            object = c
+            break
+
+    if object is None:
+        log.warning("Unknown ActiveX object: %s" % (clsid, ))
+        raise
+
+    for method_name, method in c['methods'].items():
+        _method = new.instancemethod(method, s, s.__class__)
+        setattr(s, method_name, _method)
+        methods[method] = _method
+
+    for attr_name, attr_value in c['attrs'].items():
+        setattr(s, attr_name, attr_value)
+
+    # PLEASE REVIEW ME!
+    for attr_name, attr_value in c['funcattrs'].items():
+        if 'funcattrs' not in s.__dict__:
+            s.__dict__['funcattrs'] = dict()
+
+        s.__dict__['funcattrs'][attr_name] = methods[attr_value]

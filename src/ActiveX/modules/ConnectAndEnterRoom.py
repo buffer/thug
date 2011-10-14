@@ -1,12 +1,10 @@
 # GlobalLink ConnectAndEnterRoom ActiveX Control ConnectAndEnterRoom() Method Overflow Vulnerability
 # CVE-2007-5722
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def ConnectAndEnterRoom(arg0, arg1, arg2, arg3, arg4, arg5):
-    global acct
-
+def ConnectAndEnterRoom(self, arg0, arg1, arg2, arg3, arg4, arg5):
     if len(arg0) > 172:
-        acct.add_alert('ConnectAndEnterRoom ActiveX Control ConnectAndEnterRoom() Overflow')
+        log.warning('ConnectAndEnterRoom ActiveX Control ConnectAndEnterRoom Overflow')
 
-self.ConnectAndEnterRoom = ConnectAndEnterRoom

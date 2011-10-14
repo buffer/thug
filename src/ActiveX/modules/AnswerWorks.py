@@ -1,26 +1,17 @@
 # Vantage Linguistics AnserWorks ActiveX Controls
 # CVE-2007-6387
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def GetHistory(arg):
-    global acct
-
+def GetHistory(self, arg):
     if len(arg) > 215:
-        acct.add_alert('AnswerWorks overflow in GetHistory()')
+        log.warning('AnswerWorks overflow in GetHistory')
 
-def GetSeedQuery(arg):
-    global acct
-
+def GetSeedQuery(self, arg):
     if len(arg) > 215:
-        acct.add_alert('AnswerWorks overflow in GetSeedQuery()')
+        log.warning('AnswerWorks overflow in GetSeedQuery')
 
-def SetSeedQuery(arg):
-    global acct
-
+def SetSeedQuery(self, arg):
     if len(arg) > 215:
-        acct.add_alert('AnswerWorks overflow in SetSeedQuery()')
-
-self.GetHistory   = GetHistory
-self.GetSeedQuery = GetSeedQuery
-self.SetSeedQuery = SetSeedQuery
+        log.warning('AnswerWorks overflow in SetSeedQuery')

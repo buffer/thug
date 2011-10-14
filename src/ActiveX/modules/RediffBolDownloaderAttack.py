@@ -1,9 +1,9 @@
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def Seturl(val):
-    global acct
+def Seturl(self, val):
+    self.__dict__['url'] = val
 
-    acct.add_alert('RediffBolDownloader ActiveX overflow in url property')
+    log.warning('RediffBolDownloader ActiveX Overflow in url property')
 
-Attr2Fun['url'] = Seturl

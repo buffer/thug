@@ -1,10 +1,7 @@
 # Yahoo! Messenger 8.x CYTF ActiveX Control
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def GetFile(url, local, arg2, arg3, cmd):
-    global acct
-
-    acct.add_alert('Yahoo! Messenger 8.x CYTF download of ' + url)
-
-self.GetFile = GetFile
+def GetFile(self, url, local, arg2, arg3, cmd):
+    log.warning('Yahoo! Messenger 8.x CYTF downloading %s' % (url, ))

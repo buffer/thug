@@ -1,12 +1,9 @@
 # Gogago YouTube Video Converter Buffer Overflow
 # HTB23012
 
-acct = ActiveXAcct[self]
+import logging 
+log = logging.getLogger("Thug.ActiveX")
 
-def Download(arg):
-    global acct
-
+def Download(self, arg):
     if len(arg) > 1024:
-        acct.add_alert('Gogago YouTube Video Converter Buffer Overflow')
-
-self.Download = Download
+        log.warning('Gogago YouTube Video Converter Buffer Overflow')

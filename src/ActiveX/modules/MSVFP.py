@@ -1,13 +1,8 @@
 # Microsoft VFP_OLE_Server
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def foxcommand(cmd):
-    global acct
+def foxcommand(self, cmd):
+    log.warning('Microsoft VFP_OLE_Server is attempting to run: %s' % (cmd, ))
 
-    acct.add_alert('Microsoft VFP_OLE_Server running ' + cmd)
-
-self.foxcommand = foxcommand
-self.FoxCommand = foxcommand
-self.DoCmd      = foxcommand
-self.docmd      = foxcommand

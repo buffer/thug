@@ -1,12 +1,10 @@
 # Chinagames iGame CGAgent ActiveX Control Buffer Overflow
 # CVE-2009-1800
 
-acct = ActiveXAcct[self]
+import logging 
+log = logging.getLogger("Thug.ActiveX")
 
-def CreateChinagames(arg0):
-    global acct
-
+def CreateChinagames(self, arg0):
     if len(arg0) > 428:
-        acct.add_alert('CGAgent ActiveX CreateChinagames Method Buffer Overflow')
+        log.warning('CGAgent ActiveX CreateChinagames Method Buffer Overflow')
 
-self.CreateChinagames = CreateChinagames

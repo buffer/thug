@@ -1,12 +1,9 @@
 # ICQ Toolbar attack
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def GetPropertyById(arg0, arg1):
-    global acct
-
+def GetPropertyById(self, arg0, arg1):
     if len(arg1) > 120:
-        acct.add_alert('ICQToolbar buffer overflow in GetPropertyById')
-
-self.GetPropertyById = GetPropertyById
+        log.warning('ICQToolbar buffer overflow in GetPropertyById')

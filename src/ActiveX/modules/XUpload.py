@@ -1,19 +1,14 @@
 # Persists Software XUpload control, version 2.1.0.1.
 # CVE-2007-6530
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def AddFolder(arg):
-    global acct
-
+def AddFolder(self, arg):
     if len(arg) > 1024:
-        acct.add_alert('XUpload overflow in AddFolder()')
+        log.warning('XUpload ActiveX Overflow in AddFolder method')
 
-def AddFile(arg):
-    global acct
-
+def AddFile(self, arg):
     if len(arg) > 255: 
-        acct.add_alert('XUpload overflow in AddFile()')
+        log.warning('XUpload ActiveX Overflow in AddFile method')
 
-self.AddFolder = AddFolder
-self.AddFile   = AddFile

@@ -1,14 +1,12 @@
 # NamoInstaller ActiveX Control 1.x - 3.x
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def Install(arg):
-    global acct
-
+def Install(self, arg):
     if str([arg]).find('http') > -1:
-        acct.add_alert('Insecure download via NamoInstaller of ' + arg)
-    if len(arg) > 1024:
-        acct.add_alert('NamoInstaller overflow in Install')
+        log.warning('NamoInstaller ActiveX insecure download (%s)' % (arg, ))
 
-self.Install = Install
+    if len(arg) > 1024:
+        log.warning('NamoInstaller ActiveX Overflow in Install')

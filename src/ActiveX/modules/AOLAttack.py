@@ -1,9 +1,7 @@
 
-acct = ActiveXAcct[self]
+import logging 
+log = logging.getLogger("Thug.ActiveX")
 
-def LinkSBIcons():
-    global acct
+def LinkSBIcons(self):
+    log.warning('AOLActiveX attack in LinkSBIcons function')
 
-    acct.add_alert('AOLActiveX attack in LinkSBIcons function')
-
-self.LinkSBIcons = LinkSBIcons

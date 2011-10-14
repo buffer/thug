@@ -1,29 +1,22 @@
 # Microsoft Access Snapshot Viewer 
 # CVE-2008-2463
 
-object = self
-acct   = ActiveXAcct[self]
+import httplib2
+import hashlib
 
-def PrintSnapshot(SnapshotPath = None, CompressedPath = None):
-    global object
-    global acct
-    
-    import httplib2
-    import hashlib
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-    if SnapshotPath:
-        object.SnapshotPath = SnapshotPath
-    if CompressedPath:
-        object.CompressedPath = CompressedPath
+def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
+    self.SnapshotPath = SnapshotPath
+    self.CompressedPath = CompressedPath
 
-    acct.add_alert('[*] Microsoft Access Snapshot Viewer')
-    acct.add_alert("[*] SnapshotPath     : " + object.SnapshotPath)
-    acct.add_alert("[*] CompressedPath   : " + object.CompressedPath)
+    log.warning('[*] Microsoft Access Snapshot Viewer [SnapshotPath : %s, CompressedPath: %s]' % SnapshotPath, CompressedPath)
 
-    url = object.SnapshotPath
+    url = self.SnapshotPath
 
     # FIXME: Relative URL
-    acct.add_alert("[*] Fetching %s" % (url, ))
+    log.warning("[*] Fetching %s" % (url, ))
 
     headers = {
         'user-agent' : 'Mozilla/4.0 (compatible; MSIE 6.1; Windows XP; .NET CLR 1.1.4322; .NET CLR 2.0.50727)'
@@ -37,8 +30,7 @@ def PrintSnapshot(SnapshotPath = None, CompressedPath = None):
 
     filename = md5.hexdigest()
 		
-    acct.add_alert("[*] Saving File: " + filename)
+    log.warning("[*] Saving File: " + filename)
     with open(filename, 'wb') as fd:
         fd.write(content)
 	
-self.PrintSnapshot  = PrintSnapshot

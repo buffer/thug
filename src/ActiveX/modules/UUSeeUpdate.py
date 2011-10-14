@@ -1,11 +1,9 @@
 # UUSee UUUpgrade ActiveX Control 'Update' Method Arbitrary File Download Vulnerability
 # CVE...
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def Update(*args):
-    global acct
+def Update(self, *args):
+    log.warning('UUsee UUPgrade ActiveX Attack in Update Method')
 
-    acct.add_alert('UUsee UUPgrade ActiveX attack in Update Methond')
-
-self.Update=Update

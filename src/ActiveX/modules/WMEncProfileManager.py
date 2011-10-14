@@ -1,12 +1,9 @@
 # Microsoft Windows Media Encoder WMEX.DLL ActiveX BufferOverflow vulnerability
 # CVE-2008-3008
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def GetDetailsString(arg0, arg1):
-    global acct
-
+def GetDetailsString(self, arg0, arg1):
     if len(arg0) > 1023:
-        acct.add_alert('WMEX.DLL ActiveX GetDetailsString Method Overflow')
-
-self.GetDetailsString = GetDetailsString
+        log.warning('WMEX.DLL ActiveX GetDetailsString Method Overflow')

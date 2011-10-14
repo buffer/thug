@@ -1,26 +1,18 @@
 # Yahoo! Music Jukebox 2.x
 # CVE-NOMATCH
 
-acct = ActiveXAcct[self]
+import logging
+log = logging.getLogger("Thug.ActiveX")
 
-def AddBitmap(arg0, arg1, arg2, arg3, arg4, arg5):
-    global acct
-
+def AddBitmap(self, arg0, arg1, arg2, arg3, arg4, arg5):
     if len(arg1) > 256:
-        acct.add_alert('Yahoo Jukebox overflow in AddBitmap()')
+        log.warning('Yahoo Jukebox ActiveX Overflow in AddBitmap')
 
-def AddButton(arg0, arg1):
-    global acct
-
+def AddButton(self, arg0, arg1):
     if len(arg0) > 256:
-        acct.add_alert('Yahoo Jukebox overflow in AddButton()')
+        log.warning('Yahoo Jukebox ActiveX Overflow in AddButton')
 
-def AddImage(arg0, arg1):
-    global acct
-
+def AddImage(self, arg0, arg1):
     if len(arg0) > 256:
-        acct.add_alert('Yahoo Jukebox overflow in AddImage()')
+        log.warning('Yahoo Jukebox ActiveX Overflow in AddImage')
 
-self.AddBitmap = AddBitmap
-self.AddButton = AddButton
-self.AddImage  = AddImage
