@@ -5,6 +5,33 @@ from HTMLElement import HTMLElement
 from attr_property import attr_property
 
 class HTMLObjectElement(HTMLElement):
+    def __init__(self, doc, tag):
+        HTMLElement.__init__(self, doc, tag)
+    
+    def __getattr__(self, name):
+        for (key, value) in self.tag.attrs:
+            if key != 'id':
+                continue
+        
+            _obj = getattr(self.doc.window, value)
+            if _obj:
+                return getattr(_obj, name)
+        return self.__dict__[name]
+
+    # PLEASE REVIEW ME!
+    def __setattr__(self, name, value):
+        if name == 'classid':
+            self.setAttribute(name, value)
+            return
+
+        self.__dict__[name] = value
+        
+        if 'funcattrs' not in self.__dict__:
+            return
+
+        if name in self.__dict__['funcattrs']:
+            self.__dict__['funcattrs'][name](value)
+
     @property
     def form(self):
         pass
@@ -31,3 +58,15 @@ class HTMLObjectElement(HTMLElement):
     @property
     def contentDocument(self):
         return self.doc if self.doc else None
+
+    def setAttribute(self, name, value):
+        # ActiveX registration
+        if name == 'classid':
+            from ActiveX.ActiveX import register_object
+
+            try:
+                register_object(self, value)
+            except:
+                return
+
+        self.tag[name] = value
