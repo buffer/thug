@@ -243,6 +243,10 @@ class Navigator(PyV8.JSClass):
             log.warning("ServerNotFoundError: %s" % (e, ))
             return response, content
 
+        if response.status == 404:
+            log.warning("FileNotFoundError: %s" % (url, ))
+            return response, content
+
         md5 = hashlib.md5()
         md5.update(content)
         filename = md5.hexdigest()
