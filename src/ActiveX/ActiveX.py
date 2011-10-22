@@ -24,8 +24,9 @@ from CLSID import CLSID
 log = logging.getLogger("Thug.ActiveX")
 
 class _ActiveXObject:
-    def __init__(self, cls, type = 'name'):
+    def __init__(self, window, cls, type = 'name'):
         self.funcattrs = dict()
+        self._window   = window
         object         = None
         methods        = dict()
 
@@ -45,7 +46,7 @@ class _ActiveXObject:
             log.warning("Unknown ActiveX Object: %s" % (cls, ))
             raise
 
-        log.debug("ActiveXObject: %s" % (cls, ))
+        log.info("ActiveXObject: %s" % (cls, ))
 
         for method_name, method in c['methods'].items():
             _method = new.instancemethod(method, self, _ActiveXObject)
@@ -60,9 +61,15 @@ class _ActiveXObject:
 
     def __setattr__(self, name, value):
         self.__dict__[name] = value
+            
         if name in self.funcattrs:
             self.funcattrs[name](value)
 
+    def __getattribute__(self, name):
+        if name in self.__dict__:
+            return self.__dict__[name]
+
+        log.warning("Unknown ActiveX Object attribute: %s" % (name, ))
 
 def register_object(s, clsid):
     funcattrs = dict()

@@ -124,7 +124,7 @@ CLSID = [
                             'open'          : AdodbStream.open,
                             'Write'         : AdodbStream.Write,
                             'SaveToFile'    : AdodbStream.SaveToFile,
-                            'Close'         : AdodbStream.Close, 
+                            'Close'         : AdodbStream.Close,
                           }   
         },  
 
@@ -852,13 +852,14 @@ CLSID = [
             'funcattrs' : {},
             'methods'   : {
                             'ShellExecute'  : ShellApplication.ShellExecute,
+                            'shellexecute'  : ShellApplication.ShellExecute,
                           }
         },
 
         # Shockwave
         {
             'id'        : ( '233C1507-6A77-46A4-9443-F871F945D258', ),
-            'name'      : ( 'swctl.swctl', ),
+            'name'      : ( 'swctl.swctl', 'swctl.swctl.8',  ),
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {

@@ -12,15 +12,16 @@ def open(self, arg0, arg1, arg2 = True, arg3 = None, arg4 = None):
 	
     log.warning("[Microsoft XMLHTTP ActiveX] Fetching from URL %s" % (url, ))
 
-    headers = {
-        'user-agent' : logging.getLogger("Thug").userAgent,
-    }
+    #headers = {
+    #    'user-agent' : logging.getLogger("Thug").userAgent,
+    #}
 
-    h = httplib2.Http('/tmp/.cache')
+    #h = httplib2.Http('/tmp/.cache')
 
     #FIXME: Relative URLs
     try:
-        response, content = h.request(url, headers = headers)
+        #response, content = h.request(url, headers = headers)
+        response, content = self._window._navigator.fetch(url)
     except:
         log.warning('[Microsoft XMLHTTP ActiveX] Fetch failed')
         return
@@ -30,9 +31,11 @@ def open(self, arg0, arg1, arg2 = True, arg3 = None, arg4 = None):
     filename = md5.hexdigest()
 
     log.warning("[Microsoft XMLHTTP ActiveX] Saving File: " + filename)
-    
+  
+    baseDir = logging.getLogger("Thug").baseDir
+
     try:
-        fd = os.open(filename, os.O_RDWR | os.O_CREAT)
+        fd = os.open(os.path.join(baseDir, filename), os.O_RDWR | os.O_CREAT)
         os.write(fd, content)
         os.close(fd)
     except:

@@ -16,14 +16,15 @@ def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
     url = self.SnapshotPath
 
     # FIXME: Relative URL
-    log.warning("[*] Fetching %s" % (url, ))
+    #log.warning("[*] Fetching %s" % (url, ))
 
-    headers = {
-        'user-agent' : 'Mozilla/4.0 (compatible; MSIE 6.1; Windows XP; .NET CLR 1.1.4322; .NET CLR 2.0.50727)'
-    }
+    #headers = {
+    #    'user-agent' : 'Mozilla/4.0 (compatible; MSIE 6.1; Windows XP; .NET CLR 1.1.4322; .NET CLR 2.0.50727)'
+    #}
 
-    h = httplib2.Http('/tmp/.cache')
-    response, content = h.request(str(url), headers = headers)
+    #h = httplib2.Http('/tmp/.cache')
+    #response, content = h.request(str(url), headers = headers)
+    response, content = self._window._navigator.fetch(url)
 
     md5 = hashlib.md5()
     md5.update(content)

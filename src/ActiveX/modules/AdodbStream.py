@@ -14,3 +14,4 @@ def SaveToFile(self, filename, opt):
 def Close(self):
     log.warning("[Adodb.Stream ActiveX] Close")
 
+

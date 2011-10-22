@@ -5,7 +5,7 @@ import logging
 log = logging.getLogger("Thug.ActiveX")
 
 def Setserver(self, name):
-    self.__dict__['server'] = val
+    self.__dict__['server'] = name
 
     if len(name) > 255:
         log.warning('Yahoo! Messenger ActiveX Server Console Overflow')

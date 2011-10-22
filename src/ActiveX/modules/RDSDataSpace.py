@@ -8,5 +8,5 @@ def CreateObject(self, object, param = ''):
     import ActiveX
 
     log.warning("[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (%s)" % (object))
-    return ActiveX.ActiveX._ActiveXObject(object)
+    return ActiveX.ActiveX._ActiveXObject(self._window, object)
 

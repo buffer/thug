@@ -17,14 +17,15 @@ def Comp_Download(self, arg0, arg1):
     log.warning(arg0)
     log.warning(arg1)
 
-    headers = {
-        'user-agent' : logging.getLogger("Thug").userAgent,
-    }
+    #headers = {
+    #    'user-agent' : logging.getLogger("Thug").userAgent,
+    #}
 
-    h = httplib2.Http('/tmp/.cache')
+    #h = httplib2.Http('/tmp/.cache')
 
     #FIXME: Relative URLs
-    response, content = h.request(arg0, headers = headers)
+    #response, content = h.request(arg0, headers = headers)
+    response, content = self._window._navigator.fetch(arg0)
     md5 = hashlib.md5()
     md5.update(content)
     filename = md5.hexdigest()

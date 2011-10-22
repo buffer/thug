@@ -9,15 +9,16 @@ log = logging.getLogger("Thug.ActiveX")
 def DownloadFile(self, *arg):
     log.warning('ZenturiProgramChecker ActiveX Attack in DownloadFile function')
 
-    h = httplib2.Http('/tmp/.cache')
+    #h = httplib2.Http('/tmp/.cache')
 
-    headers = {
-        'user-agent' : logging.getLogger("Thug").userAgent,
-    }
+    #headers = {
+    #    'user-agent' : logging.getLogger("Thug").userAgent,
+    #}
 
     #FIXME: Relative URLs
     try:
-        response, content = h.request(arg[0], headers = headers)
+        #response, content = h.request(arg[0], headers = headers)
+        response, content = self._window._navigator.fecth(arg[0])
     except:
         log.warning('[ZenturiProgramChecker ActiveX] Fetch failed')
 
