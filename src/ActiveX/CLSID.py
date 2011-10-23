@@ -49,6 +49,7 @@ from modules import HPInfo
 from modules import ICQToolbar
 from modules import IMWebControl
 from modules import InternetCleverSuite
+from modules import JavaDeploymentToolkit
 from modules import JetAudioDownloadFromMusicStore
 from modules import Kingsoft
 from modules import MacrovisionFlexNet 
@@ -478,6 +479,18 @@ CLSID = [
             'methods'   : {
                             'GetToFile'             : InternetCleverSuite.GetToFile,
                           }
+        },
+
+        # JavaDeploymentToolkit
+        {
+            'id'        : ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA', 
+                            '8AD9C840-044E-11D1-B3E9-00805F499D93', ),
+            'name'      : (),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'launch'                : JavaDeploymentToolkit.launch,
+                          },
         },
 
         # JavaPlugin

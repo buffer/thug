@@ -8,10 +8,10 @@ import logging
 log = logging.getLogger("Thug.ActiveX")
 
 def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
-    self.SnapshotPath = SnapshotPath
+    self.SnapshotPath   = SnapshotPath
     self.CompressedPath = CompressedPath
 
-    log.warning('[*] Microsoft Access Snapshot Viewer [SnapshotPath : %s, CompressedPath: %s]' % SnapshotPath, CompressedPath)
+    log.warning('[*] Microsoft Access Snapshot Viewer [SnapshotPath : %s, CompressedPath: %s]' % (SnapshotPath, CompressedPath, ))
 
     url = self.SnapshotPath
 
