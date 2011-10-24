@@ -23,6 +23,10 @@ def launch(self, arg):
             log.warning("[Java Deployment Toolkit ActiveX] Fetch Failed")
             continue
 
+        if response.status == 404:
+            log.warning("FileNotFoundError: %s" % (url, ))
+            continue 
+
         md5 = hashlib.md5()
         md5.update(content)
         filename = md5.hexdigest()
