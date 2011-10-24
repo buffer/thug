@@ -15,23 +15,23 @@ def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
 
     url = self.SnapshotPath
 
-    # FIXME: Relative URL
-    #log.warning("[*] Fetching %s" % (url, ))
+    try:
+        response, content = self._window._navigator.fetch(url)
+    except:
+        log.warning('[Microsoft Access Snapshot Viewer ActiveX] Fetch failed')
+        return
 
-    #headers = {
-    #    'user-agent' : 'Mozilla/4.0 (compatible; MSIE 6.1; Windows XP; .NET CLR 1.1.4322; .NET CLR 2.0.50727)'
-    #}
-
-    #h = httplib2.Http('/tmp/.cache')
-    #response, content = h.request(str(url), headers = headers)
-    response, content = self._window._navigator.fetch(url)
+    if response.status == 404:
+        log.warning("FileNotFoundError: %s" % (url, ))
+        return 
+ 
+    baseDir = logging.getLogger("Thug").baseDir
 
     md5 = hashlib.md5()
     md5.update(content)
-
     filename = md5.hexdigest()
 		
-    log.warning("[*] Saving File: " + filename)
+    log.warning("[Microsoft Access Snapshot Viewer ActiveX] Saving File: " + filename)
     with open(filename, 'wb') as fd:
         fd.write(content)
 	
