@@ -12,19 +12,14 @@ def open(self, arg0, arg1, arg2 = True, arg3 = None, arg4 = None):
 	
     log.warning("[Microsoft XMLHTTP ActiveX] Fetching from URL %s" % (url, ))
 
-    #headers = {
-    #    'user-agent' : logging.getLogger("Thug").userAgent,
-    #}
-
-    #h = httplib2.Http('/tmp/.cache')
-
-    #FIXME: Relative URLs
     try:
-        #response, content = h.request(url, headers = headers)
         response, content = self._window._navigator.fetch(url)
     except:
         log.warning('[Microsoft XMLHTTP ActiveX] Fetch failed')
         return
+
+    if response.status == 404:
+        return 
 
     md5 = hashlib.md5()
     md5.update(content)
