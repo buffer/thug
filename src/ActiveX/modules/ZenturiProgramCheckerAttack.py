@@ -22,6 +22,10 @@ def DownloadFile(self, *arg):
     except:
         log.warning('[ZenturiProgramChecker ActiveX] Fetch failed')
 
+    if response.status == 404:
+        log.warning("FileNotFoundError: %s" % (url, ))
+        return 
+
     md5 = hashlib.md5()
     md5.update(content)
     filename = md5.hexdigest()
