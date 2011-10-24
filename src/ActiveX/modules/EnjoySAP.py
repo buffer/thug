@@ -16,21 +16,28 @@ def PrepareToPostHTML(self, arg):
 def Comp_Download(self, arg0, arg1):
     log.warning(arg0)
     log.warning(arg1)
+    
+    url = arg0
 
-    #headers = {
-    #    'user-agent' : logging.getLogger("Thug").userAgent,
-    #}
+    log.warning("[EnjoySAP ActiveX] Fetching from URL %s" % (url, ))
 
-    #h = httplib2.Http('/tmp/.cache')
+    try:
+        response, content = self._window._navigator.fetch(url)
+    except:
+        log.warning('[EnjoySAP ActiveX] Fetch failed')
+        return
 
-    #FIXME: Relative URLs
-    #response, content = h.request(arg0, headers = headers)
-    response, content = self._window._navigator.fetch(arg0)
+    if response.status == 404:
+        log.warning("FileNotFoundError: %s" % (url, ))
+        return 
+ 
+    baseDir = logging.getLogger("Thug").baseDir
+
     md5 = hashlib.md5()
     md5.update(content)
     filename = md5.hexdigest()
-    log.warning("[*] Saving File: " + filename)
+    log.warning("[EnjoySAP ActiveX] Saving File: " + filename)    
     
-    with open(filename, 'wb') as fd:
+    with open(os.path.join(baseDir, filename), 'wb') as fd:
         fd.write(content)
 
