@@ -22,6 +22,8 @@ import logging
 import PyV8 
 import BeautifulSoup
 import traceback
+import hashlib
+import pefile
 import W3C.w3c as w3c
 
 from Personality import Personality
@@ -50,7 +52,10 @@ class Window(PyV8.JSClass):
 
         def start(self):
             self.event = sched.enter(self.delay, 1, self.execute, ())
-            sched.run()
+            try:
+                sched.run()
+            except:
+                pass
 
         def stop(self):
             self.running = False
@@ -196,10 +201,9 @@ class Window(PyV8.JSClass):
     def screenY(self):
         return self._top
 
-    @property
-    def ActiveXObject(self):
-        return _ActiveXObject
-    
+    def ActiveXObject(self, cls, type = 'name'):
+        return _ActiveXObject(self, cls, type = 'name')
+
     # Window object methods
     #
     # escape        Encodes a string.
@@ -588,8 +592,51 @@ class Window(PyV8.JSClass):
         """
         pass
 
+    # Windows Script Host Run method documentation at
+    # http://msdn.microsoft.com/en-us/library/d5fk67ky(v=vs.85).aspx
+    def _Run(self, strCommand, intWindowStyle = 0, bWaitOnReturn = False):
+        log.warning("[Windows Script Host Run] Command: \n%s\n", strCommand)
+        if not 'http' in strCommand:
+            return
+
+        self._doRun(strCommand, 1)
+
+    def _doRun(self, p, stage):
+        if not isinstance(p, str):
+            return
+
+        try:
+            pe = pefile.PE(data = p, fast_load = True)
+            return
+        except:
+            pass
+        
+        log.warning("[Windows Script Host Run - Stage %d] Code:\n%s" % (stage, p, ))
+
+        while True:
+            try:
+                index = p.index('"http')
+            except ValueError:
+                break
+
+            p = p[index + 1:]
+            s = p.split('"')
+            if len(s) < 2:
+                break
+
+            url = s[0]
+            log.warning("[Windows Script Host Run - Stage %d] Downloading from URL %s" % (stage, url, ))
+            response, content = self._navigator.fetch(url)
+               
+            md5 = hashlib.md5()
+            md5.update(content)
+            log.warning("[Windows Script Host Run - Stage %d] Saving file %s" % (stage, md5.hexdigest()))
+            p = '"'.join(s[1:])
+            
+            self._doRun(content, stage + 1)
+                
     def _attachEvent(self, sEvent, fpNotify):
-        self.alert("[attachEvent] %s %s" % (sEvent, fpNotify, ))
+        #self.alert("[attachEvent] %s %s" % (sEvent, fpNotify, ))
         fpNotify.__call__()
 
     def _detachEvent(self, sEvent, fpNotify):
@@ -605,6 +652,7 @@ class Window(PyV8.JSClass):
         if self._personality.startswith(('xpie', 'w2kie')):
             self.attachEvent = self._attachEvent
             self.detachEvent = self._detachEvent
+            self.Run         = self._Run
 
         if self._personality.startswith('firefox'):
             self.addEventListener    = self._addEventListener
@@ -645,12 +693,10 @@ class Window(PyV8.JSClass):
             # FIXME
             ctxt.eval('window.unescape = unescape;') 
             ctxt.eval('window.Array = Array;')
+
             if self._personality.startswith(('xpie', 'w2kie')):
                 script = script.replace('@cc_on!@', '*/!/*')
-            # HCP quick test (it works!)
-            # TODO: Move it to HTMLIFrameElement setAttribute and
-            # implement an heuristic for detecting URLs within svr
-            ctxt.eval('window.Run = alert;')
+            
             shellcode = Shellcode.Shellcode(ctxt, ast, script)
             result = shellcode.run()
 
@@ -665,7 +711,7 @@ class Window(PyV8.JSClass):
             if not classid or not id:
                 continue
             #self.__dict__[id] = _ActiveXObject(classid, 'id')
-            setattr(self, id, _ActiveXObject(classid, 'id'))
+            setattr(self, id, _ActiveXObject(self, classid, 'id'))
 
         index = 0
         tags  = self._findAll('script')
@@ -694,7 +740,7 @@ class Window(PyV8.JSClass):
         return self.doc.createElement('img')
 
     def XMLHttpRequest(self):
-        return _ActiveXObject('microsoft.xmlhttp')
+        return _ActiveXObject(self, 'microsoft.xmlhttp')
 
     def open(self, url = None, name = '_blank', specs = '', replace = False):
         if url:
