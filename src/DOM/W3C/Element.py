@@ -5,10 +5,34 @@ import sys, re, string
 
 from HTML import BeautifulSoup
 import PyV8
+import logging
+import urlparse
 
 from Node import Node
 from Text import Text
 from DOMException import DOMException
+
+log = logging.getLogger("Thug")
+
+
+def handle_hcp(s):
+    log.warning('Microsoft Internet Explorer HCP Scheme Detected')
+
+    hcp = s.path.split('svr=')
+    if len(hcp) < 2:
+        return
+
+    hcp = hcp[1].split('defer>')
+    if len(hcp) < 2:
+        return
+
+    hcp = hcp[1].split('</script')
+    if not hcp:
+        return
+
+    log.warning('Microsoft Internet Explorer HCP Exploit Detected')
+    
+    return hcp[0]
 
 
 class Element(Node):
@@ -162,15 +186,16 @@ class Element(Node):
         self.tag[name] = value
 
         if name in ('src', 'code'):
-            import urlparse
-            #print value
+            s = urlparse.urlsplit(value)
 
-            s = urlparse.urlparse(value)
             if s.scheme == 'hcp':
+                hcp = handle_hcp(s)
+                if hcp:
+                    self.doc.window.evalScript(hcp) 
                 return
 
-            response, content = self.doc.window.navigator.fetch(value)
-            #print response
+            response, content = self.doc.window._navigator.fetch(value)
+            print response
         
     def removeAttribute(self, name):
         del self.tag[name]
