@@ -69,7 +69,7 @@ class Location(PyV8.JSClass):
 
     def reload(self):
         """Reloads the current page."""
-        self._window.open(self.win.url)
+        self._window.open(self._window.url)
 
     def replace(self, url):
         """Replaces the current document by loading another document at the specified URL."""
