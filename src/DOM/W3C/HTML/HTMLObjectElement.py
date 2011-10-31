@@ -7,6 +7,7 @@ from attr_property import attr_property
 class HTMLObjectElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
+        self._window = self.doc.window
     
     def __getattr__(self, name):
         for (key, value) in self.tag.attrs:
