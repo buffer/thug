@@ -22,6 +22,7 @@ import hashlib
 import logging
 import Window
 from ActiveX.ActiveX import _ActiveXObject
+from W3C.HTML.BeautifulSoup import BeautifulSoup, Tag
 
 log        = logging.getLogger("Thug.DOM.DFT")
 vbs_parser = True
@@ -38,7 +39,8 @@ class DFT(object):
     vbscript   = ('vbs', 'vbscript', 'visualbasic')
 
     def __init__(self, window):
-        self.window = window
+        self.window         = window
+        self.window.doc.DFT = self
     
     def __enter__(self):
         return self
@@ -84,12 +86,12 @@ class DFT(object):
 
         if classid and id:
             #self.window.__dict__[id] = _ActiveXObject(classid, 'id')
-            setattr(self.window, id, _ActiveXObject(classid, 'id'))
+            setattr(self.window, id, _ActiveXObject(self.window, classid, 'id'))
 
     def handle_script(self, script):
         language = script.get('language', 'javascript').lower()
         handler  = getattr(self, "handle_%s" % (language, ), None)
-                
+
         if not handler:
             log.warning("Unhandled script language: %s" % (language, ))
             return
@@ -99,15 +101,21 @@ class DFT(object):
     def handle_javascript(self, script):
         log.info(script)
 
-        if not script.string:
-            src = script.get('src', None)
-            if not src:
-                return
+        if isinstance(script, Tag):
+            js = ' '.join(script.contents)
+        else:
+            js = script.string
 
-            response, js = self.window._navigator.fetch(src)
-            script.string = js
+            if not script.string:
+                src = script.get('src', None)
+                if not src:
+                    return
 
-        self.window.evalScript(script.string, tag = script)
+                response, js = self.window._navigator.fetch(src)
+                if response.status == 404:
+                    return 
+
+        self.window.evalScript(js, tag = script)
 
     def handle_vbscript(self, script):
         log.info(script)
@@ -165,7 +173,10 @@ class DFT(object):
         except:
             return
 
-        log.info('Saving applet %s' % (archive, ))
+        if response.status == 404:
+            return
+
+        log.warning('Saving applet %s' % (archive, ))
         _log = logging.getLogger("Thug")
         with open(os.path.join(_log.baseDir, archive.split('/')[-1]), 'wb') as fd:
             fd.write(content)
@@ -196,8 +207,9 @@ class DFT(object):
         if not url:
             return
 
-        response, content = self.window._navigator.fetch(url)
-        self.window.doc   = w3c.parseString(content)
+        response, content   = self.window._navigator.fetch(url)
+        self.window.doc     = w3c.parseString(content)
+        self.window.doc.DFT = self
         self.window.open(url)
         self.run()
 
