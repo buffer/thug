@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 from __future__ import with_statement
 
-import sys, re, string
+import sys
+import re
+import string
+import logging
 
 from urlparse import urlparse
 
@@ -37,6 +40,16 @@ class HTMLDocument(Document):
         self._cookie        = cookie
         self._html          = None
         self.current        = None
+
+    def __getattr__(self, name):
+        if name in self.__dict__:
+            return self.__dict__[name]
+        
+        # Internet Explorer is not compliant with ECMAScript 5 spec 8.6.2
+        if self._win._personality.startswith(('xpie', 'w2kie')):
+            raise TypeError()
+
+        return None
 
     def getWindow(self):
         return self._win
@@ -94,6 +107,14 @@ class HTMLDocument(Document):
                 parent.insert(pos, tag)
 
                 pos += 1
+
+                name = getattr(tag, "name", None)
+                if name is None:
+                    continue
+
+                handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
+                if handler:
+                    handler(tag)
 
     def writeln(self, text):
         self.write(text + "\n")
