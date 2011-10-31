@@ -2783,15 +2783,14 @@ var PluginDetect = {
 PluginDetect.initScript();
 
 PluginDetect.getVersion(".");
+jver = PluginDetect.getVersion("Java", './getJavaInfo.jar');
 pdfver = PluginDetect.getVersion("AdobeReader");
 flashver = PluginDetect.getVersion('Flash');
-//quicktime = PluginDetect.getVersion('QuickTime'); 
-//shockwave = PluginDetect.getVersion('Shockwave');
-//wmp = PluginDetect.getVersion('WindowsMediaPlayer');
-//silverlight = PluginDetect.getVersion('Silverlight');
-//vlc = PluginDetect.getVersion('VLC');
-jver = PluginDetect.getVersion("Java", './getJavaInfo.jar');
-alert(jver);
+quicktime = PluginDetect.getVersion('QuickTime'); 
+shockwave = PluginDetect.getVersion('Shockwave');
+wmp = PluginDetect.getVersion('WindowsMediaPlayer');
+silverlight = PluginDetect.getVersion('Silverlight');
+vlc = PluginDetect.getVersion('VLC');
 </script>
 </body>
 </html>
