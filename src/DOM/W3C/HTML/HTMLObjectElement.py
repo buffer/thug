@@ -16,7 +16,11 @@ class HTMLObjectElement(HTMLElement):
             _obj = getattr(self.doc.window, value)
             if _obj:
                 return getattr(_obj, name)
-        return self.__dict__[name]
+
+        if name in self.__dict__:
+            return self.__dict__[name]
+
+        log.warning("HTMLObjectElement attribute not found: %s", (name, ))
 
     # PLEASE REVIEW ME!
     def __setattr__(self, name, value):
