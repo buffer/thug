@@ -1,4 +1,5 @@
 
+import os
 import hashlib
 import httplib2
 import logging
@@ -32,12 +33,12 @@ def Comp_Download(self, arg0, arg1):
         return 
  
     baseDir = logging.getLogger("Thug").baseDir
+    print baseDir
 
     md5 = hashlib.md5()
     md5.update(content)
     filename = md5.hexdigest()
     log.warning("[EnjoySAP ActiveX] Saving File: " + filename)    
-    
+
     with open(os.path.join(baseDir, filename), 'wb') as fd:
         fd.write(content)
-
