@@ -39,4 +39,4 @@ def open(self, arg0, arg1, arg2 = True, arg3 = None, arg4 = None):
     self.responseBody = content
 
 def send(self, arg = None):
-    pass
+    log.warning("[Microsoft XMLHTTP ActiveX] send")
