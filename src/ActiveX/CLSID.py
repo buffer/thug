@@ -94,6 +94,7 @@ from modules import VLC
 from modules import WebViewFolderIcon
 from modules import WinZip
 from modules import WMEncProfileManager
+from modules import WScriptShell
 from modules import WMP
 from modules import XUpload
 from modules import YahooJukebox
@@ -119,10 +120,13 @@ CLSID = [
         {   
             'id'        : (), 
             'name'      : ( 'adodb.stream', ),
-            'attrs'     : {},
+            'attrs'     : {
+                            'Type'          : 1,
+                            'Mode'          : 3},
             'funcattrs' : {},
             'methods'   : { 
                             'open'          : AdodbStream.open,
+                            'Open'          : AdodbStream.open,
                             'Write'         : AdodbStream.Write,
                             'SaveToFile'    : AdodbStream.SaveToFile,
                             'Close'         : AdodbStream.Close,
@@ -1128,6 +1132,19 @@ CLSID = [
             'funcattrs' : {},
             'methods'   : {
                             'openPlayer'            : WMP.openPlayer,
+                          }
+        },
+
+        #WScriptShell
+        {
+            'id'        : (),
+            'name'      : 'wscript.shell',
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   :
+                          {
+                            'Run'                   : WScriptShell.Run,
+                            'Environment'           : WScriptShell.Environment,
                           }
         },
 
