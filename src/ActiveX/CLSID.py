@@ -24,6 +24,7 @@ from modules import AcroPDF
 from modules import AdodbStream
 from modules import AnswerWorks
 from modules import AolAmpX
+from modules import AolICQ
 from modules import AOLAttack
 from modules import BaiduBar
 from modules import BitDefender
@@ -159,6 +160,17 @@ CLSID = [
                             'ConvertFile'           : AolAmpX.ConvertFile,
                           }   
         }, 
+
+        # AolICQ
+        {
+            'id'        : (),
+            'name'      : ( 'icqphone.sipxphonemanager.1', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'DownloadAgent'         : AolICQ.DownloadAgent,
+                          }
+        },
 
         # AOLAttack
         {

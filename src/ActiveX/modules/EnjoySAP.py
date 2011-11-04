@@ -33,7 +33,6 @@ def Comp_Download(self, arg0, arg1):
         return 
  
     baseDir = logging.getLogger("Thug").baseDir
-    print baseDir
 
     md5 = hashlib.md5()
     md5.update(content)
