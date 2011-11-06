@@ -18,6 +18,7 @@
 
 import sys
 import os
+import errno
 import getopt
 import datetime
 import urlparse
@@ -87,7 +88,14 @@ Synopsis:
 
         base = os.getenv('THUG_LOGBASE', '..')
         log.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
-        os.makedirs(log.baseDir)
+        
+        try:
+            os.makedirs(log.baseDir)
+        except OSError as e:
+            if e.errno == errno.EEXIST:
+                pass
+            else:
+                raise
 
         with open(os.path.join(base, 'logs', 'thug.csv'), 'a') as fd:
             fd.write('%s,%s\n' % (m.hexdigest(), url, ))
