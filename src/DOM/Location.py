@@ -23,6 +23,9 @@ class Location(PyV8.JSClass):
     def __init__(self, window):
         self._window = window
 
+    def toString(self):
+        return self._window.url
+
     @property
     def parts(self):
         return urlparse(self._window.url)
