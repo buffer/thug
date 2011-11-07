@@ -93,7 +93,7 @@ class Shellcode:
                     log.warning(self.emu.emu_profile_output)
                     libemu = True
 
-                #self.emu.free()
+                self.emu.free()
                 
                 if not libemu:
                     self.search_url(sc)

@@ -207,6 +207,9 @@ class Navigator(PyV8.JSClass):
         response = dict()
         content  = ''
 
+        if url == 'about:blank':
+            return response, content
+
         h = httplib2.Http('.cache',
                           timeout = 10,
                           disable_ssl_certificate_validation = True)
