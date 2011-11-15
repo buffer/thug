@@ -31,7 +31,6 @@ def handle_hcp(s):
         return
 
     log.warning('Microsoft Internet Explorer HCP Exploit Detected')
-    
     return hcp[0]
 
 
@@ -195,7 +194,6 @@ class Element(Node):
                 return
 
             response, content = self.doc.window._navigator.fetch(value)
-            print response
         
     def removeAttribute(self, name):
         del self.tag[name]

@@ -154,10 +154,14 @@ class Window(PyV8.JSClass):
         """the History object for the window"""
         return self._history
 
-    @property
-    def location(self):
+    def getLocation(self):
         """the Location object for the window"""
         return self._location
+
+    def setLocation(self, location):
+        self._location.href = location
+
+    location = property(getLocation, setLocation)
 
     @property
     def navigator(self):
@@ -669,6 +673,8 @@ class Window(PyV8.JSClass):
         return self._context
 
     def evalScript(self, script, tag = None):
+        result = 0
+
         if tag:
             self.doc.current = tag
         else:
@@ -687,11 +693,11 @@ class Window(PyV8.JSClass):
             ast = AST(script)
         except:
             log.warning(traceback.format_exc())
-            return 0
+            return result
 
         with self.context as ctxt:
             # FIXME
-            ctxt.eval('window.unescape = unescape;') 
+            #ctxt.eval('window.unescape = unescape;') 
             ctxt.eval('window.Array = Array;')
 
             if self._personality.startswith(('xpie', 'w2kie')):
