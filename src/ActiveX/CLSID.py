@@ -889,8 +889,8 @@ CLSID = [
                             'OpenTextFile'      : ScriptingFileSystemObject.OpenTextFile,
                             'Write'             : ScriptingFileSystemObject.Write,
                             'Close'             : ScriptingFileSystemObject.Close,
-                            'BuildPath'             : ScriptingFileSystemObject.BuildPath,
-                            'GetSpecialFolder'             : ScriptingFileSystemObject.GetSpecialFolder,
+                            'BuildPath'         : ScriptingFileSystemObject.BuildPath,
+                            'GetSpecialFolder'  : ScriptingFileSystemObject.GetSpecialFolder,
                           },
         },
 
