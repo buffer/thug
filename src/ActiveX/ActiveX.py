@@ -46,7 +46,7 @@ class _ActiveXObject:
             log.warning("Unknown ActiveX Object: %s" % (cls, ))
             raise
 
-        log.warning("ActiveXObject: %s" % (cls, ))
+        log.debug("ActiveXObject: %s" % (cls, ))
 
         for method_name, method in c['methods'].items():
             _method = new.instancemethod(method, self, _ActiveXObject)

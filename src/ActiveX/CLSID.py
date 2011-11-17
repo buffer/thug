@@ -75,6 +75,7 @@ from modules import RediffBolDownloaderAttack
 from modules import RegistryPro
 from modules import RisingScanner
 from modules import RtspVaPgCtrl
+from modules import ScriptingFileSystemObject
 from modules import ShellApplication
 from modules import Shockwave
 from modules import ShockwaveFlash9
@@ -91,7 +92,10 @@ from modules import SymantecBackupExec
 from modules import Toshiba
 from modules import UniversalUpload
 from modules import UUSeeUpdate
+from modules import VisualStudioDTE80
 from modules import VLC
+from modules import VsaIDEDTE
+from modules import VsmIDEDTE
 from modules import WebViewFolderIcon
 from modules import WinZip
 from modules import WMEncProfileManager
@@ -560,8 +564,10 @@ CLSID = [
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {
+                            'Initialize'            : MacrovisionFlexNet.Initialize,
                             'CreateJob'             : MacrovisionFlexNet.CreateJob,
                             'DownloadAndExecute'    : MacrovisionFlexNet.DownloadAndExecute,
+                            'DownloadAndInstall'    : MacrovisionFlexNet.DownloadAndInstall,
                             'AddFileEx'             : MacrovisionFlexNet.AddFileEx,
                             'AddFile'               : MacrovisionFlexNet.AddFile,
                             'SetPriority'           : MacrovisionFlexNet.SetPriority,
@@ -873,6 +879,21 @@ CLSID = [
                           }
         },
 
+        # Scripting.FileSystemObject
+        {
+            'id'        : (),
+            'name'      : ( 'scripting.filesystemobject', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'OpenTextFile'      : ScriptingFileSystemObject.OpenTextFile,
+                            'Write'             : ScriptingFileSystemObject.Write,
+                            'Close'             : ScriptingFileSystemObject.Close,
+                            'BuildPath'             : ScriptingFileSystemObject.BuildPath,
+                            'GetSpecialFolder'             : ScriptingFileSystemObject.GetSpecialFolder,
+                          },
+        },
+
         # Shell.Application
         {
             'id'        : (),
@@ -1090,6 +1111,17 @@ CLSID = [
                           }
         },
 
+        # VisualStudio.DTE.8.0
+        {
+            'id'        : ( 'BA018599-1DB3-44F9-83B4-461454C84BF8', ),
+            'name'      : ( ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'CreateObject'  : VisualStudioDTE80.CreateObject,
+                          }
+        },
+
         # VLC
         {
             'id'        : ( 'E23FE9C6-778E-49D4-B537-38FCDE4887D8', ),
@@ -1100,6 +1132,28 @@ CLSID = [
                             'getVariable'           : VLC.getVariable,
                             'setVariable'           : VLC.setVariable,
                             'addTarget'             : VLC.addTarget,
+                          }
+        },
+
+        # VsaIDE.DTE
+        {
+            'id'        : ( 'E8CCCDDF-CA28-496B-B050-6C07C962476B', ),
+            'name'      : ( ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'CreateObject'  : VsaIDEDTE.CreateObject,
+                          }
+        },
+
+        # VsmIDE.DTE
+        {
+            'id'        : ( '06723E09-F4C2-43C8-8358-09FCD1DB0766', ),
+            'name'      : ( ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'CreateObject'  : VsmIDEDTE.CreateObject,
                           }
         },
 
