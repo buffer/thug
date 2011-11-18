@@ -238,13 +238,13 @@ class Navigator(PyV8.JSClass):
                 mime_base = os.path.join(mime_base, response['content-type'])
         except socket.timeout:
             log.warning("Timeout reached while fetching %s" % (url, ))
-            return response, content
+            raise
         except socket.error as e:
             log.warning("Socket error [%s]: %s" % (url, e.strerror))
-            return response, content
+            raise
         except httplib2.ServerNotFoundError as e:
             log.warning("ServerNotFoundError: %s" % (e, ))
-            return response, content
+            raise
 
         if response.status == 404:
             log.warning("FileNotFoundError: %s" % (url, ))

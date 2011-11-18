@@ -17,6 +17,8 @@
 # MA  02111-1307  USA
 
 import os
+import pylibemu
+import struct
 import W3C.w3c as w3c
 import hashlib
 import logging
@@ -47,6 +49,26 @@ class DFT(object):
 
     def __exit__(self, type, value, traceback):
         pass
+
+    def check_shellcode(self, s):
+        try:
+            shellcode = s.decode('utf-8')
+        except:
+            shellcode = s
+
+        sc = b''
+        try:
+            for c in shellcode:
+                sc += struct.pack('<H', ord(c))
+        except:
+            sc = shellcode
+
+        emu = pylibemu.Emulator()
+        emu.run(sc)
+        if emu.emu_profile_output:
+            log.warning(emu.emu_profile_output)
+
+        emu.free()
 
     def shift(self, script, s):
         if script.lower().startswith(s):
@@ -81,11 +103,13 @@ class DFT(object):
     def handle_object(self, object):
         log.info(object)
 
+        for (attr, value) in object.attrs:
+            self.check_shellcode(value)
+                
         classid = object.get('classid', None)
         id      = object.get('id', None)
 
         if classid and id:
-            #self.window.__dict__[id] = _ActiveXObject(classid, 'id')
             setattr(self.window, id, _ActiveXObject(self.window, classid, 'id'))
 
     def handle_script(self, script):
@@ -111,7 +135,11 @@ class DFT(object):
                 if not src:
                     return
 
-                response, js = self.window._navigator.fetch(src)
+                try:
+                    response, js = self.window._navigator.fetch(src)
+                except:
+                    return
+                
                 if response.status == 404:
                     return 
 
@@ -152,7 +180,14 @@ class DFT(object):
         urls = [p for p in value.split() if p.startswith('http')]
 
         for url in urls:
-            response, content = self.window._navigator.fetch(url)
+            try:
+                response, content = self.window._navigator.fetch(url)
+            except:
+                continue
+
+            if response.status == 404:
+                continue
+
             m = hashlib.md5()
             m.update(content)
             h = m.hexdigest()
@@ -189,7 +224,7 @@ class DFT(object):
             return
 
         content = meta.get('content', None)
-        if not content or not 'url' in content:
+        if not content or not 'url' in content.lower():
             return
 
         timeout = 0
@@ -197,7 +232,7 @@ class DFT(object):
 
         for s in content.split(';'):
             s = s.strip()
-            if s.startswith('url='):
+            if s.lower().startswith('url='):
                 url = s[4:]
             try:
                 timeout = int(s)
@@ -207,7 +242,14 @@ class DFT(object):
         if not url:
             return
 
-        response, content   = self.window._navigator.fetch(url)
+        try:
+            response, content = self.window._navigator.fetch(url)
+        except:
+            return
+
+        if response.status == 404:
+            return
+
         self.window.doc     = w3c.parseString(content)
         self.window.doc.DFT = self
         self.window.open(url)
@@ -221,8 +263,13 @@ class DFT(object):
             if not src:
                 return 
 
-            # FIXME Dirty code should not be allowed :)
-            response, content = self.window._navigator.fetch(src)
+            try:
+                response, content = self.window._navigator.fetch(src)
+            except:
+                return
+
+            if response.status == 404:
+                return
 
             doc    = w3c.parseString(content)
             window = Window.Window(src, doc)

@@ -86,7 +86,8 @@ class Window(PyV8.JSClass):
         self._history   = History(self)
         self._history.update(url, replace)
 
-        self.doc.location = self._location
+        #self.doc.location = self._location
+        self.doc.location = property(self.getLocation, self.setLocation)
 
         self._target = target
         self._parent = parent
@@ -160,8 +161,6 @@ class Window(PyV8.JSClass):
 
     def setLocation(self, location):
         self._location.href = location
-
-    location = property(getLocation, setLocation)
 
     @property
     def navigator(self):
@@ -630,8 +629,15 @@ class Window(PyV8.JSClass):
 
             url = s[0]
             log.warning("[Windows Script Host Run - Stage %d] Downloading from URL %s" % (stage, url, ))
-            response, content = self._navigator.fetch(url)
-               
+
+            try:
+                response, content = self._navigator.fetch(url)
+            except:
+                continue
+
+            if response.status == 404:
+                continue
+
             md5 = hashlib.md5()
             md5.update(content)
             log.warning("[Windows Script Host Run - Stage %d] Saving file %s" % (stage, md5.hexdigest()))
@@ -640,17 +646,17 @@ class Window(PyV8.JSClass):
             self._doRun(content, stage + 1)
                 
     def _attachEvent(self, sEvent, fpNotify):
-        #self.alert("[attachEvent] %s %s" % (sEvent, fpNotify, ))
+        log.debug("[attachEvent] %s %s" % (sEvent, fpNotify, ))
         fpNotify.__call__()
 
     def _detachEvent(self, sEvent, fpNotify):
-        self.alert("[detachEvent] %s %s" % (sEvent, fpNotify, ))
+        log.debug("[detachEvent] %s %s" % (sEvent, fpNotify, ))
 
     def _addEventListener(self, type, listener, useCapture = False):
-        self.alert("[addEventListener] %s %s %s" % (type, listener, useCapture, ))
+        log.debug("[addEventListener] %s %s %s" % (type, listener, useCapture, ))
 
     def _removeEventListener(self, type, listener, useCapture = False):
-        self.alert("[removeEventListener] %s %s %s" % (type, listener, useCapture, ))
+        log.debug("[removeEventListener] %s %s %s" % (type, listener, useCapture, ))
 
     def __init_personality(self):
         if self._personality.startswith(('xpie', 'w2kie')):
@@ -698,13 +704,13 @@ class Window(PyV8.JSClass):
         with self.context as ctxt:
             # FIXME
             #ctxt.eval('window.unescape = unescape;') 
-            ctxt.eval('window.Array = Array;')
+            #ctxt.eval('window.Array = Array;')
 
             if self._personality.startswith(('xpie', 'w2kie')):
                 script = script.replace('@cc_on!@', '*/!/*')
             
             shellcode = Shellcode.Shellcode(ctxt, ast, script)
-            result = shellcode.run()
+            result    = shellcode.run()
 
         return result
 
@@ -716,7 +722,7 @@ class Window(PyV8.JSClass):
             id      = tag.get('id', None)
             if not classid or not id:
                 continue
-            #self.__dict__[id] = _ActiveXObject(classid, 'id')
+
             setattr(self, id, _ActiveXObject(self, classid, 'id'))
 
         index = 0
@@ -726,7 +732,14 @@ class Window(PyV8.JSClass):
             if not tag.string:
                 src = tag.get('src', None)
                 if src:
-                    response, js = self._navigator.fetch(src)    
+                    try:
+                        response, js = self._navigator.fetch(src)
+                    except:
+                        continue
+
+                    if response.status == 404:
+                        continue
+
                     tag.setString(js)
             try:
                 self.evalScript(tag.string, tag = tag)
@@ -750,7 +763,14 @@ class Window(PyV8.JSClass):
 
     def open(self, url = None, name = '_blank', specs = '', replace = False):
         if url:
-            response, html = self._navigator.fetch(url)
+            try:
+                response, html = self._navigator.fetch(url)
+            except:
+                return
+
+            if response.status == 404:
+                return
+
             # Log response here
             kwds = { 'referer' : self.url }
             if 'set-cookie' in response:

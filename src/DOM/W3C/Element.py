@@ -192,9 +192,16 @@ class Element(Node):
                 if hcp:
                     self.doc.window.evalScript(hcp) 
                 return
+            
+            # FIXME
+            try:
+                response, content = self.doc.window._navigator.fetch(value)
+            except:
+                return
+                
+            if response.status == 404:
+                return
 
-            response, content = self.doc.window._navigator.fetch(value)
-        
     def removeAttribute(self, name):
         del self.tag[name]
         
