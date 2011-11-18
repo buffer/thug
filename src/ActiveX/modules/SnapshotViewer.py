@@ -1,11 +1,13 @@
 # Microsoft Access Snapshot Viewer 
 # CVE-2008-2463
 
+import os
 import httplib2
 import hashlib
-
 import logging
+
 log = logging.getLogger("Thug.ActiveX")
+
 
 def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
     if SnapshotPath:
@@ -14,7 +16,7 @@ def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
     if CompressedPath:
         self.CompressedPath = CompressedPath
 
-    log.warning('[*] Microsoft Access Snapshot Viewer [SnapshotPath : %s, CompressedPath: %s]' % (self.SnapshotPath, self.CompressedPath, ))
+    log.warning('[Microsoft Access Snapshot Viewer ActiveX] SnapshotPath : %s, CompressedPath: %s' % (self.SnapshotPath, self.CompressedPath, ))
 
     url = self.SnapshotPath
 
@@ -35,6 +37,6 @@ def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
     filename = md5.hexdigest()
 		
     log.warning("[Microsoft Access Snapshot Viewer ActiveX] Saving File: " + filename)
-    with open(filename, 'wb') as fd:
+    with open(os.path.join(baseDir, filename), 'wb') as fd:
         fd.write(content)
 	
