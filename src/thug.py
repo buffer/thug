@@ -79,7 +79,8 @@ Synopsis:
         doc    = w3c.parseString('')
         window = Window.Window('about:blank', doc, personality = self.useragent)
         window = window.open(url)
-        self.run(window)
+        if window:
+            self.run(window)
 
     def build_logbasedir(self, url):
         t = datetime.datetime.now()

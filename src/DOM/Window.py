@@ -162,6 +162,8 @@ class Window(PyV8.JSClass):
     def setLocation(self, location):
         self._location.href = location
 
+    location = property(getLocation, setLocation)
+
     @property
     def navigator(self):
         """the Navigator object for the window"""
@@ -766,10 +768,10 @@ class Window(PyV8.JSClass):
             try:
                 response, html = self._navigator.fetch(url)
             except:
-                return
+                return None
 
             if response.status == 404:
-                return
+                return None
 
             # Log response here
             kwds = { 'referer' : self.url }

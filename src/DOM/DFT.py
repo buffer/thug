@@ -70,6 +70,10 @@ class DFT(object):
 
         emu.free()
 
+    def check_attrs(self, p):
+        for (attr, value) in p.attrs:
+            self.check_shellcode(value)
+        
     def shift(self, script, s):
         if script.lower().startswith(s):
             return script[len(s):].lstrip()
@@ -103,8 +107,7 @@ class DFT(object):
     def handle_object(self, object):
         log.info(object)
 
-        for (attr, value) in object.attrs:
-            self.check_shellcode(value)
+        self.check_attrs(object)
                 
         classid = object.get('classid', None)
         id      = object.get('id', None)
