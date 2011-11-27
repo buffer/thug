@@ -76,6 +76,10 @@ Synopsis:
         self.run(window)
 
     def run_remote(self, url):
+        if urlparse.urlparse(url).scheme is '':
+            url = 'http://%s' % (url, )
+
+        log.info(url)
         doc    = w3c.parseString('')
         window = Window.Window('about:blank', doc, personality = self.useragent)
         window = window.open(url)
@@ -141,7 +145,7 @@ Synopsis:
         log.userAgent = Personality[self.useragent]['userAgent']
 
         if p:
-            log.info(args[0])
+            #log.info(args[0])
             p(args[0])
 
 if __name__ == "__main__":
