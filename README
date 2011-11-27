@@ -21,6 +21,9 @@ Requirements
 - Pylibemu
 	https://github.com/buffer/pylibemu
 
+- Pefile
+	http://code.google.com/p/pefile/
+
 - Chardet
 	http://chardet.feedparser.org/
 
