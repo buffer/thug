@@ -49,7 +49,7 @@ class AST(object):
         self.breakpoints     = set()
 
         self.walk(script)
-        log.info(self.breakpoints)
+        log.debug(self.breakpoints)
 
     def checkExitingLoop(self, pos):
         if self.exitingLoop > 0:
