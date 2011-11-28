@@ -17,7 +17,14 @@
 # MA  02111-1307  USA
 
 import PyV8
+import Window
+import W3C
+import DFT
+import logging
+from Personality import Personality
 from urlparse import urlparse
+
+log = logging.getLogger("Thug.DOM")
 
 class Location(PyV8.JSClass):
     def __init__(self, window):
@@ -36,7 +43,28 @@ class Location(PyV8.JSClass):
 
     @href.setter
     def href(self, url):
-        self._window.open(url)
+        # FIXME
+        #self._window.open(url)
+        referer = self._window.url
+        if referer == url:
+            log.warning("Detected redirection from %s to %s... skipping" % (referer, url, ))
+            return
+
+        #self._window.url = url
+
+        for p in Personality:
+            if Personality[p]['userAgent'] == self._window._navigator.userAgent:
+                break
+
+        doc    = W3C.w3c.parseString('')
+        window = Window.Window(referer, doc, personality = p)
+        window = window.open(url)
+        if not window:
+            return
+
+        self._window.url = url
+        dft = DFT.DFT(window)
+        dft.run()
 
     @property
     def protocol(self):
