@@ -1,0 +1,13 @@
+--- v8-readonly/src/parser.h	2011-11-15 16:47:15.000000000 +0100
++++ v8/src/parser.h	2011-11-15 16:45:21.000000000 +0100
+@@ -449,8 +449,8 @@
+   // Code::Flags uses only the low 17 bits of num-parameters to
+   // construct a hashable id, so if more than 2^17 are allowed, this
+   // should be checked.
+-  static const int kMaxNumFunctionParameters = 32766;
+-  static const int kMaxNumFunctionLocals = 32767;
++  static const int kMaxNumFunctionParameters = 65534; //32766;
++  static const int kMaxNumFunctionLocals = 65533; //32767;
+ 
+   enum Mode {
+     PARSE_LAZILY,
