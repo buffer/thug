@@ -261,25 +261,24 @@ class DFT(object):
     def handle_frame(self, frame):
         log.info(frame)
         
-        if not frame.string:
-            src = frame.get('src', None)
-            if not src:
-                return 
+        src = frame.get('src', None)
+        if not src:
+            return 
 
-            try:
-                response, content = self.window._navigator.fetch(src)
-            except:
-                return
+        try:
+            response, content = self.window._navigator.fetch(src)
+        except:
+            return
 
-            if response.status == 404:
-                return
+        if response.status == 404:
+            return
 
-            doc    = w3c.parseString(content)
-            window = Window.Window(src, doc)
-            window.open(src)
+        doc    = w3c.parseString(content)
+        window = Window.Window(src, doc)
+        window.open(src)
             
-            dft = DFT(window)
-            dft.run()
+        dft = DFT(window)
+        dft.run()
 
     def handle_iframe(self, iframe):
         self.handle_frame(iframe)
