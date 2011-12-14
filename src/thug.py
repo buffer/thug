@@ -28,8 +28,12 @@ import logging
 from DOM.W3C import w3c
 from DOM.Personality import Personality
 from DOM import Window, DFT
+from Logging.HPFeeds import HPFeeds
+#from Logging.MAEC import MAEC
 
-log = logging.getLogger('Thug')
+log         = logging.getLogger('Thug')
+log.hpfeeds = HPFeeds()
+#log.MAEC    = MAEC()
 log.setLevel(logging.WARN)
 
 class Thug:
@@ -80,6 +84,9 @@ Synopsis:
             url = 'http://%s' % (url, )
 
         log.info(url)
+        #log.hpfeeds.log_event(url)
+        #log.MAEC.create_analysis(url)
+
         doc    = w3c.parseString('')
         window = Window.Window('about:blank', doc, personality = self.useragent)
         window = window.open(url)
@@ -106,7 +113,7 @@ Synopsis:
             fd.write('%s,%s\n' % (m.hexdigest(), url, ))
 
     def analyze(self):
-        t = datetime.datetime.now()
+        #t = datetime.datetime.now()
         p = getattr(self, 'run_remote', None)
 
         try:
@@ -147,6 +154,8 @@ Synopsis:
         if p:
             #log.info(args[0])
             p(args[0])
+
+        #log.MAEC.export_root()
 
 if __name__ == "__main__":
     Thug(sys.argv[1:])()
