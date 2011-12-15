@@ -24,8 +24,14 @@ import base64
 import hashlib
 import logging
 import json
+import zipfile
 import pefile
 import ConfigParser
+
+try:
+    import cStringIO as StringIO
+except ImportError:
+    import StringIO
 
 log = logging.getLogger("Thug.Logging")
 
@@ -181,6 +187,14 @@ class HPFeeds(object):
 
         if p['type'] is None and pubdata.startswith('%PDF'):
             p['type'] = 'PDF'
+
+        if p['type'] is None:
+            try:
+                z = zipfile.ZipFile(StringIO.StringIO(pubdata))
+                if [t for t in z.namelist() if t.endswith('.class')]:
+                    p['type'] = 'JAR'
+            except:
+                pass
 
         if p['type'] is not None:
             p['md5']  = hashlib.md5(pubdata).hexdigest()
