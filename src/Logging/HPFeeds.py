@@ -163,6 +163,27 @@ class HPFeeds(object):
         self.publish_data(data, 'thug.events', pubdata)
         self.sockfd.close()
 
+    def is_pe(self, pubdata):
+        try:
+            pe = pefile.PE(data = pubdata, fast_load = True)
+        except:
+            return False
+
+        return True
+
+    def is_pdf(self, pubdata):
+        return pubdata.startswith('%PDF')
+
+    def is_jar(self, pubdata):
+        try:
+            z = zipfile.ZipFile(StringIO.StringIO(pubdata))
+            if [t for t in z.namelist() if t.endswith('.class')]:
+                return True
+        except:
+            pass
+
+        return False
+
     def log_file(self, pubdata):
         if not self.opts['enable']:
             return
@@ -179,22 +200,14 @@ class HPFeeds(object):
         p = dict()
         p['type'] = None
 
-        try:
-            pe = pefile.PE(data = pubdata, fast_load = True)
+        if self.is_pe(pubdata):
             p['type'] = 'PE'
-        except:
-            pass
 
-        if p['type'] is None and pubdata.startswith('%PDF'):
+        if p['type'] is None and self.is_pdf(pubdata):
             p['type'] = 'PDF'
 
-        if p['type'] is None:
-            try:
-                z = zipfile.ZipFile(StringIO.StringIO(pubdata))
-                if [t for t in z.namelist() if t.endswith('.class')]:
-                    p['type'] = 'JAR'
-            except:
-                pass
+        if p['type'] is None and self.is_jar(pubdata):
+            p['type'] = 'JAR'
 
         if p['type'] is not None:
             p['md5']  = hashlib.md5(pubdata).hexdigest()
