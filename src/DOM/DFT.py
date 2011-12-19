@@ -23,6 +23,7 @@ import W3C.w3c as w3c
 import hashlib
 import logging
 import Window
+import jsbeautifier
 from ActiveX.ActiveX import _ActiveXObject
 from W3C.HTML.BeautifulSoup import BeautifulSoup, Tag
 
@@ -126,7 +127,10 @@ class DFT(object):
         handler(script)
             
     def handle_javascript(self, script):
-        log.info(script)
+        try:
+            log.info(jsbeautifier.beautify(str(script)))
+        except:
+            log.info(script)
 
         if isinstance(script, Tag):
             js = ' '.join(script.contents)
@@ -288,7 +292,7 @@ class DFT(object):
 
     def run(self):
         log.debug(self.window.doc)
-
+        
         soup = self.window.doc.doc
         # Dirty hack
         for p in soup.findAll('object'):
