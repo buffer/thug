@@ -109,8 +109,13 @@ Synopsis:
             else:
                 raise
 
-        with open(os.path.join(base, 'logs', 'thug.csv'), 'a') as fd:
-            fd.write('%s,%s\n' % (m.hexdigest(), url, ))
+        with open(os.path.join(base, 'logs', 'thug.csv'), 'r+') as fd:
+            csv_line = '%s,%s\n' % (m.hexdigest(), url, )
+            for l in fd.readlines():
+                if l == csv_line:
+                    return
+
+            fd.write(csv_line)
 
     def analyze(self):
         #t = datetime.datetime.now()
