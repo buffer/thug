@@ -44,6 +44,7 @@ class DFT(object):
     def __init__(self, window):
         self.window         = window
         self.window.doc.DFT = self
+        self.meta           = dict()
     
     def __enter__(self):
         return self
@@ -137,18 +138,18 @@ class DFT(object):
         else:
             js = script.string
 
-            if not script.string:
-                src = script.get('src', None)
-                if not src:
-                    return
+        if not js:
+            src = script.get('src', None)
+            if not src:
+                return
 
-                try:
-                    response, js = self.window._navigator.fetch(src)
-                except:
-                    return
+            try:
+                response, js = self.window._navigator.fetch(src)
+            except:
+                return
                 
-                if response.status == 404:
-                    return 
+            if response.status == 404:
+                return
 
         self.window.evalScript(js, tag = script)
 
@@ -249,6 +250,9 @@ class DFT(object):
         if not url:
             return
 
+        if url in self.meta and self.meta[url] >= 3:
+            return
+
         try:
             response, content = self.window._navigator.fetch(url)
         except:
@@ -256,6 +260,11 @@ class DFT(object):
 
         if response.status == 404:
             return
+
+        if url in self.meta:
+            self.meta[url] += 1
+        else:
+            self.meta[url] = 1
 
         self.window.doc     = w3c.parseString(content)
         self.window.doc.DFT = self
