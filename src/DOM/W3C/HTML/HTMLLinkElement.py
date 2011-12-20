@@ -5,6 +5,9 @@ from HTMLElement import HTMLElement
 from attr_property import attr_property
 
 class HTMLLinkElement(HTMLElement):
+    def __init__(self, doc, tag):
+        HTMLElement.__init__(self, doc, tag)
+
     disabled        = False
     charset         = attr_property("charset")
     href            = attr_property("href")

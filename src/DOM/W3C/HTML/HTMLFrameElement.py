@@ -5,6 +5,9 @@ from HTMLElement import HTMLElement
 from attr_property import attr_property
 
 class HTMLFrameElement(HTMLElement):
+    def __init__(self, doc, tag):
+        HTMLElement.__init__(self, doc, tag)
+
     frameBorder     = attr_property("frameborder")
     longDesc        = attr_property("longdesc")
     marginHeight    = attr_property("marginheight")

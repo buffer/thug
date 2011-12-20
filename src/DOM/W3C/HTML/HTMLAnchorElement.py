@@ -5,6 +5,9 @@ from HTMLElement import HTMLElement
 from attr_property import attr_property
 
 class HTMLAnchorElement(HTMLElement):
+    def __init__(self, doc, tag):
+        HTMLElement.__init__(self, doc, tag)
+
     accessKey       = attr_property("accesskey")
     charset         = attr_property("charset")
     coords          = attr_property("coords")

@@ -5,6 +5,9 @@ from HTMLElement import HTMLElement
 from attr_property import attr_property
 
 class HTMLFormElement(HTMLElement):
+    def __init__(self, doc, tag):
+        HTMLElement.__init__(self, doc, tag)
+
     @property
     def elements(self):
         raise NotImplementedError()

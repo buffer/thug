@@ -6,6 +6,9 @@ from attr_property import attr_property
 from text_property import text_property
 
 class HTMLScriptElement(HTMLElement):
+    def __init__(self, doc, tag):
+        HTMLElement.__init__(self, doc, tag)
+
     text            = text_property()
     htmlFor         = None
     event           = None

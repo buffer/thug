@@ -5,6 +5,9 @@ from HTMLElement import HTMLElement
 from attr_property import attr_property
 
 class HTMLBodyElement(HTMLElement):
+    def __init__(self, doc, tag):
+        HTMLElement.__init__(self, doc, tag)
+
     background      = attr_property("background")
     bgColor         = attr_property("bgcolor")
     link            = attr_property("link")

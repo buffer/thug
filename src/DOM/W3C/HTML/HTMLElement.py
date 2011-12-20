@@ -15,7 +15,6 @@ from Style.ElementCSSInlineStyle import ElementCSSInlineStyle
 from attr_property import attr_property
 from text_property import text_property
 
-
 class HTMLElement(Element, ElementCSSInlineStyle):
     id              = attr_property("id")
     title           = attr_property("title")
