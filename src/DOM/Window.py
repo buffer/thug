@@ -757,7 +757,7 @@ class Window(PyV8.JSClass):
         if hasattr(self, 'onload'):
             self.evalScript(self.onload)
 
-    def Image(self):
+    def Image(self, width = 800, height = 600):
         return self.doc.createElement('img')
 
     def XMLHttpRequest(self):
