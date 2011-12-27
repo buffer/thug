@@ -18,6 +18,7 @@ import PyV8
 
 from Document import Document
 from .HTMLCollection import HTMLCollection
+from .HTMLElement import HTMLElement
 from .text_property import text_property
 from .xpath_property import xpath_property
 
@@ -82,6 +83,10 @@ class HTMLDocument(Document):
     @property
     def URL(self):
         return self._win.url if self._win else ''
+
+    @property
+    def documentElement(self):
+        return HTMLElement(self, self.doc.find('html'))
 
     def open(self, mimetype = 'text/html', replace = False):
         self._html = StringIO()
