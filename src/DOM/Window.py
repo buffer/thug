@@ -660,11 +660,15 @@ class Window(PyV8.JSClass):
     def _removeEventListener(self, type, listener, useCapture = False):
         log.debug("[removeEventListener] %s %s %s" % (type, listener, useCapture, ))
 
+    def _CollectGarbage(self):
+        pass
+
     def __init_personality(self):
         if self._personality.startswith(('xpie', 'w2kie')):
-            self.attachEvent = self._attachEvent
-            self.detachEvent = self._detachEvent
-            self.Run         = self._Run
+            self.attachEvent    = self._attachEvent
+            self.detachEvent    = self._detachEvent
+            self.Run            = self._Run
+            self.CollectGarbage = self._CollectGarbage
 
         if self._personality.startswith('firefox'):
             self.addEventListener    = self._addEventListener
@@ -771,6 +775,9 @@ class Window(PyV8.JSClass):
                 return None
 
             if response.status == 404:
+                return None
+
+            if response['content-type'] in ('application/pdf', ):
                 return None
 
             # Log response here
