@@ -63,7 +63,12 @@ class Shellcode:
         with Debugger() as dbg:
             vars = self.ctxt.locals
             #dbg.debugBreak()
-            result = self.ctxt.eval(self.script)
+            try:
+                result = self.ctxt.eval(self.script)
+            except:
+                import traceback
+                traceback.print_exc()
+                return
 
             for name in self.ast.names:
                 s      = None
