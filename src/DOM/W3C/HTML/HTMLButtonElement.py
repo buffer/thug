@@ -20,4 +20,5 @@ class HTMLButtonElement(HTMLElement):
     type            = attr_property("type")
     value           = attr_property("value")
 
-
+    def onclick(self):
+        pass
