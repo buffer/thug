@@ -59,7 +59,10 @@ def xpath_property(xpath, readonly = False):
         
     def getter(self):
         children = getChildren(self.doc, parts)
-        
+
+        if xpath == '/html/body[1]' and not children:
+            children = [self.doc]
+
         if parts[-1] == 'text()':
             return "".join(children)
 
