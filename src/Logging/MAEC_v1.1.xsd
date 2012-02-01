@@ -1,0 +1,3511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	attributeFormDefault="unqualified" xmlns:maec="http://maec.mitre.org/XMLSchema/maec-core-1"
+	targetNamespace="http://maec.mitre.org/XMLSchema/maec-core-1"
+	xmlns:metadata="http://xml/metadataSharing.xsd" version="1.1">
+	<xs:import namespace="http://xml/metadataSharing.xsd"
+		schemaLocation="http://grouper.ieee.org/groups/malware/malwg/Schema1.1/metadataSharing.xsd"/>
+	<xs:annotation>
+		<xs:documentation>The following is a description of the elements, types, and attributes that compose Malware Attribute Enumeration and Characterization (MAEC).</xs:documentation>
+		<xs:documentation>The MAEC Schema is maintained by The Mitre Corporation. For more information, including how to get involved in the project, please visit the MAEC website at http://maec.mitre.org.</xs:documentation>
+		<xs:documentation>This schema imports the IEEE ICSG's Malware Metadata schema. More info on this schema can be found at http://grouper.ieee.org/groups/malware/malwg/Schema1.1/.</xs:documentation>
+		<xs:appinfo>
+			<schema>MAEC</schema>
+			<version>1.1</version>
+			<date>01/14/2011</date>
+			<terms_of_use>Copyright (c) 2011, The MITRE Corporation. All rights reserved.  The contents of this file are subject to the terms of the MAEC License located at http://maec.mitre.org/about/termsofuse.html. See the MAEC License for the specific language governing permissions and limitations for use of this schema.  When distributing copies of the MAEC Schema, this license header must be included.</terms_of_use>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="MAEC_Bundle" type="maec:BundleType">
+		<xs:annotation>
+			<xs:documentation>MAEC_Bundle is the root element of this schema, and is of type BundleType. As such, it represents the standard MAEC output format, since it encompasses all other MAEC elements.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BundleType">
+		<xs:annotation>
+			<xs:documentation>BundleType is intended to serve as the high-level construct under which all other MAEC elements reside. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Analyses">
+				<xs:annotation>
+					<xs:documentation>The Analyses element contains 1-n AnalysisType objects, representing any analyses performed on a piece of malware.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Analysis" type="maec:AnalysisType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Behaviors">
+				<xs:annotation>
+					<xs:documentation>The Behaviors element contains 1-n BehaviorType objects, representing any malicious behaviors that a piece of malware performed, or is capble of performing. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Behavior" type="maec:BehaviorType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Actions">
+				<xs:annotation>
+					<xs:documentation>The Actions element contains 1-n ActionType objects, representing any actions performed by a piece of malware that were discovered during analysis.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="1" name="Action"
+							type="maec:ActionType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Pools" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Pools are provided for the efficient reuse of duplicated MAEC entities. If a MAEC entity appears more than once, it can be stored in the pool with an id and then that id can be used as a reference that entity as appropriate.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Behavior_Collection_Pool" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Behavior_Collection"
+										type="maec:BehaviorCollectionType" maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Behavior_Pool" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Behavior" type="maec:BehaviorType"
+										maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Action_Collection_Pool" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Action_Collection"
+										type="maec:ActionCollectionType" maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Action_Pool" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Action" type="maec:ActionType"
+										maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Object_Pool" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Object" type="maec:ObjectType"
+										maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Effect_Pool" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Effect" type="maec:EffectType"
+										maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element minOccurs="0" name="Object_Collection_Pool">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="Object_Collection"
+										type="maec:ObjectCollectionType"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:BundleIDPattern"/>
+		<xs:attribute name="schema_version" type="xs:decimal" use="required">
+			<xs:annotation>
+				<xs:documentation>The required schema_version attribute specifies the version of the MAEC Schema that the document has been written in and that should be used for validation.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BehaviorCollectionType">
+		<xs:annotation>
+			<xs:documentation>BehaviorCollectionType is intended to provide a mechanism for characterizing collections of behaviors.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Affinity_Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Affinity_Type field is intended to provide an abstract way of characterizing how the behaviors in a collection are related.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Affinity_Degree" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Affinity_Degree field is intended to provide an abstract way of characterizing the degree to which the behaviors in a collection are related.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Purpose" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Purpose field states the intended purpose of the collection of behaviors. Since
+						behaviors are not always successful, and may not be fully observed, this is
+						meant as way of absracting the nature of the collection of behaviors away  from its constituent
+						actions and effects.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="maec:StructuredTextType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Description element is intended to describe the collection of behaviors.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Effects" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Effects element is intended to encompass any effects resulting from the collection of behaviors.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Effect" type="maec:EffectType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Behavior_Sub_Collection" type="maec:BehaviorCollectionType"
+					minOccurs="0"/>
+				<xs:element name="Behavior" type="maec:BehaviorType" minOccurs="0"/>
+				<xs:element name="Behavior_Reference" type="maec:BehaviorReferenceType"
+					minOccurs="0"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:BehaviorCollIDPattern"/>
+		<xs:attribute name="name" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The name attribute contains the name of the behavior collection, if applicable.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BehaviorType">
+		<xs:annotation>
+			<xs:documentation>BehaviorType is intended to serve as a method for the characterization of malicious behaviors found or observed in malware. Behaviors can be thought of as representing the purpose behind groups of MAEC actions, and are therefore representative of distinct portions of higher-level malware functionality. Thus, while a malware instance may perform some thousands of actions, it is likely that these actions represent only a few dozen distinct behaviors. Some examples include vulnerability exploitation, email address harvesting, and the disabling of a security service.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Purpose" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Purpose element encompasses the intended purpose of the behavior. Since
+						a behavior is not always successful, and may not be fully observed, this is
+						meant as way to state the nature of the behavior apart from its constituent
+						actions and effects.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="Description" type="maec:StructuredTextType">
+							<xs:annotation>
+								<xs:documentation>This field contains a prose text description of the purpose of the behavior, whether it was successful or not.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Attempted_Vulnerability_Exploit">
+							<xs:annotation>
+								<xs:documentation>This field contains a CVE identifier for specifying a vulnerability that a behavior may have attempted to exploit, and was either unsuccessful or the success of the exploitation is unknown. Note that this is more or less a placeholder for future attributes in this vein, as behaviors can certainly do much more than vulnerability exploitation.  </xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Known_Exploit"
+										type="maec:CVEVulnerabilityType">
+										<xs:annotation>
+											<xs:documentation>If the vulnerability being exploited is known, then it can be referenced in this field using a Common Vulnerabilities and Exposures (CVE) identifier. For more information on CVE, please see http://cve.mitre.org.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="vulnerability_type">
+									<xs:annotation>
+										<xs:documentation>This field refers to whether the vulnerability that is being exploited is known or unknown. Only known vulnerabilities will have an associated CPE identifier. Possible values: Known, Unknown.</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:enumeration value="Known"/>
+											<xs:enumeration value="Unknown"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Description" type="maec:StructuredTextType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Description element contains a textual description of the
+						behavior.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Discovery_Method" type="maec:DiscoveryMethod">
+				<xs:annotation>
+					<xs:documentation>The Discovery_Method element contains the method that was used to discover this behavior.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Actions" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Actions element encompasses the action or actions that constitute the behavior.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice maxOccurs="unbounded">
+						<xs:element name="Action_Collection" type="maec:ActionCollectionType"
+							minOccurs="0"/>
+						<xs:element name="Action" type="maec:ActionType" minOccurs="0"/>
+						<xs:element name="Action_Reference" type="maec:ActionReferenceType"
+							minOccurs="0"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Objects" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Objects element encompasses any objects that may be associated with the behavior. Typically this should be used for including objects if no actions (and their associated objects) are defined for the behavior, or objects that may be associated with the behavior but not defined in its consituent actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Object_Reference" maxOccurs="unbounded"
+							type="maec:ObjectReferenceType" minOccurs="0"> </xs:element>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="Object"
+							type="maec:ObjectType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Effects" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Effects element encompasses the results, or effects of the behavior.
+						Behavioral effects can be considered as a logical summing of the resultant effects of the
+						constituent actions but not necessarily a complete sum. Rather, they can be considered as more of a
+						logical abstraction of the sum of its resultant effects.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Effect" type="maec:EffectType" maxOccurs="unbounded"
+							minOccurs="0"/>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="Effect_Reference"
+							type="maec:EffectReferenceType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Related_Behaviors" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Related_Behaviors element encompasses any related behaviors, such
+						as those that make use of some of the same actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Related_Behavior" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Behavior_Reference"
+										type="maec:BehaviorReferenceType"/>
+									<xs:element name="Nature_of_Relationship">
+										<xs:annotation>
+											<xs:documentation>This field defines the relationship between the characterized behavior and the one being referenced. Possible values: Following_Dependency, Preceding_Dependency, Other.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Preceding_Dependency"/>
+												<xs:enumeration value="Coexistence_Dependency"/>
+												<xs:enumeration value="Other"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:BehaviorIDPattern"/>
+		<xs:attribute name="ordinal_position" type="xs:positiveInteger">
+			<xs:annotation>
+				<xs:documentation>The ordinal_position attribute is intended to reference the ordinal position of the behavior with respect to the execution of the malware.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="successful" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>The successful attribute is used to describe whether the behavior was successful or not.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="duration" type="xs:duration">
+			<xs:annotation>
+				<xs:documentation>The duration attribute represents the duration of the behavior. Such a value may be derived by calculating the difference between the timestamps of the first and last actions that compose the behavior.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BehaviorReferenceType">
+		<xs:annotation>
+			<xs:documentation>BehaviorReferenceType is intended to serve as a method for linking to behaviors.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="behavior_id" use="required" type="maec:BehaviorIDPattern">
+			<xs:annotation>
+				<xs:documentation>The behavior_id attribute refers to the ID of the behavior being referenced.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type">
+			<xs:annotation>
+				<xs:documentation>The type attribute refers to the type of behavior entity that is being referenced. Possible values: Behavior, Behavior_Collection.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Behavior"/>
+					<xs:enumeration value="Behavior_Collection"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ActionCollectionType">
+		<xs:annotation>
+			<xs:documentation>ActionCollectionType is intended to provide a method for characterizing collections of actions. This can be useful for organizing actions that may be related and where the exact relationship is unknown, as well as actions whose associated behavior has not yet been established.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Affinity_Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Affinity_Type field is intended to provide an abstract way of characterizing how the effects in a collection are related.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Affinity_Degree" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Affinity_Degree field is intended to provide an abstract way of characterizing the degree to which the actions in a collection are related.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="maec:StructuredTextType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Description element is intended to describe the collection of actions, including its functionality and purpose.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Action_Sub-Collection" type="maec:ActionCollectionType"
+					minOccurs="0"/>
+				<xs:element name="Action" type="maec:ActionType" minOccurs="0"/>
+				<xs:element name="Action_Reference" type="maec:ActionReferenceType" minOccurs="0"/>
+			</xs:choice>
+			<xs:element name="Effects" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Effects element is intended to describe any effects resulting from the collection of actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Effect" type="maec:EffectType" maxOccurs="unbounded"
+							minOccurs="0"/>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="Effect_Reference"
+							type="maec:EffectReferenceType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:ActionCollIDPattern"/>
+		<xs:attribute name="name" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The name attribute contains the name of the action collection, if applicable.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ActionType">
+		<xs:annotation>
+			<xs:documentation>ActionType is intended to serve as a method for the characterization of actions found or observed in malware. Actions can be thought of as system state changes and similar operations that represent the fundamental low-level operation of malware. Some examples include the creation of a file, deletion of a registry key, and the sending of some arbitrary packets on a socket.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Description" type="maec:StructuredTextType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Description element contains a textual description of the
+						action.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Discovery_Method" type="maec:DiscoveryMethod">
+				<xs:annotation>
+					<xs:documentation>The Discovery_Method element is a reference to the method and/or tool used to discover the action.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Action_Initiator" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Action_Initiator element references the initiator of the action. In the
+						context of executable binaries and dynamic analysis engines, this would likely be a
+						process.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="Initiator_Object"
+							type="maec:ObjectReferenceType">
+							<xs:annotation>
+								<xs:documentation>This element is intended to provide a way of referencing the object that initiated an action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="type">
+						<xs:annotation>
+							<xs:documentation>This attribute is used to state the type of object which initiated the action. Possible values: Process, Other.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="Process"/>
+								<xs:enumeration value="Other"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Action_Implementation" type="maec:ActionImplementationType"
+				minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The Action_Implementation element encompasses characteristics that are relevant to how the action is actually implemented in the malware.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Objects" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Objects element encompasses any objects that may be tied to the action, as well as the relationship between the two.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Object_Reference" maxOccurs="unbounded"
+							type="maec:ObjectReferenceType" minOccurs="0"> </xs:element>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="Object"
+							type="maec:ObjectType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Effects" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Effects element encompasses the result, or effect of the action. Not all actions will have applicable effects.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Effect" type="maec:EffectType" maxOccurs="unbounded"
+							minOccurs="0"/>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="Effect_Reference"
+							type="maec:EffectReferenceType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Related_Actions" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Related_Actions element is a way of referencing any related actions, such
+						as dependent actions and actions that are performed on the same object.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Related_Action" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Action_Reference"
+										type="maec:ActionReferenceType"/>
+									<xs:element name="Nature_of_Relationship">
+										<xs:annotation>
+											<xs:documentation>This field defines the relationship between the characterized action and the one being referenced. Possible values: Following_Dependency, Preceding_Dependency, Coexistence_Dependency, Operate_On_Same_Object, Other.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Following_Dependency"/>
+												<xs:enumeration value="Preceding_Dependency"/>
+												<xs:enumeration value="Coexistence_Dependency"/>
+												<xs:enumeration value="Operate_On_Same_Object"/>
+												<xs:enumeration value="Other"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:ActionIDPattern"/>
+		<xs:attribute name="type" type="maec:ActionTypeEnum">
+			<xs:annotation>
+				<xs:documentation>The type attribute is intended to characterize the type of action that occurred, based on its activity. Possible values: Login/Logon, Logout/Logoff, Start, Stop, Suspend/Pause, Resume, Create, Remove/Delete, Access/Open, Close, Move, Copy/Duplicate, Read, Write, Execute, Quarantine, Find, Clean, Block, Update, Upgrade, Scan, Filter, Install, Allocate, Initialize, Save, Connect, Disconnect, Audit, Replicate, Detect, Alert, Backup, Search, Restore, Get, Set, Assign, Send, Receive, Transmit, Map, Load, Query, Enumerate, Bind, Free, Kill, Encrypt, Decrypt, Encode, Decode, Pack, Unpack, Archive, Compress, Decompress, Download, Upload, Load, Fork, Join,Merge, Interleave, Schedule, Call, Compare, Wipe/Destroy/Purge, Throw/Raise, Lock, Unlock, Synchronize, Hook, Unhook, Draw, Click, Press, Depress, Close(network), Open(network), Callback, Drop, Accept, Deny, Modify, Listen, Send,Start_Winsock, Other.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="action_name" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The action_name attribute is intended to contain the name of the action performed. Typically, this is composed of the Action_Type concatenated with the type of object the action is performed upon. For instance, the action name for creating a file would be 'create_file', where the action_type is 'create'. If the object does not exist in MAEC's object_type enumeration, it can still be included as the second half of the action name.
+
+If a specific object attribute is being used in the action, this attribute can be concatenated after the object type. For instance, an action that sets a timestamp on a file would 'set_file_timestamp'.
+
+Object modifiers can be used by including the modifier in front of the object type. For instance, an action that creates a remote thread would be 'create_remote_thread'.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ordinal_position" type="xs:positiveInteger">
+			<xs:annotation>
+				<xs:documentation>The ordinal_position attribute is intended to reference the ordinal position of the action with respect to the execution of the malware.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="successful" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>The successful attribute is used to describe whether the action was successful or not.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="timestamp" type="xs:time">
+			<xs:annotation>
+				<xs:documentation>The timestamp attribute represents the local or relative time at which the action occurred or was observed. </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ActionReferenceType">
+		<xs:annotation>
+			<xs:documentation>ActionReferenceType is intended to serve as a method for linking to actions.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="action_id" use="required" type="maec:ActionIDPattern">
+			<xs:annotation>
+				<xs:documentation>The action_id attribute refers to the ID of the action being referenced.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type">
+			<xs:annotation>
+				<xs:documentation>The type field refers to the type of action entity that is being referenced. Possible values: Action, Action_Collection.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Action"/>
+					<xs:enumeration value="Action_Collection"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ObjectType">
+		<xs:annotation>
+			<xs:documentation>ObjectType is intended to serve as a method for the characterization of any entities that actions and behaviors operate on or are associated with.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Object_Size" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Object_Size field contains the size of the object, if applicable.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="units" use="required">
+								<xs:annotation>
+									<xs:documentation>This attribute represents the Units used in the object size field. Possible values are: Bytes, Kilobytes, Megabytes.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="Bytes"/>
+										<xs:enumeration value="Kilobytes"/>
+										<xs:enumeration value="Megabytes"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Classifications">
+				<xs:annotation>
+					<xs:documentation>The Classifications element contains any Anti-Virus  detection classifications associated with the object. It imports the classificationObject type from the IEEE ICSG Malware Metadata Exchange schema.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Classification"
+							type="metadata:classificationObject"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Associated_Code">
+				<xs:annotation>
+					<xs:documentation>The Associated_Code element is intended as a way of characterizing any code that may be included or associated with the object. For instance, this can be used for including code that may have been discovered inside the object but not yet linked to an action or behavior.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Associated_Code_Snippet">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Code_Snippet" type="maec:CodeType"/>
+									<xs:element name="Nature_Of_Relationship" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>This field defines the relationship between the object and code segment referenced in this element. Possible values: Contained_Inside, Created_By, Other.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Contained_Inside"/>
+												<xs:enumeration value="Created_By"/>
+												<xs:enumeration value="Other"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Related_Objects">
+				<xs:annotation>
+					<xs:documentation>The Related_Objects element provides a way of characterizing any other objects that may be associated with this object.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Related_Object">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Object_Reference"
+										type="maec:ObjectReferenceType"/>
+									<xs:element name="Nature_Of_Relationship" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>This field defines the relationship between the characterized object and the one being referenced. Possible values: Observed_Together, Dropped_By, Downloaded_By, Uploaded_By, Created_By, Other.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="Observed_Together"/>
+												<xs:enumeration value="Dropped_By"/>
+												<xs:enumeration value="Downloaded_By"/>
+												<xs:enumeration value="Uploaded_By"/>
+												<xs:enumeration value="Created_By"/>
+												<xs:enumeration value="Other"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="File_System_Object_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The File_System_Object_Attributes element contains attributes for characterizing file system objects.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="DateTime_Created" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>The DateTime_Created field contains the date/time that a file system object was created.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="DateTime_Modified" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>The DataTime_Modified field contains the date/time that a file system object was last modified.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Path" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Path field contains any path associated with a file system object.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="type">
+											<xs:annotation>
+												<xs:documentation>This attribute refers to the type of path that this element refers to. Possible values: Fully_Qualified, Relative.</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+												<xs:enumeration value="Fully_Qualified"/>
+												<xs:enumeration value="Relative"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Hashes" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Hashes element contains a hash (or multiple hashes) associated with a file object.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="Hash"
+										type="maec:HashType"> </xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Permissions" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Permissions field contains any permissions associated with a file system object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="File_Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The File_Type field contains the file type of a file object.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element minOccurs="0" name="TrID_Type">
+										<xs:annotation>
+											<xs:documentation>This field is intended to provide a way of characterizing file type using the output of the popular TrID tool.</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="TriD_ID" type="xs:string"/>
+												<xs:element name="TRID_Confidence" type="xs:float"
+												minOccurs="0"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element minOccurs="0" name="Discovery_Method"
+										type="maec:DiscoveryMethod"/>
+								</xs:sequence>
+								<xs:attribute name="type" type="maec:FileTypeEnum">
+									<xs:annotation>
+										<xs:documentation>The type attribute is meant to provide a general way of characterizing file type, through MAEC's FileType enumeration. Possible values: PE, JS, PDF, ZIP, TXT, ASM, DOC, DOCX, XLS, XLSX, PPT, PPTX, Other.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+						<xs:element minOccurs="0" name="Packing">
+							<xs:annotation>
+								<xs:documentation>The Packing element is intended to specify whether or not a file object is packed. The term 'packer' here refers to packers, as well as things like archivers and installers.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Packer_Type" minOccurs="0"
+										maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>The Packer_Type field contains information about the packer used on the file. For now, this is just its name, type and version.</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Name" type="xs:string"/>
+												<xs:element name="Version" type="xs:string"
+												minOccurs="0"/>
+												<xs:element minOccurs="0" name="Discovery_Method"
+												type="maec:DiscoveryMethod"/>
+											</xs:sequence>
+											<xs:attribute name="id"/>
+											<xs:attribute name="type" type="maec:PackerTypeEnum">
+												<xs:annotation>
+												<xs:documentation>This is intended to characterize the type of packer characterized in this element. Possible values: Archiver, Installer, Self-Extracting_Archiver, Crypter, Packer, Protector, Bundler, Other.</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="is_packed" type="xs:boolean">
+									<xs:annotation>
+										<xs:documentation>The is_packed attribute is used to indicate whether the file system object is packed or not.</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Pipe_Mode" minOccurs="0" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Pipe_Mode field specifies the pipe mode associated with a named pipe object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Maximum_Instances" minOccurs="0" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>The Maximum_Instances field contains the maximum number of instances that are allowed for a named pipe object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Security_Attributes" minOccurs="0" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Security_Attributes field contains any security attributes associated with the file system object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Origin" type="metadata:uriObject">
+							<xs:annotation>
+								<xs:documentation>The Origin field is intended to characterize the external origin of a file system object that have been downloaded or otherwise retrieved from an external source; for now this is just a URI for downloaded files.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="File_Type_Attributes">
+							<xs:annotation>
+								<xs:documentation>The File_Type_Attributes element contains attributes relevant only to specific types of files, such as PE binaries. </xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PE_Binary_Attributes" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>The PE_Binary_Attributes element contains attributes relevant to Portable Executable (PE) format binaries.</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element minOccurs="0" name="Version_Block">
+												<xs:annotation>
+												<xs:documentation>The Version_Block element contains fields for characterizing attributes found in the optional version block of a PE file.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element minOccurs="0" name="Internal_Name"
+												type="xs:string"/>
+												<xs:element minOccurs="0" name="Product_Name"
+												type="xs:string"/>
+												<xs:element minOccurs="0" name="Company_Name"
+												type="xs:string"/>
+												<xs:element minOccurs="0" name="Legal_Copyright"
+												type="xs:string"/>
+												<xs:element minOccurs="0"
+												name="Product_Version_Text" type="xs:string"/>
+												<xs:element minOccurs="0" name="File_Description"
+												type="xs:string"/>
+												<xs:element minOccurs="0" name="File_Version_Text"
+												type="xs:string"/>
+												<xs:element minOccurs="0"
+												name="Original_File_Name" type="xs:string"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="Headers">
+												<xs:annotation>
+												<xs:documentation>The Headers element contains fields for characterizing attributes of the various types of PE headers.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element minOccurs="0" name="DOS_Header">
+												<xs:annotation>
+												<xs:documentation>The DOS_Header element refers to the MS-DOS PE header and its associated attributes.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element minOccurs="0" name="Hashes">
+												<xs:annotation>
+												<xs:documentation>The Hashes element is used to include any hash values computed using the specified PE binary MS-DOS header as input.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded" name="Hash"
+												type="maec:HashType"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="signature"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="lastsize"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="nblocks"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="nreloc"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="hdrsize"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="minalloc"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="maxalloc"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="checksum"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="relocpos"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="noverlay"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="reserved1"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="oem_id"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="oem_info"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="reserved2"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="e_lfanew"
+												type="xs:hexBinary"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="PE_Header">
+												<xs:annotation>
+												<xs:documentation>The PE_Header element refers to the PE header and its associated attributes.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element minOccurs="0" name="Hashes">
+												<xs:annotation>
+												<xs:documentation>The Hashes element is used to include any hash values computed using the specified PE binary file header as input.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded" name="Hash"
+												type="maec:HashType"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="Entropy"
+												type="xs:float">
+												<xs:annotation>
+												<xs:documentation>The Entropy field refers to the calculated entropy of the PE file header. </xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element minOccurs="0" name="Signature"
+												type="xs:hexBinary">
+												<xs:annotation>
+												<xs:documentation>The Signature field refers to the PE File ID signature.</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												<xs:element minOccurs="0" name="File_Header">
+												<xs:annotation>
+												<xs:documentation>The File_Header element refers to the PE file header (somtimes referred to as the COFF header) and its associated attributes.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element minOccurs="0" name="Hashes">
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded" name="Hash"
+												type="maec:HashType"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="Machine"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Number_Of_Sections" type="xs:integer"/>
+												<xs:element minOccurs="0" name="Time_Date_Stamp"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Pointer_To_Symbol_Table" type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Number_Of_Symbols"
+												type="xs:integer"/>
+												<xs:element minOccurs="0"
+												name="Size_Of_Optional_Header" type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Characteristics"
+												type="xs:hexBinary"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="Optional_Header">
+												<xs:annotation>
+												<xs:documentation>The Optional_Header element refers to the PE optional header and its associated attributes.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element minOccurs="0" name="Hashes">
+												<xs:annotation>
+												<xs:documentation>The Hashes element is used to include any hash values computed using the specified PE binary optional header as input.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded" name="Hash"
+												type="maec:HashType"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0"
+												name="Major_Linker_Version" type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Minor_Linker_Version" type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Size_Of_Code"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Size_Of_Initialized_Data"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Size_Of_Uninitialized_Data"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Address_Of_Entry_Point" type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Base_Of_Code"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Base_Of_Data"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Image_Base"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Section_Alignment"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="File_Alignment"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Major_OS_Version"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Minor_OS_Version"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Major_Image_Version" type="xs:hexBinary"/>
+												<xs:element maxOccurs="1" minOccurs="0"
+												name="Minor_Image_Version" type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Major_Subsystem_Version" type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Minor_Subsystem_Version" type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Reserved"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Size_Of_Image"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Size_Of_Headers"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Checksum"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Subsystem"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="DLL_Characteristics" type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Size_Of_Stack_Reserve" type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Size_Of_Stack_Commit" type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Size_Of_Heap_Reserve" type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Size_Of_Heap_Commit" type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Loader_Flags"
+												type="xs:hexBinary"/>
+												<xs:element minOccurs="0"
+												name="Number_Of_Rva_And_Sizes" type="xs:hexBinary"/>
+												<xs:element minOccurs="0" name="Data_Directory">
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element minOccurs="0" name="Export_Symbols"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Import_Symbols"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Resources"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Exception"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Security"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Base_Relocation"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Debug"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Architecture"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Copyright_String"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Unknown"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0"
+												name="Thread_Local_Storage"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0"
+												name="Load_Configuration"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Bound_Import"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0"
+												name="Import_Address_Table"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="Delay_Import"
+												type="maec:PEDataDirectoryStruct"/>
+												<xs:element minOccurs="0" name="COM_Descriptor"
+												type="maec:PEDataDirectoryStruct"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="Section_Table">
+												<xs:annotation>
+												<xs:documentation>The Section_Table element refers to the PE binary section header and its associated attributes.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded"
+												name="Section_Header"
+												type="maec:PESectionHeaderStruct"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="Strings">
+												<xs:annotation>
+												<xs:documentation>The Strings element contains fields for characterizing any strings extracted from a PE file. </xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded" name="String"
+												type="maec:PEStringType"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="Imports">
+												<xs:annotation>
+												<xs:documentation>The Imports element contains fields for characterizing any PE file imports.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded" name="Import"
+												type="maec:PEImportType"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="Exports">
+												<xs:annotation>
+												<xs:documentation>The Exports element contains fields for characterizing any PE file exports.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded" name="Export"
+												type="maec:PEExportType"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="Resources">
+												<xs:annotation>
+												<xs:documentation>The Resources element contains fields for characterizing any PE file resources.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded" name="Resource"
+												type="maec:PEResourceType"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0" name="Sections">
+												<xs:annotation>
+												<xs:documentation>The Sections element contains fields for characterizing any sections of a PE file.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded" name="Section"
+												type="maec:PESectionType"/>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+												<xs:element minOccurs="0"
+												name="Digital_Certificates">
+												<xs:annotation>
+												<xs:documentation>The Digital_Certificates element contains fields for characterizing any signatures used to sign a PE file.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element maxOccurs="unbounded"
+												name="Certificate">
+												<xs:complexType>
+												<xs:sequence>
+												<xs:element name="Issuer" type="xs:string">
+												<xs:annotation>
+												<xs:documentation>This field contains the issuer of the digital certificate.</xs:documentation>
+												</xs:annotation>
+												</xs:element>
+												</xs:sequence>
+												<xs:attribute name="validity" type="xs:boolean">
+												<xs:annotation>
+												<xs:documentation>This boolean attribute represents whether the digital certificate is valid or not. </xs:documentation>
+												</xs:annotation>
+												</xs:attribute>
+												</xs:complexType>
+												</xs:element>
+												</xs:sequence>
+												</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+											<xs:attribute name="type" use="required">
+												<xs:annotation>
+												<xs:documentation>The type attribute is used to define the type of PE file being characterized. Possible values: EXE, DLL.</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+												<xs:restriction base="xs:string">
+												<xs:enumeration value="EXE"/>
+												<xs:enumeration value="DLL"/>
+												</xs:restriction>
+												</xs:simpleType>
+											</xs:attribute>
+											<xs:attribute name="dll_count" type="xs:integer">
+												<xs:annotation>
+												<xs:documentation>The dll_count attribute is used to define the number of DLLs loaded by a PE file.</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GUI_Object_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The GUI_Object_Attributes element contains attributes for characterizing system GUI objects, such as windows and dialog boxes.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Width" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Width field contains the width of a GUI object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Height" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Height field contains the height of a GUI object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Window_Display_Name" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Window_Display_Name field contains the display name/title bar text of a window GUI object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Parent_Window" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Parent_Window field contains the parent window of a GUI window object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Owner_Window" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Owner_Window field contains the owner window of a window GUI object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Box_Text" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Box_Text field contains the text contained inside a dialog box GUI object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Box_Caption" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Box_Caption field contains the caption associated with a dialog box GUI object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IPC_Object_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The IPC_Object_Attributes element contains attributes for characterizing interprocess-communication objects, such as mutexes.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Security_Attributes" minOccurs="0" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Security_Attributes field contains any security attributes associated with the IPC object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Event_Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Event_Type field contains the event type of an IPC event object. Possible values: Manual_Reset, Auto_Reset.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="Manual_Reset"/>
+									<xs:enumeration value="Auto_Reset"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element minOccurs="0" name="Thread_ID" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>The Thread_ID field contains the ID for thread IPC objects.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Start_Address" type="xs:hexBinary">
+							<xs:annotation>
+								<xs:documentation>The Start_Address field contains the starting address for IPC objects, such as threads.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Internet_Object_Attributes">
+				<xs:annotation>
+					<xs:documentation>The Internet_Object_Attributes element contains attributes for characterizing Internet objects, such as URLs.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="URI" type="metadata:uriObject">
+							<xs:annotation>
+								<xs:documentation>The URI field contains a URI associated with an internet object. It imports the uriObject data type from the IEEE ICSG Malware Metadata Exchange schema.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="AS_Number" type="xs:unsignedShort">
+							<xs:annotation>
+								<xs:documentation>The AS_Number field contains the AS number associated with an internet object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Module_Object_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Module_Object_Attributes element contains attributes for characterizing modules.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Library_Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Library_Type field contains the type of library object that is being characterized. Possible values: Static, Dynamic, Shared, Remote, Other.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="Dynamic"/>
+									<xs:enumeration value="Static"/>
+									<xs:enumeration value="Shared"/>
+									<xs:enumeration value="Remote"/>
+									<xs:enumeration value="Other"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element minOccurs="0" name="Library_File_Name" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Library_File_Name field contains the name of the library file.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Version" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Version field contains the library version.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Registry_Object_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Registry_Object_Attributes element contains attributes for characterizing Windows registry objects.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Hive" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Hive field contains the registry hive of the registry object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Key" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Key field contains the registry key of the registry object, without the prepended hive.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Value">
+							<xs:annotation>
+								<xs:documentation>The Value element encompasses a registry value/data pair.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Value_Name" type="xs:string" minOccurs="1"/>
+									<xs:element name="Value_Data" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+								<xs:attribute name="type">
+									<xs:annotation>
+										<xs:documentation>This field refers to the data type of the registry value being characterized in this element. Possible values: REG_NONE, REG_SZ, REG_EXPAND, REG_BINARY, REG_DWORD, REG_DWORD_LITTLE_ENDIAN, REG_DWORD_BIG_ENDIAN, REG_LINK, REG_MULTI_SZ, REG_RESOURCE_LIST, REG_FULL_RESOURCE_DESCRIPTOR, REG_RESOURCE_REQUIREMENTS_LIST, REG_QWORD, REG_QWORD_LITTLE_ENDIAN.</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:enumeration value="REG_NONE"/>
+											<xs:enumeration value="REG_SZ"/>
+											<xs:enumeration value="REG_EXPAND_SZ"/>
+											<xs:enumeration value="REG_BINARY"/>
+											<xs:enumeration value="REG_DWORD"/>
+											<xs:enumeration value="REG_DWORD_LITTLE_ENDIAN"/>
+											<xs:enumeration value="REG_DWORD_BIG_ENDIAN"/>
+											<xs:enumeration value="REG_LINK"/>
+											<xs:enumeration value="REG_MULTI_SZ"/>
+											<xs:enumeration value="REG_RESOURCE_LIST"/>
+											<xs:enumeration value="REG_FULL_RESOURCE_DESCRIPTOR"/>
+											<xs:enumeration value="REG_RESOURCE_REQUIREMENTS_LIST"/>
+											<xs:enumeration value="REG_QWORD"/>
+											<xs:enumeration value="REG_QWORD_LITTLE_ENDIAN"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Process_Object_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Process_Object_Attributes element contains attributes for characterizing process objects.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Image_Name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Image_Name field contains the image name associated with the process object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Start_Username" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Start_Username field contains the name of user used to start the process.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Current_Directory" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Current_Directory field contains the directory dynamically associated with the process.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Command_Line" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Command_Line field contains the command-line string associated with the process object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Security_Attributes" minOccurs="0" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Security_Attributes field contains any security attributes associated with the process object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Process_ID" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Process_ID field contains the Process ID (PID) of the process object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Start_Address" type="xs:hexBinary" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Start_Address field contains the starting address of the process object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Parent_Process"
+							type="maec:ObjectReferenceType">
+							<xs:annotation>
+								<xs:documentation>The Parent_Process field is intended to reference the parent process of the process characterized in this element, if applicable, by way of an object reference.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element form="qualified" minOccurs="0" name="Start_DateTime"
+							type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>The Start_DateTime field contains the date/time that the process was started.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Child_Processes">
+							<xs:annotation>
+								<xs:documentation>The Child_Processes field references any children spawned by the process being characterized, by way of an object reference.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="Child_Process"
+										type="maec:ObjectReferenceType"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element minOccurs="0" name="Handles">
+							<xs:annotation>
+								<xs:documentation>The Handles field contains any handles associated with a process.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="Handle">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Name" type="xs:integer"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Memory_Object_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Memory_Object_Attributes element contains attributes for characterizing memory objects, such as pages and heaps.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Memory_Block_ID" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Memory_Block_ID field contains the ID of a memory block object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Start_Address" type="xs:hexBinary" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Start_Address field contains the start address of a memory object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Network_Object_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Network_Object_Attributes element contains attributes for characterizing network objects, such as sockets.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Internal_Port" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Internal_Port field contains the internal port number associated with a network object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="External_Port" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The External_Port field contains the external port number associated with a network object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Socket_Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Socket_Type field contains the socket type for socket network objects. Possible values: Streaming, Datagram, Raw, RDM, Sequential_Packet, Other.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="Streaming"/>
+									<xs:enumeration value="Datagram"/>
+									<xs:enumeration value="Raw"/>
+									<xs:enumeration value="RDM"/>
+									<xs:enumeration value="Sequential_Packet"/>
+									<xs:enumeration value="Other"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element minOccurs="0" name="Socket_ID" type="xs:long">
+							<xs:annotation>
+								<xs:documentation>The Socket_ID field contains the numerical ID of a socket network object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Internal_IP_Address" type="metadata:IPAddress"
+							minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Internal_IP_Address field contains the internal IP address that is bound to a network  object. This field imports the IPAddress datatype from the IEEE ICSG Malware Metadata Exchange schema.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="External_IP_Address" type="metadata:IPAddress"
+							minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The External_IP_Address field contains the external IP address that is bound to a network  object. This field imports the IPAddress datatype from the IEEE ICSG Malware Metadata Exchange schema.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element maxOccurs="1" minOccurs="0" name="IP_Protocol"
+							type="metadata:IPTypeEnum">
+							<xs:annotation>
+								<xs:documentation>The IP_Protocol field contains the type of IP Protocol used in a network object. This field imports the IPTypeEnum datatype from the IEEE ICSG Malware Metadata Exchange schema.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Application_Layer_Protocol"
+							type="maec:ApplicationProtocolEnum">
+							<xs:annotation>
+								<xs:documentation>The Application_Layer_Protocol field contains the type of application layer protocol used in a network object. Possible values: DNS, IMAP, IRC, LDAP, HTTP, FTP, NNTP, NTP, SMTP, SOAP, SSH, Telnet, Other.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Daemon_Object_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Daemon_Object_Attributes element contains attributes for characterizing Windows service or *Nix daemon objects.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Service_Type" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Service_Type field contains the type of the service object. Possible values: SERVICE_ADAPTER, SERVICE_FILE_SYSTEM_DRIVER, SERVICE_KERNEL_DRIVER, SERVICE_RECOGNIZER_DRIVER, SERVICE_WIN32_OWN_PROCESS, SERVICE_WIN32_SHARE_PROCESS.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="SERVICE_ADAPTER"/>
+									<xs:enumeration value="SERVICE_FILE_SYSTEM_DRIVER"/>
+									<xs:enumeration value="SERVICE_KERNEL_DRIVER"/>
+									<xs:enumeration value="SERVICE_RECOGNIZER_DRIVER"/>
+									<xs:enumeration value="SERVICE_WIN32_OWN_PROCESS"/>
+									<xs:enumeration value="SERVICE_WIN32_SHARE_PROCESS"/>
+									<xs:enumeration value="Other"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="Start_Type" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Start_Type field contains the startup type of the daemon object.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Display_Name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Display_Name field contains the display name used to identify the daemon in the system UI.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Daemon_Binary_Object" minOccurs="0" type="maec:ObjectType">
+							<xs:annotation>
+								<xs:documentation>The Daemon_Binary_Object field is intended to allow for the characterization of the service/daemon's binary object (file).</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Load_Order_Group" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Load_Order_Group field contains the names of the (Windows) load order grouping of which the service object is a member.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Custom_Object_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Custom_Object_Attributes element provides a way of characterizing objects who attributes may not yet be included in MAEC.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Custom_Attribute" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="custom_attribute_name" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>The custom_attribute_name attribute contains the name of the custom attribute.</xs:documentation>
+											</xs:annotation>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:ObjectIDPattern"/>
+		<xs:attribute name="object_name" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The object_name attribute specifies the name of the object, if applicable.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type" use="optional" type="maec:ObjectTypeEnum">
+			<xs:annotation>
+				<xs:documentation>The type attribute is intended to characterize the type of object being characterized in this element. Possible values are: URI, Host, Session, Session Token, Account, Device (physical), Handle, Heap,Memory Address, Memory Page, Window, Dialog, Parameter, Authentication Token,Encryption Token, Web Query, Protocol Header, Protocol Field, Link, SQL Query,Database, ACL, Role, System, VM, Signature, Channel, API Call, Environment Variable, Application, Network, Configuration, Policy, Tack, Malware, Message,Email Message, Media, Operating System, Query, Domain, Event, Other</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="permanent" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>The permanent attribute is intended to characterize whether an object stays resident after execution of the malware, that is, whather or not it remains on the filesystem or other non-volatile entity in some fashion.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EffectType">
+		<xs:annotation>
+			<xs:documentation>EffectType is intended to serve as a method for the characterization of the results of succesfully executed actions and behaviors.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Description" type="maec:StructuredTextType">
+				<xs:annotation>
+					<xs:documentation>The Description element contains a textual description of the effect.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Affected_Objects" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Affected_Objects element encompasses any objects that were affected by an action or behavior. Typically an action will affect a single object, while a behavior has the possibility of affecting multiple objects.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Affected_Object" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Object_Reference"
+										type="maec:ObjectReferenceType"/>
+								</xs:sequence>
+								<xs:attribute name="effect_type" type="maec:EffectTypeEnum"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Constituent_Effects">
+				<xs:annotation>
+					<xs:documentation>The Constituent_Effects element represents a way of characterizing abstracted, behavioral effects through the referencing of individual action effects.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Effect_Reference"
+							type="maec:EffectReferenceType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Vulnerability_Exploit">
+				<xs:annotation>
+					<xs:documentation>The Vulnerability_Explot element is intended to allow the characterization of vulnerabilities that may have been exploited as part of the effect.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Known_Exploit" type="maec:CVEVulnerabilityType">
+							<xs:annotation>
+								<xs:documentation>If the vulnerability being exploited is known, then it can be referenced in this field using a Common Vulnerabilities and Exposures (CVE) identifier. For more information on CVE, please see http://cve.mitre.org.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="vulnerability_type">
+						<xs:annotation>
+							<xs:documentation>This field refers to whether the vulnerability that is being exploited is known or unknown. Only known vulnerabilities will have an associated CPE identifier. Possible values: Known, Unknown.</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="Known"/>
+								<xs:enumeration value="Unknown"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:EffectIDPattern"/>
+	</xs:complexType>
+	<xs:complexType name="EffectCollectionType">
+		<xs:annotation>
+			<xs:documentation>EffectCollectionType is intended to provide a mechanism for characterizing collections of effects. For instance, it can be used to group all of the effects that result from the execution of a particular malware instance.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Affinity_Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Affinity_Type field is intended to provide an abstract way of characterizing how the effects in a collection are related.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Affinity_Degree" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Affinity_Degree field is intended to provide an abstract way of characterizing the degree to which the effects in a collection are related.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="maec:StructuredTextType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Description element is intended to describe the collection of effects.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Effect_Sub_Collection" type="maec:EffectCollectionType"
+					minOccurs="0"/>
+				<xs:element name="Effect" type="maec:EffectType" minOccurs="0"/>
+				<xs:element name="Effect_Reference" type="maec:EffectReferenceType" minOccurs="0"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:EffectCollIDPattern"/>
+		<xs:attribute name="name" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The name attribute contains the name of the effect collection, if applicable.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="EffectReferenceType">
+		<xs:annotation>
+			<xs:documentation>EffectReferenceType is intended to serve as a method for linking to effects.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="effect_id" use="required" type="maec:EffectIDPattern">
+			<xs:annotation>
+				<xs:documentation>The effect_id attribute refers to the ID of the effect being referenced.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type">
+			<xs:annotation>
+				<xs:documentation>The type attribute refers to the type of effect entity that is being referenced. Possible values: Effect, Effect_Collection.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Effect"/>
+					<xs:enumeration value="Effect_Collection"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="StructuredTextType">
+		<xs:sequence>
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="maec:Structured_Text_Group"/>
+				<xs:element ref="maec:Block">
+					<xs:annotation>
+						<xs:documentation> Block is a Structured_Text element consisting of one of
+							Text_Title, Text, Code_Example_Language, or Code followed by another
+							Block element. Structured_Text elements help define whitespace and text
+							segments.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="Structured_Text_Group">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="Text_Title" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation> Presentation Element: This element is used to
+							definebold-faced title for a subsequent block of text.
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Text" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation> Presentation Element: This element is used to define a
+							paragraph of text. </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Code_Example_Language" type="maec:LanguageEnum" minOccurs="0"
+					maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Presentation Element: This element is used to identify the
+							programming language being used in the following block of
+							Code</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Code" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation> Presentation Element: This element is used to define a
+							line of code. </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Images" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Image" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation> Presentation Element: This element is used to
+										define an image. </xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence maxOccurs="unbounded">
+										<xs:element name="Image_Location" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>This element provides the location
+												of the image file.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="Image_Title" type="xs:string">
+											<xs:annotation>
+												<xs:documentation>This element provides a title for
+												the image.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:group>
+	<xs:element name="Block">
+		<xs:annotation>
+			<xs:documentation> Block is a Structured_Text element consisting of one of Text_Title,
+				Text, Code_Example_Language, or Code followed by another Block element.
+				Structured_Text elements help define whitespace and text segments.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="maec:Structured_Text_Group"/>
+				<xs:element ref="maec:Block">
+					<xs:annotation>
+						<xs:documentation> Block is a Structured_Text element consisting of one of
+							Text_Title,Text, Code_Example_Language, or Code followed by another
+							Block element. Structured_Text elements help define whitespace and text
+							segments.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:attribute name="Block_Nature">
+				<xs:annotation>
+					<xs:documentation> This attribute identifies the nature of the content
+						containedwithin the Block. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Good_Code"/>
+						<xs:enumeration value="Bad_Code"/>
+						<xs:enumeration value="Mitigation_Code"/>
+						<xs:enumeration value="Attack"/>
+						<xs:enumeration value="Result"/>
+						<xs:enumeration value="List"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ActionImplementationType">
+		<xs:annotation>
+			<xs:documentation>ActionImplementationType is intended to serve as a method for the characterization of action implementations. Currently supported are implementation achieved through API function calls and abstractly defined code.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="API_Call" maxOccurs="1" minOccurs="0" type="maec:APICallType">
+					<xs:annotation>
+						<xs:documentation>The API_Call element allows for the characterization of a system-level API call that was used to implement the action. Software must make use of such calls to talk to 			hardware and perform system-specific functions.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Code" maxOccurs="unbounded" type="maec:CodeType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The Code element contains any form of code that was used to implement the action.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+			<xs:element name="Platform" type="maec:CPESpecificationType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Platform element contains a specific platform tied to the action implementation, by way of a Common Platform Enumeration (CPE) identifier. For more information on CPE, go to http://cpe.mitre.org.
+
+For now this is more a placeholder than anything, since an action implementation can clearly be applicable to more than a single platform. With future releases of CPE we will have ability to cover the full range of platforms that an action implementation is tied into.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Data_Read" type="maec:DataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Data_Read element encompasses any data which may have been read in an action.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Data_Written" type="maec:DataType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Data_Written element encompasses any data which may have been written in an action.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="File_System_Action_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The File_System_Action_Attributes element contains attributes relating to file system
+						management actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Existing_File_Name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Existing_File_Name field contains the existing file name for a file that may have been copied or moved in a file system management action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Destination_File_Name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Destination_File_Name field contains the destination file name for a file that may have been copied or moved in a file system management action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Access_Mode" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Access_Mode field contains the access mode that may have been used in a file system management action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Flags" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Flags field contains any flags that may have been used in a file system management action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Open_Mode" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Open_Mode field contains the open mode which may have been used in a file system management action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element maxOccurs="1" minOccurs="0" name="File_Attributes"
+							type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The File_Attributes field contains any attributes that may have been set or queried by the file management action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IPC_Action_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The IPC_Action_Attributes element contains attributes relating to interprocess
+						communication (IPC) actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="Initial_Owner" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Initial_Owner field contains the name of the initial owner of the IPC object which may have been used in an IPC action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Thread_ID" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Thread_ID field contains the ID of a thread object which may have been used in an IPC action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Target_PID" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Target_PID field contains the targeted process ID which may have been used in an IPC action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Start_Address" type="xs:hexBinary" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Start_Address field contains the starting address of a thread in a process which may be used in an IPC action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Process_Action_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Process_Action_Attributes element contains attributes relating to process management
+						actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Process_Base_Address" type="xs:hexBinary" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Process_Base_Address field contains the base address of a process which may have been used in a process action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Thread_ID" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Thread_ID field contains the ID of a thread which may have been used in a process action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Start_Address" type="xs:hexBinary" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Start_Address field contains the starting address of a thread which may have been used in a process action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Creation_Flags" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Creation_Flags field contains the flags that may have been used in a process action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="User_Name" minOccurs="0" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The User_Name field contains the user name which may have been used to create a process in a process action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Target_PID" minOccurs="0" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>The Target_PID field contains a process ID which may have been used in a process action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Memory_Action_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Memory_Action_Attributes element contains attributes relating to memory management
+						actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Start_Address" type="xs:hexBinary" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Start_Address field contains the start address of the memory region which may have been used in a memory action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Source_Address" type="xs:hexBinary" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Source_Address field contains the source address of a memory block which may have been used in a copy or move memory action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Destination_Address" type="xs:hexBinary" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Destination_Address field contains the destination address of a memory block which may have been used in a copy or move memory action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Page_Base_Address" type="xs:hexBinary" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Page_Base_Address field contains the base address of a memory page which may have been used in a memory action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Target_PID" minOccurs="0" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>The Target_PID field contains the process ID which may have been used in a memory action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Requested_Address" minOccurs="0" type="xs:hexBinary">
+							<xs:annotation>
+								<xs:documentation>The Requested_Address field contains the address which may have been requested in a memory action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Registry_Action_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Registry_Action_Attributes element contains attributes relating to registry management
+						actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Enumerated_Subkeys" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Enumerated_Subkeys field contains any Windows Registry Subkeys that may have been enumerated in a registry action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Enumerated_Values" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Enumerated_Values field contains Windows Registry Key Values that may have been enumerated in a registry action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Network_Action_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Network_Action_Attributes element contains attributes relating to network
+						actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Internal_Port" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Internal_Port field contains the internal port number which may have been used in a connection in a network action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="External_Port" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The External_Port field contains the external port number which may have been used in a connection in a network action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Internal_IP_Address" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Internal_IP_Address field contains the internally bound IP address which may have been used in a connection in a network action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="External_IP_Address" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The External_IP_Address field contains the externally bound IP address which may have been used in a connection in a network action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Host_Name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Host_Name field contains a host name which may have been used in a network action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Data_Sent" type="maec:DataType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Data_Sent element encompasses any data which may have been sent in a network action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Data_Received" type="maec:DataType">
+							<xs:annotation>
+								<xs:documentation>The Data_Received element encompasses any data which may have been received in a network action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Buffer_Length" minOccurs="0" type="xs:int">
+							<xs:annotation>
+								<xs:documentation>The Buffer_Length field contains the length of the buffer which may have been used in a network action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Module_Action_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Module_Action_Attributes element contains attributes relating to module management
+						actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Function_Name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Function_Name field contains the name of a function which have been extracted from a module in a module action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Flags" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Flags field contains any flags which may have been used in a module action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Daemon_Action_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Daemon_Action_Attributes element contains attributes relating to Windows service or *Nix daemon management actions. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Options" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Options field contains any options which may have been used in a daemon action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Start_Type" minOccurs="0" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Start_Type field contains the start type which may have been used in a daemon action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Desired_Access_Type" minOccurs="0" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The Desired_Access_Type field contains the desired access type which may have been used in a daemon action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Enumerated_Daemons">
+							<xs:annotation>
+								<xs:documentation>The Enumerated_Daemons field contains references to any daemon objects which may have been enumerated by a daemon action.</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="Daemon_Reference"
+										type="maec:ObjectReferenceType"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="System_Action_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The System_Action_Attributes element contains attributes relating to system
+						actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Computer_Name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Computer_Name field contains the name of the system which may have been used in a system action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Local_Time" type="xs:time" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Local_Time field contains the local system time which may have been used in a system action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Internet_Action_Attributes" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Internet_Action_Attributes element contains attributes relating to internet actions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="URL_Connected" type="metadata:uriObject">
+							<xs:annotation>
+								<xs:documentation>The URL_Connected element contains a URL which may have been connected to in an internet action.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:ActionImpIDPattern"/>
+		<xs:attribute name="type" use="optional">
+			<xs:annotation>
+				<xs:documentation>The type attribute refers to the type of action implementation being characterized. Possible values: API_Call, Code, Other.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="API_Call"/>
+					<xs:enumeration value="Code"/>
+					<xs:enumeration value="Other"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CPESpecificationType">
+		<xs:annotation>
+			<xs:documentation>CPESpecificationType is a modularized data type intended for
+				providing a consistent approach to uniquely specifying the identity of a specific
+				platform using the Common Platform Enumeration (CPE) naming standard.
+				http://cpe.mitre.org/</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Title" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Title field contains the plain language descriptive title of
+						the relevant platform.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="lang" type="xs:string" use="optional">
+								<xs:annotation>
+									<xs:documentation>This field holds a shortform descriptor for
+										the language that the Title field is expressed in.
+										Attempting to install the relevant ISO 2- and 3-letter codes
+										as the enumerated possible values is probably never going to
+										be a realistic possibility. See RFC 3066 at
+										http://www.ietf.org/rfc/rfc3066.txt and the IANA registry at
+										http://www.iana.org/assignments/lang-tag-apps.htm for
+										further information. The union allows for the
+										'un-declaration' of xml:lang with the empty
+										string.</xs:documentation>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="meta-item-metadata" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The meta-item-metadata element aggregates the descriptive metadata for this CPE
+						Name instance.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:attribute name="modification-date" type="xs:dateTime" use="optional">
+						<xs:annotation>
+							<xs:documentation>The modification-date attribute represents the last time that any CPE
+								property has been modified.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="status" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>The status attribute contains the internal NVD status of a
+								CPE.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="nvd-id" type="xs:integer" use="optional">
+						<xs:annotation>
+							<xs:documentation>The nvd-id attribute contains the NVD specific unique identifier
+								for a CPE. This is provided as a long-term identifier that can be
+								used to map different versions of CPE syntax to a CPE with the same
+								meaning. This is not a replacement of a CPEName. Use of a CPEName is
+								still the standard ID naming scheme for CPE 2.x.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="xmlns-meta" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>The xmlns-meta attribute contains the XML CPE metadata namespace
+								descriptor for the CPE namespace relevant to this CPE Name
+								use.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="cpe_name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The cpe_name attribute contains the CPE Name value for the relevant platform.
+					A CPE Name is a percent-encoded URI with each name starting with the prefix (the
+					URI scheme name) "cpe:". The remainder of the name consists of colon separated
+					values representing the CPE part, vendor, product, version, update, edition and
+					language (i.e. cpe:/ {part} : {vendor} : {product} : {version} : {update} :
+					{edition} : {language}).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="xmlns_value" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The xmlns_value attribute contains the XML namespace descriptor for the CPE
+					namespace relevant to this CPE Name use.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="APICallType">
+		<xs:annotation>
+			<xs:documentation>APICall_ParameterType is intended provide a method for the  characterization of API calls, namely functions and their parameters.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Address" type="xs:hexBinary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Address field contains the address of the API call in the binary.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ReturnValue" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The ReturnValue field contains the return value of the API call.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" name="APICall_Parameter">
+				<xs:annotation>
+					<xs:documentation>The APICall_Parameter element encompasses any name/value pairs of API Call parameters.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Name" type="xs:string"/>
+						<xs:element name="Value" type="xs:string"/>
+					</xs:sequence>
+					<xs:attribute name="ordinal_position" type="xs:positiveInteger">
+						<xs:annotation>
+							<xs:documentation>This attribute refers to the ordinal position of the API function call parameter with respect to the function itself.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:APICallIDPattern"/>
+		<xs:attribute name="apifunction_name" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The apifunction_name attribute contains the exact name of the API function called. E.g. CreateFileW.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ToolType">
+		<xs:annotation>
+			<xs:documentation>ToolType is intended to provide a way of characterizing any tools used in the analysis of malware.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The Name field contains the name of the tool.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Version" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Version field contains the version of the tool.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Vendor" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Vendor field contains the name of the tool vendor which created the tool (for commercial tools).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Organization" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The Organization field contains the name of the organization which created the tool (for non-commercial tools).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:ToolIDPattern"/>
+	</xs:complexType>
+	<xs:complexType name="AnalysisType">
+		<xs:annotation>
+			<xs:documentation>AnalysisType is intended to provide a way of characterizing typical malware analysis-related metadata, such as the subject of the analysis and when it was started.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" name="Subject">
+				<xs:annotation>
+					<xs:documentation>The Subject element is intended to characterize the subject(s) of the analysis.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="URI" type="metadata:uriObject">
+							<xs:annotation>
+								<xs:documentation>This field is intended to contain a URI that is the subject of the analysis, if applicable.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Object_Reference"
+							type="maec:ObjectReferenceType">
+							<xs:annotation>
+								<xs:documentation>This field is intended to reference the object that is the subject of the analysis.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Object" type="maec:ObjectType">
+							<xs:annotation>
+								<xs:documentation>This field is intended to allow for the direct characterization of an object that is the subject of the analysis.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Subject_Field_Data"
+							type="metadata:fieldDataEntry">
+							<xs:annotation>
+								<xs:documentation>This field contains any field data about the analysis subject, such as prevalance information, etc. It references the FieldData type from the IEEE ICSG Malware Metadata Exchange schema.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Description" type="maec:StructuredTextType">
+				<xs:annotation>
+					<xs:documentation>The Descript element contains a description of the analysis that was performed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Analysts" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The Analysts element contains the analyst(s) who performed the analysis.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Analyst" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Source">
+				<xs:annotation>
+					<xs:documentation>The Source element contains information about the external source of the analysis, if applicable.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="Organization_Name" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>This field contains the original organization that performed the analysis, if applicable.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="POC" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>This field contains the point of contact for the analysis, if applicable.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="URI" type="metadata:uriObject">
+							<xs:annotation>
+								<xs:documentation>This field contains the original URI source of the analysis, if applicable.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Analysis_Environment">
+				<xs:annotation>
+					<xs:documentation>The Analysis_Environment element contains attributes relevant to the analysis environment in which the analysis was performed.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="OS" type="maec:CPESpecificationType">
+							<xs:annotation>
+								<xs:documentation>This field contains the operating system on which the analysis was performed, via a Common Platform Enumeration (CPE) identifier. See http://cpe.mitre.org for more information on CPE.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="Enivironment_Variables">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" minOccurs="1"
+										name="Environment_Variable">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Name" type="xs:string"/>
+												<xs:element name="Value" type="xs:string"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Tools_Used">
+				<xs:annotation>
+					<xs:documentation>The Tools_Used element contains information about the tool(s) used in the analysis.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Tool" type="maec:ToolType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="Notes">
+				<xs:annotation>
+					<xs:documentation>The Notes element contains any notes on the analysis that was performed.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Note" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" form="unqualified" use="required" type="maec:AnalysisIDPattern"/>
+		<xs:attribute name="analysis_method">
+			<xs:annotation>
+				<xs:documentation>The analysis_method attribute is intended to provide a way of characterizing the type of analysis method used in the analysis element. Possible values: Static, Dynamic, Combinatorial, Other.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Static"/>
+					<xs:enumeration value="Dynamic"/>
+					<xs:enumeration value="Combinatorial"/>
+					<xs:enumeration value="Other"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="start_datetime" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>The start_datetime attribute contains the date/time the analysis was started.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="complete_datetime" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>The complete_datetime attribute contains the date/time the analysis was completed.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="lastupdate_datetime" type="xs:dateTime">
+			<xs:annotation>
+				<xs:documentation>The lastupdate_datetime attribute contains the date/time the analysis was last updated.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ObjectReferenceType">
+		<xs:annotation>
+			<xs:documentation>ObjectReferenceType is intended to serve as a method for linking to objects.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="object_id" use="required" type="maec:ObjectIDPattern">
+			<xs:annotation>
+				<xs:documentation>The object_id attribute refers to the ID of the object being referenced.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute form="unqualified" name="type" use="optional">
+			<xs:annotation>
+				<xs:documentation>This attribute refers to the type of object entity being referenced. Possible values: Object, Object Collection.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Object"/>
+					<xs:enumeration value="Object_Collection"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CVEVulnerabilityType">
+		<xs:annotation>
+			<xs:documentation>CVEVulnerabilityType is intended to provide a way of referencing specific vulnerabilities that malware exploits or attempts to exploit via a Common Vulnerabilities and Exposures (CPE) identifier. For more information on CPE please see http://cpe.mitre.org. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="CVE_Description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The CVE_Description contains the textual description of the vulnerability referenced by the CVE_ID.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="cve_id" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The cve_id attribute contains the ID of the CVE that is being referenced. E.g. CVE-1999-0002.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ObjectCollectionType">
+		<xs:annotation>
+			<xs:documentation>ObjectCollectionType is intended to provide a mechanism for characterizing collections of effects. For instance, it can be used to group all of the actions that are associated with a specific behavior.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Affinity_Type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Affinity_Type field is intended to provide an abstract way of characterizing how the objects in a collection are related.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Affinity_Degree" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Affinity_Degree field is intended to provide an abstract way of characterizing the degree to which the objects in a collection are related.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="Object_Sub_Collection" type="maec:ObjectCollectionType"
+					minOccurs="0"/>
+				<xs:element name="Object" type="maec:ObjectType" minOccurs="0"/>
+				<xs:element name="Object_Reference" type="maec:ObjectReferenceType" minOccurs="0"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:ObjectCollIDPattern"/>
+		<xs:attribute name="name" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The name attribute contains the name of the object collection, if applicable.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DataType">
+		<xs:annotation>
+			<xs:documentation>DataType is intended to provide a relatively abstract way of characterizing data segments that may be written/read/transmitted or otherwise utilized in actions or behaviors. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Data_Size">
+				<xs:annotation>
+					<xs:documentation>The Data_Size field contains the size of the data contained in this element.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:string">
+							<xs:attribute name="units" use="required">
+								<xs:annotation>
+									<xs:documentation>This attribute represents the Units used in the object size field. Possible values are: Bytes, Kilobytes, Megabytes.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="Bytes"/>
+										<xs:enumeration value="Kilobytes"/>
+										<xs:enumeration value="Megabytes"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Discovery_Method" type="maec:DiscoveryMethod">
+				<xs:annotation>
+					<xs:documentation>The Discovery_Method element is a reference to the method and/or tool used to discover the data characterized in this element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Data_Segment" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The Data_Segment field contains the actual segment of data being characterized.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:DataIDPattern"/>
+		<xs:attribute name="format">
+			<xs:annotation>
+				<xs:documentation>The format attribute refers to the type of data contained in this element. Possible values: Binary, Hexadecimal, Text, Other.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Binary"/>
+					<xs:enumeration value="Hexadecimal"/>
+					<xs:enumeration value="Text"/>
+					<xs:enumeration value="Other"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CodeType">
+		<xs:annotation>
+			<xs:documentation>CodeType is intended to provide a way of characterizing segments of malicious code that is extracted or otherwise retrieved from malware.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Discovery_Method" type="maec:DiscoveryMethod">
+				<xs:annotation>
+					<xs:documentation>The Discovery_Method element is intended to characterize the method and/or tool used to discover the code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Code_Segment" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The Code_Segment element encompasses any arbitrary code segment in un-encoded (plaintext) format. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Code_Segment_XOR" type="xs:hexBinary" minOccurs="0" form="qualified">
+				<xs:annotation>
+					<xs:documentation>The Code_Segment_XOR element encompasses any arbitrary code segment of the type specified by the codetype attribute. Its contents should contain the actual code segment XORed with the pattern defined in the xorpattern attribute. This is so that the code contained in the pattern does not trigger IDS, AV, or other signature-based scanners.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="External_File" type="maec:ObjectType">
+				<xs:annotation>
+					<xs:documentation>The External_File element is used to characterize an external file that contains the code characterized in this element, if applicable.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required" type="maec:CodeIDPattern"/>
+		<xs:attribute name="codetype">
+			<xs:annotation>
+				<xs:documentation>The codetype attribute is intended to provide a way of specifying the type of code being characterized. Possible values: Exploit_Code, Shellcode, Unknown, Other.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Shellcode"/>
+					<xs:enumeration value="Exploit_Code"/>
+					<xs:enumeration value="Unknown"/>
+					<xs:enumeration value="Other"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="language" type="maec:LanguageEnum">
+			<xs:annotation>
+				<xs:documentation>The language attribute refers to the programming language used in the code characterized in this element. Possible values are: C, C++, C#, Java, JSP, Javascript, ASP.NET, SQL, Python, Perl, PHP, SOAP, Ruby, Shell, Pseudocode, .NET, Assembly, XML, HTML.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="start_address" type="xs:hexBinary">
+			<xs:annotation>
+				<xs:documentation>If the code was discovered inside a binary, the start_address attribute can be used to reference the its start address.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="processor_family" type="maec:ProcessorTypeEnum">
+			<xs:annotation>
+				<xs:documentation>The processor_family attribute is intended to specify the class of processor that the code snippet is targeting. Possible values: x86-32, x86-64, IA-64, PowerPC, ARM, Alpha, SPARC, z/Architecture, eSi-RISC, MIPS, Motorola 68k, Other.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="xorpattern" type="xs:hexBinary" default="55AA55AA55AA55BB">
+			<xs:annotation>
+				<xs:documentation>The xorpattern attribute contains a 16-hexadecimal-character hex string, which represents the pattern that the Code_Segment element should be XORed with in order to recover the actual code. The default value is 55AA55AA55AA55BB, as specified by IETF RFC 5901.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DiscoveryMethod">
+		<xs:annotation>
+			<xs:documentation>DiscoveryMethod is intended to provide a mechanism for the characterization of how actions, behaviors, malicious code, data segments, and other relevant MAEC entities were discovered.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="tool_id" type="maec:ToolIDPattern">
+			<xs:annotation>
+				<xs:documentation>The tool_id attribute contains the id of the tool used to discovery the entity (if applicable).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="method">
+			<xs:annotation>
+				<xs:documentation>The method attribute contains the method used to discover the entity. Possible values are: Static Analysis, Dynamic/Runtime Analysis, Other.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Static Analysis"/>
+					<xs:enumeration value="Dynamic/Runtime Analysis"/>
+					<xs:enumeration value="Other"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="HashType">
+		<xs:annotation>
+			<xs:documentation>HashType is intended as a way of chracterizing the outputs of crytopgrahic hash functions.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="1" name="Hash_Value" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Hash_Value field refers to the specified computed hash value.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type" use="required" type="maec:HashTypeEnum">
+			<xs:annotation>
+				<xs:documentation>The type attribute refers to the type of hash used in the Hash_Value element. Possible choices are: SHA1, SHA256, MD5, MD6, Other.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="other_type" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The other_type refers to an optional attribute, which can be used if it is necessary to specify a hash type other than those that are enumerated in the 'type' attribute.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PEDataDirectoryStruct">
+		<xs:annotation>
+			<xs:documentation>PEDataDirectoryStruct is intended as container for the attributes present in a PE binary's data directory structure.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Virtual_Address" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Virtual_Address field refers to the relative virtual address (RVA) of the data structure.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="1" name="Size" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>The size field refers to the size of the data structure, in bytes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PESectionHeaderStruct">
+		<xs:annotation>
+			<xs:documentation>PESectionHeaderStruct is intended as container for the attributes present in a PE binary's section header structure.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Hashes">
+				<xs:annotation>
+					<xs:documentation>The Hashes element is used to include any hash values computed using the specified PE binary section header as input.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Hash" type="maec:HashType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The Name field refers to the name of the PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Physical_Address" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Physical_Address field refers to the physical address of the PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Virtual_Address" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Virtual_Address field refers to the relative virtual address (RVA) of the PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Size_Of_Raw_Data" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Size_Of_Raw_Data field refers to the size of the data contained in the PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Pointer_To_Raw_Data" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Pointer_To_Raw_Data field refers to the file offset of the beginning of the PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Pointer_To_Relocations" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Pointer_To_Relocations field refers to the offset of the PE binary section relocations, if applicable.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Pointer_To_Linenumbers" type="xs:hexBinary"/>
+			<xs:element minOccurs="0" name="Number_Of_Relocations" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>The Number_Of_Relocations field refers to the number of relocations defined for the specified PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Number_Of_Linenumbers" type="xs:integer"/>
+			<xs:element minOccurs="0" name="Characteristics" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Characteristics field refers to any flags defined for the specified PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PEStringType">
+		<xs:annotation>
+			<xs:documentation>PEStringType is intended as container for strings extracted from PE binaries.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="String_Value" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The String_Value field refers to the actual value of the string extracted from the PE binary.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Hashes">
+				<xs:annotation>
+					<xs:documentation>The Hashes element is used to include any hash values computed using the string extracted from the PE binary as input.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Hash" type="maec:HashType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="address" type="xs:hexBinary">
+			<xs:annotation>
+				<xs:documentation>The address attribute refers to the location of the specified string in the PE binary.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="encoding">
+			<xs:annotation>
+				<xs:documentation>The encoding attribute refers to the encoding method used for the string extracted from the PE binary. Possible values are: ANSI, Unicode, Other.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="ANSI"/>
+					<xs:enumeration value="Unicode"/>
+					<xs:enumeration value="Other"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="length" type="xs:integer">
+			<xs:annotation>
+				<xs:documentation>The length attribute refers to the length, in characters, of the  string extracted from the PE binary.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PEImportType">
+		<xs:annotation>
+			<xs:documentation>PEImportType is intended as container for the attributes relevant to PE binary imports.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="File_Name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The File_Name field refers to the name of the library (file) that the PE binary imports.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Virtual_Address" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Virtual_Address field refers to the relative virtual address (RVA) of the PE binary library import.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Imported_Functions">
+				<xs:annotation>
+					<xs:documentation>The Imported_Functions element is used to enumerate any functions imported from a particular library.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Imported_Function">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Function_Name" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>The Function_Name field refers to the name of the function from the specified library that the PE binary imports.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element minOccurs="0" name="Virtual_Address"
+										type="xs:hexBinary">
+										<xs:annotation>
+											<xs:documentation>The Virtual_Address field refers to the relative virtual address (RVA) of the PE binary library imported function.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element minOccurs="0" name="Hint" type="xs:hexBinary">
+										<xs:annotation>
+											<xs:documentation>The Hint field refers to the index into the export table of the library that the function is found in.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element minOccurs="0" name="Ordinal" type="xs:integer">
+										<xs:annotation>
+											<xs:documentation>The Ordinal field refers to the ordinal value (index) of the function in the library that is found in.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type">
+			<xs:annotation>
+				<xs:documentation>The type attribute refers to the type of import, with regards to being initially visible or hidden in relation to PE binary packing. A packed binary will typically have few initially visible imports, and thus it is necessary to make the distinction between those that are visible initially or only after the binary is unpacked. Thus, the possible values for this attribute are: Initially Visible, Initially Hidden.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Initially visible"/>
+					<xs:enumeration value="Initially hidden"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="delay_load" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>The delay_load attribute is a boolean value that is intended to describe whether a PE binary import is delay-load or not.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PEExportType">
+		<xs:annotation>
+			<xs:documentation>PEExportType is intended as container for the attributes relevant to PE binary exports.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Function_Name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The Function_Name field refers to the name of the function exported by the PE binary.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Entry_Point" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Entry_Point refers to the entry point of the function exported by the PE binary.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Ordinal" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>The Ordinal field refers to the ordinal value (index) of the function exported by the PE binary.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PESectionType">
+		<xs:annotation>
+			<xs:documentation>PESectionType is intended as container for the attributes relevant to PE binary sections.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Header_Hashes">
+				<xs:annotation>
+					<xs:documentation>The Header_Hashes element is used to include any hash values computed using the header of the specified PE binary section as input.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Hash" type="maec:HashType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Data_Hashes">
+				<xs:annotation>
+					<xs:documentation>The Data_Hashes element is used to include any hash values computed using the data contained in the specified PE binary section as input.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Hash" type="maec:HashType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Section_Name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The Section_Name field refers to the name of the PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Entropy" type="xs:float">
+				<xs:annotation>
+					<xs:documentation>The Entropy field refers to the calculated entropy of the PE binary section. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Virtual_Address" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Virtual_Address field refers to the relative virtual address (RVA) of the PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Virtual_Size" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>The Virtual_Size field refers to the virtual size of the PE binary section, in bytes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Flags" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:documentation>The Flags field refers to any flags specified for the PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Relocations" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>The Relocations field refers to the number of relocations defined for the specified PE binary section.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PEResourceType">
+		<xs:annotation>
+			<xs:documentation>PEResourceType is intended as container for the attributes relevant to PE binary resources.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The Name field refers to the name of the resource used by the PE binary.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="Hashes">
+				<xs:annotation>
+					<xs:documentation>The Hashes element is used to include any hash values computed using the specified PE binary resource as input.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="Hash" type="maec:HashType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type">
+			<xs:annotation>
+				<xs:documentation>The type attribute refers to the type of data referred to by this resource. Possible values are: Cursor, Bitmap, Icon, Menu, Dialog, String, Fontdir, Font, Accelerator, RCData, MessageTable, GroupCursor, GroupIcon, Version, DLGInclude, PlugPlay, Vxd, AniCursor, AniIcon, HTML, Manifest, Other.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Cursor"/>
+					<xs:enumeration value="Bitmap"/>
+					<xs:enumeration value="Icon"/>
+					<xs:enumeration value="Menu"/>
+					<xs:enumeration value="Dialog"/>
+					<xs:enumeration value="String"/>
+					<xs:enumeration value="Fontdir"/>
+					<xs:enumeration value="Font"/>
+					<xs:enumeration value="Accelerator"/>
+					<xs:enumeration value="RCData"/>
+					<xs:enumeration value="MessageTable"/>
+					<xs:enumeration value="GroupCursor"/>
+					<xs:enumeration value="GroupIcon"/>
+					<xs:enumeration value="Version"/>
+					<xs:enumeration value="DLGInclude"/>
+					<xs:enumeration value="PlugPlay"/>
+					<xs:enumeration value="Vxd"/>
+					<xs:enumeration value="AniCursor"/>
+					<xs:enumeration value="AniIcon"/>
+					<xs:enumeration value="HTML"/>
+					<xs:enumeration value="Manifest"/>
+					<xs:enumeration value="Other"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:simpleType name="ApplicationProtocolEnum">
+		<xs:annotation>
+			<xs:documentation>ApplicationProtocolEnum is a (non-exhaustive) enumeration of application layer (layer 7) computer networking protocols.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DNS"/>
+			<xs:enumeration value="IMAP"/>
+			<xs:enumeration value="IRC"/>
+			<xs:enumeration value="LDAP"/>
+			<xs:enumeration value="HTTP"/>
+			<xs:enumeration value="FTP"/>
+			<xs:enumeration value="NNTP"/>
+			<xs:enumeration value="NTP"/>
+			<xs:enumeration value="SMTP"/>
+			<xs:enumeration value="SOAP"/>
+			<xs:enumeration value="SSH"/>
+			<xs:enumeration value="Telnet"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FileTypeEnum">
+		<xs:annotation>
+			<xs:documentation>FileTypeEnum is a (non-exhaustive) enumeration of file types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PE"/>
+			<xs:enumeration value="JS"/>
+			<xs:enumeration value="PDF"/>
+			<xs:enumeration value="ZIP"/>
+			<xs:enumeration value="TXT"/>
+			<xs:enumeration value="ASM"/>
+			<xs:enumeration value="DOC"/>
+			<xs:enumeration value="DOCX"/>
+			<xs:enumeration value="XLS"/>
+			<xs:enumeration value="XLSX"/>
+			<xs:enumeration value="PPT"/>
+			<xs:enumeration value="PPTX"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LanguageEnum">
+		<xs:annotation>
+			<xs:documentation>LanguageEnum is a (non-exhaustive) enumeration of computer programming languages.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="C"/>
+			<xs:enumeration value="C++"/>
+			<xs:enumeration value="C#"/>
+			<xs:enumeration value="Java"/>
+			<xs:enumeration value="JSP"/>
+			<xs:enumeration value="Javascript"/>
+			<xs:enumeration value="ASP.NET"/>
+			<xs:enumeration value="SQL"/>
+			<xs:enumeration value="Python"/>
+			<xs:enumeration value="Perl"/>
+			<xs:enumeration value="PHP"/>
+			<xs:enumeration value="SOAP"/>
+			<xs:enumeration value="Ruby"/>
+			<xs:enumeration value="Shell"/>
+			<xs:enumeration value="PseudoCode"/>
+			<xs:enumeration value=".NET"/>
+			<xs:enumeration value="Assembly"/>
+			<xs:enumeration value="XML"/>
+			<xs:enumeration value="HTML"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ProcessorTypeEnum">
+		<xs:annotation>
+			<xs:documentation>ProcessorTypeEnum is a (non-exhaustive) enumeration of computer processor architectures.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="x86-32"/>
+			<xs:enumeration value="x86-64"/>
+			<xs:enumeration value="IA-64"/>
+			<xs:enumeration value="PowerPC"/>
+			<xs:enumeration value="ARM"/>
+			<xs:enumeration value="Alpha"/>
+			<xs:enumeration value="SPARC"/>
+			<xs:enumeration value="z/Architecture"/>
+			<xs:enumeration value="eSi-RISC"/>
+			<xs:enumeration value="MIPS"/>
+			<xs:enumeration value="Motorola 68k"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BundleIDPattern">
+		<xs:annotation>
+			<xs:documentation>BundleIDPattern defines the format for acceptable MAEC Bundle ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'bnd', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:bnd:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ActionIDPattern">
+		<xs:annotation>
+			<xs:documentation>ActionIDPattern defines the format for acceptable MAEC Action ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'act', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:act:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BehaviorIDPattern">
+		<xs:annotation>
+			<xs:documentation>BehaviorIDPattern defines the format for acceptable MAEC Behavior ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'bhv', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:bhv:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ObjectIDPattern">
+		<xs:annotation>
+			<xs:documentation>ObjectIDPattern defines the format for acceptable MAEC Object ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'obj', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:obj:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AnalysisIDPattern">
+		<xs:annotation>
+			<xs:documentation>AnalysisIDPattern defines the format for acceptable MAEC Analysis ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'ana', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:ana:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ToolIDPattern">
+		<xs:annotation>
+			<xs:documentation>ToolIDPattern defines the format for acceptable MAEC Tool ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'tol', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:tol:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EffectIDPattern">
+		<xs:annotation>
+			<xs:documentation>EffectIDPattern defines the format for acceptable MAEC Effect ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'eff', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:eff:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="APICallIDPattern">
+		<xs:annotation>
+			<xs:documentation>APICallIDPattern defines the format for acceptable MAEC API Call ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'api', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:api:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CodeIDPattern">
+		<xs:annotation>
+			<xs:documentation>CodeIDPattern defines the format for acceptable MAEC Code ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'cde', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:cde:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ActionImpIDPattern">
+		<xs:annotation>
+			<xs:documentation>ActionImpIDPattern defines the format for acceptable MAEC Action Implementation ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'imp', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:imp:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DataIDPattern">
+		<xs:annotation>
+			<xs:documentation>DataIDPattern defines the format for acceptable MAEC Data ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the three letter code 'dat', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:dat:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ActionCollIDPattern">
+		<xs:annotation>
+			<xs:documentation>ActionCollIDPattern defines the format for acceptable MAEC Action Collection ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the four letter code 'actc', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:actc:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BehaviorCollIDPattern">
+		<xs:annotation>
+			<xs:documentation>BehaviorCollIDPattern defines the format for acceptable MAEC Behavior Collection ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the four letter code 'bhvc', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:bhvc:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EffectCollIDPattern">
+		<xs:annotation>
+			<xs:documentation>EffectCollIDPattern defines the format for acceptable MAEC Effect Collection ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the four letter code 'effc', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:effc:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ObjectCollIDPattern">
+		<xs:annotation>
+			<xs:documentation>ObjectCollIDPattern defines the format for acceptable MAEC Object Collection ids. An urn format is used with the id starting with the word maec followed by a unique string, followed by the four letter code 'objc', and ending with an integer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="maec:[A-Za-z0-9_\-\.]+:objc:[1-9][0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ActionTypeEnum">
+		<xs:annotation>
+			<xs:documentation>ActionTypeEnum is a (non-exhaustive) enumeration of action types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Login/Logon"/>
+			<xs:enumeration value="Logout/Logoff"/>
+			<xs:enumeration value="Start"/>
+			<xs:enumeration value="Stop"/>
+			<xs:enumeration value="Suspend/Pause"/>
+			<xs:enumeration value="Resume"/>
+			<xs:enumeration value="Create"/>
+			<xs:enumeration value="Remove/Delete"/>
+			<xs:enumeration value="Access/Open"/>
+			<xs:enumeration value="Close"/>
+			<xs:enumeration value="Move"/>
+			<xs:enumeration value="Copy/Duplicate"/>
+			<xs:enumeration value="Read"/>
+			<xs:enumeration value="Write"/>
+			<xs:enumeration value="Execute"/>
+			<xs:enumeration value="Quarantine"/>
+			<xs:enumeration value="Find"/>
+			<xs:enumeration value="Clean"/>
+			<xs:enumeration value="Block"/>
+			<xs:enumeration value="Update"/>
+			<xs:enumeration value="Upgrade"/>
+			<xs:enumeration value="Scan"/>
+			<xs:enumeration value="Filter"/>
+			<xs:enumeration value="Install"/>
+			<xs:enumeration value="Allocate"/>
+			<xs:enumeration value="Initialize"/>
+			<xs:enumeration value="Save"/>
+			<xs:enumeration value="Connect"/>
+			<xs:enumeration value="Disconnect"/>
+			<xs:enumeration value="Audit"/>
+			<xs:enumeration value="Replicate"/>
+			<xs:enumeration value="Detect"/>
+			<xs:enumeration value="Alert"/>
+			<xs:enumeration value="Backup"/>
+			<xs:enumeration value="Search"/>
+			<xs:enumeration value="Restore"/>
+			<xs:enumeration value="Get"/>
+			<xs:enumeration value="Set"/>
+			<xs:enumeration value="Assign"/>
+			<xs:enumeration value="Send"/>
+			<xs:enumeration value="Receive"/>
+			<xs:enumeration value="Transmit"/>
+			<xs:enumeration value="Map"/>
+			<xs:enumeration value="Load"/>
+			<xs:enumeration value="Query"/>
+			<xs:enumeration value="Enumerate"/>
+			<xs:enumeration value="Bind"/>
+			<xs:enumeration value="Free"/>
+			<xs:enumeration value="Kill"/>
+			<xs:enumeration value="Encrypt"/>
+			<xs:enumeration value="Decrypt"/>
+			<xs:enumeration value="Encode"/>
+			<xs:enumeration value="Decode"/>
+			<xs:enumeration value="Pack"/>
+			<xs:enumeration value="Unpack"/>
+			<xs:enumeration value="Archive"/>
+			<xs:enumeration value="Compress"/>
+			<xs:enumeration value="Decompress"/>
+			<xs:enumeration value="Download"/>
+			<xs:enumeration value="Upload"/>
+			<xs:enumeration value="Load"/>
+			<xs:enumeration value="Fork"/>
+			<xs:enumeration value="Join"/>
+			<xs:enumeration value="Merge"/>
+			<xs:enumeration value="Interleave"/>
+			<xs:enumeration value="Schedule"/>
+			<xs:enumeration value="Call"/>
+			<xs:enumeration value="Compare"/>
+			<xs:enumeration value="Wipe/Destroy/Purge"/>
+			<xs:enumeration value="Throw/Raise"/>
+			<xs:enumeration value="Lock"/>
+			<xs:enumeration value="Unlock"/>
+			<xs:enumeration value="Synchronize"/>
+			<xs:enumeration value="Hook"/>
+			<xs:enumeration value="Unhook"/>
+			<xs:enumeration value="Draw"/>
+			<xs:enumeration value="Click"/>
+			<xs:enumeration value="Press"/>
+			<xs:enumeration value="Depress"/>
+			<xs:enumeration value="Close(network)"/>
+			<xs:enumeration value="Open(network)"/>
+			<xs:enumeration value="Callback"/>
+			<xs:enumeration value="Drop"/>
+			<xs:enumeration value="Accept"/>
+			<xs:enumeration value="Deny"/>
+			<xs:enumeration value="Modify"/>
+			<xs:enumeration value="Listen"/>
+			<xs:enumeration value="Send"/>
+			<xs:enumeration value="Start_Winsock"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ObjectTypeEnum">
+		<xs:annotation>
+			<xs:documentation>ObjectTypeEnum is a (non-exhaustive) enumeration of object types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="File"/>
+			<xs:enumeration value="Directory"/>
+			<xs:enumeration value="Module"/>
+			<xs:enumeration value="Packet"/>
+			<xs:enumeration value="Key/Key Group"/>
+			<xs:enumeration value="Hive"/>
+			<xs:enumeration value="Process"/>
+			<xs:enumeration value="Thread"/>
+			<xs:enumeration value="Mutex"/>
+			<xs:enumeration value="Event"/>
+			<xs:enumeration value="Service/Daemon"/>
+			<xs:enumeration value="Library"/>
+			<xs:enumeration value="Package"/>
+			<xs:enumeration value="Pipe"/>
+			<xs:enumeration value="Socket"/>
+			<xs:enumeration value="IP Address"/>
+			<xs:enumeration value="Port"/>
+			<xs:enumeration value="Protocol"/>
+			<xs:enumeration value="AS"/>
+			<xs:enumeration value="URI"/>
+			<xs:enumeration value="Host"/>
+			<xs:enumeration value="Session"/>
+			<xs:enumeration value="Session Token"/>
+			<xs:enumeration value="Account"/>
+			<xs:enumeration value="Device (physical)"/>
+			<xs:enumeration value="Handle"/>
+			<xs:enumeration value="Heap"/>
+			<xs:enumeration value="Memory Address"/>
+			<xs:enumeration value="Memory Page"/>
+			<xs:enumeration value="Window"/>
+			<xs:enumeration value="Dialog"/>
+			<xs:enumeration value="Parameter"/>
+			<xs:enumeration value="Authentication Token"/>
+			<xs:enumeration value="Encryption Token"/>
+			<xs:enumeration value="Web Query"/>
+			<xs:enumeration value="Protocol Header"/>
+			<xs:enumeration value="Protocol Field"/>
+			<xs:enumeration value="Link"/>
+			<xs:enumeration value="SQL Query"/>
+			<xs:enumeration value="Database"/>
+			<xs:enumeration value="ACL"/>
+			<xs:enumeration value="Role"/>
+			<xs:enumeration value="System"/>
+			<xs:enumeration value="VM"/>
+			<xs:enumeration value="Signature"/>
+			<xs:enumeration value="Channel"/>
+			<xs:enumeration value="API Call"/>
+			<xs:enumeration value="Environment Variable"/>
+			<xs:enumeration value="Application"/>
+			<xs:enumeration value="Network"/>
+			<xs:enumeration value="Configuration"/>
+			<xs:enumeration value="Policy"/>
+			<xs:enumeration value="Tack"/>
+			<xs:enumeration value="Malware"/>
+			<xs:enumeration value="Message"/>
+			<xs:enumeration value="Email Message"/>
+			<xs:enumeration value="Media"/>
+			<xs:enumeration value="Operating System"/>
+			<xs:enumeration value="Query"/>
+			<xs:enumeration value="Domain"/>
+			<xs:enumeration value="Event"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EffectTypeEnum">
+		<xs:annotation>
+			<xs:documentation>EffectTypeEnum is a (non-exhaustive) enumeration of effect types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Object_Properties_Enumerated"/>
+			<xs:enumeration value="Object_Downloaded"/>
+			<xs:enumeration value="Object_Uploaded"/>
+			<xs:enumeration value="Object_Created"/>
+			<xs:enumeration value="Object_Read_From"/>
+			<xs:enumeration value="Object_Written_To"/>
+			<xs:enumeration value="Object_Loaded_Into_Memory"/>
+			<xs:enumeration value="Object_Copied"/>
+			<xs:enumeration value="Object_Deleted"/>
+			<xs:enumeration value="Object_Moved"/>
+			<xs:enumeration value="Object_Bound"/>
+			<xs:enumeration value="Object_Opened"/>
+			<xs:enumeration value="Object_Queried"/>
+			<xs:enumeration value="Object_Mapped"/>
+			<xs:enumeration value="Object_Listened_On"/>
+			<xs:enumeration value="Object_Properties_Modified"/>
+			<xs:enumeration value="Object_Values_Enumerated"/>
+			<xs:enumeration value="Object_Searched_For"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PackerTypeEnum">
+		<xs:annotation>
+			<xs:documentation>PackerTypeEnum is a (non-exhaustive) enumeration of packer types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Archiver"/>
+			<xs:enumeration value="Installer"/>
+			<xs:enumeration value="Self-Extracting Archiver"/>
+			<xs:enumeration value="Crypter"/>
+			<xs:enumeration value="Packer"/>
+			<xs:enumeration value="Protector"/>
+			<xs:enumeration value="Bundler"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="HashTypeEnum">
+		<xs:annotation>
+			<xs:documentation>HashTypeEnum is a (non-exhaustive) enumeration of hash types.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MD5"/>
+			<xs:enumeration value="MD6"/>
+			<xs:enumeration value="SHA1"/>
+			<xs:enumeration value="SHA256"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

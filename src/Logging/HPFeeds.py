@@ -33,7 +33,7 @@ try:
 except ImportError:
     import StringIO
 
-log = logging.getLogger("Thug.Logging")
+log = logging.getLogger("Thug")
 
 class FeedUnpack(object):
 	def __init__(self):
@@ -185,16 +185,7 @@ class HPFeeds(object):
         return False
 
     def log_file(self, pubdata):
-        if not self.opts['enable']:
-            return
-
         if not pubdata:
-            return
-
-        self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-        data = self.get_data(self.opts['host'], int(self.opts['port']))
-        if data is None:
             return
 
         p = dict()
@@ -212,13 +203,23 @@ class HPFeeds(object):
         if p['type'] is not None:
             p['md5']  = hashlib.md5(pubdata).hexdigest()
             p['sha1'] = hashlib.sha1(pubdata).hexdigest()
+            log.MAEC.add_object(p)
+
+        if not self.opts['enable']:
+            return
+
+        if p['type'] is not None:
             p['data'] = base64.b64encode(pubdata)
 
-            self.publish_data(data, 'thug.files', json.dumps(p))
-        
+        self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        data = self.get_data(self.opts['host'], int(self.opts['port']))
+        if data is None:
+            return
+
+        self.publish_data(data, 'thug.files', json.dumps(p))
         self.sockfd.close()
 
 if __name__ == '__main__':
     hpfeeds = HPFeeds()
-    hpfeeds.log_event('thug', 'Test')
+    hpfeeds.log_event('Test foobar!')
 
