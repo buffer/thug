@@ -37,7 +37,7 @@ from Debugger import Shellcode, Global
 from Java.java import java
 
 sched = sched.scheduler(time.time, time.sleep)
-log = logging.getLogger("Thug.DOM.Window")
+log = logging.getLogger("Thug")
 
 class Window(PyV8.JSClass):
 
@@ -615,7 +615,8 @@ class Window(PyV8.JSClass):
             return
         except:
             pass
-        
+
+        log.MAEC.add_snippet_to_associated_code(p, 'VBScript', 'Contained_Inside')
         log.warning("[Windows Script Host Run - Stage %d] Code:\n%s" % (stage, p, ))
 
         while True:
@@ -704,7 +705,7 @@ class Window(PyV8.JSClass):
         try:
             ast = AST(script)
         except:
-            log.warning(traceback.format_exc())
+            log.debug(traceback.format_exc())
             return result
 
         with self.context as ctxt:
@@ -750,7 +751,7 @@ class Window(PyV8.JSClass):
             try:
                 self.evalScript(tag.string, tag = tag)
             except:
-                log.warning(traceback.format_exc())
+                log.debug(traceback.format_exc())
 
             index += 1
 

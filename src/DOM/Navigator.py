@@ -27,7 +27,7 @@ import socket
 from Personality import Personality
 from Plugins import Plugins
 
-log = logging.getLogger("Thug.DOM.Navigator")
+log = logging.getLogger("Thug")
 
 class Navigator(PyV8.JSClass):
     def __init__(self, personality, window = None):
@@ -230,7 +230,7 @@ class Navigator(PyV8.JSClass):
             msg = "%s %s" % (msg, url)
             log.warning(msg)
 
-        mime_base = logging.getLogger("Thug").baseDir
+        mime_base = log.baseDir
 
         try:
             response, content = h.request(url, redirections = 1024, headers = headers)
@@ -262,7 +262,7 @@ class Navigator(PyV8.JSClass):
         with open(os.path.join(mime_base, filename), 'wb') as fd:
             fd.write(content)
 
-        logging.getLogger("Thug").hpfeeds.log_file(content)
+        log.hpfeeds.log_file(content)
 
         return response, content
 

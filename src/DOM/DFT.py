@@ -27,7 +27,7 @@ import jsbeautifier
 from ActiveX.ActiveX import _ActiveXObject
 from W3C.HTML.BeautifulSoup import BeautifulSoup, Tag
 
-log        = logging.getLogger("Thug.DOM.DFT")
+log        = logging.getLogger("Thug")
 vbs_parser = True
 
 try:
@@ -129,20 +129,22 @@ class DFT(object):
             
     def handle_javascript(self, script):
         try:
-            log.info(jsbeautifier.beautify(str(script)))
+            log.debug(jsbeautifier.beautify(str(script)))
         except:
-            log.info(script)
+            log.debug(script)
 
         if isinstance(script, Tag):
             js = ' '.join(script.contents)
         else:
             js = script.string
+        
+        relationship = 'Contained_Inside'
 
         if not js:
             src = script.get('src', None)
             if not src:
                 return
-
+        
             try:
                 response, js = self.window._navigator.fetch(src)
             except:
@@ -151,10 +153,16 @@ class DFT(object):
             if response.status == 404:
                 return
 
+            relationship = 'External'
+
+        if len(js):
+            log.MAEC.add_code_snippet(unicode(js), 'Javascript', relationship)
+
         self.window.evalScript(js, tag = script)
 
     def handle_vbscript(self, script):
         log.info(script)
+        log.MAEC.add_code_snippet(str(script), 'VBScript', 'Contained_Inside')
 
         if not vbs_parser:
             log.warning("VBScript parsing not enabled (vb2py is needed)")
@@ -220,12 +228,12 @@ class DFT(object):
             return
 
         log.warning('Saving applet %s' % (archive, ))
-        _log = logging.getLogger("Thug")
-        with open(os.path.join(_log.baseDir, archive.split('/')[-1]), 'wb') as fd:
+        
+        with open(os.path.join(log.baseDir, archive.split('/')[-1]), 'wb') as fd:
             fd.write(content)
 
     def handle_meta(self, meta):
-        log.info(meta)
+        #log.info(meta)
 
         http_equiv = meta.get('http-equiv', None)
         if not http_equiv or http_equiv.lower() != 'refresh':
@@ -284,6 +292,9 @@ class DFT(object):
             return
 
         if response.status == 404:
+            return
+
+        if response['content-type'] in ('application/pdf', ):
             return
 
         doc    = w3c.parseString(content)

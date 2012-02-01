@@ -30,6 +30,8 @@ def handle_hcp(s):
     if not hcp:
         return
 
+    log.MAEC.add_behavior('Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling',
+                          'CVE-2010-1885')
     log.warning('Microsoft Internet Explorer HCP Exploit Detected')
     return hcp[0]
 

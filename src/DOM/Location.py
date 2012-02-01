@@ -24,7 +24,7 @@ import logging
 from Personality import Personality
 from urlparse import urlparse
 
-log = logging.getLogger("Thug.DOM")
+log = logging.getLogger("Thug")
 
 class Location(PyV8.JSClass):
     def __init__(self, window):
