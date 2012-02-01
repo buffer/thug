@@ -29,11 +29,13 @@ from DOM.W3C import w3c
 from DOM.Personality import Personality
 from DOM import Window, DFT
 from Logging.HPFeeds import HPFeeds
-#from Logging.MAEC import MAEC
+from Logging.MAEC import MAEC
 
-log         = logging.getLogger('Thug')
+__thug_version__ = '0.2.4'
+
+log         = logging.getLogger("Thug")
 log.hpfeeds = HPFeeds()
-#log.MAEC    = MAEC()
+log.MAEC    = MAEC(__thug_version__)
 log.setLevel(logging.WARN)
 
 class Thug:
@@ -73,6 +75,8 @@ Synopsis:
         dft.run()
 
     def run_local(self, url):
+        log.MAEC.set_url(url)
+
         html   = open(url, 'r').read()
         doc    = w3c.parseString(html)
         window = Window.Window('about:blank', doc, personality = self.useragent)
@@ -84,8 +88,7 @@ Synopsis:
             url = 'http://%s' % (url, )
 
         log.info(url)
-        #log.hpfeeds.log_event(url)
-        #log.MAEC.create_analysis(url)
+        log.MAEC.set_url(url)
 
         doc    = w3c.parseString('')
         window = Window.Window('about:blank', doc, personality = self.useragent)
@@ -118,7 +121,6 @@ Synopsis:
             fd.write(csv_line)
 
     def analyze(self):
-        #t = datetime.datetime.now()
         p = getattr(self, 'run_remote', None)
 
         try:
@@ -157,10 +159,13 @@ Synopsis:
         log.userAgent = Personality[self.useragent]['userAgent']
 
         if p:
-            #log.info(args[0])
             p(args[0])
 
-        #log.MAEC.export_root()
+        log.info("Saving log analysis at %s" % (log.baseDir, ))
+        with open(os.path.join(log.baseDir, 'analysis.xml'), 'a+r') as fd:
+            log.MAEC.export(outfile = fd)
+            fd.seek(0)
+            log.hpfeeds.log_event(fd.read())
 
 if __name__ == "__main__":
     Thug(sys.argv[1:])()
