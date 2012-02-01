@@ -1,7 +1,7 @@
 
 import logging 
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def LinkSBIcons(self):
-    log.warning('AOLActiveX attack in LinkSBIcons function')
+    log.MAEC.add_behavior_warn('AOLActiveX attack in LinkSBIcons function')
 
