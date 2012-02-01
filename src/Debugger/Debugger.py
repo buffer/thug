@@ -20,7 +20,7 @@ import os
 import logging
 import PyV8
 
-log = logging.getLogger("Thug.Debugger.Debugger")
+log = logging.getLogger("Thug")
 
 class Debugger(PyV8.JSDebugger):
     def __init__(self):

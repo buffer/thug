@@ -20,10 +20,11 @@ import PyV8
 import string
 import struct
 import logging
+import traceback
 import pylibemu
 from Debugger import Debugger
 
-log = logging.getLogger("Thug.Debugger.Shellcode")
+log = logging.getLogger("Thug")
 
 class Shellcode:
     emu = pylibemu.Emulator()
@@ -66,9 +67,8 @@ class Shellcode:
             try:
                 result = self.ctxt.eval(self.script)
             except:
-                import traceback
-                traceback.print_exc()
-                return
+                log.debug(traceback.print_exc())
+                return result
 
             for name in self.ast.names:
                 s      = None
@@ -95,6 +95,7 @@ class Shellcode:
 
                 self.emu.run(sc)
                 if self.emu.emu_profile_output:
+                    log.MAEC.add_code_snippet(self.emu.emu_profile_output, 'Assembly', 'Shellcode')
                     log.warning(self.emu.emu_profile_output)
                     libemu = True
 
