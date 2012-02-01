@@ -21,7 +21,7 @@ import new
 import logging
 from CLSID import CLSID
 
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 class _ActiveXObject:
     def __init__(self, window, cls, type = 'name'):

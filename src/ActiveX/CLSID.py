@@ -18,7 +18,7 @@
 
 import new
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 from modules import AcroPDF
 from modules import AdodbStream
