@@ -1,17 +1,17 @@
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def open(self):
-    log.warning("[Adodb.Stream ActiveX] open")
+    log.MAEC.add_behavior_warn("[Adodb.Stream ActiveX] open")
 
 def Write(self, s):
-    log.warning("[Adodb.Stream ActiveX] Write")
+    log.MAEC.add_behavior_warn("[Adodb.Stream ActiveX] Write")
 
 def SaveToFile(self, filename, opt):
-    log.warning("[Adodb.Stream ActiveX] SaveToFile (%s)" % (filename, ))
+    log.MAEC.add_behavior_warn("[Adodb.Stream ActiveX] SaveToFile (%s)" % (filename, ))
 
 def Close(self):
-    log.warning("[Adodb.Stream ActiveX] Close")
+    log.MAEC.add_behavior_warn("[Adodb.Stream ActiveX] Close")
 
 
