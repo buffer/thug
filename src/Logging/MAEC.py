@@ -17,10 +17,13 @@
 # MA  02111-1307  USA
 
 import sys
+import logging
 import datetime
 import MAEC_v1_1 as maec
 
 NAMESPACEDEF_ = 'xmlns:ns1="http://xml/metadataSharing.xsd" xmlns="http://maec.mitre.org/XMLSchema/maec-core-1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maec.mitre.org/XMLSchema/maec-core-1 file:MAEC_v1.1.xsd"'
+
+log = logging.getLogger("Thug")
 
 class MAEC:
     def __init__(self, thug_version):
@@ -176,6 +179,10 @@ class MAEC:
             behavior.set_Description(desc)
         
         self.behaviors.add_Behavior(behavior)
+
+    def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
+        self.add_behavior(description, cve, method)
+        log.warning(description)
 
     def check_signature(self, signature):
         if not signature:
