@@ -1,9 +1,7 @@
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def Setcachefolder(self, val):
-    log.warning('CreativeSoft ActiveX overflow in cachefolder property')
+    log.MAEC.add_behavior_warn('CreativeSoft ActiveX overflow in cachefolder property')
 
-# UH?!
-#Attr2Fun['cachefolder'] = Setcachefolder
