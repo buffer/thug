@@ -2,9 +2,10 @@
 # CVE-2007-5722
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def ConnectAndEnterRoom(self, arg0, arg1, arg2, arg3, arg4, arg5):
     if len(arg0) > 172:
-        log.warning('ConnectAndEnterRoom ActiveX Control ConnectAndEnterRoom Overflow')
+        log.MAEC.add_behavior_warn('ConnectAndEnterRoom ActiveX Control ConnectAndEnterRoom Overflow',
+                                   'CVE-2007-5722')
 
