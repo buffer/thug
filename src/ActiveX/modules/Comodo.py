@@ -2,8 +2,8 @@
 # CVE-NOMATCH
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def ExecuteStr(self, cmd, args):
-    log.warning('Comodo will execute: ' + cmd + ' ' + args)
+    log.MAEC.add_behavior_warn('Comodo will execute: ' + cmd + ' ' + args)
 
