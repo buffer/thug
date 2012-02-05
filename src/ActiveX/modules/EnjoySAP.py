@@ -29,7 +29,7 @@ def Comp_Download(self, arg0, arg1):
         return
 
     if response.status == 404:
-        log.MAEC.add_behavior_warn("FileNotFoundError: %s" % (url, ))
+        log.MAEC.add_behavior_warn("[EnjoySAP ActiveX] FileNotFoundError: %s" % (url, ))
         return 
  
     baseDir = log.baseDir
