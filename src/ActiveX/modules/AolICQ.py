@@ -16,7 +16,7 @@ def DownloadAgent(self, url):
         return
 
     if response.status == 404:
-        log.MAEC.add_behavior_warn("FileNotFoundError: %s" % (url, ))
+        log.MAEC.add_behavior_warn("[AOL ICQ ActiveX] FileNotFoundError: %s" % (url, ))
         return 
  
     baseDir = log.baseDir
