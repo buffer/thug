@@ -1,9 +1,7 @@
 # Clever Internet ActiveX Suite 6.2 (CLINETSUITEX6.OCX) Arbitrary file download/overwrite Exploit
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def GetToFile(self, url, file):
-    log.warning('Clever Internet ActiveX Suite 6.2 (CLINETSUITEX6.OCX) Arbitrary File Download/Overwrite Exploit')
-    log.warning('URL : %s' % (url, ))
-    log.warning('File: %s' % (file, ))
+    log.MAEC.add_behavior_warn('Clever Internet ActiveX Suite 6.2 (CLINETSUITEX6.OCX) Arbitrary File Download/Overwrite Exploit (URL: %s File: %s)' % (url, file, ))
