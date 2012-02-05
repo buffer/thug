@@ -15,7 +15,7 @@ def DownloadFromMusicStore(self, url, dst, title, artist, album, genere, size, p
         return
     
     if response.status == 404:
-        log.MAEC.add_behavior_warn('[JetAudio ActiveX] Fetch failed')
+        log.MAEC.add_behavior_warn("[JetAudio ActiveX] FileNotFoundError: %s" % (url, ))
         return 
 
     md5 = hashlib.md5()
