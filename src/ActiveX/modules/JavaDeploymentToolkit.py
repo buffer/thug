@@ -2,10 +2,10 @@
 import os
 import hashlib
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def launch(self, arg):
-    log.warning("[Java Deployment Toolkit ActiveX] Launching: %s" % (arg, ))
+    log.MAEC.add_behavior_warn("[Java Deployment Toolkit ActiveX] Launching: %s" % (arg, ))
 
     tokens = arg.split(' ')
     if tokens[0].lower() != 'http:':
@@ -15,25 +15,25 @@ def launch(self, arg):
         if not token.lower().startswith('http'):
             continue
             
-        log.warning("[Java Deployment Toolkit ActiveX] Fetching from URL %s" % (token, ))
+        log.MAEC.add_behavior_warn("[Java Deployment Toolkit ActiveX] Fetching from URL %s" % (token, ))
 
         try:
             response, content = self._window._navigator.fetch(token)
         except:
-            log.warning("[Java Deployment Toolkit ActiveX] Fetch Failed")
+            log.MAEC.add_behavior_warn("[Java Deployment Toolkit ActiveX] Fetch Failed")
             continue
 
         if response.status == 404:
-            log.warning("FileNotFoundError: %s" % (url, ))
+            log.MAEC.add_behavior_warn("[Java Deployment Toolkit ActiveX] FileNotFoundError: %s" % (url, ))
             continue 
 
         md5 = hashlib.md5()
         md5.update(content)
         filename = md5.hexdigest()
 
-        log.warning("[Java Deployment Toolkit ActiveX] Saving File: " + filename)
+        log.MAEC.add_behavior_warn("[Java Deployment Toolkit ActiveX] Saving File: " + filename)
                               
-        baseDir = logging.getLogger("Thug").baseDir
+        baseDir = log.baseDir
 
         try:
             fd = os.open(os.path.join(baseDir, filename), os.O_RDWR | os.O_CREAT)
