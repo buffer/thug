@@ -6,6 +6,6 @@ log = logging.getLogger("Thug")
 
 def Setdata(self, val):
     self.__dict__['data'] = val
-    log.MAEC.add_behavior_warn('Microsoft DirectShow MPEG2TuneRequest Component Stack Overflow in data property',
+    log.MAEC.add_behavior_warn('[Microsoft DirectShow MPEG2TuneRequest ActiveX] Stack Overflow in data property',
                                'CVE-2008-0015')
 

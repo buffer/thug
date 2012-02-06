@@ -6,4 +6,4 @@ log = logging.getLogger("Thug")
 
 def SetPassword(self, arg0):
     if len(arg0) > 128:
-        log.MAEC.add_behavior_warn('DivX overflow in SetPassword')
+        log.MAEC.add_behavior_warn('[DivX Player ActiveX] Overflow in SetPassword')
