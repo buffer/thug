@@ -1,18 +1,18 @@
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 class _Environment:
     def __init__(self, strType):
         self.strType = strType
 
     def Item(self, item):
-        log.warning("[WScript.Shell ActiveX] Getting Environment Item: %s" % (item, ))
+        log.MAEC.add_behavior_warn("[WScript.Shell ActiveX] Getting Environment Item: %s" % (item, ))
         return item
 
 def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
-    log.warning("[WScript.Shell ActiveX] Executing: %s" % (strCommand, ))
+    log.MAEC.add_behavior_warn("[WScript.Shell ActiveX] Executing: %s" % (strCommand, ))
 
 def Environment(self, strType = None):
-    log.warning('[WScript.Shell ActiveX] Environment("%s")' % (strType, ))
+    log.MAEC.add_behavior_warn('[WScript.Shell ActiveX] Environment("%s")' % (strType, ))
     return _Environment(strType)
