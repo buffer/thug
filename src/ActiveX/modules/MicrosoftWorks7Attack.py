@@ -1,9 +1,9 @@
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def SetWksPictureInterface(self, val):
     self.__dict__['WksPictureInterface'] = val
 
-    log.warning('MicrosoftWorks7 ActiveX overflow in WksPictureInterface property')
+    log.MAEC.add_behavior_warn('[MicrosoftWorks7 ActiveX] Overflow in WksPictureInterface property')
 
