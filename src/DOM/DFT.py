@@ -65,6 +65,9 @@ class DFT(object):
         except:
             sc = shellcode
 
+        if not sc:
+            return
+
         emu = pylibemu.Emulator()
         emu.run(sc)
         if emu.emu_profile_output:

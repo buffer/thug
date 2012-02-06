@@ -20,7 +20,7 @@ import logging
 import PyV8
 import json
 
-log = logging.getLogger("Thug.AST.AST")
+log = logging.getLogger("Thug")
 
 class AST(object):
     (AssignBreakPoint, 

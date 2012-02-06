@@ -262,7 +262,7 @@ class Navigator(PyV8.JSClass):
         with open(os.path.join(mime_base, filename), 'wb') as fd:
             fd.write(content)
 
-        log.hpfeeds.log_file(content)
+        log.HPFeeds.log_file(content)
 
         return response, content
 

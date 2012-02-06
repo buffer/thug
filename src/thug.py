@@ -34,7 +34,7 @@ from Logging.MAEC import MAEC
 __thug_version__ = '0.2.4'
 
 log         = logging.getLogger("Thug")
-log.hpfeeds = HPFeeds()
+log.HPFeeds = HPFeeds()
 log.MAEC    = MAEC(__thug_version__)
 log.setLevel(logging.WARN)
 
@@ -165,7 +165,7 @@ Synopsis:
         with open(os.path.join(log.baseDir, 'analysis.xml'), 'a+r') as fd:
             log.MAEC.export(outfile = fd)
             fd.seek(0)
-            log.hpfeeds.log_event(fd.read())
+            log.HPFeeds.log_event(fd.read())
 
 if __name__ == "__main__":
     Thug(sys.argv[1:])()
