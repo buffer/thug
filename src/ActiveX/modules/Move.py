@@ -2,9 +2,9 @@
 # CVE-NOMATCH
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def Upgrade(self, arg0, arg1, arg2, arg3):
     if len(arg0) > 6000:
-        log.warning('Move Networks Upgrade Manager ActiveX Overflow in Upgrade')
+        log.MAEC.add_behavior_warn('[Move Networks Upgrade Manager ActiveX] Overflow in Upgrade')
 
