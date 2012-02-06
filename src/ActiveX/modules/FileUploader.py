@@ -8,5 +8,5 @@ def SetHandwriterFilename(self, val):
     self.__dict__['HandwriterFilename'] = val
 
     if len(val) > 1024:
-        log.MAEC.add_behavior_warn('FileUploader ActiveX overflow in HandwriterFilename property')
+        log.MAEC.add_behavior_warn('[Lycos FileUploader ActiveX] Overflow in HandwriterFilename property')
 

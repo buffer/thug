@@ -6,5 +6,5 @@ log = logging.getLogger("Thug")
 
 def TimeSpanFormat(self, arg0, arg1):
     if len(arg1) > 512:
-        log.MAEC.add_behavior_warn('DVRHOST Web CMS OCX Overflow in TimeSpanFormat')
+        log.MAEC.add_behavior_warn('[DVRHOST Web CMS OCX ActiveX] Overflow in TimeSpanFormat')
 

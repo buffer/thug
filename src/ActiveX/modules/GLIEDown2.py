@@ -5,5 +5,5 @@ log = logging.getLogger("Thug")
 
 def IEStartNative(self, arg0, arg1, arg2):
     if len(arg0) > 220:
-        log.MAEC.add_behavior_warn('GLWorld GLIEDown2.dll ActiveX IEStartNative Method Buffer Overflow')
+        log.MAEC.add_behavior_warn('[Ourgame GLWorld GLIEDown2.dll ActiveX] IEStartNative Method Buffer Overflow')
 

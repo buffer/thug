@@ -6,4 +6,4 @@ log = logging.getLogger("Thug")
 
 def Download(self, arg):
     if len(arg) > 1024:
-        log.MAEC.add_behavior_warn('Gogago YouTube Video Converter Buffer Overflow')
+        log.MAEC.add_behavior_warn('[Gogago YouTube Video Converter ActiveX] Buffer Overflow')

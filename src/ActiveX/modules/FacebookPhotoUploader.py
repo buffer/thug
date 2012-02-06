@@ -8,11 +8,11 @@ def SetExtractIptc(self, val):
     self.__dict__['ExtractIptc'] = val
 
     if len(val) > 255:
-        log.MAEC.add_behavior_warn('FaceBook PhotoUploader overflow in ExtractIptc property')
+        log.MAEC.add_behavior_warn('[FaceBook Photo Uploader ActiveX] Overflow in ExtractIptc property')
 
 def SetExtractExif(self, val):
     self.__dict__['ExtractExif'] = val
 
     if len(val) > 255:
-        log.MAEC.add_behavior_warn('FaceBook PhotoUploader overflow in ExtractExif property')
+        log.MAEC.add_behavior_warn('[FaceBook Photo Uploader ActiveX] Overflow in ExtractExif property')
 
