@@ -31,7 +31,7 @@ from DOM import Window, DFT
 from Logging.HPFeeds import HPFeeds
 from Logging.MAEC import MAEC
 
-__thug_version__ = '0.2.4'
+__thug_version__ = '0.2.5'
 
 log         = logging.getLogger("Thug")
 log.HPFeeds = HPFeeds()
