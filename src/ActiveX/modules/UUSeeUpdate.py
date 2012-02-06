@@ -2,8 +2,8 @@
 # CVE...
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def Update(self, *args):
-    log.warning('UUsee UUPgrade ActiveX Attack in Update Method')
+    log.MAEC.add_behavior_warn('[UUsee UUPgrade ActiveX] Attack in Update Method')
 
