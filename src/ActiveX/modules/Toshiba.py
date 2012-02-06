@@ -2,13 +2,13 @@
 # CVE-NOMATCH
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def SetPort(self, arg):
     if len(arg) > 10:
-        log.warning('Toshiba Surveillance ActiveX Overflow in SetPort')
+        log.MAEC.add_behavior_warn('[Toshiba Surveillance RecordSend Class ActiveX] Overflow in SetPort')
 
 def SetIpAddress(self, arg):
     if len(arg) > 18:
-        log.warning('Toshiba Surveillance ActiveX Overflow in SetIpAddress')
+        log.MAEC.add_behavior_warn('[Toshiba Surveillance RecordSend Class ActiveX] Overflow in SetIpAddress')
 
