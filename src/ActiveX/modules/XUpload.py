@@ -2,13 +2,15 @@
 # CVE-2007-6530
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def AddFolder(self, arg):
     if len(arg) > 1024:
-        log.warning('XUpload ActiveX Overflow in AddFolder method')
+        log.MAEC.add_behavior_warn('[XUpload ActiveX] Overflow in AddFolder method',
+                                   'CVE-2007-6530')
 
 def AddFile(self, arg):
     if len(arg) > 255: 
-        log.warning('XUpload ActiveX Overflow in AddFile method')
+        log.MAEC.add_behavior_warn('[XUpload ActiveX] Overflow in AddFile method',
+                                   'CVE-2007-6530')
 
