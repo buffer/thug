@@ -2,11 +2,11 @@
 # CVE-NOMATCH
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def SetAction(self, val):
     self.__dict__['Action'] = val
 
     if len(val) > 512:
-        log.warning('Myspace UPloader overflow in Action property')
+        log.MAEC.add_behavior_warn('[Myspace UPloader ActiveX] Overflow in Action property')
 
