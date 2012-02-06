@@ -2,16 +2,18 @@
 # CVE-2007-4391
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def Setserver(self, name):
     self.__dict__['server'] = name
 
     if len(name) > 255:
-        log.warning('Yahoo! Messenger ActiveX Server Console Overflow')
+        log.MAEC.add_behavior_warn('[Yahoo! Messenger 8.x Ywcvwr ActiveX] Server Console Overflow',
+                                   'CVE-2007-4391')
 
 def GetComponentVersion(self, arg):
-    log.warning('Yahoo! Messenger ActiveX GetComponentVersion Overflow')
+    log.MAEC.add_behavior_warn('[Yahoo! Messenger 8.x Ywcvwr ActiveX] GetComponentVersion Overflow',
+                               'CVE-2007-4391')
 
 def initialize(self):
     return
