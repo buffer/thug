@@ -2,9 +2,9 @@
 # CVE-NOMATCH
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def ConnectServer(self, server, user):
     if len(user) > 1024:
-        log.warning('PTZCamPanel ActiveX Overflow in ConnectServer user arg')
+        log.MAEC.add_behavior_warn('[PTZCamPanel ActiveX] Overflow in ConnectServer user arg')
 
