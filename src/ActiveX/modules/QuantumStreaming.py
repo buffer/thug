@@ -2,8 +2,8 @@
 # CVE-NOMATCH
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def UploadLogs(self, url, arg):
     if len(url) > 20000:
-        log.warning('Quantum Streaming Player overflow in UploadLogs method')
+        log.MAEC.add_behavior_warn('[Move Networks Quantum Streaming Player Control ActiveX] Overflow in UploadLogs method')
