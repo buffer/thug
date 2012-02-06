@@ -2,19 +2,19 @@
 # CVE-NOMATCH
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def Install(self, arg):
     if len(arg) > 1024:
-        log.warning('[NamoInstaller ActiveX] Overflow in Install method')
+        log.MAEC.add_behavior_warn('[NamoInstaller ActiveX] Overflow in Install method')
 
     if str([arg]).find('http') > -1:
-        log.warning('[NamoInstaller ActiveX] Insecure download from URL %s' % (arg, ))
+        log.MAEC.add_behavior_warn('[NamoInstaller ActiveX] Insecure download from URL %s' % (arg, ))
         try:
             response, content = self._window._navigator.fetch(url)
         except:
-            log.warning('[NamoInstaller ActiveX] Fetch failed')
+            log.MAEC.add_behavior_warn('[NamoInstaller ActiveX] Fetch failed')
             return
 
         if response.status == 404:
-            log.warning("FileNotFoundError: %s" % (url, ))
+            log.MAEC.add_behavior_warn("[NamoInstaller ActiveX] FileNotFoundError: %s" % (url, ))
