@@ -1,18 +1,22 @@
-# Nessus Vunlnerability Scanner ScanCtrl ActiveX COntrol
+# Nessus Vunlnerability Scanner ScanCtrl ActiveX Control
 # CVE-2007-4061, CVE-2007-4062, CVE-2007-4031
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def deleteReport(self, arg):
-    log.warning('[Nessus ScanCtrl] deleteReport(%s)' % (arg, ))
+    log.MAEC.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] deleteReport(%s)' % (arg, ),
+                               'CVE-2007-4031')
 
 def deleteNessusRC(self, arg):
-    log.warning('[Nessus ScanCtrl] deleteNessusRC(%s)' % (arg, ))
+    log.MAEC.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] deleteNessusRC(%s)' % (arg, ),
+                               'CVE-2007-4062')
 
 def saveNessusRC(self, arg):
-    log.warning('[Nessus ScanCtrl] saveNessusRC(%s)' % (arg, ))
+    log.MAEC.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] saveNessusRC(%s)' % (arg, ),
+                               'CVE-2007-4061')
 
 def addsetConfig(self, arg, arg1, arg2):
-    log.warning('[Nessus ScanCtrl] saveNessusRC(%s, %s, %s)' % (arg, arg1, arg2, ))
+    log.MAEC.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] saveNessusRC(%s, %s, %s)' % (arg, arg1, arg2, ),
+                               'CVE-2007-4061')
 
