@@ -2,8 +2,9 @@
 # CVE-2008-3008
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def GetDetailsString(self, arg0, arg1):
     if len(arg0) > 1023:
-        log.warning('WMEX.DLL ActiveX GetDetailsString Method Overflow')
+        log.MAEC.add_behavior_warn('[Microsoft Windows Media Encoder WMEX.DLL ActiveX] GetDetailsString Method Buffer Overflow',
+                                   'CVE-2008-3008')
