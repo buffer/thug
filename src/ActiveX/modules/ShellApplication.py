@@ -1,6 +1,6 @@
 
 import logging
-log = logging.getLogger("Thug.ActiveX")
+log = logging.getLogger("Thug")
 
 def ShellExecute(self, *args):
     cmdLine = ''
@@ -8,6 +8,6 @@ def ShellExecute(self, *args):
         if len(arg) == 0:
             break
         cmdLine += str(arg)
-    
-    log.warning('[Shell.Application ActiveX] ShellExecute command: ' + cmdLine)
+
+    log.MAEC.add_behavior_warn('[Shell.Application ActiveX] ShellExecute command: ' + cmdLine)
 
