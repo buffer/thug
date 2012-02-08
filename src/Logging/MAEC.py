@@ -122,8 +122,8 @@ class MAEC:
         for line in snippet.splitlines():
             _snippet += 5 * '\t' + line + '\n'
         _snippet += 4 * '\t'
-
-        return _snippet.encode('ascii', 'ignore')
+        
+        return _snippet.decode('ascii', 'ignore')
 
     def add_snippet_to_associated_code(self, snippet, language, relationship, method = "Dynamic Analysis"):
         discovery_method = self.create_discovery_method(method)

@@ -159,7 +159,7 @@ class DFT(object):
             relationship = 'External'
 
         if len(js):
-            log.MAEC.add_code_snippet(unicode(js), 'Javascript', relationship)
+            log.MAEC.add_code_snippet(js, 'Javascript', relationship)
 
         self.window.evalScript(js, tag = script)
 
