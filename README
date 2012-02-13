@@ -30,6 +30,11 @@ Requirements
 - httplib2 0.7.1 or later
 	http://code.google.com/p/httplib2/
 
+- MongoDB (optional)
+	http://www.mongodb.org/
+
+- PyMongo (optional)
+	http://www.mongodb.org/display/DOCS/Python+Language+Center
 
 Installation
 ============
