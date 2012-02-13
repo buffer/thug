@@ -9,5 +9,5 @@ def SetURL(self, val):
     self.__dict__['url'] = val
 
     if len(val) > 800:
-        log.MAEC.add_behavior_warn('[Qvod Player QvodCtrl Class ActiveX] Overflow in URL property')
+        log.ThugLogging.add_behavior_warn('[Qvod Player QvodCtrl Class ActiveX] Overflow in URL property')
 

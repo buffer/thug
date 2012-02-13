@@ -17,17 +17,17 @@ def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
 
     msg = '[Microsoft Access Snapshot Viewer ActiveX] SnapshotPath : %s, CompressedPath: %s' % (self.SnapshotPath, 
                                                                                                 self.CompressedPath, )
-    log.MAEC.add_behavior_warn(msg, 'CVE-2008-2463')
+    log.ThugLogging.add_behavior_warn(msg, 'CVE-2008-2463')
     url = self.SnapshotPath
 
     try:
         response, content = self._window._navigator.fetch(url)
     except:
-        log.MAEC.add_behavior_warn('[Microsoft Access Snapshot Viewer ActiveX] Fetch failed')
+        log.ThugLogging.add_behavior_warn('[Microsoft Access Snapshot Viewer ActiveX] Fetch failed')
         return
 
     if response.status == 404:
-        log.MAEC.add_behavior_warn('[Microsoft Access Snapshot Viewer ActiveX] FileNotFoundError: %s' % (url, ))
+        log.ThugLogging.add_behavior_warn('[Microsoft Access Snapshot Viewer ActiveX] FileNotFoundError: %s' % (url, ))
         return 
  
     baseDir = log.baseDir
@@ -36,7 +36,7 @@ def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
     md5.update(content)
     filename = md5.hexdigest()
 		
-    log.MAEC.add_behavior_warn("[Microsoft Access Snapshot Viewer ActiveX] Saving File: " + filename)
+    log.ThugLogging.add_behavior_warn("[Microsoft Access Snapshot Viewer ActiveX] Saving File: " + filename)
     with open(os.path.join(baseDir, filename), 'wb') as fd:
         fd.write(content)
 	

@@ -8,11 +8,11 @@ def Setserver(self, name):
     self.__dict__['server'] = name
 
     if len(name) > 255:
-        log.MAEC.add_behavior_warn('[Yahoo! Messenger 8.x Ywcvwr ActiveX] Server Console Overflow',
+        log.ThugLogging.add_behavior_warn('[Yahoo! Messenger 8.x Ywcvwr ActiveX] Server Console Overflow',
                                    'CVE-2007-4391')
 
 def GetComponentVersion(self, arg):
-    log.MAEC.add_behavior_warn('[Yahoo! Messenger 8.x Ywcvwr ActiveX] GetComponentVersion Overflow',
+    log.ThugLogging.add_behavior_warn('[Yahoo! Messenger 8.x Ywcvwr ActiveX] GetComponentVersion Overflow',
                                'CVE-2007-4391')
 
 def initialize(self):

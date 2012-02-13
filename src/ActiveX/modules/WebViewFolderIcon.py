@@ -5,8 +5,8 @@ import logging
 log = logging.getLogger("Thug")
 
 def setSlice(self, arg0, arg1, arg2, arg3):
-    log.MAEC.add_behavior_warn('[WebViewFolderIcon ActiveX] setSlice(%s, %s, %s, %s)' % (arg0, arg1, arg2, arg3, ))
+    log.ThugLogging.add_behavior_warn('[WebViewFolderIcon ActiveX] setSlice(%s, %s, %s, %s)' % (arg0, arg1, arg2, arg3, ))
     if arg0 == 0x7ffffffe:
-        log.MAEC.add_behavior_warn('[WebViewFolderIcon ActiveX] setSlice attack',
+        log.ThugLogging.add_behavior_warn('[WebViewFolderIcon ActiveX] setSlice attack',
                                    'CVE-2006-3730')
 

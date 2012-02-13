@@ -8,5 +8,5 @@ def SetAction(self, val):
     self.__dict__['Action'] = val
 
     if len(val) > 512:
-        log.MAEC.add_behavior_warn('[Myspace UPloader ActiveX] Overflow in Action property')
+        log.ThugLogging.add_behavior_warn('[Myspace UPloader ActiveX] Overflow in Action property')
 

@@ -6,5 +6,5 @@ log = logging.getLogger("Thug")
 
 def GetDetailsString(self, arg0, arg1):
     if len(arg0) > 1023:
-        log.MAEC.add_behavior_warn('[Microsoft Windows Media Encoder WMEX.DLL ActiveX] GetDetailsString Method Buffer Overflow',
+        log.ThugLogging.add_behavior_warn('[Microsoft Windows Media Encoder WMEX.DLL ActiveX] GetDetailsString Method Buffer Overflow',
                                    'CVE-2008-3008')

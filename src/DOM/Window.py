@@ -616,7 +616,7 @@ class Window(PyV8.JSClass):
         except:
             pass
 
-        log.MAEC.add_snippet_to_associated_code(p, 'VBScript', 'Contained_Inside')
+        log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
         log.warning("[Windows Script Host Run - Stage %d] Code:\n%s" % (stage, p, ))
 
         while True:

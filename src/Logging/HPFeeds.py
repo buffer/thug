@@ -20,12 +20,9 @@ import sys
 import os
 import struct
 import socket
-import base64
 import hashlib
 import logging
 import json
-import zipfile
-import pefile
 import ConfigParser
 
 try:
@@ -155,7 +152,6 @@ class HPFeeds(object):
             return
 
         self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
         data = self.get_data(self.opts['host'], int(self.opts['port']))
         if data is None:
             return
@@ -163,60 +159,16 @@ class HPFeeds(object):
         self.publish_data(data, 'thug.events', pubdata)
         self.sockfd.close()
 
-    def is_pe(self, pubdata):
-        try:
-            pe = pefile.PE(data = pubdata, fast_load = True)
-        except:
-            return False
-
-        return True
-
-    def is_pdf(self, pubdata):
-        return pubdata.startswith('%PDF')
-
-    def is_jar(self, pubdata):
-        try:
-            z = zipfile.ZipFile(StringIO.StringIO(pubdata))
-            if [t for t in z.namelist() if t.endswith('.class')]:
-                return True
-        except:
-            pass
-
-        return False
-
     def log_file(self, pubdata):
-        if not pubdata:
-            return
-
-        p = dict()
-        p['type'] = None
-
-        if self.is_pe(pubdata):
-            p['type'] = 'PE'
-
-        if p['type'] is None and self.is_pdf(pubdata):
-            p['type'] = 'PDF'
-
-        if p['type'] is None and self.is_jar(pubdata):
-            p['type'] = 'JAR'
-
-        if p['type'] is not None:
-            p['md5']  = hashlib.md5(pubdata).hexdigest()
-            p['sha1'] = hashlib.sha1(pubdata).hexdigest()
-            log.MAEC.add_object(p)
-
         if not self.opts['enable']:
             return
-
-        if p['type'] is not None:
-            p['data'] = base64.b64encode(pubdata)
 
         self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         data = self.get_data(self.opts['host'], int(self.opts['port']))
         if data is None:
             return
 
-        self.publish_data(data, 'thug.files', json.dumps(p))
+        self.publish_data(data, 'thug.files', json.dumps(pubdata))
         self.sockfd.close()
 
 if __name__ == '__main__':

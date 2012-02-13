@@ -10,23 +10,23 @@ log = logging.getLogger("Thug")
 def open(self, arg0, arg1, arg2 = True, arg3 = None, arg4 = None):
     url = str(arg1)
 
-    log.MAEC.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Fetching from URL %s" % (url, ))
+    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Fetching from URL %s" % (url, ))
 
     try:
         response, content = self._window._navigator.fetch(url)
     except:
-        log.MAEC.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
+        log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
         return
 
     if response.status == 404:
-        log.MAEC.add_behavior_warn("[Microsoft XMLHTTP ActiveX] FileNotFoundError: %s" % (url, ))
+        log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] FileNotFoundError: %s" % (url, ))
         return 
 
     md5 = hashlib.md5()
     md5.update(content)
     filename = md5.hexdigest()
 
-    log.MAEC.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Saving File: " + filename)
+    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Saving File: " + filename)
   
     baseDir = log.baseDir
 
@@ -40,4 +40,4 @@ def open(self, arg0, arg1, arg2 = True, arg3 = None, arg4 = None):
     self.responseBody = content
 
 def send(self, arg = None):
-    log.MAEC.add_behavior_warn("[Microsoft XMLHTTP ActiveX] send")
+    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] send")

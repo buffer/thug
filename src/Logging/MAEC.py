@@ -25,7 +25,7 @@ NAMESPACEDEF_ = 'xmlns:ns1="http://xml/metadataSharing.xsd" xmlns="http://maec.m
 
 log = logging.getLogger("Thug")
 
-class MAEC:
+class MAEC(object):
     def __init__(self, thug_version):
         self._tools = ({
                         'id'            : 'maec:thug:tol:1',
@@ -122,8 +122,11 @@ class MAEC:
         for line in snippet.splitlines():
             _snippet += 5 * '\t' + line + '\n'
         _snippet += 4 * '\t'
-        
-        return _snippet.decode('ascii', 'ignore')
+       
+        try:
+            return _snippet.encode('ascii')
+        except:
+            return _snippet.decode('ascii', 'ignore')
 
     def add_snippet_to_associated_code(self, snippet, language, relationship, method = "Dynamic Analysis"):
         discovery_method = self.create_discovery_method(method)
@@ -207,6 +210,9 @@ class MAEC:
         file_type = None
 
         for item in signature:
+            if item in ('url', 'data', ):
+                continue
+
             if item in ('type', ):
                 file_type = signature[item]
                 continue
@@ -219,18 +225,21 @@ class MAEC:
         if not file_type:
             return
 
-        file_type  = maec.File_Type(type_ = file_type)
+        _file_type = maec.File_Type(type_ = file_type)
         filesystem = maec.File_System_Object_Attributes(Hashes    = hashes,
-                                                        File_Type = file_type)
+                                                        File_Type = _file_type)
 
-        object = maec.ObjectType(id = "maec:thug:obj:%d" % (next(self.id)))
-        object.set_File_System_Object_Attributes(filesystem)
+        _object = maec.ObjectType(id = "maec:thug:obj:%d" % (next(self.id)))
+        _object.set_File_System_Object_Attributes(filesystem)
 
-        if not self.pools.get_Object_Pool():
+        if self.object_pool is None:
             self.object_pool = maec.Object_Pool()
             self.pools.set_Object_Pool(self.object_pool)
 
-        self.object_pool.add_Object(object)
+        self.object_pool.add_Object(_object)
+
+    def log_file(self, data):
+        self.add_object(data)
 
     def export(self, outfile = sys.stdout):
         self.maec_bundle.export(outfile, 

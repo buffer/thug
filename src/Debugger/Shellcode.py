@@ -95,7 +95,7 @@ class Shellcode:
 
                 self.emu.run(sc)
                 if self.emu.emu_profile_output:
-                    log.MAEC.add_code_snippet(self.emu.emu_profile_output, 'Assembly', 'Shellcode')
+                    log.ThugLogging.add_code_snippet(self.emu.emu_profile_output, 'Assembly', 'Shellcode')
                     log.warning(self.emu.emu_profile_output)
                     libemu = True
 

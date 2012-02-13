@@ -6,6 +6,6 @@ log = logging.getLogger("Thug")
 
 def TraceTarget(self, target):
     if len(target) > 255:
-        log.MAEC.add_behavior_warn('[NeoTraceExplorer.NeoTraceLoader ActiveX] overflow in arg0',
+        log.ThugLogging.add_behavior_warn('[NeoTraceExplorer.NeoTraceLoader ActiveX] overflow in arg0',
                                    'CVE-2006-6707')
 

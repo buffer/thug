@@ -7,12 +7,12 @@ class _Environment:
         self.strType = strType
 
     def Item(self, item):
-        log.MAEC.add_behavior_warn("[WScript.Shell ActiveX] Getting Environment Item: %s" % (item, ))
+        log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Getting Environment Item: %s" % (item, ))
         return item
 
 def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
-    log.MAEC.add_behavior_warn("[WScript.Shell ActiveX] Executing: %s" % (strCommand, ))
+    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Executing: %s" % (strCommand, ))
 
 def Environment(self, strType = None):
-    log.MAEC.add_behavior_warn('[WScript.Shell ActiveX] Environment("%s")' % (strType, ))
+    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Environment("%s")' % (strType, ))
     return _Environment(strType)

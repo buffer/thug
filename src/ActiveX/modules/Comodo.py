@@ -5,5 +5,5 @@ import logging
 log = logging.getLogger("Thug")
 
 def ExecuteStr(self, cmd, args):
-    log.MAEC.add_behavior_warn('[Comodo AntiVirus ActiveX] Trying to execute: ' + cmd + ' ' + args)
+    log.ThugLogging.add_behavior_warn('[Comodo AntiVirus ActiveX] Trying to execute: ' + cmd + ' ' + args)
 

@@ -159,13 +159,13 @@ class DFT(object):
             relationship = 'External'
 
         if len(js):
-            log.MAEC.add_code_snippet(js, 'Javascript', relationship)
+            log.ThugLogging.add_code_snippet(js, 'Javascript', relationship)
 
         self.window.evalScript(js, tag = script)
 
     def handle_vbscript(self, script):
         log.info(script)
-        log.MAEC.add_code_snippet(script, 'VBScript', 'Contained_Inside')
+        log.ThugLogging.add_code_snippet(script, 'VBScript', 'Contained_Inside')
 
         if not vbs_parser:
             log.warning("VBScript parsing not enabled (vb2py is needed)")

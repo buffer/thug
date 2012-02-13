@@ -6,5 +6,5 @@ log = logging.getLogger("Thug")
 
 def ConnectServer(self, server, user):
     if len(user) > 1024:
-        log.MAEC.add_behavior_warn('[PTZCamPanel ActiveX] Overflow in ConnectServer user arg')
+        log.ThugLogging.add_behavior_warn('[PTZCamPanel ActiveX] Overflow in ConnectServer user arg')
 

@@ -6,7 +6,7 @@ log = logging.getLogger("Thug")
 
 def DownURL2(self, arg0, *args):
     if len(arg0) > 1024:
-        log.MAEC.add_behavior_warn('[Xunlei DPClient.Vod.1 ActiveX] DownURL2 Method Buffer Overflow',
+        log.ThugLogging.add_behavior_warn('[Xunlei DPClient.Vod.1 ActiveX] DownURL2 Method Buffer Overflow',
                                    'CVE-2007-5064')
 
 

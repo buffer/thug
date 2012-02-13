@@ -7,6 +7,6 @@ log = logging.getLogger("Thug")
 def CreateObject(self, object, param = ''):
     import ActiveX
 
-    log.MAEC.add_behavior_warn("[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (%s)" % (object))
+    log.ThugLogging.add_behavior_warn("[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (%s)" % (object))
     return ActiveX.ActiveX._ActiveXObject(self._window, object)
 

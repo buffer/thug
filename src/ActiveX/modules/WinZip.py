@@ -6,5 +6,5 @@ log = logging.getLogger("Thug")
 
 def CreateNewFolderFromName(self, arg):
     if len(arg) > 230:
-        log.MAEC.add_behavior_warn('[WinZip ActiveX] CreateNewFolderFromName Overflow',
+        log.ThugLogging.add_behavior_warn('[WinZip ActiveX] CreateNewFolderFromName Overflow',
                                    'CVE-2006-6884')

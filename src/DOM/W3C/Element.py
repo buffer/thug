@@ -30,8 +30,8 @@ def handle_hcp(s):
     if not hcp:
         return
 
-    log.MAEC.add_behavior_warn('Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling',
-                               'CVE-2010-1885')
+    log.ThugLogging.add_behavior_warn('Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling',
+                                      'CVE-2010-1885')
     return hcp[0]
 
 

@@ -28,14 +28,12 @@ import logging
 from DOM.W3C import w3c
 from DOM.Personality import Personality
 from DOM import Window, DFT
-from Logging.HPFeeds import HPFeeds
-from Logging.MAEC import MAEC
+from Logging.ThugLogging import ThugLogging
 
 __thug_version__ = '0.2.5'
 
-log         = logging.getLogger("Thug")
-log.HPFeeds = HPFeeds()
-log.MAEC    = MAEC(__thug_version__)
+log             = logging.getLogger("Thug")
+log.ThugLogging = ThugLogging(__thug_version__)
 log.setLevel(logging.WARN)
 
 class Thug:
@@ -75,7 +73,7 @@ Synopsis:
         dft.run()
 
     def run_local(self, url):
-        log.MAEC.set_url(url)
+        log.ThugLogging.set_url(url)
 
         html   = open(url, 'r').read()
         doc    = w3c.parseString(html)
@@ -87,8 +85,7 @@ Synopsis:
         if urlparse.urlparse(url).scheme is '':
             url = 'http://%s' % (url, )
 
-        log.info(url)
-        log.MAEC.set_url(url)
+        log.ThugLogging.set_url(url)
 
         doc    = w3c.parseString('')
         window = Window.Window('about:blank', doc, personality = self.useragent)
@@ -161,11 +158,7 @@ Synopsis:
         if p:
             p(args[0])
 
-        log.info("Saving log analysis at %s" % (log.baseDir, ))
-        with open(os.path.join(log.baseDir, 'analysis.xml'), 'a+r') as fd:
-            log.MAEC.export(outfile = fd)
-            fd.seek(0)
-            log.HPFeeds.log_event(fd.read())
+        log.ThugLogging.log_event()
 
 if __name__ == "__main__":
     Thug(sys.argv[1:])()

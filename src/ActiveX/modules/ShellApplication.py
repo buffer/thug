@@ -9,5 +9,5 @@ def ShellExecute(self, *args):
             break
         cmdLine += str(arg)
 
-    log.MAEC.add_behavior_warn('[Shell.Application ActiveX] ShellExecute command: ' + cmdLine)
+    log.ThugLogging.add_behavior_warn('[Shell.Application ActiveX] ShellExecute command: ' + cmdLine)
 

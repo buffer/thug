@@ -5,5 +5,5 @@ import logging
 log = logging.getLogger("Thug")
 
 def UpdateEngine(self):
-    log.MAEC.add_behavior_warn('[Rising Online Virus Scanner Web Scan ActiveX] UpdateEngine Method vulnerability' )
+    log.ThugLogging.add_behavior_warn('[Rising Online Virus Scanner Web Scan ActiveX] UpdateEngine Method vulnerability' )
 

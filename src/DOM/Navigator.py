@@ -210,7 +210,7 @@ class Navigator(PyV8.JSClass):
         if url == 'about:blank':
             return response, content
 
-        h = httplib2.Http('.cache',
+        h = httplib2.Http('/tmp/thug-cache',
                           timeout = 10,
                           disable_ssl_certificate_validation = True)
         
@@ -262,7 +262,6 @@ class Navigator(PyV8.JSClass):
         with open(os.path.join(mime_base, filename), 'wb') as fd:
             fd.write(content)
 
-        log.HPFeeds.log_file(content)
-
+        log.ThugLogging.log_file(content, url)
         return response, content
 
