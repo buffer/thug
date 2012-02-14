@@ -124,7 +124,7 @@ class MAEC(object):
         _snippet += 4 * '\t'
        
         try:
-            return _snippet.encode('ascii')
+            return _snippet.encode('ascii', 'ignore')
         except:
             return _snippet.decode('ascii', 'ignore')
 

@@ -54,11 +54,11 @@ Synopsis:
 
     Options:
         -h, --help          \tDisplay this help information
-        -u, --useragent=    
         -o, --output=       \tLog to a specified file
         -l, --local         
         -v, --verbose       \tEnable verbose mode    
         -d, --debug         \tEnable debug mode
+        -u, --useragent=    \tSelect a user agent (see below for values, default: xpie61)
 
     Available User-Agents:
 """
