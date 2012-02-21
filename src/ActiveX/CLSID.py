@@ -64,6 +64,7 @@ from modules import NamoInstaller
 from modules import NCTAudioFile2
 from modules import NeoTracePro
 from modules import NessusScanCtrl
+from modules import OfficeOCX
 from modules import OurgameGLWorld
 from modules import PPlayer
 from modules import PTZCamPanel
@@ -699,6 +700,21 @@ CLSID = [
                             'deleteNessusRC'        : NessusScanCtrl.deleteNessusRC,
                             'saveNessusRC'          : NessusScanCtrl.saveNessusRC,
                             'addsetConfig'          : NessusScanCtrl.addsetConfig,
+                          }
+        },
+
+        # OfficeOCX
+        {
+            'id'        : ( '97AF4A45-49BE-4485-9F55-91AB40F288F2', # Office
+                            '97AF4A45-49BE-4485-9F55-91AB40F22B92', # PowerPoint
+                            '97AF4A45-49BE-4485-9F55-91AB40F22BF2', # Word
+                            '18A295DA-088E-42D1-BE31-5028D7F9B965', # Excel
+                          ),
+            'name'      : (),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'OpenWebFile'           : OfficeOCX.OpenWebFile,
                           }
         },
 

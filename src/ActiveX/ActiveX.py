@@ -33,6 +33,9 @@ class _ActiveXObject:
         if type == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':
                 cls = cls[6:].upper()
+
+            if cls.startswith('{') and cls.endswith('}'):
+                cls = cls[1:-1]
         
         if type == 'name':
             cls = cls.lower()
@@ -44,7 +47,8 @@ class _ActiveXObject:
 
         if not object:
             log.warning("Unknown ActiveX Object: %s" % (cls, ))
-            return None
+            #return None
+            raise TypeError()
 
         log.debug("ActiveXObject: %s" % (cls, ))
 
@@ -89,7 +93,8 @@ def register_object(s, clsid):
 
     if object is None:
         log.warning("Unknown ActiveX object: %s" % (clsid, ))
-        return None
+        #return None
+        raise TypeError()
 
     for method_name, method in c['methods'].items():
         _method = new.instancemethod(method, s, s.__class__)
