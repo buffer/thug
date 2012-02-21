@@ -89,6 +89,23 @@ class DFT(object):
         script = self.shift(script, 'return')
         return script
 
+    def _fetch(self, url):
+        try:
+            response, content = self.window._navigator.fetch(url)
+        except:
+            return
+
+        if response.status == 404:
+            return
+
+        m = hashlib.md5()
+        m.update(content)
+        h = m.hexdigest()
+
+        log.info('Saving remote content at %s (MD5: %s)' % (url, h, ))
+        with open(h, 'wb') as fd:
+            fd.write(content)
+
     # Events handling 
     def handle_onload(self):
         try:
@@ -187,33 +204,31 @@ class DFT(object):
     def handle_visualbasic(self, script):
         self.handle_vbscript(script)
 
+    def handle_noscript(self, script):
+        pass
+
     def handle_param(self, param):
         log.info(param)
 
         name  = param.get('name' , None)
         value = param.get('value', None)
 
+        if name in ('movie', ):
+            self._fetch(value)
+
         if 'http' not in value:
             return
 
         urls = [p for p in value.split() if p.startswith('http')]
-
         for url in urls:
-            try:
-                response, content = self.window._navigator.fetch(url)
-            except:
-                continue
+            self._fetch(url)
 
-            if response.status == 404:
-                continue
+    def handle_embed(self, embed):
+        log.info(embed)
 
-            m = hashlib.md5()
-            m.update(content)
-            h = m.hexdigest()
-
-            log.info('Saving remote content at %s (MD5: %s)' % (url, h, ))
-            with open(h, 'wb') as fd:
-                fd.write(content)
+        src = embed.get('src', None)
+        if src:
+            self._fetch(src)
 
     def handle_applet(self, applet):
         log.info(applet)
@@ -236,7 +251,7 @@ class DFT(object):
             fd.write(content)
 
     def handle_meta(self, meta):
-        #log.info(meta)
+        log.info(meta)
 
         http_equiv = meta.get('http-equiv', None)
         if not http_equiv or http_equiv.lower() != 'refresh':

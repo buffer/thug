@@ -7,6 +7,9 @@ class Event:
     AT_TARGET           = 2 # The event is currently being evaluated at the target EventTarget
     BUBBLING_PHASE      = 3 # The current event phase is the bubbling phase.
 
+    def __init__(self):
+        pass
+
     @property
     def type(self):
         return None
