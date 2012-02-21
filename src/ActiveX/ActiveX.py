@@ -86,6 +86,9 @@ def register_object(s, clsid):
         return None
 
     clsid = clsid[6:].upper()
+    if clsid.startswith('{') and clsid.endswith('}'):
+        clsid = clsid[1:-1]
+
     for c in CLSID:
         if clsid in c['id']:
             object = c
