@@ -1,0 +1,768 @@
+<script>
+var PluginDetect = {
+    version: "0.7.6",
+    name: "PluginDetect",
+    handler: function(c, b, a) {
+        return function() {
+            c(b, a)
+        }
+    },
+    isDefined: function(b) {
+        return typeof b != "undefined"
+    },
+    isArray: function(b) {
+        return (/array/i).test(Object.prototype.toString.call(b))
+    },
+    isFunc: function(b) {
+        return typeof b == "function"
+    },
+    isString: function(b) {
+        return typeof b == "string"
+    },
+    isNum: function(b) {
+        return typeof b == "number"
+    },
+    isStrNum: function(b) {
+        return (typeof b == "string" && (/\d/).test(b))
+    },
+    getNumRegx: /[\d][\d\.\_,-]*/,
+    splitNumRegx: /[\.\_,-]/g,
+    getNum: function(b, c) {
+        var d = this,
+            a = d.isStrNum(b) ? (d.isDefined(c) ? new RegExp(c) : d.getNumRegx).exec(b) : null;
+        return a ? a[0] : null
+    },
+    compareNums: function(h, f, d) {
+        var e = this,
+            c, b, a, g = parseInt;
+        if (e.isStrNum(h) && e.isStrNum(f)) {
+            if (e.isDefined(d) && d.compareNums) {
+                return d.compareNums(h, f)
+            }
+            c = h.split(e.splitNumRegx);
+            b = f.split(e.splitNumRegx);
+            for (a = 0; a < Math.min(c.length, b.length); a++) {
+                if (g(c[a], 10) > g(b[a], 10)) {
+                    return 1
+                }
+                if (g(c[a], 10) < g(b[a], 10)) {
+                    return -1
+                }
+            }
+        }
+        return 0
+    },
+    formatNum: function(b, c) {
+        var d = this,
+            a, e;
+        if (!d.isStrNum(b)) {
+            return null
+        }
+        if (!d.isNum(c)) {
+            c = 4
+        }
+        c--;
+        e = b.replace(/\s/g, "").split(d.splitNumRegx).concat(["0", "0", "0", "0"]);
+        for (a = 0; a < 4; a++) {
+            if (/^(0+)(.+)$/.test(e[a])) {
+                e[a] = RegExp.$2
+            }
+            if (a > c || !(/\d/).test(e[a])) {
+                e[a] = "0"
+            }
+        }
+        return e.slice(0, 4).join(",")
+    },
+    $$hasMimeType: function(a) {
+        return function(d) {
+            if (!a.isIE && d) {
+                var c, b, e, f = a.isString(d) ? [d] : d;
+                if (!f || !f.length) {
+                    return null
+                }
+                for (e = 0; e < f.length; e++) {
+                    if (/[^\s]/.test(f[e]) && (c = navigator.mimeTypes[f[e]]) && (b = c.enabledPlugin) && (b.name || b.description)) {
+                        return c
+                    }
+                }
+            }
+            return null
+        }
+    },
+    findNavPlugin: function(l, e, c) {
+        var j = this,
+            h = new RegExp(l, "i"),
+            d = (!j.isDefined(e) || e) ? /\d/ : 0,
+            k = c ? new RegExp(c, "i") : 0,
+            a = navigator.plugins,
+            g = "",
+            f, b, m;
+        for (f = 0; f < a.length; f++) {
+            m = a[f].description || g;
+            b = a[f].name || g;
+            if ((h.test(m) && (!d || d.test(RegExp.leftContext + RegExp.rightContext))) || (h.test(b) && (!d || d.test(RegExp.leftContext + RegExp.rightContext)))) {
+                if (!k || !(k.test(m) || k.test(b))) {
+                    return a[f]
+                }
+            }
+        }
+        return null
+    },
+    getMimeEnabledPlugin: function(k, m, c) {
+        var e = this,
+            f, b = new RegExp(m, "i"),
+            h = "",
+            g = c ? new RegExp(c, "i") : 0,
+            a, l, d, j = e.isString(k) ? [k] : k;
+        for (d = 0; d < j.length; d++) {
+            if ((f = e.hasMimeType(j[d])) && (f = f.enabledPlugin)) {
+                l = f.description || h;
+                a = f.name || h;
+                if (b.test(l) || b.test(a)) {
+                    if (!g || !(g.test(l) || g.test(a))) {
+                        return f
+                    }
+                }
+            }
+        }
+        return 0
+    },
+    getPluginFileVersion: function(f, b) {
+        var h = this,
+            e, d, g, a, c = -1;
+        if (h.OS > 2 || !f || !f.version || !(e = h.getNum(f.version))) {
+            return b
+        }
+        if (!b) {
+            return e
+        }
+        e = h.formatNum(e);
+        b = h.formatNum(b);
+        d = b.split(h.splitNumRegx);
+        g = e.split(h.splitNumRegx);
+        for (a = 0; a < d.length; a++) {
+            if (c > -1 && a > c && d[a] != "0") {
+                return b
+            }
+            if (g[a] != d[a]) {
+                if (c == -1) {
+                    c = a
+                }
+                if (d[a] != "0") {
+                    return b
+                }
+            }
+        }
+        return e
+    },
+    AXO: window.ActiveXObject,
+    getAXO: function(a) {
+        var f = null,
+            d, b = this,
+            c = {};
+        try {
+            f = new b.AXO(a)
+        } catch (d) {}
+        return f
+    },
+    convertFuncs: function(g) {
+        var a, h, f, b = /^[\$][\$]/,
+            d = {},
+            c = this;
+        for (a in g) {
+            if (b.test(a)) {
+                d[a] = 1
+            }
+        }
+        for (a in d) {
+            try {
+                h = a.slice(2);
+                if (h.length > 0 && !g[h]) {
+                    g[h] = g[a](g);
+                    delete g[a]
+                }
+            } catch (f) {}
+        }
+    },
+    initScript: function() {
+        var c = this,
+            a = navigator,
+            e = "/",
+            i = a.userAgent || "",
+            g = a.vendor || "",
+            b = a.platform || "",
+            h = a.product || "";
+        if (c.file) {
+            c.file.$ = c
+        }
+        if (c.verify) {
+            c.verify.$ = c
+        };
+        c.OS = 100;
+        if (b) {
+            var f, d = ["Win", 1, "Mac", 2, "Linux", 3, "FreeBSD", 4, "iPhone", 21.1, "iPod", 21.2, "iPad", 21.3, "Win.*CE", 22.1, "Win.*Mobile", 22.2, "Pocket\\s*PC", 22.3, "", 100];
+            for (f = d.length - 2; f >= 0; f = f - 2) {
+                if (d[f] && new RegExp(d[f], "i").test(b)) {
+                    c.OS = d[f + 1];
+                    break
+                }
+            }
+        }
+        c.convertFuncs(c);
+        c.isIE = new Function("return " + e + "*@cc_on!@*" + e + "false")();
+        c.verIE = c.isIE && (/MSIE\s*(\d+\.?\d*)/i).test(i) ? parseFloat(RegExp.$1, 10) : null;
+        c.ActiveXEnabled = false;
+        if (c.isIE) {
+            var f, j = ["Msxml2.XMLHTTP", "Msxml2.DOMDocument", "Microsoft.XMLDOM", "ShockwaveFlash.ShockwaveFlash", "TDCCtl.TDCCtl", "Shell.UIHelper", "Scripting.Dictionary", "wmplayer.ocx"];
+            for (f = 0; f < j.length; f++) {
+                if (c.getAXO(j[f])) {
+                    c.ActiveXEnabled = true;
+                    break
+                }
+            }
+            c.head = c.isDefined(document.getElementsByTagName) ? document.getElementsByTagName("head")[0] : null
+        }
+        c.isGecko = (/Gecko/i).test(h) && (/Gecko\s*\/\s*\d/i).test(i);
+        c.verGecko = c.isGecko ? c.formatNum((/rv\s*\:\s*([\.\,\d]+)/i).test(i) ? RegExp.$1 : "0.9") : null;
+        c.isSafari = (/Safari\s*\/\s*\d/i).test(i) && (/Apple/i).test(g);
+        c.isChrome = (/Chrome\s*\/\s*(\d[\d\.]*)/i).test(i);
+        c.verChrome = c.isChrome ? c.formatNum(RegExp.$1) : null;
+        c.isOpera = (/Opera\s*[\/]?\s*(\d+\.?\d*)/i).test(i);
+        c.verOpera = c.isOpera && ((/Version\s*\/\s*(\d+\.?\d*)/i).test(i) || 1) ? parseFloat(RegExp.$1, 10) : null;
+        c.addWinEvent("load", c.handler(c.runWLfuncs, c))
+    },
+    init: function(c) {
+        var b = this,
+            a, c;
+        if (!b.isString(c)) {
+            return -3
+        }
+        if (c.length == 1) {
+            b.getVersionDelimiter = c;
+            return -3
+        }
+        c = c.toLowerCase().replace(/\s/g, "");
+        a = b[c];
+        if (!a || !a.getVersion) {
+            return -3
+        }
+        b.plugin = a;
+        if (!b.isDefined(a.installed)) {
+            a.installed = a.version = a.version0 = a.getVersionDone = null;
+            a.$ = b;
+            a.pluginName = c
+        }
+        b.garbage = false;
+        if (b.isIE && !b.ActiveXEnabled) {
+            if (a !== b.java) {
+                return -2
+            }
+        }
+        return 1
+    },
+    fPush: function(b, a) {
+        var c = this;
+        if (c.isArray(a) && (c.isFunc(b) || (c.isArray(b) && b.length > 0 && c.isFunc(b[0])))) {
+            a.push(b)
+        }
+    },
+    callArray: function(b) {
+        var c = this,
+            a;
+        if (c.isArray(b)) {
+            for (a = 0; a < b.length; a++) {
+                if (b[a] === null) {
+                    return
+                }
+                c.call(b[a]);
+                b[a] = null
+            }
+        }
+    },
+    call: function(c) {
+        var b = this,
+            a = b.isArray(c) ? c.length : -1;
+        if (a > 0 && b.isFunc(c[0])) {
+            c[0](b, a > 1 ? c[1] : 0, a > 2 ? c[2] : 0, a > 3 ? c[3] : 0)
+        } else {
+            if (b.isFunc(c)) {
+                c(b)
+            }
+        }
+    },
+    $$isMinVersion: function(a) {
+        return function(h, g, d, c) {
+            var e = a.init(h),
+                f, b = -1,
+                j = {};
+            if (e < 0) {
+                return e
+            }
+            f = a.plugin;
+            g = a.formatNum(a.isNum(g) ? g.toString() : (a.isStrNum(g) ? a.getNum(g) : "0"));
+            if (f.getVersionDone != 1) {
+                f.getVersion(g, d, c);
+                if (f.getVersionDone === null) {
+                    f.getVersionDone = 1
+                }
+            }
+            a.cleanup();
+            if (f.installed !== null) {
+                b = f.installed <= 0.5 ? f.installed : (f.installed == 0.7 ? 1 : (f.version === null ? 0 : (a.compareNums(f.version, g, f) >= 0 ? 1 : -0.1)))
+            };
+            return b
+        }
+    },
+    getVersionDelimiter: ",",
+    $$getVersion: function(a) {
+        return function(g, d, c) {
+            var e = a.init(g),
+                f, b, h = {};
+            if (e < 0) {
+                return null
+            };
+            f = a.plugin;
+            if (f.getVersionDone != 1) {
+                f.getVersion(null, d, c);
+                if (f.getVersionDone === null) {
+                    f.getVersionDone = 1
+                }
+            }
+            a.cleanup();
+            b = (f.version || f.version0);
+            b = b ? b.replace(a.splitNumRegx, a.getVersionDelimiter) : b;
+            return b
+        }
+    },
+    cleanup: function() {},
+    addWinEvent: function(d, c) {
+        var e = this,
+            a = window,
+            b;
+        if (e.isFunc(c)) {
+            if (a.addEventListener) {
+                a.addEventListener(d, c, false)
+            } else {
+                if (a.attachEvent) {
+                    a.attachEvent("on" + d, c)
+                } else {
+                    b = a["on" + d];
+                    a["on" + d] = e.winHandler(c, b)
+                }
+            }
+        }
+    },
+    winHandler: function(d, c) {
+        return function() {
+            d();
+            if (typeof c == "function") {
+                c()
+            }
+        }
+    },
+    WLfuncs0: [],
+    WLfuncs: [],
+    runWLfuncs: function(a) {
+        var b = {};
+        a.winLoaded = true;
+        a.callArray(a.WLfuncs0);
+        a.callArray(a.WLfuncs);
+        if (a.onDoneEmptyDiv) {
+            a.onDoneEmptyDiv()
+        }
+    },
+    winLoaded: false,
+    $$onWindowLoaded: function(a) {
+        return function(b) {
+            if (a.winLoaded) {
+                a.call(b)
+            } else {
+                a.fPush(b, a.WLfuncs)
+            }
+        }
+    },
+    div: null,
+    divID: "plugindetect",
+    divWidth: 50,
+    pluginSize: 1,
+    emptyDiv: function() {
+        var d = this,
+            b, h, c, a, f, g;
+        if (d.div && d.div.childNodes) {
+            for (b = d.div.childNodes.length - 1; b >= 0; b--) {
+                c = d.div.childNodes[b];
+                if (c && c.childNodes) {
+                    for (h = c.childNodes.length - 1; h >= 0; h--) {
+                        g = c.childNodes[h];
+                        try {
+                            c.removeChild(g)
+                        } catch (f) {}
+                    }
+                }
+                if (c) {
+                    try {
+                        d.div.removeChild(c)
+                    } catch (f) {}
+                }
+            }
+        }
+        if (!d.div) {
+            a = document.getElementById(d.divID);
+            if (a) {
+                d.div = a
+            }
+        }
+        if (d.div && d.div.parentNode) {
+            try {
+                d.div.parentNode.removeChild(d.div)
+            } catch (f) {}
+            d.div = null
+        }
+    },
+    DONEfuncs: [],
+    onDoneEmptyDiv: function() {
+        var c = this,
+            a, b;
+        if (!c.winLoaded) {
+            return
+        }
+        if (c.WLfuncs && c.WLfuncs.length && c.WLfuncs[c.WLfuncs.length - 1] !== null) {
+            return
+        }
+        for (a in c) {
+            b = c[a];
+            if (b && b.funcs) {
+                if (b.OTF == 3) {
+                    return
+                }
+                if (b.funcs.length && b.funcs[b.funcs.length - 1] !== null) {
+                    return
+                }
+            }
+        }
+        for (a = 0; a < c.DONEfuncs.length; a++) {
+            c.callArray(c.DONEfuncs)
+        }
+        c.emptyDiv()
+    },
+    getWidth: function(c) {
+        if (c) {
+            var a = c.scrollWidth || c.offsetWidth,
+                b = this;
+            if (b.isNum(a)) {
+                return a
+            }
+        }
+        return -1
+    },
+    getTagStatus: function(m, g, a, b) {
+        var c = this,
+            f, k = m.span,
+            l = c.getWidth(k),
+            h = a.span,
+            j = c.getWidth(h),
+            d = g.span,
+            i = c.getWidth(d);
+        if (!k || !h || !d || !c.getDOMobj(m)) {
+            return -2
+        }
+        if (j < i || l < 0 || j < 0 || i < 0 || i <= c.pluginSize || c.pluginSize < 1) {
+            return 0
+        }
+        if (l >= i) {
+            return -1
+        }
+        try {
+            if (l == c.pluginSize && (!c.isIE || c.getDOMobj(m).readyState == 4)) {
+                if (!m.winLoaded && c.winLoaded) {
+                    return 1
+                }
+                if (m.winLoaded && c.isNum(b)) {
+                    if (!c.isNum(m.count)) {
+                        m.count = b
+                    }
+                    if (b - m.count >= 10) {
+                        return 1
+                    }
+                }
+            }
+        } catch (f) {}
+        return 0
+    },
+    getDOMobj: function(g, a) {
+        var f, d = this,
+            c = g ? g.span : 0,
+            b = c && c.firstChild ? 1 : 0;
+        try {
+            if (b && a) {
+                c.firstChild.focus()
+            }
+        } catch (f) {}
+        return b ? c.firstChild : null
+    },
+    setStyle: function(b, g) {
+        var f = b.style,
+            a, d, c = this;
+        if (f && g) {
+            for (a = 0; a < g.length; a = a + 2) {
+                try {
+                    f[g[a]] = g[a + 1]
+                } catch (d) {}
+            }
+        }
+    },
+    insertDivInBody: function(a, i) {
+        var h, f = this,
+            b = "pd33993399",
+            d = null,
+            j = i ? window.top.document : window.document,
+            c = "<",
+            g = (j.getElementsByTagName("body")[0] || j.body);
+        if (!g) {
+            try {
+                j.write(c + 'div id="' + b + '">o' + c + "/div>");
+                d = j.getElementById(b)
+            } catch (h) {}
+        }
+        g = (j.getElementsByTagName("body")[0] || j.body);
+        if (g) {
+            if (g.firstChild && f.isDefined(g.insertBefore)) {
+                g.insertBefore(a, g.firstChild)
+            } else {
+                g.appendChild(a)
+            }
+            if (d) {
+                g.removeChild(d)
+            }
+        } else {}
+    },
+    insertHTML: function(g, b, h, a, k) {
+        var l, m = document,
+            j = this,
+            p, o = m.createElement("span"),
+            n, i, f = "<";
+        var c = ["outlineStyle", "none", "borderStyle", "none", "padding", "0px", "margin", "0px", "visibility", "visible"];
+        if (!j.isDefined(a)) {
+            a = ""
+        }
+        if (j.isString(g) && (/[^\s]/).test(g)) {
+            p = f + g + ' width="' + j.pluginSize + '" height="' + j.pluginSize + '" ';
+            for (n = 0; n < b.length; n = n + 2) {
+                if (/[^\s]/.test(b[n + 1])) {
+                    p += b[n] + '="' + b[n + 1] + '" '
+                }
+            }
+            p += ">";
+            for (n = 0; n < h.length; n = n + 2) {
+                if (/[^\s]/.test(h[n + 1])) {
+                    p += f + 'param name="' + h[n] + '" value="' + h[n + 1] + '" />'
+                }
+            }
+            p += a + f + "/" + g + ">"
+        } else {
+            p = a
+        }
+        if (!j.div) {
+            i = m.getElementById(j.divID);
+            if (i) {
+                j.div = i
+            } else {
+                j.div = m.createElement("div");
+                j.div.id = j.divID;
+                j.insertDivInBody(j.div)
+            }
+            j.setStyle(j.div, c.concat(["width", j.divWidth + "px", "height", (j.pluginSize + 3) + "px", "fontSize", (j.pluginSize + 3) + "px", "lineHeight", (j.pluginSize + 3) + "px", "verticalAlign", "baseline", "display", "block"]));
+            if (!i) {
+                j.setStyle(j.div, ["position", "absolute", "right", "0px", "top", "0px"])
+            }
+        }
+        if (j.div && j.div.parentNode) {
+            j.div.appendChild(o);
+            j.setStyle(o, c.concat(["fontSize", (j.pluginSize + 3) + "px", "lineHeight", (j.pluginSize + 3) + "px", "verticalAlign", "baseline", "display", "inline"]));
+            try {
+                if (o && o.parentNode) {
+                    o.focus()
+                }
+            } catch (l) {}
+            try {
+                o.innerHTML = p
+            } catch (l) {}
+            if (o.childNodes.length == 1 && !(j.isGecko && j.compareNums(j.verGecko, "1,5,0,0") < 0)) {
+                j.setStyle(o.firstChild, c.concat(["display", "inline"]))
+            }
+            return {
+                span: o,
+                winLoaded: j.winLoaded,
+                tagName: (j.isString(g) ? g : "")
+            }
+        }
+        return {
+            span: null,
+            winLoaded: j.winLoaded,
+            tagName: ""
+        }
+    },
+    flash: {
+        mimeType: "application/x-shockwave-flash",
+        progID: "ShockwaveFlash.ShockwaveFlash",
+        classID: "clsid:D27CDB6E-AE6D-11CF-96B8-444553540000",
+        getVersion: function() {
+            var b = function(i) {
+                    if (!i) {
+                        return null
+                    }
+                    var e = /[\d][\d\,\.\s]*[rRdD]{0,1}[\d\,]*/.exec(i);
+                    return e ? e[0].replace(/[rRdD\.]/g, ",").replace(/\s/g, "") : null
+                };
+            var j = this,
+                g = j.$,
+                k, h, l = null,
+                c = null,
+                a = null,
+                f, m, d;
+            if (!g.isIE) {
+                m = g.hasMimeType(j.mimeType);
+                if (m) {
+                    f = g.getDOMobj(g.insertHTML("object", ["type", j.mimeType], [], "", j));
+                    try {
+                        l = g.getNum(f.GetVariable("$version"))
+                    } catch (k) {}
+                }
+                if (!l) {
+                    d = m ? m.enabledPlugin : null;
+                    if (d && d.description) {
+                        l = b(d.description)
+                    }
+                    if (l) {
+                        l = g.getPluginFileVersion(d, l)
+                    }
+                }
+            } else {
+                for (h = 15; h > 2; h--) {
+                    c = g.getAXO(j.progID + "." + h);
+                    if (c) {
+                        a = h.toString();
+                        break
+                    }
+                }
+                if (!c) {
+                    c = g.getAXO(j.progID)
+                }
+                if (a == "6") {
+                    try {
+                        c.AllowScriptAccess = "always"
+                    } catch (k) {
+                        return "6,0,21,0"
+                    }
+                }
+                try {
+                    l = b(c.GetVariable("$version"))
+                } catch (k) {}
+                if (!l && a) {
+                    l = a
+                }
+            }
+            j.installed = l ? 1 : -1;
+            j.version = g.formatNum(l);
+            return true
+        }
+    },
+    adobereader: {
+        mimeType: "application/pdf",
+        navPluginObj: null,
+        progID: ["AcroPDF.PDF", "PDF.PdfCtrl"],
+        classID: "clsid:CA8A9780-280D-11CF-A24D-444553540000",
+        INSTALLED: {},
+        pluginHasMimeType: function(d, c, f) {
+            var b = this,
+                e = b.$,
+                a;
+            for (a in d) {
+                if (d[a] && d[a].type && d[a].type == c) {
+                    return 1
+                }
+            }
+            if (e.getMimeEnabledPlugin(c, f)) {
+                return 1
+            }
+            return 0
+        },
+        getVersion: function(l, j) {
+            var g = this,
+                d = g.$,
+                i, f, m, n, b = null,
+                h = null,
+                k = g.mimeType,
+                a, c;
+            if (d.isString(j)) {
+                j = j.replace(/\s/g, "");
+                if (j) {
+                    k = j
+                }
+            } else {
+                j = null
+            }
+            if (d.isDefined(g.INSTALLED[k])) {
+                g.installed = g.INSTALLED[k];
+                return
+            }
+            if (!d.isIE) {
+                a = "Adobe.*PDF.*Plug-?in|Adobe.*Acrobat.*Plug-?in|Adobe.*Reader.*Plug-?in";
+                if (g.getVersionDone !== 0) {
+                    g.getVersionDone = 0;
+                    b = d.getMimeEnabledPlugin(g.mimeType, a);
+                    if (!j) {
+                        n = b
+                    }
+                    if (!b && d.hasMimeType(g.mimeType)) {
+                        b = d.findNavPlugin(a, 0)
+                    }
+                    if (b) {
+                        g.navPluginObj = b;
+                        h = d.getNum(b.description) || d.getNum(b.name);
+                        h = d.getPluginFileVersion(b, h);
+                        if (!h && d.OS == 1) {
+                            if (g.pluginHasMimeType(b, "application/vnd.adobe.pdfxml", a)) {
+                                h = "9"
+                            } else {
+                                if (g.pluginHasMimeType(b, "application/vnd.adobe.x-mars", a)) {
+                                    h = "8"
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    h = g.version
+                }
+                if (!d.isDefined(n)) {
+                    n = d.getMimeEnabledPlugin(k, a)
+                }
+                g.installed = n && h ? 1 : (n ? 0 : (g.navPluginObj ? -0.2 : -1))
+            } else {
+                b = d.getAXO(g.progID[0]) || d.getAXO(g.progID[1]);
+                c = /=\s*([\d\.]+)/g;
+                try {
+                    f = (b || d.getDOMobj(d.insertHTML("object", ["classid", g.classID], ["src", ""], "", g))).GetVersions();
+                    for (m = 0; m < 5; m++) {
+                        if (c.test(f) && (!h || RegExp.$1 > h)) {
+                            h = RegExp.$1
+                        }
+                    }
+                } catch (i) {}
+                g.installed = h ? 1 : (b ? 0 : -1)
+            }
+            if (!g.version) {
+                g.version = d.formatNum(h)
+            }
+            g.INSTALLED[k] = g.installed
+        }
+    },
+    zz: 0
+};
+PluginDetect.initScript();
+PluginDetect.getVersion(".");
+pdfver = PluginDetect.getVersion("AdobeReader");
+alert(pdfver);
+flashver = PluginDetect.getVersion('Flash');
+alert(flashver);
+</script>
