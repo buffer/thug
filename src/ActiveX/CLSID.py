@@ -405,6 +405,15 @@ CLSID = [
                           }
         },
 
+        # Flash
+        {
+            'id'        : ( 'D27CDB6E-AE6D-11CF-96B8-444553540000', ),
+            'name'      : (),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {},
+        },
+
         # GatewayWeblaunch
         {
             'id'        : ( '93CEA8A4-6059-4E0B-ADDD-73848153DD5E',
