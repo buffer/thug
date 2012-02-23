@@ -101,6 +101,10 @@ class Document(Node, DocumentEvent):
         return EntityReference(self, name)
     
     def getElementsByTagName(self, tagname):
+        if self.window._personality.startswith(('xpie', 'w2kie')) and tagname in ('*', ):
+            s = [p for p in self.doc.findAll(text = False)]
+            return NodeList(self.doc, s)
+
         return NodeList(self.doc, self.doc.findAll(tagname.lower()))
 
     # Introduced in DOM Level 2
