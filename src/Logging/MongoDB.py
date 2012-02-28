@@ -46,7 +46,7 @@ class MongoDB(object):
         for option in config.options('MongoDB'):
             self.opts[option] = config.get('MongoDB', option)
 
-        if not self.opts['enable']:
+        if self.opts['enable'].lower() in ('false', ):
             return
 
         try:

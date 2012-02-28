@@ -148,7 +148,7 @@ class HPFeeds(object):
                 break
 
     def log_event(self, pubdata):
-        if not self.opts['enable']:
+        if self.opts['enable'].lower() in ('false', ):
             return
 
         self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -160,7 +160,7 @@ class HPFeeds(object):
         self.sockfd.close()
 
     def log_file(self, pubdata):
-        if not self.opts['enable']:
+        if self.opts['enable'].lower() in ('false', ):
             return
 
         self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
