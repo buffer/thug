@@ -9,7 +9,7 @@ try:
 except:
     from StringIO import StringIO
 
-import BeautifulSoup
+import bs4 as BeautifulSoup
 from Element import Element
 from Style.ElementCSSInlineStyle import ElementCSSInlineStyle
 from attr_property import attr_property

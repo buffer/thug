@@ -13,7 +13,7 @@ try:
 except ImportError:
     from StringIO import StringIO
 
-import BeautifulSoup
+import bs4 as BeautifulSoup
 import PyV8
 
 from Document import Document
@@ -132,6 +132,6 @@ class HTMLDocument(Document):
     #    return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None
 
     def getElementsByName(self, elementName):
-        tags = self.doc.findAll(attrs = {'name': elementName})
+        tags = self.doc.find_all(attrs = {'name': elementName})
         
         return HTMLCollection(self.doc, tags)

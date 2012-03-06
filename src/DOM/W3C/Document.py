@@ -8,7 +8,7 @@ try:
 except ImportError:
     from StringIO import StringIO
 
-from HTML import BeautifulSoup
+import bs4 as BeautifulSoup
 import PyV8
 
 from DOMException import DOMException
@@ -72,7 +72,7 @@ class Document(Node, DocumentEvent):
     def createElement(self, tagname):
         from DOMImplementation import DOMImplementation
 
-        element = DOMImplementation.createHTMLElement(self, BeautifulSoup.Tag(self.doc, tagname))
+        element = DOMImplementation.createHTMLElement(self, BeautifulSoup.Tag(parser = self.doc, name = tagname))
         if self.onCreateElement:
             self.onCreateElement(element)
         
@@ -102,10 +102,10 @@ class Document(Node, DocumentEvent):
     
     def getElementsByTagName(self, tagname):
         if self.window._personality.startswith(('xpie', 'w2kie')) and tagname in ('*', ):
-            s = [p for p in self.doc.findAll(text = False)]
+            s = [p for p in self.doc.find_all(text = False)]
             return NodeList(self.doc, s)
 
-        return NodeList(self.doc, self.doc.findAll(tagname.lower()))
+        return NodeList(self.doc, self.doc.find_all(tagname.lower()))
 
     # Introduced in DOM Level 2
     def getElementById(self, elementId):

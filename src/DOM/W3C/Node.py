@@ -2,7 +2,7 @@
 from __future__ import with_statement
 
 import sys
-from HTML import BeautifulSoup
+import bs4 as BeautifulSoup
 import PyV8
 
 from abstractmethod import abstractmethod

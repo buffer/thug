@@ -89,11 +89,11 @@ class Element(Node):
             
     @property
     def nextSibling(self):
-        return Node.wrap(self.doc, self.tag.nextSibling)
+        return Node.wrap(self.doc, self.tag.next_sibling)
             
     @property
     def previousSibling(self):
-        return Node.wrap(self.doc, self.tag.previousSibling)
+        return Node.wrap(self.doc, self.tag.previous_sibling)
   
     # Introduced in DOM Level 2
     def hasAttributes(self):
@@ -101,7 +101,7 @@ class Element(Node):
 
     # Introduced in DOM Level 2
     def hasAttribute(self, name):
-        return self.tag.has_key(name)
+        return self.tag.has_attr(name)
         
     def checkChild(self, child):
         if not isinstance(child, Node):
@@ -180,7 +180,7 @@ class Element(Node):
         return self.tag.name.upper()
     
     def getAttribute(self, name):
-        return self.tag[name] if self.tag.has_key(name) else ""
+        return self.tag[name] if self.tag.has_attr(name) else ""
 
     def setAttribute(self, name, value):
         self.tag[name] = value
@@ -209,7 +209,7 @@ class Element(Node):
     def getAttributeNode(self, name):
         from Attr import Attr
         
-        return Attr(self, name) if self.tag.has_key(name) else None
+        return Attr(self, name) if self.tag.has_attr(name) else None
     
     def setAttributeNode(self, attr):
         self.tag[attr.name] = attr.value
@@ -220,7 +220,7 @@ class Element(Node):
     def getElementsByTagName(self, name):
         from NodeList import NodeList
 
-        return NodeList(self.doc, self.tag.findAll(name))
+        return NodeList(self.doc, self.tag.find_all(name))
    
     # DOM Level 2 Core [Appendix A]
     # The method normalize is now inherited from the Node interface where

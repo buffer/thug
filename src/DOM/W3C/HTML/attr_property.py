@@ -3,7 +3,7 @@ from __future__ import with_statement
 
 def attr_property(name, attrtype = str, readonly = False, default = None):
     def getter(self):
-        return attrtype(self.tag[name]) if self.tag.has_key(name) else default
+        return attrtype(self.tag[name]) if self.tag.has_attr(name) else default
         
     def setter(self, value):
         self.tag[name] = attrtype(value)

@@ -7,7 +7,7 @@ import string
 import logging
 import site
 
-from HTML import BeautifulSoup
+import bs4 as BeautifulSoup
 from DOMImplementation import DOMImplementation
 
 def getDOMImplementation(dom = None, **kwds):

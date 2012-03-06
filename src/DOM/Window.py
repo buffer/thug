@@ -19,11 +19,11 @@
 import sched
 import time
 import logging
-import PyV8 
-import BeautifulSoup
+import PyV8
 import traceback
 import hashlib
 import pefile
+import bs4 as BeautifulSoup
 import W3C.w3c as w3c
 
 from Personality import Personality
@@ -138,7 +138,7 @@ class Window(PyV8.JSClass):
         return self.doc
 
     def _findAll(self, tags):
-        return self.doc.doc.findAll(tags, recursive = True)
+        return self.doc.doc.find_all(tags, recursive = True)
 
     @property
     def frames(self):
@@ -756,7 +756,7 @@ class Window(PyV8.JSClass):
             index += 1
 
         body = self.doc.body
-        if body and body.tag.has_key('onload'):
+        if body and body.tag.has_attr('onload'):
             self.evalScript(body.tag['onload'], tag = body.tag.contents[-1])
 
         if hasattr(self, 'onload'):

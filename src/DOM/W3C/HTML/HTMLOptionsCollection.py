@@ -3,7 +3,7 @@ from __future__ import with_statement
 
 import sys, re, string
 
-import BeautifulSoup
+import bs4 as BeautifulSoup
 import PyV8
 
 from DOMException import DOMException

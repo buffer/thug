@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 from __future__ import with_statement
 
-import sys, re, string
+import sys
+import re
+import string
+import os
+import bs4 as BeautifulSoup
 
-import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 try:
     from cStringIO import StringIO
 except ImportError:
     from StringIO import StringIO
-
-import BeautifulSoup
 
 from HTMLCollection import HTMLCollection
 from attr_property import attr_property
@@ -44,11 +45,11 @@ def xpath_property(xpath, readonly = False):
 
         children = []
 
-        tags = tag.findAll(name, recursive = recursive)
+        tags = tag.find_all(name, recursive = recursive)
 
         if idx:
             if idx[0] == '@':
-                tags = [tag for tag in tags if tag.has_key(idx[1:])]
+                tags = [tag for tag in tags if tag.has_attr(idx[1:])]
             else:
                 tags = [tags[int(idx)-1]]
         
@@ -97,7 +98,7 @@ def xpath_property(xpath, readonly = False):
                 child = tag.find(part)
                 
                 if not child:
-                    child = BeautifulSoup.Tag(self.doc, part)
+                    child = BeautifulSoup.Tag(parser = self.doc, name = part)
                     
                     tag.append(child)
                     

@@ -24,8 +24,8 @@ import hashlib
 import logging
 import Window
 import jsbeautifier
+import bs4 as BeautifulSoup
 from ActiveX.ActiveX import _ActiveXObject
-from W3C.HTML.BeautifulSoup import BeautifulSoup, Tag
 
 log        = logging.getLogger("Thug")
 vbs_parser = True
@@ -103,7 +103,7 @@ class DFT(object):
         h = m.hexdigest()
 
         log.info('Saving remote content at %s (MD5: %s)' % (url, h, ))
-        with open(h, 'wb') as fd:
+        with open(os.path.join(log.baseDir, h), 'wb') as fd:
             fd.write(content)
 
     # Events handling 
@@ -113,7 +113,7 @@ class DFT(object):
         except:
             body = self.window.doc.getElementsByTagName('body')[0]
 
-        if body and body.tag.has_key('onload'):
+        if body and body.tag.has_attr('onload'):
             self.window.evalScript(self.fix(body.tag['onload']), tag = 'body')
 
         if hasattr(self.window, 'onload'):
@@ -153,11 +153,11 @@ class DFT(object):
         except:
             log.debug(script)
 
-        if isinstance(script, Tag):
-            js = ' '.join(script.contents)
-        else:
-            js = script.string
-        
+        #if isinstance(script, BeautifulSoap.Tag):
+        #   js = ' '.join(script.contents)
+        #else:
+        #    js = script.text
+        js = getattr(script, 'text', None)
         relationship = 'Contained_Inside'
 
         if not js:
@@ -333,10 +333,10 @@ class DFT(object):
         
         soup = self.window.doc.doc
         # Dirty hack
-        for p in soup.findAll('object'):
+        for p in soup.find_all('object'):
             self.handle_object(p)
 
-        for child in soup.recursiveChildGenerator():
+        for child in soup.descendants:
             name = getattr(child, "name", None)
             if name is None or name in ('object', ):
                 continue

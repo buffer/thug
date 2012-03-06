@@ -3,7 +3,7 @@ from __future__ import with_statement
 
 import sys, re, string
 
-from HTML import BeautifulSoup
+import bs4 as BeautifulSoup
 import PyV8
 
 from DOMException import DOMException
@@ -69,11 +69,11 @@ class Attr(Node):
         return self.attr
     
     def specified(self):
-        return self.parent.has_key(self.attr)
+        return self.parent.has_attr(self.attr)
     
     def getValue(self):
         if self.parent:
-            if self.parent.tag.has_key(self.attr):
+            if self.parent.tag.has_attr(self.attr):
                 return self.parent.tag[self.attr]
             
         return self._value 

@@ -6,7 +6,7 @@ Thug
 Requirements
 ============
 
-- Python 2.5 or later
+- Python 2.7
 	http://www.python.org/
 
 - Google V8
@@ -14,6 +14,9 @@ Requirements
 
 - PyV8
 	http://code.google.com/p/pyv8/
+
+- Beautiful Soup 4
+	http://www.crummy.com/software/BeautifulSoup/
 
 - Libemu
 	http://libemu.carnivore.it/
@@ -36,8 +39,25 @@ Requirements
 - PyMongo (optional)
 	http://www.mongodb.org/display/DOCS/Python+Language+Center
 
+
 Installation
 ============
+
+- BeautifulSoup 4
+
+Currently the best way to install Beautiful Soup 4 is through `easy_install'
+because it is still in beta release. Beautiful Soup 4 is published through 
+PyPi, so you can install it with easy_install or pip. The package name is 
+beautifulsoup4, and the same package works on Python 2 and Python 3.
+
+	# easy_install beautifulsoup4  
+
+or alternatively
+
+	# pip install beautifulsoup4
+ 
+
+- V8/PyV8
 
 In order to properly install V8 and PyV8 please follow the procedure
 described below.
@@ -124,7 +144,7 @@ is highly suggested to always specify a log file (through option -o).
 License information
 ===================
 
-Copyright (C) 2011 Angelo Dell'Aera <buffer@antifork.org>
+Copyright (C) 2011-2012 Angelo Dell'Aera <buffer@antifork.org>
 
 License: GNU General Public License, version 2 or later; see COPYING.txt
          included in this archive for details.

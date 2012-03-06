@@ -9,4 +9,4 @@ class ElementCSSInlineStyle(object):
 
     @property
     def style(self):
-        return CSSStyleDeclaration(self.tag['style'] if self.tag.has_key('style') else '')
+        return CSSStyleDeclaration(self.tag['style'] if self.tag.has_attr('style') else '')
