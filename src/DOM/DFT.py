@@ -122,7 +122,7 @@ class DFT(object):
     def handle_onclick(self):
         inputs = self.window._findAll(('input', 'a'))
         for input in inputs:
-            for k, v in input.attrs:
+            for k, v in input.attrs.items():
                 if k in ('onclick', ):
                     self.window.evalScript(self.fix(v))
 
