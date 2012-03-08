@@ -72,7 +72,9 @@ class Element(Node):
     
     @property
     def parentNode(self):
-        return self.tag.parent
+        # FIXME
+        #return self.tag.parent
+        return Node.wrap(self.doc, self.tag.parent) if self.tag.parent else None
     
     @property
     def childNodes(self):
