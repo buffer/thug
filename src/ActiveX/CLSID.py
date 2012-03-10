@@ -89,6 +89,7 @@ from modules import SSReaderPdg2
 from modules import StormConfig
 from modules import StormMps
 from modules import StreamAudioChainCast
+from modules import SymantecAppStream
 from modules import SymantecBackupExec
 from modules import Toshiba
 from modules import UniversalUpload
@@ -1063,6 +1064,17 @@ CLSID = [
                             'SetURL'                : StormMps.SetURL,
                             'SetbackImage'          : StormMps.SetbackImage,
                             'SettitleImage'         : StormMps.SettitleImage,
+                          }
+        },
+
+        # SymantecAppStream
+        {
+            'id'        : ( '3356DB7C-58A7-11D4-AA5C-006097314BF8', ),
+            'name'      : (),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'installAppMgr'     : SymantecAppStream.installAppMgr,
                           }
         },
 
