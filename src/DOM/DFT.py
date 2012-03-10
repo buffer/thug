@@ -76,7 +76,7 @@ class DFT(object):
         emu.free()
 
     def check_attrs(self, p):
-        for (attr, value) in p.attrs:
+        for attr, value in p.attrs.items():
             self.check_shellcode(value)
         
     def shift(self, script, s):
