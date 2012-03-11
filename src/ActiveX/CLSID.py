@@ -477,6 +477,15 @@ CLSID = [
                           }
         },
 
+        # Icona SpA C6 Messenger
+        {
+            'id'        : ( 'C1B7E532-3ECB-4E9E-BB3A-2951FFE67C61', ),
+            'name'      : (),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {}
+        },
+
         # ICQToolbar
         {
             'id'        : ( '855F3B16-6D32-4FE6-8A56-BBB695989046', ),
