@@ -7,24 +7,29 @@ class Event:
     AT_TARGET           = 2 # The event is currently being evaluated at the target EventTarget
     BUBBLING_PHASE      = 3 # The current event phase is the bubbling phase.
 
-    def __init__(self):
-        pass
+    def __init__(self, evt, target):
+        self._evt          = evt
+        self._target       = target
+        self.currentTarget = target
+        self.eventPhase    = self.AT_TARGET
+        self._stop         = False
+        self._prevent      = False
 
     @property
     def type(self):
-        return None
+        return self._evt
 
     @property
     def target(self):
-        return None
+        return self._target
 
-    @property
-    def currentTarget(self):
-        return None
+    #@property
+    #def currentTarget(self):
+    #    return None
 
-    @property
-    def eventPhase(self):
-        pass
+    #@property
+    #def eventPhase(self):
+    #    pass
 
     @property
     def bubbles(self):
@@ -36,13 +41,13 @@ class Event:
 
     @property
     def timeStamp(self):
-        return None
+        return 0
 
     def stopPropagation(self):
-        pass
+        self._stop = True
 
     def preventDefault(self):
-        pass
+        self._prevent = True
 
     def initEvent(self, eventTypeArg, canBubbleArg, cancelableArg):
         pass
