@@ -39,7 +39,7 @@ class MongoDB(object):
         self.opts    = dict()
 
         config    = ConfigParser.ConfigParser()
-        conf_file = "%s/Logging/logging.conf" % (os.getcwd(), )
+        conf_file = "%s/logging.conf" % (os.path.dirname(os.path.abspath(__file__)), )
         config.read(conf_file)
         
         for option in config.options('MongoDB'):
