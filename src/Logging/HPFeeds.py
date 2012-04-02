@@ -73,7 +73,7 @@ class HPFeeds(object):
     def __init_config(self):
         config = ConfigParser.ConfigParser()
 
-        conf_file = "%s/logging.conf" % (os.path.dirname(os.path.abspath(__file__)), )
+        conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logging.conf')
         config.read(conf_file)
         
         for option in config.options('HPFeeds'):
