@@ -159,6 +159,7 @@ Synopsis:
             p(args[0])
 
         log.ThugLogging.log_event()
+        return log
 
 if __name__ == "__main__":
     Thug(sys.argv[1:])()
