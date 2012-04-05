@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Thug by buffer</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Thug</h1>
+        <p>Python low-interaction honeyclient</p>
+        <p class="view"><a href="https://github.com/buffer/thug">View the Project on GitHub <small>buffer/thug</small></a></p>
+        <ul>
+          <li><a href="https://github.com/buffer/thug/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/buffer/thug/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/buffer/thug">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>The number of client-side attacks has grown significantly in the past few years shifting focus on poorly protected vulnerable clients. Just as the most known honeypot technologies enable research into server-side attacks, honeyclients allow the study of client-side attacks. A complement to honeypots, a honeyclient is a tool designed to mimic the behavior of a user-driven network client application, such as a web browser, and be exploited by an attacker’s content.</p>
+
+<h1>Requirements</h1>
+
+<ul>
+<li><p>Python 2.7
+<a href="http://www.python.org/">http://www.python.org/</a></p></li>
+<li><p>Google V8
+<a href="http://code.google.com/p/v8/">http://code.google.com/p/v8/</a></p></li>
+<li><p>PyV8
+<a href="http://code.google.com/p/pyv8/">http://code.google.com/p/pyv8/</a></p></li>
+<li><p>Beautiful Soup 4
+<a href="http://www.crummy.com/software/BeautifulSoup/">http://www.crummy.com/software/BeautifulSoup/</a></p></li>
+<li><p>Libemu
+<a href="http://libemu.carnivore.it/">http://libemu.carnivore.it/</a></p></li>
+<li><p>Pylibemu
+<a href="https://github.com/buffer/pylibemu">https://github.com/buffer/pylibemu</a></p></li>
+<li><p>Pefile
+<a href="http://code.google.com/p/pefile/">http://code.google.com/p/pefile/</a></p></li>
+<li><p>Chardet
+<a href="http://chardet.feedparser.org/">http://chardet.feedparser.org/</a></p></li>
+<li><p>httplib2 0.7.1 or later
+<a href="http://code.google.com/p/httplib2/">http://code.google.com/p/httplib2/</a></p></li>
+<li><p>MongoDB (optional)
+<a href="http://www.mongodb.org/">http://www.mongodb.org/</a></p></li>
+<li><p>PyMongo (optional)
+<a href="http://www.mongodb.org/display/DOCS/Python+Language+Center">http://www.mongodb.org/display/DOCS/Python+Language+Center</a></p></li>
+</ul><h1>Installation</h1>
+
+<ul>
+<li>BeautifulSoup 4</li>
+</ul><p>Currently the best way to install Beautiful Soup 4 is through `easy_install'
+because it is still in beta release. Beautiful Soup 4 is published through 
+PyPi, so you can install it with easy_install or pip. The package name is 
+beautifulsoup4, and the same package works on Python 2 and Python 3.</p>
+
+<pre><code># easy_install beautifulsoup4  
+</code></pre>
+
+<p>or alternatively</p>
+
+<pre><code># pip install beautifulsoup4
+</code></pre>
+
+<ul>
+<li>V8/PyV8</li>
+</ul><p>In order to properly install V8 and PyV8 please follow the procedure
+described below.</p>
+
+<ol>
+<li>
+<p>Checkout V8 source code from SVN  </p>
+
+<pre><code>$ svn checkout <a href="http://v8.googlecode.com/svn/trunk/">http://v8.googlecode.com/svn/trunk/</a> v8
+</code></pre>
+</li>
+<li>
+<p>Patch V8 source code with the patches you can find in thug/patches
+directory</p>
+
+<pre><code>$ cp thug/patches/V8-patch* .
+$ patch -p0 &lt; V8-patch1.diff 
+patching file v8/src/log.h
+$ patch -p0 &lt; V8-patch2.diff 
+patching file v8/src/parser.h
+Hunk #1 succeeded at 456 (offset 7 lines).
+</code></pre>
+</li>
+<li>
+<p>Checkout PyV8 source code from SVN</p>
+
+<pre><code>$ svn checkout <a href="http://pyv8.googlecode.com/svn/trunk/">http://pyv8.googlecode.com/svn/trunk/</a> pyv8
+</code></pre>
+</li>
+<li>
+<p>Set the environment variable V8_HOME with the V8 source code 
+absolute path (you need to change the value reported below)</p>
+
+<pre><code>$ export V8_HOME=/home/buffer/v8
+</code></pre>
+</li>
+<li>
+<p>Move to PyV8 source code directory</p>
+
+<pre><code>$ cd pyv8
+</code></pre>
+</li>
+<li>
+<p>Build and install (PyV8 setup.py will properly install both V8
+and PyV8)</p>
+
+<pre><code>~/pyv8 $ python setup.py build
+~/pyv8 $ sudo python setup.py install
+</code></pre>
+</li>
+<li>
+<p>Test the installation</p>
+
+<pre><code>~/pyv8 $ python PyV8.py
+</code></pre>
+</li>
+</ol><p>If no problems occur, you have successfully installed V8 and PyV8.</p>
+
+<p>In order to install the other required libraries and packages please 
+follow installation procedures as specified in their documentation.</p>
+
+<h1>Usage</h1>
+
+<pre><code>~/thug/src $ python thug.py -h
+
+    Synopsis:
+    Thug: Pure Python honeyclient implementation
+
+    Usage:
+        python thug.py [ options ] url
+
+    Options:
+        -h, --help              Display this help information
+        -u, --useragent=    
+        -o, --output=           Log to a specified file
+        -l, --local         
+        -v, --verbose           Enable verbose mode    
+        -d, --debug             Enable debug mode
+
+    Available User-Agents:
+    xpie60          Internet Explorer 6.0 (Windows XP)
+    xpie61          Internet Explorer 6.1 (Windows XP)
+    xpie70          Internet Explorer 7.0 (Windows XP)
+    xpie80          Internet Explorer 8.0 (Windows XP)
+    w2kie60         Internet Explorer 6.0 (Windows 2000)
+    w2kie80         Internet Explorer 8.0 (Windows 2000)
+</code></pre>
+
+<p>Please note that Thug store downloaded contents and logs in the directory 
+thug/logs by default if not otherwise specified. You are required to take 
+a look at thug/logs/thug.csv file in order to understand in which directory
+logs were saved. This awful logging mechanism will change soon. Moreover it 
+is highly suggested to always specify a log file (through option -o).</p>
+
+<h1>License information</h1>
+
+<p>Copyright (C) 2011-2012 Angelo Dell'Aera</p>
+
+<p>License: GNU General Public License, version 2 or later; see COPYING.txt
+         included in this archive for details.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/buffer">buffer</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+  </body>
+</html>
