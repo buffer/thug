@@ -67,7 +67,7 @@ class Shellcode:
             try:
                 result = self.ctxt.eval(self.script)
             except:
-                #log.debug(traceback.print_exc())
+                log.debug(traceback.format_exc())
                 return result
 
             for name in self.ast.names:
