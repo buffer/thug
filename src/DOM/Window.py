@@ -778,7 +778,7 @@ class Window(PyV8.JSClass):
             if response.status == 404:
                 return None
 
-            if response['content-type'] in ('application/pdf', ):
+            if 'content-type' in response and response['content-type'] in ('application/pdf', ):
                 return None
 
             # Log response here

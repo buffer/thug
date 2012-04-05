@@ -312,7 +312,7 @@ class DFT(object):
         if response.status == 404:
             return
 
-        if response['content-type'] in ('application/pdf', ):
+        if 'content-type' in response and response['content-type'] in ('application/pdf', ):
             return
 
         doc    = w3c.parseString(content)
