@@ -2,6 +2,19 @@
 Thug
 ====
 
+The number of client-side attacks has grown significantly in the past 
+few years shifting focus on poorly protected vulnerable clients. Just 
+as the most known honeypot technologies enable research into server-side 
+attacks, honeyclients allow the study of client-side attacks. 
+
+A complement to honeypots, a honeyclient is a tool designed to mimic 
+the behavior of a user-driven network client application, such as a web 
+browser, and be exploited by an attacker’s content.
+
+Thug is a Python low-interaction honeyclient aimed at mimicing the 
+behavior of a web browser in order to detect and emulate malicious 
+contents.
+
 
 Requirements
 ============
@@ -133,12 +146,6 @@ Synopsis:
 	xpie80			Internet Explorer 8.0 (Windows XP)
 	w2kie60			Internet Explorer 6.0 (Windows 2000)
 	w2kie80			Internet Explorer 8.0 (Windows 2000)
-
-Please note that Thug store downloaded contents and logs in the directory 
-thug/logs by default if not otherwise specified. You are required to take 
-a look at thug/logs/thug.csv file in order to understand in which directory
-logs were saved. This awful logging mechanism will change soon. Moreover it 
-is highly suggested to always specify a log file (through option -o).
 
 
 License information
