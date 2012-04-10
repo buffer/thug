@@ -1,0 +1,32 @@
+<html>
+<body>
+<div id="thediv"><a href="/" id="thelink">test</a></div>
+<script>
+
+var oDiv = document.getElementById('thediv');
+var oLink = document.getElementById('thelink');
+
+oDiv.addEventListener('click',function (e) {
+  alert('1. Div capture ran');
+}, true);
+
+oDiv.addEventListener('click',function (e) {
+  alert('3. Div bubble ran');
+}, false);
+
+oLink.addEventListener('click',function (e) {
+  alert('Link capture ran - browser does not follow the specification');
+}, true);
+
+oLink.addEventListener('click',function (e) {
+  alert('2. Link bubble ran (first listener)');
+}, false);
+
+oLink.addEventListener('click',function (e) {
+  alert('2. Link bubble ran (second listener)');
+}, false);
+
+oLink.dispatchEvent('click');
+</script>
+</body>
+</html>
