@@ -40,7 +40,7 @@ class Thug:
     def __init__(self, args):
         self.args      = args
         self.useragent = 'xpie61'
-        self.referer   = None
+        self.referer   = 'about:blank'
 
     def __call__(self):
         self.analyze()
@@ -88,10 +88,9 @@ Synopsis:
             url = 'http://%s' % (url, )
 
         log.ThugLogging.set_url(url)
-        referer = self.referer if self.referer else 'about:blank'
 
         doc    = w3c.parseString('')
-        window = Window.Window(referer, doc, personality = self.useragent)
+        window = Window.Window(self.referer, doc, personality = self.useragent)
         window = window.open(url)
         if window:
             self.run(window)
