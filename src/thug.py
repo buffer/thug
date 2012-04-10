@@ -40,6 +40,7 @@ class Thug:
     def __init__(self, args):
         self.args      = args
         self.useragent = 'xpie61'
+        self.referer   = None
 
     def __call__(self):
         self.analyze()
@@ -55,6 +56,7 @@ Synopsis:
     Options:
         -h, --help          \tDisplay this help information
         -o, --output=       \tLog to a specified file
+        -r, --referer=      \tSpecify a referer
         -l, --local         
         -v, --verbose       \tEnable verbose mode    
         -d, --debug         \tEnable debug mode
@@ -86,9 +88,10 @@ Synopsis:
             url = 'http://%s' % (url, )
 
         log.ThugLogging.set_url(url)
+        referer = self.referer if self.referer else 'about:blank'
 
         doc    = w3c.parseString('')
-        window = Window.Window('about:blank', doc, personality = self.useragent)
+        window = Window.Window(referer, doc, personality = self.useragent)
         window = window.open(url)
         if window:
             self.run(window)
@@ -121,10 +124,11 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hu:o:lvd',
+            options, args = getopt.getopt(self.args, 'hu:o:r:lvd',
                 ['help', 
                 'useragent=', 
-                'logfile=', 
+                'logfile=',
+                'referer=',
                 'verbose',
                 'debug', 
                 ])
@@ -146,6 +150,8 @@ Synopsis:
             if option[0] == '-o' or option[0] == '--output':
                 fh = logging.FileHandler(os.path.join(log.baseDir, option[1]))
                 log.addHandler(fh)
+            if option[0] == '-r' or option[0] == '--referer':
+                self.referer = option[1]    
             if option[0] == '-l' or option[0] == '--local':
                 p = getattr(self, 'run_local')
             if option[0] == '-v' or option[0] == '--verbose':
