@@ -31,6 +31,9 @@ Requirements
 - Beautiful Soup 4
 	http://www.crummy.com/software/BeautifulSoup/
 
+- Lxml
+	http://lxml.de/
+
 - Libemu
 	http://libemu.carnivore.it/
 
