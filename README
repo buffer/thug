@@ -136,11 +136,12 @@ Synopsis:
 
     Options:
         -h, --help          	Display this help information
-        -u, --useragent=    
         -o, --output=       	Log to a specified file
+        -r, --referer=      	Specify a referer
         -l, --local         
         -v, --verbose       	Enable verbose mode    
         -d, --debug         	Enable debug mode
+        -u, --useragent=    	Select a user agent (see below for values, default: xpie61)
 
     Available User-Agents:
 	xpie60			Internet Explorer 6.0 (Windows XP)
