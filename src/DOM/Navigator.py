@@ -210,7 +210,7 @@ class Navigator(PyV8.JSClass):
         if url == 'about:blank':
             return response, content
 
-        h = httplib2.Http('/tmp/thug-cache',
+        h = httplib2.Http('/tmp/thug-cache-%s' % (os.getuid(), ),
                           timeout = 10,
                           disable_ssl_certificate_validation = True)
         
