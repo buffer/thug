@@ -117,7 +117,9 @@ class DFT(object):
             self.window.evalScript(self.fix(body.tag['onload']), tag = 'body')
 
         if hasattr(self.window, 'onload'):
-            self.window.evalScript(self.fix(self.window.onload))
+            with self.window.context as ctx:
+                self.window.onload()
+                #self.window.evalScript(self.fix(self.window.onload))
 
     def handle_onclick(self):
         inputs = self.window._findAll(('input', 'a'))
