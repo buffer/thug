@@ -297,7 +297,7 @@ class DFT(object):
         self.window.open(url)
         self.run()
 
-    def handle_frame(self, frame):
+    def handle_frame(self, frame, redirect_type = 'frame'):
         log.info(frame)
         
         src = frame.get('src', None)
@@ -305,7 +305,7 @@ class DFT(object):
             return 
 
         try:
-            response, content = self.window._navigator.fetch(src)
+            response, content = self.window._navigator.fetch(src, redirect_type)
         except:
             return
 
@@ -323,7 +323,7 @@ class DFT(object):
         dft.run()
 
     def handle_iframe(self, iframe):
-        self.handle_frame(iframe)
+        self.handle_frame(iframe, 'iframe')
 
     def handle_body(self, body):
         pass

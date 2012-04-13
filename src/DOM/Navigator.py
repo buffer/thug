@@ -203,7 +203,7 @@ class Navigator(PyV8.JSClass):
     def taintEnabled(self, *arg):
         return False
 
-    def fetch(self, url):
+    def fetch(self, url, redirect_type = None):
         response = dict()
         content  = ''
 
@@ -229,6 +229,11 @@ class Navigator(PyV8.JSClass):
             url = urlparse.urljoin(self._window.url, url)
             msg = "%s %s" % (msg, url)
             log.warning(msg)
+
+        if redirect_type:
+            log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, 
+                                                                              self._window.url, 
+                                                                              url, )))
 
         mime_base = log.baseDir
 
