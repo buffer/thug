@@ -215,13 +215,16 @@ class Navigator(PyV8.JSClass):
                           disable_ssl_certificate_validation = True)
         
         headers = {
-            'cache-control' : 'no-cache',
-            'user-agent'    :  self.userAgent,
-            'referer'       :  self._window.url
+            'Cache-Control'   : 'no-cache',
+            'Accept-Language' : 'en-US',
+            'User-Agent'      :  self.userAgent
         }
+
+        if self._window.url not in ('about:blank', ):
+            headers['Referer'] = self._window.url
         
         if self._window.doc.cookie:
-            headers['cookie'] = self._window.doc.cookie
+            headers['Cookie'] = self._window.doc.cookie
 
         _url = urlparse.urlparse(url)
         if not _url.netloc:
