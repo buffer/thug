@@ -682,7 +682,15 @@ class Window(PyV8.JSClass):
     def context(self):
         if not hasattr(self, '_context'):
             self._context = PyV8.JSContext(self)
-        
+            with self._context as ctxt:
+                ctxt.eval('window.Array   = Array;')
+                ctxt.eval('window.Boolean = Boolean;')
+                ctxt.eval('window.Date    = Date;')
+                ctxt.eval('window.Math    = Math;')
+                ctxt.eval('window.Number  = Number;')
+                ctxt.eval('window.RegExp  = RegExp;')
+                ctxt.eval('window.String  = String;')
+
         return self._context
 
     def evalScript(self, script, tag = None):
@@ -709,10 +717,6 @@ class Window(PyV8.JSClass):
             return result
 
         with self.context as ctxt:
-            # FIXME
-            #ctxt.eval('window.unescape = unescape;') 
-            #ctxt.eval('window.Array = Array;')
-
             if self._personality.startswith(('xpie', 'w2kie')):
                 script = script.replace('@cc_on!@', '*/!/*')
             
