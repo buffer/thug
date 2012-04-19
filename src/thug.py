@@ -92,7 +92,7 @@ Synopsis:
         -u, --useragent=    \tSelect a user agent (see below for values, default: xpie61)
 
     Proxy Format:
-        scheme://[username:password]@host:port (supported schemes: http, socks4, socks5)
+        scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
 
     Available User-Agents:
 """
