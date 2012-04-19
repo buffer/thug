@@ -50,8 +50,8 @@ class EventTarget:
 
         capture_listeners, bubbling_listeners = self._get_listeners(tag.parent)
         for c in capture_listeners:
-            #c.__call__()
-            c()
+            with self.doc.window.context as ctx:
+                c()
 
     def _dispatchBubblingEvent(self, tag):
         for node in tag.parents:
@@ -63,8 +63,8 @@ class EventTarget:
 
             capture_listeners, bubbling_listeners = self._get_listeners(node)
             for c in bubbling_listeners:
-                #c.__call__()
-                c()
+                with self.doc.window.context as ctx:
+                    c()
 
     def dispatchEvent(self, evt):
         log.info('dispatchEvent(%s)' % (evt, ))
@@ -72,14 +72,14 @@ class EventTarget:
 
         if capture_listeners:
             self._dispatchCaptureEvent(self.tag)
-    
+   
         for c in capture_listeners:
-            #c.__call__()
-            c()
+            with self.doc.window.context as ctx:
+                c()
 
         for c in bubbling_listeners:
-            #c.__call__()
-            c()
+            with self.doc.window.context as ctx:
+                c()
 
         if bubbling_listeners:
             self._dispatchBubblingEvent(self.tag)
