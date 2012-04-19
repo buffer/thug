@@ -211,7 +211,8 @@ class Navigator(PyV8.JSClass):
             return response, content
 
         h = httplib2.Http('/tmp/thug-cache-%s' % (os.getuid(), ),
-                          timeout = 10,
+                          proxy_info = log.ThugOpts.proxy_info,
+                          timeout    = 10,
                           disable_ssl_certificate_validation = True)
         
         headers = {

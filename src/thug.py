@@ -23,6 +23,7 @@ import getopt
 import datetime
 import urlparse
 import hashlib
+import httplib2
 import logging
 
 from DOM.W3C import w3c
@@ -32,15 +33,42 @@ from Logging.ThugLogging import ThugLogging
 
 __thug_version__ = '0.2.7'
 
-log             = logging.getLogger("Thug")
-log.ThugLogging = ThugLogging(__thug_version__)
+log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
+
+
+class ThugOpts(dict):
+    proxy_schemes = ('http', 'socks4', 'socks5', )
+
+    def __init__(self):
+        self._proxy_info = None
+
+    def set_proxy_info(self, proxy):
+        p = urlparse.urlparse(proxy)
+        if p.scheme.lower() not in self.proxy_schemes:
+            log.warning('[WARNING] Skipping invalid proxy scheme (valid schemes: http, socks4, socks5)')
+            return
+
+        proxy_type = getattr(httplib2.socks, "PROXY_TYPE_%s" % (p.scheme.upper(),))
+        self._proxy_info = httplib2.ProxyInfo(proxy_type = proxy_type,
+                                              proxy_host = p.hostname,
+                                              proxy_port = p.port if p.port else 8080,
+                                              proxy_user = p.username,
+                                              proxy_pass = p.password)
+
+    def get_proxy_info(self):
+        return self._proxy_info
+
+    proxy_info = property(get_proxy_info, set_proxy_info)
+
 
 class Thug:
     def __init__(self, args):
         self.args      = args
         self.useragent = 'xpie61'
         self.referer   = 'about:blank'
+        log.ThugLogging = ThugLogging(__thug_version__)
+        log.ThugOpts    = ThugOpts()
 
     def __call__(self):
         self.analyze()
@@ -57,10 +85,14 @@ Synopsis:
         -h, --help          \tDisplay this help information
         -o, --output=       \tLog to a specified file
         -r, --referer=      \tSpecify a referer
+        -p, --proxy=        \tSpecify a proxy (see below for format and supported schemes)
         -l, --local         
         -v, --verbose       \tEnable verbose mode    
         -d, --debug         \tEnable debug mode
         -u, --useragent=    \tSelect a user agent (see below for values, default: xpie61)
+
+    Proxy Format:
+        scheme://[username:password]@host:port (supported schemes: http, socks4, socks5)
 
     Available User-Agents:
 """
@@ -123,11 +155,12 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hu:o:r:lvd',
+            options, args = getopt.getopt(self.args, 'hu:o:r:p:lvd',
                 ['help', 
                 'useragent=', 
                 'logfile=',
                 'referer=',
+                'proxy=',
                 'verbose',
                 'debug', 
                 ])
@@ -150,7 +183,9 @@ Synopsis:
                 fh = logging.FileHandler(os.path.join(log.baseDir, option[1]))
                 log.addHandler(fh)
             if option[0] == '-r' or option[0] == '--referer':
-                self.referer = option[1]    
+                self.referer = option[1]
+            if option[0] == '-p' or option[0] == '--proxy':
+                log.ThugOpts.proxy_info = option[1]
             if option[0] == '-l' or option[0] == '--local':
                 p = getattr(self, 'run_local')
             if option[0] == '-v' or option[0] == '--verbose':

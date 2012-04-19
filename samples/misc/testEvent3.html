@@ -1,0 +1,22 @@
+<html>
+<body>
+
+<script type="text/javascript">
+function window_onmousemove () {
+	alert("Window onmousemove detected");
+}
+window.onmousemove = window_onmousemove;
+
+function _onmousemove () {
+	alert("onmousemove detected");
+}
+
+function _onclick() {
+	alert("onclick detected");
+}
+</script>
+
+<img onmousemove=_onmousemove onclick=_onclick src="smiley.gif" alt="Smiley" /
+</body>
+</html>
+
