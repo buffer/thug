@@ -46,7 +46,7 @@ Requirements
 - Chardet
 	http://chardet.feedparser.org/
 
-- httplib2 0.7.1 or later
+- httplib2 0.7.4 or later
 	http://code.google.com/p/httplib2/
 
 - MongoDB (optional)
