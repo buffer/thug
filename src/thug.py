@@ -42,6 +42,7 @@ class ThugOpts(dict):
 
     def __init__(self):
         self._proxy_info = None
+        self.local       = False
 
     def set_proxy_info(self, proxy):
         p = urlparse.urlparse(proxy)
@@ -108,6 +109,7 @@ Synopsis:
 
     def run_local(self, url):
         log.ThugLogging.set_url(url)
+        log.ThugOpts.local = True
 
         html   = open(url, 'r').read()
         doc    = w3c.parseString(html)

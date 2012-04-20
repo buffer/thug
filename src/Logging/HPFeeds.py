@@ -150,6 +150,9 @@ class HPFeeds(object):
         if self.opts['enable'].lower() in ('false', ):
             return
 
+        if log.ThugOpts.local:
+            return
+
         self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         data = self.get_data(self.opts['host'], int(self.opts['port']))
         if data is None:
@@ -160,6 +163,9 @@ class HPFeeds(object):
 
     def log_file(self, pubdata):
         if self.opts['enable'].lower() in ('false', ):
+            return
+
+        if log.ThugOpts.local:
             return
 
         self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
