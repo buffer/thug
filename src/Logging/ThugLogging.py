@@ -53,7 +53,7 @@ class ThugLogging(BaseLogging):
         self.MongoDB.log_file(sample)
 
     def log_event(self):
-        log.info("Saving log analysis at %s" % (log.baseDir, ))
+        log.warning("Saving log analysis at %s" % (log.baseDir, ))
 
         with open(os.path.join(log.baseDir, 'analysis.xml'), 'a+r') as fd:
             self.MAEC.export(outfile = fd)

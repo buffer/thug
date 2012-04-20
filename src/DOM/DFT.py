@@ -102,7 +102,7 @@ class DFT(object):
         m.update(content)
         h = m.hexdigest()
 
-        log.info('Saving remote content at %s (MD5: %s)' % (url, h, ))
+        log.warning('Saving remote content at %s (MD5: %s)' % (url, h, ))
         with open(os.path.join(log.baseDir, h), 'wb') as fd:
             fd.write(content)
 
@@ -129,7 +129,7 @@ class DFT(object):
                     self.window.evalScript(self.fix(v))
 
     def handle_object(self, object):
-        log.info(object)
+        log.warning(object)
 
         self.check_attrs(object)
                 
@@ -151,9 +151,9 @@ class DFT(object):
             
     def handle_javascript(self, script):
         try:
-            log.debug(jsbeautifier.beautify(str(script)))
+            log.info(jsbeautifier.beautify(str(script)))
         except:
-            log.debug(script)
+            log.info(script)
 
         #if isinstance(script, BeautifulSoap.Tag):
         #   js = ' '.join(script.contents)
@@ -210,7 +210,7 @@ class DFT(object):
         pass
 
     def handle_param(self, param):
-        log.info(param)
+        log.warning(param)
 
         name  = param.get('name' , None)
         value = param.get('value', None)
@@ -226,14 +226,14 @@ class DFT(object):
             self._fetch(url)
 
     def handle_embed(self, embed):
-        log.info(embed)
+        log.warning(embed)
 
         src = embed.get('src', None)
         if src:
             self._fetch(src)
 
     def handle_applet(self, applet):
-        log.info(applet)
+        log.warning(applet)
 
         archive = applet.get('archive', None)
         if not archive:
@@ -253,7 +253,7 @@ class DFT(object):
             fd.write(content)
 
     def handle_meta(self, meta):
-        log.info(meta)
+        log.warning(meta)
 
         http_equiv = meta.get('http-equiv', None)
         if not http_equiv or http_equiv.lower() != 'refresh':
@@ -300,7 +300,7 @@ class DFT(object):
         self.run()
 
     def handle_frame(self, frame, redirect_type = 'frame'):
-        log.info(frame)
+        log.warning(frame)
         
         src = frame.get('src', None)
         if not src:
