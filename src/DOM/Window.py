@@ -110,6 +110,20 @@ class Window(PyV8.JSClass):
         self.timers        = []
         self.java          = java()
 
+    def __getattr__(self, name):
+        if name == 'constructor':
+            return PyV8.JSClassConstructor(self.__class__)
+
+        #if name == 'prototype':
+        #    return PyV8.JSClassPrototype(self.__class__)
+
+        prop = self.__dict__.setdefault('__properties__', {}).get(name, None)
+
+        if prop and callable(prop[0]):
+            return prop[0]()
+
+        raise AttributeError(name)
+
     @property 
     def closed(self):
         return self._closed
