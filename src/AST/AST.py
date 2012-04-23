@@ -59,8 +59,7 @@ class AST(object):
 
     def walk(self, script):
         self.block_no = 1
-        with PyV8.JSContext() as ctxt:
-            PyV8.JSEngine().compile(script).visit(self)
+        PyV8.JSEngine().compile(script).visit(self)
 
     def onProgram(self, prog):
         log.debug("[*] Program")

@@ -724,16 +724,16 @@ class Window(PyV8.JSClass):
             else:
                 self.doc.current = self.doc.doc.contents[-1]
 
-        try:
-            ast = AST(script)
-        except:
-            log.debug(traceback.format_exc())
-            return result
-
         with self.context as ctxt:
+            try:
+                ast = AST(script)
+            except:
+                log.debug(traceback.format_exc())
+                return result
+
             if self._personality.startswith(('xpie', 'w2kie')):
                 script = script.replace('@cc_on!@', '*/!/*')
-            
+
             shellcode = Shellcode.Shellcode(ctxt, ast, script)
             result    = shellcode.run()
 
