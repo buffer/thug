@@ -62,6 +62,7 @@ class Shellcode:
         result = None
 
         with Debugger() as dbg:
+            dbg._context = self.ctxt
             vars = self.ctxt.locals
             #dbg.debugBreak()
             try:

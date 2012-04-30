@@ -25,12 +25,12 @@ log = logging.getLogger("Thug")
 class Debugger(PyV8.JSDebugger):
     def __init__(self):
         PyV8.JSDebugger.__init__(self)
-        self.evalContext = PyV8.JSContext()
+        #self.evalContext = PyV8.JSContext()
 
     def __enter__(self):
         script_filename = os.path.join(os.path.dirname(__file__), 'd8.js')
-        with self.context as ctxt:
-            ctxt.eval(open(script_filename, 'r').read())
+        #with self.context as ctxt:
+        self.context.eval(open(script_filename, 'r').read())
 
         self.setEnabled(True)
 
