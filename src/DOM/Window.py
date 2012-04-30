@@ -16,6 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import os
 import sched
 import time
 import logging
@@ -697,19 +698,14 @@ class Window(PyV8.JSClass):
         if not hasattr(self, '_context'):
             self._context = PyV8.JSContext(self)
             with self._context as ctxt:
-                ctxt.eval('window.Array   = Array;')
-                ctxt.eval('window.Boolean = Boolean;')
-                ctxt.eval('window.Date    = Date;')
-                ctxt.eval('window.Math    = Math;')
-                ctxt.eval('window.Number  = Number;')
-                ctxt.eval('window.RegExp  = RegExp;')
-                ctxt.eval('window.String  = String;')
+                thug_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thug.js")
+                ctxt.eval(open(thug_js, 'r').read())
 
         return self._context
 
     def evalScript(self, script, tag = None):
         result = 0
-
+        
         if tag:
             self.doc.current = tag
         else:
@@ -809,7 +805,7 @@ class Window(PyV8.JSClass):
             url  = 'about:blank'
             html = ''
             kwds = {}
-        
+       
         dom = BeautifulSoup.BeautifulSoup(html)
         
         for spec in specs.split(','):
