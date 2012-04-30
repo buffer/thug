@@ -612,7 +612,7 @@ CLSID = [
         # MicrosoftXMLHTTP
         {
             'id'        : (),
-            'name'      : ( 'msxml2.xmlhttp', 'microsoft.xmlhttp', 'msxml2.xmlttp'),
+            'name'      : ( 'msxml2.xmlhttp', 'microsoft.xmlhttp', ),
             'attrs'     : {
                             'responseBody'  : '',
                           },
