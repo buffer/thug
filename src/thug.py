@@ -31,7 +31,7 @@ from DOM.Personality import Personality
 from DOM import Window, DFT
 from Logging.ThugLogging import ThugLogging
 
-__thug_version__ = '0.2.8'
+__thug_version__ = '0.2.9'
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
