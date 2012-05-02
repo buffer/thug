@@ -98,7 +98,7 @@ class HTMLDocument(Document):
         self._html.close()
         self._html = None
 
-        self.doc = BeautifulSoup.BeautifulSoup(html)
+        self.doc = BeautifulSoup.BeautifulSoup(html, "html5lib")
 
     def write(self, html):
         if self._html:
@@ -108,7 +108,7 @@ class HTMLDocument(Document):
             parent = tag.parent
             pos    = parent.contents.index(tag) + 1
 
-            for tag in BeautifulSoup.BeautifulSoup(html).contents:
+            for tag in BeautifulSoup.BeautifulSoup(html, "html5lib").contents:
                 parent.insert(pos, tag)
 
                 pos += 1

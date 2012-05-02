@@ -38,7 +38,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
     def innerHTML(self, html):
         # FIXME
         #dom = BeautifulSoup.BeautifulSoup(html)
-        dom = BeautifulSoup.BeautifulSoup(unicode(html))
+        dom = BeautifulSoup.BeautifulSoup(unicode(html), "html5lib")
         # FIXME
         self.tag.contents = []
 
