@@ -61,3 +61,20 @@ class ThugLogging(BaseLogging):
             data = fd.read()
             self.HPFeeds.log_event(data)
             self.MongoDB.log_event(data)
+
+    def log_redirect(self, response):
+        if not response:
+            return
+
+        redirects = list()
+        r         = response
+
+        while r.previous:
+            redirects.append(r.previous)
+            r = r.previous
+
+        while len(redirects):
+            p = redirects.pop()
+            self.add_behavior_warn("HTTP Redirection (Status: %s) Content-Location: %s --> Location: %s" % (p['status'], 
+                                                                                                            p['content-location'], 
+                                                                                                            p['location'], ))

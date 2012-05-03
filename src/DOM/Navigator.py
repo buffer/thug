@@ -247,13 +247,18 @@ class Navigator(PyV8.JSClass):
                 mime_base = os.path.join(mime_base, response['content-type'])
         except socket.timeout:
             log.warning("Timeout reached while fetching %s" % (url, ))
+            log.ThugLogging.log_redirect(response)
             raise
         except socket.error as e:
             log.warning("Socket error [%s]: %s" % (url, e.strerror))
+            log.ThugLogging.log_redirect(response)
             raise
         except httplib2.ServerNotFoundError as e:
             log.warning("ServerNotFoundError: %s" % (e, ))
+            log.ThugLogging.log_redirect(response)
             raise
+
+        log.ThugLogging.log_redirect(response)
 
         if response.status == 404:
             log.warning("FileNotFoundError: %s" % (url, ))
