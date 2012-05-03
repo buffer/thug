@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 from __future__ import with_statement
 
+import bs4 as BeautifulSoup
+
 def text_property(readonly = False):
     def getter(self):
         return str(self.tag.string)
