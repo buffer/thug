@@ -255,6 +255,12 @@ class DFT(object):
     def handle_meta(self, meta):
         log.warning(meta)
 
+        name = meta.get('name', None)
+        if name and name.lower() in ('generator', ):
+            content = meta.get('content', None)
+            if content:
+                log.ThugLogging.add_behavior_warn("[Meta] Generator: %s" % (content, ))
+
         http_equiv = meta.get('http-equiv', None)
         if not http_equiv or http_equiv.lower() != 'refresh':
             return
