@@ -21,6 +21,7 @@ import string
 import struct
 import logging
 import traceback
+import chardet
 import pylibemu
 from Debugger import Debugger
 
@@ -67,6 +68,9 @@ class Shellcode:
             #dbg.debugBreak()
             try:
                 result = self.ctxt.eval(self.script)
+            except UnicodeDecodeError:
+                enc    = chardet.detect(self.script)
+                result = self.ctxt.eval(self.script.decode(enc['encoding']))
             except:
                 log.debug(traceback.format_exc())
                 return result

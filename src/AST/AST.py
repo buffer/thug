@@ -19,6 +19,7 @@
 import logging
 import PyV8
 import json
+import chardet
 
 log = logging.getLogger("Thug")
 
@@ -59,7 +60,12 @@ class AST(object):
 
     def walk(self, script):
         self.block_no = 1
-        PyV8.JSEngine().compile(script).visit(self)
+        
+        try:
+            PyV8.JSEngine().compile(script).visit(self)
+        except UnicodeDecodeError:
+            enc = chardet.detect(script)
+            PyV8.JSEngine().compile(script.decode(enc['encoding'])).visit(self)
 
     def onProgram(self, prog):
         log.debug("[*] Program")
