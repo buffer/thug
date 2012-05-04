@@ -88,6 +88,16 @@ class HTMLDocument(Document):
     def documentElement(self):
         return HTMLElement(self, self.doc.find('html'))
 
+    # FIXME
+    @property
+    def querySelectorAll(self):
+        return None
+
+    # FIXME
+    @property
+    def readyState(self):
+        return "complete"
+
     def open(self, mimetype = 'text/html', replace = False):
         self._html = StringIO()
 
