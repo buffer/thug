@@ -23,9 +23,9 @@ from Attr import Attr
 from EntityReference import EntityReference
 from ProcessingInstruction import ProcessingInstruction
 from Events.DocumentEvent import DocumentEvent
+from Views.DocumentView import DocumentView
 
-
-class Document(Node, DocumentEvent):
+class Document(Node, DocumentEvent, DocumentView):
     def __str__(self):
         return str(self.doc)
 
