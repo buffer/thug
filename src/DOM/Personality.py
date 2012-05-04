@@ -89,6 +89,7 @@ Personality = {
             "appName"         : "Microsoft Internet Explorer",
             "appVersion"      : "5.0 (compatible; MSIE 8.0; Windows NT 5.0; Trident/4.0; InfoPath.1; SV1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 3.0.04506.30)",
             "appMinorVersion" : ";SP2;",
+            "platform"        : "Win32",
             "browserTag"      : "ie80",
             },
 }
