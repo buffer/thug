@@ -114,7 +114,7 @@ class Navigator(PyV8.JSClass):
         """
             A string representing the platform of the browser
         """
-        return "Win32"
+        return self.personality['platform']
 
     @property
     def product(self):

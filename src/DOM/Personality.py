@@ -28,6 +28,7 @@ Personality = {
             "appName"         : "Microsoft Internet Explorer",
             "appVersion"      : "4.0 (Windows;  MSIE 6.0;  Windows NT 5.1;  SV1; .NET CLR 2.0.50727)",
             "appMinorVersion" : ";SP2;",
+            "platform"        : "Win32",
             "browserTag"      : "ie60",
             },
     'xpie61':
@@ -39,6 +40,7 @@ Personality = {
             "appName"         : "Microsoft Internet Explorer",
             "appVersion"      : "4.0 (compatible; MSIE 6.1; Windows XP; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
             "appMinorVersion" : ";SP2;",
+            "platform"        : "Win32",
             "browserTag"      : "ie61",
             },
     'xpie70':
@@ -50,6 +52,7 @@ Personality = {
             "appName"         : "Microsoft Internet Explorer",
             "appVersion"      : "4.0 (Windows; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)",
             "appMinorVersion" : ";SP2;",
+            "platform"        : "Win32",
             "browserTag"      : "ie70",
             },
     'xpie80':
@@ -61,6 +64,7 @@ Personality = {
             "appName"         : "Microsoft Internet Explorer",
             "appVersion"      : "4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; (R1 1.5); .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
             "appMinorVersion" : ";SP2;",
+            "platform"        : "Win32",
             "browserTag"      : "ie80",
             },
     # Windows 2000 personalities
@@ -73,6 +77,7 @@ Personality = {
             "appName"         : "Microsoft Internet Explorer",
             "appVersion"      : "4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
             "appMinorVersion" : ";SP2;",
+            "platform"        : "Win32",
             "browserTag"      : "ie60",
             },
     'w2kie80':
