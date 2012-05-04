@@ -54,16 +54,15 @@ from HTML.HTMLIFrameElement import HTMLIFrameElement
 from HTML.HTMLDocument import HTMLDocument
 
 class DOMImplementation(HTMLDocument):
-    features = ( ('core', '1.0'),
-                 ('core', '2.0'),
-                 ('core', None),
-                 ('html', '1.0'),
-                 ('html', '2.0'), 
-                 ('html', None),)
+    features = ( ('core' , '1.0'),
+                 ('core' , '2.0'),
+                 ('core' , None),
+                 ('html' , '1.0'),
+                 ('html' , '2.0'), 
+                 ('html' , None),
+                 ('views', '2.0'),
+                 ('views', None))
     
-    #def hasFeature(self, feature, version):
-    #    return feature == "HTML" and version == "1.0"
-
     @staticmethod
     def hasFeature(feature, version):
         if version == "":
