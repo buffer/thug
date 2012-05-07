@@ -62,7 +62,7 @@ class HTMLDocument(Document):
 
     @property
     def referrer(self):
-        return self._referer
+        return str(self._referer)
 
     @property
     def lastModified(self):
