@@ -48,3 +48,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
     # WARNING: NOT DEFINED IN W3C SPECS!
     def focus(self):
         pass
+
+    @property
+    def sourceIndex(self):
+        return None
