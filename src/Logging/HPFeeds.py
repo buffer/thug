@@ -83,8 +83,8 @@ class HPFeeds(object):
         return struct.pack('!iB', 5 + len(data), op) + data
 
     def msg_publish(self, chan, data):
-        if isinstance(data, str):
-            data = data.encode('latin1')
+        #if isinstance(data, str):
+        #    data = data.encode('latin1')
 
         return self.msg_hdr(self.OP_PUBLISH, 
                             struct.pack('!B', len(self.opts['ident']))      + 
