@@ -135,7 +135,11 @@ class Node(PyV8.JSClass, EventTarget):
     # Introduced in DOM Level 2
     def hasAttributes(self):
         return False
-    
+   
+    # Introduced in DOM Level 3
+    def compareDocumentPosition(self, node):
+       return None
+
     @abstractmethod
     def cloneNode(self, deep):
         pass
