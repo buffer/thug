@@ -98,7 +98,7 @@ class Location(PyV8.JSClass):
         """Loads a new HTML document."""
         self._window.open(url)
 
-    def reload(self):
+    def reload(self, force = False):
         """Reloads the current page."""
         self._window.open(self._window.url)
 
