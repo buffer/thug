@@ -1,10 +1,9 @@
-from __future__ import with_statement
+#!/usr/bin/env python
 
 import sys, re, string
 
 from DOMException import DOMException
 from Text import Text
-
 
 class CDATASection(Text):
     def __repr__(self):

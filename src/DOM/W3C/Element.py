@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import with_statement
 
 import sys, re, string
 
@@ -220,7 +219,6 @@ class Element(Node):
     
     def getElementsByTagName(self, name):
         from NodeList import NodeList
-
         return NodeList(self.doc, self.tag.find_all(name))
    
     # DOM Level 2 Core [Appendix A]

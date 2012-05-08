@@ -1,10 +1,7 @@
 #!/usr/bin/env python
-from __future__ import with_statement
 
 import sys
 import PyV8
-#from DOMImplementation import DOMImplementation
-
 
 class NodeList(PyV8.JSClass):
     def __init__(self, doc, nodes):
@@ -19,7 +16,6 @@ class NodeList(PyV8.JSClass):
 
     def item(self, index):
         from DOMImplementation import DOMImplementation
-
         return DOMImplementation.createHTMLElement(self.doc, self.nodes[index]) if 0 <= index and index < len(self.nodes) else None
 
     @property

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import with_statement
 
 import sys
 import bs4 as BeautifulSoup
@@ -8,7 +7,6 @@ import PyV8
 from abstractmethod import abstractmethod
 from DOMException import DOMException
 from Events.EventTarget import EventTarget
-
 
 class Node(PyV8.JSClass, EventTarget):
     # NodeType

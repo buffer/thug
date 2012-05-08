@@ -1,12 +1,10 @@
 #!/usr/bin/env python
-from __future__ import with_statement
 
 import sys, re, string
 
 from DOMException import DOMException
 from Node import Node
 from Events import *
-
 
 class DocumentType(Node):
     RE_DOCTYPE = re.compile("^DOCTYPE (\w+)", re.M + re.S)

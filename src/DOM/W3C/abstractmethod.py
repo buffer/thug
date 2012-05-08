@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import with_statement
 
 class abstractmethod(object):
     def __init__(self, func):

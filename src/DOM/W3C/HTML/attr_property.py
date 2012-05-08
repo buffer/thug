@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import with_statement
 
 def attr_property(name, attrtype = str, readonly = False, default = None):
     def getter(self):

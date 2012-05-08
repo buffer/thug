@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import with_statement
 
 class CSSStyleDeclaration(object):
     def __init__(self, style):
