@@ -184,7 +184,7 @@ class DFT(object):
 
     def handle_vbscript(self, script):
         log.info(script)
-        log.ThugLogging.add_code_snippet(script, 'VBScript', 'Contained_Inside')
+        log.ThugLogging.add_code_snippet(str(script), 'VBScript', 'Contained_Inside')
 
         if not vbs_parser:
             log.warning("VBScript parsing not enabled (vb2py is needed)")
