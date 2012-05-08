@@ -6,7 +6,7 @@ import bs4 as BeautifulSoup
 import PyV8
 
 from DOMException import DOMException
-from HTMLCollection import HTMLCollection
+from .HTMLCollection import HTMLCollection
 
 # Introduced in DOM Level 2
 class HTMLOptionsCollection(HTMLCollection):

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-from HTMLElement import HTMLElement
-from attr_property import attr_property
-from text_property import text_property
+from .HTMLElement import HTMLElement
+from .attr_property import attr_property
+from .text_property import text_property
 
 class HTMLOptionElement(HTMLElement):
     def __init__(self, doc, tag):

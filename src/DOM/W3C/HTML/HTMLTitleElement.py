@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from HTMLElement import HTMLElement
-from text_property import text_property
+from .HTMLElement import HTMLElement
+from .text_property import text_property
 
 class HTMLTitleElement(HTMLElement):
     def __init__(self, doc, tag):

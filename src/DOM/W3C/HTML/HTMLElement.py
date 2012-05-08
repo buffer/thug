@@ -11,8 +11,8 @@ except:
 import bs4 as BeautifulSoup
 from Element import Element
 from Style.ElementCSSInlineStyle import ElementCSSInlineStyle
-from attr_property import attr_property
-from text_property import text_property
+from .attr_property import attr_property
+from .text_property import text_property
 
 class HTMLElement(Element, ElementCSSInlineStyle):
     id              = attr_property("id")

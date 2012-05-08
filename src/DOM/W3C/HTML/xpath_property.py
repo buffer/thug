@@ -13,8 +13,8 @@ try:
 except ImportError:
     from StringIO import StringIO
 
-from HTMLCollection import HTMLCollection
-from attr_property import attr_property
+from .HTMLCollection import HTMLCollection
+from .attr_property import attr_property
 
 def xpath_property(xpath, readonly = False):
     RE_INDEXED = re.compile("(\w+)\[([^\]]+)\]")

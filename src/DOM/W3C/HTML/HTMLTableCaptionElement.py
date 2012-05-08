@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from HTMLElement import HTMLElement
-from attr_property import attr_property
+from .HTMLElement import HTMLElement
+from .attr_property import attr_property
 
 class HTMLTableCaptionElement(HTMLElement):
     def __init__(self, doc, tag):
