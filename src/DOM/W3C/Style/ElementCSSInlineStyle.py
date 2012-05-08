@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from CSSStyleDeclaration import CSSStyleDeclaration
+from .CSSStyleDeclaration import CSSStyleDeclaration
 
 class ElementCSSInlineStyle(object):
     def __init__(self, doc, tag):
