@@ -77,7 +77,8 @@ class Element(Node):
     @property
     def childNodes(self):
         from NodeList import NodeList
-        return NodeList(self.doc, self.tag.contents)
+        #return NodeList(self.doc, self.tag.contents))
+        return Node.wrap(self.doc, NodeList(self.doc, self.tag.contents))
         
     @property
     def firstChild(self):
