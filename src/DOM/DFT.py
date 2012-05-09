@@ -118,7 +118,10 @@ class DFT(object):
 
         if hasattr(self.window, 'onload'):
             with self.window.context as ctx:
-                self.window.onload()
+                try:
+                    self.window.onload()
+                except:
+                    pass
                 #self.window.evalScript(self.fix(self.window.onload))
 
     def handle_onclick(self):
