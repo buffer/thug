@@ -27,11 +27,11 @@ import pefile
 import bs4 as BeautifulSoup
 import W3C.w3c as w3c
 
-from Personality import Personality
-from Navigator import Navigator
-from Location import Location
-from Screen import Screen
-from History import History
+from .Personality import Personality
+from .Navigator import Navigator
+from .Location import Location
+from .Screen import Screen
+from .History import History
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
 from Debugger import Shellcode, Global

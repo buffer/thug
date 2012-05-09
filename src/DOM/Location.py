@@ -21,7 +21,7 @@ import Window
 import W3C
 import DFT
 import logging
-from Personality import Personality
+from .Personality import Personality
 from urlparse import urlparse
 
 log = logging.getLogger("Thug")
