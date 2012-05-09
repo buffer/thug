@@ -24,8 +24,8 @@ import urlparse
 import hashlib
 import logging
 import socket
-from Personality import Personality
-from Plugins import Plugins
+from .Personality import Personality
+from .Plugins import Plugins
 
 log = logging.getLogger("Thug")
 

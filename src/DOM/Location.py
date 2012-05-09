@@ -104,5 +104,5 @@ class Location(PyV8.JSClass):
 
     def replace(self, url):
         """Replaces the current document by loading another document at the specified URL."""
-        self._window.open(url)
-
+        #self._window.open(url)
+        self.href = url
