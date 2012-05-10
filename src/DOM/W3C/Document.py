@@ -106,6 +106,10 @@ class Document(Node, DocumentEvent, DocumentView):
             return NodeList(self.doc, s)
 
         return NodeList(self.doc, self.doc.find_all(tagname.lower()))
+    
+    @property
+    def all(self):
+        return self.getElementsByTagName('*')
 
     # Introduced in DOM Level 2
     def getElementById(self, elementId):
