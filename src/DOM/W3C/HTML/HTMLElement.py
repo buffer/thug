@@ -29,7 +29,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
         html = StringIO()
 
         for tag in self.tag.contents:
-            html.write(str(tag).strip())
+            html.write(str(tag))
 
         return html.getvalue()
 
@@ -37,7 +37,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
     def innerHTML(self, html):
         # FIXME
         #dom = BeautifulSoup.BeautifulSoup(html)
-        dom = BeautifulSoup.BeautifulSoup(unicode(html), "html5lib")
+        dom = BeautifulSoup.BeautifulSoup(html, "html5lib")
         # FIXME
         self.tag.contents = []
 
