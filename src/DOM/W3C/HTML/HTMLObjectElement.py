@@ -9,7 +9,7 @@ class HTMLObjectElement(HTMLElement):
         self._window = self.doc.window
     
     def __getattr__(self, name):
-        for (key, value) in self.tag.attrs:
+        for (key, value) in self.tag.attrs.iteritems():
             if key != 'id':
                 continue
         
