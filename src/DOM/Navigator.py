@@ -259,6 +259,9 @@ class Navigator(PyV8.JSClass):
             raise
 
         log.ThugLogging.log_redirect(response)
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (response['content-location'],
+                                                                                         response['status'],
+                                                                                         headers['Referer'] if 'Referer' in headers else 'None'))
 
         if response.status == 404:
             log.warning("FileNotFoundError: %s" % (url, ))
