@@ -24,14 +24,13 @@ import urlparse
 import hashlib
 import logging
 import socket
-from .Personality import Personality
 from .Plugins import Plugins
 
 log = logging.getLogger("Thug")
 
 class Navigator(PyV8.JSClass):
     def __init__(self, personality, window = None):
-        self.personality = Personality[personality]
+        self.personality = log.ThugOpts.Personality[personality]
         self.plugins     = Plugins  # An array of the plugins installed in the browser
         self._window     = window
       

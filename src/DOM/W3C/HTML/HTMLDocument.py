@@ -5,6 +5,8 @@ import re
 import string
 import logging
 
+log = logging.getLogger("Thug")
+
 from urlparse import urlparse
 
 try:
@@ -46,7 +48,8 @@ class HTMLDocument(Document):
             return self.__dict__[name]
         
         # Internet Explorer is not compliant with ECMAScript 5 spec 8.6.2
-        if self._win._personality.startswith(('xpie', 'w2kie')):
+        #if self._win._personality.startswith(('xpie', 'w2kie')):
+        if log.ThugOpts.Personality.isIE(): 
             raise TypeError()
 
         return None

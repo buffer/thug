@@ -43,6 +43,9 @@ class ThugOpts(dict):
     def __init__(self):
         self._proxy_info = None
         self.local       = False
+        self._useragent  = 'xpie61'
+        self._referer    = 'about:blank'
+        self.Personality = Personality()
 
     def set_proxy_info(self, proxy):
         p = urlparse.urlparse(proxy)
@@ -62,12 +65,26 @@ class ThugOpts(dict):
 
     proxy_info = property(get_proxy_info, set_proxy_info)
 
+    def get_useragent(self):
+        return self._useragent
+
+    def set_useragent(self, useragent):
+        self._useragent = useragent
+
+    useragent = property(get_useragent, set_useragent)
+
+    def get_referer(self):
+        return self._referer
+
+    def set_referer(self, referer):
+        self._referer = referer
+
+    referer = property(get_referer, set_referer)
+
 
 class Thug:
     def __init__(self, args):
         self.args      = args
-        self.useragent = 'xpie61'
-        self.referer   = 'about:blank'
         log.ThugLogging = ThugLogging(__thug_version__)
         log.ThugOpts    = ThugOpts()
 
@@ -97,7 +114,7 @@ Synopsis:
 
     Available User-Agents:
 """
-        for key, value in sorted(Personality.iteritems(), key = lambda (k, v): (v['id'], k)):
+        for key, value in sorted(log.ThugOpts.Personality.iteritems(), key = lambda (k, v): (v['id'], k)):
             msg += "\t%s\t\t\t%s\n" % (key, value['description'], )
 
         print msg
@@ -113,7 +130,7 @@ Synopsis:
 
         html   = open(url, 'r').read()
         doc    = w3c.parseString(html)
-        window = Window.Window('about:blank', doc, personality = self.useragent)
+        window = Window.Window('about:blank', doc, personality = log.ThugOpts.useragent)
         window.open()
         self.run(window)
 
@@ -124,7 +141,7 @@ Synopsis:
         log.ThugLogging.set_url(url)
 
         doc    = w3c.parseString('')
-        window = Window.Window(self.referer, doc, personality = self.useragent)
+        window = Window.Window(log.ThugOpts.referer, doc, personality = log.ThugOpts.useragent)
         window = window.open(url)
         if window:
             self.run(window)
@@ -180,12 +197,12 @@ Synopsis:
 
         for option in options:
             if option[0] == '-u' or option[0] == '--useragent':
-                self.useragent = option[1]
+                log.ThugOpts.useragent = option[1]
             if option[0] == '-o' or option[0] == '--output':
                 fh = logging.FileHandler(os.path.join(log.baseDir, option[1]))
                 log.addHandler(fh)
             if option[0] == '-r' or option[0] == '--referer':
-                self.referer = option[1]
+                log.ThugOpts.referer = option[1]
             if option[0] == '-p' or option[0] == '--proxy':
                 log.ThugOpts.proxy_info = option[1]
             if option[0] == '-l' or option[0] == '--local':
@@ -194,8 +211,6 @@ Synopsis:
                 log.setLevel(logging.INFO)
             if option[0] == '-d' or option[0] == '--debug':
                 log.setLevel(logging.DEBUG)
-
-        log.userAgent = Personality[self.useragent]['userAgent']
 
         if p:
             p(args[0])

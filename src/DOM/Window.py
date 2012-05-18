@@ -27,7 +27,6 @@ import pefile
 import bs4 as BeautifulSoup
 import W3C.w3c as w3c
 
-from .Personality import Personality
 from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
@@ -680,13 +679,15 @@ class Window(PyV8.JSClass):
         pass
 
     def __init_personality(self):
-        if self._personality.startswith(('xpie', 'w2kie')):
+        #if self._personality.startswith(('xpie', 'w2kie')):
+        if log.ThugOpts.Personality.isIE():
             self.attachEvent    = self._attachEvent
             self.detachEvent    = self._detachEvent
             self.Run            = self._Run
             self.CollectGarbage = self._CollectGarbage
 
-        if self._personality.startswith('firefox'):
+        #if self._personality.startswith('firefox'):
+        if log.ThugOpts.Personality.isFirefox():
             self.addEventListener    = self._addEventListener
             self.removeEventListener = self._removeEventListener
 
@@ -705,7 +706,7 @@ class Window(PyV8.JSClass):
 
     def evalScript(self, script, tag = None):
         result = 0
-        
+
         if tag:
             self.doc.current = tag
         else:
@@ -727,7 +728,8 @@ class Window(PyV8.JSClass):
                 log.debug(traceback.format_exc())
                 return result
 
-            if self._personality.startswith(('xpie', 'w2kie')):
+            #if self._personality.startswith(('xpie', 'w2kie')):
+            if log.ThugOpts.Personality.isIE():
                 script = script.replace('@cc_on!@', '*/!/*')
 
             shellcode = Shellcode.Shellcode(ctxt, ast, script)

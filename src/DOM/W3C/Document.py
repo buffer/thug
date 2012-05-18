@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
-import sys, re, string
+import sys
+import re
+import string
+import logging
+
+log = logging.getLogger("Thug")
 
 try:
     from cStringIO import StringIO
@@ -101,7 +106,8 @@ class Document(Node, DocumentEvent, DocumentView):
         return EntityReference(self, name)
     
     def getElementsByTagName(self, tagname):
-        if self.window._personality.startswith(('xpie', 'w2kie')) and tagname in ('*', ):
+        #if self.window._personality.startswith(('xpie', 'w2kie')) and tagname in ('*', ):
+        if log.ThugOpts.Personality.isIE() and tagname in ('*', ):
             s = [p for p in self.doc.find_all(text = False)]
             return NodeList(self.doc, s)
 

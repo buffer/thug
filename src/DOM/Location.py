@@ -21,7 +21,6 @@ import Window
 import W3C
 import DFT
 import logging
-from .Personality import Personality
 from urlparse import urlparse
 
 log = logging.getLogger("Thug")
@@ -52,8 +51,8 @@ class Location(PyV8.JSClass):
 
         #self._window.url = url
 
-        for p in Personality:
-            if Personality[p]['userAgent'] == self._window._navigator.userAgent:
+        for p in log.ThugOpts.Personality:
+            if log.ThugOpts.Personality[p]['userAgent'] == self._window._navigator.userAgent:
                 break
 
         doc    = W3C.w3c.parseString('')
