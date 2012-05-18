@@ -156,6 +156,18 @@ Synopsis:
 	w2kie80			Internet Explorer 8.0 (Windows 2000)
 
 
+	
+HPFeeds 
+=======
+	
+HPFeeds is the Honeynet Project central logging feature and it is enabled by default
+in Thug. If you don't want to report your events and samples, you can turn off HPFeeds 
+by modifying the configuration file src/Logging/logging.conf.
+
+If you are interested in the data collected by Thug instances, please contact me at 
+<angelo.dellaera@honeynet.org>
+
+
 License information
 ===================
 
