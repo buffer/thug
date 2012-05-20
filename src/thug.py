@@ -30,6 +30,7 @@ from DOM.W3C import w3c
 from DOM.Personality import Personality
 from DOM import Window, DFT
 from Logging.ThugLogging import ThugLogging
+from Plugins.ThugPlugins import *
 
 __thug_version__ = '0.2.12'
 
@@ -213,8 +214,10 @@ Synopsis:
                 log.setLevel(logging.DEBUG)
 
         if p:
+            ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
             p(args[0])
-
+            ThugPlugins(POST_ANALYSIS_PLUGINS, self)()
+        
         log.ThugLogging.log_event()
         return log
 
