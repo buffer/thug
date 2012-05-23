@@ -119,10 +119,39 @@ class Document(Node, DocumentEvent, DocumentView):
 
     # Introduced in DOM Level 2
     def getElementById(self, elementId):
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '8.0':
+            return self._getElementById_IE67(elementId)
+
+        return self._getElementById(elementId)
+
+    def _getElementById(self, elementId):
         from DOMImplementation import DOMImplementation
 
         tag = self.doc.find(id = elementId)
         return DOMImplementation.createHTMLElement(self, tag) if tag else None
+
+    # Internet Explorer 6 and 7 getElementById is broken and returns 
+    # elements with 'id' or 'name' attributes equal to elementId
+    def _getElementById_IE67(self, elementId):
+        from DOMImplementation import DOMImplementation
+
+        def _match_tag(tag, p):
+            return p in tag.attrs and tag.attrs[p] == elementId
+
+        def match_tag(tag):
+            if _match_tag(tag, 'id') or _match_tag(tag, 'name'):
+                return True
+
+            return False
+
+        def filter_tags_id_name(tag):
+            return tag.has_key('id') or tag.has_key('name')
+
+        for tag in self.doc.find_all(filter_tags_id_name):
+            if match_tag(tag):
+                return DOMImplementation.createHTMLElement(self, tag)
+
+        return None
 
     # Introduced in DOM Level 2
     def importNode(self, importedNode, deep):
