@@ -3,10 +3,14 @@
 import sys
 import bs4 as BeautifulSoup
 import PyV8
+import logging
 
 from abstractmethod import abstractmethod
 from DOMException import DOMException
 from Events.EventTarget import EventTarget
+
+log = logging.getLogger("Thug")
+
 
 class Node(PyV8.JSClass, EventTarget):
     # NodeType
@@ -25,6 +29,12 @@ class Node(PyV8.JSClass, EventTarget):
     
     def __init__(self, doc):
         self.doc = doc
+
+        # Internet Explorer < 9 does not implement compareDocumentPosition
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+            return
+
+        self.compareDocumentPosition = self._compareDocumentPosition
 
     def __repr__(self):
         return "<Node %s at 0x%08X>" % (self.nodeName, id(self))
@@ -135,7 +145,7 @@ class Node(PyV8.JSClass, EventTarget):
         return False
    
     # Introduced in DOM Level 3
-    def compareDocumentPosition(self, node):
+    def _compareDocumentPosition(self, node):
        return None
 
     @abstractmethod
