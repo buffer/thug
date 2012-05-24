@@ -1,0 +1,14 @@
+<html>
+<body>
+<div id="thediv"><a href="/foo.html" name="thelink">test</a></div>
+<div id="thediv2"><a href="/bar.html" id="thelink">test</a></div>
+<script>
+
+var oLink = document.getElementById('thelink');
+alert(oLink);
+alert(oLink.parentNode.nodeName);
+alert(oLink.parentNode.getAttribute('id'));
+
+</script>
+</body>
+</html>
