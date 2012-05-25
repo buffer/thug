@@ -76,6 +76,12 @@ class Document(Node, DocumentEvent, DocumentView):
     def createElement(self, tagname):
         from DOMImplementation import DOMImplementation
 
+        # Internet Explorer 8 and below also support the syntax
+        # document.createElement('<P>')
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+            if tagname.startswith('<') and '>' in tagname:
+                tagname = tagname[1:].split('>')[0]
+
         element = DOMImplementation.createHTMLElement(self, BeautifulSoup.Tag(parser = self.doc, name = tagname))
         if self.onCreateElement:
             self.onCreateElement(element)
