@@ -13,6 +13,7 @@ def Close(self):
 
 def BuildPath(self, arg0, arg1):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] BuildPath("%s", "%s")' % (arg0, arg1, ))
+    return "%s\%s" % (arg0, arg1)
 
 def GetSpecialFolder(self, arg):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetSpecialFolder(%s)' % (arg, ))
