@@ -120,7 +120,9 @@ class HTMLDocument(Document):
             parent = tag.parent
             pos    = parent.contents.index(tag) + 1
 
-            for tag in BeautifulSoup.BeautifulSoup(html, "html5lib").contents:
+            soup   = BeautifulSoup.BeautifulSoup(html, "html5lib")
+            #for tag in BeautifulSoup.BeautifulSoup(html, "html5lib").contents:
+            for tag in soup.body.children:
                 parent.insert(pos, tag)
 
                 pos += 1
