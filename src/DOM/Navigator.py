@@ -26,6 +26,9 @@ import logging
 import socket
 from .Plugins import Plugins
 
+class AboutBlank(httplib2.HttpLib2Error): 
+    pass
+
 log = logging.getLogger("Thug")
 
 class Navigator(PyV8.JSClass):
@@ -207,7 +210,8 @@ class Navigator(PyV8.JSClass):
         content  = ''
 
         if url == 'about:blank':
-            return response, content
+            #return response, content
+            raise AboutBlank
 
         h = httplib2.Http('/tmp/thug-cache-%s' % (os.getuid(), ),
                           proxy_info = log.ThugOpts.proxy_info,
