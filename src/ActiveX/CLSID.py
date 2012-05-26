@@ -136,6 +136,7 @@ CLSID = [
                             'Open'          : AdodbStream.open,
                             'Write'         : AdodbStream.Write,
                             'SaveToFile'    : AdodbStream.SaveToFile,
+                            'SaveTofile'    : AdodbStream.SaveToFile,
                             'Close'         : AdodbStream.Close,
                           }   
         },  
