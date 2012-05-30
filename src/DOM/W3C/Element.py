@@ -186,7 +186,7 @@ class Element(Node):
     def setAttribute(self, name, value):
         self.tag[name] = value
 
-        if name in ('src', 'code'):
+        if name in ('src', 'archive'):
             s = urlparse.urlsplit(value)
 
             if s.scheme == 'hcp':
