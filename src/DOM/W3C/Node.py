@@ -29,6 +29,7 @@ class Node(PyV8.JSClass, EventTarget):
     
     def __init__(self, doc):
         self.doc = doc
+        EventTarget.__init__(self)
 
         # Internet Explorer < 9 does not implement compareDocumentPosition
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
