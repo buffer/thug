@@ -158,10 +158,6 @@ class DFT(object):
         except:
             log.info(script)
 
-        #if isinstance(script, BeautifulSoap.Tag):
-        #   js = ' '.join(script.contents)
-        #else:
-        #    js = script.text
         js = getattr(script, 'text', None)
         relationship = 'Contained_Inside'
 

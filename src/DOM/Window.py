@@ -679,14 +679,12 @@ class Window(PyV8.JSClass):
         pass
 
     def __init_personality(self):
-        #if self._personality.startswith(('xpie', 'w2kie')):
         if log.ThugOpts.Personality.isIE():
             self.attachEvent    = self._attachEvent
             self.detachEvent    = self._detachEvent
             self.Run            = self._Run
             self.CollectGarbage = self._CollectGarbage
 
-        #if self._personality.startswith('firefox'):
         if log.ThugOpts.Personality.isFirefox():
             self.addEventListener    = self._addEventListener
             self.removeEventListener = self._removeEventListener
@@ -728,7 +726,6 @@ class Window(PyV8.JSClass):
                 log.debug(traceback.format_exc())
                 return result
 
-            #if self._personality.startswith(('xpie', 'w2kie')):
             if log.ThugOpts.Personality.isIE():
                 script = script.replace('@cc_on!@', '*/!/*')
 

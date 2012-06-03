@@ -112,7 +112,6 @@ class Document(Node, DocumentEvent, DocumentView):
         return EntityReference(self, name)
     
     def getElementsByTagName(self, tagname):
-        #if self.window._personality.startswith(('xpie', 'w2kie')) and tagname in ('*', ):
         if log.ThugOpts.Personality.isIE() and tagname in ('*', ):
             s = [p for p in self.doc.find_all(text = False)]
             return NodeList(self.doc, s)
