@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <!-- This is a comment -->
+        <title>this is a test</title>
+        <script type="text/javascript"> 
+        var s = document.getElementById("hello");
+        s.attachEvent('onload', add);
+	s.detachEvent('onload', add);
+
+        //<![CDATA[
+        function add()
+        {
+            alert("add");
+	    alert(s);
+        }
+        function remove()
+        {
+            alert("remove");
+	    alert(s);
+        }
+        //]]>
+        </script>         
+    </head>
+    <body>
+        <p id="hello">Hello World!</p>
+        <form name="first"></form>
+        <form name="second"></form>
+        <a href="#">link</a>
+        <a name="#">anchor</a>
+    </body>
+</html>
+
