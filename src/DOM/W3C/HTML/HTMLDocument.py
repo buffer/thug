@@ -23,6 +23,7 @@ from .HTMLElement import HTMLElement
 from .text_property import text_property
 from .xpath_property import xpath_property
 
+
 class HTMLDocument(Document):
     title       = xpath_property("/html/head/title/text()")
     body        = xpath_property("/html/body[1]")
@@ -42,16 +43,6 @@ class HTMLDocument(Document):
         self._cookie        = cookie
         self._html          = None
         self.current        = None
-
-    def __getattr__(self, name):
-        if name in self.__dict__:
-            return self.__dict__[name]
-        
-        # Internet Explorer is not compliant with ECMAScript 5 spec 8.6.2
-        if log.ThugOpts.Personality.isIE(): 
-            raise TypeError()
-
-        return None
 
     def getWindow(self):
         return self._win
