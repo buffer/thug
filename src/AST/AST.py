@@ -51,6 +51,7 @@ class AST(object):
 
         self.walk(script)
         self.debug(self.breakpoints)
+        self.debug(self.names)
 
     def debug(self, msg):
         if log.ThugOpts.ast_debug:
@@ -72,14 +73,14 @@ class AST(object):
             PyV8.JSEngine().compile(script.decode(enc['encoding'])).visit(self)
 
     def onProgram(self, prog):
-        self.debug("[*] Program")
-        self.debug("\tProgram startPos:   %d" % (prog.startPos, ))
-        self.debug("\tProgram endPos:     %d" % (prog.endPos, ))
-       
         self.json = prog.toJSON()
         self.ast  = prog.toAST()
 
         self.debug(self.json)
+
+        self.debug("[*] Program")
+        self.debug("\tProgram startPos:   %d" % (prog.startPos, ))
+        self.debug("\tProgram endPos:     %d" % (prog.endPos, ))
 
         for decl in prog.scope.declarations:
             decl.visit(self)
@@ -94,14 +95,14 @@ class AST(object):
         self.inBlock = False
 
     def onBlock(self, block):
-        self.debug("[***] Entering Block #%d [***]" % (self.block_no, ))
+        self.debug("[*] Entering Block #%d" % (self.block_no, ))
         
         self._enterBlock()
         for stmt in block.statements:
             stmt.visit(self)
         
         self._exitBlock()
-        self.debug("[***] Exiting Block  #%d [***]" % (self.block_no, ))
+        self.debug("[*] Exiting Block  #%d" % (self.block_no, ))
         self.block_no += 1
 
     def onExpressionStatement(self, stmt):
@@ -126,15 +127,22 @@ class AST(object):
             self.breakpoints.add((self.AssignBreakPoint, pos))
             self.assignStatement = False
 
-    def onDeclaration(self, decl):
+    def onVariableDeclaration(self, decl):
         var = decl.proxy
-        self.debug("[*] Declaration Statement")
-        self.debug("\tDeclaration:        %s" % (var.name, ))
-
-        if decl.mode == PyV8.AST.VarMode.var and not decl.function:
+        self.debug("[*] Variable Declaration Statement")
+        self.debug("\tVariable name:        %s" % (var.name, ))
+        
+        if decl.mode == PyV8.AST.VarMode.var:
             self.names.add(var.name)
-        if decl.function:
-            decl.function.visit(self)
+
+    def onFunctionDeclaration(self, decl):
+        f = decl.proxy
+        self.debug("[*] Function Declaration Statement")
+        self.debug("\tFunction name:      %s" % (f.name, ))
+
+        for decl in decl.scope.declarations:
+            for stmt in decl.function.body:
+                stmt.visit(self)
 
     def onAssignment(self, expr):
         self.debug("[*] Assignment Statement")
@@ -147,7 +155,7 @@ class AST(object):
             if expr.op in self.AssignOps:
                 self.assignStatement = True
             
-        self.names.add(str(expr.target))
+        self.names.add(expr.target.name)
         expr.target.visit(self)
         expr.value.visit(self)
 
@@ -226,15 +234,15 @@ class AST(object):
         self.debug("[*] Call")
         self.debug("\tCall position:  %s" % (expr.pos, ))
         self.debug("\tCall expr:      %s" % (expr.expression, ))
-   
+        self.debug("\tCall arguments")
+        for arg in expr.args:
+            arg.visit(self)
+
         handle = getattr(self, "handle_%s" % (expr.expression, ), None)
         if handle:
             handle(expr.args)
 
         expr.expression.visit(self)
-
-        for arg in expr.args:
-            arg.visit(self)
 
     def onCallNew(self, expr):
         self.debug("[*] CallNew")
@@ -250,7 +258,8 @@ class AST(object):
 
     def onCallRuntime(self, expr):
         self.debug("[*] CallRuntime")
-
+        self.debug("\tCall name:          %s" % (expr.name, ))
+        
         for arg in expr.args:
             arg.visit(self)
 
@@ -264,7 +273,7 @@ class AST(object):
             e.visit(self)
 
     def onLiteral(self, litr):
-        self.debug("Literal:            %s" % (litr, ))
+        self.debug("\tLiteral:            %s" % (litr, ))
 
     def onReturnStatement(self, stmt):
         self.debug("[*] Return Statement")
