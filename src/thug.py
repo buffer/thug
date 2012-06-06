@@ -44,6 +44,7 @@ class ThugOpts(dict):
     def __init__(self):
         self._proxy_info = None
         self.local       = False
+        self.ast_debug   = False
         self._useragent  = 'xpie61'
         self._referer    = 'about:blank'
         self.Personality = Personality()
@@ -108,6 +109,7 @@ Synopsis:
         -l, --local         
         -v, --verbose       \tEnable verbose mode    
         -d, --debug         \tEnable debug mode
+        -a, --ast-debug     \tEnable AST debug mode (requires debug mode) 
         -u, --useragent=    \tSelect a user agent (see below for values, default: xpie61)
 
     Proxy Format:
@@ -175,7 +177,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hu:o:r:p:lvd',
+            options, args = getopt.getopt(self.args, 'hu:o:r:p:lvda',
                 ['help', 
                 'useragent=', 
                 'logfile=',
@@ -183,6 +185,7 @@ Synopsis:
                 'proxy=',
                 'verbose',
                 'debug', 
+                'ast-debug',
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -197,21 +200,23 @@ Synopsis:
         self.build_logbasedir(args[0])
 
         for option in options:
-            if option[0] == '-u' or option[0] == '--useragent':
+            if option[0] in ('-u', '--useragent', ):
                 log.ThugOpts.useragent = option[1]
-            if option[0] == '-o' or option[0] == '--output':
+            if option[0] in ('-o', '--output', ):
                 fh = logging.FileHandler(os.path.join(log.baseDir, option[1]))
                 log.addHandler(fh)
-            if option[0] == '-r' or option[0] == '--referer':
+            if option[0] in ('-r', '--referer', ):
                 log.ThugOpts.referer = option[1]
-            if option[0] == '-p' or option[0] == '--proxy':
+            if option[0] in ('-p', '--proxy', ):
                 log.ThugOpts.proxy_info = option[1]
-            if option[0] == '-l' or option[0] == '--local':
+            if option[0] in ('-l', '--local', ):
                 p = getattr(self, 'run_local')
-            if option[0] == '-v' or option[0] == '--verbose':
+            if option[0] in ('-v', '--verbose', ):
                 log.setLevel(logging.INFO)
-            if option[0] == '-d' or option[0] == '--debug':
+            if option[0] in ('-d', '--debug', ):
                 log.setLevel(logging.DEBUG)
+            if option[0] in ('-a', '--ast-debug', ):
+                log.ThugOpts.ast_debug = True
 
         if p:
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
