@@ -50,7 +50,7 @@ class _ActiveXObject:
             #return None
             raise TypeError()
 
-        log.debug("ActiveXObject: %s" % (cls, ))
+        log.warning("ActiveXObject: %s" % (cls, ))
 
         for method_name, method in c['methods'].items():
             _method = new.instancemethod(method, self, _ActiveXObject)
