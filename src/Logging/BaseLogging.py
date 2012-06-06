@@ -35,7 +35,8 @@ class BaseLogging(object):
     def __init__(self):
         self.types = ('PE', 
                       'PDF',
-                      'JAR', )
+                      'JAR',
+                      'SWF', )
 
     def is_pe(self, data):
         try:
@@ -57,6 +58,9 @@ class BaseLogging(object):
             pass
 
         return False
+
+    def is_swf(self, data):
+        return data.startswith('CWS') or data.startswith('FWS')
 
     def get_sample_type(self, data):
         for t in self.types:
