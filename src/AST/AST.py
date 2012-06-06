@@ -141,6 +141,9 @@ class AST(object):
         self.debug("\tFunction name:      %s" % (f.name, ))
 
         for decl in decl.scope.declarations:
+            if not getattr(decl, 'function', None):
+                continue
+
             for stmt in decl.function.body:
                 stmt.visit(self)
 
@@ -155,7 +158,7 @@ class AST(object):
             if expr.op in self.AssignOps:
                 self.assignStatement = True
             
-        self.names.add(expr.target.name)
+        self.names.add(str(expr.target))
         expr.target.visit(self)
         expr.value.visit(self)
 
