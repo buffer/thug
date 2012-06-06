@@ -1,8 +1,7 @@
-#!/usr/bin/env python
-
 import sys
 import getopt
 import re
+import string
 
 #
 # Originally written by Einar Lielmanis et al.,
@@ -35,11 +34,14 @@ class BeautifierOptions:
     def __init__(self):
         self.indent_size = 4
         self.indent_char = ' '
+        self.indent_with_tabs = False
         self.preserve_newlines = True
         self.max_preserve_newlines = 10.
         self.jslint_happy = False
         self.brace_style = 'collapse'
         self.keep_array_indentation = False
+        self.keep_function_indentation = False
+        self.eval_code = False
 
 
 
@@ -50,15 +52,19 @@ indent_char = [%s]
 preserve_newlines = %s
 max_preserve_newlines = %d
 jslint_happy = %s
+indent_with_tabs = %s
 brace_style = %s
 keep_array_indentation = %s
+eval_code = %s
 """ % ( self.indent_size,
         self.indent_char,
         self.preserve_newlines,
         self.max_preserve_newlines,
         self.jslint_happy,
+        self.indent_with_tabs,
         self.brace_style,
-        self.keep_array_indentation
+        self.keep_array_indentation,
+        self.eval_code,
         )
 
 
@@ -72,6 +78,7 @@ class BeautifierFlags:
         self.in_html_comment = False
         self.if_line = False
         self.in_case = False
+        self.in_case_statement = False
         self.eat_next_space = False
         self.indentation_baseline = -1
         self.indentation_level = 0
@@ -86,13 +93,15 @@ def beautify(string, opts = default_options() ):
     b = Beautifier()
     return b.beautify(string, opts)
 
-
 def beautify_file(file_name, opts = default_options() ):
 
     if file_name == '-': # stdin
         f = sys.stdin
     else:
-        f = open(file_name)
+        try:
+            f = open(file_name)
+        except Exception as ex:
+            return 'The file could not be opened'
 
     b = Beautifier()
     return b.beautify(''.join(f.readlines()), opts)
@@ -115,19 +124,25 @@ Output options:
 
  -s,  --indent-size=NUMBER         indentation size. (default 4).
  -c,  --indent-char=CHAR           character to indent with. (default space).
+ -t,  --indent-with-tabs           Indent with tabs, overrides -s and -c
  -d,  --disable-preserve-newlines  do not preserve existing line breaks.
  -j,  --jslint-happy               more jslint-compatible output
  -b,  --brace-style=collapse       brace style (collapse, expand, end-expand)
  -k,  --keep-array-indentation     keep array indentation.
  -o,  --outfile=FILE               specify a file to output to (default stdout)
+ -f,  --keep-function-indentation  Do not re-indent function bodies defined in var lines.
 
 Rarely needed options:
+
+ --eval-code                       evaluate code if a JS interpreter is
+                                   installed. May be useful with some obfuscated
+                                   script but poses a potential security issue.
 
  -l,  --indent-level=NUMBER        initial indentation level. (default 0).
 
  -h,  --help, --usage              prints this help statement.
 
-""");
+""")
 
 
 
@@ -150,8 +165,11 @@ class Beautifier:
         self.just_added_newline = False
         self.do_block_just_closed = False
 
+        if self.opts.indent_with_tabs:
+            self.indent_string = "\t"
+        else:
+            self.indent_string = self.opts.indent_char * self.opts.indent_size
 
-        self.indent_string = self.opts.indent_char * self.opts.indent_size
         self.preindent_string = ''
         self.last_word = ''              # last TK_WORD seen
         self.last_type = 'TK_START_EXPR' # last token type
@@ -164,7 +182,9 @@ class Beautifier:
         self.whitespace = ["\n", "\r", "\t", " "]
         self.wordchar = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_$'
         self.digits = '0123456789'
-        self.punct = '+ - * / % & ++ -- = += -= *= /= %= == === != !== > < >= <= >> << >>> >>>= >>= <<= && &= | || ! !! , : ? ^ ^= |= ::'.split(' ');
+        self.punct = '+ - * / % & ++ -- = += -= *= /= %= == === != !== > < >= <= >> << >>> >>>= >>= <<= && &= | || ! !! , : ? ^ ^= |= ::'
+        self.punct += ' <?= <? ?> <%= <% %>'
+        self.punct = self.punct.split(' ')
 
 
         # Words which always should start on a new line
@@ -190,7 +210,7 @@ class Beautifier:
             self.preindent_string += s[0]
             s = s[1:]
 
-        self.input = s
+        self.input = self.unpack(s, opts.eval_code)
 
         parser_pos = 0
         while True:
@@ -224,7 +244,13 @@ class Beautifier:
         sweet_code = self.preindent_string + re.sub('[\n ]+$', '', ''.join(self.output))
         return sweet_code
 
-
+    def unpack(self, source, evalcode=False):
+        import jsbeautifier.unpackers as unpackers
+        try:
+            return unpackers.run(source, evalcode)
+        except unpackers.UnpackingError as error:
+            print('error:', error)
+            return ''
 
     def trim_output(self, eat_newlines = False):
         while len(self.output) \
@@ -235,13 +261,15 @@ class Beautifier:
                   or (eat_newlines and self.output[-1] in ['\n', '\r'])):
             self.output.pop()
 
+    def is_special_word(self, s):
+        return s in ['case', 'return', 'do', 'if', 'throw', 'else'];
 
     def is_array(self, mode):
         return mode in ['[EXPRESSION]', '[INDENDED-EXPRESSION]']
 
 
     def is_expression(self, mode):
-        return mode in ['[EXPRESSION]', '[INDENDED-EXPRESSION]', '(EXPRESSION)']
+        return mode in ['[EXPRESSION]', '[INDENDED-EXPRESSION]', '(EXPRESSION)', '(FOR-EXPRESSION)', '(COND-EXPRESSION)']
 
 
     def append_newline_forced(self):
@@ -252,13 +280,13 @@ class Beautifier:
 
     def append_newline(self, ignore_repeated = True):
 
-        self.flags.eat_next_space = False;
+        self.flags.eat_next_space = False
 
         if self.opts.keep_array_indentation and self.is_array(self.flags.mode):
             return
 
-        self.flags.if_line = False;
-        self.trim_output();
+        self.flags.if_line = False
+        self.trim_output()
 
         if len(self.output) == 0:
             # no newline on start of file
@@ -280,6 +308,10 @@ class Beautifier:
 
     def append(self, s):
         if s == ' ':
+            # do not add just a single space after the // comment, ever
+            if self.last_type == 'TK_COMMENT':
+                return self.append_newline()
+
             # make sure only single space gets drawn
             if self.flags.eat_next_space:
                 self.flags.eat_next_space = False
@@ -322,7 +354,9 @@ class Beautifier:
     def restore_mode(self):
         self.do_block_just_closed = self.flags.mode == 'DO_BLOCK'
         if len(self.flag_store) > 0:
+            mode = self.flags.mode
             self.flags = self.flag_store.pop()
+            self.flags.previous_mode = mode
 
 
     def get_next_token(self):
@@ -334,7 +368,7 @@ class Beautifier:
         if parser_pos >= len(self.input):
             return '', 'TK_EOF'
 
-        self.wanted_newline = False;
+        self.wanted_newline = False
         c = self.input[parser_pos]
         parser_pos += 1
 
@@ -485,15 +519,16 @@ class Beautifier:
 
 
         if c == "'" or c == '"' or \
-           (c == '/' and ((self.last_type == 'TK_WORD' and self.last_text in ['return', 'do']) or \
+           (c == '/' and ((self.last_type == 'TK_WORD' and self.is_special_word(self.last_text)) or \
+                          (self.last_type == 'TK_END_EXPR' and self.flags.previous_mode in ['(FOR-EXPRESSION)', '(COND-EXPRESSION)']) or \
                           (self.last_type in ['TK_COMMENT', 'TK_START_EXPR', 'TK_START_BLOCK', 'TK_END_BLOCK', 'TK_OPERATOR',
                                               'TK_EQUALS', 'TK_EOF', 'TK_SEMICOLON']))):
-             sep = c
-             esc = False
-             resulting_string = c
-             in_char_class = False
+            sep = c
+            esc = False
+            resulting_string = c
+            in_char_class = False
 
-             if parser_pos < len(self.input):
+            if parser_pos < len(self.input):
                 if sep == '/':
                     # handle regexp
                     in_char_class = False
@@ -527,14 +562,14 @@ class Beautifier:
                             return resulting_string, 'TK_STRING'
 
 
-             parser_pos += 1
-             resulting_string += sep
-             if sep == '/':
-                 # regexps may have modifiers /regexp/MOD, so fetch those too
-                 while parser_pos < len(self.input) and self.input[parser_pos] in self.wordchar:
-                     resulting_string += self.input[parser_pos]
-                     parser_pos += 1
-             return resulting_string, 'TK_STRING'
+            parser_pos += 1
+            resulting_string += sep
+            if sep == '/':
+                # regexps may have modifiers /regexp/MOD, so fetch those too
+                while parser_pos < len(self.input) and self.input[parser_pos] in self.wordchar:
+                    resulting_string += self.input[parser_pos]
+                    parser_pos += 1
+            return resulting_string, 'TK_STRING'
 
         if c == '#':
 
@@ -573,8 +608,12 @@ class Beautifier:
 
         if c == '<' and self.input[parser_pos - 1 : parser_pos + 3] == '<!--':
             parser_pos += 3
+            c = '<!--'
+            while parser_pos < len(self.input) and self.input[parser_pos] != '\n':
+                c += self.input[parser_pos]
+                parser_pos += 1
             self.flags.in_html_comment = True
-            return '<!--', 'TK_COMMENT'
+            return c, 'TK_COMMENT'
 
         if c == '-' and self.flags.in_html_comment and self.input[parser_pos - 1 : parser_pos + 2] == '-->':
             self.flags.in_html_comment = False
@@ -630,14 +669,20 @@ class Beautifier:
             else:
                 self.set_mode('[EXPRESSION]')
         else:
-            self.set_mode('(EXPRESSION)')
+            if self.last_text == 'for':
+                self.set_mode('(FOR-EXPRESSION)')
+            elif self.last_text in ['if', 'while']:
+                self.set_mode('(COND-EXPRESSION)')
+            else:
+                self.set_mode('(EXPRESSION)')
 
 
         if self.last_text == ';' or self.last_type == 'TK_START_BLOCK':
             self.append_newline()
         elif self.last_type in ['TK_END_EXPR', 'TK_START_EXPR', 'TK_END_BLOCK'] or self.last_text == '.':
             # do nothing on (( and )( and ][ and ]( and .(
-            pass
+            if self.wanted_newline:
+                self.append_newline();
         elif self.last_type not in ['TK_WORD', 'TK_OPERATOR']:
             self.append(' ')
         elif self.last_word == 'function' or self.last_word == 'typeof':
@@ -677,7 +722,7 @@ class Beautifier:
 
         if self.opts.brace_style == 'expand':
             if self.last_type != 'TK_OPERATOR':
-                if self.last_text in ['return', '=']:
+                if self.last_text == '=' or (self.is_special_word(self.last_text) and self.last_text != 'else'):
                     self.append(' ')
                 else:
                     self.append_newline(True)
@@ -735,7 +780,7 @@ class Beautifier:
         if token_text == 'function':
 
             if self.flags.var_line:
-                self.flags.var_line_reindented = True
+                self.flags.var_line_reindented = not self.opts.keep_function_indentation
             if (self.just_added_newline or self.last_text == ';') and self.last_text != '{':
                 # make sure there is a nice clean space of at least one blank line
                 # before a new function definition
@@ -747,7 +792,7 @@ class Beautifier:
                 for i in range(2 - have_newlines):
                     self.append_newline(False)
 
-        if token_text in ['case', 'default']:
+        if token_text == 'case' or (token_text == 'default' and self.flags.in_case_statement):
             if self.last_text == ':':
                 self.remove_indent()
             else:
@@ -756,6 +801,7 @@ class Beautifier:
                 self.flags.indentation_level += 1
             self.append(token_text)
             self.flags.in_case = True
+            self.flags.in_case_statement = True
             return
 
         prefix = 'NONE'
@@ -779,7 +825,7 @@ class Beautifier:
             if self.last_text == 'else':
                 # eat newlines between ...else *** some_op...
                 # won't preserve extra newlines in this place (if any), but don't care that much
-                self.trim_output(True);
+                self.trim_output(True)
             prefix = 'SPACE'
         elif self.last_type == 'TK_START_BLOCK':
             prefix = 'NEWLINE'
@@ -796,6 +842,9 @@ class Beautifier:
             else:
                 prefix = 'NEWLINE'
 
+            if token_text == 'function' and self.last_text in ['get', 'set']:
+                prefix = 'SPACE'
+
         if token_text in ['else', 'catch', 'finally']:
             if self.last_type != 'TK_END_BLOCK' \
                or self.opts.brace_style == 'expand' \
@@ -811,7 +860,7 @@ class Beautifier:
                 pass
             elif token_text == 'function' and self.last_text == 'new':
                 self.append(' ')
-            elif self.last_text in ['return', 'throw']:
+            elif self.is_special_word(self.last_text):
                 # no newline between return nnn
                 self.append(' ')
             elif self.last_type != 'TK_END_EXPR':
@@ -829,7 +878,7 @@ class Beautifier:
                 self.flags.var_line_reindented = False
                 self.append_newline()
         elif self.is_array(self.flags.mode) and self.last_text == ',' and self.last_last_text == '}':
-                self.append_newline() # }, in lists get a newline
+            self.append_newline() # }, in lists get a newline
         elif prefix == 'SPACE':
             self.append(' ')
 
@@ -860,13 +909,25 @@ class Beautifier:
 
 
     def handle_string(self, token_text):
-        if self.last_type in ['TK_START_BLOCK', 'TK_END_BLOCK', 'TK_SEMICOLON']:
+        if self.last_type == 'TK_END_EXPR' and self.flags.previous_mode in ['(COND-EXPRESSION)', '(FOR-EXPRESSION)']:
+            self.append(' ')
+        if self.last_type in ['TK_STRING', 'TK_START_BLOCK', 'TK_END_BLOCK', 'TK_SEMICOLON']:
             self.append_newline()
         elif self.last_type == 'TK_WORD':
             self.append(' ')
 
-        self.append(token_text)
+        # Try to replace readable \x-encoded characters with their equivalent,
+        # if it is possible (e.g. '\x41\x42\x43\x01' becomes 'ABC\x01').
+        def unescape(match):
+            block, code = match.group(0, 1)
+            char = chr(int(code, 16))
+            if block.count('\\') == 1 and char in string.printable:
+                return char
+            return block
 
+        token_text = re.sub(r'\\{1,2}x([a-fA-F0-9]{2})', unescape, token_text)
+
+        self.append(token_text)
 
     def handle_equals(self, token_text):
         if self.flags.var_line:
@@ -896,11 +957,17 @@ class Beautifier:
             else:
                 self.flags.var_line_tainted = False
 
-        if self.last_text in ['return', 'throw']:
+        if self.is_special_word(self.last_text):
             # return had a special handling in TK_WORD
             self.append(' ')
             self.append(token_text)
             return
+
+        # hack for actionscript's import .*;
+        if token_text == '*' and self.last_type == 'TK_UNKNOWN' and not self.last_last_text.isdigit():
+            self.append(token_text)
+            return
+
 
         if token_text == ':' and self.flags.in_case:
             self.append(token_text)
@@ -912,6 +979,7 @@ class Beautifier:
             # no spaces around the exotic namespacing syntax operator
             self.append(token_text)
             return
+
 
         if token_text == ',':
             if self.flags.var_line:
@@ -941,8 +1009,8 @@ class Beautifier:
             return
         elif token_text in ['--', '++', '!'] \
                 or (token_text in ['+', '-'] \
-                    and self.last_type in ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR']) \
-                or self.last_text in self.line_starters:
+                    and (self.last_type in ['TK_START_BLOCK', 'TK_START_EXPR', 'TK_EQUALS', 'TK_OPERATOR'] \
+                    or self.last_text in self.line_starters)):
 
             space_before = False
             space_after = False
@@ -966,7 +1034,8 @@ class Beautifier:
 
         elif token_text == ':':
             if self.flags.ternary_depth == 0:
-                self.flags.mode = 'OBJECT'
+                if self.flags.mode == 'BLOCK':
+                    self.flags.mode = 'OBJECT'
                 space_before = False
             else:
                 self.flags.ternary_depth -= 1
@@ -987,7 +1056,7 @@ class Beautifier:
 
         lines = token_text.replace('\x0d', '').split('\x0a')
         # all lines start with an asterisk? that's a proper box comment
-        if not any(l for l in lines[1:] if (l.lstrip())[0] != '*'):
+        if not any(l for l in lines[1:] if ( l.strip() == '' or (l.lstrip())[0] != '*')):
             self.append_newline()
             self.append(lines[0])
             for line in lines[1:]:
@@ -998,7 +1067,6 @@ class Beautifier:
             if len(lines) > 1:
                 # multiline comment starts on a new line
                 self.append_newline()
-                self.trim_output()
             else:
                 # single line /* ... */ comment stays on the same line
                 self.append(' ')
@@ -1018,10 +1086,15 @@ class Beautifier:
 
 
     def handle_comment(self, token_text):
-        if self.wanted_newline:
+        if self.last_type == 'TK_COMMENT':
             self.append_newline()
+            if self.wanted_newline:
+                self.append_newline(False)
         else:
-            self.append(' ')
+            if self.wanted_newline:
+                self.append_newline()
+            else:
+                self.append(' ')
 
         self.append(token_text)
         self.append_newline_forced()
@@ -1042,13 +1115,12 @@ def main():
     argv = sys.argv[1:]
 
     try:
-        opts, args = getopt.getopt(argv, "s:c:o:djbkil:h", ['indent-size=','indent-char=','outfile=', 'disable-preserve-newlines',
+        opts, args = getopt.getopt(argv, "s:c:o:djbkil:htf", ['indent-size=','indent-char=','outfile=', 'disable-preserve-newlines',
                                                           'jslint-happy', 'brace-style=',
                                                           'keep-array-indentation', 'indent-level=', 'help',
-                                                          'usage', 'stdin'])
+                                                          'usage', 'stdin', 'eval-code', 'indent-with-tabs', 'keep-function-indentation'])
     except getopt.GetoptError:
-        usage()
-        sys.exit(2)
+        return usage()
 
     js_options = default_options()
 
@@ -1060,35 +1132,35 @@ def main():
     for opt, arg in opts:
         if opt in ('--keep-array-indentation', '-k'):
             js_options.keep_array_indentation = True
+        if opt in ('--keep-function-indentation','-f'):
+            js_options.keep_function_indentation = True
         elif opt in ('--outfile', '-o'):
             outfile = arg
         elif opt in ('--indent-size', '-s'):
             js_options.indent_size = int(arg)
         elif opt in ('--indent-char', '-c'):
             js_options.indent_char = arg
+        elif opt in ('--indent-with-tabs', '-t'):
+            js_options.indent_with_tabs = True
         elif opt in ('--disable-preserve_newlines', '-d'):
             js_options.preserve_newlines = False
         elif opt in ('--jslint-happy', '-j'):
             js_options.jslint_happy = True
+        elif opt in ('--eval-code'):
+            js_options.eval_code = True
         elif opt in ('--brace-style', '-b'):
             js_options.brace_style = arg
         elif opt in ('--stdin', '-i'):
             file = '-'
-        elif opt in ('--help', '--usage', '--h'):
+        elif opt in ('--help', '--usage', '-h'):
             return usage()
 
-    if file == None:
+    if not file:
         return usage()
     else:
         if outfile == 'stdout':
             print(beautify_file(file, js_options))
         else:
-            f = open(outfile, 'w')
-            f.write(beautify_file(file, js_options) + '\n')
-            f.close()
-
-
-if __name__ == "__main__":
-    main()
-
+            with open(outfile, 'w') as f:
+                f.write(beautify_file(file, js_options) + '\n')
 
