@@ -1,28 +1,72 @@
 #!/usr/bin/env python
 
-import logging
+from .Event import Event
+from .HTMLEvent import HTMLEvent
+from .MouseEvent import MouseEvent
 
+import traceback
+import logging
 log = logging.getLogger("Thug")
 
 # Introduced in DOM Level 2
 class EventTarget:
     def __init__(self):
-        pass
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+            self.detachEvent = self._detachEvent
 
-    def addEventListener(self, eventType, listener, capture = False):
+            def attachEvent(self, eventType, handler):
+                return self._attachEvent(eventType, handler)
+
+            setattr(self.__class__, 'attachEvent', attachEvent)
+        else:
+            self.removeEventListener = self._removeEventListener
+
+            def addEventListener(self, eventType, listener, capture = False):
+                return self._addEventListener(self, eventType, listener, capture)
+
+            setattr(self.__class__, 'addEventListener', addEventListener)
+
+    def __insert_listener(self, eventType, listener, capture, prio):
+        # A document element or other object may have more than one event 
+        # handler registered for a particular type of event. When an appropriate 
+        # event occurs, the browser must invoke all of the handlers, following 
+        # these rules of invocation order:
+        #
+        # - Handlers registered by setting an object property or HTML attribute, 
+        # if any, are always invoked first
+        #
+        # - Handlers registered with addEventListener() are invoked in the order 
+        # in which they were registered
+        #
+        # - Handlers registered with attachEvent() may be invoked in any order 
+        # and your code should not depend on sequential invocation
+        #
+        # The `prio' parameter is used for deciding if the handler has to be 
+        # appended at the end of the _listener list (addEventListener and 
+        # attachEvent) or at the beginning (setting an object property or HTML
+        # attribute)
+        if prio:
+            self.tag._listeners.insert(0, (eventType, listener, capture))
+        else:
+            self.tag._listeners.append((eventType, listener, capture))
+
+    def _addEventListener(self, eventType, listener, capture = False, prio = False):
         log.info('addEventListener(%s, \n%s, \n%s)' % (eventType, listener, capture, ))
         
-        try:
-            self.tag._listeners.add((eventType, listener, capture))
-        except:
-            self.tag._listeners = set()
-            self.tag._listeners.add((eventType, listener, capture))
+        if getattr(self.tag, '_listeners', None) is None:
+            self.tag._listeners = list()
 
-        # addEventListener does NOT invoke the listener function
-        # Uncomment the following line just for testing
-        #listener.__call__()
+        if not (eventType, listener, capture) in self.tag._listeners:
+            self.__insert_listener(eventType, listener, capture, prio)
+            return
 
-    def removeEventListener(self, eventType, listener, capture = False):
+        # attachEvent() allows the same event handler to be registered more than
+        # once. When the event of the specified type occurs, the registered 
+        # function will be invoked as many times as it was registered
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+            self.__insert_listener(eventType, listener, capture, prio)
+
+    def _removeEventListener(self, eventType, listener, capture = False):
         log.info('removeEventListener(%s, \n%s, \n%s)' % (eventType, listener, capture, ))
         
         try:
@@ -30,29 +74,58 @@ class EventTarget:
         except:
             pass
 
-        # removeEventListener does NOT invoke the listener function
-        # Uncomment the following line just for testing
-        #listener.__call__()
+    def _attachEvent(self, eventType, handler, prio = False):
+        if not eventType.startswith('on'):
+            log.warning('[WARNING] attachEvent eventType: %s', eventType)
 
-    def _get_listeners(self, tag):
-        capture_listeners  = [listener for (eventType, listener, capture) in tag._listeners if capture is True]
-        bubbling_listeners = [listener for (eventType, listener, capture) in tag._listeners if capture is False]
+        self._addEventListener(eventType[2:], handler, False, prio)
+
+    def _detachEvent(self, eventType, handler):
+        if not eventType.startswith('on'):
+            log.warning('[WARNING] detachEvent eventType: %s', eventType)
+
+        self._removeEventListener(eventType[2:], handler)
+
+    def _get_listeners(self, tag, evtType):
+        _listeners         = [(eventType, listener, capture) for (eventType, listener, capture) in tag._listeners if eventType == evtType]
+        capture_listeners  = [(eventType, listener, capture) for (eventType, listener, capture) in _listeners if capture is True]
+        bubbling_listeners = [(eventType, listener, capture) for (eventType, listener, capture) in _listeners if capture is False]
         return capture_listeners, bubbling_listeners
 
-    def _dispatchCaptureEvent(self, tag):
+    def _do_dispatch(self, c, evtObject):
+        eventType, listener, capture = c
+        with self.doc.window.context as ctx:
+            if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+                self.doc.window.event = evtObject
+                listener()
+            else:
+                listener(evtObject)
+
+    def do_dispatch(self, c, evtObject):
+        try:
+            self._do_dispatch(c, evtObject)
+        except:
+            eventType, listener, capture = c
+            log.warning("[WARNING] Error while dispatching %s event" % (eventType, )) 
+
+    def _dispatchCaptureEvent(self, tag, evtType, evtObject):
         if tag.parent is None:
             return
 
-        self._dispatchCaptureEvent(tag.parent)
+        self._dispatchCaptureEvent(tag.parent, evtType, evtObject)
+        
         if not tag.parent._listeners:
             return
 
-        capture_listeners, bubbling_listeners = self._get_listeners(tag.parent)
-        for c in capture_listeners:
-            with self.doc.window.context as ctx:
-                c()
+        if evtObject._stoppedPropagation:
+            return
 
-    def _dispatchBubblingEvent(self, tag):
+        capture_listeners, bubbling_listeners = self._get_listeners(tag.parent, evtType)
+        for c in capture_listeners:
+            evtObject.currentTarget = tag.parent._node
+            self.do_dispatch(c, evtObject)
+
+    def _dispatchBubblingEvent(self, tag, evtType, evtObject):
         for node in tag.parents:
             if node is None:
                 break
@@ -60,28 +133,45 @@ class EventTarget:
             if not node._listeners:
                 continue
 
-            capture_listeners, bubbling_listeners = self._get_listeners(node)
-            for c in bubbling_listeners:
-                with self.doc.window.context as ctx:
-                    c()
+            if evtObject._stoppedPropagation:
+                continue
 
-    def dispatchEvent(self, evt):
-        log.info('dispatchEvent(%s)' % (evt, ))
-        capture_listeners, bubbling_listeners = self._get_listeners(self.tag)
+            capture_listeners, bubbling_listeners = self._get_listeners(node, evtType)
+            for c in bubbling_listeners:
+                evtObject.currentTarget = node._node
+                self.do_dispatch(c, evtObject)
+
+    def dispatchEvent(self, evtType):
+        log.info('dispatchEvent(%s)' % (evtType, ))
+        evtObject = None
+
+        if evtType in MouseEvent.MouseEventTypes:
+            evtObject = MouseEvent(evtType, self)
+
+        if evtType in HTMLEvent.HTMLEventTypes:
+            evtObject = HTMLEvent(evtType, self)
+
+        #print evtObject
+        capture_listeners, bubbling_listeners = self._get_listeners(self.tag, evtType)
 
         if capture_listeners:
-            self._dispatchCaptureEvent(self.tag)
+            evtObject.eventPhase = Event.CAPTURING_PHASE
+            self._dispatchCaptureEvent(self.tag, evtType, evtObject)
    
-        for c in capture_listeners:
-            with self.doc.window.context as ctx:
-                c()
+        evtObject.eventPhase    = Event.AT_TARGET
+        evtObject.currentTarget = self
 
-        for c in bubbling_listeners:
-            with self.doc.window.context as ctx:
-                c()
+        if not evtObject._stoppedPropagation:
+            for c in capture_listeners:
+                self.do_dispatch(c, evtObject)
+
+            for c in bubbling_listeners:
+                self.do_dispatch(c, evtObject)
 
         if bubbling_listeners:
-            self._dispatchBubblingEvent(self.tag)
+            evtObject.eventPhase = Event.BUBBLING_PHASE
+            self._dispatchBubblingEvent(self.tag, evtType, evtObject)
 
+        evtObject.eventPhase = Event.AT_TARGET
         return True
 
