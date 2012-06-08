@@ -35,9 +35,9 @@ def handle_hcp(s):
 
 class Element(Node):
     def __init__(self, doc, tag):
+        self.tag       = tag
+        self.tag._node = self
         Node.__init__(self, doc)
-         
-        self.tag = tag
 
     def __str__(self):
         return str(self.tag)
