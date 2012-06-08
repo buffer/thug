@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <!-- This is a comment -->
+        <title>this is a test</title>
+        <script type="text/javascript"> 
+	function clicked() {
+		alert('clicked');
+	}
+
+	function clicked2() {
+		alert('clicked 2');
+	}
+
+        var s = document.getElementById("hello");
+	s.attachEvent('onclick', clicked);
+	s.attachEvent('onclick', clicked2);
+        s.onclick = function() { alert(window.event); alert(this);};
+	</script>         
+    </head>
+    <body>
+        <p id="hello">Hello World!</p>
+        <form name="first"></form>
+        <form name="second"></form>
+        <a href="#">link</a>
+        <a name="#">anchor</a>
+    </body>
+</html>
+
