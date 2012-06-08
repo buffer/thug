@@ -8,6 +8,7 @@ import logging
 from abstractmethod import abstractmethod
 from DOMException import DOMException
 from Events.EventTarget import EventTarget
+from NodeList import NodeList
 
 log = logging.getLogger("Thug")
 
