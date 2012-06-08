@@ -23,13 +23,15 @@ import W3C.w3c as w3c
 import hashlib
 import logging
 import Window
+import PyV8
 import jsbeautifier
 import bs4 as BeautifulSoup
+from W3C.DOMImplementation import DOMImplementation
 from ActiveX.ActiveX import _ActiveXObject
 
 log        = logging.getLogger("Thug")
 vbs_parser = True
-
+    
 try:
     #from vb2py.vbparser import convertVBtoPython, VBCodeModule
     import pyjs
@@ -38,13 +40,56 @@ except ImportError:
     pass
     
 class DFT(object):
-    javascript = ('javascript', )
-    vbscript   = ('vbs', 'vbscript', 'visualbasic')
+    javascript     = ('javascript', )
+    vbscript       = ('vbs', 'vbscript', 'visualbasic')
 
+    # Events are handled in the same order they are inserted in this list
+    handled_events = ('load',
+                      'mousemove',
+                      'click'
+                      )
+
+    handled_on_events = map(lambda e: 'on' + e, handled_events)
+    # Some event types are directed at the browser as a whole, rather than at 
+    # any particular document element. In JavaScript, handlers for these events 
+    # are registered on the Window object. In HTML, we place them on the <body>
+    # tag, but the browser registers them on the Window. The following is the
+    # complete list of such event handlers as defined by the draft HTML5 
+    # specification:
+    #
+    # onafterprint      onfocus         ononline        onresize
+    # onbeforeprint     onhashchange    onpagehide      onstorage
+    # onbeforeunload    onload          onpageshow      onundo
+    # onblur            onmessage       onpopstate      onunload
+    # onerror           onoffline       onredo
+    window_events = ('afterprint',
+                     'beforeprint',
+                     'beforeunload',
+                     'blur',
+                     'error',
+                     'focus',
+                     'hashchange'
+                     'load',
+                     'message',
+                     'offline',
+                     'online',
+                     'pagehide',
+                     'pageshow',
+                     'popstate',
+                     'redo',
+                     'resize',
+                     'storage',
+                     'undo',
+                     'unload')
+
+    window_on_events = map(lambda e: 'on' + e, window_events)
+                      
     def __init__(self, window):
-        self.window         = window
-        self.window.doc.DFT = self
-        self.meta           = dict()
+        self.window            = window
+        self.window.doc.DFT    = self
+        self.meta              = dict()
+        self.listeners         = list()
+        self.dispatched_events = set()
     
     def __enter__(self):
         return self
@@ -106,30 +151,103 @@ class DFT(object):
         with open(os.path.join(log.baseDir, h), 'wb') as fd:
             fd.write(content)
 
-    # Events handling 
-    def handle_onload(self):
+    # Events handling
+    def handle_element_event(self, evt):
+        for (elem, eventType, listener, capture) in self.listeners:
+            if eventType in (evt, ):
+                if (elem._node, evt) in self.dispatched_events:
+                    continue
+                elem._node.dispatchEvent(evt)
+                self.dispatched_events.add((elem._node, evt))
+
+    def handle_window_event(self, onevt):
+        if onevt in self.handled_on_events:
+            handler = getattr(self.window, onevt, None)
+            if handler:
+                with self.window.context as ctx:
+                    handler()
+
+    def handle_document_event(self, onevt):
+        if onevt in self.handled_on_events: 
+            handler = getattr(self.window.doc, onevt, None)
+            if handler:
+                with self.window.context as ctx:
+                    handler()
+
+    def build_event_handler(self, ctx, h):
+        # When an event handler is registered by setting an HTML attribute
+        # the browser converts the string of JavaScript code into a function.
+        # Browsers other than IE construct a function with a single argument
+        # named `event'. IE constructs a function that expects no argument.
+        # If the identifier `event' is used in such a function, it refers to
+        # `window.event'. In either case, HTML event handlers can refer to 
+        # the event object as `event'.
+        if log.ThugOpts.Personality.isIE():
+            return ctx.eval("(function() { with(document) { with(this.form || {}) { with(this) { event = window.event; %s } } } }) " % (h, ))
+
+        return ctx.eval("(function(event) { with(document) { with(this.form || {}) { with(this) { %s } } } }) " % (h, ))
+
+    def set_event_handler_attributes(self, elem):
         try:
-            body = self.window.doc.body
+            attrs = elem.attrs
         except:
-            body = self.window.doc.getElementsByTagName('body')[0]
+            return
+        
+        # FIXME
+        if 'language' in attrs.keys() and attrs['language'].lower() is not 'javascript':
+            return
 
-        if body and body.tag.has_attr('onload'):
-            self.window.evalScript(self.fix(body.tag['onload']), tag = 'body')
+        for evt, h in attrs.items():
+            if evt not in self.handled_on_events:
+                continue
 
-        if hasattr(self.window, 'onload'):
-            with self.window.context as ctx:
+            self.attach_event(elem, evt, h)
+
+    def attach_event(self, elem, evt, h):
+        with self.window.context as ctx:
+            handler = None
+            
+            if isinstance(h, basestring):
+                handler = self.build_event_handler(ctx, h)
+            elif isinstance(h, PyV8.JSFunction):
+                handler = h
+            else:
                 try:
-                    self.window.onload()
+                    handler = getattr(ctx.locals, h, None)
                 except:
                     pass
-                #self.window.evalScript(self.fix(self.window.onload))
 
-    def handle_onclick(self):
-        inputs = self.window._findAll(('input', 'a'))
-        for input in inputs:
-            for k, v in input.attrs.items():
-                if k in ('onclick', ):
-                    self.window.evalScript(self.fix(v))
+            if not handler:
+                return
+
+            if elem.name in ('body', ) and evt in self.window_on_events:
+                setattr(self.window, evt, handler)
+                return
+
+            if not getattr(elem, '_node', None):
+                DOMImplementation.createHTMLElement(self.window.doc, elem)
+            
+            elem._node._attachEvent(evt, handler, True)
+
+            #try:
+            #    elem._node._attachEvent(evt, handler)
+            #except:
+            #    DOMImplementation.createHTMLElement(self.window.doc, elem)
+            #    elem._node._attachEvent(evt, handler)
+
+    def set_event_listeners(self, elem):
+        p = getattr(elem, '_node', None)
+        if p:
+            for evt in self.handled_on_events:
+                h = getattr(p, evt, None)
+                if h:
+                    self.attach_event(elem, evt, h)
+            
+        listeners = getattr(elem, '_listeners', None)
+        if listeners:
+            for (eventType, listener, capture) in listeners:
+                if eventType in self.handled_events:
+                    self.listeners.append((elem, eventType, listener, capture))
 
     def handle_object(self, object):
         log.warning(object)
@@ -344,6 +462,8 @@ class DFT(object):
             self.handle_object(p)
 
         for child in soup.descendants:
+            self.set_event_handler_attributes(child)
+
             name = getattr(child, "name", None)
             if name is None or name in ('object', ):
                 continue
@@ -352,5 +472,14 @@ class DFT(object):
             if handler:
                 handler(child)
 
-        self.handle_onload()
-        self.handle_onclick()
+        for child in soup.descendants:
+            self.set_event_listeners(child)
+
+        for evt in self.handled_on_events:
+            self.handle_window_event(evt)
+
+        for evt in self.handled_on_events:
+            self.handle_document_event(evt)
+
+        for evt in self.handled_events:
+            self.handle_element_event(evt)
