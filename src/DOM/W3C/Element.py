@@ -10,6 +10,7 @@ from Node import Node
 from Text import Text
 from DOMException import DOMException
 
+from Style.ElementCSSInlineStyle import ElementCSSInlineStyle
 log = logging.getLogger("Thug")
 
 
@@ -33,7 +34,7 @@ def handle_hcp(s):
     return hcp[0]
 
 
-class Element(Node):
+class Element(Node, ElementCSSInlineStyle):
     def __init__(self, doc, tag):
         self.tag       = tag
         self.tag._node = self

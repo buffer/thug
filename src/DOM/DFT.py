@@ -154,6 +154,9 @@ class DFT(object):
     # Events handling
     def handle_element_event(self, evt):
         for (elem, eventType, listener, capture) in self.listeners:
+            if elem.name in ('body', ):
+                continue
+
             if eventType in (evt, ):
                 if (elem._node, evt) in self.dispatched_events:
                     continue
@@ -192,7 +195,7 @@ class DFT(object):
             attrs = elem.attrs
         except:
             return
-        
+
         # FIXME
         if 'language' in attrs.keys() and attrs['language'].lower() is not 'javascript':
             return

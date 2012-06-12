@@ -22,3 +22,6 @@ class HTMLImageElement(HTMLElement):
     vspace          = attr_property("vspace", long)
     width           = attr_property("width", long)
 
+    @property
+    def complete(self):
+        return True
