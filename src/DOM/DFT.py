@@ -68,7 +68,7 @@ class DFT(object):
                      'blur',
                      'error',
                      'focus',
-                     'hashchange'
+                     'hashchange',
                      'load',
                      'message',
                      'offline',
