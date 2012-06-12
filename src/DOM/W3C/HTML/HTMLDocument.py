@@ -80,10 +80,8 @@ class HTMLDocument(Document):
     def documentElement(self):
         return HTMLElement(self, self.doc.find('html'))
 
-    # FIXME
-    @property
-    def querySelectorAll(self):
-        return None
+    def _querySelectorAll(self):
+        pass
 
     # FIXME
     @property

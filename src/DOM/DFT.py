@@ -154,12 +154,16 @@ class DFT(object):
     # Events handling
     def handle_element_event(self, evt):
         for (elem, eventType, listener, capture) in self.listeners:
+            if getattr(elem, 'name', None) is None:
+                continue
+
             if elem.name in ('body', ):
                 continue
 
             if eventType in (evt, ):
                 if (elem._node, evt) in self.dispatched_events:
                     continue
+                
                 elem._node.dispatchEvent(evt)
                 self.dispatched_events.add((elem._node, evt))
 
@@ -196,7 +200,6 @@ class DFT(object):
         except:
             return
 
-        # FIXME
         if 'language' in attrs.keys() and attrs['language'].lower() is not 'javascript':
             return
 
@@ -232,14 +235,9 @@ class DFT(object):
             
             elem._node._attachEvent(evt, handler, True)
 
-            #try:
-            #    elem._node._attachEvent(evt, handler)
-            #except:
-            #    DOMImplementation.createHTMLElement(self.window.doc, elem)
-            #    elem._node._attachEvent(evt, handler)
-
     def set_event_listeners(self, elem):
         p = getattr(elem, '_node', None)
+
         if p:
             for evt in self.handled_on_events:
                 h = getattr(p, evt, None)
