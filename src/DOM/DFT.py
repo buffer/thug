@@ -181,6 +181,16 @@ class DFT(object):
                 with self.window.context as ctx:
                     handler()
 
+        for (elem, eventType, listener, capture) in self.listeners:
+            if not elem in (self.window.doc, ):
+                continue
+
+            if not eventType in (onevt[2:], ):
+                continue
+                
+            with self.window.context as ctx:
+                listener()
+
     def build_event_handler(self, ctx, h):
         # When an event handler is registered by setting an HTML attribute
         # the browser converts the string of JavaScript code into a function.
@@ -469,9 +479,11 @@ class DFT(object):
             if name is None or name in ('object', ):
                 continue
 
-            handler = getattr(self, "handle_%s" % (name, ), None)
+            handler = getattr(self, "handle_%s" % (str(name), ), None)
             if handler:
                 handler(child)
+
+        self.set_event_listeners(self.window.doc)
 
         for child in soup.descendants:
             self.set_event_listeners(child)

@@ -53,8 +53,19 @@ class HTMLDocument(Document):
     window = property(getWindow, setWindow)
 
     @property
+    def tag(self):
+        return self
+
+    @property
+    def _node(self):
+        return self
+
+    @property
     def referrer(self):
-        return str(self._referer)
+        if self._referer:
+            return str(self._referer)
+
+        return ""
 
     @property
     def lastModified(self):
