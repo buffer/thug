@@ -181,10 +181,10 @@ class DFT(object):
                 with self.window.context as ctx:
                     handler()
 
-        for (elem, eventType, listener, capture) in self.listeners:
-            if not elem in (self.window.doc, ):
-                continue
+        if not getattr(self.window.doc.tag, '_listeners', None):
+            return 
 
+        for (eventType, listener, capture) in self.window.doc.tag._listeners:
             if not eventType in (onevt[2:], ):
                 continue
                 
@@ -236,7 +236,7 @@ class DFT(object):
             if not handler:
                 return
 
-            if elem.name in ('body', ) and evt in self.window_on_events:
+            if getattr(elem, 'name', None) and elem.name in ('body', ) and evt in self.window_on_events:
                 setattr(self.window, evt, handler)
                 return
 
@@ -483,7 +483,7 @@ class DFT(object):
             if handler:
                 handler(child)
 
-        self.set_event_listeners(self.window.doc)
+        #self.set_event_listeners(self.window.doc)
 
         for child in soup.descendants:
             self.set_event_listeners(child)
