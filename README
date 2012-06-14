@@ -44,7 +44,7 @@ Requirements
 	http://code.google.com/p/pefile/
 
 - Chardet
-	http://chardet.feedparser.org/
+	http://pypi.python.org/pypi/chardet
 
 - httplib2 0.7.4 or later
 	http://code.google.com/p/httplib2/
@@ -64,10 +64,11 @@ Installation
 
 - BeautifulSoup 4
 
-Currently the best way to install Beautiful Soup 4 is through `easy_install'
-because it is still in beta release. Beautiful Soup 4 is published through 
-PyPi, so you can install it with easy_install or pip. The package name is 
-beautifulsoup4, and the same package works on Python 2 and Python 3.
+If not available as a package for your Linux distribution, the best way 
+to install Beautiful Soup 4 is through `easy_install'. Beautiful Soup 4 
+is published through PyPi, so you can install it with easy_install or 
+pip. The package name is beautifulsoup4, and the same package works on 
+Python 2 and Python 3.
 
 	# easy_install beautifulsoup4  
 
