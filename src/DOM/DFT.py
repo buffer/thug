@@ -90,12 +90,20 @@ class DFT(object):
         self.meta              = dict()
         self.listeners         = list()
         self.dispatched_events = set()
+        self._context          = None
     
     def __enter__(self):
         return self
 
     def __exit__(self, type, value, traceback):
         pass
+
+    @property
+    def context(self):
+        if self._context is None:
+            self._context = self.window.context
+
+        return self._context
 
     def check_shellcode(self, s):
         try:
@@ -171,15 +179,13 @@ class DFT(object):
         if onevt in self.handled_on_events:
             handler = getattr(self.window, onevt, None)
             if handler:
-                with self.window.context as ctx:
-                    handler()
+                handler()
 
     def handle_document_event(self, onevt):
-        if onevt in self.handled_on_events: 
+        if onevt in self.handled_on_events:
             handler = getattr(self.window.doc, onevt, None)
             if handler:
-                with self.window.context as ctx:
-                    handler()
+                handler()
 
         if not getattr(self.window.doc.tag, '_listeners', None):
             return 
@@ -188,8 +194,7 @@ class DFT(object):
             if not eventType in (onevt[2:], ):
                 continue
                 
-            with self.window.context as ctx:
-                listener()
+            listener()
 
     def build_event_handler(self, ctx, h):
         # When an event handler is registered by setting an HTML attribute
@@ -209,8 +214,8 @@ class DFT(object):
             attrs = elem.attrs
         except:
             return
-
-        if 'language' in attrs.keys() and attrs['language'].lower() is not 'javascript':
+       
+        if 'language' in attrs.keys() and not attrs['language'].lower() in ('javascript', ):
             return
 
         for evt, h in attrs.items():
@@ -220,30 +225,29 @@ class DFT(object):
             self.attach_event(elem, evt, h)
 
     def attach_event(self, elem, evt, h):
-        with self.window.context as ctx:
-            handler = None
-            
-            if isinstance(h, basestring):
-                handler = self.build_event_handler(ctx, h)
-            elif isinstance(h, PyV8.JSFunction):
-                handler = h
-            else:
-                try:
-                    handler = getattr(ctx.locals, h, None)
-                except:
-                    pass
+        handler = None
 
-            if not handler:
+        if isinstance(h, basestring):
+            handler = self.build_event_handler(self.context, h)
+        elif isinstance(h, PyV8.JSFunction):
+            handler = h
+        else:
+            try:
+                handler = getattr(self.context.locals, h, None)
+            except:
+                pass
+
+        if not handler:
                 return
 
-            if getattr(elem, 'name', None) and elem.name in ('body', ) and evt in self.window_on_events:
-                setattr(self.window, evt, handler)
-                return
+        if getattr(elem, 'name', None) and elem.name in ('body', ) and evt in self.window_on_events:
+            setattr(self.window, evt, handler)
+            return
 
-            if not getattr(elem, '_node', None):
-                DOMImplementation.createHTMLElement(self.window.doc, elem)
+        if not getattr(elem, '_node', None):
+            DOMImplementation.createHTMLElement(self.window.doc, elem)
             
-            elem._node._attachEvent(evt, handler, True)
+        elem._node._attachEvent(evt, handler, True)
 
     def set_event_listeners(self, elem):
         p = getattr(elem, '_node', None)
@@ -464,7 +468,7 @@ class DFT(object):
     def handle_body(self, body):
         pass
 
-    def run(self):
+    def _run(self):
         log.debug(self.window.doc)
         
         soup = self.window.doc.doc
@@ -483,8 +487,6 @@ class DFT(object):
             if handler:
                 handler(child)
 
-        #self.set_event_listeners(self.window.doc)
-
         for child in soup.descendants:
             self.set_event_listeners(child)
 
@@ -496,3 +498,7 @@ class DFT(object):
 
         for evt in self.handled_events:
             self.handle_element_event(evt)
+
+    def run(self):
+        with self.context as ctx:
+            self._run()
