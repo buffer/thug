@@ -3,6 +3,7 @@
 import sys, re, string
 
 from DOMException import DOMException
+from Node import Node
 from Text import Text
 
 class CDATASection(Text):

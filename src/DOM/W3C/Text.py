@@ -4,6 +4,7 @@ import sys, re, string
 import PyV8
 
 from DOMException import DOMException
+from Node import Node
 from CharacterData import CharacterData
 
 class Text(CharacterData):

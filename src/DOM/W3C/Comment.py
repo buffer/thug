@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from DOMException import DOMException
+from Node import Node
 from CharacterData import CharacterData
 
 class Comment(CharacterData):
