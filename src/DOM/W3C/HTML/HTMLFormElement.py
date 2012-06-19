@@ -3,6 +3,9 @@
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 
+import logging
+log = logging.getLogger("Thug")
+
 class HTMLFormElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
@@ -23,8 +26,12 @@ class HTMLFormElement(HTMLElement):
     target          = attr_property("target")
 
     def submit(self):
-        raise NotImplementedError()
+        #raise NotImplementedError()
+        log.warning('[HTMLFormElement] submit method not defined')
+        pass
 
     def reset(self):
-        raise NotImplementedError()
+        #raise NotImplementedError()
+        log.warning('[HTMLFormElement] reset method not defined')
+        pass
 
