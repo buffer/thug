@@ -16,8 +16,10 @@ window.unescape = unescape;
 
 window._Function = Function;
 Function = function(code) {
-	if (code.indexOf("@cc_on!@") >= 0) {
-		code = code.replace("@cc_on!@", "*/!/*");
+	if (navigator.appName == 'Microsoft Internet Explorer') {
+		if (code.indexOf("@cc_on!@") >= 0) {
+			code = code.replace("@cc_on!@", "*/!/*");
+		}
 	}
 	return window._Function(code);
 }
