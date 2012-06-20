@@ -10,8 +10,8 @@ class DocumentType(Node):
     RE_DOCTYPE = re.compile("^DOCTYPE (\w+)", re.M + re.S)
     
     def __init__(self, doc, tag):
+        self.tag = tag
         Node.__init__(self, doc)
-        
         self.parse(tag)
         
     def parse(self, text):
