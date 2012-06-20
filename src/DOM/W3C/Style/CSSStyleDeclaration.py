@@ -2,8 +2,13 @@
 
 class CSSStyleDeclaration(object):
     def __init__(self, style):
-        self.props = dict([prop.strip().split(': ') for prop in style.split(';') if prop])
+        #self.props = dict([prop.strip().split(': ') for prop in style.split(';') if prop])
+        self.props = dict()
 
+        for prop in [p for p in style.split(';') if p]:
+            k, v = prop.strip().split(':')
+            self.props[k.strip()] = v.strip()
+         
         for k, v in self.props.items():
             if v and v[0] == v[-1] and v[0] in ['"', "'"]:
                 self.props[k] = v[1:-1]
