@@ -101,12 +101,30 @@ class Personality(dict):
                 "browserTag"      : "ie80",
                 }
 
+        # MacOS X personalities
+        self['osx10safari5'] = {
+                "id"              : 7,
+                "description"     : "Safari 5.1.1 (MacOS X 10.7.2)",
+                "version"         : "5.1.1",
+                "userAgent"       : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22",
+                "appMinorVersion" : None,
+                "platform"        : "MacIntel",
+                "browserTag"      : "safari5",
+                }  
+
     @property
     def browserVersion(self):
         return self[log.ThugOpts.useragent]['version']
 
     def isIE(self):
-        return self[log.ThugOpts.useragent]['appName'] == "Microsoft Internet Explorer"
+        return self[log.ThugOpts.useragent]['browserTag'].startswith('ie')
 
     def isFirefox(self):
-        return self[log.ThugOpts.useragent]['appName'] == "Netscape"
+        return self[log.ThugOpts.useragent]['browserTag'].startswith('firefox')
+
+    def isSafari(self):
+        return self[log.ThugOpts.useragent]['browserTag'].startswith('safari')
+
