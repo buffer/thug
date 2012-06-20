@@ -3,33 +3,32 @@
 import sys, re, string
 import PyV8
 
+
 from DOMException import DOMException
 from Node import Node
 
 class CharacterData(Node):
-    def __init__(self, doc, tag):
+    def __init__(self, doc, data):
+        self._data = data
         Node.__init__(self, doc)
-        self.tag = tag
 
     def __str__(self):
-        return str(self.tag)
+        return str(self.data)
 
     def getData(self):
-        return unicode(self.tag)
+        return self._data
 
-    # FIXME
     def setData(self, data):
-        self.tag = data
-        #raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
+        raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
 
     data = property(getData, setData)
 
     @property
     def length(self):
-        return len(self.tag)
+        return len(self.data)
 
     def substringData(self, offset, count):
-        return self.tag[offset:offset+count]
+        return self.data[offset:offset+count]
 
     def appendData(self, arg):
         raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
