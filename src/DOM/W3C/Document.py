@@ -106,7 +106,7 @@ class Document(Node, DocumentEvent, DocumentView):
         return ProcessingInstruction(self, target, data)
     
     def createAttribute(self, name):
-        return Attr(None, name)
+        return Attr(self, None, name)
     
     def createEntityReference(self, name):
         return EntityReference(self, name)
