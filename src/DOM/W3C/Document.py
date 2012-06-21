@@ -89,8 +89,7 @@ class Document(Node, DocumentEvent, DocumentView):
         return element
     
     def createDocumentFragment(self):
-        # FIXME
-        return DocumentFragment(self, BeautifulSoup.Tag(parser = self.doc, name = 'document'))
+        return DocumentFragment(self)
     
     def createTextNode(self, data):
         from Text import Text

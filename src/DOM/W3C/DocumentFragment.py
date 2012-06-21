@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
+import bs4 as BeautifulSoup
 from DOMException import DOMException
 from Node import Node
 
 class DocumentFragment(Node):
-    def __init__(self, doc, tags):
+    def __init__(self, doc):
+        self.tag = BeautifulSoup.Tag(parser = doc, name = 'documentfragment')
         Node.__init__(self, doc)
-
-        self.tags = tags
 
     @property
     def nodeName(self):
