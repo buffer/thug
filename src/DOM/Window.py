@@ -791,7 +791,8 @@ class Window(PyV8.JSClass):
             if response.status == 404:
                 return None
 
-            if 'content-type' in response and response['content-type'] in ('application/pdf', ):
+            if 'content-type' in response and response['content-type'] in ('application/pdf', 
+                                                                           'application/x-shockwave-flash', ):
                 return None
 
             # Log response here
