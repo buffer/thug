@@ -1,0 +1,22 @@
+<html>
+<body>
+<script>
+fragment = document.createDocumentFragment();
+
+div = document.createElement('div')
+p   = document.createElement('p');
+c   = document.createComment('Comment #1');
+t   = document.createTextNode('Text Node');
+
+
+//p.innerHTML = 'text';
+div.appendChild(t);
+div.appendChild(c);
+div.appendChild(t);
+
+fragment.appendChild(div);
+document.body.appendChild(fragment);
+alert(document.body);
+</script>
+</body>
+<html>

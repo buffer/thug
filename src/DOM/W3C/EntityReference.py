@@ -6,9 +6,8 @@ from Events import *
 
 class EntityReference(Node):
     def __init__(self, doc, name):
-        Node.__init__(self, doc)
-
         self.name = name
+        Node.__init__(self, doc)
 
     @property
     def nodeName(self):

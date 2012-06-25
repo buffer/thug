@@ -1,0 +1,55 @@
+<html>
+<body>
+<div id='foobar'></div>
+
+<script>
+
+var elems = [
+  document.createElement("hr"),
+  text( document.createElement("b"), "Links:" ),
+  document.createTextNode(" "),
+  text( document.createElement("a"), "Link A" ),
+  document.createTextNode(" | "),
+  text( document.createElement("a"), "Link B" ),
+  document.createTextNode(" | "),
+  text( document.createElement("a"), "Link C" ),
+  document.createComment(" Just a comment "),
+  document.createCDATASection( " CDATA Test " ),
+  document.createAttribute("testattr"),
+  document.createProcessingInstruction(document, "test"),
+];
+
+alert(elems);
+
+function text(node, txt){
+  node.appendChild(document.createTextNode(txt) );
+  return node;
+}
+
+var div      = document.getElementsByTagName("div");
+var fragment = document.createDocumentFragment();
+
+for ( var e = 0; e < elems.length; e++ ) {
+  fragment.appendChild(elems[e]) ;
+}
+
+var node = document.getElementById("foobar");
+var a = document.createAttribute("my_attrib");
+a.nodeValue = "newVal";
+node.setAttributeNode(a);
+
+fragment.appendChild(node);
+
+alert(fragment);
+document.body.appendChild(fragment);
+alert(document);
+
+for ( var i = 0; i < div.length; i++ ) {
+  div[i].appendChild(fragment.cloneNode(true) );
+}
+
+alert(document);
+
+</script>
+</body>
+</html>

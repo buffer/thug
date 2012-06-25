@@ -8,6 +8,7 @@ class ProcessingInstruction(Node):
     def __init__(self, doc, target, data):
         self._target = target
         self.data    = data
+        Node.__init__(self, doc)
 
     @property
     def target(self):

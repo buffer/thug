@@ -11,9 +11,11 @@ from Node import Node
 class Attr(Node):
     _value = ""
     
-    def __init__(self, parent, attr):
+    def __init__(self, doc, parent, attr):
         self.parent = parent
         self.attr   = attr
+        self.tag    = BeautifulSoup.Tag(parser = self.doc, name = 'attr')
+        Node.__init__(self, doc)
 
         self._value = self.getValue()
         

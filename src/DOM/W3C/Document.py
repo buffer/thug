@@ -22,6 +22,7 @@ from DocumentFragment import DocumentFragment
 from DocumentType import DocumentType
 from Element import Element
 from Comment import Comment
+from Text import Text
 from CDATASection import CDATASection
 from Attr import Attr
 from EntityReference import EntityReference
@@ -68,7 +69,7 @@ class Document(Node, DocumentEvent, DocumentView):
         return self
     
     @property
-    def documentElement(self):        
+    def documentElement(self):
         return Element(self, self.doc.find('html'))
         
     onCreateElement = None
@@ -89,24 +90,22 @@ class Document(Node, DocumentEvent, DocumentView):
         return element
     
     def createDocumentFragment(self):
-        # FIXME
-        return DocumentFragment(self, BeautifulSoup.Tag(parser = self.doc, name = 'document'))
+        return DocumentFragment(self)
     
     def createTextNode(self, data):
-        from Text import Text
         return Text(self, BeautifulSoup.NavigableString(data))
     
     def createComment(self, data):
-        return Comment(self, data)
+        return Comment(self, BeautifulSoup.Comment(data))
     
     def createCDATASection(self, data):
-        return CDATASection(self, data)
+        return CDATASection(self, BeautifulSoup.CData(data))
     
     def createProcessingInstruction(self, target, data):
-        return ProcessingInstruction(self, target, data)
+        return ProcessingInstruction(self, target, BeautifulSoup.ProcessingInstruction(data))
     
     def createAttribute(self, name):
-        return Attr(None, name)
+        return Attr(self, None, name)
     
     def createEntityReference(self, name):
         return EntityReference(self, name)
