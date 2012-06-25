@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>createTextNode example</title>
+
+<script type="text/javascript">
+
+function addTextNode()
+{
+var newtext = document.createTextNode(" Some text added dynamically. ");
+var para = document.getElementById("p1");
+para.appendChild(newtext);
+}
+
+</script>
+</head>
+
+<body>
+<div style="border: 1px solid red">
+<p id="p1">First line of paragraph.<br /></p>
+</div><br />
+
+<button onclick="addTextNode();">add another textNode.</button>
+
+</body>
+</html>
+
