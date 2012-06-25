@@ -476,11 +476,14 @@ class DFT(object):
         for p in soup.find_all('object'):
             self.handle_object(p)
 
+        for p in soup.find_all('applet'):
+            self.handle_applet(p)
+
         for child in soup.descendants:
             self.set_event_handler_attributes(child)
 
             name = getattr(child, "name", None)
-            if name is None or name in ('object', ):
+            if name is None or name in ('object', 'applet', ):
                 continue
 
             handler = getattr(self, "handle_%s" % (str(name), ), None)
