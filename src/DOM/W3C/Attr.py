@@ -12,6 +12,7 @@ class Attr(Node):
     _value = ""
     
     def __init__(self, doc, parent, attr):
+        self.doc    = doc
         self.parent = parent
         self.attr   = attr
         self.tag    = BeautifulSoup.Tag(parser = self.doc, name = 'attr')
