@@ -242,7 +242,12 @@ class Node(PyV8.JSClass, EventTarget):
             return newChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
-            self.tag.append(newChild.tag.findChild())
+            #self.tag.append(newChild.tag.findChild())
+            node = self.tag
+            for p in newChild.tag.find_all_next():
+                node.append(p)
+                node = p
+
             return newChild
 
         self.tag.append(newChild.tag)
