@@ -285,32 +285,40 @@ class DFT(object):
 
         handler(script)
             
+    def handle_external_javascript(self, script):
+        src = script.get('src', None)
+        if src is None:
+            return
+
+        relationship = 'External'
+
+        try:
+            response, js = self.window._navigator.fetch(src)
+        except:
+            return
+
+        if response.status == 404:
+            return
+
+        if len(js):
+            log.ThugLogging.add_code_snippet(js, 'Javascript', 'External')
+
+        self.window.evalScript(js, tag = script)
+
     def handle_javascript(self, script):
         try:
             log.info(jsbeautifier.beautify(str(script)))
         except:
             log.info(script)
 
+        self.handle_external_javascript(script)
+
         js = getattr(script, 'text', None)
-        relationship = 'Contained_Inside'
-
-        if not js:
-            src = script.get('src', None)
-            if not src:
-                return
-        
-            try:
-                response, js = self.window._navigator.fetch(src)
-            except:
-                return
-                
-            if response.status == 404:
-                return
-
-            relationship = 'External'
+        if js is None:
+            return
 
         if len(js):
-            log.ThugLogging.add_code_snippet(js, 'Javascript', relationship)
+            log.ThugLogging.add_code_snippet(js, 'Javascript', 'Contained_Inside')
 
         self.window.evalScript(js, tag = script)
 
