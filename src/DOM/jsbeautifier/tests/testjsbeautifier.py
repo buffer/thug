@@ -17,11 +17,22 @@ class TestJSBeautifier(unittest.TestCase):
         bt("'\\s'"); # == '\s' in the js source
         bt('"•"');
         bt('"—"');
-        #bt('"\x41\x42\x43\x01"', '"ABC\\x01"');
-        bt('"\u2022"', '"\u2022"');
+        bt('"\\x41\\x42\\x43\\x01"', '"\\x41\\x42\\x43\\x01"');
+        bt('"\\u2022"', '"\\u2022"');
         bt('a = /\s+/')
-        #bt('a = /\x41/','a = /A/')
-        bt('"\u2022";a = /\s+/;"\x41\x42\x43\x01".match(/\x41/);','"\u2022";\na = /\s+/;\n"\x41\x42\x43\x01".match(/\x41/);')
+        #bt('a = /\\x41/','a = /A/')
+        bt('"\\u2022";a = /\s+/;"\\x41\\x42\\x43\\x01".match(/\\x41/);','"\\u2022";\na = /\s+/;\n"\\x41\\x42\\x43\\x01".match(/\\x41/);')
+        bt('"\\x22\\x27",\'\\x22\\x27\',"\\x5c",\'\\x5c\',"\\xff and \\xzz","unicode \\u0000 \\u0022 \\u0027 \\u005c \\uffff \\uzzzz"', '"\\x22\\x27", \'\\x22\\x27\', "\\x5c", \'\\x5c\', "\\xff and \\xzz", "unicode \\u0000 \\u0022 \\u0027 \\u005c \\uffff \\uzzzz"');
+
+        self.options.unescape_strings = True
+
+        bt('"\\x41\\x42\\x43\\x01"', '"ABC\\x01"');
+        bt('"\\u2022"', '"\\u2022"');
+        bt('a = /\s+/')
+        bt('"\\u2022";a = /\s+/;"\\x41\\x42\\x43\\x01".match(/\\x41/);','"\\u2022";\na = /\s+/;\n"ABC\\x01".match(/\\x41/);')
+        bt('"\\x22\\x27",\'\\x22\\x27\',"\\x5c",\'\\x5c\',"\\xff and \\xzz","unicode \\u0000 \\u0022 \\u0027 \\u005c \\uffff \\uzzzz"', '"\\"\'", \'"\\\'\', "\\\\", \'\\\\\', "\\xff and \\xzz", "unicode \\u0000 \\" \' \\\\ \\uffff \\uzzzz"');
+
+        self.options.unescape_strings = False
 
     def test_beautifier(self):
         test_fragment = self.decodesto
@@ -111,9 +122,9 @@ class TestJSBeautifier(unittest.TestCase):
         bt('a = 1e-10', "a = 1e-10");
         bt('a = e - 10', "a = e - 10");
         bt('a = 11-10', "a = 11 - 10");
-        bt("a = 1;// comment\n", "a = 1; // comment");
-        bt("a = 1; // comment\n", "a = 1; // comment");
-        bt("a = 1;\n // comment\n", "a = 1;\n// comment");
+        bt("a = 1;// comment", "a = 1; // comment");
+        bt("a = 1; // comment", "a = 1; // comment");
+        bt("a = 1;\n // comment", "a = 1;\n// comment");
 
         bt('o = [{a:b},{c:d}]', 'o = [{\n    a: b\n}, {\n    c: d\n}]');
 
@@ -228,8 +239,6 @@ class TestJSBeautifier(unittest.TestCase):
         bt('catch(e)', 'catch (e)');
 
         bt('var a=1,b={foo:2,bar:3},c=4;', 'var a = 1,\n    b = {\n        foo: 2,\n        bar: 3\n    },\n    c = 4;');
-
-        #bt('x: y, // comment'); # FIXME #44
 
         # inline comment
         bt('function x(/*int*/ start, /*string*/ foo)', 'function x( /*int*/ start, /*string*/ foo)');
@@ -408,6 +417,10 @@ class TestJSBeautifier(unittest.TestCase):
         test_fragment('roo = {\n    /*\n    ****\n      FOO\n    ****\n    */\n    BAR: 0\n};');
         test_fragment("if (..) {\n    // ....\n}\n(function");
 
+        self.options.preserve_newlines = True;
+        bt('var a = 42; // foo\n\nvar b;')
+        bt('var a = 42; // foo\n\n\nvar b;')
+
         bt('"foo""bar""baz"', '"foo"\n"bar"\n"baz"')
         bt("'foo''bar''baz'", "'foo'\n'bar'\n'baz'")
         bt("{\n    get foo() {}\n}")
@@ -426,9 +439,16 @@ class TestJSBeautifier(unittest.TestCase):
         bt('createdAt = {\n    type: Date,\n    default: Date.now\n}')
         bt('switch (createdAt) {\ncase a:\n    Date,\ndefault:\n    Date.now\n}')
 
+        bt('foo = {\n    x: y, // #44\n    w: z // #44\n}');
+        bt('return function();')
+        bt('var a = function();')
+        bt('var a = 5 + function();')
+
+
         bt('3.*7;', '3. * 7;')
         bt('import foo.*;', 'import foo.*;') # actionscript's import
         test_fragment('function f(a: a, b: b)') # actionscript
+
 
     def decodesto(self, input, expectation=None):
         self.assertEqual(
