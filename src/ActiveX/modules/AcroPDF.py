@@ -27,7 +27,7 @@ def GetVersions(self):
                     'Spelling',
                     'Updater',
                     'weblink'):
-        versions += "%s=%s" % (feature, log.ThugVulnModules.acropdf_pdf, )
+        versions += "%s=%s," % (feature, log.ThugVulnModules.acropdf_pdf, )
 
     return versions
 
