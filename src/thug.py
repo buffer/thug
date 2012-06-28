@@ -84,11 +84,25 @@ class ThugOpts(dict):
     referer = property(get_referer, set_referer)
 
 
+class ThugVulnModules(dict):
+    def __init__(self):
+        self._acropdf_pdf = '7.1.0'
+
+    def get_acropdf_pdf(self):
+        return self._acropdf_pdf
+
+    def set_acropdf_pdf(self, version):
+        self._acropdf_pdf = version
+
+    acropdf_pdf = property(get_acropdf_pdf, set_acropdf_pdf)
+
+
 class Thug:
     def __init__(self, args):
         self.args      = args
-        log.ThugLogging = ThugLogging(__thug_version__)
-        log.ThugOpts    = ThugOpts()
+        log.ThugLogging     = ThugLogging(__thug_version__)
+        log.ThugOpts        = ThugOpts()
+        log.ThugVulnModules = ThugVulnModules()
 
     def __call__(self):
         self.analyze()
@@ -109,8 +123,9 @@ Synopsis:
         -l, --local         
         -v, --verbose       \tEnable verbose mode    
         -d, --debug         \tEnable debug mode
-        -a, --ast-debug     \tEnable AST debug mode (requires debug mode) 
+        -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
         -u, --useragent=    \tSelect a user agent (see below for values, default: xpie61)
+        -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 7.1.0) 
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
@@ -177,7 +192,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hu:o:r:p:lvda',
+            options, args = getopt.getopt(self.args, 'hu:o:r:p:lvdaA:',
                 ['help', 
                 'useragent=', 
                 'logfile=',
@@ -186,6 +201,7 @@ Synopsis:
                 'verbose',
                 'debug', 
                 'ast-debug',
+                'adobepdf',
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -217,6 +233,8 @@ Synopsis:
                 log.setLevel(logging.DEBUG)
             if option[0] in ('-a', '--ast-debug', ):
                 log.ThugOpts.ast_debug = True
+            if option[0] in ('-A', '--adobepdf', ):
+                log.ThugVulnModules.acropdf_pdf = option[1]
 
         if p:
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
