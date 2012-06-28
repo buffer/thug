@@ -45,7 +45,7 @@ class ThugOpts(dict):
         self._proxy_info = None
         self.local       = False
         self.ast_debug   = False
-        self._useragent  = 'xpie61'
+        self._useragent  = 'winxpie61'
         self._referer    = 'about:blank'
         self.Personality = Personality()
 
