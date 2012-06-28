@@ -22,7 +22,7 @@ log = logging.getLogger("Thug")
 class Personality(dict):
     def __init__(self):
         # Windows XP personalities
-        self['xpie60'] = {
+        self['winxpie60'] = {
                 "id"              : 1,
                 "description"     : "Internet Explorer 6.0 (Windows XP)",
                 "version"         : "6.0",
@@ -35,7 +35,7 @@ class Personality(dict):
                 "browserTag"      : "ie60",
                 }
 
-        self['xpie61'] = { 
+        self['winxpie61'] = { 
                 "id"              : 2,
                 "description"     : "Internet Explorer 6.1 (Windows XP)", 
                 "version"         : "6.1",
@@ -48,7 +48,7 @@ class Personality(dict):
                 "browserTag"      : "ie61",
                 }
 
-        self['xpie70'] = {
+        self['winxpie70'] = {
                 "id"              : 3,
                 "description"     : "Internet Explorer 7.0 (Windows XP)",
                 "version"         : "7.0",
@@ -61,7 +61,7 @@ class Personality(dict):
                 "browserTag"      : "ie70",
                 }
 
-        self['xpie80'] = {
+        self['winxpie80'] = {
                 "id"              : 4,
                 "description"     : "Internet Explorer 8.0 (Windows XP)",
                 "version"         : "8.0",
@@ -75,7 +75,7 @@ class Personality(dict):
                 }
 
         # Windows 2000 personalities
-        self['w2kie60'] = {
+        self['win2kie60'] = {
                 "id"              : 5,
                 "description"     : "Internet Explorer 6.0 (Windows 2000)",
                 "version"         : "6.0",
@@ -88,7 +88,7 @@ class Personality(dict):
                 "browserTag"      : "ie60",
                 }
 
-        self['w2kie80'] = {
+        self['win2kie80'] = {
                 "id"              : 6,
                 "description"     : "Internet Explorer 8.0 (Windows 2000)",
                 "version"         : "8.0",
