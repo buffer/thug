@@ -25,8 +25,12 @@ import logging
 import Window
 import PyV8
 import jsbeautifier
+import traceback
 import bs4 as BeautifulSoup
 from W3C.DOMImplementation import DOMImplementation
+from W3C.Events.Event import Event
+from W3C.Events.MouseEvent import MouseEvent
+from W3C.Events.HTMLEvent import HTMLEvent
 from ActiveX.ActiveX import _ActiveXObject
 
 log        = logging.getLogger("Thug")
@@ -159,6 +163,22 @@ class DFT(object):
         with open(os.path.join(log.baseDir, h), 'wb') as fd:
             fd.write(content)
 
+    def get_evtObject(self, elem, evtType):
+        evtObject = None
+
+        if evtType in MouseEvent.MouseEventTypes:
+            evtObject = MouseEvent(evtType, elem)
+
+        if evtType in HTMLEvent.HTMLEventTypes:
+            evtObject = HTMLEvent(evtType, elem)
+
+        if evtObject is None:
+            return None
+
+        evtObject.eventPhase = Event.AT_TARGET
+        evtObject.currentTarget = elem
+        return evtObject
+
     # Events handling
     def handle_element_event(self, evt):
         for (elem, eventType, listener, capture) in self.listeners:
@@ -179,13 +199,23 @@ class DFT(object):
         if onevt in self.handled_on_events:
             handler = getattr(self.window, onevt, None)
             if handler:
-                handler()
+                evtObject = self.get_evtObject(self.window, onevt[2:])
+                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+                    self.window.event = evtObject
+                    handler()
+                else:
+                    handler(evtObject)
 
     def handle_document_event(self, onevt):
         if onevt in self.handled_on_events:
             handler = getattr(self.window.doc, onevt, None)
             if handler:
-                handler()
+                evtObject = self.get_evtObject(self.window.doc, onevt[2:])
+                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+                    self.window.event = evtObject
+                    handler()
+                else:
+                    handler(evtObject)
 
         if not getattr(self.window.doc.tag, '_listeners', None):
             return 
@@ -194,7 +224,12 @@ class DFT(object):
             if not eventType in (onevt[2:], ):
                 continue
                 
-            listener()
+            evtObject = self.get_evtObject(self.window.doc, eventType)
+            if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+                self.window.event = evtObject
+                listener()
+            else:
+                listener(evtObject)
 
     def build_event_handler(self, ctx, h):
         # When an event handler is registered by setting an HTML attribute
