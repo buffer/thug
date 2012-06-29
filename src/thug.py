@@ -124,7 +124,7 @@ Synopsis:
         -v, --verbose       \tEnable verbose mode    
         -d, --debug         \tEnable debug mode
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
-        -u, --useragent=    \tSelect a user agent (see below for values, default: xpie61)
+        -u, --useragent=    \tSelect a user agent (see below for values, default: winxpie61)
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 7.1.0) 
 
     Proxy Format:
