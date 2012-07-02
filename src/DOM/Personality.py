@@ -122,6 +122,9 @@ class Personality(dict):
     def isIE(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('ie')
 
+    def isWindows(self):
+        return log.ThugOpts.useragent.startswith('win')
+
     def isFirefox(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('firefox')
 
