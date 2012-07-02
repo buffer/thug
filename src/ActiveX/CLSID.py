@@ -662,6 +662,15 @@ CLSID = [
                           }
         },
 
+        # MSXML2.DOMDocument
+        {
+            'id'        : ( 'F6D90F11-9C73-11D3-B32E-00C04F990BB4', ),
+            'name'      : ( 'MSXML2.DOMDocument', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {},
+        },
+
         # MyspaceUploader
         {
             'id'        : ( '48DD0448-9209-4F81-9F6D-D83562940134', ),
