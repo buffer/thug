@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Build and Install &mdash; Thug 0.4.4 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.4.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Thug 0.4.4 documentation" href="index.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Thug 0.4.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="build-and-install">
+<span id="build"></span><h1>Build and Install<a class="headerlink" href="#build-and-install" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Python</li>
+<li>Google V8</li>
+<li>PyV8</li>
+<li>Beautiful Soup 4</li>
+<li>Html5lib</li>
+<li>Libemu</li>
+<li>Pylibemu</li>
+<li>Pefile</li>
+<li>Chardet</li>
+<li>httplib2</li>
+<li>Zope interface</li>
+<li>MongoDB (optional)</li>
+<li>PyMongo (optional)</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>Python 2.7 is required in order to properly run Thug. You may be lucky running it with
+Python 2.6 but please consider that it is not supported so issues related to Python 2.6
+will be simply ignored. Python source code can be downloaded at <a class="reference external" href="http://www.python.org">http://www.python.org</a>.</p>
+</div>
+<div class="section" id="google-v8-pyv8">
+<h3>Google V8/PyV8<a class="headerlink" href="#google-v8-pyv8" title="Permalink to this headline">¶</a></h3>
+<p>Google V8 is Google’s open source JavaScript engine. V8 is written in C++ and is used
+in Google Chrome, the open source browser from Google. V8 implements ECMAScript as
+specified in ECMA-262, 3rd edition, and runs on Windows XP and Vista, Mac OS X 10.5
+(Leopard), and Linux systems that use IA-32 or ARM processors. V8 can run standalone,
+or can be embedded into any C++ application.</p>
+<p>PyV8 is a Python wrapper for the Google V8 engine. PyV8 acts as a bridge between the
+Python and JavaScript objects and supports the Google V8 engine in Python scripts.</p>
+<p>In order to properly install Google V8 and PyV8 please follow the procedure described
+below.</p>
+<ol class="arabic simple">
+<li>Checkout V8 source code from SVN</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn checkout http://v8.googlecode.com/svn/trunk/ v8
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Patch V8 source code with the patches you can find in thug/patches
+directory</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>cp thug/patches/V8-patch* .
+<span class="nv">$ </span>patch -p0 &lt; V8-patch1.diff
+patching file v8/src/log.h
+<span class="nv">$ </span>patch -p0 &lt; V8-patch2.diff
+patching file v8/src/parser.h
+Hunk <span class="c">#1 succeeded at 456 (offset 7 lines).</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Checkout PyV8 source code from SVN</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn checkout http://pyv8.googlecode.com/svn/trunk/ pyv8
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Set the environment variable V8_HOME with the V8 source code
+absolute path (you need to change the value reported below)</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">V8_HOME</span><span class="o">=</span>/home/buffer/v8
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li>Move to PyV8 source code directory</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>pyv8
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li>Build and install (PyV8 setup.py will properly install both V8
+and PyV8)</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre>~/pyv8 <span class="nv">$ </span>python setup.py build
+~/pyv8 <span class="nv">$ </span>sudo python setup.py install
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li>Test the installation</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre>     ~/pyv8 <span class="nv">$ </span>python PyV8.py
+
+If no problems occur, you have successfully installed V8 and PyV8.
+</pre></div>
+</div>
+</div>
+<div class="section" id="beautiful-soup-4">
+<h3>Beautiful Soup 4<a class="headerlink" href="#beautiful-soup-4" title="Permalink to this headline">¶</a></h3>
+<p>Beautiful Soup is a Python library for pulling data out of HTML and XML
+files. Beautiful Soup source code can be downloaded at
+<a class="reference external" href="http://www.crummy.com/software/BeautifulSoup/">http://www.crummy.com/software/BeautifulSoup/</a>.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install Beautiful Soup 4 is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install beautifulsoup4</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="html5lib">
+<h3>html5lib<a class="headerlink" href="#html5lib" title="Permalink to this headline">¶</a></h3>
+<p>html5lib is a Python and PHP implementations of a HTML parser based on the
+WHATWG HTML5 specification for maximum compatibility with major desktop
+web browsers. html5lib source code can be downloaded at
+<a class="reference external" href="http://code.google.com/p/html5lib/">http://code.google.com/p/html5lib/</a>.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install html5lib is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install html5lib</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="libemu">
+<h3>Libemu<a class="headerlink" href="#libemu" title="Permalink to this headline">¶</a></h3>
+<p>Libemu is a small library written in C offering basic x86 emulation and
+shellcode detection using GetPC heuristics. It is designed to be used
+within network intrusion/prevention detections and honeypots. Libemu
+homepage is located at <a class="reference external" href="http://libemu.carnivore.it/">http://libemu.carnivore.it/</a>.</p>
+<p>In order to properly install Libemu please follow the procedure described
+below</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone git://git.carnivore.it/libemu.git
+<span class="nv">$ </span><span class="nb">cd </span>libemu
+<span class="nv">$ </span>autoreconf -v -i
+<span class="nv">$ </span>./configure --prefix<span class="o">=</span>/opt/libemu
+<span class="nv">$ </span>sudo make install
+</pre></div>
+</div>
+<p>For additional details about installation please refer to the Libemu homepage.</p>
+</div>
+<div class="section" id="pylibemu">
+<h3>Pylibemu<a class="headerlink" href="#pylibemu" title="Permalink to this headline">¶</a></h3>
+<p>Pylibemu is a Cython wrapper for the Libemu library. Pylibemu homepage is located
+at <a class="reference external" href="https://github.com/buffer/pylibemu">https://github.com/buffer/pylibemu</a>.</p>
+<p>In order to properly install Pylibemu please follow the procedure described
+below</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone git://github.com/buffer/pylibemu.git
+<span class="nv">$ </span>python setup.py build
+<span class="nv">$ </span>sudo python setup.py install
+</pre></div>
+</div>
+<p>For additional details about installation please refer to the Pylibemu homepage.</p>
+</div>
+<div class="section" id="pefile">
+<h3>Pefile<a class="headerlink" href="#pefile" title="Permalink to this headline">¶</a></h3>
+<p>Pefile is a multi-platform Python module to read and work with Portable Executable
+(aka PE) files. Most of the information in the PE Header is accessible, as well as
+all the sections, section&#8217;s information and data. Pefile homepage is located at
+<a class="reference external" href="http://code.google.com/p/pefile/">http://code.google.com/p/pefile/</a>.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install Pefile is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pefile</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="chardet">
+<h3>chardet<a class="headerlink" href="#chardet" title="Permalink to this headline">¶</a></h3>
+<p>Chardet is a universal encoding detector. Chardet homepage is located at
+<a class="reference external" href="http://pypi.python.org/pypi/chardet">http://pypi.python.org/pypi/chardet</a>.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install chardet is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install chardet</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="httplib2">
+<h3>httplib2<a class="headerlink" href="#httplib2" title="Permalink to this headline">¶</a></h3>
+<p>Httplib2 is a comprehensive HTTP client library that supports many features
+left out of other HTTP libraries. Httplib2 homepage is located at
+<a class="reference external" href="http://code.google.com/p/httplib2/">http://code.google.com/p/httplib2/</a></p>
+<p>Httplib 0.7.4 or later is strictly required.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install httplib2 is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install httplib2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="zope-interface">
+<h3>Zope Interface<a class="headerlink" href="#zope-interface" title="Permalink to this headline">¶</a></h3>
+<p>Zope Interface homepage is located at <a class="reference external" href="http://pypi.python.org/pypi/zope.interface">http://pypi.python.org/pypi/zope.interface</a>.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install zope.interface is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install zope.interface</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mongodb-optional">
+<h3>MongoDB (optional)<a class="headerlink" href="#mongodb-optional" title="Permalink to this headline">¶</a></h3>
+<p>MongoDB homepage is located at <a class="reference external" href="http://www.mongodb.org">http://www.mongodb.org</a>.</p>
+<p>If not available as a package for your Linux distribution, change distribution!</p>
+</div>
+<div class="section" id="pymongo-optional">
+<h3>PyMongo (optional)<a class="headerlink" href="#pymongo-optional" title="Permalink to this headline">¶</a></h3>
+<p>PyMongo homepage is located at <a class="reference external" href="http://www.mongodb.org/display/DOCS/Python+Language+Center">http://www.mongodb.org/display/DOCS/Python+Language+Center</a>.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install pymongo is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pymongo</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Build and Install</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#installation">Installation</a><ul>
+<li><a class="reference internal" href="#python">Python</a></li>
+<li><a class="reference internal" href="#google-v8-pyv8">Google V8/PyV8</a></li>
+<li><a class="reference internal" href="#beautiful-soup-4">Beautiful Soup 4</a></li>
+<li><a class="reference internal" href="#html5lib">html5lib</a></li>
+<li><a class="reference internal" href="#libemu">Libemu</a></li>
+<li><a class="reference internal" href="#pylibemu">Pylibemu</a></li>
+<li><a class="reference internal" href="#pefile">Pefile</a></li>
+<li><a class="reference internal" href="#chardet">chardet</a></li>
+<li><a class="reference internal" href="#httplib2">httplib2</a></li>
+<li><a class="reference internal" href="#zope-interface">Zope Interface</a></li>
+<li><a class="reference internal" href="#mongodb-optional">MongoDB (optional)</a></li>
+<li><a class="reference internal" href="#pymongo-optional">PyMongo (optional)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usage.html"
+                        title="next chapter">Usage</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/build.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">Thug 0.4.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Angelo Dell&#39;Aera.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
