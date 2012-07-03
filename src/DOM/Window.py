@@ -24,6 +24,7 @@ import PyV8
 import traceback
 import hashlib
 import pefile
+import jsbeautifier
 import bs4 as BeautifulSoup
 import W3C.w3c as w3c
 
@@ -690,6 +691,12 @@ class Window(PyV8.JSClass):
             self.removeEventListener = self._removeEventListener
 
     def eval(self, script):
+        try:
+            log.info(jsbeautifier.beautify(script))
+        except:
+            log.info(script) 
+       
+        log.ThugLogging.add_code_snippet(script, 'Javascript', 'Dynamically_Evaluated')
         return self.evalScript(script)
 
     @property
