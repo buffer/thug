@@ -68,7 +68,16 @@ class Window(PyV8.JSClass):
                 return
 
             log.debug(str(self.code))
-            self.code.__call__()
+
+            with self.window.context as ctx:
+                if isinstance(self.code, basestring):
+                    ctx.eval(self.code)
+                elif isinstance(h, PyV8.JSFunction):
+                    self.code()
+                else:
+                    log.warning("Error while handling Window timer")
+                    return
+
             if self.repeat:
                 self.start()
         
