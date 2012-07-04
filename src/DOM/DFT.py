@@ -499,7 +499,7 @@ class DFT(object):
             return
 
         doc    = w3c.parseString(content)
-        window = Window.Window(src, doc)
+        window = Window.Window(src, doc, personality = log.ThugOpts.useragent)
         window.open(src)
             
         dft = DFT(window)
