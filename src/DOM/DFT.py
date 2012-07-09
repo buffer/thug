@@ -307,6 +307,9 @@ class DFT(object):
         classid = object.get('classid', None)
         id      = object.get('id', None)
 
+        if not log.ThugOpts.Personality.isIE():
+            return
+
         if classid and id:
             setattr(self.window, id, _ActiveXObject(self.window, classid, 'id'))
 

@@ -230,7 +230,7 @@ class Window(PyV8.JSClass):
     def screenY(self):
         return self._top
 
-    def ActiveXObject(self, cls, type = 'name'):
+    def _do_ActiveXObject(self, cls, type = 'name'):
         return _ActiveXObject(self, cls, type = 'name')
 
     # Window object methods
@@ -690,12 +690,14 @@ class Window(PyV8.JSClass):
 
     def __init_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.attachEvent    = self._attachEvent
-            self.detachEvent    = self._detachEvent
+            self.ActiveXObject  = self._do_ActiveXObject
             self.Run            = self._Run
             self.CollectGarbage = self._CollectGarbage
 
-        if log.ThugOpts.Personality.isFirefox():
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+            self.attachEvent    = self._attachEvent
+            self.detachEvent    = self._detachEvent
+        else:
             self.addEventListener    = self._addEventListener
             self.removeEventListener = self._removeEventListener
 
