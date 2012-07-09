@@ -6,8 +6,8 @@
         <title>this is a test</title>
         <script type="text/javascript"> 
         var s = document.getElementById("hello");
-        s.addEventListener('load', function() { add();});
-	s.removeEventListener('load', remove);
+        s.addEventListener('load', function() { add();}, false);
+	s.removeEventListener('load', remove, false);
         //<![CDATA[
         function add()
         {
