@@ -22,7 +22,7 @@ class EventTarget:
             self.removeEventListener = self._removeEventListener
 
             def addEventListener(self, eventType, listener, capture = False):
-                return self._addEventListener(self, eventType, listener, capture)
+                return self._addEventListener(eventType, listener, capture)
 
             setattr(self.__class__, 'addEventListener', addEventListener)
 
