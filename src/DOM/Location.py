@@ -49,6 +49,8 @@ class Location(PyV8.JSClass):
             if log.ThugOpts.Personality[p]['userAgent'] == self._window._navigator.userAgent:
                 break
 
+        log.ThugLogging.log_href_redirect(referer, url)
+
         doc    = W3C.w3c.parseString('')
         window = Window.Window(referer, doc, personality = p)
         window = window.open(url)

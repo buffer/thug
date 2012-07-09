@@ -78,3 +78,6 @@ class ThugLogging(BaseLogging):
             self.add_behavior_warn("HTTP Redirection (Status: %s) Content-Location: %s --> Location: %s" % (p['status'], 
                                                                                                             p['content-location'], 
                                                                                                             p['location'], ))
+
+    def log_href_redirect(self, referer, url):
+        self.add_behavior_warn("HREF Redirection (document.location) Content-Location: %s --> Location: %s" % (referer, url, ))    
