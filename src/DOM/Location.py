@@ -36,20 +36,14 @@ class Location(PyV8.JSClass):
     def parts(self):
         return urlparse(self._window.url)
 
-    @property
-    def href(self):
+    def get_href(self):
         return self._window.url
 
-    @href.setter
-    def href(self, url):
-        # FIXME
-        #self._window.open(url)
+    def set_href(self, url):
         referer = self._window.url
         if referer == url:
             log.warning("Detected redirection from %s to %s... skipping" % (referer, url, ))
             return
-
-        #self._window.url = url
 
         for p in log.ThugOpts.Personality:
             if log.ThugOpts.Personality[p]['userAgent'] == self._window._navigator.userAgent:
@@ -64,6 +58,8 @@ class Location(PyV8.JSClass):
         self._window.url = url
         dft = DFT.DFT(window)
         dft.run()
+
+    href = property(get_href, set_href)
 
     @property
     def protocol(self):
@@ -103,5 +99,4 @@ class Location(PyV8.JSClass):
 
     def replace(self, url):
         """Replaces the current document by loading another document at the specified URL."""
-        #self._window.open(url)
         self.href = url
