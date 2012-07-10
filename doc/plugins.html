@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Plugin Framework &mdash; Thug 0.4.4 documentation</title>
+    
+    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.4.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
+    <link rel="top" title="Thug 0.4.4 documentation" href="index.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Thug 0.4.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="plugin-framework">
+<h1>Plugin Framework<a class="headerlink" href="#plugin-framework" title="Permalink to this headline">¶</a></h1>
+<p>The Thug Plugin Framework was introduced in the version 0.3.0. If you ever thought about extending Thug
+with additional features but didn’t know how to do it you should really keep on reading. Let’s start
+by taking a look a the code.</p>
+<p>Taking a look at <em>src/thug.py</em> we can now read these lines of code</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">p</span><span class="p">:</span>
+        <span class="n">ThugPlugins</span><span class="p">(</span><span class="n">PRE_ANALYSIS_PLUGINS</span><span class="p">,</span> <span class="bp">self</span><span class="p">)()</span>
+        <span class="n">p</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">ThugPlugins</span><span class="p">(</span><span class="n">POST_ANALYSIS_PLUGINS</span><span class="p">,</span> <span class="bp">self</span><span class="p">)()</span>
+</pre></div>
+</div>
+<p>Please note that every operation done by Thug is started by the line <em>p(args[0])</em> so you can realize that
+two hooks exist in order to execute plugins in a pre and post-analysis stage. Let’s keep exploring the
+source code and let’s take a look at <em>src/Plugins/ThugPlugins.py</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ThugPlugins</span><span class="p">:</span>
+        <span class="n">phases</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">PRE_ANALYSIS_PLUGINS</span>  <span class="p">:</span> <span class="s">&#39;ThugPluginsPre&#39;</span><span class="p">,</span>
+                <span class="n">POST_ANALYSIS_PLUGINS</span> <span class="p">:</span> <span class="s">&#39;ThugPluginsPost&#39;</span>
+                <span class="p">}</span>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">phase</span><span class="p">,</span> <span class="n">thug</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">phase</span> <span class="o">=</span> <span class="n">phase</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">thug</span>  <span class="o">=</span> <span class="n">thug</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__init_config</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">__init_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                <span class="n">config</span>       <span class="o">=</span> <span class="n">ConfigParser</span><span class="o">.</span><span class="n">ConfigParser</span><span class="p">()</span>
+
+                <span class="n">conf_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)),</span> <span class="s">&#39;plugins.conf&#39;</span><span class="p">)</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">conf_file</span><span class="p">)</span>
+
+                <span class="n">plugins</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">phases</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">phase</span><span class="p">],</span> <span class="s">&#39;plugins&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="n">plugins</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">plugin</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+        <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">:</span>
+                        <span class="n">module</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+                        <span class="n">components</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">components</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                                <span class="n">module</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">component</span><span class="p">)</span>
+
+                        <span class="n">handler</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s">&quot;Handler&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">handler</span><span class="p">:</span>
+                                <span class="n">p</span> <span class="o">=</span> <span class="n">handler</span><span class="p">()</span>
+                                <span class="k">try</span><span class="p">:</span>
+                                        <span class="n">verifyObject</span><span class="p">(</span><span class="n">IPlugin</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+                                        <span class="n">p</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thug</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+                                <span class="k">except</span> <span class="n">BrokenImplementation</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                                        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;[</span><span class="si">%s</span><span class="s">] </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="p">))</span>
+</pre></div>
+</div>
+<p>and <em>src/Plugins/plugins.conf</em></p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>ThugPluginsPre<span class="o">]</span>
+plugins: Plugins.TestPlugin
+
+<span class="o">[</span>ThugPluginsPost<span class="o">]</span>
+plugins: Plugins.TestPlugin
+</pre></div>
+</div>
+<p>The configuration file plugins.conf defines which plugins are to be loaded in pre and post-analysis
+stage (you can specify many plugins by simply comma separating them). The plugins should contain a
+class named <em>Handler</em> which should be conform to this interface</p>
+<div class="highlight-python"><pre>class IPlugin(zope.interface.Interface):
+        def run(thug, log):
+        """
+        This method is called when the plugin is invoked
+
+        Parameters:
+        @thug: Thug class main instance
+        @log: Thug root logger
+        """</pre>
+</div>
+<p>If the interface is correctly implemented the <em>run</em> method is called with two parameters: the Thug class
+main instance and the Thug root logger. Let’s see a really simple example of plugin</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">zope.interface</span>
+<span class="kn">from</span> <span class="nn">.IPlugin</span> <span class="kn">import</span> <span class="n">IPlugin</span>
+
+<span class="k">class</span> <span class="nc">Handler</span><span class="p">:</span>
+        <span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">implements</span><span class="p">(</span><span class="n">IPlugin</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thug</span><span class="p">,</span> <span class="n">log</span><span class="p">):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">thug</span><span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This plugin just logs the parameters but you can do whatever you want. Do you want to pre-check if the URL
+domain is within a blacklist? Just do it with a pre-analysis plugin. Do you want to extract and/or correlate
+information from the MAEC log files? Just do it with a post-analysis plugin. Simply staten... have fun!</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usage.html"
+                        title="previous chapter">Usage</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="sources/plugins.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >previous</a> |</li>
+        <li><a href="index.html">Thug 0.4.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Angelo Dell&#39;Aera.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
