@@ -23,7 +23,7 @@ import logging
 import traceback
 import chardet
 import pylibemu
-from Debugger import Debugger
+from .Debugger import Debugger
 from DOM.W3C.Node import Node
 
 log = logging.getLogger("Thug")

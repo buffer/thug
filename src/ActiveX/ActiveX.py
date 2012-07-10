@@ -19,7 +19,7 @@
 import os
 import new
 import logging
-from CLSID import CLSID
+from .CLSID import CLSID
 
 log = logging.getLogger("Thug")
 
