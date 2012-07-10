@@ -26,6 +26,7 @@ controls, core browser functionalities, browser plugins) are provided.
    intro
    build
    usage
+   plugins
 
 Indices and tables
 ==================
