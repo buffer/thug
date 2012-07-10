@@ -67,7 +67,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
             return
 
         if classid and id: 
-            setattr(self.doc.window, id, _ActiveXObject(self.window, classid, 'id'))
+            setattr(self.doc.window, id, _ActiveXObject(self.doc.window, classid, 'id'))
 
     # WARNING: NOT DEFINED IN W3C SPECS!
     def focus(self):
