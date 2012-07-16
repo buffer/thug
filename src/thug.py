@@ -149,7 +149,7 @@ Synopsis:
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
         -u, --useragent=    \tSelect a user agent (see below for values, default: winxpie61)
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 7.1.0)
-        -S, --shockwave=    \tSpecify the Shockwave Flash version (default: 9.0.64.0 and 10.0.64.0)
+        -S, --shockwave=    \tSpecify the Shockwave Flash version (default: 10.0.64.0)
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)

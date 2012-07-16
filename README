@@ -148,7 +148,8 @@ Synopsis:
         -d, --debug         	Enable debug mode
         -a, --ast-debug     	Enable AST debug mode (requires debug mode)
         -u, --useragent=    	Select a user agent (see below for values, default: winxpie61)
-        -A, --adobepdf=     	Specify the Adobe Acrobat Reader version (default: 7.1.0) 
+        -A, --adobepdf=     	Specify the Adobe Acrobat Reader version (default: 7.1.0)
+        -S, --shockwave=    	Specify the Shockwave Flash version (default: 10.0.64.0)
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
@@ -168,6 +169,8 @@ Synopsis:
 	win7safari5			Safari 5.1.7		(Windows 7)
 	osx10safari5			Safari 5.1.1		(MacOS X 10.7.2)
 	osx10chrome19			Chrome 19.0.1084.54	(MacOS X 10.7.4)
+
+
 	
 HPFeeds 
 =======
