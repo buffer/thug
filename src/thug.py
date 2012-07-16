@@ -28,7 +28,7 @@ import logging
 
 from DOM.W3C import w3c
 from DOM.Personality import Personality
-from DOM import Window, DFT
+from DOM import Window, DFT, MIMEHandler
 from Logging.ThugLogging import ThugLogging
 from Plugins.ThugPlugins import *
 
@@ -126,6 +126,7 @@ class Thug:
         log.ThugLogging     = ThugLogging(__thug_version__)
         log.ThugOpts        = ThugOpts()
         log.ThugVulnModules = ThugVulnModules()
+        log.MIMEHandler     = MIMEHandler.MIMEHandler()
 
     def __call__(self):
         self.analyze()

@@ -809,9 +809,10 @@ class Window(PyV8.JSClass):
             if response.status == 404:
                 return None
 
-            if 'content-type' in response and response['content-type'] in ('application/pdf', 
-                                                                           'application/x-shockwave-flash', ):
-                return None
+            if 'content-type' in response:
+                handler = log.MIMEHandler.get_handler(response['content-type'])
+                if handler and handler(html):
+                    return None
 
             # Log response here
             kwds = { 'referer' : self.url }
