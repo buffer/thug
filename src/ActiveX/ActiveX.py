@@ -24,11 +24,16 @@ from .CLSID import CLSID
 log = logging.getLogger("Thug")
 
 class _ActiveXObject:
+    shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '9', 
+                        'shockwaveflash.shockwaveflash.9'  : '9' ,
+                        'shockwaveflash.shockwaveflash.10' : '10' }
+
     def __init__(self, window, cls, type = 'name'):
         self.funcattrs = dict()
         self._window   = window
         object         = None
         methods        = dict()
+        self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
 
         if type == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':
@@ -39,6 +44,10 @@ class _ActiveXObject:
         
         if type == 'name':
             cls = cls.lower()
+
+        if cls in self.shockwave_flash and not self.shockwave in (self.shockwave_flash[cls], ):
+            log.warning("Unknown ActiveX Object: %s" % (cls, ))
+            raise TypeError()
 
         for c in CLSID:
             if cls in c[type]:

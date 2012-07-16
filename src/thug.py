@@ -86,16 +86,39 @@ class ThugOpts(dict):
 
 class ThugVulnModules(dict):
     def __init__(self):
-        self._acropdf_pdf = '7.1.0'
+        self._acropdf_pdf     = '7.1.0'
+        self._shockwave_flash = '10.0.64.0'
+
+    def invalid_version(self, version):
+        for p in version.split('.'):
+            if not p.isdigit():
+                return True
+
+        return False
 
     def get_acropdf_pdf(self):
         return self._acropdf_pdf
 
     def set_acropdf_pdf(self, version):
+        if self.invalid_version(version):
+            log.warning('[WARNING] Invalid Adobe Acrobat Reader version provided (using default one)')
+            return
+
         self._acropdf_pdf = version
 
     acropdf_pdf = property(get_acropdf_pdf, set_acropdf_pdf)
 
+    def get_shockwave_flash(self):
+        return self._shockwave_flash
+
+    def set_shockwave_flash(self, version):
+        if not version.split('.')[0] in ('8', '9', '10') or self.invalid_version(version):
+            log.warning('[WARNING] Invalid Shockwave Flash version provided (using default one)')
+            return
+
+        self._shockwave_flash = version
+       
+    shockwave_flash = property(get_shockwave_flash, set_shockwave_flash)
 
 class Thug:
     def __init__(self, args):
@@ -125,7 +148,8 @@ Synopsis:
         -d, --debug         \tEnable debug mode
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
         -u, --useragent=    \tSelect a user agent (see below for values, default: winxpie61)
-        -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 7.1.0) 
+        -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 7.1.0)
+        -S, --shockwave=    \tSpecify the Shockwave Flash version (default: 9.0.64.0 and 10.0.64.0)
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
@@ -192,7 +216,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hu:o:r:p:lvdaA:',
+            options, args = getopt.getopt(self.args, 'hu:o:r:p:lvdaA:S:',
                 ['help', 
                 'useragent=', 
                 'logfile=',
@@ -201,7 +225,8 @@ Synopsis:
                 'verbose',
                 'debug', 
                 'ast-debug',
-                'adobepdf',
+                'adobepdf=',
+                'shockwave=',
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -235,6 +260,8 @@ Synopsis:
                 log.ThugOpts.ast_debug = True
             if option[0] in ('-A', '--adobepdf', ):
                 log.ThugVulnModules.acropdf_pdf = option[1]
+            if option[0] in ('-S', '--shockwave', ):
+                log.ThugVulnModules.shockwave_flash = option[1]   
 
         if p:
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
