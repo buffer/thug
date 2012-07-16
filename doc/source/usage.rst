@@ -33,6 +33,7 @@ Let's start our Thug tour by taking a look at the options it provides.
                 -a, --ast-debug         Enable AST debug mode (requires debug mode)
                 -u, --useragent=        Select a user agent (see below for values, default: winxpie61)
                 -A, --adobepdf=         Specify the Adobe Acrobat Reader version (default: 7.1.0) 
+                -S, --shockwave=        Specify the Shockwave Flash version (default: 10.0.64.0)
 
         Proxy Format:
                 scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
@@ -59,7 +60,7 @@ Let's start with a first basic real-world example: a Blackhole exploit kit.
 .. code-block:: sh
  :linenos:
 
-        $ python thug.py "http://[omitted]/main.php?page=8c6c59becaa0da07"
+        ~/thug/src $ python thug.py "http://[omitted]/main.php?page=8c6c59becaa0da07"
         [2012-07-02 19:15:20] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
         [2012-07-02 19:15:20] <applet archive="Ryp.jar" code="sIda.sIda"><param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"></param></applet>
         [2012-07-02 19:15:20] [Navigator URL Translation] Ryp.jar -->  http://[omitted]/Ryp.jar
@@ -188,7 +189,7 @@ using the MongoDB client *mongo*).
 
 .. code-block:: sh
 
-        buffer@alnitak ~ $ python
+        ~/thug/src $ python
         Python 2.7.3 (default, Jun 12 2012, 10:22:50) 
         [GCC 4.5.3] on linux2
         Type "help", "copyright", "credits" or "license" for more information.
@@ -229,7 +230,7 @@ page with Internet Explorer 8.0 on Windows XP platform.
 
 .. code-block:: sh
 
-        $ python thug.py -u winxpie80 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+        ~/thug/src $ python thug.py -u winxpie80 "http://[omitted]/main.php?page=8c6c59becaa0da07"
         [2012-07-02 19:21:00] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
         [2012-07-02 19:21:00] <applet archive="Ryp.jar" code="sIda.sIda"><param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"></param></applet>
         [2012-07-02 19:21:00] [Navigator URL Translation] Ryp.jar -->  http://[omitted]/Ryp.jar
@@ -304,7 +305,7 @@ the default one.
 
 .. code-block:: sh
 
-        $ python thug.py -A 8.1.0 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+        ~/thug/src $ python thug.py -A 8.1.0 "http://[omitted]/main.php?page=8c6c59becaa0da07"
         [2012-07-02 19:18:00] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
         [2012-07-02 19:18:00] <applet archive="Ryp.jar" code="sIda.sIda"><param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"></param></applet>
         [2012-07-02 19:18:00] [Navigator URL Translation] Ryp.jar -->  http://[omitted]/Ryp.jar
@@ -390,6 +391,71 @@ with what we saw using Adobe Acrobat Reader 7.1.0
 it's easy to realize that a different PDF file was served in this case.
 
 
+Shockwave Flash
+---------------
+
+Taking a look at the available options you can see the -S (--shockwave) option which is quite
+useful for getting different Flash exploits which target different version of Shockwave Flash. 
+This happens because exploit kits usually serve Flash files which exploit specific vulnerabilities 
+basing on Shockwave Flash version. Let's take a look at what happens if we locally analyze
+PluginDetect which is currently used by Blackhole exploit kit (see Local Analysis later for details).
+
+.. code-block:: sh
+
+        ~/thug/src $ python thug.py -l ../samples/misc/PluginDetect-0.7.8.html 
+        [2012-07-16 23:22:44] ActiveXObject: msxml2.xmlhttp
+        [2012-07-16 23:22:44] ActiveXObject: acropdf.pdf
+        [2012-07-16 23:22:44] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+        [2012-07-16 23:22:44] Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+        [2012-07-16 23:22:44] Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+        [2012-07-16 23:22:44] Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+        [2012-07-16 23:22:44] Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+        [2012-07-16 23:22:44] ActiveXObject: shockwaveflash.shockwaveflash.10
+        [2012-07-16 23:22:44] <object classid="clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-07-16 23:22:44] <object classid="clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
+        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
+        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
+        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
+        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
+        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
+        [2012-07-16 23:22:44] ActiveXObject: javawebstart.isinstalled.1.6.0.0
+        [2012-07-16 23:22:44] ActiveXObject: javaplugin.160_40
+        [2012-07-16 23:22:44] ActiveXObject: javawebstart.isinstalled.1.6.0.0
+        [2012-07-16 23:22:44] [Window] Alert Text: AdobeReader version: 7,1,0,0
+        [2012-07-16 23:22:44] [Window] Alert Text: Flash version: 10,0,64,0
+        [2012-07-16 23:22:44] [Window] Alert Text: Java version: 1,6,0,40
+
+
+Let's try with different Adobe Acrobat Reader and Shockwave Flash versions now.
+
+.. code-block:: sh
+
+        ~/thug/src $ python thug.py -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html 
+        [2012-07-16 23:28:57] ActiveXObject: msxml2.xmlhttp
+        [2012-07-16 23:28:57] ActiveXObject: acropdf.pdf
+        [2012-07-16 23:28:57] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+        [2012-07-16 23:28:57] Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+        [2012-07-16 23:28:57] Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+        [2012-07-16 23:28:57] Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+        [2012-07-16 23:28:57] Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+        [2012-07-16 23:28:57] ActiveXObject: shockwaveflash.shockwaveflash.10
+        [2012-07-16 23:28:57] <object classid="clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-07-16 23:28:57] <object classid="clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
+        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
+        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
+        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
+        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
+        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
+        [2012-07-16 23:28:57] ActiveXObject: javawebstart.isinstalled.1.6.0.0
+        [2012-07-16 23:28:57] ActiveXObject: javaplugin.160_40
+        [2012-07-16 23:28:57] ActiveXObject: javawebstart.isinstalled.1.6.0.0
+        [2012-07-16 23:28:57] [Window] Alert Text: AdobeReader version: 8,1,0,0
+        [2012-07-16 23:28:57] [Window] Alert Text: Flash version: 10,3,1,180
+        [2012-07-16 23:28:57] [Window] Alert Text: Java version: 1,6,0,40
+
+
 Proxy support
 -------------
 
@@ -405,7 +471,7 @@ using *socks5://127.0.0.1:9050* as proxy and your real IP address will not be re
 
 .. code-block:: sh
 
-        $ python thug.py -p socks5://127.0.0.1:9050 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+        ~/thug/src $ python thug.py -p socks5://127.0.0.1:9050 "http://[omitted]/main.php?page=8c6c59becaa0da07"
         [2012-07-02 19:22:14] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
         [2012-07-02 19:22:14] <applet archive="Ryp.jar" code="sIda.sIda"><param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"></param></applet>
         [2012-07-02 19:22:14] [Navigator URL Translation] Ryp.jar -->  http://[omitted]/Ryp.jar
@@ -486,7 +552,7 @@ later (manual or automated) analysis (see also *Web Cache*)
 
 .. code-block:: sh
 
-        $ python thug.py -l ../samples/exploits/4042.html 
+        ~/thug/src $ python thug.py -l ../samples/exploits/4042.html 
         [2012-07-03 00:12:23] <object classid="clsid:DCE2F8B1-A520-11D4-8FD0-00D0B7730277" id="target"></object>
         [2012-07-03 00:12:23] ActiveXObject: DCE2F8B1-A520-11D4-8FD0-00D0B7730277
         [2012-07-03 00:12:23] [Yahoo! Messenger 8.x Ywcvwr ActiveX] Server Console Overflow
