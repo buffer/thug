@@ -15,7 +15,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
-
+import sys
+import traceback
 import os
 import pylibemu
 import struct
@@ -526,15 +527,51 @@ class DFT(object):
             self.handle_applet(p)
 
         for child in soup.descendants:
+            try:
+                repr(child)
+            except UnicodeEncodeError, e:
+                log.warn( u"Child can not be Unicode encoded: %s"%(unicode(e)))
+                info = "".join(traceback.format_tb(sys.exc_info()[2]))
+                log.warn( u"Traceback: %s"%(unicode(info)))
+                log.warn("Skipping to the next child.")
+                continue
+            except UnicodeDecodeError, e:
+                log.warn( u"Child can not be Unicode decoded: %s"%(unicode(e)))
+                info = "".join(traceback.format_tb(sys.exc_info()[2]))
+                log.warn( u"Traceback: %s"%(unicode(info)))
+                log.warn("Skipping to the next child.")
+                continue
+ 
             self.set_event_handler_attributes(child)
-
-            name = getattr(child, "name", None)
+            name = None
+            try:
+                name = getattr(child, "name", None)
+            except Exception, e:
+                log.warn( u"Experienced Exception (unabled to obtain the name for child)"%(unicode(e)))
+                info = "".join(traceback.format_tb(sys.exc_info()[2]))
+                log.warn( u"Traceback: %s"%(unicode(info)))
+                log.warn("Skipping to the next child.")
+                continue
+            
             if name is None or name in ('object', 'applet', ):
                 continue
-
-            handler = getattr(self, "handle_%s" % (str(name), ), None)
-            if handler:
-                handler(child)
+            try:
+                repr(name)
+                handler = getattr(self, u"handle_" + unicode(name) , None)
+                if handler:
+                    handler(child)
+            except UnicodeEncodeError, e:
+                log.warn( u"Child 'name' can not be Unicode encoded: %s"%( unicode(e)))
+                info = "".join(traceback.format_tb(sys.exc_info()[2]))
+                log.warn( u"Traceback: %s"%(unicode(info)))
+                log.warn("Skipping to the next child.")
+                continue
+            except UnicodeDecodeError, e:
+                log.warn( u"Child (%s) 'name' can not be Unicode decoded: %s"%( unicode(e)))
+                info = "".join(traceback.format_tb(sys.exc_info()[2]))
+                log.warn( u"Traceback: %s"%(unicode(info)))
+                log.warn("Skipping to the next child.")
+                continue
 
         for child in soup.descendants:
             self.set_event_listeners(child)
