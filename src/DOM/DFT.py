@@ -110,13 +110,19 @@ class DFT(object):
 
         return self._context
 
-    def check_shellcode(self, s):
+    def build_shellcode(self, s):
+        try:
+            return ''.join([struct.pack('H', ord(i)) for i in s]) 
+        except:
+            pass
+
         try:
             shellcode = s.decode('utf-8')
         except:
             shellcode = s
 
         sc = b''
+
         try:
             for c in shellcode:
                 sc += struct.pack('<H', ord(c))
@@ -124,6 +130,13 @@ class DFT(object):
             sc = shellcode
 
         if not sc:
+            return sc
+
+        return None
+
+    def check_shellcode(self, s):
+        sc = self.build_shellcode(s)
+        if sc is None:
             return
 
         emu = pylibemu.Emulator()
