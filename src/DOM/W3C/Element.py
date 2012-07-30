@@ -6,6 +6,7 @@ import PyV8
 import logging
 import urlparse
 
+from Attr import Attr
 from Node import Node
 #from Text import Text
 from DOMException import DOMException
@@ -209,9 +210,8 @@ class Element(Node, ElementCSSInlineStyle):
         del self.tag[name]
         
     def getAttributeNode(self, name):
-        from Attr import Attr
-        
-        return Attr(self, name) if self.tag.has_attr(name) else None
+        #from Attr import Attr
+        return Attr(self.doc, self, name) if self.tag.has_attr(name) else None
     
     def setAttributeNode(self, attr):
         self.tag[attr.name] = attr.value
