@@ -57,7 +57,7 @@ class Location(PyV8.JSClass):
         if not window:
             return
 
-        self._window.url = url
+        #self._window.url = url
         dft = DFT.DFT(window)
         dft.run()
 
