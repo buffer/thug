@@ -11,8 +11,26 @@ window.Date     = Date;
 window.Math     = Math;
 window.Number   = Number;
 window.RegExp   = RegExp;
-window.String   = String;
+
 window.unescape = unescape;
+
+window.String       = String;
+window.charAt       = String.charAt;
+window.charCodeAt   = String.charCodeAt;
+window.concat       = String.concat;	
+window.fromCharCode = String.fromCharCode;
+window.indexOf      = String.indexOf;
+window.lastIndexOf  = String.lastIndexOf;
+window.match        = String.match;	
+window.replace      = String.replace;
+window.search       = String.search;
+window.slice        = String.slice;
+window.split        = String.split;
+window.substr       = String.substr;
+window.substring    = String.substring;
+window.toLowerCase  = String.toLowerCase;
+window.toUpperCase  = String.toUpperCase;
+window.valueOf      = String.valueOf;
 
 window._Function = Function;
 Function = function(code) {
