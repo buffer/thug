@@ -46,6 +46,11 @@ class Shellcode:
 
     def build_shellcode(self, s):
         try:
+            return ''.join([struct.pack('H', ord(i)) for i in s])
+        except:
+            pass
+
+        try:
             shellcode = s.decode('utf-8')
         except:
             shellcode = s
