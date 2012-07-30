@@ -8,7 +8,6 @@ import urlparse
 
 from Attr import Attr
 from Node import Node
-#from Text import Text
 from DOMException import DOMException
 
 from Style.ElementCSSInlineStyle import ElementCSSInlineStyle
@@ -106,78 +105,6 @@ class Element(Node, ElementCSSInlineStyle):
     def hasAttribute(self, name):
         return self.tag.has_attr(name)
         
-    #def checkChild(self, child):
-    #    if not isinstance(child, Node):
-    #        raise DOMException(DOMException.HIERARCHY_REQUEST_ERR)            
-        
-    #def findChild(self, child):
-    #    try:
-    #        return self.tag.contents.index(child.tag)
-    #    except ValueError:
-    #        return -1
-        
-    #def insertBefore(self, newChild, refChild):        
-    #    self.checkChild(newChild)
-    #    self.checkChild(refChild)
-        
-    #    index = self.findChild(refChild)        
-        
-    #    if index < 0:
-    #        self.tag.append(newChild.tag)            
-    #    else:        
-    #        self.tag.insert(index, newChild.tag)
-    #    
-    #    return newChild
-
-    #def insertAfter(self, newChild, refChild):
-    #    self.checkChild(newChild)
-    #    self.checkChild(refChild)
-    #
-    #    index = self.findChild(refChild)
-    #
-    #    if index < 0:
-    #        self.tag.append(newChild.tag)
-    #    else:
-    #        self.tag.insert(index+1, newChild.tag)
-    #
-    #    return newChild
-
-    #def replaceChild(self, newChild, oldChild):
-    #    self.checkChild(newChild)
-    #    self.checkChild(oldChild)
-    #   
-    #    index = self.findChild(oldChild)
-    #   
-    #    if index < 0:
-    #        raise DOMException(DOMException.NOT_FOUND_ERR)
-    #        
-    #    self.tag.contents[index] = newChild.tag
-    #    
-    #    return oldChild
-    
-    #def removeChild(self, oldChild):
-    #    self.checkChild(oldChild)
-    #    
-    #    self.tag.contents.remove(oldChild.tag)
-    #    
-    #    return oldChild
-    
-    #def appendChild(self, newChild):
-    #    if newChild:            
-    #        if isinstance(newChild, Text):
-    #            self.tag.append(str(newChild))
-    #        else:
-    #            self.checkChild(newChild)
-    #          
-    #            # FIXME
-    #            self.tag.append(newChild.tag)
-    #            #self.tag.append(str(newChild))
-
-    #    return newChild
-    
-    #def hasChildNodes(self):
-    #    return len(self.tag.contents) > 0
-    
     @property
     def tagName(self):
         return self.tag.name.upper()
@@ -210,7 +137,6 @@ class Element(Node, ElementCSSInlineStyle):
         del self.tag[name]
         
     def getAttributeNode(self, name):
-        #from Attr import Attr
         return Attr(self.doc, self, name) if self.tag.has_attr(name) else None
     
     def setAttributeNode(self, attr):
