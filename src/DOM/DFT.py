@@ -91,6 +91,7 @@ class DFT(object):
     def __init__(self, window):
         self.window            = window
         self.window.doc.DFT    = self
+        self.anchors           = list()
         self.meta              = dict()
         self.listeners         = list()
         self.dispatched_events = set()
@@ -359,6 +360,7 @@ class DFT(object):
             log.ThugLogging.add_code_snippet(js, 'Javascript', 'Contained_Inside')
 
         self.window.evalScript(js, tag = script)
+        self.check_anchors()
 
     def handle_vbscript(self, script):
         log.info(script)
@@ -513,6 +515,36 @@ class DFT(object):
 
     def handle_body(self, body):
         pass
+
+    def handle_a(self, anchor):
+        self.anchors.append(anchor)
+
+    def check_anchors(self):
+        clicked_anchors = [a for a in self.anchors if '_clicked' in a.attrs]
+        if not clicked_anchors:
+            return
+
+        clicked_anchors.sort(key = lambda anchor: anchor['_clicked'])
+        
+        for anchor in clicked_anchors:
+            href = anchor['href']
+            del anchor['_clicked']
+            
+            if 'target' in anchor.attrs and not anchor.attrs['target'] in ('_self', ):
+                pid = os.fork()
+                if pid == 0:
+                    self.follow_href(href)
+                else:
+                    os.waitpid(pid, 0)
+            else:
+                self.follow_href(href)
+
+    def follow_href(self, href):
+            doc    = w3c.parseString('')
+            window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+            window = window.open(href)
+            dft = DFT(window)
+            dft.run()
 
     def _run(self):
         log.debug(self.window.doc)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import datetime, time
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 
@@ -26,3 +27,6 @@ class HTMLAnchorElement(HTMLElement):
     def focus(self):
         pass
 
+    def click(self):
+        now = datetime.datetime.now()
+        self.tag['_clicked'] = time.mktime(now.timetuple())
