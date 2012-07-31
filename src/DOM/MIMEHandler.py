@@ -153,6 +153,7 @@ class MIMEHandler(dict):
                  "text/h323",
                  "text/html",
                  "text/iuls",
+                 "text/javascript",
                  "text/plain",
                  "text/richtext",
                  "text/scriptlet",
@@ -188,6 +189,7 @@ class MIMEHandler(dict):
         self['application/x-javascript'] = None
         self['text/css']                 = None
         self['text/html']                = None
+        self['text/javascript']          = None
 
     def passthrough(self, data):
         """
