@@ -9,7 +9,7 @@ class HTMLMetaElement(HTMLElement):
 
     content         = attr_property("content")
     httpEquiv       = attr_property("http-equiv")
-    name            = attr_property("name")
+    name            = attr_property("name", default = '')
     scheme          = attr_property("scheme")
 
 
