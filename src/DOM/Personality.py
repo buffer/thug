@@ -128,7 +128,7 @@ class Personality(dict):
                 }
 
         # Windows 7 personalities
-        self['win7xpie80'] = { 
+        self['win7ie80'] = { 
                 "id"              : 9,
                 "description"     : "Internet Explorer 8.0\t(Windows 7)",
                 "version"         : "8.0",
@@ -141,7 +141,7 @@ class Personality(dict):
                 "browserTag"      : "ie80",
                 }
 
-        self['win7xpie90'] = {
+        self['win7ie90'] = {
                 "id"              : 10,
                 "description"     : "Internet Explorer 9.0\t(Windows 7)",
                 "version"         : "9.0",
