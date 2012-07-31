@@ -1,0 +1,17 @@
+[HPFeeds]
+host:	hpfeeds.honeycloud.net
+port:	10000
+
+[ThugFiles]
+enable:  True
+channel: thug.files
+ident:	 <thug.files ident>
+secret:	 <thug.files secret>
+logdir:  ./files
+
+[ThugEvents]
+enable:  True
+channel: thug.events
+ident:   <thug.events ident>
+secret:  <thug.events secret>
+logdir:  ./events
