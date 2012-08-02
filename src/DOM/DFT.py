@@ -354,8 +354,7 @@ class DFT(object):
 
         if len(js):
             log.ThugLogging.add_code_snippet(js, 'Javascript', 'External')
-
-        self.window.evalScript(js, tag = script)
+            self.window.evalScript(js, tag = script)
 
     def handle_javascript(self, script):
         try:
@@ -371,8 +370,8 @@ class DFT(object):
 
         if len(js):
             log.ThugLogging.add_code_snippet(js, 'Javascript', 'Contained_Inside')
+            self.window.evalScript(js, tag = script)
 
-        self.window.evalScript(js, tag = script)
         self.check_anchors()
 
     def handle_vbscript(self, script):
