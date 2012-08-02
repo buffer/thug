@@ -14,26 +14,6 @@ from Style.ElementCSSInlineStyle import ElementCSSInlineStyle
 log = logging.getLogger("Thug")
 
 
-def handle_hcp(s):
-    log.warning('Microsoft Internet Explorer HCP Scheme Detected')
-
-    hcp = s.path.split('svr=')
-    if len(hcp) < 2:
-        return
-
-    hcp = hcp[1].split('defer>')
-    if len(hcp) < 2:
-        return
-
-    hcp = hcp[1].split('</script')
-    if not hcp:
-        return
-
-    log.ThugLogging.add_behavior_warn('Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling',
-                                      'CVE-2010-1885')
-    return hcp[0]
-
-
 class Element(Node, ElementCSSInlineStyle):
     def __init__(self, doc, tag):
         self.tag       = tag
@@ -118,11 +98,10 @@ class Element(Node, ElementCSSInlineStyle):
         if name in ('src', 'archive'):
             s = urlparse.urlsplit(value)
 
-            if s.scheme == 'hcp':
-                hcp = handle_hcp(s)
-                if hcp:
-                    self.doc.window.evalScript(hcp) 
-                return
+            handler = getattr(log.SchemeHandler, 'handle_%s' % (s.scheme, ), None)
+            if handler:
+                 handler(self.doc.window, value)
+                 return
             
             # FIXME
             try:

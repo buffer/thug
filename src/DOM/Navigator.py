@@ -231,6 +231,12 @@ class Navigator(PyV8.JSClass):
             headers['Cookie'] = self._window.doc.cookie
 
         _url = urlparse.urlparse(url)
+
+        handler = getattr(log.SchemeHandler, 'handle_%s' % (_url.scheme, ), None)
+        if handler:
+            handler(self._window, url)
+            return
+
         if not _url.netloc:
             msg = "[Navigator URL Translation] %s --> " % (url, )
             url = urlparse.urljoin(self._window.url, url)
