@@ -59,6 +59,7 @@ from .modules import MicrosoftXMLHTTP
 from .modules import Move
 from .modules import MSRICHTXT
 from .modules import MSVFP
+from .modules import MSXML2DOMDocument
 from .modules import MyspaceUploader
 from .modules import NamoInstaller
 from .modules import NCTAudioFile2
@@ -666,9 +667,13 @@ CLSID = [
         {
             'id'        : ( 'F6D90F11-9C73-11D3-B32E-00C04F990BB4', ),
             'name'      : ( 'MSXML2.DOMDocument', ),
-            'attrs'     : {},
+            'attrs'     : { 
+                            'object'        : MSXML2DOMDocument,
+                          },
             'funcattrs' : {},
-            'methods'   : {},
+            'methods'   : {
+                            'definition'    : MSXML2DOMDocument.definition,
+                          },
         },
 
         # MyspaceUploader
