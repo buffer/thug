@@ -89,7 +89,29 @@ class Element(Node, ElementCSSInlineStyle):
     def tagName(self):
         return self.tag.name.upper()
     
-    def getAttribute(self, name):
+    def getAttribute(self, name, flags = 0):
+        if log.ThugOpts.Personality.isIE():
+            if log.ThugOpts.Personality.browserVersion < '8.0':
+                # flags parameter is only supported in Internet Explorer earlier 
+                # than version 8.
+                #
+                # A value of 0 means that the search is case-insensitive and the 
+                # returned value does not need to be converted. Other values can 
+                # be any combination of the following integer constants with the 
+                # bitwise OR operator:
+                # 
+                # 1   Case-sensitive search
+                # 2   Returns the value as a string
+                # 4   Returns the value as an URL
+
+                if not flags & 1:
+                    name = name.lower()
+
+            value = self.tag[name] if self.tag.has_attr(name) else None
+
+            # FIXME (flags 2 and 4 not implemented yet)
+            return value
+
         return self.tag[name] if self.tag.has_attr(name) else ""
 
     def setAttribute(self, name, value):
