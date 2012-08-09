@@ -1,0 +1,14 @@
+<html>
+<head>
+    <script type="text/javascript">
+        function GetOnClickAttrValue () {
+	    var button = document.getElementById("testIE");
+            alert (button.getAttribute ("onCliCk", 0));
+            alert (button.getAttribute ("onCliCk", 1));        // Internet Explorer (case-sensitive search, returns null)
+        }
+    </script>
+</head>
+<body>
+    <button id="testIE" onclick="GetOnClickAttrValue();" >Get the value of the onclick attribute!</button>
+</body>
+</html>
