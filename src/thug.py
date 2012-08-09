@@ -122,12 +122,12 @@ class ThugVulnModules(dict):
 
 class Thug:
     def __init__(self, args):
-        self.args      = args
-        log.ThugLogging     = ThugLogging(__thug_version__)
-        log.ThugOpts        = ThugOpts()
-        log.ThugVulnModules = ThugVulnModules()
-        log.MIMEHandler     = MIMEHandler.MIMEHandler()
-        log.SchemeHandler   = SchemeHandler.SchemeHandler()
+        self.args               = args
+        log.ThugLogging         = ThugLogging(__thug_version__)
+        log.ThugOpts            = ThugOpts()
+        log.ThugVulnModules     = ThugVulnModules()
+        log.MIMEHandler         = MIMEHandler.MIMEHandler()
+        log.SchemeHandler       = SchemeHandler.SchemeHandler()
 
     def __call__(self):
         self.analyze()

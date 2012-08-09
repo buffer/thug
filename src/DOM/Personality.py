@@ -87,8 +87,21 @@ class Personality(dict):
                 "browserTag"      : "chrome20",
                 }   
 
-        self['winxpsafari5'] = {
+        self['winxpfirefox12'] = {
                 "id"              : 6,
+                "description"     : "Firefox 12.0\t\t(Windows XP)",
+                "version"         : "12.0",
+                "userAgent"       : "Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20120403211507 Firefox/12.0",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "12.0 (Windows)",
+                "appMinorVersion" : None,
+                "platform"        : "Win32",
+                "browserTag"      : "firefox12",
+                }
+
+        self['winxpsafari5'] = {
+                "id"              : 7,
                 "description"     : "Safari 5.1.7\t\t(Windows XP)",
                 "version"         : "5.1.7",
                 "userAgent"       : "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2",
@@ -102,7 +115,7 @@ class Personality(dict):
 
         # Windows 2000 personalities
         self['win2kie60'] = {
-                "id"              : 7,
+                "id"              : 8,
                 "description"     : "Internet Explorer 6.0\t(Windows 2000)",
                 "version"         : "6.0",
                 "userAgent"       : "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
@@ -115,7 +128,7 @@ class Personality(dict):
                 }
 
         self['win2kie80'] = {
-                "id"              : 8,
+                "id"              : 9,
                 "description"     : "Internet Explorer 8.0\t(Windows 2000)",
                 "version"         : "8.0",
                 "userAgent"       : "Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.0; Trident/4.0; InfoPath.1; SV1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 3.0.04506.30)",
@@ -129,7 +142,7 @@ class Personality(dict):
 
         # Windows 7 personalities
         self['win7ie80'] = { 
-                "id"              : 9,
+                "id"              : 10,
                 "description"     : "Internet Explorer 8.0\t(Windows 7)",
                 "version"         : "8.0",
                 "userAgent"       : "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; InfoPath.2)",
@@ -142,7 +155,7 @@ class Personality(dict):
                 }
 
         self['win7ie90'] = {
-                "id"              : 10,
+                "id"              : 11,
                 "description"     : "Internet Explorer 9.0\t(Windows 7)",
                 "version"         : "9.0",
                 "userAgent"       : "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; InfoPath.2; BOIE9;ENUS)",
@@ -155,7 +168,7 @@ class Personality(dict):
                 }
 
         self['win7chrome20'] = {
-                "id"              : 11,
+                "id"              : 12,
                 "description"     : "Chrome 20.0.1132.47\t(Windows 7)",
                 "version"         : "20.0.1132.47",
                 "userAgent"       : "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.47 Safari/536.11",
@@ -168,7 +181,7 @@ class Personality(dict):
                 }
 
         self['win7safari5'] = {
-                "id"              : 12,
+                "id"              : 13,
                 "description"     : "Safari 5.1.7\t\t(Windows 7)",
                 "version"         : "5.1.7",
                 "userAgent"       : "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2",
@@ -182,7 +195,7 @@ class Personality(dict):
 
         # MacOS X personalities
         self['osx10safari5'] = {
-                "id"              : 13,
+                "id"              : 14,
                 "description"     : "Safari 5.1.1\t\t(MacOS X 10.7.2)",
                 "version"         : "5.1.1",
                 "userAgent"       : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22",
@@ -196,7 +209,7 @@ class Personality(dict):
 
 
         self['osx10chrome19'] = {
-                "id"              : 14,
+                "id"              : 15,
                 "description"     : "Chrome 19.0.1084.54\t(MacOS X 10.7.4)",
                 "version"         : "19.0.1084.54",
                 "userAgent"       : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.54 Safari/536.5",
@@ -207,7 +220,6 @@ class Personality(dict):
                 "platform"        : "MacIntel",
                 "browserTag"      : "chrome20",
                 }
-
 
 
     @property
