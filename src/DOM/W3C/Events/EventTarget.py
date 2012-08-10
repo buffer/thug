@@ -51,7 +51,7 @@ class EventTarget:
             self.tag._listeners.append((eventType, listener, capture))
 
     def _addEventListener(self, eventType, listener, capture = False, prio = False):
-        log.debug('_addEventListener(%s, \n%s, \n%s)' % (eventType, listener, capture, ))
+        log.debug('_addEventListener(%s, \n%r, \n%s)' % (eventType, listener, capture, ))
         
         if getattr(self.tag, '_listeners', None) is None:
             self.tag._listeners = list()
@@ -67,7 +67,7 @@ class EventTarget:
             self.__insert_listener(eventType, listener, capture, prio)
 
     def _removeEventListener(self, eventType, listener, capture = False):
-        log.debug('_removeEventListener(%s, \n%s, \n%s)' % (eventType, listener, capture, ))
+        log.debug('_removeEventListener(%s, \n%r, \n%s)' % (eventType, listener, capture, ))
         
         try:
             self.tag._listeners.remove((eventType, listener, capture))
@@ -75,14 +75,14 @@ class EventTarget:
             pass
 
     def _attachEvent(self, eventType, handler, prio = False):
-        log.debug('_attachEvent(%s, \n%s)' % (eventType, handler, ))
+        log.debug('_attachEvent(%s, \n%r)' % (eventType, handler, ))
         if not eventType.startswith('on'):
             log.warning('[WARNING] attachEvent eventType: %s', eventType)
 
         self._addEventListener(eventType[2:], handler, False, prio)
 
     def _detachEvent(self, eventType, handler):
-        log.debug('_detachEvent(%s, \n%s)' % (eventType, handler, ))
+        log.debug('_detachEvent(%s, \n%r)' % (eventType, handler, ))
         if not eventType.startswith('on'):
             log.warning('[WARNING] detachEvent eventType: %s', eventType)
 
