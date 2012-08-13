@@ -16,6 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import os
 import PyV8 
 import string
 import struct
@@ -125,7 +126,7 @@ class Shellcode:
 
                 self.emu.free()
                 
-                if not libemu:
-                    self.search_url(s)
+                #if not libemu:
+                #    self.search_url(s)
             
         return result
