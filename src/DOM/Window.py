@@ -750,10 +750,43 @@ class Window(PyV8.JSClass):
             if log.ThugOpts.Personality.isIE():
                 script = script.replace('@cc_on!@', '*/!/*')
 
-            shellcode = Shellcode.Shellcode(ctxt, ast, script)
+            shellcode = Shellcode.Shellcode(self, ctxt, ast, script)
             result    = shellcode.run()
 
         return result
+
+    def unescape(self, s):
+        i  = 0 
+        sc = list()
+
+        if len(s) > 16:
+            log.ThugLogging.shellcodes.add(s)
+
+        while i < len(s):
+            if s[i] == '"':
+                i += 1
+                continue
+
+            if s[i] == '%':
+                if (i + 6) <= len(s) and s[i + 1] == 'u':
+                    currchar = int(s[i + 2: i + 4], 16) 
+                    nextchar = int(s[i + 4: i + 6], 16) 
+                    sc.append(chr(nextchar))
+                    sc.append(chr(currchar))
+                    i += 6
+                elif (i + 3) <= len(s):
+                    currchar = int(s[i + 1: i + 3], 16) 
+                    sc.append(chr(currchar))
+                    i += 3
+                else:
+                    sc.append(s[i])
+                    i += 1
+
+            else:
+                sc.append(s[i])
+                i += 1
+
+        return ''.join(sc)
 
     def fireOnloadEvents(self):
         #for tag in self._findAll('script'):

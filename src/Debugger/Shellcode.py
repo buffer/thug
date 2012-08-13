@@ -19,6 +19,7 @@
 import PyV8 
 import string
 import struct
+import hashlib
 import logging
 import traceback
 import chardet
@@ -31,18 +32,37 @@ log = logging.getLogger("Thug")
 class Shellcode:
     emu = pylibemu.Emulator()
 
-    def __init__(self, ctxt, ast, script):
+    def __init__(self, window, ctxt, ast, script):
+	self.window  = window
         self.script  = script
         self.ctxt    = ctxt
         self.ast     = ast
         self.offsets = set()
+
+    def _fetch(self, url):
+        try:
+            response, content = self.window._navigator.fetch(url)
+        except:
+            return
+
+        if response.status == 404:
+            return
+
+        m = hashlib.md5()
+        m.update(content)
+        h = m.hexdigest()
+
+        log.warning('Saving remote content at %s (MD5: %s)' % (url, h, ))
+        with open(os.path.join(log.baseDir, h), 'wb') as fd: 
+            fd.write(content)
             
     def search_url(self, sc):
         offset = sc.find('http')
         
         if offset > 0:
             url = sc[offset:].split()[0]
-            log.debug('[Shellcode] URL Detected: %s' % (url, ))
+            log.info('[Shellcode Analysis] URL Detected: %s' % (url, ))
+            self._fetch(url)
 
     def build_shellcode(self, s):
         try:
@@ -87,24 +107,17 @@ class Shellcode:
 
                 if name in vars.keys():
                     s = vars[name]
+
                 if not s:
+                    continue
+
+                if not isinstance(s, basestring):
                     continue
               
                 log.debug("[Shellcode] Testing variable: %s" % (name, ))
-                
-                try:
-                    shellcode = s.decode('utf-8')
-                except:
-                    shellcode = s
+                #sc = self.build_shellcode(s)
+                self.emu.run(s)
 
-                sc = b''
-                try:
-                    for c in shellcode:
-                        sc += struct.pack('<H', ord(c))
-                except:
-                    continue
-
-                self.emu.run(sc)
                 if self.emu.emu_profile_output:
                     log.ThugLogging.add_code_snippet(self.emu.emu_profile_output, 'Assembly', 'Shellcode')
                     log.warning(self.emu.emu_profile_output)
@@ -113,6 +126,6 @@ class Shellcode:
                 self.emu.free()
                 
                 if not libemu:
-                    self.search_url(sc)
+                    self.search_url(s)
             
         return result

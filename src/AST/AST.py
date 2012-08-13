@@ -276,6 +276,9 @@ class AST(object):
             e.visit(self)
 
     def onLiteral(self, litr):
+        if len(str(litr)) > 256:
+            log.ThugLogging.shellcodes.add(str(litr).lstrip('"').rstrip('"'))
+
         self.debug("\tLiteral:            %s" % (litr, ))
 
     def onReturnStatement(self, stmt):

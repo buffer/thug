@@ -111,40 +111,63 @@ class DFT(object):
         return self._context
 
     def build_shellcode(self, s):
-        try:
-            return ''.join([struct.pack('H', ord(i)) for i in s]) 
-        except:
-            pass
+        i  = 0
+        sc = list()
 
-        try:
-            shellcode = s.decode('utf-8')
-        except:
-            shellcode = s
+        while i < len(s):
+            if s[i] == '"':
+                i += 1
+                continue
 
-        sc = b''
+            if s[i] == '%':
+                if (i + 6) <= len(s) and s[i + 1] == 'u':
+                    currchar = int(s[i + 2: i + 4], 16)
+                    nextchar = int(s[i + 4: i + 6], 16)
+                    sc.append(chr(nextchar))
+                    sc.append(chr(currchar))
+                    i += 6
+                elif (i + 3) <= len(s):
+                    currchar = int(s[i + 1: i + 3], 16)
+                    sc.append(chr(currchar))
+                    i += 3
+                else:
+                    sc.append(s[i])
+                    i += 1
+            else:
+                sc.append(s[i])
+                i += 1
 
-        try:
-            for c in shellcode:
-                sc += struct.pack('<H', ord(c))
-        except:
-            sc = shellcode
-
-        if not sc:
-            return sc
-
-        return None
+        return ''.join(sc)
 
     def check_shellcode(self, s):
-        sc = self.build_shellcode(s)
-        if sc is None:
-            return
+        try:
+            sc = self.build_shellcode(s)
+        except:
+            sc = s
 
         emu = pylibemu.Emulator()
         emu.run(sc)
+
         if emu.emu_profile_output:
+            log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode')
             log.warning(emu.emu_profile_output)
+        else:
+            offset = sc.find('http://')
+            if offset != -1:
+                url = sc[offset:]
+                url = url.split()[0]
+                log.warning('[Shellcode Analysis] URL Detected: %s' % (url, ))
+                self._fetch(url)
 
         emu.free()
+
+    def check_shellcodes(self):
+        while True:
+            try:
+                shellcode = log.ThugLogging.shellcodes.pop()
+                self.check_shellcode(shellcode)
+            except KeyError:
+                break
 
     def check_attrs(self, p):
         for attr, value in p.attrs.items():
@@ -205,7 +228,7 @@ class DFT(object):
             if eventType in (evt, ):
                 if (elem._node, evt) in self.dispatched_events:
                     continue
-                
+            
                 elem._node.dispatchEvent(evt)
                 self.dispatched_events.add((elem._node, evt))
 
@@ -372,6 +395,7 @@ class DFT(object):
             log.ThugLogging.add_code_snippet(js, 'Javascript', 'Contained_Inside')
             self.window.evalScript(js, tag = script)
 
+        self.check_shellcodes()
         self.check_anchors()
 
     def handle_vbscript(self, script):
@@ -595,3 +619,4 @@ class DFT(object):
     def run(self):
         with self.context as ctx:
             self._run()
+            self.check_shellcodes()

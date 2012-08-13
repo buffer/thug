@@ -12,7 +12,8 @@ window.Math     = Math;
 window.Number   = Number;
 window.RegExp   = RegExp;
 
-window.unescape = unescape;
+//window.unescape = unescape;
+unescape 	    = window.unescape;
 
 window.String       = String;
 window.charAt       = String.charAt;
