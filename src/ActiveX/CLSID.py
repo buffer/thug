@@ -538,7 +538,7 @@ CLSID = [
         # JavaPlugin
         {
             'id'        : (),
-            'name'      : ( 'javaplugin.171_40', ),
+            'name'      : ( 'javaplugin.171_30', ),
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {}
