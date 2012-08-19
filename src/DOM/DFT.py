@@ -579,8 +579,10 @@ class DFT(object):
             doc    = w3c.parseString('')
             window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
             window = window.open(href)
-            dft = DFT(window)
-            dft.run()
+            
+            if window:
+                dft = DFT(window)
+                dft.run()
 
     def _run(self):
         log.debug(self.window.doc)
