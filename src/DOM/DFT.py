@@ -21,6 +21,7 @@ import pylibemu
 import struct
 import W3C.w3c as w3c
 import hashlib
+import string
 import logging
 import Window
 import PyV8
@@ -139,11 +140,11 @@ class DFT(object):
 
         return ''.join(sc)
 
-    def check_shellcode(self, s):
+    def check_shellcode(self, shellcode):
         try:
-            sc = self.build_shellcode(s)
+            sc = self.build_shellcode(shellcode)
         except:
-            sc = s
+            sc = shellcode
 
         emu = pylibemu.Emulator()
         emu.run(sc)
@@ -152,14 +153,28 @@ class DFT(object):
             log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode')
             log.warning(emu.emu_profile_output)
         else:
-            offset = sc.find('http://')
-            if offset != -1:
-                url = sc[offset:]
-                url = url.split()[0]
-                log.warning('[Shellcode Analysis] URL Detected: %s' % (url, ))
-                self._fetch(url)
+            self.check_url(sc, shellcode)
 
         emu.free()
+
+    def check_url(self, sc, shellcode):
+        for scheme in ('http://', 'https://'):
+            offset = sc.find(scheme)
+            if offset == -1:
+                continue
+
+            url = sc[offset:]
+            url = url.split()[0]
+                
+            i = 0
+            while i <= len(url):
+                if not url[i] in string.printable:
+                    break
+                i += 1
+
+            log.ThugLogging.add_code_snippet(shellcode, 'Assembly', 'Shellcode')
+            log.warning('[Shellcode Analysis] URL Detected: %s' % (url[:i], ))
+            self._fetch(url[:i])
 
     def check_shellcodes(self):
         while True:
