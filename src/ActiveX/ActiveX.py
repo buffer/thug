@@ -45,12 +45,31 @@ class _ActiveXObject:
         if type == 'name':
             cls = cls.lower()
 
+        # Shockwave Flash
         if cls in self.shockwave_flash and not self.shockwave in (self.shockwave_flash[cls], ):
             log.warning("Unknown ActiveX Object: %s" % (cls, ))
             raise TypeError()
 
+        _cls = cls
+
+        # JavaPlugin
+        if cls.lower().startswith('javaplugin'): 
+            if not cls.endswith(log.ThugVulnModules.javaplugin):
+                log.warning("Unknown ActiveX Object: %s" % (cls, ))
+                raise TypeError()
+            else:
+                _cls = 'javaplugin'
+
+        # JavaWebStart
+        if cls.lower().startswith('javawebstart.isinstalled'):
+            if not cls.endswith(log.ThugVulnModules.javawebstart_isinstalled):
+                log.warning("Unknown ActiveX Object: %s" % (cls, ))
+                raise TypeError()
+            else:
+                _cls = 'javawebstart.isinstalled'
+
         for c in CLSID:
-            if cls in c[type]:
+            if _cls in c[type]:
                 object = c
                 break
 

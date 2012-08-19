@@ -538,7 +538,7 @@ CLSID = [
         # JavaPlugin
         {
             'id'        : (),
-            'name'      : ( 'javaplugin.171_30', ),
+            'name'      : ( 'javaplugin', ),
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {}
@@ -547,7 +547,7 @@ CLSID = [
         # JavaWebStart.isInstalled
         {
             'id'        : (),
-            'name'      : ( 'javawebstart.isinstalled.1.7.1.0', ),
+            'name'      : ( 'javawebstart.isinstalled', ),
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {}
