@@ -41,8 +41,8 @@ class ThugLogging(BaseLogging):
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
         self.MAEC.add_behavior_warn(description, cve, method)
 
-    def add_code_snippet(self, snippet, language, relationship):
-        self.MAEC.add_code_snippet(snippet, language, relationship)
+    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
+        self.MAEC.add_code_snippet(snippet, language, relationship, method)
 
     def log_file(self, data, url):
         sample = self.build_sample(data, url)

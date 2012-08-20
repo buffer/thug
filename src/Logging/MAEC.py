@@ -140,9 +140,9 @@ class MAEC(object):
         snippet.set_Nature_Of_Relationship(relationship)
         self.associated_code.add_Associated_Code_Snippet(snippet)
 
-    def add_code_snippet(self, snippet, language, relationship):
+    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
         self.add_associated_code_to_object()
-        self.add_snippet_to_associated_code(snippet, language, relationship)
+        self.add_snippet_to_associated_code(snippet, language, relationship, method)
 
     def create_code_segment(self, snippet, language, discovery_method):
         return maec.CodeType(Code_Segment     = snippet, 
