@@ -24,7 +24,7 @@ import urlparse
 import hashlib
 import logging
 import socket
-from .Plugins import Plugins
+from .Plugin import Plugin
 
 class AboutBlank(httplib2.HttpLib2Error): 
     pass
@@ -34,9 +34,36 @@ log = logging.getLogger("Thug")
 class Navigator(PyV8.JSClass):
     def __init__(self, personality, window = None):
         self.personality = log.ThugOpts.Personality[personality]
-        self.plugins     = Plugins  # An array of the plugins installed in the browser
+        self.plugins     = list()  # An array of the plugins installed in the browser
         self._window     = window
-      
+        self._mimeTypes = { 'application/pdf':
+                                    {
+                                        'description'   : 'Adobe Acrobat Plug-In',
+                                        'suffixes'      : 'pdf',
+                                        'type'          : 'application/pdf',
+                                        'enabledPlugin' : Plugin({'name'        : 'Adobe Acrobat %s' % (log.ThugVulnModules.acropdf_pdf, ),
+                                                                  'version'     : '%s' % (log.ThugVulnModules.acropdf_pdf, ),
+                                                                  'description' : 'Adobe Acrobat Plug-In'
+                                                                  }),
+                                        'enabled'       : True,
+                                    },
+
+                            'application/x-shockwave-flash':
+                                    {
+                                        'description'   : 'Shockwave Flash',
+                                        'suffixes'      : 'swf',
+                                        'type'          : 'application/x-shockwave-flash',
+                                        'enabledPlugin' : Plugin({'name'        : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),
+                                                                  'version'     : '%s' % (log.ThugVulnModules.shockwave_flash, ),
+                                                                  'description' : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),
+                                                                  }),
+                                        'enabled'       : True,
+                                    },
+                            }  
+   
+        for p in self._mimeTypes.values():
+            self.plugins.append(p['enabledPlugin'])
+
     @property
     def window(self):
         return self._window
@@ -95,7 +122,7 @@ class Navigator(PyV8.JSClass):
         """
             A list of the MIME types supported by the browser
         """
-        return []
+        return self._mimeTypes 
 
     @property
     def onLine(self):
