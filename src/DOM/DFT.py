@@ -150,7 +150,7 @@ class DFT(object):
         emu.run(sc)
 
         if emu.emu_profile_output:
-            log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode')
+            log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
             log.warning(emu.emu_profile_output)
         else:
             self.check_url(sc, shellcode)
@@ -172,8 +172,8 @@ class DFT(object):
                     break
                 i += 1
 
-            log.ThugLogging.add_code_snippet(shellcode, 'Assembly', 'Shellcode')
-            log.warning('[Shellcode Analysis] URL Detected: %s' % (url[:i], ))
+            log.ThugLogging.add_code_snippet(shellcode, 'Assembly', 'Shellcode', method = 'Static Analysis')
+            log.ThugLogging.add_behavior_warn(description = '[Shellcode Analysis] URL Detected: %s' % (url[:i], ), method = 'Static Analysis')
             self._fetch(url[:i])
 
     def check_shellcodes(self):
