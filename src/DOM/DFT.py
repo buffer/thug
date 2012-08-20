@@ -165,9 +165,12 @@ class DFT(object):
 
             url = sc[offset:]
             url = url.split()[0]
-                
+            if len(url) == 0:
+                continue
+
             i = 0
-            while i <= len(url):
+
+            while i < len(url):
                 if not url[i] in string.printable:
                     break
                 i += 1
