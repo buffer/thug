@@ -1,0 +1,19 @@
+<html>
+<body>
+<script>
+
+function loader(){
+	alert('Loaded');
+}
+
+function loader2() {
+	alert('Loaded 2');
+}
+
+if (window.attachEvent) {
+	window.attachEvent('onload', loader);
+}
+
+if (window.addEventListener) {
+	window.addEventListener('load', loader2, false);
+}
