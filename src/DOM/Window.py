@@ -674,29 +674,29 @@ class Window(PyV8.JSClass):
                 
     def _attachEvent(self, sEvent, fpNotify):
         log.debug("[attachEvent] %s %s" % (sEvent, fpNotify, ))
-        self.__dict__[sEvent.lower()] = fpNotify
-
+        setattr(self, sEvent.lower(), fpNotify)
+    
     def _detachEvent(self, sEvent, fpNotify):
         log.debug("[detachEvent] %s %s" % (sEvent, fpNotify, ))
         notify = getattr(self, sEvent.lower(), None)
         if notify is None:
             return
-
-        if notify == fpNotify:
-            del self.__dict__[sEvent.lower()]
-
+    
+        if notify in (fpNotify, ):
+            delattr(self, sEvent.lower())
+    
     def _addEventListener(self, type, listener, useCapture = False):
         log.debug("[addEventListener] %s %s %s" % (type, listener, useCapture, ))
-        self.__dict__['on%s' % (type.lower(), )] = listener
-
+        setattr(self, 'on%s' % (type.lower(), ), listener)
+    
     def _removeEventListener(self, type, listener, useCapture = False):
         log.debug("[removeEventListener] %s %s %s" % (type, listener, useCapture, ))
         _listener = getattr(self, 'on%s' % (type.lower(), ), None)
         if _listener is None:
             return
-
-        if _listener == listener:
-            del self.__dict__['on%s' % (type.lower(), )]
+    
+        if _listener in (listener, ):
+            delattr(self, 'on%s' % (type.lower(), ))
 
     def _CollectGarbage(self):
         pass
