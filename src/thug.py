@@ -47,6 +47,7 @@ class ThugOpts(dict):
         self.ast_debug   = False
         self._useragent  = 'winxpie61'
         self._referer    = 'about:blank'
+        self._events     = list()
         self.Personality = Personality()
 
     def set_proxy_info(self, proxy):
@@ -83,6 +84,14 @@ class ThugOpts(dict):
 
     referer = property(get_referer, set_referer)
 
+    def get_events(self):
+        return self._events
+
+    def set_events(self, events):
+        for e in events.split(","):
+            self._events.append(e.lower().strip())
+        
+    events = property(get_events, set_events)
 
 class ThugVulnModules(dict):
     def __init__(self):
@@ -170,6 +179,8 @@ Synopsis:
 
     Options:
         -h, --help          \tDisplay this help information
+        -u, --useragent=    \tSelect a user agent (see below for values, default: winxpie61)
+        -e, --events=       \tEnable comma-separated specified DOM events handling
         -o, --output=       \tLog to a specified file
         -r, --referer=      \tSpecify a referer
         -p, --proxy=        \tSpecify a proxy (see below for format and supported schemes)
@@ -177,7 +188,6 @@ Synopsis:
         -v, --verbose       \tEnable verbose mode    
         -d, --debug         \tEnable debug mode
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
-        -u, --useragent=    \tSelect a user agent (see below for values, default: winxpie61)
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 7.1.0)
         -S, --shockwave=    \tSpecify the Shockwave Flash version (default: 10.0.64.0)
         -J, --javaplugin=   \tSpecify the JavaPlugin version (default: 1.7.1.30)
@@ -247,12 +257,14 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hu:o:r:p:lvdaA:S:J:',
+            options, args = getopt.getopt(self.args, 'hu:e:o:r:p:lvdaA:S:J:',
                 ['help', 
                 'useragent=', 
-                'logfile=',
+                'events=',
+                'output=',
                 'referer=',
                 'proxy=',
+                'local',
                 'verbose',
                 'debug', 
                 'ast-debug',
@@ -275,6 +287,8 @@ Synopsis:
         for option in options:
             if option[0] in ('-u', '--useragent', ):
                 log.ThugOpts.useragent = option[1]
+            if option[0] in ('-e', '--events'):
+                log.ThugOpts.events = option[1]
             if option[0] in ('-o', '--output', ):
                 fh = logging.FileHandler(os.path.join(log.baseDir, option[1]))
                 log.addHandler(fh)

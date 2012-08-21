@@ -48,13 +48,6 @@ class DFT(object):
     javascript     = ('javascript', )
     vbscript       = ('vbs', 'vbscript', 'visualbasic')
 
-    # Events are handled in the same order they are inserted in this list
-    handled_events = ('load',
-                      'mousemove',
-                      'click'
-                      )
-
-    handled_on_events = map(lambda e: 'on' + e, handled_events)
     # Some event types are directed at the browser as a whole, rather than at 
     # any particular document element. In JavaScript, handlers for these events 
     # are registered on the Window object. In HTML, we place them on the <body>
@@ -94,10 +87,22 @@ class DFT(object):
         self.window.doc.DFT    = self
         self.anchors           = list()
         self.meta              = dict()
-        self.listeners         = list()
-        self.dispatched_events = set()
         self._context          = None
-    
+        self._init_events()
+   
+    def _init_events(self):
+        self.listeners = list()
+
+        # Events are handled in the same order they are inserted in this list
+        self.handled_events = ['load', 'mousemove']
+
+        for event in log.ThugOpts.events:
+            self.handled_events.append(event)
+
+        log.debug("Handling DOM Events: %s" % (",".join(self.handled_events), ))
+        self.handled_on_events = map(lambda e: 'on' + e, self.handled_events)
+        self.dispatched_events = set()
+
     def __enter__(self):
         return self
 
