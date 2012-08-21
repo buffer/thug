@@ -293,11 +293,12 @@ class Navigator(PyV8.JSClass):
             log.warning("ServerNotFoundError: %s" % (e, ))
             log.ThugLogging.log_redirect(response)
             raise
-        
-        log.ThugLogging.log_redirect(response)
+
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (response['content-location'] if 'content-location' in headers else url,
                                                                                          response['status'],
                                                                                          headers['Referer'] if 'Referer' in headers else 'None'))
+        log.ThugLogging.log_redirect(response)
+
         if response.status == 404:
             log.warning("FileNotFoundError: %s" % (url, ))
             return response, content
