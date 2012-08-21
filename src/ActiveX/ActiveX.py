@@ -24,7 +24,7 @@ from .CLSID import CLSID
 log = logging.getLogger("Thug")
 
 class _ActiveXObject:
-    shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '9', 
+    shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10', 
                         'shockwaveflash.shockwaveflash.9'  : '9' ,
                         'shockwaveflash.shockwaveflash.10' : '10' }
 

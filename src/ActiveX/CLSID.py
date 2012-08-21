@@ -970,7 +970,7 @@ CLSID = [
         # ShockwaveFlash.ShockwaveFlash.9
         {
             'id'        : (),
-            'name'      : ( 'shockwaveflash.shockwaveflash', 'shockwaveflash.shockwaveflash.9'),
+            'name'      : ( 'shockwaveflash.shockwaveflash.9'),
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {
@@ -981,7 +981,7 @@ CLSID = [
         # ShockwaveFlash.ShockwaveFlash.10
         {
             'id'        : (),
-            'name'      : ( 'shockwaveflash.shockwaveflash.10', ),
+            'name'      : ( 'shockwaveflash.shockwaveflash', 'shockwaveflash.shockwaveflash.10', ),
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {
