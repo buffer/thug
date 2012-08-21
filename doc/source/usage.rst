@@ -23,37 +23,39 @@ Let's start our Thug tour by taking a look at the options it provides.
                 python thug.py [ options ] url
 
         Options:
-                -h, --help              Display this help information
-                -o, --output=           Log to a specified file
-                -r, --referer=          Specify a referer
-                -p, --proxy=            Specify a proxy (see below for format and supported schemes)
+                -h, --help          	Display this help information
+                -u, --useragent=    	Select a user agent (see below for values, default: winxpie61)
+                -e, --events=       	Enable comma-separated specified DOM events handling
+                -o, --output=       	Log to a specified file
+                -r, --referer=      	Specify a referer
+                -p, --proxy=        	Specify a proxy (see below for format and supported schemes)
                 -l, --local         
-                -v, --verbose           Enable verbose mode    
-                -d, --debug             Enable debug mode
-                -a, --ast-debug         Enable AST debug mode (requires debug mode)
-                -u, --useragent=        Select a user agent (see below for values, default: winxpie61)
-                -A, --adobepdf=         Specify the Adobe Acrobat Reader version (default: 7.1.0) 
-                -S, --shockwave=        Specify the Shockwave Flash version (default: 10.0.64.0)
-		-J, --javaplugin=   	Specify the JavaPlugin version (default: 1.7.1.30)
+                -v, --verbose       	Enable verbose mode    
+                -d, --debug         	Enable debug mode
+                -a, --ast-debug     	Enable AST debug mode (requires debug mode)
+                -A, --adobepdf=     	Specify the Adobe Acrobat Reader version (default: 7.1.0)
+                -S, --shockwave=    	Specify the Shockwave Flash version (default: 10.0.64.0)
+                -J, --javaplugin=   	Specify the JavaPlugin version (default: 1.7.1.30)
 
         Proxy Format:
                 scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
 
         Available User-Agents:
-                winxpie60                       Internet Explorer 6.0   (Windows XP)
-                winxpie61                       Internet Explorer 6.1   (Windows XP)
-                winxpie70                       Internet Explorer 7.0   (Windows XP)
-                winxpie80                       Internet Explorer 8.0   (Windows XP)
-                winxpchrome20                   Chrome 20.0.1132.47     (Windows XP)
-                winxpsafari5                    Safari 5.1.7            (Windows XP)
-                win2kie60                       Internet Explorer 6.0   (Windows 2000)
-                win2kie80                       Internet Explorer 8.0   (Windows 2000)
-                win7xpie80                      Internet Explorer 8.0   (Windows 7)
-                win7xpie90                      Internet Explorer 9.0   (Windows 7)
-                win7chrome20                    Chrome 20.0.1132.47     (Windows 7)
-                win7safari5                     Safari 5.1.7            (Windows 7)
-                osx10safari5                    Safari 5.1.1            (MacOS X 10.7.2)
-                osx10chrome19                   Chrome 19.0.1084.54     (MacOS X 10.7.4)
+	        winxpie60			Internet Explorer 6.0	(Windows XP)
+	        winxpie61			Internet Explorer 6.1	(Windows XP)
+	        winxpie70			Internet Explorer 7.0	(Windows XP)
+	        winxpie80			Internet Explorer 8.0	(Windows XP)
+	        winxpchrome20			Chrome 20.0.1132.47	(Windows XP)
+	        winxpfirefox12			Firefox 12.0		(Windows XP)
+	        winxpsafari5			Safari 5.1.7		(Windows XP)
+	        win2kie60			Internet Explorer 6.0	(Windows 2000)
+	        win2kie80			Internet Explorer 8.0	(Windows 2000)
+	        win7ie80			Internet Explorer 8.0	(Windows 7)
+	        win7ie90			Internet Explorer 9.0	(Windows 7)
+	        win7chrome20			Chrome 20.0.1132.47	(Windows 7)
+	        win7safari5			Safari 5.1.7		(Windows 7)
+	        osx10safari5			Safari 5.1.1		(MacOS X 10.7.2)
+	        osx10chrome19			Chrome 19.0.1084.54	(MacOS X 10.7.4)
 
 
 Let's start with a first basic real-world example: a Blackhole exploit kit.  
@@ -294,6 +296,22 @@ It's quite simple to realize that the exploit for the Microsoft Data Access Comp
 vulnerability is not served as previously staten. 
 
 
+DOM Events Handling
+-------------------
+
+A useful option is the -e (--events) option which allows you to specify which DOM events should
+be handled by Thug. By default `load` and `mousemove` events are always handled but you can add
+other ones with this option. Using this option is quite simple. All you need to do is to specify
+a comma-separated list of events to handle as shown below.
+
+.. code-block:: sh
+
+        ~/thug/src $ python thug.py -e click,mouseover URL
+        
+In this example, the DOM events `load`, `mousemove`, `click` and `mouseover` will be handled by 
+Thug while all the others will be ignored.
+
+ 
 Adobe Acrobat Reader
 --------------------
 
