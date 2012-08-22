@@ -615,13 +615,22 @@ CLSID = [
         {
             'id'        : (),
             'name'      : ( 'msxml2.xmlhttp', 'microsoft.xmlhttp', ),
-            'attrs'     : {
-                            'responseBody'  : '',
+            'attrs'     : { 
+                            'bstrMethod'       : '',
+                            'bstrUrl'          : '',
+                            'varAsync'         : True,
+                            'varUser'          : None,
+                            'varPassword'      : None,
+                            'requestHeaders'   : {},
+                            'responseHeaders'  : {},
+                            'responseBody'     : '',
                           },
             'funcattrs' : {},
             'methods'   : {
-                            'open'          : MicrosoftXMLHTTP.open,
-                            'send'          : MicrosoftXMLHTTP.send,
+                            'abort'            : MicrosoftXMLHTTP.abort,
+                            'open'             : MicrosoftXMLHTTP.open,
+                            'send'             : MicrosoftXMLHTTP.send,
+                            'setRequestHeader' : MicrosoftXMLHTTP.setRequestHeader,
                           }
         },
 
