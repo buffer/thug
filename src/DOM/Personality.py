@@ -221,6 +221,9 @@ class Personality(dict):
                 "browserTag"      : "chrome20",
                 }
 
+    @property
+    def userAgent(self):
+        return self[log.ThugOpts.useragent]['userAgent']
 
     @property
     def browserVersion(self):
