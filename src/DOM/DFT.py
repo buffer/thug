@@ -170,6 +170,9 @@ class DFT(object):
 
             url = sc[offset:]
             url = url.split()[0]
+            if url.endswith("'") or url.endswith('"'):
+                url = url[:-1]
+            
             if len(url) == 0:
                 continue
 
