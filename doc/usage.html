@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.4.8 documentation</title>
+    <title>Usage &mdash; Thug 0.4.9 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.8',
+        VERSION:     '0.4.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.8 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.4.9 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="Build and Install" href="build.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="build.html" title="Build and Install"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.9 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -70,6 +70,8 @@ Usage:
 
 Options:
         -h, --help              Display this <span class="nb">help </span>information
+        -u, --useragent<span class="o">=</span>        Select a user agent <span class="o">(</span>see below <span class="k">for </span>values, default: winxpie61<span class="o">)</span>
+        -e, --events<span class="o">=</span>           Enable comma-separated specified DOM events handling
         -o, --output<span class="o">=</span>           Log to a specified file
         -r, --referer<span class="o">=</span>          Specify a referer
         -p, --proxy<span class="o">=</span>            Specify a proxy <span class="o">(</span>see below <span class="k">for </span>format and supported schemes<span class="o">)</span>
@@ -77,7 +79,6 @@ Options:
         -v, --verbose           Enable verbose mode
         -d, --debug             Enable debug mode
         -a, --ast-debug         Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
-        -u, --useragent<span class="o">=</span>        Select a user agent <span class="o">(</span>see below <span class="k">for </span>values, default: winxpie61<span class="o">)</span>
         -A, --adobepdf<span class="o">=</span>         Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 7.1.0<span class="o">)</span>
         -S, --shockwave<span class="o">=</span>        Specify the Shockwave Flash version <span class="o">(</span>default: 10.0.64.0<span class="o">)</span>
         -J, --javaplugin<span class="o">=</span>       Specify the JavaPlugin version <span class="o">(</span>default: 1.7.1.30<span class="o">)</span>
@@ -91,11 +92,12 @@ Available User-Agents:
         winxpie70                       Internet Explorer 7.0   <span class="o">(</span>Windows XP<span class="o">)</span>
         winxpie80                       Internet Explorer 8.0   <span class="o">(</span>Windows XP<span class="o">)</span>
         winxpchrome20                   Chrome 20.0.1132.47     <span class="o">(</span>Windows XP<span class="o">)</span>
+        winxpfirefox12                  Firefox 12.0            <span class="o">(</span>Windows XP<span class="o">)</span>
         winxpsafari5                    Safari 5.1.7            <span class="o">(</span>Windows XP<span class="o">)</span>
         win2kie60                       Internet Explorer 6.0   <span class="o">(</span>Windows 2000<span class="o">)</span>
         win2kie80                       Internet Explorer 8.0   <span class="o">(</span>Windows 2000<span class="o">)</span>
-        win7xpie80                      Internet Explorer 8.0   <span class="o">(</span>Windows 7<span class="o">)</span>
-        win7xpie90                      Internet Explorer 9.0   <span class="o">(</span>Windows 7<span class="o">)</span>
+        win7ie80                        Internet Explorer 8.0   <span class="o">(</span>Windows 7<span class="o">)</span>
+        win7ie90                        Internet Explorer 9.0   <span class="o">(</span>Windows 7<span class="o">)</span>
         win7chrome20                    Chrome 20.0.1132.47     <span class="o">(</span>Windows 7<span class="o">)</span>
         win7safari5                     Safari 5.1.7            <span class="o">(</span>Windows 7<span class="o">)</span>
         osx10safari5                    Safari 5.1.1            <span class="o">(</span>MacOS X 10.7.2<span class="o">)</span>
@@ -321,6 +323,18 @@ W.eXeC "taskkill /F /IM wm" &amp; "player.e" &amp; "xe":W.eXeC "taskkill /F /IM 
 </div>
 <p>It&#8217;s quite simple to realize that the exploit for the Microsoft Data Access Components (MDAC)
 vulnerability is not served as previously staten.</p>
+</div>
+<div class="section" id="dom-events-handling">
+<h2>DOM Events Handling<a class="headerlink" href="#dom-events-handling" title="Permalink to this headline">¶</a></h2>
+<p>A useful option is the -e (&#8211;events) option which allows you to specify which DOM events should
+be handled by Thug. By default <cite>load</cite> and <cite>mousemove</cite> events are always handled but you can add
+other ones with this option. Using this option is quite simple. All you need to do is to specify
+a comma-separated list of events to handle as shown below.</p>
+<div class="highlight-sh"><div class="highlight"><pre>~/thug/src <span class="nv">$ </span>python thug.py -e click,mouseover URL
+</pre></div>
+</div>
+<p>In this example, the DOM events <cite>load</cite>, <cite>mousemove</cite>, <cite>click</cite> and <cite>mouseover</cite> will be handled by
+Thug while all the others will be ignored.</p>
 </div>
 <div class="section" id="adobe-acrobat-reader">
 <h2>Adobe Acrobat Reader<a class="headerlink" href="#adobe-acrobat-reader" title="Permalink to this headline">¶</a></h2>
@@ -688,6 +702,7 @@ total 356K
 <li><a class="reference internal" href="#">Usage</a><ul>
 <li><a class="reference internal" href="#basic-usage">Basic usage</a></li>
 <li><a class="reference internal" href="#browser-personality">Browser personality</a></li>
+<li><a class="reference internal" href="#dom-events-handling">DOM Events Handling</a></li>
 <li><a class="reference internal" href="#adobe-acrobat-reader">Adobe Acrobat Reader</a></li>
 <li><a class="reference internal" href="#shockwave-flash">Shockwave Flash</a></li>
 <li><a class="reference internal" href="#javaplugin-and-javawebstart">JavaPlugin and JavaWebStart</a></li>
@@ -738,7 +753,7 @@ total 356K
         <li class="right" >
           <a href="build.html" title="Build and Install"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.8 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.9 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
