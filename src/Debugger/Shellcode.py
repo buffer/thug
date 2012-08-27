@@ -65,27 +65,6 @@ class Shellcode:
             log.info('[Shellcode Analysis] URL Detected: %s' % (url, ))
             self._fetch(url)
 
-    def build_shellcode(self, s):
-        try:
-            return ''.join([struct.pack('H', ord(i)) for i in s])
-        except:
-            pass
-
-        try:
-            shellcode = s.decode('utf-8')
-        except:
-            shellcode = s
-
-        sc = b''
-        try:
-            for c in shellcode:
-                sc += struct.pack('<H', ord(c))
-        except:
-            log.debug(traceback.print_exc())
-            return None
-
-        return sc
-
     def run(self):
         result = None
 
@@ -93,6 +72,7 @@ class Shellcode:
             dbg._context = self.ctxt
             vars = self.ctxt.locals
             #dbg.debugBreak()
+
             try:
                 result = self.ctxt.eval(self.script)
             except UnicodeDecodeError:
@@ -103,8 +83,7 @@ class Shellcode:
                 return result
 
             for name in self.ast.names:
-                s      = None
-                libemu = False
+                s = None
 
                 if name in vars.keys():
                     s = vars[name]
@@ -116,7 +95,6 @@ class Shellcode:
                     continue
               
                 log.debug("[Shellcode] Testing variable: %s" % (name, ))
-                #sc = self.build_shellcode(s)
                 self.emu.run(s)
 
                 if self.emu.emu_profile_output:
@@ -125,8 +103,6 @@ class Shellcode:
                     libemu = True
 
                 self.emu.free()
-                
-                #if not libemu:
-                #    self.search_url(s)
+                self.search_url(s)
             
         return result
