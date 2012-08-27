@@ -153,13 +153,12 @@ class DFT(object):
 
         emu = pylibemu.Emulator()
         emu.run(sc)
-
+        
         if emu.emu_profile_output:
             log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
             log.warning(emu.emu_profile_output)
-        else:
-            self.check_url(sc, shellcode)
-
+        
+        self.check_url(sc, shellcode)
         emu.free()
 
     def check_url(self, sc, shellcode):
