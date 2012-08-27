@@ -88,6 +88,7 @@ class MIMEHandler(dict):
                  "application/x-msaccess",
                  "application/x-mscardfile",
                  "application/x-msclip",
+                 "application/x-msdos-program",
                  "application/x-msdownload",
                  "application/x-msmediaview",
                  "application/x-msmetafile",
