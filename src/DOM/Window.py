@@ -787,8 +787,8 @@ class Window(PyV8.JSClass):
                     sc.append(chr(nextchar))
                     sc.append(chr(currchar))
                     i += 6
-                elif (i + 3) <= len(s):
-                    currchar = int(s[i + 1: i + 3], 16) 
+                elif (i + 3) <= len(s) and s[i + 1] == 'u':
+                    currchar = int(s[i + 2: i + 4], 16) 
                     sc.append(chr(currchar))
                     i += 3
                 else:
