@@ -74,3 +74,10 @@ class HTMLObjectElement(HTMLElement):
                 return
 
         self.tag[name] = value
+
+    @property
+    def object(self):
+        return self
+
+    def definition(self, value):
+        pass
