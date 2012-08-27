@@ -45,7 +45,7 @@ class ThugOpts(dict):
         self._proxy_info = None
         self.local       = False
         self.ast_debug   = False
-        self._useragent  = 'winxpie61'
+        self._useragent  = 'winxpie60'
         self._referer    = 'about:blank'
         self._events     = list()
         self.Personality = Personality()
@@ -179,7 +179,7 @@ Synopsis:
 
     Options:
         -h, --help          \tDisplay this help information
-        -u, --useragent=    \tSelect a user agent (see below for values, default: winxpie61)
+        -u, --useragent=    \tSelect a user agent (see below for values, default: winxpie60)
         -e, --events=       \tEnable comma-separated specified DOM events handling
         -o, --output=       \tLog to a specified file
         -r, --referer=      \tSpecify a referer

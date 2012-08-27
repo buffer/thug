@@ -81,7 +81,7 @@ class Window(PyV8.JSClass):
             if self.repeat:
                 self.start()
         
-    def __init__(self, url, dom_or_doc, navigator = None, personality = 'winxpie61', name="", 
+    def __init__(self, url, dom_or_doc, navigator = None, personality = 'winxpie60', name="", 
                  target='_blank', parent = None, opener = None, replace = False, screen = None, 
                  width = 800, height = 600, left = 0, top = 0, **kwds):
 

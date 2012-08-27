@@ -24,7 +24,7 @@ Let's start our Thug tour by taking a look at the options it provides.
 
         Options:
                 -h, --help          	Display this help information
-                -u, --useragent=    	Select a user agent (see below for values, default: winxpie61)
+                -u, --useragent=    	Select a user agent (see below for values, default: winxpie60)
                 -e, --events=       	Enable comma-separated specified DOM events handling
                 -o, --output=       	Log to a specified file
                 -r, --referer=      	Specify a referer
