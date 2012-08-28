@@ -68,6 +68,19 @@ class Navigator(PyV8.JSClass):
                                                                   }),
                                         'enabled'       : True,
                                     },
+
+                            'application/x-ms-wmz':
+                                    {   
+                                        'description'   : 'Windows Media Player',
+                                        'suffixes'      : 'wmz',
+                                        'type'          : 'application/x-ms-wmz',
+                                        'enabledPlugin' : Plugin({'name'        : 'Windows Media Player 7',
+                                                                  'version'     : '7',
+                                                                  'description' : 'Windows Media Player 7',
+                                                                  }), 
+                                        'enabled'       : True,
+                                    },  
+
                             }  
    
         for p in self._mimeTypes.values():
