@@ -219,7 +219,7 @@ Browser personality
 -------------------
 
 If no additional option (other than the URL) is provided the emulated browser personality is 
-Internet Explorer 6.1 on Windows XP platform. This choice is usually quite interesting for
+Internet Explorer 6.0 on Windows XP platform. This choice is usually quite interesting for
 the really simple reason a lot of exploit kits out try to exploit a vulnerability in Microsoft 
 Data Access Components (MDAC) which allows remote code execution if facing such personality.
 Thug emulates perfectly this exploit thus allowing to quite easily download a malicious 
