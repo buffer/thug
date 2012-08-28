@@ -31,10 +31,19 @@ class AboutBlank(httplib2.HttpLib2Error):
 
 log = logging.getLogger("Thug")
 
+class Plugins(list):
+    def __init__(self):
+        list.__init__(self)
+
+    @property
+    def length(self):
+        return len(self)
+
+
 class Navigator(PyV8.JSClass):
     def __init__(self, personality, window = None):
         self.personality = log.ThugOpts.Personality[personality]
-        self.plugins     = list()  # An array of the plugins installed in the browser
+        self.plugins     = Plugins()  # An array of the plugins installed in the browser
         self._window     = window
         self._mimeTypes = { 'application/pdf':
                                     {
