@@ -62,6 +62,23 @@ Requirements
 Installation
 ============
 
+1. Choose and change to base directory
+	
+	$ cd /[base_dir]/
+	
+2. Base Requirements
+
+	# sudo apt-get install python-setuptools build-essential git-core subversion scons python-chardet
+	# sudo apt-get install libboost-python-dev libboost-dev python-pefile python-httplib2 python-html5lib
+
+
+- Thug
+
+1. Clone the Thug source code from GitHub
+
+	$ git clone git://github.com/buffer/thug.git thug
+
+
 - BeautifulSoup 4
 
 If not available as a package for your Linux distribution, the best way 
@@ -70,12 +87,12 @@ is published through PyPi, so you can install it with easy_install or
 pip. The package name is beautifulsoup4, and the same package works on 
 Python 2 and Python 3.
 
-	# easy_install beautifulsoup4  
+	# sudo easy_install beautifulsoup4  
 
 or alternatively
 
-	# pip install beautifulsoup4
- 
+	# sudo pip install beautifulsoup4
+
 
 - V8/PyV8
 
@@ -88,7 +105,7 @@ described below.
 	$ svn checkout http://v8.googlecode.com/svn/trunk/ v8
 
 2. Patch V8 source code with the patches you can find in thug/patches
-   directory
+   directory (copy them to /[base_dir]/)
 
 	$ cp thug/patches/V8-patch* .
 	$ patch -p0 < V8-patch1.diff 
@@ -103,8 +120,10 @@ described below.
 
 4. Set the environment variable V8_HOME with the V8 source code 
    absolute path (you need to change the value reported below)
+   Be careful that the setup from PyV8 finds the patched V8 version
+   as it will fetch it's own copy instead.
 
-	$ export V8_HOME=/home/buffer/v8
+	$ export V8_HOME=/[base_dir]/v8
 
 5. Move to PyV8 source code directory
 
@@ -123,8 +142,45 @@ described below.
    If no problems occur, you have successfully installed V8 and PyV8.
 
 
+- LibEmu
+
+1. Basic requirements
+
+	$ sudo apt-get install autoconf automake libtool
+	$ git clone git://git.carnivore.it/libemu.git libemu-src
+
+2. Build and install
+
+	$ autoreconf -v -i
+	$ ./configure --prefix=/opt/libemu --enable-python-bindings
+	$ sudo make install
+
+3. Link the lib
+
+	$ sudo ln -s /opt/libemu/lib/libemu.so.2 /usr/lib/libemu.so.2
+
+
+- PyLibEmu
+
+1. Basic requirements
+
+	$ git clone git://github.com/buffer/pylibemu.git
+	
+2. Install
+
+	$ sudo python setup.py install
+
+
+- Zope Interface
+
+1. Installation 
+	
+	$ sudo apt-get install python-zope.interface
+
+
 In order to install the other required libraries and packages please 
 follow installation procedures as specified in their documentation.
+
 
 
 Usage
