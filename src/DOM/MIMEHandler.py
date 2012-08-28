@@ -42,11 +42,13 @@ class MIMEHandler(dict):
         your own PDF analysis system really quickly by simply defining a new 
         application/pdf Content-Type handler.
     """
-    mimetypes = ("application/envoy",
+    mimetypes = ("application/download",
+                 "application/envoy",
                  "application/fractals",
                  "application/futuresplash",
                  "application/hta",
                  "application/internet-property-stream",
+                 "application/java-archive",
                  "application/javascript",
                  "application/mac-binhex40",
                  "application/msword",
@@ -159,6 +161,7 @@ class MIMEHandler(dict):
                  "text/richtext",
                  "text/scriptlet",
                  "text/tab-separated-values",
+                 "text/vnd.wap.wml",
                  "text/webviewhtml",
                  "text/x-component",
                  "text/x-setext",
