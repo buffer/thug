@@ -103,6 +103,6 @@ class Shellcode:
                     libemu = True
 
                 self.emu.free()
-                self.search_url(s)
+                #self.search_url(s)
             
         return result
