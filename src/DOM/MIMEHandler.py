@@ -47,6 +47,7 @@ class MIMEHandler(dict):
                  "application/futuresplash",
                  "application/hta",
                  "application/internet-property-stream",
+                 "application/java-archive",
                  "application/javascript",
                  "application/mac-binhex40",
                  "application/msword",
