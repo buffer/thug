@@ -142,17 +142,24 @@ class Document(Node, DocumentEvent, DocumentView):
         def _match_tag(tag, p):
             return p in tag.attrs and tag.attrs[p] == elementId
 
-        def match_tag(tag):
-            if _match_tag(tag, 'id') or _match_tag(tag, 'name'):
+        def match_tag(tag, id):
+            if _match_tag(tag, id):
                 return True
 
             return False
 
-        def filter_tags_id_name(tag):
-            return tag.has_key('id') or tag.has_key('name')
+        def filter_tags_id(tag):
+            return tag.has_key('id')
 
-        for tag in self.doc.find_all(filter_tags_id_name):
-            if match_tag(tag):
+        def filter_tags_name(tag):
+            return tag.has_key('name')
+
+        for tag in self.doc.find_all(filter_tags_id):
+            if match_tag(tag, 'id'):
+                return DOMImplementation.createHTMLElement(self, tag)
+
+        for tag in self.doc.find_all(filter_tags_name):
+            if match_tag(tag, 'name'):
                 return DOMImplementation.createHTMLElement(self, tag)
 
         return None
