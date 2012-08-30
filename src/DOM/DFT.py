@@ -561,8 +561,10 @@ class DFT(object):
         if response.status == 404:
             return
 
-        if 'content-type' in response and response['content-type'] in ('application/pdf', ):
-            return
+        if 'content-type' in response:
+            handler = log.MIMEHandler.get_handler(response['content-type'])
+            if handler and handler(content):
+                return 
 
         doc    = w3c.parseString(content)
         window = Window.Window(src, doc, personality = log.ThugOpts.useragent)
