@@ -189,13 +189,19 @@ class AST(object):
 
         self.checkExitingLoop(stmt.pos)
         self.enterLoop()
+        
         if stmt.init:
             stmt.init.visit(self)
 
         if stmt.next:
             stmt.next.visit(self)
-        stmt.condition.visit(self)
-        stmt.body.visit(self)
+
+        if stmt.condition:
+            stmt.condition.visit(self)
+
+        if stmt.body:
+            stmt.body.visit(self)
+        
         self.exitLoop()
 
     def onWhileStatement(self, stmt):
