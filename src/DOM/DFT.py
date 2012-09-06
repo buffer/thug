@@ -609,10 +609,27 @@ class DFT(object):
                 dft = DFT(window)
                 dft.run()
 
-    def _run(self):
+    def do_handle(self, child, skip = True):
+        name = getattr(child, "name", None)
+
+        if name is None:
+            return
+
+        if skip and name in ('object', 'applet', ):
+            return
+
+        handler = getattr(self, "handle_%s" % (str(name.lower()), ), None)
+        if handler:
+            handler(child)
+
+    def _run(self, soup = None):
         log.debug(self.window.doc)
         
-        soup = self.window.doc.doc
+        if soup is None:
+            soup = self.window.doc.doc
+    
+        _soup = soup
+
         # Dirty hack
         for p in soup.find_all('object'):
             self.handle_object(p)
@@ -622,14 +639,25 @@ class DFT(object):
 
         for child in soup.descendants:
             self.set_event_handler_attributes(child)
+            self.do_handle(child)
 
-            name = getattr(child, "name", None)
-            if name is None or name in ('object', 'applet', ):
-                continue
+            analyzed = set()
+            recur    = True
 
-            handler = getattr(self, "handle_%s" % (str(name), ), None)
-            if handler:
-                handler(child)
+            while recur:
+                recur = False
+
+                for _child in soup.descendants:
+                    if _child not in _soup.descendants and _child not in analyzed:
+                        analyzed.add(_child)
+                        recur = True
+
+                        name  = getattr(_child, "name", None)
+                        if name:
+                            self.do_handle(_child, False)
+            
+            analyzed.clear()
+            _soup = soup
 
         for child in soup.descendants:
             self.set_event_listeners(child)
