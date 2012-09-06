@@ -414,10 +414,7 @@ class DFT(object):
         self.handle_external_javascript(script)
 
         js = getattr(script, 'text', None)
-        if js is None:
-            return
-
-        if len(js):
+        if js:
             log.ThugLogging.add_code_snippet(js, 'Javascript', 'Contained_Inside')
             self.window.evalScript(js, tag = script)
 
@@ -569,7 +566,7 @@ class DFT(object):
 
         doc    = w3c.parseString(content)
         window = Window.Window(src, doc, personality = log.ThugOpts.useragent)
-        window.open(src)
+        #window.open(src)
             
         dft = DFT(window)
         dft.run()
