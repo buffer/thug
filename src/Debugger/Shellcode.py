@@ -75,9 +75,11 @@ class Shellcode:
 
             try:
                 result = self.ctxt.eval(self.script)
+                PyV8.JSEngine.collect()
             except UnicodeDecodeError:
                 enc    = chardet.detect(self.script)
                 result = self.ctxt.eval(self.script.decode(enc['encoding']))
+                PyV8.JSEngine.collect()
             except:
                 log.debug(traceback.format_exc())
                 return result

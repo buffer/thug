@@ -326,6 +326,7 @@ class DFT(object):
 
         if isinstance(h, basestring):
             handler = self.build_event_handler(self.context, h)
+            PyV8.JSEngine.collect()
         elif isinstance(h, PyV8.JSFunction):
             handler = h
         else:
