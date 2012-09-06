@@ -621,6 +621,9 @@ class DFT(object):
         handler = getattr(self, "handle_%s" % (str(name.lower()), ), None)
         if handler:
             handler(child)
+            return True
+
+        return False
 
     def _run(self, soup = None):
         log.debug(self.window.doc)
@@ -639,16 +642,20 @@ class DFT(object):
 
         for child in soup.descendants:
             self.set_event_handler_attributes(child)
-            self.do_handle(child)
+            if not self.do_handle(child):
+                continue
 
             analyzed = set()
             recur    = True
 
             while recur:
                 recur = False
-
-                for _child in soup.descendants:
-                    if _child not in _soup.descendants and _child not in analyzed:
+                
+                if tuple(soup.descendants) == tuple(_soup.descendants):
+                    break
+                
+                for _child in set(soup.descendants) - set(_soup.descendants): 
+                    if _child not in analyzed:
                         analyzed.add(_child)
                         recur = True
 
