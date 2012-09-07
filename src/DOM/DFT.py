@@ -454,7 +454,7 @@ class DFT(object):
         name  = param.get('name' , None)
         value = param.get('value', None)
 
-        if name in ('movie', ):
+        if name in ('movie', 'archive', ):
             self._fetch(value)
 
         if 'http' not in value:
