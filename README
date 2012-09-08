@@ -183,6 +183,21 @@ If you are interested in the data collected by Thug instances, please contact me
 <angelo.dellaera@honeynet.org>
 
 
+Support
+=======
+    
+- Mailing Lists
+	Thug users 	   https://public.honeynet.org/mailman/listinfo/thug
+	Thug development   https://public.honeynet.org/mailman/listinfo/thug-dev
+                  
+- IRC
+	Freenode #thug-dev
+
+Moreover take a look at http://buffer.github.com/thug/ for additional details 
+and documentation about the project. If you appreciate Thug please consider 
+making a donation using Paypal (details at http://buffer.github.com/thug/).
+
+
 License information
 ===================
 
@@ -190,8 +205,3 @@ Copyright (C) 2011-2012 Angelo Dell'Aera <buffer@antifork.org>
 
 License: GNU General Public License, version 2 or later; see COPYING.txt
          included in this archive for details.
-
-
-Take a look at http://buffer.github.com/thug/ for additional details about 
-the project and if you appreciate Thug please consider making a small 
-contribution. 
