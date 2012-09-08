@@ -24,7 +24,7 @@ Let's start our Thug tour by taking a look at the options it provides.
 
         Options:
                 -h, --help          	Display this help information
-                -u, --useragent=    	Select a user agent (see below for values, default: winxpie61)
+                -u, --useragent=    	Select a user agent (see below for values, default: winxpie60)
                 -e, --events=       	Enable comma-separated specified DOM events handling
                 -o, --output=       	Log to a specified file
                 -r, --referer=      	Specify a referer
@@ -219,7 +219,7 @@ Browser personality
 -------------------
 
 If no additional option (other than the URL) is provided the emulated browser personality is 
-Internet Explorer 6.1 on Windows XP platform. This choice is usually quite interesting for
+Internet Explorer 6.0 on Windows XP platform. This choice is usually quite interesting for
 the really simple reason a lot of exploit kits out try to exploit a vulnerability in Microsoft 
 Data Access Components (MDAC) which allows remote code execution if facing such personality.
 Thug emulates perfectly this exploit thus allowing to quite easily download a malicious 
