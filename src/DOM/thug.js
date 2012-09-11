@@ -1,4 +1,4 @@
-"use strict";
+//"use strict";
 
 /*
  * Window object 
@@ -14,6 +14,7 @@ window.RegExp   = RegExp;
 
 //window.unescape = unescape;
 unescape 	    = window.unescape;
+eval		    = window.eval;
 
 window.String       = String;
 window.charAt       = String.charAt;
