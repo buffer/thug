@@ -145,18 +145,42 @@ class DFT(object):
 
         return ''.join(sc)
 
+    def check_URLDownloadToFile(self, emu):
+        profile = emu.emu_profile_output
+
+        while True:
+            offset = profile.find('URLDownloadToFile')
+            if offset < 0:
+                break
+
+            profile = profile[offset:]
+
+            p = profile.split(';')
+            if len(p) < 2:
+                profile = profile[1:]
+                continue
+            
+            p = p[1].split('"')
+            if len(p) < 3:
+                profile = profile[1:]
+                continue
+        
+            self._fetch(p[1])
+            profile = profile[1:]
+
     def check_shellcode(self, shellcode):
         try:
             sc = self.build_shellcode(shellcode)
         except:
             sc = shellcode
 
-        emu = pylibemu.Emulator()
+        emu = pylibemu.Emulator(enable_hooks = False)
         emu.run(sc)
         
         if emu.emu_profile_output:
             log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
-            log.warning(emu.emu_profile_output)
+            log.warning("[Shellcode Profile]\n\n%s" % (emu.emu_profile_output, ))
+            self.check_URLDownloadToFile(emu)
         
         self.check_url(sc, shellcode)
         emu.free()

@@ -31,10 +31,10 @@ from DOM.W3C.Node import Node
 log = logging.getLogger("Thug")
 
 class Shellcode:
-    emu = pylibemu.Emulator()
+    emu = pylibemu.Emulator(enable_hooks = False)
 
     def __init__(self, window, ctxt, ast, script):
-	self.window  = window
+        self.window  = window
         self.script  = script
         self.ctxt    = ctxt
         self.ast     = ast
@@ -56,7 +56,30 @@ class Shellcode:
         log.warning('Saving remote content at %s (MD5: %s)' % (url, h, ))
         with open(os.path.join(log.baseDir, h), 'wb') as fd: 
             fd.write(content)
-            
+
+    def check_URLDownloadToFile(self, emu):
+        profile = emu.emu_profile_output
+
+        while True:
+            offset = profile.find('URLDownloadToFile')
+            if offset < 0:
+                break
+
+            profile = profile[offset:]
+
+            p = profile.split(';')
+            if len(p) < 2:
+                profile = profile[1:]
+                continue
+
+            p = p[1].split('"')
+            if len(p) < 3:
+                profile = profile[1:]
+                continue
+
+            self._fetch(p[1])
+            profile = profile[1:]
+
     def search_url(self, sc):
         offset = sc.find('http')
         
@@ -101,8 +124,8 @@ class Shellcode:
 
                 if self.emu.emu_profile_output:
                     log.ThugLogging.add_code_snippet(self.emu.emu_profile_output, 'Assembly', 'Shellcode')
-                    log.warning(self.emu.emu_profile_output)
-                    libemu = True
+                    log.warning("[Shellcode Profile]\n\n%s" % (emu.emu_profile_output, ))
+                    self.check_URLDownloadToFile(emu)
 
                 self.emu.free()
                 #self.search_url(s)
