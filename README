@@ -37,7 +37,7 @@ Requirements
 - Libemu
 	http://libemu.carnivore.it/
 
-- Pylibemu
+- Pylibemu 0.2.4 or later
 	https://github.com/buffer/pylibemu
 
 - Pefile
