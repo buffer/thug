@@ -21,7 +21,7 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     if varPassword:
         msg = "%s, '%s'" % (msg, varPassword, )
     msg = "%s)" % (msg, )
-    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] %s" % (msg, ))
+    log.ThugLogging.add_behavior_warn(msg)
     
     self.bstrMethod  = bstrMethod
     self.bstrUrl     = bstrUrl
