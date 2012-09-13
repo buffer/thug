@@ -52,7 +52,14 @@ def send(self, varBody = None):
     if not _url.netloc:
         self.bstrUrl = urlparse.urljoin(self._window.url, self.bstrUrl)
 
+    if self._window.url not in ('about:blank', ):
+        self.requestHeaders['Referer'] = self._window.url
+                        
+    if self._window.doc.cookie:
+        self.requestHeaders['Cookie'] = self._window.doc.cookie
+
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Fetching from URL %s (method: %s)" % (self.bstrUrl, self.bstrMethod, ))
+    
     try:
         response, content = h.request(self.bstrUrl,
                                       self.bstrMethod,
