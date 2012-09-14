@@ -2,7 +2,6 @@
 # CVE-2008-2463
 
 import os
-import httplib2
 import hashlib
 import logging
 

@@ -1,7 +1,6 @@
 
 import os
 import hashlib
-import httplib2
 
 import logging
 log = logging.getLogger("Thug")
