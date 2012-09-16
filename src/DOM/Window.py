@@ -721,7 +721,7 @@ class Window(PyV8.JSClass):
             log.info(script) 
       
         if len(script) > 64: 
-            log.warning("[Window]: Eval argument length > 64 (%d)" % (len(script), ))
+            log.warning("[Window] Eval argument length > 64 (%d)" % (len(script), ))
 
         log.ThugLogging.add_code_snippet(script, 'Javascript', 'Dynamically_Evaluated')
         return self.evalScript(script)
