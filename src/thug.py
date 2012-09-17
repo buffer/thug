@@ -95,7 +95,7 @@ class ThugOpts(dict):
 
 class ThugVulnModules(dict):
     def __init__(self):
-        self._acropdf_pdf     = '7.1.0'
+        self._acropdf_pdf     = '9.1.0'
         self._shockwave_flash = '10.0.64.0'
         self._javaplugin      = '1.7.1.30'
 
@@ -188,7 +188,7 @@ Synopsis:
         -v, --verbose       \tEnable verbose mode    
         -d, --debug         \tEnable debug mode
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
-        -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 7.1.0)
+        -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
         -S, --shockwave=    \tSpecify the Shockwave Flash version (default: 10.0.64.0)
         -J, --javaplugin=   \tSpecify the JavaPlugin version (default: 1.7.1.30)
 
