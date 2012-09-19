@@ -129,6 +129,7 @@ CLSID = [
             'id'        : (), 
             'name'      : ( 'adodb.stream', ),
             'attrs'     : {
+                            'type'          : 1,
                             'Type'          : 1,
                             'Mode'          : 3},
             'funcattrs' : {},
