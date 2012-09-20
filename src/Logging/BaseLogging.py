@@ -16,8 +16,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import sys
-import os
 import logging
 import base64
 import hashlib
@@ -33,14 +31,14 @@ log = logging.getLogger("Thug")
 
 class BaseLogging(object):
     def __init__(self):
-        self.types = ('PE', 
+        self.types = ('PE',
                       'PDF',
                       'JAR',
                       'SWF', )
 
     def is_pe(self, data):
         try:
-            pe = pefile.PE(data = data, fast_load = True)
+            pefile.PE(data = data, fast_load = True)
         except:
             return False
 
@@ -66,7 +64,7 @@ class BaseLogging(object):
         for t in self.types:
             p = getattr(self, 'is_%s' % (t.lower(), ), None)
             if p and p(data):
-                return t 
+                return t
 
         return None
 
