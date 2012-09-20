@@ -16,8 +16,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import sys
-import os
 import logging
 import base64
 import hashlib
@@ -31,20 +29,21 @@ except ImportError:
 
 log = logging.getLogger("Thug")
 
+
 class BaseLogging(object):
     def __init__(self):
-        self.types = ('PE', 
+        self.types = ('PE',
                       'PDF',
                       'JAR',
                       'SWF', )
 
     def is_pe(self, data):
         try:
-            pe = pefile.PE(data = data, fast_load = True)
+            pefile.PE(data=data, fast_load=True)
         except:
             return False
-
-        return True
+        else:
+            return True
 
     def is_pdf(self, data):
         return data.startswith('%PDF')
@@ -66,11 +65,11 @@ class BaseLogging(object):
         for t in self.types:
             p = getattr(self, 'is_%s' % (t.lower(), ), None)
             if p and p(data):
-                return t 
+                return t
 
         return None
 
-    def build_sample(self, data, url = None):
+    def build_sample(self, data, url=None):
         if not data:
             return None
 
@@ -79,9 +78,9 @@ class BaseLogging(object):
         if p['type'] is None:
             return None
 
-        p['md5']  = hashlib.md5(data).hexdigest()
+        p['md5'] = hashlib.md5(data).hexdigest()
         p['sha1'] = hashlib.sha1(data).hexdigest()
-        
+
         if url:
             p['url'] = url
             p['data'] = base64.b64encode(data)
