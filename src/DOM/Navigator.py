@@ -266,10 +266,11 @@ class Navigator(PyV8.JSClass):
                           proxy_info = log.ThugOpts.proxy_info,
                           timeout    = 10,
                           disable_ssl_certificate_validation = True)
-        
+
         headers = {
             'Cache-Control'   : 'no-cache',
             'Accept-Language' : 'en-US',
+            'Accept'          : '*/*',
             'User-Agent'      :  self.userAgent
         }
 

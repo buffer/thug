@@ -6,7 +6,6 @@ import httplib2
 import hashlib
 import urlparse
 import logging
-from DOM.Personality import Personality
 
 log = logging.getLogger("Thug")
 
@@ -28,11 +27,6 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     self.varAsync    = varAsync
     self.varUser     = varUser
     self.varPassword = varPassword
-
-    personality = Personality()
-    self.requestHeaders['Cache-Control']   = 'no-cache'
-    self.requestHeaders['Accept-Language'] = 'en-US'
-    self.requestHeaders['User-Agent']      = personality.userAgent
 
     return 0
 
