@@ -117,7 +117,7 @@ class Element(Node, ElementCSSInlineStyle):
     def setAttribute(self, name, value):
         self.tag[name] = value
 
-        if name in ('src', 'archive'):
+        if name.lower() in ('src', 'archive'):
             s = urlparse.urlsplit(value)
 
             handler = getattr(log.SchemeHandler, 'handle_%s' % (s.scheme, ), None)
