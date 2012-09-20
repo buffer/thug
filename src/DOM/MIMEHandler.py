@@ -138,6 +138,7 @@ class MIMEHandler(dict):
                  "audio/x-pn-realaudio",
                  "audio/x-wav",
                  "image/bmp",
+                 "image/bmpimage/x-bmp",
                  "image/cis-cod",
                  "image/gif",
                  "image/ief",
