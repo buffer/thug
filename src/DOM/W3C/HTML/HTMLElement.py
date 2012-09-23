@@ -25,7 +25,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
     title           = attr_property("title")
     lang            = attr_property("lang")
     dir             = attr_property("dir")
-    className       = attr_property("class")
+    className       = attr_property("class", default = "")
 
     def getInnerHTML(self):
         if not self.hasChildNodes():
