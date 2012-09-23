@@ -427,6 +427,16 @@ class DFT(object):
 
         if len(js):
             log.ThugLogging.add_code_snippet(js, 'Javascript', 'External')
+            s = self.window.doc.createElement('script')
+
+            for attr in script.attrs:
+                if attr.lower() in ('src', ):
+                    continue
+
+                s.setAttribute(attr, script.get(attr))
+
+            s.text = js
+            self.window.doc.body.appendChild(s)
             self.window.evalScript(js, tag = script)
 
     def handle_javascript(self, script):
@@ -438,6 +448,7 @@ class DFT(object):
         self.handle_external_javascript(script)
 
         js = getattr(script, 'text', None)
+
         if js:
             log.ThugLogging.add_code_snippet(js, 'Javascript', 'Contained_Inside')
             self.window.evalScript(js, tag = script)
