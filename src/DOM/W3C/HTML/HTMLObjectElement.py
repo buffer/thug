@@ -24,7 +24,7 @@ class HTMLObjectElement(HTMLElement):
         if name in self.__dict__:
             return self.__dict__[name]
 
-        log.warning("HTMLObjectElement attribute not found: %s", (name, ))
+        log.info("HTMLObjectElement attribute not found: %s", (name, ))
 
     # PLEASE REVIEW ME!
     def __setattr__(self, name, value):
