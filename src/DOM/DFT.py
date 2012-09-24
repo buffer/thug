@@ -433,7 +433,7 @@ class DFT(object):
             for attr in script.attrs:
                 if attr.lower() in ('src', ):
                     continue
-            
+
                 s.setAttribute(attr, script.get(attr))
 
             try:
@@ -449,7 +449,7 @@ class DFT(object):
 
             if body:
                 body.appendChild(s)
-            
+
             self.window.evalScript(js, tag = script)
 
     def handle_javascript(self, script):

@@ -174,3 +174,5 @@ class Document(Node, DocumentEvent, DocumentView):
     def ownerDocument(self):
         return None
 
+    def execCommand(self, commandIdentifier, userInterface = False, value = None):
+        pass
