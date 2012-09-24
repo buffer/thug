@@ -25,6 +25,7 @@ import string
 import logging
 import Window
 import PyV8
+import chardet
 import jsbeautifier
 import traceback
 import bs4 as BeautifulSoup
@@ -432,11 +433,23 @@ class DFT(object):
             for attr in script.attrs:
                 if attr.lower() in ('src', ):
                     continue
-
+            
                 s.setAttribute(attr, script.get(attr))
 
-            s.text = js
-            self.window.doc.body.appendChild(s)
+            try:
+                s.text = js
+            except UnicodeDecodeError:
+                enc = chardet.detect(js)
+                s.text = js.decode(enc['encoding'])
+
+            try:
+                body = self.window.doc.body
+            except:
+                body = self.window.doc.getElementsByTagName('body')[0]
+
+            if body:
+                body.appendChild(s)
+            
             self.window.evalScript(js, tag = script)
 
     def handle_javascript(self, script):
