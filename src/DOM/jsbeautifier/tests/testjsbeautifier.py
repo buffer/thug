@@ -148,7 +148,7 @@ class TestJSBeautifier(unittest.TestCase):
         bt("for(var a=1,b=2)", "for (var a = 1, b = 2)");
         bt("for(var a=1,b=2,c=3)", "for (var a = 1, b = 2, c = 3)");
         bt("for(var a=1,b=2,c=3;d<3;d++)", "for (var a = 1, b = 2, c = 3; d < 3; d++)");
-        bt("function x(){(a||b).c()}", "function x() {\n    (a || b).c()\n}");
+        bt("function x(){(a||b).c()}", "function x() {\n    (a || b)\n        .c()\n}");
         bt("function x(){return - 1}", "function x() {\n    return -1\n}");
         bt("function x(){return ! a}", "function x() {\n    return !a\n}");
 
@@ -416,7 +416,7 @@ class TestJSBeautifier(unittest.TestCase):
         bt('a = <%= external() %> ;');
 
         test_fragment('roo = {\n    /*\n    ****\n      FOO\n    ****\n    */\n    BAR: 0\n};');
-        test_fragment("if (..) {\n    // ....\n}\n(function");
+        test_fragment("if (zz) {\n    // ....\n}\n(function");
 
         self.options.preserve_newlines = True;
         bt('var a = 42; // foo\n\nvar b;')
@@ -464,6 +464,13 @@ class TestJSBeautifier(unittest.TestCase):
         bt('if (foo) // comment\n(bar());');
         bt('if (foo) // comment\n(bar());');
         bt('if (foo) // comment\n/asdf/;');
+
+        bt('foo.bar().baz().cucumber(fat)', 'foo.bar()\n    .baz()\n    .cucumber(fat)');
+        bt('foo.bar().baz().cucumber(fat); foo.bar().baz().cucumber(fat)', 'foo.bar()\n    .baz()\n    .cucumber(fat);\nfoo.bar()\n    .baz()\n    .cucumber(fat)');
+        bt('foo.bar().baz().cucumber(fat)\n foo.bar().baz().cucumber(fat)', 'foo.bar()\n    .baz()\n    .cucumber(fat)\nfoo.bar()\n    .baz()\n    .cucumber(fat)');
+        bt('this.something = foo.bar().baz().cucumber(fat)', 'this.something = foo.bar()\n    .baz()\n    .cucumber(fat)');
+        bt('this.something.xxx = foo.moo.bar()');
+
 
 
 
