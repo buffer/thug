@@ -701,11 +701,16 @@ class Window(PyV8.JSClass):
     def _CollectGarbage(self):
         pass
 
+    def _navigate(self, location):
+        self.location = location
+        return 0
+
     def __init_personality(self):
         if log.ThugOpts.Personality.isIE():
             self.ActiveXObject  = self._do_ActiveXObject
             self.Run            = self._Run
             self.CollectGarbage = self._CollectGarbage
+            self.navigate       = self._navigate
 
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
             self.attachEvent    = self._attachEvent
