@@ -12,9 +12,17 @@ window.Math     = Math;
 window.Number   = Number;
 window.RegExp   = RegExp;
 
-//window.unescape = unescape;
-unescape 	    = window.unescape;
-eval		    = window.eval;
+window.decodeURI    	  = decodeURI;
+window.decodeURIComponent = decodeURIComponent;
+window.encodeURI 	  = encodeURI;
+window.encodeURIComponent = encodeURIComponent;
+window.escape 		  = escape;
+eval                	  = window.eval;
+window.isFinite 	  = isFinite;
+window.isNaN 		  = isNaN;
+window.parseFloat 	  = parseFloat;
+window.parseInt     	  = parseInt;
+unescape            	  = window.unescape;
 
 window.String       = String;
 window.charAt       = String.charAt;
