@@ -628,6 +628,21 @@ class DFT(object):
     def handle_a(self, anchor):
         self.anchors.append(anchor)
 
+    def handle_link(self, link):
+        log.warning(link)
+
+        href = link.get('href', None)
+        if not href:
+            return
+
+        try:
+            response, content = self.window._navigator.fetch(href)
+        except:
+            return
+
+        if response.status == 404:
+            return
+
     def check_anchors(self):
         clicked_anchors = [a for a in self.anchors if '_clicked' in a.attrs]
         if not clicked_anchors:
