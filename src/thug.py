@@ -53,8 +53,8 @@ class ThugOpts(dict):
     def set_proxy_info(self, proxy):
         p = urlparse.urlparse(proxy)
         if p.scheme.lower() not in self.proxy_schemes:
-            log.warning('[WARNING] Skipping invalid proxy scheme (valid schemes: http, socks4, socks5)')
-            return
+            log.warning('[ERROR] Invalid proxy scheme (valid schemes: http, socks4, socks5)')
+            sys.exit(0)
 
         proxy_type = getattr(httplib2.socks, "PROXY_TYPE_%s" % (p.scheme.upper(),))
         self._proxy_info = httplib2.ProxyInfo(proxy_type = proxy_type,
