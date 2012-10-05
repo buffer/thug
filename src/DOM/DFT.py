@@ -600,7 +600,7 @@ class DFT(object):
             return 
 
         try:
-            response, content = self.window._navigator.fetch(src, redirect_type)
+            response, content = self.window._navigator.fetch(src, redirect_type = redirect_type)
         except:
             return
 

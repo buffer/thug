@@ -254,20 +254,8 @@ class Navigator(PyV8.JSClass):
     def taintEnabled(self, *arg):
         return False
 
-    def fetch(self, url, redirect_type = None):
-        response = dict()
-        content  = ''
-
-        if url == 'about:blank':
-            #return response, content
-            raise AboutBlank
-
-        h = httplib2.Http('/tmp/thug-cache-%s' % (os.getuid(), ),
-                          proxy_info = log.ThugOpts.proxy_info,
-                          timeout    = 10,
-                          disable_ssl_certificate_validation = True)
-
-        headers = {
+    def __build_http_headers(self, headers):
+        http_headers = {
             'Cache-Control'   : 'no-cache',
             'Accept-Language' : 'en-US',
             'Accept'          : '*/*',
@@ -275,23 +263,52 @@ class Navigator(PyV8.JSClass):
         }
 
         if self._window.url not in ('about:blank', ):
-            headers['Referer'] = self._window.url
-        
-        if self._window.doc.cookie:
-            headers['Cookie'] = self._window.doc.cookie
+            http_headers['Referer'] = self._window.url
 
+        if self._window.doc.cookie:
+            http_headers['Cookie'] = self._window.doc.cookie
+
+        if headers:
+            for name, value in headers.items():
+                http_headers[name] = value
+
+        return http_headers
+
+    def __normalize_url(self, url):
         _url = urlparse.urlparse(url)
 
         handler = getattr(log.SchemeHandler, 'handle_%s' % (_url.scheme, ), None)
         if handler:
             handler(self._window, url)
-            return
+            return None
 
         if not _url.netloc:
-            msg = "[Navigator URL Translation] %s --> " % (url, )
-            url = urlparse.urljoin(self._window.url, url)
-            msg = "%s %s" % (msg, url)
-            log.warning(msg)
+            _url = urlparse.urljoin(self._window.url, url)
+            log.warning("[Navigator URL Translation] %s --> %s" % (url, _url, ))
+            return _url
+
+        return url
+
+    def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None):
+        response = dict()
+        content  = ''
+
+        if url == 'about:blank':
+            #return response, content
+            raise AboutBlank
+
+        #httplib2.debuglevel = 1
+
+        h = httplib2.Http('/tmp/thug-cache-%s' % (os.getuid(), ),
+                          proxy_info = log.ThugOpts.proxy_info,
+                          timeout    = 10,
+                          disable_ssl_certificate_validation = True)
+
+        http_headers = self.__build_http_headers(headers)
+
+        url = self.__normalize_url(url)
+        if url is None:
+            return
 
         if redirect_type:
             log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, 
@@ -301,7 +318,12 @@ class Navigator(PyV8.JSClass):
         mime_base = log.baseDir
 
         try:
-            response, content = h.request(url, redirections = 1024, headers = headers)
+            response, content = h.request(url,
+                                          method.upper(),
+                                          body,
+                                          redirections = 1024,
+                                          headers = http_headers)
+
             if 'content-type' in response:
                 mime_base = os.path.join(mime_base, response['content-type'])
         except socket.timeout:
@@ -317,9 +339,9 @@ class Navigator(PyV8.JSClass):
             log.ThugLogging.log_redirect(response)
             raise
 
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (response['content-location'] if 'content-location' in headers else url,
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (response['content-location'] if 'content-location' in http_headers else url,
                                                                                          response['status'],
-                                                                                         headers['Referer'] if 'Referer' in headers else 'None'))
+                                                                                         http_headers['Referer'] if 'Referer' in http_headers else 'None'))
         log.ThugLogging.log_redirect(response)
 
         if response.status == 404:
