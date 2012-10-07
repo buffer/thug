@@ -352,6 +352,10 @@ class Navigator(PyV8.JSClass):
         md5.update(content)
         filename = md5.hexdigest()
 
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (response['content-location'] if 'content-location' in response else url,
+                                                                                          response['content-type'] if 'content-type' in response else 'unknown',
+                                                                                          filename))
+
         try:
             os.makedirs(mime_base)
         except:
