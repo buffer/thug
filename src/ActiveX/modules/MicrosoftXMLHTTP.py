@@ -36,47 +36,12 @@ def send(self, varBody = None):
         msg = "%s('%s')" % (msg, str(varBody), )
 
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] %s" % (msg, ))
-
-    h = httplib2.Http('/tmp/thug-cache-%s' % (os.getuid(), ),
-                       proxy_info = log.ThugOpts.proxy_info,
-                       timeout    = 10, 
-                       disable_ssl_certificate_validation = True)
-    
-    _url = urlparse.urlparse(self.bstrUrl)
-    if not _url.netloc:
-        self.bstrUrl = urlparse.urljoin(self._window.url, self.bstrUrl)
-
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Fetching from URL %s (method: %s)" % (self.bstrUrl, self.bstrMethod, ))
     
-    try:
-        response, content = h.request(self.bstrUrl,
-                                      self.bstrMethod,
-                                      headers = self.requestHeaders, 
-                                      body    = varBody)
-    except:
-        log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
-        return
-
-    if response.status == 404:
-        log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] FileNotFoundError: %s" % (self.bstrUrl, ))
-        return 
-
-    md5 = hashlib.md5()
-    md5.update(content)
-    filename = md5.hexdigest()
-
-    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Saving File: %s" % (filename, ))
-    baseDir = log.baseDir
-
-    try:
-        fd = os.open(os.path.join(baseDir, filename), os.O_RDWR | os.O_CREAT)
-        os.write(fd, content)
-        os.close(fd)
-    except:
-        pass
-
-    self.responseBody    = content
-    self.responseHeaders = response 
+    self.responseHeaders, self.responseBody = self._window._navigator.fetch(self.bstrUrl,
+                                                                            method  = self.bstrMethod,
+                                                                            headers = self.requestHeaders,
+                                                                            body    = varBody)
 
 def setRequestHeader(self, bstrHeader, bstrValue):
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] setRequestHeaders('%s', '%s')" % (bstrHeader, bstrValue, ))
