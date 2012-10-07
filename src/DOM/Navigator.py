@@ -339,7 +339,7 @@ class Navigator(PyV8.JSClass):
             log.ThugLogging.log_redirect(response)
             raise
 
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (response['content-location'] if 'content-location' in http_headers else url,
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (response['content-location'] if 'content-location' in response else url,
                                                                                          response['status'],
                                                                                          http_headers['Referer'] if 'Referer' in http_headers else 'None'))
         log.ThugLogging.log_redirect(response)
