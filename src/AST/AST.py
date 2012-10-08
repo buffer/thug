@@ -41,13 +41,14 @@ class AST(object):
                  PyV8.AST.Op.ASSIGN_SUB,
                  PyV8.AST.Op.INIT_VAR]
 
-    def __init__(self, script):
+    def __init__(self, window, script):
         self.names           = set()
         self.inLoop          = False
         self.inBlock         = True
         self.exitingLoop     = 0
         self.assignStatement = False
         self.breakpoints     = set()
+        self.window          = window
 
         self.walk(script)
         self.debug(self.breakpoints)
@@ -131,7 +132,10 @@ class AST(object):
         var = decl.proxy
         self.debug("[*] Variable Declaration Statement")
         self.debug("\tVariable name:        %s" % (var.name, ))
-        
+
+        if decl.scope.isGlobal:
+            getattr(self.window, var.name, None)
+
         if decl.mode == PyV8.AST.VarMode.var:
             self.names.add(var.name)
 
@@ -139,6 +143,9 @@ class AST(object):
         f = decl.proxy
         self.debug("[*] Function Declaration Statement")
         self.debug("\tFunction name:      %s" % (f.name, ))
+
+        if decl.scope.isGlobal:
+            getattr(self.window, f.name, None)
 
         for decl in decl.scope.declarations:
             if not getattr(decl, 'function', None):
@@ -244,6 +251,7 @@ class AST(object):
         self.debug("\tCall position:  %s" % (expr.pos, ))
         self.debug("\tCall expr:      %s" % (expr.expression, ))
         self.debug("\tCall arguments")
+
         for arg in expr.args:
             arg.visit(self)
 

@@ -19,11 +19,14 @@
 import os
 import sched
 import time
+import new
 import logging
 import PyV8
 import traceback
 import hashlib
 import pefile
+import numbers
+import datetime
 import jsbeautifier
 import bs4 as BeautifulSoup
 import W3C.w3c as w3c
@@ -39,6 +42,7 @@ from Java.java import java
 
 sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug")
+
 
 class Window(PyV8.JSClass):
 
@@ -131,6 +135,26 @@ class Window(PyV8.JSClass):
 
         if prop and callable(prop[0]):
             return prop[0]()
+
+        try:
+            symbol = self.context.eval(name)
+        except:
+            raise AttributeError(name)
+
+        if isinstance(symbol, PyV8.JSFunction):
+            _method = new.instancemethod(symbol, self, Window)
+            setattr(self, name, _method)
+            self.context.locals[name] = _method
+            return _method
+
+        if isinstance(symbol, (basestring,
+                               bool,
+                               numbers.Number,
+                               datetime.datetime,
+                               PyV8.JSObject)):
+            setattr(self, name, symbol)
+            self.context.locals[name] = symbol
+            return symbol
 
         raise AttributeError(name)
 
@@ -761,7 +785,7 @@ class Window(PyV8.JSClass):
 
         with self.context as ctxt:
             try:
-                ast = AST(script)
+                ast = AST(self, script)
             except:
                 log.debug(traceback.format_exc())
                 return result
