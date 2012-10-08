@@ -165,8 +165,12 @@ class DFT(object):
             if len(p) < 3:
                 profile = profile[1:]
                 continue
-        
-            self._fetch(p[1])
+
+            try:
+                self.window._navigator.fetch(p[1])
+            except:
+                pass
+
             profile = profile[1:]
 
     def check_shellcode(self, shellcode):
@@ -209,7 +213,10 @@ class DFT(object):
 
             log.ThugLogging.add_code_snippet(shellcode, 'Assembly', 'Shellcode', method = 'Static Analysis')
             log.ThugLogging.add_behavior_warn(description = '[Shellcode Analysis] URL Detected: %s' % (url[:i], ), method = 'Static Analysis')
-            self._fetch(url[:i])
+            try:
+                self.window._navigator.fetch(url[:i])
+            except:
+                pass
 
     def check_shellcodes(self):
         while True:
@@ -232,23 +239,6 @@ class DFT(object):
         script = self.shift(script, 'javascript:')
         script = self.shift(script, 'return')
         return script
-
-    def _fetch(self, url):
-        try:
-            response, content = self.window._navigator.fetch(url)
-        except:
-            return
-
-        if response.status == 404:
-            return
-
-        m = hashlib.md5()
-        m.update(content)
-        h = m.hexdigest()
-
-        log.warning('Saving remote content at %s (MD5: %s)' % (url, h, ))
-        with open(os.path.join(log.baseDir, h), 'wb') as fd:
-            fd.write(content)
 
     def get_evtObject(self, elem, evtType):
         evtObject = None
@@ -502,22 +492,32 @@ class DFT(object):
         name  = param.get('name' , None)
         value = param.get('value', None)
 
+        # FIXME
         if name.lower() in ('movie', 'archive', ):
-            self._fetch(value)
+            try:
+                self.window._navigator.fetch(value)
+            except:
+                pass
 
         if 'http' not in value:
             return
 
         urls = [p for p in value.split() if p.startswith('http')]
         for url in urls:
-            self._fetch(url)
+            try:
+                self.window._navigator.fetch(url)
+            except:
+                pass
 
     def handle_embed(self, embed):
         log.warning(embed)
 
         src = embed.get('src', None)
         if src:
-            self._fetch(src)
+            try:
+                self.window._navigator.fetch(src)
+            except:
+                pass
 
     def handle_applet(self, applet):
         log.warning(applet)
