@@ -30,7 +30,7 @@ from DOM.W3C.Node import Node
 
 log = logging.getLogger("Thug")
 
-class Shellcode:
+class Shellcode(object):
     emu = pylibemu.Emulator(enable_hooks = False)
 
     def __init__(self, window, ctxt, ast, script):
@@ -39,23 +39,6 @@ class Shellcode:
         self.ctxt    = ctxt
         self.ast     = ast
         self.offsets = set()
-
-    def _fetch(self, url):
-        try:
-            response, content = self.window._navigator.fetch(url)
-        except:
-            return
-
-        if response.status == 404:
-            return
-
-        m = hashlib.md5()
-        m.update(content)
-        h = m.hexdigest()
-
-        log.warning('Saving remote content at %s (MD5: %s)' % (url, h, ))
-        with open(os.path.join(log.baseDir, h), 'wb') as fd: 
-            fd.write(content)
 
     def check_URLDownloadToFile(self, emu):
         profile = emu.emu_profile_output
@@ -77,7 +60,11 @@ class Shellcode:
                 profile = profile[1:]
                 continue
 
-            self._fetch(p[1])
+            try:
+                self.window._navigator.fetch(p[1])
+            except:
+                pass
+
             profile = profile[1:]
 
     def search_url(self, sc):
@@ -86,7 +73,10 @@ class Shellcode:
         if offset > 0:
             url = sc[offset:].split()[0]
             log.info('[Shellcode Analysis] URL Detected: %s' % (url, ))
-            self._fetch(url)
+            try:
+                self.window._navigator.fetch(url)
+            except:
+                pass
 
     def run(self):
         result = None
