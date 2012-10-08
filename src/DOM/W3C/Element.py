@@ -134,6 +134,11 @@ class Element(Node, ElementCSSInlineStyle):
             if response.status == 404:
                 return
 
+            if 'content-type' in response:
+                handler = log.MIMEHandler.get_handler(response['content-type'])
+                if handler:
+                    handler(content)
+
     def removeAttribute(self, name):
         del self.tag[name]
         
