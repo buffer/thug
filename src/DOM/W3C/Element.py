@@ -90,6 +90,9 @@ class Element(Node, ElementCSSInlineStyle):
         return self.tag.name.upper()
     
     def getAttribute(self, name, flags = 0):
+        if not isinstance(name, basestring):
+            name = str(name)
+
         if log.ThugOpts.Personality.isIE():
             if log.ThugOpts.Personality.browserVersion < '8.0':
                 # flags parameter is only supported in Internet Explorer earlier 
@@ -115,6 +118,9 @@ class Element(Node, ElementCSSInlineStyle):
         return self.tag[name] if self.tag.has_attr(name) else ""
 
     def setAttribute(self, name, value):
+        if not isinstance(name, basestring):
+            name = str(name)
+
         self.tag[name] = value
 
         if name.lower() in ('src', 'archive'):
