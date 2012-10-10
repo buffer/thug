@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.4.10 documentation</title>
+    <title>Usage &mdash; Thug 0.4.12 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.10',
+        VERSION:     '0.4.12',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.10 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.4.12 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="Build and Install" href="build.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="build.html" title="Build and Install"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.10 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.12 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -79,7 +79,7 @@ Options:
         -v, --verbose           Enable verbose mode
         -d, --debug             Enable debug mode
         -a, --ast-debug         Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
-        -A, --adobepdf<span class="o">=</span>         Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 7.1.0<span class="o">)</span>
+        -A, --adobepdf<span class="o">=</span>         Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 9.1.0<span class="o">)</span>
         -S, --shockwave<span class="o">=</span>        Specify the Shockwave Flash version <span class="o">(</span>default: 10.0.64.0<span class="o">)</span>
         -J, --javaplugin<span class="o">=</span>       Specify the JavaPlugin version <span class="o">(</span>default: 1.7.1.30<span class="o">)</span>
 
@@ -342,7 +342,7 @@ Thug while all the others will be ignored.</p>
 useful for getting different PDF exploits which target different version of Adobe Acrobat
 Reader. This happens because exploit kits usually serve PDF files which exploit specific
 vulnerabilities basing on Adobe Acrobat Reader version. Let&#8217;s take a look at what happens if
-we try to analyze the same page with Adobe Acrobat Reader 8.1.0 instead of 7.1.0 which is
+we try to analyze the same page with Adobe Acrobat Reader 8.1.0 instead of 9.1.0 which is
 the default one.</p>
 <div class="highlight-sh"><pre>~/thug/src $ python thug.py -A 8.1.0 "http://[omitted]/main.php?page=8c6c59becaa0da07"
 [2012-07-02 19:18:00] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
@@ -419,7 +419,7 @@ W.eXeC "taskkill /F /IM wm" &amp; "player.e" &amp; "xe":W.eXeC "taskkill /F /IM 
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>2012-07-02 19:18:14<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/data/ap2.php <span class="o">(</span>Status: 200, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
 </pre></div>
 </div>
-<p>with what we saw using Adobe Acrobat Reader 7.1.0</p>
+<p>with what we saw using Adobe Acrobat Reader 9.1.0</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>2012-07-02 19:15:36<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/data/ap1.php?f<span class="o">=</span>b081d <span class="o">(</span>Status: 200, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
 </pre></div>
 </div>
@@ -753,7 +753,7 @@ total 356K
         <li class="right" >
           <a href="build.html" title="Build and Install"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.10 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.12 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

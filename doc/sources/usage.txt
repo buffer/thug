@@ -33,7 +33,7 @@ Let's start our Thug tour by taking a look at the options it provides.
                 -v, --verbose       	Enable verbose mode    
                 -d, --debug         	Enable debug mode
                 -a, --ast-debug     	Enable AST debug mode (requires debug mode)
-                -A, --adobepdf=     	Specify the Adobe Acrobat Reader version (default: 7.1.0)
+                -A, --adobepdf=     	Specify the Adobe Acrobat Reader version (default: 9.1.0)
                 -S, --shockwave=    	Specify the Shockwave Flash version (default: 10.0.64.0)
                 -J, --javaplugin=   	Specify the JavaPlugin version (default: 1.7.1.30)
 
@@ -319,7 +319,7 @@ Taking a look at the available options you can see the -A (--adobepdf) option wh
 useful for getting different PDF exploits which target different version of Adobe Acrobat
 Reader. This happens because exploit kits usually serve PDF files which exploit specific 
 vulnerabilities basing on Adobe Acrobat Reader version. Let's take a look at what happens if
-we try to analyze the same page with Adobe Acrobat Reader 8.1.0 instead of 7.1.0 which is
+we try to analyze the same page with Adobe Acrobat Reader 8.1.0 instead of 9.1.0 which is
 the default one. 
 
 .. code-block:: sh
@@ -401,7 +401,7 @@ Comparing the following line
 
         [2012-07-02 19:18:14] [HTTP] URL: http://[omitted]/data/ap2.php (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 
-with what we saw using Adobe Acrobat Reader 7.1.0
+with what we saw using Adobe Acrobat Reader 9.1.0
 
 .. code-block:: sh
 
