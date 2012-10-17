@@ -603,6 +603,9 @@ class Window(PyV8.JSClass):
 
         ID is the interval ID.
         """
+        if log.ThugOpts.delay:
+            delay = min(delay, log.ThugOpts.delay)
+
         timer = Window.Timer(self, f, delay, True, lang)
         self.timers.append(timer)
         timer.start()
@@ -626,6 +629,9 @@ class Window(PyV8.JSClass):
 
         ID is the interval ID.
         """
+        if log.ThugOpts.delay:
+            delay = min(delay, log.ThugOpts.delay)
+
         timer = Window.Timer(self, f, delay, False, lang)
         self.timers.append(timer)
         timer.start()

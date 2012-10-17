@@ -48,6 +48,7 @@ class ThugOpts(dict):
         self._useragent  = 'winxpie60'
         self._referer    = 'about:blank'
         self._events     = list()
+        self._delay      = 0
         self.Personality = Personality()
 
     def set_proxy_info(self, proxy):
@@ -92,6 +93,20 @@ class ThugOpts(dict):
             self._events.append(e.lower().strip())
         
     events = property(get_events, set_events)
+
+    def get_delay(self):
+        return self._delay
+
+    def set_delay(self, timeout):
+        try:
+            _timeout = int(timeout)
+        except:
+            log.warning('[WARNING] Ignoring invalid delay value (should be an integer)')
+            return
+
+        self._delay = _timeout
+
+    delay = property(get_delay, set_delay)
 
 class ThugVulnModules(dict):
     def __init__(self):
@@ -181,6 +196,7 @@ Synopsis:
         -h, --help          \tDisplay this help information
         -u, --useragent=    \tSelect a user agent (see below for values, default: winxpie60)
         -e, --events=       \tEnable comma-separated specified DOM events handling
+        -w, --delay=        \tSet a maximum setTimeout/setInterval delay value (in milliseconds)
         -o, --output=       \tLog to a specified file
         -r, --referer=      \tSpecify a referer
         -p, --proxy=        \tSpecify a proxy (see below for format and supported schemes)
@@ -257,10 +273,11 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hu:e:o:r:p:lvdaA:S:J:',
+            options, args = getopt.getopt(self.args, 'hu:e:w:o:r:p:lvdaA:S:J:',
                 ['help', 
                 'useragent=', 
                 'events=',
+                'delay=',
                 'output=',
                 'referer=',
                 'proxy=',
@@ -289,6 +306,8 @@ Synopsis:
                 log.ThugOpts.useragent = option[1]
             if option[0] in ('-e', '--events'):
                 log.ThugOpts.events = option[1]
+            if option[0] in ('-w', '--delay'):
+                log.ThugOpts.delay = option[1]
             if option[0] in ('-o', '--output', ):
                 fh = logging.FileHandler(os.path.join(log.baseDir, option[1]))
                 log.addHandler(fh)
