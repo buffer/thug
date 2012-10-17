@@ -2,7 +2,6 @@
 
 import os
 import urllib
-import httplib2
 import hashlib
 import urlparse
 import logging
