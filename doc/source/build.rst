@@ -62,9 +62,6 @@ below.
         $ cp thug/patches/V8-patch* .
         $ patch -p0 < V8-patch1.diff 
         patching file v8/src/log.h
-        $ patch -p0 < V8-patch2.diff 
-        patching file v8/src/parser.h
-        Hunk #1 succeeded at 456 (offset 7 lines).
 
 3. Checkout PyV8 source code from SVN
 
