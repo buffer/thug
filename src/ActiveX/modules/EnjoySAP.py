@@ -1,8 +1,5 @@
 
-import os
-import hashlib
 import logging
-
 log = logging.getLogger("Thug")
 
 def LaunchGui(self, arg0, arg1, arg2):
@@ -25,18 +22,3 @@ def Comp_Download(self, arg0, arg1):
         response, content = self._window._navigator.fetch(url)
     except:
         log.ThugLogging.add_behavior_warn('[EnjoySAP ActiveX] Fetch failed')
-        return
-
-    if response.status == 404:
-        log.ThugLogging.add_behavior_warn("[EnjoySAP ActiveX] FileNotFoundError: %s" % (url, ))
-        return 
- 
-    baseDir = log.baseDir
-
-    md5 = hashlib.md5()
-    md5.update(content)
-    filename = md5.hexdigest()
-    log.ThugLogging.add_behavior_warn("[EnjoySAP ActiveX] Saving File: " + filename)    
-
-    with open(os.path.join(baseDir, filename), 'wb') as fd:
-        fd.write(content)
