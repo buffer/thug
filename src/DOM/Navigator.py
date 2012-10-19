@@ -315,7 +315,7 @@ class Navigator(PyV8.JSClass):
                                                                               self._window.url, 
                                                                               url, )))
 
-        mime_base = log.baseDir
+        mime_base = log.ThugLogging.baseDir
 
         try:
             response, content = h.request(url,

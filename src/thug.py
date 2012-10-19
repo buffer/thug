@@ -245,30 +245,6 @@ Synopsis:
         if window:
             self.run(window)
 
-    def build_logbasedir(self, url):
-        t = datetime.datetime.now()
-        m = hashlib.md5()
-        m.update(url)
-
-        base = os.getenv('THUG_LOGBASE', '..')
-        log.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
-        
-        try:
-            os.makedirs(log.baseDir)
-        except OSError as e:
-            if e.errno == errno.EEXIST:
-                pass
-            else:
-                raise
-
-        with open(os.path.join(base, 'logs', 'thug.csv'), 'a+r') as fd:
-            csv_line = '%s,%s\n' % (m.hexdigest(), url, )
-            for l in fd.readlines():
-                if l == csv_line:
-                    return
-
-            fd.write(csv_line)
-
     def analyze(self):
         p = getattr(self, 'run_remote', None)
 
@@ -299,7 +275,7 @@ Synopsis:
             if option[0] == '-h' or option[0] == '--help':
                 self.usage()
 
-        self.build_logbasedir(args[0])
+        log.ThugLogging.set_basedir(args[0])
 
         for option in options:
             if option[0] in ('-u', '--useragent', ):
@@ -309,7 +285,7 @@ Synopsis:
             if option[0] in ('-w', '--delay'):
                 log.ThugOpts.delay = option[1]
             if option[0] in ('-o', '--output', ):
-                fh = logging.FileHandler(os.path.join(log.baseDir, option[1]))
+                fh = logging.FileHandler(os.path.join(log.ThugLogging.baseDir, option[1]))
                 log.addHandler(fh)
             if option[0] in ('-r', '--referer', ):
                 log.ThugOpts.referer = option[1]

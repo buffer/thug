@@ -22,6 +22,8 @@ from MAEC import MAEC
 from MongoDB import MongoDB
 
 import os
+import hashlib
+import datetime
 import logging
 log = logging.getLogger("Thug")
 
@@ -32,6 +34,7 @@ class ThugLogging(BaseLogging):
         self.HPFeeds    = HPFeeds()
         self.MAEC       = MAEC(thug_version)
         self.MongoDB    = MongoDB()
+        self.baseDir    = os.getcwd()
         self.shellcodes = set()
 
     def set_url(self, url):
@@ -54,9 +57,9 @@ class ThugLogging(BaseLogging):
         self.MongoDB.log_file(sample)
 
     def log_event(self):
-        log.warning("Saving log analysis at %s" % (log.baseDir, ))
+        log.warning("Saving log analysis at %s" % (self.baseDir, ))
 
-        with open(os.path.join(log.baseDir, 'analysis.xml'), 'a+r') as fd:
+        with open(os.path.join(self.baseDir, 'analysis.xml'), 'a+r') as fd:
             self.MAEC.export(outfile = fd)
             fd.seek(0)
             data = fd.read()
@@ -81,4 +84,29 @@ class ThugLogging(BaseLogging):
                                                                                                             p['location'], ))
 
     def log_href_redirect(self, referer, url):
-        self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))    
+        self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
+
+
+    def set_basedir(self, url):
+        t = datetime.datetime.now()
+        m = hashlib.md5()
+        m.update(url)
+
+        base = os.getenv('THUG_LOGBASE', '..')
+        self.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
+
+        try:
+            os.makedirs(self.baseDir)
+        except OSError as e:
+            if e.errno == errno.EEXIST:
+                pass
+            else:
+                raise
+
+        with open(os.path.join(base, 'logs', 'thug.csv'), 'a+r') as fd:
+            csv_line = '%s,%s\n' % (m.hexdigest(), url, )
+            for l in fd.readlines():
+                if l == csv_line:
+                    return
+
+            fd.write(csv_line)
