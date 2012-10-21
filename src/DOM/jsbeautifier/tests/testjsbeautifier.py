@@ -99,8 +99,8 @@ class TestJSBeautifier(unittest.TestCase):
         bt('(xx)()'); # magic function call
         bt('a[1]()'); # another magic function call
         bt('if(a){b();}else if(c) foo();', "if (a) {\n    b();\n} else if (c) foo();");
-        bt('switch(x) {case 0: case 1: a(); break; default: break}', "switch (x) {\ncase 0:\ncase 1:\n    a();\n    break;\ndefault:\n    break\n}");
-        bt('switch(x){case -1:break;case !y:break;}', 'switch (x) {\ncase -1:\n    break;\ncase !y:\n    break;\n}');
+        bt('switch(x) {case 0: case 1: a(); break; default: break}', "switch (x) {\n    case 0:\n    case 1:\n        a();\n        break;\n    default:\n        break\n}");
+        bt('switch(x){case -1:break;case !y:break;}', 'switch (x) {\n    case -1:\n        break;\n    case !y:\n        break;\n}');
         bt('a !== b');
         bt('if (a) b(); else c();', "if (a) b();\nelse c();");
         bt("// comment\n(function something() {})"); # typical greasemonkey start
@@ -148,7 +148,7 @@ class TestJSBeautifier(unittest.TestCase):
         bt("for(var a=1,b=2)", "for (var a = 1, b = 2)");
         bt("for(var a=1,b=2,c=3)", "for (var a = 1, b = 2, c = 3)");
         bt("for(var a=1,b=2,c=3;d<3;d++)", "for (var a = 1, b = 2, c = 3; d < 3; d++)");
-        bt("function x(){(a||b).c()}", "function x() {\n    (a || b)\n        .c()\n}");
+        bt("function x(){(a||b).c()}", "function x() {\n    (a || b).c()\n}");
         bt("function x(){return - 1}", "function x() {\n    return -1\n}");
         bt("function x(){return ! a}", "function x() {\n    return !a\n}");
 
@@ -436,9 +436,9 @@ class TestJSBeautifier(unittest.TestCase):
         bt('<!-- dont crash')
         bt('for () /abc/.test()')
         bt('if (k) /aaa/m.test(v) && l();')
-        bt('switch (true) {\ncase /swf/i.test(foo):\n    bar();\n}')
+        bt('switch (true) {\n    case /swf/i.test(foo):\n        bar();\n}')
         bt('createdAt = {\n    type: Date,\n    default: Date.now\n}')
-        bt('switch (createdAt) {\ncase a:\n    Date,\ndefault:\n    Date.now\n}')
+        bt('switch (createdAt) {\n    case a:\n        Date,\n    default:\n        Date.now\n}')
 
         bt('foo = {\n    x: y, // #44\n    w: z // #44\n}');
         bt('return function();')
@@ -465,6 +465,7 @@ class TestJSBeautifier(unittest.TestCase):
         bt('if (foo) // comment\n(bar());');
         bt('if (foo) // comment\n/asdf/;');
 
+        self.options.break_chained_methods = True
         bt('foo.bar().baz().cucumber(fat)', 'foo.bar()\n    .baz()\n    .cucumber(fat)');
         bt('foo.bar().baz().cucumber(fat); foo.bar().baz().cucumber(fat)', 'foo.bar()\n    .baz()\n    .cucumber(fat);\nfoo.bar()\n    .baz()\n    .cucumber(fat)');
         bt('foo.bar().baz().cucumber(fat)\n foo.bar().baz().cucumber(fat)', 'foo.bar()\n    .baz()\n    .cucumber(fat)\nfoo.bar()\n    .baz()\n    .cucumber(fat)');
@@ -500,6 +501,7 @@ class TestJSBeautifier(unittest.TestCase):
         options.keep_array_indentation = False
         options.brace_style = 'collapse'
         options.indent_level = 0
+        options.break_chained_methods = False
 
         cls.options = options
         cls.wrapregex = re.compile('^(.+)$', re.MULTILINE)
