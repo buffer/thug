@@ -104,9 +104,10 @@ class ThugOpts(dict):
             log.warning('[WARNING] Ignoring invalid delay value (should be an integer)')
             return
 
-        self._delay = _timeout
+        self._delay = abs(_timeout)
 
     delay = property(get_delay, set_delay)
+
 
 class ThugVulnModules(dict):
     def __init__(self):
@@ -171,6 +172,7 @@ class ThugVulnModules(dict):
         javawebstart = self._javaplugin.split('.')
         last         = javawebstart.pop()
         return '%s.%s' % ('.'.join(javawebstart), '0')
+
 
 class Thug:
     def __init__(self, args):
