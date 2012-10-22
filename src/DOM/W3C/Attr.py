@@ -18,7 +18,8 @@ class Attr(Node):
         self.tag    = BeautifulSoup.Tag(parser = self.doc, name = 'attr')
         Node.__init__(self, doc)
 
-        self._value = self.getValue()
+        self._specified = False
+        self._value     = self.getValue()
         
     def __repr__(self):
         return "<Attr object %s%s at 0x%08X>" % ("%s." % self.parent.tagName if self.parent else "", self.attr, id(self))
@@ -69,13 +70,18 @@ class Attr(Node):
     @property
     def name(self):
         return self.attr
-    
+
+    @property
     def specified(self):
-        return self.parent.has_attr(self.attr)
+        if self.ownerElement is None:
+            return True
+
+        return self._specified
     
     def getValue(self):
         if self.parent:
             if self.parent.tag.has_attr(self.attr):
+                self._specified = True
                 return self.parent.tag[self.attr]
             
         return self._value 
@@ -84,6 +90,7 @@ class Attr(Node):
         self._value = value
         
         if self.parent:
+            self._specified = True
             self.parent.tag[self.attr] = value
         
     value = property(getValue, setValue)
