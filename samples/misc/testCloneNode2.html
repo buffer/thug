@@ -1,0 +1,25 @@
+<html>
+<body>
+<script language="JavaScript">
+function function1(){
+    var b = document.getElementById("myButton");
+    alert(b);
+
+    var clone1 = b.cloneNode(true);
+    alert(clone1.innerHTML);
+    alert(clone1.parentNode);
+ 
+    var clone2 = b.cloneNode(false);
+    alert(clone2.innerHTML);
+
+    var attr = document.createAttribute("foo");
+    alert(attr);
+    var clone3 = attr.cloneNode(false);
+    alert(clone3);
+    alert(clone3.specified);
+}
+function1(); 
+</script>
+<button id="myButton" align="left">Clone node</button>
+</body>
+</html>

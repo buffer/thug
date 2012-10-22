@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import copy
 import bs4 as BeautifulSoup
 import PyV8
 import logging
@@ -293,9 +294,23 @@ class Node(PyV8.JSClass, EventTarget):
     def _compareDocumentPosition(self, node):
        return None
 
-    @abstractmethod
+    #@abstractmethod
     def cloneNode(self, deep):
-        pass
+        #pass
+
+        # Returns a duplicate of this node
+        cloned = copy.copy(self)
+
+        # The duplicate node has no parent (parentNode is null)
+        cloned.tag.parent = None
+
+        # Cloning an Element copies all attributes and their values but
+        # this method does not copy any text it contains unless it is a
+        # deep clone, since the Text is contained in a child Text node.
+        if cloned.nodeType in (Node.ELEMENT_NODE, ) and deep is False:
+            cloned.tag.string = ''
+
+        return cloned
     
     @staticmethod
     def wrap(doc, obj):

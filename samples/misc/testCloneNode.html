@@ -1,0 +1,19 @@
+<html>
+<body>
+<p>
+  <q>Can you copy <em>everything</em> I say?</q>
+</p>
+
+<div id='cloned'></div>
+
+<script>
+var node  = document.getElementsByTagName('q')[0];
+var clone = node.cloneNode(true);
+
+var cloned = document.getElementById('cloned');
+cloned.appendChild(clone);
+
+alert(document.body);
+</script>
+</body>
+</html>
