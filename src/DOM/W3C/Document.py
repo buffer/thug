@@ -105,7 +105,7 @@ class Document(Node, DocumentEvent, DocumentView):
         return ProcessingInstruction(self, target, BeautifulSoup.ProcessingInstruction(data))
     
     def createAttribute(self, name):
-        return Attr(self, self, name)
+        return Attr(self, None, name)
     
     def createEntityReference(self, name):
         return EntityReference(self, name)
