@@ -529,15 +529,7 @@ class DFT(object):
         try:
             response, content = self.window._navigator.fetch(archive)
         except:
-            return
-
-        if response.status == 404:
-            return
-
-        log.warning('Saving applet %s' % (archive, ))
-        
-        with open(os.path.join(log.baseDir, archive.split('/')[-1]), 'wb') as fd:
-            fd.write(content)
+            pass
 
     def handle_meta(self, meta):
         log.warning(meta)
