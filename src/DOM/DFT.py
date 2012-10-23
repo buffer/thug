@@ -656,13 +656,13 @@ class DFT(object):
                 self.follow_href(href)
 
     def follow_href(self, href):
-            doc    = w3c.parseString('')
-            window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
-            window = window.open(href)
+        doc    = w3c.parseString('')
+        window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+        window = window.open(href)
             
-            if window:
-                dft = DFT(window)
-                dft.run()
+        if window:
+            dft = DFT(window)
+            dft.run()
 
     def do_handle(self, child, skip = True):
         name = getattr(child, "name", None)
