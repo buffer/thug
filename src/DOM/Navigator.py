@@ -263,7 +263,7 @@ class Navigator(PyV8.JSClass):
         }
 
         if self._window.url not in ('about:blank', ):
-            http_headers['Referer'] = self._window.url
+            http_headers['Referer'] = self.__normalize_url(self._window.url)
 
         if self._window.doc.cookie:
             http_headers['Cookie'] = self._window.doc.cookie
@@ -355,6 +355,10 @@ class Navigator(PyV8.JSClass):
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (response['content-location'] if 'content-location' in response else url,
                                                                                           response['content-type'] if 'content-type' in response else 'unknown',
                                                                                           filename))
+
+
+        if 'content-location' in response and response['content-location']:
+            self._window.url = response['content-location']
 
         try:
             os.makedirs(mime_base)

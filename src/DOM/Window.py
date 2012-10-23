@@ -894,6 +894,9 @@ class Window(PyV8.JSClass):
             if response.status == 404:
                 return None
 
+            if 'content-location' in response and response['content-location']:
+                url = response['content-location']
+
             if 'content-type' in response:
                 handler = log.MIMEHandler.get_handler(response['content-type'])
                 if handler and handler(html):
