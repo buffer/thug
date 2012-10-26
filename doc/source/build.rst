@@ -16,6 +16,7 @@ Requirements
 * Pefile                   
 * Chardet                  
 * httplib2 
+* Cssutils
 * Zope interface           
 * MongoDB (optional)       
 * PyMongo (optional)       
@@ -215,6 +216,19 @@ to install httplib2 is through easy_install.
 .. code-block:: sh
 
         # easy_install httplib2
+
+
+Cssutils
+^^^^^^^^
+Cssutils is a CSS Cascading Style Sheets library for Python. Cssutils homepage
+is located at http://pypi.python.org/pypi/cssutils.
+
+If not available as a package for your Linux distribution, the best way
+to install cssutils is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install cssutils
 
 
 Zope Interface

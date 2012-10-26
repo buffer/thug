@@ -23,6 +23,7 @@ import W3C.w3c as w3c
 import hashlib
 import string
 import logging
+import cssutils
 import Window
 import PyV8
 import chardet
@@ -616,6 +617,28 @@ class DFT(object):
 
     def handle_body(self, body):
         pass
+
+    def do_handle_font_face_rule(self, rule):
+        for p in rule.style:
+            if p.name.lower() not in ('src', ):
+                continue
+
+            url = p.value
+            if url.startswith('url(') and len(url) > 4:
+                url = url.split('url(')[1].split(')')[0]
+
+            try:
+                self.window._navigator.fetch(url)
+            except:
+                return
+
+    def handle_style(self, style):
+        log.info(style)
+
+        sheet = cssutils.parseString(style.text)
+        for rule in sheet:
+            if rule.type == rule.FONT_FACE_RULE:
+                self.do_handle_font_face_rule(rule)
 
     def handle_a(self, anchor):
         self.anchors.append(anchor)
