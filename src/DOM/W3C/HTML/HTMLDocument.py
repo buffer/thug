@@ -18,15 +18,17 @@ import bs4 as BeautifulSoup
 import PyV8
 
 from Document import Document
+from DOMException import DOMException
 from .HTMLCollection import HTMLCollection
 from .HTMLElement import HTMLElement
+from .HTMLBodyElement import HTMLBodyElement
 from .text_property import text_property
 from .xpath_property import xpath_property
 
 
 class HTMLDocument(Document):
     title       = xpath_property("/html/head/title/text()")
-    body        = xpath_property("/html/body[1]")
+    body        = xpath_property("/html/body[1]", readonly = True)
     images      = xpath_property("//img", readonly = True)
     applets     = xpath_property("//applet", readonly = True)
     forms       = xpath_property("//form", readonly = True)
