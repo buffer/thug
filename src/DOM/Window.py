@@ -894,7 +894,7 @@ class Window(PyV8.JSClass):
             if response.status == 404:
                 return None
 
-            if 'content-location' in response and response['content-location']:
+            if response.previous and 'content-location' in response and response['content-location']:
                 url = response['content-location']
 
             if 'content-type' in response:

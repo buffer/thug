@@ -357,7 +357,7 @@ class Navigator(PyV8.JSClass):
                                                                                           filename))
 
 
-        if 'content-location' in response and response['content-location']:
+        if response.previous and 'content-location' in response and response['content-location']:
             self._window.url = response['content-location']
 
         try:
