@@ -28,7 +28,7 @@ from .xpath_property import xpath_property
 
 class HTMLDocument(Document):
     title       = xpath_property("/html/head/title/text()")
-    body        = xpath_property("/html/body[1]", readonly = True)
+    #body        = xpath_property("/html/body[1]", readonly = True)
     images      = xpath_property("//img", readonly = True)
     applets     = xpath_property("//applet", readonly = True)
     forms       = xpath_property("//form", readonly = True)
@@ -54,6 +54,11 @@ class HTMLDocument(Document):
         self._win = win
 
     window = property(getWindow, setWindow)
+
+    @property
+    def body(self):
+        tag = self.doc.find('body')
+        return HTMLBodyElement(self.doc, tag if tag else self.doc)
 
     @property
     def tag(self):

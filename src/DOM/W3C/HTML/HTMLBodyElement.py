@@ -14,3 +14,13 @@ class HTMLBodyElement(HTMLElement):
     vLink           = attr_property("vlink")
     text            = attr_property("text")
 
+    def __repr__(self):
+        return "<HTMLBodyElement at 0x%08X>" % (id(self), )
+
+    def __str__(self):
+        body = self.doc.find('body')
+        return str(body if body else self.doc)
+
+    def __unicode__(self):
+        body = self.doc.find('body')
+        return unicode(body if body else self.doc)
