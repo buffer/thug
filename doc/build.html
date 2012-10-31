@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build and Install &mdash; Thug 0.4.12 documentation</title>
+    <title>Build and Install &mdash; Thug 0.4.13 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.12',
+        VERSION:     '0.4.13',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.12 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.4.13 documentation" href="index.html" />
     <link rel="next" title="Usage" href="usage.html" />
     <link rel="prev" title="Introduction" href="intro.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="intro.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.12 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.13 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -66,6 +66,7 @@
 <li>Pefile</li>
 <li>Chardet</li>
 <li>httplib2</li>
+<li>Cssutils</li>
 <li>Zope interface</li>
 <li>MongoDB (optional)</li>
 <li>PyMongo (optional)</li>
@@ -103,9 +104,6 @@ directory</li>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>cp thug/patches/V8-patch* .
 <span class="nv">$ </span>patch -p0 &lt; V8-patch1.diff
 patching file v8/src/log.h
-<span class="nv">$ </span>patch -p0 &lt; V8-patch2.diff
-patching file v8/src/parser.h
-Hunk <span class="c">#1 succeeded at 456 (offset 7 lines).</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
@@ -232,6 +230,16 @@ to install httplib2 is through easy_install.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="cssutils">
+<h3>Cssutils<a class="headerlink" href="#cssutils" title="Permalink to this headline">¶</a></h3>
+<p>Cssutils is a CSS Cascading Style Sheets library for Python. Cssutils homepage
+is located at <a class="reference external" href="http://pypi.python.org/pypi/cssutils">http://pypi.python.org/pypi/cssutils</a>.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install cssutils is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install cssutils</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="zope-interface">
 <h3>Zope Interface<a class="headerlink" href="#zope-interface" title="Permalink to this headline">¶</a></h3>
 <p>Zope Interface homepage is located at <a class="reference external" href="http://pypi.python.org/pypi/zope.interface">http://pypi.python.org/pypi/zope.interface</a>.</p>
@@ -278,6 +286,7 @@ to install pymongo is through easy_install.</p>
 <li><a class="reference internal" href="#pefile">Pefile</a></li>
 <li><a class="reference internal" href="#chardet">chardet</a></li>
 <li><a class="reference internal" href="#httplib2">httplib2</a></li>
+<li><a class="reference internal" href="#cssutils">Cssutils</a></li>
 <li><a class="reference internal" href="#zope-interface">Zope Interface</a></li>
 <li><a class="reference internal" href="#mongodb-optional">MongoDB (optional)</a></li>
 <li><a class="reference internal" href="#pymongo-optional">PyMongo (optional)</a></li>
@@ -327,7 +336,7 @@ to install pymongo is through easy_install.</p>
         <li class="right" >
           <a href="intro.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.12 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.13 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

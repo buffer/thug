@@ -26,6 +26,7 @@ Let's start our Thug tour by taking a look at the options it provides.
                 -h, --help          	Display this help information
                 -u, --useragent=    	Select a user agent (see below for values, default: winxpie60)
                 -e, --events=       	Enable comma-separated specified DOM events handling
+                -w, --delay=        	Set a maximum setTimeout/setInterval delay value (in milliseconds)
                 -o, --output=       	Log to a specified file
                 -r, --referer=      	Specify a referer
                 -p, --proxy=        	Specify a proxy (see below for format and supported schemes)
@@ -696,3 +697,24 @@ named */tmp/thug-cache-NNNN* with NNNN being the UID of the user running Thug.
         -rw-r--r-- 1 buffer buffer  90K Jul  2 19:22 [omitted],w.php,e=5&f=b081d,6aa8d9e4db0d7b4433e791c898e7090e
         -rw-r--r-- 1 buffer buffer  90K Jul  2 19:22 [omitted],w.php,f=b081d&e=2,af58f45673d97ba4643bb1c87c4505b2
 
+
+Other useful features
+---------------------
+
+An interesting feature (introduced in Thug 0.4.13) allows you to define a maximum delay for
+methods like setTimeout and setInterval which set a delay for executing a function. For instance
+if the original code contains a statement like 
+
+.. code-block:: javascript
+
+        setTimeout(do_stuff, 60000);
+
+the code will sleep for 60 seconds before executing the function `do_stuff`. There are situations
+where you would like to avoid wasting this time. In such cases, Thug provides the -w (--delay)
+option. Simply running Thug this way (please note the interval is expressed in milliseconds)
+
+.. code-block:: sh
+ 
+         ~/thug/src $ python thug.py -w 2000 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+ 
+will force a maximum delay of 2 seconds. 
