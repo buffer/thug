@@ -389,13 +389,71 @@ class DFT(object):
                 if eventType in self.handled_events:
                     self.listeners.append((elem, eventType, listener, capture))
 
+    @property
+    def javaUserAgent(self):
+        javaplugin = log.ThugVulnModules._javaplugin.split('.')
+        last = javaplugin.pop()
+        version =  '%s_%s' % ('.'.join(javaplugin), last)
+        return log.ThugOpts.Personality.javaUserAgent % (version, )
+
+    def do_handle_params(self, object):
+        params = dict()
+
+        for child in object.children:
+            name = getattr(child, 'name', None)
+            if name is None:
+                continue
+
+            if name.lower() in ('param', ):
+                params[child.attrs['name'].lower()] = child.attrs['value']
+
+        if not params:
+            return
+
+        for key in ('filename', 'movie', ):
+            if not key in params:
+                continue
+
+            try:
+                self.window._navigator.fetch(params[key])
+            except:
+                pass
+
+        for key, value in params.items():
+            if key in ('filename', 'movie', 'archive', ):
+                continue
+
+            if not value.startswith('http'):
+                continue
+
+            try:
+                self.window._navigator.fetch(value)
+            except:
+                pass
+
+        if not 'archive' in params:
+            return
+
+        headers = dict()
+        headers['Connection']   = 'keep-alive'
+        headers['Content-Type'] = 'application/x-java-archive'
+
+        if log.ThugOpts.Personality.javaUserAgent:
+            headers['User-Agent'] = self.javaUserAgent
+
+        try:
+            self.window._navigator.fetch(params['archive'], headers = headers)
+        except:
+            pass
+
     def handle_object(self, object):
         log.warning(object)
 
-        self.check_attrs(object)
-                
-        classid = object.get('classid', None)
-        id      = object.get('id', None)
+        #self.check_attrs(object)
+        self.do_handle_params(object)
+
+        classid  = object.get('classid', None)
+        id       = object.get('id', None)
 
         if not log.ThugOpts.Personality.isIE():
             return
@@ -507,23 +565,6 @@ class DFT(object):
         name  = param.get('name' , None)
         value = param.get('value', None)
 
-        # FIXME
-        if name.lower() in ('movie', 'archive', ):
-            try:
-                self.window._navigator.fetch(value)
-            except:
-                pass
-
-        if 'http' not in value:
-            return
-
-        urls = [p for p in value.split() if p.startswith('http')]
-        for url in urls:
-            try:
-                self.window._navigator.fetch(url)
-            except:
-                pass
-
     def handle_embed(self, embed):
         log.warning(embed)
 
@@ -537,12 +578,23 @@ class DFT(object):
     def handle_applet(self, applet):
         log.warning(applet)
 
+        self.do_handle_params(applet)
+
         archive = applet.get('archive', None)
         if not archive:
             return
 
+        headers = dict()
+        headers['Connection']   = 'keep-alive'
+        headers['Content-type'] = 'application/x-java-archive'
+
+        if log.ThugOpts.Personality.javaUserAgent:
+            headers['User-Agent'] = self.javaUserAgent
+
+        print headers
+
         try:
-            response, content = self.window._navigator.fetch(archive)
+            response, content = self.window._navigator.fetch(archive, headers = headers)
         except:
             pass
 
