@@ -60,8 +60,13 @@ class Shellcode(object):
                 profile = profile[1:]
                 continue
 
+            url = p[1]
+            if url in log.ThugLogging.shellcode_urls:
+                return
+
             try:
                 self.window._navigator.fetch(p[1])
+                log.ThugLogging.shellcode_urls.add(url)
             except:
                 pass
 
@@ -72,9 +77,14 @@ class Shellcode(object):
         
         if offset > 0:
             url = sc[offset:].split()[0]
+            if url in log.ThugLogging.shellcode_urls:
+                return
+
             log.info('[Shellcode Analysis] URL Detected: %s' % (url, ))
+
             try:
                 self.window._navigator.fetch(url)
+                log.ThugLogging.shellcode_urls.add(url)
             except:
                 pass
 

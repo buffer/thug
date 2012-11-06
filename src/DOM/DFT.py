@@ -167,8 +167,13 @@ class DFT(object):
                 profile = profile[1:]
                 continue
 
+            url = p[1]
+            if url in log.ThugLogging.shellcode_urls:
+                return
+
             try:
-                self.window._navigator.fetch(p[1])
+                self.window._navigator.fetch(url)
+                log.ThugLogging.shellcode_urls.add(url)
             except:
                 pass
 
@@ -214,8 +219,14 @@ class DFT(object):
 
             log.ThugLogging.add_code_snippet(shellcode, 'Assembly', 'Shellcode', method = 'Static Analysis')
             log.ThugLogging.add_behavior_warn(description = '[Shellcode Analysis] URL Detected: %s' % (url[:i], ), method = 'Static Analysis')
+
+            url = url[:i]
+            if url in log.ThugLogging.shellcode_urls:
+                return
+
             try:
-                self.window._navigator.fetch(url[:i])
+                self.window._navigator.fetch(url)
+                log.ThugLogging.shellcode_urls.add(url)
             except:
                 pass
 

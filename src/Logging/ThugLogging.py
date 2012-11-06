@@ -31,11 +31,12 @@ class ThugLogging(BaseLogging):
     def __init__(self, thug_version):
         BaseLogging.__init__(self)
 
-        self.HPFeeds    = HPFeeds()
-        self.MAEC       = MAEC(thug_version)
-        self.MongoDB    = MongoDB()
-        self.baseDir    = os.getcwd()
-        self.shellcodes = set()
+        self.HPFeeds        = HPFeeds()
+        self.MAEC           = MAEC(thug_version)
+        self.MongoDB        = MongoDB()
+        self.baseDir        = os.getcwd()
+        self.shellcodes     = set()
+        self.shellcode_urls = set()
 
     def set_url(self, url):
         self.MAEC.set_url(url)
