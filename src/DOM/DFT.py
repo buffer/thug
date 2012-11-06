@@ -459,7 +459,38 @@ class DFT(object):
             return
 
         if classid and id:
-            setattr(self.window, id, _ActiveXObject(self.window, classid, 'id'))
+            axo = _ActiveXObject(self.window, classid, 'id')
+            setattr(self.window, id, axo)
+            setattr(self.window.doc, id, axo)
+
+    def _get_script_for_event_params(self, attr_event):
+        params = attr_event.split('(')
+        if len(params) < 2:
+            return None
+
+        params = params[1].split(')')[0]
+        return params.split(',')
+
+    def _handle_script_for_event(self, script):
+        attr_for   = script.get("for", None)
+        attr_event = script.get("event", None)
+
+        if not attr_for or not attr_event:
+            return
+
+        params = self._get_script_for_event_params(attr_event)
+        if not params:
+            return
+
+        if 'playstatechange' in attr_event.lower():
+            with self.context as ctx:
+                newState = params.pop()
+                ctx.eval("%s = 0;" % (newState.strip(), ))
+                try:
+                    oldState = params.pop()
+                    ctx.eval("%s = 3;" % (oldState.strip(), ))
+                except:
+                    pass
 
     def handle_script(self, script):
         language = script.get('language', 'javascript').lower()
@@ -471,6 +502,9 @@ class DFT(object):
         if not handler:
             log.warning("Unhandled script language: %s" % (language, ))
             return
+
+        if log.ThugOpts.Personality.isIE():
+            self._handle_script_for_event(script)
 
         handler(script)
             
