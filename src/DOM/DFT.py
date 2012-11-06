@@ -394,7 +394,10 @@ class DFT(object):
 
     def handle_script(self, script):
         language = script.get('language', 'javascript').lower()
-        handler  = getattr(self, "handle_%s" % (language, ), None)
+        if 'javascript' in language:
+            language = 'javascript'
+
+        handler = getattr(self, "handle_%s" % (language, ), None)
 
         if not handler:
             log.warning("Unhandled script language: %s" % (language, ))
