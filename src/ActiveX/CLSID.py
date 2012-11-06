@@ -100,6 +100,7 @@ from .modules import VLC
 from .modules import VsaIDEDTE
 from .modules import VsmIDEDTE
 from .modules import WebViewFolderIcon
+from .modules import WindowsMediaPlayer
 from .modules import WinZip
 from .modules import WMEncProfileManager
 from .modules import WScriptShell
@@ -1237,6 +1238,17 @@ CLSID = [
             'methods'   : {
                             'setSlice'              : WebViewFolderIcon.setSlice,
                           }
+        },
+
+        # WindowsMediaPlayer
+        {
+            'id'        : ( '22D6F312-B0F6-11D0-94AB-0080C74C7E95', ),
+            'name'      : (),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'Play'  : WindowsMediaPlayer.Play,
+                          },
         },
 
         # WinZip
