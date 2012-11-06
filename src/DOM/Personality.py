@@ -32,6 +32,7 @@ class Personality(dict):
                 "appVersion"      : "4.0 (Windows;  MSIE 6.0;  Windows NT 5.1;  SV1; .NET CLR 2.0.50727)",
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "ie60",
                 }
 
@@ -45,6 +46,7 @@ class Personality(dict):
                 "appVersion"      : "4.0 (compatible; MSIE 6.1; Windows XP; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "ie61",
                 }
 
@@ -58,6 +60,7 @@ class Personality(dict):
                 "appVersion"      : "4.0 (Windows; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)",
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "ie70",
                 }
 
@@ -71,6 +74,7 @@ class Personality(dict):
                 "appVersion"      : "4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; (R1 1.5); .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "ie80",
                 }
 
@@ -84,6 +88,7 @@ class Personality(dict):
                 "appVersion"      : "5.0 (Windows NT 5.1) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.47 Safari/536.11",
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/5.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "chrome20",
                 }   
 
@@ -97,6 +102,7 @@ class Personality(dict):
                 "appVersion"      : "12.0 (Windows)",
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/5.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "firefox12",
                 }
 
@@ -110,6 +116,7 @@ class Personality(dict):
                 "appVersion"      : "5.0 (Windows NT 5.1) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2",
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/5.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "safari5",
                 }   
 
@@ -124,6 +131,7 @@ class Personality(dict):
                 "appVersion"      : "4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/4.0 (Windows 2000 5.0) Java/%s",
                 "browserTag"      : "ie60",
                 }
 
@@ -137,6 +145,7 @@ class Personality(dict):
                 "appVersion"      : "5.0 (compatible; MSIE 8.0; Windows NT 5.0; Trident/4.0; InfoPath.1; SV1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 3.0.04506.30)",
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/5.0 (Windows 2000 5.0) Java/%s",
                 "browserTag"      : "ie80",
                 }
 
@@ -151,6 +160,7 @@ class Personality(dict):
                 "appVersion"      : "4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; InfoPath.2)",
                 "appMinorVersion" : "0",
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/4.0 (Windows 7 6.1) Java/%s",
                 "browserTag"      : "ie80",
                 }
 
@@ -164,6 +174,7 @@ class Personality(dict):
                 "appVersion"      : "5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; InfoPath.2; BOIE9;ENUS)",
                 "appMinorVersion" : "0",
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/5.0 (Windows 7 6.1) Java/%s",
                 "browserTag"      : "ie90",
                 }
 
@@ -177,6 +188,7 @@ class Personality(dict):
                 "appVersion"      : "5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.47 Safari/536.11",
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/5.0 (Windows 7 6.1) Java/%s",
                 "browserTag"      : "chrome20",
                 }
 
@@ -190,6 +202,7 @@ class Personality(dict):
                 "appVersion"      : "5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2",
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
+                "javaUserAgent"   : "Mozilla/5.0 (Windows 7 6.1) Java/%s",
                 "browserTag"      : "safari5",
                 }
 
@@ -204,6 +217,7 @@ class Personality(dict):
                 "appVersion"      : "5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22",
                 "appMinorVersion" : None,
                 "platform"        : "MacIntel",
+                "javaUserAgent"   : None,
                 "browserTag"      : "safari5",
                 }  
 
@@ -218,12 +232,17 @@ class Personality(dict):
                 "appVersion"      : "5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.54 Safari/536.5",
                 "appMinorVersion" : None,
                 "platform"        : "MacIntel",
+                "javaUserAgent"   : None,
                 "browserTag"      : "chrome20",
                 }
 
     @property
     def userAgent(self):
         return self[log.ThugOpts.useragent]['userAgent']
+
+    @property
+    def javaUserAgent(self):
+        return self[log.ThugOpts.useragent]['javaUserAgent']
 
     @property
     def browserVersion(self):
