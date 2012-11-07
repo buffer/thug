@@ -274,7 +274,20 @@ class Navigator(PyV8.JSClass):
 
         return http_headers
 
+    def __normalize_protocol_relative_url(self, url):
+        if self._window.url in ('about:blank', ):
+            return 'http:%s' % (url, )
+
+        _base_url = urlparse.urlparse(self._window.url)
+        if not _base_url.scheme:
+            return 'http:%s' % (url, )
+
+        return "%s:%s" % (_base_url.scheme, url)
+
     def __normalize_url(self, url):
+        if url.startswith('//'):
+            url = self.__normalize_protocol_relative_url(url)
+
         _url = urlparse.urlparse(url)
 
         handler = getattr(log.SchemeHandler, 'handle_%s' % (_url.scheme, ), None)
