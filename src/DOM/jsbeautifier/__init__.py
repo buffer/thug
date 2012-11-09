@@ -86,7 +86,6 @@ class BeautifierFlags:
         self.in_case_statement = False
         self.case_body = False
         self.eat_next_space = False
-        self.indentation_baseline = -1
         self.indentation_level = 0
         self.ternary_depth = 0
 
@@ -217,7 +216,7 @@ class Beautifier:
             self.preindent_string += s[0]
             s = s[1:]
 
-        self.input = self.unpack(s, opts.eval_code)
+        self.input = self.unpack(s, self.opts.eval_code)
 
         parser_pos = 0
         while True:
@@ -387,18 +386,6 @@ class Beautifier:
         keep_whitespace = self.opts.keep_array_indentation and self.is_array(self.flags.mode)
 
         if keep_whitespace:
-            # slight mess to allow nice preservation of array indentation and reindent that correctly
-            # first time when we get to the arrays:
-            # var a = [
-            # ....'something'
-            # we make note of whitespace_count = 4 into flags.indentation_baseline
-            # so we know that 4 whitespaces in original source match indent_level of reindented source
-            #
-            # and afterwards, when we get to
-            #    'something,
-            # .......'something else'
-            # we know that this should be indented to indent_level + (7 - indentation_baseline) spaces
-
             whitespace_count = 0
             while c in self.whitespace:
                 if c == '\n':
@@ -419,17 +406,9 @@ class Beautifier:
                 c = self.input[parser_pos]
                 parser_pos += 1
 
-            if self.flags.indentation_baseline == -1:
-
-                self.flags.indentation_baseline = whitespace_count
-
             if self.just_added_newline:
-                for i in range(self.flags.indentation_level + 1):
-                    self.output.append(self.indent_string)
-
-                if self.flags.indentation_baseline != -1:
-                    for i in range(whitespace_count - self.flags.indentation_baseline):
-                        self.output.append(' ')
+                for i in range(whitespace_count):
+                    self.output.append(' ')
 
         else: # not keep_whitespace
             while c in self.whitespace:
@@ -966,6 +945,9 @@ class Beautifier:
             self.append_newline()
         elif self.last_type == 'TK_WORD':
             self.append(' ')
+        elif self.opts.preserve_newlines and self.wanted_newline:
+            self.append_newline();
+            self.append(self.indent_string);
 
         self.append(token_text)
 
@@ -1208,4 +1190,3 @@ def main():
         else:
             with open(outfile, 'w') as f:
                 f.write(beautify_file(file, js_options) + '\n')
-
