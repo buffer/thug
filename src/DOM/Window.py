@@ -741,6 +741,7 @@ class Window(PyV8.JSClass):
             self.Run            = self._Run
             self.CollectGarbage = self._CollectGarbage
             self.navigate       = self._navigate
+            self.external       = object()
 
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
             self.attachEvent    = self._attachEvent
@@ -748,6 +749,15 @@ class Window(PyV8.JSClass):
         else:
             self.addEventListener    = self._addEventListener
             self.removeEventListener = self._removeEventListener
+
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion in ('8.0', ):
+            self.Storage = object()
+
+        if log.ThugOpts.Personality.isFirefox():
+            self.sidebar = object()
+
+        if log.ThugOpts.Personality.isChrome():
+            self.chrome = object()
 
     def eval(self, script):
         try:

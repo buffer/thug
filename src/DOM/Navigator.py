@@ -86,6 +86,9 @@ class Navigator(PyV8.JSClass):
         for p in self._mimeTypes.values():
             self.plugins.append(p['enabledPlugin'])
 
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion in ('6.0', '6.1', ):
+            self.userProfile = object()
+
     @property
     def window(self):
         return self._window
