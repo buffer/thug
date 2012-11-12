@@ -257,6 +257,9 @@ class Personality(dict):
     def isFirefox(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('firefox')
 
+    def isChrome(self):
+        return self[log.ThugOpts.useragent]['browserTag'].startswith('chrome')
+
     def isSafari(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('safari')
 
