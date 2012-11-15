@@ -117,7 +117,7 @@ class ThugVulnModules(dict):
     def __init__(self):
         self._acropdf_pdf     = '9.1.0'
         self._shockwave_flash = '10.0.64.0'
-        self._javaplugin      = '1.7.1.30'
+        self._javaplugin      = '1.6.0.32'
 
     def invalid_version(self, version):
         for p in version.split('.'):
