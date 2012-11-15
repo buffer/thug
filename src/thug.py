@@ -164,8 +164,8 @@ class ThugVulnModules(dict):
         while len(_version) < 4:
             _version.append('0')
 
-        if _version[3] == '0':
-            _version[3] = '00'
+        if len(_version[3]) == 1:
+            _version[3] = '0%s' % (_version[3], )
 
         self._javaplugin = '.'.join(_version)
 
