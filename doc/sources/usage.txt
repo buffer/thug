@@ -36,7 +36,7 @@ Let's start our Thug tour by taking a look at the options it provides.
                 -a, --ast-debug     	Enable AST debug mode (requires debug mode)
                 -A, --adobepdf=     	Specify the Adobe Acrobat Reader version (default: 9.1.0)
                 -S, --shockwave=    	Specify the Shockwave Flash version (default: 10.0.64.0)
-                -J, --javaplugin=   	Specify the JavaPlugin version (default: 1.7.1.30)
+                -J, --javaplugin=   	Specify the JavaPlugin version (default: 1.6.0.32)
 
         Proxy Format:
                 scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
@@ -423,28 +423,37 @@ PluginDetect which is currently used by Blackhole exploit kit (see Local Analysi
 .. code-block:: sh
 
         ~/thug/src $ python thug.py -l ../samples/misc/PluginDetect-0.7.8.html 
-        [2012-07-16 23:22:44] ActiveXObject: msxml2.xmlhttp
-        [2012-07-16 23:22:44] ActiveXObject: acropdf.pdf
-        [2012-07-16 23:22:44] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
-        [2012-07-16 23:22:44] Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
-        [2012-07-16 23:22:44] Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
-        [2012-07-16 23:22:44] Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
-        [2012-07-16 23:22:44] Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
-        [2012-07-16 23:22:44] ActiveXObject: shockwaveflash.shockwaveflash.10
-        [2012-07-16 23:22:44] <object classid="clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
-        [2012-07-16 23:22:44] <object classid="clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
-        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
-        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
-        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
-        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
-        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
-        [2012-07-16 23:22:44] Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
-        [2012-07-16 23:22:44] ActiveXObject: javawebstart.isinstalled.1.6.0.0
-        [2012-07-16 23:22:44] ActiveXObject: javaplugin.160_40
-        [2012-07-16 23:22:44] ActiveXObject: javawebstart.isinstalled.1.6.0.0
-        [2012-07-16 23:22:44] [Window] Alert Text: AdobeReader version: 7,1,0,0
-        [2012-07-16 23:22:44] [Window] Alert Text: Flash version: 10,0,64,0
-        [2012-07-16 23:22:44] [Window] Alert Text: Java version: 1,6,0,40
+        [2012-11-15 17:32:26] ActiveXObject: msxml2.xmlhttp
+        [2012-11-15 17:32:26] ActiveXObject: acropdf.pdf
+        [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+        [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+        [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+        [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+        [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+        [2012-11-15 17:32:26] ActiveXObject: shockwaveflash.shockwaveflash.10
+        [2012-11-15 17:32:26] <object classid="clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-11-15 17:32:26] <object classid="clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
+        [2012-11-15 17:32:26] ActiveXObject: javawebstart.isinstalled.1.6.0.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_40
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_39
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_38
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_37
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_36
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_35
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_34
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_33
+        [2012-11-15 17:32:26] ActiveXObject: javaplugin.160_32
+        [2012-11-15 17:32:26] ActiveXObject: javawebstart.isinstalled.1.6.0.0
+        [2012-11-15 17:32:26] [Window] Alert Text: AdobeReader version: 9,1,0,0
+        [2012-11-15 17:32:26] [Window] Alert Text: Flash version: 10,0,64,0
+        [2012-11-15 17:32:26] [Window] Alert Text: Java version: 1,6,0,32
+        [2012-11-15 17:32:28] Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173225
 
 
 Let's try with different Adobe Acrobat Reader and Shockwave Flash versions now.
@@ -452,28 +461,37 @@ Let's try with different Adobe Acrobat Reader and Shockwave Flash versions now.
 .. code-block:: sh
 
         ~/thug/src $ python thug.py -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html 
-        [2012-07-16 23:28:57] ActiveXObject: msxml2.xmlhttp
-        [2012-07-16 23:28:57] ActiveXObject: acropdf.pdf
-        [2012-07-16 23:28:57] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
-        [2012-07-16 23:28:57] Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
-        [2012-07-16 23:28:57] Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
-        [2012-07-16 23:28:57] Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
-        [2012-07-16 23:28:57] Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
-        [2012-07-16 23:28:57] ActiveXObject: shockwaveflash.shockwaveflash.10
-        [2012-07-16 23:28:57] <object classid="clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
-        [2012-07-16 23:28:57] <object classid="clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
-        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
-        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
-        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
-        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
-        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
-        [2012-07-16 23:28:57] Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
-        [2012-07-16 23:28:57] ActiveXObject: javawebstart.isinstalled.1.6.0.0
-        [2012-07-16 23:28:57] ActiveXObject: javaplugin.160_40
-        [2012-07-16 23:28:57] ActiveXObject: javawebstart.isinstalled.1.6.0.0
-        [2012-07-16 23:28:57] [Window] Alert Text: AdobeReader version: 8,1,0,0
-        [2012-07-16 23:28:57] [Window] Alert Text: Flash version: 10,3,1,180
-        [2012-07-16 23:28:57] [Window] Alert Text: Java version: 1,6,0,40
+        [2012-11-15 17:32:58] ActiveXObject: msxml2.xmlhttp
+        [2012-11-15 17:32:58] ActiveXObject: acropdf.pdf
+        [2012-11-15 17:32:58] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+        [2012-11-15 17:32:58] Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+        [2012-11-15 17:32:58] Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+        [2012-11-15 17:32:58] Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+        [2012-11-15 17:32:58] Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+        [2012-11-15 17:32:58] ActiveXObject: shockwaveflash.shockwaveflash.10
+        [2012-11-15 17:32:58] <object classid="clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-11-15 17:32:58] <object classid="clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
+        [2012-11-15 17:32:58] ActiveXObject: javawebstart.isinstalled.1.6.0.0
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javaplugin.160_40
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javaplugin.160_39
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javaplugin.160_38
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javaplugin.160_37
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javaplugin.160_36
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javaplugin.160_35
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javaplugin.160_34
+        [2012-11-15 17:32:58] Unknown ActiveX Object: javaplugin.160_33
+        [2012-11-15 17:32:58] ActiveXObject: javaplugin.160_32
+        [2012-11-15 17:32:58] ActiveXObject: javawebstart.isinstalled.1.6.0.0
+        [2012-11-15 17:32:58] [Window] Alert Text: AdobeReader version: 8,1,0,0
+        [2012-11-15 17:32:58] [Window] Alert Text: Flash version: 10,3,1,180
+        [2012-11-15 17:32:58] [Window] Alert Text: Java version: 1,6,0,32
+        [2012-11-15 17:33:00] Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173257
 
 
 JavaPlugin and JavaWebStart
@@ -487,81 +505,98 @@ exploit kit (see Local Analysis later for details).
 .. code-block:: sh
 
         ~/thug/src $ python thug.py -l ../samples/misc/PluginDetect-0.7.8.html 
-        [2012-08-19 17:43:35] ActiveXObject: msxml2.xmlhttp
-        [2012-08-19 17:43:35] ActiveXObject: acropdf.pdf
-        [2012-08-19 17:43:35] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
-        [2012-08-19 17:43:35] Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
-        [2012-08-19 17:43:35] Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
-        [2012-08-19 17:43:35] Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
-        [2012-08-19 17:43:35] Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
-        [2012-08-19 17:43:35] ActiveXObject: shockwaveflash.shockwaveflash.10
-        [2012-08-19 17:43:35] <object classid="clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
-        [2012-08-19 17:43:35] <object classid="clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
-        [2012-08-19 17:43:35] ActiveXObject: javawebstart.isinstalled.1.7.1.0
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javaplugin.171_40
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javaplugin.171_39
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javaplugin.171_38
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javaplugin.171_37
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javaplugin.171_36
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javaplugin.171_35
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javaplugin.171_34
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javaplugin.171_33
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javaplugin.171_32
-        [2012-08-19 17:43:35] Unknown ActiveX Object: javaplugin.171_31
-        [2012-08-19 17:43:35] ActiveXObject: javaplugin.171_30
-        [2012-08-19 17:43:35] ActiveXObject: javawebstart.isinstalled.1.7.1.0
-        [2012-08-19 17:43:35] [Window] Alert Text: AdobeReader version: 7,1,0,0
-        [2012-08-19 17:43:35] [Window] Alert Text: Flash version: 10,0,64,0
-        [2012-08-19 17:43:35] [Window] Alert Text: Java version: 1,7,1,30
-
+        [2012-11-15 17:32:26] ActiveXObject: msxml2.xmlhttp
+        [2012-11-15 17:32:26] ActiveXObject: acropdf.pdf
+        [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+        [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+        [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+        [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+        [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+        [2012-11-15 17:32:26] ActiveXObject: shockwaveflash.shockwaveflash.10
+        [2012-11-15 17:32:26] <object classid="clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-11-15 17:32:26] <object classid="clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
+        [2012-11-15 17:32:26] ActiveXObject: javawebstart.isinstalled.1.6.0.0
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_40
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_39
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_38
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_37
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_36
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_35
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_34
+        [2012-11-15 17:32:26] Unknown ActiveX Object: javaplugin.160_33
+        [2012-11-15 17:32:26] ActiveXObject: javaplugin.160_32
+        [2012-11-15 17:32:26] ActiveXObject: javawebstart.isinstalled.1.6.0.0
+        [2012-11-15 17:32:26] [Window] Alert Text: AdobeReader version: 9,1,0,0
+        [2012-11-15 17:32:26] [Window] Alert Text: Flash version: 10,0,64,0
+        [2012-11-15 17:32:26] [Window] Alert Text: Java version: 1,6,0,32
+        [2012-11-15 17:32:28] Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173225
 
 Let's try with a different JavaPlugin version now.
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -l -J 1.8.1.20 ../samples/misc/PluginDetect-0.7.8.html 
-        [2012-08-19 17:44:17] ActiveXObject: msxml2.xmlhttp
-        [2012-08-19 17:44:17] ActiveXObject: acropdf.pdf
-        [2012-08-19 17:44:17] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
-        [2012-08-19 17:44:17] Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
-        [2012-08-19 17:44:17] Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
-        [2012-08-19 17:44:17] Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
-        [2012-08-19 17:44:17] Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
-        [2012-08-19 17:44:17] ActiveXObject: shockwaveflash.shockwaveflash.10
-        [2012-08-19 17:44:17] <object classid="clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
-        [2012-08-19 17:44:17] <object classid="clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
-        [2012-08-19 17:44:17] ActiveXObject: javawebstart.isinstalled.1.8.1.0
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_40
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_39
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_38
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_37
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_36
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_35
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_34
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_33
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_32
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_31
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_30
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_29
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_28
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_27
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_26
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_25
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_24
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_23
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_22
-        [2012-08-19 17:44:17] Unknown ActiveX Object: javaplugin.181_21
-        [2012-08-19 17:44:17] ActiveXObject: javaplugin.181_20
-        [2012-08-19 17:44:17] ActiveXObject: javawebstart.isinstalled.1.8.1.0
-        [2012-08-19 17:44:17] [Window] Alert Text: AdobeReader version: 7,1,0,0
-        [2012-08-19 17:44:17] [Window] Alert Text: Flash version: 10,0,64,0
-        [2012-08-19 17:44:17] [Window] Alert Text: Java version: 1,8,1,20
+        ~/thug/src $ python thug.py -l -J 1.7.0.7 ../samples/misc/PluginDetect-0.7.8.html 
+        [2012-11-15 17:40:55] ActiveXObject: msxml2.xmlhttp
+        [2012-11-15 17:40:56] ActiveXObject: acropdf.pdf
+        [2012-11-15 17:40:56] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+        [2012-11-15 17:40:56] Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+        [2012-11-15 17:40:56] Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+        [2012-11-15 17:40:56] Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+        [2012-11-15 17:40:56] Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+        [2012-11-15 17:40:56] ActiveXObject: shockwaveflash.shockwaveflash.10
+        [2012-11-15 17:40:56] <object classid="clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-11-15 17:40:56] <object classid="clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA" height="1" style="outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;" width="1"></object>
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
+        [2012-11-15 17:40:56] ActiveXObject: javawebstart.isinstalled.1.7.0.0
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_40
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_39
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_38
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_37
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_36
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_35
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_34
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_33
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_32
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_31
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_30
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_29
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_28
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_27
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_26
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_25
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_24
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_23
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_22
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_21
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_20
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_19
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_18
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_17
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_16
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_15
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_14
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_13
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_12
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_11
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_10
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_09
+        [2012-11-15 17:40:56] Unknown ActiveX Object: javaplugin.170_08
+        [2012-11-15 17:40:56] ActiveXObject: javaplugin.170_07
+        [2012-11-15 17:40:56] ActiveXObject: javawebstart.isinstalled.1.7.0.0
+        [2012-11-15 17:40:56] [Window] Alert Text: AdobeReader version: 9,1,0,0
+        [2012-11-15 17:40:56] [Window] Alert Text: Flash version: 10,0,64,0
+        [2012-11-15 17:40:56] [Window] Alert Text: Java version: 1,7,0,7
+        [2012-11-15 17:40:57] Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115174054
 
 
 Proxy support

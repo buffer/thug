@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.4.13 documentation</title>
+    <title>Usage &mdash; Thug 0.4.14 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.13',
+        VERSION:     '0.4.14',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.13 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.4.14 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="Build and Install" href="build.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="build.html" title="Build and Install"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.13 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.14 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -82,7 +82,7 @@ Options:
         -a, --ast-debug         Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
         -A, --adobepdf<span class="o">=</span>         Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 9.1.0<span class="o">)</span>
         -S, --shockwave<span class="o">=</span>        Specify the Shockwave Flash version <span class="o">(</span>default: 10.0.64.0<span class="o">)</span>
-        -J, --javaplugin<span class="o">=</span>       Specify the JavaPlugin version <span class="o">(</span>default: 1.7.1.30<span class="o">)</span>
+        -J, --javaplugin<span class="o">=</span>       Specify the JavaPlugin version <span class="o">(</span>default: 1.6.0.32<span class="o">)</span>
 
 Proxy Format:
         scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port <span class="o">(</span>supported schemes: http, socks4, socks5<span class="o">)</span>
@@ -434,54 +434,72 @@ This happens because exploit kits usually serve Flash files which exploit specif
 basing on Shockwave Flash version. Let&#8217;s take a look at what happens if we locally analyze
 PluginDetect which is currently used by Blackhole exploit kit (see Local Analysis later for details).</p>
 <div class="highlight-sh"><div class="highlight"><pre>~/thug/src <span class="nv">$ </span>python thug.py -l ../samples/misc/PluginDetect-0.7.8.html
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> ActiveXObject: acropdf.pdf
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> ActiveXObject: shockwaveflash.shockwaveflash.10
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.6.0.0
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> ActiveXObject: javaplugin.160_40
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.6.0.0
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 7,1,0,0
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,0,64,0
-<span class="o">[</span>2012-07-16 23:22:44<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,6,0,40
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: acropdf.pdf
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: shockwaveflash.shockwaveflash.10
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.6.0.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_40
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_39
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_38
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_37
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_36
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_35
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_34
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_33
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: javaplugin.160_32
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.6.0.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 9,1,0,0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,0,64,0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,6,0,32
+<span class="o">[</span>2012-11-15 17:32:28<span class="o">]</span> Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173225
 </pre></div>
 </div>
 <p>Let&#8217;s try with different Adobe Acrobat Reader and Shockwave Flash versions now.</p>
 <div class="highlight-sh"><div class="highlight"><pre>~/thug/src <span class="nv">$ </span>python thug.py -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> ActiveXObject: acropdf.pdf
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> ActiveXObject: shockwaveflash.shockwaveflash.10
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.6.0.0
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> ActiveXObject: javaplugin.160_40
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.6.0.0
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 8,1,0,0
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,3,1,180
-<span class="o">[</span>2012-07-16 23:28:57<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,6,0,40
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> ActiveXObject: acropdf.pdf
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> ActiveXObject: shockwaveflash.shockwaveflash.10
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.6.0.0
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_40
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_39
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_38
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_37
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_36
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_35
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_34
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_33
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> ActiveXObject: javaplugin.160_32
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.6.0.0
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 8,1,0,0
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,3,1,180
+<span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,6,0,32
+<span class="o">[</span>2012-11-15 17:33:00<span class="o">]</span> Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173257
 </pre></div>
 </div>
 </div>
@@ -492,78 +510,96 @@ useful for getting different Java exploits which target different versions of Ja
 a look at what happens if we locally analyze PluginDetect which is currently used by Blackhole
 exploit kit (see Local Analysis later for details).</p>
 <div class="highlight-sh"><div class="highlight"><pre>~/thug/src <span class="nv">$ </span>python thug.py -l ../samples/misc/PluginDetect-0.7.8.html
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> ActiveXObject: acropdf.pdf
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> ActiveXObject: shockwaveflash.shockwaveflash.10
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.7.1.0
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javaplugin.171_40
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javaplugin.171_39
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javaplugin.171_38
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javaplugin.171_37
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javaplugin.171_36
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javaplugin.171_35
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javaplugin.171_34
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javaplugin.171_33
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javaplugin.171_32
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> Unknown ActiveX Object: javaplugin.171_31
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> ActiveXObject: javaplugin.171_30
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.7.1.0
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 7,1,0,0
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,0,64,0
-<span class="o">[</span>2012-08-19 17:43:35<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,7,1,30
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: acropdf.pdf
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: shockwaveflash.shockwaveflash.10
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.0.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.6.0.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_40
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_39
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_38
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_37
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_36
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_35
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_34
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: javaplugin.160_33
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: javaplugin.160_32
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.6.0.0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 9,1,0,0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,0,64,0
+<span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,6,0,32
+<span class="o">[</span>2012-11-15 17:32:28<span class="o">]</span> Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173225
 </pre></div>
 </div>
 <p>Let&#8217;s try with a different JavaPlugin version now.</p>
-<div class="highlight-sh"><div class="highlight"><pre>~/thug/src <span class="nv">$ </span>python thug.py -l -J 1.8.1.20 ../samples/misc/PluginDetect-0.7.8.html
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> ActiveXObject: acropdf.pdf
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> ActiveXObject: shockwaveflash.shockwaveflash.10
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.8.1.0
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_40
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_39
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_38
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_37
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_36
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_35
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_34
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_33
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_32
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_31
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_30
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_29
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_28
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_27
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_26
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_25
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_24
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_23
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_22
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> Unknown ActiveX Object: javaplugin.181_21
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> ActiveXObject: javaplugin.181_20
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.8.1.0
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 7,1,0,0
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,0,64,0
-<span class="o">[</span>2012-08-19 17:44:17<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,8,1,20
+<div class="highlight-sh"><div class="highlight"><pre>~/thug/src <span class="nv">$ </span>python thug.py -l -J 1.7.0.7 ../samples/misc/PluginDetect-0.7.8.html
+<span class="o">[</span>2012-11-15 17:40:55<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> ActiveXObject: acropdf.pdf
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> ActiveXObject: shockwaveflash.shockwaveflash.10
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;outline-style:none;border-style:none;padding:0px;margin:0px;visibility:visible;display:inline;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/object&gt;
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.1.0
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.9.0.0
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.1.0
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.8.0.0
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javawebstart.isinstalled.1.7.1.0
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.7.0.0
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_40
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_39
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_38
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_37
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_36
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_35
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_34
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_33
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_32
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_31
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_30
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_29
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_28
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_27
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_26
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_25
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_24
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_23
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_22
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_21
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_20
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_19
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_18
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_17
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_16
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_15
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_14
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_13
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_12
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_11
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_10
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_09
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: javaplugin.170_08
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> ActiveXObject: javaplugin.170_07
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> ActiveXObject: javawebstart.isinstalled.1.7.0.0
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 9,1,0,0
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,0,64,0
+<span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,7,0,7
+<span class="o">[</span>2012-11-15 17:40:57<span class="o">]</span> Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115174054
 </pre></div>
 </div>
 </div>
@@ -771,7 +807,7 @@ option. Simply running Thug this way (please note the interval is expressed in m
         <li class="right" >
           <a href="build.html" title="Build and Install"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.13 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.14 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
