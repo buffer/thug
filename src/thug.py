@@ -212,7 +212,7 @@ Synopsis:
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
         -S, --shockwave=    \tSpecify the Shockwave Flash version (default: 10.0.64.0)
-        -J, --javaplugin=   \tSpecify the JavaPlugin version (default: 1.7.1.30)
+        -J, --javaplugin=   \tSpecify the JavaPlugin version (default: 1.6.0.32)
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
