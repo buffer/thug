@@ -34,7 +34,7 @@ class ThugLogging(BaseLogging):
         self.HPFeeds        = HPFeeds()
         self.MAEC           = MAEC(thug_version)
         self.MongoDB        = MongoDB()
-        self.baseDir        = os.getcwd()
+        self.baseDir        = None
         self.shellcodes     = set()
         self.shellcode_urls = set()
 
@@ -89,6 +89,9 @@ class ThugLogging(BaseLogging):
 
 
     def set_basedir(self, url):
+        if self.baseDir:
+            return
+
         t = datetime.datetime.now()
         m = hashlib.md5()
         m.update(url)
@@ -111,3 +114,14 @@ class ThugLogging(BaseLogging):
                     return
 
             fd.write(csv_line)
+
+    def set_absbasedir(self, basedir):
+        self.baseDir = basedir
+
+        try:
+            os.makedirs(self.baseDir)
+        except OSError as e:
+            if e.errno == errno.EEXIST:
+                pass
+            else:
+                raise

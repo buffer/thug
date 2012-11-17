@@ -203,6 +203,7 @@ Synopsis:
         -u, --useragent=    \tSelect a user agent (see below for values, default: winxpie60)
         -e, --events=       \tEnable comma-separated specified DOM events handling
         -w, --delay=        \tSet a maximum setTimeout/setInterval delay value (in milliseconds)
+        -n, --logdir=       \tSet the log output directory
         -o, --output=       \tLog to a specified file
         -r, --referer=      \tSpecify a referer
         -p, --proxy=        \tSpecify a proxy (see below for format and supported schemes)
@@ -255,11 +256,12 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hu:e:w:o:r:p:lvdaA:S:J:',
+            options, args = getopt.getopt(self.args, 'hu:e:w:n:o:r:p:lvdaA:S:J:',
                 ['help', 
                 'useragent=', 
                 'events=',
                 'delay=',
+                'logdir=',
                 'output=',
                 'referer=',
                 'proxy=',
@@ -281,8 +283,6 @@ Synopsis:
             if option[0] == '-h' or option[0] == '--help':
                 self.usage()
 
-        log.ThugLogging.set_basedir(args[0])
-
         for option in options:
             if option[0] in ('-u', '--useragent', ):
                 log.ThugOpts.useragent = option[1]
@@ -290,9 +290,8 @@ Synopsis:
                 log.ThugOpts.events = option[1]
             if option[0] in ('-w', '--delay'):
                 log.ThugOpts.delay = option[1]
-            if option[0] in ('-o', '--output', ):
-                fh = logging.FileHandler(os.path.join(log.ThugLogging.baseDir, option[1]))
-                log.addHandler(fh)
+            if option[0] in ('-n', '--logdir'):
+                log.ThugLogging.set_absbasedir(option[1])
             if option[0] in ('-r', '--referer', ):
                 log.ThugOpts.referer = option[1]
             if option[0] in ('-p', '--proxy', ):
@@ -311,6 +310,13 @@ Synopsis:
                 log.ThugVulnModules.shockwave_flash = option[1] 
             if option[0] in ('-J', '--javaplugin', ):
                 log.ThugVulnModules.javaplugin = option[1]
+
+        log.ThugLogging.set_basedir(args[0])
+
+        for option in options:
+            if option[0] in ('-o', '--output', ):
+                fh = logging.FileHandler(os.path.join(log.ThugLogging.baseDir, option[1]))
+                log.addHandler(fh)
 
         if p:
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
