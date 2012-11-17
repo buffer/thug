@@ -40,8 +40,6 @@ class HTMLElement(Element, ElementCSSInlineStyle):
 
     def setInnerHTML(self, html):
         soup = BeautifulSoup.BeautifulSoup(html, "html5lib")
-        # FIXME
-        #self.tag.contents = []
         
         for node in soup.body.children:
             self.tag.append(node)
@@ -51,23 +49,11 @@ class HTMLElement(Element, ElementCSSInlineStyle):
             if not name:
                 continue
         
-            p = getattr(self, '_handle_%s' % (name, ), None)
+            p = getattr(self.doc.window.doc.DFT, 'handle_%s' % (name, ), None)
             if p:
                 p(node)
             
     innerHTML = property(getInnerHTML, setInnerHTML)
-
-    def _handle_object(self, object):
-        log.warning(object)
-                            
-        classid = object.get('classid', None)
-        id      = object.get('id', None)
-
-        if not log.ThugOpts.Personality.isIE():
-            return
-
-        if classid and id: 
-            setattr(self.doc.window, id, _ActiveXObject(self.doc.window, classid, 'id'))
 
     # WARNING: NOT DEFINED IN W3C SPECS!
     def focus(self):
