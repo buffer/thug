@@ -791,10 +791,10 @@ class DFT(object):
         name = getattr(child, "name", None)
 
         if name is None:
-            return
+            return False
 
         if skip and name in ('object', 'applet', ):
-            return
+            return False
 
         handler = getattr(self, "handle_%s" % (str(name.lower()), ), None)
         if handler:
