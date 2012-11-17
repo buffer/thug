@@ -178,6 +178,14 @@ class ThugVulnModules(dict):
         return '%s.%s' % ('.'.join(javawebstart), '0')
 
 
+class OpaqueFilter(logging.Filter):
+        def __init__(self):
+            pass
+
+        def filter(self, record):
+            return False
+
+
 class Thug:
     def __init__(self, args):
         self.args               = args
@@ -210,6 +218,7 @@ Synopsis:
         -l, --local         
         -v, --verbose       \tEnable verbose mode    
         -d, --debug         \tEnable debug mode
+        -q, --quiet         \tDisable console logging
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
         -S, --shockwave=    \tSpecify the Shockwave Flash version (default: 10.0.64.0)
@@ -256,7 +265,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hu:e:w:n:o:r:p:lvdaA:S:J:',
+            options, args = getopt.getopt(self.args, 'hu:e:w:n:o:r:p:lvdqaA:S:J:',
                 ['help', 
                 'useragent=', 
                 'events=',
@@ -268,6 +277,7 @@ Synopsis:
                 'local',
                 'verbose',
                 'debug', 
+                'quiet',
                 'ast-debug',
                 'adobepdf=',
                 'shockwave=',
@@ -317,6 +327,11 @@ Synopsis:
             if option[0] in ('-o', '--output', ):
                 fh = logging.FileHandler(os.path.join(log.ThugLogging.baseDir, option[1]))
                 log.addHandler(fh)
+            if option[0] in ('-q', '--quiet', ):
+                root = logging.getLogger()
+                for handler in root.handlers:
+                    if isinstance(handler, logging.StreamHandler):
+                        handler.addFilter(OpaqueFilter())
 
         if p:
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
