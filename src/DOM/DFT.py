@@ -407,42 +407,67 @@ class DFT(object):
             if name.lower() in ('param', ):
                 params[child.attrs['name'].lower()] = child.attrs['value']
 
+            if name.lower() in ('embed', ):
+                self.handle_embed(child)
+
         if not params:
             return
+
+        headers = dict()
+        headers['Connection'] = 'keep-alive'
+
+        if 'type' in params:
+            headers['Content-Type'] = params['type']
+        else:
+            name = getattr(object, 'name', None)
+
+            if name in ('applet', ):
+                headers['Content-Type'] = 'application/x-java-archive'
+
+        if 'java' in headers['Content-Type'] and log.ThugOpts.Personality.javaUserAgent:
+            headers['User-Agent'] = self.javaUserAgent
 
         for key in ('filename', 'movie', ):
             if not key in params:
                 continue
 
             try:
-                self.window._navigator.fetch(params[key])
+                self.window._navigator.fetch(params[key], headers = headers)
             except:
                 pass
 
         for key, value in params.items():
-            if key in ('filename', 'movie', 'archive', ):
+            if key in ('filename', 'movie', 'archive', 'code', ):
                 continue
 
             if not value.startswith('http'):
                 continue
 
             try:
-                self.window._navigator.fetch(value)
+                self.window._navigator.fetch(value, headers = headers)
             except:
                 pass
 
-        if not 'archive' in params:
+        if not 'archive' in params and not 'code' in params:
             return
 
-        headers = dict()
-        headers['Connection']   = 'keep-alive'
-        headers['Content-Type'] = 'application/x-java-archive'
-
-        if log.ThugOpts.Personality.javaUserAgent:
-            headers['User-Agent'] = self.javaUserAgent
+        if 'codebase' in params:
+            archive = "%s%s" % (params['codebase'], params['archive'])
+        else:
+            archive = params['archive']
 
         try:
-            self.window._navigator.fetch(params['archive'], headers = headers)
+            self.window._navigator.fetch(archive, headers = headers)
+        except:
+            pass
+
+        if 'codebase' in params:
+            code = "%s%s" % (params['codebase'], params['code'])
+        else:
+            code = params['code']
+
+        try:
+            self.window._navigator.fetch(code, headers = headers)
         except:
             pass
 
