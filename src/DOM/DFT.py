@@ -603,11 +603,19 @@ class DFT(object):
         log.warning(embed)
 
         src = embed.get('src', None)
-        if src:
-            try:
-                self.window._navigator.fetch(src)
-            except:
-                pass
+        if src is None:
+            return
+
+        headers = dict()
+
+        embed_type = embed.get('type', None)
+        if embed_type:
+            headers['Content-Type'] = embed_type
+
+        try:
+            self.window._navigator.fetch(src, headers = headers)
+        except:
+            pass
 
     def handle_applet(self, applet):
         log.warning(applet)
