@@ -594,7 +594,7 @@ class DFT(object):
         pass
 
     def handle_param(self, param):
-        log.warning(param)
+        log.info(param)
 
         name  = param.get('name' , None)
         value = param.get('value', None)
