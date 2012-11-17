@@ -454,6 +454,13 @@ class DFT(object):
 
         classid  = object.get('classid', None)
         id       = object.get('id', None)
+        codebase = object.get('codebase', None)
+
+        if codebase:
+            try:
+                self.window._navigator.fetch(codebase)
+            except:
+                pass
 
         if not log.ThugOpts.Personality.isIE():
             return
