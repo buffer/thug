@@ -89,6 +89,9 @@ class Navigator(PyV8.JSClass):
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion in ('6.0', '6.1', ):
             self.userProfile = object()
 
+        if log.ThugOpts.Personality.isIE() or log.ThugOpts.Personality.isOpera():
+            self.taintEnabled = self._taintEnabled
+
     @property
     def window(self):
         return self._window
@@ -252,10 +255,9 @@ class Navigator(PyV8.JSClass):
         pass
 
     # Obsolete
-    # Returns false. JavaScript taint/untaint functions removed in
-    # JavaScript 1.2[1]
-    def taintEnabled(self, *arg):
-        return False
+    # JavaScript taint/untaint functions removed in JavaScript 1.2[1]
+    def _taintEnabled(self, *arg):
+        return True
 
     def __build_http_headers(self, headers):
         http_headers = {
