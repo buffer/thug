@@ -18,6 +18,9 @@
 
 import PyV8
 
+import logging
+log = logging.getLogger("Thug")
+
 class Screen(PyV8.JSClass):
     def __init__(self, width = 800, height = 600, depth = 32):
         self._width  = width
@@ -25,6 +28,9 @@ class Screen(PyV8.JSClass):
         self._depth  = depth
         self._left   = 0
         self._top    = 0
+
+        if not log.ThugOpts.Personality.isIE():
+            self.pixelDepth = self._pixelDepth
 
     @property
     def availHeight(self):
@@ -55,7 +61,7 @@ class Screen(PyV8.JSClass):
         return self._heigth
 
     @property
-    def pixelDepth(self):
+    def _pixelDepth(self):
         """
             The color resolution (in bits per pixel) of the screen
         """
