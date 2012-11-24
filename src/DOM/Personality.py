@@ -33,6 +33,7 @@ class Personality(dict):
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "ie60",
                 }
@@ -48,6 +49,7 @@ class Personality(dict):
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "ie61",
                 }
@@ -63,6 +65,7 @@ class Personality(dict):
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "ie70",
                 }
@@ -78,6 +81,7 @@ class Personality(dict):
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "ie80",
                 }
@@ -93,6 +97,7 @@ class Personality(dict):
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "chrome20",
                 }   
@@ -108,6 +113,7 @@ class Personality(dict):
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
                 "oscpu"           : "Windows NT 5.1",
+                "buildID"         : "20120403211507",
                 "javaUserAgent"   : "Mozilla/5.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "firefox12",
                 }
@@ -123,6 +129,7 @@ class Personality(dict):
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows XP 5.1) Java/%s",
                 "browserTag"      : "safari5",
                 }   
@@ -139,6 +146,7 @@ class Personality(dict):
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows 2000 5.0) Java/%s",
                 "browserTag"      : "ie60",
                 }
@@ -154,6 +162,7 @@ class Personality(dict):
                 "appMinorVersion" : ";SP2;",
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows 2000 5.0) Java/%s",
                 "browserTag"      : "ie80",
                 }
@@ -170,6 +179,7 @@ class Personality(dict):
                 "appMinorVersion" : "0",
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows 7 6.1) Java/%s",
                 "browserTag"      : "ie80",
                 }
@@ -185,6 +195,7 @@ class Personality(dict):
                 "appMinorVersion" : "0",
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows 7 6.1) Java/%s",
                 "browserTag"      : "ie90",
                 }
@@ -200,6 +211,7 @@ class Personality(dict):
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows 7 6.1) Java/%s",
                 "browserTag"      : "chrome20",
                 }
@@ -215,6 +227,7 @@ class Personality(dict):
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows 7 6.1) Java/%s",
                 "browserTag"      : "safari5",
                 }
@@ -231,6 +244,7 @@ class Personality(dict):
                 "appMinorVersion" : None,
                 "platform"        : "MacIntel",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : None,
                 "browserTag"      : "safari5",
                 }  
@@ -246,6 +260,7 @@ class Personality(dict):
                 "appMinorVersion" : None,
                 "platform"        : "MacIntel",
                 "oscpu"           : None,
+                "buildID"         : None,
                 "javaUserAgent"   : None,
                 "browserTag"      : "chrome20",
                 }

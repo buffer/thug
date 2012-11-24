@@ -113,7 +113,8 @@ class Navigator(PyV8.JSClass):
             self.userProfile = object()
 
     def __init_Firefox(self):
-        self.oscpu = self._oscpu
+        self.oscpu   = self._oscpu
+        self.buildID = self._buildID
 
     def __init_Chrome(self):
         pass
@@ -158,11 +159,11 @@ class Navigator(PyV8.JSClass):
         return self.personality['userAgent']
 
     @property
-    def buildId(self):
+    def _buildID(self):
         """
             The build identifier of the browser (e.g. "2006090803")
         """
-        return ""               
+        return self.personality['buildID']
 
     @property
     def cookieEnabled(self):
