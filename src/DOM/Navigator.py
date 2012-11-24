@@ -197,7 +197,7 @@ class Navigator(PyV8.JSClass):
         """
             A string that represents the current operating system
         """
-        return ""
+        return self.personality['oscpu']
 
     @property
     def platform(self):
