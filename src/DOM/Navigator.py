@@ -90,7 +90,8 @@ class Navigator(PyV8.JSClass):
             self.userProfile = object()
 
         if log.ThugOpts.Personality.isIE() or log.ThugOpts.Personality.isOpera():
-            self.taintEnabled = self._taintEnabled
+            self.taintEnabled    = self._taintEnabled
+            self.appMinorVersion = self._appMinorVersion
 
     @property
     def window(self):
@@ -209,7 +210,7 @@ class Navigator(PyV8.JSClass):
         return ""
 
     @property
-    def appMinorVersion(self):
+    def _appMinorVersion(self):
         return self.personality['appMinorVersion']
 
     @property
