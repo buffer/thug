@@ -107,6 +107,7 @@ class Navigator(PyV8.JSClass):
     def __init_IE(self):
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
+        self.cpuClass        = self._cpuClass
 
         if log.ThugOpts.Personality.browserVersion in ('6.0', '6.1', ):
             self.userProfile = object()
@@ -249,7 +250,7 @@ class Navigator(PyV8.JSClass):
         return "en"
 
     @property
-    def cpuClass(self):
+    def _cpuClass(self):
         return "x86"
 
     @property
