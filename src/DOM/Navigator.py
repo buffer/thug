@@ -86,12 +86,43 @@ class Navigator(PyV8.JSClass):
         for p in self._mimeTypes.values():
             self.plugins.append(p['enabledPlugin'])
 
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion in ('6.0', '6.1', ):
+        self.__init_personality()
+
+    def __init_personality(self):
+        if log.ThugOpts.Personality.isIE():
+            self.__init_IE()
+
+        if log.ThugOpts.Personality.isFirefox():
+            self.__init_Firefox()
+
+        if log.ThugOpts.Personality.isChrome():
+            self.__init_Chrome()
+
+        if log.ThugOpts.Personality.isSafari():
+            self.__init_Safari()
+
+        if log.ThugOpts.Personality.isOpera():
+            self.__init_Opera()
+
+    def __init_IE(self):
+        self.taintEnabled    = self._taintEnabled
+        self.appMinorVersion = self._appMinorVersion
+
+        if log.ThugOpts.Personality.browserVersion in ('6.0', '6.1', ):
             self.userProfile = object()
 
-        if log.ThugOpts.Personality.isIE() or log.ThugOpts.Personality.isOpera():
-            self.taintEnabled    = self._taintEnabled
-            self.appMinorVersion = self._appMinorVersion
+    def __init_Firefox(self):
+        pass
+
+    def __init_Chrome(self):
+        pass
+
+    def __init_Safari(self):
+        pass
+
+    def __init_Opera(self):
+        self.taintEnabled    = self._taintEnabled
+        self.appMinorVersion = self._appMinorVersion
 
     @property
     def window(self):
