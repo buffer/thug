@@ -113,7 +113,7 @@ class Navigator(PyV8.JSClass):
             self.userProfile = object()
 
     def __init_Firefox(self):
-        pass
+        self.oscpu = self._oscpu
 
     def __init_Chrome(self):
         pass
@@ -193,7 +193,7 @@ class Navigator(PyV8.JSClass):
         return True
 
     @property
-    def oscpu(self):
+    def _oscpu(self):
         """
             A string that represents the current operating system
         """
