@@ -90,21 +90,25 @@ class Navigator(PyV8.JSClass):
 
     def __init_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_IE()
+            self.__init_personality_IE()
+            return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_Firefox()
+            self.__init_personality_Firefox()
+            return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_Chrome()
+            self.__init_personality_Chrome()
+            return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_Safari()
+            self.__init_personality_Safari()
+            return
 
         if log.ThugOpts.Personality.isOpera():
-            self.__init_Opera()
+            self.__init_personality_Opera()
 
-    def __init_IE(self):
+    def __init_personality_IE(self):
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
         self.cpuClass        = self._cpuClass
@@ -112,17 +116,17 @@ class Navigator(PyV8.JSClass):
         if log.ThugOpts.Personality.browserVersion in ('6.0', '6.1', ):
             self.userProfile = object()
 
-    def __init_Firefox(self):
+    def __init_personality_Firefox(self):
         self.oscpu   = self._oscpu
         self.buildID = self._buildID
 
-    def __init_Chrome(self):
+    def __init_personality_Chrome(self):
         pass
 
-    def __init_Safari(self):
+    def __init_personality_Safari(self):
         pass
 
-    def __init_Opera(self):
+    def __init_personality_Opera(self):
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
 
