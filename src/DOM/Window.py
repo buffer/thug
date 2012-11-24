@@ -737,17 +737,18 @@ class Window(PyV8.JSClass):
 
     def __init_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.ActiveXObject  = self._do_ActiveXObject
-            self.Run            = self._Run
+            self.ActiveXObject = self._do_ActiveXObject
+            self.Run = self._Run
             self.CollectGarbage = self._CollectGarbage
-            self.navigate       = self._navigate
-            self.external       = object()
+            self.navigate = self._navigate
+            self.clientInformation = self.navigator
+            self.external = object()
 
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
-            self.attachEvent    = self._attachEvent
-            self.detachEvent    = self._detachEvent
+            self.attachEvent = self._attachEvent
+            self.detachEvent = self._detachEvent
         else:
-            self.addEventListener    = self._addEventListener
+            self.addEventListener = self._addEventListener
             self.removeEventListener = self._removeEventListener
 
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion in ('8.0', ):
@@ -757,7 +758,11 @@ class Window(PyV8.JSClass):
             self.sidebar = object()
 
         if log.ThugOpts.Personality.isChrome():
+            self.clientInformation = self.navigator
             self.chrome = object()
+
+        if log.ThugOpts.Personality.isSafari():
+            self.clientInformation = self.navigator
 
     def eval(self, script):
         try:
