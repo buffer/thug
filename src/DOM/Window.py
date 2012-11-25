@@ -737,32 +737,61 @@ class Window(PyV8.JSClass):
 
     def __init_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.ActiveXObject = self._do_ActiveXObject
-            self.Run = self._Run
-            self.CollectGarbage = self._CollectGarbage
-            self.navigate = self._navigate
-            self.clientInformation = self.navigator
-            self.external = object()
+            self.__init_personality_IE()
+            return
 
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+        if log.ThugOpts.Personality.isFirefox():
+            self.__init_personality_Firefox()
+            return
+
+        if log.ThugOpts.Personality.isChrome():
+            self.__init_personality_Chrome()
+            return
+
+        if log.ThugOpts.Personality.isSafari():
+            self.__init_personality_Safari()
+            return
+
+        if log.ThugOpts.Personality.isOpera():
+            self.__init_personality_Opera()
+
+    def __init_personality_IE(self):
+        self.ActiveXObject     = self._do_ActiveXObject
+        self.Run               = self._Run
+        self.CollectGarbage    = self._CollectGarbage
+        self.navigate          = self._navigate
+        self.clientInformation = self.navigator
+        self.external          = object()
+
+        if log.ThugOpts.Personality.browserVersion < '9.0':
             self.attachEvent = self._attachEvent
             self.detachEvent = self._detachEvent
         else:
-            self.addEventListener = self._addEventListener
+            self.addEventListener    = self._addEventListener
             self.removeEventListener = self._removeEventListener
 
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion in ('8.0', ):
+        if log.ThugOpts.Personality.browserVersion in ('8.0', ):
             self.Storage = object()
 
-        if log.ThugOpts.Personality.isFirefox():
-            self.sidebar = object()
+    def __init_personality_Firefox(self):
+        self.addEventListener    = self._addEventListener
+        self.removeEventListener = self._removeEventListener
+        self.sidebar             = object()
 
-        if log.ThugOpts.Personality.isChrome():
-            self.clientInformation = self.navigator
-            self.chrome = object()
+    def __init_personality_Chrome(self):
+        self.addEventListener    = self._addEventListener
+        self.removeEventListener = self._removeEventListener
+        self.clientInformation   = self.navigator
+        self.chrome              = object()
 
-        if log.ThugOpts.Personality.isSafari():
-            self.clientInformation = self.navigator
+    def __init_personality_Safari(self):
+        self.addEventListener    = self._addEventListener
+        self.removeEventListener = self._removeEventListener
+        self.clientInformation   = self.navigator
+
+    def __init_personality_Opera(self):
+        self.addEventListener    = self._addEventListener
+        self.removeEventListener = self._removeEventListener
 
     def eval(self, script):
         try:
