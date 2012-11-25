@@ -113,6 +113,7 @@ class Navigator(PyV8.JSClass):
         self.appMinorVersion = self._appMinorVersion
         self.cpuClass        = self._cpuClass
         self.browserLanguage = self._browserLanguage
+        self.systemLanguage  = self._systemLanguage
 
         if log.ThugOpts.Personality.browserVersion in ('6.0', '6.1', ):
             self.userProfile = object()
@@ -276,7 +277,7 @@ class Navigator(PyV8.JSClass):
         return "x86"
 
     @property
-    def systemLanguage(self):
+    def _systemLanguage(self):
         return "en"
 
     @property
