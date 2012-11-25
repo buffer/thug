@@ -58,13 +58,13 @@ class Screen(PyV8.JSClass):
         pass
 
     def __init_personality_Firefox(self):
-        pass
+        self.availLeft = self._availLeft
 
     def __init_personality_Chrome(self):
-        pass
+        self.availLeft = self._availLeft
 
     def __init_personality_Safari(self):
-        pass
+        self.availLeft = self._availLeft
 
     def __init_personality_Opera(self):
         pass
@@ -112,7 +112,7 @@ class Screen(PyV8.JSClass):
         return self._width
 
     @property
-    def availLeft(self):
+    def _availLeft(self):
         """
             The first available pixel available from the left side 
             of the screen
