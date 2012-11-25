@@ -125,23 +125,27 @@ class Navigator(PyV8.JSClass):
         self.productSub   = self._productSub
         self.vendor       = self._vendor
         self.vendorSub    = self._vendorSub
+        self.language     = self._language
 
     def __init_personality_Chrome(self):
         self.product    = self._product
         self.productSub = self._productSub
         self.vendor     = self._vendor
         self.vendorSub  = self._vendorSub
+        self.language   = self._language
 
     def __init_personality_Safari(self):
         self.product    = self._product
         self.productSub = self._productSub
         self.vendor     = self._vendor
         self.vendorSub  = self._vendorSub
+        self.language   = self._language
 
     def __init_personality_Opera(self):
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
         self.browserLanguage = self._browserLanguage
+        self.language        = self._language
 
     @property
     def window(self):
@@ -190,7 +194,7 @@ class Navigator(PyV8.JSClass):
         return True
 
     @property
-    def language(self):
+    def _language(self):
         """
             A string representing the language version of the browser
         """
