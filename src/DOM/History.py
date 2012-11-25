@@ -50,6 +50,7 @@ class History(PyV8.JSClass):
 
     def __init_personality_Firefox(self):
         self.current = self._current
+        self.next    = self._next
 
     def __init_personality_Chrome(self):
         pass
@@ -75,7 +76,7 @@ class History(PyV8.JSClass):
         return None
 
     @property
-    def next(self):
+    def _next(self):
         if self.pos and len(self.urls) > self.pos + 1:
             return self.urls[self.pos + 1]
         return None
