@@ -117,15 +117,18 @@ class Navigator(PyV8.JSClass):
             self.userProfile = object()
 
     def __init_personality_Firefox(self):
-        self.oscpu   = self._oscpu
-        self.buildID = self._buildID
-        self.product = self._product
+        self.oscpu      = self._oscpu
+        self.buildID    = self._buildID
+        self.product    = self._product
+        self.productSub = self._productSub
 
     def __init_personality_Chrome(self):
-        self.product = self._product
+        self.product    = self._product
+        self.productSub = self._productSub
 
     def __init_personality_Safari(self):
-        self.product = self._product
+        self.product    = self._product
+        self.productSub = self._productSub
 
     def __init_personality_Opera(self):
         self.taintEnabled    = self._taintEnabled
@@ -220,11 +223,11 @@ class Navigator(PyV8.JSClass):
         return self.personality['product']
 
     @property
-    def productSub(self):
+    def _productSub(self):
         """
             The build number of the current browser (e.g. "20060909")
         """
-        return ""
+        return self.personality['productSub']
 
     @property
     def securityPolicy(self):
