@@ -23,6 +23,42 @@ class History(PyV8.JSClass):
         self._window = window
         self.urls    = []
         self.pos     = None
+        self.__init_personality()
+
+    def __init_personality(self):
+        if log.ThugOpts.Personality.isIE():
+            self.__init_personality_IE()
+            return
+
+        if log.ThugOpts.Personality.isFirefox():
+            self.__init_personality_Firefox()
+            return
+
+        if log.ThugOpts.Personality.isChrome():
+            self.__init_personality_Chrome()
+            return
+
+        if log.ThugOpts.Personality.isSafari():
+            self.__init_personality_Safari()
+            return
+
+        if log.ThugOpts.Personality.isOpera():
+            self.__init_personality_Opera()
+
+    def __init_personality_IE(self):
+        pass
+
+    def __init_personality_Firefox(self):
+        pass
+
+    def __init_personality_Chrome(self):
+        pass
+
+    def __init_personality_Safari(self):
+        pass
+
+    def __init_personality_Opera(self):
+        pass
 
     @property
     def window(self):
