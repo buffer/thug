@@ -49,7 +49,7 @@ class History(PyV8.JSClass):
         pass
 
     def __init_personality_Firefox(self):
-        pass
+        self.current = self._current
 
     def __init_personality_Chrome(self):
         pass
@@ -58,7 +58,7 @@ class History(PyV8.JSClass):
         pass
 
     def __init_personality_Opera(self):
-        pass
+        self.current = self._current
 
     @property
     def window(self):
@@ -69,7 +69,7 @@ class History(PyV8.JSClass):
         return len(self.urls)
 
     @property
-    def current(self):
+    def _current(self):
         if self.pos:
             return self.urls[self.pos]
         return None
