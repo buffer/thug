@@ -17,6 +17,10 @@
 # MA  02111-1307  USA
 
 import PyV8
+import logging
+
+log = logging.getLogger("Thug")
+
 
 class History(PyV8.JSClass):
     def __init__(self, window):
