@@ -67,7 +67,7 @@ class History(PyV8.JSClass):
 
     def __init_personality_Opera(self):
         self.current        = self._current
-        self.navigationMode = self._navigationMode_property
+        self.navigationMode = property(self._get_navigationMode, self._set_navigationMode)
 
     @property
     def window(self):
@@ -101,8 +101,6 @@ class History(PyV8.JSClass):
     def _set_navigationMode(self, value):
         if value in ("automatic", "compatible", "fast", ):
             self._navigationMode = value
-
-    _navigationMode_property = property(_get_navigationMode, _set_navigationMode)
 
     def back(self):
         """Loads the previous URL in the history list"""
