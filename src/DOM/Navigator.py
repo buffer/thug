@@ -112,6 +112,7 @@ class Navigator(PyV8.JSClass):
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
         self.cpuClass        = self._cpuClass
+        self.browserLanguage = self._browserLanguage
 
         if log.ThugOpts.Personality.browserVersion in ('6.0', '6.1', ):
             self.userProfile = object()
@@ -140,6 +141,7 @@ class Navigator(PyV8.JSClass):
     def __init_personality_Opera(self):
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
+        self.browserLanguage = self._browserLanguage
 
     @property
     def window(self):
@@ -262,7 +264,7 @@ class Navigator(PyV8.JSClass):
         return self.personality['appMinorVersion']
 
     @property
-    def browserLanguage(self):
+    def _browserLanguage(self):
         return "en"
 
     @property
