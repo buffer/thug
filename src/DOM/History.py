@@ -30,6 +30,8 @@ class History(PyV8.JSClass):
         self.__init_personality()
 
     def __init_personality(self):
+        self._navigationMode = "automatic"
+
         if log.ThugOpts.Personality.isIE():
             self.__init_personality_IE()
             return
@@ -64,7 +66,8 @@ class History(PyV8.JSClass):
         pass
 
     def __init_personality_Opera(self):
-        self.current = self._current
+        self.current        = self._current
+        self.navigationMode = self._navigationMode_property
 
     @property
     def window(self):
@@ -91,6 +94,15 @@ class History(PyV8.JSClass):
         if self.pos and self.pos > 0:
             return self.urls[self.pos - 1]
         return None
+
+    def _get_navigationMode(self):
+        return self._navigationMode
+
+    def _set_navigationMode(self, value):
+        if value in ("automatic", "compatible", "fast", ):
+            self._navigationMode = value
+
+    _navigationMode_property = property(_get_navigationMode, _set_navigationMode)
 
     def back(self):
         """Loads the previous URL in the history list"""
