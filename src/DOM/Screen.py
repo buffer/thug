@@ -29,9 +29,6 @@ class Screen(PyV8.JSClass):
         self._left   = 0
         self._top    = 0
 
-        if not log.ThugOpts.Personality.isIE():
-            self.pixelDepth = self._pixelDepth
-
         self.__init_personality()
 
     def __init_personality(self):
@@ -55,24 +52,28 @@ class Screen(PyV8.JSClass):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
-        pass
+        if log.ThugOpts.Personality.browserVersion >= '9.0':
+            self.pixelDepth = self._pixelDepth
 
     def __init_personality_Firefox(self):
-        self.availLeft = self._availLeft
-        self.availTop  = self._availTop
-        self.left      = self._left
-        self.top       = self._top
+        self.availLeft  = self._availLeft
+        self.availTop   = self._availTop
+        self.left       = self._left
+        self.top        = self._top
+        self.pixelDepth = self._pixelDepth
 
     def __init_personality_Chrome(self):
-        self.availLeft = self._availLeft
-        self.availTop  = self._availTop
+        self.availLeft  = self._availLeft
+        self.availTop   = self._availTop
+        self.pixelDepth = self._pixelDepth
 
     def __init_personality_Safari(self):
-        self.availLeft = self._availLeft
-        self.availTop  = self._availTop
+        self.availLeft  = self._availLeft
+        self.availTop   = self._availTop
+        self.pixelDepth = self._pixelDepth
 
     def __init_personality_Opera(self):
-        pass
+        self.pixelDepth = self._pixelDepth
 
     @property
     def availHeight(self):
