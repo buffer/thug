@@ -60,6 +60,7 @@ class Screen(PyV8.JSClass):
     def __init_personality_Firefox(self):
         self.availLeft = self._availLeft
         self.availTop  = self._availTop
+        self.left      = self._left
 
     def __init_personality_Chrome(self):
         self.availLeft = self._availLeft
