@@ -59,12 +59,15 @@ class Screen(PyV8.JSClass):
 
     def __init_personality_Firefox(self):
         self.availLeft = self._availLeft
+        self.availTop  = self._availTop
 
     def __init_personality_Chrome(self):
         self.availLeft = self._availLeft
+        self.availTop  = self._availTop
 
     def __init_personality_Safari(self):
         self.availLeft = self._availLeft
+        self.availTop  = self._availTop
 
     def __init_personality_Opera(self):
         pass
@@ -120,7 +123,7 @@ class Screen(PyV8.JSClass):
         return self._left + 1
 
     @property
-    def availTop(self):
+    def _availTop(self):
         """
             The first available pixel from the top of the screen 
             available to the browser
