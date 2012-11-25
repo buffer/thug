@@ -114,6 +114,7 @@ class Navigator(PyV8.JSClass):
         self.cpuClass        = self._cpuClass
         self.browserLanguage = self._browserLanguage
         self.systemLanguage  = self._systemLanguage
+        self.userLanguage    = self._userLanguage
 
         if log.ThugOpts.Personality.browserVersion in ('6.0', '6.1', ):
             self.userProfile = object()
@@ -147,6 +148,7 @@ class Navigator(PyV8.JSClass):
         self.appMinorVersion = self._appMinorVersion
         self.browserLanguage = self._browserLanguage
         self.language        = self._language
+        self.userLanguage    = self._userLanguage
 
     @property
     def window(self):
@@ -281,7 +283,7 @@ class Navigator(PyV8.JSClass):
         return "en"
 
     @property
-    def userLanguage(self):
+    def _userLanguage(self):
         return "en"
 
     # Indicates whether the host browser is Java-enabled or not.
