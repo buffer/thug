@@ -52,6 +52,8 @@ class Screen(PyV8.JSClass):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
+        self.bufferDepth = property(self._get_bufferDepth, self._set_bufferDepth)
+
         if log.ThugOpts.Personality.browserVersion >= '9.0':
             self.pixelDepth = self._pixelDepth
 
@@ -116,6 +118,15 @@ class Screen(PyV8.JSClass):
             The color resolution (in bits per pixel) of the screen
         """
         return self._depth
+
+    def _get_bufferDepth(self):
+        return self._depth
+
+    def _set_bufferDepth(self, value):
+        try:
+            self._depth = int(value)
+        except:
+            pass
 
     @property
     def width(self):
