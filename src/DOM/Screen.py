@@ -111,6 +111,13 @@ class Screen(PyV8.JSClass):
         return self._depth               
 
     @property
+    def colorDepth(self):
+        """
+            The color resolution (in bits per pixel) of the screen
+        """
+        return self._depth
+
+    @property
     def width(self):
         """
             The total width of the screen
