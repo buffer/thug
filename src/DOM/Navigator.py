@@ -117,12 +117,13 @@ class Navigator(PyV8.JSClass):
             self.userProfile = object()
 
     def __init_personality_Firefox(self):
-        self.oscpu      = self._oscpu
-        self.buildID    = self._buildID
-        self.product    = self._product
-        self.productSub = self._productSub
-        self.vendor     = self._vendor
-        self.vendorSub  = self._vendorSub
+        self.taintEnabled = self._taintEnabled
+        self.oscpu        = self._oscpu
+        self.buildID      = self._buildID
+        self.product      = self._product
+        self.productSub   = self._productSub
+        self.vendor       = self._vendor
+        self.vendorSub    = self._vendorSub
 
     def __init_personality_Chrome(self):
         self.product    = self._product
