@@ -119,12 +119,13 @@ class Navigator(PyV8.JSClass):
     def __init_personality_Firefox(self):
         self.oscpu   = self._oscpu
         self.buildID = self._buildID
+        self.product = self._product
 
     def __init_personality_Chrome(self):
-        pass
+        self.product = self._product
 
     def __init_personality_Safari(self):
-        pass
+        self.product = self._product
 
     def __init_personality_Opera(self):
         self.taintEnabled    = self._taintEnabled
@@ -212,11 +213,11 @@ class Navigator(PyV8.JSClass):
         return self.personality['platform']
 
     @property
-    def product(self):
+    def _product(self):
         """
             The product name of the current browser (e.g. "Gecko")
         """
-        return ""
+        return self.personality['product']
 
     @property
     def productSub(self):
