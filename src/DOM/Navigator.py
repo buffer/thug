@@ -122,16 +122,19 @@ class Navigator(PyV8.JSClass):
         self.product    = self._product
         self.productSub = self._productSub
         self.vendor     = self._vendor
+        self.vendorSub  = self._vendorSub
 
     def __init_personality_Chrome(self):
         self.product    = self._product
         self.productSub = self._productSub
         self.vendor     = self._vendor
+        self.vendorSub  = self._vendorSub
 
     def __init_personality_Safari(self):
         self.product    = self._product
         self.productSub = self._productSub
         self.vendor     = self._vendor
+        self.vendorSub  = self._vendorSub
 
     def __init_personality_Opera(self):
         self.taintEnabled    = self._taintEnabled
@@ -247,11 +250,11 @@ class Navigator(PyV8.JSClass):
         return self.personality['vendor']
 
     @property 
-    def vendorSub(self):
+    def _vendorSub(self):
         """
             The vendor name of the current browser (e.g. "Netscape6")
         """
-        return ""
+        return self.personality['vendorSub']
 
     @property
     def _appMinorVersion(self):
