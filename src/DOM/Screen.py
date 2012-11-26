@@ -54,6 +54,7 @@ class Screen(PyV8.JSClass):
     def __init_personality_IE(self):
         self.bufferDepth = property(self._get_bufferDepth, self._set_bufferDepth)
         self.deviceXDPI  = self._deviceXDPI
+        self.deviceYDPI  = self._deviceYDPI
 
         if log.ThugOpts.Personality.browserVersion >= '9.0':
             self.pixelDepth = self._pixelDepth
@@ -154,4 +155,8 @@ class Screen(PyV8.JSClass):
 
     @property
     def _deviceXDPI(self):
+        return 120
+
+    @property
+    def _deviceYDPI(self):
         return 120
