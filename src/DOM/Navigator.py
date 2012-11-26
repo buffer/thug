@@ -128,6 +128,7 @@ class Navigator(PyV8.JSClass):
         self.vendor       = self._vendor
         self.vendorSub    = self._vendorSub
         self.language     = self._language
+        self.preference   = self._preference
 
         self.registerContentHandler  = self._registerContentHandler
         self.registerProtocolHandler = self._registerProtocolHandler
@@ -301,7 +302,7 @@ class Navigator(PyV8.JSClass):
     # Sets a user preference.
     # self method is only available to privileged code, and you
     # should use XPCOM Preferences API instead.
-    def preference(self, *arg):
+    def _preference(self, *arg):
         pass
 
     # Allows web sites to register themselves as a possible handler
