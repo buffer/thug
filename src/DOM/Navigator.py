@@ -120,6 +120,7 @@ class Navigator(PyV8.JSClass):
             self.userProfile = object()
 
     def __init_personality_Firefox(self):
+        self.mimeTypes    = self._mimeTypes
         self.taintEnabled = self._taintEnabled
         self.oscpu        = self._oscpu
         self.buildID      = self._buildID
@@ -134,6 +135,7 @@ class Navigator(PyV8.JSClass):
         self.registerProtocolHandler = self._registerProtocolHandler
 
     def __init_personality_Chrome(self):
+        self.mimeTypes  = self._mimeTypes
         self.product    = self._product
         self.productSub = self._productSub
         self.vendor     = self._vendor
@@ -141,6 +143,7 @@ class Navigator(PyV8.JSClass):
         self.language   = self._language
 
     def __init_personality_Safari(self):
+        self.mimeTypes  = self._mimeTypes
         self.product    = self._product
         self.productSub = self._productSub
         self.vendor     = self._vendor
@@ -148,6 +151,7 @@ class Navigator(PyV8.JSClass):
         self.language   = self._language
 
     def __init_personality_Opera(self):
+        self.mimeTypes       = self._mimeTypes
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
         self.browserLanguage = self._browserLanguage
@@ -206,13 +210,6 @@ class Navigator(PyV8.JSClass):
             A string representing the language version of the browser
         """
         return "en"
-
-    @property
-    def mimeTypes(self):
-        """
-            A list of the MIME types supported by the browser
-        """
-        return self._mimeTypes 
 
     @property
     def onLine(self):
