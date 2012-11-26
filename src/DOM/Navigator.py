@@ -109,6 +109,7 @@ class Navigator(PyV8.JSClass):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
+        self.mimeTypes       = dict()
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
         self.cpuClass        = self._cpuClass
