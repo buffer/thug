@@ -58,6 +58,7 @@ class Screen(PyV8.JSClass):
         self.logicalXDPI          = self._logicalXDPI
         self.logicalYDPI          = self._logicalYDPI
         self.fontSmoothingEnabled = self._fontSmoothingEnabled
+        self.updateInterval       = self._updateInterval
 
         if log.ThugOpts.Personality.browserVersion >= '8.0':
             self.systemXDPI = self._systemXDPI
@@ -162,28 +163,64 @@ class Screen(PyV8.JSClass):
 
     @property
     def _deviceXDPI(self):
+        """
+            Returns the current number of dots per inch (DPI) of
+            the document's viewport along the horizontal (x) axis.
+        """
         return 120
 
     @property
     def _deviceYDPI(self):
+        """
+            Returns the current number of dots per inch (DPI) of
+            the document's viewport along the vertical (y) axis.
+        """
         return 120
 
     @property
     def _logicalXDPI(self):
+        """
+            Returns the number of dots per inch (DPI) of the document's
+            viewport along the horizontal (x) axis at normal zoom level.
+        """
         return 96
 
     @property
     def _logicalYDPI(self):
+        """
+            Returns the number of dots per inch (DPI) of the document's
+            viewport along the vertical (y) axis at normal zoom level.
+        """
         return 96
 
     @property
     def _systemXDPI(self):
+        """
+            Returns the number of dots per inch (DPI) of the display
+            screen along the horizontal (x) axis at normal zoom level.
+        """
         return 120
 
     @property
     def _systemYDPI(self):
+        """
+            Returns the number of dots per inch (DPI) of the display
+            screen along the vertical (y) axis at normal zoom level.
+        """
         return 120
 
     @property
     def _fontSmoothingEnabled(self):
+        """
+            Returns a Boolean value that indicates whether font
+            smoothing is enabled.
+        """
         return False
+
+    @property
+    def _updateInterval(self):
+        """
+            Specifies or returns the time interval (in milliseconds)
+            between screen updates.
+        """
+        return 0
