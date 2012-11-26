@@ -129,6 +129,9 @@ class Navigator(PyV8.JSClass):
         self.vendorSub    = self._vendorSub
         self.language     = self._language
 
+        self.registerContentHandler  = self._registerContentHandler
+        self.registerProtocolHandler = self._registerProtocolHandler
+
     def __init_personality_Chrome(self):
         self.product    = self._product
         self.productSub = self._productSub
@@ -303,13 +306,13 @@ class Navigator(PyV8.JSClass):
 
     # Allows web sites to register themselves as a possible handler
     # for a given MIME type.
-    def registerContentHandler(self, *arg):
+    def _registerContentHandler(self, *arg):
         pass
 
     # New in Firefox 3
     # Allows web sites to register themselves as a possible handler
     # for a given protocol.
-    def registerProtocolHandler(self, *arg):
+    def _registerProtocolHandler(self, *arg):
         pass
 
     # Obsolete
