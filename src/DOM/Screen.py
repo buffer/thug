@@ -52,11 +52,12 @@ class Screen(PyV8.JSClass):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
-        self.bufferDepth = property(self._get_bufferDepth, self._set_bufferDepth)
-        self.deviceXDPI  = self._deviceXDPI
-        self.deviceYDPI  = self._deviceYDPI
-        self.logicalXDPI = self._logicalXDPI
-        self.logicalYDPI = self._logicalYDPI
+        self.bufferDepth          = property(self._get_bufferDepth, self._set_bufferDepth)
+        self.deviceXDPI           = self._deviceXDPI
+        self.deviceYDPI           = self._deviceYDPI
+        self.logicalXDPI          = self._logicalXDPI
+        self.logicalYDPI          = self._logicalYDPI
+        self.fontSmoothingEnabled = self._fontSmoothingEnabled
 
         if log.ThugOpts.Personality.browserVersion >= '8.0':
             self.systemXDPI = self._systemXDPI
@@ -182,3 +183,7 @@ class Screen(PyV8.JSClass):
     @property
     def _systemYDPI(self):
         return 120
+
+    @property
+    def _fontSmoothingEnabled(self):
+        return False
