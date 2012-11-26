@@ -55,6 +55,7 @@ class Screen(PyV8.JSClass):
         self.bufferDepth = property(self._get_bufferDepth, self._set_bufferDepth)
         self.deviceXDPI  = self._deviceXDPI
         self.deviceYDPI  = self._deviceYDPI
+        self.logicalXDPI = self._logicalXDPI
 
         if log.ThugOpts.Personality.browserVersion >= '9.0':
             self.pixelDepth = self._pixelDepth
@@ -160,3 +161,7 @@ class Screen(PyV8.JSClass):
     @property
     def _deviceYDPI(self):
         return 120
+
+    @property
+    def _logicalXDPI(self):
+        return 96
