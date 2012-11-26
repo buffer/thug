@@ -43,7 +43,7 @@ class Plugins(list):
 class Navigator(PyV8.JSClass):
     def __init__(self, personality, window = None):
         self.personality = log.ThugOpts.Personality[personality]
-        self.plugins     = Plugins()  # An array of the plugins installed in the browser
+        self._plugins    = Plugins()  # An array of the plugins installed in the browser
         self._window     = window
         self._mimeTypes = { 'application/pdf':
                                     {
@@ -84,7 +84,7 @@ class Navigator(PyV8.JSClass):
                             }  
    
         for p in self._mimeTypes.values():
-            self.plugins.append(p['enabledPlugin'])
+            self._plugins.append(p['enabledPlugin'])
 
         self.__init_personality()
 
@@ -121,6 +121,7 @@ class Navigator(PyV8.JSClass):
 
     def __init_personality_Firefox(self):
         self.mimeTypes    = self._mimeTypes
+        self.plugins      = self._plugins
         self.taintEnabled = self._taintEnabled
         self.oscpu        = self._oscpu
         self.buildID      = self._buildID
@@ -136,6 +137,7 @@ class Navigator(PyV8.JSClass):
 
     def __init_personality_Chrome(self):
         self.mimeTypes  = self._mimeTypes
+        self.plugins    = self._plugins
         self.product    = self._product
         self.productSub = self._productSub
         self.vendor     = self._vendor
@@ -144,6 +146,7 @@ class Navigator(PyV8.JSClass):
 
     def __init_personality_Safari(self):
         self.mimeTypes  = self._mimeTypes
+        self.plugins    = self._plugins
         self.product    = self._product
         self.productSub = self._productSub
         self.vendor     = self._vendor
@@ -152,6 +155,7 @@ class Navigator(PyV8.JSClass):
 
     def __init_personality_Opera(self):
         self.mimeTypes       = self._mimeTypes
+        self.plugins         = self._plugins
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
         self.browserLanguage = self._browserLanguage
