@@ -35,6 +35,7 @@ from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
 from .History import History
+from .Chrome import Chrome
 from .Opera import Opera
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
@@ -783,7 +784,7 @@ class Window(PyV8.JSClass):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.clientInformation   = self.navigator
-        self.chrome              = object()
+        self.chrome              = Chrome()
 
     def __init_personality_Safari(self):
         self.addEventListener    = self._addEventListener
