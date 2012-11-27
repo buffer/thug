@@ -24,64 +24,22 @@ import urlparse
 import hashlib
 import logging
 import socket
-from .Plugin import Plugin
-
-class AboutBlank(httplib2.HttpLib2Error): 
-    pass
+from .MimeTypes import MimeTypes
+from .Plugins import Plugins
 
 log = logging.getLogger("Thug")
 
-class Plugins(list):
-    def __init__(self):
-        list.__init__(self)
 
-    @property
-    def length(self):
-        return len(self)
+class AboutBlank(httplib2.HttpLib2Error): 
+    pass
 
 
 class Navigator(PyV8.JSClass):
     def __init__(self, personality, window = None):
         self.personality = log.ThugOpts.Personality[personality]
         self._plugins    = Plugins()  # An array of the plugins installed in the browser
+        self._mimeTypes  = MimeTypes()
         self._window     = window
-        self._mimeTypes = { 'application/pdf':
-                                    {
-                                        'description'   : 'Adobe Acrobat Plug-In',
-                                        'suffixes'      : 'pdf',
-                                        'type'          : 'application/pdf',
-                                        'enabledPlugin' : Plugin({'name'        : 'Adobe Acrobat %s' % (log.ThugVulnModules.acropdf_pdf, ),
-                                                                  'version'     : '%s' % (log.ThugVulnModules.acropdf_pdf, ),
-                                                                  'description' : 'Adobe Acrobat Plug-In'
-                                                                  }),
-                                        'enabled'       : True,
-                                    },
-
-                            'application/x-shockwave-flash':
-                                    {
-                                        'description'   : 'Shockwave Flash',
-                                        'suffixes'      : 'swf',
-                                        'type'          : 'application/x-shockwave-flash',
-                                        'enabledPlugin' : Plugin({'name'        : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),
-                                                                  'version'     : '%s' % (log.ThugVulnModules.shockwave_flash, ),
-                                                                  'description' : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),
-                                                                  }),
-                                        'enabled'       : True,
-                                    },
-
-                            'application/x-ms-wmz':
-                                    {   
-                                        'description'   : 'Windows Media Player',
-                                        'suffixes'      : 'wmz',
-                                        'type'          : 'application/x-ms-wmz',
-                                        'enabledPlugin' : Plugin({'name'        : 'Windows Media Player 7',
-                                                                  'version'     : '7',
-                                                                  'description' : 'Windows Media Player 7',
-                                                                  }), 
-                                        'enabled'       : True,
-                                    },  
-
-                            }  
    
         for p in self._mimeTypes.values():
             self._plugins.append(p['enabledPlugin'])
@@ -110,6 +68,7 @@ class Navigator(PyV8.JSClass):
 
     def __init_personality_IE(self):
         self.mimeTypes       = dict()
+        self.plugins         = list()
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
         self.cpuClass        = self._cpuClass

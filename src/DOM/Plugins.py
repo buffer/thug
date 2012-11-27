@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Plugin.py
+# Plugins.py
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -16,35 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-
-class Plugin(dict):
-    """A dictionary with attribute-style access. It maps attribute access to
-    the real dictionary.  """
-    def __init__(self, init = {}):
-        dict.__init__(self, init)
-
-    def __getstate__(self):
-        return self.__dict__.items()
-
-    def __setstate__(self, items):
-        for key, val in items:
-            self.__dict__[key] = val
-
-    def __repr__(self):
-        return "%s(%s)" % (self.__class__.__name__, dict.__repr__(self))
-
-    def __setitem__(self, key, value):
-        return super(Plugin, self).__setitem__(key, value)
-
-    def __getitem__(self, name):
-        return super(Plugin, self).__getitem__(name)
-
-    def __delitem__(self, name):
-        return super(Plugin, self).__delitem__(name)
-
-    __getattr__ = __getitem__
-    __setattr__ = __setitem__
-
+from .Plugin import Plugin
 
 class Plugins(list):
     def __init__(self):
@@ -53,6 +25,9 @@ class Plugins(list):
     @property
     def length(self):
         return len(self)
+
+    def __getattr__(self, key):
+        return self.namedItem(key)
 
     def __getitem__(self, key):
         try:
@@ -65,12 +40,17 @@ class Plugins(list):
         if index >= self.length:
             return Plugin()
 
-        return self[index]
+        return list.__getitem__(self, index)
 
     def namedItem(self, name):
-        for p in self:
+        index = 0
+
+        while index < self.length:
+            p = self.item(index)
             if p['name'] == name:
                 return p
+
+            index += 1
 
         return Plugin()
 

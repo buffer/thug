@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Plugin.py
+# MimeType.py
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -16,8 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-
-class Plugin(dict):
+class MimeType(dict):
     """A dictionary with attribute-style access. It maps attribute access to
     the real dictionary.  """
     def __init__(self, init = {}):
@@ -34,45 +33,13 @@ class Plugin(dict):
         return "%s(%s)" % (self.__class__.__name__, dict.__repr__(self))
 
     def __setitem__(self, key, value):
-        return super(Plugin, self).__setitem__(key, value)
+        return super(MimeType, self).__setitem__(key, value)
 
     def __getitem__(self, name):
-        return super(Plugin, self).__getitem__(name)
+        return super(MimeType, self).__getitem__(name)
 
     def __delitem__(self, name):
-        return super(Plugin, self).__delitem__(name)
+        return super(MimeType, self).__delitem__(name)
 
     __getattr__ = __getitem__
     __setattr__ = __setitem__
-
-
-class Plugins(list):
-    def __init__(self):
-        list.__init__(self)
-
-    @property
-    def length(self):
-        return len(self)
-
-    def __getitem__(self, key):
-        try:
-            key = int(key)
-            return self.item(key)
-        except:
-            return self.namedItem(key)
-
-    def item(self, index):
-        if index >= self.length:
-            return Plugin()
-
-        return self[index]
-
-    def namedItem(self, name):
-        for p in self:
-            if p['name'] == name:
-                return p
-
-        return Plugin()
-
-    def refresh(self):
-        pass
