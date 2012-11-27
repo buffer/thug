@@ -44,35 +44,3 @@ class Plugin(dict):
 
     __getattr__ = __getitem__
     __setattr__ = __setitem__
-
-
-class Plugins(list):
-    def __init__(self):
-        list.__init__(self)
-
-    @property
-    def length(self):
-        return len(self)
-
-    def __getitem__(self, key):
-        try:
-            key = int(key)
-            return self.item(key)
-        except:
-            return self.namedItem(key)
-
-    def item(self, index):
-        if index >= self.length:
-            return Plugin()
-
-        return self[index]
-
-    def namedItem(self, name):
-        for p in self:
-            if p['name'] == name:
-                return p
-
-        return Plugin()
-
-    def refresh(self):
-        pass
