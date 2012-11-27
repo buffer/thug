@@ -35,6 +35,7 @@ from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
 from .History import History
+from .Opera import Opera
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
 from Debugger import Shellcode, Global
@@ -792,6 +793,7 @@ class Window(PyV8.JSClass):
     def __init_personality_Opera(self):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
+        self.opera               = Opera()
 
     def eval(self, script):
         try:
