@@ -1,0 +1,29 @@
+<html>
+<head>
+    <script type="text/javascript">
+        function GetMimeTypes () {
+            var message = "";
+                // Internet Explorer supports the mimeTypes collection, but it is always empty
+            if (navigator.mimeTypes && navigator.mimeTypes.length > 0) {
+                var mimes = navigator.mimeTypes;
+                for (var i=0; i < mimes.length; i++) {
+                    message += "<b>" + mimes[i].type + "</b> : " + mimes[i].description + "<br />";
+                }
+            }
+            else {
+                message = "Your browser does not support this example!";
+            }
+
+            var info = document.getElementById ("info");
+            info.innerHTML = message;
+	    alert(message);
+        }
+
+	GetMimeTypes();
+    </script>
+</head>
+<body>
+    Supported MIME types:
+    <div id="info" style="width:500px; height:300px; overflow:auto; background-color:#e0d0d0;"></div>
+</body>
+</html>

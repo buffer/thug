@@ -1,0 +1,19 @@
+<html>
+<body>
+    <script type="text/javascript">
+        function GetPluginsDesc() { 
+            if ('plugins' in navigator) {
+                var plugins = navigator.plugins;
+                for (var i=0; i < plugins.length; i++) {
+                    alert(plugins[i].name);
+		    alert(plugins[plugins[i].name].name);
+                    alert(plugins[i].description);
+                }
+            } else {
+                alert ("Your browser doesn't support this property!");
+            }
+        }
+	GetPluginsDesc();
+    </script>
+</body>
+</html>
