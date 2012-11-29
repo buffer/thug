@@ -35,6 +35,7 @@ from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
 from .History import History
+from .ClipboardData import ClipboardData
 from .Chrome import Chrome
 from .Opera import Opera
 from ActiveX.ActiveX import _ActiveXObject
@@ -763,6 +764,7 @@ class Window(PyV8.JSClass):
         self.CollectGarbage    = self._CollectGarbage
         self.navigate          = self._navigate
         self.clientInformation = self.navigator
+        self.clipboardData     = ClipboardData()
         self.external          = object()
 
         if log.ThugOpts.Personality.browserVersion < '9.0':
