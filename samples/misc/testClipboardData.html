@@ -1,0 +1,24 @@
+<html>
+<body>
+<head>
+    <script type="text/javascript">
+        function CopyToClipboard() {
+            window.clipboardData.setData ("Text", "Test ClipboardData");
+        }
+
+        function ShowClipboardContent() {
+            alert(window.clipboardData.getData("Text"));
+        }
+        function ClearClipboard() {
+            window.clipboardData.clearData("Text");
+        }
+
+	ShowClipboardContent();
+	CopyToClipboard ();
+	ShowClipboardContent();
+	ClearClipboard();
+	ShowClipboardContent();	
+    </script>
+</head>
+</body>
+<html>
