@@ -26,6 +26,7 @@ import logging
 import socket
 from .MimeTypes import MimeTypes
 from .Plugins import Plugins
+from .UserProfile import UserProfile
 
 log = logging.getLogger("Thug")
 
@@ -76,8 +77,8 @@ class Navigator(PyV8.JSClass):
         self.systemLanguage  = self._systemLanguage
         self.userLanguage    = self._userLanguage
 
-        if log.ThugOpts.Personality.browserVersion in ('6.0', '6.1', ):
-            self.userProfile = object()
+        if log.ThugOpts.Personality.browserVersion < '9.0':
+            self.userProfile = UserProfile()
 
     def __init_personality_Firefox(self):
         self.mimeTypes    = self._mimeTypes
