@@ -37,6 +37,7 @@ from .Screen import Screen
 from .History import History
 from .ClipboardData import ClipboardData
 from .External import External
+from .Sidebar import Sidebar
 from .Chrome import Chrome
 from .Opera import Opera
 from ActiveX.ActiveX import _ActiveXObject
@@ -781,7 +782,7 @@ class Window(PyV8.JSClass):
     def __init_personality_Firefox(self):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
-        self.sidebar             = object()
+        self.sidebar             = Sidebar()
 
     def __init_personality_Chrome(self):
         self.addEventListener    = self._addEventListener
