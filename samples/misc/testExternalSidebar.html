@@ -1,0 +1,29 @@
+<html>
+<body>
+    <script type="text/javascript">
+        function AddToFavorites() {
+            if (window.sidebar) {        // Firefox
+                window.sidebar.addPanel('Test page', 'http://www.example.com', '');
+		alert("Firefox");
+            } 
+            
+            if (window.external && ('AddFavorite' in window.external)) {
+		// Internet Explorer
+		alert("Internet Explorer"); 
+                window.external.AddFavorite('http://www.example.com', 'Test page');
+            }
+            
+	    if (window.external && ('AddSearchProvider' in window.external)) {
+		alert("Internet Explorer >= 7.0 or Chrome");
+		window.external.AddSearchProvider('http://www.example.com');
+            }
+
+	    if (window.external && ('IsSubscribed' in window.external)) {
+		alert(window.external.IsSubscribed('http://www.example.com'));
+	    }
+        }
+
+	AddToFavorites();
+   </script>
+</body>
+</html>
