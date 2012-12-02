@@ -36,6 +36,7 @@ from .Location import Location
 from .Screen import Screen
 from .History import History
 from .ClipboardData import ClipboardData
+from .External import External
 from .Chrome import Chrome
 from .Opera import Opera
 from ActiveX.ActiveX import _ActiveXObject
@@ -765,7 +766,7 @@ class Window(PyV8.JSClass):
         self.navigate          = self._navigate
         self.clientInformation = self.navigator
         self.clipboardData     = ClipboardData()
-        self.external          = object()
+        self.external          = External()
 
         if log.ThugOpts.Personality.browserVersion < '9.0':
             self.attachEvent = self._attachEvent
@@ -786,6 +787,7 @@ class Window(PyV8.JSClass):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.clientInformation   = self.navigator
+        self.external            = External()
         self.chrome              = Chrome()
 
     def __init_personality_Safari(self):
