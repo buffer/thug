@@ -9,16 +9,17 @@ Welcome to Thug's documentation!
 `Thug <https://github.com/buffer/thug>`_ is a Python low-interaction honeyclient based on an hybrid 
 static/dynamic analysis approach.
 
-Thug provides a DOM implementation which is (almost) compliant with W3C DOM Core, HTML, Events and 
-Views specifications (Level 1, 2 and partially 3) and partially compliant with W3C DOM Style 
-specifications. [#f1]_
+Thug provides a DOM implementation which is (almost) compliant with W3C DOM Core, HTML, Events,
+Views and Style specifications (Level 1, 2 and partially 3). [#f1]_
 
-Thug makes use of the Google V8 Javascript engine [#f2]_ wrapped through PyV8 [#f3]_ in order to 
+Thug makes use of the Google V8 Javascript engine [#f2]_ wrapped through PyV8 [#f3]_ in order to
 analyze malicious Javascript code and of the Libemu library [#f4]_ wrapped through Pylibemu [#f5]_
-in order to detect and emulate shellcodes. 
+in order to detect and emulate shellcodes.
 
-Currently 6 Internet Explorer personalities are emulated and about 90 vulnerability modules (ActiveX 
-controls, core browser functionalities, browser plugins) are provided. 
+Currently 8 Internet Explorer (Windows XP, Windows 2000 and Windows 7), 3 Chrome (Windows XP,
+Windows 7, MacOS X), 1 Firefox (Windows XP) and 3 Safari (Windows XP, Windows 7, MacOS X)
+personalities are emulated and about 90 vulnerability modules (ActiveX controls, core browser
+functionalities, browser plugins) are provided.
 
 .. toctree::
    :maxdepth: 2
