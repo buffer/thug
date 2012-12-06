@@ -39,6 +39,9 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
+                "cc_on"           : {
+                                        "_jscript_version" : "5.6",
+                                    },
                 "browserTag"      : "ie60",
                 }
 
@@ -59,6 +62,9 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
+                "cc_on"           : {
+                                        "_jscript_version" : "5.6",
+                                    },
                 "browserTag"      : "ie61",
                 }
 
@@ -79,6 +85,9 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
+                "cc_on"           : {
+                                        "_jscript_version" : "5.7",
+                                    },
                 "browserTag"      : "ie70",
                 }
 
@@ -99,6 +108,9 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows XP 5.1) Java/%s",
+                "cc_on"           : {
+                                        "_jscript_version" : "5.8",
+                                    },
                 "browserTag"      : "ie80",
                 }
 
@@ -119,6 +131,7 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows XP 5.1) Java/%s",
+                "cc_on"           : None,
                 "browserTag"      : "chrome20",
                 }   
 
@@ -139,6 +152,7 @@ class Personality(dict):
                 "oscpu"           : "Windows NT 5.1",
                 "buildID"         : "20120403211507",
                 "javaUserAgent"   : "Mozilla/5.0 (Windows XP 5.1) Java/%s",
+                "cc_on"           : None,
                 "browserTag"      : "firefox12",
                 }
 
@@ -159,6 +173,7 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows XP 5.1) Java/%s",
+                "cc_on"           : None,
                 "browserTag"      : "safari5",
                 }   
 
@@ -180,6 +195,9 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows 2000 5.0) Java/%s",
+                "cc_on"           : {
+                                        "_jscript_version" : "5.6",
+                                    },
                 "browserTag"      : "ie60",
                 }
 
@@ -200,6 +218,9 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows 2000 5.0) Java/%s",
+                "cc_on"           : {
+                                        "_jscript_version" : "5.8",
+                                    },
                 "browserTag"      : "ie80",
                 }
 
@@ -221,6 +242,9 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/4.0 (Windows 7 6.1) Java/%s",
+                "cc_on"           : {
+                                        "_jscript_version" : "5.8",
+                                    },
                 "browserTag"      : "ie80",
                 }
 
@@ -241,6 +265,9 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows 7 6.1) Java/%s",
+                "cc_on"           : {
+                                        "_jscript_version" : "9",
+                                    },
                 "browserTag"      : "ie90",
                 }
 
@@ -261,6 +288,7 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows 7 6.1) Java/%s",
+                "cc_on"           : None,
                 "browserTag"      : "chrome20",
                 }
 
@@ -281,6 +309,7 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : "Mozilla/5.0 (Windows 7 6.1) Java/%s",
+                "cc_on"           : None,
                 "browserTag"      : "safari5",
                 }
 
@@ -302,6 +331,7 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : None,
+                "cc_on"           : None,
                 "browserTag"      : "safari5",
                 }  
 
@@ -322,6 +352,7 @@ class Personality(dict):
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : None,
+                "cc_on"           : None,
                 "browserTag"      : "chrome20",
                 }
 
@@ -336,6 +367,10 @@ class Personality(dict):
     @property
     def browserVersion(self):
         return self[log.ThugOpts.useragent]['version']
+
+    @property
+    def cc_on(self):
+        return self[log.ThugOpts.useragent]['cc_on']
 
     def isIE(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('ie')

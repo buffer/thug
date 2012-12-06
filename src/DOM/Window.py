@@ -40,6 +40,7 @@ from .External import External
 from .Sidebar import Sidebar
 from .Chrome import Chrome
 from .Opera import Opera
+from .CCInterpreter import CCInterpreter
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
 from Debugger import Shellcode, Global
@@ -849,7 +850,8 @@ class Window(PyV8.JSClass):
                 return result
 
             if log.ThugOpts.Personality.isIE():
-                script = script.replace('@cc_on!@', '*/!/*')
+                cc = CCInterpreter()
+                script = cc.run(script)
 
             shellcode = Shellcode.Shellcode(self, ctxt, ast, script)
             result    = shellcode.run()
