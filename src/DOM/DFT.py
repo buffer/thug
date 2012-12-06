@@ -424,7 +424,7 @@ class DFT(object):
             if name in ('applet', ):
                 headers['Content-Type'] = 'application/x-java-archive'
 
-        if 'java' in headers['Content-Type'] and log.ThugOpts.Personality.javaUserAgent:
+        if 'Content-Type' in headers and 'java' in headers['Content-Type'] and log.ThugOpts.Personality.javaUserAgent:
             headers['User-Agent'] = self.javaUserAgent
 
         for key in ('filename', 'movie', ):
