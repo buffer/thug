@@ -191,7 +191,7 @@ class MIMEHandler(dict):
             return self[_key]
 
         log.warning("[MIMEHandler] Unknown MIME Type: %s" % (key, ))
-        return None
+        return self.passthrough
 
     def __init__(self):
         for mimetype in self.mimetypes:
