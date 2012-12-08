@@ -48,6 +48,7 @@ class HTMLObjectElement(HTMLElement):
     align           = attr_property("align")
     archive         = attr_property("archive")
     border          = attr_property("border")
+    classid         = attr_property("classid")
     codeBase        = attr_property("codebase")
     codeType        = attr_property("codetype")
     data            = attr_property("data")
