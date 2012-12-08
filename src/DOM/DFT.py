@@ -23,13 +23,13 @@ import W3C.w3c as w3c
 import hashlib
 import string
 import logging
-import cssutils
 import Window
 import PyV8
 import chardet
 import jsbeautifier
 import traceback
 import bs4 as BeautifulSoup
+from cssutils.parse import CSSParser
 from W3C.DOMImplementation import DOMImplementation
 from W3C.Events.Event import Event
 from W3C.Events.MouseEvent import MouseEvent
@@ -775,7 +775,9 @@ class DFT(object):
     def handle_style(self, style):
         log.info(style)
 
-        sheet = cssutils.parseString(style.text)
+        cssparser = CSSParser(loglevel = logging.CRITICAL, validate = False)
+        sheet     = cssparser.parseString(style.text)
+
         for rule in sheet:
             if rule.type == rule.FONT_FACE_RULE:
                 self.do_handle_font_face_rule(rule)
