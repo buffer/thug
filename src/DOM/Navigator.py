@@ -332,21 +332,10 @@ class Navigator(PyV8.JSClass):
         return url
 
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None):
-        response = dict()
-        content  = ''
-
-        if url == 'about:blank':
-            #return response, content
-            raise AboutBlank
-
         #httplib2.debuglevel = 1
 
-        h = httplib2.Http('/tmp/thug-cache-%s' % (os.getuid(), ),
-                          proxy_info = log.ThugOpts.proxy_info,
-                          timeout    = 10,
-                          disable_ssl_certificate_validation = True)
-
-        http_headers = self.__build_http_headers(headers)
+        if url == 'about:blank':
+            raise AboutBlank
 
         url = self.__normalize_url(url)
         if url is None:
@@ -357,29 +346,20 @@ class Navigator(PyV8.JSClass):
                                                                               self._window.url, 
                                                                               url, )))
 
-        mime_base = log.ThugLogging.baseDir
+        http_headers = self.__build_http_headers(headers)
 
-        try:
-            response, content = h.request(url,
-                                          method.upper(),
-                                          body,
-                                          redirections = 1024,
-                                          headers = http_headers)
+        h = httplib2.Http('/tmp/thug-cache-%s' % (os.getuid(), ),
+                          proxy_info = log.ThugOpts.proxy_info,
+                          timeout    = 10,
+                          disable_ssl_certificate_validation = True)
 
-            if 'content-type' in response:
-                mime_base = os.path.join(mime_base, response['content-type'])
-        except socket.timeout:
-            log.warning("Timeout reached while fetching %s" % (url, ))
-            log.ThugLogging.log_redirect(response)
-            raise
-        except socket.error as e:
-            log.warning("Socket error [%s]: %s" % (url, e.strerror))
-            log.ThugLogging.log_redirect(response)
-            raise
-        except httplib2.ServerNotFoundError as e:
-            log.warning("ServerNotFoundError: %s" % (e, ))
-            log.ThugLogging.log_redirect(response)
-            raise
+        h.force_exception_to_status_code = True
+
+        response, content = h.request(url,
+                                      method.upper(),
+                                      body,
+                                      redirections = 1024,
+                                      headers = http_headers)
 
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (response['content-location'] if 'content-location' in response else url,
                                                                                          response['status'],
@@ -387,8 +367,16 @@ class Navigator(PyV8.JSClass):
         log.ThugLogging.log_redirect(response)
 
         if response.status == 404:
-            log.warning("FileNotFoundError: %s" % (url, ))
+            log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (url, ))
             return response, content
+
+        if response.status in (400, 408, 500, ):
+            log.ThugLogging.add_behavior_warn("[%s] URL: %s" % (response.reason, url, ))
+            return response, ''
+
+        mime_base = log.ThugLogging.baseDir
+        if 'content-type' in response:
+            mime_base = os.path.join(mime_base, response['content-type'])
 
         md5 = hashlib.md5()
         md5.update(content)
