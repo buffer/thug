@@ -40,6 +40,7 @@ from .External import External
 from .Sidebar import Sidebar
 from .Chrome import Chrome
 from .Opera import Opera
+from .Components import Components
 from .CCInterpreter import CCInterpreter
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
@@ -787,6 +788,7 @@ class Window(PyV8.JSClass):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.sidebar             = Sidebar()
+        self.Components          = Components()
 
     def __init_personality_Chrome(self):
         self.addEventListener    = self._addEventListener
