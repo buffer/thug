@@ -41,6 +41,7 @@ from .Sidebar import Sidebar
 from .Chrome import Chrome
 from .Opera import Opera
 from .Components import Components
+from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
@@ -787,6 +788,7 @@ class Window(PyV8.JSClass):
     def __init_personality_Firefox(self):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
+        self.crypto              = Crypto()
         self.sidebar             = Sidebar()
         self.Components          = Components()
 
