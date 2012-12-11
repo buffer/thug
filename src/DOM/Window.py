@@ -142,6 +142,9 @@ class Window(PyV8.JSClass):
         if prop and callable(prop[0]):
             return prop[0]()
 
+        if name in ('__members__', '__methods__'):
+            raise AttributeError(name)
+
         try:
             symbol = self.context.eval(name)
         except:
