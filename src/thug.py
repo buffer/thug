@@ -342,4 +342,11 @@ Synopsis:
         return log
 
 if __name__ == "__main__":
-    Thug(sys.argv[1:])()
+    if not os.getenv('THUG_PROFILE', None):
+        Thug(sys.argv[1:])()
+    else:
+        import cProfile
+        import pstats
+        cProfile.run('Thug(sys.argv[1:])()', 'countprof')
+        p = pstats.Stats('countprof')
+        p.print_stats()
