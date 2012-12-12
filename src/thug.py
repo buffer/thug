@@ -208,6 +208,7 @@ Synopsis:
 
     Options:
         -h, --help          \tDisplay this help information
+        -V, --version       \tDisplay Thug version
         -u, --useragent=    \tSelect a user agent (see below for values, default: winxpie60)
         -e, --events=       \tEnable comma-separated specified DOM events handling
         -w, --delay=        \tSet a maximum setTimeout/setInterval delay value (in milliseconds)
@@ -233,6 +234,10 @@ Synopsis:
             msg += "\t%s\t\t\t%s\n" % (key, value['description'], )
 
         print msg
+        sys.exit(0)
+
+    def version(self):
+        print "Thug %s" % (__thug_version__, )
         sys.exit(0)
 
     def run(self, window):
@@ -265,8 +270,9 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hu:e:w:n:o:r:p:lvdqaA:S:J:',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lvdqaA:S:J:',
                 ['help', 
+                'version',
                 'useragent=', 
                 'events=',
                 'delay=',
@@ -290,8 +296,10 @@ Synopsis:
             self.usage()
 
         for option in options:
-            if option[0] == '-h' or option[0] == '--help':
+            if option[0] in ('-h', '--help'):
                 self.usage()
+            if option[0] in ('-V', '--version'):
+                self.version()
 
         for option in options:
             if option[0] in ('-u', '--useragent', ):
