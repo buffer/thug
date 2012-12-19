@@ -231,7 +231,7 @@ Synopsis:
     Available User-Agents:
 """
         for key, value in sorted(log.ThugOpts.Personality.iteritems(), key = lambda (k, v): (v['id'], k)):
-            msg += "\t%s\t\t\t%s\n" % (key, value['description'], )
+            msg += "\t%s\t\t%s\n" % (key, value['description'], )
 
         print msg
         sys.exit(0)
