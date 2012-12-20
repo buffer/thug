@@ -23,8 +23,11 @@ from .CLSID import CLSID
 
 log = logging.getLogger("Thug")
 
+acropdf = ( 'acropdf.pdf',
+            'pdf.pdfctrl',
+            'CA8A9780-280D-11CF-A24D-444553540000', )
+
 class _ActiveXObject:
-    acropdf         = ( 'acropdf.pdf', 'pdf.pdfctrl', )
     shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10',
                         'shockwaveflash.shockwaveflash.9'  : '9' ,
                         'shockwaveflash.shockwaveflash.10' : '10' }
@@ -46,10 +49,10 @@ class _ActiveXObject:
         if type == 'name':
             cls = cls.lower()
 
-        if cls in self.acropdf:
-            if log.ThugVulnModules.acropdf_disabled:
-                log.warning("Unknown ActiveX Object: %s" % (cls, ))
-                raise TypeError()
+        # Adobe Acrobat Reader
+        if cls in acropdf and log.ThugVulnModules.acropdf_disabled:
+            log.warning("Unknown ActiveX Object: %s" % (cls, ))
+            raise TypeError()
 
         # Shockwave Flash
         if cls in self.shockwave_flash and not self.shockwave in (self.shockwave_flash[cls], ):
@@ -122,6 +125,11 @@ def register_object(s, clsid):
     clsid = clsid[6:].upper()
     if clsid.startswith('{') and clsid.endswith('}'):
         clsid = clsid[1:-1]
+
+    # Adobe Acrobat Reader
+    if clsid in acropdf and log.ThugVulnModules.acropdf_disabled:
+        log.warning("Unknown ActiveX Object: %s" % (clsid, ))
+        raise TypeError()
 
     for c in CLSID:
         if clsid in c['id']:
