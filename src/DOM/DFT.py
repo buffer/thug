@@ -490,8 +490,12 @@ class DFT(object):
         if not log.ThugOpts.Personality.isIE():
             return
 
-        if classid and id:
+        #if classid and id:
+        if classid:
             axo = _ActiveXObject(self.window, classid, 'id')
+            if id is None:
+                return
+
             setattr(self.window, id, axo)
             setattr(self.window.doc, id, axo)
 
