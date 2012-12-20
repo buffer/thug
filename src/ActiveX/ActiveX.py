@@ -24,7 +24,8 @@ from .CLSID import CLSID
 log = logging.getLogger("Thug")
 
 class _ActiveXObject:
-    shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10', 
+    acropdf         = ( 'acropdf.pdf', 'pdf.pdfctrl', )
+    shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10',
                         'shockwaveflash.shockwaveflash.9'  : '9' ,
                         'shockwaveflash.shockwaveflash.10' : '10' }
 
@@ -44,6 +45,11 @@ class _ActiveXObject:
         
         if type == 'name':
             cls = cls.lower()
+
+        if cls in self.acropdf:
+            if log.ThugVulnModules.acropdf_disabled:
+                log.warning("Unknown ActiveX Object: %s" % (cls, ))
+                raise TypeError()
 
         # Shockwave Flash
         if cls in self.shockwave_flash and not self.shockwave in (self.shockwave_flash[cls], ):
