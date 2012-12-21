@@ -115,10 +115,11 @@ class ThugOpts(dict):
 
 class ThugVulnModules(dict):
     def __init__(self):
-        self._acropdf_pdf      = '9.1.0'
-        self._acropdf_disabled = False
-        self._shockwave_flash  = '10.0.64.0'
-        self._javaplugin       = '1.6.0.32'
+        self._acropdf_pdf               = '9.1.0'
+        self._acropdf_disabled          = False
+        self._shockwave_flash           = '10.0.64.0'
+        self._shockwave_flash_disabled  = False
+        self._javaplugin                = '1.6.0.32'
 
     def invalid_version(self, version):
         for p in version.split('.'):
@@ -155,8 +156,15 @@ class ThugVulnModules(dict):
             return
 
         self._shockwave_flash = version
-       
+
     shockwave_flash = property(get_shockwave_flash, set_shockwave_flash)
+
+    def disable_shockwave_flash(self):
+        self._shockwave_flash_disabled = True
+
+    @property
+    def shockwave_flash_disabled(self):
+        return self._shockwave_flash_disabled
 
     def get_javaplugin(self):
         javaplugin = self._javaplugin.split('.')
@@ -234,6 +242,7 @@ Synopsis:
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
         -P, --no-adobepdf   \tDisable Adobe Acrobat Reader plugin
         -S, --shockwave=    \tSpecify the Shockwave Flash version (default: 10.0.64.0)
+        -R, --no-shockwave  \tDisable Shockwave Flash plugin
         -J, --javaplugin=   \tSpecify the JavaPlugin version (default: 1.6.0.32)
 
     Proxy Format:
@@ -281,7 +290,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lvdqaA:PS:J:',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lvdqaA:PS:RJ:',
                 ['help',
                 'version',
                 'useragent=',
@@ -293,12 +302,13 @@ Synopsis:
                 'proxy=',
                 'local',
                 'verbose',
-                'debug', 
+                'debug',
                 'quiet',
                 'ast-debug',
                 'adobepdf=',
                 'no-adobepdf',
                 'shockwave=',
+                'no-shockwave',
                 'javaplugin=',
                 ])
         except getopt.GetoptError:
@@ -339,7 +349,9 @@ Synopsis:
             if option[0] in ('-P', '--no-adobepdf', ):
                 log.ThugVulnModules.disable_acropdf()
             if option[0] in ('-S', '--shockwave', ):
-                log.ThugVulnModules.shockwave_flash = option[1] 
+                log.ThugVulnModules.shockwave_flash = option[1]
+            if option[0] in ('-R', '--no-shockwave', ):
+                log.ThugVulnModules.disable_shockwave_flash()
             if option[0] in ('-J', '--javaplugin', ):
                 log.ThugVulnModules.javaplugin = option[1]
 
@@ -359,7 +371,7 @@ Synopsis:
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
             p(args[0])
             ThugPlugins(POST_ANALYSIS_PLUGINS, self)()
-        
+
         log.ThugLogging.log_event()
         return log
 

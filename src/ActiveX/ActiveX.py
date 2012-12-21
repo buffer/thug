@@ -23,9 +23,16 @@ from .CLSID import CLSID
 
 log = logging.getLogger("Thug")
 
-acropdf = ( 'acropdf.pdf',
-            'pdf.pdfctrl',
-            'CA8A9780-280D-11CF-A24D-444553540000', )
+acropdf   = ( 'acropdf.pdf',
+              'pdf.pdfctrl',
+              'CA8A9780-280D-11CF-A24D-444553540000', )
+
+shockwave = ( 'shockwaveflash.shockwaveflash',
+              'shockwaveflash.shockwaveflash.9',
+              'shockwaveflash.shockwaveflash.10',
+              'swctl.swctl',
+              'swctl.swctl.8',
+              '233C1507-6A77-46A4-9443-F871F945D258', )
 
 class _ActiveXObject:
     shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10',
@@ -55,9 +62,13 @@ class _ActiveXObject:
             raise TypeError()
 
         # Shockwave Flash
-        if cls in self.shockwave_flash and not self.shockwave in (self.shockwave_flash[cls], ):
+        if cls in shockwave and log.ThugVulnModules.shockwave_flash_disabled:
             log.warning("Unknown ActiveX Object: %s" % (cls, ))
             raise TypeError()
+
+        if cls in self.shockwave_flash and not self.shockwave in (self.shockwave_flash[cls], ):
+                log.warning("Unknown ActiveX Object: %s" % (cls, ))
+                raise TypeError()
 
         _cls = cls
 
@@ -102,7 +113,7 @@ class _ActiveXObject:
 
     def __setattr__(self, name, value):
         self.__dict__[name] = value
-            
+
         if name in self.funcattrs:
             self.funcattrs[name](value)
 
@@ -129,6 +140,11 @@ def register_object(s, clsid):
     # Adobe Acrobat Reader
     if clsid in acropdf and log.ThugVulnModules.acropdf_disabled:
         log.warning("Unknown ActiveX Object: %s" % (clsid, ))
+        raise TypeError()
+
+    # Shockwave Flash
+    if cls in shockwave and log.ThugVulnModules.shockwave_flash_disabled:
+        log.warning("Unknown ActiveX Object: %s" % (cls, ))
         raise TypeError()
 
     for c in CLSID:

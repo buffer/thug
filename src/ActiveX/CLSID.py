@@ -117,7 +117,7 @@ CLSID = [
         # AcroPDF.PDF
         {
             'id'        : ( 'CA8A9780-280D-11CF-A24D-444553540000', ),
-            'name'      : ( 'acropdf.pdf', ),
+            'name'      : ( 'acropdf.pdf', 'pdf.pdfctrl', ),
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {
