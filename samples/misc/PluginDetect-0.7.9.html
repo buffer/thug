@@ -381,10 +381,11 @@
 		catch (e) {
 		}
 		
-		if (control)
+        if (control) {
 		    alert(control.GetVariable('$version').split(' ')[1].replace(/\,/gi,'.'));
 		    return {'name':'Adobe Flash','version':control.GetVariable('$version').split(' ')[1].replace(/\,/gi,'.')};
-		
+        }
+
 		return false;
 	    }
 	    
