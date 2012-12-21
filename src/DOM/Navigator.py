@@ -292,7 +292,7 @@ class Navigator(PyV8.JSClass):
         }
 
         if self._window.url not in ('about:blank', ):
-            http_headers['Referer'] = self.__normalize_url(self._window.url)
+            http_headers['Referer'] = self._normalize_url(self._window.url)
 
         if self._window.doc.cookie:
             http_headers['Cookie'] = self._window.doc.cookie
@@ -313,7 +313,7 @@ class Navigator(PyV8.JSClass):
 
         return "%s:%s" % (_base_url.scheme, url)
 
-    def __normalize_url(self, url):
+    def _normalize_url(self, url):
         if url.startswith('//'):
             url = self.__normalize_protocol_relative_url(url)
 
@@ -337,7 +337,7 @@ class Navigator(PyV8.JSClass):
         if url == 'about:blank':
             raise AboutBlank
 
-        url = self.__normalize_url(url)
+        url = self._normalize_url(url)
         if url is None:
             return
 

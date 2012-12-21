@@ -66,12 +66,14 @@ class AST(object):
 
     def walk(self, script):
         self.block_no = 1
-        
+
         try:
             PyV8.JSEngine().compile(script).visit(self)
         except UnicodeDecodeError:
             enc = chardet.detect(script)
             PyV8.JSEngine().compile(script.decode(enc['encoding'])).visit(self)
+        except:
+            pass
 
     def onProgram(self, prog):
         self.json = prog.toJSON()

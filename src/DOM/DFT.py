@@ -747,7 +747,11 @@ class DFT(object):
         if 'content-type' in response:
             handler = log.MIMEHandler.get_handler(response['content-type'])
             if handler and handler(content):
-                return 
+                return
+
+        _src = self.window._navigator._normalize_url(src)
+        if _src:
+            src = _src
 
         doc    = w3c.parseString(content)
         window = Window.Window(src, doc, personality = log.ThugOpts.useragent)
