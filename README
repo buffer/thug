@@ -148,14 +148,19 @@ Synopsis:
         -o, --output=       	Log to a specified file
         -r, --referer=      	Specify a referer
         -p, --proxy=        	Specify a proxy (see below for format and supported schemes)
-        -l, --local         
-        -v, --verbose       	Enable verbose mode    
+        -l, --local
+        -v, --verbose       	Enable verbose mode
         -d, --debug         	Enable debug mode
         -q, --quiet         	Disable console logging
         -a, --ast-debug     	Enable AST debug mode (requires debug mode)
+
+        Plugins:
         -A, --adobepdf=     	Specify the Adobe Acrobat Reader version (default: 9.1.0)
+        -P, --no-adobepdf   	Disable Adobe Acrobat Reader plugin
         -S, --shockwave=    	Specify the Shockwave Flash version (default: 10.0.64.0)
+        -R, --no-shockwave  	Disable Shockwave Flash plugin
         -J, --javaplugin=   	Specify the JavaPlugin version (default: 1.6.0.32)
+        -K, --no-javaplugin 	Disable Java plugin
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
