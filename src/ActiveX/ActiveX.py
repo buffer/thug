@@ -34,6 +34,9 @@ shockwave = ( 'shockwaveflash.shockwaveflash',
               'swctl.swctl.8',
               '233C1507-6A77-46A4-9443-F871F945D258', )
 
+java_deployment_toolkit = ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA',
+                            '8AD9C840-044E-11D1-B3E9-00805F499D93', )
+
 class _ActiveXObject:
     shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10',
                         'shockwaveflash.shockwaveflash.9'  : '9' ,
@@ -52,7 +55,7 @@ class _ActiveXObject:
 
             if cls.startswith('{') and cls.endswith('}'):
                 cls = cls[1:-1]
-        
+
         if type == 'name':
             cls = cls.lower()
 
@@ -72,9 +75,14 @@ class _ActiveXObject:
 
         _cls = cls
 
+        # Java Deployment Toolkit
+        if cls in java_deployment_toolkit and log.ThugVulnModules.javaplugin_disabled:
+            log.warning("Unknown ActiveX Object: %s" % (cls, ))
+            raise TypeError()
+
         # JavaPlugin
-        if cls.lower().startswith('javaplugin'): 
-            if not cls.endswith(log.ThugVulnModules.javaplugin):
+        if cls.lower().startswith('javaplugin'):
+            if log.ThugVulnModules.javaplugin_disabled or not cls.endswith(log.ThugVulnModules.javaplugin):
                 log.warning("Unknown ActiveX Object: %s" % (cls, ))
                 raise TypeError()
             else:
@@ -82,7 +90,7 @@ class _ActiveXObject:
 
         # JavaWebStart
         if cls.lower().startswith('javawebstart.isinstalled'):
-            if not cls.endswith(log.ThugVulnModules.javawebstart_isinstalled):
+            if log.ThugVulnModules.javaplugin_disabled or not cls.endswith(log.ThugVulnModules.javawebstart_isinstalled):
                 log.warning("Unknown ActiveX Object: %s" % (cls, ))
                 raise TypeError()
             else:
@@ -143,8 +151,23 @@ def register_object(s, clsid):
         raise TypeError()
 
     # Shockwave Flash
-    if cls in shockwave and log.ThugVulnModules.shockwave_flash_disabled:
-        log.warning("Unknown ActiveX Object: %s" % (cls, ))
+    if clsid in shockwave and log.ThugVulnModules.shockwave_flash_disabled:
+        log.warning("Unknown ActiveX Object: %s" % (clsid, ))
+        raise TypeError()
+
+    # Java Deployment Toolkit
+    if clsid in java_deployment_toolkit and log.ThugVulnModules.javaplugin_disabled:
+        log.warning("Unknown ActiveX Object: %s" % (clsid, ))
+        raise TypeError()
+
+    # JavaPlugin
+    if clsid.lower().startswith('javaplugin') and log.ThugVulnModules.javaplugin_disabled:
+        log.warning("Unknown ActiveX Object: %s" % (clsid, ))
+        raise TypeError()
+
+    # JavaWebStart
+    if clsid.lower().startswith('javawebstart.isinstalled') and log.ThugVulnModules.javaplugin_disabled:
+        log.warning("Unknown ActiveX Object: %s" % (clsid, ))
         raise TypeError()
 
     for c in CLSID:

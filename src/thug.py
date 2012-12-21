@@ -95,7 +95,7 @@ class ThugOpts(dict):
     def set_events(self, events):
         for e in events.split(","):
             self._events.append(e.lower().strip())
-        
+
     events = property(get_events, set_events)
 
     def get_delay(self):
@@ -120,6 +120,7 @@ class ThugVulnModules(dict):
         self._shockwave_flash           = '10.0.64.0'
         self._shockwave_flash_disabled  = False
         self._javaplugin                = '1.6.0.32'
+        self._javaplugin_disabled       = False
 
     def invalid_version(self, version):
         for p in version.split('.'):
@@ -187,6 +188,13 @@ class ThugVulnModules(dict):
 
     javaplugin = property(get_javaplugin, set_javaplugin)
 
+    def disable_javaplugin(self):
+        self._javaplugin_disabled = True
+
+    @property
+    def javaplugin_disabled(self):
+        return self._javaplugin_disabled
+
     @property
     def javawebstart_isinstalled(self):
         javawebstart = self._javaplugin.split('.')
@@ -244,6 +252,7 @@ Synopsis:
         -S, --shockwave=    \tSpecify the Shockwave Flash version (default: 10.0.64.0)
         -R, --no-shockwave  \tDisable Shockwave Flash plugin
         -J, --javaplugin=   \tSpecify the JavaPlugin version (default: 1.6.0.32)
+        -K, --no-javaplugin \tDisable Java plugin
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
@@ -290,7 +299,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lvdqaA:PS:RJ:',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lvdqaA:PS:RJ:K',
                 ['help',
                 'version',
                 'useragent=',
@@ -310,6 +319,7 @@ Synopsis:
                 'shockwave=',
                 'no-shockwave',
                 'javaplugin=',
+                'no-javaplugin',
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -354,6 +364,8 @@ Synopsis:
                 log.ThugVulnModules.disable_shockwave_flash()
             if option[0] in ('-J', '--javaplugin', ):
                 log.ThugVulnModules.javaplugin = option[1]
+            if option[0] in ('-K', '--no-javaplugin', ):
+                log.ThugVulnModules.disable_javaplugin()
 
         log.ThugLogging.set_basedir(args[0])
 
