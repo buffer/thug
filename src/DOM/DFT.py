@@ -492,7 +492,11 @@ class DFT(object):
 
         #if classid and id:
         if classid:
-            axo = _ActiveXObject(self.window, classid, 'id')
+            try:
+                axo = _ActiveXObject(self.window, classid, 'id')
+            except TypeError:
+                return
+
             if id is None:
                 return
 
