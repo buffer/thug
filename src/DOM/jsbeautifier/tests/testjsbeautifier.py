@@ -468,6 +468,8 @@ class TestJSBeautifier(unittest.TestCase):
         bt('if (foo) // comment\n(bar());');
         bt('if (foo) // comment\n/asdf/;');
 
+        bt('/* foo */\n"x"');
+
         bt("var a = 'foo' +\n    'bar';");
         bt("var a = \"foo\" +\n    \"bar\";");
 
@@ -478,6 +480,14 @@ class TestJSBeautifier(unittest.TestCase):
         bt('foo.bar().baz().cucumber(fat)\n foo.bar().baz().cucumber(fat)', 'foo.bar()\n    .baz()\n    .cucumber(fat)\nfoo.bar()\n    .baz()\n    .cucumber(fat)');
         bt('this.something = foo.bar().baz().cucumber(fat)', 'this.something = foo.bar()\n    .baz()\n    .cucumber(fat)');
         bt('this.something.xxx = foo.moo.bar()');
+
+        self.options.preserve_newlines = False
+        bt('var a = {\n"a":1,\n"b":2}', "var a = {\n    \"a\": 1,\n    \"b\": 2\n}");
+        bt("var a = {\n'a':1,\n'b':2}", "var a = {\n    'a': 1,\n    'b': 2\n}");
+        self.options.preserve_newlines = True
+        bt('var a = {\n"a":1,\n"b":2}', "var a = {\n    \"a\": 1,\n    \"b\": 2\n}");
+        bt("var a = {\n'a':1,\n'b':2}", "var a = {\n    'a': 1,\n    'b': 2\n}");
+
 
 
 
