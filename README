@@ -9,7 +9,7 @@ attacks, honeyclients allow the study of client-side attacks.
 
 A complement to honeypots, a honeyclient is a tool designed to mimic 
 the behavior of a user-driven network client application, such as a web 
-browser, and be exploited by an attacker’s content.
+browser, and be exploited by an attacker's content.
 
 Thug is a Python low-interaction honeyclient aimed at mimicing the 
 behavior of a web browser in order to detect and emulate malicious 
@@ -212,7 +212,7 @@ making a donation using Paypal (details at http://buffer.github.com/thug/).
 License information
 ===================
 
-Copyright (C) 2011-2012 Angelo Dell'Aera <buffer@antifork.org>
+Copyright (C) 2011-2013 Angelo Dell'Aera <buffer@antifork.org>
 
 License: GNU General Public License, version 2 or later; see COPYING.txt
          included in this archive for details.
