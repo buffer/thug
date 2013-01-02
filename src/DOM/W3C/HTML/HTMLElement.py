@@ -11,7 +11,6 @@ except:
 import bs4 as BeautifulSoup
 import logging
 
-from ActiveX.ActiveX import _ActiveXObject
 from Element import Element
 from Style.ElementCSSInlineStyle import ElementCSSInlineStyle
 from .attr_property import attr_property
