@@ -213,7 +213,6 @@ class OpaqueFilter(logging.Filter):
 class Thug:
     def __init__(self, args):
         self.args               = args
-        log.ThugLogging         = ThugLogging(__thug_version__)
         log.ThugOpts            = ThugOpts()
         log.ThugVulnModules     = ThugVulnModules()
         log.MIMEHandler         = MIMEHandler.MIMEHandler()
@@ -367,6 +366,7 @@ Synopsis:
             if option[0] in ('-K', '--no-javaplugin', ):
                 log.ThugVulnModules.disable_javaplugin()
 
+        log.ThugLogging = ThugLogging(__thug_version__)
         log.ThugLogging.set_basedir(args[0])
 
         for option in options:
