@@ -44,7 +44,7 @@ class MongoDB(object):
             import pymongo
             connection = pymongo.Connection(self.opts['host'], int(self.opts['port']))
         except:
-            log.warning('[MongoDB] MongoDB instance not available')
+            log.info('[MongoDB] MongoDB instance not available')
             return
         
         db           = connection.thug
