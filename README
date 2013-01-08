@@ -148,7 +148,8 @@ Synopsis:
         -o, --output=       	Log to a specified file
         -r, --referer=      	Specify a referer
         -p, --proxy=        	Specify a proxy (see below for format and supported schemes)
-        -l, --local
+        -l, --local             Analyze a locally saved page
+        -x, --local-nofetch     Analyze a locally saved page and prevent remote content fetching
         -v, --verbose       	Enable verbose mode
         -d, --debug         	Enable debug mode
         -q, --quiet         	Disable console logging
