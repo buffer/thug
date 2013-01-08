@@ -89,7 +89,7 @@ class Shellcode(object):
                 pass
 
     def run(self):
-        result = None
+        trace = None
 
         with Debugger() as dbg:
             dbg._context = self.ctxt
@@ -98,14 +98,19 @@ class Shellcode(object):
 
             try:
                 result = self.ctxt.eval(self.script)
-                PyV8.JSEngine.collect()
             except UnicodeDecodeError:
-                enc    = chardet.detect(self.script)
-                result = self.ctxt.eval(self.script.decode(enc['encoding']))
-                PyV8.JSEngine.collect()
+                enc = chardet.detect(self.script)
+                try:
+                    result = self.ctxt.eval(self.script.decode(enc['encoding']))
+                except:
+                    trace = traceback.format_exc()
             except:
-                log.debug(traceback.format_exc())
-                return result
+                trace = traceback.format_exc()
+            finally:
+                PyV8.JSEngine.collect()
+                if trace:
+                    log.ThugLogging.log_warning(trace)
+                    return None
 
             for name in self.ast.names:
                 s = None
