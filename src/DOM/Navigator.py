@@ -34,6 +34,8 @@ log = logging.getLogger("Thug")
 class AboutBlank(httplib2.HttpLib2Error): 
     pass
 
+class FetchForbidden(httplib2.HttpLib2Error):
+    pass
 
 class Navigator(PyV8.JSClass):
     def __init__(self, personality, window = None):
@@ -333,6 +335,9 @@ class Navigator(PyV8.JSClass):
 
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None):
         #httplib2.debuglevel = 1
+
+        if log.ThugOpts.no_fetch:
+            raise FetchForbidden
 
         if url == 'about:blank':
             raise AboutBlank

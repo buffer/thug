@@ -49,6 +49,7 @@ class ThugOpts(dict):
         self._referer    = 'about:blank'
         self._events     = list()
         self._delay      = 0
+        self._no_fetch   = False
         self.Personality = Personality()
 
     def set_proxy_info(self, proxy):
@@ -111,6 +112,14 @@ class ThugOpts(dict):
         self._delay = abs(_timeout)
 
     delay = property(get_delay, set_delay)
+
+    def get_no_fetch(self):
+        return self._no_fetch
+
+    def set_no_fetch(self, fetch):
+        self._no_fetch = fetch
+
+    no_fetch = property(get_no_fetch, set_no_fetch)
 
 
 class ThugVulnModules(dict):
@@ -239,7 +248,8 @@ Synopsis:
         -o, --output=       \tLog to a specified file
         -r, --referer=      \tSpecify a referer
         -p, --proxy=        \tSpecify a proxy (see below for format and supported schemes)
-        -l, --local
+        -l, --local         \tAnalyze a locally saved page
+        -x, --local-nofetch \tAnalyze a locally saved page and prevent remote content fetching
         -v, --verbose       \tEnable verbose mode
         -d, --debug         \tEnable debug mode
         -q, --quiet         \tDisable console logging
@@ -298,7 +308,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lvdqaA:PS:RJ:K',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqaA:PS:RJ:K',
                 ['help',
                 'version',
                 'useragent=',
@@ -309,6 +319,7 @@ Synopsis:
                 'referer=',
                 'proxy=',
                 'local',
+                'local-nofetch',
                 'verbose',
                 'debug',
                 'quiet',
@@ -347,6 +358,9 @@ Synopsis:
                 log.ThugOpts.proxy_info = option[1]
             if option[0] in ('-l', '--local', ):
                 p = getattr(self, 'run_local')
+            if option[0] in ('-x', '--local-nofetch', ):
+                p = getattr(self, 'run_local')
+                log.ThugOpts.no_fetch = True
             if option[0] in ('-v', '--verbose', ):
                 log.setLevel(logging.INFO)
             if option[0] in ('-d', '--debug', ):
