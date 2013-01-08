@@ -36,11 +36,14 @@ def send(self, varBody = None):
 
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] %s" % (msg, ))
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Fetching from URL %s (method: %s)" % (self.bstrUrl, self.bstrMethod, ))
-    
-    self.responseHeaders, self.responseBody = self._window._navigator.fetch(self.bstrUrl,
-                                                                            method  = self.bstrMethod,
-                                                                            headers = self.requestHeaders,
-                                                                            body    = varBody)
+
+    try:
+        self.responseHeaders, self.responseBody = self._window._navigator.fetch(self.bstrUrl,
+                                                                                method  = self.bstrMethod,
+                                                                                headers = self.requestHeaders,
+                                                                                body    = varBody)
+    except:
+        log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
 
 def setRequestHeader(self, bstrHeader, bstrValue):
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] setRequestHeaders('%s', '%s')" % (bstrHeader, bstrValue, ))
