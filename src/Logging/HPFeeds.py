@@ -68,6 +68,7 @@ class HPFeeds(object):
     def __init__(self):
         self.unpacker = FeedUnpack()
         self.opts     = dict()
+        self.url      = ""
         self.__init_config()
 
     def __init_config(self):
@@ -78,6 +79,9 @@ class HPFeeds(object):
         
         for option in config.options('HPFeeds'):
             self.opts[option] = config.get('HPFeeds', option)
+
+    def set_url(self, url):
+        self.url = url
 
     def msg_hdr(self, op, data):
         return struct.pack('!iB', 5 + len(data), op) + data
@@ -175,6 +179,22 @@ class HPFeeds(object):
 
         self.publish_data(data, 'thug.files', json.dumps(pubdata))
         self.sockfd.close()
+
+    def log_warning(self, pubdata):
+        if self.opts['enable'].lower() in ('false', ):
+            return
+
+        if log.ThugOpts.local:
+            return
+
+        self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        data = self.get_data(self.opts['host'], int(self.opts['port']))
+        if data is None:
+            return
+
+        self.publish_data(data, 'thug.warnings', json.dumps({'url': self.url, 'warning': pubdata}))
+        self.sockfd.close()
+
 
 if __name__ == '__main__':
     hpfeeds = HPFeeds()

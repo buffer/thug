@@ -40,6 +40,7 @@ class ThugLogging(BaseLogging):
         self.shellcode_urls = set()
 
     def set_url(self, url):
+        self.HPFeeds.set_url(url)
         self.MAEC.set_url(url)
         self.MongoDB.set_url(url)
 
@@ -67,6 +68,10 @@ class ThugLogging(BaseLogging):
             data = fd.read()
             self.HPFeeds.log_event(data)
             self.MongoDB.log_event(data)
+
+    def log_warning(self, data):
+        log.warning(data)
+        self.HPFeeds.log_warning(data)
 
     def log_redirect(self, response):
         if not response:
