@@ -47,8 +47,12 @@ class HTMLElement(Element, ElementCSSInlineStyle):
             name = getattr(node, 'name', None)
             if not name:
                 continue
-        
-            p = getattr(self.doc.window.doc.DFT, 'handle_%s' % (name, ), None)
+
+            try:
+                p = getattr(self.doc.window.doc.DFT, 'handle_%s' % (name, ), None)
+            except:
+                p = getattr(log.DFT, 'handle_%s' % (name, ), None)
+
             if p:
                 p(node)
             

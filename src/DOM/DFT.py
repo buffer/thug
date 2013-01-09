@@ -90,6 +90,7 @@ class DFT(object):
         self.anchors           = list()
         self.meta              = dict()
         self._context          = None
+        log.DFT                = self
         self._init_events()
    
     def _init_events(self):
