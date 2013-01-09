@@ -577,6 +577,9 @@ class DFT(object):
                 s.text = js
             except UnicodeDecodeError:
                 enc = chardet.detect(js)
+                if enc['encoding'] is None:
+                    return
+
                 s.text = js.decode(enc['encoding'])
 
             try:
