@@ -353,7 +353,7 @@ class Navigator(PyV8.JSClass):
 
         http_headers = self.__build_http_headers(headers)
 
-        h = httplib2.Http('/tmp/thug-cache-%s' % (os.getuid(), ),
+        h = httplib2.Http(cache      = log.ThugOpts.cache,
                           proxy_info = log.ThugOpts.proxy_info,
                           timeout    = 10,
                           disable_ssl_certificate_validation = True)

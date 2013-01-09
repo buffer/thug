@@ -153,6 +153,7 @@ Synopsis:
         -v, --verbose       	Enable verbose mode
         -d, --debug         	Enable debug mode
         -q, --quiet         	Disable console logging
+        -m, --no-cache          Disable local web cache
         -a, --ast-debug     	Enable AST debug mode (requires debug mode)
 
         Plugins:

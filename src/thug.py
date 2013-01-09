@@ -50,6 +50,7 @@ class ThugOpts(dict):
         self._events     = list()
         self._delay      = 0
         self._no_fetch   = False
+        self._cache      = '/tmp/thug-cache-%s' % (os.getuid(), )
         self.Personality = Personality()
 
     def set_proxy_info(self, proxy):
@@ -120,6 +121,14 @@ class ThugOpts(dict):
         self._no_fetch = fetch
 
     no_fetch = property(get_no_fetch, set_no_fetch)
+
+    def get_cache(self):
+        return self._cache
+
+    def set_cache(self, cache):
+        self._cache = cache
+
+    cache = property(get_cache, set_cache)
 
 
 class ThugVulnModules(dict):
@@ -253,6 +262,7 @@ Synopsis:
         -v, --verbose       \tEnable verbose mode
         -d, --debug         \tEnable debug mode
         -q, --quiet         \tDisable console logging
+        -m, --no-cache      \tDisable local web cache
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
 
         Plugins:
@@ -308,7 +318,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqaA:PS:RJ:K',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmaA:PS:RJ:K',
                 ['help',
                 'version',
                 'useragent=',
@@ -323,6 +333,7 @@ Synopsis:
                 'verbose',
                 'debug',
                 'quiet',
+                'no-cache',
                 'ast-debug',
                 'adobepdf=',
                 'no-adobepdf',
@@ -365,6 +376,8 @@ Synopsis:
                 log.setLevel(logging.INFO)
             if option[0] in ('-d', '--debug', ):
                 log.setLevel(logging.DEBUG)
+            if option[0] in ('-m', '--no-cache'):
+                log.ThugOpts.cache = None
             if option[0] in ('-a', '--ast-debug', ):
                 log.ThugOpts.ast_debug = True
             if option[0] in ('-A', '--adobepdf', ):
