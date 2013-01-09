@@ -296,8 +296,6 @@ class Node(PyV8.JSClass, EventTarget):
 
     #@abstractmethod
     def cloneNode(self, deep):
-        #pass
-
         # Returns a duplicate of this node
         cloned = copy.copy(self)
 
