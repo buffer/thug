@@ -14,51 +14,59 @@ Let's start our Thug tour by taking a look at the options it provides.
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -h
+    ~/thug/src $ python thug.py -h
 
-        Synopsis:
-                Thug: Pure Python honeyclient implementation
+    Synopsis:
+        Thug: Pure Python honeyclient implementation
 
-        Usage:
-                python thug.py [ options ] url
+    Usage:
+        python thug.py [ options ] url
 
-        Options:
-                -h, --help              Display this help information
-                -u, --useragent=        Select a user agent (see below for values, default: winxpie60)
-                -e, --events=           Enable comma-separated specified DOM events handling
-                -w, --delay=            Set a maximum setTimeout/setInterval delay value (in milliseconds)
-                -n, --logdir=           Set the log output directory
-                -o, --output=           Log to a specified file
-                -r, --referer=          Specify a referer
-                -p, --proxy=            Specify a proxy (see below for format and supported schemes)
-                -l, --local         
-                -v, --verbose           Enable verbose mode    
-                -d, --debug             Enable debug mode
-                -q, --quiet             Disable console logging
-                -a, --ast-debug         Enable AST debug mode (requires debug mode)
-                -A, --adobepdf=         Specify the Adobe Acrobat Reader version (default: 9.1.0)
-                -S, --shockwave=        Specify the Shockwave Flash version (default: 10.0.64.0)
-                -J, --javaplugin=       Specify the JavaPlugin version (default: 1.6.0.32)
+    Options:
+        -h, --help          	Display this help information
+        -V, --version       	Display Thug version
+        -u, --useragent=    	Select a user agent (see below for values, default: winxpie60)
+        -e, --events=       	Enable comma-separated specified DOM events handling
+        -w, --delay=        	Set a maximum setTimeout/setInterval delay value (in milliseconds)
+        -n, --logdir=       	Set the log output directory
+        -o, --output=       	Log to a specified file
+        -r, --referer=      	Specify a referer
+        -p, --proxy=        	Specify a proxy (see below for format and supported schemes)
+        -l, --local             Analyze a locally saved page
+        -x, --local-nofetch     Analyze a locally saved page and prevent remote content fetching
+        -v, --verbose       	Enable verbose mode
+        -d, --debug         	Enable debug mode
+        -q, --quiet         	Disable console logging
+        -m, --no-cache          Disable local web cache
+        -a, --ast-debug     	Enable AST debug mode (requires debug mode)
 
-        Proxy Format:
-                scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
+        Plugins:
+        -A, --adobepdf=     	Specify the Adobe Acrobat Reader version (default: 9.1.0)
+        -P, --no-adobepdf   	Disable Adobe Acrobat Reader plugin
+        -S, --shockwave=    	Specify the Shockwave Flash version (default: 10.0.64.0)
+        -R, --no-shockwave  	Disable Shockwave Flash plugin
+        -J, --javaplugin=   	Specify the JavaPlugin version (default: 1.6.0.32)
+        -K, --no-javaplugin 	Disable Java plugin
 
-        Available User-Agents:
-                winxpie60                       Internet Explorer 6.0   (Windows XP)
-                winxpie61                       Internet Explorer 6.1   (Windows XP)
-                winxpie70                       Internet Explorer 7.0   (Windows XP)
-                winxpie80                       Internet Explorer 8.0   (Windows XP)
-                winxpchrome20                   Chrome 20.0.1132.47     (Windows XP)
-                winxpfirefox12                  Firefox 12.0            (Windows XP)
-                winxpsafari5                    Safari 5.1.7            (Windows XP)
-                win2kie60                       Internet Explorer 6.0   (Windows 2000)
-                win2kie80                       Internet Explorer 8.0   (Windows 2000)
-                win7ie80                        Internet Explorer 8.0   (Windows 7)
-                win7ie90                        Internet Explorer 9.0   (Windows 7)
-                win7chrome20                    Chrome 20.0.1132.47     (Windows 7)
-                win7safari5                     Safari 5.1.7            (Windows 7)
-                osx10safari5                    Safari 5.1.1            (MacOS X 10.7.2)
-                osx10chrome19                   Chrome 19.0.1084.54     (MacOS X 10.7.4)
+    Proxy Format:
+        scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
+
+    Available User-Agents:
+	    winxpie60		        Internet Explorer 6.0	(Windows XP)
+	    winxpie61		        Internet Explorer 6.1	(Windows XP)
+	    winxpie70		        Internet Explorer 7.0	(Windows XP)
+	    winxpie80		        Internet Explorer 8.0	(Windows XP)
+	    winxpchrome20		    Chrome 20.0.1132.47	    (Windows XP)
+	    winxpfirefox12		    Firefox 12.0		    (Windows XP)
+	    winxpsafari5		    Safari 5.1.7		    (Windows XP)
+	    win2kie60		        Internet Explorer 6.0	(Windows 2000)
+	    win2kie80		        Internet Explorer 8.0	(Windows 2000)
+	    win7ie80		        Internet Explorer 8.0	(Windows 7)
+	    win7ie90		        Internet Explorer 9.0	(Windows 7)
+	    win7chrome20		    Chrome 20.0.1132.47	    (Windows 7)
+	    win7safari5		        Safari 5.1.7		    (Windows 7)
+	    osx10safari5		    Safari 5.1.1		    (MacOS X 10.7.2)
+	    osx10chrome19		    Chrome 19.0.1084.54	    (MacOS X 10.7.4)
 
 
 Let's start with a first basic real-world example: a Blackhole exploit kit.  
@@ -712,6 +720,67 @@ later (manual or automated) analysis (see also *Web Cache*)
 
         [2012-07-03 00:12:23] Saving log analysis at ../logs/c8f4c752383eb87ac4381a4f3f101ca7/20120703001222
 
+If you need to prevent remote content fetching while analyzing a locally saved page Thug
+provides the *-x (--local-nofetch)* option to you. Let's take a look at an example.
+
+.. code-block:: sh
+
+    ~/thug/src $ python thug.py -l ../samples/exploits/55875.html 
+    [2013-01-08 10:32:28] <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    [2013-01-08 10:32:28] <meta content="Acer Inc.'s shares fell sharply Tuesday, one day after the Taiwanese computer maker said it would acquire Gateway Inc. for $710 million.  Acer said it ..." name="description"/>
+    [2013-01-08 10:32:28] <meta content="index,follow" name="robots"/>
+    [2013-01-08 10:32:28] <meta content="Copyright (c)2007-2007 groundhogtech.com. All right reserved." name="copyright"/>
+    [2013-01-08 10:32:28] <meta content="WordPress 2.2.1" name="generator"/>
+    [2013-01-08 10:32:28] [Meta] Generator: WordPress 2.2.1
+    [2013-01-08 10:32:28] <meta content="document" name="resource-type"/>
+    [2013-01-08 10:32:28] <link href="http://www.groundhogtech.com/favicon.ico" rel="shortcut icon"/>
+    [2013-01-08 10:32:28] [HTTP] URL: http://www.groundhogtech.com/favicon.ico (Status: 204, Referrer: None)
+    [2013-01-08 10:32:28] [HTTP] URL: http://www.groundhogtech.com/favicon.ico (Content-type: text/plain; charset=UTF-8, MD5: d41d8cd98f00b204e9800998ecf8427e)
+    [2013-01-08 10:32:28] <link href="http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css" media="screen" rel="stylesheet" type="text/css"/>
+    [2013-01-08 10:32:29] [HTTP] URL: http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css (Status: 200, Referrer: None)
+    [2013-01-08 10:32:29] [HTTP] URL: http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css (Content-type: text/html; charset=UTF-8, MD5: 64f3fd00b16de9316bf2b7b57925f4ca)
+    [2013-01-08 10:32:29] <link href="http://www.groundhogtech.com/feed/" rel="alternate" title="Groundhogtech RSS Feed" type="application/rss+xml"/>
+    [2013-01-08 10:32:30] [HTTP] URL: http://www.groundhogtech.com/feed/ (Status: 200, Referrer: None)
+    [2013-01-08 10:32:30] [HTTP] URL: http://www.groundhogtech.com/feed/ (Content-type: text/html; charset=UTF-8, MD5: 0f3dffbe75d901cf28d63f2e8c945815)
+    [2013-01-08 10:32:30] <link href="http://www.groundhogtech.com/xmlrpc.php" rel="pingback"/>
+    [2013-01-08 10:32:30] [HTTP] URL: http://www.groundhogtech.com/xmlrpc.php (Status: 200, Referrer: None)
+    [2013-01-08 10:32:30] [HTTP] URL: http://www.groundhogtech.com/xmlrpc.php (Content-type: text/html; charset=UTF-8, MD5: ce1ec1253cf77acb1a86d38c80a83ca2)
+    [2013-01-08 10:32:30] <link href="http://www.groundhogtech.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+    [2013-01-08 10:32:31] [HTTP] URL: http://www.groundhogtech.com/xmlrpc.php?rsd (Status: 200, Referrer: None)
+    [2013-01-08 10:32:31] [HTTP] URL: http://www.groundhogtech.com/xmlrpc.php?rsd (Content-type: text/html; charset=UTF-8, MD5: d178bfd11bc1b88fc37be47b515210eb)
+    [2013-01-08 10:32:31] [HTTP] URL: http://www.vklabs.com/wordpress-themes/show-version-xhtml-ad-flex-niche.php?version=0.8.9.8h (Status: 200, Referrer: None)
+    [2013-01-08 10:32:31] [HTTP] URL: http://www.vklabs.com/wordpress-themes/show-version-xhtml-ad-flex-niche.php?version=0.8.9.8h (Content-type: text/html, MD5: cd382dd315e1c83a108dd8009bad9f70)
+    [2013-01-08 10:32:32] <iframe frameborder="0" height="0" marginheight="0" marginwidth="0" scrolling="no" src="http://81.95.149.27/go.php?sid=1" style="border:0px solid gray;" width="0"></iframe>
+    [2013-01-08 10:32:32] [iframe redirection] about:blank -> http://81.95.149.27/go.php?sid=1
+    [2013-01-08 10:32:42] [HTTP] URL: http://81.95.149.27/go.php?sid=1 (Status: 408, Referrer: None)
+    [2013-01-08 10:32:42] [Request Timeout] URL: http://81.95.149.27/go.php?sid=1
+    [2013-01-08 10:32:42] <iframe frameborder="0" height="0" marginheight="0" marginwidth="0" scrolling="no" src="http://81.95.149.27/go.php?sid=1" style="border:0px solid gray;" width="0"></iframe>
+    [2013-01-08 10:32:42] [iframe redirection] about:blank -> http://81.95.149.27/go.php?sid=1
+    [2013-01-08 10:32:52] [HTTP] URL: http://81.95.149.27/go.php?sid=1 (Status: 408, Referrer: None)
+    [2013-01-08 10:32:52] [Request Timeout] URL: http://81.95.149.27/go.php?sid=1
+    [2013-01-08 10:32:53] Saving log analysis at ../logs/f31f8f54bf5daa0effb237ddc4ad3727/20130108103227
+
+This is what we expect. Let's prevent remote content fetching now while analyzing the same
+locally saved page.
+
+.. code-block:: sh
+
+    ~/thug/src $ python thug.py -x ../samples/exploits/55875.html 
+    [2013-01-08 10:33:00] <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    [2013-01-08 10:33:00] <meta content="Acer Inc.'s shares fell sharply Tuesday, one day after the Taiwanese computer maker said it would acquire Gateway Inc. for $710 million.  Acer said it ..." name="description"/>
+    [2013-01-08 10:33:00] <meta content="index,follow" name="robots"/>
+    [2013-01-08 10:33:00] <meta content="Copyright (c)2007-2007 groundhogtech.com. All right reserved." name="copyright"/>
+    [2013-01-08 10:33:00] <meta content="WordPress 2.2.1" name="generator"/>
+    [2013-01-08 10:33:00] [Meta] Generator: WordPress 2.2.1
+    [2013-01-08 10:33:00] <meta content="document" name="resource-type"/>
+    [2013-01-08 10:33:00] <link href="http://www.groundhogtech.com/favicon.ico" rel="shortcut icon"/>
+    [2013-01-08 10:33:00] <link href="http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css" media="screen" rel="stylesheet" type="text/css"/>
+    [2013-01-08 10:33:00] <link href="http://www.groundhogtech.com/feed/" rel="alternate" title="Groundhogtech RSS Feed" type="application/rss+xml"/>
+    [2013-01-08 10:33:00] <link href="http://www.groundhogtech.com/xmlrpc.php" rel="pingback"/>
+    [2013-01-08 10:33:01] <link href="http://www.groundhogtech.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
+    [2013-01-08 10:33:01] <iframe frameborder="0" height="0" marginheight="0" marginwidth="0" scrolling="no" src="http://81.95.149.27/go.php?sid=1" style="border:0px solid gray;" width="0"></iframe>
+    [2013-01-08 10:33:01] Saving log analysis at ../logs/f31f8f54bf5daa0effb237ddc4ad3727/20130108103259
+ 
 
 Web Cache
 ---------
