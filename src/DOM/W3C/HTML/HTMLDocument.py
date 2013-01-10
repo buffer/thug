@@ -143,7 +143,11 @@ class HTMLDocument(Document):
                 if name is None:
                     continue
 
-                handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
+                try:
+                    handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
+                except:
+                    handler = getattr(log.DFT, "handle_%s" % (name, ), None)
+
                 if handler:
                     handler(tag)
 
