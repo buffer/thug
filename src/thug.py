@@ -303,7 +303,9 @@ Synopsis:
         self.run(window)
 
     def run_remote(self, url):
-        if urlparse.urlparse(url).scheme is '':
+        scheme = urlparse.urlparse(url).scheme
+
+        if not scheme or not scheme.startswith('http'):
             url = 'http://%s' % (url, )
 
         log.ThugLogging.set_url(url)
