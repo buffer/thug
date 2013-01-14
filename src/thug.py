@@ -363,8 +363,6 @@ Synopsis:
                 log.ThugOpts.events = option[1]
             if option[0] in ('-w', '--delay'):
                 log.ThugOpts.delay = option[1]
-            if option[0] in ('-n', '--logdir'):
-                log.ThugLogging.set_absbasedir(option[1])
             if option[0] in ('-r', '--referer', ):
                 log.ThugOpts.referer = option[1]
             if option[0] in ('-p', '--proxy', ):
@@ -399,6 +397,8 @@ Synopsis:
         log.ThugLogging.set_basedir(args[0])
 
         for option in options:
+            if option[0] in ('-n', '--logdir'):
+                log.ThugLogging.set_absbasedir(option[1])
             if option[0] in ('-o', '--output', ):
                 fh = logging.FileHandler(os.path.join(log.ThugLogging.baseDir, option[1]))
                 log.addHandler(fh)
