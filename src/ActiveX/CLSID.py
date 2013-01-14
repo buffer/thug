@@ -82,6 +82,7 @@ from .modules import ShellApplication
 from .modules import Shockwave
 from .modules import ShockwaveFlash9
 from .modules import ShockwaveFlash10
+from .modules import ShockwaveFlash11
 from .modules import SinaDLoader
 from .modules import SnapshotViewer
 from .modules import SonicWallNetExtenderAddRouteEntry
@@ -981,7 +982,7 @@ CLSID = [
         # ShockwaveFlash.ShockwaveFlash.9
         {
             'id'        : (),
-            'name'      : ( 'shockwaveflash.shockwaveflash.9'),
+            'name'      : ( 'shockwaveflash.shockwaveflash.9', ),
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {
@@ -997,6 +998,17 @@ CLSID = [
             'funcattrs' : {},
             'methods'   : {
                             'GetVariable'   : ShockwaveFlash10.GetVariable,
+                          }
+        },
+
+        # ShockwaveFlash.ShockwaveFlash.11
+        {
+            'id'        : (),
+            'name'      : ( 'shockwaveflash.shockwaveflash.11', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'GetVariable'   : ShockwaveFlash11.GetVariable,
                           }
         },
 
