@@ -27,7 +27,7 @@ import unittest
 from DOMException import DOMException
 from Node import Node
 from HTML.HTMLFormElement import HTMLFormElement
-from Style.CSSStyleDeclaration import CSSStyleDeclaration
+from Style.CSS.CSSStyleDeclaration import CSSStyleDeclaration
 
 TEST_HTML = """
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

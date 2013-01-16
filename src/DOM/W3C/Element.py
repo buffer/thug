@@ -10,7 +10,7 @@ from Attr import Attr
 from Node import Node
 from DOMException import DOMException
 
-from Style.ElementCSSInlineStyle import ElementCSSInlineStyle
+from Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 log = logging.getLogger("Thug")
 
 

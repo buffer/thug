@@ -12,7 +12,7 @@ import bs4 as BeautifulSoup
 import logging
 
 from Element import Element
-from Style.ElementCSSInlineStyle import ElementCSSInlineStyle
+from Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 from .attr_property import attr_property
 from .text_property import text_property
 
