@@ -353,7 +353,7 @@ class Personality(dict):
                 "buildID"         : None,
                 "javaUserAgent"   : None,
                 "cc_on"           : None,
-                "browserTag"      : "chrome20",
+                "browserTag"      : "chrome19",
                 }
 
         # Android personalities
