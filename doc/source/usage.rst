@@ -16,57 +16,58 @@ Let's start our Thug tour by taking a look at the options it provides.
 
     ~/thug/src $ python thug.py -h
 
-    Synopsis:
-        Thug: Pure Python honeyclient implementation
+Synopsis:
+    Thug: Pure Python honeyclient implementation
 
     Usage:
         python thug.py [ options ] url
 
     Options:
-        -h, --help          	Display this help information
-        -V, --version       	Display Thug version
-        -u, --useragent=    	Select a user agent (see below for values, default: winxpie60)
-        -e, --events=       	Enable comma-separated specified DOM events handling
-        -w, --delay=        	Set a maximum setTimeout/setInterval delay value (in milliseconds)
-        -n, --logdir=       	Set the log output directory
-        -o, --output=       	Log to a specified file
-        -r, --referer=      	Specify a referer
-        -p, --proxy=        	Specify a proxy (see below for format and supported schemes)
+        -h, --help              Display this help information
+        -V, --version           Display Thug version
+        -u, --useragent=        Select a user agent (see below for values, default: winxpie60)
+        -e, --events=           Enable comma-separated specified DOM events handling
+        -w, --delay=            Set a maximum setTimeout/setInterval delay value (in milliseconds)
+        -n, --logdir=           Set the log output directory
+        -o, --output=           Log to a specified file
+        -r, --referer=          Specify a referer
+        -p, --proxy=            Specify a proxy (see below for format and supported schemes)
         -l, --local             Analyze a locally saved page
         -x, --local-nofetch     Analyze a locally saved page and prevent remote content fetching
-        -v, --verbose       	Enable verbose mode
-        -d, --debug         	Enable debug mode
-        -q, --quiet         	Disable console logging
+        -v, --verbose           Enable verbose mode
+        -d, --debug             Enable debug mode
+        -q, --quiet             Disable console logging
         -m, --no-cache          Disable local web cache
-        -a, --ast-debug     	Enable AST debug mode (requires debug mode)
+        -a, --ast-debug         Enable AST debug mode (requires debug mode)
 
         Plugins:
-        -A, --adobepdf=     	Specify the Adobe Acrobat Reader version (default: 9.1.0)
-        -P, --no-adobepdf   	Disable Adobe Acrobat Reader plugin
-        -S, --shockwave=    	Specify the Shockwave Flash version (default: 10.0.64.0)
-        -R, --no-shockwave  	Disable Shockwave Flash plugin
-        -J, --javaplugin=   	Specify the JavaPlugin version (default: 1.6.0.32)
-        -K, --no-javaplugin 	Disable Java plugin
+        -A, --adobepdf=         Specify the Adobe Acrobat Reader version (default: 9.1.0)
+        -P, --no-adobepdf       Disable Adobe Acrobat Reader plugin
+        -S, --shockwave=        Specify the Shockwave Flash version (default: 10.0.64.0)
+        -R, --no-shockwave      Disable Shockwave Flash plugin
+        -J, --javaplugin=       Specify the JavaPlugin version (default: 1.6.0.32)
+        -K, --no-javaplugin     Disable Java plugin
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
 
     Available User-Agents:
-	    winxpie60		        Internet Explorer 6.0	(Windows XP)
-	    winxpie61		        Internet Explorer 6.1	(Windows XP)
-	    winxpie70		        Internet Explorer 7.0	(Windows XP)
-	    winxpie80		        Internet Explorer 8.0	(Windows XP)
-	    winxpchrome20		    Chrome 20.0.1132.47	    (Windows XP)
-	    winxpfirefox12		    Firefox 12.0		    (Windows XP)
-	    winxpsafari5		    Safari 5.1.7		    (Windows XP)
-	    win2kie60		        Internet Explorer 6.0	(Windows 2000)
-	    win2kie80		        Internet Explorer 8.0	(Windows 2000)
-	    win7ie80		        Internet Explorer 8.0	(Windows 7)
-	    win7ie90		        Internet Explorer 9.0	(Windows 7)
-	    win7chrome20		    Chrome 20.0.1132.47	    (Windows 7)
-	    win7safari5		        Safari 5.1.7		    (Windows 7)
-	    osx10safari5		    Safari 5.1.1		    (MacOS X 10.7.2)
-	    osx10chrome19		    Chrome 19.0.1084.54	    (MacOS X 10.7.4)
+        winxpie60               Internet Explorer 6.0   (Windows XP)
+        winxpie61               Internet Explorer 6.1   (Windows XP)
+        winxpie70               Internet Explorer 7.0   (Windows XP)
+        winxpie80               Internet Explorer 8.0   (Windows XP)
+        winxpchrome20           Chrome 20.0.1132.47     (Windows XP)
+        winxpfirefox12          Firefox 12.0            (Windows XP)
+        winxpsafari5            Safari 5.1.7            (Windows XP)
+        win2kie60               Internet Explorer 6.0   (Windows 2000)
+        win2kie80               Internet Explorer 8.0   (Windows 2000)
+        win7ie80                Internet Explorer 8.0   (Windows 7)
+        win7ie90                Internet Explorer 9.0   (Windows 7)
+        win7chrome20            Chrome 20.0.1132.47     (Windows 7)
+        win7safari5             Safari 5.1.7            (Windows 7)
+        osx10safari5            Safari 5.1.1            (MacOS X 10.7.2)
+        osx10chrome19           Chrome 19.0.1084.54     (MacOS X 10.7.4)
+        galaxy2chrome18         Chrome 18.0.1025.166    (Samsung Galaxy S II, Android 4.0.3)
 
 
 Let's start with a first basic real-world example: a Blackhole exploit kit.  
