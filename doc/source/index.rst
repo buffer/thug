@@ -16,10 +16,10 @@ Thug makes use of the Google V8 Javascript engine [#f2]_ wrapped through PyV8 [#
 analyze malicious Javascript code and of the Libemu library [#f4]_ wrapped through Pylibemu [#f5]_
 in order to detect and emulate shellcodes.
 
-Currently 8 Internet Explorer (Windows XP, Windows 2000 and Windows 7), 3 Chrome (Windows XP,
-Windows 7, MacOS X), 1 Firefox (Windows XP) and 3 Safari (Windows XP, Windows 7, MacOS X)
-personalities are emulated and about 90 vulnerability modules (ActiveX controls, core browser
-functionalities, browser plugins) are provided.
+Currently 8 Internet Explorer (Windows XP, Windows 2000 and Windows 7), 4 Chrome (Windows XP,
+Windows 7, MacOS X, Android 4.0.3), 1 Firefox (Windows XP) and 3 Safari (Windows XP, Windows 7, 
+MacOS X) personalities are emulated and about 90 vulnerability modules (ActiveX controls, core 
+browser functionalities, browser plugins) are provided.
 
 .. toctree::
    :maxdepth: 2
