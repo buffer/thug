@@ -90,8 +90,7 @@ def xpath_property(xpath, readonly = False):
                     tag.contents[0] = BeautifulSoup.NavigableString(value)
                 else:
                     tag.append(value)                    
-                    
-                tag.string = tag.contents[0]
+                    tag.string = tag.contents[0]
                 return
             else:
                 child = tag.find(part)
