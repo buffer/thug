@@ -33,6 +33,19 @@ Python 2.7 is required in order to properly run Thug. You may be lucky running i
 Python 2.6 but please consider that it is not supported so issues related to Python 2.6
 will be simply ignored. Python source code can be downloaded at http://www.python.org.
 
+.. code-block:: sh
+
+        $ sudo aptitude install python2.7 python2.7-dev
+
+Thug
+^^^^
+
+Get Thug by cloning the git repository.
+
+.. code-block:: sh
+
+        $ sudo aptitude install git
+        $ git clone git://github.com/buffer/thug.git
 
 Google V8/PyV8
 ^^^^^^^^^^^^^^
@@ -53,6 +66,7 @@ below.
 
 .. code-block:: sh
 
+        $ sudo aptitude install subversion
         $ svn checkout http://v8.googlecode.com/svn/trunk/ v8
 
 2. Patch V8 source code with the patches you can find in thug/patches
@@ -88,6 +102,7 @@ below.
 
 .. code-block:: sh
 
+        ~/pyv8 $ sudo aptitude install build-essential libboost-python-dev
         ~/pyv8 $ python setup.py build
         ~/pyv8 $ sudo python setup.py install
 
@@ -97,7 +112,7 @@ below.
 
         ~/pyv8 $ python PyV8.py
 
-   If no problems occur, you have successfully installed V8 and PyV8.
+If no problems occur, you have successfully installed V8 and PyV8.
 
 
 Beautiful Soup 4
@@ -112,6 +127,7 @@ to install Beautiful Soup 4 is through easy_install.
 
 .. code-block:: sh
 
+        $ sudo aptitude install python-setuptools
         # easy_install beautifulsoup4  
 
  
@@ -144,6 +160,7 @@ below
 
 .. code-block:: sh
 
+        $ sudo aptitude install autoconf libtool
         $ git clone git://git.carnivore.it/libemu.git
         $ cd libemu
         $ autoreconf -v -i
@@ -167,6 +184,7 @@ below
 .. code-block:: sh
         
         $ git clone git://github.com/buffer/pylibemu.git
+        $ cd pylibemu
         $ python setup.py build
         $ sudo python setup.py install
 
@@ -248,8 +266,11 @@ MongoDB (optional)
 
 MongoDB homepage is located at http://www.mongodb.org.
 
-If not available as a package for your Linux distribution, change distribution!
+If not available as a package for your Linux distribution, change distribution! Otherwise you can install it via synaptic.
 
+.. code-block:: sh
+
+        $ sudo aptitude install mongodb
 
 PyMongo (optional)
 ^^^^^^^^^^^^^^^^^^
@@ -262,3 +283,18 @@ to install pymongo is through easy_install.
 
         # easy_install pymongo  
 
+-----------
+
+You can now execute Thug.
+
+.. code-block:: sh
+
+    ~/thug/src $ python thug.py -h
+
+If you get the following error: "ImportError: libemu.so.2: cannot open shared object file: No such file or directory" try the solution below.
+
+.. code-block:: sh
+
+        # touch /etc/ld.so.conf.d/libemu.conf
+        # echo "/opt/libemu/lib/" > /etc/ld.so.conf.d/libemu.conf
+        # ldconfig
