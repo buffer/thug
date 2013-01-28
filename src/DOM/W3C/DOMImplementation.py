@@ -50,6 +50,7 @@ from HTML.HTMLScriptElement import HTMLScriptElement
 from HTML.HTMLFrameSetElement import HTMLFrameSetElement
 from HTML.HTMLFrameElement import HTMLFrameElement
 from HTML.HTMLIFrameElement import HTMLIFrameElement
+from HTML.HTMLTableElement import HTMLTableElement
 from HTML.HTMLDocument import HTMLDocument
 
 class DOMImplementation(HTMLDocument):
@@ -130,6 +131,7 @@ class DOMImplementation(HTMLDocument):
         "frameset"      : HTMLFrameSetElement,
         "frame"         : HTMLFrameElement,
         "iframe"        : HTMLIFrameElement,
+        "table"         : HTMLTableElement,
     }
         
     @staticmethod
