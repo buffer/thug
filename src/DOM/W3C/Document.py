@@ -74,7 +74,7 @@ class Document(Node, DocumentEvent, DocumentView):
         
     onCreateElement = None
     
-    def createElement(self, tagname):
+    def createElement(self, tagname, tagvalue = None):
         from DOMImplementation import DOMImplementation
 
         # Internet Explorer 8 and below also support the syntax
