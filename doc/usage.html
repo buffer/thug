@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.4.16 documentation</title>
+    <title>Usage &mdash; Thug 0.4.18 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.16',
+        VERSION:     '0.4.18',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.16 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.4.18 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="Build and Install" href="build.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="build.html" title="Build and Install"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.16 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.18 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -65,54 +65,55 @@
 Synopsis:
     Thug: Pure Python honeyclient implementation
 
-Usage:
-    python thug.py <span class="o">[</span> options <span class="o">]</span> url
+    Usage:
+        python thug.py <span class="o">[</span> options <span class="o">]</span> url
 
-Options:
-    -h, --help              Display this <span class="nb">help </span>information
-    -V, --version           Display Thug version
-    -u, --useragent<span class="o">=</span>        Select a user agent <span class="o">(</span>see below <span class="k">for </span>values, default: winxpie60<span class="o">)</span>
-    -e, --events<span class="o">=</span>           Enable comma-separated specified DOM events handling
-    -w, --delay<span class="o">=</span>            Set a maximum setTimeout/setInterval delay value <span class="o">(</span>in milliseconds<span class="o">)</span>
-    -n, --logdir<span class="o">=</span>           Set the log output directory
-    -o, --output<span class="o">=</span>           Log to a specified file
-    -r, --referer<span class="o">=</span>          Specify a referer
-    -p, --proxy<span class="o">=</span>            Specify a proxy <span class="o">(</span>see below <span class="k">for </span>format and supported schemes<span class="o">)</span>
-    -l, --local             Analyze a locally saved page
-    -x, --local-nofetch     Analyze a locally saved page and prevent remote content fetching
-    -v, --verbose           Enable verbose mode
-    -d, --debug             Enable debug mode
-    -q, --quiet             Disable console logging
-    -m, --no-cache          Disable <span class="nb">local </span>web cache
-    -a, --ast-debug         Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
+    Options:
+        -h, --help              Display this <span class="nb">help </span>information
+        -V, --version           Display Thug version
+        -u, --useragent<span class="o">=</span>        Select a user agent <span class="o">(</span>see below <span class="k">for </span>values, default: winxpie60<span class="o">)</span>
+        -e, --events<span class="o">=</span>           Enable comma-separated specified DOM events handling
+        -w, --delay<span class="o">=</span>            Set a maximum setTimeout/setInterval delay value <span class="o">(</span>in milliseconds<span class="o">)</span>
+        -n, --logdir<span class="o">=</span>           Set the log output directory
+        -o, --output<span class="o">=</span>           Log to a specified file
+        -r, --referer<span class="o">=</span>          Specify a referer
+        -p, --proxy<span class="o">=</span>            Specify a proxy <span class="o">(</span>see below <span class="k">for </span>format and supported schemes<span class="o">)</span>
+        -l, --local             Analyze a locally saved page
+        -x, --local-nofetch     Analyze a locally saved page and prevent remote content fetching
+        -v, --verbose           Enable verbose mode
+        -d, --debug             Enable debug mode
+        -q, --quiet             Disable console logging
+        -m, --no-cache          Disable <span class="nb">local </span>web cache
+        -a, --ast-debug         Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
 
-    Plugins:
-    -A, --adobepdf<span class="o">=</span>         Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 9.1.0<span class="o">)</span>
-    -P, --no-adobepdf       Disable Adobe Acrobat Reader plugin
-    -S, --shockwave<span class="o">=</span>        Specify the Shockwave Flash version <span class="o">(</span>default: 10.0.64.0<span class="o">)</span>
-    -R, --no-shockwave      Disable Shockwave Flash plugin
-    -J, --javaplugin<span class="o">=</span>       Specify the JavaPlugin version <span class="o">(</span>default: 1.6.0.32<span class="o">)</span>
-    -K, --no-javaplugin     Disable Java plugin
+        Plugins:
+        -A, --adobepdf<span class="o">=</span>         Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 9.1.0<span class="o">)</span>
+        -P, --no-adobepdf       Disable Adobe Acrobat Reader plugin
+        -S, --shockwave<span class="o">=</span>        Specify the Shockwave Flash version <span class="o">(</span>default: 10.0.64.0<span class="o">)</span>
+        -R, --no-shockwave      Disable Shockwave Flash plugin
+        -J, --javaplugin<span class="o">=</span>       Specify the JavaPlugin version <span class="o">(</span>default: 1.6.0.32<span class="o">)</span>
+        -K, --no-javaplugin     Disable Java plugin
 
-Proxy Format:
-    scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port <span class="o">(</span>supported schemes: http, socks4, socks5<span class="o">)</span>
+    Proxy Format:
+        scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port <span class="o">(</span>supported schemes: http, socks4, socks5<span class="o">)</span>
 
-Available User-Agents:
-        winxpie60                   Internet Explorer 6.0   <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpie61                   Internet Explorer 6.1   <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpie70                   Internet Explorer 7.0   <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpie80                   Internet Explorer 8.0   <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpchrome20                   Chrome 20.0.1132.47     <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpfirefox12                  Firefox 12.0                    <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpsafari5                    Safari 5.1.7                    <span class="o">(</span>Windows XP<span class="o">)</span>
-        win2kie60                   Internet Explorer 6.0   <span class="o">(</span>Windows 2000<span class="o">)</span>
-        win2kie80                   Internet Explorer 8.0   <span class="o">(</span>Windows 2000<span class="o">)</span>
-        win7ie80                    Internet Explorer 8.0   <span class="o">(</span>Windows 7<span class="o">)</span>
-        win7ie90                    Internet Explorer 9.0   <span class="o">(</span>Windows 7<span class="o">)</span>
-        win7chrome20                    Chrome 20.0.1132.47     <span class="o">(</span>Windows 7<span class="o">)</span>
-        win7safari5                 Safari 5.1.7                <span class="o">(</span>Windows 7<span class="o">)</span>
-        osx10safari5                    Safari 5.1.1                    <span class="o">(</span>MacOS X 10.7.2<span class="o">)</span>
-        osx10chrome19                   Chrome 19.0.1084.54     <span class="o">(</span>MacOS X 10.7.4<span class="o">)</span>
+    Available User-Agents:
+        winxpie60               Internet Explorer 6.0   <span class="o">(</span>Windows XP<span class="o">)</span>
+        winxpie61               Internet Explorer 6.1   <span class="o">(</span>Windows XP<span class="o">)</span>
+        winxpie70               Internet Explorer 7.0   <span class="o">(</span>Windows XP<span class="o">)</span>
+        winxpie80               Internet Explorer 8.0   <span class="o">(</span>Windows XP<span class="o">)</span>
+        winxpchrome20           Chrome 20.0.1132.47     <span class="o">(</span>Windows XP<span class="o">)</span>
+        winxpfirefox12          Firefox 12.0            <span class="o">(</span>Windows XP<span class="o">)</span>
+        winxpsafari5            Safari 5.1.7            <span class="o">(</span>Windows XP<span class="o">)</span>
+        win2kie60               Internet Explorer 6.0   <span class="o">(</span>Windows 2000<span class="o">)</span>
+        win2kie80               Internet Explorer 8.0   <span class="o">(</span>Windows 2000<span class="o">)</span>
+        win7ie80                Internet Explorer 8.0   <span class="o">(</span>Windows 7<span class="o">)</span>
+        win7ie90                Internet Explorer 9.0   <span class="o">(</span>Windows 7<span class="o">)</span>
+        win7chrome20            Chrome 20.0.1132.47     <span class="o">(</span>Windows 7<span class="o">)</span>
+        win7safari5             Safari 5.1.7            <span class="o">(</span>Windows 7<span class="o">)</span>
+        osx10safari5            Safari 5.1.1            <span class="o">(</span>MacOS X 10.7.2<span class="o">)</span>
+        osx10chrome19           Chrome 19.0.1084.54     <span class="o">(</span>MacOS X 10.7.4<span class="o">)</span>
+        galaxy2chrome18         Chrome 18.0.1025.166    <span class="o">(</span>Samsung Galaxy S II, Android 4.0.3<span class="o">)</span>
 </pre></div>
 </div>
 <p>Let&#8217;s start with a first basic real-world example: a Blackhole exploit kit.</p>
@@ -874,7 +875,7 @@ option. Simply running Thug this way (please note the interval is expressed in m
         <li class="right" >
           <a href="build.html" title="Build and Install"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.16 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.18 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
