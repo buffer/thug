@@ -153,7 +153,16 @@ class Window(PyV8.JSClass):
             raise AttributeError(name)
 
         if isinstance(symbol, PyV8.JSFunction):
-            _method = new.instancemethod(symbol, self, Window)
+            _method = None
+
+            for _name in ('eval', 'unescape', ):
+                if symbol == self.context.eval(_name):
+                    _method = symbol.clone()
+                    break
+
+            if _method is None:
+                _method = new.instancemethod(symbol, self, Window)
+
             setattr(self, name, _method)
             self.context.locals[name] = _method
             return _method
