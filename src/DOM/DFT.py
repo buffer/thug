@@ -677,8 +677,6 @@ class DFT(object):
         if log.ThugOpts.Personality.javaUserAgent:
             headers['User-Agent'] = self.javaUserAgent
 
-        print headers
-
         try:
             response, content = self.window._navigator.fetch(archive, headers = headers)
         except:

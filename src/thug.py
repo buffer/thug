@@ -281,11 +281,11 @@ Synopsis:
         for key, value in sorted(log.ThugOpts.Personality.iteritems(), key = lambda (k, v): (v['id'], k)):
             msg += "\t%s\t\t%s\n" % (key, value['description'], )
 
-        print msg
+        print(msg)
         sys.exit(0)
 
     def version(self):
-        print "Thug %s" % (__thug_version__, )
+        print("Thug %s" % (__thug_version__, ))
         sys.exit(0)
 
     def run(self, window):
