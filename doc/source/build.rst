@@ -64,11 +64,11 @@ below.
         $ patch -p0 < V8-patch1.diff 
         patching file v8/src/log.h
 
-3. Checkout PyV8 source code from SVN
+3. Checkout PyV8 -r478 source code from SVN
 
 .. code-block:: sh
 
-        $ svn checkout http://pyv8.googlecode.com/svn/trunk/ pyv8
+        $ svn checkout -r478 http://pyv8.googlecode.com/svn/trunk/ pyv8
 
 4. Set the environment variable V8_HOME with the V8 source code
    absolute path (you need to change the value reported below)
