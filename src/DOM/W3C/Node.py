@@ -117,10 +117,21 @@ class Node(PyV8.JSClass, EventTarget):
         return self.doc
 
     def findChild(self, child):
-        try:
-            return self.tag.contents.index(child.tag)
-        except:
-            return -1
+        #try:
+        #    return self.tag.contents.index(child.tag)
+        #except:
+        #    return -1
+        if getattr(child, 'tag', None) and child.tag in self.tag.contents:
+            childHash = hash(child.tag._node)
+
+            for p in self.tag.contents:
+                if getattr(p, '_node', None) is None:
+                    continue
+
+                if childHash == hash(p._node):
+                    return self.tag.contents.index(p)
+
+        return -1
 
     def is_readonly(self, node):
         return node.nodeType in (Node.DOCUMENT_TYPE_NODE,
@@ -149,13 +160,26 @@ class Node(PyV8.JSClass, EventTarget):
         if not isinstance(refChild, Node):
             raise DOMException(DOMException.HIERARCHY_REQUEST_ERR)
 
-        index = self.findChild(refChild)
-        if index < 0 and not self.is_text(refChild):
-            raise DOMException(DOMException.NOT_FOUND_ERR)
+        #index = self.findChild(refChild)
+        #if index < 0 and not self.is_text(refChild):
+        #    raise DOMException(DOMException.NOT_FOUND_ERR)
 
         # If the newChild is already in the tree, it is first removed
         if getattr(newChild, 'tag', None) and newChild.tag in self.tag.contents:
-            self.tag.contents.remove(newChild.tag)
+            newChildHash = hash(newChild.tag._node)
+
+            for p in self.tag.contents:
+                if getattr(p, '_node', None) is None:
+                    continue
+
+                if newChildHash == hash(p._node):
+                    p.extract()
+
+            #self.tag.contents.remove(newChild.tag)
+
+        index = self.findChild(refChild)
+        if index < 0 and not self.is_text(refChild):
+            raise DOMException(DOMException.NOT_FOUND_ERR)
 
         if self.is_text(newChild):
             self.tag.insert(index, newChild.data.output_ready())
@@ -236,7 +260,15 @@ class Node(PyV8.JSClass, EventTarget):
             raise DOMException(DOMException.NOT_FOUND_ERR)
 
         if getattr(oldChild, 'tag', None) and oldChild.tag in self.tag.contents:
-            self.tag.contents.remove(oldChild.tag)
+            oldChildHash = hash(oldChild.tag._node)
+
+            for p in self.tag.contents:
+                if getattr(p, '_node', None) is None:
+                    continue
+
+                if oldChildHash == hash(p._node):
+                    p.extract()
+            #self.tag.contents.remove(oldChild.tag)
 
         return oldChild
 
@@ -256,7 +288,15 @@ class Node(PyV8.JSClass, EventTarget):
 
         # If the newChild is already in the tree, it is first removed
         if getattr(newChild, 'tag', None) and newChild.tag in self.tag.contents:
-            self.tag.contents.remove(newChild.tag)
+            newChildHash = hash(newChild.tag._node)
+
+            for p in self.tag.contents:
+                if getattr(p, '_node', None) is None:
+                    continue
+
+                if newChildHash == hash(p._node):
+                    p.extract()
+            #self.tag.contents.remove(newChild.tag)
 
         if self.is_text(newChild):
             self.tag.append(newChild.data.output_ready())
