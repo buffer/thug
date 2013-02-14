@@ -1,0 +1,70 @@
+<html>
+<body>
+<script>
+
+function test(){
+
+	var Table	= document.createElement("TABLE");
+	Table.setAttribute("class","table");
+	alert(Table);
+
+	var TBody0 = document.createElement("TBODY");
+	alert(TBody0);
+
+	var TBody1 = document.createElement("TBODY");
+	alert(TBody1);
+	
+	var Caption = document.createElement("CAPTION");
+	alert(Caption);
+
+	var Row, Cell;
+	var i, j;
+
+	var rowdata = new Array();
+
+	rowdata[0] = new Array("Total Daily Energy:", "2100");
+	rowdata[1] = new Array("Lean Body Mass:", "149", "pounds");
+	rowdata[2] = new Array("Ideal Weight:", "150", "pounds");
+	rowdata[3] = new Array("Calories Per Meal:", "700");
+	rowdata[4] = new Array("Calories Per Meal:", "1");
+	rowdata[5] = new Array("Daily Calorie Deficit:", "200");
+
+	alert('Inserting TBody0');
+	Table.appendChild(TBody0);
+	alert('Inserting TBody0');
+	Table.appendChild(TBody0);
+	alert(Table);
+
+	Table.appendChild(TBody1);
+	alert(Table);
+
+	Table.appendChild(Caption);
+	alert(Table);
+
+	Table.setAttribute("border", 1);
+	alert(Table);
+
+	for(i=0;i<rowdata.length; i++)
+	{
+    	var oBody = (i<2) ? TBody0 : TBody1;
+    	Row = document.createElement("TR");
+    	oBody.appendChild(Row);
+
+    	for(j=0;j<rowdata[i].length;j++)
+    	{
+        	Cell = document.createElement("TD");
+        	Cell.innerHTML = rowdata[i][j];
+        	Row.appendChild(Cell);
+    	}
+	}
+
+	Caption.innerHTML 		 = "Your Results!";
+	Caption.align			 = "middle";
+	Caption.style.fontWeight = "bold";
+	alert(Table);
+}
+
+test();
+</script>
+</body>
+</html>
