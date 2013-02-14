@@ -21,10 +21,14 @@ import os
 import errno
 import getopt
 import datetime
-import urlparse
 import hashlib
 import httplib2
 import logging
+
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 
 from DOM.W3C import w3c
 from DOM.Personality import Personality
