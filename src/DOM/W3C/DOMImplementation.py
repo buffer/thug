@@ -51,6 +51,11 @@ from HTML.HTMLFrameSetElement import HTMLFrameSetElement
 from HTML.HTMLFrameElement import HTMLFrameElement
 from HTML.HTMLIFrameElement import HTMLIFrameElement
 from HTML.HTMLTableElement import HTMLTableElement
+from HTML.HTMLTableCaptionElement import HTMLTableCaptionElement
+from HTML.HTMLTableColElement import HTMLTableColElement
+from HTML.HTMLTableSectionElement import HTMLTableSectionElement
+from HTML.HTMLTableRowElement import HTMLTableRowElement
+from HTML.HTMLTableCellElement import HTMLTableCellElement
 from HTML.HTMLDocument import HTMLDocument
 
 class DOMImplementation(HTMLDocument):
@@ -132,6 +137,15 @@ class DOMImplementation(HTMLDocument):
         "frame"         : HTMLFrameElement,
         "iframe"        : HTMLIFrameElement,
         "table"         : HTMLTableElement,
+        "caption"       : HTMLTableCaptionElement,
+        "col"           : HTMLTableColElement,
+        "colgroup"      : HTMLTableColElement,
+        "thead"         : HTMLTableSectionElement,
+        "tbody"         : HTMLTableSectionElement,
+        "tfoot"         : HTMLTableSectionElement,
+        "tr"            : HTMLTableRowElement,
+        "th"            : HTMLTableCellElement,
+        "td"            : HTMLTableCellElement,
     }
         
     @staticmethod
