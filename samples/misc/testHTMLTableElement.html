@@ -1,0 +1,81 @@
+<html>
+<body>
+<script>
+var oTable = document.createElement('table');
+
+alert("[*] HTMLTableElement CAPTION tests start here"); 
+
+alert("[1] oTable.caption = " + oTable.caption + " (should be null)");
+
+oTable.createCaption();
+oTable.caption.innerHTML = 'foobar';
+alert("[2] oTable.caption.innerHTML = " + oTable.caption.innerHTML + " (should be 'foobar')");
+
+var caption = oTable.createCaption();
+alert("[3] oTable.caption.innerHTML = " + caption.innerHTML + " (should be 'foobar')");
+
+oTable.deleteCaption();
+alert("[4] oTable.caption = " + oTable.caption + " (should be null)");
+
+alert("[*] HTMLTableElement CAPTION tests end here"); 
+
+alert("[*] HTMLTableElement THEAD tests start here");
+alert("[1] oTable.tHead = " + oTable.tHead + " (should be null)");
+oTable.createTHead();
+
+alert("[2] oTable.tHead.rows.length = " + oTable.tHead.rows.length + " (should be 0)");
+
+oTable.tHead.insertRow(0);
+alert("[3] oTable.tHead.rows.length = " + oTable.tHead.rows.length + " (should be 1)");
+
+oTable.tHead.insertRow(1);
+oTable.tHead.insertRow(2);
+alert("[4] oTable.tHead.rows.length = " + oTable.tHead.rows.length + " (should be 3)");
+
+oTable.tHead.deleteRow(1);
+alert("[5] oTable.tHead.rows.length = " + oTable.tHead.rows.length + " (should be 2)");
+
+try { 
+	oTable.tHead.deleteRow(10); 
+} catch(err) {
+	alert("[6] oTable.tHead.rows.length = " + oTable.tHead.rows.length + " (should be 2)");
+}
+
+oTable.deleteTHead();
+alert("[7] oTable.tHead = " + oTable.tHead + " (should be null)");
+alert("[*] HTMLTableElement THEAD tests end here");
+
+
+alert("[*] HTMLTableElement TFOOT tests start here");
+alert("[1] oTable.tFoot = " + oTable.tFoot + " (should be null)");
+oTable.createTFoot();
+
+alert("[2] oTable.tFoot.rows.length = " + oTable.tFoot.rows.length + " (should be 0)");
+
+oTable.tFoot.insertRow(0);
+alert("[3] oTable.tFoot.rows.length = " + oTable.tFoot.rows.length + " (should be 1)");
+
+oTable.tFoot.insertRow(1);
+oTable.tFoot.insertRow(2);
+alert("[4] oTable.tFoot.rows.length = " + oTable.tFoot.rows.length + " (should be 3)");
+
+oTable.tFoot.deleteRow(1);
+alert("[5] oTable.tFoot.rows.length = " + oTable.tFoot.rows.length + " (should be 2)");
+
+try {
+	oTable.tFoot.deleteRow(10);
+} catch(err) {
+	alert("[6] oTable.tFoot.rows.length = " + oTable.tFoot.rows.length + " (should be 2)");
+}
+
+oTable.deleteTFoot();
+alert("[7] oTable.tFoot = " + oTable.tFoot + " (should be null)");
+alert("[*] HTMLTableElement TFOOT tests end here");
+
+var row = oTable.insertRow(0);
+alert(row);
+alert(oTable);
+alert(oTable.rows.nodes);
+</script>
+</body>
+</html>
