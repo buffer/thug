@@ -20,10 +20,15 @@
 import PyV8
 import os
 import httplib2
-import urlparse
 import hashlib
 import logging
 import socket
+
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
+
 from .MimeTypes import MimeTypes
 from .Plugins import Plugins
 from .UserProfile import UserProfile
