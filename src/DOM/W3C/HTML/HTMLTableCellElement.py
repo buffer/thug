@@ -4,12 +4,13 @@ from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 
 class HTMLTableCellElement(HTMLElement):
-    def __init__(self, doc, tag):
+    def __init__(self, doc, tag, index = 0):
         HTMLElement.__init__(self, doc, tag)
+        self._cellIndex = index
 
     @property
     def cellIndex(self):
-        raise NotImplementedError()
+        raise self._cellIndex
 
     abbr            = attr_property("abbr")
     align           = attr_property("align")
