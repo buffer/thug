@@ -21,7 +21,11 @@ import Window
 import W3C
 import DFT
 import logging
-from urlparse import urlparse
+
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 
 log = logging.getLogger("Thug")
 
