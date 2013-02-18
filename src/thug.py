@@ -36,7 +36,7 @@ from DOM import Window, DFT, MIMEHandler, SchemeHandler
 from Logging.ThugLogging import ThugLogging
 from Plugins.ThugPlugins import *
 
-__thug_version__ = '0.4.18'
+__thug_version__ = '0.4.19'
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
