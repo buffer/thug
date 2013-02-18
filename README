@@ -67,6 +67,9 @@ Requirements
 - Pika (optional)
 	https://github.com/pika/pika/
 
+- Graphviz (optional)
+	http://www.graphviz.org/
+
 
 Installation
 ============
