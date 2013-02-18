@@ -61,6 +61,12 @@ Requirements
 - PyMongo (optional)
 	http://www.mongodb.org/display/DOCS/Python+Language+Center
 
+- RabbitMQ (optional)
+	http://www.rabbitmq.com/
+
+- Pika (optional)
+	https://github.com/pika/pika/
+
 
 Installation
 ============

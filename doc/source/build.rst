@@ -20,7 +20,8 @@ Requirements
 * Zope interface           
 * MongoDB (optional)       
 * PyMongo (optional)       
-
+* RabbitMQ (optional)
+* Pika (optional)
 
 Installation
 ------------
@@ -191,6 +192,7 @@ to install Pefile is through easy_install.
 
 chardet
 ^^^^^^^
+
 Chardet is a universal encoding detector. Chardet homepage is located at
 http://pypi.python.org/pypi/chardet.
 
@@ -204,6 +206,7 @@ to install chardet is through easy_install.
 
 httplib2
 ^^^^^^^^
+
 Httplib2 is a comprehensive HTTP client library that supports many features 
 left out of other HTTP libraries. Httplib2 homepage is located at 
 http://code.google.com/p/httplib2/
@@ -220,6 +223,7 @@ to install httplib2 is through easy_install.
 
 Cssutils
 ^^^^^^^^
+
 Cssutils is a CSS Cascading Style Sheets library for Python. Cssutils homepage
 is located at http://pypi.python.org/pypi/cssutils.
 
@@ -253,6 +257,7 @@ If not available as a package for your Linux distribution, change distribution!
 
 PyMongo (optional)
 ^^^^^^^^^^^^^^^^^^
+
 PyMongo homepage is located at http://www.mongodb.org/display/DOCS/Python+Language+Center.
 
 If not available as a package for your Linux distribution, the best way
@@ -262,3 +267,29 @@ to install pymongo is through easy_install.
 
         # easy_install pymongo  
 
+
+RabbitMQ (optional)
+^^^^^^^^^^^^^^^^^^^
+
+RabbitMQ homepage is located at http://www.rabbitmq.com/. RabbitMQ is a high-performance 
+AMQP-compliant message broker written in Erlang and it's needed just if you want to play
+with Thug distributed mode.
+
+If not available as a package for your Linux distribution, change distribution!
+
+
+Pika (optional)
+^^^^^^^^^^^^^^^
+
+Pika homepage is located at https://github.com/pika/pika/.
+
+Pika is a pure-Python implementation of the AMQP 0-9-1 protocol that tries to stay fairly 
+independent of the underlying network support library and it's needed just if you want to play
+with Thug distributed mode.
+
+If not available as a package for your Linux distribution, the best way
+to install pika is through easy_install.
+
+.. code-block:: sh
+
+    # easy_install pika
