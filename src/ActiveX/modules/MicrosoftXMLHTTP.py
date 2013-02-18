@@ -1,10 +1,14 @@
 # Microsoft XMLHTTP
 
 import os
-import urllib
 import hashlib
-import urlparse
 import logging
+
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
+
 
 log = logging.getLogger("Thug")
 
