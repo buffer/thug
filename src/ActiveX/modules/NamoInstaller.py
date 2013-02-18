@@ -11,7 +11,7 @@ def Install(self, arg):
     if str([arg]).find('http') > -1:
         log.ThugLogging.add_behavior_warn('[NamoInstaller ActiveX] Insecure download from URL %s' % (arg, ))
         try:
-            response, content = self._window._navigator.fetch(url)
+            response, content = self._window._navigator.fetch(url, redirect_type = "NamoInstaller Exploit")
         except:
             log.ThugLogging.add_behavior_warn('[NamoInstaller ActiveX] Fetch failed')
             return

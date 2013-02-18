@@ -9,6 +9,6 @@ def DownloadAgent(self, url):
     log.ThugLogging.add_behavior_warn('[AOL ICQ ActiveX] Fetching from URL: %s' % (url, ))
     
     try:
-        response, content = self._window._navigator.fetch(url)
+        response, content = self._window._navigator.fetch(url, redirect_type = "AOL ICQ Exploit")
     except:
         log.ThugLogging.add_behavior_warn('[AOL ICQ ActiveX] Fetch failed')

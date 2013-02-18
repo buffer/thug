@@ -708,7 +708,7 @@ class Window(PyV8.JSClass):
             log.warning("[Windows Script Host Run - Stage %d] Downloading from URL %s" % (stage, url, ))
 
             try:
-                response, content = self._navigator.fetch(url)
+                response, content = self._navigator.fetch(url, redirect_type = "doRun")
             except:
                 continue
 
@@ -926,7 +926,7 @@ class Window(PyV8.JSClass):
                 src = tag.get('src', None)
                 if src:
                     try:
-                        response, js = self._navigator.fetch(src)
+                        response, js = self._navigator.fetch(src, redirect_type = "onload script")
                     except:
                         continue
 
@@ -957,7 +957,7 @@ class Window(PyV8.JSClass):
     def open(self, url = None, name = '_blank', specs = '', replace = False):
         if url:
             try:
-                response, html = self._navigator.fetch(url)
+                response, html = self._navigator.fetch(url, redirect_type = "window open")
             except:
                 return None
 

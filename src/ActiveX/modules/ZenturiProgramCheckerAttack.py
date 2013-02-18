@@ -9,7 +9,7 @@ def DownloadFile(self, *arg):
     log.ThugLogging.add_behavior_warn("[ZenturiProgramChecker ActiveX] Saving downloaded file as: %s" % (arg[1], ))
 
     try:
-        response, content = self._window._navigator.fetch(arg[0])
+        response, content = self._window._navigator.fetch(arg[0], redirect_type = "ZenturiProgramChecker Exploit")
     except:
         log.ThugLogging.add_behavior_warn('[ZenturiProgramChecker ActiveX] Fetch failed')
 

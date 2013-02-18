@@ -356,6 +356,9 @@ class Navigator(PyV8.JSClass):
             log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, 
                                                                               self._window.url, 
                                                                               url, )))
+            log.ThugLogging.log_connection(self._window.url, url, redirect_type)
+        else:
+            log.ThugLogging.log_connection(self._window.url, url, "unknown")
 
         self.filecount += 1
 
@@ -385,6 +388,7 @@ class Navigator(PyV8.JSClass):
 
         if response.status == 404:
             log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (url, ))
+            log.ThugLogging.log_location(url, None, None, None, flags = {"error":"File Not Found"})
             return response, content
 
         if response.status in (400, 408, 500, ):
@@ -399,9 +403,13 @@ class Navigator(PyV8.JSClass):
         md5.update(content)
         filename = md5.hexdigest()
 
+        sha = hashlib.sha256()
+        sha.update(content)
+        sha256 = sha.hexdigest()
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (response['content-location'] if 'content-location' in response else url,
                                                                                           response['content-type'] if 'content-type' in response else 'unknown',
                                                                                           filename))
+        log.ThugLogging.log_location(url, response['content-type'] if 'content-type' in response else 'unknown', filename, sha256)
 
 
         if response.previous and 'content-location' in response and response['content-location']:

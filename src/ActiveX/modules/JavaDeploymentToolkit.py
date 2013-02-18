@@ -16,6 +16,6 @@ def launch(self, arg):
         log.ThugLogging.add_behavior_warn("[Java Deployment Toolkit ActiveX] Fetching from URL %s" % (token, ))
 
         try:
-            response, content = self._window._navigator.fetch(token)
+            response, content = self._window._navigator.fetch(token, redirect_type = "Java Deployment Toolkit Exploit")
         except:
             log.ThugLogging.add_behavior_warn("[Java Deployment Toolkit ActiveX] Fetch Failed")

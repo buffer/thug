@@ -20,6 +20,7 @@ from BaseLogging import BaseLogging
 from HPFeeds import HPFeeds
 from MAEC import MAEC
 from MongoDB import MongoDB
+from JSONLog import JSONLog
 
 import os
 import errno
@@ -35,6 +36,7 @@ class ThugLogging(BaseLogging):
         self.HPFeeds        = HPFeeds()
         self.MAEC           = MAEC(thug_version)
         self.MongoDB        = MongoDB()
+        self.JSONLog        = JSONLog(thug_version)
         self.baseDir        = None
         self.shellcodes     = set()
         self.shellcode_urls = set()
@@ -43,12 +45,15 @@ class ThugLogging(BaseLogging):
         self.HPFeeds.set_url(url)
         self.MAEC.set_url(url)
         self.MongoDB.set_url(url)
+        self.JSONLog.set_url(url)
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
         self.MAEC.add_behavior_warn(description, cve, method)
+        self.JSONLog.add_behavior_warn(description, cve, method)
 
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
         self.MAEC.add_code_snippet(snippet, language, relationship, method)
+        self.JSONLog.add_code_snippet(snippet, language, relationship, method)
 
     def log_file(self, data, url):
         sample = self.build_sample(data, url)
@@ -58,6 +63,7 @@ class ThugLogging(BaseLogging):
         self.HPFeeds.log_file(sample)
         self.MAEC.log_file(sample)
         self.MongoDB.log_file(sample)
+        self.JSONLog.log_file(sample)
 
     def log_event(self):
         log.warning("Saving log analysis at %s" % (self.baseDir, ))
@@ -68,6 +74,28 @@ class ThugLogging(BaseLogging):
             data = fd.read()
             self.HPFeeds.log_event(data)
             self.MongoDB.log_event(data)
+            self.JSONLog.export(self.baseDir)
+
+    def log_connection(self, source, destination, method, flags = {}):
+        """ Log the connection (redirection, link) between two pages
+
+        @source: The origin page
+        @destination: The page the user is made to load next
+        @method: Link, iframe, .... that moves the user from source to destination
+        @flags: Additional information flags. Existing are: "exploit"
+        """
+
+        self.JSONLog.log_connection(source, destination, method, flags)
+
+    def log_location(self, url, ctype, md5, sha256, flags = {}):
+        """ Log file information for a given url
+
+        @url: Url we fetched this file from
+        @ctype: Content type
+        @md5: MD5 hash
+        @sha256: sha256 hash
+        """
+        self.JSONLog.log_location(url, ctype, md5, sha256, flags)
 
     def log_warning(self, data):
         log.warning(data)
@@ -80,6 +108,8 @@ class ThugLogging(BaseLogging):
         redirects = list()
         r         = response
 
+        last = None
+        final = response['content-location']
         while r.previous:
             redirects.append(r.previous)
             r = r.previous
@@ -89,9 +119,14 @@ class ThugLogging(BaseLogging):
             self.add_behavior_warn("[HTTP Redirection (Status: %s)] Content-Location: %s --> Location: %s" % (p['status'], 
                                                                                                             p['content-location'], 
                                                                                                             p['location'], ))
+            self.log_connection(p['content-location'], p['location'],"http-redirect")
+            last = p['location']
+        if last:
+            self.log_connection(last, final, "http-redirect")
 
     def log_href_redirect(self, referer, url):
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
+        self.log_connection(referer, url, "href")
 
 
     def set_basedir(self, url):

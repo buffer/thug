@@ -65,7 +65,7 @@ class Shellcode(object):
                 return
 
             try:
-                self.window._navigator.fetch(p[1])
+                self.window._navigator.fetch(p[1], redirect_type = "Found URLDownloadToFile")
                 log.ThugLogging.shellcode_urls.add(url)
             except:
                 pass
@@ -83,7 +83,7 @@ class Shellcode(object):
             log.info('[Shellcode Analysis] URL Detected: %s' % (url, ))
 
             try:
-                self.window._navigator.fetch(url)
+                self.window._navigator.fetch(url, redirect_type = "Found URL")
                 log.ThugLogging.shellcode_urls.add(url)
             except:
                 pass

@@ -43,9 +43,10 @@ def send(self, varBody = None):
 
     try:
         self.responseHeaders, self.responseBody = self._window._navigator.fetch(self.bstrUrl,
-                                                                                method  = self.bstrMethod,
-                                                                                headers = self.requestHeaders,
-                                                                                body    = varBody)
+                                                                                method        = self.bstrMethod,
+                                                                                headers       = self.requestHeaders,
+                                                                                body          = varBody,
+                                                                                redirect_type = "Microsoft XMLHTTP Exploit")
     except:
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
 

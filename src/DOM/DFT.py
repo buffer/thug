@@ -173,7 +173,7 @@ class DFT(object):
                 return
 
             try:
-                self.window._navigator.fetch(url)
+                self.window._navigator.fetch(url, redirect_type = "URLDownloadToFile")
                 log.ThugLogging.shellcode_urls.add(url)
             except:
                 pass
@@ -226,7 +226,7 @@ class DFT(object):
                 return
 
             try:
-                self.window._navigator.fetch(url)
+                self.window._navigator.fetch(url, redirect_type = "URL in Shellcode")
                 log.ThugLogging.shellcode_urls.add(url)
             except:
                 pass
@@ -433,7 +433,7 @@ class DFT(object):
                 continue
 
             try:
-                self.window._navigator.fetch(params[key], headers = headers)
+                self.window._navigator.fetch(params[key], headers = headers, redirect_type = "params")
             except:
                 pass
 
@@ -445,7 +445,7 @@ class DFT(object):
                 continue
 
             try:
-                self.window._navigator.fetch(value, headers = headers)
+                self.window._navigator.fetch(value, headers = headers, redirect_type = "params")
             except:
                 pass
 
@@ -458,7 +458,7 @@ class DFT(object):
             archive = params['archive']
 
         try:
-            self.window._navigator.fetch(archive, headers = headers)
+            self.window._navigator.fetch(archive, headers = headers, redirect_type = "params")
         except:
             pass
 
@@ -484,7 +484,7 @@ class DFT(object):
 
         if codebase:
             try:
-                self.window._navigator.fetch(codebase)
+                self.window._navigator.fetch(codebase, redirect_type = "object codebase")
             except:
                 pass
 
@@ -557,7 +557,7 @@ class DFT(object):
         relationship = 'External'
 
         try:
-            response, js = self.window._navigator.fetch(src)
+            response, js = self.window._navigator.fetch(src, redirect_type = "script src")
         except:
             return
 
@@ -657,7 +657,7 @@ class DFT(object):
             headers['Content-Type'] = embed_type
 
         try:
-            self.window._navigator.fetch(src, headers = headers)
+            self.window._navigator.fetch(src, headers = headers, redirect_type = "embed")
         except:
             pass
 
@@ -678,7 +678,7 @@ class DFT(object):
             headers['User-Agent'] = self.javaUserAgent
 
         try:
-            response, content = self.window._navigator.fetch(archive, headers = headers)
+            response, content = self.window._navigator.fetch(archive, headers = headers, redirect_type = "applet")
         except:
             pass
 
@@ -718,7 +718,7 @@ class DFT(object):
             return
 
         try:
-            response, content = self.window._navigator.fetch(url)
+            response, content = self.window._navigator.fetch(url, redirect_type = "meta")
         except:
             return
 
@@ -782,7 +782,7 @@ class DFT(object):
                 url = url.split('url(')[1].split(')')[0]
 
             try:
-                self.window._navigator.fetch(url)
+                self.window._navigator.fetch(url, redirect_type = "font face")
             except:
                 return
 
@@ -822,7 +822,7 @@ class DFT(object):
             return
 
         try:
-            response, content = self.window._navigator.fetch(href)
+            response, content = self.window._navigator.fetch(href, redirect_type = "link")
         except:
             return
 

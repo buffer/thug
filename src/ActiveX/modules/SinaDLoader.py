@@ -8,7 +8,7 @@ def DownloadAndInstall(self, url):
     log.ThugLogging.add_behavior_warn("[SinaDLoader Downloader ActiveX] Fetching from URL %s" % (url, ))
 
     try:
-        response, content = self._window._navigator.fetch(url)
+        response, content = self._window._navigator.fetch(url, redirect_type = "SinaDLoader Exploit")
     except:
         log.ThugLogging.add_behavior_warn('[SinaDLoader Downloader ActiveX] Fetch failed')
         return

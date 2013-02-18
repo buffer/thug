@@ -8,6 +8,6 @@ def DownloadFromMusicStore(self, url, dst, title, artist, album, genere, size, p
     log.ThugLogging.add_behavior_warn('[JetAudio ActiveX] Downloading from URL %s (saving locally as %s)' % (url, dst, ))
 
     try:
-        response, content = self._window._navigator.fetch(url)
+        response, content = self._window._navigator.fetch(url, redirect_type = "JetAudio exploit")
     except:
         log.ThugLogging.add_behavior_warn('[JetAudio ActiveX] Fetch failed')
