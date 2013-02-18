@@ -53,6 +53,7 @@ class Navigator(PyV8.JSClass):
             self._plugins.append(p['enabledPlugin'])
 
         self.__init_personality()
+        self.filecount = 0
 
     def __init_personality(self):
         if log.ThugOpts.Personality.isIE():
@@ -355,6 +356,12 @@ class Navigator(PyV8.JSClass):
             log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, 
                                                                               self._window.url, 
                                                                               url, )))
+
+        self.filecount += 1
+
+        if log.ThugOpts.threshold and self.filecount >= log.ThugOpts.threshold:
+            log.ThugLogging.log_location(url, None, None, None, flags = {"error":"Timeout"})
+            return
 
         http_headers = self.__build_http_headers(headers)
 

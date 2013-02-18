@@ -797,6 +797,21 @@ class DFT(object):
                 self.do_handle_font_face_rule(rule)
 
     def handle_a(self, anchor):
+        if log.ThugOpts.extensive:
+            log.warning(anchor)
+
+            href = anchor.get('href', None)
+            if not href:
+                return
+
+            try:
+                response, content = self.window._navigator.fetch(href, redirect_type = "anchor")
+            except:
+                return
+
+            if response.status == 404:
+                return
+
         self.anchors.append(anchor)
 
     def handle_link(self, link):

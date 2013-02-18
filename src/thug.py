@@ -48,6 +48,8 @@ class ThugOpts(dict):
     def __init__(self):
         self._proxy_info = None
         self.local       = False
+        self.extensive   = False
+        self.threshold   = 0
         self.ast_debug   = False
         self._useragent  = 'winxpie60'
         self._referer    = 'about:blank'
@@ -268,6 +270,8 @@ Synopsis:
         -q, --quiet         \tDisable console logging
         -m, --no-cache      \tDisable local web cache
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
+        -t, --threshold     \tMaximum pages to fetch
+        -E, --extensive     \tExtensive fetch of linked pages
 
         Plugins:
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
@@ -324,7 +328,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmaA:PS:RJ:K',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmaA:PS:RJ:Kt:E',
                 ['help',
                 'version',
                 'useragent=',
@@ -347,6 +351,8 @@ Synopsis:
                 'no-shockwave',
                 'javaplugin=',
                 'no-javaplugin',
+                'threshold',
+                'extensive',
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -363,6 +369,10 @@ Synopsis:
         for option in options:
             if option[0] in ('-u', '--useragent', ):
                 log.ThugOpts.useragent = option[1]
+            if option[0] in ('-t', '--threshold', ):
+                log.ThugOpts.threshold = int(option[1])
+            if option[0] in ('-E', '--extensive', ):
+                log.ThugOpts.extensive = True
             if option[0] in ('-e', '--events'):
                 log.ThugOpts.events = option[1]
             if option[0] in ('-w', '--delay'):
