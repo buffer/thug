@@ -481,10 +481,17 @@ class DFT(object):
         classid  = object.get('classid', None)
         id       = object.get('id', None)
         codebase = object.get('codebase', None)
+        data     = object.get('data', None)
 
         if codebase:
             try:
                 self.window._navigator.fetch(codebase, redirect_type = "object codebase")
+            except:
+                pass
+
+        if data:
+            try:
+                self.window._navigator.fetch(data, redirect_type = "object data")
             except:
                 pass
 
