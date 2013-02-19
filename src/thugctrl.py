@@ -18,12 +18,16 @@ class ThugCtrl():
     """ Thug remote control
     """
 
-    def __init__(self, configfile):
+    def __init__(self, configfile, extensive = False, threshold = 0, referer = None, proxy = None):
         """ Init Thugd using config file
         """
 
         self.host = "localhost"
         self.queue = "thugctrl"
+        self.extensive = extensive
+        self.threshold = threshold
+        self.referer = referer
+        self.proxy = proxy
         self.configfile = configfile
         self.read_config()
 
@@ -65,6 +69,10 @@ class ThugCtrl():
             "%Y_%m_%d__%H_%M_%S")
         data = {"url": url,
                 "id": jid,
+                "threshold": self.threshold,
+                "extensive": self.extensive,
+                "referer": self.referer,
+                "proxy": self.proxy
                 }
         print data
 
@@ -128,11 +136,23 @@ if __name__ == "__main__":
     parser.add_argument('--collect_results',
         help='Start a daemon to collect the results',
         default=False, action="store_true")
+    parser.add_argument('--extensive',
+        help='In depth follow links',
+        default=False, action="store_true")
+    parser.add_argument('--threshold', type=int,
+        help='Maximum pages to fetch',
+        default=0)
+    parser.add_argument('--referer', type=str,
+        help='Referer to send',
+        default=None)
+    parser.add_argument('--proxy', type=str,
+        help='Proxy to use',
+        default=None)
 
     args = parser.parse_args()
 
     if args.urls:
-        t = ThugCtrl(args.config)
+        t = ThugCtrl(args.config, args.extensive, args.threshold, args.referer, args.proxy)
         for aurl in args.urls:
             t.process(aurl)
 

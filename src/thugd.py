@@ -62,7 +62,16 @@ class Thugd():
         """ Execute thug to process a job
         """
         print "job" + str(job)
-        command = ["python", "thug.py", job["url"]]
+        command = ["python", "thug.py", "-t", str(job["threshold"])]
+        if job["extensive"]:
+            command.append("-E")
+        if job["referer"]:
+            command.append("-r")
+            command.append(job["referer"])
+        if job["proxy"]:
+            command.append("-p")
+            command.append(job["proxy"])
+        command.append(job["url"])
         print command
         pathname = None
         for line in self.runProcess(command):
