@@ -131,7 +131,7 @@ class Element(Node, ElementCSSInlineStyle):
             
             # FIXME
             try:
-                response, content = self.doc.window._navigator.fetch(value)
+                response, content = self.doc.window._navigator.fetch(value, redirect_type = "element workaround")
             except:
                 return
                 
