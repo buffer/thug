@@ -23,6 +23,7 @@ from MongoDB import MongoDB
 from JSONLog import JSONLog
 
 import os
+import copy
 import errno
 import hashlib
 import datetime
@@ -62,7 +63,7 @@ class ThugLogging(BaseLogging):
         
         self.HPFeeds.log_file(sample)
         self.MAEC.log_file(sample)
-        self.MongoDB.log_file(sample)
+        self.MongoDB.log_file(copy.deepcopy(sample))
         self.JSONLog.log_file(sample)
 
     def log_event(self):
