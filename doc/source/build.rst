@@ -248,6 +248,19 @@ to install zope.interface is through easy_install.
 
         # easy_install zope.interface
 
+
+Graphviz
+^^^^^^^^
+
+Graphviz homepage is located at http://www.graphviz.org/.
+
+Graphviz is open source graph visualization software. Graph visualization is a way of representing 
+structural information as diagrams of abstract graphs and networks. It has important applications 
+in networking, bioinformatics, software engineering, database and web design, machine learning, 
+and in visual interfaces for other technical domains.
+
+If not available as a package for your Linux distribution, change distribution!
+
 MongoDB (optional)
 ^^^^^^^^^^^^^^^^^^
 
@@ -294,16 +307,3 @@ to install pika is through easy_install.
 .. code-block:: sh
 
     # easy_install pika
-
-
-Graphviz (optional)
-^^^^^^^^^^^^^^^^^^^
-
-Graphviz homepage is located at http://www.graphviz.org/.
-
-Graphviz is open source graph visualization software. Graph visualization is a way of representing 
-structural information as diagrams of abstract graphs and networks. It has important applications 
-in networking, bioinformatics, software engineering, database and web design, machine learning, 
-and in visual interfaces for other technical domains.
-
-If not available as a package for your Linux distribution, change distribution!

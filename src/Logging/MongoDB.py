@@ -73,6 +73,3 @@ class MongoDB(object):
         _data['MAEC']   = data
         _data['url_id'] = self.url_id
         self.events.insert(_data)
-
-
-        

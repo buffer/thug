@@ -55,6 +55,9 @@ Requirements
 - Zope interface
 	http://pypi.python.org/pypi/zope.interface
 
+- Graphviz
+        http://www.graphviz.org/
+
 - MongoDB (optional)
 	http://www.mongodb.org/
 
@@ -66,9 +69,6 @@ Requirements
 
 - Pika (optional)
 	https://github.com/pika/pika/
-
-- Graphviz (optional)
-	http://www.graphviz.org/
 
 
 Installation
