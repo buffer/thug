@@ -204,6 +204,7 @@ class MIMEHandler(dict):
         self['application/x-javascript'] = None
         self['text/css']                 = None
         self['text/html']                = None
+        self['text/plain']               = None
         self['text/javascript']          = None
 
     def passthrough(self, data):
