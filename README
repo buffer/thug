@@ -58,6 +58,12 @@ Requirements
 - Graphviz
         http://www.graphviz.org/
 
+- Pyparsing
+	http://pyparsing.wikispaces.com/
+
+- Pydot
+	https://code.google.com/p/pydot/
+
 - MongoDB (optional)
 	http://www.mongodb.org/
 

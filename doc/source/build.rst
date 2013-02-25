@@ -17,12 +17,15 @@ Requirements
 * Chardet                  
 * httplib2 
 * Cssutils
+* Graphviz
+* Pyparsing
+* Pydot
 * Zope interface           
 * MongoDB (optional)       
 * PyMongo (optional)       
 * RabbitMQ (optional)
 * Pika (optional)
-* Graphviz (optional)
+
 
 Installation
 ------------
@@ -260,6 +263,33 @@ in networking, bioinformatics, software engineering, database and web design, ma
 and in visual interfaces for other technical domains.
 
 If not available as a package for your Linux distribution, change distribution!
+
+
+Pyparsing
+^^^^^^^^^
+
+Pyparsing homepage is located at http://pyparsing.wikispaces.com/.
+
+If not available as a package for your Linux distribution, the best way 
+to install pyparsing is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install pyparsing
+
+
+Pydot
+^^^^^
+
+Pydot homepage is located at https://code.google.com/p/pydot/.
+
+If not available as a package for your Linux distribution, the best way
+to install pydot is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install pydot
+
 
 MongoDB (optional)
 ^^^^^^^^^^^^^^^^^^
