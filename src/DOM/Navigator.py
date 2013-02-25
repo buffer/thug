@@ -23,6 +23,7 @@ import httplib2
 import hashlib
 import logging
 import socket
+import magic
 
 try:
     import urllib.parse as urlparse
@@ -406,10 +407,14 @@ class Navigator(PyV8.JSClass):
         sha = hashlib.sha256()
         sha.update(content)
         sha256 = sha.hexdigest()
+
+        fsize = len(content)
+        mtype = magic.from_buffer(content)
+
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (response['content-location'] if 'content-location' in response else url,
                                                                                           response['content-type'] if 'content-type' in response else 'unknown',
                                                                                           filename))
-        log.ThugLogging.log_location(url, response['content-type'] if 'content-type' in response else 'unknown', filename, sha256)
+        log.ThugLogging.log_location(url, response['content-type'] if 'content-type' in response else 'unknown', filename, sha256, fsize = fsize, mtype = mtype)
 
 
         if response.previous and 'content-location' in response and response['content-location']:

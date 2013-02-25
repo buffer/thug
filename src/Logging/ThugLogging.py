@@ -78,25 +78,29 @@ class ThugLogging(BaseLogging):
             self.JSONLog.export(self.baseDir)
 
     def log_connection(self, source, destination, method, flags = {}):
-        """ Log the connection (redirection, link) between two pages
+        """
+        Log the connection (redirection, link) between two pages
 
-        @source: The origin page
-        @destination: The page the user is made to load next
-        @method: Link, iframe, .... that moves the user from source to destination
-        @flags: Additional information flags. Existing are: "exploit"
+        @source         The origin page
+        @destination    The page the user is made to load next
+        @method         Link, iframe, .... that moves the user from source to destination
+        @flags          Additional information flags. Existing are: "exploit"
         """
 
         self.JSONLog.log_connection(source, destination, method, flags)
 
-    def log_location(self, url, ctype, md5, sha256, flags = {}):
-        """ Log file information for a given url
-
-        @url: Url we fetched this file from
-        @ctype: Content type
-        @md5: MD5 hash
-        @sha256: sha256 hash
+    def log_location(self, url, ctype, md5, sha256, flags = {}, fsize = 0, mtype = ""):
         """
-        self.JSONLog.log_location(url, ctype, md5, sha256, flags)
+        Log file information for a given url
+
+        @url            Url we fetched this file from
+        @ctype          Content type (whatever the server says it is)
+        @md5            MD5 hash
+        @sha256         SHA256 hash
+        @fsize          File size
+        @mtype          Calculated mime type
+        """
+        self.JSONLog.log_location(url, ctype, md5, sha256, flags = flags, fsize = fsize, mtype = mtype)
 
     def log_warning(self, data):
         log.warning(data)
@@ -128,7 +132,6 @@ class ThugLogging(BaseLogging):
     def log_href_redirect(self, referer, url):
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
         self.log_connection(referer, url, "href")
-
 
     def set_basedir(self, url):
         if self.baseDir:

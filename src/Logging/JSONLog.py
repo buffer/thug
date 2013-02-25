@@ -16,8 +16,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 #
-# Provided by Thorsten Sick <thorsten.sick@avira.com> from Avira
-# For the iTES Project http://ites-project.org
+# Author:   Thorsten Sick <thorsten.sick@avira.com> from Avira
+#           (developed for the iTES Project http://ites-project.org)
 
 import sys
 import logging
@@ -33,27 +33,34 @@ log = logging.getLogger("Thug")
 class JSONLog(object):
     def __init__(self, thug_version):
         self._tools = ({
-                        'id': 'avlog',
-                        'Name': 'Thug',
-                        'Version': thug_version,
-                        'Vendor': None,
+                        'id'          : 'json-log',
+                        'Name'        : 'Thug',
+                        'Version'     : thug_version,
+                        'Vendor'      : None,
                         'Organization': 'The Honeynet Project',
                        }, )
 
         self.associated_code = None
-        self.object_pool = None
-        self.signatures = list()
-        self.data = {"url": None,
-                     "behavior": [],
-                     "code": [],
-                     "files": [],
-                     "connections": [],
-                     "locations": []}
+        self.object_pool     = None
+        self.signatures      = list()
+
+        self.data = {
+                        "url"           : None,
+                        "timestamp"     : str(datetime.datetime.now()),
+                        "thugversion"   : thug_version,
+                        "logtype"       : "json-log",
+                        "behavior"      : [],
+                        "code"          : [],
+                        "files"         : [],
+                        "connections"   : [],
+                        "locations"     : []
+                    }
 
     def fix(self, data):
-        """ Fix encoding of data
+        """
+        Fix encoding of data
 
-        @data: data to encode properly
+        @data  data to encode properly
         """
         return str(data).replace("\n", "").strip()
 
@@ -66,62 +73,68 @@ class JSONLog(object):
     def set_url(self, url):
         self.data["url"] = self.fix(url)
 
-    def add_code_snippet(self, snippet, language, relationship,
-            method="Dynamic Analysis"):
+    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
         return  # Turned off. We first want files and connections
-        self.data["code"].append({"snippet": self.fix(snippet),
-            "language": self.fix(language),
-            "relationship": self.fix(relationship),
-            "method": self.fix(method)})
 
-    def log_connection(self, source, destination, method, flags={}):
-        """ Log the connection (redirection, link) between two pages
+        self.data["code"].append({"snippet"      : self.fix(snippet),
+                                  "language"     : self.fix(language),
+                                  "relationship" : self.fix(relationship),
+                                  "method"       : self.fix(method)})
 
-        @source: The origin page
-        @destination: The page the user is made to load next
-        @method: Link, iframe, .... that moves the user from
-            source to destination
-        @flags: Additional information flags. Existing are: "exploit"
+    def log_connection(self, source, destination, method, flags = {}):
+        """
+        Log the connection (redirection, link) between two pages
+
+        @source        The origin page
+        @destination   The page the user is made to load next
+        @method        Link, iframe, .... that moves the user from source to destination
+        @flags         Additional information flags. Existing are: "exploit"
         """
 
         if "exploit" in flags and flags["exploit"]:
-            self.add_behavior_warn("!!!Exploit!!!  %s -- %s --> %s" % (
-                source, method, destination))
+            self.add_behavior_warn("!!!Exploit!!!  %s -- %s --> %s" % (source,
+                                                                       method,
+                                                                       destination, ))
         else:
-            self.add_behavior_warn("%s -- %s --> %s" % (
-                source, method, destination))
-        self.data["connections"].append({"source": self.fix(source),
-            "destination": self.fix(destination),
-            "method": method,
-            "flags": flags})
+            self.add_behavior_warn("%s -- %s --> %s" % (source,
+                                                        method,
+                                                        destination,))
 
-    def log_location(self, url, ctype, md5, sha256, flags={}):
-        """ Log file information for a given url
+        self.data["connections"].append({"source"       : self.fix(source),
+                                         "destination"  : self.fix(destination),
+                                         "method"       : method,
+                                         "flags"        : flags})
 
-        @url: Url we fetched this file from
-        @ctype: Content type
-        @md5: MD5 hash
-        @sha256: sha256 hash
-        @flags: known flags: "error"
+    def log_location(self, url, ctype, md5, sha256, flags = {}, fsize = 0, mtype = ""):
         """
-        self.data["locations"].append({"url": self.fix(url),
-                "content-type": ctype,
-                "md5": md5,
-                "sha256": sha256,
-                "flags": flags})
+        Log file information for a given url
 
-    def add_behavior(self, description=None, cve=None,
-            method="Dynamic Analysis"):
+        @url       Url we fetched this file from
+        @ctype     Content type (whatever the server says)
+        @md5       MD5 hash
+        @sha256    SHA256 hash
+        @flags     Known flags: "error"
+        @fsize     File size
+        @mtype     Calculated mime type
+        """
+        self.data["locations"].append({"url"          : self.fix(url),
+                                       "content-type" : ctype,
+                                       "md5"          : md5,
+                                       "sha256"       : sha256,
+                                       "flags"        : flags,
+                                       "size"         : fsize,
+                                       "mimetype"     : mtype})
+
+    def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
         if not cve and not description:
             return
 
-        self.data["behavior"].append({"description": self.fix(description),
-            "cve": self.fix(cve),
-            "method": self.fix(method),
-            "timestamp": str(datetime.datetime.now())})
+        self.data["behavior"].append({"description" : self.fix(description),
+                                      "cve"         : self.fix(cve),
+                                      "method"      : self.fix(method),
+                                      "timestamp"   : str(datetime.datetime.now())})
 
-    def add_behavior_warn(self, description=None,
-            cve=None, method="Dynamic Analysis"):
+    def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
         self.add_behavior(description, cve, method)
         log.warning(description)
 
