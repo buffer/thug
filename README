@@ -64,6 +64,9 @@ Requirements
 - Pydot
 	https://code.google.com/p/pydot/
 
+- Python-Magic
+	https://github.com/ahupp/python-magic
+
 - MongoDB (optional)
 	http://www.mongodb.org/
 

@@ -17,10 +17,11 @@ Requirements
 * Chardet                  
 * httplib2 
 * Cssutils
+* Zope interface
 * Graphviz
 * Pyparsing
 * Pydot
-* Zope interface           
+* Python-Magic
 * MongoDB (optional)       
 * PyMongo (optional)       
 * RabbitMQ (optional)
@@ -289,6 +290,19 @@ to install pydot is through easy_install.
 .. code-block:: sh
 
         # easy_install pydot
+
+
+Python-Magic
+^^^^^^^^^^^^
+
+Python-Magic homepage is located at https://github.com/ahupp/python-magic.
+
+If not available as a package for your Linux distribution, the best way
+to install python-magic is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install magic
 
 
 MongoDB (optional)
