@@ -853,7 +853,7 @@ class Window(PyV8.JSClass):
                 # This code is for when you are desperate :)
                 body = self.doc.getElementsByTagName('body')[0]
 
-            if body:
+            if body and body.tag.contents:
                 self.doc.current = body.tag.contents[-1]
             else:
                 self.doc.current = self.doc.doc.contents[-1]
