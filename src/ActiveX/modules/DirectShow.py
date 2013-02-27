@@ -6,6 +6,7 @@ log = logging.getLogger("Thug")
 
 def Setdata(self, val):
     self.__dict__['data'] = val
-    log.ThugLogging.add_behavior_warn('[Microsoft DirectShow MPEG2TuneRequest ActiveX] Stack Overflow in data property',
-                               'CVE-2008-0015')
-
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "Microsoft DirectShow MPEG2TuneRequest ActiveX",
+                                      "Stack Overflow in data property",
+                                      cve = 'CVE-2008-0015')

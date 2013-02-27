@@ -6,16 +6,21 @@ log = logging.getLogger("Thug")
 
 def getVariable(self, arg):
     if len(arg) > 255:
-        log.ThugLogging.add_behavior_warn('[VLC ActiveX] getVariable Overflow',
-                                   'CVE-2007-6262')
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "VLC ActiveX",
+                                          "getVariable Overflow",
+                                          cve = "CVE-2007-6262")
 
 def setVariable(self, arg0, arg1):
     if len(arg0) > 255 or len(arg1) > 255:
-        log.ThugLogging.add_behavior_warn('[VLC ActiveX] setVariable Overflow',
-                                   'CVE-2007-6262')
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "VLC ActiveX",
+                                          "setVariable Overflow",
+                                          cve = "CVE-2007-6262")
 
 def addTarget(self, arg0, arg1, arg2, arg3):
     if len(arg0) > 255 or len(arg1) > 255 or len(arg2) > 255 or len(arg3) > 255:
-        log.ThugLogging.add_behavior_warn('[VLC ActiveX] addTarget Overflow',
-                                   'CVE-2007-6262')
-
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "VLC ActiveX",
+                                          "addTarget Overflow",
+                                          cve = "CVE-2007-6262")

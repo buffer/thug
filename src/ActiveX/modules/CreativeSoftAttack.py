@@ -3,5 +3,7 @@ import logging
 log = logging.getLogger("Thug")
 
 def Setcachefolder(self, val):
-    log.ThugLogging.add_behavior_warn('[CreativeSoft ActiveX] Overflow in cachefolder property')
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "CreativeSoft ActiveX",
+                                      "Overflow in cachefolder property")
 

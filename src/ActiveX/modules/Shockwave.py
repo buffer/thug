@@ -4,5 +4,6 @@ log = logging.getLogger("Thug")
 
 def ShockwaveVersion(self, arg):
     if len(arg) >= 768 * 768:
-        log.ThugLogging.add_behavior_warn('[Adobe Shockwave ActiveX] ShockwaveVersion Stack Overflow')
-
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "Shockwave",
+                                          "ShockwaveVersion Stack Overflow")

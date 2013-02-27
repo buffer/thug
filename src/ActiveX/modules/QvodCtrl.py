@@ -9,5 +9,6 @@ def SetURL(self, val):
     self.__dict__['url'] = val
 
     if len(val) > 800:
-        log.ThugLogging.add_behavior_warn('[Qvod Player QvodCtrl Class ActiveX] Overflow in URL property')
-
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "Qvod Player QvodCtrl Class ActiveX",
+                                          "Overflow in URL property")

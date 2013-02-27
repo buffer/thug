@@ -6,5 +6,6 @@ log = logging.getLogger("Thug")
 
 def ConnectServer(self, server, user):
     if len(user) > 1024:
-        log.ThugLogging.add_behavior_warn('[PTZCamPanel ActiveX] Overflow in ConnectServer user arg')
-
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "PTZCamPanel ActiveX",
+                                          "Overflow in ConnectServer user arg")

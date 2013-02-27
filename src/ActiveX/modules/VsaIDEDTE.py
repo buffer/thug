@@ -6,5 +6,10 @@ def CreateObject(self, object, param = ''):
     import ActiveX
 
     log.ThugLogging.add_behavior_warn("[VsaIDE.DTE ActiveX] CreateObject (%s)" % (object))
-    return ActiveX.ActiveX._ActiveXObject(self._window, object)
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "VsaIDE.DTE ActiveX",
+                                      "CreateObject",
+                                      data = {"object": object},
+                                      forward = False)
 
+    return ActiveX.ActiveX._ActiveXObject(self._window, object)

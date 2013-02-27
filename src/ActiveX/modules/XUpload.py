@@ -6,11 +6,14 @@ log = logging.getLogger("Thug")
 
 def AddFolder(self, arg):
     if len(arg) > 1024:
-        log.ThugLogging.add_behavior_warn('[XUpload ActiveX] Overflow in AddFolder method',
-                                   'CVE-2007-6530')
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "XUpload ActiveX",
+                                          "Overflow in AddFolder method",
+                                          cve = 'CVE-2007-6530')
 
 def AddFile(self, arg):
     if len(arg) > 255: 
-        log.ThugLogging.add_behavior_warn('[XUpload ActiveX] Overflow in AddFile method',
-                                   'CVE-2007-6530')
-
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "XUpload ActiveX",
+                                          "Overflow in AddFile method",
+                                          cve = 'CVE-2007-6530')

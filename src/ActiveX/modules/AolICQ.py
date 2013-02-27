@@ -5,7 +5,12 @@ import logging
 log = logging.getLogger("Thug")
 
 def DownloadAgent(self, url):
-    log.ThugLogging.add_behavior_warn('[AOL ICQ ActiveX] Arbitrary File Download and Execute', 'CVE-2006-5650')
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "AOL ICQ ActiveX",
+                                      "Arbitrary File Download and Execute",
+                                      cve = "CVE-2006-5650",
+                                      data = {"url": url})
+
     log.ThugLogging.add_behavior_warn('[AOL ICQ ActiveX] Fetching from URL: %s' % (url, ))
     
     try:

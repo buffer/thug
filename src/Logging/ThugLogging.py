@@ -102,6 +102,21 @@ class ThugLogging(BaseLogging):
         """
         self.JSONLog.log_location(url, ctype, md5, sha256, flags = flags, fsize = fsize, mtype = mtype)
 
+    def log_exploit_event(self, url, module, description, cve = None, data = None, forward = True):
+        """
+        Log file information for a given url
+
+        @url            Url where this exploit occured
+        @module         Module/ActiveX Control, ... that gets exploited
+        @description    Description of the exploit
+        @cve            CVE number (if available)
+        @forward        Forward log to add_behavior_warn
+        """
+        if forward:
+            self.add_behavior_warn("[%s] %s" % (module, description, ), cve = cve)
+
+        self.JSONLog.log_exploit_event(url, module, description, cve = cve, data = data)
+
     def log_warning(self, data):
         log.warning(data)
         self.HPFeeds.log_warning(data)

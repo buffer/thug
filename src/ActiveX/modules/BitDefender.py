@@ -6,6 +6,8 @@ log = logging.getLogger("Thug")
 
 def initx(self, arg):
     if len(arg) > 1024:
-        log.ThugLogging.add_behavior_warn('[BitDefender Online Scanner ActiveX] InitX overflow',
-                                   'CVE-2007-5775')
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "BitDefender Online Scanner ActiveX",
+                                          "InitX overflow",
+                                          cve = "CVE-2007-5775")
 

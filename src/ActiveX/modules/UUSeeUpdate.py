@@ -5,5 +5,6 @@ import logging
 log = logging.getLogger("Thug")
 
 def Update(self, *args):
-    log.ThugLogging.add_behavior_warn('[UUsee UUPgrade ActiveX] Attack in Update Method')
-
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "UUsee UUPgrade ActiveX",
+                                      "Attack in Update Method")

@@ -3,6 +3,7 @@ import logging
 log = logging.getLogger("Thug")
 
 def LinkSBIcons(self):
-    log.ThugLogging.add_behavior_warn('[AOL ActiveX] Attack in LinkSBIcons function',
-                               'CVE-2006-5820')
-
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "AOL ActiveX",
+                                      "Attack in LinkSBIcons function",
+                                      cve = "CVE-2006-5820")

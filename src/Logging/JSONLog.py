@@ -53,7 +53,8 @@ class JSONLog(object):
                         "code"          : [],
                         "files"         : [],
                         "connections"   : [],
-                        "locations"     : []
+                        "locations"     : [],
+                        "exploits"      : []
                     }
 
     def fix(self, data):
@@ -124,6 +125,21 @@ class JSONLog(object):
                                        "flags"        : flags,
                                        "size"         : fsize,
                                        "mimetype"     : mtype})
+
+    def log_exploit_event(self, url, module, description, cve = None, data = None):
+        """
+        Log file information for a given url
+
+        @url            Url where this exploit occured
+        @module         Module/ActiveX Control, ... that gets exploited
+        @description    Description of the exploit
+        @cve            CVE number (if available)
+        """
+        self.data["exploits"].append({"url"         : self.fix(url),
+                                      "module"      : module,
+                                      "description" : description,
+                                      "cve"         : cve,
+                                      "data"        : data})
 
     def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
         if not cve and not description:

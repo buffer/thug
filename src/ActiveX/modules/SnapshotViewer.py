@@ -14,6 +14,13 @@ def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
     msg = '[Microsoft Access Snapshot Viewer ActiveX] SnapshotPath : %s, CompressedPath: %s' % (self.SnapshotPath, 
                                                                                                 self.CompressedPath, )
     log.ThugLogging.add_behavior_warn(msg, 'CVE-2008-2463')
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "Microsoft Access Snapshot Viewer ActiveX",
+                                      "Print Snapshot",
+                                      forward = False,
+                                      cve = 'CVE-2008-2463',
+                                      data = {"SnapshotPath": self.SnapshotPath, "CompressedPath": self.CompressedPath})
+
     url = self.SnapshotPath
 
     try:

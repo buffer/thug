@@ -6,12 +6,21 @@ log = logging.getLogger("Thug")
 
 def GetHistory(self, arg):
     if len(arg) > 215:
-        log.ThugLogging.add_behavior_warn('[AnswerWorks ActiveX] Overflow in GetHistory', 'CVE-2007-6387')
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "AnswerWorks ActiveX",
+                                          "Overflow in GetHistory",
+                                          cve = 'CVE-2007-6387')
 
 def GetSeedQuery(self, arg):
     if len(arg) > 215:
-        log.ThugLogging.add_behavior_warn('[AnswerWorks ActiveX] Overflow in GetSeedQuery', 'CVE-2007-6387')
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "AnswerWorks ActiveX",
+                                          "Overflow in GetSeedQuery",
+                                          cve = 'CVE-2007-6387')
 
 def SetSeedQuery(self, arg):
     if len(arg) > 215:
-        log.ThugLogging.add_behavior_warn('[AnswerWorks ActiveX] Overflow in SetSeedQuery', 'CVE-2007-6387')
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "AnswerWorks ActiveX",
+                                          "SetSeedQuery",
+                                          cve = 'CVE-2007-6387')

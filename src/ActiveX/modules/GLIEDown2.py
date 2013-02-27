@@ -5,5 +5,6 @@ log = logging.getLogger("Thug")
 
 def IEStartNative(self, arg0, arg1, arg2):
     if len(arg0) > 220:
-        log.ThugLogging.add_behavior_warn('[Ourgame GLWorld GLIEDown2.dll ActiveX] IEStartNative Method Buffer Overflow')
-
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "Ourgame GLWorld GLIEDown2.dll ActiveX",
+                                          "IEStartNative Method Buffer Overflow")

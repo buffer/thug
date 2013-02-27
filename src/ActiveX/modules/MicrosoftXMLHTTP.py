@@ -24,6 +24,11 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
         msg = "%s, '%s'" % (msg, varPassword, )
     msg = "%s)" % (msg, )
     log.ThugLogging.add_behavior_warn(msg)
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "Microsoft XMLHTTP ActiveX",
+                                      "Open",
+                                      forward = False,
+                                      data = {"method" : bstrMethod, "url" : bstrUrl, "async" : str(varAsync)})
     
     self.bstrMethod  = bstrMethod
     self.bstrUrl     = bstrUrl
@@ -40,12 +45,17 @@ def send(self, varBody = None):
 
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] %s" % (msg, ))
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Fetching from URL %s (method: %s)" % (self.bstrUrl, self.bstrMethod, ))
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "Microsoft XMLHTTP ActiveX",
+                                      "Send",
+                                      forward = False,
+                                      data = {"method" : self.bstrMethod, "url" : self.bstrUrl})
 
     try:
         self.responseHeaders, self.responseBody = self._window._navigator.fetch(self.bstrUrl,
-                                                                                method        = self.bstrMethod,
-                                                                                headers       = self.requestHeaders,
-                                                                                body          = varBody,
+                                                                                method       = self.bstrMethod,
+                                                                                headers      = self.requestHeaders,
+                                                                                body         = varBody,
                                                                                 redirect_type = "Microsoft XMLHTTP Exploit")
     except:
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')

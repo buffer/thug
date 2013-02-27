@@ -5,8 +5,11 @@ import logging
 log = logging.getLogger("Thug")
 
 def installAppMgr(self, url):
-    log.ThugLogging.add_behavior_warn('[Symantec AppStream LaunchObj ActiveX] Arbitrary File Download and Execute',
-                                      'CVE-2008-4388')
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "Symantec AppStream LaunchObj ActiveX",
+                                      "Arbitrary File Download and Execute",
+                                      cve = "CVE-2088-4388",
+                                      data = {"url": url})
 
     log.ThugLogging.add_behavior_warn("[Symantec AppStream LaunchObj ActiveX] Fetching from URL %s" % (url, ))
 

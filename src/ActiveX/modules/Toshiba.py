@@ -6,9 +6,12 @@ log = logging.getLogger("Thug")
 
 def SetPort(self, arg):
     if len(arg) > 10:
-        log.ThugLogging.add_behavior_warn('[Toshiba Surveillance RecordSend Class ActiveX] Overflow in SetPort')
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "Toshiba Surveillance RecordSend Class ActiveX",
+                                          "Overflow in SetPort")
 
 def SetIpAddress(self, arg):
     if len(arg) > 18:
-        log.ThugLogging.add_behavior_warn('[Toshiba Surveillance RecordSend Class ActiveX] Overflow in SetIpAddress')
-
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "Toshiba Surveillance RecordSend Class ActiveX",
+                                          "Overflow in SetIpAddress")

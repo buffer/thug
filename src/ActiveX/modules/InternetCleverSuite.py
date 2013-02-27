@@ -4,4 +4,7 @@ import logging
 log = logging.getLogger("Thug")
 
 def GetToFile(self, url, file):
-    log.ThugLogging.add_behavior_warn('[Clever Internet ActiveX Suite 6.2 (CLINETSUITEX6.OCX)] Arbitrary File Download/Overwrite Exploit (URL: %s File: %s)' % (url, file, ))
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "Clever Internet ActiveX Suite 6.2 (CLINETSUITEX6.OCX)",
+                                      "Arbitrary File Download/Overwrite Exploit",
+                                      data = {"url": url, "file": file})

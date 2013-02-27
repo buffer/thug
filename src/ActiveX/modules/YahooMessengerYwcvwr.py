@@ -8,12 +8,16 @@ def Setserver(self, name):
     self.__dict__['server'] = name
 
     if len(name) > 255:
-        log.ThugLogging.add_behavior_warn('[Yahoo! Messenger 8.x Ywcvwr ActiveX] Server Console Overflow',
-                                   'CVE-2007-4391')
+        log.ThugLogging.log_exploit_event(self._window.url,
+                                          "Yahoo! Messenger 8.x Ywcvwr ActiveX",
+                                          "Server Console Overflow",
+                                          cve = "CVE-2007-4391")
 
 def GetComponentVersion(self, arg):
-    log.ThugLogging.add_behavior_warn('[Yahoo! Messenger 8.x Ywcvwr ActiveX] GetComponentVersion Overflow',
-                               'CVE-2007-4391')
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "Yahoo! Messenger 8.x Ywcvwr ActiveX",
+                                      "GetComponentVersion Overflow",
+                                      cve = "CVE-2007-4391")
 
 def initialize(self):
     return
