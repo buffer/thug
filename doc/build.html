@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build and Install &mdash; Thug 0.4.18 documentation</title>
+    <title>Build and Install &mdash; Thug 0.4.20 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.18',
+        VERSION:     '0.4.20',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.18 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.4.20 documentation" href="index.html" />
     <link rel="next" title="Usage" href="usage.html" />
     <link rel="prev" title="Introduction" href="intro.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="intro.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.18 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.20 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -68,8 +68,14 @@
 <li>httplib2</li>
 <li>Cssutils</li>
 <li>Zope interface</li>
+<li>Graphviz</li>
+<li>Pyparsing</li>
+<li>Pydot</li>
+<li>Python-Magic</li>
 <li>MongoDB (optional)</li>
 <li>PyMongo (optional)</li>
+<li>RabbitMQ (optional)</li>
+<li>Pika (optional)</li>
 </ul>
 </div>
 <div class="section" id="installation">
@@ -249,6 +255,42 @@ to install zope.interface is through easy_install.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="graphviz">
+<h3>Graphviz<a class="headerlink" href="#graphviz" title="Permalink to this headline">¶</a></h3>
+<p>Graphviz homepage is located at <a class="reference external" href="http://www.graphviz.org/">http://www.graphviz.org/</a>.</p>
+<p>Graphviz is open source graph visualization software. Graph visualization is a way of representing
+structural information as diagrams of abstract graphs and networks. It has important applications
+in networking, bioinformatics, software engineering, database and web design, machine learning,
+and in visual interfaces for other technical domains.</p>
+<p>If not available as a package for your Linux distribution, change distribution!</p>
+</div>
+<div class="section" id="pyparsing">
+<h3>Pyparsing<a class="headerlink" href="#pyparsing" title="Permalink to this headline">¶</a></h3>
+<p>Pyparsing homepage is located at <a class="reference external" href="http://pyparsing.wikispaces.com/">http://pyparsing.wikispaces.com/</a>.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install pyparsing is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pyparsing</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pydot">
+<h3>Pydot<a class="headerlink" href="#pydot" title="Permalink to this headline">¶</a></h3>
+<p>Pydot homepage is located at <a class="reference external" href="https://code.google.com/p/pydot/">https://code.google.com/p/pydot/</a>.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install pydot is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pydot</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python-magic">
+<h3>Python-Magic<a class="headerlink" href="#python-magic" title="Permalink to this headline">¶</a></h3>
+<p>Python-Magic homepage is located at <a class="reference external" href="https://github.com/ahupp/python-magic">https://github.com/ahupp/python-magic</a>.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install python-magic is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install magic</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="mongodb-optional">
 <h3>MongoDB (optional)<a class="headerlink" href="#mongodb-optional" title="Permalink to this headline">¶</a></h3>
 <p>MongoDB homepage is located at <a class="reference external" href="http://www.mongodb.org">http://www.mongodb.org</a>.</p>
@@ -260,6 +302,25 @@ to install zope.interface is through easy_install.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install pymongo is through easy_install.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pymongo</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rabbitmq-optional">
+<h3>RabbitMQ (optional)<a class="headerlink" href="#rabbitmq-optional" title="Permalink to this headline">¶</a></h3>
+<p>RabbitMQ homepage is located at <a class="reference external" href="http://www.rabbitmq.com/">http://www.rabbitmq.com/</a>. RabbitMQ is a high-performance
+AMQP-compliant message broker written in Erlang and it&#8217;s needed just if you want to play
+with Thug distributed mode.</p>
+<p>If not available as a package for your Linux distribution, change distribution!</p>
+</div>
+<div class="section" id="pika-optional">
+<h3>Pika (optional)<a class="headerlink" href="#pika-optional" title="Permalink to this headline">¶</a></h3>
+<p>Pika homepage is located at <a class="reference external" href="https://github.com/pika/pika/">https://github.com/pika/pika/</a>.</p>
+<p>Pika is a pure-Python implementation of the AMQP 0-9-1 protocol that tries to stay fairly
+independent of the underlying network support library and it&#8217;s needed just if you want to play
+with Thug distributed mode.</p>
+<p>If not available as a package for your Linux distribution, the best way
+to install pika is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pika</span>
 </pre></div>
 </div>
 </div>
@@ -288,8 +349,14 @@ to install pymongo is through easy_install.</p>
 <li><a class="reference internal" href="#httplib2">httplib2</a></li>
 <li><a class="reference internal" href="#cssutils">Cssutils</a></li>
 <li><a class="reference internal" href="#zope-interface">Zope Interface</a></li>
+<li><a class="reference internal" href="#graphviz">Graphviz</a></li>
+<li><a class="reference internal" href="#pyparsing">Pyparsing</a></li>
+<li><a class="reference internal" href="#pydot">Pydot</a></li>
+<li><a class="reference internal" href="#python-magic">Python-Magic</a></li>
 <li><a class="reference internal" href="#mongodb-optional">MongoDB (optional)</a></li>
 <li><a class="reference internal" href="#pymongo-optional">PyMongo (optional)</a></li>
+<li><a class="reference internal" href="#rabbitmq-optional">RabbitMQ (optional)</a></li>
+<li><a class="reference internal" href="#pika-optional">Pika (optional)</a></li>
 </ul>
 </li>
 </ul>
@@ -336,7 +403,7 @@ to install pymongo is through easy_install.</p>
         <li class="right" >
           <a href="intro.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.18 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.20 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
