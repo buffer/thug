@@ -175,6 +175,7 @@ Synopsis:
         -a, --ast-debug     	Enable AST debug mode (requires debug mode)
         -t, --threshold         Maximum pages to fetch
         -E, --extensive         Extensive fetch of linked pages
+        -T, --timeout           Timeout in minutes
 
         Plugins:
         -A, --adobepdf=     	Specify the Adobe Acrobat Reader version (default: 9.1.0)
