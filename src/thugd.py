@@ -65,6 +65,9 @@ class Thugd():
         command = ["python", "thug.py", "-t", str(job["threshold"])]
         if job["extensive"]:
             command.append("-E")
+        if job["timeout"]:
+            command.append("-T")
+            command.append(str(job["timeout"]))
         if job["referer"]:
             command.append("-r")
             command.append(job["referer"])

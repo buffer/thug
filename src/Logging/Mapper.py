@@ -252,7 +252,7 @@ class Mapper():
         with open(os.path.join(self.resdir, "map.svg"), 'w') as fd:
             fd.write(svg)
     def _activate(self, conto):
-        """ 
+        """
             Iterate through data and set display for hot connections
         """
 
@@ -269,7 +269,6 @@ class Mapper():
 
         for t in tofix:
             self._activate(t)
-                        
 
     def follow_track(self, end):
         """ Follow the track between entry point of the analysis and the exploit URL.

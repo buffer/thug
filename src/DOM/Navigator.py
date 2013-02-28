@@ -24,6 +24,7 @@ import hashlib
 import logging
 import socket
 import magic
+import datetime
 
 try:
     import urllib.parse as urlparse
@@ -364,7 +365,11 @@ class Navigator(PyV8.JSClass):
         self.filecount += 1
 
         if log.ThugOpts.threshold and self.filecount >= log.ThugOpts.threshold:
-            log.ThugLogging.log_location(url, None, None, None, flags = {"error":"Timeout"})
+            log.ThugLogging.log_location(url, None, None, None, flags = {"error" : "Threshold Exceeded"})
+            return
+
+        if log.ThugOpts.timeout is not None and datetime.datetime.now() > log.ThugOpts.timeout:
+            log.ThugLogging.log_location(url, None, None, None, flags = {"error" : "Timeout"})
             return
 
         http_headers = self.__build_http_headers(headers)

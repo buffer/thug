@@ -18,7 +18,7 @@ class ThugCtrl():
     """ Thug remote control
     """
 
-    def __init__(self, configfile, extensive = False, threshold = 0, referer = None, proxy = None):
+    def __init__(self, configfile, extensive = False, threshold = 0, referer = None, proxy = None, timeout = None):
         """ Init Thugd using config file
         """
 
@@ -28,6 +28,7 @@ class ThugCtrl():
         self.threshold = threshold
         self.referer = referer
         self.proxy = proxy
+        self.timeout = timeout
         self.configfile = configfile
         self.read_config()
 
@@ -72,7 +73,8 @@ class ThugCtrl():
                 "threshold": self.threshold,
                 "extensive": self.extensive,
                 "referer": self.referer,
-                "proxy": self.proxy
+                "proxy": self.proxy,
+                "timeout": self.timeout
                 }
         print data
 
@@ -148,11 +150,14 @@ if __name__ == "__main__":
     parser.add_argument('--proxy', type=str,
         help='Proxy to use',
         default=None)
+    parser.add_argument('--timeout', type=int,
+        help='Timeout in minutes for the analysis',
+        default=None)
 
     args = parser.parse_args()
 
     if args.urls:
-        t = ThugCtrl(args.config, args.extensive, args.threshold, args.referer, args.proxy)
+        t = ThugCtrl(args.config, args.extensive, args.threshold, args.referer, args.proxy, args.timeout)
         for aurl in args.urls:
             t.process(aurl)
 

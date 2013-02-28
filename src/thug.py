@@ -24,6 +24,7 @@ import datetime
 import hashlib
 import httplib2
 import logging
+import datetime
 
 try:
     import urllib.parse as urlparse
@@ -49,7 +50,8 @@ class ThugOpts(dict):
         self._proxy_info = None
         self.local       = False
         self.extensive   = False
-        self.threshold   = 0
+        self._threshold  = 0
+        self._timeout    = None
         self.ast_debug   = False
         self._useragent  = 'winxpie60'
         self._referer    = 'about:blank'
@@ -135,6 +137,37 @@ class ThugOpts(dict):
         self._cache = cache
 
     cache = property(get_cache, set_cache)
+
+    def get_threshold(self):
+        return self._threshold
+
+    def set_threshold(self, threshold):
+        try:
+            value = int(threshold)
+        except:
+            log.warning('[WARNING] Ignoring invalid threshold value (should be an integer)')
+            return
+
+        self._threshold = value
+
+    threshold = property(get_threshold, set_threshold)
+
+    def get_timeout(self):
+        return self._timeout
+
+    def set_timeout(self, timeout):
+        try:
+            minutes = int(timeout)
+        except:
+            log.warning('[WARNING] Ignoring invalid timeout value (should be an integer)')
+            return
+
+        now   = datetime.datetime.now()
+        delta = datetime.timedelta(minutes = minutes)
+        self._timeout = now + delta
+
+    timeout = property(get_timeout, set_timeout)
+
 
 
 class ThugVulnModules(dict):
@@ -272,6 +305,7 @@ Synopsis:
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
         -t, --threshold     \tMaximum pages to fetch
         -E, --extensive     \tExtensive fetch of linked pages
+        -T, --timeout       \tTimeout in minutes
 
         Plugins:
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
@@ -328,7 +362,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmaA:PS:RJ:Kt:E',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmaA:PS:RJ:Kt:ET:',
                 ['help',
                 'version',
                 'useragent=',
@@ -353,6 +387,7 @@ Synopsis:
                 'no-javaplugin',
                 'threshold',
                 'extensive',
+                'timeout'
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -369,10 +404,6 @@ Synopsis:
         for option in options:
             if option[0] in ('-u', '--useragent', ):
                 log.ThugOpts.useragent = option[1]
-            if option[0] in ('-t', '--threshold', ):
-                log.ThugOpts.threshold = int(option[1])
-            if option[0] in ('-E', '--extensive', ):
-                log.ThugOpts.extensive = True
             if option[0] in ('-e', '--events'):
                 log.ThugOpts.events = option[1]
             if option[0] in ('-w', '--delay'):
@@ -406,6 +437,13 @@ Synopsis:
                 log.ThugVulnModules.javaplugin = option[1]
             if option[0] in ('-K', '--no-javaplugin', ):
                 log.ThugVulnModules.disable_javaplugin()
+            if option[0] in ('-t', '--threshold', ):
+                log.ThugOpts.threshold = option[1]
+            if option[0] in ('-E', '--extensive', ):
+                log.ThugOpts.extensive = True
+            if option[0] in ('-T', '--timeout', ):
+                log.ThugOpts.timeout = option[1]
+
 
         log.ThugLogging = ThugLogging(__thug_version__)
         log.ThugLogging.set_basedir(args[0])
