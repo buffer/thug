@@ -409,7 +409,13 @@ class Navigator(PyV8.JSClass):
         sha256 = sha.hexdigest()
 
         fsize = len(content)
-        mtype = magic.from_buffer(content)
+
+        try:
+            mtype = magic.from_buffer(content)
+        except:  # Ubuntu workaround. There is an old pymagic version in ubuntu
+            ms = magic.open(magic.MAGIC_NONE)
+            ms.load()
+            mtype = ms.buffer(content)
 
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (response['content-location'] if 'content-location' in response else url,
                                                                                           response['content-type'] if 'content-type' in response else 'unknown',
