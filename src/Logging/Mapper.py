@@ -243,7 +243,7 @@ class Mapper():
         graph = pydot.graph_from_dot_data(open(self.dotfile).read())
         svg   = graph.create_svg()
 
-        with open(os.path.join(self.resdir, "map.svg"), 'a+r') as fd:
+        with open(os.path.join(self.resdir, "map.svg"), 'w') as fd:
             fd.write(svg)
 
 
