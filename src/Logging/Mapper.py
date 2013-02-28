@@ -93,6 +93,7 @@ class Mapper():
 
         self._write_start()
         self.data = {"locations": [], "connections": []}
+        self.first_track = True   # flag indicating that we did not follow a track yet
 
     def _write_start(self):
         """
@@ -135,8 +136,9 @@ class Mapper():
         # Create dot from data
         if "locations" in self.data:
             for loc in self.data["locations"]:
-                shape     = None
-                fillcolor = None
+                if loc["display"]:
+                    shape     = None
+                    fillcolor = None
 
                 # Markup
                 if self.check_markup(loc):
@@ -165,7 +167,8 @@ class Mapper():
         if "connections" in self.data:
             # Add edges
             for con in self.data["connections"]:
-                color = None
+                if con["display"]:
+                    color = None
 
                 if "method" in ["iframe"]:
                     color = "orange"
@@ -182,6 +185,7 @@ class Mapper():
         """
             Add location information to location data
         """
+        loc["display"] = True
         if self.simplify:
             url = urlparse.urlparse(loc["url"]).netloc
             if url:
@@ -198,6 +202,7 @@ class Mapper():
         """
             Add connection information to connection data
         """
+        con["display"] = True
         if self.simplify:
             url = urlparse.urlparse(con["source"]).netloc
             if url:
@@ -211,6 +216,7 @@ class Mapper():
             d = DictDiffer(a, con)
             if not d.anychange():
                 return
+
         self.data["connections"].append(con)
 
     def add_data(self, data):
@@ -245,6 +251,52 @@ class Mapper():
 
         with open(os.path.join(self.resdir, "map.svg"), 'w') as fd:
             fd.write(svg)
+    def _activate(self, conto):
+        """ 
+            Iterate through data and set display for hot connections
+        """
+
+        tofix = []
+
+        for c in self.data["connections"]:
+            if c["display"] == False and c["destination"] == conto:
+                c["display"] = True
+                tofix.append(c["source"])
+
+        for l in self.data["locations"]:
+            if l["url"] == conto or l["url"] in tofix:
+                l["display"] = True
+
+        for t in tofix:
+            self._activate(t)
+                        
+
+    def follow_track(self, end):
+        """ Follow the track between entry point of the analysis and the exploit URL.
+            Remove all non-relevant stuff
+
+        @end: end url to track the connections to
+        """
+
+        if self.first_track:
+            for con in self.data["connections"]:
+                con["display"] = False
+            for loc in self.data["locations"]:
+                loc["display"] = False
+
+        self.first_track = False
+
+        self._activate(end)
+
+    def write_text(self):
+        """ Return text representation
+        """
+
+        res = ""
+        for con in self.data["connections"]:
+            if con["display"]:
+                res += "%s -- %s --> %s \n" % (str(con["source"]),str(con["method"]), str(con["destination"]))
+        return res
 
 
 def allFiles(root, patterns = "*", single_level = False, yield_folders = False):
@@ -275,6 +327,7 @@ if __name__ == "__main__":
     parser.add_argument('--resdir', help = 'Result dir', default = ".")
     parser.add_argument('--source', help = 'Source file or dir', default = "avlog.json")
     parser.add_argument('--simplify', help = 'Reduce the URLs to servernames', default = False, action = "store_true")
+    parser.add_argument('--tracks', type=str, nargs='+', help='URLs to track to', default = None)
 
     args = parser.parse_args()
 
@@ -286,4 +339,8 @@ if __name__ == "__main__":
     else:
         m.add_file(args.source)
 
+    if args.tracks:
+        for atrack in args.tracks:
+            m.follow_track(atrack)
+    #print m.write_text()
     m.write_svg()
