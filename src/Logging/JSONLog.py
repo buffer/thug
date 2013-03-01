@@ -152,7 +152,7 @@ class JSONLog(object):
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
         self.add_behavior(description, cve, method)
-        log.warning(description)
+        #log.warning(description)
 
     def log_file(self, data):
         self.data["files"].append(data)
