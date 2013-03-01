@@ -132,6 +132,15 @@ class Mapper():
     def check_exec(self, loc):
         return self._check_types(loc, self.exec_types)
 
+    def _create_id(self, name):
+        """
+        Create a unique id for a url object. Pydoc can not accept node ids with ://
+
+        """
+
+        res = name.replace(":", "_").replace("/", "_")
+        return res
+
     def _dot_from_data(self):
         # Create dot from data
         if "locations" in self.data:
@@ -140,29 +149,29 @@ class Mapper():
                     shape     = None
                     fillcolor = None
 
-                # Markup
-                if self.check_markup(loc):
-                    shape = "box"
+                    # Markup
+                    if self.check_markup(loc):
+                        shape = "box"
 
-                # Images
-                if self.check_image(loc):
-                    shape = "oval"
+                    # Images
+                    if self.check_image(loc):
+                        shape = "oval"
 
-                # Executable stuff
-                if self.check_exec(loc):
-                    shape = "hexagon"
+                    # Executable stuff
+                    if self.check_exec(loc):
+                        shape = "hexagon"
 
-                if "error" in loc["flags"]:
-                    fillcolor = "orange"
+                    if "error" in loc["flags"]:
+                        fillcolor = "orange"
 
-                self.dfh.write('"%s" [label="%s"' % (loc["url"], loc["url"]))
+                    self.dfh.write('"%s" [label="%s"' % (loc["url"], loc["url"]))
 
-                if shape:
-                    self.dfh.write("shape = %s," % shape)
-                if fillcolor:
-                    self.dfh.write("style = filled, fillcolor = %s," % fillcolor)
+                    if shape:
+                        self.dfh.write("shape = %s," % shape)
+                    if fillcolor:
+                        self.dfh.write("style = filled, fillcolor = %s," % fillcolor)
 
-                self.dfh.write("]\n")
+                    self.dfh.write("]\n")
 
         if "connections" in self.data:
             # Add edges
@@ -170,16 +179,16 @@ class Mapper():
                 if con["display"]:
                     color = None
 
-                if "method" in ["iframe"]:
-                    color = "orange"
+                    if "method" in ["iframe"]:
+                        color = "orange"
 
-                self.dfh.write('"%s" -> "%s" [label="%s",' %\
-                    (con["source"], con["destination"], con["method"]))
+                    self.dfh.write('"%s" -> "%s" [label="%s",' %\
+                        (con["source"], con["destination"], con["method"]))
 
-                if color:
-                    self.dfh.write("color = %s," % color)
+                    if color:
+                        self.dfh.write("color = %s," % color)
 
-                self.dfh.write("]\n")
+                    self.dfh.write("]\n")
 
     def _add_to_loc(self, loc):
         """
@@ -251,6 +260,7 @@ class Mapper():
 
         with open(os.path.join(self.resdir, "map.svg"), 'w') as fd:
             fd.write(svg)
+
     def _activate(self, conto):
         """
             Iterate through data and set display for hot connections
