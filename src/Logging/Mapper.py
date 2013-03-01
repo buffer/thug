@@ -164,10 +164,11 @@ class Mapper():
                     if "error" in loc["flags"]:
                         fillcolor = "orange"
 
-                    self.dfh.write('"%s" [label="%s"' % (loc["url"], loc["url"]))
+                    self.dfh.write('"%s" [label="%s"' % (self._create_id(loc["url"]), loc["url"]))
 
                     if shape:
                         self.dfh.write("shape = %s," % shape)
+
                     if fillcolor:
                         self.dfh.write("style = filled, fillcolor = %s," % fillcolor)
 
@@ -183,7 +184,7 @@ class Mapper():
                         color = "orange"
 
                     self.dfh.write('"%s" -> "%s" [label="%s",' %\
-                        (con["source"], con["destination"], con["method"]))
+                        (self._create_id(con["source"]), self._create_id(con["destination"]), con["method"]))
 
                     if color:
                         self.dfh.write("color = %s," % color)
@@ -207,6 +208,26 @@ class Mapper():
 
         self.data["locations"].append(loc)
 
+    def _add_weak_loc(self, url):
+        """
+        Generate a weak loc for the given url.
+        """
+
+        for al in self.data["locations"]:
+            if al["url"] == url:
+                return
+
+        loc = {'mimetype'       : '',
+               'url'            : url,
+               'size'           : 0,
+               'flags'          : {},
+               'sha256'         : None,
+               'content-type'   : None,
+               'display'        : True,
+               'md5'            : None}
+
+        self._add_to_loc(loc)
+
     def _add_to_con(self, con):
         """
             Add connection information to connection data
@@ -220,6 +241,9 @@ class Mapper():
             url = urlparse.urlparse(con["destination"]).netloc
             if url:
                 con["destination"] = url
+
+        self._add_weak_loc(con["source"])
+        self._add_weak_loc(con["destination"])
 
         for a in self.data["connections"]:
             d = DictDiffer(a, con)
@@ -255,11 +279,8 @@ class Mapper():
         """
         self._write_stop()
 
-        graph = pydot.graph_from_dot_data(open(self.dotfile).read())
-        svg   = graph.create_svg()
-
-        with open(os.path.join(self.resdir, "map.svg"), 'w') as fd:
-            fd.write(svg)
+        graph = pydot.graph_from_dot_file(self.dotfile)
+        svg   = graph.write_svg(os.path.join(self.resdir, "map.svg"))
 
     def _activate(self, conto):
         """
