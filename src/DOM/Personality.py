@@ -364,7 +364,7 @@ class Personality(dict):
                 "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
                 "appCodeName"     : "Mozilla",
                 "appName"         : "Netscape",
-                "appVersion"      : "5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko)",
+                "appVersion"      : "5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
                 "appMinorVersion" : None,
                 "platform"        : "Linux armv71",
                 "product"         : "Gecko",
