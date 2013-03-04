@@ -378,6 +378,27 @@ class Personality(dict):
                 "browserTag"      : "chrome18",
                 }
 
+        self['galaxy2chrome25'] = {
+                "id"              : 17,
+                "description"     : "Chrome 25.0.1364.123\t(Samsung Galaxy S II, Android 4.0.3)",
+                "version"         : "25.0.1364.123",
+                "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.123 Mobile Safari/537.22",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.123 Mobile Safari/537.22",
+                "appMinorVersion" : None,
+                "platform"        : "Linux armv71",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Google Inc.",
+                "vendorSub"       : "",
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "chrome25",
+                }
+
     @property
     def userAgent(self):
         return self[log.ThugOpts.useragent]['userAgent']
