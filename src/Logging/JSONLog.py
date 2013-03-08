@@ -63,7 +63,7 @@ class JSONLog(object):
 
         @data  data to encode properly
         """
-        return str(data).replace("\n", "").strip()
+        return unicode(data).replace("\n", "").strip()
 
     def make_counter(self, p):
         id = p
