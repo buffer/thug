@@ -421,6 +421,27 @@ class Personality(dict):
                 "browserTag"      : "chrome26",
                 }
 
+        self['linuxfirefox19'] = {
+                "id"              : 19,
+                "description"     : "Firefox 19.0\t\t(Linux)",
+                "version"         : "19.0",
+                "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (X11)",
+                "appMinorVersion" : None,
+                "platform"        : "Linux x86_64",
+                "product"         : "Gecko",
+                "productSub"      : "20100101",
+                "vendor"          : "",
+                "vendorSub"       : "",
+                "oscpu"           : "Linux x86_64",
+                "buildID"         : "20130215130331",
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "firefox19",
+                }
+
     @property
     def userAgent(self):
         return self[log.ThugOpts.useragent]['userAgent']
