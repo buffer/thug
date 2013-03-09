@@ -399,6 +399,28 @@ class Personality(dict):
                 "browserTag"      : "chrome25",
                 }
 
+        # Linux personalities
+        self['linuxchrome26'] = {
+                "id"              : 18,
+                "description"     : "Chrome 26.0.1410.19\t(Linux)",
+                "version"         : "26.0.1410.19",
+                "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.19 Safari/537.31",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.19 Safari/537.31",
+                "appMinorVersion" : None,
+                "platform"        : "Linux x86_64",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Google Inc.",
+                "vendorSub"       : "",
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "chrome26",
+                }
+
     @property
     def userAgent(self):
         return self[log.ThugOpts.useragent]['userAgent']
