@@ -72,6 +72,8 @@ Let's start our Thug tour by taking a look at the options it provides.
             osx10chrome19           Chrome 19.0.1084.54     (MacOS X 10.7.4)
             galaxy2chrome18         Chrome 18.0.1025.166    (Samsung Galaxy S II, Android 4.0.3)
             galaxy2chrome25         Chrome 25.0.1364.123    (Samsung Galaxy S II, Android 4.0.3)
+            linuxchrome26           Chrome 26.0.1410.19     (Linux)
+            linuxfirefox19          Firefox 19.0            (Linux)
 
 
 Let's start with a first basic real-world example: a Blackhole exploit kit.  
