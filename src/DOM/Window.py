@@ -632,7 +632,7 @@ class Window(PyV8.JSClass):
 
         return len(self.timers) - 1 
 
-    def setTimeout(self, f, delay, lang = 'JavaScript'):
+    def setTimeout(self, f, delay = 0, lang = 'JavaScript'):
         """
         Sets a delay for executing a function.
         Syntax
