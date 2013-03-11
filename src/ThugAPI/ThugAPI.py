@@ -17,6 +17,7 @@
 # MA  02111-1307  USA
 
 import sys
+import os
 import logging
 
 try:
@@ -136,6 +137,26 @@ class ThugAPI:
 
     def set_timeout(self, timeout):
         log.ThugOpts.timeout = timeout
+
+    def log_init(self, url):
+        log.ThugLogging = ThugLogging(self.thug_version)
+        log.ThugLogging.set_basedir(url)
+
+    def set_log_dir(self, logdir):
+        log.ThugLogging.set_absbasedir(logdir)
+
+    def set_log_output(self, output):
+        fh = logging.FileHandler(os.path.join(log.ThugLogging.baseDir, output))
+        log.addHandler(fh)
+
+    def set_log_quiet(self):
+        root = logging.getLogger()
+        for handler in root.handlers:
+            if isinstance(handler, logging.StreamHandler):
+                handler.addFilter(OpaqueFilter())
+
+    def log_event(self):
+        log.ThugLogging.log_event()
 
     def run(self, window):
         dft = DFT.DFT(window)

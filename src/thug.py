@@ -22,7 +22,6 @@ import getopt
 import logging
 
 from ThugAPI import *
-from Logging.ThugLogging import ThugLogging
 from Plugins.ThugPlugins import *
 
 log = logging.getLogger("Thug")
@@ -167,27 +166,22 @@ Synopsis:
             if option[0] in ('-T', '--timeout', ):
                 self.set_timeout(option[1])
 
-        log.ThugLogging = ThugLogging(self.thug_version)
-        log.ThugLogging.set_basedir(args[0])
+        self.log_init(args[0])
 
         for option in options:
             if option[0] in ('-n', '--logdir'):
-                log.ThugLogging.set_absbasedir(option[1])
+                self.set_log_dir(option[1])
             if option[0] in ('-o', '--output', ):
-                fh = logging.FileHandler(os.path.join(log.ThugLogging.baseDir, option[1]))
-                log.addHandler(fh)
+                self.set_log_output(option[1])
             if option[0] in ('-q', '--quiet', ):
-                root = logging.getLogger()
-                for handler in root.handlers:
-                    if isinstance(handler, logging.StreamHandler):
-                        handler.addFilter(OpaqueFilter())
+                self.set_log_quiet()
 
         if p:
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
             p(args[0])
             ThugPlugins(POST_ANALYSIS_PLUGINS, self)()
 
-        log.ThugLogging.log_event()
+        self.log_event()
         return log
 
 
