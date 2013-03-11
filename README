@@ -134,12 +134,6 @@ described below.
 	~/pyv8 $ python setup.py build
 	~/pyv8 $ sudo python setup.py install
 
-7. Test the installation
-
-	~/pyv8 $ python PyV8.py
-
-   If no problems occur, you have successfully installed V8 and PyV8.
-
 
 In order to install the other required libraries and packages please 
 follow installation procedures as specified in their documentation.
