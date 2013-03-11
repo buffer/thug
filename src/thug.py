@@ -18,265 +18,20 @@
 
 import sys
 import os
-import errno
 import getopt
-import datetime
-import hashlib
-import httplib2
 import logging
-import datetime
 
-try:
-    import urllib.parse as urlparse
-except ImportError:
-    import urlparse
-
-from DOM.W3C import w3c
-from DOM.Personality import Personality
-from DOM import Window, DFT, MIMEHandler, SchemeHandler
+from ThugAPI import *
 from Logging.ThugLogging import ThugLogging
 from Plugins.ThugPlugins import *
-
-__thug_version__ = '0.4.20'
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
 
 
-class ThugOpts(dict):
-    proxy_schemes = ('http', 'socks4', 'socks5', )
-
-    def __init__(self):
-        self._proxy_info = None
-        self.local       = False
-        self.extensive   = False
-        self._threshold  = 0
-        self._timeout    = None
-        self.ast_debug   = False
-        self._useragent  = 'winxpie60'
-        self._referer    = 'about:blank'
-        self._events     = list()
-        self._delay      = 0
-        self._no_fetch   = False
-        self._cache      = '/tmp/thug-cache-%s' % (os.getuid(), )
-        self.Personality = Personality()
-
-    def set_proxy_info(self, proxy):
-        p = urlparse.urlparse(proxy)
-        if p.scheme.lower() not in self.proxy_schemes:
-            log.warning('[ERROR] Invalid proxy scheme (valid schemes: http, socks4, socks5)')
-            sys.exit(0)
-
-        proxy_type = getattr(httplib2.socks, "PROXY_TYPE_%s" % (p.scheme.upper(),))
-        self._proxy_info = httplib2.ProxyInfo(proxy_type = proxy_type,
-                                              proxy_host = p.hostname,
-                                              proxy_port = p.port if p.port else 8080,
-                                              proxy_user = p.username,
-                                              proxy_pass = p.password)
-
-    def get_proxy_info(self):
-        return self._proxy_info
-
-    proxy_info = property(get_proxy_info, set_proxy_info)
-
-    def get_useragent(self):
-        return self._useragent
-
-    def set_useragent(self, useragent):
-        if not useragent in self.Personality:
-            log.warning('[WARNING] Invalid User Agent provided (using default "%s")' % (self._useragent, ))
-            return
-
-        self._useragent = useragent
-
-    useragent = property(get_useragent, set_useragent)
-
-    def get_referer(self):
-        return self._referer
-
-    def set_referer(self, referer):
-        self._referer = referer
-
-    referer = property(get_referer, set_referer)
-
-    def get_events(self):
-        return self._events
-
-    def set_events(self, events):
-        for e in events.split(","):
-            self._events.append(e.lower().strip())
-
-    events = property(get_events, set_events)
-
-    def get_delay(self):
-        return self._delay
-
-    def set_delay(self, timeout):
-        try:
-            _timeout = int(timeout)
-        except:
-            log.warning('[WARNING] Ignoring invalid delay value (should be an integer)')
-            return
-
-        self._delay = abs(_timeout)
-
-    delay = property(get_delay, set_delay)
-
-    def get_no_fetch(self):
-        return self._no_fetch
-
-    def set_no_fetch(self, fetch):
-        self._no_fetch = fetch
-
-    no_fetch = property(get_no_fetch, set_no_fetch)
-
-    def get_cache(self):
-        return self._cache
-
-    def set_cache(self, cache):
-        self._cache = cache
-
-    cache = property(get_cache, set_cache)
-
-    def get_threshold(self):
-        return self._threshold
-
-    def set_threshold(self, threshold):
-        try:
-            value = int(threshold)
-        except:
-            log.warning('[WARNING] Ignoring invalid threshold value (should be an integer)')
-            return
-
-        self._threshold = value
-
-    threshold = property(get_threshold, set_threshold)
-
-    def get_timeout(self):
-        return self._timeout
-
-    def set_timeout(self, timeout):
-        try:
-            minutes = int(timeout)
-        except:
-            log.warning('[WARNING] Ignoring invalid timeout value (should be an integer)')
-            return
-
-        now   = datetime.datetime.now()
-        delta = datetime.timedelta(minutes = minutes)
-        self._timeout = now + delta
-
-    timeout = property(get_timeout, set_timeout)
-
-
-
-class ThugVulnModules(dict):
-    def __init__(self):
-        self._acropdf_pdf               = '9.1.0'
-        self._acropdf_disabled          = False
-        self._shockwave_flash           = '10.0.64.0'
-        self._shockwave_flash_disabled  = False
-        self._javaplugin                = '1.6.0.32'
-        self._javaplugin_disabled       = False
-
-    def invalid_version(self, version):
-        for p in version.split('.'):
-            if not p.isdigit():
-                return True
-
-        return False
-
-    def get_acropdf_pdf(self):
-        return self._acropdf_pdf
-
-    def set_acropdf_pdf(self, version):
-        if self.invalid_version(version):
-            log.warning('[WARNING] Invalid Adobe Acrobat Reader version provided (using default one)')
-            return
-
-        self._acropdf_pdf = version
-
-    acropdf_pdf = property(get_acropdf_pdf, set_acropdf_pdf)
-
-    def disable_acropdf(self):
-        self._acropdf_disabled = True
-
-    @property
-    def acropdf_disabled(self):
-        return self._acropdf_disabled
-
-    def get_shockwave_flash(self):
-        return self._shockwave_flash
-
-    def set_shockwave_flash(self, version):
-        if not version.split('.')[0] in ('8', '9', '10', '11', ) or self.invalid_version(version):
-            log.warning('[WARNING] Invalid Shockwave Flash version provided (using default one)')
-            return
-
-        self._shockwave_flash = version
-
-    shockwave_flash = property(get_shockwave_flash, set_shockwave_flash)
-
-    def disable_shockwave_flash(self):
-        self._shockwave_flash_disabled = True
-
-    @property
-    def shockwave_flash_disabled(self):
-        return self._shockwave_flash_disabled
-
-    def get_javaplugin(self):
-        javaplugin = self._javaplugin.split('.')
-        last       = javaplugin.pop()
-        return '%s_%s' % (''.join(javaplugin), last)
-
-    def set_javaplugin(self, version):
-        if self.invalid_version(version):
-            log.warning('[WARNING] Invalid JavaPlugin version provided (using default one)')
-            return
-
-        _version = version.split('.')
-        while len(_version) < 4:
-            _version.append('0')
-
-        if len(_version[3]) == 1:
-            _version[3] = '0%s' % (_version[3], )
-
-        self._javaplugin = '.'.join(_version)
-
-    javaplugin = property(get_javaplugin, set_javaplugin)
-
-    def disable_javaplugin(self):
-        self._javaplugin_disabled = True
-
-    @property
-    def javaplugin_disabled(self):
-        return self._javaplugin_disabled
-
-    @property
-    def javawebstart_isinstalled(self):
-        javawebstart = self._javaplugin.split('.')
-        last         = javawebstart.pop()
-        return '%s.%s' % ('.'.join(javawebstart), '0')
-
-
-class OpaqueFilter(logging.Filter):
-        def __init__(self):
-            pass
-
-        def filter(self, record):
-            return False
-
-
-class Thug:
+class Thug(ThugAPI):
     def __init__(self, args):
-        self.args               = args
-        log.ThugOpts            = ThugOpts()
-        log.ThugVulnModules     = ThugVulnModules()
-        log.MIMEHandler         = MIMEHandler.MIMEHandler()
-        log.SchemeHandler       = SchemeHandler.SchemeHandler()
-
-    def __call__(self):
-        self.analyze()
+        ThugAPI.__init__(self, args)
 
     def usage(self):
         msg = """
@@ -326,38 +81,6 @@ Synopsis:
         print(msg)
         sys.exit(0)
 
-    def version(self):
-        print("Thug %s" % (__thug_version__, ))
-        sys.exit(0)
-
-    def run(self, window):
-        dft = DFT.DFT(window)
-        dft.run()
-
-    def run_local(self, url):
-        log.ThugLogging.set_url(url)
-        log.ThugOpts.local = True
-
-        html   = open(url, 'r').read()
-        doc    = w3c.parseString(html)
-        window = Window.Window('about:blank', doc, personality = log.ThugOpts.useragent)
-        window.open()
-        self.run(window)
-
-    def run_remote(self, url):
-        scheme = urlparse.urlparse(url).scheme
-
-        if not scheme or not scheme.startswith('http'):
-            url = 'http://%s' % (url, )
-
-        log.ThugLogging.set_url(url)
-
-        doc    = w3c.parseString('')
-        window = Window.Window(log.ThugOpts.referer, doc, personality = log.ThugOpts.useragent)
-        window = window.open(url)
-        if window:
-            self.run(window)
-
     def analyze(self):
         p = getattr(self, 'run_remote', None)
 
@@ -403,49 +126,48 @@ Synopsis:
 
         for option in options:
             if option[0] in ('-u', '--useragent', ):
-                log.ThugOpts.useragent = option[1]
+                self.set_useragent(option[1])
             if option[0] in ('-e', '--events'):
-                log.ThugOpts.events = option[1]
+                self.set_events(option[1])
             if option[0] in ('-w', '--delay'):
-                log.ThugOpts.delay = option[1]
+                self.set_delay(option[1])
             if option[0] in ('-r', '--referer', ):
-                log.ThugOpts.referer = option[1]
+                self.set_referer(option[1])
             if option[0] in ('-p', '--proxy', ):
-                log.ThugOpts.proxy_info = option[1]
+                self.set_proxy(option[1])
             if option[0] in ('-l', '--local', ):
                 p = getattr(self, 'run_local')
             if option[0] in ('-x', '--local-nofetch', ):
                 p = getattr(self, 'run_local')
-                log.ThugOpts.no_fetch = True
+                self.set_no_fetch()
             if option[0] in ('-v', '--verbose', ):
-                log.setLevel(logging.INFO)
+                self.set_verbose()
             if option[0] in ('-d', '--debug', ):
-                log.setLevel(logging.DEBUG)
+                self.set_debug()
             if option[0] in ('-m', '--no-cache'):
-                log.ThugOpts.cache = None
+                self.set_no_cache()
             if option[0] in ('-a', '--ast-debug', ):
-                log.ThugOpts.ast_debug = True
+                self.set_ast_debug()
             if option[0] in ('-A', '--adobepdf', ):
-                log.ThugVulnModules.acropdf_pdf = option[1]
+                self.set_acropdf_pdf(option[1])
             if option[0] in ('-P', '--no-adobepdf', ):
-                log.ThugVulnModules.disable_acropdf()
+                self.disable_acropdf()
             if option[0] in ('-S', '--shockwave', ):
-                log.ThugVulnModules.shockwave_flash = option[1]
+                self.set_shockwave_flash(option[1])
             if option[0] in ('-R', '--no-shockwave', ):
-                log.ThugVulnModules.disable_shockwave_flash()
+                self.disable_shockwave_flash()
             if option[0] in ('-J', '--javaplugin', ):
-                log.ThugVulnModules.javaplugin = option[1]
+                self.set_javaplugin(option[1])
             if option[0] in ('-K', '--no-javaplugin', ):
-                log.ThugVulnModules.disable_javaplugin()
+                self.disable_javaplugin()
             if option[0] in ('-t', '--threshold', ):
-                log.ThugOpts.threshold = option[1]
+                self.set_threshold(option[1])
             if option[0] in ('-E', '--extensive', ):
-                log.ThugOpts.extensive = True
+                self.set_extensive()
             if option[0] in ('-T', '--timeout', ):
-                log.ThugOpts.timeout = option[1]
+                self.set_timeout(option[1])
 
-
-        log.ThugLogging = ThugLogging(__thug_version__)
+        log.ThugLogging = ThugLogging(self.thug_version)
         log.ThugLogging.set_basedir(args[0])
 
         for option in options:
@@ -467,6 +189,7 @@ Synopsis:
 
         log.ThugLogging.log_event()
         return log
+
 
 if __name__ == "__main__":
     if not os.getenv('THUG_PROFILE', None):
