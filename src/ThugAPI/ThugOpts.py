@@ -56,7 +56,12 @@ class ThugOpts(dict):
             log.warning('[ERROR] Invalid proxy scheme (valid schemes: http, socks4, socks5)')
             sys.exit(0)
 
-        proxy_type = getattr(httplib2.socks, "PROXY_TYPE_%s" % (p.scheme.upper(),))
+        proxy_scheme = p.scheme.upper()
+        if proxy_scheme == 'HTTP':
+            proxy_scheme = 'HTTP_NO_TUNNEL'
+
+        proxy_type = getattr(httplib2.socks, "PROXY_TYPE_%s" % proxy_scheme)
+
         self._proxy_info = httplib2.ProxyInfo(proxy_type = proxy_type,
                                               proxy_host = p.hostname,
                                               proxy_port = p.port if p.port else 8080,
