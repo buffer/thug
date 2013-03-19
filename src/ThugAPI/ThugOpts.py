@@ -33,7 +33,7 @@ log = logging.getLogger("Thug")
 
 
 class ThugOpts(dict):
-    proxy_schemes = ('http', 'socks4', 'socks5', )
+    proxy_schemes = ('http', 'socks4', 'socks5', 'http2')
 
     def __init__(self):
         self._proxy_info = None
@@ -52,11 +52,16 @@ class ThugOpts(dict):
 
     def set_proxy_info(self, proxy):
         p = urlparse.urlparse(proxy)
+
         if p.scheme.lower() not in self.proxy_schemes:
-            log.warning('[ERROR] Invalid proxy scheme (valid schemes: http, socks4, socks5)')
+            log.warning('[ERROR] Invalid proxy scheme (valid schemes: http, http2, socks4, socks5)')
             sys.exit(0)
 
-        proxy_type = getattr(httplib2.socks, "PROXY_TYPE_%s" % (p.scheme.upper(),))
+        proxy_scheme = p.scheme.upper()
+        if proxy_scheme == 'HTTP2':
+            proxy_scheme = 'HTTP_NO_TUNNEL'
+
+        proxy_type = getattr(httplib2.socks, "PROXY_TYPE_%s" % proxy_scheme)
         self._proxy_info = httplib2.ProxyInfo(proxy_type = proxy_type,
                                               proxy_host = p.hostname,
                                               proxy_port = p.port if p.port else 8080,
