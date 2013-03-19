@@ -33,7 +33,7 @@ log = logging.getLogger("Thug")
 
 
 class ThugOpts(dict):
-    proxy_schemes = ('http', 'socks4', 'socks5', 'http2')
+    proxy_schemes = ('http', 'http2', 'socks4', 'socks5', )
 
     def __init__(self):
         self._proxy_info = None
@@ -58,7 +58,7 @@ class ThugOpts(dict):
             sys.exit(0)
 
         proxy_scheme = p.scheme.upper()
-        if proxy_scheme == 'HTTP2':
+        if proxy_scheme in ('HTTP2', ):
             proxy_scheme = 'HTTP_NO_TUNNEL'
 
         proxy_type = getattr(httplib2.socks, "PROXY_TYPE_%s" % proxy_scheme)
