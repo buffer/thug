@@ -63,7 +63,11 @@ class MongoDB(object):
             return
 
         data['url_id'] = self.url_id
-        self.samples.insert(data)
+
+        try:
+            self.samples.insert(data)
+        except:
+            log.warning('[MongoDB] Error while inserting sample')
 
     def log_event(self, data):
         if not self.events:
@@ -72,4 +76,8 @@ class MongoDB(object):
         _data           = dict()
         _data['MAEC']   = data
         _data['url_id'] = self.url_id
-        self.events.insert(_data)
+
+        try:
+            self.events.insert(_data)
+        except:
+            log.warning('[MongoDB] Error while inserting events')
