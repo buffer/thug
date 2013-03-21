@@ -42,6 +42,7 @@ class MongoDB(object):
 
         try:
             import pymongo
+            import gridfs
             connection = pymongo.Connection(self.opts['host'], int(self.opts['port']))
         except:
             log.info('[MongoDB] MongoDB instance not available')
@@ -51,6 +52,9 @@ class MongoDB(object):
         self.urls    = db.urls
         self.events  = db.events
         self.samples = db.samples
+
+        dbfs    = connection.thugfs
+        self.fs = gridfs.GridFS(dbfs)
 
     def set_url(self, url):
         if not self.urls:
@@ -62,22 +66,25 @@ class MongoDB(object):
         if not self.samples:
             return
 
-        data['url_id'] = self.url_id
+        with self.fs.new_file() as fp:
+            fp.write(data['data'])
 
-        try:
-            self.samples.insert(data)
-        except:
-            log.warning('[MongoDB] Error while inserting sample')
+        _data              = dict()
+        _data['url_id']    = self.url_id
+        _data['sample_id'] = fp._id
+        _data['type']      = data['type']
+        _data['md5']       = data['md5']
+        _data['sha1']      = data['sha1']
+        self.samples.insert(_data)
 
     def log_event(self, data):
         if not self.events:
             return
 
-        _data           = dict()
-        _data['MAEC']   = data
-        _data['url_id'] = self.url_id
+        with self.fs.new_file() as fp:
+            fp.write(data)
 
-        try:
-            self.events.insert(_data)
-        except:
-            log.warning('[MongoDB] Error while inserting events')
+        _data             = dict()
+        _data['url_id']   = self.url_id
+        _data['event_id'] = fp._id
+        self.events.insert(_data)
