@@ -19,6 +19,7 @@
 import sys
 import os
 import logging
+from zope.interface import implements
 
 try:
     import urllib.parse as urlparse
@@ -28,6 +29,8 @@ except ImportError:
 from DOM.W3C import w3c
 from DOM import Window, DFT, MIMEHandler, SchemeHandler
 from Logging.ThugLogging import ThugLogging
+
+from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
 from .ThugVulnModules import ThugVulnModules
 from .OpaqueFilter import OpaqueFilter
@@ -39,6 +42,8 @@ __thug_version__ = '0.4.20'
 
 
 class ThugAPI:
+    implements(IThugAPI)
+
     def __init__(self, args):
         self.args               = args
         self.thug_version       = __thug_version__
