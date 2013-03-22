@@ -97,14 +97,6 @@ below.
         ~/pyv8 $ python setup.py build
         ~/pyv8 $ sudo python setup.py install
 
-7. Test the installation
-
-.. code-block:: sh
-
-        ~/pyv8 $ python PyV8.py
-
-   If no problems occur, you have successfully installed V8 and PyV8.
-
 
 Beautiful Soup 4
 ^^^^^^^^^^^^^^^^

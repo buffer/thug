@@ -41,6 +41,7 @@ Let's start our Thug tour by taking a look at the options it provides.
             -a, --ast-debug         Enable AST debug mode (requires debug mode)
             -t, --threshold         Maximum pages to fetch
             -E, --extensive         Extensive fetch of linked pages
+            -T, --timeout           Timeout in minutes
 
             Plugins:
             -A, --adobepdf=         Specify the Adobe Acrobat Reader version (default: 9.1.0)
@@ -51,7 +52,7 @@ Let's start our Thug tour by taking a look at the options it provides.
             -K, --no-javaplugin     Disable Java plugin
 
         Proxy Format:
-            scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
+            scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
 
         Available User-Agents:
             winxpie60               Internet Explorer 6.0   (Windows XP)
@@ -70,6 +71,9 @@ Let's start our Thug tour by taking a look at the options it provides.
             osx10safari5            Safari 5.1.1            (MacOS X 10.7.2)
             osx10chrome19           Chrome 19.0.1084.54     (MacOS X 10.7.4)
             galaxy2chrome18         Chrome 18.0.1025.166    (Samsung Galaxy S II, Android 4.0.3)
+            galaxy2chrome25         Chrome 25.0.1364.123    (Samsung Galaxy S II, Android 4.0.3)
+            linuxchrome26           Chrome 26.0.1410.19     (Linux)
+            linuxfirefox19          Firefox 19.0            (Linux)
 
 
 Let's start with a first basic real-world example: a Blackhole exploit kit.  
@@ -619,7 +623,10 @@ Another really useful option is *-p (--proxy)* which allows to specify a proxy. 
 supports HTTP, SOCKS4 and SOCKS5 proxy using the following format
         
         scheme://[username:password@]host:port 
-        (supported schemes: http, socks4, socks5)
+        (supported schemes: http, http2, socks4, socks5)
+
+Please consider that http2 is an alternate HTTP proxy mode not using tunnels which works
+better with proxies like burpsuite or mitmproxy.
 
 This option allows Thug to make use of Tor in order to anonymize the access to a malicious 
 page. The trick is quite simple and requires a Tor instance up and running. Simply run Thug

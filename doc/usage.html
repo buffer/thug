@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.4.20 documentation</title>
+    <title>Usage &mdash; Thug 0.4.21 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.20',
+        VERSION:     '0.4.21',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.20 documentation" href="index.html" />
-    <link rel="next" title="Plugin Framework" href="plugins.html" />
+    <link rel="top" title="Thug 0.4.21 documentation" href="index.html" />
+    <link rel="next" title="Thug API" href="api.html" />
     <link rel="prev" title="Build and Install" href="build.html" /> 
   </head>
   <body>
@@ -37,12 +37,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="plugins.html" title="Plugin Framework"
+          <a href="api.html" title="Thug API"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="build.html" title="Build and Install"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.20 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.21 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -87,6 +87,7 @@ Synopsis:
         -a, --ast-debug         Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
         -t, --threshold         Maximum pages to fetch
         -E, --extensive         Extensive fetch of linked pages
+        -T, --timeout           Timeout in minutes
 
         Plugins:
         -A, --adobepdf<span class="o">=</span>         Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 9.1.0<span class="o">)</span>
@@ -97,7 +98,7 @@ Synopsis:
         -K, --no-javaplugin     Disable Java plugin
 
     Proxy Format:
-        scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port <span class="o">(</span>supported schemes: http, socks4, socks5<span class="o">)</span>
+        scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port <span class="o">(</span>supported schemes: http, http2, socks4, socks5<span class="o">)</span>
 
     Available User-Agents:
         winxpie60               Internet Explorer 6.0   <span class="o">(</span>Windows XP<span class="o">)</span>
@@ -116,6 +117,9 @@ Synopsis:
         osx10safari5            Safari 5.1.1            <span class="o">(</span>MacOS X 10.7.2<span class="o">)</span>
         osx10chrome19           Chrome 19.0.1084.54     <span class="o">(</span>MacOS X 10.7.4<span class="o">)</span>
         galaxy2chrome18         Chrome 18.0.1025.166    <span class="o">(</span>Samsung Galaxy S II, Android 4.0.3<span class="o">)</span>
+        galaxy2chrome25         Chrome 25.0.1364.123    <span class="o">(</span>Samsung Galaxy S II, Android 4.0.3<span class="o">)</span>
+        linuxchrome26           Chrome 26.0.1410.19     <span class="o">(</span>Linux<span class="o">)</span>
+        linuxfirefox19          Firefox 19.0            <span class="o">(</span>Linux<span class="o">)</span>
 </pre></div>
 </div>
 <p>Let&#8217;s start with a first basic real-world example: a Blackhole exploit kit.</p>
@@ -622,7 +626,9 @@ exploit kit (see Local Analysis later for details).</p>
 supports HTTP, SOCKS4 and SOCKS5 proxy using the following format</p>
 <blockquote>
 <div>scheme://[username:password&#64;]host:port
-(supported schemes: http, socks4, socks5)</div></blockquote>
+(supported schemes: http, http2, socks4, socks5)</div></blockquote>
+<p>Please consider that http2 is an alternate HTTP proxy mode not using tunnels which works
+better with proxies like burpsuite or mitmproxy.</p>
 <p>This option allows Thug to make use of Tor in order to anonymize the access to a malicious
 page. The trick is quite simple and requires a Tor instance up and running. Simply run Thug
 using <em>socks5://127.0.0.1:9050</em> as proxy and your real IP address will not be revealed.</p>
@@ -841,8 +847,8 @@ option. Simply running Thug this way (please note the interval is expressed in m
   <p class="topless"><a href="build.html"
                         title="previous chapter">Build and Install</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="plugins.html"
-                        title="next chapter">Plugin Framework</a></p>
+  <p class="topless"><a href="api.html"
+                        title="next chapter">Thug API</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="sources/usage.txt"
@@ -872,12 +878,12 @@ option. Simply running Thug this way (please note the interval is expressed in m
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="plugins.html" title="Plugin Framework"
+          <a href="api.html" title="Thug API"
              >next</a> |</li>
         <li class="right" >
           <a href="build.html" title="Build and Install"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.20 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.21 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
