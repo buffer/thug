@@ -12,7 +12,7 @@ sudo easy_install pip
 echo 'Please wait, checking out subversion repo for [http://v8.googlecode.com/svn/trunk/]...'
 svn checkout http://v8.googlecode.com/svn/trunk/ v8 1>>setup-ubuntu.log
 
-echo 'Patching thug...'
+echo 'Patching V8...'
 patch -p0 < patches/V8-patch1.diff 1>>setup-ubuntu.log
 
 
