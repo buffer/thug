@@ -27,6 +27,7 @@ core browser functionalities, browser plugins) are provided.
    intro
    build
    usage
+   api
    plugins
 
 Indices and tables
