@@ -3,8 +3,8 @@
 #@author: asteed
 #based on https://github.com/buffer/thug/blob/master/doc/source/build.rst
 
-echo "Installing (subversion, git, python, build-essential, git-core, autoconf, libtool, python-dev)..."
-sudo apt-get install subversion git python build-essential git-core autoconf libtool python-dev
+echo "Installing (subversion, git, python, python-dev, build-essential, git-core, autoconf, libtool, python-dev)..."
+sudo apt-get install subversion git python python-dev build-essential git-core autoconf libtool python-dev
 echo "Installing pip..."
 sudo easy_install pip
 
@@ -23,7 +23,7 @@ svn checkout -r478 http://pyv8.googlecode.com/svn/trunk/ pyv8 1>>setup-ubuntu.lo
 echo 'Setting environment variable...'
 export V8_HOME=`pwd`/v8
 
-echo "Building PyV8 and V8..."
+echo "Building PyV8 and V8(this may take several minutes)..."
 cd pyv8
 python setup.py build 1>>setup-ubuntu.log
 
