@@ -38,7 +38,7 @@ from .abstractmethod import abstractmethod
 
 log = logging.getLogger("Thug")
 
-__thug_version__ = '0.4.20'
+__thug_version__ = '0.4.21'
 
 
 class ThugAPI:
