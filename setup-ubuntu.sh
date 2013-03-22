@@ -3,8 +3,8 @@
 #@author: asteed
 #based on https://github.com/buffer/thug/blob/master/doc/source/build.rst
 
-echo "Installing (python, build-essential, git-core, autoconf, libtool, python-dev)..."
-sudo apt-get install python build-essential git-core autoconf libtool python-dev
+echo "Installing (subversion, git, python, build-essential, git-core, autoconf, libtool, python-dev)..."
+sudo apt-get install subversion git python build-essential git-core autoconf libtool python-dev
 echo "Installing pip..."
 sudo easy_install pip
 
