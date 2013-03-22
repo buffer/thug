@@ -3,14 +3,14 @@
 #@author: asteed
 #based on https://github.com/buffer/thug/blob/master/doc/source/build.rst
 
-echo "Installing (subversion, git, python, python-dev, build-essential, git-core, autoconf, libtool, python-dev)..."
-sudo apt-get install subversion git python python-dev build-essential git-core autoconf libtool python-dev
+echo "Installing needed libraries and tools..."
+sudo apt-get install subversion git python build-essential python-setuptools libboost-python-dev libboost-thread-dev python-dev build-essential git-core autoconf libtool
 echo "Installing pip..."
 sudo easy_install pip
 
 
 echo 'Please wait, checking out subversion repo for [http://v8.googlecode.com/svn/trunk/]...'
-svn checkout http://v8.googlecode.com/svn/trunk/ v8 1>>setup-ubuntu.log
+svn checkout http://v8.googlecode.com/svn/trunk/ v8 1>setup-ubuntu.log
 
 echo 'Patching V8...'
 patch -p0 < patches/V8-patch1.diff 1>>setup-ubuntu.log
@@ -25,10 +25,10 @@ export V8_HOME=`pwd`/v8
 
 echo "Building PyV8 and V8(this may take several minutes)..."
 cd pyv8
-python setup.py build 1>>setup-ubuntu.log
+python setup.py build
 
 echo "Installing PyV8 and V8..."
-sudo python setup.py install 1>>setup-ubuntu.log
+sudo python setup.py install
 	
 cd ..
 
