@@ -1,2 +1,4 @@
 *.pyc
 logs
+.project
+.pydevproject
