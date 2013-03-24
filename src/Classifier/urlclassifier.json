@@ -1,0 +1,26 @@
+{
+	"version": 1, 
+	"rules": [
+		{ 
+			"regex"		: "\\.ru:8080/forum/links/column\\.php", 
+		  	"author"	: "Thorsten Sick", 
+		  	"verified"	: false, 
+		  	"name"		: "Blackhole #1", 
+		  	"kit"		: "Blackhole Exploit Kit 2.0" 
+		},
+		{
+			"regex"		: "/closest/\\w{20,35}\\.php", 
+			"author"	: "Thorsten Sick", 
+			"verified"	: false, 
+			"name"		: "Blackhole #2", 
+			"kit"		: "Blackhole Exploit Kit 2.0"
+		},
+		{
+			"regex"		: "\\.ru:8080/forum/links/public_version\\.php$", 
+			"author"	: "Thorsten Sick", 
+			"verified"	: false, 
+			"name"		: "Blackhole #3", 
+			"kit"		: "Blackhole Exploit Kit 2.0"
+		}
+	]
+}
