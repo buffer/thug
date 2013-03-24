@@ -844,6 +844,9 @@ class Window(PyV8.JSClass):
     def evalScript(self, script, tag = None):
         result = 0
 
+        log.JSClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url,
+                                  script)
+
         if tag:
             self.doc.current = tag
         else:

@@ -69,6 +69,10 @@ Synopsis:
         -J, --javaplugin=   \tSpecify the JavaPlugin version (default: 1.6.0.32)
         -K, --no-javaplugin \tDisable Java plugin
 
+        Classifier:
+        -Q, --urlclassifier \tSpecify a list of additional (comma separated) URL classifier rule files
+        -W, --jsclassifier  \tSpecify a list of additional (comma separated) JS classifier rule files
+
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
 
@@ -84,7 +88,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmaA:PS:RJ:Kt:ET:',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmaA:PS:RJ:Kt:ET:Q:W:',
                 ['help',
                 'version',
                 'useragent=',
@@ -109,7 +113,9 @@ Synopsis:
                 'no-javaplugin',
                 'threshold',
                 'extensive',
-                'timeout'
+                'timeout',
+                'urlclassifier',
+                'jsclassifier'
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -165,6 +171,12 @@ Synopsis:
                 self.set_extensive()
             if option[0] in ('-T', '--timeout', ):
                 self.set_timeout(option[1])
+            if option[0] in ('-Q', '--urlclassifier'):
+                for classifier in option[1].split(','):
+                    self.add_urlclassifier(os.path.abspath(classifier))
+            if option[0] in ('-W', '--jsclassifier'):
+                for classifier in option[1].split(','):
+                    self.add_jsclassifier(os.path.abspath(classifier))
 
         self.log_init(args[0])
 

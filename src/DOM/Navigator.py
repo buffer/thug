@@ -354,6 +354,8 @@ class Navigator(PyV8.JSClass):
         if url is None:
             return
 
+        log.URLClassifier.classify(url)
+
         if redirect_type:
             log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, 
                                                                               self._window.url, 

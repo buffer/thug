@@ -36,6 +36,9 @@ from .ThugVulnModules import ThugVulnModules
 from .OpaqueFilter import OpaqueFilter
 from .abstractmethod import abstractmethod
 
+from Classifier import JSClassifier
+from Classifier import URLClassifier
+
 log = logging.getLogger("Thug")
 
 __thug_version__ = '0.4.21'
@@ -51,6 +54,8 @@ class ThugAPI:
         log.ThugVulnModules     = ThugVulnModules()
         log.MIMEHandler         = MIMEHandler.MIMEHandler()
         log.SchemeHandler       = SchemeHandler.SchemeHandler()
+        log.JSClassifier        = JSClassifier.JSClassifier()
+        log.URLClassifier       = URLClassifier.URLClassifier()
 
     def __call__(self):
         self.analyze()
@@ -159,6 +164,12 @@ class ThugAPI:
         for handler in root.handlers:
             if isinstance(handler, logging.StreamHandler):
                 handler.addFilter(OpaqueFilter())
+
+    def add_urlclassifier(self, rule):
+        log.URLClassifier.add_rule(rule)
+
+    def add_jsclassifier(self, rule):
+        log.JSClassifier.add_rule(rule)
 
     def log_event(self):
         log.ThugLogging.log_event()
