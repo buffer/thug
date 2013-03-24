@@ -179,6 +179,10 @@ Synopsis:
         -J, --javaplugin=       Specify the JavaPlugin version (default: 1.6.0.32)
         -K, --no-javaplugin     Disable Java plugin
 
+        Classifier:
+        -Q, --urlclassifier     Specify a list of additional (comma separated) URL classifier rule files
+        -W, --jsclassifier      Specify a list of additional (comma separated) JS classifier rule files
+
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
 
