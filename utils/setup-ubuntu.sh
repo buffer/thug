@@ -8,12 +8,11 @@ sudo apt-get install subversion git python build-essential python-setuptools lib
 echo "Installing pip..."
 sudo easy_install pip
 
-
 echo 'Please wait, checking out subversion repo for [http://v8.googlecode.com/svn/trunk/]...'
 svn checkout http://v8.googlecode.com/svn/trunk/ v8 1>setup-ubuntu.log
 
 echo 'Patching V8...'
-patch -p0 < patches/V8-patch1.diff 1>>setup-ubuntu.log
+patch -p0 < ../patches/V8-patch1.diff 1>>setup-ubuntu.log
 
 
 echo 'Please wait, checking out subversion repo for [-r478 http://pyv8.googlecode.com/svn/trunk/]...'
@@ -96,7 +95,7 @@ sudo pip install pydot 1>>setup-ubuntu.log
 echo "Installing python library: python-magic..."
 sudo pip install python-magic 1>>setup-ubuntu.log
 	
-echo -n "Install mongodb?(y/n): "
+echo -n "Install MongoDB?(y/n): "
 read response
 if [ "$response" = "y" ]; then
 	echo "Installing MongoDB & PyMongo..."
