@@ -43,7 +43,7 @@ git clone git://git.carnivore.it/libemu.git 1>>setup-ubuntu.log
 echo "Configuring libemu..."
 cd libemu
 autoreconf -v -i
-./configure --enable-python-bindings --prefix=/opt/libemu 1>>setup-ubuntu.log
+./configure --prefix=/opt/libemu 1>>setup-ubuntu.log
 echo "Installing libemu..."
 sudo make install 1>>setup-ubuntu.log
 sudo ldconfig -n /opt/libemu/lib
