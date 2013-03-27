@@ -103,7 +103,7 @@ class Thugd():
         self.host = conf.get("jobs", "host")
         self.queue = conf.get("jobs", "queue")
 
-        self.reshost = conf.get("results", "host")
+        self.rhost = conf.get("results", "host")
         self.rqueue = conf.get("results", "queue")
 
         self.resdir = conf.get("results", "resdir")
