@@ -54,7 +54,7 @@ class Thugd():
 
         if not frompath:
             return None
-        respath = os.path.join(self.resdir, job["id"])
+        respath = os.path.join(self.resdir, str(job["id"]))
         shutil.copytree(frompath, respath)
         return os.path.relpath(respath, self.resdir)
 
