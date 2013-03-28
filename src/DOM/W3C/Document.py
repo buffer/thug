@@ -119,7 +119,8 @@ class Document(Node, DocumentEvent, DocumentView):
     
     @property
     def all(self):
-        return self.getElementsByTagName('*')
+        s = [p for p in self.doc.find_all(text = False)]
+        return NodeList(self.doc, s)
 
     # Introduced in DOM Level 2
     def getElementById(self, elementId):
