@@ -112,7 +112,7 @@ class Window(PyV8.JSClass):
         self.doc.location = property(self.getLocation, self.setLocation)
 
         self._target = target
-        self._parent = parent
+        self._parent = parent if parent else self
         self._opener = opener
         self._screen = screen or Screen(width, height, 32)
         self._closed = False
