@@ -39,8 +39,8 @@ class HTMLElement(Element, ElementCSSInlineStyle):
 
     def setInnerHTML(self, html):
         soup = BeautifulSoup.BeautifulSoup(html, "html5lib")
-        
-        for node in soup.body.children:
+
+        for node in list(soup.body.children):
             self.tag.append(node)
 
         for node in self.tag.descendants:
