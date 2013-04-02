@@ -38,7 +38,7 @@ class Location(PyV8.JSClass):
 
     @property
     def parts(self):
-        return urlparse(self._window.url)
+        return urlparse.urlparse(self._window.url)
 
     def get_href(self):
         return self._window.url
