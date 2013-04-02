@@ -38,6 +38,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
         return html.getvalue()
 
     def setInnerHTML(self, html):
+        self.tag.clear()
         soup = BeautifulSoup.BeautifulSoup(html, "html5lib")
 
         for node in list(soup.body.children):
