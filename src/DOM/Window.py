@@ -957,6 +957,9 @@ class Window(PyV8.JSClass):
     def XMLHttpRequest(self):
         return _ActiveXObject(self, 'microsoft.xmlhttp')
 
+    def getComputedStyle(self, element, pseudoelt = None):
+        return getattr(element, 'style', None)
+
     def open(self, url = None, name = '_blank', specs = '', replace = False):
         if url:
             try:
