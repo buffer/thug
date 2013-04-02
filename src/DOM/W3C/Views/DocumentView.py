@@ -11,4 +11,5 @@ class DocumentView:
 
     @property
     def defaultView(self):
-        return None
+        #return None
+        return getattr(self, 'window', None)
