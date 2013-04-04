@@ -52,6 +52,7 @@ Function = function(code) {
 	return window._Function(code);
 }
 
+/*
 Object.prototype.__defineSetter__('location', function(value) {
 												if (location.hasOwnProperty('href')) {
 													location.href = value;
@@ -59,3 +60,4 @@ Object.prototype.__defineSetter__('location', function(value) {
 													location = value;
 												}
 											});
+*/
