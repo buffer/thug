@@ -1,5 +1,5 @@
 
-from lang import lang
+from .lang import lang
 
 class java:
     def __init__(self):
