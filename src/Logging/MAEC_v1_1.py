@@ -6,7 +6,12 @@
 
 import sys
 import getopt
-from string import lower as str_lower
+
+try:
+    from string import lowercase as str_lower
+except ImportError:
+    str_lower = str.lower
+
 from xml.dom import minidom
 from xml.dom import Node
 
