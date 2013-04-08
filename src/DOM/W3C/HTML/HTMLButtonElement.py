@@ -2,6 +2,7 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .compatibility import *
 
 class HTMLButtonElement(HTMLElement):
     def __init__(self, doc, tag):
@@ -14,7 +15,7 @@ class HTMLButtonElement(HTMLElement):
     accessKey       = attr_property("accesskey")
     disabled        = attr_property("disabled", bool)
     name            = attr_property("name")
-    tabIndex        = attr_property("tabindex", long)
+    tabIndex        = attr_property("tabindex", thug_long)
     type            = attr_property("type")
     value           = attr_property("value")
 

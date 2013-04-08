@@ -2,11 +2,12 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .compatibility import *
 
 class HTMLLIElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
 
     type            = attr_property("type")
-    value           = attr_property("value", long)
+    value           = attr_property("value", thug_long)
 

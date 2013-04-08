@@ -3,6 +3,7 @@
 import datetime, time
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .compatibility import *
 
 class HTMLAnchorElement(HTMLElement):
     def __init__(self, doc, tag):
@@ -17,7 +18,7 @@ class HTMLAnchorElement(HTMLElement):
     rel             = attr_property("rel")
     rev             = attr_property("rev")
     shape           = attr_property("shape")
-    tabIndex        = attr_property("tabindex", long)
+    tabIndex        = attr_property("tabindex", thug_long)
     target          = attr_property("target")
     type            = attr_property("type")
 

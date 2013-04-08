@@ -3,6 +3,7 @@
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 from .text_property import text_property
+from .compatibility import *
 
 class HTMLOptionElement(HTMLElement):
     def __init__(self, doc, tag):
@@ -14,7 +15,7 @@ class HTMLOptionElement(HTMLElement):
 
     defaultSelected = attr_property("selected", bool)
     text            = text_property(readonly = True)
-    index           = attr_property("index", long, readonly = True)
+    index           = attr_property("index", thug_long, readonly = True)
     disabled        = attr_property("disabled", bool)
     label           = attr_property("label")
     selected        = False

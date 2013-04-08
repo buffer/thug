@@ -3,6 +3,7 @@
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 from .text_property import text_property
+from .compatibility import *
 
 class HTMLTextAreaElement(HTMLElement):
     def __init__(self, doc, tag):
@@ -15,12 +16,12 @@ class HTMLTextAreaElement(HTMLElement):
         pass
 
     accessKey       = attr_property("accesskey")
-    cols            = attr_property("cols", long)
+    cols            = attr_property("cols", thug_long)
     disabled        = attr_property("disabled", bool)
     name            = attr_property("name")
     readOnly        = attr_property("readonly", bool)
-    rows            = attr_property("rows", long)
-    tabIndex        = attr_property("tabindex", long)
+    rows            = attr_property("rows", thug_long)
+    tabIndex        = attr_property("tabindex", thug_long)
     value           = text_property()
 
     @property
@@ -35,4 +36,3 @@ class HTMLTextAreaElement(HTMLElement):
 
     def select(self):
         pass
-
