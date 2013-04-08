@@ -25,7 +25,7 @@ import datetime
 import os
 import json
 import codecs
-from Mapper import Mapper
+from .Mapper import Mapper
 
 log = logging.getLogger("Thug")
 
