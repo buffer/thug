@@ -7,7 +7,7 @@ import logging
 import site
 
 import bs4 as BeautifulSoup
-from DOMImplementation import DOMImplementation
+from .DOMImplementation import DOMImplementation
 
 def getDOMImplementation(dom = None, **kwds):
     return DOMImplementation(dom if dom else BeautifulSoup.BeautifulSoup(), **kwds)
@@ -306,7 +306,7 @@ class HTMLDocumentTest(unittest.TestCase):
 
         self.doc.getElementsByTagName('form')[0].innerHTML = "<div id='inner'/>"
 
-        self.assertEquals(u'DIV', self.doc.getElementById('inner').tagName)
+        self.assertEquals('DIV', self.doc.getElementById('inner').tagName)
         
     def testDocument(self):
         self.assertEquals("this is a test", self.doc.title)
