@@ -19,7 +19,7 @@
 import os
 import re
 import json
-from abstractmethod import abstractmethod
+from .abstractmethod import abstractmethod
 
 class BaseClassifier:
     def __init__(self):

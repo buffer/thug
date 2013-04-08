@@ -26,7 +26,7 @@ import os
 import re
 import logging
 import json
-from BaseClassifier import BaseClassifier
+from .BaseClassifier import BaseClassifier
 
 log = logging.getLogger("Thug")
 
