@@ -19,21 +19,27 @@
 import os
 import pylibemu
 import struct
-import W3C.w3c as w3c
+#import W3C.w3c as w3c
 import hashlib
 import string
 import logging
-import Window
 import PyV8
 import chardet
-import jsbeautifier
 import traceback
 import bs4 as BeautifulSoup
 from cssutils.parse import CSSParser
-from W3C.DOMImplementation import DOMImplementation
-from W3C.Events.Event import Event
-from W3C.Events.MouseEvent import MouseEvent
-from W3C.Events.HTMLEvent import HTMLEvent
+from . import jsbeautifier
+
+try:
+    from . import Window
+except ImportError:
+    import Window
+
+from .W3C import *
+from .W3C.DOMImplementation import DOMImplementation
+from .W3C.Events.Event import Event
+from .W3C.Events.MouseEvent import MouseEvent
+from .W3C.Events.HTMLEvent import HTMLEvent
 from ActiveX.ActiveX import _ActiveXObject
 
 log        = logging.getLogger("Thug")
