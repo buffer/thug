@@ -4,61 +4,12 @@ import sys, re, string
 
 import PyV8
 
-from DOMException import DOMException
-from HTML.HTMLElement import HTMLElement
-from HTML.HTMLHtmlElement import HTMLHtmlElement
-from HTML.HTMLHeadElement import HTMLHeadElement
-from HTML.HTMLLinkElement import HTMLLinkElement
-from HTML.HTMLTitleElement import HTMLTitleElement
-from HTML.HTMLMetaElement import HTMLMetaElement
-from HTML.HTMLBaseElement import HTMLBaseElement
-from HTML.HTMLIsIndexElement import HTMLIsIndexElement
-from HTML.HTMLStyleElement import HTMLStyleElement
-from HTML.HTMLBodyElement import HTMLBodyElement
-from HTML.HTMLFormElement import HTMLFormElement
-from HTML.HTMLSelectElement import HTMLSelectElement
-from HTML.HTMLOptGroupElement import HTMLOptGroupElement
-from HTML.HTMLOptionElement import HTMLOptionElement
-from HTML.HTMLInputElement import HTMLInputElement
-from HTML.HTMLTextAreaElement import HTMLTextAreaElement
-from HTML.HTMLButtonElement import HTMLButtonElement
-from HTML.HTMLLabelElement import HTMLLabelElement
-from HTML.HTMLFieldSetElement import HTMLFieldSetElement
-from HTML.HTMLLegendElement import HTMLLegendElement
-from HTML.HTMLUListElement import HTMLUListElement
-from HTML.HTMLOListElement import HTMLOListElement
-from HTML.HTMLDListElement import HTMLDListElement
-from HTML.HTMLDirectoryElement import HTMLDirectoryElement
-from HTML.HTMLMenuElement import HTMLMenuElement
-from HTML.HTMLLIElement import HTMLLIElement
-from HTML.HTMLDivElement import HTMLDivElement
-from HTML.HTMLParagraphElement import HTMLParagraphElement
-from HTML.HTMLHeadingElement import HTMLHeadingElement
-from HTML.HTMLQuoteElement import HTMLQuoteElement
-from HTML.HTMLPreElement import HTMLPreElement
-from HTML.HTMLBRElement import HTMLBRElement
-from HTML.HTMLBaseFontElement import HTMLBaseFontElement
-from HTML.HTMLFontElement import HTMLFontElement
-from HTML.HTMLHRElement import HTMLHRElement
-from HTML.HTMLModElement import HTMLModElement
-from HTML.HTMLAnchorElement import HTMLAnchorElement
-from HTML.HTMLObjectElement import HTMLObjectElement
-from HTML.HTMLParamElement import HTMLParamElement
-from HTML.HTMLImageElement import HTMLImageElement
-from HTML.HTMLAppletElement import HTMLAppletElement
-from HTML.HTMLScriptElement import HTMLScriptElement
-from HTML.HTMLFrameSetElement import HTMLFrameSetElement
-from HTML.HTMLFrameElement import HTMLFrameElement
-from HTML.HTMLIFrameElement import HTMLIFrameElement
-from HTML.HTMLTableElement import HTMLTableElement
-from HTML.HTMLTableCaptionElement import HTMLTableCaptionElement
-from HTML.HTMLTableColElement import HTMLTableColElement
-from HTML.HTMLTableSectionElement import HTMLTableSectionElement
-from HTML.HTMLTableRowElement import HTMLTableRowElement
-from HTML.HTMLTableCellElement import HTMLTableCellElement
-from HTML.HTMLDocument import HTMLDocument
+try:
+    from .HTML import *
+except ValueError:
+    from HTML import *
 
-class DOMImplementation(HTMLDocument):
+class DOMImplementation(HTMLDocument.HTMLDocument):
     features = ( ('core'        , '1.0'),
                  ('core'        , '2.0'),
                  ('core'        , None ),
@@ -85,67 +36,67 @@ class DOMImplementation(HTMLDocument):
         return (feature.lower(), version) in DOMImplementation.features
         
     TAGS = {
-        "html"          : HTMLHtmlElement,
-        "head"          : HTMLHeadElement,
-        "link"          : HTMLLinkElement,
-        "title"         : HTMLTitleElement,
-        "meta"          : HTMLMetaElement,
-        "base"          : HTMLBaseElement,
-        "isindex"       : HTMLIsIndexElement,
-        "style"         : HTMLStyleElement,
-        "body"          : HTMLBodyElement,
-        "form"          : HTMLFormElement,
-        "select"        : HTMLSelectElement,
-        "optgroup"      : HTMLOptGroupElement,
-        "option"        : HTMLOptionElement,
-        "input"         : HTMLInputElement,
-        "textarea"      : HTMLTextAreaElement,
-        "button"        : HTMLButtonElement,
-        "label"         : HTMLLabelElement,
-        "fieldset"      : HTMLFieldSetElement,
-        "legend"        : HTMLLegendElement,
-        "ul"            : HTMLUListElement,
-        "ol"            : HTMLOListElement,
-        "dl"            : HTMLDListElement,
-        "dir"           : HTMLDirectoryElement,
-        "menu"          : HTMLMenuElement,
-        "li"            : HTMLLIElement,
-        "div"           : HTMLDivElement,
-        "p"             : HTMLParagraphElement,
-        "h1"            : HTMLHeadingElement,
-        "h2"            : HTMLHeadingElement,
-        "h3"            : HTMLHeadingElement,
-        "h4"            : HTMLHeadingElement,
-        "h5"            : HTMLHeadingElement,
-        "h6"            : HTMLHeadingElement,
-        "q"             : HTMLQuoteElement,
-        "blockquote"    : HTMLQuoteElement,
-        "pre"           : HTMLPreElement,
-        "br"            : HTMLBRElement,
-        "basefont"      : HTMLBaseFontElement,
-        "font"          : HTMLFontElement,
-        "hr"            : HTMLHRElement,
-        "ins"           : HTMLModElement,
-        "del"           : HTMLModElement,
-        "a"             : HTMLAnchorElement,
-        "object"        : HTMLObjectElement,
-        "param"         : HTMLParamElement,
-        "img"           : HTMLImageElement,
-        "applet"        : HTMLAppletElement,
-        "script"        : HTMLScriptElement,
-        "frameset"      : HTMLFrameSetElement,
-        "frame"         : HTMLFrameElement,
-        "iframe"        : HTMLIFrameElement,
-        "table"         : HTMLTableElement,
-        "caption"       : HTMLTableCaptionElement,
-        "col"           : HTMLTableColElement,
-        "colgroup"      : HTMLTableColElement,
-        "thead"         : HTMLTableSectionElement,
-        "tbody"         : HTMLTableSectionElement,
-        "tfoot"         : HTMLTableSectionElement,
-        "tr"            : HTMLTableRowElement,
-        "th"            : HTMLTableCellElement,
-        "td"            : HTMLTableCellElement,
+        "html"          : HTMLHtmlElement.HTMLHtmlElement,
+        "head"          : HTMLHeadElement.HTMLHeadElement,
+        "link"          : HTMLLinkElement.HTMLLinkElement,
+        "title"         : HTMLTitleElement.HTMLTitleElement,
+        "meta"          : HTMLMetaElement.HTMLMetaElement,
+        "base"          : HTMLBaseElement.HTMLBaseElement,
+        "isindex"       : HTMLIsIndexElement.HTMLIsIndexElement,
+        "style"         : HTMLStyleElement.HTMLStyleElement,
+        "body"          : HTMLBodyElement.HTMLBodyElement,
+        "form"          : HTMLFormElement.HTMLFormElement,
+        "select"        : HTMLSelectElement.HTMLSelectElement,
+        "optgroup"      : HTMLOptGroupElement.HTMLOptGroupElement,
+        "option"        : HTMLOptionElement.HTMLOptionElement,
+        "input"         : HTMLInputElement.HTMLInputElement,
+        "textarea"      : HTMLTextAreaElement.HTMLTextAreaElement,
+        "button"        : HTMLButtonElement.HTMLButtonElement,
+        "label"         : HTMLLabelElement.HTMLLabelElement,
+        "fieldset"      : HTMLFieldSetElement.HTMLFieldSetElement,
+        "legend"        : HTMLLegendElement.HTMLLegendElement,
+        "ul"            : HTMLUListElement.HTMLUListElement,
+        "ol"            : HTMLOListElement.HTMLOListElement,
+        "dl"            : HTMLDListElement.HTMLDListElement,
+        "dir"           : HTMLDirectoryElement.HTMLDirectoryElement,
+        "menu"          : HTMLMenuElement.HTMLMenuElement,
+        "li"            : HTMLLIElement.HTMLLIElement,
+        "div"           : HTMLDivElement.HTMLDivElement,
+        "p"             : HTMLParagraphElement.HTMLParagraphElement,
+        "h1"            : HTMLHeadingElement.HTMLHeadingElement,
+        "h2"            : HTMLHeadingElement.HTMLHeadingElement,
+        "h3"            : HTMLHeadingElement.HTMLHeadingElement,
+        "h4"            : HTMLHeadingElement.HTMLHeadingElement,
+        "h5"            : HTMLHeadingElement.HTMLHeadingElement,
+        "h6"            : HTMLHeadingElement.HTMLHeadingElement,
+        "q"             : HTMLQuoteElement.HTMLQuoteElement,
+        "blockquote"    : HTMLQuoteElement.HTMLQuoteElement,
+        "pre"           : HTMLPreElement.HTMLPreElement,
+        "br"            : HTMLBRElement.HTMLBRElement,
+        "basefont"      : HTMLBaseFontElement.HTMLBaseFontElement,
+        "font"          : HTMLFontElement.HTMLFontElement,
+        "hr"            : HTMLHRElement.HTMLHRElement,
+        "ins"           : HTMLModElement.HTMLModElement,
+        "del"           : HTMLModElement.HTMLModElement,
+        "a"             : HTMLAnchorElement.HTMLAnchorElement,
+        "object"        : HTMLObjectElement.HTMLObjectElement,
+        "param"         : HTMLParamElement.HTMLParamElement,
+        "img"           : HTMLImageElement.HTMLImageElement,
+        "applet"        : HTMLAppletElement.HTMLAppletElement,
+        "script"        : HTMLScriptElement.HTMLScriptElement,
+        "frameset"      : HTMLFrameSetElement.HTMLFrameSetElement,
+        "frame"         : HTMLFrameElement.HTMLFrameElement,
+        "iframe"        : HTMLIFrameElement.HTMLIFrameElement,
+        "table"         : HTMLTableElement.HTMLTableElement,
+        "caption"       : HTMLTableCaptionElement.HTMLTableCaptionElement,
+        "col"           : HTMLTableColElement.HTMLTableColElement,
+        "colgroup"      : HTMLTableColElement.HTMLTableColElement,
+        "thead"         : HTMLTableSectionElement.HTMLTableSectionElement,
+        "tbody"         : HTMLTableSectionElement.HTMLTableSectionElement,
+        "tfoot"         : HTMLTableSectionElement.HTMLTableSectionElement,
+        "tr"            : HTMLTableRowElement.HTMLTableRowElement,
+        "th"            : HTMLTableCellElement.HTMLTableCellElement,
+        "td"            : HTMLTableCellElement.HTMLTableCellElement,
     }
         
     @staticmethod
@@ -153,5 +104,5 @@ class DOMImplementation(HTMLDocument):
         if tag.name.lower() in DOMImplementation.TAGS:
             return DOMImplementation.TAGS[tag.name.lower()](doc, tag)
         else:
-            return HTMLElement(doc, tag)
+            return HTMLElement.HTMLElement(doc, tag)
 
