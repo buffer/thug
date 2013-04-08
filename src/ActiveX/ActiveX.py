@@ -17,7 +17,7 @@
 # MA  02111-1307  USA
 
 import os
-import new
+#import new
 import logging
 from .CLSID import CLSID
 
@@ -110,7 +110,10 @@ class _ActiveXObject:
         log.warning("ActiveXObject: %s" % (cls, ))
 
         for method_name, method in c['methods'].items():
-            _method = new.instancemethod(method, self, _ActiveXObject)
+            #_method = new.instancemethod(method, self, _ActiveXObject)
+            #setattr(self, method_name, _method)
+            #methods[method] = _method
+            _method = method.__get__(self, _ActiveXObject)
             setattr(self, method_name, _method)
             methods[method] = _method
 
@@ -182,7 +185,8 @@ def register_object(s, clsid):
         raise TypeError()
 
     for method_name, method in c['methods'].items():
-        _method = new.instancemethod(method, s, s.__class__)
+        #_method = new.instancemethod(method, s, s.__class__)
+        _method = method.__get__(s, s.__class__)
         setattr(s, method_name, _method)
         methods[method] = _method
 
