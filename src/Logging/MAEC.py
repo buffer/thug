@@ -19,7 +19,7 @@
 import sys
 import logging
 import datetime
-import MAEC_v1_1 as maec
+from . import MAEC_v1_1 as maec
 
 NAMESPACEDEF_ = 'xmlns:ns1="http://xml/metadataSharing.xsd" xmlns="http://maec.mitre.org/XMLSchema/maec-core-1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maec.mitre.org/XMLSchema/maec-core-1 file:MAEC_v1.1.xsd"'
 
