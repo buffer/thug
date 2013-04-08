@@ -151,4 +151,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    t = Thugd(args.config, args.clear)
+    try:
+        t = Thugd(args.config, args.clear)
+    except KeyboardInterrupt:
+        sys.exit(0)
