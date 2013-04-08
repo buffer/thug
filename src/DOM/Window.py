@@ -19,7 +19,7 @@
 import os
 import sched
 import time
-import new
+#import new
 import logging
 import PyV8
 import traceback
@@ -161,7 +161,8 @@ class Window(PyV8.JSClass):
                     break
 
             if _method is None:
-                _method = new.instancemethod(symbol, self, Window)
+                #_method = new.instancemethod(symbol, self, Window)
+                _method = symbol.__get__(self, Window)
 
             setattr(self, name, _method)
             self.context.locals[name] = _method
