@@ -27,10 +27,10 @@ import hashlib
 import pefile
 import numbers
 import datetime
-import jsbeautifier
+from . import jsbeautifier
 import bs4 as BeautifulSoup
-import W3C.w3c as w3c
-
+from .W3C import *
+#import W3C.w3c as w3c
 from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
@@ -1139,7 +1139,7 @@ class WindowTest(unittest.TestCase):
         self.win.fireOnloadEvents()
 
         tag = self.doc.getElementById('hello')
-        self.assertEquals(u'P', tag.nodeName)
+        self.assertEquals('P', tag.nodeName)
         self.assertEquals(1, self.win.innerWidth)
 
     def testSetInterval(self):
