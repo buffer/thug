@@ -4,7 +4,11 @@ import sys, re, string
 
 import PyV8
 import logging
-import urlparse
+
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 
 from Attr import Attr
 from Node import Node
