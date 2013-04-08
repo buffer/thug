@@ -16,11 +16,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-from BaseLogging import BaseLogging
-from HPFeeds import HPFeeds
-from MAEC import MAEC
-from MongoDB import MongoDB
-from JSONLog import JSONLog
+from .BaseLogging import BaseLogging
+from .HPFeeds import HPFeeds
+from .MAEC import MAEC
+from .MongoDB import MongoDB
+from .JSONLog import JSONLog
 
 import os
 import copy
