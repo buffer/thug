@@ -43,9 +43,11 @@ class DictDiffer(object):
     (4) keys same in both and unchanged values
     """
     def __init__(self, current_dict, past_dict):
-        self.current_dict, self.past_dict = current_dict, past_dict
-        self.set_current, self.set_past = set(current_dict.keys()), set(past_dict.keys())
-        self.intersect = self.set_current.intersection(self.set_past)
+        self.current_dict = current_dict
+        self.past_dict    = past_dict
+        self.set_current  = set(current_dict.keys())
+        self.set_past     = set(past_dict.keys())
+        self.intersect    = self.set_current.intersection(self.set_past)
 
     def added(self):
         return self.set_current - self.intersect
@@ -77,9 +79,15 @@ class Mapper():
         Map URL relationships
     """
 
-    markup_types = ("text/html", "text/xml", "text/css" )
+    markup_types = ("text/html",
+                    "text/xml",
+                    "text/css", )
+
     image_types  = ("image/", )
-    exec_types   = ("application/javascript", "text/javascript", "application/x-javascript")
+
+    exec_types   = ("application/javascript",
+                    "text/javascript",
+                    "application/x-javascript")
 
     def __init__(self, resdir, simplify = False):
         """
@@ -106,7 +114,6 @@ class Mapper():
         """
             Write the dot footer
         """
-
         if self.dfh:
             self._dot_from_data()
             self.dfh.write("}")
@@ -120,7 +127,6 @@ class Mapper():
         for t in _types:
             if self._check_content_type(loc, t):
                 return True
-
         return False
 
     def check_markup(self, loc):
@@ -137,7 +143,6 @@ class Mapper():
         Create a unique id for a url object. Pydoc can not accept node ids with ://
 
         """
-
         res = name.replace(":", "_").replace("/", "_")
         return res
 
@@ -364,7 +369,7 @@ if __name__ == "__main__":
     m = Mapper(args.resdir, simplify = args.simplify)
     if os.path.isdir(args.source):
         for afile in allFiles(args.source, "avlog.json"):
-            print afile
+            #print afile
             m.add_file(afile)
     else:
         m.add_file(args.source)
