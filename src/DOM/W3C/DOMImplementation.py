@@ -149,8 +149,8 @@ class DOMImplementation(HTMLDocument):
     }
         
     @staticmethod
-    def createHTMLElement(doc, tag):        
-        if DOMImplementation.TAGS.has_key(tag.name.lower()):            
+    def createHTMLElement(doc, tag):
+        if tag.name.lower() in DOMImplementation.TAGS:
             return DOMImplementation.TAGS[tag.name.lower()](doc, tag)
         else:
             return HTMLElement(doc, tag)
