@@ -27,6 +27,7 @@ import hashlib
 import pefile
 import numbers
 import datetime
+import collections
 from . import jsbeautifier
 import bs4 as BeautifulSoup
 from .W3C import *
@@ -141,7 +142,7 @@ class Window(PyV8.JSClass):
 
         prop = self.__dict__.setdefault('__properties__', {}).get(name, None)
 
-        if prop and callable(prop[0]):
+        if prop and isinstance(prop[0], collections.Callable):
             return prop[0]()
 
         if name in ('__members__', '__methods__'):
