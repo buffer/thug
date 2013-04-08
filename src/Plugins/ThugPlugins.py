@@ -18,7 +18,12 @@
 
 
 import os
-import ConfigParser
+
+try:
+    import configparser as ConfigParser
+except ImportError:
+    import ConfigParser
+
 import logging
 from zope.interface.verify import verifyObject
 from zope.interface.exceptions import BrokenImplementation
