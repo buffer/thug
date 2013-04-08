@@ -78,7 +78,7 @@ Synopsis:
 
     Available User-Agents:
 """
-        for key, value in sorted(log.ThugOpts.Personality.iteritems(), key = lambda (k, v): (v['id'], k)):
+        for key, value in sorted(iter(log.ThugOpts.Personality.items()), key = lambda k_v: (k_v[1]['id'], k_v[0])):
             msg += "\t%s\t\t%s\n" % (key, value['description'], )
 
         print(msg)
