@@ -17,10 +17,16 @@
 # MA  02111-1307  USA
 
 import PyV8
-import Window
-import W3C
-import DFT
 import logging
+
+try:
+    from . import Window
+    from . import DFT
+except ImportError:
+    import Window
+    import DFT
+
+from .W3C import *
 
 try:
     import urllib.parse as urlparse
@@ -55,7 +61,7 @@ class Location(PyV8.JSClass):
 
         log.ThugLogging.log_href_redirect(referer, url)
 
-        doc    = W3C.w3c.parseString('')
+        doc    = w3c.parseString('')
         window = Window.Window(referer, doc, personality = p)
         window = window.open(url)
         if not window:
