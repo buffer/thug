@@ -23,9 +23,12 @@ import zipfile
 import pefile
 
 try:
-    import cStringIO as StringIO
+    from io import StringIO
 except ImportError:
-    import StringIO
+    try:
+        import cStringIO as StringIO
+    except ImportError:
+        import StringIO
 
 log = logging.getLogger("Thug")
 

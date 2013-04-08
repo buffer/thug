@@ -23,12 +23,19 @@ import socket
 import hashlib
 import logging
 import json
-import ConfigParser
 
 try:
-    import cStringIO as StringIO
+    import configparser as ConfigParser
 except ImportError:
-    import StringIO
+    import ConfigParser
+
+try:
+    from io import StringIO
+except ImportError:
+    try:
+        import cStringIO as StringIO
+    except ImportError:
+        import StringIO
 
 log = logging.getLogger("Thug")
 
