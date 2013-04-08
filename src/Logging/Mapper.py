@@ -29,7 +29,7 @@ import fnmatch
 import pydot
 
 try:
-    import urlib.parse as urlparse
+    import urllib.parse as urlparse
 except ImportError:
     import urlparse
 
