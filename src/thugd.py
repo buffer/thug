@@ -11,7 +11,12 @@ import pika
 import sys
 import time
 import json
-from ConfigParser import ConfigParser
+
+try:
+    from configparser import ConfigParser
+except ImportError:
+    from ConfigParser import ConfigParser
+
 import subprocess
 import os
 import shutil
