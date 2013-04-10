@@ -82,9 +82,9 @@ In order to properly install V8 and PyV8 please follow the procedure
 described below.
 
 
-1. Checkout V8 source code from SVN
+1. Checkout V8 -r14110 source code from SVN
 
-	```$ svn checkout http://v8.googlecode.com/svn/trunk/ v8```
+	```$ svn checkout -r14110 http://v8.googlecode.com/svn/trunk/ v8```
 
 2. Patch V8 source code with the patches you can find in thug/patches
    directory
@@ -106,7 +106,11 @@ described below.
 
 	```$ cd pyv8```
 
-6. Build and install (PyV8 setup.py will properly install both V8
+6. Edit PyV8.py setup.py file and comment line 466 as shown
+
+	```#checkout_v8()```
+
+7. Build and install (PyV8 setup.py will properly install both V8
    and PyV8)
 
 	```~/pyv8 $ python setup.py build
