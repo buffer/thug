@@ -31,6 +31,8 @@ import logging
 log = logging.getLogger("Thug")
 
 class ThugLogging(BaseLogging):
+    eval_min_length_logging = 4
+
     def __init__(self, thug_version):
         BaseLogging.__init__(self)
 
@@ -52,7 +54,13 @@ class ThugLogging(BaseLogging):
         self.MAEC.add_behavior_warn(description, cve, method)
         self.JSONLog.add_behavior_warn(description, cve, method)
 
-    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
+    def check_snippet(self, s):
+        return len(s) < self.eval_min_length_logging
+
+    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis", check = False):
+        if check and self.check_snippet(snippet):
+            return
+
         self.MAEC.add_code_snippet(snippet, language, relationship, method)
         self.JSONLog.add_code_snippet(snippet, language, relationship, method)
 
