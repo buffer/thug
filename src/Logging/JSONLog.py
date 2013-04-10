@@ -26,6 +26,7 @@ import os
 import json
 import codecs
 from .Mapper import Mapper
+from .compatibility import *
 
 log = logging.getLogger("Thug")
 
@@ -63,7 +64,7 @@ class JSONLog(object):
 
         @data  data to encode properly
         """
-        return unicode(data).replace("\n", "").strip()
+        return thug_unicode(data).replace("\n", "").strip()
 
     def make_counter(self, p):
         id = p
