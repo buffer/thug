@@ -88,8 +88,8 @@ class DFT(object):
                      'undo',
                      'unload')
 
-    window_on_events = map(lambda e: 'on' + e, window_events)
-                      
+    window_on_events = ['on' + e for e in window_events]
+
     def __init__(self, window):
         self.window            = window
         self.window.doc.DFT    = self
@@ -109,7 +109,7 @@ class DFT(object):
             self.handled_events.append(event)
 
         log.debug("Handling DOM Events: %s" % (",".join(self.handled_events), ))
-        self.handled_on_events = map(lambda e: 'on' + e, self.handled_events)
+        self.handled_on_events = ['on' + e for e in self.handled_events]
         self.dispatched_events = set()
 
     def __enter__(self):
@@ -346,7 +346,7 @@ class DFT(object):
         except:
             return
        
-        if 'language' in attrs.keys() and not attrs['language'].lower() in ('javascript', ):
+        if 'language' in list(attrs.keys()) and not attrs['language'].lower() in ('javascript', ):
             return
 
         for evt, h in attrs.items():
