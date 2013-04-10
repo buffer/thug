@@ -83,7 +83,7 @@ class Window(PyV8.JSClass):
             log.debug(str(self.code))
 
             with self.window.context as ctx:
-                if isinstance(self.code, basestring):
+                if isinstance(self.code, thug_string):
                     return ctx.eval(self.code)
                 elif isinstance(self.code, PyV8.JSFunction):
                     return self.code()
@@ -169,7 +169,7 @@ class Window(PyV8.JSClass):
             self.context.locals[name] = _method
             return _method
 
-        if isinstance(symbol, (basestring,
+        if isinstance(symbol, (thug_string,
                                bool,
                                numbers.Number,
                                datetime.datetime,

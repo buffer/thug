@@ -358,7 +358,7 @@ class DFT(object):
     def attach_event(self, elem, evt, h):
         handler = None
 
-        if isinstance(h, basestring):
+        if isinstance(h, thug_string):
             handler = self.build_event_handler(self.context, h)
             PyV8.JSEngine.collect()
         elif isinstance(h, PyV8.JSFunction):
