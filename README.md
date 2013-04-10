@@ -108,7 +108,7 @@ described below.
 
 6. Edit PyV8.py setup.py file and comment line 466 as shown
 
-	```#checkout_v8()```
+	\#checkout_v8()
 
 7. Build and install (PyV8 setup.py will properly install both V8
    and PyV8)
