@@ -34,7 +34,7 @@ log = logging.getLogger("Thug")
 (
     PRE_ANALYSIS_PLUGINS, 
     POST_ANALYSIS_PLUGINS,
-) = range(0, 2) 
+) = list(range(0, 2))
 
 class ThugPlugins:
     phases = {
