@@ -19,7 +19,6 @@
 import os
 import pylibemu
 import struct
-#import W3C.w3c as w3c
 import hashlib
 import string
 import logging

@@ -30,7 +30,6 @@ import collections
 import bs4 as BeautifulSoup
 from . import jsbeautifier
 from .W3C import *
-#import W3C.w3c as w3c
 from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
