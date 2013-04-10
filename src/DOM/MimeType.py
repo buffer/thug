@@ -23,7 +23,7 @@ class MimeType(dict):
         dict.__init__(self, init)
 
     def __getstate__(self):
-        return self.__dict__.items()
+        return list(self.__dict__.items())
 
     def __setstate__(self, items):
         for key, val in items:

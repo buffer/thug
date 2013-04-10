@@ -69,7 +69,7 @@ class MimeTypes(dict):
         if index >= self.length:
             return MimeType()
 
-        return self.values()[index]
+        return list(self.values())[index]
 
     def namedItem(self, name):
         return dict.__getitem__(self, key) if key in self else MimeType()
