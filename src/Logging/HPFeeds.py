@@ -29,14 +29,6 @@ try:
 except ImportError:
     import ConfigParser
 
-try:
-    from io import StringIO
-except ImportError:
-    try:
-        import cStringIO as StringIO
-    except ImportError:
-        import StringIO
-
 log = logging.getLogger("Thug")
 
 class FeedUnpack(object):
@@ -206,4 +198,3 @@ class HPFeeds(object):
 if __name__ == '__main__':
     hpfeeds = HPFeeds()
     hpfeeds.log_event('Test foobar!')
-

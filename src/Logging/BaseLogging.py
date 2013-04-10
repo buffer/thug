@@ -26,9 +26,9 @@ try:
     from io import StringIO
 except ImportError:
     try:
-        import cStringIO as StringIO
+        from cStringIO import StringIO
     except ImportError:
-        import StringIO
+        from StringIO import StringIO
 
 log = logging.getLogger("Thug")
 
@@ -52,7 +52,7 @@ class BaseLogging(object):
 
     def is_jar(self, data):
         try:
-            z = zipfile.ZipFile(StringIO.StringIO(data))
+            z = zipfile.ZipFile(StringIO(data))
             if [t for t in z.namelist() if t.endswith('.class')]:
                 return True
         except:
