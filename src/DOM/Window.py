@@ -19,7 +19,6 @@
 import os
 import sched
 import time
-#import new
 import logging
 import PyV8
 import traceback
@@ -28,8 +27,8 @@ import pefile
 import numbers
 import datetime
 import collections
-from . import jsbeautifier
 import bs4 as BeautifulSoup
+from . import jsbeautifier
 from .W3C import *
 #import W3C.w3c as w3c
 from .Navigator import Navigator
@@ -44,6 +43,7 @@ from .Opera import Opera
 from .Components import Components
 from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
+from .compatibility import *
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
 from Debugger import Shellcode, Global
