@@ -52,12 +52,11 @@ Function = function(code) {
 	return window._Function(code);
 }
 
-/*
-Object.prototype.__defineSetter__('location', function(value) {
-												if (location.hasOwnProperty('href')) {
-													location.href = value;
-												} else {
-													location = value;
-												}
-											});
-*/
+Object.defineProperty(this, "location", {
+	set: function(value){
+		window.location = value
+	},
+	get: function(){
+		return window.location;
+	}
+});
