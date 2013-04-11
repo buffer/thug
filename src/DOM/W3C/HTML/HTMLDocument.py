@@ -117,6 +117,10 @@ class HTMLDocument(Document):
     def readyState(self):
         return "complete"
 
+    @property
+    def compatMode(self):
+        return "BackCompat"
+
     def open(self, mimetype = 'text/html', replace = False):
         self._html = StringIO()
 
