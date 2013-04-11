@@ -795,6 +795,8 @@ class Window(PyV8.JSClass):
         if log.ThugOpts.Personality.browserVersion in ('8.0', ):
             self.Storage = object()
 
+        self.doc.parentWindow = self._parent
+
     def __init_personality_Firefox(self):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
@@ -818,6 +820,7 @@ class Window(PyV8.JSClass):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.opera               = Opera()
+        self.doc.parentWindow    = self._parent
 
     def eval(self, script):
         try:
