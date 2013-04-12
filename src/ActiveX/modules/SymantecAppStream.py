@@ -9,7 +9,10 @@ def installAppMgr(self, url):
                                       "Symantec AppStream LaunchObj ActiveX",
                                       "Arbitrary File Download and Execute",
                                       cve = "CVE-2088-4388",
-                                      data = {"url": url})
+                                      data = {
+                                                "url": url
+                                             }
+                                     )
 
     log.ThugLogging.add_behavior_warn("[Symantec AppStream LaunchObj ActiveX] Fetching from URL %s" % (url, ))
 

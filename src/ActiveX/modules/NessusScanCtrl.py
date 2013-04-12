@@ -11,7 +11,9 @@ def deleteReport(self, arg):
                                       "Nessus Vunlnerability Scanner ScanCtrl ActiveX",
                                       "deleteReport",
                                       cve = "CVE-2007-4031",
-                                      data = {"arg": arg},
+                                      data = {
+                                                "arg": arg
+                                             },
                                       forward = False)
 
 def deleteNessusRC(self, arg):
@@ -21,7 +23,9 @@ def deleteNessusRC(self, arg):
                                       "Nessus Vunlnerability Scanner ScanCtrl ActiveX",
                                       "deleteNEssusRC",
                                       cve = "CVE-2007-4062",
-                                      data = {"arg": arg},
+                                      data = {
+                                                "arg": arg
+                                             },
                                       forward = False)
 
 def saveNessusRC(self, arg):
@@ -31,7 +35,9 @@ def saveNessusRC(self, arg):
                                       "Nessus Vunlnerability Scanner ScanCtrl ActiveX",
                                       "saveNessusRC",
                                       cve = "CVE-2007-4061",
-                                      data = {"arg": arg},
+                                      data = {
+                                                "arg": arg
+                                             },
                                       forward = False)
 
 def addsetConfig(self, arg, arg1, arg2):
@@ -41,5 +47,9 @@ def addsetConfig(self, arg, arg1, arg2):
                                       "Nessus Vunlnerability Scanner ScanCtrl ActiveX",
                                       "addsetConfig",
                                       cve = "CVE-2007-4061",
-                                      data = {"arg": arg, "arg1": arg1, "arg2": arg2},
+                                      data = {
+                                                "arg" : arg,
+                                                "arg1": arg1,
+                                                "arg2": arg2
+                                             },
                                       forward = False)

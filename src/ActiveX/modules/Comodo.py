@@ -10,5 +10,9 @@ def ExecuteStr(self, cmd, args):
                                       "Comodo AntiVirus ActiveX",
                                       "Trying to execute",
                                       forward = False,
-                                      data = {"command": cmd, "args": args})
+                                      data = {
+                                                "command": cmd,
+                                                "args"   : args
+                                             }
+                                      )
 

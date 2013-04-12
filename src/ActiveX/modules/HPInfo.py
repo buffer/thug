@@ -12,7 +12,11 @@ def LaunchApp(self, prog, args, unk):
                                       "LaunchApp called to run",
                                       cve = 'CVE-2007-6331',
                                       forward = False,
-                                      data = {"command": prog, "args": args})
+                                      data = {
+                                                "command": prog,
+                                                "args"   : args
+                                             }
+                                     )
 	
 def SetRegValue(self, key, section, keyname, value):
     log.ThugLogging.add_behavior_warn("[HP Info Center ActiveX] SetRegValue: %s/%s/%s set to %s" % (str(key), 
@@ -25,7 +29,13 @@ def SetRegValue(self, key, section, keyname, value):
                                       "SetRegValue",
                                       cve = 'CVE-2007-6332',
                                       forward = False,
-                                      data = {"key": str(key), "section": str(section), "keyname": str(keyname), "value": str(value)})
+                                      data = {
+                                                "key"    : str(key),
+                                                "section": str(section),
+                                                "keyname": str(keyname),
+                                                "value"  : str(value)
+                                             }
+                                     )
 
 def GetRegValue(self, key, section, keyname):
     log.ThugLogging.add_behavior_warn("[HP Info Center ActiveX] GetRegValue, reading: %s/%s/%s" % (str(key), 
@@ -37,7 +47,12 @@ def GetRegValue(self, key, section, keyname):
                                       "GetRegValue",
                                       cve = 'CVE-2007-6333',
                                       forward = False,
-                                      data = {"key": str(key), "section": str(section), "keyname": str(keyname)})
+                                      data = {
+                                                "key": str(key),
+                                                "section": str(section),
+                                                "keyname": str(keyname)
+                                             }
+                                     )
 
 def EvaluateRules(self):
     log.ThugLogging.log_exploit_event(self._window.url,
@@ -49,7 +64,9 @@ def SaveToFile(self, path):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "HP Info Center ActiveX",
                                       "SaveToFile",
-                                      data = {"filename": path},
+                                      data = {
+                                                "filename": path
+                                             },
                                       forward = False)
 
 def ProcessRegistryData(self, parm):
@@ -57,5 +74,7 @@ def ProcessRegistryData(self, parm):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "HP Info Center ActiveX",
                                       "ProcessRegistryData",
-                                      data = {"param": parm},
+                                      data = {
+                                                "param": parm
+                                             },
                                       forward = False)

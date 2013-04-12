@@ -11,7 +11,11 @@ def DownloadFile(self, *arg):
                                       "ZenturiProgramChecker ActiveX",
                                       "DownloadFile function",
                                       forward = False,
-                                      data = {"url": arg[0], "filename": arg[1]})
+                                      data = {
+                                                "url"     : arg[0],
+                                                "filename": arg[1]
+                                             }
+                                     )
 
     try:
         response, content = self._window._navigator.fetch(arg[0], redirect_type = "ZenturiProgramChecker Exploit")

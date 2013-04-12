@@ -16,7 +16,13 @@ def DownloadAndExecute(self, arg0, arg1, arg2, arg3, arg4):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Macrovision ActiveX",
                                       "DownloadAndExecute",
-                                      data = {"arg": arg0, "arg1": arg1, "arg2": arg2, "arg3": arg3, "arg4": arg4},
+                                      data = {
+                                                "arg" : arg0,
+                                                "arg1": arg1,
+                                                "arg2": arg2,
+                                                "arg3": arg3,
+                                                "arg4": arg4
+                                             },
                                       forward = False)
 
     if len(arg1) > 512:	
@@ -50,7 +56,11 @@ def AddFile(self, arg0, arg1):
                                       "AddFile/Fetch from URL",
                                       cve = "CVE-2007-2419",
                                       forward = False,
-                                      data = {"url": arg0, "arg1": arg1})
+                                      data = {
+                                                "url": arg0,
+                                                "arg1": arg1
+                                             }
+                                     )
 
     try:
         response, content = self._window._navigator.fetch(arg0, redirect_type = "Macrovision Exploit 2")

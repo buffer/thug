@@ -9,7 +9,10 @@ def DownloadAgent(self, url):
                                       "AOL ICQ ActiveX",
                                       "Arbitrary File Download and Execute",
                                       cve = "CVE-2006-5650",
-                                      data = {"url": url})
+                                      data = {
+                                                "url": url
+                                             }
+                                     )
 
     log.ThugLogging.add_behavior_warn('[AOL ICQ ActiveX] Fetching from URL: %s' % (url, ))
     

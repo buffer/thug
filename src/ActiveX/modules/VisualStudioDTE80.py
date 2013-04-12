@@ -9,7 +9,9 @@ def CreateObject(self, object, param = ''):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "VisualStudio.DTE.8.0 ActiveX",
                                       "CreateObject",
-                                      data = {"object": object},
+                                      data = {
+                                                "object": object
+                                             },
                                       forward = False)
 
     return ActiveX.ActiveX._ActiveXObject(self._window, object)

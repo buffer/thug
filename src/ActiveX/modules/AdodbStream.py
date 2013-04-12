@@ -13,7 +13,9 @@ def SaveToFile(self, filename, opt):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Adodb.Stream ActiveX",
                                       "SaveToFile",
-                                      data = {"file": filename},
+                                      data = {
+                                                "file": filename
+                                             },
                                       forward = False)
 
 def Close(self):

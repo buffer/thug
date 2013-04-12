@@ -9,7 +9,9 @@ def DownloadAndInstall(self, url):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "SinaDLoader Downloader ActiveX",
                                       "Fetching from URL",
-                                      data = {"url": url},
+                                      data = {
+                                                "url": url
+                                             },
                                       forward = False)
 
     try:

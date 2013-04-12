@@ -16,7 +16,10 @@ def Install(self, arg):
                                           "NamoInstaller ActiveX",
                                           "Insecure download from URL",
                                           forward = False,
-                                          data = {"url":arg})
+                                          data = {
+                                                    "url":arg
+                                                 }
+                                         )
         try:
             response, content = self._window._navigator.fetch(url, redirect_type = "NamoInstaller Exploit")
         except:

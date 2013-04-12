@@ -19,7 +19,11 @@ def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
                                       "Print Snapshot",
                                       forward = False,
                                       cve = 'CVE-2008-2463',
-                                      data = {"SnapshotPath": self.SnapshotPath, "CompressedPath": self.CompressedPath})
+                                      data = {
+                                                "SnapshotPath"  : self.SnapshotPath,
+                                                "CompressedPath": self.CompressedPath
+                                             }
+                                     )
 
     url = self.SnapshotPath
 

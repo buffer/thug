@@ -14,5 +14,7 @@ def ShellExecute(self, *args):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Shell.Application ActiveX",
                                       "ShellExecute command",
-                                      data = {"command" : cmdLine},
+                                      data = {
+                                                "command" : cmdLine
+                                             },
                                       forward = False)

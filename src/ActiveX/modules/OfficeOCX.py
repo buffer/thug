@@ -12,7 +12,10 @@ def OpenWebFile(self, _file):
                                       "Office OCX ActiveX",
                                       "OpenWebFile Arbitrary Program Execution Vulnerability",
                                       forward = False,
-                                      data = {"url", _file})
+                                      data = {
+                                                "url" : _file
+                                             }
+                                     )
     try:
         response, content = self._window._navigator.fetch(_file, redirect_type = "Office OCX Exploit")
     except:

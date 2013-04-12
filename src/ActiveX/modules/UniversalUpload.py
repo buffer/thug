@@ -9,5 +9,7 @@ def RemoveFileOrDir(self, arg0, arg1):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Universal HTTP File Upload ActiveX",
                                       "Deleting",
-                                      data = {"filename": arg0},
+                                      data = {
+                                                "filename": arg0
+                                             },
                                       forward = False)

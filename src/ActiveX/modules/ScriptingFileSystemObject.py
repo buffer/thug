@@ -7,7 +7,11 @@ def OpenTextFile(self, sFilePathAndName, ForWriting = True, flag = True):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Script.FileSystemObject ActiveX",
                                       "OpenTextFile",
-                                      data = {"filename": argsFilePathAndName, "ForWriting": ForWriting, "flag": flag},
+                                      data = {
+                                                "filename"  : argsFilePathAndName,
+                                                "ForWriting": ForWriting,
+                                                "flag"      : flag
+                                             },
                                       forward = False)
 
 def Write(self, sFileContents):

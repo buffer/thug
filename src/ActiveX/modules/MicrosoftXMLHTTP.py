@@ -28,7 +28,12 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
                                       "Microsoft XMLHTTP ActiveX",
                                       "Open",
                                       forward = False,
-                                      data = {"method" : bstrMethod, "url" : bstrUrl, "async" : str(varAsync)})
+                                      data = {
+                                                "method" : bstrMethod,
+                                                "url"    : bstrUrl,
+                                                "async"  : str(varAsync)
+                                             }
+                                     )
     
     self.bstrMethod  = bstrMethod
     self.bstrUrl     = bstrUrl
@@ -49,7 +54,11 @@ def send(self, varBody = None):
                                       "Microsoft XMLHTTP ActiveX",
                                       "Send",
                                       forward = False,
-                                      data = {"method" : self.bstrMethod, "url" : self.bstrUrl})
+                                      data = {
+                                                "method" : self.bstrMethod,
+                                                "url" : self.bstrUrl
+                                             }
+                                     )
 
     try:
         self.responseHeaders, self.responseBody = self._window._navigator.fetch(self.bstrUrl,

@@ -15,7 +15,9 @@ def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
                                       "Execute",
-                                      data = {"command", strCommand},
+                                      data = {
+                                                "command" : strCommand
+                                             },
                                       forward = False)
 
 def Environment(self, strType = None):
@@ -23,6 +25,8 @@ def Environment(self, strType = None):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
                                       "Environment",
-                                      data = {"env", strType},
+                                      data = {
+                                                "env" : strType
+                                             },
                                       forward = False)
     return _Environment(strType)

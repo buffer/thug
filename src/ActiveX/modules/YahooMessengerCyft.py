@@ -9,4 +9,7 @@ def GetFile(self, url, local, arg2, arg3, cmd):
                                       "Yahoo! Messenger 8.x CYTF",
                                       "Downloading",
                                       forward = False,
-                                      data = {"url": url})
+                                      data = {
+                                                "url": url
+                                             }
+                                     )

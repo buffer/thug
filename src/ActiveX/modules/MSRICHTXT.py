@@ -10,5 +10,8 @@ def SaveFile(self, path, arg):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Microsoft Rich Textbox Control ActiveX",
                                       "Writing file",
-                                      data = {"file": str(path), "content": str(self.Text)},
+                                      data = {
+                                                "file"   : str(path),
+                                                "content": str(self.Text)
+                                             },
                                       forward = False)

@@ -9,7 +9,10 @@ def DownloadFromMusicStore(self, url, dst, title, artist, album, genere, size, p
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "JetAudio ActiveX",
                                       "Downloading from URL",
-                                      data = {"url": url, "file": dst},
+                                      data = {
+                                                "url" : url,
+                                                "file": dst
+                                             },
                                       forward = False)
 
     try:

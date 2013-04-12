@@ -10,5 +10,7 @@ def DloadDS(self, arg0, arg1, arg2):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "BaiduBar.dll ActiveX",
                                           "DloadDS function trying to download",
-                                          data = {"url": arg0},
+                                          data = {
+                                                    "url": arg0
+                                                 },
                                           forward = False)

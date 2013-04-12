@@ -17,7 +17,9 @@ def launch(self, arg):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Java Deployment Toolkit ActiveX",
                                           "Fetching from URL",
-                                          data = {"url": token},
+                                          data = {
+                                                    "url": token
+                                                 },
                                           forward = False)
 
         try:

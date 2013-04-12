@@ -12,7 +12,10 @@ def CreateObject(self, object, param = ''):
                                       "Microsoft MDAC RDS.Dataspace ActiveX",
                                       "CreateObject",
                                       forward = False,
-                                      data = {"object": object})
+                                      data = {
+                                                "object": object
+                                             }
+                                     )
 
     return ActiveX.ActiveX._ActiveXObject(self._window, object)
 

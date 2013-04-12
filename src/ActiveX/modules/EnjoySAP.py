@@ -24,7 +24,9 @@ def Comp_Download(self, arg0, arg1):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "EnjoySAP ActiveX",
                                       "Fetching from URL",
-                                      data = {"url", url},
+                                      data = {
+                                                "url" : url
+                                             },
                                       forward = False)
 
     try:
