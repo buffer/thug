@@ -728,7 +728,7 @@ class DFT(object):
             return
 
         if url.startswith("'") and url.endswith("'"):
-            url = url[1:-2]
+            url = url[1:-1]
 
         if url in self.meta and self.meta[url] >= 3:
             return
