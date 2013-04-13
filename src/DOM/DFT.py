@@ -746,10 +746,15 @@ class DFT(object):
         else:
             self.meta[url] = 1
 
-        self.window.doc     = w3c.parseString(content)
-        self.window.doc.DFT = self
-        self.window.open(url)
-        self.run()
+        #self.window.doc     = w3c.parseString(content)
+        #self.window.doc.DFT = self
+        #self.window.open(url)
+        #self.run()
+
+        doc    = w3c.parseString(content)
+        window = Window.Window(url, doc, personality = log.ThugOpts.useragent)
+        dft    = DFT(window)
+        dft.run()
 
     def handle_frame(self, frame, redirect_type = 'frame'):
         log.warning(frame)
