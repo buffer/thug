@@ -154,8 +154,9 @@ class HTMLDocument(Document):
             if name in ('script', None):
                 continue
 
-            handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
-            if handler is None:
+            try:
+                handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
+            except:
                 handler = getattr(log.DFT, "handle_%s" % (name, ), None)
 
             if handler:
