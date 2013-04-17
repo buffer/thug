@@ -53,6 +53,14 @@ class HTMLDocument(Document):
         self._domain        = urlparse(self._win.url).hostname if self._win else ''
         self.current        = None
 
+    def __getattr__(self, attr):
+        if self._win and getattr(self._win, "doc", None):
+            if attr in self._win.doc.DFT.handled_on_events:
+                return None
+
+        #print("[HTMLDocument __getattr__] %s" % (attr, ))
+        return self.getElementById(attr)
+
     def getWindow(self):
         return self._win
 

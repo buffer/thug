@@ -313,8 +313,11 @@ class DFT(object):
                 else:
                     handler(evtObject)
 
-        if not getattr(self.window.doc.tag, '_listeners', None):
-            return 
+        #if not getattr(self.window.doc.tag, '_listeners', None):
+        #    return
+
+        if not '_listeners' in self.window.doc.tag.__dict__:
+            return
 
         for (eventType, listener, capture) in self.window.doc.tag._listeners:
             if not eventType in (onevt[2:], ):
