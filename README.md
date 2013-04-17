@@ -18,21 +18,31 @@ contents.
 
 ## Requirements
 
-- Python 2.7 - http://www.python.org/
+### Application Packages
 
-- Google V8 - http://code.google.com/p/v8/
+- Setup Tools - https://pypi.python.org/pypi/setuptools
 
-- PyV8 - http://code.google.com/p/pyv8/
+- Graphviz - http://www.graphviz.org/
+
+- Git - http://git-scm.com
+
+- Autoconf - http://www.gnu.org/software/autoconf/
+
+- Python-dev - http://python.org
+
+- Subversion - http://subversion.apache.org
+
+- gcc & g++ - http://gcc.gnu.org
+
+### Python Packages
+
+- Pip - https://pypi.python.org/pypi/pip
 
 - Beautiful Soup 4 - http://www.crummy.com/software/BeautifulSoup/
 
-- Html5lib - http://code.google.com/p/html5lib/
-
-- Libemu - http://libemu.carnivore.it/
-
-- Pylibemu 0.2.4 or later - https://github.com/buffer/pylibemu
-
 - Pefile - http://code.google.com/p/pefile/
+
+- Requests - http://docs.python-requests.org/en/latest/
 
 - Chardet - http://pypi.python.org/pypi/chardet
 
@@ -42,13 +52,27 @@ contents.
 
 - Zope interface - http://pypi.python.org/pypi/zope.interface
 
-- Graphviz - http://www.graphviz.org/
-
 - Pyparsing - http://pyparsing.wikispaces.com/
 
 - Pydot - https://code.google.com/p/pydot/
 
 - Python-Magic - https://github.com/ahupp/python-magic
+
+### Manually Installed
+
+- Python 2.7 - http://www.python.org/
+
+- Google V8 - http://code.google.com/p/v8/
+
+- PyV8 - http://code.google.com/p/pyv8/
+
+- Html5lib - http://code.google.com/p/html5lib/
+
+- Libemu - http://libemu.carnivore.it/
+
+- Pylibemu 0.2.4 or later - https://github.com/buffer/pylibemu
+
+## Optional
 
 - MongoDB (optional) - http://www.mongodb.org/
 
@@ -61,20 +85,46 @@ contents.
 
 ## Installation
 
-### BeautifulSoup 4
+To start move into tmp and pull the Thug source:
 
-If not available as a package for your Linux distribution, the best way
-to install Beautiful Soup 4 is through `easy_install'. Beautiful Soup 4
-is published through PyPi, so you can install it with easy_install or
-pip. The package name is beautifulsoup4, and the same package works on
-Python 2 and Python 3.
+```
+$ cd /tmp
+$ git clone git://github.com/buffer/thug.git
+```
 
-```# easy_install beautifulsoup4```
+### Apt-get
 
-or alternatively
+```$ apt-get install graphviz python-setuptools git autoconf python-dev libtool build-essentials subversion gcc g++ libboost-python-dev```
 
-```# pip install beautifulsoup4```
+Pip is the easiest way to install Thug's required Python packages. Install pip with:
 
+```$ easy_install pip```
+
+### Python Packages
+
+```$ pip install beautifulsoup4 pefile requests chardet httplib2 cssutils zope.interface pyparsing==1.5.7 pydot python-magic```
+
+### Libemu & Pylibemu
+
+Download and install libemu with the following (based on [directions from Xanda](http://blog.xanda.org/2012/05/16/installation-of-libemu-and-pylibemu-on-ubuntu/)):
+```
+$ git clone git://git.carnivore.it/libemu.git
+$ cd libemu
+$ autoreconf -v -i
+$ ./configure --enable-python-bindings --prefix=/opt/libemu
+$ sudo make install
+$ sudo ldconfig -n /opt/libemu/lib
+```
+
+Download and install pylibemu [Buffer/pylibemu](https://github.com/buffer/pylibemu):
+```
+$ git clone git://github.com/buffer/pylibemu.git
+$ cd pylibemu
+$ sudo sh -c "echo /opt/libemu/lib/ > /etc/ld.so.conf.d/pylibemu.conf"
+$ python setup.py build
+$ sudo python setup.py install
+$ sudo ldconfig
+```
 
 ### V8/PyV8
 
@@ -82,40 +132,44 @@ In order to properly install V8 and PyV8 please follow the procedure
 described below.
 
 
-1. Checkout V8 -r14110 source code from SVN
+1. Checkout V8 -r14110 source code from SVN:
 
 	```$ svn checkout -r14110 http://v8.googlecode.com/svn/trunk/ v8```
 
 2. Patch V8 source code with the patches you can find in thug/patches
-   directory
+   directory:
 
-	```$ cp thug/patches/V8-patch* .
+	```
+	$ cp thug/patches/V8-patch* .
 	$ patch -p0 < V8-patch1.diff
-	patching file v8/src/log.h```
+	```
 
-3. Checkout PyV8 -r478 source code from SVN
+3. Checkout PyV8 -r478 source code from SVN:
 
 	```$ svn checkout -r478 http://pyv8.googlecode.com/svn/trunk/ pyv8```
 
 4. Set the environment variable V8_HOME with the V8 source code
-   absolute path (you need to change the value reported below)
+   absolute path (you need to change the value reported below):
 
-	```$ export V8_HOME=/home/buffer/v8```
+	```$ export V8_HOME=/tmp/v8```
 
-5. Move to PyV8 source code directory
+5. Move to PyV8 source code directory:
 
 	```$ cd pyv8```
 
-6. Edit PyV8.py setup.py file and comment line 466 as shown
+6. Edit setup.py file and comment line 466 as shown:
 
-	\#checkout_v8()
+	```python
+	#checkout_v8()
+	```
 
 7. Build and install (PyV8 setup.py will properly install both V8
-   and PyV8)
+   and PyV8):
 
-	```~/pyv8 $ python setup.py build
-	~/pyv8 $ sudo python setup.py install```
-
+	```
+	$ python setup.py build
+	$ sudo python setup.py install
+	```
 
 In order to install the other required libraries and packages please
 follow installation procedures as specified in their documentation.
