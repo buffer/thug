@@ -43,7 +43,7 @@ will be simply ignored. Python source code can be downloaded at http://www.pytho
 Google V8/PyV8
 ^^^^^^^^^^^^^^
   
-Google V8 is Google’s open source JavaScript engine. V8 is written in C++ and is used 
+Google V8 is Google's open source JavaScript engine. V8 is written in C++ and is used
 in Google Chrome, the open source browser from Google. V8 implements ECMAScript as 
 specified in ECMA-262, 3rd edition, and runs on Windows XP and Vista, Mac OS X 10.5 
 (Leopard), and Linux systems that use IA-32 or ARM processors. V8 can run standalone, 
@@ -55,11 +55,11 @@ Python and JavaScript objects and supports the Google V8 engine in Python script
 In order to properly install Google V8 and PyV8 please follow the procedure described 
 below.
 
-1. Checkout V8 source code from SVN
+1. Checkout V8 -r14110 source code from SVN
 
 .. code-block:: sh
 
-        $ svn checkout http://v8.googlecode.com/svn/trunk/ v8
+        $ svn checkout -r14110 http://v8.googlecode.com/svn/trunk/ v8
 
 2. Patch V8 source code with the patches you can find in thug/patches
    directory
@@ -89,7 +89,13 @@ below.
 
         $ cd pyv8
 
-6. Build and install (PyV8 setup.py will properly install both V8
+6. Edit PyV8.py setup.py file and comment line 466 as shown
+
+.. code-block:: sh
+
+        #checkout_v8()
+
+7. Build and install (PyV8 setup.py will properly install both V8
    and PyV8)
 
 .. code-block:: sh

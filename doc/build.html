@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build and Install &mdash; Thug 0.4.21 documentation</title>
+    <title>Build and Install &mdash; Thug 0.4.22 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.21',
+        VERSION:     '0.4.22',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.21 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.4.22 documentation" href="index.html" />
     <link rel="next" title="Usage" href="usage.html" />
     <link rel="prev" title="Introduction" href="intro.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="intro.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.21 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.22 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -88,7 +88,7 @@ will be simply ignored. Python source code can be downloaded at <a class="refere
 </div>
 <div class="section" id="google-v8-pyv8">
 <h3>Google V8/PyV8<a class="headerlink" href="#google-v8-pyv8" title="Permalink to this headline">¶</a></h3>
-<p>Google V8 is Google’s open source JavaScript engine. V8 is written in C++ and is used
+<p>Google V8 is Google&#8217;s open source JavaScript engine. V8 is written in C++ and is used
 in Google Chrome, the open source browser from Google. V8 implements ECMAScript as
 specified in ECMA-262, 3rd edition, and runs on Windows XP and Vista, Mac OS X 10.5
 (Leopard), and Linux systems that use IA-32 or ARM processors. V8 can run standalone,
@@ -98,9 +98,9 @@ Python and JavaScript objects and supports the Google V8 engine in Python script
 <p>In order to properly install Google V8 and PyV8 please follow the procedure described
 below.</p>
 <ol class="arabic simple">
-<li>Checkout V8 source code from SVN</li>
+<li>Checkout V8 -r14110 source code from SVN</li>
 </ol>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn checkout http://v8.googlecode.com/svn/trunk/ v8
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn checkout -r14110 http://v8.googlecode.com/svn/trunk/ v8
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
@@ -132,6 +132,12 @@ absolute path (you need to change the value reported below)</li>
 </pre></div>
 </div>
 <ol class="arabic simple" start="6">
+<li>Edit PyV8.py setup.py file and comment line 466 as shown</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c">#checkout_v8()</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
 <li>Build and install (PyV8 setup.py will properly install both V8
 and PyV8)</li>
 </ol>
@@ -395,7 +401,7 @@ to install pika is through easy_install.</p>
         <li class="right" >
           <a href="intro.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.21 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.22 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
