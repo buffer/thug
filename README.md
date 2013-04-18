@@ -102,7 +102,7 @@ Pip is the easiest way to install Thug's required Python packages. Install pip w
 
 ### Python Packages
 
-```$ pip install beautifulsoup4 pefile requests chardet httplib2 cssutils zope.interface pyparsing==1.5.7 pydot python-magic```
+```$ pip install beautifulsoup4 pefile requests chardet httplib2 cssutils zope.interface pyparsing==1.5.7 pydot python-magic html5lib```
 
 ### Libemu & Pylibemu
 
