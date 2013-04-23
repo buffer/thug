@@ -22,6 +22,7 @@ import getopt
 import logging
 
 from ThugAPI import *
+from ThugAPI.ThugUrl import ThugUrl
 from Plugins.ThugPlugins import *
 
 log = logging.getLogger("Thug")
@@ -190,7 +191,7 @@ Synopsis:
 
         if p:
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
-            p(args[0])
+            p(ThugUrl(args[0]))
             ThugPlugins(POST_ANALYSIS_PLUGINS, self)()
 
         self.log_event()
