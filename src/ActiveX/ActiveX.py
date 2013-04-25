@@ -111,8 +111,6 @@ class _ActiveXObject:
 
         for method_name, method in obj['methods'].items():
             #_method = new.instancemethod(method, self, _ActiveXObject)
-            #setattr(self, method_name, _method)
-            #methods[method] = _method
             _method = method.__get__(self, _ActiveXObject)
             setattr(self, method_name, _method)
             methods[method] = _method
