@@ -46,7 +46,7 @@ class _ActiveXObject:
     def __init__(self, window, cls, type = 'name'):
         self.funcattrs = dict()
         self._window   = window
-        object         = None
+        obj            = None
         methods        = dict()
         self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
 
@@ -99,10 +99,10 @@ class _ActiveXObject:
 
         for c in CLSID:
             if _cls in c[type]:
-                object = c
+                obj = c
                 break
 
-        if not object:
+        if not obj:
             log.warning("Unknown ActiveX Object: %s" % (cls, ))
             #return None
             raise TypeError()
@@ -139,7 +139,7 @@ class _ActiveXObject:
 def register_object(s, clsid):
     funcattrs = dict()
     methods   = dict()
-    object    = None
+    obj       = None
 
     if not clsid.startswith('clsid:'):
         log.warning("Unknown ActiveX object: %s" % (clsid, ))
@@ -176,10 +176,10 @@ def register_object(s, clsid):
 
     for c in CLSID:
         if clsid in c['id']:
-            object = c
+            obj = c
             break
 
-    if object is None:
+    if obj is None:
         log.warning("Unknown ActiveX object: %s" % (clsid, ))
         #return None
         raise TypeError()
