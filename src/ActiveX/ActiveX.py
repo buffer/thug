@@ -109,7 +109,7 @@ class _ActiveXObject:
 
         log.warning("ActiveXObject: %s" % (cls, ))
 
-        for method_name, method in c['methods'].items():
+        for method_name, method in obj['methods'].items():
             #_method = new.instancemethod(method, self, _ActiveXObject)
             #setattr(self, method_name, _method)
             #methods[method] = _method
@@ -117,10 +117,10 @@ class _ActiveXObject:
             setattr(self, method_name, _method)
             methods[method] = _method
 
-        for attr_name, attr_value in c['attrs'].items():
+        for attr_name, attr_value in obj['attrs'].items():
             setattr(self, attr_name, attr_value)
 
-        for attr_name, attr_value in c['funcattrs'].items():
+        for attr_name, attr_value in obj['funcattrs'].items():
             self.funcattrs[attr_name] = methods[attr_value]
 
     def __setattr__(self, name, value):
@@ -184,17 +184,17 @@ def register_object(s, clsid):
         #return None
         raise TypeError()
 
-    for method_name, method in c['methods'].items():
+    for method_name, method in obj['methods'].items():
         #_method = new.instancemethod(method, s, s.__class__)
         _method = method.__get__(s, s.__class__)
         setattr(s, method_name, _method)
         methods[method] = _method
 
-    for attr_name, attr_value in c['attrs'].items():
+    for attr_name, attr_value in obj['attrs'].items():
         setattr(s, attr_name, attr_value)
 
     # PLEASE REVIEW ME!
-    for attr_name, attr_value in c['funcattrs'].items():
+    for attr_name, attr_value in obj['funcattrs'].items():
         if 'funcattrs' not in s.__dict__:
             s.__dict__['funcattrs'] = dict()
 
