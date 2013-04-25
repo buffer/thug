@@ -46,7 +46,7 @@ class _ActiveXObject:
     def __init__(self, window, cls, type = 'name'):
         self.funcattrs = dict()
         self._window   = window
-        object         = None
+        obj            = None
         methods        = dict()
         self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
 
@@ -99,28 +99,26 @@ class _ActiveXObject:
 
         for c in CLSID:
             if _cls in c[type]:
-                object = c
+                obj = c
                 break
 
-        if not object:
+        if not obj:
             log.warning("Unknown ActiveX Object: %s" % (cls, ))
             #return None
             raise TypeError()
 
         log.warning("ActiveXObject: %s" % (cls, ))
 
-        for method_name, method in c['methods'].items():
+        for method_name, method in obj['methods'].items():
             #_method = new.instancemethod(method, self, _ActiveXObject)
-            #setattr(self, method_name, _method)
-            #methods[method] = _method
             _method = method.__get__(self, _ActiveXObject)
             setattr(self, method_name, _method)
             methods[method] = _method
 
-        for attr_name, attr_value in c['attrs'].items():
+        for attr_name, attr_value in obj['attrs'].items():
             setattr(self, attr_name, attr_value)
 
-        for attr_name, attr_value in c['funcattrs'].items():
+        for attr_name, attr_value in obj['funcattrs'].items():
             self.funcattrs[attr_name] = methods[attr_value]
 
     def __setattr__(self, name, value):
@@ -139,7 +137,7 @@ class _ActiveXObject:
 def register_object(s, clsid):
     funcattrs = dict()
     methods   = dict()
-    object    = None
+    obj       = None
 
     if not clsid.startswith('clsid:'):
         log.warning("Unknown ActiveX object: %s" % (clsid, ))
@@ -176,25 +174,25 @@ def register_object(s, clsid):
 
     for c in CLSID:
         if clsid in c['id']:
-            object = c
+            obj = c
             break
 
-    if object is None:
+    if obj is None:
         log.warning("Unknown ActiveX object: %s" % (clsid, ))
         #return None
         raise TypeError()
 
-    for method_name, method in c['methods'].items():
+    for method_name, method in obj['methods'].items():
         #_method = new.instancemethod(method, s, s.__class__)
         _method = method.__get__(s, s.__class__)
         setattr(s, method_name, _method)
         methods[method] = _method
 
-    for attr_name, attr_value in c['attrs'].items():
+    for attr_name, attr_value in obj['attrs'].items():
         setattr(s, attr_name, attr_value)
 
     # PLEASE REVIEW ME!
-    for attr_name, attr_value in c['funcattrs'].items():
+    for attr_name, attr_value in obj['funcattrs'].items():
         if 'funcattrs' not in s.__dict__:
             s.__dict__['funcattrs'] = dict()
 
