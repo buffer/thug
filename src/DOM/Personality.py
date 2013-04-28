@@ -142,7 +142,7 @@ class Personality(dict):
                 "userAgent"       : "Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20120403211507 Firefox/12.0",
                 "appCodeName"     : "Mozilla",
                 "appName"         : "Netscape",
-                "appVersion"      : "12.0 (Windows)",
+                "appVersion"      : "5.0 (Windows)",
                 "appMinorVersion" : None,
                 "platform"        : "Win32",
                 "product"         : "Gecko",
