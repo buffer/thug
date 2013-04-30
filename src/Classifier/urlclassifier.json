@@ -1,26 +1,348 @@
 {
 	"version": 1, 
-	"rules": [
-		{ 
-			"regex"		: "\\.ru:8080/forum/links/column\\.php", 
-		  	"author"	: "Thorsten Sick", 
-		  	"verified"	: false, 
-		  	"name"		: "Blackhole #1", 
-		  	"kit"		: "Blackhole Exploit Kit 2.0" 
-		},
-		{
-			"regex"		: "/closest/\\w{20,35}\\.php", 
-			"author"	: "Thorsten Sick", 
-			"verified"	: false, 
-			"name"		: "Blackhole #2", 
-			"kit"		: "Blackhole Exploit Kit 2.0"
-		},
-		{
-			"regex"		: "\\.ru:8080/forum/links/public_version\\.php$", 
-			"author"	: "Thorsten Sick", 
-			"verified"	: false, 
-			"name"		: "Blackhole #3", 
-			"kit"		: "Blackhole Exploit Kit 2.0"
-		}
-	]
+		"rules": [
+			        {
+                        "regex"         : "\\.ru:8080/forum/links/column\\.php",
+                        "author"        : "Thorsten Sick",
+                        "verified"      : false,
+                        "name"          : "Blackhole #1",
+                        "kit"           : "Blackhole Exploit Kit 2.0"
+					},
+					{
+                        "regex"         : "/closest/\\w{15,35}\\.php",
+                        "author"        : "Thorsten Sick",
+                        "verified"      : false,
+                        "name"          : "Blackhole #2",
+                        "kit"           : "Blackhole Exploit Kit 2.0"
+					},
+					{
+                        "regex"         : "\\.ru:8080/forum/links/public_version\\.php$",
+                        "author"        : "Thorsten Sick",
+                        "verified"      : false,
+                        "name"          : "Blackhole #3",
+                        "kit"           : "Blackhole Exploit Kit 2.0"
+					},
+					{
+                         "regex"         : "\/java\/lang\/[A-Za-z]+\\.class$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Probable CVE-2012-0431 Exploit",
+                         "kit"           : "Multiple Exploit Kits"
+					},
+					{
+                         "regex"         : "\/\\?[a-f0-9]{32}=[a-z0-9]{2,3}(&[a-f0-9]{32}=[a-z0-9-_.]+)?$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Popads Exploit Kit Landing",
+                         "kit"           : "Popads Exploit Kit"
+					},
+					{
+                         "regex"         : "\/[a-f0-9]{32}\\.eot$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Possible Popads EOT Exploit",
+                         "kit"           : "Popads Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-f0-9]{32}\/[a-f0-9]{32}\\.swf$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Popads SWF Exploit",
+                         "kit"           : "Popads Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-f0-9]{32}\/[0-4]$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Popads Executable Download",
+                         "kit"           : "Popads Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-f0-9]{32}\/[a-f0-9]{32}\\.jar$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Popads Exploit Kit Java Exploit",
+                         "kit"           : "Popads Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/(world|read|news)/([a-z]+(-|_)){1,}[a-z]+\\.[a-z]{3,4}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Cool Exploit Kit /world/ Exploit Download",
+                         "kit"           : "Cool Exploit Kit"
+                    },
+					{
+                         "regex"         : "^http:\/\/[a-z0-9]{10,}\\.[a-z0-9.\\-]{6,}\/(read|news|world)\/",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Cool Exploit Kit Activity",
+                         "kit"           : "Cool Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-z]{4}\\.html?(\\?[hij]=\\d{7})?$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Redkit Landing Page",
+                         "kit"           : "Redkit Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z0-9]{3}\\.jar$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Redkit Java Exploit",
+                         "kit"           : "Redkit Exploit Kit"
+                    },
+					{
+                         "regex"         : "^http:\/\/[a-zA-Z0-9-.]+\/[0-9]{2}\\.html$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Redkit Executable Download",
+                         "kit"           : "Redkit Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-z0-9A-Z]{7}\/\\?[0-9]$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Fiesta Landing Page",
+                         "kit"           : "Fiesta Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z0-9]{7}\/\\?[0-9A-F]{50,}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Fiesta Exploits (PDF,JAR,SWF)",
+                         "kit"           : "Fiesta Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z0-9]{7}\/\\?[0-9A-F]{50,}(;[0-9]){2}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Fiesta Executable Download",
+                         "kit"           : "Fiesta Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/(forum|mix|songs|ports|news|comments|top|funds|feeds|finance|usage|profile|points|look|banners|view|ads|delivery|paints|audit|css|accounts|internet|tweet)\/",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Possible g01Pack Activity",
+                         "kit"           : "g01Pack Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/(forum|mix|songs|ports|news|comments|top|funds|feeds|finance|usage|profile|points|look|banners|view|ads|delivery|paints|audit|css|accounts|internet|tweet)\/[a-z0-9]{5,14}\\.php",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "g01Pack Executable Request",
+                         "kit"           : "g01Pack Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z0-9]{40,90}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "STYX Exploit Kit Landing Page",
+                         "kit"           : "STYX Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z0-9]{40,90}\/pdfx\\.html",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "STYX Exploit Kit Plugin Detect",
+                         "kit"           : "STYX Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z0-9]{40,90}\/[a-zA-Z0-9]{4,10}\\.jar$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "STYX Exploit Kit JAR",
+                         "kit"           : "STYX Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z0-9]{40,90}\/[a-zA-Z0-9]{4,10}\\.pdf$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "STYX Exploit Kit PDF",
+                         "kit"           : "STYX Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z0-9]{40,90}\/[a-zA-Z0-9]{4,10}\\.eot$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "STYX Exploit Kit EOT",
+                         "kit"           : "STYX Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z0-9]{150,}\/",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "STYX Exploit Kit Executable Download",
+                         "kit"           : "STYX Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-z]{4,14}\\?[a-z]{8,9}=[0-9]{7}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Neutrino Landing Page",
+                         "kit"           : "Neutrino Exploit Kit"
+                    },
+					{
+                         "regex"         : "=[a-f0-9]{24}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Possible Neutrino Exploit/Executable",
+                         "kit"           : "Neutrino Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[A-Za-z0-9]{50,}(==?)?$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Possible Neutrino Exploit/Executable",
+                         "kit"           : "Neutrino Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z0-9]{150,}\/[a-zA-Z0-9]+\\.exe\\?[a-zA-Z0-9=]+&h=[0-9]+$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "STYX Exploit Kit Executable Download",
+                         "kit"           : "STYX Exploit Kit"
+                    },
+					{
+                         "regex"         : ":8[0-9]\/forum\/[a-z-_]+\\.php$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Sakura Exploit Kit Activity",
+                         "kit"           : "Sakura Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/(\\.php\\?action=jv&h=|phedex\/|jex\/|cbx\/|pka[1-7]\\.jar|xul1\\.jar|javab\\.jar\\?r=|java7\\.jar\\?r=|amor1\\.jar|jmx\\.jar|jhan\\.jar|m11\\.jar|\/index\\.php\\?action=stats_|\/index\\.php\\?setup=d)",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Crimeboss Exploit Kit Activity",
+                         "kit"           : "Crimeboss Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/[a-z][0-9]{6}[a-z]\/",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "CritXPack Exploit Kit Activity",
+                         "kit"           : "CritXPack Exploit Kit"
+                    },
+					{
+                         "regex"         : "\/(black_dragon|98y7y432ufh49gj23sldkkqowpsskfnv|98yf8913fjipgjialhg8239jgighnjh4i6k5o|209tuj2dsljdglsgjwrigslgkjskga|984y3fh8u3hfu3jcihei)\\.php",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Blackhole Exploit Kit Variant 1",
+                         "kit"           : "Blackhole Exploit Kit v2"
+                    },
+					{
+                         "regex"         : "\/(sort|\/info\/last\/index)\\.php",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Blackhole Exploit Kit Variant 2",
+                         "kit"           : "Blackhole Exploit Kit v2"
+                    },
+					{
+                         "regex"         : ":8080\/[a-zA-Z0-9/]+\\.php",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Blackhole Exploit Kit Variant 3",
+                         "kit"           : "Blackhole Exploit Kit v2"
+                    },
+					{
+                         "regex"         : "\/[a-f0-9]{16,32}\/[a-z]\\.php",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Blackhole Exploit Kit Variant 4",
+                         "kit"           : "Blackhole Exploit Kit v2"
+                    },
+					{
+                         "regex"         : "\/ngen\/controlling\/",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Blackhole Exploit Kit Variant 5",
+                         "kit"           : "Blackhole Exploit Kit v2"
+                    },
+					{
+                         "regex"         : "\/shrift\\.php$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Blackhole Exploit Kit EOT Exploit (CVE-2011-3402)",
+                         "kit"           : "Blackhole Exploit Kit v2"
+                    },
+					{
+                          "regex"        : "\\.php\\?[a-z]{3,8}=[a-z]{3,8}&[a-z]{3,8}=[a-z]{3,8}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Blackhole Exploit Kit Java Exploit",
+                         "kit"           : "Blackhole Exploit Kit v2"
+                    },
+					{
+                         "regex"         : "([1-3][a-z0-9]):{9}[1-3][a-z0-9]",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Blackhole Exploit Kit PDF or EXE",
+                         "kit"           : "Blackhole Exploit Kit v2"
+                    },
+					{
+                         "regex"         : "\/[a-zA-Z]{5,10}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Possible Sweet Orange PDF or JAR Exploit",
+                         "kit"           : "Sweet Orange Exploit Kit"
+					 },
+					 {
+                         "regex"         : "\/[a-z]+?\\.php\\?([a-z]+?=[0-9]{1,3}&){3,}[a-z]+?=[0-9]{1,3}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Possible Sweet Orange Landing or Executable",
+                         "kit"           : "Sweet Orange Exploit Kit"
+					 },
+					 {
+                         "regex"         : "\/[a-f0-9]{32}\\.html$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Possible Nuclear Exploit Kit Landing",
+                         "kit"           : "Nuclear Exploit Kit"
+					 },
+					 {
+                         "regex"         : "\/[a-f0-9]{32}\/[0-9]{10}\/[a-f0-9]{32}\\.jar$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Nuclear Exploit Kit Java Exploit",
+                         "kit"           : "Nuclear Exploit Kit"
+					 },
+					 {
+                         "regex"         : "\/[a-z]\/[0-9]{10}\/[a-f0-9]{32}\/[a-f0-9]{32}(\/[0-9]){1,2}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Nuclear Exploit Kit Executable",
+                         "kit"           : "Nuclear Exploit Kit"
+					 },
+					 {
+                         "regex"         : "\/[a-z]{8}\\.php\\?[a-z]{8}=[0-9]{6}$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Impact Exploit Kit Landing",
+                         "kit"           : "Nuclear Exploit Kit"
+					 },
+					 {
+						 "regex"         : "\/[a-z]{8}\\.php$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Possible Impact Exploit Kit Payload or Executable (Should have seen Landing)",
+                         "kit"           : "Nuclear Exploit Kit"
+					 },
+					 {
+                         "regex"         : "(epac\\.to|freetcp\\.com|faqserv\\.com|qpoe\\.com|2waky\\.com|1dumb\\.com|ddns\\.info|lflinkup\\.com)\/((info\\.php\\?n=)?[0-9]{1,3}|n\/[0-9]{1,3})$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Probable 2WAKY Exploit Kit Landing",
+                         "kit"           : "2WAKY Exploit Kit"
+					 },
+					 {
+                         "regex"         : "&t=17$",
+                         "author"        : "MalwareSigs",
+                         "verified"      : false,
+                         "name"          : "Probable 2WAKY EXE Download",
+                         "kit"           : "2WAKY Exploit Kit"
+					 }
+			]
 }
