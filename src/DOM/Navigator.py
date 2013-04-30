@@ -354,8 +354,6 @@ class Navigator(PyV8.JSClass):
         if url is None:
             return
 
-        log.URLClassifier.classify(url)
-
         if redirect_type:
             log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, 
                                                                               self._window.url, 
@@ -389,14 +387,18 @@ class Navigator(PyV8.JSClass):
                                       redirections = 1024,
                                       headers = http_headers)
 
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (response['content-location'] if 'content-location' in response else url,
+        _url = log.ThugLogging.log_redirect(response)
+        if _url:
+            url = _url
+
+        log.URLClassifier.classify(url)
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (url,
                                                                                          response['status'],
                                                                                          http_headers['Referer'] if 'Referer' in http_headers else 'None'))
-        log.ThugLogging.log_redirect(response)
 
         if response.status == 404:
             log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (url, ))
-            log.ThugLogging.log_location(url, None, None, None, flags = {"error":"File Not Found"})
+            log.ThugLogging.log_location(url, None, None, None, flags = {"error" : "File Not Found"})
             return response, content
 
         if response.status in (400, 408, 500, ):
@@ -419,7 +421,9 @@ class Navigator(PyV8.JSClass):
 
         try:
             mtype = magic.from_buffer(content)
-        except:  # Ubuntu workaround. There is an old pymagic version in ubuntu
+        except:
+            # Ubuntu workaround
+            # There is an old pymagic version in Ubuntu
             ms = magic.open(magic.MAGIC_NONE)
             ms.load()
             mtype = ms.buffer(content)

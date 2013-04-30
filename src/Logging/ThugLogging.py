@@ -131,26 +131,32 @@ class ThugLogging(BaseLogging):
 
     def log_redirect(self, response):
         if not response:
-            return
+            return None
+
+        if response.previous is None:
+            return None
 
         redirects = list()
         r         = response
+        final     = response['content-location'] if 'content-location' in response else None
 
-        last = None
-        final = response['content-location']
         while r.previous:
+            if final is None and 'location' in r.previous:
+                final = r.previous['location']
+
             redirects.append(r.previous)
             r = r.previous
 
         while len(redirects):
             p = redirects.pop()
-            self.add_behavior_warn("[HTTP Redirection (Status: %s)] Content-Location: %s --> Location: %s" % (p['status'], 
-                                                                                                            p['content-location'], 
-                                                                                                            p['location'], ))
-            self.log_connection(p['content-location'], p['location'],"http-redirect")
+            log.URLClassifier.classify(p['content-location'])
+            self.add_behavior_warn("[HTTP Redirection (Status: %s)] Content-Location: %s --> Location: %s" % (p['status'],
+                                                                                                              p['content-location'],
+                                                                                                              p['location'], ))
+            self.log_connection(p['content-location'], p['location'], "http-redirect")
             last = p['location']
-        if last:
-            self.log_connection(last, final, "http-redirect")
+
+        return final
 
     def log_href_redirect(self, referer, url):
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
