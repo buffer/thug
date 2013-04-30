@@ -292,8 +292,29 @@ class Personality(dict):
                 "browserTag"      : "chrome20",
                 }
 
-        self['win7safari5'] = {
+        self['win7firefox3'] = {
                 "id"              : 13,
+                "description"     : "Firefox 3.6.13\t\t(Windows 7)",
+                "version"         : "3.6.13",
+                "userAgent"       : "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (Windows)",
+                "appMinorVersion" : None,
+                "platform"        : "Win32",
+                "product"         : "Gecko",
+                "productSub"      : "2010101",
+                "vendor"          : "",
+                "vendorSub"       : "",
+                "oscpu"           : "Windows NT 6.1",
+                "buildID"         : "20101203",
+                "javaUserAgent"   : "Mozilla/5.0 (Windows XP 6.1) Java/%s",
+                "cc_on"           : None,
+                "browserTag"      : "firefox3",
+                }
+
+        self['win7safari5'] = {
+                "id"              : 14,
                 "description"     : "Safari 5.1.7\t\t(Windows 7)",
                 "version"         : "5.1.7",
                 "userAgent"       : "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2",
@@ -315,7 +336,7 @@ class Personality(dict):
 
         # MacOS X personalities
         self['osx10safari5'] = {
-                "id"              : 14,
+                "id"              : 15,
                 "description"     : "Safari 5.1.1\t\t(MacOS X 10.7.2)",
                 "version"         : "5.1.1",
                 "userAgent"       : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22",
@@ -336,7 +357,7 @@ class Personality(dict):
                 }  
 
         self['osx10chrome19'] = {
-                "id"              : 15,
+                "id"              : 16,
                 "description"     : "Chrome 19.0.1084.54\t(MacOS X 10.7.4)",
                 "version"         : "19.0.1084.54",
                 "userAgent"       : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.54 Safari/536.5",
@@ -358,7 +379,7 @@ class Personality(dict):
 
         # Android personalities
         self['galaxy2chrome18'] = {
-                "id"              : 16,
+                "id"              : 17,
                 "description"     : "Chrome 18.0.1025.166\t(Samsung Galaxy S II, Android 4.0.3)",
                 "version"         : "18.0.1025.166",
                 "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
@@ -379,7 +400,7 @@ class Personality(dict):
                 }
 
         self['galaxy2chrome25'] = {
-                "id"              : 17,
+                "id"              : 18,
                 "description"     : "Chrome 25.0.1364.123\t(Samsung Galaxy S II, Android 4.0.3)",
                 "version"         : "25.0.1364.123",
                 "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.123 Mobile Safari/537.22",
@@ -401,7 +422,7 @@ class Personality(dict):
 
         # Linux personalities
         self['linuxchrome26'] = {
-                "id"              : 18,
+                "id"              : 19,
                 "description"     : "Chrome 26.0.1410.19\t(Linux)",
                 "version"         : "26.0.1410.19",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.19 Safari/537.31",
@@ -422,7 +443,7 @@ class Personality(dict):
                 }
 
         self['linuxfirefox19'] = {
-                "id"              : 19,
+                "id"              : 20,
                 "description"     : "Firefox 19.0\t\t(Linux)",
                 "version"         : "19.0",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0",
