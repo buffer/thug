@@ -114,7 +114,8 @@ class Node(PyV8.JSClass, EventTarget):
     # Modified in DOM Level 2
     @property
     def ownerDocument(self):
-        return self.doc
+        return log.DFT.window.doc
+        #return self.doc
 
     def findChild(self, child):
         #try:
