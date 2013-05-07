@@ -943,13 +943,22 @@ class DFT(object):
             self.set_event_listeners(child)
 
         for evt in self.handled_on_events:
-            self.handle_window_event(evt)
+            try:
+                self.handle_window_event(evt)
+            except:
+                log.warning("[handle_window_event] Event %s not properly handled" % (evt, ))
 
         for evt in self.handled_on_events:
-            self.handle_document_event(evt)
+            try:
+                self.handle_document_event(evt)
+            except:
+                log.warning("[handle_document_event] Event %s not properly handled" % (evt, ))
 
         for evt in self.handled_events:
-            self.handle_element_event(evt)
+            try:
+                self.handle_element_event(evt)
+            except:
+                log.warning("[handle_element_event] Event %s not properly handled" % (evt, ))
 
     def run(self):
         with self.context as ctx:
