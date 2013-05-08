@@ -823,15 +823,18 @@ class Window(PyV8.JSClass):
         self.doc.parentWindow    = self._parent
 
     def eval(self, script):
-        try:
-            log.info(jsbeautifier.beautify(script))
-        except:
-            log.info(script) 
-      
+        if len(script) > 4:
+            try:
+                log.info(jsbeautifier.beautify(script))
+            except:
+                log.info(script)
+
         if len(script) > 64: 
             log.warning("[Window] Eval argument length > 64 (%d)" % (len(script), ))
 
-        log.ThugLogging.add_code_snippet(script, 'Javascript', 'Dynamically_Evaluated', True)
+        if len(script) > 4:
+            log.ThugLogging.add_code_snippet(script, 'Javascript', 'Dynamically_Evaluated', True)
+
         return self.evalScript(script)
 
     @property
