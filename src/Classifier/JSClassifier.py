@@ -17,52 +17,22 @@
 # MA  02111-1307  USA
 
 import os
-import re
 import logging
-import json
 from .BaseClassifier import BaseClassifier
 
 log = logging.getLogger("Thug")
 
 class JSClassifier(BaseClassifier):
-    default_rule_file = "jsclassifier.json"
+    default_rule_file = "rules/jsclassifier.yar"
+    classifier        = "JS Classifier"
 
-    def __init__(self, rules = [], verified_only = False):
+    def __init__(self):
         BaseClassifier.__init__(self)
-        
-        self.verified_only = verified_only
-        for rule in rules:
-            self.add_rule(rule)
-
-    def add_rule(self, rule_file):
-        if not os.path.exists(rule_file):
-            log.warn("[JS Classifier] Skipping not existing classification rule file %s" % (rule_file, )) 
-            return
-
-        with open(rule_file, "rt") as fh:
-            rules = json.load(fh)
-
-            for rule in rules["rules"]:
-                rule["compiled"] = re.compile(rule["regex"], re.IGNORECASE)
-                self.rules.append(rule)
 
     def classify(self, url, script):
-        for rule in self.rules:
-            if self.verified_only and not rule["verified"]:
-                continue
+        for match in self.rules.match(data = script):
+            self.matches.append((url, match))
 
-            if rule["compiled"].search(script):
-                self.matches.append((url, rule))
-                log.ThugLogging.add_behavior_warn("[JS Classifier] URL: %s Exploit kit: %s (rule: %s)" % (url, 
-                                                                                                          rule["kit"], 
-                                                                                                          rule["name"], ))
-    def print_classification(self):
-        if not self.matches:
-            return
-
-        for match in self.matches:
-            url  = match[0]
-            rule = match[1]
-            log.warning("[JS Classifier] URL: %s Exploit kit: %s (rule: %s)" % (url, 
-                                                                                rule["kit"], 
-                                                                                rule["name"], ))
+            rule = " ".join(match.rule.split('_'))
+            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            log.ThugLogging.add_behavior_warn("[JS Classifier] URL: %s (Rule: %s, Classification: %s)" % (url, rule, tags, ))
