@@ -17,30 +17,41 @@
 # MA  02111-1307  USA
 
 import os
-import re
-import json
+import yara
+import logging
 from .abstractmethod import abstractmethod
+
+log = logging.getLogger("Thug")
 
 class BaseClassifier:
     def __init__(self):
-        self.rules   = list()
-        self.matches = list()
-        self.__init_rules()
+        self._rules       = dict()
+        self.matches      = list()
+        self.namespace_id = 1
+        self.init_rules()
 
-    def __init_rules(self):
+    def init_rules(self):
         p = getattr(self, 'default_rule_file', None)
         if p is None:
+            log.warn("[%s] Skipping not existing default classification rule file" % (self.classifier, ))
             return
 
-        rules = os.path.join(os.path.dirname(os.path.abspath(__file__)), p)
-        self.add_rule(rules)
+        r = os.path.join(os.path.dirname(os.path.abspath(__file__)), p)
+        if not os.path.exists(r):
+            log.warn("[%s] Skipping not existing default classification rule file" % (self.classifier, ))
+            return
 
-    @abstractmethod
+        self._rules['namespace0'] = r
+        self.rules = yara.compile(filepaths = self._rules)
+
     def add_rule(self, rule_file):
-        pass 
+        if not os.path.exists(rule_file):
+            log.warn("[%s] Skipping not existing classification rule file %s" % (self.classifier, rule_file, ))
+            return
 
-    def add_rule_file(self, rule_file):
-        self.add_rule(rule_file)
+        self._rules["namespace%s" % (self.namespace_id, )] = rule_file
+        self.namespace_id += 1
+        self.rules = yara.compile(filepaths = self._rules)
 
     @abstractmethod
     def classify(self):
