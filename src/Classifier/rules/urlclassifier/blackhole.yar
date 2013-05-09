@@ -119,7 +119,7 @@ rule Blackhole_V2_10 : Java_exploit Exploit_Kit
 
 
 //Blackhole 2.0 Exploit Kit (rule #11)
-rule Blackhole_V2_11 : Exploit_Kit PDF_or_EXE
+rule Blackhole_V2_11 : PDF_or_SWF_or_EXE Exploit_Kit
 {
     meta:
         author = "MalwareSigs"
