@@ -50,6 +50,10 @@ contents.
 
 - Python-Magic - https://github.com/ahupp/python-magic
 
+- Yara - https://code.google.com/p/yara-project/
+
+- Yara-Python - https://code.google.com/p/yara-project/
+
 - MongoDB (optional) - http://www.mongodb.org/
 
 - PyMongo (optional) - http://www.mongodb.org/display/DOCS/Python+Language+Center
