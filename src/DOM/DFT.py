@@ -186,6 +186,42 @@ class DFT(object):
 
             profile = profile[1:]
 
+    def check_WinExec(self, emu):
+        profile = emu.emu_profile_output
+
+        while True:
+            offset = profile.find('WinExec')
+            if offset < 0:
+                break
+
+            profile = profile[offset:]
+
+            p = profile.split(';')
+            if not p:
+                profile = profile[1:]
+                continue
+
+            s = p[0].split('"')
+            if len(s) < 2:
+                profile = profile[1:]
+                continue
+
+            url = s[1]
+            if not url.startswith("http"):
+                profile = profile[1:]
+                continue
+
+            if url in log.ThugLogging.shellcode_urls:
+                return
+
+            try:
+                self.window._navigator.fetch(url, redirect_type = "WinExec")
+                log.ThugLogging.shellcode_urls.add(url)
+            except:
+                pass
+
+            profile = profile[1:]
+
     def check_shellcode(self, shellcode):
         try:
             sc = self.build_shellcode(shellcode)
@@ -199,7 +235,8 @@ class DFT(object):
             log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
             log.warning("[Shellcode Profile]\n\n%s" % (emu.emu_profile_output, ))
             self.check_URLDownloadToFile(emu)
-        
+            self.check_WinExec(emu)
+
         self.check_url(sc, shellcode)
         emu.free()
 
