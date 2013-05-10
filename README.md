@@ -93,9 +93,11 @@ described below.
 2. Patch V8 source code with the patches you can find in thug/patches
    directory
 
-	```$ cp thug/patches/V8-patch* .
+	```
+	$ cp thug/patches/V8-patch* .
 	$ patch -p0 < V8-patch1.diff
-	patching file v8/src/log.h```
+	patching file v8/src/log.h
+	```
 
 3. Checkout PyV8 -r478 source code from SVN
 
@@ -117,8 +119,10 @@ described below.
 7. Build and install (PyV8 setup.py will properly install both V8
    and PyV8)
 
-	```~/pyv8 $ python setup.py build
-	~/pyv8 $ sudo python setup.py install```
+	```
+	~/pyv8 $ python setup.py build
+	~/pyv8 $ sudo python setup.py install
+	```
 
 
 In order to install the other required libraries and packages please
