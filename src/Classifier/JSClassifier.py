@@ -30,7 +30,7 @@ class JSClassifier(BaseClassifier):
         BaseClassifier.__init__(self)
 
     def classify(self, url, script):
-        for match in self.rules.match(data = script):
+        for match in self.rules.match(data = script.encode('ascii', 'ignore')):
             self.matches.append((url, match))
 
             rule = " ".join(match.rule.split('_'))
