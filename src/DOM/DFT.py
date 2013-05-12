@@ -410,7 +410,7 @@ class DFT(object):
                 pass
 
         if not handler:
-                return
+            return
 
         if getattr(elem, 'name', None) and elem.name in ('body', ) and evt in self.window_on_events:
             setattr(self.window, evt, handler)
