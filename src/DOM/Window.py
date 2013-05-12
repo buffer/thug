@@ -844,6 +844,11 @@ class Window(PyV8.JSClass):
             with self._context as ctxt:
                 thug_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thug.js")
                 ctxt.eval(open(thug_js, 'r').read())
+
+                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '8.0':
+                    sessionstorage_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sessionStorage.js")
+                    ctxt.eval(open(sessionstorage_js, 'r').read())
+
                 PyV8.JSEngine.collect()
 
         return self._context
