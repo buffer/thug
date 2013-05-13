@@ -821,9 +821,13 @@ class DFT(object):
             src = _src
 
         doc    = w3c.parseString(content)
-        window = Window.Window(src, doc, personality = log.ThugOpts.useragent)
-        #window.open(src)
-            
+        window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+        window.open(src)
+
+        frame_id = frame.get('id', None)
+        if frame_id:
+            log.ThugLogging.windows[frame_id] = window
+
         dft = DFT(window)
         dft.run()
 

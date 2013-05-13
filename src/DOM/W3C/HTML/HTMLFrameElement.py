@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 
+import logging
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+
+log = logging.getLogger("Thug")
+
 
 class HTMLFrameElement(HTMLElement):
     def __init__(self, doc, tag):
@@ -21,3 +25,12 @@ class HTMLFrameElement(HTMLElement):
     def contentDocument(self):
         return self.doc if self.doc else None
 
+    @property
+    def contentWindow(self):
+        if self.id in log.ThugLogging.windows:
+            return log.ThugLogging.windows[self.id]
+
+        if self.doc is None:
+            return None
+
+        return getattr(self.doc, 'window', None)

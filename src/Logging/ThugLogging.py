@@ -41,6 +41,7 @@ class ThugLogging(BaseLogging):
         self.MongoDB        = MongoDB()
         self.JSONLog        = JSONLog(thug_version)
         self.baseDir        = None
+        self.windows        = dict()
         self.shellcodes     = set()
         self.shellcode_urls = set()
 
