@@ -435,7 +435,8 @@ class Navigator(PyV8.JSClass):
 
 
         if response.previous and 'content-location' in response and response['content-location']:
-            self._window.url = response['content-location']
+            if redirect_type not in ("URL found", ):
+                self._window.url = response['content-location']
 
         try:
             os.makedirs(mime_base)

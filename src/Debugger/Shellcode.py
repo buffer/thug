@@ -83,7 +83,7 @@ class Shellcode(object):
             log.info('[Shellcode Analysis] URL Detected: %s' % (url, ))
 
             try:
-                self.window._navigator.fetch(url, redirect_type = "Found URL")
+                self.window._navigator.fetch(url, redirect_type = "URL found")
                 log.ThugLogging.shellcode_urls.add(url)
             except:
                 pass
@@ -133,6 +133,6 @@ class Shellcode(object):
                     self.check_URLDownloadToFile(emu)
 
                 self.emu.free()
-                #self.search_url(s)
+                self.search_url(s)
             
         return result
