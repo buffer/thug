@@ -443,6 +443,41 @@ class DFT(object):
         version =  '%s_%s' % ('.'.join(javaplugin), last)
         return log.ThugOpts.Personality.javaUserAgent % (version, )
 
+    def _check_jnlp_param(self, param):
+        name  = param.attrs['name']
+        value = param.attrs['value']
+
+        if name in ('__applet_ssv_validated', ) and value.lower() in ('true', ):
+            log.ThugLogging.log_exploit_event(self.window.url,
+                                              'Java WebStart',
+                                              'Java Security Warning Bypass (CVE-2013-2423)',
+                                              cve = 'CVE-2013-2423')
+
+    def _handle_jnlp(self, data, headers):
+        try:
+            soup = BeautifulSoup.BeautifulSoup(data)
+        except:
+            return
+
+        if soup.find("jnlp") is None:
+            return
+
+        log.ThugLogging.add_behavior_warn(description = '[JNLP Detected]', method = 'Dynamic Analysis')
+
+        for param in soup.find_all('param'):
+            log.ThugLogging.add_behavior_warn(description = '[JNLP] %s' % (param, ), method = 'Dynamic Analysis')
+            self._check_jnlp_param(param)
+
+        jar = soup.find("jar")
+        if jar is None:
+            return
+
+        try:
+            url = jar.attrs['href']
+            response, content = self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
+        except:
+            pass
+
     def do_handle_params(self, object):
         params = dict()
 
@@ -491,7 +526,8 @@ class DFT(object):
                 continue
 
             try:
-                self.window._navigator.fetch(value, headers = headers, redirect_type = "params")
+                response, content = self.window._navigator.fetch(value, headers = headers, redirect_type = "params")
+                self._handle_jnlp(content, headers)
             except:
                 pass
 
