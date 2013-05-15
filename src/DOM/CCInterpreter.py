@@ -32,7 +32,16 @@ class CCInterpreter(object):
 
         if '/*@cc_on' in script:
             script = script.replace('/*@cc_on', '')
-            script = script.replace('@*/', '')
             script = script.replace('@_jscript_version', log.ThugOpts.Personality.cc_on['_jscript_version'])
+            script = script.replace('/*@if', 'if')
+            script = script.replace('@if', 'if')
+            script = script.replace('@elif', 'else if')
+            script = script.replace('@else', 'else')
+            script = script.replace('/*@end', '')
+            script = script.replace('@end', '')
+            script = script.replace('@_win32', 'true')
+            script = script.replace('@_win16', 'false')
+            script = script.replace('@*/', '')
+            script = script.replace('/*@', '')
 
         return script
