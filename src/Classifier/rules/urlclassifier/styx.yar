@@ -1,3 +1,4 @@
+// Styx Exploit Kit (rule #1)
 rule Styx_1 : Exploit_Kit
 {
 	 meta:
@@ -9,6 +10,7 @@ rule Styx_1 : Exploit_Kit
 }
 
 
+// Styx Exploit Kit (rule #2)
 rule Styx_2 : PluginDetect Exploit_Kit
 {
      meta:
@@ -20,6 +22,7 @@ rule Styx_2 : PluginDetect Exploit_Kit
 }
 
 
+// Styx Exploit Kit (rule #3)
 rule Styx_3 : JAR Exploit_Kit
 {
      meta:
@@ -31,6 +34,7 @@ rule Styx_3 : JAR Exploit_Kit
 }
 
 
+// Styx Exploit Kit (rule #4)
 rule Styx_4 : PDF Exploit_Kit
 {
      meta:
@@ -42,6 +46,7 @@ rule Styx_4 : PDF Exploit_Kit
 }
 
 
+// Styx Exploit Kit (rule #5)
 rule Styx_5 : EOT Exploit_Kit
 {
      meta:
@@ -52,6 +57,8 @@ rule Styx_5 : EOT Exploit_Kit
         $url
 }
 
+
+// Styx Exploit Kit (rule #6)
 rule Styx_6 : EXE Exploit_Kit
 {
 	meta:
@@ -62,6 +69,8 @@ rule Styx_6 : EXE Exploit_Kit
 		$url
 }
 
+
+// Styx Exploit Kit (rule #7)
 rule Styx_7 : EXE Exploit_Kit
 {
      meta:
@@ -71,3 +80,16 @@ rule Styx_7 : EXE Exploit_Kit
     condition: 
         $url
 }  
+
+
+// Styx Exploit Kit (rule #8)
+rule Styx_8 : EXE Exploit_Kit
+{
+	meta:
+		author = "https://twitter.com/malc0de"
+	strings:
+		$a = /\/[a-zA-Z0-9]{180,}\/\w+\.exe\?o\=\d+\&h\=\d+/
+		$b = /\/[a-zA-Z0-9]{180,}\/getmyfile.exe\?o\=\d/
+	condition:
+		$a or $b
+}

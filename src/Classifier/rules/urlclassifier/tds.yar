@@ -1,3 +1,4 @@
+// Traffic Broker (rule #1)
 rule Traffic_Broker_1 : TDS
 {
 	meta:
@@ -9,6 +10,7 @@ rule Traffic_Broker_1 : TDS
 }
 
 
+// Sutra (rule #1)
 rule Sutra_1 : TDS
 {
 	meta:
