@@ -128,3 +128,27 @@ rule Blackhole_V2_11 : PDF_or_SWF_or_EXE Exploit_Kit
     condition:
         $url
 }
+
+
+//Blackhole 2.0 Exploit Kit (rule #12)
+rule Blackhole_V2_12 : Exploit_Kit
+{
+    meta:
+        author = "https://twitter.com/malc0de"
+    strings:
+        $a = /\.php\?.*?\:[a-zA-Z0-9\:]{6,}\&.*?\&/
+    condition:
+        $a
+}
+
+
+//Blackhole 2.0 Exploit Kit (rule #13)
+rule Blackhole_V2_13 : EXE Exploit_Kit
+{
+    meta:
+        author = "https://twitter.com/malc0de"
+    strings:
+        $a = /.php\?[a-zA-Z]{2,6}\=[A-Za-z0-9]{10,}\&[A-Za-z]{2,}\=[A-Za-z0-9]{10,}\&[A-Za-z]{1,}\=[A-Fa-f0-9]{2,}\&[A-Za-z]{2,}\=[A-Za-z0-9]+\&[A-Za-z0-9]{1,}\=[A-Za-z]{1,}/
+    condition:
+        $a
+}
