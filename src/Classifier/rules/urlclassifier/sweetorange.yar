@@ -4,7 +4,7 @@ rule SweetOrange_1 : PDF_or_JAR Exploit_Kit
 	meta:
 		author = "MalwareSigs"
 	strings:
-		$url = "\/[a-zA-Z]{5,10}$" nocase
+		$url = /\/[a-zA-Z]{5,10}$/ nocase
 	condition:
 		$url
 }
@@ -16,7 +16,7 @@ rule SweetOrange_2 : Landing_or_Executable Exploit_Kit
 	meta:
 		author = "MalwareSigs"
 	strings:
-		$url = ""\/[a-z]+\?.php\?([a-z]+?=[0-9]{1,3}&){3,}[a-z]+\?=[0-9]{1,3}$" nocase
+		$url = /\/[a-z]+\?.php\?([a-z]+?=[0-9]{1,3}&){3,}[a-z]+\?=[0-9]{1,3}$/ nocase
 	condition:
 		$url
 }
