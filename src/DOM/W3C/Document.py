@@ -153,10 +153,10 @@ class Document(Node, DocumentEvent, DocumentView):
             return False
 
         def filter_tags_id(tag):
-            return tag.has_key('id')
+            return tag.has_attr('id')
 
         def filter_tags_name(tag):
-            return tag.has_key('name')
+            return tag.has_attr('name')
 
         for tag in self.doc.find_all(filter_tags_id):
             if match_tag(tag, 'id'):
