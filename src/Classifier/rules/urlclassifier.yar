@@ -1,6 +1,7 @@
 include "urlclassifier/blackhole.yar"
 include "urlclassifier/cool.yar"
 include "urlclassifier/fiesta.yar"
+include "urlclassifier/g01pack.yar"
 include "urlclassifier/neutrino.yar"
 include "urlclassifier/nuclear.yar"
 include "urlclassifier/popads.yar"
