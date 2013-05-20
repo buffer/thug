@@ -297,18 +297,18 @@ class IThugAPI(zope.interface.Interface):
         """
         get_timeout
 
-        Get the analysis timeout (in minutes)
+        Get the analysis timeout (in seconds)
         
-        @return: the analysis timeout (in minutes)
+        @return: the analysis timeout (in seconds)
         """
 
     def set_timeout(timeout):
         """
         set_timeout
 
-        Set the analysis timeout (in minutes)
+        Set the analysis timeout (in seconds)
 
-        @param timeout: the analysis timeout (in minutes)
+        @param timeout: the analysis timeout (in seconds)
         @type timeout: C{int}
         @return: None
         """

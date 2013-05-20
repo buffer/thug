@@ -151,7 +151,7 @@ if __name__ == "__main__":
         help='Proxy to use',
         default=None)
     parser.add_argument('--timeout', type=int,
-        help='Timeout in minutes for the analysis',
+        help='Timeout in seconds for the analysis',
         default=None)
 
     args = parser.parse_args()

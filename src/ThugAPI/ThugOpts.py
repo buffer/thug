@@ -151,13 +151,13 @@ class ThugOpts(dict):
 
     def set_timeout(self, timeout):
         try:
-            minutes = int(timeout)
+            seconds = int(timeout)
         except:
             log.warning('[WARNING] Ignoring invalid timeout value (should be an integer)')
             return
 
         now   = datetime.datetime.now()
-        delta = datetime.timedelta(minutes = minutes)
+        delta = datetime.timedelta(seconds = seconds)
         self._timeout = now + delta
 
     timeout = property(get_timeout, set_timeout)

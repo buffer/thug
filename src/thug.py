@@ -59,7 +59,7 @@ Synopsis:
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
         -t, --threshold     \tMaximum pages to fetch
         -E, --extensive     \tExtensive fetch of linked pages
-        -T, --timeout       \tTimeout in minutes
+        -T, --timeout       \tSet the analysis timeout (in seconds)
 
         Plugins:
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
