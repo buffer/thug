@@ -32,3 +32,15 @@ rule Neutrino_3 : Exploit_or_EXE Exploit_Kit
     condition:
         $url
 }
+
+
+// Neutrino Exploit Kit (rule #4)
+rule Neutrino_4 : EXE Exploit_Kit
+{
+    meta:
+		author = "https://twitter.com/malc0de"
+    strings:
+        $url = /\/[a-z]{4,15}\?[a-z]{4,7}\=[a-f0-9]{24}/ nocase
+    condition:
+        $url
+}
