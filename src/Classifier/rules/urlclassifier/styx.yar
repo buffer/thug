@@ -95,7 +95,7 @@ rule Styx_8 : EXE Exploit_Kit
 }
 
 // Styx (Kein Edition) Exploit Kit (rule #1)
-rule Styx_Kein_Edition_1 : Exploit_Kit
+rule Styx_Kein_Edition_1 : EXE Exploit_Kit
 {
 	meta:
 		author = "https://twitter.com/malc0de"
