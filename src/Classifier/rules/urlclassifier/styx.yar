@@ -88,8 +88,43 @@ rule Styx_8 : EXE Exploit_Kit
 	meta:
 		author = "https://twitter.com/malc0de"
 	strings:
-		$a = /\/[a-zA-Z0-9]{180,}\/\w+\.exe\?o\=\d+\&h\=\d+/
-		$b = /\/[a-zA-Z0-9]{180,}\/getmyfile.exe\?o\=\d/
+		$a = /\/[a-zA-Z0-9]{180,}\/\w+\.exe\?o\=\d+\&h\=\d+/ nocase
+		$b = /\/[a-zA-Z0-9]{180,}\/getmyfile.exe\?o\=\d/ nocase
 	condition:
 		$a or $b
+}
+
+// Styx (Kein Edition) Exploit Kit (rule #1)
+rule Styx_Kein_Edition_1 : Exploit_Kit
+{
+	meta:
+		author = "https://twitter.com/malc0de"
+    strings:
+        $url = /\/\?[A-Za-z0-9]{2,10}\=[a-z0-9%]{70,}\&t\=\d+/ nocase
+    condition:
+        $url
+}
+
+
+// Styx (Kein Edition) Exploit Kit (rule #2)
+rule Styx_Kein_Edition_2 : Exploit_Kit
+{
+    meta:
+        author = "MalwareSigs"
+    strings:
+        $url = /(epac.to|freetcp.com|faqserv.com|qpoe.com|2waky.com|1dumb.com|ddns.info|lflinkup.com)\/((info.php\?n=)?[0-9]{1,3}|n\/[0-9]{1,3})$/ nocase
+    condition:
+        $url
+}
+
+
+// Styx (Kein Edition) Exploit Kit (rule #3)
+rule Styx_Kein_Edition_3 : Exploit_Kit
+{
+    meta:
+        author = "MalwareSigs"
+    strings:
+        $url = /&t=17$/ nocase
+    condition:
+        $url
 }
