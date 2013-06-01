@@ -829,8 +829,10 @@ class DFT(object):
         #self.run()
 
         doc    = w3c.parseString(content)
-        window = Window.Window(url, doc, personality = log.ThugOpts.useragent)
-        dft    = DFT(window)
+        window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+        window.open(url)
+
+        dft = DFT(window)
         dft.run()
 
     def handle_frame(self, frame, redirect_type = 'frame'):
