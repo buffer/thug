@@ -79,7 +79,7 @@ class Navigator(PyV8.JSClass):
 
     def __init_personality_IE(self):
         self.mimeTypes       = dict()
-        self.plugins         = list()
+        self.plugins         = self._plugins
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
         self.cpuClass        = self._cpuClass
