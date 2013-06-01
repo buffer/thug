@@ -528,6 +528,7 @@ CLSID = [
         # JavaDeploymentToolkit
         {
             'id'        : ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA', 
+                            'CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA',
                             '8AD9C840-044E-11D1-B3E9-00805F499D93', ),
             'name'      : (),
             'attrs'     : {},
