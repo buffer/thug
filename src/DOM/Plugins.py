@@ -54,5 +54,5 @@ class Plugins(list):
 
         return Plugin()
 
-    def refresh(self):
+    def refresh(self, reloadDocuments = False):
         pass
