@@ -9,6 +9,9 @@ class NamedNodeMap(PyV8.JSClass):
     def getNamedItem(self, name):
         return self.parent.getAttributeNode(name)
 
+    def __getattr__(self, name):
+        return self.getNamedItem(name)
+
     def setNamedItem(self, attr):
         oldattr = self.parent.getAttributeNode(attr.name)
 
