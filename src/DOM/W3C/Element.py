@@ -160,9 +160,9 @@ class Element(Node, ElementCSSInlineStyle):
         del self.tag[attr.name]
     
     def getElementsByTagName(self, tagname):
-        #from NodeList import NodeList
-        #return NodeList(self.doc, self.tag.find_all(name))
-        return self.doc.getElementsByTagName(tagname)
+        from NodeList import NodeList
+        return NodeList(self.doc, self.tag.find_all(tagname))
+        #return self.doc.getElementsByTagName(tagname)
 
     # DOM Level 2 Core [Appendix A]
     # The method normalize is now inherited from the Node interface where
