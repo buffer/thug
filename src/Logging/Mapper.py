@@ -285,7 +285,9 @@ class Mapper():
         self._write_stop()
 
         graph = pydot.graph_from_dot_file(self.dotfile)
-        svg   = graph.write_svg(os.path.join(self.resdir, "map.svg"))
+
+        if graph:
+            svg = graph.write_svg(os.path.join(self.resdir, "map.svg"))
 
     def _activate(self, conto):
         """
