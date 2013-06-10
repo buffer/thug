@@ -894,7 +894,11 @@ class DFT(object):
         log.info(style)
 
         cssparser = CSSParser(loglevel = logging.CRITICAL, validate = False)
-        sheet     = cssparser.parseString(style.text)
+
+        try:
+            sheet = cssparser.parseString(style.text)
+        except:
+            return
 
         for rule in sheet:
             if rule.type == rule.FONT_FACE_RULE:
