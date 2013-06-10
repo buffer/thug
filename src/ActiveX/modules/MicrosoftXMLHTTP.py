@@ -31,7 +31,7 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
                                       forward = False,
                                       data = {
                                                 "method" : bstrMethod,
-                                                "url"    : bstrUrl,
+                                                "url"    : str(bstrUrl),
                                                 "async"  : str(varAsync)
                                              }
                                      )
@@ -57,7 +57,7 @@ def send(self, varBody = None):
                                       forward = False,
                                       data = {
                                                 "method" : self.bstrMethod,
-                                                "url" : self.bstrUrl
+                                                "url"    : str(self.bstrUrl)
                                              }
                                      )
 
