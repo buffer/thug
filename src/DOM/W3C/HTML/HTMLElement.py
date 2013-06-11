@@ -44,16 +44,16 @@ class HTMLElement(Element, ElementCSSInlineStyle):
         self.tag.clear()
         soup = BeautifulSoup.BeautifulSoup(html, "html5lib")
 
-        #for node in list(soup.head.descendants):
-        #    self.tag.append(node)
+        for node in list(soup.head.descendants):
+            self.tag.append(node)
 
-        #for node in list(soup.body.children):
-        #    self.tag.append(node)
+        for node in list(soup.body.children):
+            self.tag.append(node)
 
-        soup.head.unwrap()
-        soup.body.unwrap()
-        soup.html.wrap(self.tag)
-        self.tag.html.unwrap()
+        #soup.head.unwrap()
+        #soup.body.unwrap()
+        #soup.html.wrap(self.tag)
+        #self.tag.html.unwrap()
 
         for node in self.tag.descendants:
             name = getattr(node, 'name', None)
