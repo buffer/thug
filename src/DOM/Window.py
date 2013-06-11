@@ -39,6 +39,7 @@ from .External import External
 from .Sidebar import Sidebar
 from .Chrome import Chrome
 from .Opera import Opera
+from .Console import Console
 from .Components import Components
 from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
@@ -803,6 +804,7 @@ class Window(PyV8.JSClass):
         self.crypto              = Crypto()
         self.sidebar             = Sidebar()
         self.Components          = Components()
+        self.console             = Console()
 
     def __init_personality_Chrome(self):
         self.addEventListener    = self._addEventListener
@@ -810,17 +812,20 @@ class Window(PyV8.JSClass):
         self.clientInformation   = self.navigator
         self.external            = External()
         self.chrome              = Chrome()
+        self.console             = Console()
 
     def __init_personality_Safari(self):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.clientInformation   = self.navigator
+        self.console             = Console()
 
     def __init_personality_Opera(self):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.opera               = Opera()
         self.doc.parentWindow    = self._parent
+        self.console             = Console()
 
     def eval(self, script):
         if len(script) > 4:
