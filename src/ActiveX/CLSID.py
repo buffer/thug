@@ -630,10 +630,12 @@ CLSID = [
                           },
             'funcattrs' : {},
             'methods'   : {
-                            'abort'            : MicrosoftXMLHTTP.abort,
-                            'open'             : MicrosoftXMLHTTP.open,
-                            'send'             : MicrosoftXMLHTTP.send,
-                            'setRequestHeader' : MicrosoftXMLHTTP.setRequestHeader,
+                            'abort'                 : MicrosoftXMLHTTP.abort,
+                            'open'                  : MicrosoftXMLHTTP.open,
+                            'send'                  : MicrosoftXMLHTTP.send,
+                            'setRequestHeader'      : MicrosoftXMLHTTP.setRequestHeader,
+                            'getResponseHeader'     : MicrosoftXMLHTTP.getResponseHeader,
+                            'getAllResponseHeaders' : MicrosoftXMLHTTP.getAllResponseHeaders,
                           }
         },
 
