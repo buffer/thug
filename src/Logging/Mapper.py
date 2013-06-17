@@ -286,8 +286,13 @@ class Mapper():
 
         graph = pydot.graph_from_dot_file(self.dotfile)
 
-        if graph:
+        if graph is None:
+            return
+
+        try:
             svg = graph.write_svg(os.path.join(self.resdir, "map.svg"))
+        except:
+            pass
 
     def _activate(self, conto):
         """
