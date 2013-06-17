@@ -13,7 +13,7 @@ def getDOMImplementation(dom = None, **kwds):
     return DOMImplementation(dom if dom else BeautifulSoup.BeautifulSoup(), **kwds)
     
 def parseString(html, **kwds):
-    return DOMImplementation(BeautifulSoup.BeautifulSoup(html, "html5lib"), **kwds)
+    return DOMImplementation(BeautifulSoup.BeautifulSoup(html, "html.parser"), **kwds)
     
 def parse(file, **kwds):
     if isinstance(file, StringTypes):
