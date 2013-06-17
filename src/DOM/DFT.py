@@ -781,7 +781,7 @@ class DFT(object):
             pass
 
     def handle_meta(self, meta):
-        log.warning(meta)
+        log.info(meta)
 
         name = meta.get('name', None)
         if name and name.lower() in ('generator', ):
