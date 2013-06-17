@@ -913,6 +913,8 @@ class DFT(object):
                 self.do_handle_font_face_rule(rule)
 
     def handle_a(self, anchor):
+        log.info(anchor)
+
         if log.ThugOpts.extensive:
             log.warning(anchor)
 
@@ -931,7 +933,7 @@ class DFT(object):
         self.anchors.append(anchor)
 
     def handle_link(self, link):
-        log.warning(link)
+        log.info(link)
 
         href = link.get('href', None)
         if not href:
