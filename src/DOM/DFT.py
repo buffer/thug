@@ -443,6 +443,13 @@ class DFT(object):
         version =  '%s_%s' % ('.'.join(javaplugin), last)
         return log.ThugOpts.Personality.javaUserAgent % (version, )
 
+    @property
+    def javaWebStartUserAgent(self):
+        javaplugin = log.ThugVulnModules._javaplugin.split('.')
+        last = javaplugin.pop()
+        version =  '%s_%s' % ('.'.join(javaplugin), last)
+        return "JNLP/6.0 javaws/%s (b04) Java/%s" % (version, version, )
+
     def _check_jnlp_param(self, param):
         name  = param.attrs['name']
         value = param.attrs['value']
@@ -474,6 +481,7 @@ class DFT(object):
 
         try:
             url = jar.attrs['href']
+            headers['User-Agent'] = self.javaWebStartUserAgent
             response, content = self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
         except:
             pass
