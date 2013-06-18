@@ -297,7 +297,11 @@ class Mapper():
             Create SVG file
         """
         self._dot_from_data()
-        self.graph.write_svg(self.svgfile)
+
+        try:
+            self.graph.write_svg(self.svgfile)
+        except:
+            pass
 
     def _activate(self, conto):
         """
