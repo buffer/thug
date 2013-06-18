@@ -96,29 +96,21 @@ class Mapper():
         """
         self.resdir   = resdir
         self.simplify = simplify
-        self.dotfile  = os.path.join(self.resdir, "avdot.dot")
-        self.dfh      = None
+        self.svgfile  = os.path.join(self.resdir, "graph.svg")
 
-        self._write_start()
-        self.data = {"locations": [], "connections": []}
+        self.data = {
+                        "locations"   : [],
+                        "connections" : []
+                    }
+
         self.first_track = True   # flag indicating that we did not follow a track yet
+        self._init_graph()
 
-    def _write_start(self):
+    def _init_graph(self):
         """
             Write the dot header
         """
-        self.dfh = open(self.dotfile, "w")
-        self.dfh.write('digraph {\nrankdir="LR";\ngraph[fontsize=10]\n')
-
-    def _write_stop(self):
-        """
-            Write the dot footer
-        """
-        if self.dfh:
-            self._dot_from_data()
-            self.dfh.write("}")
-            self.dfh.close()
-            self.dfh = None
+        self.graph = pydot.Dot(graph_type = 'digraph', rankdir = 'LR')
 
     def _check_content_type(self, loc, t):
         return loc["content-type"] and loc["content-type"].lower().startswith(t)
@@ -127,6 +119,7 @@ class Mapper():
         for t in _types:
             if self._check_content_type(loc, t):
                 return True
+
         return False
 
     def check_markup(self, loc):
@@ -138,69 +131,91 @@ class Mapper():
     def check_exec(self, loc):
         return self._check_types(loc, self.exec_types)
 
-    def _create_id(self, name):
-        """
-        Create a unique id for a url object. Pydoc can not accept node ids with ://
+    def get_shape(self, loc):
+        # Markup
+        if self.check_markup(loc):
+            return "box"
 
-        """
-        res = name.replace(":", "_").replace("/", "_")
-        return res
+        # Images
+        if self.check_image(loc):
+            return "oval"
+
+        # Executable stuff
+        if self.check_exec(loc):
+            return "hexagon"
+
+        return None
+
+    def get_fillcolor(self, loc):
+        if "error" in loc["flags"]:
+            return "orange"
+
+        return None
+
+    def get_color(self, con):
+        if "method" in ["iframe"]:
+            return "orange"
+
+        return None
+
+    def _normalize(self, p):
+        if not p.startswith('"'):
+            return '"%s"' % (p, )
+
+        return p
 
     def _dot_from_data(self):
         # Create dot from data
         if "locations" in self.data:
             for loc in self.data["locations"]:
-                if loc["display"]:
-                    shape     = None
-                    fillcolor = None
+                if loc["display"] is False:
+                    continue
 
-                    # Markup
-                    if self.check_markup(loc):
-                        shape = "box"
+                url = self._normalize(loc["url"])
 
-                    # Images
-                    if self.check_image(loc):
-                        shape = "oval"
+                node = pydot.Node(url)
+                node.set_label(url)
 
-                    # Executable stuff
-                    if self.check_exec(loc):
-                        shape = "hexagon"
+                shape = self.get_shape(loc)
+                if shape:
+                    node.set_shape(shape)
 
-                    if "error" in loc["flags"]:
-                        fillcolor = "orange"
+                fillcolor = self.get_fillcolor(loc)
+                if fillcolor:
+                    node.set_style('filled')
+                    node.set_fillcolor(fillcolor)
 
-                    self.dfh.write('"%s" [label="%s"' % (self._create_id(loc["url"]), loc["url"]))
-
-                    if shape:
-                        self.dfh.write("shape = %s," % shape)
-
-                    if fillcolor:
-                        self.dfh.write("style = filled, fillcolor = %s," % fillcolor)
-
-                    self.dfh.write("]\n")
+                node.set_fontname('arial')
+                node.set_fontsize(7)
+                self.graph.add_node(node)
 
         if "connections" in self.data:
             # Add edges
             for con in self.data["connections"]:
-                if con["display"]:
-                    color = None
+                if con["display"] is False:
+                    continue
 
-                    if "method" in ["iframe"]:
-                        color = "orange"
+                color = self.get_color(con)
 
-                    self.dfh.write('"%s" -> "%s" [label="%s",' %\
-                        (self._create_id(con["source"]), self._create_id(con["destination"]), con["method"]))
+                source      = self._normalize(con["source"])
+                destination = self._normalize(con["destination"])
 
-                    if color:
-                        self.dfh.write("color = %s," % color)
+                edge = pydot.Edge(source, destination)
+                edge.set_label(con['method'])
 
-                    self.dfh.write("]\n")
+                if color:
+                    edge.set_color(color)
+
+                edge.set_fontname('arial')
+                edge.set_fontsize(7)
+                self.graph.add_edge(edge)
 
     def _add_to_loc(self, loc):
         """
             Add location information to location data
         """
         loc["display"] = True
+
         if self.simplify:
             url = urlparse.urlparse(loc["url"]).netloc
             if url:
@@ -238,6 +253,7 @@ class Mapper():
             Add connection information to connection data
         """
         con["display"] = True
+
         if self.simplify:
             url = urlparse.urlparse(con["source"]).netloc
             if url:
@@ -278,21 +294,10 @@ class Mapper():
 
     def write_svg(self):
         """
-            Create SVG out of the dotfile
-
-            @dotfile: In-dotfile
+            Create SVG file
         """
-        self._write_stop()
-
-        graph = pydot.graph_from_dot_file(self.dotfile)
-
-        if graph is None:
-            return
-
-        try:
-            svg = graph.write_svg(os.path.join(self.resdir, "map.svg"))
-        except:
-            pass
+        self._dot_from_data()
+        self.graph.write_svg(self.svgfile)
 
     def _activate(self, conto):
         """
@@ -302,7 +307,7 @@ class Mapper():
         tofix = []
 
         for c in self.data["connections"]:
-            if c["display"] == False and c["destination"] == conto:
+            if c["display"] is False and c["destination"] == conto:
                 c["display"] = True
                 tofix.append(c["source"])
 
@@ -314,20 +319,21 @@ class Mapper():
             self._activate(t)
 
     def follow_track(self, end):
-        """ Follow the track between entry point of the analysis and the exploit URL.
+        """
+            Follow the track between entry point of the analysis and the exploit URL.
             Remove all non-relevant stuff
 
-        @end: end url to track the connections to
+            @end: end url to track the connections to
         """
 
         if self.first_track:
             for con in self.data["connections"]:
                 con["display"] = False
+
             for loc in self.data["locations"]:
                 loc["display"] = False
 
         self.first_track = False
-
         self._activate(end)
 
     def write_text(self):
