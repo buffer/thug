@@ -28,6 +28,8 @@ contents.
 
 - Html5lib - http://code.google.com/p/html5lib/
 
+- Jsbeautifier - https://pypi.python.org/pypi/jsbeautifier
+
 - Libemu - http://libemu.carnivore.it/
 
 - Pylibemu 0.2.4 or later - https://github.com/buffer/pylibemu

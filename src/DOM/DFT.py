@@ -26,8 +26,8 @@ import PyV8
 import chardet
 import traceback
 import bs4 as BeautifulSoup
+import jsbeautifier
 from cssutils.parse import CSSParser
-from . import jsbeautifier
 
 try:
     from . import Window

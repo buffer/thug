@@ -10,7 +10,8 @@ Requirements
 * Google V8                
 * PyV8                     
 * Beautiful Soup 4         
-* Html5lib                
+* Html5lib
+* Jsbeautifier
 * Libemu                   
 * Pylibemu                 
 * Pefile                   
@@ -135,6 +136,21 @@ to install html5lib is through easy_install.
 .. code-block:: sh
 
         # easy_install html5lib 
+
+
+Jsbeautifier
+^^^^^^^^^^^^
+
+Jsbeautifier beautifies, unpacks or deobfuscates JavaScript and handles 
+popular online obfuscators. jsbeautifier code can be downloaded at
+https://github.com/einars/js-beautify
+
+If not available as a package for your Linux distribution, the best way
+to install jsbeautifier is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install jsbeautifier 
 
 
 Libemu

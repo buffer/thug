@@ -29,7 +29,7 @@ import datetime
 import collections
 import new
 import bs4 as BeautifulSoup
-from . import jsbeautifier
+import jsbeautifier
 from .W3C import *
 from .Navigator import Navigator
 from .Location import Location
