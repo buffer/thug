@@ -48,7 +48,7 @@ class BaseLogging(object):
         return True
 
     def is_pdf(self, data):
-        return data.startswith('%PDF')
+        return (data[:1024].find('%PDF') != -1)
 
     def is_jar(self, data):
         try:
