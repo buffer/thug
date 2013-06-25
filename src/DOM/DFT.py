@@ -489,7 +489,7 @@ class DFT(object):
     def do_handle_params(self, object):
         params = dict()
 
-        for child in object.children:
+        for child in object.find_all():
             name = getattr(child, 'name', None)
             if name is None:
                 continue
@@ -531,7 +531,7 @@ class DFT(object):
             if key in ('filename', 'movie', 'archive', 'code', ):
                 continue
 
-            if not value.startswith('http'):
+            if key.lower() not in ('jnlp_href, ') and not value.startswith('http'):
                 continue
 
             try:
