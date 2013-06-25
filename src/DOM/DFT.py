@@ -531,7 +531,7 @@ class DFT(object):
             if key in ('filename', 'movie', 'archive', 'code', ):
                 continue
 
-            if key.lower() not in ('jnlp_href, ') and not value.startswith('http'):
+            if key.lower() not in ('jnlp_href', ) and not value.startswith('http'):
                 continue
 
             try:
