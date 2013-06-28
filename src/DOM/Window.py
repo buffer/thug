@@ -829,6 +829,9 @@ class Window(PyV8.JSClass):
         self.console             = Console()
 
     def eval(self, script):
+        if script is None:
+            return
+
         if len(script) > 4:
             try:
                 log.info(jsbeautifier.beautify(script))
