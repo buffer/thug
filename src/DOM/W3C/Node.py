@@ -32,12 +32,7 @@ class Node(PyV8.JSClass, EventTarget):
     def __init__(self, doc):
         self.doc = doc
         EventTarget.__init__(self)
-
-        # Internet Explorer < 9 does not implement compareDocumentPosition
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
-            return
-
-        self.compareDocumentPosition = self._compareDocumentPosition
+        self.__init_personality()
 
     def __repr__(self):
         return "<Node %s at 0x%08X>" % (self.nodeName, id(self))
@@ -47,7 +42,46 @@ class Node(PyV8.JSClass, EventTarget):
         
     def __ne__(self, other):
         return not self.__eq__(other)
-    
+
+    def __init_personality(self):
+        if log.ThugOpts.Personality.isIE():
+            self.__init_personality_IE()
+            return
+
+        if log.ThugOpts.Personality.isFirefox():
+            self.__init_personality_Firefox()
+            return
+
+        if log.ThugOpts.Personality.isChrome():
+            self.__init_personality_Chrome()
+            return
+
+        if log.ThugOpts.Personality.isSafari():
+            self.__init_personality_Safari()
+            return
+
+        if log.ThugOpts.Personality.isOpera():
+            self.__init_personality_Opera()
+
+    def __init_personality_IE(self):
+        self.applyElement = self._applyElement
+
+        # Internet Explorer < 9 does not implement compareDocumentPosition
+        if log.ThugOpts.Personality.browserVersion >= '9.0':
+            self.compareDocumentPosition = self._compareDocumentPositio
+
+    def __init_personality_Firefox(self):
+        self.compareDocumentPosition = self._compareDocumentPosition
+
+    def __init_personality_Chrome(self):
+        self.compareDocumentPosition = self._compareDocumentPosition
+
+    def __init_personality_Safari(self):
+        self.compareDocumentPosition = self._compareDocumentPosition
+
+    def __init_personality_Opera(self):
+        self.compareDocumentPosition = self._compareDocumentPosition
+
     @property
     @abstractmethod
     def nodeType(self):
@@ -317,6 +351,15 @@ class Node(PyV8.JSClass, EventTarget):
 
     def hasChildNodes(self):
         return len(self.tag.contents) > 0
+
+    def _applyElement(self, element, where = 'inside'):
+        where = where.lower()
+
+        if where in ('inside', ):
+            self.appendChild(element)
+
+        if where in ('outside', ):
+            self.insertBefore(element, self)
 
     # Modified in DOM Level 2
     def normalize(self):
