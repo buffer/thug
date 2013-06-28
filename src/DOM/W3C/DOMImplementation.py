@@ -3,11 +3,14 @@
 import sys, re, string
 
 import PyV8
-
+import logging
 try:
     from .HTML import *
 except ValueError:
     from HTML import *
+
+log = logging.getLogger("Thug")
+
 
 class DOMImplementation(HTMLDocument.HTMLDocument):
     features = ( ('core'        , '1.0'),
@@ -101,6 +104,10 @@ class DOMImplementation(HTMLDocument.HTMLDocument):
         
     @staticmethod
     def createHTMLElement(doc, tag):
+        if log.ThugOpts.Personality.isIE():
+            if tag.name.lower() in ('t:animatecolor', ):
+                return TAnimateColor.TAnimateColor(doc, tag)
+
         if tag.name.lower() in DOMImplementation.TAGS:
             return DOMImplementation.TAGS[tag.name.lower()](doc, tag)
         else:

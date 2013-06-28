@@ -51,4 +51,5 @@ __all__ = ['HTMLAnchorElement',
            'HTMLTableSectionElement',
            'HTMLTextAreaElement',
            'HTMLTitleElement',
-           'HTMLUListElement']
+           'HTMLUListElement',
+           'TAnimateColor']
