@@ -535,6 +535,7 @@ CLSID = [
             'funcattrs' : {},
             'methods'   : {
                             'launch'                : JavaDeploymentToolkit.launch,
+                            'launchApp'             : JavaDeploymentToolkit.launchApp,
                           },
         },
 
