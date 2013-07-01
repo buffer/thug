@@ -41,7 +41,7 @@ from Classifier import URLClassifier
 
 log = logging.getLogger("Thug")
 
-__thug_version__ = '0.4.26'
+__thug_version__ = '0.4.27'
 
 
 class ThugAPI:
