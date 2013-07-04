@@ -251,6 +251,8 @@ is located at http://pypi.python.org/pypi/cssutils.
 If not available as a package for your Linux distribution, the best way
 to install cssutils is through easy_install.
 
+Cssutils 0.9.9 or later is strictly required.
+
 .. code-block:: sh
 
         # easy_install cssutils

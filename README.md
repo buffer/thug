@@ -40,7 +40,7 @@ contents.
 
 - httplib2 0.7.4 or later - http://code.google.com/p/httplib2/
 
-- Cssutils - http://pypi.python.org/pypi/cssutils/
+- Cssutils 0.9.9 or later - http://pypi.python.org/pypi/cssutils/
 
 - Zope interface - http://pypi.python.org/pypi/zope.interface
 
