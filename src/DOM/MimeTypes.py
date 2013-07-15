@@ -30,7 +30,7 @@ class MimeTypes(dict):
                                             'type'          : 'application/pdf',
                                             'enabledPlugin' : Plugin({'name'        : 'Adobe Acrobat %s' % (log.ThugVulnModules.acropdf_pdf, ),
                                                                       'version'     : '%s' % (log.ThugVulnModules.acropdf_pdf, ),
-                                                                      'description' : 'Adobe Acrobat Plug-In'}), 
+                                                                      'description' : 'Adobe Acrobat Plug-In'}),
                                             'enabled'       : True})  
 
         self['application/x-shockwave-flash'] = MimeType({  
@@ -38,21 +38,30 @@ class MimeTypes(dict):
                                             'suffixes'      : 'swf',
                                             'type'          : 'application/x-shockwave-flash',
                                             'enabledPlugin' : Plugin({'name'        : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),
-                                                                      'version'       : '%s' % (log.ThugVulnModules.shockwave_flash, ),
-                                                                      'description'   : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),}), 
+                                                                      'version'     : '%s' % (log.ThugVulnModules.shockwave_flash, ),
+                                                                      'description' : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),}),
                                             'enabled'       : True})
 
-        if not log.ThugOpts.Personality.isWindows():
-            return 
-                    
-        self['application/x-ms-wmz'] = MimeType({   
-                                            'description'   : 'Windows Media Player',
-                                            'suffixes'      : 'wmz',
-                                            'type'          : 'application/x-ms-wmz',
-                                            'enabledPlugin' : Plugin({'name'        : 'Windows Media Player 7',
-                                                                      'version'       : '7',
-                                                                      'description'   : 'Windows Media Player 7',}), 
-                                            'enabled'       : True})  
+        if not log.ThugOpts.Personality.isIE():
+            if not log.ThugVulnModules.javaplugin_disabled:
+                self['application/x-java-applet'] = MimeType({
+                                                              'description'   : 'Java Applet',
+                                                              'suffixes'      : 'jar',
+                                                              'type'          : 'application/x-java-applet;jpi-version=%s' % (log.ThugVulnModules.javaplugin, ),
+                                                              'enabledPlugin' : Plugin({'name'        : 'Java %s' % (log.ThugVulnModules.javaplugin, ),
+                                                                                        'version'     : '%s' % (log.ThugVulnModules.javaplugin, ),
+                                                                                        'description' : 'Java'}),
+                                                              'enabled'       : True})
+
+        if log.ThugOpts.Personality.isWindows():
+            self['application/x-ms-wmz'] = MimeType({
+                                                'description'   : 'Windows Media Player',
+                                                'suffixes'      : 'wmz',
+                                                'type'          : 'application/x-ms-wmz',
+                                                'enabledPlugin' : Plugin({'name'        : 'Windows Media Player 7',
+                                                                          'version'     : '7',
+                                                                          'description' : 'Windows Media Player 7',}),
+                                                'enabled'       : True})
 
     def __getitem__(self, key):
         try:
