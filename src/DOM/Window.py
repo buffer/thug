@@ -27,6 +27,7 @@ import pefile
 import numbers
 import datetime
 import collections
+import urllib
 import new
 import bs4 as BeautifulSoup
 import jsbeautifier
@@ -908,26 +909,27 @@ class Window(PyV8.JSClass):
         if len(s) > 16:
             log.ThugLogging.shellcodes.add(s)
 
+        # %xx format
+        if '%' in s and '%u' not in s:
+            return urllib.unquote(s)
+
+        # %uxxxx format
         while i < len(s):
             if s[i] == '"':
                 i += 1
                 continue
 
-            if s[i] == '%':
-                if (i + 6) <= len(s) and s[i + 1] == 'u':
+            if s[i] == '%' and s[i + 1] == 'u':
+                if (i + 6) <= len(s):
                     currchar = int(s[i + 2: i + 4], 16) 
                     nextchar = int(s[i + 4: i + 6], 16) 
                     sc.append(chr(nextchar))
                     sc.append(chr(currchar))
                     i += 6
-                elif (i + 3) <= len(s) and s[i + 1] == 'u':
+                elif (i + 3) <= len(s):
                     currchar = int(s[i + 2: i + 4], 16) 
                     sc.append(chr(currchar))
                     i += 3
-                else:
-                    sc.append(s[i])
-                    i += 1
-
             else:
                 sc.append(s[i])
                 i += 1
