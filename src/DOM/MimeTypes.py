@@ -47,9 +47,9 @@ class MimeTypes(dict):
                 self['application/x-java-applet'] = MimeType({
                                                               'description'   : 'Java Applet',
                                                               'suffixes'      : 'jar',
-                                                              'type'          : 'application/x-java-applet;jpi-version=%s' % (log.ThugVulnModules.javaplugin, ),
-                                                              'enabledPlugin' : Plugin({'name'        : 'Java %s' % (log.ThugVulnModules.javaplugin, ),
-                                                                                        'version'     : '%s' % (log.ThugVulnModules.javaplugin, ),
+                                                              'type'          : 'application/x-java-applet;jpi-version=%s' % (log.ThugVulnModules._javaplugin, ),
+                                                              'enabledPlugin' : Plugin({'name'        : 'Java %s' % (log.ThugVulnModules._javaplugin, ),
+                                                                                        'version'     : '%s' % (log.ThugVulnModules._javaplugin, ),
                                                                                         'description' : 'Java'}),
                                                               'enabled'       : True})
 
