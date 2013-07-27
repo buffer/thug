@@ -80,5 +80,5 @@ class MimeTypes(dict):
 
         return list(self.values())[index]
 
-    def namedItem(self, name):
+    def namedItem(self, key):
         return dict.__getitem__(self, key) if key in self else MimeType()
