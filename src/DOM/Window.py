@@ -119,7 +119,6 @@ class Window(PyV8.JSClass):
         self._opener = opener
         self._screen = screen or Screen(width, height, 32)
         self._closed = False
-        self._context = None
         
         self._personality = personality
         self.__init_personality()
@@ -850,7 +849,7 @@ class Window(PyV8.JSClass):
 
     @property
     def context(self):
-        if self._context is None:
+        if not hasattr(self, '_context'):
             self._context = PyV8.JSContext(self)
             with self._context as ctxt:
                 thug_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thug.js")
