@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build and Install &mdash; Thug 0.4.24 documentation</title>
+    <title>Build and Install &mdash; Thug 0.4.28 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.24',
+        VERSION:     '0.4.28',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.24 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.4.28 documentation" href="index.html" />
     <link rel="next" title="Usage" href="usage.html" />
     <link rel="prev" title="Introduction" href="intro.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="intro.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.24 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.28 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -61,6 +61,7 @@
 <li>PyV8</li>
 <li>Beautiful Soup 4</li>
 <li>Html5lib</li>
+<li>Jsbeautifier</li>
 <li>Libemu</li>
 <li>Pylibemu</li>
 <li>Pefile</li>
@@ -100,46 +101,31 @@ Python and JavaScript objects and supports the Google V8 engine in Python script
 <p>In order to properly install Google V8 and PyV8 please follow the procedure described
 below.</p>
 <ol class="arabic simple">
-<li>Checkout V8 -r14110 source code from SVN</li>
+<li>Checkout V8 source code from SVN</li>
 </ol>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn checkout -r14110 http://v8.googlecode.com/svn/trunk/ v8
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn checkout http://v8.googlecode.com/svn/trunk/ v8
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li>Patch V8 source code with the patches you can find in thug/patches
-directory</li>
+<li>Checkout PyV8 source code from SVN</li>
 </ol>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>cp thug/patches/V8-patch* .
-<span class="nv">$ </span>patch -p0 &lt; V8-patch1.diff
-patching file v8/src/log.h
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn checkout http://pyv8.googlecode.com/svn/trunk/ pyv8
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li>Checkout PyV8 -r478 source code from SVN</li>
-</ol>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn checkout -r478 http://pyv8.googlecode.com/svn/trunk/ pyv8
-</pre></div>
-</div>
-<ol class="arabic simple" start="4">
 <li>Set the environment variable V8_HOME with the V8 source code
 absolute path (you need to change the value reported below)</li>
 </ol>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">V8_HOME</span><span class="o">=</span>/home/buffer/v8
 </pre></div>
 </div>
-<ol class="arabic simple" start="5">
+<ol class="arabic simple" start="4">
 <li>Move to PyV8 source code directory</li>
 </ol>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>pyv8
 </pre></div>
 </div>
-<ol class="arabic simple" start="6">
-<li>Edit PyV8.py setup.py file and comment line 466 as shown</li>
-</ol>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c">#checkout_v8()</span>
-</pre></div>
-</div>
-<ol class="arabic simple" start="7">
+<ol class="arabic simple" start="5">
 <li>Build and install (PyV8 setup.py will properly install both V8
 and PyV8)</li>
 </ol>
@@ -168,6 +154,17 @@ web browsers. html5lib source code can be downloaded at
 <p>If not available as a package for your Linux distribution, the best way
 to install html5lib is through easy_install.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install html5lib</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="jsbeautifier">
+<h3>Jsbeautifier<a class="headerlink" href="#jsbeautifier" title="Permalink to this headline">¶</a></h3>
+<p>Jsbeautifier beautifies, unpacks or deobfuscates JavaScript and handles
+popular online obfuscators. jsbeautifier code can be downloaded at
+<a class="reference external" href="https://github.com/einars/js-beautify">https://github.com/einars/js-beautify</a></p>
+<p>If not available as a package for your Linux distribution, the best way
+to install jsbeautifier is through easy_install.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install jsbeautifier</span>
 </pre></div>
 </div>
 </div>
@@ -242,6 +239,7 @@ to install httplib2 is through easy_install.</p>
 is located at <a class="reference external" href="http://pypi.python.org/pypi/cssutils">http://pypi.python.org/pypi/cssutils</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install cssutils is through easy_install.</p>
+<p>Cssutils 0.9.9 or later is strictly required.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install cssutils</span>
 </pre></div>
 </div>
@@ -356,6 +354,7 @@ to install pika is through easy_install.</p>
 <li><a class="reference internal" href="#google-v8-pyv8">Google V8/PyV8</a></li>
 <li><a class="reference internal" href="#beautiful-soup-4">Beautiful Soup 4</a></li>
 <li><a class="reference internal" href="#html5lib">html5lib</a></li>
+<li><a class="reference internal" href="#jsbeautifier">Jsbeautifier</a></li>
 <li><a class="reference internal" href="#libemu">Libemu</a></li>
 <li><a class="reference internal" href="#pylibemu">Pylibemu</a></li>
 <li><a class="reference internal" href="#pefile">Pefile</a></li>
@@ -419,7 +418,7 @@ to install pika is through easy_install.</p>
         <li class="right" >
           <a href="intro.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.24 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.28 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
