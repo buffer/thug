@@ -192,7 +192,7 @@ class AST(object):
     def onForStatement(self, stmt):
         self.debug("[*] For Statement")
         self.debug("\tInit condition:     %s" % (stmt.init, ))
-        self.debug("\tNext condition:     %s" % (stmt.next, ))
+        self.debug("\tNext condition:     %s" % (stmt.nextStmt, ))
         self.debug("\tEnd condition:      %s" % (stmt.condition, ))
         self.debug("\tFor position:       %s" % (stmt.pos))
 
@@ -202,8 +202,8 @@ class AST(object):
         if stmt.init:
             stmt.init.visit(self)
 
-        if stmt.next:
-            stmt.next.visit(self)
+        if stmt.nextStmt:
+            stmt.nextStmt.visit(self)
 
         if stmt.condition:
             stmt.condition.visit(self)
