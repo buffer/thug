@@ -107,7 +107,7 @@ class Shellcode(object):
             except:
                 trace = traceback.format_exc()
             finally:
-                PyV8.JSEngine.collect()
+                #PyV8.JSEngine.collect()
                 if trace:
                     log.ThugLogging.log_warning(trace)
                     return None
