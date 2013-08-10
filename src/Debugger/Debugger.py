@@ -29,10 +29,11 @@ class Debugger(PyV8.JSDebugger):
 
     def __enter__(self):
         script_filename = os.path.join(os.path.dirname(__file__), 'd8.js')
-        #with self.context as ctxt:
-        self.context.eval(open(script_filename, 'r').read())
-        #PyV8.JSEngine.collect()
-        self.setEnabled(True)
+        with self.context as ctxt:
+            ctxt.eval(open(script_filename, 'r').read())
+
+        PyV8.JSEngine.collect()
+        #self.setEnabled(True)
 
         return PyV8.JSDebugger.__enter__(self)
         
