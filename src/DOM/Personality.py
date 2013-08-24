@@ -463,8 +463,29 @@ class Personality(dict):
                 "browserTag"      : "chrome26",
                 }
 
+        self['linuxchrome30'] = { 
+                "id"              : 21, 
+                "description"     : "Chrome 30.0.1599.15\t(Linux)",
+                "version"         : "30.0.1599.15",
+                "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.15 Safari/537.36",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.15 Safari/537.36",
+                "appMinorVersion" : None,
+                "platform"        : "Linux x86_64",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Google Inc.",
+                "vendorSub"       : "", 
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "chrome30",
+                }   
+
         self['linuxfirefox19'] = {
-                "id"              : 21,
+                "id"              : 22,
                 "description"     : "Firefox 19.0\t\t(Linux)",
                 "version"         : "19.0",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0",
