@@ -185,7 +185,9 @@ Synopsis:
         osx10chrome19           Chrome 19.0.1084.54     (MacOS X 10.7.4)
         galaxy2chrome18         Chrome 18.0.1025.166    (Samsung Galaxy S II, Android 4.0.3)
         galaxy2chrome25         Chrome 25.0.1364.123    (Samsung Galaxy S II, Android 4.0.3)
+        galaxy2chrome29         Chrome 29.0.1547.59     (Samsung Galaxy S II, Android 4.1.2)
         linuxchrome26           Chrome 26.0.1410.19     (Linux)
+        linuxchrome30           Chrome 30.0.1599.15     (Linux)
         linuxfirefox19          Firefox 19.0            (Linux)
 ```
 
