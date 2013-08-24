@@ -420,9 +420,30 @@ class Personality(dict):
                 "browserTag"      : "chrome25",
                 }
 
+        self['galaxy2chrome29'] = { 
+                "id"              : 19, 
+                "description"     : "Chrome 29.0.1547.59\t(Samsung Galaxy S II, Android 4.1.2)",
+                "version"         : "29.0.1547.59",
+                "userAgent"       : "Mozilla/5.0 (Linux; Android 4.1.2; GT-I9100 Build/JZO54K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.59 Mobile Safari/537.36",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (Linux; Android 4.1.2; GT-I9100 Build/JZO54K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.59 Mobile Safari/537.36",
+                "appMinorVersion" : None,
+                "platform"        : "Linux armv71",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Google Inc.",
+                "vendorSub"       : "", 
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "chrome29",
+        }
+                
         # Linux personalities
         self['linuxchrome26'] = {
-                "id"              : 19,
+                "id"              : 20,
                 "description"     : "Chrome 26.0.1410.19\t(Linux)",
                 "version"         : "26.0.1410.19",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.19 Safari/537.31",
@@ -443,7 +464,7 @@ class Personality(dict):
                 }
 
         self['linuxfirefox19'] = {
-                "id"              : 20,
+                "id"              : 21,
                 "description"     : "Firefox 19.0\t\t(Linux)",
                 "version"         : "19.0",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0",
