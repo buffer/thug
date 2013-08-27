@@ -32,6 +32,8 @@ class Thugd():
         @clear:         Clear the job chain
         """
         self.clear = clear
+        self.username = "guest"
+        self.password = "guest"
         self._read_config(configfile)
         self._run_queue()
 
@@ -58,9 +60,12 @@ class Thugd():
         self.rhost  = conf.get("results", "host")
         self.rqueue = conf.get("results", "queue")
         self.resdir = conf.get("results", "resdir")
+        self.username   = conf.get("credentials", "username")
+        self.password  = conf.get("credentials", "password")
 
     def _run_queue(self):
-        parameters = pika.ConnectionParameters(host = self.host)
+        credentials = pika.PlainCredentials(self.username, self.password)
+        parameters = pika.ConnectionParameters(host = self.host, credentials = credentials)
         connection = pika.BlockingConnection(parameters)
         channel    = connection.channel()
 
@@ -82,7 +87,8 @@ class Thugd():
                 break
 
     def send_results(self, data):
-        parameters = pika.ConnectionParameters(host = self.rhost)
+        credentials = pika.PlainCredentials(self.username, self.password)
+        parameters = pika.ConnectionParameters(host = self.rhost, credentials = credentials)
         connection = pika.BlockingConnection(parameters)
         channel    = connection.channel()
 
