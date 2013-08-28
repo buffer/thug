@@ -24,6 +24,8 @@ class ThugCtrl():
 
         self.host = "localhost"
         self.queue = "thugctrl"
+        self.username = "guest"
+        self.password = "guest"
         self.extensive = extensive
         self.threshold = threshold
         self.referer = referer
@@ -40,10 +42,13 @@ class ThugCtrl():
         conf.read(self.configfile)
         self.host = conf.get("jobs", "host")
         self.queue = conf.get("jobs", "queue")
+        self.username = conf.get("credentials", "username")
+        self.password = conf.get("credentials", "password")
 
     def send_command(self, data):
+        credentials = pika.PlainCredentials(self.username, self.password)
         connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host=self.host))
+            host=self.host, credentials = credentials))
         channel = connection.channel()
 
         channel.queue_declare(queue=self.queue, durable=True)
@@ -99,10 +104,13 @@ class ThugCollect():
         self.queue = "thugctrl"
         self.rhost = "localhost"
         self.rqueue = "thugres"
+        self.username = "guest"
+        self.password = "guest"
         self.read_config()
 
+        credentials = pika.PlainCredentials(self.username, self.password)
         connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host=self.rhost))
+            host=self.rhost, credentials = credentials))
         channel = connection.channel()
 
         channel.queue_declare(queue=self.rqueue, durable=True)
@@ -126,6 +134,9 @@ class ThugCollect():
 
         self.rhost = conf.get("results", "host")
         self.rqueue = conf.get("results", "queue")
+
+        self.username = conf.get("credentials", "username")
+        self.password = conf.get("credentials", "password")
 
 
 if __name__ == "__main__":
