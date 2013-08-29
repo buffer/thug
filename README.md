@@ -56,6 +56,8 @@ contents.
 
 - Yara-Python - https://code.google.com/p/yara-project/
 
+- Boost - http://www.boost.org/
+
 - MongoDB (optional) - http://www.mongodb.org/
 
 - PyMongo (optional) - http://www.mongodb.org/display/DOCS/Python+Language+Center
@@ -80,6 +82,14 @@ Python 2 and Python 3.
 or alternatively
 
 ```# pip install beautifulsoup4```
+
+
+### Boost
+
+This should be available on most modern Linux systems. 
+On Ubuntu, this will take care of this dependancy.
+
+```apt-get install libboost-dev libboost-python-dev libboost-thread-dev libboost-system-dev```
 
 
 ### V8/PyV8
