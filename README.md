@@ -56,6 +56,8 @@ contents.
 
 - Yara-Python - https://code.google.com/p/yara-project/
 
+- Boost - http://www.boost.org/
+
 - MongoDB (optional) - http://www.mongodb.org/
 
 - PyMongo (optional) - http://www.mongodb.org/display/DOCS/Python+Language+Center
@@ -80,6 +82,14 @@ Python 2 and Python 3.
 or alternatively
 
 ```# pip install beautifulsoup4```
+
+
+### Boost
+
+Boost provides free peer-reviewed portable C++ source libraries.
+http://www.boost.org/
+Boost packages should be available on most modern Linux systems. 
+
 
 
 ### V8/PyV8

@@ -17,6 +17,7 @@ Requirements
 * Pefile                   
 * Chardet                  
 * httplib2 
+* boost
 * Cssutils
 * Zope interface
 * Graphviz
@@ -225,6 +226,14 @@ to install httplib2 is through easy_install.
 .. code-block:: sh
 
         # easy_install httplib2
+
+
+Boost
+^^^^^
+
+Boost provides free peer-reviewed portable C++ source libraries.
+Boost homepage is located at http://www.boost.org/
+Packages for most Linux distributions are provided.
 
 
 Cssutils
