@@ -86,10 +86,10 @@ or alternatively
 
 ### Boost
 
-This should be available on most modern Linux systems. 
-On Ubuntu, this will take care of this dependancy.
+Boost provides free peer-reviewed portable C++ source libraries.
+http://www.boost.org/
+Boost packages should be available on most modern Linux systems. 
 
-```apt-get install libboost-dev libboost-python-dev libboost-thread-dev libboost-system-dev```
 
 
 ### V8/PyV8
