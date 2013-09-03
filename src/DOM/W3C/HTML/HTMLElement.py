@@ -42,13 +42,30 @@ class HTMLElement(Element, ElementCSSInlineStyle):
 
     def setInnerHTML(self, html):
         self.tag.clear()
+
         soup = BeautifulSoup.BeautifulSoup(html, "html5lib")
 
         for node in list(soup.head.descendants):
             self.tag.append(node)
 
+            name = getattr(node, 'name', None)
+            if name is None:
+                continue
+
+            handler = getattr(log.DFT, 'handle_%s' % (name, ), None)
+            if handler:
+                handler(node)
+
         for node in list(soup.body.children):
             self.tag.append(node)
+
+            name = getattr(node, 'name', None)
+            if name is None:
+                continue
+
+            handler = getattr(log.DFT, 'handle_%s' % (name, ), None)
+            if handler:
+                handler(node)
 
         #soup.head.unwrap()
         #soup.body.unwrap()
