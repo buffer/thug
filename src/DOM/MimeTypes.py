@@ -28,7 +28,7 @@ class MimeTypes(dict):
                                             'description'   : 'Adobe Acrobat Plug-In',
                                             'suffixes'      : 'pdf',
                                             'type'          : 'application/pdf',
-                                            'enabledPlugin' : Plugin({'name'        : 'Adobe Acrobat %s' % (log.ThugVulnModules.acropdf_pdf, ),
+                                            'enabledPlugin' : Plugin({'name'        : 'Adobe Acrobat',
                                                                       'version'     : '%s' % (log.ThugVulnModules.acropdf_pdf, ),
                                                                       'description' : 'Adobe Acrobat Plug-In'}),
                                             'enabled'       : True})  
