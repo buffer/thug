@@ -134,6 +134,7 @@ class Window(PyV8.JSClass):
         self.outerHeight   = height
         self.timers        = []
         self.java          = java()
+        self.inV8          = False
 
     def __getattr__(self, name):
         if name == 'constructor':
@@ -150,9 +151,18 @@ class Window(PyV8.JSClass):
         if name in ('__members__', '__methods__'):
             raise AttributeError(name)
 
+        if name in ('_context'):
+            return self.__getattribute__(name)
+
+        if self.inV8:
+            raise AttributeError(name)
+
         try:
+            self.inV8 = True
             symbol = self.context.eval(name)
+            self.inV8 = False
         except:
+            self.inV8 = False
             raise AttributeError(name)
 
         if isinstance(symbol, PyV8.JSFunction):
