@@ -58,7 +58,6 @@ class HTMLDocument(Document):
             if attr in self._win.doc.DFT.handled_on_events:
                 return None
 
-        #print("[HTMLDocument __getattr__] %s" % (attr, ))
         return self.getElementById(attr)
 
     def getWindow(self):
