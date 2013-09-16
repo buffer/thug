@@ -136,6 +136,9 @@ class Window(PyV8.JSClass):
         self.java          = java()
 
     def __getattr__(self, name):
+        if name in ('__members__', '__methods__'):
+            raise AttributeError(name)
+
         if name == 'constructor':
             return PyV8.JSClassConstructor(self.__class__)
 
@@ -147,19 +150,19 @@ class Window(PyV8.JSClass):
         if prop and isinstance(prop[0], collections.Callable):
             return prop[0]()
 
-        if name in ('__members__', '__methods__'):
-            raise AttributeError(name)
+        #if name in ('__members__', '__methods__'):
+        #    raise AttributeError(name)
 
         try:
-            symbol = self.context.eval(name)
+            symbol = self.__dict__['context'].eval(name)
         except:
             raise AttributeError(name)
-
+        
         if isinstance(symbol, PyV8.JSFunction):
             _method = None
 
             for _name in ('eval', 'unescape', ):
-                if symbol == self.context.eval(_name):
+                if symbol == self.__dict__['context'].eval(_name):
                     _method = symbol.clone()
                     break
 
@@ -168,7 +171,7 @@ class Window(PyV8.JSClass):
                 #_method = symbol.__get__(self, Window)
 
             setattr(self, name, _method)
-            self.context.locals[name] = _method
+            self.__dict__['context'].locals[name] = _method
             return _method
 
         if isinstance(symbol, (thug_string,
@@ -177,7 +180,7 @@ class Window(PyV8.JSClass):
                                datetime.datetime,
                                PyV8.JSObject)):
             setattr(self, name, symbol)
-            self.context.locals[name] = symbol
+            self.__dict__['context'].locals[name] = symbol
             return symbol
 
         raise AttributeError(name)
@@ -849,7 +852,8 @@ class Window(PyV8.JSClass):
 
     @property
     def context(self):
-        if not hasattr(self, '_context'):
+        if not '_context' in self.__dict__:
+        #if not hasattr(self, '_context'):
             self._context = PyV8.JSContext(self)
             with self._context as ctxt:
                 thug_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thug.js")
@@ -859,7 +863,7 @@ class Window(PyV8.JSClass):
                     sessionstorage_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sessionStorage.js")
                     ctxt.eval(open(sessionstorage_js, 'r').read())
 
-                #PyV8.JSEngine.collect()
+                PyV8.JSEngine.collect()
 
         return self._context
 
