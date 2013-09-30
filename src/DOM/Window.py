@@ -135,43 +135,49 @@ class Window(PyV8.JSClass):
         self.timers        = []
         self.java          = java()
 
+        self._symbols      = set()
+        self._methods      = tuple()
+
     def __getattr__(self, name):
+        if name in self._symbols:
+            raise AttributeError(name)
+
         if name in ('__members__', '__methods__'):
             raise AttributeError(name)
 
         if name == 'constructor':
             return PyV8.JSClassConstructor(self.__class__)
 
-        #if name == 'prototype':
-        #    return PyV8.JSClassPrototype(self.__class__)
+        if name == 'prototype':
+            return PyV8.JSClassPrototype(self.__class__)
 
         prop = self.__dict__.setdefault('__properties__', {}).get(name, None)
 
         if prop and isinstance(prop[0], collections.Callable):
             return prop[0]()
 
-        #if name in ('__members__', '__methods__'):
-        #    raise AttributeError(name)
+        context = self.__class__.__dict__['context'].__get__(self, Window)
 
         try:
-            symbol = self.__dict__['context'].eval(name)
+            self._symbols.add(name)
+            symbol = context.eval(name)
         except:
             raise AttributeError(name)
-        
+        finally:
+            self._symbols.discard(name)
+
         if isinstance(symbol, PyV8.JSFunction):
             _method = None
 
-            for _name in ('eval', 'unescape', ):
-                if symbol == self.__dict__['context'].eval(_name):
-                    _method = symbol.clone()
-                    break
+            if symbol in self._methods:
+                _method = symbol.clone()
 
             if _method is None:
                 _method = new.instancemethod(symbol, self, Window)
                 #_method = symbol.__get__(self, Window)
 
             setattr(self, name, _method)
-            self.__dict__['context'].locals[name] = _method
+            context.locals[name] = _method
             return _method
 
         if isinstance(symbol, (thug_string,
@@ -180,7 +186,7 @@ class Window(PyV8.JSClass):
                                datetime.datetime,
                                PyV8.JSObject)):
             setattr(self, name, symbol)
-            self.__dict__['context'].locals[name] = symbol
+            context.locals[name] = symbol
             return symbol
 
         raise AttributeError(name)
@@ -856,8 +862,10 @@ class Window(PyV8.JSClass):
         #if not hasattr(self, '_context'):
             self._context = PyV8.JSContext(self)
             with self._context as ctxt:
-                thug_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thug.js")
-                ctxt.eval(open(thug_js, 'r').read())
+                self._methods = (ctxt.eval('eval'), ctxt.eval('unescape'), )
+
+                #thug_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thug.js")
+                #ctxt.eval(open(thug_js, 'r').read())
 
                 if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '8.0':
                     sessionstorage_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sessionStorage.js")
