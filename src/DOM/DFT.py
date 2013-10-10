@@ -21,6 +21,7 @@ import pylibemu
 import struct
 import hashlib
 import string
+import urlparse
 import logging
 import PyV8
 import chardet
@@ -450,6 +451,10 @@ class DFT(object):
         version =  '%s_%s' % ('.'.join(javaplugin), last)
         return "JNLP/6.0 javaws/%s (b04) Java/%s" % (version, version, )
 
+    @property
+    def shockwaveFlash(self):
+        return ','.join(log.ThugVulnModules.shockwave_flash.split('.'))
+
     def _check_jnlp_param(self, param):
         name  = param.attrs['name']
         value = param.attrs['value']
@@ -512,8 +517,11 @@ class DFT(object):
         else:
             name = getattr(object, 'name', None)
 
-            if name in ('applet', ):
+            if name in ('applet', ) or 'archive' in params:
                 headers['Content-Type'] = 'application/x-java-archive'
+
+            if 'movie' in params:
+                headers['x-flash-version'] = self.shockwaveFlash
 
         if 'Content-Type' in headers and 'java' in headers['Content-Type'] and log.ThugOpts.Personality.javaUserAgent:
             headers['User-Agent'] = self.javaUserAgent
@@ -528,7 +536,7 @@ class DFT(object):
                 pass
 
         for key, value in params.items():
-            if key in ('filename', 'movie', 'archive', 'code', ):
+            if key in ('filename', 'movie', 'archive', 'code', 'codebase', ):
                 continue
 
             if key.lower() not in ('jnlp_href', ) and not value.startswith('http'):
@@ -544,7 +552,7 @@ class DFT(object):
             return
 
         if 'codebase' in params:
-            archive = "%s%s" % (params['codebase'], params['archive'])
+            archive = urlparse.urljoin(params['codebase'], params['archive'])
         else:
             archive = params['archive']
 
@@ -753,6 +761,29 @@ class DFT(object):
         embed_type = embed.get('type', None)
         if embed_type:
             headers['Content-Type'] = embed_type
+
+        if 'Content-Type' in headers:
+            if 'java' in headers['Content-Type'] and log.ThugOpts.Personality.javaUserAgent: 
+                headers['User-Agent'] = self.javaUserAgent
+
+            if 'shockwave-flash' in headers['Content-Type']:
+                headers['x-flash-version']  = self.shockwaveFlash
+
+        try:
+            self.window._navigator.fetch(src, headers = headers, redirect_type = "embed")
+        except:
+            pass
+
+        codebase = embed.get('codebase', None)
+        archive  = embed.get('archive', None)
+        
+        if codebase is None and archive is None:
+            return
+
+        if codebase:
+            url = urlparse.urljoin(codebase, archive)
+        else:
+            url = archive
 
         try:
             self.window._navigator.fetch(src, headers = headers, redirect_type = "embed")
