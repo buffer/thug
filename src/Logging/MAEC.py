@@ -151,9 +151,16 @@ class MAEC(object):
                              xorpattern       = None,
                              id               = "maec:thug:cde:%d" % (next(self.id)))
 
-    def create_discovery_method(self, method):
+    def create_discovery_method(self, method, tool = "Thug"):
+        _tool_id = None
+
+        for p in self._tools:
+            if p["Name"] == tool:
+                _tool_id = p["id"]
+                break
+
         return maec.DiscoveryMethod(method  = method,
-                                    tool_id = "maec:thug:tol:%d" % (next(self.id)))
+                                    tool_id = _tool_id if _tool_id else "maec:thug:tol:%d" % (next(self.id)))
 
     def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
         if not cve and not description:
