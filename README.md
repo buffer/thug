@@ -107,16 +107,23 @@ described below.
 
 	```$ svn checkout http://pyv8.googlecode.com/svn/trunk/ pyv8```
 
-3. Set the environment variable V8_HOME with the V8 source code
+3. Patch PyV8 
+	```
+	$ cp thug/patches/PyV8-patch1.diff .
+	$ patch -p0 < PyV8-patch1.diff 
+	patching file pyv8/src/Context.cpp
+	```
+
+4. Set the environment variable V8_HOME with the V8 source code
    absolute path (you need to change the value reported below)
 
 	```$ export V8_HOME=/home/buffer/v8```
 
-4. Move to PyV8 source code directory
+5. Move to PyV8 source code directory
 
 	```$ cd pyv8```
 
-5. Build and install (PyV8 setup.py will properly install both V8
+6. Build and install (PyV8 setup.py will properly install both V8
    and PyV8)
 
 	```
