@@ -112,6 +112,9 @@ class ThugAPI:
     def set_ast_debug(self):
         log.ThugOpts.ast_debug = True
 
+    def set_http_debug(self):
+        log.ThugOpts.http_debug += 1
+
     def set_acropdf_pdf(self, acropdf_pdf):
         log.ThugVulnModules.acropdf_pdf = acropdf_pdf
 

@@ -57,6 +57,7 @@ Synopsis:
         -q, --quiet         \tDisable console logging
         -m, --no-cache      \tDisable local web cache
         -a, --ast-debug     \tEnable AST debug mode (requires debug mode)
+        -g, --http-debug    \tEnable HTTP debug mode 
         -t, --threshold     \tMaximum pages to fetch
         -E, --extensive     \tExtensive fetch of linked pages
         -T, --timeout       \tSet the analysis timeout (in seconds)
@@ -88,7 +89,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmaA:PS:RJ:Kt:ET:Q:W:',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmagA:PS:RJ:Kt:ET:Q:W:',
                 ['help',
                 'version',
                 'useragent=',
@@ -105,6 +106,7 @@ Synopsis:
                 'quiet',
                 'no-cache',
                 'ast-debug',
+                'http-debug',
                 'adobepdf=',
                 'no-adobepdf',
                 'shockwave=',
@@ -153,6 +155,8 @@ Synopsis:
                 self.set_no_cache()
             if option[0] in ('-a', '--ast-debug', ):
                 self.set_ast_debug()
+            if option[0] in ('-g', '--http-debug', ):
+                self.set_http_debug()
             if option[0] in ('-A', '--adobepdf', ):
                 self.set_acropdf_pdf(option[1])
             if option[0] in ('-P', '--no-adobepdf', ):

@@ -342,7 +342,7 @@ class Navigator(PyV8.JSClass):
         return url
 
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None):
-        #httplib2.debuglevel = 1
+        httplib2.debuglevel = log.ThugOpts.http_debug
 
         if log.ThugOpts.no_fetch:
             raise FetchForbidden

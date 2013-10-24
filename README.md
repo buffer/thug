@@ -164,6 +164,7 @@ Synopsis:
         -q, --quiet             Disable console logging
         -m, --no-cache          Disable local web cache
         -a, --ast-debug         Enable AST debug mode (requires debug mode)
+        -g, --http-debug        Enable HTTP debug mode
         -t, --threshold         Maximum pages to fetch
         -E, --extensive         Extensive fetch of linked pages
         -T, --timeout           Set the analysis timeout (in seconds)

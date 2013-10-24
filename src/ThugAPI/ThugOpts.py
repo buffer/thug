@@ -42,6 +42,7 @@ class ThugOpts(dict):
         self._threshold  = 0
         self._timeout    = None
         self.ast_debug   = False
+        self.http_debug  = 0
         self._useragent  = 'winxpie60'
         self._referer    = 'about:blank'
         self._events     = list()
