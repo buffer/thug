@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 
-import datetime, time
+import logging
+import time
+import datetime
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 from .compatibility import *
+
+log = logging.getLogger("Thug")
 
 class HTMLAnchorElement(HTMLElement):
     def __init__(self, doc, tag):
@@ -31,3 +35,5 @@ class HTMLAnchorElement(HTMLElement):
     def click(self):
         now = datetime.datetime.now()
         self.tag['_clicked'] = time.mktime(now.timetuple())
+        if self.href:
+            log.DFT.follow_href(self.href)
