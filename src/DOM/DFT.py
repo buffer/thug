@@ -536,7 +536,7 @@ class DFT(object):
                 pass
 
         for key, value in params.items():
-            if key in ('filename', 'movie', 'archive', 'code', 'codebase', ):
+            if key in ('filename', 'movie', 'archive', 'code', 'codebase', 'source', ):
                 continue
 
             if key.lower() not in ('jnlp_href', ) and not value.startswith('http'):
@@ -545,6 +545,12 @@ class DFT(object):
             try:
                 response, content = self.window._navigator.fetch(value, headers = headers, redirect_type = "params")
                 self._handle_jnlp(content, headers)
+            except:
+                pass
+
+        if 'source' in params:
+            try:
+                self.window._navigator.fetch(params['source'], headers = headers, redirect_type = "params")
             except:
                 pass
 
