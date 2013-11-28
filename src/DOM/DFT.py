@@ -567,16 +567,6 @@ class DFT(object):
         except:
             pass
 
-        #if 'codebase' in params:
-        #    code = "%s%s" % (params['codebase'], params['code'])
-        #else:
-        #    code = params['code']
-
-        #try:
-        #    self.window._navigator.fetch(code, headers = headers)
-        #except:
-        #    pass
-
     def handle_object(self, object):
         log.warning(object)
 
