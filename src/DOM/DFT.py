@@ -584,7 +584,7 @@ class DFT(object):
             except:
                 pass
 
-        if data:
+        if data and not data.startswith('data:'):
             try:
                 self.window._navigator.fetch(data, redirect_type = "object data")
             except:
