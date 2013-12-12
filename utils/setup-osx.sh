@@ -90,7 +90,7 @@ cd libemu
 sed -i-orig -e 's/-no-cpp-precomp//' configure.ac
 sed -i-orig -e 's#/usr/lib/pkgconfig/#/usr/local/lib/pkgconfig/#' Makefile.am
 autoreconf -v -i
-CC=gcc-4.8 CFLAGS="-w" ./configure --prefix=/usr/local 1>>setup-osx.log
+CC=gcc-4.8 CFLAGS="-w" ./configure --prefix=/usr/local --disable-shared 1>>setup-osx.log
 
 echo "Installing libemu..."
 make install 1>>setup-osx.log
