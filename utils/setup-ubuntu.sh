@@ -20,7 +20,10 @@ svn checkout -r478 http://pyv8.googlecode.com/svn/trunk/ pyv8 1>>setup-ubuntu.lo
 
 
 echo 'Setting environment variable...'
-export V8_HOME=`pwd`/v8
+#export V8_HOME=`pwd`/v8
+echo "V8_HOME = \"$PWD/v8\"" >> pyv8/buildconf.py
+echo "DEBUG = True" >> pyv8/buildconf.py
+echo "V8_SVN_REVISION = 14110" >> pyv8/buildconf.py
 
 echo "Building PyV8 and V8(this may take several minutes)..."
 cd pyv8
