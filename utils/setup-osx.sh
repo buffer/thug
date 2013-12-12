@@ -49,7 +49,7 @@ svn checkout -r14110 http://v8.googlecode.com/svn/trunk/ v8 1>setup-osx.log
 
 echo 'Patching V8...'
 cd v8
-patch -p1 < ../patches/V8-patch1.diff 1>>setup-osx.log
+patch -p1 < ../../patches/V8-patch1.diff 1>>setup-osx.log
 cd ..
 
 echo 'Please wait, checking out subversion repo for [-r478 http://pyv8.googlecode.com/svn/trunk/]...'
@@ -60,10 +60,11 @@ echo 'Setting environment variable...'
 echo "V8_HOME = \"$PWD/v8\"" >> pyv8/buildconf.py
 echo "DEBUG = True" >> pyv8/buildconf.py
 echo "V8_SVN_REVISION = 14110" >> pyv8/buildconf.py
-echo "BOOST_HOME = \"$BOOST_HOME\"" >> pyv8/buildconf.py
+echo "BOOST_HOME = \"$(echo `pwd`/../boost)\"" >> buildconf.py
 
 echo "Building PyV8 and V8(this may take several minutes)..."
 cd pyv8
+patch -p0 < ../../patches/osx-setup.diff
 python setup.py build
 
 echo "Installing PyV8 and V8..."
@@ -99,6 +100,7 @@ echo 'Please wait, cloning git repo for [git://github.com/buffer/pylibemu.git]..
 git clone git://github.com/buffer/pylibemu.git 1>>setup-osx.log
 echo "Building pylibemu..."
 cd pylibemu
+sed -i-orig -e 's/distutils\.[^ ][^ ]* /setuptools /' setup.py
 python setup.py build 1>>setup-osx.log
 echo "Installing pylibemu..."
 python setup.py install 1>>setup-osx.log
