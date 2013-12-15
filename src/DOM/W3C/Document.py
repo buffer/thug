@@ -120,11 +120,6 @@ class Document(Node, DocumentEvent, DocumentView):
 
         return NodeList(self.doc, self.doc.find_all(tagname.lower()))
     
-    @property
-    def all(self):
-        s = [p for p in self.doc.find_all(text = False)]
-        return NodeList(self.doc, s)
-
     # Introduced in DOM Level 2
     def getElementById(self, elementId):
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '8.0':

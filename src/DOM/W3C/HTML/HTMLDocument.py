@@ -28,6 +28,7 @@ from DOMException import DOMException
 from .HTMLCollection import HTMLCollection
 from .HTMLElement import HTMLElement
 from .HTMLBodyElement import HTMLBodyElement
+from .HTMLAllCollection import HTMLAllCollection
 from .text_property import text_property
 from .xpath_property import xpath_property
 
@@ -52,6 +53,42 @@ class HTMLDocument(Document):
         self._html          = None
         self._domain        = urlparse(self._win.url).hostname if self._win else ''
         self.current        = None
+        self.__init_personality()
+
+    def __init_personality(self):
+        if log.ThugOpts.Personality.isIE():
+            self.__init_personality_IE()
+            return
+
+        if log.ThugOpts.Personality.isFirefox():
+            self.__init_personality_Firefox()
+            return
+
+        if log.ThugOpts.Personality.isChrome():
+            self.__init_personality_Chrome()
+            return
+
+        if log.ThugOpts.Personality.isSafari():
+            self.__init_personality_Safari()
+            return
+
+        if log.ThugOpts.Personality.isOpera():
+            self.__init_personality_Opera()
+
+    def __init_personality_IE(self):
+        self.all = self._all
+
+    def __init_personality_Firefox(self):
+        pass
+
+    def __init_personality_Chrome(self):
+        pass
+
+    def __init_personality_Safari(self):
+        pass
+
+    def __init_personality_Opera(self):
+        pass
 
     def __getattr__(self, attr):
         if self._win and getattr(self._win, "doc", None):
@@ -185,3 +222,8 @@ class HTMLDocument(Document):
         tags = self.doc.find_all(attrs = {'name': elementName})
         
         return HTMLCollection(self.doc, tags)
+
+    @property
+    def _all(self):
+        s = [p for p in self.doc.find_all(text = False)]
+        return HTMLAllCollection(self.doc, s)
