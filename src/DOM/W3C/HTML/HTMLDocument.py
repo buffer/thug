@@ -82,7 +82,7 @@ class HTMLDocument(Document):
         pass
 
     def __init_personality_Chrome(self):
-        pass
+        self.all = self._all
 
     def __init_personality_Safari(self):
         pass
