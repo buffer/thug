@@ -1,12 +1,8 @@
 <html>
 <body>
+<a href="http://www.google.com">Google</a>
 <script>
-
-if (document.all) {
-	alert(document.all[0]);
-}
-alert(2);
-
+alert(document.all.tags('a')[0]);
 </script>
 </body>
 </html>
