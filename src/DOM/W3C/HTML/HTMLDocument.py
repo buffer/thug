@@ -76,7 +76,8 @@ class HTMLDocument(Document):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
-        self.all = self._all
+        if log.ThugOpts.Personality.browserVersion < '11.0':
+            self.all = self._all
 
     def __init_personality_Firefox(self):
         pass
