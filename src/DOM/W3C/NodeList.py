@@ -22,3 +22,6 @@ class NodeList(PyV8.JSClass):
     def length(self):
         return len(self.nodes)
 
+    def tags(self, name):
+        s = [p for p in self.doc.find_all(name.lower())]
+        return NodeList(self.doc, s)
