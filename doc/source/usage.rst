@@ -82,6 +82,7 @@ Let's start our Thug tour by taking a look at the options it provides.
             linuxchrome26           Chrome 26.0.1410.19     (Linux)
             linuxchrome30           Chrome 30.0.1599.15     (Linux)
             linuxfirefox19          Firefox 19.0            (Linux)
+            ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)
 
 
 Let's start with a first basic real-world example: a Blackhole exploit kit.  
