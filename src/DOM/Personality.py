@@ -505,6 +505,28 @@ class Personality(dict):
                 "browserTag"      : "firefox19",
                 }
 
+        # iOS personalities
+        self['ipadsafari7'] = { 
+                "id"              : 23, 
+                "description"     : "Safari 7.0\t\t(iPad, iOS 7.0.4)",
+                "version"         : "7.0",
+                "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B554a Safari/9537.53",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (iPad; CPU OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B554a Safari/9537.53",
+                "appMinorVersion" : None,
+                "platform"        : "iPad",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Apple Computer, Inc.",
+                "vendorSub"       : "", 
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "safari7",
+                } 
+
     @property
     def userAgent(self):
         return self[log.ThugOpts.useragent]['userAgent']
