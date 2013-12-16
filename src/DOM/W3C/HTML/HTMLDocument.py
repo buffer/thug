@@ -86,7 +86,7 @@ class HTMLDocument(Document):
         self.all = self._all
 
     def __init_personality_Safari(self):
-        pass
+        self.all = self._all
 
     def __init_personality_Opera(self):
         pass
