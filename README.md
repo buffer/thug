@@ -207,7 +207,7 @@ Synopsis:
         linuxchrome26           Chrome 26.0.1410.19     (Linux)
         linuxchrome30           Chrome 30.0.1599.15     (Linux)
         linuxfirefox19          Firefox 19.0            (Linux)
-	ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)
+        ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)
 ```
 
 
