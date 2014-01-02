@@ -237,7 +237,7 @@ making a donation using Paypal (details at http://buffer.github.com/thug/).
 
 ## License information
 
-Copyright (C) 2011-2013 Angelo Dell'Aera <buffer@antifork.org>
+Copyright (C) 2011-2014 Angelo Dell'Aera <buffer@antifork.org>
 
 License: GNU General Public License, version 2 or later; see COPYING.txt
          included in this archive for details.
