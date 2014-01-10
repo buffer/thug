@@ -24,8 +24,8 @@ Requirements
 * Pyparsing
 * Pydot
 * Python-Magic
-* Yara
-* Yara-Python
+* Yara 2.0
+* Yara-Python 2.0
 * MongoDB (optional)       
 * PyMongo (optional)       
 * RabbitMQ (optional)
@@ -329,7 +329,7 @@ to install python-magic is through easy_install.
 Yara
 ^^^^
 
-Yara homepage is located at https://code.google.com/p/yara-project/
+Yara homepage is located at https://github.com/plusvic/yara
 
 If not available as a package for your Linux distribution, the best way
 to install Yara is compiling its source code. Please take a look at Yara
@@ -339,7 +339,7 @@ documentation for details.
 Yara-Python
 ^^^^^^^^^^^
 
-Yara-Python homepage is located at https://code.google.com/p/yara-project/
+Yara-Python homepage is located at https://github.com/plusvic/yara
 
 If not available as a package for your Linux distribution, the best way
 to install Yara-Python is compiling its source code. Please take a look 

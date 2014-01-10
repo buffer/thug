@@ -52,9 +52,9 @@ contents.
 
 - Python-Magic - https://github.com/ahupp/python-magic
 
-- Yara - https://code.google.com/p/yara-project/
+- Yara 2.0 - https://github.com/plusvic/yara
 
-- Yara-Python - https://code.google.com/p/yara-project/
+- Yara-Python 2.0 - https://github.com/plusvic/yara
 
 - Boost - http://www.boost.org/
 
