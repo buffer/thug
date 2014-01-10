@@ -1,0 +1,27 @@
+{
+  "tests" : [
+    { "url" : "http://www.thug.ru:8080/forum/links/column.php"                          , "output" : "[Blackhole_V2_1, Blackhole_V2_6, g01Pack_2]" },
+    { "url" :  "http://www.thug.com/closest/2edtyh3dcwefwfar56.php"                     , "output" : "[Blackhole_V2_2]"                            },
+    { "url" : "http://www.thug.ru:8080/forum/links/public_version.php"                  , "output" : "[Blackhole_V2_3, g01Pack_2]"                 },
+    { "url" : "http://www.thug.com/black_dragon.php"                                    , "output" : "[Blackhole_V2_4]"                            },
+    { "url" : "http://www.thug.com/98y7y432ufh49gj23sldkkqowpsskfnv.php"                , "output" : "[Blackhole_V2_4]"                            },
+    { "url" : "http://www.thug.com/98yf8913fjipgjialhg8239jgighnjh4i6k5o.php"           , "output" : "[Blackhole_V2_4]"                            },
+    { "url" : "http://www.thug.com/209tuj2dsljdglsgjwrigslgkjskga.php"                  , "output" : "[Blackhole_V2_4]"                            },
+    { "url" : "http://www.thug.com/984y3fh8u3hfu3jcihei.php"                            , "output" : "[Blackhole_V2_4]"                            },
+    { "url" : "http://www.thug.com/sort.php"                                            , "output" : "[Blackhole_V2_5]"                            },
+    { "url" : "http://www.thug.com/info/last/index.php"                                 , "output" : "[Blackhole_V2_5]"                            },
+    { "url" : "http://www.thug.com:8080/aefc456123dfeBBZ0099ae.php"                     , "output" : "[Blackhole_V2_6]"                            },
+    { "url" : "http://www.thug.com/aefc456123dfebbb0099ae/test.php"                     , "output" : "[Blackhole_V2_7]"                            },
+    { "url" : "http://www.thug.com/ngen/controlling/foo.php"                            , "output" : "[Blackhole_V2_8]"                            },
+    { "url" : "http://www.thug.com/shrift.php"                                          , "output" : "[Blackhole_V2_9]"                            },
+    { "url" : "http://www.thug.com/test.php?abc=efg&saw=krt"                            , "output" : "[Blackhole_V2_10]"                           },
+    { "url" : "http://www.thug.com/test.php?a:b:c:1:2:3&foo=bar&a=b"                    , "output" : "[Blackhole_V2_12]"                           },
+    { "url" : "http://www.thug.com/test.php?aS=abcdefghjklm&pq=asqwwertfg&p=AF&yt=A&e=z", "output" : "[Blackhole_V2_13]"                           },
+    { "url" : "http://www.thug.com/world/a-a.abcd"                                      , "output" : "[Cool_1]"                                    },
+    { "url" : "http://www.thug.com/read/a-a.abcd"                                       , "output" : "[Cool_1]"                                    },
+    { "url" : "http://www.thug.com/news/a-a-a.abcd"                                     , "output" : "[Cool_1, g01Pack_2]"                         },
+    { "url" : "http://thugthugthug.thug.com/news/test.php"                              , "output" : "[Cool_2, g01Pack_2]"                         },
+    { "url" : "http://www.thug.com/a.php?x=s&abc=12&no=1"                               , "output" : "[Crimeboss_1]"                               },
+    { "url" : "http://www.thug.com/rd.php?http://www.google.com"                        , "output" : "[Traffic_Broker_1]"                          }
+    ]
+}
