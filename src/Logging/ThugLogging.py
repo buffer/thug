@@ -18,7 +18,7 @@
 
 from .BaseLogging import BaseLogging
 from .HPFeeds import HPFeeds
-from .MAEC import MAEC
+from .MAEC11 import MAEC11
 from .MongoDB import MongoDB
 from .JSONLog import JSONLog
 
@@ -37,7 +37,7 @@ class ThugLogging(BaseLogging):
         BaseLogging.__init__(self)
 
         self.HPFeeds        = HPFeeds()
-        self.MAEC           = MAEC(thug_version)
+        self.MAEC11         = MAEC11(thug_version)
         self.MongoDB        = MongoDB()
         self.JSONLog        = JSONLog(thug_version)
         self.baseDir        = None
@@ -47,12 +47,12 @@ class ThugLogging(BaseLogging):
 
     def set_url(self, url):
         self.HPFeeds.set_url(url)
-        self.MAEC.set_url(url)
+        self.MAEC11.set_url(url)
         self.MongoDB.set_url(url)
         self.JSONLog.set_url(url)
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
-        self.MAEC.add_behavior_warn(description, cve, method)
+        self.MAEC11.add_behavior_warn(description, cve, method)
         self.JSONLog.add_behavior_warn(description, cve, method)
 
     def check_snippet(self, s):
@@ -62,7 +62,7 @@ class ThugLogging(BaseLogging):
         if check and self.check_snippet(snippet):
             return
 
-        self.MAEC.add_code_snippet(snippet, language, relationship, method)
+        self.MAEC11.add_code_snippet(snippet, language, relationship, method)
         self.JSONLog.add_code_snippet(snippet, language, relationship, method)
 
     def log_file(self, data, url):
@@ -71,7 +71,7 @@ class ThugLogging(BaseLogging):
             return
         
         self.HPFeeds.log_file(sample)
-        self.MAEC.log_file(sample)
+        self.MAEC11.log_file(sample)
         self.MongoDB.log_file(copy.deepcopy(sample))
         self.JSONLog.log_file(sample)
 
@@ -79,7 +79,7 @@ class ThugLogging(BaseLogging):
         log.warning("Saving log analysis at %s" % (self.baseDir, ))
 
         with open(os.path.join(self.baseDir, 'analysis.xml'), 'a+r') as fd:
-            self.MAEC.export(outfile = fd)
+            self.MAEC11.export(outfile = fd)
             fd.seek(0)
             data = fd.read()
             self.HPFeeds.log_event(data)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# MAEC.py
+# MAEC11.py
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -25,7 +25,7 @@ NAMESPACEDEF_ = 'xmlns:ns1="http://xml/metadataSharing.xsd" xmlns="http://maec.m
 
 log = logging.getLogger("Thug")
 
-class MAEC(object):
+class MAEC11(object):
     def __init__(self, thug_version):
         self._tools = ({
                         'id'            : 'maec:thug:tol:1',
