@@ -46,17 +46,46 @@ class JSONLog(object):
         self.signatures      = list()
 
         self.data = {
-                        "url"           : None,
-                        "timestamp"     : str(datetime.datetime.now()),
-                        "thugversion"   : thug_version,
-                        "logtype"       : "json-log",
-                        "behavior"      : [],
-                        "code"          : [],
-                        "files"         : [],
-                        "connections"   : [],
-                        "locations"     : [],
-                        "exploits"      : []
+                        "url"         : None,
+                        "timestamp"   : str(datetime.datetime.now()),
+                        "logtype"     : "json-log",
+                        "thug"        : {
+                                        "version"            : thug_version,
+                                        "personality" : {
+                                            "useragent"      : log.ThugOpts.useragent
+                                            },
+                                        "plugins" : {
+                                            "acropdf"        : self.get_vuln_module("acropdf"),
+                                            "javaplugin"     : self.get_vuln_module("_javaplugin"),
+                                            "shockwaveflash" : self.get_vuln_module("shockwave_flash")
+                                            },
+                                        "options" : {
+                                            "local"          : log.ThugOpts.local,
+                                            "nofetch"        : log.ThugOpts.no_fetch,
+                                            "proxy"          : log.ThugOpts._proxy,
+                                            "events"         : log.ThugOpts.events,
+                                            "delay"          : log.ThugOpts.delay,
+                                            "referer"        : log.ThugOpts.referer,
+                                            "timeout"        : log.ThugOpts._timeout_in_secs,
+                                            "threshold"      : log.ThugOpts.threshold,
+                                            "extensive"      : log.ThugOpts.extensive,
+                                            },
+                                        },
+                        "behavior"    : [],
+                        "code"        : [],
+                        "files"       : [],
+                        "connections" : [],
+                        "locations"   : [],
+                        "exploits"    : []
                     }
+
+    def get_vuln_module(self, module):
+        disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)
+        if disabled: 
+            return "disabled"
+
+        return getattr(log.ThugVulnModules, module)
+
 
     def fix(self, data):
         """
