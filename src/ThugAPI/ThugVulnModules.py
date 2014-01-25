@@ -38,6 +38,10 @@ class ThugVulnModules(dict):
     def get_acropdf_pdf(self):
         return self._acropdf_pdf
 
+    @property
+    def acropdf(self):
+        return self._acropdf_pdf
+
     def set_acropdf_pdf(self, version):
         if self.invalid_version(version):
             log.warning('[WARNING] Invalid Adobe Acrobat Reader version provided (using default one)')
