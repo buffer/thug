@@ -88,7 +88,7 @@ class MAEC11(object):
         self.subject.set_Object(self.object)
 
     def set_url(self, url):
-        self.add_object_to_subject(url)
+        self.add_object_to_subject(url.decode('utf-8'))
 
     def create_analysis(self):
         return maec.AnalysisType(id              = 'maec:thug:ana:%d' % (next(self.id)),
@@ -185,7 +185,7 @@ class MAEC11(object):
 
         if description:
             desc = maec.StructuredTextType()
-            desc.add_Text(description)
+            desc.add_Text(description.decode('utf-8'))
             behavior.set_Description(desc)
         
         self.behaviors.add_Behavior(behavior)

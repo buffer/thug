@@ -25,6 +25,7 @@ import datetime
 import os
 import json
 import codecs
+import chardet
 from .Mapper import Mapper
 from .compatibility import *
 
@@ -93,7 +94,11 @@ class JSONLog(object):
 
         @data  data to encode properly
         """
-        return thug_unicode(data).replace("\n", "").strip()
+        try:
+            enc = chardet.detect(data)
+            return data.decode(enc['encoding']).replace("\n", "").strip()
+        except:
+            return thug_unicode(data).replace("\n", "").strip()
 
     def make_counter(self, p):
         id = p
@@ -189,8 +194,11 @@ class JSONLog(object):
 
     def export(self, basedir):
         report = codecs.open(os.path.join(basedir, "avlog.json"),
-            "w", errors='ignore')
-        json.dump(self.data, report, sort_keys=False, indent=4)
+                             "w", 
+                             errors='ignore', 
+                             encoding = 'utf-8')
+
+        json.dump(self.data, report, ensure_ascii = False, encoding = "utf-8", sort_keys = False, indent = 4)
         report.close()
         m = Mapper(basedir)
         m.add_data(self.data)
