@@ -935,6 +935,17 @@ CLSID = [
                           }    
         }, 
 
+        # SilverLight
+        {
+            'id'        : (),
+            'name'      : ( 'agcontrol.agcontrol', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'isVersionSupported' : SilverLight.isVersionSupported,
+                          }
+        },
+
         # SinaDLoader
         # FIXME Download
         {
