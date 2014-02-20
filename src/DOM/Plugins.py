@@ -38,7 +38,8 @@ class Plugins(list):
 
     def item(self, index):
         if index >= self.length:
-            return Plugin()
+            #return Plugin()
+            return None
 
         return list.__getitem__(self, index)
 
@@ -52,7 +53,8 @@ class Plugins(list):
 
             index += 1
 
-        return Plugin()
+        #return Plugin(
+        return None
 
     def refresh(self, reloadDocuments = False):
         pass
