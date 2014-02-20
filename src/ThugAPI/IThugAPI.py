@@ -219,7 +219,7 @@ class IThugAPI(zope.interface.Interface):
         """
         set_shockwave_flash
 
-        Set the Shockwave Flash version (supported versions: 8, 9, 10, 11)
+        Set the Shockwave Flash version (supported versions: 8, 9, 10, 11, 12)
 
         @param shockwave: Shockwave Flash version
         @type shockwave: C{str}

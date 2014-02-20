@@ -62,7 +62,7 @@ class ThugVulnModules(dict):
         return self._shockwave_flash
 
     def set_shockwave_flash(self, version):
-        if not version.split('.')[0] in ('8', '9', '10', '11', ) or self.invalid_version(version):
+        if not version.split('.')[0] in ('8', '9', '10', '11', '12', ) or self.invalid_version(version):
             log.warning('[WARNING] Invalid Shockwave Flash version provided (using default one)')
             return
 

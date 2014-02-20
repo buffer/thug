@@ -41,7 +41,8 @@ class _ActiveXObject:
     shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10',
                         'shockwaveflash.shockwaveflash.9'  : '9' ,
                         'shockwaveflash.shockwaveflash.10' : '10',
-                        'shockwaveflash.shockwaveflash.11' : '11' }
+                        'shockwaveflash.shockwaveflash.11' : '11', 
+                        'shockwaveflash.shockwaveflash.12' : '12'}
 
     def __init__(self, window, cls, type = 'name'):
         self.funcattrs = dict()

@@ -62,6 +62,7 @@ __all__ = [
             'ShockwaveFlash9',
             'ShockwaveFlash10',
             'ShockwaveFlash11',
+            'ShockwaveFlash12',
             'SinaDLoader',
             'SnapshotViewer',
             'SonicWallNetExtenderAddRouteEntry',
