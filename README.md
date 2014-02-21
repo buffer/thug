@@ -1,4 +1,3 @@
-
 # Thug
 
 
@@ -11,7 +10,7 @@ A complement to honeypots, a honeyclient is a tool designed to mimic
 the behavior of a user-driven network client application, such as a web
 browser, and be exploited by an attacker's content.
 
-Thug is a Python low-interaction honeyclient aimed at mimicing the
+Thug is a Python low-interaction honeyclient aimed at mimicking the
 behavior of a web browser in order to detect and emulate malicious
 contents.
 
