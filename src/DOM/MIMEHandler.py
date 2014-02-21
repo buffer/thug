@@ -229,7 +229,6 @@ class MIMEHandler(dict):
         for filename in zipdata.namelist():
             try:
                 data = zipdata.read(filename)
-                log.ThugLogging.log_file(data)
             except:
                 continue
 
