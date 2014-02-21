@@ -65,15 +65,16 @@ class ThugLogging(BaseLogging):
         self.MAEC11.add_code_snippet(snippet, language, relationship, method)
         self.JSONLog.add_code_snippet(snippet, language, relationship, method)
 
-    def log_file(self, data, url):
+    def log_file(self, data, url = None):
         sample = self.build_sample(data, url)
         if sample is None:
-            return
+            return None
         
         self.HPFeeds.log_file(sample)
         self.MAEC11.log_file(sample)
         self.MongoDB.log_file(copy.deepcopy(sample))
         self.JSONLog.log_file(sample)
+        return sample
 
     def log_event(self):
         log.warning("Saving log analysis at %s" % (self.baseDir, ))
