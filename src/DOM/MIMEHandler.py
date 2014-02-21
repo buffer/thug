@@ -17,8 +17,17 @@
 # MA  02111-1307  USA
 
 
+import os
 import logging
 log = logging.getLogger("Thug")
+
+import zipfile
+
+try:
+    from cStringIO import StringIO
+except:
+    from StringIO import StringIO
+
 
 class MIMEHandler(dict):
     """
@@ -198,6 +207,7 @@ class MIMEHandler(dict):
             self[mimetype] = self.passthrough
 
         self.register_empty_handlers()
+        self.register_zip_handlers()
 
     def register_empty_handlers(self):
         self['application/javascript']   = None
@@ -206,6 +216,42 @@ class MIMEHandler(dict):
         self['text/html']                = None
         self['text/plain']               = None
         self['text/javascript']          = None
+
+    def register_zip_handlers(self):
+        self['application/zip']          = self.handle_zip
+
+    def handle_zip(self, content):
+        fp = StringIO(content)
+        if not zipfile.is_zipfile(fp):
+            return
+
+        zipdata = zipfile.ZipFile(fp)
+        for filename in zipdata.namelist():
+            try:
+                data = zipdata.read(filename)
+                log.ThugLogging.log_file(data)
+            except:
+                continue
+
+            sample = log.ThugLogging.log_file(data)
+            if sample is None:
+                continue
+
+            try:
+                md5 = sample['md5']
+            except:
+                continue
+            
+
+            unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
+            try:
+                os.makedirs(unzipped)
+            except:
+                pass
+
+            sample_name = os.path.join(unzipped, md5, )
+            with open(sample_name, 'wb') as fd:
+                fd.write(data)
 
     def passthrough(self, data):
         """
