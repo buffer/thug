@@ -314,6 +314,23 @@ class Navigator(PyV8.JSClass):
 
         return http_headers
 
+    def _url_fix(self, s, charset='utf-8'):
+        """
+        https://github.com/mitsuhiko/werkzeug/blob/master/werkzeug/urls.py
+        Sometimes you get an URL by a user that just isn't a real
+        URL because it contains unsafe characters like ' ' and so on.  This
+        function can fix some of the problems in a similar way browsers
+        handle data entered by the user:
+        param charset: The target charset for the URL if the url was
+                        given as unicode string.
+        """
+        if isinstance(s, unicode):
+            s = s.encode(charset, 'ignore')
+        scheme, netloc, path, qs, anchor = urlparse.urlsplit(s)
+        path = urllib.quote(path, '/%')
+        qs = urllib.quote_plus(qs, ':&=')
+        return urlparse.urlunsplit((scheme, netloc, path, qs, anchor))
+
     def __normalize_protocol_relative_url(self, url):
         if self._window.url in ('about:blank', ):
             return 'http:%s' % (url, )
@@ -325,6 +342,7 @@ class Navigator(PyV8.JSClass):
         return "%s:%s" % (_base_url.scheme, url)
 
     def _normalize_url(self, url):
+        url = self._url_fix(url)
         if url.startswith('//'):
             url = self.__normalize_protocol_relative_url(url)
 
