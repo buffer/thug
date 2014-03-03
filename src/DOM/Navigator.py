@@ -25,6 +25,7 @@ import logging
 import socket
 import magic
 import datetime
+import urllib
 
 try:
     import urllib.parse as urlparse
@@ -327,6 +328,7 @@ class Navigator(PyV8.JSClass):
         if url.startswith('//'):
             url = self.__normalize_protocol_relative_url(url)
 
+        url = urllib.quote(url, safe = "%/:=&?~#+!$,;'@()*[]")
         _url = urlparse.urlparse(url)
 
         handler = getattr(log.SchemeHandler, 'handle_%s' % (_url.scheme, ), None)
