@@ -115,9 +115,6 @@ class Shellcode(object):
             for name in self.ast.names:
                 s = None
 
-                if not hasattr(vars, "keys"):
-                    continue
-
                 if name in vars.keys():
                     s = vars[name]
 
