@@ -528,7 +528,7 @@ class Personality(dict):
                 }
 
         # Google Nexus device personality
-        self['nexuschrome404'] = {
+        self['nexuschrome18'] = {
                 "id"              : 24,
                 "description"     : "Chrome 18.0.1025.133\t(Google Nexus, Android 4.0.4)",
                 "version"         : "18.0.1025.133",
