@@ -60,6 +60,7 @@ class IThugAPI(zope.interface.Interface):
             galaxy2chrome25
             linuxchrome26
             linuxfirefox19
+            nexuschrome404
 
         @param useragent: the user agent to emulate
         @type useragent: C{str}

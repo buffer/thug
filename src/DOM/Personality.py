@@ -525,7 +525,29 @@ class Personality(dict):
                 "javaUserAgent"   : None,
                 "cc_on"           : None,
                 "browserTag"      : "safari7",
-                } 
+                }
+
+        # Google Nexus device personality
+        self['nexuschrome404'] = {
+                "id"              : 24,
+                "description"     : "Chrome 18.0.1025.133\t(Google Nexus, Android 4.0.4)",
+                "version"         : "18.0.1025.133",
+                "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19",
+                "appMinorVersion" : None,
+                "platform"        : "Linux armv71",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Google Inc.",
+                "vendorSub"       : "",
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "chrome18",
+                }
 
     @property
     def userAgent(self):
