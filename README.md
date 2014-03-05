@@ -207,6 +207,7 @@ Synopsis:
         linuxchrome30           Chrome 30.0.1599.15     (Linux)
         linuxfirefox19          Firefox 19.0            (Linux)
         ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)
+		nexuschrome18           Chrome 18.0.1025.133    (Google Nexus, Android 4.0.4)
 ```
 
 
