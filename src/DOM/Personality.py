@@ -377,73 +377,9 @@ class Personality(dict):
                 "browserTag"      : "chrome19",
                 }
 
-        # Android personalities
-        self['galaxy2chrome18'] = {
-                "id"              : 17,
-                "description"     : "Chrome 18.0.1025.166\t(Samsung Galaxy S II, Android 4.0.3)",
-                "version"         : "18.0.1025.166",
-                "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
-                "appCodeName"     : "Mozilla",
-                "appName"         : "Netscape",
-                "appVersion"      : "5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
-                "appMinorVersion" : None,
-                "platform"        : "Linux armv71",
-                "product"         : "Gecko",
-                "productSub"      : "20030107",
-                "vendor"          : "Google Inc.",
-                "vendorSub"       : "",
-                "oscpu"           : None,
-                "buildID"         : None,
-                "javaUserAgent"   : None,
-                "cc_on"           : None,
-                "browserTag"      : "chrome18",
-                }
-
-        self['galaxy2chrome25'] = {
-                "id"              : 18,
-                "description"     : "Chrome 25.0.1364.123\t(Samsung Galaxy S II, Android 4.0.3)",
-                "version"         : "25.0.1364.123",
-                "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.123 Mobile Safari/537.22",
-                "appCodeName"     : "Mozilla",
-                "appName"         : "Netscape",
-                "appVersion"      : "5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.123 Mobile Safari/537.22",
-                "appMinorVersion" : None,
-                "platform"        : "Linux armv71",
-                "product"         : "Gecko",
-                "productSub"      : "20030107",
-                "vendor"          : "Google Inc.",
-                "vendorSub"       : "",
-                "oscpu"           : None,
-                "buildID"         : None,
-                "javaUserAgent"   : None,
-                "cc_on"           : None,
-                "browserTag"      : "chrome25",
-                }
-
-        self['galaxy2chrome29'] = { 
-                "id"              : 19, 
-                "description"     : "Chrome 29.0.1547.59\t(Samsung Galaxy S II, Android 4.1.2)",
-                "version"         : "29.0.1547.59",
-                "userAgent"       : "Mozilla/5.0 (Linux; Android 4.1.2; GT-I9100 Build/JZO54K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.59 Mobile Safari/537.36",
-                "appCodeName"     : "Mozilla",
-                "appName"         : "Netscape",
-                "appVersion"      : "5.0 (Linux; Android 4.1.2; GT-I9100 Build/JZO54K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.59 Mobile Safari/537.36",
-                "appMinorVersion" : None,
-                "platform"        : "Linux armv71",
-                "product"         : "Gecko",
-                "productSub"      : "20030107",
-                "vendor"          : "Google Inc.",
-                "vendorSub"       : "", 
-                "oscpu"           : None,
-                "buildID"         : None,
-                "javaUserAgent"   : None,
-                "cc_on"           : None,
-                "browserTag"      : "chrome29",
-        }
-                
         # Linux personalities
         self['linuxchrome26'] = {
-                "id"              : 20,
+                "id"              : 17,
                 "description"     : "Chrome 26.0.1410.19\t(Linux)",
                 "version"         : "26.0.1410.19",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.19 Safari/537.31",
@@ -464,7 +400,7 @@ class Personality(dict):
                 }
 
         self['linuxchrome30'] = { 
-                "id"              : 21, 
+                "id"              : 18, 
                 "description"     : "Chrome 30.0.1599.15\t(Linux)",
                 "version"         : "30.0.1599.15",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.15 Safari/537.36",
@@ -485,7 +421,7 @@ class Personality(dict):
                 }   
 
         self['linuxfirefox19'] = {
-                "id"              : 22,
+                "id"              : 19,
                 "description"     : "Firefox 19.0\t\t(Linux)",
                 "version"         : "19.0",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0",
@@ -505,31 +441,72 @@ class Personality(dict):
                 "browserTag"      : "firefox19",
                 }
 
-        # iOS personalities
-        self['ipadsafari7'] = { 
-                "id"              : 23, 
-                "description"     : "Safari 7.0\t\t(iPad, iOS 7.0.4)",
-                "version"         : "7.0",
-                "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B554a Safari/9537.53",
+        # Android personalities
+        self['galaxy2chrome18'] = {
+                "id"              : 20,
+                "description"     : "Chrome 18.0.1025.166\t(Samsung Galaxy S II, Android 4.0.3)",
+                "version"         : "18.0.1025.166",
+                "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
                 "appCodeName"     : "Mozilla",
                 "appName"         : "Netscape",
-                "appVersion"      : "5.0 (iPad; CPU OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B554a Safari/9537.53",
+                "appVersion"      : "5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
                 "appMinorVersion" : None,
-                "platform"        : "iPad",
+                "platform"        : "Linux armv71",
                 "product"         : "Gecko",
                 "productSub"      : "20030107",
-                "vendor"          : "Apple Computer, Inc.",
-                "vendorSub"       : "", 
+                "vendor"          : "Google Inc.",
+                "vendorSub"       : "",
                 "oscpu"           : None,
                 "buildID"         : None,
                 "javaUserAgent"   : None,
                 "cc_on"           : None,
-                "browserTag"      : "safari7",
+                "browserTag"      : "chrome18",
                 }
 
-        # Google Nexus device personality
+        self['galaxy2chrome25'] = {
+                "id"              : 21,
+                "description"     : "Chrome 25.0.1364.123\t(Samsung Galaxy S II, Android 4.0.3)",
+                "version"         : "25.0.1364.123",
+                "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.123 Mobile Safari/537.22",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.123 Mobile Safari/537.22",
+                "appMinorVersion" : None,
+                "platform"        : "Linux armv71",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Google Inc.",
+                "vendorSub"       : "",
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "chrome25",
+                }
+
+        self['galaxy2chrome29'] = {
+                "id"              : 22,
+                "description"     : "Chrome 29.0.1547.59\t(Samsung Galaxy S II, Android 4.1.2)",
+                "version"         : "29.0.1547.59",
+                "userAgent"       : "Mozilla/5.0 (Linux; Android 4.1.2; GT-I9100 Build/JZO54K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.59 Mobile Safari/537.36",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (Linux; Android 4.1.2; GT-I9100 Build/JZO54K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.59 Mobile Safari/537.36",
+                "appMinorVersion" : None,
+                "platform"        : "Linux armv71",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Google Inc.",
+                "vendorSub"       : "",
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "chrome29",
+        }
+
         self['nexuschrome18'] = {
-                "id"              : 24,
+                "id"              : 23,
                 "description"     : "Chrome 18.0.1025.133\t(Google Nexus, Android 4.0.4)",
                 "version"         : "18.0.1025.133",
                 "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19",
@@ -547,6 +524,28 @@ class Personality(dict):
                 "javaUserAgent"   : None,
                 "cc_on"           : None,
                 "browserTag"      : "chrome18",
+                }
+
+        # iOS personalities
+        self['ipadsafari7'] = { 
+                "id"              : 24,
+                "description"     : "Safari 7.0\t\t(iPad, iOS 7.0.4)",
+                "version"         : "7.0",
+                "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B554a Safari/9537.53",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (iPad; CPU OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B554a Safari/9537.53",
+                "appMinorVersion" : None,
+                "platform"        : "iPad",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Apple Computer, Inc.",
+                "vendorSub"       : "",
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "safari7",
                 }
 
     @property

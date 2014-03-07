@@ -200,14 +200,14 @@ Synopsis:
         win7safari5             Safari 5.1.7            (Windows 7)
         osx10safari5            Safari 5.1.1            (MacOS X 10.7.2)
         osx10chrome19           Chrome 19.0.1084.54     (MacOS X 10.7.4)
-        galaxy2chrome18         Chrome 18.0.1025.166    (Samsung Galaxy S II, Android 4.0.3)
-        galaxy2chrome25         Chrome 25.0.1364.123    (Samsung Galaxy S II, Android 4.0.3)
-        galaxy2chrome29         Chrome 29.0.1547.59     (Samsung Galaxy S II, Android 4.1.2)
         linuxchrome26           Chrome 26.0.1410.19     (Linux)
         linuxchrome30           Chrome 30.0.1599.15     (Linux)
         linuxfirefox19          Firefox 19.0            (Linux)
+        galaxy2chrome18         Chrome 18.0.1025.166    (Samsung Galaxy S II, Android 4.0.3)
+        galaxy2chrome25         Chrome 25.0.1364.123    (Samsung Galaxy S II, Android 4.0.3)
+        galaxy2chrome29         Chrome 29.0.1547.59     (Samsung Galaxy S II, Android 4.1.2)
+        nexuschrome18           Chrome 18.0.1025.133    (Google Nexus, Android 4.0.4)
         ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)
-		nexuschrome18           Chrome 18.0.1025.133    (Google Nexus, Android 4.0.4)
 ```
 
 
