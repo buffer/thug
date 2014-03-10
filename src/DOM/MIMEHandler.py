@@ -21,7 +21,9 @@ import os
 import logging
 log = logging.getLogger("Thug")
 
+import hashlib
 import zipfile
+import rarfile
 
 try:
     from cStringIO import StringIO
@@ -208,6 +210,7 @@ class MIMEHandler(dict):
 
         self.register_empty_handlers()
         self.register_zip_handlers()
+        self.register_rar_handlers()
 
     def register_empty_handlers(self):
         self['application/javascript']   = None
@@ -219,6 +222,9 @@ class MIMEHandler(dict):
 
     def register_zip_handlers(self):
         self['application/zip']          = self.handle_zip
+
+    def register_rar_handlers(self):
+        self['application/x-rar-compressed'] = self.handle_rar
 
     def handle_zip(self, content):
         fp = StringIO(content)
@@ -252,6 +258,43 @@ class MIMEHandler(dict):
             with open(sample_name, 'wb') as fd:
                 fd.write(data)
 
+    def handle_rar(self, content):
+        unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
+        try:
+            os.makedirs(unzipped)
+        except:
+            pass
+
+        m = hashlib.md5()
+        m.update(content)
+        md5sum = m.hexdigest()
+        rfile = os.path.join(unzipped, "%s.rar" % (md5sum, ))
+        with open(rfile, 'wb') as fd:
+            fd.write(content)
+
+        rardata = rarfile.RarFile(rfile)
+        for filename in rardata.namelist():
+            try:
+                data = rardata.read(filename)
+            except:
+                continue
+
+            sample = log.ThugLogging.log_file(data)
+            if sample is None:
+                continue
+
+            try:
+                md5 = sample['md5']
+            except:
+                continue
+
+            sample_name = os.path.join(unzipped, md5, )
+            with open(sample_name, 'wb') as fd:
+                fd.write(data)
+
+        os.remove(rfile)
+        return True
+        
     def passthrough(self, data):
         """
         The method passthrough is the default handler associated to
