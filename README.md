@@ -51,6 +51,8 @@ contents.
 
 - Python-Magic - https://github.com/ahupp/python-magic
 
+- Rarfile - http://rarfile.berlios.de/
+
 - Yara 2.0 - https://github.com/plusvic/yara
 
 - Yara-Python 2.0 - https://github.com/plusvic/yara

@@ -24,6 +24,7 @@ Requirements
 * Pyparsing
 * Pydot
 * Python-Magic
+* Rarfile
 * Yara 2.0
 * Yara-Python 2.0
 * MongoDB (optional)       
@@ -324,6 +325,19 @@ to install python-magic is through easy_install.
 .. code-block:: sh
 
         # easy_install magic
+
+ 
+Rarfile
+^^^^^^^
+
+Rarfile homepage is located at http://rarfile.berlios.de/.
+
+If not available as a package for your Linux distribution, the best way 
+to install rarfile is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install rarfile
 
 
 Yara
