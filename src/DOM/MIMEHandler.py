@@ -229,7 +229,7 @@ class MIMEHandler(dict):
     def handle_zip(self, content):
         fp = StringIO(content)
         if not zipfile.is_zipfile(fp):
-            return
+            return False
 
         zipdata = zipfile.ZipFile(fp)
         for filename in zipdata.namelist():
@@ -257,6 +257,8 @@ class MIMEHandler(dict):
             sample_name = os.path.join(unzipped, md5, )
             with open(sample_name, 'wb') as fd:
                 fd.write(data)
+
+        return True
 
     def handle_rar(self, content):
         unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
