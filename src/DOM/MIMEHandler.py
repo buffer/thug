@@ -126,6 +126,7 @@ class MIMEHandler(dict):
                  "application/x-sh",
                  "application/x-shar",
                  "application/x-shockwave-flash",
+                 "application/x-silverlight-2",
                  "application/x-stuffit",
                  "application/x-sv4cpio",
                  "application/x-sv4crc",
