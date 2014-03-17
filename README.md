@@ -168,7 +168,7 @@ Synopsis:
         -g, --http-debug        Enable HTTP debug mode
         -t, --threshold         Maximum pages to fetch
         -E, --extensive         Extensive fetch of linked pages
-        -T, --timeout           Set the analysis timeout (in seconds)
+        -T, --timeout=          Set the analysis timeout (in seconds)
 		-B, --broken-url        Set the broken URL mode
 
         Plugins:

@@ -60,7 +60,7 @@ Synopsis:
         -g, --http-debug    \tEnable HTTP debug mode 
         -t, --threshold     \tMaximum pages to fetch
         -E, --extensive     \tExtensive fetch of linked pages
-        -T, --timeout       \tSet the analysis timeout (in seconds)
+        -T, --timeout=      \tSet the analysis timeout (in seconds)
         -B, --broken-url    \tSet the broken URL mode
 
         Plugins:
@@ -116,7 +116,7 @@ Synopsis:
                 'no-javaplugin',
                 'threshold',
                 'extensive',
-                'timeout',
+                'timeout=',
                 'broken-url',
                 'urlclassifier',
                 'jsclassifier'
