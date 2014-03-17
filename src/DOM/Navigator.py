@@ -324,7 +324,15 @@ class Navigator(PyV8.JSClass):
 
         return "%s:%s" % (_base_url.scheme, url)
 
+    def _check_compatibility(self, url, scheme):
+        return url.startswith("%s:/" % (scheme, )) and not url.startswith("%s://" % (scheme, ))
+
     def _normalize_url(self, url):
+        if log.ThugOpts.broken_url:
+            for scheme in ("http", "https", ):
+                if self._check_compatibility(url, scheme):
+                    url = "%s://%s" % (scheme, url.split("%s:/" % (scheme, ))[1], ) 
+
         if url.startswith('//'):
             url = self.__normalize_protocol_relative_url(url)
 

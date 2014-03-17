@@ -61,6 +61,7 @@ Synopsis:
         -t, --threshold     \tMaximum pages to fetch
         -E, --extensive     \tExtensive fetch of linked pages
         -T, --timeout       \tSet the analysis timeout (in seconds)
+        -B, --broken-url    \tSet the broken URL mode
 
         Plugins:
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
@@ -89,7 +90,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmagA:PS:RJ:Kt:ET:Q:W:',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmagA:PS:RJ:Kt:ET:BQ:W:',
                 ['help',
                 'version',
                 'useragent=',
@@ -116,6 +117,7 @@ Synopsis:
                 'threshold',
                 'extensive',
                 'timeout',
+                'broken-url',
                 'urlclassifier',
                 'jsclassifier'
                 ])
@@ -181,6 +183,8 @@ Synopsis:
             if option[0] in ('-W', '--jsclassifier'):
                 for classifier in option[1].split(','):
                     self.add_jsclassifier(os.path.abspath(classifier))
+            if option[0] in ('-B', '--broken-url', ):
+                self.set_broken_url()
 
         self.log_init(args[0])
 

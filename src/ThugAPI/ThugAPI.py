@@ -151,6 +151,12 @@ class ThugAPI:
     def set_timeout(self, timeout):
         log.ThugOpts.timeout = timeout
 
+    def get_broken_url(self):
+        return log.ThugOpts.broken_url
+
+    def set_broken_url(self):
+        log.ThugOpts.broken_url = True
+
     def log_init(self, url):
         log.ThugLogging = ThugLogging(self.thug_version)
         log.ThugLogging.set_basedir(url)

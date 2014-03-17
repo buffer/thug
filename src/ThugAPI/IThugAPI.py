@@ -319,6 +319,24 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def set_broken_url():
+        """
+        set_broken_url
+
+        Set the broken URL mode
+        
+        @return: None
+        """
+
+    def get_broken_url():
+        """ 
+        get_broken_url
+
+        Get the broken URL mode
+        
+        @return mode: broken URL mode
+        """
+
     def log_init(url):
         """
         log_init

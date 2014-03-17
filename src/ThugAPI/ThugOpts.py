@@ -50,6 +50,7 @@ class ThugOpts(dict):
         self._events          = list()
         self._delay           = 0
         self._no_fetch        = False
+        self._broken_url      = False
         self._cache           = '/tmp/thug-cache-%s' % (os.getuid(), )
         self.Personality      = Personality()
 
@@ -168,3 +169,11 @@ class ThugOpts(dict):
         self._timeout = now + delta
 
     timeout = property(get_timeout, set_timeout)
+
+    def get_broken_url(self):
+        return self._broken_url
+
+    def set_broken_url(self, mode):
+        self._broken_url = mode
+
+    broken_url = property(get_broken_url, set_broken_url)
