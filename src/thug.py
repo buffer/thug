@@ -114,7 +114,7 @@ Synopsis:
                 'no-shockwave',
                 'javaplugin=',
                 'no-javaplugin',
-                'threshold',
+                'threshold=',
                 'extensive',
                 'timeout=',
                 'broken-url',
