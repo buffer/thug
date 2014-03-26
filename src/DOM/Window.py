@@ -1013,7 +1013,7 @@ class Window(PyV8.JSClass):
 
             if 'content-type' in response:
                 handler = log.MIMEHandler.get_handler(response['content-type'])
-                if handler and handler(html):
+                if handler and handler(url, html):
                     return None
 
             # Log response here

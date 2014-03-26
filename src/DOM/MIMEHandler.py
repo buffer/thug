@@ -24,6 +24,9 @@ log = logging.getLogger("Thug")
 import hashlib
 import zipfile
 import rarfile
+from peepdf.PDFCore import PDFParser, vulnsDict
+from datetime import datetime
+from lxml import etree
 
 try:
     from cStringIO import StringIO
@@ -212,6 +215,7 @@ class MIMEHandler(dict):
         self.register_empty_handlers()
         self.register_zip_handlers()
         self.register_rar_handlers()
+        self.register_pdf_handlers()
 
     def register_empty_handlers(self):
         self['application/javascript']   = None
@@ -222,12 +226,15 @@ class MIMEHandler(dict):
         self['text/javascript']          = None
 
     def register_zip_handlers(self):
-        self['application/zip']          = self.handle_zip
+        self['application/zip'] = self.handle_zip
 
     def register_rar_handlers(self):
         self['application/x-rar-compressed'] = self.handle_rar
 
-    def handle_zip(self, content):
+    def register_pdf_handlers(self):
+        self['application/pdf'] = self.handle_pdf
+
+    def handle_zip(self, url, content):
         fp = StringIO(content)
         if not zipfile.is_zipfile(fp):
             return False
@@ -261,7 +268,7 @@ class MIMEHandler(dict):
 
         return True
 
-    def handle_rar(self, content):
+    def handle_rar(self, url, content):
         unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
         try:
             os.makedirs(unzipped)
@@ -297,7 +304,215 @@ class MIMEHandler(dict):
 
         os.remove(rfile)
         return True
-        
+      
+    def getPeepXML(self, statsDict, url):
+        """
+            Slightly modified version of Peepdf getPeepXML function
+        """
+
+        root              = etree.Element('peepdf_analysis', 
+                                          url    = 'http://peepdf.eternal-todo.com', 
+                                          author = 'Jose Miguel Esparza')
+
+        analysisDate      = etree.SubElement(root, 'date')
+        analysisDate.text = datetime.today().strftime('%Y-%m-%d %H:%M')
+        basicInfo         = etree.SubElement(root, 'basic')
+        fileName          = etree.SubElement(basicInfo, 'filename')
+        fileName.text     = statsDict['File']
+        md5               = etree.SubElement(basicInfo, 'md5')
+        md5.text          = statsDict['MD5']
+        sha1              = etree.SubElement(basicInfo, 'sha1')
+        sha1.text         = statsDict['SHA1']
+        sha256            = etree.SubElement(basicInfo, 'sha256')
+        sha256.text       = statsDict['SHA256']
+        size              = etree.SubElement(basicInfo, 'size')
+        size.text         = statsDict['Size']
+        detection         = etree.SubElement(basicInfo, 'detection')
+
+        if statsDict['Detection'] != [] and statsDict['Detection'] != None:
+            detectionRate        = etree.SubElement(detection, 'rate')
+            detectionRate.text   = '%d/%d' % (statsDict['Detection'][0], statsDict['Detection'][1])
+            detectionReport      = etree.SubElement(detection, 'report_link')
+            detectionReport.text = statsDict['Detection report']
+
+        version      = etree.SubElement(basicInfo, 'pdf_version')
+        version.text = statsDict['Version']
+        binary       = etree.SubElement(basicInfo, 'binary', status = statsDict['Binary'].lower())
+        linearized   = etree.SubElement(basicInfo, 'linearized', status = statsDict['Linearized'].lower())
+        encrypted    = etree.SubElement(basicInfo, 'encrypted', status = statsDict['Encrypted'].lower())
+
+        if statsDict['Encryption Algorithms'] != []:
+            algorithms = etree.SubElement(encrypted, 'algorithms')
+            for algorithmInfo in statsDict['Encryption Algorithms']:
+                algorithm      = etree.SubElement(algorithms, 'algorithm', bits = str(algorithmInfo[1]))
+                algorithm.text = algorithmInfo[0]
+
+        updates       = etree.SubElement(basicInfo, 'updates')
+        updates.text  = statsDict['Updates']
+        objects       = etree.SubElement(basicInfo, 'num_objects')
+        objects.text  = statsDict['Objects']
+        streams       = etree.SubElement(basicInfo, 'num_streams')
+        streams.text  = statsDict['Streams']
+        comments      = etree.SubElement(basicInfo, 'comments')
+        comments.text = statsDict['Comments']
+        errors        = etree.SubElement(basicInfo, 'errors', num = str(len(statsDict['Errors'])))
+
+        for error in statsDict['Errors']:
+            errorMessageXML      = etree.SubElement(errors, 'error_message')
+            errorMessageXML.text = error
+
+        advancedInfo = etree.SubElement(root, 'advanced')
+
+        for version in range(len(statsDict['Versions'])):
+            statsVersion = statsDict['Versions'][version]
+            if version == 0:
+                versionType = 'original'
+            else:
+                versionType = 'update'
+
+            versionInfo = etree.SubElement(advancedInfo, 'version', num = str(version), type = versionType)
+            catalog     = etree.SubElement(versionInfo, 'catalog')
+
+            if statsVersion['Catalog']:
+                catalog.set('object_id', statsVersion['Catalog'])
+            
+            info = etree.SubElement(versionInfo, 'info')
+            if statsVersion['Info']:
+                info.set('object_id', statsVersion['Info'])
+            
+            objects = etree.SubElement(versionInfo, 'objects', num = statsVersion['Objects'][0])
+
+            for id in statsVersion['Objects'][1]:
+                object = etree.SubElement(objects, 'object', id = str(id))
+                
+                if statsVersion['Compressed Objects']:
+                    if id in statsVersion['Compressed Objects'][1]:
+                        object.set('compressed', 'true')
+                    else:
+                        object.set('compressed', 'false')
+                
+                if statsVersion['Errors']:
+                    if id in statsVersion['Errors'][1]:
+                        object.set('errors', 'true')
+                    else:
+                        object.set('errors', 'false')
+            
+            streams = etree.SubElement(versionInfo, 'streams', num = statsVersion['Streams'][0])
+            
+            for id in statsVersion['Streams'][1]:
+                stream = etree.SubElement(streams, 'stream', id = str(id))
+                
+                if statsVersion['Xref Streams']:
+                    if id in statsVersion['Xref Streams'][1]:
+                        stream.set('xref_stream', 'true')
+                    else:
+                        stream.set('xref_stream', 'false')
+                
+                if statsVersion['Object Streams']:
+                    if id in statsVersion['Object Streams'][1]:
+                        stream.set('object_stream', 'true')
+                    else:
+                        stream.set('object_stream', 'false')
+                
+                if statsVersion['Encoded']:
+                    if id in statsVersion['Encoded'][1]:
+                        stream.set('encoded', 'true')
+                        if statsVersion['Decoding Errors']:
+                            if id in statsVersion['Decoding Errors'][1]:
+                                stream.set('decoding_errors', 'true')
+                            else:
+                                stream.set('decoding_errors', 'false')
+                    else:
+                        stream.set('encoded', 'false')
+
+            jsObjects = etree.SubElement(versionInfo, 'js_objects')
+
+            if statsVersion['Objects with JS code']:
+                for id in statsVersion['Objects with JS code'][1]:
+                    etree.SubElement(jsObjects, 'container_object', id = str(id))
+
+            actions    = statsVersion['Actions']
+            events     = statsVersion['Events']
+            vulns      = statsVersion['Vulns']
+            elements   = statsVersion['Elements']
+            suspicious = etree.SubElement(versionInfo, 'suspicious_elements')
+
+            if events or actions or vulns or elements:
+                if events:
+                    triggers = etree.SubElement(suspicious, 'triggers')
+                    for event in events:
+                        trigger = etree.SubElement(triggers, 'trigger', name = event)
+                        for id in events[event]:
+                            etree.SubElement(trigger, 'container_object', id = str(id))
+                if actions:
+                    print actions
+                    actionsList = etree.SubElement(suspicious, 'actions')
+                    for action in actions:
+                        actionInfo = etree.SubElement(actionsList, 'action', name = action)
+                        for id in actions[action]:
+                            etree.SubElement(actionInfo, 'container_object', id = str(id))
+                if elements:
+                    elementsList = etree.SubElement(suspicious, 'elements')
+                    for element in elements:
+                        elementInfo = etree.SubElement(elementsList, 'element', name = element)
+                        if vulnsDict.has_key(element):
+                            for vulnCVE in vulnsDict[element]:
+                                cve = etree.SubElement(elementInfo, 'cve')
+                                cve.text = vulnCVE
+                        for id in elements[element]:
+                            etree.SubElement(elementInfo, 'container_object', id = str(id))
+                if vulns:
+                    vulnsList = etree.SubElement(suspicious, 'js_vulns')
+                    for vuln in vulns:
+                        vulnInfo = etree.SubElement(vulnsList, 'vulnerable_function', name = vuln)
+                        if vulnsDict.has_key(vuln):
+                            for vulnCVE in vulnsDict[vuln]:
+                                log.ThugLogging.log_exploit_event(url, 
+                                                                  "Adobe Acrobat Reader",
+                                                                  "Adobe Acrobat Reader Exploit (%s)" % (vulnCVE, ), 
+                                                                  cve = vulnCVE)
+                                cve = etree.SubElement(vulnInfo, 'cve')
+                                cve.text = vulnCVE
+                        for id in vulns[vuln]:
+                            etree.SubElement(vulnInfo, 'container_object', id = str(id))
+            
+            urls           = statsVersion['URLs']
+            suspiciousURLs = etree.SubElement(versionInfo, 'suspicious_urls')
+            
+            if urls:
+                for url in urls:
+                    urlInfo      = etree.SubElement(versionInfo, 'url')
+                    urlInfo.text = url
+
+        return etree.tostring(root, pretty_print = True)
+
+    def handle_pdf(self, url, content):
+        m = hashlib.md5()
+        m.update(content)
+        md5sum = m.hexdigest()
+
+        rfile = os.path.join(log.ThugLogging.baseDir, md5sum)
+        with open(rfile, 'wb') as fd: 
+            fd.write(content)
+
+        pdfparser = PDFParser()
+        ret, pdf  = pdfparser.parse(rfile, forceMode = True, looseMode = True)
+        statsDict = pdf.getStats() 
+        analysis  = self.getPeepXML(statsDict, url)
+
+        pdflogdir = os.path.join(log.ThugLogging.baseDir, "analysis", "pdf")
+        try:
+            os.makedirs(pdflogdir)
+        except:
+            pass
+
+        report = os.path.join(pdflogdir, "%s.xml" % (statsDict["MD5"], ))
+        with open(report, 'wb') as fd:
+            fd.write(analysis)
+
+        os.remove(rfile)
+        return True
+
     def passthrough(self, data):
         """
         The method passthrough is the default handler associated to

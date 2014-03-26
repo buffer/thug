@@ -887,7 +887,7 @@ class DFT(object):
 
         if 'content-type' in response:
             handler = log.MIMEHandler.get_handler(response['content-type'])
-            if handler and handler(content):
+            if handler and handler(src, content):
                 return
 
         _src = self.window._navigator._normalize_url(src)
