@@ -193,7 +193,7 @@ class JSONLog(object):
         self.data["files"].append(data)
 
     def export(self, basedir):
-        report = codecs.open(os.path.join(basedir, "avlog.json"),
+        report = codecs.open(os.path.join(basedir, "analysis.json"),
                              "w", 
                              errors='ignore', 
                              encoding = 'utf-8')

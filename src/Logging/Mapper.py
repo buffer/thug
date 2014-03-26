@@ -385,7 +385,7 @@ if __name__ == "__main__":
 
     m = Mapper(args.resdir, simplify = args.simplify)
     if os.path.isdir(args.source):
-        for afile in allFiles(args.source, "avlog.json"):
+        for afile in allFiles(args.source, "analysis.json"):
             #print afile
             m.add_file(afile)
     else:
