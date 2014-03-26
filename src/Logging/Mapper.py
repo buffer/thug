@@ -96,7 +96,9 @@ class Mapper():
         """
         self.resdir   = resdir
         self.simplify = simplify
-        self.svgfile  = os.path.join(self.resdir, "graph.svg")
+
+        graphdir     = os.path.abspath(os.path.join(self.resdir, os.pardir))
+        self.svgfile = os.path.join(graphdir, "graph.svg")
 
         self.data = {
                         "locations"   : [],

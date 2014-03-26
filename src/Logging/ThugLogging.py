@@ -79,13 +79,25 @@ class ThugLogging(BaseLogging):
     def log_event(self):
         log.warning("Saving log analysis at %s" % (self.baseDir, ))
 
-        with open(os.path.join(self.baseDir, 'analysis.xml'), 'a+r') as fd:
+        maec11logdir = os.path.join(self.baseDir, "analysis", "maec11")
+        try:
+            os.makedirs(maec11logdir)
+        except:
+            pass
+
+        jsonlogdir = os.path.join(self.baseDir, "analysis", "json")
+        try:
+            os.makedirs(jsonlogdir)
+        except:
+            pass
+
+        with open(os.path.join(maec11logdir, 'analysis.xml'), 'a+r') as fd:
             self.MAEC11.export(outfile = fd)
             fd.seek(0)
             data = fd.read()
             self.HPFeeds.log_event(data)
             self.MongoDB.log_event(data)
-            self.JSONLog.export(self.baseDir)
+            self.JSONLog.export(jsonlogdir)
 
     def log_connection(self, source, destination, method, flags = {}):
         """
