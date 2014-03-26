@@ -35,6 +35,8 @@ contents.
 
 - Pefile - http://code.google.com/p/pefile/
 
+- lxml - http://lxml.de/
+
 - Chardet - http://pypi.python.org/pypi/chardet
 
 - httplib2 0.7.4 or later - http://code.google.com/p/httplib2/

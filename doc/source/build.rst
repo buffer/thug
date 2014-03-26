@@ -13,8 +13,9 @@ Requirements
 * Html5lib
 * Jsbeautifier
 * Libemu                   
-* Pylibemu                 
-* Pefile                   
+* Pylibemu
+* Pefile
+* lxml
 * Chardet                  
 * httplib2 
 * boost
@@ -201,6 +202,22 @@ http://code.google.com/p/pefile/.
 
 If not available as a package for your Linux distribution, the best way
 to install Pefile is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install pefile 
+
+
+lxml
+^^^^
+
+The lxml XML toolkit is a Pythonic binding for the C libraries libxml2 and libxslt.
+It is unique in that it combines the speed and XML feature completeness of these
+libraries with the simplicity of a native Python API, mostly compatible but superior
+to the well-known ElementTree API.
+
+If not available as a package for your Linux distribution, the best way
+to install lxml is through easy_install.
 
 .. code-block:: sh
 
