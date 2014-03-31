@@ -513,7 +513,7 @@ class MIMEHandler(dict):
         os.remove(rfile)
         return True
 
-    def passthrough(self, data):
+    def passthrough(self, url, data):
         """
         The method passthrough is the default handler associated to
         almost all Content-Types with the few exceptions defined in
