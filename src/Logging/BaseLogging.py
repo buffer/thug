@@ -47,6 +47,14 @@ class BaseLogging(object):
 
         return True
 
+    def get_imphash(self, data):
+        try:
+            pe = pefile.PE(data = data)
+        except:
+            return None
+
+        return pe.get_imphash()
+
     def is_pdf(self, data):
         return (data[:1024].find('%PDF') != -1)
 
@@ -83,6 +91,10 @@ class BaseLogging(object):
         p['md5']  = hashlib.md5(data).hexdigest()
         p['sha1'] = hashlib.sha1(data).hexdigest()
         
+        if p['type'] in ('PE', ):
+            imphash = self.get_imphash(data)
+            if imphash:
+                p['imphash'] = imphash
         if url:
             p['url'] = url
 
