@@ -200,6 +200,8 @@ Pefile is a multi-platform Python module to read and work with Portable Executab
 all the sections, section's information and data. Pefile homepage is located at
 http://code.google.com/p/pefile/.
 
+Pefile r141 or later is strictly required.
+
 If not available as a package for your Linux distribution, the best way
 to install Pefile is through easy_install.
 

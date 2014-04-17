@@ -33,7 +33,7 @@ contents.
 
 - Pylibemu 0.2.4 or later - https://github.com/buffer/pylibemu
 
-- Pefile - http://code.google.com/p/pefile/
+- Pefile r141 or later - http://code.google.com/p/pefile/
 
 - lxml - http://lxml.de/
 
