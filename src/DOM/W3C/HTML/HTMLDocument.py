@@ -154,9 +154,6 @@ class HTMLDocument(Document):
     def documentElement(self):
         return HTMLElement(self, self.doc.find('html'))
 
-    def _querySelectorAll(self):
-        pass
-
     # FIXME
     @property
     def readyState(self):

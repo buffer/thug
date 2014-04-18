@@ -34,6 +34,77 @@ from Events.DocumentEvent import DocumentEvent
 from Views.DocumentView import DocumentView
 
 class Document(Node, DocumentEvent, DocumentView):
+    def __init__(self, doc):
+        Node.__init__(self, doc)
+        DocumentEvent.__init__(self, doc)
+        DocumentView.__init__(self, doc)
+        self.__init_personality()
+
+    def __init_personality(self):
+        if log.ThugOpts.Personality.isIE():
+            self.__init_personality_IE()
+            return
+
+        if log.ThugOpts.Personality.isFirefox():
+            self.__init_personality_Firefox()
+            return
+
+        if log.ThugOpts.Personality.isChrome():
+            self.__init_personality_Chrome()
+            return
+
+        if log.ThugOpts.Personality.isSafari():
+            self.__init_personality_Safari()
+            return
+
+        if log.ThugOpts.Personality.isOpera():
+            self.__init_personality_Opera()
+
+    def __init_personality_IE(self):
+        if log.ThugOpts.Personality.browserVersion > '7.0':
+            self.querySelectorAll = self._querySelectorAll
+            self.querySelector    = self._querySelector
+
+    def __init_personality_Firefox(self):
+        self.querySelectorAll = self._querySelectorAll
+        self.querySelector    = self._querySelector
+
+    def __init_personality_Chrome(self):
+        self.querySelectorAll = self._querySelectorAll
+        self.querySelector    = self._querySelector
+
+    def __init_personality_Safari(self):
+        self.querySelectorAll = self._querySelectorAll
+        self.querySelector    = self._querySelector
+
+    def __init_personality_Opera(self):
+        self.querySelectorAll = self._querySelectorAll
+        self.querySelector    = self._querySelector
+
+    def _querySelectorAll(self, selectors):
+        from DOMImplementation import DOMImplementation
+
+        try:
+            s = self.doc.select(selectors)
+        except:
+            return NodeList(self.doc, [])
+
+        p = [DOMImplementation.createHTMLElement(self, t) for t in s]
+        return NodeList(self.doc, p)
+
+    def _querySelector(self, selectors):
+        from DOMImplementation import DOMImplementation
+
+        try:
+            s = self.doc.select(selectors)
+        except:
+            return None
+
+        if s and s[0]:
+            return DOMImplementation.createHTMLElement(self, s[0])
+
+        return None
+
     def __str__(self):
         return str(self.doc)
 
