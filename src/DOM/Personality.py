@@ -548,6 +548,27 @@ class Personality(dict):
                 "browserTag"      : "safari7",
                 }
 
+        self['ipadchrome33'] = { 
+                "id"              : 25, 
+                "description"     : "Chrome 33.0.1750.21\t(iPad, iOS 7.1)",
+                "version"         : "33.0.1750.21",
+                "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_1 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/33.0.1750.21 Mobile/11D167 Safari/9537.53 (7C45F3C7-DC11-40F0-9B5B-AA4A771C0904",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (iPad; CPU OS 7_1 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/33.0.1750.21 Mobile/11D167 Safari/9537.53 (7C45F3C7-DC11-40F0-9B5B-AA4A771C0904",
+                "appMinorVersion" : None,
+                "platform"        : "iPad",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Apple Computer, Inc.",
+                "vendorSub"       : "", 
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "chrome33",
+                } 
+
     @property
     def userAgent(self):
         return self[log.ThugOpts.useragent]['userAgent']
