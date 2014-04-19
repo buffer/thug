@@ -85,7 +85,7 @@ Let's start our Thug tour by taking a look at the options it provides.
             galaxy2chrome29         Chrome 29.0.1547.59     (Samsung Galaxy S II, Android 4.1.2)
             nexuschrome18           Chrome 18.0.1025.133    (Google Nexus, Android 4.0.4)
             ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)
-
+            ipadchrome33            Chrome 33.0.1750.21     (iPad, iOS 7.1)
 
 Let's start with a first basic real-world example: a Blackhole exploit kit.  
 
