@@ -1,0 +1,29 @@
+<html>
+<body>
+<div id="someid">Have a Good life.</div>
+
+<li class="noclass">python.org</li>
+
+<ul>
+ <li class="aclass">CoursesWeb.net</li>
+ <li>MarPlo.net</li>
+ <li class="aclass">php.net</li>
+</ul>
+
+<script type="text/javascript">
+
+var uls = document.querySelector('ul');
+var lis = uls.querySelector('li'); 
+alert(lis);
+
+var lis = uls.querySelectorAll('li');
+alert(lis.length);
+alert(lis.item(0));
+
+var uls = document.querySelectorAll('ul');
+alert(uls.length);
+alert(uls.item(0));
+
+</script>
+</body>
+</html>
