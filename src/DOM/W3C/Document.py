@@ -89,8 +89,7 @@ class Document(Node, DocumentEvent, DocumentView):
         except:
             return NodeList(self.doc, [])
 
-        p = [DOMImplementation.createHTMLElement(self, t) for t in s]
-        return NodeList(self.doc, p)
+        return NodeList(self.doc, s)
 
     def _querySelector(self, selectors):
         from DOMImplementation import DOMImplementation
