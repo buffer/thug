@@ -445,7 +445,6 @@ class MIMEHandler(dict):
                         for id in events[event]:
                             etree.SubElement(trigger, 'container_object', id = str(id))
                 if actions:
-                    print actions
                     actionsList = etree.SubElement(suspicious, 'actions')
                     for action in actions:
                         actionInfo = etree.SubElement(actionsList, 'action', name = action)
