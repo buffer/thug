@@ -212,7 +212,10 @@ class MIMEHandler(dict):
         for mimetype in self.mimetypes:
             self[mimetype] = self.passthrough
 
+        self.handlers = list()
+
         self.register_empty_handlers()
+        self.register_fallback_handlers()
         self.register_zip_handlers()
         self.register_rar_handlers()
         self.register_pdf_handlers()
@@ -222,17 +225,31 @@ class MIMEHandler(dict):
         self['application/x-javascript'] = None
         self['text/css']                 = None
         self['text/html']                = None
-        self['text/plain']               = None
+        #self['text/plain']              = None
         self['text/javascript']          = None
 
+    def register_fallback_handlers(self):
+        self['text/plain'] = self.handle_fallback
+
+    def register_handler(self, mimetype, handler):
+        self[mimetype] = handler
+        self.handlers.append(handler)
+
     def register_zip_handlers(self):
-        self['application/zip'] = self.handle_zip
+        self.register_handler('application/zip', self.handle_zip)
 
     def register_rar_handlers(self):
-        self['application/x-rar-compressed'] = self.handle_rar
+        self.register_handler('application/x-rar-compressed', self.handle_rar)
 
     def register_pdf_handlers(self):
-        self['application/pdf'] = self.handle_pdf
+        self.register_handler('application/pdf', self.handle_pdf)
+
+    def handle_fallback(self, url, content):
+        for handler in self.handlers:
+            if handler(url, content):
+                return True
+
+        return False
 
     def handle_zip(self, url, content):
         fp = StringIO(content)
