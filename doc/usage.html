@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.4.33 documentation</title>
+    <title>Usage &mdash; Thug 0.4.36 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.33',
+        VERSION:     '0.4.36',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.33 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.4.36 documentation" href="index.html" />
     <link rel="next" title="Thug API" href="api.html" />
     <link rel="prev" title="Build and Install" href="build.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="build.html" title="Build and Install"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.33 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.36 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -86,9 +86,10 @@ Synopsis:
         -m, --no-cache          Disable <span class="nb">local </span>web cache
         -a, --ast-debug         Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
         -g, --http-debug        Enable HTTP debug mode
-        -t, --threshold         Maximum pages to fetch
+        -t, --threshold<span class="o">=</span>        Maximum pages to fetch
         -E, --extensive         Extensive fetch of linked pages
-        -T, --timeout           Set the analysis timeout <span class="o">(</span>in seconds<span class="o">)</span>
+        -T, --timeout<span class="o">=</span>          Set the analysis timeout <span class="o">(</span>in seconds<span class="o">)</span>
+        -B, --broken-url        Set the broken URL mode
 
         Plugins:
         -A, --adobepdf<span class="o">=</span>         Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 9.1.0<span class="o">)</span>
@@ -130,6 +131,7 @@ Synopsis:
         galaxy2chrome29         Chrome 29.0.1547.59     <span class="o">(</span>Samsung Galaxy S II, Android 4.1.2<span class="o">)</span>
         nexuschrome18           Chrome 18.0.1025.133    <span class="o">(</span>Google Nexus, Android 4.0.4<span class="o">)</span>
         ipadsafari7             Safari 7.0              <span class="o">(</span>iPad, iOS 7.0.4<span class="o">)</span>
+        ipadchrome33            Chrome 33.0.1750.21     <span class="o">(</span>iPad, iOS 7.1<span class="o">)</span>
 </pre></div>
 </div>
 <p>Let&#8217;s start with a first basic real-world example: a Blackhole exploit kit.</p>
@@ -893,7 +895,7 @@ option. Simply running Thug this way (please note the interval is expressed in m
         <li class="right" >
           <a href="build.html" title="Build and Install"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.33 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.36 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

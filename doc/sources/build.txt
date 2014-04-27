@@ -13,8 +13,9 @@ Requirements
 * Html5lib
 * Jsbeautifier
 * Libemu                   
-* Pylibemu                 
-* Pefile                   
+* Pylibemu
+* Pefile
+* lxml
 * Chardet                  
 * httplib2 
 * boost
@@ -24,6 +25,7 @@ Requirements
 * Pyparsing
 * Pydot
 * Python-Magic
+* Rarfile
 * Yara 2.0
 * Yara-Python 2.0
 * MongoDB (optional)       
@@ -198,8 +200,26 @@ Pefile is a multi-platform Python module to read and work with Portable Executab
 all the sections, section's information and data. Pefile homepage is located at
 http://code.google.com/p/pefile/.
 
+Pefile r141 or later is strictly required.
+
 If not available as a package for your Linux distribution, the best way
 to install Pefile is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install pefile 
+
+
+lxml
+^^^^
+
+The lxml XML toolkit is a Pythonic binding for the C libraries libxml2 and libxslt.
+It is unique in that it combines the speed and XML feature completeness of these
+libraries with the simplicity of a native Python API, mostly compatible but superior
+to the well-known ElementTree API.
+
+If not available as a package for your Linux distribution, the best way
+to install lxml is through easy_install.
 
 .. code-block:: sh
 
@@ -324,6 +344,19 @@ to install python-magic is through easy_install.
 .. code-block:: sh
 
         # easy_install magic
+
+ 
+Rarfile
+^^^^^^^
+
+Rarfile homepage is located at http://rarfile.berlios.de/.
+
+If not available as a package for your Linux distribution, the best way 
+to install rarfile is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install rarfile
 
 
 Yara
