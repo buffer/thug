@@ -460,19 +460,32 @@ class MIMEHandler(dict):
                     for event in events:
                         trigger = etree.SubElement(triggers, 'trigger', name = event)
                         for id in events[event]:
+                            log.ThugLogging.log_exploit_event(url,
+                                                              "Adobe Acrobat Reader",
+                                                              "Adobe Acrobat Reader suspicious trigger: %s [object %s]" % (event, id, )
+                                                              ),
                             etree.SubElement(trigger, 'container_object', id = str(id))
                 if actions:
                     actionsList = etree.SubElement(suspicious, 'actions')
                     for action in actions:
                         actionInfo = etree.SubElement(actionsList, 'action', name = action)
                         for id in actions[action]:
+                            log.ThugLogging.log_exploit_event(url,
+                                                              "Adobe Acrobat Reader",
+                                                              "Adobe Acrobat Reader suspicious action: %s [object %s]" % (action, id, )
+                                                              ),
                             etree.SubElement(actionInfo, 'container_object', id = str(id))
+
                 if elements:
                     elementsList = etree.SubElement(suspicious, 'elements')
                     for element in elements:
                         elementInfo = etree.SubElement(elementsList, 'element', name = element)
-                        if vulnsDict.has_key(element):
+                        if element in vulnsDict:
                             for vulnCVE in vulnsDict[element]:
+                                log.ThugLogging.log_exploit_event(url,
+                                                                  "Adobe Acrobat Reader",
+                                                                  "Adobe Acrobat Reader Exploit (%s)" % (vulnCVE, ),
+                                                                  cve = vulnCVE)
                                 cve = etree.SubElement(elementInfo, 'cve')
                                 cve.text = vulnCVE
                         for id in elements[element]:
