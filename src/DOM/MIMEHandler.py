@@ -256,7 +256,11 @@ class MIMEHandler(dict):
         if not zipfile.is_zipfile(fp):
             return False
 
-        zipdata = zipfile.ZipFile(fp)
+        try:
+            zipdata = zipfile.ZipFile(fp)
+        except:
+            return False
+
         for filename in zipdata.namelist():
             try:
                 data = zipdata.read(filename)
@@ -299,7 +303,12 @@ class MIMEHandler(dict):
         with open(rfile, 'wb') as fd:
             fd.write(content)
 
-        rardata = rarfile.RarFile(rfile)
+        try:
+            rardata = rarfile.RarFile(rfile)
+        except:
+            os.remove(rfile)
+            return False
+
         for filename in rardata.namelist():
             try:
                 data = rardata.read(filename)
@@ -525,11 +534,18 @@ class MIMEHandler(dict):
             fd.write(content)
 
         pdfparser = PDFParser()
-        ret, pdf  = pdfparser.parse(rfile, forceMode = True, looseMode = True)
+
+        try:
+            ret, pdf = pdfparser.parse(rfile, forceMode = True, looseMode = True)
+        except:
+            os.remove(rfile)
+            return False
+
         statsDict = pdf.getStats() 
         analysis  = self.getPeepXML(statsDict, url)
 
         pdflogdir = os.path.join(log.ThugLogging.baseDir, "analysis", "pdf")
+        
         try:
             os.makedirs(pdflogdir)
         except:
