@@ -185,7 +185,12 @@ class MAEC11(object):
 
         if description:
             desc = maec.StructuredTextType()
-            desc.add_Text(description.decode('utf-8'))
+            
+            try:
+                desc.add_Text(description)
+            except:
+                desc.add_Text(description.decode('utf-8'))
+
             behavior.set_Description(desc)
         
         self.behaviors.add_Behavior(behavior)
