@@ -32,6 +32,7 @@ import new
 import bs4 as BeautifulSoup
 import jsbeautifier
 from .W3C import *
+from .W3C.HTML.HTMLCollection import HTMLCollection
 from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
@@ -224,7 +225,7 @@ class Window(PyV8.JSClass):
     @property
     def frames(self):
         """an array of all the frames (including iframes) in the current window"""
-        return w3c.HTMLCollection(self.doc, [self.doc.createHTMLElement(self.doc, f) for f in self._findAll(['frame', 'iframe'])])
+        return HTMLCollection(self.doc, [self.doc.createHTMLElement(self.doc, f) for f in self._findAll(['frame', 'iframe'])])
 
     @property
     def length(self):
