@@ -19,15 +19,19 @@
 
 import sys
 import os
-
-sys.path.append(os.path.dirname(__file__))
-
 import logging
 log = logging.getLogger("Thug")
 
 import hashlib
 import zipfile
 import rarfile
+
+try:
+    from cStringIO import StringIO
+except:
+    from StringIO import StringIO
+
+sys.path.append(os.path.dirname(__file__))
 
 from peepdf.PDFCore import PDFParser, vulnsDict
 from datetime import datetime
@@ -37,12 +41,6 @@ from androguard.core import androconf
 from androguard.core.bytecodes import apk
 from androguard.core.bytecodes import dvm
 from androguard.core.analysis import analysis
-
-
-try:
-    from cStringIO import StringIO
-except:
-    from StringIO import StringIO
 
 
 class MIMEHandler(dict):
