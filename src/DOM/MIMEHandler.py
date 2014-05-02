@@ -17,16 +17,27 @@
 # MA  02111-1307  USA
 
 
+import sys
 import os
+
+sys.path.append(os.path.dirname(__file__))
+
 import logging
 log = logging.getLogger("Thug")
 
 import hashlib
 import zipfile
 import rarfile
+
 from peepdf.PDFCore import PDFParser, vulnsDict
 from datetime import datetime
 from lxml import etree
+
+from androguard.core import androconf
+from androguard.core.bytecodes import apk
+from androguard.core.bytecodes import dvm
+from androguard.core.analysis import analysis
+
 
 try:
     from cStringIO import StringIO
@@ -219,6 +230,7 @@ class MIMEHandler(dict):
         self.register_zip_handlers()
         self.register_rar_handlers()
         self.register_pdf_handlers()
+        self.register_android_handlers()
 
     def register_empty_handlers(self):
         self['application/javascript']   = None
@@ -243,6 +255,9 @@ class MIMEHandler(dict):
 
     def register_pdf_handlers(self):
         self.register_handler('application/pdf', self.handle_pdf)
+
+    def register_android_handlers(self):
+        self['application/vnd.android.package-archive'] = self.handle_android
 
     def handle_fallback(self, url, content):
         for handler in self.handlers:
@@ -557,6 +572,109 @@ class MIMEHandler(dict):
 
         os.remove(rfile)
         return True
+
+    def do_build_apk_report(self, apk):
+        output = StringIO()
+
+        apk.get_files_types()
+
+        output.write("[FILES] \n")
+        for i in apk.get_files():
+            try: 
+                output.write("\t%s %s %x\n" % (i, apk.files[i], apk.files_crc32[i], ))
+            except KeyError:
+                output.write("\t%s %x\n" % (i, apk.files_crc32[i], ))
+
+        output.write("[PERMISSIONS] \n")
+        details_permissions = apk.get_details_permissions()
+        for i in details_permissions:
+            output.write("\t%s %s\n" % (i, details_permissions[i], ))
+
+        output.write("[MAIN ACTIVITY] %s\n" % (apk.get_main_activity(), ))
+
+        output.write("[ACTIVITIES] \n")
+        activities = apk.get_activities()
+        for i in activities:
+            filters = apk.get_intent_filters("activity", i)
+            output.write("\t%s %s\n" % (i, filters or "", ))
+
+        output.write("[SERVICES] \n")
+        services = apk.get_services()
+        for i in services:
+            filters = apk.get_intent_filters("service", i)
+            output.write("\t%s %s\n" % (i, filters or "", ))
+
+        output.write("[RECEIVERS] \n")
+        receivers = apk.get_receivers()
+        for i in receivers:
+            filters = apk.get_intent_filters("receiver", i)
+            output.write("\t%s %s\n" % (i, filters or "", ))
+
+        output.write("[PROVIDERS] %s\n\n" % (apk.get_providers(), ))
+
+        vm  = dvm.DalvikVMFormat(apk.get_dex())
+        vmx = analysis.uVMAnalysis(vm)
+
+        output.write("Native code      : %s\n"   % (analysis.is_native_code(vmx), ))
+        output.write("Dynamic code     : %s\n"   % (analysis.is_dyn_code(vmx), ))
+        output.write("Reflection code  : %s\n"   % (analysis.is_reflection_code(vmx), ))
+        output.write("ASCII Obfuscation: %s\n\n" % (analysis.is_ascii_obfuscation(vm), ))
+
+        for i in vmx.get_methods():
+            i.create_tags()
+            if not i.tags.empty():
+                output.write("%s %s %s\n" % (i.method.get_class_name(),
+                                             i.method.get_name(),
+                                             i.tags, ))
+
+        return output
+
+    def save_apk_report(self, md5, output):
+        apklogdir = os.path.join(log.ThugLogging.baseDir, "analysis", "apk")
+    
+        try:
+            os.makedirs(apklogdir)
+        except:
+            pass
+
+        report = os.path.join(apklogdir, md5)
+        with open(report, 'wb') as fd: 
+            fd.write(output.getvalue())
+
+        log.warning("Saving APK Androguard analysis at %s" % (report, ))
+
+    def build_apk_report(self, apk, md5sum):
+        output = self.do_build_apk_report(apk)
+        self.save_apk_report(md5sum, output)
+
+    def handle_android(self, url, content):
+        ret = False
+
+        m = hashlib.md5()
+        m.update(content)
+        md5sum = m.hexdigest()
+
+        rfile = os.path.join(log.ThugLogging.baseDir, md5sum)
+        with open(rfile, 'wb') as fd: 
+            fd.write(content)
+
+        ret_type = androconf.is_android(rfile)
+
+        if ret_type not in ("APK", ):
+            os.remove(rfile)
+            return ret
+
+        try :
+            a = apk.APK(rfile, zipmodule = 2)
+            if a.is_valid_APK():
+                log.warning("Android APK downloaded from %s (MD5: %s)" % (url, md5sum, ))
+                self.build_apk_report(a, md5sum)
+                ret = True
+        except:
+            pass
+
+        os.remove(rfile)
+        return ret
 
     def passthrough(self, url, data):
         """
