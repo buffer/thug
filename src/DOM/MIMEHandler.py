@@ -573,46 +573,46 @@ class MIMEHandler(dict):
         os.remove(rfile)
         return True
 
-    def do_build_apk_report(self, apk):
+    def do_build_apk_report(self, a):
         output = StringIO()
 
-        apk.get_files_types()
+        a.get_files_types()
 
         output.write("[FILES] \n")
-        for i in apk.get_files():
+        for i in a.get_files():
             try: 
-                output.write("\t%s %s %x\n" % (i, apk.files[i], apk.files_crc32[i], ))
+                output.write("\t%s %s %x\n" % (i, a.files[i], a.files_crc32[i], ))
             except KeyError:
-                output.write("\t%s %x\n" % (i, apk.files_crc32[i], ))
+                output.write("\t%s %x\n" % (i, a.files_crc32[i], ))
 
-        output.write("[PERMISSIONS] \n")
-        details_permissions = apk.get_details_permissions()
+        output.write("\n[PERMISSIONS] \n")
+        details_permissions = a.get_details_permissions()
         for i in details_permissions:
             output.write("\t%s %s\n" % (i, details_permissions[i], ))
 
-        output.write("[MAIN ACTIVITY] %s\n" % (apk.get_main_activity(), ))
+        output.write("\n[MAIN ACTIVITY]\n\t%s\n" % (a.get_main_activity(), ))
 
-        output.write("[ACTIVITIES] \n")
-        activities = apk.get_activities()
+        output.write("\n[ACTIVITIES] \n")
+        activities = a.get_activities()
         for i in activities:
-            filters = apk.get_intent_filters("activity", i)
+            filters = a.get_intent_filters("activity", i)
             output.write("\t%s %s\n" % (i, filters or "", ))
 
-        output.write("[SERVICES] \n")
-        services = apk.get_services()
+        output.write("\n[SERVICES] \n")
+        services = a.get_services()
         for i in services:
-            filters = apk.get_intent_filters("service", i)
+            filters = a.get_intent_filters("service", i)
             output.write("\t%s %s\n" % (i, filters or "", ))
 
-        output.write("[RECEIVERS] \n")
-        receivers = apk.get_receivers()
+        output.write("\n[RECEIVERS] \n")
+        receivers = a.get_receivers()
         for i in receivers:
-            filters = apk.get_intent_filters("receiver", i)
+            filters = a.get_intent_filters("receiver", i)
             output.write("\t%s %s\n" % (i, filters or "", ))
 
-        output.write("[PROVIDERS] %s\n\n" % (apk.get_providers(), ))
+        output.write("\n[PROVIDERS]\n\t%s\n\n" % (a.get_providers(), ))
 
-        vm  = dvm.DalvikVMFormat(apk.get_dex())
+        vm  = dvm.DalvikVMFormat(a.get_dex())
         vmx = analysis.uVMAnalysis(vm)
 
         output.write("Native code      : %s\n"   % (analysis.is_native_code(vmx), ))
@@ -629,7 +629,7 @@ class MIMEHandler(dict):
 
         return output
 
-    def save_apk_report(self, md5, output):
+    def save_apk_report(self, url, md5, output):
         apklogdir = os.path.join(log.ThugLogging.baseDir, "analysis", "apk")
     
         try:
@@ -641,11 +641,11 @@ class MIMEHandler(dict):
         with open(report, 'wb') as fd: 
             fd.write(output.getvalue())
 
-        log.warning("Saving APK Androguard analysis at %s" % (report, ))
+        log.warning("[APK] URL: %s MD5: %s Androguard analysis: %s" % (url, md5, report, ))
 
-    def build_apk_report(self, apk, md5sum):
-        output = self.do_build_apk_report(apk)
-        self.save_apk_report(md5sum, output)
+    def build_apk_report(self, url, a, md5sum):
+        output = self.do_build_apk_report(a)
+        self.save_apk_report(url, md5sum, output)
 
     def handle_android(self, url, content):
         ret = False
@@ -667,8 +667,7 @@ class MIMEHandler(dict):
         try :
             a = apk.APK(rfile, zipmodule = 2)
             if a.is_valid_APK():
-                log.warning("Android APK downloaded from %s (MD5: %s)" % (url, md5sum, ))
-                self.build_apk_report(a, md5sum)
+                self.build_apk_report(url, a, md5sum)
                 ret = True
         except:
             pass
