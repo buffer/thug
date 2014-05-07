@@ -31,7 +31,7 @@ try:
 except:
     from StringIO import StringIO
 
-sys.path.append(os.path.dirname(__file__))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 from peepdf.PDFCore import PDFParser, vulnsDict
 from datetime import datetime
