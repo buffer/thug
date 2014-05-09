@@ -107,6 +107,9 @@ sudo pip install rarfile 1>>setup-ubuntu.log
 echo "Installing python library: jsbeautifier..."
 sudo pip install jsbeautifier 1>>setup-ubuntu.log
 
+echo "Installing python library: yara..."
+sudo pip install yara 1>>setup--ubuntu.log
+
 echo -n "Install MongoDB?(y/n): "
 read response
 if [ "$response" = "y" ]; then
