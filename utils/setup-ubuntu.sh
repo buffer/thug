@@ -87,6 +87,9 @@ sudo pip install cssutils 1>>setup-ubuntu.log
 echo "Installing graphviz..."
 sudo apt-get install graphviz
 
+echo "Installing python library: lxml..."
+sudo apt-get install python-lxml python-lxml-dbg
+
 
 echo "Installing python libraries..."
 echo "Installing python library: pyparsing==1.5.7..."
