@@ -87,6 +87,9 @@ sudo pip install cssutils 1>>setup-ubuntu.log
 echo "Installing graphviz..."
 sudo apt-get install graphviz
 
+echo "Installing python library: lxml..."
+sudo apt-get install python-lxml python-lxml-dbg
+
 
 echo "Installing python libraries..."
 echo "Installing python library: pyparsing==1.5.7..."
@@ -100,6 +103,12 @@ sudo pip install python-magic 1>>setup-ubuntu.log
 
 echo "Installing python library: rarfile..."
 sudo pip install rarfile 1>>setup-ubuntu.log
+
+echo "Installing python library: jsbeautifier..."
+sudo pip install jsbeautifier 1>>setup-ubuntu.log
+
+echo "Installing python library: yara..."
+sudo pip install yara 1>>setup--ubuntu.log
 
 echo -n "Install MongoDB?(y/n): "
 read response
