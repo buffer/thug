@@ -62,6 +62,8 @@ Synopsis:
         -E, --extensive     \tExtensive fetch of linked pages
         -T, --timeout=      \tSet the analysis timeout (in seconds)
         -B, --broken-url    \tSet the broken URL mode
+        -y, --vtquery       \tQuery VirusTotal for samples analysis
+        -s, --vtsubmit      \tSubmit samples to VirusTotal
 
         Plugins:
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
@@ -90,7 +92,7 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:lxvdqmagA:PS:RJ:Kt:ET:BQ:W:',
+            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:yslxvdqmagA:PS:RJ:Kt:ET:BQ:W:',
                 ['help',
                 'version',
                 'useragent=',
@@ -100,6 +102,8 @@ Synopsis:
                 'output=',
                 'referer=',
                 'proxy=',
+                'vtquery',
+                'vtsubmit',
                 'local',
                 'local-nofetch',
                 'verbose',
@@ -144,6 +148,10 @@ Synopsis:
                 self.set_referer(option[1])
             if option[0] in ('-p', '--proxy', ):
                 self.set_proxy(option[1])
+            if option[0] in ('-y', '--vtquery', ):
+                self.set_vt_query()
+            if option[0] in ('-s', '--vtsubmit', ):
+                self.set_vt_submit()
             if option[0] in ('-l', '--local', ):
                 p = getattr(self, 'run_local')
             if option[0] in ('-x', '--local-nofetch', ):

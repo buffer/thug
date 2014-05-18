@@ -51,6 +51,8 @@ class ThugOpts(dict):
         self._delay           = 0
         self._no_fetch        = False
         self._broken_url      = False
+        self._vt_query        = False
+        self._vt_submit       = False
         self._cache           = '/tmp/thug-cache-%s' % (os.getuid(), )
         self.Personality      = Personality()
 
@@ -177,3 +179,19 @@ class ThugOpts(dict):
         self._broken_url = mode
 
     broken_url = property(get_broken_url, set_broken_url)
+
+    def get_vt_query(self):
+        return self._vt_query
+
+    def set_vt_query(self):
+        self._vt_query = True
+
+    vt_query = property(get_vt_query, set_vt_query)
+
+    def get_vt_submit(self):
+        return self._vt_submit
+
+    def set_vt_submit(self):
+        self._vt_submit = True
+
+    vt_submit = property(get_vt_submit, set_vt_submit)

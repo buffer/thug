@@ -21,6 +21,7 @@ from .HPFeeds import HPFeeds
 from .MAEC11 import MAEC11
 from .MongoDB import MongoDB
 from .JSONLog import JSONLog
+from .VirusTotal import VirusTotal
 
 import os
 import copy
@@ -40,6 +41,7 @@ class ThugLogging(BaseLogging):
         self.MAEC11         = MAEC11(thug_version)
         self.MongoDB        = MongoDB()
         self.JSONLog        = JSONLog(thug_version)
+        self.VirusTotal     = VirusTotal()
         self.baseDir        = None
         self.windows        = dict()
         self.shellcodes     = set()
@@ -74,6 +76,7 @@ class ThugLogging(BaseLogging):
         self.MAEC11.log_file(sample)
         self.MongoDB.log_file(copy.deepcopy(sample))
         self.JSONLog.log_file(sample)
+        self.VirusTotal.analyze(data, sample['md5'], self.baseDir)
         return sample
 
     def log_event(self):

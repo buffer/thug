@@ -174,6 +174,12 @@ class ThugAPI:
             if isinstance(handler, logging.StreamHandler):
                 handler.addFilter(OpaqueFilter())
 
+    def set_vt_query(self):
+        log.ThugOpts.set_vt_query()
+
+    def set_vt_submit(self):
+        log.ThugOpts.set_vt_submit()
+
     def add_urlclassifier(self, rule):
         log.URLClassifier.add_rule(rule)
 

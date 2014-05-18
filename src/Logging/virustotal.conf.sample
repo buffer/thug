@@ -1,0 +1,4 @@
+[VirusTotal]
+apikey:
+scanurl:			https://www.virustotal.com/vtapi/v2/file/scan
+reporturl:			https://www.virustotal.com/vtapi/v2/file/report
