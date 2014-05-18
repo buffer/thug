@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import requests
+import tempfile
 import logging
 
 log = logging.getLogger("Thug")
@@ -41,6 +42,7 @@ class VirusTotal(BaseLogging):
 
     def save_report(self, response_dict, basedir, md5):
         log_dir = os.path.join(basedir, 'analysis', 'virustotal')
+
         try:
             os.makedirs(log_dir)
         except OSError as e:
@@ -81,8 +83,8 @@ class VirusTotal(BaseLogging):
         return False
 
     def submit(self, data, md5):
-        # FIXME  tmp path
-        sample = os.path.join("/tmp", md5)
+        sample = os.path.join(tempfile.gettempdir(), md5)
+
         with open(sample, "wb") as fd:
             fd.write(data)
         
