@@ -38,8 +38,6 @@ class VirusTotal(BaseLogging):
         for option in config.options('VirusTotal'):
             self.opts[option] = config.get('VirusTotal', option)
 
-        print self.opts
-
     def save_report(self, response_dict, basedir, md5):
         log_dir = os.path.join(basedir, 'analysis', 'virustotal')
 
