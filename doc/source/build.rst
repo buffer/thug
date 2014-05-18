@@ -17,7 +17,8 @@ Requirements
 * Pefile
 * lxml
 * Chardet                  
-* httplib2 
+* httplib2
+* Requests
 * boost
 * Cssutils
 * Zope interface
@@ -255,6 +256,21 @@ to install httplib2 is through easy_install.
 .. code-block:: sh
 
         # easy_install httplib2
+
+
+Requests
+^^^^^^^^
+
+Requests is an Apache2 Licensed HTTP library, written in Python, for human 
+beings. Requests homepage is located at 
+http://docs.python-requests.org/en/latest/
+
+If not available as a package for your Linux distribution, the best way
+to install requests is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install requests
 
 
 Boost

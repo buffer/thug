@@ -41,6 +41,8 @@ contents.
 
 - httplib2 0.7.4 or later - http://code.google.com/p/httplib2/
 
+- Requests - https://github.com/kennethreitz/requests
+
 - Cssutils 0.9.9 or later - http://pypi.python.org/pypi/cssutils/
 
 - Zope interface - http://pypi.python.org/pypi/zope.interface
@@ -172,6 +174,8 @@ Synopsis:
         -E, --extensive         Extensive fetch of linked pages
         -T, --timeout=          Set the analysis timeout (in seconds)
 		-B, --broken-url        Set the broken URL mode
+		-y, --vtquery           Query VirusTotal for samples analysis
+		-s, --vtsubmit          Submit samples to VirusTotal
 
         Plugins:
         -A, --adobepdf=         Specify the Adobe Acrobat Reader version (default: 9.1.0)
