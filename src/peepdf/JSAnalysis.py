@@ -43,6 +43,7 @@ except:
     JS_MODULE = False
 
 
+errorsFile = 'errors.txt'
 newLine = os.linesep         
 reJSscript = '<script[^>]*?contentType\s*?=\s*?[\'"]application/x-javascript[\'"][^>]*?>(.*?)</script>'
 preDefinedCode = 'var app = this;'
@@ -66,9 +67,11 @@ def analyseJS(code, context = None, manualAnalysis = False):
     
     try:
         code = unescapeHTMLEntities(code)
-        scriptCode = re.findall(reJSscript, code, re.DOTALL | re.IGNORECASE)
-        if scriptCode != []:
-            code = scriptCode[0]
+        scriptElements = re.findall(reJSscript, code, re.DOTALL | re.IGNORECASE)
+        if scriptElements != []:
+            code = ''
+            for scriptElement in scriptElements:
+                code += scriptElement + '\n\n'
         code = jsbeautifier.beautify(code)
         JSCode.append(code)
     
@@ -228,8 +231,11 @@ def unescape(escapedBytes, unicode = True):
     else:
         unicodePadding = ''
     try:
-        if escapedBytes.find('%u') != -1 or escapedBytes.find('%U') != -1 or escapedBytes.find('%') != -1:
-            splitBytes = escapedBytes.split('%')
+        if escapedBytes.lower().find('%u') != -1 or escapedBytes.lower().find('\u') != -1 or escapedBytes.find('%') != -1:
+            if escapedBytes.lower().find('\u') != -1:
+                splitBytes = escapedBytes.split('\\')
+            else:
+                splitBytes = escapedBytes.split('%')
             for i in range(len(splitBytes)):
                 splitByte = splitBytes[i]
                 if splitByte == '':
