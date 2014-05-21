@@ -26,13 +26,19 @@ from .BaseLogging import BaseLogging
 class VirusTotal(BaseLogging):
     def __init__(self):
         BaseLogging.__init__(self)
-        self.opts = dict()
+        self.enabled = True
+        self.opts    = dict()
+
         self.__init_config()
 
     def __init_config(self):
         config = ConfigParser.ConfigParser()
 
         conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'virustotal.conf')
+        if not os.path.isfile(conf_file):
+            self.enabled = False
+            return
+
         config.read(conf_file)
 
         for option in config.options('VirusTotal'):
@@ -96,6 +102,9 @@ class VirusTotal(BaseLogging):
         os.remove(sample)
 
     def analyze(self, data, md5, basedir):
+        if not self.enabled:
+            return
+
         if not self.opts['apikey']:
             return
 
