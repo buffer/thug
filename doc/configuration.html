@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Thug API &mdash; Thug 0.4.38 documentation</title>
+    <title>Configuration &mdash; Thug 0.4.38 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="Thug 0.4.38 documentation" href="index.html" />
-    <link rel="next" title="Plugin Framework" href="plugins.html" />
-    <link rel="prev" title="Usage" href="usage.html" /> 
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Build and Install" href="build.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,10 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="plugins.html" title="Plugin Framework"
+          <a href="usage.html" title="Usage"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="usage.html" title="Usage"
+          <a href="build.html" title="Build and Install"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">Thug 0.4.38 documentation</a> &raquo;</li> 
       </ul>
@@ -51,11 +51,28 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="thug-api">
-<span id="api"></span><h1>Thug API<a class="headerlink" href="#thug-api" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="configuration">
+<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul class="simple">
 </ul>
+</div>
+<div class="section" id="virustotal-optional">
+<h2>VirusTotal (optional)<a class="headerlink" href="#virustotal-optional" title="Permalink to this headline">¶</a></h2>
+<p>VirusTotal is a free service that analyzes suspicious files and URLs and
+facilitates the quick detection of viruses, worms, trojans, and all kinds
+of malware.</p>
+<p>Thug supports VirusTotal but you need to get an API key to use the
+VirusTotal Public API 2.0. To do so, just sign-up on the service at
+<a class="reference external" href="https://www.virustotal.com/">https://www.virustotal.com/</a> and get your own API Key.</p>
+<p>Rename the file src/Logging/virustotal.conf.sample in src/Logging/virustotal.conf
+and insert your own API key in the configuration file as shown below</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>VirusTotal<span class="o">]</span>
+apikey:                         &lt;enter your API key here&gt;
+scanurl:                        https://www.virustotal.com/vtapi/v2/file/scan
+reporturl:                      https://www.virustotal.com/vtapi/v2/file/report
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -65,15 +82,23 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Configuration</a><ul>
+<li><a class="reference internal" href="#virustotal-optional">VirusTotal (optional)</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="usage.html"
-                        title="previous chapter">Usage</a></p>
+  <p class="topless"><a href="build.html"
+                        title="previous chapter">Build and Install</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="plugins.html"
-                        title="next chapter">Plugin Framework</a></p>
+  <p class="topless"><a href="usage.html"
+                        title="next chapter">Usage</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="sources/api.txt"
+    <li><a href="sources/configuration.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -100,10 +125,10 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="plugins.html" title="Plugin Framework"
+          <a href="usage.html" title="Usage"
              >next</a> |</li>
         <li class="right" >
-          <a href="usage.html" title="Usage"
+          <a href="build.html" title="Build and Install"
              >previous</a> |</li>
         <li><a href="index.html">Thug 0.4.38 documentation</a> &raquo;</li> 
       </ul>
