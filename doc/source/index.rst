@@ -27,6 +27,7 @@ are provided.
 
    intro
    build
+   configuration
    usage
    api
    plugins
