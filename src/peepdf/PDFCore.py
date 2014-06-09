@@ -43,13 +43,45 @@ isForceMode = False
 isManualAnalysis = False
 spacesChars = ['\x00','\x09','\x0a','\x0c','\x0d','\x20']
 delimiterChars = ['<<','(','<','[','{','/','%']
-monitorizedEvents = ['/OpenAction ','/AA ','/Names ','/AcroForm ']
+monitorizedEvents = ['/OpenAction ','/AA ','/Names ','/AcroForm ', '/XFA ']
 monitorizedActions = ['/JS ','/JavaScript','/Launch','/SubmitForm','/ImportData']
-monitorizedElements = ['/EmbeddedFiles ','/EmbeddedFile','/JBIG2Decode','getPageNthWord','arguments.callee','/U3D','/PRC','/RichMedia']
-jsVulns = ['mailto','Collab.collectEmailInfo','util.printf','getAnnots','getIcon','spell.customDictionaryOpen','media.newPlayer','doc.printSeps','.rawValue','app.removeToolButton']
+monitorizedElements = ['/EmbeddedFiles ',
+                       '/EmbeddedFile',
+                       '/JBIG2Decode',
+                       'getPageNthWord',
+                       'arguments.callee',
+                       '/U3D',
+                       '/PRC',
+                       '/RichMedia',
+                       '.rawValue',
+                       'keep.previous']
+jsVulns = ['mailto',
+           'Collab.collectEmailInfo',
+           'util.printf',
+           'getAnnots',
+           'getIcon',
+           'spell.customDictionaryOpen',
+           'media.newPlayer',
+           'doc.printSeps',
+           'app.removeToolButton']
 singUniqueName = 'CoolType.SING.uniqueName'
 bmpVuln = 'BMP/RLE heap corruption'
-vulnsDict = {'mailto':['CVE-2007-5020'],'Collab.collectEmailInfo':['CVE-2007-5659'],'util.printf':['CVE-2008-2992'],'/JBIG2Decode':['CVE-2009-0658'],'getIcon':['CVE-2009-0927'],'getAnnots':['CVE-2009-1492'],'spell.customDictionaryOpen':['CVE-2009-1493'],'media.newPlayer':['CVE-2009-4324'],'.rawValue':['CVE-2010-0188'],singUniqueName:['CVE-2010-2883'],'doc.printSeps':['CVE-2010-4091'],'/U3D':['CVE-2009-3953','CVE-2009-3959','CVE-2011-2462'],'/PRC':['CVE-2011-4369'],bmpVuln:['CVE-2013-2729'],'app.removeToolButton':['CVE-2013-3346']}
+vulnsDict = {'mailto':('mailto',['CVE-2007-5020']),
+             'Collab.collectEmailInfo':('Collab.collectEmailInfo',['CVE-2007-5659']),
+             'util.printf':('util.printf',['CVE-2008-2992']),
+             '/JBIG2Decode':('Adobe JBIG2Decode Heap Corruption',['CVE-2009-0658']),
+             'getIcon':('getIcon',['CVE-2009-0927']),
+             'getAnnots':('getAnnots',['CVE-2009-1492']),
+             'spell.customDictionaryOpen':('spell.customDictionaryOpen',['CVE-2009-1493']),
+             'media.newPlayer':('media.newPlayer',['CVE-2009-4324']),
+             '.rawValue':('Adobe Acrobat Bundled LibTIFF Integer Overflow',['CVE-2010-0188']),
+             singUniqueName:(singUniqueName,['CVE-2010-2883']),
+             'doc.printSeps':('doc.printSeps',['CVE-2010-4091']),
+             '/U3D':('/U3D',['CVE-2009-3953','CVE-2009-3959','CVE-2011-2462']),
+             '/PRC':('/PRC',['CVE-2011-4369']),
+             'keep.previous':('Adobe Reader XFA oneOfChild Un-initialized memory vulnerability',['CVE-2013-0640']), # https://labs.portcullis.co.uk/blog/cve-2013-0640-adobe-reader-xfa-oneofchild-un-initialized-memory-vulnerability-part-1/
+             bmpVuln:(bmpVuln,['CVE-2013-2729']),
+             'app.removeToolButton':('app.removeToolButton',['CVE-2013-3346'])}
 jsContexts = {'global':None}
 
 class PDFObject :
@@ -659,9 +691,9 @@ class PDFHexString (PDFObject) :
         self.errors = []
         self.compressedIn = None
         self.encrypted = False
-        self.value = ''
-        self.rawValue = hex
-        self.encryptedValue = hex
+        self.value = '' # Value after hex decoding and decryption
+        self.rawValue = hex # Hex characters
+        self.encryptedValue = hex # Value after hex decoding
         self.updateNeeded = False
         self.containsJScode = False
         self.JSCode = []
@@ -676,7 +708,7 @@ class PDFHexString (PDFObject) :
             else:
                 raise Exception(ret[1])        
             
-    def update(self, decrypt = False):
+    def update(self, decrypt = False, newHexValue = True):
         '''
             Updates the object after some modification has occurred
             
@@ -684,21 +716,27 @@ class PDFHexString (PDFObject) :
             @return: A tuple (status,statusContent), where statusContent is empty in case status = 0 or an error message in case status = -1
         '''
         self.errors = []
-        self.value = ''
         self.containsJScode = False
         self.JSCode = []
         self.unescapedBytes = []
         self.urlsFound = []
-        tmpValue = self.rawValue
-        if len(tmpValue) % 2 != 0:
-            tmpValue += '0'
-        try:
-            for i in range(0,len(tmpValue),2):
-                self.value += chr(int(tmpValue[i:i+2],16))
-        except:
-            errorMessage = 'Error in hexadecimal conversion'
-            self.addError(errorMessage)
-            return (-1,errorMessage)
+        if not decrypt:
+            try:
+                if newHexValue:
+                    # New hexadecimal value
+                    self.value = ''
+                    tmpValue = self.rawValue
+                    if len(tmpValue) % 2 != 0:
+                        tmpValue += '0'
+                    self.value = tmpValue.decode('hex')
+                else:
+                    # New decoded value
+                    self.rawValue = self.value.encode('hex')
+                self.encryptedValue = self.value
+            except:
+                errorMessage = 'Error in hexadecimal conversion'
+                self.addError(errorMessage)
+                return (-1,errorMessage)
         if isJavascript(self.value):
             self.containsJScode = True
             self.JSCode, self.unescapedBytes, self.urlsFound, jsErrors, jsContexts['global'] = analyseJS(self.value, jsContexts['global'], isManualAnalysis)
@@ -720,7 +758,8 @@ class PDFHexString (PDFObject) :
         if password != None:
             self.encryptionKey = password
         try:
-            self.encryptedValue = RC4(self.rawValue,self.encryptionKey)
+            self.encryptedValue = RC4(self.value,self.encryptionKey)
+            self.rawValue = self.encryptedValue.encode('hex')
         except:
             errorMessage = 'Error encrypting with RC4'
             self.addError(errorMessage)
@@ -740,11 +779,11 @@ class PDFHexString (PDFObject) :
         try:
             cleanString = unescapeString(self.encryptedValue)
             if algorithm == 'RC4':
-                self.rawValue = RC4(cleanString,self.encryptionKey)
+                self.value = RC4(cleanString,self.encryptionKey)
             elif algorithm == 'AES':
                 ret = AES.decryptData(cleanString,self.encryptionKey)
                 if ret[0] != -1:
-                    self.rawValue = ret[1]
+                    self.value = ret[1]
                 else:
                     errorMessage = 'AES decryption error: '+ret[1]
                     self.addError(errorMessage)
@@ -757,7 +796,7 @@ class PDFHexString (PDFObject) :
         return ret
 
     def getEncryptedValue(self):
-        return '<'+self.encryptedValue+'>'
+        return '<'+self.rawValue+'>'
 
     def getJSCode(self):
         '''
@@ -7560,12 +7599,15 @@ class PDFParser :
                         dictContent = ''
                     else:
                         dictContent = ret[1]
-                    if content.find('stream') != -1 and dictContent.find('stream') == -1:
+                    nonDictContent = content[self.charCounter:]
+                    streamFound = re.findall('[>\s]stream', nonDictContent)
+                    if streamFound:
                         ret = self.readUntilSymbol(content, 'stream')
                         if ret[0] == -1:
                             return ret
                         auxDict = ret[1]
                         self.readSymbol(content, 'stream', False)
+                        self.readUntilEndOfLine(content)
                         self.readSymbol(content, '\r', False)
                         self.readSymbol(content, '\n', False)
                         ret = self.readUntilSymbol(content, 'endstream')
