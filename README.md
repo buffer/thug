@@ -188,6 +188,7 @@ Synopsis:
         Classifier:
         -Q, --urlclassifier     Specify a list of additional (comma separated) URL classifier rule files
         -W, --jsclassifier      Specify a list of additional (comma separated) JS classifier rule files
+		-C, --sampleclassifier  Specify a list of additional (comma separated) sample classifier rule file
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
