@@ -38,6 +38,7 @@ from .abstractmethod import abstractmethod
 
 from Classifier import JSClassifier
 from Classifier import URLClassifier
+from Classifier import SampleClassifier
 
 log = logging.getLogger("Thug")
 
@@ -56,6 +57,7 @@ class ThugAPI:
         log.SchemeHandler       = SchemeHandler.SchemeHandler()
         log.JSClassifier        = JSClassifier.JSClassifier()
         log.URLClassifier       = URLClassifier.URLClassifier()
+        log.SampleClassifier    = SampleClassifier.SampleClassifier()
 
     def __call__(self):
         self.analyze()
@@ -185,6 +187,9 @@ class ThugAPI:
 
     def add_jsclassifier(self, rule):
         log.JSClassifier.add_rule(rule)
+
+    def add_sampleclassifier(self, rule):
+        log.SampleClassifier.add_rule(rule)
 
     def log_event(self):
         log.ThugLogging.log_event()

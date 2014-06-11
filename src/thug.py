@@ -76,6 +76,7 @@ Synopsis:
         Classifier:
         -Q, --urlclassifier \tSpecify a list of additional (comma separated) URL classifier rule files
         -W, --jsclassifier  \tSpecify a list of additional (comma separated) JS classifier rule files
+        -C, --sampleclassifier \tSpecify a list of additional (comma separated) sample classifier rule files
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
@@ -92,7 +93,8 @@ Synopsis:
         p = getattr(self, 'run_remote', None)
 
         try:
-            options, args = getopt.getopt(self.args, 'hVu:e:w:n:o:r:p:yslxvdqmagA:PS:RJ:Kt:ET:BQ:W:',
+            options, args = getopt.getopt(self.args,
+                                          'hVu:e:w:n:o:r:p:yslxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:',
                 ['help',
                 'version',
                 'useragent=',
@@ -122,8 +124,9 @@ Synopsis:
                 'extensive',
                 'timeout=',
                 'broken-url',
-                'urlclassifier',
-                'jsclassifier'
+                'urlclassifier=',
+                'jsclassifier=',
+                'sampleclassifier='
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -191,6 +194,9 @@ Synopsis:
             if option[0] in ('-W', '--jsclassifier'):
                 for classifier in option[1].split(','):
                     self.add_jsclassifier(os.path.abspath(classifier))
+            if option[0] in ('-C', '--sampleclassifier'):
+                    for classifier in option[1].split(','):
+                        self.add_sampleclassifier(os.path.abspath(classifier))
             if option[0] in ('-B', '--broken-url', ):
                 self.set_broken_url()
 

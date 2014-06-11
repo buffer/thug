@@ -77,6 +77,8 @@ class ThugLogging(BaseLogging):
         self.MongoDB.log_file(copy.deepcopy(sample))
         self.JSONLog.log_file(sample)
         self.VirusTotal.analyze(data, sample['md5'], self.baseDir)
+
+        log.SampleClassifier.classify(data, sample['md5'])
         return sample
 
     def log_event(self):
