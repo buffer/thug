@@ -16,8 +16,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import os
 import logging
 import base64
+import tempfile
 import hashlib
 import zipfile
 import pefile
@@ -59,13 +61,19 @@ class BaseLogging(object):
         return (data[:1024].find('%PDF') != -1)
 
     def is_jar(self, data):
+        fd, jar = tempfile.mkstemp()
+        with open(jar, 'wb') as fd:
+            fd.write(data)
+
         try:
-            z = zipfile.ZipFile(StringIO(data))
+            z = zipfile.ZipFile(jar)
             if [t for t in z.namelist() if t.endswith('.class')]:
+                os.remove(jar)
                 return True
         except:
             pass
 
+        os.remove(jar)
         return False
 
     def is_swf(self, data):
