@@ -219,6 +219,7 @@ Synopsis:
         nexuschrome18           Chrome 18.0.1025.133    (Google Nexus, Android 4.0.4)
         ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)
 		ipadchrome33            Chrome 33.0.1750.21     (iPad, iOS 7.1)
+		ipadchrome35            Chrome 35.0.1916.41     (iPad, iOS 7.1.1)
 ```
 
 
