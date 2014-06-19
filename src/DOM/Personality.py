@@ -571,7 +571,7 @@ class Personality(dict):
 
         self['ipadchrome35'] = {
                 "id"              : 26,
-                "description"     : "Chrome 35.0.1916.41\t(iPad, iOS 7.1)",
+                "description"     : "Chrome 35.0.1916.41\t(iPad, iOS 7.1.1)",
                 "version"         : "35.0.1916.41",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_1_1 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/35.0.1916.41 Mobile/11D201 Safari/9537.53 (000125)",
                 "appCodeName"     : "Mozilla",
