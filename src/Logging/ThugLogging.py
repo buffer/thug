@@ -21,7 +21,7 @@ from .HPFeeds import HPFeeds
 from .MAEC11 import MAEC11
 from .MongoDB import MongoDB
 from .JSONLog import JSONLog
-from .VirusTotal import VirusTotal
+from virustotal.VirusTotal import VirusTotal
 
 import os
 import copy

@@ -20,12 +20,9 @@ except ImportError:
     except ImportError:
         from StringIO import StringIO
 
-from .BaseLogging import BaseLogging
 
-
-class VirusTotal(BaseLogging):
+class VirusTotal(object):
     def __init__(self):
-        BaseLogging.__init__(self)
         self.enabled = True
         self.opts    = dict()
 
