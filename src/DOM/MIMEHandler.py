@@ -113,6 +113,7 @@ class MIMEHandler(dict):
                  "application/x-hdf",
                  "application/x-internet-signup",
                  "application/x-iphone",
+                 "application/x-java-jnlp-file",
                  "application/x-javascript",
                  "application/x-latex",
                  "application/x-msaccess",
@@ -288,7 +289,6 @@ class MIMEHandler(dict):
                 md5 = sample['md5']
             except:
                 continue
-            
 
             unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
             try:
