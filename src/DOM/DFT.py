@@ -465,7 +465,7 @@ class DFT(object):
                                               'Java Security Warning Bypass (CVE-2013-2423)',
                                               cve = 'CVE-2013-2423')
 
-    def _handle_jnlp(self, data, headers):
+    def _handle_jnlp(self, data, headers, params):
         try:
             soup = BeautifulSoup.BeautifulSoup(data)
         except:
@@ -487,7 +487,10 @@ class DFT(object):
         try:
             url = jar.attrs['href']
             headers['User-Agent'] = self.javaWebStartUserAgent
-            response, content = self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
+            response, content = self.window._navigator.fetch(url,
+                                                             headers = headers,
+                                                             redirect_type = "JNLP",
+                                                             params = params)
         except:
             pass
 
@@ -507,7 +510,7 @@ class DFT(object):
                 self.handle_embed(child)
 
         if not params:
-            return
+            return params
 
         headers = dict()
         headers['Connection'] = 'keep-alive'
@@ -531,7 +534,10 @@ class DFT(object):
                 continue
 
             try:
-                self.window._navigator.fetch(params[key], headers = headers, redirect_type = "params")
+                self.window._navigator.fetch(params[key],
+                                             headers = headers,
+                                             redirect_type = "params",
+                                             params = params)
             except:
                 pass
 
@@ -543,19 +549,25 @@ class DFT(object):
                 continue
 
             try:
-                response, content = self.window._navigator.fetch(value, headers = headers, redirect_type = "params")
-                self._handle_jnlp(content, headers)
+                response, content = self.window._navigator.fetch(value,
+                                                                 headers = headers,
+                                                                 redirect_type = "params",
+                                                                 params = params)
+                self._handle_jnlp(content, headers, params)
             except:
                 pass
 
         if 'source' in params:
             try:
-                self.window._navigator.fetch(params['source'], headers = headers, redirect_type = "params")
+                self.window._navigator.fetch(params['source'],
+                                             headers = headers,
+                                             redirect_type = "params",
+                                             params = params)
             except:
                 pass
 
         if not 'archive' in params and not 'code' in params:
-            return
+            return params
 
         if 'codebase' in params:
             archive = urlparse.urljoin(params['codebase'], params['archive'])
@@ -563,15 +575,20 @@ class DFT(object):
             archive = params['archive']
 
         try:
-            self.window._navigator.fetch(archive, headers = headers, redirect_type = "params")
+            self.window._navigator.fetch(archive,
+                                         headers = headers,
+                                         redirect_type = "params",
+                                         params = params)
         except:
             pass
+
+        return params
 
     def handle_object(self, object):
         log.warning(object)
 
         #self.check_attrs(object)
-        self.do_handle_params(object)
+        params = self.do_handle_params(object)
 
         classid  = object.get('classid', None)
         id       = object.get('id', None)
@@ -580,13 +597,17 @@ class DFT(object):
 
         if codebase:
             try:
-                self.window._navigator.fetch(codebase, redirect_type = "object codebase")
+                self.window._navigator.fetch(codebase,
+                                             redirect_type = "object codebase",
+                                             params = params)
             except:
                 pass
 
         if data and not data.startswith('data:'):
             try:
-                self.window._navigator.fetch(data, redirect_type = "object data")
+                self.window._navigator.fetch(data,
+                                             redirect_type = "object data",
+                                             params = params)
             except:
                 pass
 
@@ -789,7 +810,7 @@ class DFT(object):
     def handle_applet(self, applet):
         log.warning(applet)
 
-        self.do_handle_params(applet)
+        params = self.do_handle_params(applet)
 
         archive = applet.get('archive', None)
         if not archive:
@@ -803,7 +824,10 @@ class DFT(object):
             headers['User-Agent'] = self.javaUserAgent
 
         try:
-            response, content = self.window._navigator.fetch(archive, headers = headers, redirect_type = "applet")
+            response, content = self.window._navigator.fetch(archive,
+                                                             headers = headers,
+                                                             redirect_type = "applet",
+                                                             params = params)
         except:
             pass
 

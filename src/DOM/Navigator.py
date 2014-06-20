@@ -351,7 +351,7 @@ class Navigator(PyV8.JSClass):
 
         return url
 
-    def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None):
+    def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None):
         httplib2.debuglevel = log.ThugOpts.http_debug
 
         if log.ThugOpts.no_fetch:
@@ -456,6 +456,6 @@ class Navigator(PyV8.JSClass):
         with open(os.path.join(mime_base, filename), 'wb') as fd:
             fd.write(content)
 
-        log.ThugLogging.log_file(content, url)
+        log.ThugLogging.log_file(content, url, params)
         return response, content
 

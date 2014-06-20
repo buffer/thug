@@ -67,7 +67,7 @@ class ThugLogging(BaseLogging):
         self.MAEC11.add_code_snippet(snippet, language, relationship, method)
         self.JSONLog.add_code_snippet(snippet, language, relationship, method)
 
-    def log_file(self, data, url = None):
+    def log_file(self, data, url = None, params = None):
         sample = self.build_sample(data, url)
         if sample is None:
             return None
