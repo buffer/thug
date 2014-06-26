@@ -1,5 +1,6 @@
 import os
 import sys
+import errno
 import json
 import requests
 import tempfile
