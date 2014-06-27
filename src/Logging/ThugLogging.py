@@ -22,6 +22,7 @@ from .MAEC11 import MAEC11
 from .MongoDB import MongoDB
 from .JSONLog import JSONLog
 from virustotal.VirusTotal import VirusTotal
+from honeyagent.HoneyAgent import HoneyAgent
 
 import os
 import copy
@@ -42,6 +43,7 @@ class ThugLogging(BaseLogging):
         self.MongoDB        = MongoDB()
         self.JSONLog        = JSONLog(thug_version)
         self.VirusTotal     = VirusTotal()
+        self.HoneyAgent     = HoneyAgent()
         self.baseDir        = None
         self.windows        = dict()
         self.shellcodes     = set()
@@ -77,6 +79,9 @@ class ThugLogging(BaseLogging):
         self.MongoDB.log_file(copy.deepcopy(sample))
         self.JSONLog.log_file(sample)
         self.VirusTotal.analyze(data, sample['md5'], self.baseDir)
+
+        if sample['type'] in ('JAR', ):
+            self.HoneyAgent.analyze(data, sample['md5'], self.baseDir, params)
 
         log.SampleClassifier.classify(data, sample['md5'])
         return sample

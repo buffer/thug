@@ -53,6 +53,7 @@ class ThugOpts(dict):
         self._broken_url      = False
         self._vt_query        = False
         self._vt_submit       = False
+        self._honeyagent      = True
         self._cache           = '/tmp/thug-cache-%s' % (os.getuid(), )
         self.Personality      = Personality()
 
@@ -195,3 +196,11 @@ class ThugOpts(dict):
         self._vt_submit = True
 
     vt_submit = property(get_vt_submit, set_vt_submit)
+
+    def get_honeyagent(self):
+        return self._honeyagent
+
+    def set_honeyagent(self, enabled):
+        self._honeyagent = enabled
+
+    honeyagent = property(get_honeyagent, set_honeyagent)

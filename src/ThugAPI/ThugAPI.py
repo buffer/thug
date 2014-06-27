@@ -159,6 +159,9 @@ class ThugAPI:
     def set_broken_url(self):
         log.ThugOpts.broken_url = True
 
+    def disable_honeyagent(self):
+        log.ThugOpts.honeyagent = False
+
     def log_init(self, url):
         log.ThugLogging = ThugLogging(self.thug_version)
         log.ThugLogging.set_basedir(url)

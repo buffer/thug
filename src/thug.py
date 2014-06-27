@@ -64,6 +64,7 @@ Synopsis:
         -B, --broken-url    \tSet the broken URL mode
         -y, --vtquery       \tQuery VirusTotal for samples analysis
         -s, --vtsubmit      \tSubmit samples to VirusTotal
+        -N, --no-honeyagent \tDisable HoneyAgent support
 
         Plugins:
         -A, --adobepdf=     \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
@@ -94,7 +95,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:yslxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:',
+                                          'hVu:e:w:n:o:r:p:ysNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:',
                 ['help',
                 'version',
                 'useragent=',
@@ -106,6 +107,7 @@ Synopsis:
                 'proxy=',
                 'vtquery',
                 'vtsubmit',
+                'no-honeyagent',
                 'local',
                 'local-nofetch',
                 'verbose',
@@ -155,6 +157,8 @@ Synopsis:
                 self.set_vt_query()
             if option[0] in ('-s', '--vtsubmit', ):
                 self.set_vt_submit()
+            if option[0] in ('-N', '--no-honeyagent', ):
+                self.disable_honeyagent()
             if option[0] in ('-l', '--local', ):
                 p = getattr(self, 'run_local')
             if option[0] in ('-x', '--local-nofetch', ):
