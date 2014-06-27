@@ -123,7 +123,7 @@ Thug supports VirusTotal but you need to get an API key to use the
 VirusTotal Public API 2.0. To do so, just sign-up on the service at 
 https://www.virustotal.com/ and get your own API Key.
 
-Rename the file src/Logging/virustotal.conf.sample in src/Logging/virustotal.conf
+Rename the file src/virustotal/virustotal.conf.sample in src/virustotal/virustotal.conf
 and insert your own API key in the configuration file as shown below
 
 .. code-block:: sh
