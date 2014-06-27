@@ -44,6 +44,7 @@ Let's start our Thug tour by taking a look at the options it provides.
             -E, --extensive         Extensive fetch of linked pages
             -T, --timeout=          Set the analysis timeout (in seconds)
             -B, --broken-url        Set the broken URL mode
+            -N, --no-honeyagent     Disable HoneyAgent support
 
             Plugins:
             -A, --adobepdf=         Specify the Adobe Acrobat Reader version (default: 9.1.0)
@@ -56,6 +57,7 @@ Let's start our Thug tour by taking a look at the options it provides.
             Classifier:
             -Q, --urlclassifier     Specify a list of additional (comma separated) URL classifier rule files
             -W, --jsclassifier      Specify a list of additional (comma separated) JS classifier rule files
+            -C, --sampleclassifier  Specify a list of additional (comma separated) sample classifier rule file
 
         Proxy Format:
             scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
@@ -86,6 +88,7 @@ Let's start our Thug tour by taking a look at the options it provides.
             nexuschrome18           Chrome 18.0.1025.133    (Google Nexus, Android 4.0.4)
             ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)
             ipadchrome33            Chrome 33.0.1750.21     (iPad, iOS 7.1)
+            ipadchrome35            Chrome 35.0.1916.41     (iPad, iOS 7.1.1)
 
 Let's start with a first basic real-world example: a Blackhole exploit kit.  
 
