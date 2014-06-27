@@ -44,6 +44,7 @@ Let's start our Thug tour by taking a look at the options it provides.
             -E, --extensive         Extensive fetch of linked pages
             -T, --timeout=          Set the analysis timeout (in seconds)
             -B, --broken-url        Set the broken URL mode
+            -N, --no-honeyagent     Disable HoneyAgent support
 
             Plugins:
             -A, --adobepdf=         Specify the Adobe Acrobat Reader version (default: 9.1.0)

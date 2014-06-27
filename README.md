@@ -176,6 +176,7 @@ Synopsis:
 		-B, --broken-url        Set the broken URL mode
 		-y, --vtquery           Query VirusTotal for samples analysis
 		-s, --vtsubmit          Submit samples to VirusTotal
+		-N, --no-honeyagent     Disable HoneyAgent support
 
         Plugins:
         -A, --adobepdf=         Specify the Adobe Acrobat Reader version (default: 9.1.0)
