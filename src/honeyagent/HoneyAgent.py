@@ -53,7 +53,7 @@ class HoneyAgent(object):
             else:
                 raise
 
-        log_file = os.path.join(log_dir, '%s' % (md5, ))
+        log_file = os.path.join(log_dir, '%s.json' % (md5, ))
         with open(log_file, 'w') as fd:
             fd.write(response.text)
 
