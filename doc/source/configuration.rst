@@ -68,7 +68,7 @@ machine
 .. code-block:: sh
 
     thug@honeyagent:~$ cd honeyagent/HoneyDaemon/
-    thug@honeyagent:~/honeyagent/HoneyDaemon$ python daemon.py 8000 ../HoneyAppletViewer/analyze.sh ../HoneyAppletViewer/honeyagent.ini
+    thug@honeyagent:~/honeyagent/HoneyDaemon$ python daemon.py run.ini
     HoneyAgent daemon running on port 8000  
 
 
@@ -77,39 +77,45 @@ able to automatically analyze applets like shown later.
 
 .. code-block:: sh
 
-    buffer@rigel ~/thug/src $ python thug.py http://10.3.6.54:8080/1
-    [2014-06-27 15:08:11] [window open redirection] about:blank -> http://10.3.6.54:8080/1
-    [2014-06-27 15:08:11] [HTTP Redirection (Status: 302)] Content-Location: http://10.3.6.54:8080/1 --> Location: http://10.3.6.54:8080/1/
-    [2014-06-27 15:08:11] [HTTP] URL: http://10.3.6.54:8080/1/ (Status: 200, Referrer: None)
-    [2014-06-27 15:08:11] [HTTP] URL: http://10.3.6.54:8080/1/ (Content-type: text/html, MD5: 48c4de9dbd60eb2b7142045b70c5193d)
-    [2014-06-27 15:08:11] <applet archive="hOVwjoAj.jar" code="KqeR.class" height="1" width="1"></applet>
-    [2014-06-27 15:08:11] [Navigator URL Translation] hOVwjoAj.jar --> http://10.3.6.54:8080/1/hOVwjoAj.jar
-    [2014-06-27 15:08:11] [applet redirection] http://10.3.6.54:8080/1/ -> http://10.3.6.54:8080/1/hOVwjoAj.jar
-    [2014-06-27 15:08:11] [HTTP] URL: http://10.3.6.54:8080/1/hOVwjoAj.jar (Status: 200, Referrer: http://10.3.6.54:8080/1/)
-    [2014-06-27 15:08:11] [HTTP] URL: http://10.3.6.54:8080/1/hOVwjoAj.jar (Content-type: application/octet-stream, MD5: 42f928fbf0d7f0a10a61576f2cf5919d)
-    [2014-06-27 15:08:15] [HoneyAgent] Sample 42f928fbf0d7f0a10a61576f2cf5919d submitted
-    [2014-06-27 15:08:15] [HoneyAgent] Sample 42f928fbf0d7f0a10a61576f2cf5919d dropped sample rbbxVSJWaL.dat
-    [2014-06-27 15:08:15] [HoneyAgent] Sample 42f928fbf0d7f0a10a61576f2cf5919d dropped sample DyXgXpD.class
-    [2014-06-27 15:08:19] [HoneyAgent] Sample 42f928fbf0d7f0a10a61576f2cf5919d dropped sample RcFBBkMa.exe
-    [2014-06-27 15:08:19] Saving log analysis at ../logs/c2b78e6e949138622263f77d4ec946fd/20140627150811
+    buffer@rigel ~/thug/src $ python thug.py http://192.168.0.100:8080/1
+    [2014-07-07 23:50:53] [window open redirection] about:blank -> http://192.168.0.100:8080/1
+    [2014-07-07 23:50:53] [HTTP Redirection (Status: 302)] Content-Location: http://192.168.0.100:8080/1 --> Location: http://192.168.0.100:8080/1/
+    [2014-07-07 23:50:53] [HTTP] URL: http://192.168.0.100:8080/1/ (Status: 200, Referrer: None)
+    [2014-07-07 23:50:53] [HTTP] URL: http://192.168.0.100:8080/1/ (Content-type: text/html, MD5: 514658fc397a7f227bd0d3e11b22c428)
+    [2014-07-07 23:50:53] <applet archive="qqNqSoke.jar" code="BTrJ.class" height="1" width="1"></applet>
+    [2014-07-07 23:50:53] [Navigator URL Translation] qqNqSoke.jar --> http://192.168.0.100:8080/1/qqNqSoke.jar
+    [2014-07-07 23:50:53] [applet redirection] http://192.168.0.100:8080/1/ -> http://192.168.0.100:8080/1/qqNqSoke.jar
+    [2014-07-07 23:50:53] [HTTP] URL: http://192.168.0.100:8080/1/qqNqSoke.jar (Status: 200, Referrer: http://192.168.0.100:8080/1/)
+    [2014-07-07 23:50:53] [HTTP] URL: http://192.168.0.100:8080/1/qqNqSoke.jar (Content-type: application/octet-stream, MD5: 1b3354f594522ff32791c278f50f2efa)
+    [2014-07-07 23:50:56] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Sample submitted
+    [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Dropped sample uAzpYJRZ.exe
+    [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Dropped sample IixfXAb.class
+    [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Dropped sample ArIBNUkvAi.dat
+    [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Yara heuristics rule CreatesNewProcess match
+    [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Yara heuristics rule WritesMZFile match
+    [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Yara heuristics rule WritesExeFile match
+    [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Yara heuristics rule LocalFileAccess match
+    [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Yara heuristics rule RestrictedPropertyAccess match
+    [2014-07-07 23:50:57] Saving log analysis at ../logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053
     
-    buffer@rigel ~/thug/src $ cd ../logs/c2b78e6e949138622263f77d4ec946fd/20140627150811/analysis/honeyagent/
-    buffer@rigel ~/thug/logs/c2b78e6e949138622263f77d4ec946fd/20140627150811/analysis/honeyagent $ ls -lhR
-    .:                              
-    total 680K                      
-    -rw-r--r-- 1 buffer buffer 679K Jun 27 15:08 42f928fbf0d7f0a10a61576f2cf5919d
-    drwxr-xr-x 2 buffer buffer   66 Jun 27 15:08 dropped
-                                    
+    buffer@rigel ~/thug/src $ cd ../logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent/
+    buffer@rigel ~/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent $ ls -lhR
+    .:
+    total 668K
+    -rw-r--r-- 1 buffer buffer 665K Jul  7 23:50 1b3354f594522ff32791c278f50f2efa.json
+    drwxr-xr-x 2 buffer buffer   66 Jul  7 23:50 dropped
+    
     ./dropped:
     total 92K
-    -rw-r--r-- 1 buffer buffer 9.2K Jun 27 15:08 DyXgXpD.class
-    -rw-r--r-- 1 buffer buffer  73K Jun 27 15:08 RcFBBkMa.exe
-    -rw-r--r-- 1 buffer buffer  109 Jun 27 15:08 rbbxVSJWaL.dat
-
-    buffer@rigel ~/thug/logs/c2b78e6e949138622263f77d4ec946fd/20140627150811/analysis/honeyagent/dropped $ file *
-    DyXgXpD.class:  compiled Java class data, version 45.3
-    RcFBBkMa.exe:   PE32 executable (GUI) Intel 80386, for MS Windows
-    rbbxVSJWaL.dat: ASCII text
+    -rw-r--r-- 1 buffer buffer  110 Jul  7 23:50 ArIBNUkvAi.dat
+    -rw-r--r-- 1 buffer buffer 9.2K Jul  7 23:50 IixfXAb.class
+    -rw-r--r-- 1 buffer buffer  73K Jul  7 23:50 uAzpYJRZ.exe
+    
+    buffer@rigel ~/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent $ cd dropped/
+    buffer@rigel ~/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent/dropped $ file *
+    ArIBNUkvAi.dat: ASCII text
+    IixfXAb.class:  compiled Java class data, version 45.3
+    uAzpYJRZ.exe:   PE32 executable (GUI) Intel 80386, for MS Windows
 
 
 VirusTotal (optional)
