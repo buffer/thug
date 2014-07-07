@@ -69,18 +69,33 @@ class HoneyAgent(object):
                 raise
 
         data = response.json()
-        try:
-            files = data["result"]["files"]
-        except:
-            return
+
+        result = data.get("result", None)
+        if result is None:
+            return None
+
+        files = result.get("files", None)
+        if files is None:
+            return result
 
         for filename in files.keys():
             drop = os.path.join(log_dir, os.path.basename(filename))
             with open(drop, 'wb') as fd:
                 data = base64.b64decode(files[filename])
                 log.ThugLogging.log_file(data)
-                log.warning("[HoneyAgent] Sample %s dropped sample %s" % (md5, os.path.basename(filename), ))
+                log.warning("[HoneyAgent][%s] Dropped sample %s" % (md5, os.path.basename(filename), ))
                 fd.write(data)
+
+        return result
+
+    def dump_yara_analysis(self, result, md5):
+        yara = result.get("yara", None)
+        if yara is None:
+            return
+
+        for key in yara.keys():
+            for v in yara[key]:
+                log.warning("[HoneyAgent][%s] Yara %s rule %s match" % (md5, key, v['rule'], ))
 
     def submit(self, data, md5, params):
         sample = os.path.join(tempfile.gettempdir(), md5)
@@ -92,7 +107,7 @@ class HoneyAgent(object):
         response = requests.post(self.opts["scanurl"], files = files, params = params)
         
         if response.ok:
-            log.warning("[HoneyAgent] Sample %s submitted" % (md5, ))
+            log.warning("[HoneyAgent][%s] Sample submitted" % (md5, ))
 
         os.remove(sample)
         return response
@@ -108,5 +123,8 @@ class HoneyAgent(object):
             params = dict()
 
         response = self.submit(data, md5, params)
+
         self.save_report(response, basedir, md5)
-        self.save_dropped(response, basedir, md5)
+        result = self.save_dropped(response, basedir, md5)
+        if result:
+            self.dump_yara_analysis(result, md5)
