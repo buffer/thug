@@ -39,7 +39,7 @@ there exists the possibility a sample could circumvent the sandbox
 and compromise the machine. In such case please consider that a OVA
 is available (and already configured) at
 
-https://www.dropbox.com/s/6ky8uhhp121mlx9/Honeyagent.ova
+https://www.dropbox.com/s/qieyfe97qvh7pjp/Honeyagent-r2.ova
 
 Login   : thug 
 Password: thug
