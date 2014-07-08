@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Configuration &mdash; Thug 0.4.39 documentation</title>
+    <title>Configuration &mdash; Thug 0.4.40 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.4.39',
+        VERSION:     '0.4.40',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.4.39 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.4.40 documentation" href="index.html" />
     <link rel="next" title="Usage" href="usage.html" />
     <link rel="prev" title="Build and Install" href="build.html" /> 
   </head>
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="build.html" title="Build and Install"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.39 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.40 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -81,7 +81,7 @@ variables are faked due to according Java function hooks.</p>
 there exists the possibility a sample could circumvent the sandbox
 and compromise the machine. In such case please consider that a OVA
 is available (and already configured) at</p>
-<p><a class="reference external" href="https://www.dropbox.com/s/6ky8uhhp121mlx9/Honeyagent.ova">https://www.dropbox.com/s/6ky8uhhp121mlx9/Honeyagent.ova</a></p>
+<p><a class="reference external" href="https://www.dropbox.com/s/qieyfe97qvh7pjp/Honeyagent-r2.ova">https://www.dropbox.com/s/qieyfe97qvh7pjp/Honeyagent-r2.ova</a></p>
 <p>Login   : thug
 Password: thug</p>
 <p>In order to configure Thug to submit applets for analysis to HoneyAgent
@@ -101,45 +101,51 @@ configuration and modify it accordingly) listening on port 8000/tcp.</p>
 <p>In order to enable this service run this commands on the HoneyAgent
 machine</p>
 <div class="highlight-sh"><div class="highlight"><pre>thug@honeyagent:~<span class="nv">$ </span><span class="nb">cd </span>honeyagent/HoneyDaemon/
-thug@honeyagent:~/honeyagent/HoneyDaemon<span class="nv">$ </span>python daemon.py 8000 ../HoneyAppletViewer/analyze.sh ../HoneyAppletViewer/honeyagent.ini
+thug@honeyagent:~/honeyagent/HoneyDaemon<span class="nv">$ </span>python daemon.py run.ini
 HoneyAgent daemon running on port 8000
 </pre></div>
 </div>
 <p>After the service is enabled and properly configured you should be
 able to automatically analyze applets like shown later.</p>
-<div class="highlight-sh"><div class="highlight"><pre>buffer@rigel ~/thug/src <span class="nv">$ </span>python thug.py http://10.3.6.54:8080/1
-<span class="o">[</span>2014-06-27 15:08:11<span class="o">]</span> <span class="o">[</span>window open redirection<span class="o">]</span> about:blank -&gt; http://10.3.6.54:8080/1
-<span class="o">[</span>2014-06-27 15:08:11<span class="o">]</span> <span class="o">[</span>HTTP Redirection <span class="o">(</span>Status: 302<span class="o">)]</span> Content-Location: http://10.3.6.54:8080/1 --&gt; Location: http://10.3.6.54:8080/1/
-<span class="o">[</span>2014-06-27 15:08:11<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://10.3.6.54:8080/1/ <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
-<span class="o">[</span>2014-06-27 15:08:11<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://10.3.6.54:8080/1/ <span class="o">(</span>Content-type: text/html, MD5: 48c4de9dbd60eb2b7142045b70c5193d<span class="o">)</span>
-<span class="o">[</span>2014-06-27 15:08:11<span class="o">]</span> &lt;applet <span class="nv">archive</span><span class="o">=</span><span class="s2">&quot;hOVwjoAj.jar&quot;</span> <span class="nv">code</span><span class="o">=</span><span class="s2">&quot;KqeR.class&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/applet&gt;
-<span class="o">[</span>2014-06-27 15:08:11<span class="o">]</span> <span class="o">[</span>Navigator URL Translation<span class="o">]</span> hOVwjoAj.jar --&gt; http://10.3.6.54:8080/1/hOVwjoAj.jar
-<span class="o">[</span>2014-06-27 15:08:11<span class="o">]</span> <span class="o">[</span>applet redirection<span class="o">]</span> http://10.3.6.54:8080/1/ -&gt; http://10.3.6.54:8080/1/hOVwjoAj.jar
-<span class="o">[</span>2014-06-27 15:08:11<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://10.3.6.54:8080/1/hOVwjoAj.jar <span class="o">(</span>Status: 200, Referrer: http://10.3.6.54:8080/1/<span class="o">)</span>
-<span class="o">[</span>2014-06-27 15:08:11<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://10.3.6.54:8080/1/hOVwjoAj.jar <span class="o">(</span>Content-type: application/octet-stream, MD5: 42f928fbf0d7f0a10a61576f2cf5919d<span class="o">)</span>
-<span class="o">[</span>2014-06-27 15:08:15<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">]</span> Sample 42f928fbf0d7f0a10a61576f2cf5919d submitted
-<span class="o">[</span>2014-06-27 15:08:15<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">]</span> Sample 42f928fbf0d7f0a10a61576f2cf5919d dropped sample rbbxVSJWaL.dat
-<span class="o">[</span>2014-06-27 15:08:15<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">]</span> Sample 42f928fbf0d7f0a10a61576f2cf5919d dropped sample DyXgXpD.class
-<span class="o">[</span>2014-06-27 15:08:19<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">]</span> Sample 42f928fbf0d7f0a10a61576f2cf5919d dropped sample RcFBBkMa.exe
-<span class="o">[</span>2014-06-27 15:08:19<span class="o">]</span> Saving log analysis at ../logs/c2b78e6e949138622263f77d4ec946fd/20140627150811
+<div class="highlight-sh"><div class="highlight"><pre>buffer@rigel ~/thug/src <span class="nv">$ </span>python thug.py http://192.168.0.100:8080/1
+<span class="o">[</span>2014-07-07 23:50:53<span class="o">]</span> <span class="o">[</span>window open redirection<span class="o">]</span> about:blank -&gt; http://192.168.0.100:8080/1
+<span class="o">[</span>2014-07-07 23:50:53<span class="o">]</span> <span class="o">[</span>HTTP Redirection <span class="o">(</span>Status: 302<span class="o">)]</span> Content-Location: http://192.168.0.100:8080/1 --&gt; Location: http://192.168.0.100:8080/1/
+<span class="o">[</span>2014-07-07 23:50:53<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://192.168.0.100:8080/1/ <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
+<span class="o">[</span>2014-07-07 23:50:53<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://192.168.0.100:8080/1/ <span class="o">(</span>Content-type: text/html, MD5: 514658fc397a7f227bd0d3e11b22c428<span class="o">)</span>
+<span class="o">[</span>2014-07-07 23:50:53<span class="o">]</span> &lt;applet <span class="nv">archive</span><span class="o">=</span><span class="s2">&quot;qqNqSoke.jar&quot;</span> <span class="nv">code</span><span class="o">=</span><span class="s2">&quot;BTrJ.class&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>&gt;&lt;/applet&gt;
+<span class="o">[</span>2014-07-07 23:50:53<span class="o">]</span> <span class="o">[</span>Navigator URL Translation<span class="o">]</span> qqNqSoke.jar --&gt; http://192.168.0.100:8080/1/qqNqSoke.jar
+<span class="o">[</span>2014-07-07 23:50:53<span class="o">]</span> <span class="o">[</span>applet redirection<span class="o">]</span> http://192.168.0.100:8080/1/ -&gt; http://192.168.0.100:8080/1/qqNqSoke.jar
+<span class="o">[</span>2014-07-07 23:50:53<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://192.168.0.100:8080/1/qqNqSoke.jar <span class="o">(</span>Status: 200, Referrer: http://192.168.0.100:8080/1/<span class="o">)</span>
+<span class="o">[</span>2014-07-07 23:50:53<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://192.168.0.100:8080/1/qqNqSoke.jar <span class="o">(</span>Content-type: application/octet-stream, MD5: 1b3354f594522ff32791c278f50f2efa<span class="o">)</span>
+<span class="o">[</span>2014-07-07 23:50:56<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">][</span>1b3354f594522ff32791c278f50f2efa<span class="o">]</span> Sample submitted
+<span class="o">[</span>2014-07-07 23:50:57<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">][</span>1b3354f594522ff32791c278f50f2efa<span class="o">]</span> Dropped sample uAzpYJRZ.exe
+<span class="o">[</span>2014-07-07 23:50:57<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">][</span>1b3354f594522ff32791c278f50f2efa<span class="o">]</span> Dropped sample IixfXAb.class
+<span class="o">[</span>2014-07-07 23:50:57<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">][</span>1b3354f594522ff32791c278f50f2efa<span class="o">]</span> Dropped sample ArIBNUkvAi.dat
+<span class="o">[</span>2014-07-07 23:50:57<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">][</span>1b3354f594522ff32791c278f50f2efa<span class="o">]</span> Yara heuristics rule CreatesNewProcess match
+<span class="o">[</span>2014-07-07 23:50:57<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">][</span>1b3354f594522ff32791c278f50f2efa<span class="o">]</span> Yara heuristics rule WritesMZFile match
+<span class="o">[</span>2014-07-07 23:50:57<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">][</span>1b3354f594522ff32791c278f50f2efa<span class="o">]</span> Yara heuristics rule WritesExeFile match
+<span class="o">[</span>2014-07-07 23:50:57<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">][</span>1b3354f594522ff32791c278f50f2efa<span class="o">]</span> Yara heuristics rule LocalFileAccess match
+<span class="o">[</span>2014-07-07 23:50:57<span class="o">]</span> <span class="o">[</span>HoneyAgent<span class="o">][</span>1b3354f594522ff32791c278f50f2efa<span class="o">]</span> Yara heuristics rule RestrictedPropertyAccess match
+<span class="o">[</span>2014-07-07 23:50:57<span class="o">]</span> Saving log analysis at ../logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053
 
-buffer@rigel ~/thug/src <span class="nv">$ </span><span class="nb">cd</span> ../logs/c2b78e6e949138622263f77d4ec946fd/20140627150811/analysis/honeyagent/
-buffer@rigel ~/thug/logs/c2b78e6e949138622263f77d4ec946fd/20140627150811/analysis/honeyagent <span class="nv">$ </span>ls -lhR
+buffer@rigel ~/thug/src <span class="nv">$ </span><span class="nb">cd</span> ../logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent/
+buffer@rigel ~/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent <span class="nv">$ </span>ls -lhR
 .:
-total 680K
--rw-r--r-- 1 buffer buffer 679K Jun 27 15:08 42f928fbf0d7f0a10a61576f2cf5919d
-drwxr-xr-x 2 buffer buffer   66 Jun 27 15:08 dropped
+total 668K
+-rw-r--r-- 1 buffer buffer 665K Jul  7 23:50 1b3354f594522ff32791c278f50f2efa.json
+drwxr-xr-x 2 buffer buffer   66 Jul  7 23:50 dropped
 
 ./dropped:
 total 92K
--rw-r--r-- 1 buffer buffer 9.2K Jun 27 15:08 DyXgXpD.class
--rw-r--r-- 1 buffer buffer  73K Jun 27 15:08 RcFBBkMa.exe
--rw-r--r-- 1 buffer buffer  109 Jun 27 15:08 rbbxVSJWaL.dat
+-rw-r--r-- 1 buffer buffer  110 Jul  7 23:50 ArIBNUkvAi.dat
+-rw-r--r-- 1 buffer buffer 9.2K Jul  7 23:50 IixfXAb.class
+-rw-r--r-- 1 buffer buffer  73K Jul  7 23:50 uAzpYJRZ.exe
 
-buffer@rigel ~/thug/logs/c2b78e6e949138622263f77d4ec946fd/20140627150811/analysis/honeyagent/dropped <span class="nv">$ </span>file *
-DyXgXpD.class:  compiled Java class data, version 45.3
-RcFBBkMa.exe:   PE32 executable <span class="o">(</span>GUI<span class="o">)</span> Intel 80386, <span class="k">for </span>MS Windows
-rbbxVSJWaL.dat: ASCII text
+buffer@rigel ~/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent <span class="nv">$ </span><span class="nb">cd </span>dropped/
+buffer@rigel ~/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent/dropped <span class="nv">$ </span>file *
+ArIBNUkvAi.dat: ASCII text
+IixfXAb.class:  compiled Java class data, version 45.3
+uAzpYJRZ.exe:   PE32 executable <span class="o">(</span>GUI<span class="o">)</span> Intel 80386, <span class="k">for </span>MS Windows
 </pre></div>
 </div>
 </div>
@@ -217,7 +223,7 @@ reporturl:                      https://www.virustotal.com/vtapi/v2/file/report
         <li class="right" >
           <a href="build.html" title="Build and Install"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.4.39 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.4.40 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

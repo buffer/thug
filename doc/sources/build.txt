@@ -224,7 +224,7 @@ to install lxml is through easy_install.
 
 .. code-block:: sh
 
-        # easy_install pefile 
+        # easy_install lxml
 
 
 chardet
