@@ -49,7 +49,13 @@ class IRForm(object):
         return []
 
     def replace(self, old, new):
-        raise NotImplementedError('replace not implemented in %s' % self)
+        raise NotImplementedError('replace not implemented in %r' % self)
+
+    def replace_lhs(self, new):
+        raise NotImplementedError('replace_lhs not implemented in %r' % self)
+
+    def replace_var(self, old, new):
+        raise NotImplementedError('replace_var not implemented in %r' % self)
 
     def remove_defined_var(self):
         pass
@@ -126,6 +132,7 @@ class Variable(IRForm):
         self.v = value
         self.declared = False
         self.type = None
+        self.name = value
 
     def get_used_vars(self):
         return [self.v]
@@ -146,7 +153,7 @@ class Variable(IRForm):
         return visitor.visit_decl(self)
 
     def __str__(self):
-        return 'VAR_%s' % self.v
+        return 'VAR_%s' % self.name
 
 
 class Param(Variable):
@@ -159,7 +166,7 @@ class Param(Variable):
         return visitor.visit_param(self.v)
 
     def __str__(self):
-        return 'PARAM_%s' % self.v
+        return 'PARAM_%s' % self.name
 
 
 class ThisParam(Param):
@@ -211,6 +218,15 @@ class AssignExpression(IRForm):
     def replace(self, old, new):
         self.rhs.replace(old, new)
 
+    def replace_lhs(self, new):
+        if self.lhs != self.rhs:
+            self.var_map.pop(self.lhs)
+        self.lhs = new.v
+        self.var_map[new.v] = new
+
+    def replace_var(self, old, new):
+        self.rhs.replace_var(old, new)
+
     def visit(self, visitor):
         return visitor.visit_assign(self.var_map.get(self.lhs), self.rhs)
 
@@ -253,10 +269,21 @@ class MoveExpression(IRForm):
         else:
             if new.is_ident():
                 v_m[new.value()] = new
-                v_m.pop(old)
                 self.rhs = new.value()
             else:
                 v_m[old] = new
+
+    def replace_lhs(self, new):
+        if self.lhs != self.rhs:
+            self.var_map.pop(self.lhs)
+        self.lhs = new.v
+        self.var_map[new.v] = new
+
+    def replace_var(self, old, new):
+        if self.lhs != old:
+            self.var_map.pop(old)
+        self.rhs = new.v
+        self.var_map[new.v] = new
 
     def __str__(self):
         v_m = self.var_map
@@ -306,6 +333,17 @@ class ArrayStoreInstruction(IRForm):
         return visitor.visit_astore(v_m[self.array],
                                     v_m[self.index], v_m[self.rhs])
 
+    def replace_var(self, old, new):
+        if self.rhs == old:
+            self.rhs = new.v
+        if self.array == old:
+            self.array = new.v
+        if self.index == old:
+            self.index = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
+
     def replace(self, old, new):
         v_m = self.var_map
         if old in v_m:
@@ -315,7 +353,6 @@ class ArrayStoreInstruction(IRForm):
             else:
                 if new.is_ident():
                     v_m[new.value()] = new
-                    v_m.pop(old)
                     if self.rhs == old:
                         self.rhs = new.value()
                     if self.array == old:
@@ -356,6 +393,11 @@ class StaticInstruction(IRForm):
         return visitor.visit_put_static(
             self.cls, self.name, self.var_map[self.rhs])
 
+    def replace_var(self, old, new):
+        self.rhs = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         rhs = v_m[self.rhs]
@@ -364,7 +406,6 @@ class StaticInstruction(IRForm):
         else:
             if new.is_ident():
                 v_m[new.value()] = new
-                v_m.pop(old)
                 self.rhs = new.value()
             else:
                 v_m[old] = new
@@ -400,6 +441,14 @@ class InstanceInstruction(IRForm):
         return visitor.visit_put_instance(v_m[self.lhs],
                                           self.name, v_m[self.rhs])
 
+    def replace_var(self, old, new):
+        if self.lhs == old:
+            self.lhs = new.v
+        if self.rhs == old:
+            self.rhs = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         if old in v_m:
@@ -409,7 +458,6 @@ class InstanceInstruction(IRForm):
             else:
                 if new.is_ident():
                     v_m[new.value()] = new
-                    v_m.pop(old)
                     if self.lhs == old:
                         self.lhs = new.value()
                     if self.rhs == old:
@@ -471,6 +519,19 @@ class InvokeInstruction(IRForm):
     def has_side_effect(self):
         return True
 
+    def replace_var(self, old, new):
+        if self.base == old:
+            self.base = new.v
+        new_args = []
+        for arg in self.args:
+            if arg != old:
+                new_args.append(arg)
+            else:
+                new_args.append(new.v)
+        self.args = new_args
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         if old in v_m:
@@ -480,13 +541,15 @@ class InvokeInstruction(IRForm):
             else:
                 if new.is_ident():
                     v_m[new.value()] = new
-                    v_m.pop(old)
                     if self.base == old:
                         self.base = new.value()
-                    for idx, arg in enumerate(self.args):
-                        if arg == old:
-                            self.args.pop(idx)
-                            self.args.insert(idx, new.value())
+                    new_args = []
+                    for arg in self.args:
+                        if arg != old:
+                            new_args.append(arg)
+                        else:
+                            new_args.append(new.v)
+                    self.args = new_args
                 else:
                     v_m[old] = new
         else:
@@ -566,6 +629,11 @@ class ReturnInstruction(IRForm):
         else:
             return visitor.visit_return(self.var_map[self.arg])
 
+    def replace_var(self, old, new):
+        self.arg = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         arg = v_m[self.arg]
@@ -574,7 +642,6 @@ class ReturnInstruction(IRForm):
         else:
             if new.is_ident():
                 v_m[new.value()] = new
-                v_m.pop(old)
                 self.arg = new.value()
             else:
                 v_m[old] = new
@@ -612,6 +679,11 @@ class SwitchExpression(IRForm):
     def visit(self, visitor):
         return visitor.visit_switch(self.var_map[self.src])
 
+    def replace_var(self, old, new):
+        self.src = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         src = v_m[self.src]
@@ -620,7 +692,6 @@ class SwitchExpression(IRForm):
         else:
             if new.is_ident():
                 v_m[new.value()] = new
-                v_m.pop(old)
                 self.src = new.value()
             else:
                 v_m[old] = new
@@ -642,6 +713,11 @@ class CheckCastExpression(IRForm):
     def visit(self, visitor):
         return visitor.visit_check_cast(self.var_map[self.arg], self.type)
 
+    def replace_var(self, old, new):
+        self.arg = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         arg = v_m[self.arg]
@@ -650,7 +726,6 @@ class CheckCastExpression(IRForm):
         else:
             if new.is_ident():
                 v_m[new.value()] = new
-                v_m.pop(old)
                 self.arg = new.value()
             else:
                 v_m[old] = new
@@ -682,6 +757,14 @@ class ArrayLoadExpression(ArrayExpression):
     def get_type(self):
         return self.var_map[self.array].get_type()[1:]
 
+    def replace_var(self, old, new):
+        if self.array == old:
+            self.array = new.v
+        if self.idx == old:
+            self.idx = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         if old in v_m:
@@ -691,7 +774,6 @@ class ArrayLoadExpression(ArrayExpression):
             else:
                 if new.is_ident():
                     v_m[new.value()] = new
-                    v_m.pop(old)
                     if self.array == old:
                         self.array = new.value()
                     if self.idx == old:
@@ -724,6 +806,11 @@ class ArrayLengthExpression(ArrayExpression):
     def visit(self, visitor):
         return visitor.visit_alength(self.var_map[self.array])
 
+    def replace_var(self, old, new):
+        self.array = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         array = v_m[self.array]
@@ -747,14 +834,16 @@ class NewArrayExpression(ArrayExpression):
         self.type = atype
         self.var_map[asize.v] = asize
 
-    def is_propagable(self):
-        return False
-
     def get_used_vars(self):
         return self.var_map[self.size].get_used_vars()
 
     def visit(self, visitor):
         return visitor.visit_new_array(self.type, self.var_map[self.size])
+
+    def replace_var(self, old, new):
+        self.size = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
 
     def replace(self, old, new):
         v_m = self.var_map
@@ -764,7 +853,6 @@ class NewArrayExpression(ArrayExpression):
         else:
             if new.is_ident():
                 v_m[new.value()] = new
-                v_m.pop(old)
                 self.size = new.value()
             else:
                 v_m[old] = new
@@ -789,6 +877,17 @@ class FilledArrayExpression(ArrayExpression):
             lused_vars.extend(self.var_map[arg].get_used_vars())
         return list(set(lused_vars))
 
+    def replace_var(self, old, new):
+        new_args = []
+        for arg in self.args:
+            if arg == old:
+                new_args.append(new.v)
+            else:
+                new_args.append(arg)
+        self.args = new_args
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         if old in v_m:
@@ -798,11 +897,13 @@ class FilledArrayExpression(ArrayExpression):
             else:
                 if new.is_ident():
                     v_m[new.value()] = new
-                    v_m.pop(old)
-                    for idx, arg in enumerate(self.args):
-                        if arg == old:
-                            self.args.pop(idx)
-                            self.args.insert(idx, new.value())
+                    new_args = []
+                    for arg in self.args:
+                      if arg == old:
+                          new_args.append(new.v)
+                      else:
+                          new_args.append(arg)
+                    self.args = new_args
                 else:
                     v_m[old] = new
         else:
@@ -830,6 +931,23 @@ class FillArrayExpression(ArrayExpression):
     def get_rhs(self):
         return self.reg
 
+    def replace_var(self, old, new):
+        self.reg = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
+    def replace(self, old, new):
+        v_m = self.var_map
+        reg = v_m[self.reg]
+        if not (reg.is_const() or reg.is_ident()):
+            reg.replace(old, new)
+        else:
+            if new.is_ident():
+                v_m[new.value()] = new
+                self.reg = new.value()
+            else:
+                v_m[old] = new
+
     def get_used_vars(self):
         return self.var_map[self.reg].get_used_vars()
 
@@ -849,6 +967,11 @@ class RefExpression(IRForm):
     def get_used_vars(self):
         return self.var_map[self.ref].get_used_vars()
 
+    def replace_var(self, old, new):
+        self.ref = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         ref = v_m[self.ref]
@@ -857,7 +980,6 @@ class RefExpression(IRForm):
         else:
             if new.is_ident():
                 v_m[new.value()] = new
-                v_m.pop(old)
                 self.ref = new.value()
             else:
                 v_m[old] = new
@@ -877,6 +999,11 @@ class MoveExceptionExpression(RefExpression):
 
     def get_used_vars(self):
         return []
+
+    def replace_lhs(self, new):
+        self.var_map.pop(self.ref)
+        self.ref = new.v
+        self.var_map[new.v] = new
 
     def visit(self, visitor):
         return visitor.visit_move_exception(self.var_map[self.ref])
@@ -908,6 +1035,9 @@ class ThrowExpression(RefExpression):
     def visit(self, visitor):
         return visitor.visit_throw(self.var_map[self.ref])
 
+    def __str__(self):
+        return 'Throw %s' % self.var_map[self.ref]
+
 
 class BinaryExpression(IRForm):
     def __init__(self, op, arg1, arg2, _type):
@@ -934,6 +1064,14 @@ class BinaryExpression(IRForm):
         return visitor.visit_binary_expression(self.op, v_m[self.arg1],
                                                         v_m[self.arg2])
 
+    def replace_var(self, old, new):
+        if self.arg1 == old:
+            self.arg1 = new.v
+        if self.arg2 == old:
+            self.arg2 = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         if old in v_m:
@@ -943,7 +1081,6 @@ class BinaryExpression(IRForm):
             else:
                 if new.is_ident():
                     v_m[new.value()] = new
-                    v_m.pop(old)
                     if self.arg1 == old:
                         self.arg1 = new.value()
                     if self.arg2 == old:
@@ -997,6 +1134,11 @@ class UnaryExpression(IRForm):
     def visit(self, visitor):
         return visitor.visit_unary_expression(self.op, self.var_map[self.arg])
 
+    def replace_var(self, old, new):
+        self.arg = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         arg = v_m[self.arg]
@@ -1005,7 +1147,6 @@ class UnaryExpression(IRForm):
         elif old in v_m:
             if new.is_ident():
                 v_m[new.value()] = new
-                v_m.pop(old)
                 self.arg = new.value()
             else:
                 v_m[old] = new
@@ -1069,6 +1210,14 @@ class ConditionalExpression(IRForm):
         return visitor.visit_cond_expression(self.op, v_m[self.arg1],
                                                       v_m[self.arg2])
 
+    def replace_var(self, old, new):
+        if self.arg1 == old:
+            self.arg1 = new.v
+        if self.arg2 == old:
+            self.arg2 = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         if old in v_m:
@@ -1078,7 +1227,6 @@ class ConditionalExpression(IRForm):
             else:
                 if new.is_ident():
                     v_m[new.value()] = new
-                    v_m.pop(old)
                     if self.arg1 == old:
                         self.arg1 = new.value()
                     if self.arg2 == old:
@@ -1117,6 +1265,11 @@ class ConditionalZExpression(IRForm):
     def visit(self, visitor):
         return visitor.visit_condz_expression(self.op, self.var_map[self.arg])
 
+    def replace_var(self, old, new):
+        self.arg = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         arg = v_m[self.arg]
@@ -1125,7 +1278,6 @@ class ConditionalZExpression(IRForm):
         elif old in v_m:
             if new.is_ident():
                 v_m[new.value()] = new
-                v_m.pop(old)
                 self.arg = new.value()
             else:
                 v_m[old] = new
@@ -1152,6 +1304,11 @@ class InstanceExpression(IRForm):
     def visit(self, visitor):
         return visitor.visit_get_instance(self.var_map[self.arg], self.name)
 
+    def replace_var(self, old, new):
+        self.arg = new.v
+        self.var_map.pop(old)
+        self.var_map[new.v] = new
+
     def replace(self, old, new):
         v_m = self.var_map
         arg = v_m[self.arg]
@@ -1160,7 +1317,6 @@ class InstanceExpression(IRForm):
         elif old in v_m:
             if new.is_ident():
                 v_m[new.value()] = new
-                v_m.pop(old)
                 self.arg = new.value()
             else:
                 v_m[old] = new
