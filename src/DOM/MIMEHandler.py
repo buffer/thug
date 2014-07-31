@@ -510,6 +510,9 @@ class MIMEHandler(dict):
                         elementInfo = etree.SubElement(elementsList, 'element', name = element)
                         if element in vulnsDict:
                             for vulnCVE in vulnsDict[element]:
+                                if isinstance(vulnCVE, (list, tuple)):
+                                    vulnCVE=",".join(vulnCVE)
+
                                 log.ThugLogging.log_exploit_event(url,
                                                                   "Adobe Acrobat Reader",
                                                                   "Adobe Acrobat Reader Exploit (%s)" % (vulnCVE, ),
