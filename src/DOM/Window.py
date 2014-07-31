@@ -139,6 +139,8 @@ class Window(PyV8.JSClass):
         self._symbols      = set()
         self._methods      = tuple()
 
+        log.MIMEHandler.window = self
+
     def __getattr__(self, name):
         if name in self._symbols:
             raise AttributeError(name)

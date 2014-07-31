@@ -31,6 +31,8 @@ try:
 except:
     from StringIO import StringIO
 
+import bs4 as BeautifulSoup
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 from peepdf.PDFCore import PDFParser, vulnsDict
@@ -230,6 +232,7 @@ class MIMEHandler(dict):
         self.register_rar_handlers()
         self.register_pdf_handlers()
         self.register_android_handlers()
+        self.register_java_jnlp_handlers()
 
     def register_empty_handlers(self):
         self['application/javascript']   = None
@@ -257,6 +260,9 @@ class MIMEHandler(dict):
 
     def register_android_handlers(self):
         self['application/vnd.android.package-archive'] = self.handle_android
+
+    def register_java_jnlp_handlers(self):
+        self['application/x-java-jnlp-file'] = self.handle_java_jnlp
 
     def handle_fallback(self, url, content):
         for handler in self.handlers:
@@ -672,6 +678,45 @@ class MIMEHandler(dict):
 
         os.remove(rfile)
         return ret
+
+    @property
+    def javaWebStartUserAgent(self):
+        javaplugin = log.ThugVulnModules._javaplugin.split('.')
+        last = javaplugin.pop()
+        version =  '%s_%s' % ('.'.join(javaplugin), last)
+        return "JNLP/6.0 javaws/%s (b04) Java/%s" % (version, version, )
+
+    def handle_java_jnlp(self, url, data):
+        headers = dict()
+        headers['Connection'] = 'keep-alive'
+
+        try:
+            soup = BeautifulSoup.BeautifulSoup(data, "lxml")
+        except:
+            return
+
+        jnlp = soup.find("jnlp")
+        if jnlp is None:
+            return
+
+        codebase = jnlp.attrs['codebase'] if 'codebase' in jnlp.attrs else ''
+
+        log.ThugLogging.add_behavior_warn(description = '[JNLP Detected]', method = 'Dynamic Analysis')
+
+        jars = soup.find_all("jar")
+        if not jars:
+            return
+
+        headers['User-Agent'] = self.javaWebStartUserAgent
+
+        for jar in jars:
+            try:
+                url = "%s%s" % (codebase, jar.attrs['href'], )
+                response, content = self.window._navigator.fetch(url,
+                                                                 headers = headers,
+                                                                 redirect_type = "JNLP")
+            except:
+                pass
 
     def passthrough(self, url, data):
         """
