@@ -467,12 +467,15 @@ class DFT(object):
 
     def _handle_jnlp(self, data, headers, params):
         try:
-            soup = BeautifulSoup.BeautifulSoup(data)
+            soup = BeautifulSoup.BeautifulSoup(data, "lxml")
         except:
             return
 
-        if soup.find("jnlp") is None:
+        jnlp = soup.find("jnlp")
+        if jnlp is None:
             return
+
+        codebase = jnlp.attrs['codebase'] if 'codebase' in jnlp.attrs else ''
 
         log.ThugLogging.add_behavior_warn(description = '[JNLP Detected]', method = 'Dynamic Analysis')
 
@@ -480,19 +483,21 @@ class DFT(object):
             log.ThugLogging.add_behavior_warn(description = '[JNLP] %s' % (param, ), method = 'Dynamic Analysis')
             self._check_jnlp_param(param)
 
-        jar = soup.find("jar")
-        if jar is None:
+        jars = soup.find_all("jar")
+        if not jars:
             return
 
-        try:
-            url = jar.attrs['href']
-            headers['User-Agent'] = self.javaWebStartUserAgent
-            response, content = self.window._navigator.fetch(url,
-                                                             headers = headers,
-                                                             redirect_type = "JNLP",
-                                                             params = params)
-        except:
-            pass
+        headers['User-Agent'] = self.javaWebStartUserAgent
+
+        for jar in jars:
+            try:
+                url = "%s%s" % (codebase, jar.attrs['href'], )
+                response, content = self.window._navigator.fetch(url,
+                                                                 headers = headers,
+                                                                 redirect_type = "JNLP",
+                                                                 params = params)
+            except:
+                pass
 
     def do_handle_params(self, object):
         params = dict()
