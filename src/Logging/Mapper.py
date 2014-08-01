@@ -188,7 +188,7 @@ class Mapper():
                     node.set_fillcolor(fillcolor)
 
                 node.set_fontname('arial')
-                node.set_fontsize(7)
+                node.set_fontsize('7')
                 self.graph.add_node(node)
 
         if "connections" in self.data:
@@ -209,7 +209,7 @@ class Mapper():
                     edge.set_color(color)
 
                 edge.set_fontname('arial')
-                edge.set_fontsize(7)
+                edge.set_fontsize('7')
                 self.graph.add_edge(edge)
 
     def _add_to_loc(self, loc):
