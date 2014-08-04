@@ -546,6 +546,49 @@ class MIMEHandler(dict):
 
         return etree.tostring(root, pretty_print = True)
 
+    def swf_mastah(self, pdf, statsDict):
+        """
+            This code is taken from SWF Mastah by Brandon Dixon
+        """
+        swfdir = os.path.join(log.ThugLogging.baseDir, 'dropped', 'swf')
+        count  = 0
+
+        for version in range(len(statsDict['Versions'])):
+            body = pdf.body[count]
+            objs = body.objects
+
+            for index in objs:
+                oid     = objs[index].id
+                offset  = objs[index].offset
+                size    = objs[index].size
+                details = objs[index].object
+
+                if details.type in ("stream", ):
+                    encoded_stream = details.encodedStream
+                    decoded_stream = details.decodedStream
+                    header         = decoded_stream[:3]
+                    is_flash       = [s for s in objs if header in ("CWS", "FWS")]
+
+                    if is_flash:
+                        try:
+                            os.makedirs(swfdir)
+                        except:
+                            pass
+
+                        data = decoded_stream.strip()
+
+                        m = hashlib.md5()
+                        m.update(data)
+                        md5sum = m.hexdigest()
+
+                        swf = os.path.join(swfdir, "%s.swf" % (md5sum, ))
+                        with open(swf, 'wb') as fd:
+                            fd.write(data)
+
+                        log.warning("[PDF] Embedded SWF %s extracted from PDF %s" % (md5sum, statsDict["MD5"], ))
+
+            count += 1
+
     def handle_pdf(self, url, content):
         m = hashlib.md5()
         m.update(content)
@@ -576,6 +619,8 @@ class MIMEHandler(dict):
         report = os.path.join(pdflogdir, "%s.xml" % (statsDict["MD5"], ))
         with open(report, 'wb') as fd:
             fd.write(analysis)
+
+        self.swf_mastah(pdf, statsDict)
 
         os.remove(rfile)
         return True
