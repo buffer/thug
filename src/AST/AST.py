@@ -20,6 +20,7 @@ import logging
 import PyV8
 import json
 import chardet
+import traceback
 
 log = logging.getLogger("Thug")
 
@@ -123,6 +124,7 @@ class AST(object):
                 try:
                     pos = stmt.expression.pos
                 except:
+                    traceback.print_exc()
                     return
             else:
                 pos = stmt.expression.pos
