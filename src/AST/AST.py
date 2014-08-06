@@ -112,9 +112,9 @@ class AST(object):
         self.debug("[*] Expression Statement")
         self.debug("\tStatement:          %s" % (stmt, ))
         self.debug("\tStatement type:     %s" % (stmt.type, ))
-        self.debug("\tStatement position: %s" % (stmt.pos, ))
+        self.debug("\tStatement position: %s" % (stmt.expression.pos, ))
 
-        self.checkExitingLoop(stmt.pos)
+        self.checkExitingLoop(stmt.expression.pos)
         stmt.expression.visit(self)
         if self.assignStatement:
             if self.inBlock:
@@ -125,7 +125,7 @@ class AST(object):
                 except:
                     return
             else:
-                pos = stmt.pos
+                pos = stmt.expression.pos
                 
             self.breakpoints.add((self.AssignBreakPoint, pos))
             self.assignStatement = False
