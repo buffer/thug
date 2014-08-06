@@ -316,8 +316,7 @@ class AST(object):
 
     def onCountOperation(self, stmt):
         self.debug("[*] Count Operation:    %s" % (stmt.op, ))
-        
         stmt.expression.visit(self)
 
     def onVariableProxy(self, expr):
-        pass
+        self.debug("\tVariable:       %s" % (expr, ))
