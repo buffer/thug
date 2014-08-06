@@ -149,12 +149,14 @@ class AST(object):
         if decl.scope.isGlobal:
             getattr(self.window, f.name, None)
 
-        for decl in decl.scope.declarations:
-            if not getattr(decl, 'function', None):
+        for d in decl.scope.declarations:
+            if not getattr(d, 'function', None):
                 continue
 
-            for stmt in decl.function.body:
-                stmt.visit(self)
+            d.function.visit(self)
+
+            #for stmt in d.function.body:
+            #    stmt.visit(self)
 
     def onAssignment(self, expr):
         self.debug("[*] Assignment Statement")
