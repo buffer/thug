@@ -18,7 +18,7 @@
 
 from .BaseLogging import BaseLogging
 from .HPFeeds import HPFeeds
-from .MAEC11 import MAEC11
+from .MITRE.MAEC11 import MAEC11
 from .MongoDB import MongoDB
 from .JSONLog import JSONLog
 from virustotal.VirusTotal import VirusTotal

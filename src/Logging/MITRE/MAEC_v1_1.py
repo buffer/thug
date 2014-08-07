@@ -15,7 +15,7 @@ except ImportError:
 from xml.dom import minidom
 from xml.dom import Node
 
-from .compatibility import *
+from ..compatibility import *
 
 #
 # User methods
