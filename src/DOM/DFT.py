@@ -242,7 +242,12 @@ class DFT(object):
         emu.free()
 
     def check_url(self, sc, shellcode):
+        schemes = []
         for scheme in ('http://', 'https://'):
+            if scheme in sc:
+                schemes.append(scheme)
+
+        for scheme in schemes:
             offset = sc.find(scheme)
             if offset == -1:
                 continue
@@ -262,10 +267,11 @@ class DFT(object):
                     break
                 i += 1
 
-            log.ThugLogging.add_code_snippet(shellcode, 'Assembly', 'Shellcode', method = 'Static Analysis')
-            log.ThugLogging.add_behavior_warn(description = '[Shellcode Analysis] URL Detected: %s' % (url[:i], ), method = 'Static Analysis')
-
             url = url[:i]
+
+            log.ThugLogging.add_code_snippet(shellcode, 'Assembly', 'Shellcode', method = 'Static Analysis')
+            log.ThugLogging.add_behavior_warn(description = '[Shellcode Analysis] URL Detected: %s' % (url, ), method = 'Static Analysis')
+
             if url in log.ThugLogging.shellcode_urls:
                 return
 
