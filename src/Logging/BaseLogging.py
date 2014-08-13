@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Logging.py
+# BaseLogging.py
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -17,95 +17,67 @@
 # MA  02111-1307  USA
 
 import os
-import logging
-import base64
-import tempfile
+import errno
 import hashlib
-import zipfile
-import pefile
-
-try:
-    from io import StringIO
-except ImportError:
-    try:
-        from cStringIO import StringIO
-    except ImportError:
-        from StringIO import StringIO
+import datetime
+import logging
 
 log = logging.getLogger("Thug")
 
 class BaseLogging(object):
     def __init__(self):
-        self.types = ('PE',
-                      'PDF',
-                      'JAR',
-                      'SWF', )
+        pass
 
-    def is_pe(self, data):
+    def check_module(self, module, config):
         try:
-            pefile.PE(data = data, fast_load = True)
+            section = config.options(module)
         except:
-            return False
+            return True
+
+        for option in section:
+            if option not in ('enable', ):
+                continue
+
+            enable = config.get(module, option)
+            if enable.lower() in ('false', ):
+                return False
 
         return True
 
-    def get_imphash(self, data):
-        try:
-            pe = pefile.PE(data = data)
-        except:
-            return None
+    def set_basedir(self, url):
+        if self.baseDir:
+            return
 
-        return pe.get_imphash()
+        t = datetime.datetime.now()
+        m = hashlib.md5()
+        m.update(url)
 
-    def is_pdf(self, data):
-        return (data[:1024].find('%PDF') != -1)
-
-    def is_jar(self, data):
-        fd, jar = tempfile.mkstemp()
-        with open(jar, 'wb') as fd:
-            fd.write(data)
+        base = os.getenv('THUG_LOGBASE', '..')
+        self.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
 
         try:
-            z = zipfile.ZipFile(jar)
-            if [t for t in z.namelist() if t.endswith('.class')]:
-                os.remove(jar)
-                return True
-        except:
-            pass
+            os.makedirs(self.baseDir)
+        except OSError as e:
+            if e.errno == errno.EEXIST:
+                pass
+            else:
+                raise
 
-        os.remove(jar)
-        return False
+        with open(os.path.join(base, 'logs', 'thug.csv'), 'a+r') as fd:
+            csv_line = '%s,%s\n' % (m.hexdigest(), url, )
+            for l in fd.readlines():
+                if l == csv_line:
+                    return
 
-    def is_swf(self, data):
-        return data.startswith('CWS') or data.startswith('FWS')
+            fd.write(csv_line)
 
-    def get_sample_type(self, data):
-        for t in self.types:
-            p = getattr(self, 'is_%s' % (t.lower(), ), None)
-            if p and p(data):
-                return t
+    def set_absbasedir(self, basedir):
+        self.baseDir = basedir
 
-        return None
-
-    def build_sample(self, data, url = None):
-        if not data:
-            return None
-
-        p = dict()
-        p['type'] = self.get_sample_type(data)
-        if p['type'] is None:
-            return None
-
-        p['md5']  = hashlib.md5(data).hexdigest()
-        p['sha1'] = hashlib.sha1(data).hexdigest()
-        
-        if p['type'] in ('PE', ):
-            imphash = self.get_imphash(data)
-            if imphash:
-                p['imphash'] = imphash
-        if url:
-            p['url'] = url
-
-        p['data'] = base64.b64encode(data)
-
-        return p
+        try:
+            os.makedirs(self.baseDir)
+        except OSError as e:
+            if e.errno == errno.EEXIST:
+                pass
+            else:
+                raise
