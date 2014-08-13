@@ -445,7 +445,7 @@ class Navigator(PyV8.JSClass):
 
 
         if response.previous and 'content-location' in response and response['content-location']:
-            if redirect_type not in ("URL found", "JNLP", ):
+            if redirect_type not in ("URL found", "JNLP", "iframe", ):
                 self._window.url = response['content-location']
 
         try:
