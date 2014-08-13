@@ -17,47 +17,86 @@
 # MA  02111-1307  USA
 
 from .BaseLogging import BaseLogging
-from .HPFeeds import HPFeeds
-from .MITRE.MAEC11 import MAEC11
-from .MongoDB import MongoDB
-from .JSONLog import JSONLog
+from .SampleLogging import SampleLogging
 from virustotal.VirusTotal import VirusTotal
 from honeyagent.HoneyAgent import HoneyAgent
 
+try:
+    import configparser as ConfigParser
+except ImportError:
+    import ConfigParser
+
 import os
 import copy
-import errno
-import hashlib
 import datetime
+
 import logging
 log = logging.getLogger("Thug")
 
-class ThugLogging(BaseLogging):
+class ThugLogging(BaseLogging, SampleLogging):
     eval_min_length_logging = 4
 
     def __init__(self, thug_version):
         BaseLogging.__init__(self)
+        SampleLogging.__init__(self)
 
-        self.HPFeeds        = HPFeeds()
-        self.MAEC11         = MAEC11(thug_version)
-        self.MongoDB        = MongoDB()
-        self.JSONLog        = JSONLog(thug_version)
+        self.thug_version   = thug_version
         self.VirusTotal     = VirusTotal()
         self.HoneyAgent     = HoneyAgent()
         self.baseDir        = None
         self.windows        = dict()
         self.shellcodes     = set()
         self.shellcode_urls = set()
+        self.methods_cache  = dict()
+
+        self.__init_config()
+
+    def __init_config(self):
+        self.modules = dict()
+        config       = ConfigParser.ConfigParser()
+
+        conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logging.conf')
+        config.read(conf_file)
+
+        modules = config.items('modules')
+        for name, module in modules:
+            if self.check_module(name, config):
+                self.modules[name.strip()] = self.__init_module(module)
+
+    def __init_module(self, source):
+        module = __import__(source)
+        components = source.split('.')
+        for component in components[1:]:
+            module = getattr(module, component)
+
+        p = None
+        handler = getattr(module, component, None)
+        if handler:
+            p = handler(self.thug_version)
+
+        return p
+
+    def resolve_method(self, name):
+        if name in self.methods_cache.keys():
+            return self.methods_cache[name]
+
+        methods = []
+
+        for module in self.modules.values():
+            m = getattr(module, name, None)
+            if m:
+                methods.append(m)
+
+        self.methods_cache[name] = methods
+        return methods
 
     def set_url(self, url):
-        self.HPFeeds.set_url(url)
-        self.MAEC11.set_url(url)
-        self.MongoDB.set_url(url)
-        self.JSONLog.set_url(url)
+        for m in self.resolve_method('set_url'):
+            m(url)
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
-        self.MAEC11.add_behavior_warn(description, cve, method)
-        self.JSONLog.add_behavior_warn(description, cve, method)
+        for m in self.resolve_method('add_behavior_warn'):
+            m(description, cve, method)
 
     def check_snippet(self, s):
         return len(s) < self.eval_min_length_logging
@@ -66,18 +105,17 @@ class ThugLogging(BaseLogging):
         if check and self.check_snippet(snippet):
             return
 
-        self.MAEC11.add_code_snippet(snippet, language, relationship, method)
-        self.JSONLog.add_code_snippet(snippet, language, relationship, method)
+        for m in self.resolve_method('add_code_snippet'):
+            m(snippet, language, relationship, method)
 
     def log_file(self, data, url = None, params = None):
         sample = self.build_sample(data, url)
         if sample is None:
             return None
         
-        self.HPFeeds.log_file(sample)
-        self.MAEC11.log_file(sample)
-        self.MongoDB.log_file(copy.deepcopy(sample))
-        self.JSONLog.log_file(sample)
+        for m in self.resolve_method('log_file'):
+            m(copy.deepcopy(sample))
+
         self.VirusTotal.analyze(data, sample['md5'], self.baseDir)
 
         if sample['type'] in ('JAR', ):
@@ -89,25 +127,11 @@ class ThugLogging(BaseLogging):
     def log_event(self):
         log.warning("Saving log analysis at %s" % (self.baseDir, ))
 
-        maec11logdir = os.path.join(self.baseDir, "analysis", "maec11")
-        try:
-            os.makedirs(maec11logdir)
-        except:
-            pass
+        for m in self.resolve_method('export'):
+            m(self.baseDir)
 
-        jsonlogdir = os.path.join(self.baseDir, "analysis", "json")
-        try:
-            os.makedirs(jsonlogdir)
-        except:
-            pass
-
-        with open(os.path.join(maec11logdir, 'analysis.xml'), 'a+r') as fd:
-            self.MAEC11.export(outfile = fd)
-            fd.seek(0)
-            data = fd.read()
-            self.HPFeeds.log_event(data)
-            self.MongoDB.log_event(data)
-            self.JSONLog.export(jsonlogdir)
+        for m in self.resolve_method('log_event'):
+            m(self.baseDir)
 
     def log_connection(self, source, destination, method, flags = {}):
         """
@@ -118,8 +142,8 @@ class ThugLogging(BaseLogging):
         @method         Link, iframe, .... that moves the user from source to destination
         @flags          Additional information flags. Existing are: "exploit"
         """
-
-        self.JSONLog.log_connection(source, destination, method, flags)
+        for m in self.resolve_method('log_connection'):
+            m(source, destination, method, flags)
 
     def log_location(self, url, ctype, md5, sha256, flags = {}, fsize = 0, mtype = ""):
         """
@@ -132,7 +156,9 @@ class ThugLogging(BaseLogging):
         @fsize          File size
         @mtype          Calculated mime type
         """
-        self.JSONLog.log_location(url, ctype, md5, sha256, flags = flags, fsize = fsize, mtype = mtype)
+
+        for m in self.resolve_method('log_location'):
+            m(url, ctype, md5, sha256, flags = flags, fsize = fsize, mtype = mtype)
 
     def log_exploit_event(self, url, module, description, cve = None, data = None, forward = True):
         """
@@ -147,11 +173,14 @@ class ThugLogging(BaseLogging):
         if forward:
             self.add_behavior_warn("[%s] %s" % (module, description, ), cve = cve)
 
-        self.JSONLog.log_exploit_event(url, module, description, cve = cve, data = data)
+        for m in self.resolve_method('log_exploit_event'):
+            m(url, module, description, cve = cve, data = data)
 
     def log_warning(self, data):
         log.warning(data)
-        self.HPFeeds.log_warning(data)
+
+        for m in self.resolve_method('log_warning'):
+            m(data)
 
     def log_redirect(self, response):
         if not response:
@@ -185,41 +214,3 @@ class ThugLogging(BaseLogging):
     def log_href_redirect(self, referer, url):
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
         self.log_connection(referer, url, "href")
-
-    def set_basedir(self, url):
-        if self.baseDir:
-            return
-
-        t = datetime.datetime.now()
-        m = hashlib.md5()
-        m.update(url)
-
-        base = os.getenv('THUG_LOGBASE', '..')
-        self.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
-
-        try:
-            os.makedirs(self.baseDir)
-        except OSError as e:
-            if e.errno == errno.EEXIST:
-                pass
-            else:
-                raise
-
-        with open(os.path.join(base, 'logs', 'thug.csv'), 'a+r') as fd:
-            csv_line = '%s,%s\n' % (m.hexdigest(), url, )
-            for l in fd.readlines():
-                if l == csv_line:
-                    return
-
-            fd.write(csv_line)
-
-    def set_absbasedir(self, basedir):
-        self.baseDir = basedir
-
-        try:
-            os.makedirs(self.baseDir)
-        except OSError as e:
-            if e.errno == errno.EEXIST:
-                pass
-            else:
-                raise
