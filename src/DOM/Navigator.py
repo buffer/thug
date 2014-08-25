@@ -443,7 +443,6 @@ class Navigator(PyV8.JSClass):
                                                                                           filename))
         log.ThugLogging.log_location(url, response['content-type'] if 'content-type' in response else 'unknown', filename, sha256, fsize = fsize, mtype = mtype)
 
-
         if response.previous and 'content-location' in response and response['content-location']:
             if redirect_type not in ("URL found", "JNLP", "iframe", ):
                 self._window.url = response['content-location']
@@ -458,4 +457,3 @@ class Navigator(PyV8.JSClass):
 
         log.ThugLogging.log_file(content, url, params)
         return response, content
-

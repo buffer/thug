@@ -851,12 +851,32 @@ class DFT(object):
             if content:
                 log.ThugLogging.add_behavior_warn("[Meta] Generator: %s" % (content, ))
 
+        self.handle_meta_http_equiv(meta)
+
+    def handle_meta_http_equiv(self, meta):
         http_equiv = meta.get('http-equiv', None)
-        if not http_equiv or http_equiv.lower() != 'refresh':
+        if http_equiv is None:
             return
 
         content = meta.get('content', None)
-        if not content or not 'url' in content.lower():
+        if content is None:
+            return
+
+        tag = http_equiv.lower().replace('-', '_')
+        handler = getattr(self, 'handle_meta_%s' % (tag, ), None)
+        if handler:
+            handler(http_equiv, content)
+
+    def handle_meta_x_ua_compatible(self, http_equiv, content):
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion >= "8.0":
+            if http_equiv.lower() in ('x-ua-compatible'):
+                self.window.doc.compatible = content
+
+    def handle_meta_refresh(self, http_equiv, content):
+        if http_equiv.lower() != 'refresh':
+            return
+
+        if not 'url' in content.lower():
             return
 
         timeout = 0

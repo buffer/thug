@@ -52,6 +52,7 @@ class HTMLDocument(Document):
         self._cookie        = cookie
         self._html          = None
         self._domain        = urlparse(self._win.url).hostname if self._win else ''
+        self._compatible    = ''
         self.current        = None
         self.__init_personality()
 
@@ -76,6 +77,8 @@ class HTMLDocument(Document):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
+        self.compatible = self._compatible
+
         if log.ThugOpts.Personality.browserVersion < '11.0':
             self.all = self._all
 
