@@ -24,11 +24,13 @@ import bs4 as BeautifulSoup
 import PyV8
 
 from Document import Document
+from DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
 from DOMException import DOMException
 from .HTMLCollection import HTMLCollection
 from .HTMLElement import HTMLElement
 from .HTMLBodyElement import HTMLBodyElement
 from .HTMLAllCollection import HTMLAllCollection
+from .HTMLDocumentCompatibleInfo import HTMLDocumentCompatibleInfo
 from .text_property import text_property
 from .xpath_property import xpath_property
 
@@ -52,7 +54,6 @@ class HTMLDocument(Document):
         self._cookie        = cookie
         self._html          = None
         self._domain        = urlparse(self._win.url).hostname if self._win else ''
-        self._compatible    = ''
         self.current        = None
         self.__init_personality()
 
@@ -77,7 +78,10 @@ class HTMLDocument(Document):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
-        self.compatible = self._compatible
+        if log.ThugOpts.Personality.browserVersion < '8.0':
+            self._compatible = None
+        else:
+            self._compatible = HTMLCollection(self.doc, [])
 
         if log.ThugOpts.Personality.browserVersion < '11.0':
             self.all = self._all
@@ -165,6 +169,23 @@ class HTMLDocument(Document):
     @property
     def compatMode(self):
         return "BackCompat"
+
+    def getCompatible(self):
+        return self._compatible
+
+    def setCompatible(self, compatible):
+        _compatibles = list()
+
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion >= '8.0':
+            for s in compatible.split(';'):
+                (useragent, version) = s.split('=')
+                for v in version.split(','):
+                    p = HTMLDocumentCompatibleInfo(useragent, v)
+                    _compatibles.append(p)
+
+            self._compatible = DocumentCompatibleInfoCollection(self.doc, _compatibles)
+
+    compatible = property(getCompatible, setCompatible)
 
     def open(self, mimetype = 'text/html', replace = False):
         self._html = StringIO()
