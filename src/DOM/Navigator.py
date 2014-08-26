@@ -447,6 +447,9 @@ class Navigator(PyV8.JSClass):
             if redirect_type not in ("URL found", "JNLP", "iframe", ):
                 self._window.url = response['content-location']
 
+        if redirect_type in ("meta", ):
+            self._window.url = url
+
         try:
             os.makedirs(mime_base)
         except:
