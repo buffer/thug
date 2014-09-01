@@ -367,9 +367,7 @@ class Navigator(PyV8.JSClass):
             return
 
         if redirect_type:
-            log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, 
-                                                                              self._window.url, 
-                                                                              url, )))
+            log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, self._window.url, url, )))
             log.ThugLogging.log_connection(self._window.url, url, redirect_type)
         else:
             log.ThugLogging.log_connection(self._window.url, url, "unknown")
@@ -410,9 +408,9 @@ class Navigator(PyV8.JSClass):
             url = _url
 
         log.URLClassifier.classify(url)
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (url,
-                                                                                         response['status'],
-                                                                                         http_headers['Referer'] if 'Referer' in http_headers else 'None'))
+
+        referrer = http_headers['Referer'] if 'Referer' in http_headers else 'None'
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (url, response['status'], referrer, ))
 
         if response.status == 404:
             log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (url, ))
