@@ -378,14 +378,14 @@ class Navigator(PyV8.JSClass):
         # pages to fetch. If the threshold is reached we avoid fetching the
         # contents.
         if log.ThugOpts.threshold and self.filecount >= log.ThugOpts.threshold:
-            log.ThugLogging.log_location(url, None, None, None, flags = {"error" : "Threshold Exceeded"})
+            log.ThugLogging.log_location(url, None, flags = {"error" : "Threshold Exceeded"})
             return
 
         # The command-line option -T (--timeout) set the analysis timeout (in
         # seconds). If the analysis lasts more than this value we avoid fetching
         # the contents.
         if log.ThugOpts.timeout is not None and datetime.datetime.now() > log.ThugOpts.timeout:
-            log.ThugLogging.log_location(url, None, None, None, flags = {"error" : "Timeout"})
+            log.ThugLogging.log_location(url, None, flags = {"error" : "Timeout"})
             return
 
         http_headers = self.__build_http_headers(headers)
@@ -414,7 +414,7 @@ class Navigator(PyV8.JSClass):
 
         if response.status == 404:
             log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (url, ))
-            log.ThugLogging.log_location(url, None, None, None, flags = {"error" : "File Not Found"})
+            log.ThugLogging.log_location(url, None, flags = {"error" : "File Not Found"})
             return response, content
 
         if response.status in (400, 408, 500, ):
@@ -427,13 +427,11 @@ class Navigator(PyV8.JSClass):
 
         md5 = hashlib.md5()
         md5.update(content)
-        filename = md5.hexdigest()
+        sha256 = hashlib.sha256()
+        sha256.update(content)
 
-        sha = hashlib.sha256()
-        sha.update(content)
-        sha256 = sha.hexdigest()
-
-        fsize = len(content)
+        ctype     = response['content-type'] if 'content-type' in response else 'unknown'
+        clocation = response['content-location'] if 'content-location' in response else url
 
         try:
             mtype = magic.from_buffer(content)
@@ -444,10 +442,15 @@ class Navigator(PyV8.JSClass):
             ms.load()
             mtype = ms.buffer(content)
 
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (response['content-location'] if 'content-location' in response else url,
-                                                                                          response['content-type'] if 'content-type' in response else 'unknown',
-                                                                                          filename))
-        log.ThugLogging.log_location(url, response['content-type'] if 'content-type' in response else 'unknown', filename, sha256, fsize = fsize, mtype = mtype)
+        data = {"content" : content,
+                "md5"     : md5.hexdigest(),
+                "sha256"  : sha256.hexdigest(),
+                "fsize"   : len(content),
+                "ctype"   : ctype,
+                "mtype"   : mtype}
+
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (clocation, ctype, data["md5"]))
+        log.ThugLogging.log_location(url, data)
 
         if response.previous and 'content-location' in response and response['content-location']:
             if redirect_type not in ("URL found", "JNLP", "iframe", ):
@@ -461,7 +464,7 @@ class Navigator(PyV8.JSClass):
         except:
             pass
 
-        with open(os.path.join(mime_base, filename), 'wb') as fd:
+        with open(os.path.join(mime_base, data["md5"]), 'wb') as fd:
             fd.write(content)
 
         log.ThugLogging.log_file(content, url, params)

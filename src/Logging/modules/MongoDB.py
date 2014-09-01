@@ -18,6 +18,7 @@
 
 import os
 import datetime
+import base64
 import logging
 
 try:
@@ -169,16 +170,20 @@ class MongoDB(object):
 
         return getattr(log.ThugVulnModules, module)
 
-    def log_location(self, url, ctype, md5, sha256, flags = {}, fsize = 0, mtype = ''):
+    def log_location(self, url, data, flags = {}):
+        content    = data.get("content", None)
+        content_id = self.fs.put(base64.b64encode(content)) if content else None
+
         location = {
             'analysis_id'   : self.analysis_id,
             'url_id'        : self.get_url(url),
-            'content-type'  : ctype,
-            'md5'           : md5,
-            'sha256'        : sha256,
+            "content_id"    : content_id,
+            'content-type'  : data.get("ctype", None),
+            'md5'           : data.get("md5", None),
+            'sha256'        : data.get("sha256", None),
             'flags'         : flags,
-            'size'          : fsize,
-            'mime-type'     : mtype
+            'size'          : data.get("fsize", None),
+            'mime-type'     : data.get("mtype", None)
         }
 
         self.locations.insert(location)

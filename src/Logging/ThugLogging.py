@@ -145,20 +145,17 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_connection'):
             m(source, destination, method, flags)
 
-    def log_location(self, url, ctype, md5, sha256, flags = {}, fsize = 0, mtype = ""):
+    def log_location(self, url, data, flags = {}):
         """
         Log file information for a given url
 
         @url            Url we fetched this file from
-        @ctype          Content type (whatever the server says it is)
-        @md5            MD5 hash
-        @sha256         SHA256 hash
-        @fsize          File size
-        @mtype          Calculated mime type
+        @data
+        @flags          Additional information flags.
         """
 
         for m in self.resolve_method('log_location'):
-            m(url, ctype, md5, sha256, flags = flags, fsize = fsize, mtype = mtype)
+            m(url, data, flags = flags)
 
     def log_exploit_event(self, url, module, description, cve = None, data = None, forward = True):
         """

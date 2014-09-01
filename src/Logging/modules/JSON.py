@@ -140,25 +140,21 @@ class JSON(object):
                                          "method"       : method,
                                          "flags"        : flags})
 
-    def log_location(self, url, ctype, md5, sha256, flags = {}, fsize = 0, mtype = ""):
+    def log_location(self, url, data, flags = {}):
         """
         Log file information for a given url
 
-        @url       Url we fetched this file from
-        @ctype     Content type (whatever the server says)
-        @md5       MD5 hash
-        @sha256    SHA256 hash
+        @url       Url we fetched data from
+        @data      Data
         @flags     Known flags: "error"
-        @fsize     File size
-        @mtype     Calculated mime type
         """
         self.data["locations"].append({"url"          : self.fix(url),
-                                       "content-type" : ctype,
-                                       "md5"          : md5,
-                                       "sha256"       : sha256,
+                                       "content-type" : data.get("ctype", None),
+                                       "md5"          : data.get("md5", None),
+                                       "sha256"       : data.get("sha256", None),
                                        "flags"        : flags,
-                                       "size"         : fsize,
-                                       "mimetype"     : mtype})
+                                       "size"         : data.get("fsize", None),
+                                       "mimetype"     : data.get("mtype", None)})
 
     def log_exploit_event(self, url, module, description, cve = None, data = None):
         """
