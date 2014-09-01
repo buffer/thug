@@ -354,6 +354,8 @@ class Navigator(PyV8.JSClass):
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None):
         httplib2.debuglevel = log.ThugOpts.http_debug
 
+        # The command-line option -x (--local-nofetch) prevents remote content
+        # fetching so we raise an exception and exit the method.
         if log.ThugOpts.no_fetch:
             raise FetchForbidden
 
@@ -374,10 +376,16 @@ class Navigator(PyV8.JSClass):
 
         self.filecount += 1
 
+        # The command-line option -t (--threshold) defines the maximum number of
+        # pages to fetch. If the threshold is reached we avoid fetching the
+        # contents.
         if log.ThugOpts.threshold and self.filecount >= log.ThugOpts.threshold:
             log.ThugLogging.log_location(url, None, None, None, flags = {"error" : "Threshold Exceeded"})
             return
 
+        # The command-line option -T (--timeout) set the analysis timeout (in
+        # seconds). If the analysis lasts more than this value we avoid fetching
+        # the contents.
         if log.ThugOpts.timeout is not None and datetime.datetime.now() > log.ThugOpts.timeout:
             log.ThugLogging.log_location(url, None, None, None, flags = {"error" : "Timeout"})
             return
