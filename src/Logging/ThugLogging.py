@@ -114,7 +114,7 @@ class ThugLogging(BaseLogging, SampleLogging):
             return None
         
         for m in self.resolve_method('log_file'):
-            m(copy.deepcopy(sample))
+            m(copy.deepcopy(sample), url, params)
 
         self.VirusTotal.analyze(data, sample['md5'], self.baseDir)
 

@@ -252,7 +252,7 @@ class MAEC11(object):
 
         self.object_pool.add_Object(_object)
 
-    def log_file(self, data):
+    def log_file(self, data, url = None, params = None):
         self.add_object(data)
 
     def export(self, basedir):

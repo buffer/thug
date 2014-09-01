@@ -188,7 +188,7 @@ class JSON(object):
         self.add_behavior(description, cve, method)
         #log.warning(description)
 
-    def log_file(self, data):
+    def log_file(self, data, url = None, params = None):
         self.data["files"].append(data)
 
     def export(self, basedir):

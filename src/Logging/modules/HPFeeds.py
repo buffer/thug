@@ -179,7 +179,7 @@ class HPFeeds(object):
         data = m(basedir)
         self.__log_event(data)
 
-    def log_file(self, pubdata):
+    def log_file(self, pubdata, url = None, params = None):
         if log.ThugOpts.local:
             return
 
