@@ -226,7 +226,6 @@ class MongoDB(object):
         r['analysis_id'] = self.analysis_id
         r['url_id']      = url_id
 
-        print r
         self.samples.insert(r)
 
     def __log_event(self, data):
