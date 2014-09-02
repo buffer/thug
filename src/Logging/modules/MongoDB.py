@@ -39,8 +39,6 @@ log = logging.getLogger("Thug")
 
 
 class MongoDB(object):
-    formats = ('maec11', )
-
     def __init__(self, thug_version):
         self.thug_version = thug_version
         self.enabled      = True
@@ -89,7 +87,6 @@ class MongoDB(object):
         self.analyses    = db.analyses
         self.locations   = db.locations
         self.connections = db.connections
-        self.events      = db.events
         self.samples     = db.samples
         dbfs             = connection.thugfs
         self.fs          = gridfs.GridFS(dbfs)
@@ -233,31 +230,3 @@ class MongoDB(object):
         r['url_id']      = url_id
 
         self.samples.insert(r)
-
-    def __log_event(self, data):
-        with self.fs.new_file() as fp:
-            fp.write(data)
-
-        _data                = dict()
-        _data['analysis_id'] = self.analysis_id
-        _data['event_id']    = fp._id
-        self.events.insert(_data)
-
-    def log_event(self, basedir):
-        if not self.enabled:
-            return
-
-        m = None
-
-        for module in self.formats:
-            if module in log.ThugLogging.modules:
-                p = log.ThugLogging.modules[module]
-                m = getattr(p, 'get_data', None)
-                if m:
-                    break
-
-        if m is None:
-            return
-
-        data = m(basedir)
-        self.__log_event(data)
