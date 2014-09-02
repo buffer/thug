@@ -171,6 +171,9 @@ class MongoDB(object):
         return getattr(log.ThugVulnModules, module)
 
     def log_location(self, url, data, flags = {}):
+        if not self.enabled:
+            return
+
         content    = data.get("content", None)
         content_id = self.fs.put(base64.b64encode(content)) if content else None
 
@@ -189,6 +192,9 @@ class MongoDB(object):
         self.locations.insert(location)
 
     def log_connection(self, source, destination, method, flags = {}):
+        if not self.enabled:
+            return
+
         connection = {
             'analysis_id'   : self.analysis_id,
             'chain_id'      : next(self.chain_id),
