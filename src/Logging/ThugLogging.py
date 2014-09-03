@@ -149,9 +149,17 @@ class ThugLogging(BaseLogging, SampleLogging):
         """
         Log file information for a given url
 
-        @url            Url we fetched this file from
-        @data
-        @flags          Additional information flags.
+        @url    URL we fetched this file from
+        @data   File dictionary data
+                    Keys:
+                        - content     Content
+                        - md5         MD5 checksum
+                        - sha256      SHA-256 checksum
+                        - fsize       Content size
+                        - ctype       Content type (whatever the server says it is)
+                        - mtype       Calculated MIME type
+
+        @flags  Additional information flags
         """
 
         for m in self.resolve_method('log_location'):
@@ -161,7 +169,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         """
         Log file information for a given url
 
-        @url            Url where this exploit occured
+        @url            URL where this exploit occured
         @module         Module/ActiveX Control, ... that gets exploited
         @description    Description of the exploit
         @cve            CVE number (if available)

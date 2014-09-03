@@ -144,9 +144,17 @@ class JSON(object):
         """
         Log file information for a given url
 
-        @url       Url we fetched data from
-        @data      Data
-        @flags     Known flags: "error"
+        @url    URL we fetched data from
+        @data   File dictionary data
+                    Keys:
+                        - content     Content
+                        - md5         MD5 checksum
+                        - sha256      SHA-256 checksum
+                        - fsize       Content size
+                        - ctype       Content type (whatever the server says it is)
+                        - mtype       Calculated MIME type
+
+        @flags  Additional information flags (known flags: "error")
         """
         self.data["locations"].append({"url"          : self.fix(url),
                                        "content-type" : data.get("ctype", None),
@@ -160,7 +168,7 @@ class JSON(object):
         """
         Log file information for a given url
 
-        @url            Url where this exploit occured
+        @url            URL where this exploit occured
         @module         Module/ActiveX Control, ... that gets exploited
         @description    Description of the exploit
         @cve            CVE number (if available)
