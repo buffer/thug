@@ -168,7 +168,7 @@ class HTMLDocument(Document):
 
     @property
     def compatMode(self):
-        return "BackCompat"
+        return "CSS1Compat"
 
     def getCompatible(self):
         return self._compatible
