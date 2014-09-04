@@ -623,4 +623,3 @@ class Personality(dict):
 
     def isOpera(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('opera')
-

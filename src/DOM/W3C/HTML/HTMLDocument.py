@@ -81,7 +81,7 @@ class HTMLDocument(Document):
         if log.ThugOpts.Personality.browserVersion < '8.0':
             self._compatible = None
         else:
-            self._compatible = HTMLCollection(self.doc, [])
+            self._compatible = DocumentCompatibleInfoCollection(self.doc, [])
 
         if log.ThugOpts.Personality.browserVersion < '11.0':
             self.all = self._all

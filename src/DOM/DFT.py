@@ -868,6 +868,8 @@ class DFT(object):
             handler(http_equiv, content)
 
     def handle_meta_x_ua_compatible(self, http_equiv, content):
+        # Internet Explorer < 8.0 doesn't support the X-UA-Compatible header
+        # and the webpage doesn't specify a <!DOCTYPE> directive.
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion >= "8.0":
             if http_equiv.lower() in ('x-ua-compatible'):
                 self.window.doc.compatible = content
