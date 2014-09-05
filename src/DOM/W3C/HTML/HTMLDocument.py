@@ -187,6 +187,49 @@ class HTMLDocument(Document):
 
     compatible = property(getCompatible, setCompatible)
 
+    @property
+    def documentMode(self):
+        version = log.ThugOpts.Personality.browserVersion
+        major   = int(version.split('.')[0])
+
+        if version < '8.0':
+            return 7 if self.compatMode in ("CSS1Compat", ) else 5
+
+        self.window.doc.DFT.force_handle_meta_x_ua_compatible()
+
+        engine = 0
+
+        for index in range(self.compatible.length):
+            item = self.compatible.item(index)
+            if not item.userAgent.lower() in ("ie", ):
+                continue
+
+            _version = item.version.lower()
+            if _version in ('edge', ):
+                engine = major
+                break
+
+            mode_version = _version
+
+            if _version.startswith('emulateie'):
+                mode_version = _version.split("emulateie")[1]
+
+            try:
+                mode_version = int(mode_version)
+            except:
+                continue
+
+            if not mode_version in (5, 7, 8, 9, 10):
+                continue
+
+            if mode_version <= major and mode_version >= engine:
+                engine = mode_version
+
+        if not engine:
+            engine = min(major, 10)
+
+        return engine
+
     def open(self, mimetype = 'text/html', replace = False):
         self._html = StringIO()
 

@@ -874,6 +874,21 @@ class DFT(object):
             if http_equiv.lower() in ('x-ua-compatible'):
                 self.window.doc.compatible = content
 
+    def force_handle_meta_x_ua_compatible(self):
+        for meta in self.window.doc.doc.find_all('meta'):
+            http_equiv = meta.get('http-equiv', None)
+            if http_equiv is None:
+                continue
+
+            if not http_equiv.lower() in ('x-ua-compatible', ):
+                continue
+
+            content = meta.get('content', None)
+            if content is None:
+                continue
+
+            self.handle_meta_x_ua_compatible(http_equiv, content)
+
     def handle_meta_refresh(self, http_equiv, content):
         if http_equiv.lower() != 'refresh':
             return
