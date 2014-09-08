@@ -83,9 +83,6 @@ class Constant(IRForm):
     def get_used_vars(self):
         return []
 
-    def is_call(self):
-        return False
-
     def is_const(self):
         return True
 
@@ -95,7 +92,7 @@ class Constant(IRForm):
     def get_type(self):
         return self.type
 
-    def visit(self, visitor, to_int=False):
+    def visit(self, visitor):
         if self.type == 'Z':
             if self.cst == 0:
                 return visitor.visit_constant('false')
@@ -103,7 +100,7 @@ class Constant(IRForm):
                 return visitor.visit_constant('true')
         elif self.type == 'class':
             return visitor.visit_base_class(self.cst)
-        elif to_int:
+        elif self.type in 'IJB':
             return visitor.visit_constant(self.cst2)
         else:
             return visitor.visit_constant(self.cst)
@@ -137,9 +134,6 @@ class Variable(IRForm):
     def get_used_vars(self):
         return [self.v]
 
-    def is_call(self):
-        return False
-
     def is_ident(self):
         return True
 
@@ -161,6 +155,10 @@ class Param(Variable):
         super(Param, self).__init__(value)
         self.declared = True
         self.type = atype
+        self.this = False
+
+    def is_const(self):
+        return True
 
     def visit(self, visitor):
         return visitor.visit_param(self.v)
@@ -172,12 +170,7 @@ class Param(Variable):
 class ThisParam(Param):
     def __init__(self, value, atype):
         super(ThisParam, self).__init__(value, atype)
-
-    def is_const(self):
-        return True
-
-    def get_used_vars(self):
-        return []
+        self.this = True
 
     def visit(self, visitor):
         return visitor.visit_this()
@@ -189,10 +182,13 @@ class ThisParam(Param):
 class AssignExpression(IRForm):
     def __init__(self, lhs, rhs):
         super(AssignExpression, self).__init__()
-        self.lhs = lhs.v
+        if lhs:
+            self.lhs = lhs.v
+            self.var_map[lhs.v] = lhs
+            lhs.set_type(rhs.get_type())
+        else:
+            self.lhs = None
         self.rhs = rhs
-        self.var_map[lhs.v] = lhs
-        lhs.set_type(rhs.get_type())
 
     def is_propagable(self):
         return self.rhs.is_propagable()
@@ -219,8 +215,6 @@ class AssignExpression(IRForm):
         self.rhs.replace(old, new)
 
     def replace_lhs(self, new):
-        if self.lhs != self.rhs:
-            self.var_map.pop(self.lhs)
         self.lhs = new.v
         self.var_map[new.v] = new
 
@@ -707,6 +701,9 @@ class CheckCastExpression(IRForm):
         self.var_map[arg.v] = arg
         self.type = _type
 
+    def is_const(self):
+        return self.var_map[self.arg].is_const()
+
     def get_used_vars(self):
         return self.var_map[self.arg].get_used_vars()
 
@@ -729,6 +726,9 @@ class CheckCastExpression(IRForm):
                 self.arg = new.value()
             else:
                 v_m[old] = new
+
+    def __str__(self):
+        return 'CAST(%s) %s' % (self.type, self.var_map[self.arg])
 
 
 class ArrayExpression(IRForm):
@@ -833,6 +833,9 @@ class NewArrayExpression(ArrayExpression):
         self.size = asize.v
         self.type = atype
         self.var_map[asize.v] = asize
+
+    def is_propagable(self):
+        return False
 
     def get_used_vars(self):
         return self.var_map[self.size].get_used_vars()
@@ -1158,6 +1161,9 @@ class UnaryExpression(IRForm):
 class CastExpression(UnaryExpression):
     def __init__(self, op, atype, arg):
         super(CastExpression, self).__init__(op, arg, atype)
+
+    def is_const(self):
+        return self.var_map[self.arg].is_const()
 
     def get_type(self):
         return self.type

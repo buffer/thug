@@ -16,7 +16,8 @@
 # limitations under the License.
 
 import logging
-from androguard.decompiler.dad.util import get_type, ACCESS_FLAGS_METHODS
+from struct import unpack
+from androguard.decompiler.dad.util import get_type
 from androguard.decompiler.dad.opcode_ins import Op
 from androguard.decompiler.dad.instruction import (Constant, ThisParam,
                                                    BinaryExpression,
@@ -98,14 +99,13 @@ class Writer(object):
                 self.constructor = True
                 continue
             acc.append(modifier)
+        self.write('\n%s' % self.space())
+        if acc:
+            self.write('%s ' % ' '.join(acc))
         if self.constructor:
-            name = get_type(self.method.cls_name).split('.')[-1]
-            proto = '%s %s' % (' '.join(acc), name)
+            self.write(get_type(self.method.cls_name).split('.')[-1])
         else:
-            name = self.method.name
-            proto = '%s %s %s' % (
-                              ' '.join(acc), get_type(self.method.type), name)
-        self.write('\n%s%s' % (self.space(), proto))
+            self.write('%s %s' % (get_type(self.method.type), self.method.name))
         params = self.method.lparams
         if 'static' not in access:
             params = params[1:]
@@ -206,7 +206,7 @@ class Writer(object):
                 cond.neg()
                 cond.true, cond.false = cond.false, cond.true
             self.if_follow.append(follow)
-            if not cond.true in self.visited_nodes:
+            if cond.true: # in self.visited_nodes:
                 self.write('%sif (' % self.space())
                 cond.visit_cond(self)
                 self.write(') {\n')
@@ -333,7 +333,7 @@ class Writer(object):
         if not var.declared:
             var_type = var.get_type() or 'unknownType'
             self.write('%s%s v%s' % (
-                       self.space(), get_type(var_type), var.value()))
+                       self.space(), get_type(var_type), var.name))
             self.end_ins()
 
     def visit_constant(self, cst):
@@ -349,7 +349,7 @@ class Writer(object):
             var_type = var.get_type() or 'unknownType'
             self.write('%s ' % get_type(var_type))
             var.declared = True
-        self.write('v%s' % var.value())
+        self.write('v%s' % var.name)
 
     def visit_param(self, param):
         self.write('p%s' % param)
@@ -376,10 +376,7 @@ class Writer(object):
         self.write_ind()
         array.visit(self)
         self.write('[')
-        if isinstance(index, Constant):
-            index.visit(self, 'I')
-        else:
-            index.visit(self)
+        index.visit(self)
         self.write('] = ')
         rhs.visit(self)
         self.end_ins()
@@ -431,9 +428,9 @@ class Writer(object):
         arg.visit(self)
 
     def visit_check_cast(self, arg, atype):
-        self.write('(checkcast)(')
+        self.write('((%s) ' % atype)
         arg.visit(self)
-        self.write(', %s)' % atype)
+        self.write(')')
 
     def visit_aload(self, array, index):
         array.visit(self)
@@ -463,14 +460,22 @@ class Writer(object):
         array.visit(self)
         self.write(' = {')
         data = value.get_data()
-        self.write(', '.join(['%d' % ord(c) for c in data[:-1]]))
+        tab = []
+        elem_size = value.element_width
+        if elem_size == 4:
+            for i in range(0, value.size * 4, 4):
+                tab.append('%s' % unpack('i', data[i:i+4])[0])
+        else: # FIXME: other cases
+            for i in range(value.size):
+                tab.append('%s' % unpack('b', data[i])[0])
+        self.write(', '.join(tab))
         self.write('}')
         self.end_ins()
 
     def visit_move_exception(self, var):
         var.declared = True
         var_type = var.get_type() or 'unknownType'
-        self.write('%s v%s' % (get_type(var_type), var.value()))
+        self.write('%s v%s' % (get_type(var_type), var.name))
 
     def visit_monitor_enter(self, ref):
         self.write_ind()
@@ -518,7 +523,7 @@ class Writer(object):
             return arg.visit(self)
         atype = arg.get_type()
         if atype == 'Z':
-            if op is Op.EQUAL:
+            if op == Op.EQUAL:
                 self.write('!')
             arg.visit(self)
         else:

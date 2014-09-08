@@ -20,8 +20,6 @@ from collections import defaultdict
 from androguard.decompiler.dad.basic_blocks import (build_node_from_block,
                                                     StatementBlock, CondBlock)
 from androguard.decompiler.dad.instruction import Variable
-from androguard.decompiler.dad.util import common_dom
-
 
 logger = logging.getLogger('dad.graph')
 
@@ -123,7 +121,7 @@ class Graph():
         Split IfNodes in two nodes, the first node is the header node, the
         second one is only composed of the jump condition.
         '''
-        node_map = {}
+        node_map = {n: n for n in self.nodes}
         to_update = set()
         for node in self.nodes[:]:
             if node.type.is_cond:
@@ -133,6 +131,8 @@ class Graph():
                     pre_node = StatementBlock('%s-pre' % node.name, pre_ins)
                     cond_node = CondBlock('%s-cond' % node.name, [last_ins])
                     node_map[node] = pre_node
+                    node_map[pre_node] = pre_node
+                    node_map[cond_node] = cond_node
 
                     pre_node.copy_from(node)
                     cond_node.copy_from(node)
@@ -143,7 +143,7 @@ class Graph():
                     cond_node.false = node.false
 
                     for pred in self.all_preds(node):
-                        pred_node = node_map.get(pred, pred)
+                        pred_node = node_map[pred]
                         # Verify that the link is not an exception link
                         if node not in self.sucs(pred):
                             self.add_catch_edge(pred_node, pre_node)
@@ -157,12 +157,12 @@ class Graph():
                                 pred_node.false = pre_node
                         self.add_edge(pred_node, pre_node)
                     for suc in self.sucs(node):
-                        self.add_edge(cond_node, node_map.get(suc, suc))
+                        self.add_edge(cond_node, node_map[suc])
 
                     # We link all the exceptions to the pre node instead of the
                     # condition node, which should not trigger any of them.
                     for suc in self.catch_edges.get(node, []):
-                        self.add_catch_edge(pre_node, node_map.get(suc, suc))
+                        self.add_catch_edge(pre_node, node_map[suc])
 
                     if node is self.entry:
                         self.entry = pre_node
@@ -194,21 +194,17 @@ class Graph():
             for node in self.nodes[:]:
                 if node.type.is_stmt and node in self.nodes:
                     sucs = self.all_sucs(node)
-                    if len(sucs) == 0 or len(sucs) > 1:
+                    if len(sucs) != 1:
                         continue
                     suc = sucs[0]
                     if len(node.get_ins()) == 0:
                         if any(pred.type.is_switch
                                for pred in self.all_preds(node)):
                             continue
-                        suc = self.edges.get(node)[0]
                         if node is suc:
                             continue
                         node_map[node] = suc
 
-                        add_edge = self.add_edge
-                        if node.in_catch:
-                            add_edge = self.add_catch_edge
                         for pred in self.all_preds(node):
                             pred.update_attribute_with(node_map)
                             if node not in self.sucs(pred):
@@ -239,47 +235,33 @@ class Graph():
             for node in to_update:
                 node.update_attribute_with(node_map)
 
-
-    def _traverse(self, node, visit, res):
-        if node in visit:
-            return
-        visit.add(node)
-        for suc in self.all_sucs(node):
-            self._traverse(suc, visit, res)
-        res.insert(0, node)
-
     def compute_rpo(self):
         '''
         Number the nodes in reverse post order.
         An RPO traversal visit as many predecessors of a node as possible
         before visiting the node itself.
         '''
-        visit = set()
-        res = []
-        self._traverse(self.entry, visit, res)
-        for i, n in enumerate(res, 1):
-            n.num = i
-            self.rpo.append(n)
+        nb = len(self.nodes) + 1
+        for node in self.post_order():
+            node.num = nb - node.po
+        self.rpo = sorted(self.nodes, key=lambda n: n.num)
 
-    def reset_rpo(self):
-        self.rpo = []
-        self.compute_rpo()
-
-    def post_order(self, start=None, visited=None, res=None):
+    def post_order(self):
         '''
         Return the nodes of the graph in post-order i.e we visit all the
         children of a node before visiting the node itself.
         '''
-        if visited is None:
-            res = []
-            visited = set()
-            start = self.entry
-        visited.add(start)
-        for suc in self.all_sucs(start):
-            if not suc in visited:
-                self.post_order(suc, visited, res)
-        res.append(start)
-        return res
+        def _visit(n, cnt):
+            visited.add(n)
+            for suc in self.all_sucs(n):
+                if not suc in visited:
+                    for cnt, s in _visit(suc, cnt):
+                        yield cnt, s
+            n.po = cnt
+            yield cnt + 1, n
+        visited = set()
+        for _, node in _visit(self.entry, 1):
+            yield node
 
     def draw(self, name, dname, draw_branches=True):
         from pydot import Dot, Edge
@@ -299,21 +281,9 @@ class Graph():
 
         g.write_png('%s/%s.png' % (dname, name))
 
+
     def immediate_dominators(self):
-        '''
-        Create a mapping of the nodes of a graph with their corresponding
-        immediate dominator
-        '''
-        idom = dict((n, None) for n in self.nodes)
-        for node in self.rpo:
-            if node.in_catch:
-                predecessor = self.all_preds
-            else:
-                predecessor = self.preds
-            for pred in predecessor(node):
-                if pred.num < node.num:
-                    idom[node] = common_dom(idom, idom[node], pred)
-        return idom
+        return dom_lt(self)
 
     def __len__(self):
         return len(self.nodes)
@@ -324,6 +294,68 @@ class Graph():
     def __iter__(self):
         for node in self.nodes:
             yield node
+
+
+def dom_lt(graph):
+    '''Dominator algorithm from Lengaeur-Tarjan'''
+    def _dfs(v, n):
+        semi[v] = n = n + 1
+        vertex[n] = label[v] = v
+        ancestor[v] = 0
+        for w in graph.all_sucs(v):
+            if not semi[w]:
+                parent[w] = v
+                n = _dfs(w, n)
+            pred[w].add(v)
+        return n
+
+    def _compress(v):
+        u = ancestor[v]
+        if ancestor[u]:
+            _compress(u)
+            if semi[label[u]] < semi[label[v]]:
+                label[v] = label[u]
+            ancestor[v] = ancestor[u]
+
+    def _eval(v):
+        if ancestor[v]:
+            _compress(v)
+            return label[v]
+        return v
+
+    def _link(v, w):
+        ancestor[w] = v
+
+    parent, ancestor, vertex = {}, {}, {}
+    label, dom = {}, {}
+    pred, bucket = defaultdict(set), defaultdict(set)
+
+    # Step 1:
+    semi = {v: 0 for v in graph.nodes}
+    n = _dfs(graph.entry, 0)
+    for i in xrange(n, 1, -1):
+        w = vertex[i]
+    # Step 2:
+        for v in pred[w]:
+            u = _eval(v)
+            y = semi[w] = min(semi[w], semi[u])
+        bucket[vertex[y]].add(w)
+        pw = parent[w]
+        _link(pw, w)
+    # Step 3:
+        bpw = bucket[pw]
+        while bpw:
+            v = bpw.pop()
+            u = _eval(v)
+            dom[v] = u if semi[u] < semi[v] else pw
+    # Step 4:
+    for i in range(2, n + 1):
+        w = vertex[i]
+        dw = dom[w]
+        if dw != vertex[semi[w]]:
+            dom[w] = dom[dw]
+    dom[graph.entry] = None
+    return dom
 
 
 def bfs(start):

@@ -34,7 +34,7 @@ from androguard.decompiler.dad.instruction import (ArrayLengthExpression,
                             MoveResultExpression, NewArrayExpression,
                             NewInstance, NopExpression, ThrowExpression,
                             Variable, ReturnInstruction, StaticExpression,
-                            StaticInstruction, SwitchExpression,
+                            StaticInstruction, SwitchExpression, ThisParam,
                             UnaryExpression)
 
 
@@ -251,7 +251,7 @@ def const16(ins, vmap):
 def const(ins, vmap):
     logger.debug('Const : %s', ins.get_output())
     value = unpack("=f", pack("=i", ins.BBBBBBBB))[0]
-    cst = Constant(value, 'F', ins.BBBBBBBB)
+    cst = Constant(value, 'I', ins.BBBBBBBB)
     return assign_const(ins.AA, cst, vmap)
 
 
@@ -259,7 +259,7 @@ def const(ins, vmap):
 def consthigh16(ins, vmap):
     logger.debug('ConstHigh16 : %s', ins.get_output())
     value = unpack('=f', '\x00\x00' + pack('=h', ins.BBBB))[0]
-    cst = Constant(value, 'F', ins.BBBB)
+    cst = Constant(value, 'I', ins.BBBB)
     return assign_const(ins.AA, cst, vmap)
 
 
@@ -334,7 +334,8 @@ def monitorexit(ins, vmap):
 def checkcast(ins, vmap):
     logger.debug('CheckCast: %s', ins.get_output())
     cast_type = util.get_type(ins.get_translated_kind())
-    return CheckCastExpression(get_variables(vmap, ins.AA), cast_type)
+    cast_var = get_variables(vmap, ins.AA)
+    return AssignExpression(cast_var, CheckCastExpression(cast_var, cast_type))
 
 
 # instance-of vA, vB ( 4b, 4b )
@@ -382,7 +383,7 @@ def fillednewarray(ins, vmap, ret):
 # filled-new-array/range {vCCCC..vNNNN} ( 16b )
 def fillednewarrayrange(ins, vmap, ret):
     logger.debug('FilledNewArrayRange : %s', ins.get_output())
-    a, c, n = get_variables(vmap, ins.AA, ins.BBBB, ins.CCCC, ins.NNNN)
+    a, c, n = get_variables(vmap, ins.AA, ins.CCCC, ins.NNNN)
     array_type = ins.cm.get_type(ins.BBBB)
     exp = FilledArrayExpression(a, array_type, [c, n])
     return AssignExpression(ret, exp)
@@ -918,9 +919,10 @@ def invokevirtual(ins, vmap, ret):
     largs = [ins.D, ins.E, ins.F, ins.G]
     args = get_args(vmap, param_type, largs)
     c = get_variables(vmap, ins.C)
+    returned = None if ret_type == 'V' else ret.new()
     exp = InvokeInstruction(cls_name, name, c, ret_type,
                             param_type, args)
-    return AssignExpression(ret.new(), exp)
+    return AssignExpression(returned, exp)
 
 
 # invoke-super {vD, vE, vF, vG, vA} ( 4b each )
@@ -931,13 +933,13 @@ def invokesuper(ins, vmap, ret):
     name = method.get_name()
     param_type, ret_type = method.get_proto()
     param_type = util.get_params_type(param_type)
-    nbargs = ins.A - 1
     largs = [ins.D, ins.E, ins.F, ins.G]
     args = get_args(vmap, param_type, largs)
     superclass = BaseClass('super')
+    returned = None if ret_type == 'V' else ret.new()
     exp = InvokeInstruction(cls_name, name, superclass, ret_type,
                             param_type, args)
-    return AssignExpression(ret.new(), exp)
+    return AssignExpression(returned, exp)
 
 
 # invoke-direct {vD, vE, vF, vG, vA} ( 4b each )
@@ -951,11 +953,14 @@ def invokedirect(ins, vmap, ret):
     largs = [ins.D, ins.E, ins.F, ins.G]
     args = get_args(vmap, param_type, largs)
     base = get_variables(vmap, ins.C)
-    if ret_type != 'V':
-        returned = ret.new()
+    if ret_type == 'V':
+        if isinstance(base, ThisParam):
+            returned = None
+        else:
+            returned = base
+            ret.set_to(base)
     else:
-        returned = base
-        ret.set_to(base)
+        returned = ret.new()
     exp = InvokeDirectInstruction(cls_name, name, base, ret_type,
                             param_type, args)
     return AssignExpression(returned, exp)
@@ -972,9 +977,10 @@ def invokestatic(ins, vmap, ret):
     largs = [ins.C, ins.D, ins.E, ins.F, ins.G]
     args = get_args(vmap, param_type, largs)
     base = BaseClass(cls_name)
+    returned = None if ret_type == 'V' else ret.new()
     exp = InvokeStaticInstruction(cls_name, name, base, ret_type,
-                                    param_type, args)
-    return AssignExpression(ret.new(), exp)
+                                  param_type, args)
+    return AssignExpression(returned, exp)
 
 
 # invoke-interface {vD, vE, vF, vG, vA} ( 4b each )
@@ -988,9 +994,10 @@ def invokeinterface(ins, vmap, ret):
     largs = [ins.D, ins.E, ins.F, ins.G]
     args = get_args(vmap, param_type, largs)
     c = get_variables(vmap, ins.C)
+    returned = None if ret_type == 'V' else ret.new()
     exp = InvokeInstruction(cls_name, name, c, ret_type,
                             param_type, args)
-    return AssignExpression(ret.new(), exp)
+    return AssignExpression(returned, exp)
 
 
 # invoke-virtual/range {vCCCC..vNNNN} ( 16b each )
@@ -1004,9 +1011,10 @@ def invokevirtualrange(ins, vmap, ret):
     largs = range(ins.CCCC, ins.NNNN + 1)
     this_arg = get_variables(vmap, largs[0])
     args = get_args(vmap, param_type, largs[1:])
+    returned = None if ret_type == 'V' else ret.new()
     exp = InvokeRangeInstruction(cls_name, name, ret_type,
                                  param_type, [this_arg] + args)
-    return AssignExpression(ret.new(), exp)
+    return AssignExpression(returned, exp)
 
 
 # invoke-super/range {vCCCC..vNNNN} ( 16b each )
@@ -1064,9 +1072,10 @@ def invokestaticrange(ins, vmap, ret):
     largs = range(ins.CCCC, ins.NNNN + 1)
     args = get_args(vmap, param_type, largs)
     base = BaseClass(cls_name)
+    returned = None if ret_type == 'V' else ret.new()
     exp = InvokeStaticInstruction(cls_name, name, base, ret_type,
                                 param_type, args)
-    return AssignExpression(ret.new(), exp)
+    return AssignExpression(returned, exp)
 
 
 # invoke-interface/range {vCCCC..vNNNN} ( 16b each )
@@ -1080,9 +1089,10 @@ def invokeinterfacerange(ins, vmap, ret):
     largs = range(ins.CCCC, ins.NNNN + 1)
     base_arg = get_variables(vmap, largs[0])
     args = get_args(vmap, param_type, largs[1:])
+    returned = None if ret_type == 'V' else ret.new()
     exp = InvokeRangeInstruction(cls_name, name, ret_type,
                                 param_type, [base_arg] + args)
-    return AssignExpression(ret.new(), exp)
+    return AssignExpression(returned, exp)
 
 
 # neg-int vA, vB ( 4b, 4b )
@@ -1616,7 +1626,9 @@ def addintlit16(ins, vmap):
 # rsub-int vA, vB, #+CCCC ( 4b, 4b, 16b )
 def rsubint(ins, vmap):
     logger.debug('RSubInt : %s', ins.get_output())
-    return assign_lit(Op.SUB, ins.CCCC, ins.A, ins.B, vmap)
+    var_a, var_b = get_variables(vmap, ins.A, ins.B)
+    cst = Constant(ins.CCCC, 'I')
+    return AssignExpression(var_a, BinaryExpressionLit(Op.SUB, cst, var_b))
 
 
 # mul-int/lit16 vA, vB, #+CCCC ( 4b, 4b, 16b )
@@ -1665,7 +1677,9 @@ def addintlit8(ins, vmap):
 # rsub-int/lit8 vAA, vBB, #+CC ( 8b, 8b, 8b )
 def rsubintlit8(ins, vmap):
     logger.debug('RSubIntLit8 : %s', ins.get_output())
-    return assign_lit(Op.SUB, ins.CC, ins.AA, ins.BB, vmap)
+    var_a, var_b = get_variables(vmap, ins.AA, ins.BB)
+    cst = Constant(ins.CC, 'I')
+    return AssignExpression(var_a, BinaryExpressionLit(Op.SUB, cst, var_b))
 
 
 # mul-int/lit8 vAA, vBB, #+CC ( 8b, 8b, 8b )
@@ -1766,7 +1780,6 @@ INSTRUCTION_SET = [
     fillednewarray,       # filled-new-array
     fillednewarrayrange,  # filled-new-array/range
     fillarraydata,        # fill-array-data
-    # 'fill-array-data-payload': fillarraydatapayload
     throw,                # throw
     goto,                 # goto
     goto16,               # goto/16
