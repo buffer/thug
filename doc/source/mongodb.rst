@@ -20,7 +20,7 @@ Collection analyses
 
 
         { 
-            "url"         : Initial URL url_id,
+            "url"         : Initial URL url_id
             "timestamp"   : Analysis datetime
             "thug"        : {
                                 "version"            : Thug version
