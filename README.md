@@ -63,6 +63,8 @@ contents.
 
 - Boost - http://www.boost.org/
 
+- NetworkX (optional) - https://networkx.github.io/
+
 - MongoDB (optional) - http://www.mongodb.org/
 
 - PyMongo (optional) - http://www.mongodb.org/display/DOCS/Python+Language+Center
