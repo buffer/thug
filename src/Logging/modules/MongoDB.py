@@ -35,6 +35,8 @@ try:
 except ImportError:
     MONGO_MODULE = False
 
+from .ExploitGraph import ExploitGraph
+
 log = logging.getLogger("Thug")
 
 
@@ -87,6 +89,7 @@ class MongoDB(object):
         self.analyses    = db.analyses
         self.locations   = db.locations
         self.connections = db.connections
+        self.graphs      = db.graphs
         self.samples     = db.samples
         dbfs             = connection.thugfs
         self.fs          = gridfs.GridFS(dbfs)
@@ -124,6 +127,8 @@ class MongoDB(object):
     def set_url(self, url):
         if not self.enabled:
             return
+
+        self.graph  = ExploitGraph(url)
 
         self.url_id = self.get_url(url)
         if self.url_id is None:
@@ -202,6 +207,7 @@ class MongoDB(object):
         }
 
         self.connections.insert(connection)
+        self.graph.add_connection(source, destination, method)
 
     def get_url_from_location(self, md5):
         result = self.locations.find_one({'analysis_id' : self.analysis_id,
@@ -230,3 +236,15 @@ class MongoDB(object):
         r['url_id']      = url_id
 
         self.samples.insert(r)
+
+    def log_event(self, basedir):
+        G = self.graph.draw()
+        if G is None:
+            return
+
+        graph = {
+            'analysis_id'   : self.analysis_id,
+            'graph'         : G
+        }
+
+        self.graphs.insert(graph)
