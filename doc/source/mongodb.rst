@@ -94,3 +94,13 @@ Collection samples
             "imphash"       : Imphash (if type is PE)
             "data"          : Sample
         }
+
+Collection graphs
+^^^^^^^^^^^^^^^^^
+
+.. code-block:: sh
+
+        {
+            "analysis_id"   : Analysis ID
+            "graph"         : JSON exploit graph
+        }
