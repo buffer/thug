@@ -1,10 +1,13 @@
-.. _mongodb:
+.. _logging:
+
+Logging
+*******
 
 MongoDB Logging module
 ======================
 
-MongoDB collection schema is documented here.
-
+MongoDB collection schema
+-------------------------
 
 Collection urls
 ^^^^^^^^^^^^^^^
