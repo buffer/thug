@@ -30,6 +30,7 @@ controls, core browser functionalities, browser plugins) are provided.
    configuration
    usage
    api
+   mongodb
    plugins
 
 Indices and tables

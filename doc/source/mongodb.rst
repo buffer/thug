@@ -1,3 +1,5 @@
+.. _mongodb:
+
 MongoDB Logging module
 ======================
 
