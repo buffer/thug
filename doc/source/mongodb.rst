@@ -7,6 +7,12 @@ MongoDB collection schema is documented here.
 Collection urls
 ^^^^^^^^^^^^^^^
 
+The collection *urls* is used to keep track of the URLs visited during the analysis.
+A URL is always associated a single entry in this collection even if it is visited 
+multiple times (during the same analysis or in different analyses). Associating a 
+unique ObjectID to a given URL allows to easily spot interesting scenarios like 
+different redirection chains ending up using the same URLs. 
+
 .. code-block:: sh
 
         { 
@@ -15,6 +21,11 @@ Collection urls
 
 Collection analyses
 ^^^^^^^^^^^^^^^^^^^
+
+The collection *analyses* is used to keep track of the Thug analyses. The analysis
+options used for the single analysis are stored together with other useful information 
+like the used Thug version and the analysis datetime. Moreover the URL ObjectID of the 
+initial URL is stored for convenience.
 
 .. code-block:: sh
 
@@ -49,6 +60,11 @@ Collection analyses
 Collection connections 
 ^^^^^^^^^^^^^^^^^^^^^^
 
+The collection *connections* is used to keep track of the redirections which could happen
+during the single analysis. The field *chain_id* is a counter which is incremented by one at 
+every redirection and it's meant to be used in order to rebuild the redirection chain in the 
+right order while analyzing data.
+
 .. code-block:: sh
 
         { 
@@ -63,6 +79,12 @@ Collection connections
 
 Collection locations 
 ^^^^^^^^^^^^^^^^^^^^
+
+The collection *locations* is used to keep track of the content stored at each URL visited
+during the analysis. The content is stored in a MongoDB GridFS and additional metadata are 
+saved like MD5 and SHA-256 checksums, content size, content type (as served by the server)
+and evaluated content type.
+
 
 .. code-block:: sh
 
@@ -82,6 +104,11 @@ Collection locations
 Collection samples
 ^^^^^^^^^^^^^^^^^^
 
+The collection *samples* is used to keep track of the downloaded samples (currently supported 
+types: PE, PDF, JAR and SWF). The sample itself is stored in a MongoDB GridFS and additional 
+metadata are saved like MD5 and SHA-1 checksums, sample type and imphash (if the sample type 
+is PE).
+
 .. code-block:: sh
 
         { 
@@ -92,11 +119,12 @@ Collection samples
             "md5"           : MD5 checksum
             "sha1"          : SHA-1 checksum
             "imphash"       : Imphash (if type is PE)
-            "data"          : Sample
         }
 
 Collection graphs
 ^^^^^^^^^^^^^^^^^
+
+The collection *graphs* is used to store the analysis JSON exploit graph.  
 
 .. code-block:: sh
 
