@@ -29,6 +29,7 @@ Requirements
 * Rarfile
 * Yara 2.0
 * Yara-Python 2.0
+* NetworkX (optional)
 * MongoDB (optional)       
 * PyMongo (optional)       
 * RabbitMQ (optional)
@@ -393,6 +394,22 @@ Yara-Python homepage is located at https://github.com/plusvic/yara
 If not available as a package for your Linux distribution, the best way
 to install Yara-Python is compiling its source code. Please take a look 
 at Yara-Python documentation for details.
+
+
+NetworkX (optional)
+^^^^^^^^^^^^^^^^^^^
+
+NetworkX homepage is located at https://networkx.github.io/
+ 
+NetworkX is a Python language software package for the creation, manipulation, 
+and study of the structure, dynamics, and functions of complex networks.
+
+If not available as a package for your Linux distribution, the best way 
+to install networkx is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install networkx
 
 
 MongoDB (optional)
