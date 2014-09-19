@@ -238,6 +238,9 @@ class MongoDB(object):
         self.samples.insert(r)
 
     def log_event(self, basedir):
+        if not self.enabled:
+            return
+
         G = self.graph.draw()
         if G is None:
             return
