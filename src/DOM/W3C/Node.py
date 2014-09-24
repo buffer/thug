@@ -413,4 +413,3 @@ class Node(PyV8.JSClass, EventTarget):
             return Text(doc, obj)        
        
         return Element(doc, obj)
-

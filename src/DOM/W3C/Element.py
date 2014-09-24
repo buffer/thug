@@ -195,8 +195,8 @@ class Element(Node, ElementCSSInlineStyle):
 
             handler = getattr(log.SchemeHandler, 'handle_%s' % (s.scheme, ), None)
             if handler:
-                 handler(self.doc.window, value)
-                 return
+                handler(self.doc.window, value)
+                return
             
             # FIXME
             try:

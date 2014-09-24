@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-import sys, re, string
+import sys
+import re
+import string
 
 import PyV8
 import logging
@@ -112,4 +114,3 @@ class DOMImplementation(HTMLDocument.HTMLDocument):
             return DOMImplementation.TAGS[tag.name.lower()](doc, tag)
         else:
             return HTMLElement.HTMLElement(doc, tag)
-

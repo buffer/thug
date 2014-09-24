@@ -20,4 +20,3 @@ class Comment(CharacterData):
         self.data = data
 
     nodeValue = property(getNodeValue, setNodeValue)
-
