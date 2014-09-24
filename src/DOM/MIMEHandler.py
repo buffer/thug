@@ -605,12 +605,8 @@ class MIMEHandler(dict):
         except:
             pass
 
-        report = os.path.join(pdflogdir, "%s.xml" % (statsDict["MD5"], ))
-        with open(report, 'wb') as fd:
-            fd.write(analysis)
-
+        log.ThugLogging.store_content(pdflogdir, "%s.xml" % (statsDict["MD5"], ), analysis)
         self.swf_mastah(pdf, statsDict)
-
         os.remove(rfile)
         return True
 
