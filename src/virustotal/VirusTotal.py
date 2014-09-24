@@ -1,6 +1,5 @@
 import os
 import sys
-import errno
 import json
 import requests
 import tempfile
@@ -43,19 +42,11 @@ class VirusTotal(object):
             self.opts[option] = config.get('VirusTotal', option)
 
     def save_report(self, response_dict, basedir, md5):
-        log_dir = os.path.join(basedir, 'analysis', 'virustotal')
+        log_dir  = os.path.join(basedir, 'analysis', 'virustotal')
+        log_file = "%s.json" % (md5, )
+        content  = json.dumps(response_dict, indent = 4)
 
-        try:
-            os.makedirs(log_dir)
-        except OSError as e:
-            if e.errno == errno.EEXIST:
-                pass
-            else:
-                raise
-
-        log_file = os.path.join(log_dir, '%s.json' % (md5, ))
-        with open(log_file, 'w') as fd:
-            fd.write(json.dumps(response_dict, indent = 4))
+        log.ThugLogging.store_content(log_dir, log_file, content)
 
         positives = str(response_dict.get("positives", {}))
         total     = str(response_dict.get("total", {}))
