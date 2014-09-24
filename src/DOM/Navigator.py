@@ -459,13 +459,6 @@ class Navigator(PyV8.JSClass):
         if redirect_type in ("meta", ):
             self._window.url = url
 
-        try:
-            os.makedirs(mime_base)
-        except:
-            pass
-
-        with open(os.path.join(mime_base, data["md5"]), 'wb') as fd:
-            fd.write(content)
-
+        log.ThugLogging.store_content(mime_base, data["md5"], content)
         log.ThugLogging.log_file(content, url, params)
         return response, content
