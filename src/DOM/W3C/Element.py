@@ -210,7 +210,7 @@ class Element(Node, ElementCSSInlineStyle):
             if 'content-type' in response:
                 handler = log.MIMEHandler.get_handler(response['content-type'])
                 if handler:
-                    handler(content)
+                    handler(self.doc.window.url, content)
 
     def removeAttribute(self, name):
         del self.tag[name]
