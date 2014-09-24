@@ -27,6 +27,7 @@ except ImportError:
     import ConfigParser
 
 import os
+import errno
 import copy
 import datetime
 
@@ -219,3 +220,19 @@ class ThugLogging(BaseLogging, SampleLogging):
     def log_href_redirect(self, referer, url):
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
         self.log_connection(referer, url, "href")
+
+    def store_content(self, dirname, filename, content):
+        try:
+            os.makedirs(dirname)
+        except OSError as e:
+            if e.errno == errno.EEXIST:
+                pass
+            else:
+                raise
+
+        fname = os.path.join(dirname, filename)
+
+        with open(fname, 'wb') as fd:
+            fd.write(content)
+
+        return fname
