@@ -297,14 +297,7 @@ class MIMEHandler(dict):
                 continue
 
             unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
-            try:
-                os.makedirs(unzipped)
-            except:
-                pass
-
-            sample_name = os.path.join(unzipped, md5, )
-            with open(sample_name, 'wb') as fd:
-                fd.write(data)
+            log.ThugLogging.store_content(unzipped, md5, data)
 
         return True
 
