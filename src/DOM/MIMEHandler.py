@@ -331,9 +331,7 @@ class MIMEHandler(dict):
             except:
                 continue
 
-            sample_name = os.path.join(unzipped, md5, )
-            with open(sample_name, 'wb') as fd:
-                fd.write(data)
+            log.ThugLogging.store_content(unzipped, md5, data)
 
         os.remove(rfile)
         return True
