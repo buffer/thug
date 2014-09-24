@@ -561,21 +561,15 @@ class MIMEHandler(dict):
                     is_flash       = [s for s in objs if header in ("CWS", "FWS")]
 
                     if is_flash:
-                        try:
-                            os.makedirs(swfdir)
-                        except:
-                            pass
-
                         data = decoded_stream.strip()
 
                         m = hashlib.md5()
                         m.update(data)
                         md5sum = m.hexdigest()
 
-                        swf = os.path.join(swfdir, "%s.swf" % (md5sum, ))
-                        with open(swf, 'wb') as fd:
-                            fd.write(data)
+                        swffile = "%s.swf" % (md5sum, )
 
+                        log.ThugLogging.store_content(swfdir, swffile, data)
                         log.warning("[PDF] Embedded SWF %s extracted from PDF %s" % (md5sum, statsDict["MD5"], ))
 
             count += 1
