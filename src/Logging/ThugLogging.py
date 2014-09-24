@@ -162,7 +162,6 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         @flags  Additional information flags
         """
-
         for m in self.resolve_method('log_location'):
             m(url, data, flags = flags)
 
@@ -222,6 +221,15 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.log_connection(referer, url, "href")
 
     def store_content(self, dirname, filename, content):
+        """
+        This method is meant to be used when a content (downloaded
+        pages, samples, reports, etc. ) has to be saved in a flat
+        file.
+
+        @dirname    The directory where to store content
+        @filename   The file where to store content
+        @content    The content to be stored
+        """
         try:
             os.makedirs(dirname)
         except OSError as e:
