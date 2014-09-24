@@ -178,7 +178,13 @@ class HTMLDocument(Document):
 
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion >= '8.0':
             for s in compatible.split(';'):
-                (useragent, version) = s.split('=')
+                try:
+                    (useragent, version) = s.split('=')
+                except:
+                    # Ignore the http-equiv X-UA-Compatible content if its
+                    # format is not correct
+                    return
+
                 for v in version.split(','):
                     p = HTMLDocumentCompatibleInfo(useragent, v)
                     _compatibles.append(p)
