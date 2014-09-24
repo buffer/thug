@@ -678,10 +678,7 @@ class MIMEHandler(dict):
         except:
             pass
 
-        report = os.path.join(apklogdir, md5)
-        with open(report, 'wb') as fd: 
-            fd.write(output.getvalue())
-
+        report = log.ThugLogging.store_content(apklogdir, md5, output.getvalue())
         log.warning("[APK] URL: %s MD5: %s Androguard analysis: %s" % (url, md5, report, ))
 
     def build_apk_report(self, url, a, md5sum):
