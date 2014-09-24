@@ -680,10 +680,7 @@ class MIMEHandler(dict):
         m.update(content)
         md5sum = m.hexdigest()
 
-        rfile = os.path.join(log.ThugLogging.baseDir, md5sum)
-        with open(rfile, 'wb') as fd: 
-            fd.write(content)
-
+        rfile = log.ThugLogging.store_content(log.ThugLogging.baseDir, md5sum, content)
         ret_type = androconf.is_android(rfile)
 
         if ret_type not in ("APK", ):
