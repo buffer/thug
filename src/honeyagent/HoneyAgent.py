@@ -43,19 +43,9 @@ class HoneyAgent(object):
             self.opts[option] = config.get('HoneyAgent', option)
 
     def save_report(self, response, basedir, md5):
-        log_dir = os.path.join(basedir, 'analysis', 'honeyagent')
-
-        try:
-            os.makedirs(log_dir)
-        except OSError as e:
-            if e.errno == errno.EEXIST:
-                pass
-            else:
-                raise
-
-        log_file = os.path.join(log_dir, '%s.json' % (md5, ))
-        with open(log_file, 'w') as fd:
-            fd.write(response.text)
+        log_dir  = os.path.join(basedir, 'analysis', 'honeyagent')
+        log_file = "%s.json" % (md5, )
+        log.ThugLogging.store_content(log_dir, log_file, response.text)
 
     def save_dropped(self, response, basedir, md5):
         log_dir = os.path.join(basedir, 'analysis', 'honeyagent', 'dropped')
