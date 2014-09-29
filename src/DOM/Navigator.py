@@ -26,6 +26,8 @@ import socket
 import magic
 import datetime
 import urllib
+import re
+import ssl
 
 try:
     import urllib.parse as urlparse
@@ -353,6 +355,11 @@ class Navigator(PyV8.JSClass):
 
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None):
         httplib2.debuglevel = log.ThugOpts.http_debug
+
+        if re.match('^https', url, re.IGNORECASE):
+           ssl_host = url.split('//')[1];
+           cert_file = ssl.get_server_certificate((ssl_host,443))
+           log.ThugLogging.add_behavior_warn("[Certificate]\n %s" % (cert_file, ))
 
         # The command-line option -x (--local-nofetch) prevents remote content
         # fetching so we raise an exception and exit the method.
