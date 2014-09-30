@@ -26,7 +26,6 @@ import socket
 import magic
 import datetime
 import urllib
-import re
 import ssl
 
 try:
@@ -356,11 +355,6 @@ class Navigator(PyV8.JSClass):
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None):
         httplib2.debuglevel = log.ThugOpts.http_debug
 
-        if re.match('^https', url, re.IGNORECASE):
-           ssl_host = url.split('//')[1];
-           cert_file = ssl.get_server_certificate((ssl_host,443))
-           log.ThugLogging.add_behavior_warn("[Certificate]\n %s" % (cert_file, ))
-
         # The command-line option -x (--local-nofetch) prevents remote content
         # fetching so we raise an exception and exit the method.
         if log.ThugOpts.no_fetch:
@@ -418,6 +412,12 @@ class Navigator(PyV8.JSClass):
 
         referrer = http_headers['Referer'] if 'Referer' in http_headers else 'None'
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (url, response['status'], referrer, ))
+
+         _url = urlparse.urlparse(url)
+
+        if _url.scheme == 'https':
+          cert_file = ssl.get_server_certificate((_url.netloc,443))
+          log.ThugLogging.add_behavior_warn("[Certificate]\n %s" % (cert_file, ))
 
         if response.status == 404:
             log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (url, ))
