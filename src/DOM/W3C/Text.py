@@ -15,7 +15,7 @@ class Text(CharacterData):
         raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
 
     def getNodeValue(self):
-        return self.data
+        return str(self.data)
 
     def setNodeValue(self, data):
         self.data = data
