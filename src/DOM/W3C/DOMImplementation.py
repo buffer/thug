@@ -11,6 +11,9 @@ try:
 except ValueError:
     from HTML import *
 
+import bs4 as BeautifulSoup
+from Node import Node
+
 log = logging.getLogger("Thug")
 
 
@@ -106,6 +109,9 @@ class DOMImplementation(HTMLDocument.HTMLDocument):
         
     @staticmethod
     def createHTMLElement(doc, tag):
+        if isinstance(tag, BeautifulSoup.NavigableString):
+            return Node.wrap(doc, tag)
+
         if log.ThugOpts.Personality.isIE():
             if tag.name.lower() in ('t:animatecolor', ):
                 return TAnimateColor.TAnimateColor(doc, tag)
