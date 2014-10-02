@@ -77,6 +77,9 @@ class Shellcode(object):
         
         if offset > 0:
             url = sc[offset:].split()[0]
+            if url.endswith("'") or url.endswith('"'):
+                url = url[:-1]
+
             if url in log.ThugLogging.shellcode_urls:
                 return
 
