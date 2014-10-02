@@ -20,6 +20,8 @@ import os
 import datetime
 import base64
 import logging
+import chardet
+from .compatibility import *
 
 try:
     import configparser as ConfigParser
@@ -83,7 +85,7 @@ class MongoDB(object):
             log.info('[MongoDB] MongoDB instance not available')
             self.enabled = False
             return
-        
+
         db               = connection.thug
         self.urls        = db.urls
         self.analyses    = db.analyses
@@ -91,6 +93,9 @@ class MongoDB(object):
         self.connections = db.connections
         self.graphs      = db.graphs
         self.samples     = db.samples
+        self.behaviors   = db.behaviors
+        self.exploits    = db.exploits
+        self.codes       = db.codes
         dbfs             = connection.thugfs
         self.fs          = gridfs.GridFS(dbfs)
 
@@ -164,6 +169,7 @@ class MongoDB(object):
         }
 
         self.analysis_id = self.analyses.insert(analysis)
+        log.warning('[MongoDB] Analysis ID = ' + str(self.analysis_id))
 
     def get_vuln_module(self, module):
         disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)
@@ -209,6 +215,25 @@ class MongoDB(object):
         self.connections.insert(connection)
         self.graph.add_connection(source, destination, method)
 
+
+    def log_exploit_event(self, url, module, description, cve = None, data = None):
+        """
+        Log file information for a given url
+
+        @url            URL where this exploit occured
+        @module         Module/ActiveX Control, ... that gets exploited
+        @description    Description of the exploit
+        @cve            CVE number (if available)
+        """
+        exploit = { "url"         : self.get_url(url),
+                    "module"      : module,
+                    "description" : description,
+                    "cve"         : cve,
+                    "data"        : data,
+                    "analysis_id" : self.analysis_id
+                  }
+        self.exploits.insert(exploit)
+
     def get_url_from_location(self, md5):
         result = self.locations.find_one({'analysis_id' : self.analysis_id,
                                           'md5'         : md5})
@@ -251,3 +276,45 @@ class MongoDB(object):
         }
 
         self.graphs.insert(graph)
+
+
+    def fix(self, data):
+        """
+        Fix encoding of data
+
+        @data  data to encode properly
+        """
+        try:
+            enc = chardet.detect(data)
+            return data.decode(enc['encoding']).replace("\n", "").strip()
+        except:
+            return thug_unicode(data).replace("\n", "").strip()
+
+
+    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
+        this_code = { "snippet"      : self.fix(snippet),
+                      "language"     : self.fix(language),
+                      "relationship" : self.fix(relationship),
+                      "method"       : self.fix(method),
+                      "analysis_id"  : self.analysis_id
+                    }
+        self.codes.insert(this_code)
+
+
+    def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
+        if not cve and not description:
+            return
+
+        behave = { "description" : self.fix(description),
+                   "cve"         : self.fix(cve),
+                   "method"      : self.fix(method),
+                   "timestamp"   : str(datetime.datetime.now()),
+                   "analysis_id" : self.analysis_id
+                 }
+        self.behaviors.insert(behave)
+
+
+    def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
+        self.add_behavior(description, cve, method)
+
+
