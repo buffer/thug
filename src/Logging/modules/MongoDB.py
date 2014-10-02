@@ -84,7 +84,7 @@ class MongoDB(object):
             log.info('[MongoDB] MongoDB instance not available')
             self.enabled = False
             return
-        
+
         db               = connection.thug
         self.urls        = db.urls
         self.analyses    = db.analyses
@@ -168,6 +168,7 @@ class MongoDB(object):
         }
 
         self.analysis_id = self.analyses.insert(analysis)
+        log.warning('[MongoDB] Analysis ID = ' + str(self.analysis_id))
 
     def get_vuln_module(self, module):
         disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)
@@ -294,7 +295,7 @@ class MongoDB(object):
                       "language"     : self.fix(language),
                       "relationship" : self.fix(relationship),
                       "method"       : self.fix(method),
-		      "analysis_id"  : self.analysis_id
+                      "analysis_id"  : self.analysis_id
                     }
         self.code.insert(this_code)
 
@@ -307,7 +308,7 @@ class MongoDB(object):
                    "cve"         : self.fix(cve),
                    "method"      : self.fix(method),
                    "timestamp"   : str(datetime.datetime.now()),
-		   "analysis_id" : self.analysis_id
+                   "analysis_id" : self.analysis_id
                  }
         self.behavior.insert(behave)
 
