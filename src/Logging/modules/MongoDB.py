@@ -215,7 +215,6 @@ class MongoDB(object):
         self.connections.insert(connection)
         self.graph.add_connection(source, destination, method)
 
-
     def log_exploit_event(self, url, module, description, cve = None, data = None):
         """
         Log file information for a given url
@@ -225,13 +224,15 @@ class MongoDB(object):
         @description    Description of the exploit
         @cve            CVE number (if available)
         """
-        exploit = { "url"         : self.get_url(url),
-                    "module"      : module,
-                    "description" : description,
-                    "cve"         : cve,
-                    "data"        : data,
-                    "analysis_id" : self.analysis_id
-                  }
+        exploit = {
+            'analysis_id' : self.analysis_id,
+            'url_id'      : self.get_url(url),
+            'module'      : module,
+            'description' : description,
+            'cve'         : cve,
+            'data'        : data,
+        }
+
         self.exploits.insert(exploit)
 
     def get_url_from_location(self, md5):
@@ -277,7 +278,6 @@ class MongoDB(object):
 
         self.graphs.insert(graph)
 
-
     def fix(self, data):
         """
         Fix encoding of data
@@ -290,31 +290,30 @@ class MongoDB(object):
         except:
             return thug_unicode(data).replace("\n", "").strip()
 
-
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
-        this_code = { "snippet"      : self.fix(snippet),
-                      "language"     : self.fix(language),
-                      "relationship" : self.fix(relationship),
-                      "method"       : self.fix(method),
-                      "analysis_id"  : self.analysis_id
-                    }
-        self.codes.insert(this_code)
+        code = {
+            'analysis_id'  : self.analysis_id
+            'snippet'      : self.fix(snippet),
+            'language'     : self.fix(language),
+            'relationship' : self.fix(relationship),
+            'method'       : self.fix(method),
+        }
 
+        self.codes.insert(code)
 
     def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
         if not cve and not description:
             return
 
-        behave = { "description" : self.fix(description),
-                   "cve"         : self.fix(cve),
-                   "method"      : self.fix(method),
-                   "timestamp"   : str(datetime.datetime.now()),
-                   "analysis_id" : self.analysis_id
-                 }
-        self.behaviors.insert(behave)
+        behavior = {
+            'analysis_id' : self.analysis_id
+            'description' : self.fix(description),
+            'cve'         : self.fix(cve),
+            'method'      : self.fix(method),
+            'timestamp'   : str(datetime.datetime.now()),
+        }
 
+        self.behaviors.insert(behavior)
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
         self.add_behavior(description, cve, method)
-
-
