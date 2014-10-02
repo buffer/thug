@@ -20,6 +20,7 @@ import os
 import datetime
 import base64
 import logging
+import chardet
 from .compatibility import *
 
 try:
@@ -92,9 +93,9 @@ class MongoDB(object):
         self.connections = db.connections
         self.graphs      = db.graphs
         self.samples     = db.samples
-        self.behavior    = db.behavior
+        self.behaviors   = db.behaviors
         self.exploits    = db.exploits
-        self.code        = db.code
+        self.codes       = db.codes
         dbfs             = connection.thugfs
         self.fs          = gridfs.GridFS(dbfs)
 
@@ -224,7 +225,7 @@ class MongoDB(object):
         @description    Description of the exploit
         @cve            CVE number (if available)
         """
-        exploit = { "url"         : self.fix(url),
+        exploit = { "url"         : self.get_url(url),
                     "module"      : module,
                     "description" : description,
                     "cve"         : cve,
@@ -297,7 +298,7 @@ class MongoDB(object):
                       "method"       : self.fix(method),
                       "analysis_id"  : self.analysis_id
                     }
-        self.code.insert(this_code)
+        self.codes.insert(this_code)
 
 
     def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
@@ -310,7 +311,7 @@ class MongoDB(object):
                    "timestamp"   : str(datetime.datetime.now()),
                    "analysis_id" : self.analysis_id
                  }
-        self.behavior.insert(behave)
+        self.behaviors.insert(behave)
 
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
