@@ -230,7 +230,7 @@ class MongoDB(object):
             'module'      : module,
             'description' : description,
             'cve'         : cve,
-            'data'        : data,
+            'data'        : data
         }
 
         self.exploits.insert(exploit)
@@ -292,11 +292,11 @@ class MongoDB(object):
 
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
         code = {
-            'analysis_id'  : self.analysis_id
+            'analysis_id'  : self.analysis_id,
             'snippet'      : self.fix(snippet),
             'language'     : self.fix(language),
             'relationship' : self.fix(relationship),
-            'method'       : self.fix(method),
+            'method'       : self.fix(method)
         }
 
         self.codes.insert(code)
@@ -306,11 +306,11 @@ class MongoDB(object):
             return
 
         behavior = {
-            'analysis_id' : self.analysis_id
+            'analysis_id' : self.analysis_id,
             'description' : self.fix(description),
             'cve'         : self.fix(cve),
             'method'      : self.fix(method),
-            'timestamp'   : str(datetime.datetime.now()),
+            'timestamp'   : str(datetime.datetime.now())
         }
 
         self.behaviors.insert(behavior)
