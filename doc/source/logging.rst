@@ -90,7 +90,6 @@ during the analysis. The content is stored in a MongoDB GridFS and additional me
 saved like MD5 and SHA-256 checksums, content size, content type (as served by the server)
 and evaluated content type.
 
-
 .. code-block:: sh
 
 
@@ -131,7 +130,6 @@ Collection exploits
 
 The collection *eploits* is used to keep track of the exploits which were successfully 
 identified during the analysis while visiting the URL referenced by *url_id*.
-
 
 .. code-block:: sh
 
