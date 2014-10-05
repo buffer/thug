@@ -126,6 +126,55 @@ is PE).
             "imphash"       : Imphash (if type is PE)
         }
 
+Collection exploits
+^^^^^^^^^^^^^^^^^^^
+
+The collection *eploits* is used to keep track of the exploits which were successfully 
+identified during the analysis while visiting the URL referenced by *url_id*.
+
+
+.. code-block:: sh
+
+        {
+            'analysis_id' : Analysis ID
+            'url_id'      : URL url_id
+            'module'      : Module/ActiveX Control, etc. that gets exploited
+            'description' : Description of the exploit
+            'cve'         : CVE number (if available)
+            'data'        : Additional information
+        }
+
+
+Collection codes
+^^^^^^^^^^^^^^^^
+
+The collection *codes* is used to keep track of the (dynamic language) snippets of code 
+identified during the analysis.
+
+.. code-block:: sh
+        {
+            'analysis_id'  : Analysis ID
+            'snippet'      : Code snippet
+            'language'     : Code language
+            'relationship' : Relationship with the page that references the code
+            'method'       : Analysis method
+        }
+
+Collection behaviors
+^^^^^^^^^^^^^^^^^^^^
+
+The collection *behaviors* is used to keep track of the suspicious and/or malicious 
+behaviors observed during the analysis.
+
+.. code-block:: sh
+        {
+            'analysis_id' : Analysis ID
+            'description' : Observed behavior description 
+            'cve'         : CVE number (if available)
+            'method'      : Analysis method
+            'timestamp'   : Timestamp
+        }
+
 Collection graphs
 ^^^^^^^^^^^^^^^^^
 
