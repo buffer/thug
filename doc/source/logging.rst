@@ -81,7 +81,6 @@ right order while analyzing data.
             "flags"         : Flags
         }
 
-
 Collection locations 
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -142,7 +141,6 @@ identified during the analysis while visiting the URL referenced by *url_id*.
             'data'        : Additional information
         }
 
-
 Collection codes
 ^^^^^^^^^^^^^^^^
 
@@ -150,6 +148,7 @@ The collection *codes* is used to keep track of the (dynamic language) snippets 
 identified during the analysis.
 
 .. code-block:: sh
+
         {
             'analysis_id'  : Analysis ID
             'snippet'      : Code snippet
@@ -165,6 +164,7 @@ The collection *behaviors* is used to keep track of the suspicious and/or malici
 behaviors observed during the analysis.
 
 .. code-block:: sh
+
         {
             'analysis_id' : Analysis ID
             'description' : Observed behavior description 
