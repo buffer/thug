@@ -548,8 +548,29 @@ class Personality(dict):
                 "browserTag"      : "safari7",
                 }
 
-        self['ipadchrome33'] = { 
+        self['ipadsafari8'] = {
                 "id"              : 25, 
+                "description"     : "Safari 8.0\t\t(iPad, iOS 8.0.2)",
+                "version"         : "8.0",
+                "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A405 Safari/600.1.4",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (iPad; CPU OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A405 Safari/600.1.4",
+                "appMinorVersion" : None,
+                "platform"        : "iPad",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Apple Computer, Inc.",
+                "vendorSub"       : "",
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : None,
+                "cc_on"           : None,
+                "browserTag"      : "safari8",
+                }
+
+        self['ipadchrome33'] = {
+                "id"              : 26,
                 "description"     : "Chrome 33.0.1750.21\t(iPad, iOS 7.1)",
                 "version"         : "33.0.1750.21",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_1 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/33.0.1750.21 Mobile/11D167 Safari/9537.53 (7C45F3C7-DC11-40F0-9B5B-AA4A771C0904)",
@@ -570,7 +591,7 @@ class Personality(dict):
                 } 
 
         self['ipadchrome35'] = {
-                "id"              : 26,
+                "id"              : 27,
                 "description"     : "Chrome 35.0.1916.41\t(iPad, iOS 7.1.1)",
                 "version"         : "35.0.1916.41",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_1_1 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/35.0.1916.41 Mobile/11D201 Safari/9537.53 (000125)",
@@ -591,7 +612,7 @@ class Personality(dict):
                 }
 
         self['ipadchrome37'] = {
-                "id"              : 27,
+                "id"              : 28,
                 "description"     : "Chrome 37.0.2062.52\t(iPad, iOS 7.1.2)",
                 "version"         : "37.0.2062.52",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) CriOS/37.0.2062.52 Mobile/11D257 Safari/9537.53 (000658)",
