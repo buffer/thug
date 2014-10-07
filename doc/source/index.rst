@@ -18,9 +18,9 @@ in order to detect and emulate shellcodes.
 
 Currently 8 Internet Explorer (Windows XP, Windows 2000, Windows 7), 12 Chrome (Windows XP,
 Windows 7, MacOS X, Android 4.0.3, Android 4.0.4, Android 4.1.2, Linux, iOS 7.1, iOS 7.1.1,
-iOS 7.1.2), 3 Firefox (Windows XP, Windows 7, Linux) and 4 Safari (Windows XP, Windows 7,
-MacOS X, iOS 7.0.4) personalities are emulated and about 90 vulnerability modules (ActiveX
-controls, core browser functionalities, browser plugins) are provided.
+iOS 7.1.2), 3 Firefox (Windows XP, Windows 7, Linux) and 5 Safari (Windows XP, Windows 7,
+MacOS X, iOS 7.0.4, iOS 8.0.2) personalities are emulated and about 90 vulnerability modules
+(ActiveX controls, core browser functionalities, browser plugins) are provided.
 
 .. toctree::
    :maxdepth: 2

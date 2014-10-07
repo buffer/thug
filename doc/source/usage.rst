@@ -87,6 +87,7 @@ Let's start our Thug tour by taking a look at the options it provides.
             galaxy2chrome29         Chrome 29.0.1547.59     (Samsung Galaxy S II, Android 4.1.2)
             nexuschrome18           Chrome 18.0.1025.133    (Google Nexus, Android 4.0.4)
             ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)
+            ipadsafari8             Safari 8.0              (iPad, iOS 8.0.2)
             ipadchrome33            Chrome 33.0.1750.21     (iPad, iOS 7.1)
             ipadchrome35            Chrome 35.0.1916.41     (iPad, iOS 7.1.1)
             ipadchrome37            Chrome 37.0.2062.52     (iPad, iOS 7.1.2)
