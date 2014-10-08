@@ -41,12 +41,11 @@ class VirusTotal(object):
         for option in config.options('VirusTotal'):
             self.opts[option] = config.get('VirusTotal', option)
 
-    def save_report(self, response_dict, basedir, md5):
-        log_dir  = os.path.join(basedir, 'analysis', 'virustotal')
-        log_file = "%s.json" % (md5, )
-        content  = json.dumps(response_dict, indent = 4)
+    def save_report(self, response_dict, basedir, sample):
+        log_dir = os.path.join(basedir, 'analysis', 'virustotal')
+        content = json.dumps(response_dict)
 
-        log.ThugLogging.store_content(log_dir, log_file, content)
+        log.ThugLogging.log_virustotal(log_dir, sample, content)
 
         positives = str(response_dict.get("positives", {}))
         total     = str(response_dict.get("total", {}))
@@ -61,21 +60,23 @@ class VirusTotal(object):
         response = requests.get(self.opts["reporturl"], params = params)
         return response
 
-    def query(self, md5, basedir):
+    def query(self, sample, basedir):
+        md5           = sample['md5']
         response      = self.get_report(md5)
         response_dict = response.json()
         response_code = response_dict.get("response_code")
 
         if response.ok:
             if response_code == 1:
-                self.save_report(response_dict, basedir, md5)
+                self.save_report(response_dict, basedir, sample)
                 return True
             
             log.warning("[VirusTotal] %s" % (response_dict['verbose_msg'], ))
 
         return False
 
-    def submit(self, data, md5):
+    def submit(self, data, sample):
+        md5    = sample['md5']
         sample = os.path.join(tempfile.gettempdir(), md5)
 
         with open(sample, "wb") as fd:
@@ -90,15 +91,15 @@ class VirusTotal(object):
 
         os.remove(sample)
 
-    def analyze(self, data, md5, basedir):
+    def analyze(self, data, sample, basedir):
         if not self.enabled:
             return
 
         if not self.opts['apikey']:
             return
 
-        if md5 and log.ThugOpts.vt_query and self.query(md5, basedir):
+        if sample.get('md5', None) and log.ThugOpts.vt_query and self.query(sample, basedir):
             return
 
         if log.ThugOpts.vt_submit:
-            self.submit(data, md5)
+            self.submit(data, sample)

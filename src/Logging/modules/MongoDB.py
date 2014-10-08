@@ -94,6 +94,7 @@ class MongoDB(object):
         self.graphs      = db.graphs
         self.samples     = db.samples
         self.behaviors   = db.behaviors
+        self.virustotal  = db.virustotal
         self.exploits    = db.exploits
         self.codes       = db.codes
         dbfs             = connection.thugfs
@@ -317,3 +318,21 @@ class MongoDB(object):
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
         self.add_behavior(description, cve, method)
+
+    def log_virustotal(self, sample, report):
+        if not self.enabled:
+            return
+
+        s = self.samples.find_one({'analysis_id' : self.analysis_id,
+                                   'md5'         : sample['md5'],
+                                   'sha1'        : sample['sha1']})
+        if not s:
+            return
+
+        report = {
+            'analysis_id' : self.analysis_id,
+            'sample_id'   : s['_id'],
+            'report'      : report
+        }
+
+        self.virustotal.insert(report)

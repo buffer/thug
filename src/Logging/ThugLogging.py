@@ -117,7 +117,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_file'):
             m(copy.deepcopy(sample), url, params)
 
-        self.VirusTotal.analyze(data, sample['md5'], self.baseDir)
+        self.VirusTotal.analyze(data, sample, self.baseDir)
 
         if sample['type'] in ('JAR', ):
             self.HoneyAgent.analyze(data, sample['md5'], self.baseDir, params)
@@ -219,6 +219,13 @@ class ThugLogging(BaseLogging, SampleLogging):
     def log_href_redirect(self, referer, url):
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
         self.log_connection(referer, url, "href")
+
+    def log_virustotal(self, dirname, sample, report):
+        filename = "%s.json" % (sample['md5'], )
+        self.store_content(dirname, filename, report)
+
+        for m in self.resolve_method('log_virustotal'):
+            m(sample, report)
 
     def store_content(self, dirname, filename, content):
         """
