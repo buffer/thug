@@ -18,7 +18,7 @@
 
 from .BaseLogging import BaseLogging
 from .SampleLogging import SampleLogging
-from Analysis.VirusTotal.VirusTotal import VirusTotal
+from Analysis.virustotal.VirusTotal import VirusTotal
 from honeyagent.HoneyAgent import HoneyAgent
 
 try:
