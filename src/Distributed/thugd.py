@@ -31,10 +31,12 @@ class Thugd():
         @configfile:    The configuration file to use
         @clear:         Clear the job chain
         """
+
         self.clear = clear
         self.username = "guest"
         self.password = "guest"
         self._read_config(configfile)
+        self._chdir()
         self._run_queue()
 
     def _read_config(self, configfile):
@@ -62,6 +64,9 @@ class Thugd():
         self.resdir = conf.get("results", "resdir")
         self.username   = conf.get("credentials", "username")
         self.password  = conf.get("credentials", "password")
+
+    def _chdir(self):
+        os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
     def _run_queue(self):
         credentials = pika.PlainCredentials(self.username, self.password)
@@ -120,6 +125,8 @@ class Thugd():
         Execute thug to process a job
         """
         print("job" + str(job))
+
+        print os.getcwd()
 
         command = ["python", "thug.py", "-t", str(job["threshold"])]
 
