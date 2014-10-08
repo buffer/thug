@@ -35,7 +35,7 @@ import bs4 as BeautifulSoup
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
-from peepdf.PDFCore import PDFParser, vulnsDict
+from Analysis.peepdf.PDFCore import PDFParser, vulnsDict
 from datetime import datetime
 from lxml import etree
 
