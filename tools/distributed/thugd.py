@@ -66,7 +66,10 @@ class Thugd():
         self.password  = conf.get("credentials", "password")
 
     def _chdir(self):
-        os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
+        os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), 
+                                              os.pardir,
+                                              os.pardir,
+                                              'src')))
 
     def _run_queue(self):
         credentials = pika.PlainCredentials(self.username, self.password)
