@@ -39,10 +39,10 @@ from peepdf.PDFCore import PDFParser, vulnsDict
 from datetime import datetime
 from lxml import etree
 
-from androguard.core import androconf
-from androguard.core.bytecodes import apk
-from androguard.core.bytecodes import dvm
-from androguard.core.analysis import analysis
+from Analysis.androguard.core import androconf
+from Analysis.androguard.core.bytecodes import apk
+from Analysis.androguard.core.bytecodes import dvm
+from Analysis.androguard.core.analysis import analysis
 
 
 class MIMEHandler(dict):
