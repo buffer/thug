@@ -19,7 +19,7 @@
 from .BaseLogging import BaseLogging
 from .SampleLogging import SampleLogging
 from Analysis.virustotal.VirusTotal import VirusTotal
-from honeyagent.HoneyAgent import HoneyAgent
+from Analysis.honeyagent.HoneyAgent import HoneyAgent
 
 try:
     import configparser as ConfigParser
