@@ -1,8 +1,8 @@
 # Tools
 
 This directory contains tools which makes use of the Thug honeyclient
-and which could be useful in order to automate the analysis and/or
-improve its efficiency.
+which could be useful in order to automate the analysis and/or improve 
+its efficiency.
 
 ## License information
 
