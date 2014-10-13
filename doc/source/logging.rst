@@ -224,5 +224,5 @@ reports. The Sample ObjectID references the *samples* collection.
         {
             "analysis_id"   : Analysis ID
             "sample_id"     : Sample ID
-            "report"        : VirusTotal report (JSON)
+            "report"        : HoneyAgent report (JSON)
         }
