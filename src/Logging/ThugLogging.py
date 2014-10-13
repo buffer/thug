@@ -220,12 +220,16 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
         self.log_connection(referer, url, "href")
 
-    def log_virustotal(self, dirname, sample, report):
-        filename = "%s.json" % (sample['md5'], )
+    def log_analysis_module(self, dirname, sample, report, module, format = "json"):
+        filename = "%s.%s" % (sample['md5'], format, )
         self.store_content(dirname, filename, report)
 
-        for m in self.resolve_method('log_virustotal'):
+        method = "log_%s" % (module, )
+        for m in self.resolve_method(method):
             m(sample, report)
+
+    def log_virustotal(self, dirname, sample, report):
+        self.log_analysis_module(dirname, sample, report, "virustotal")
 
     def store_content(self, dirname, filename, content):
         """
