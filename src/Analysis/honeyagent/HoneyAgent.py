@@ -42,12 +42,12 @@ class HoneyAgent(object):
         for option in config.options('HoneyAgent'):
             self.opts[option] = config.get('HoneyAgent', option)
 
-    def save_report(self, response, basedir, md5):
+    def save_report(self, response, basedir, sample):
         log_dir  = os.path.join(basedir, 'analysis', 'honeyagent')
-        log_file = "%s.json" % (md5, )
-        log.ThugLogging.store_content(log_dir, log_file, response.text)
+        log.ThugLogging.log_honeyagent(log_dir, sample, response.text)
 
-    def save_dropped(self, response, basedir, md5):
+    def save_dropped(self, response, basedir, sample):
+        md5     = sample['md5']
         log_dir = os.path.join(basedir, 'analysis', 'honeyagent', 'dropped')
 
         try:
@@ -78,16 +78,19 @@ class HoneyAgent(object):
 
         return result
 
-    def dump_yara_analysis(self, result, md5):
+    def dump_yara_analysis(self, result, sample):
         yara = result.get("yara", None)
         if yara is None:
             return
+
+        md5 = sample['md5']
 
         for key in yara.keys():
             for v in yara[key]:
                 log.warning("[HoneyAgent][%s] Yara %s rule %s match" % (md5, key, v['rule'], ))
 
-    def submit(self, data, md5, params):
+    def submit(self, data, sample, params):
+        md5    = sample['md5']
         sample = os.path.join(tempfile.gettempdir(), md5)
 
         with open(sample, "wb") as fd:
@@ -102,7 +105,7 @@ class HoneyAgent(object):
         os.remove(sample)
         return response
 
-    def analyze(self, data, md5, basedir, params):
+    def analyze(self, data, sample, basedir, params):
         if not self.enabled:
             return
 
@@ -112,9 +115,8 @@ class HoneyAgent(object):
         if params is None:
             params = dict()
 
-        response = self.submit(data, md5, params)
-
-        self.save_report(response, basedir, md5)
-        result = self.save_dropped(response, basedir, md5)
+        response = self.submit(data, sample, params)
+        self.save_report(response, basedir, sample)
+        result = self.save_dropped(response, basedir, sample)
         if result:
-            self.dump_yara_analysis(result, md5)
+            self.dump_yara_analysis(result, sample)

@@ -120,7 +120,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.VirusTotal.analyze(data, sample, self.baseDir)
 
         if sample['type'] in ('JAR', ):
-            self.HoneyAgent.analyze(data, sample['md5'], self.baseDir, params)
+            self.HoneyAgent.analyze(data, sample, self.baseDir, params)
 
         log.SampleClassifier.classify(data, sample['md5'])
         return sample
@@ -230,6 +230,9 @@ class ThugLogging(BaseLogging, SampleLogging):
 
     def log_virustotal(self, dirname, sample, report):
         self.log_analysis_module(dirname, sample, report, "virustotal")
+
+    def log_honeyagent(self, dirname, sample, report):
+        self.log_analysis_module(dirname, sample, report, "honeyagent")
 
     def store_content(self, dirname, filename, content):
         """
