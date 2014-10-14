@@ -212,3 +212,18 @@ reports. The Sample ObjectID references the *samples* collection.
             "sample_id"     : Sample ID
             "report"        : HoneyAgent report (JSON)
         }
+
+Collection androguard
+^^^^^^^^^^^^^^^^^^^^^
+
+The collection *androguard* is used to store the Androguard APK sample analysis reports. 
+The Sample ObjectID references the *samples* collection.
+
+.. code-block:: sh
+
+        {
+            "analysis_id"   : Analysis ID
+            "sample_id"     : Sample ID
+            "report"        : Androguard report (TXT)
+        }
+
