@@ -22,6 +22,7 @@ import os
 import logging
 log = logging.getLogger("Thug")
 
+import base64
 import hashlib
 import zipfile
 import rarfile
@@ -659,20 +660,21 @@ class MIMEHandler(dict):
 
         return output
 
-    def save_apk_report(self, url, md5, output):
-        apklogdir = os.path.join(log.ThugLogging.baseDir, "analysis", "apk")
-    
-        try:
-            os.makedirs(apklogdir)
-        except:
-            pass
+    def save_apk_report(self, sample, a, url):
+        output  = self.do_build_apk_report(a)
+        log_dir = os.path.join(log.ThugLogging.baseDir, "analysis", "apk")
+        log.ThugLogging.log_androguard(log_dir, sample, output.getvalue())
 
-        report = log.ThugLogging.store_content(apklogdir, md5, output.getvalue())
-        log.warning("[APK] URL: %s MD5: %s Androguard analysis: %s" % (url, md5, report, ))
+    def build_apk_sample(self, data, url = None):
+        sample = {
+            "md5"   : hashlib.md5(data).hexdigest(),
+            "sha1"  : hashlib.sha1(data).hexdigest(),
+            "raw"   : data,
+            "data"  : base64.b64encode(data),
+            "type"  : "APK",
+        }
 
-    def build_apk_report(self, url, a, md5sum):
-        output = self.do_build_apk_report(a)
-        self.save_apk_report(url, md5sum, output)
+        return sample
 
     def handle_android(self, url, content):
         ret = False
@@ -690,7 +692,8 @@ class MIMEHandler(dict):
         try :
             a = apk.APK(rfile, zipmodule = 2)
             if a.is_valid_APK():
-                self.build_apk_report(url, a, md5sum)
+                sample = self.build_apk_sample(content, url)
+                self.save_apk_report(sample, a, url)
                 ret = True
         except:
             pass
