@@ -145,7 +145,7 @@ class MongoDB(object):
             return
 
         analysis = {
-            "url"         : self.url_id,
+            "url_id"      : self.url_id,
             "timestamp"   : str(datetime.datetime.now()),
             "thug"        : {
                                 "version"            : self.thug_version,
@@ -207,12 +207,12 @@ class MongoDB(object):
             return
 
         connection = {
-            'analysis_id'   : self.analysis_id,
-            'chain_id'      : next(self.chain_id),
-            'source'        : self.get_url(source),
-            'destination'   : self.get_url(destination),
-            'method'        : method,
-            'flags'         : flags
+            'analysis_id'    : self.analysis_id,
+            'chain_id'       : next(self.chain_id),
+            'source_id'      : self.get_url(source),
+            'destination_id' : self.get_url(destination),
+            'method'         : method,
+            'flags'          : flags
         }
 
         self.connections.insert(connection)
