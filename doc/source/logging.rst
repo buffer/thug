@@ -36,7 +36,7 @@ initial URL is stored for convenience.
 
 
         { 
-            "url"         : Initial URL url_id
+            "url_id"      : Initial URL url_id
             "timestamp"   : Analysis datetime
             "thug"        : {
                                 "version"            : Thug version
@@ -73,12 +73,12 @@ right order while analyzing data.
 .. code-block:: sh
 
         { 
-            "analysis_id"   : Analysis ID
-            "chain_id"      : Chain ID 
-            "source"        : Source URL url_id
-            "destination"   : Destination URL url_id
-            "method"        : Method
-            "flags"         : Flags
+            "analysis_id"    : Analysis ID
+            "chain_id"       : Chain ID
+            "source_id"      : Source URL url_id
+            "destination_id" : Destination URL url_id
+            "method"         : Method
+            "flags"          : Flags
         }
 
 Collection locations 
