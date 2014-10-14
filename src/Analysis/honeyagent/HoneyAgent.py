@@ -57,24 +57,14 @@ class HoneyAgent(object):
         if files is None:
             return result
 
-        md5     = sample['md5']
+        md5 = sample['md5']
         log_dir = os.path.join(basedir, 'analysis', 'honeyagent', 'dropped')
 
-        try:
-            os.makedirs(log_dir)
-        except OSError as e:
-            if e.errno == errno.EEXIST:
-                pass
-            else:
-                raise
-
         for filename in files.keys():
-            drop = os.path.join(log_dir, os.path.basename(filename))
-            with open(drop, 'wb') as fd:
-                data = base64.b64decode(files[filename])
-                log.ThugLogging.log_file(data)
-                log.warning("[HoneyAgent][%s] Dropped sample %s" % (md5, os.path.basename(filename), ))
-                fd.write(data)
+            log.warning("[HoneyAgent][%s] Dropped sample %s" % (md5, os.path.basename(filename),))
+            data = base64.b64decode(files[filename])
+            log.ThugLogging.store_content(log_dir, os.path.basename(filename), data)
+            log.ThugLogging.log_file(data)
 
         return result
 
