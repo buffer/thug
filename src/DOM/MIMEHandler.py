@@ -25,6 +25,7 @@ log = logging.getLogger("Thug")
 import hashlib
 import zipfile
 import rarfile
+import tempfile
 
 try:
     from cStringIO import StringIO
@@ -676,11 +677,10 @@ class MIMEHandler(dict):
     def handle_android(self, url, content):
         ret = False
 
-        m = hashlib.md5()
-        m.update(content)
-        md5sum = m.hexdigest()
+        fd, rfile = tempfile.mkstemp()
+        with open(rfile, 'wb') as fd:
+            fd.write(content)
 
-        rfile = log.ThugLogging.store_content(log.ThugLogging.baseDir, md5sum, content)
         ret_type = androconf.is_android(rfile)
 
         if ret_type not in ("APK", ):
