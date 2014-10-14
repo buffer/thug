@@ -95,20 +95,20 @@ class VirusTotal(object):
         return False
 
     def submit(self, data, sample):
-        md5    = sample['md5']
-        sample = os.path.join(tempfile.gettempdir(), md5)
+        md5   = sample['md5']
+        fd, s = tempfile.mkstemp()
 
-        with open(sample, "wb") as fd:
+        with open(s, "wb") as fd:
             fd.write(data)
         
         params   = {'apikey': self.opts['apikey']}
-        files    = {'file'  : (md5, open(sample, "rb"))}
+        files    = {'file'  : (md5, open(s, "rb"))}
         response = requests.post(self.opts["scanurl"], files = files, params = params)
         
         if response.ok:
             log.warning("[VirusTotal] Sample %s submitted" % (md5, ))
 
-        os.remove(sample)
+        os.remove(s)
 
     def analyze(self, data, sample, basedir):
         if not self.enabled:
