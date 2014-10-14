@@ -47,6 +47,16 @@ class HoneyAgent(object):
         log.ThugLogging.log_honeyagent(log_dir, sample, response.text)
 
     def save_dropped(self, response, basedir, sample):
+        data = response.json()
+
+        result = data.get("result", None)
+        if result is None:
+            return None
+
+        files = result.get("files", None)
+        if files is None:
+            return result
+
         md5     = sample['md5']
         log_dir = os.path.join(basedir, 'analysis', 'honeyagent', 'dropped')
 
@@ -57,16 +67,6 @@ class HoneyAgent(object):
                 pass
             else:
                 raise
-
-        data = response.json()
-
-        result = data.get("result", None)
-        if result is None:
-            return None
-
-        files = result.get("files", None)
-        if files is None:
-            return result
 
         for filename in files.keys():
             drop = os.path.join(log_dir, os.path.basename(filename))
