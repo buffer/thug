@@ -113,7 +113,10 @@ class ThugLogging(BaseLogging, SampleLogging):
         sample = self.build_sample(data, url)
         if sample is None:
             return None
-        
+
+        return self.__log_file(self, sample, data, url, params)
+
+    def __log_file(self, sample, data, url = None, params = None):
         for m in self.resolve_method('log_file'):
             m(copy.deepcopy(sample), url, params)
 
