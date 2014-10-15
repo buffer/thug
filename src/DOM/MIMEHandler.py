@@ -575,6 +575,10 @@ class MIMEHandler(dict):
             count += 1
 
     def handle_pdf(self, url, content):
+        sample = log.ThugLogging.build_sample(content, url)
+        if sample is None or sample['type'] not in ('PDF', ):
+            return
+
         fd, rfile = tempfile.mkstemp()
         with open(rfile, 'wb') as fd:
             fd.write(content)
@@ -590,14 +594,9 @@ class MIMEHandler(dict):
         statsDict = pdf.getStats() 
         analysis  = self.getPeepXML(statsDict, url)
 
-        pdflogdir = os.path.join(log.ThugLogging.baseDir, "analysis", "pdf")
-        
-        try:
-            os.makedirs(pdflogdir)
-        except:
-            pass
+        log_dir = os.path.join(log.ThugLogging.baseDir, "analysis", "pdf")
+        log.ThugLogging.log_peepdf(log_dir, sample, analysis)
 
-        log.ThugLogging.store_content(pdflogdir, "%s.xml" % (statsDict["MD5"], ), analysis)
         self.swf_mastah(pdf, statsDict)
         os.remove(rfile)
         return True

@@ -97,6 +97,7 @@ class MongoDB(object):
         self.virustotal  = db.virustotal
         self.honeyagent  = db.honeyagent
         self.androguard  = db.androguard
+        self.peepdf      = db.peepdf
         self.exploits    = db.exploits
         self.codes       = db.codes
         dbfs             = connection.thugfs
@@ -347,3 +348,6 @@ class MongoDB(object):
 
     def log_androguard(self, sample, report):
         self.log_analysis_module(self.androguard, sample, report)
+
+    def log_peepdf(self, sample, report):
+        self.log_analysis_module(self.peepdf, sample, report)
