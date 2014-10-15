@@ -227,3 +227,16 @@ The Sample ObjectID references the *samples* collection.
             "report"        : Androguard report (TXT)
         }
 
+Collection peepdf
+^^^^^^^^^^^^^^^^^
+
+The collection *peepdf* is used to store the PeePDF PDF sample analysis reports.
+The Sample ObjectID references the *samples* collection.
+
+.. code-block:: sh
+
+        {
+            "analysis_id"   : Analysis ID
+            "sample_id"     : Sample ID
+            "report"        : PeePDF report (XML)
+        }
