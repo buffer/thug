@@ -442,12 +442,14 @@ class Navigator(PyV8.JSClass):
             ms.load()
             mtype = ms.buffer(content)
 
-        data = {"content" : content,
-                "md5"     : md5.hexdigest(),
-                "sha256"  : sha256.hexdigest(),
-                "fsize"   : len(content),
-                "ctype"   : ctype,
-                "mtype"   : mtype}
+        data = {
+            "content" : content,
+            "md5"     : md5.hexdigest(),
+            "sha256"  : sha256.hexdigest(),
+            "fsize"   : len(content),
+            "ctype"   : ctype,
+            "mtype"   : mtype
+        }
 
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (clocation, ctype, data["md5"]))
         log.ThugLogging.log_location(url, data)
