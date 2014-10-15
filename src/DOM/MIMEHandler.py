@@ -575,11 +575,9 @@ class MIMEHandler(dict):
             count += 1
 
     def handle_pdf(self, url, content):
-        m = hashlib.md5()
-        m.update(content)
-        md5sum = m.hexdigest()
-
-        rfile = log.ThugLogging.store_content(log.ThugLogging.baseDir, md5sum, content)
+        fd, rfile = tempfile.mkstemp()
+        with open(rfile, 'wb') as fd:
+            fd.write(content)
 
         pdfparser = PDFParser()
 
