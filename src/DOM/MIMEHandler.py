@@ -537,7 +537,7 @@ class MIMEHandler(dict):
 
         return etree.tostring(root, pretty_print = True)
 
-    def swf_mastah(self, pdf, statsDict):
+    def swf_mastah(self, pdf, statsDict, url):
         """
             This code is taken from SWF Mastah by Brandon Dixon
         """
@@ -561,16 +561,14 @@ class MIMEHandler(dict):
                     is_flash       = [s for s in objs if header in ("CWS", "FWS")]
 
                     if is_flash:
-                        data = decoded_stream.strip()
+                        data   = decoded_stream.strip()
+                        sample = log.ThugLogging.log_file(data, url)
+                        if sample is None:
+                            continue
 
-                        m = hashlib.md5()
-                        m.update(data)
-                        md5sum = m.hexdigest()
-
-                        swffile = "%s.swf" % (md5sum, )
-
+                        swffile = "%s.swf" % (sample["md5"], )
                         log.ThugLogging.store_content(swfdir, swffile, data)
-                        log.warning("[PDF] Embedded SWF %s extracted from PDF %s" % (md5sum, statsDict["MD5"], ))
+                        log.warning("[PDF] Embedded SWF %s extracted from PDF %s" % (sample["md5"], statsDict["MD5"], ))
 
             count += 1
 
@@ -597,7 +595,7 @@ class MIMEHandler(dict):
         log_dir = os.path.join(log.ThugLogging.baseDir, "analysis", "pdf")
         log.ThugLogging.log_peepdf(log_dir, sample, analysis)
 
-        self.swf_mastah(pdf, statsDict)
+        self.swf_mastah(pdf, statsDict, url)
         os.remove(rfile)
         return True
 
