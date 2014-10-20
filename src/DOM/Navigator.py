@@ -413,11 +413,12 @@ class Navigator(PyV8.JSClass):
         referrer = http_headers['Referer'] if 'Referer' in http_headers else 'None'
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (url, response['status'], referrer, ))
 
-         _url = urlparse.urlparse(url)
+        _url = urlparse.urlparse(url)
 
-        if _url.scheme == 'https':
-          cert_file = ssl.get_server_certificate((_url.netloc,443))
-          log.ThugLogging.add_behavior_warn("[Certificate]\n %s" % (cert_file, ))
+        if _url.scheme in ('https', ):
+            port = _url.port if  _url.port else 443
+            cert_file = ssl.get_server_certificate((_url.netloc, port))
+            log.ThugLogging.add_behavior_warn("[Certificate]\n %s" % (cert_file, ))
 
         if response.status == 404:
             log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (url, ))
