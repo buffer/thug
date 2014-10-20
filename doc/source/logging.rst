@@ -173,6 +173,20 @@ behaviors observed during the analysis.
             'timestamp'   : Timestamp
         }
 
+Collection certificates
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The collection *certificates* is used to store the SSL certificates collected from
+servers during the analysis.
+
+.. code-block:: sh
+
+        {
+            "analysis_id"   : Analysis ID
+            "url_id"        : URL url_id
+            "certificate"   : SSL certificate
+        }
+
 Collection graphs
 ^^^^^^^^^^^^^^^^^
 
