@@ -223,6 +223,12 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
         self.log_connection(referer, url, "href")
 
+    def log_certificate(self, url, certificate):
+        self.add_behavior_warn("[Certificate]\n %s" % (certificate, ))
+
+        for m in self.resolve_method('log_certificate'):
+            m(url, certificate)
+
     def log_analysis_module(self, dirname, sample, report, module, format = "json"):
         filename = "%s.%s" % (sample['md5'], format, )
         self.store_content(dirname, filename, report)

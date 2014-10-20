@@ -86,21 +86,22 @@ class MongoDB(object):
             self.enabled = False
             return
 
-        db               = connection.thug
-        self.urls        = db.urls
-        self.analyses    = db.analyses
-        self.locations   = db.locations
-        self.connections = db.connections
-        self.graphs      = db.graphs
-        self.samples     = db.samples
-        self.behaviors   = db.behaviors
-        self.virustotal  = db.virustotal
-        self.honeyagent  = db.honeyagent
-        self.androguard  = db.androguard
-        self.peepdf      = db.peepdf
-        self.exploits    = db.exploits
-        self.codes       = db.codes
-        dbfs             = connection.thugfs
+        db                = connection.thug
+        self.urls         = db.urls
+        self.analyses     = db.analyses
+        self.locations    = db.locations
+        self.connections  = db.connections
+        self.graphs       = db.graphs
+        self.samples      = db.samples
+        self.behaviors    = db.behaviors
+        self.certificates = db.certificates
+        self.virustotal   = db.virustotal
+        self.honeyagent   = db.honeyagent
+        self.androguard   = db.androguard
+        self.peepdf       = db.peepdf
+        self.exploits     = db.exploits
+        self.codes        = db.codes
+        dbfs              = connection.thugfs
         self.fs          = gridfs.GridFS(dbfs)
 
         self.__build_indexes()
@@ -321,6 +322,18 @@ class MongoDB(object):
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
         self.add_behavior(description, cve, method)
+
+    def log_certificate(self, url, certificate):
+        if not self.enabled:
+            return
+
+        certificate = {
+            'analysis_id' : self.analysis_id,
+            'url_id'      : self.get_url(url),
+            'certificate' : certificate
+        }
+
+        self.certificates.insert(certificate)
 
     def log_analysis_module(self, collection, sample, report):
         if not self.enabled:

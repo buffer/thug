@@ -417,8 +417,8 @@ class Navigator(PyV8.JSClass):
 
         if _url.scheme in ('https', ):
             port = _url.port if  _url.port else 443
-            cert_file = ssl.get_server_certificate((_url.netloc, port))
-            log.ThugLogging.add_behavior_warn("[Certificate]\n %s" % (cert_file, ))
+            certificate = ssl.get_server_certificate((_url.netloc, port))
+            log.ThugLogging.log_certificate(url, certificate)
 
         if response.status == 404:
             log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (url, ))
