@@ -69,6 +69,10 @@ contents.
 
 - PyMongo (optional) - http://www.mongodb.org/display/DOCS/Python+Language+Center
 
+- Ssdeep (optional) - http://ssdeep.sourceforge.net/
+
+- Python-Ssdeep (optional) - https://github.com/DinoTools/python-ssdeep
+
 - RabbitMQ (optional) - http://www.rabbitmq.com/
 
 - Pika (optional) - https://github.com/pika/pika/
