@@ -33,6 +33,12 @@ try:
 except:
     from StringIO import StringIO
 
+SSDEEP = True
+try:
+    import ssdeep
+except ImportError:
+    SSDEEP = False
+
 import bs4 as BeautifulSoup
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
@@ -668,6 +674,9 @@ class MIMEHandler(dict):
             "data"  : base64.b64encode(data),
             "type"  : "APK",
         }
+
+        if SSDEEP:
+            sample['ssdeep'] = ssdeep.hash(data)
 
         return sample
 

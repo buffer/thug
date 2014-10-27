@@ -32,6 +32,13 @@ except ImportError:
     except ImportError:
         from StringIO import StringIO
 
+SSDEEP = True
+
+try:
+    import ssdeep
+except ImportError:
+    SSDEEP = False
+
 log = logging.getLogger("Thug")
 
 class SampleLogging(object):
@@ -98,11 +105,15 @@ class SampleLogging(object):
 
         p['md5']  = hashlib.md5(data).hexdigest()
         p['sha1'] = hashlib.sha1(data).hexdigest()
+
+        if SSDEEP:
+            p['ssdeep'] = ssdeep.hash(data)
         
         if p['type'] in ('PE', ):
             imphash = self.get_imphash(data)
             if imphash:
                 p['imphash'] = imphash
+
         if url:
             p['url'] = url
 
