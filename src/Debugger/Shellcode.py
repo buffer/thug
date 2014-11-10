@@ -101,7 +101,7 @@ class Shellcode(object):
 
             try:
                 result = self.ctxt.eval(self.script)
-            except UnicodeDecodeError:
+            except (UnicodeDecodeError, TypeError):
                 enc = chardet.detect(self.script)
                 try:
                     result = self.ctxt.eval(self.script.decode(enc['encoding']))
