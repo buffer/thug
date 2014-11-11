@@ -1012,19 +1012,47 @@ class DFT(object):
             if rule.type == rule.FONT_FACE_RULE:
                 self.do_handle_font_face_rule(rule)
 
-    def handler_data_uri_zip_base64(self, href, start):
-        data = base64.b64decode(href[start:])
-        log.MIMEHandler.handle_zip(self.window.url, data)
-
     def _handle_data_uri(self, href):
-        handlers = {
-                "data:application/zip;base64," : self.handler_data_uri_zip_base64
-        }
+        """
+        Data URI Scheme
+        data:[<MIME-type>][;charset=<encoding>][;base64],<data>
 
-        for t in handlers.keys():
-            if href.lower().startswith(t):
-                handlers[t](href, len(t))
-                return True
+        The encoding is indicated by ;base64. If it is present the data is
+        encoded as base64. Without it the data (as a sequence of octets) is
+        represented using ASCII encoding for octets inside the range of safe
+        URL characters and using the standard %xx hex encoding of URLs for
+        octets outside that range. If <MIME-type> is omitted, it defaults to
+        text/plain;charset=US-ASCII. (As a shorthand, the type can be omitted
+        but the charset parameter supplied.)
+
+        Some browsers (Chrome, Opera, Safari, Firefox) accept a non-standard
+        ordering if both ;base64 and ;charset are supplied, while Internet
+        Explorer requires that the charset's specification must precede the
+        base64 token.
+        """
+        if not href.lower().startswith("data:"):
+            return False
+
+        h = href.split(",")
+        if len(h) < 2:
+            return False
+
+        data = h[1]
+        opts = h[0][len("data:"):].split(";")
+
+        if 'base64' in opts:
+            data = base64.b64decode(h[1])
+            opts.remove('base64')
+
+        if not opts:
+            opts = ["text/plain", "charset=US-ASCII"]
+
+        mimetype = opts[0]
+        handler  = log.MIMEHandler.get_handler(mimetype)
+
+        if handler:
+            handler(self.window.url, data)
+            return True
 
         return False
 
