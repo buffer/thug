@@ -9,6 +9,8 @@ try:
 except ImportError:
     import urlparse
 
+from DOM.W3C import *
+import DOM
 
 log = logging.getLogger("Thug")
 
@@ -70,6 +72,24 @@ def send(self, varBody = None):
                                                                                 redirect_type = "Microsoft XMLHTTP Exploit")
     except:
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
+
+    contenttype = self.responseHeaders.get('content-type', None)
+    if contenttype is None:
+        return
+
+    if 'text/html' in contenttype:
+        doc = w3c.parseString(self.responseBody)
+
+        window = DOM.Window.Window(self.bstrUrl, doc, personality = log.ThugOpts.useragent)
+        #window.open(self.bstrUrl)
+
+        dft = DOM.DFT.DFT(window)
+        dft.run()
+        return
+
+    handler = log.MIMEHandler.get_handler(contenttype)
+    if handler:
+        handler(url, html)
 
 
 def setRequestHeader(self, bstrHeader, bstrValue):
