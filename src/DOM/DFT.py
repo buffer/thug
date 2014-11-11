@@ -1015,7 +1015,7 @@ class DFT(object):
         log.info(anchor)
 
         if log.ThugOpts.extensive:
-            log.warning(anchor)
+            log.info(anchor)
 
             href = anchor.get('href', None)
             if not href:
