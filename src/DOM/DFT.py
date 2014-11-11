@@ -22,6 +22,7 @@ import struct
 import hashlib
 import string
 import urlparse
+import base64
 import logging
 import PyV8
 import chardet
@@ -1011,6 +1012,22 @@ class DFT(object):
             if rule.type == rule.FONT_FACE_RULE:
                 self.do_handle_font_face_rule(rule)
 
+    def handler_data_uri_zip_base64(self, href, start):
+        data = base64.b64decode(href[start:])
+        log.MIMEHandler.handle_zip(self.window.url, data)
+
+    def _handle_data_uri(self, href):
+        handlers = {
+                "data:application/zip;base64," : self.handler_data_uri_zip_base64
+        }
+
+        for t in handlers.keys():
+            if href.lower().startswith(t):
+                handlers[t](href, len(t))
+                return True
+
+        return False
+
     def handle_a(self, anchor):
         log.info(anchor)
 
@@ -1019,6 +1036,9 @@ class DFT(object):
 
             href = anchor.get('href', None)
             if not href:
+                return
+
+            if self._handle_data_uri(href):
                 return
 
             try:
@@ -1036,6 +1056,9 @@ class DFT(object):
 
         href = link.get('href', None)
         if not href:
+            return
+
+        if self._handle_data_uri(href):
             return
 
         try:
