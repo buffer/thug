@@ -230,6 +230,7 @@ Synopsis:
         ipadchrome35            Chrome 35.0.1916.41     (iPad, iOS 7.1.1)
         ipadchrome37            Chrome 37.0.2062.52     (iPad, iOS 7.1.2)
 		ipadchrome38            Chrome 38.0.2125.59     (iPad, iOS 8.0.2)
+		ipadchrome39            Chrome 39.0.2171.45     (iPad, iOS 8.1.1)
 ```
 
 
