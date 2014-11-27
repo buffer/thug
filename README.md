@@ -197,12 +197,12 @@ Synopsis:
         -W, --jsclassifier      Specify a list of additional (comma separated) JS classifier rule files
 		-C, --sampleclassifier  Specify a list of additional (comma separated) sample classifier rule file
 
+    Logging:
+        -F, --file-logging      Enable file logging mode (default: disabled)
+        -M, --maec11-logging    Enable MAEC11 logging mode (default: disabled)
+
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
-
-	Logging:
-		-F, --file-logging      Enable file logging mode (default: disabled)
-		-M, --maec11-logging    Enable MAEC11 logging mode (default: disabled)
 
     Available User-Agents:
         winxpie60               Internet Explorer 6.0   (Windows XP)
