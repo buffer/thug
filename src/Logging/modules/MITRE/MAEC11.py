@@ -283,7 +283,7 @@ class MAEC11(object):
                                 namespace_    = '',
                                 namespacedef_ = NAMESPACEDEF_)
 
-        if log.ThugOpts.file_logging:
+        if log.ThugOpts.maec11_logging and log.ThugOpts.file_logging:
             logdir = os.path.join(basedir, "analysis", "maec11")
             log.ThugLogging.store_content(logdir, 'analysis.xml', output.getvalue())
 
