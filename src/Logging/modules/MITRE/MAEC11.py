@@ -199,7 +199,6 @@ class MAEC11(object):
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
         self.add_behavior(description, cve, method)
-        log.warning(description)
 
     def check_signature(self, signature):
         if not signature:

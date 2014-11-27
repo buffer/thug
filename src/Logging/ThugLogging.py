@@ -102,6 +102,8 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('add_behavior_warn'):
             m(description, cve, method)
 
+        log.warning(description)
+
     def check_snippet(self, s):
         return len(s) < self.eval_min_length_logging
 
