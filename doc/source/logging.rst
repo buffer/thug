@@ -254,3 +254,18 @@ The Sample ObjectID references the *samples* collection.
             "sample_id"     : Sample ID
             "report"        : PeePDF report (XML)
         }
+
+Collection maec11
+^^^^^^^^^^^^^^^^^
+
+The collection *maec11* is used to store the Thug analysis reports in MITRE MAEC 1.1
+format. MAEC 1.1 logging mode should be enabled in order to have Thug saving data in
+this collection
+
+.. code-block:: sh
+
+    {
+            "analysis_id"   : Analysis ID
+            "report"        : Analysis report (MITRE MAEC 1.1 format - XML)
+    }
+
