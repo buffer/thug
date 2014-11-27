@@ -20,6 +20,7 @@ import os
 import sys
 import logging
 import datetime
+from StringIO import StringIO
 from . import MAEC_v1_1 as maec
 
 NAMESPACEDEF_ = 'xmlns:ns1="http://xml/metadataSharing.xsd" xmlns="http://maec.mitre.org/XMLSchema/maec-core-1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maec.mitre.org/XMLSchema/maec-core-1 file:MAEC_v1.1.xsd"'
@@ -36,28 +37,24 @@ class MAEC11(object):
                         'Organization'  : 'The Honeynet Project',
                        }, )
 
-        self.id              = self.make_counter(2)
+        self.id              = self.__make_counter(2)
         self.associated_code = None
         self.object_pool     = None
         self.signatures      = list()
         self.cached_data     = None
 
-        self.init_tools_used() 
-        self.create_maec_bundle()
-        self.add_analysis_to_analyses()
-        self.add_subject_to_analysis()
+        self.__init_tools_used()
+        self.__create_maec_bundle()
+        self.__add_analysis_to_analyses()
+        self.__add_subject_to_analysis()
 
-    def create_maec_bundle(self):
-        self.analyses    = maec.Analyses()
-        self.behaviors   = maec.Behaviors()
-        self.pools       = maec.Pools()
-        self.maec_bundle = maec.BundleType(id             = "maec:thug:bnd:1",
-                                           Analyses       = self.analyses,
-                                           Behaviors      = self.behaviors,
-                                           Pools          = self.pools,
-                                           schema_version = 1.1)
+    def __make_counter(self, p):
+        id = p
+        while True:
+            yield id
+            id += 1
 
-    def init_tools_used(self):
+    def __init_tools_used(self):
         self.tools_used = maec.Tools_Used()
         
         for t in self._tools:
@@ -69,11 +66,37 @@ class MAEC11(object):
         
             self.tools_used.add_Tool(tool)
 
-    def make_counter(self, p):
-        id = p
-        while True:
-            yield id
-            id += 1
+    def __create_maec_bundle(self):
+        self.analyses    = maec.Analyses()
+        self.behaviors   = maec.Behaviors()
+        self.pools       = maec.Pools()
+        self.maec_bundle = maec.BundleType(id             = "maec:thug:bnd:1",
+                                           Analyses       = self.analyses,
+                                           Behaviors      = self.behaviors,
+                                           Pools          = self.pools,
+                                           schema_version = 1.1)
+
+    def __create_analysis(self):
+        return maec.AnalysisType(id              = 'maec:thug:ana:%d' % (next(self.id)),
+                                 start_datetime  = datetime.datetime.now(),
+                                 analysis_method = "Dynamic",
+                                 Tools_Used      = self.tools_used)
+
+    def __add_analysis_to_analyses(self):
+        analyses      = self.maec_bundle.get_Analyses()
+        self.analysis = self.__create_analysis()
+
+        analyses.add_Analysis(self.analysis)
+
+    def __add_subject_to_analysis(self):
+        self.subject = maec.Subject()
+
+    @property
+    def maec11_enabled(self):
+        return log.ThugOpts.maec11_logging or 'maec11' in log.ThugLogging.formats
+
+    def finalize_analysis(self):
+        self.analysis.set_complete_datetime(datetime.datetime.now())
 
     def create_object(self, url):
         object_id = "maec:thug:obj:%d" % (next(self.id))
@@ -85,41 +108,24 @@ class MAEC11(object):
                                Internet_Object_Attributes = internet_object_attributes,
                                id                         = object_id)
 
-    def add_object_to_subject(self, url):
+    def _add_object_to_subject(self, url):
         self.object = self.create_object(url)
         self.subject.set_Object(self.object)
 
     def set_url(self, url):
-        self.add_object_to_subject(url.decode('utf-8'))
+        if not self.maec11_enabled:
+            return
 
-    def create_analysis(self):
-        return maec.AnalysisType(id              = 'maec:thug:ana:%d' % (next(self.id)),
-                                 start_datetime  = datetime.datetime.now(),
-                                 analysis_method = "Dynamic",
-                                 Tools_Used      = self.tools_used)
+        self._add_object_to_subject(url.decode('utf-8'))
 
-    def add_analysis_to_analyses(self):
-        analyses      = self.maec_bundle.get_Analyses()
-        self.analysis = self.create_analysis()
-
-        analyses.add_Analysis(self.analysis)
-
-    def finalize_analysis(self):
-        self.analysis.set_complete_datetime(datetime.datetime.now())
-
-    def add_subject_to_analysis(self):
-        self.subject = maec.Subject()
-
-        self.analysis.add_Subject(self.subject)
-
-    def add_associated_code_to_object(self):
+    def _add_associated_code_to_object(self):
         if self.associated_code:
             return
 
         self.associated_code = maec.Associated_Code()
         self.object.set_Associated_Code(self.associated_code)
 
-    def normalize_snippet(self, snippet):  
+    def _normalize_snippet(self, snippet):
         _snippet = '\n'
         for line in snippet.splitlines():
             _snippet += 5 * '\t' + line + '\n'
@@ -130,10 +136,10 @@ class MAEC11(object):
         except:
             return _snippet.decode('ascii', 'ignore')
 
-    def add_snippet_to_associated_code(self, snippet, language, relationship, method = "Dynamic Analysis"):
-        discovery_method = self.create_discovery_method(method)
+    def _add_snippet_to_associated_code(self, snippet, language, relationship, method = "Dynamic Analysis"):
+        discovery_method = self._create_discovery_method(method)
         
-        code = self.create_code_segment(self.normalize_snippet(snippet), 
+        code = self._create_code_segment(self._normalize_snippet(snippet),
                                         language,
                                         discovery_method)
 
@@ -143,17 +149,20 @@ class MAEC11(object):
         self.associated_code.add_Associated_Code_Snippet(snippet)
 
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
-        self.add_associated_code_to_object()
-        self.add_snippet_to_associated_code(snippet, language, relationship, method)
+        if not self.maec11_enabled:
+            return
 
-    def create_code_segment(self, snippet, language, discovery_method):
-        return maec.CodeType(Code_Segment     = snippet, 
+        self._add_associated_code_to_object()
+        self._add_snippet_to_associated_code(snippet, language, relationship, method)
+
+    def _create_code_segment(self, snippet, language, discovery_method):
+        return maec.CodeType(Code_Segment     = snippet,
                              Discovery_Method = discovery_method,
                              language         = language,
                              xorpattern       = None,
                              id               = "maec:thug:cde:%d" % (next(self.id)))
 
-    def create_discovery_method(self, method, tool = "Thug"):
+    def _create_discovery_method(self, method, tool = "Thug"):
         _tool_id = None
 
         for p in self._tools:
@@ -165,12 +174,15 @@ class MAEC11(object):
                                     tool_id = _tool_id if _tool_id else "maec:thug:tol:%d" % (next(self.id)))
 
     def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
+        if not self.maec11_enabled:
+            return
+
         if not cve and not description:
             return
 
         id       = "maec:thug:bhv:%s" % (next(self.id))
         behavior = maec.BehaviorType(id = id)
-        behavior.set_Discovery_Method(self.create_discovery_method(method))
+        behavior.set_Discovery_Method(self._create_discovery_method(method))
 
         purpose = maec.Purpose()
 
@@ -198,9 +210,12 @@ class MAEC11(object):
         self.behaviors.add_Behavior(behavior)
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
+        if not self.maec11_enabled:
+            return
+
         self.add_behavior(description, cve, method)
 
-    def check_signature(self, signature):
+    def _check_signature(self, signature):
         if not signature:
             return True
 
@@ -215,8 +230,8 @@ class MAEC11(object):
         self.signatures.append(signature)
         return False
 
-    def add_object(self, signature):
-        if self.check_signature(signature):
+    def _add_object(self, signature):
+        if self._check_signature(signature):
             return
 
         hashes    = maec.Hashes()
@@ -252,32 +267,30 @@ class MAEC11(object):
         self.object_pool.add_Object(_object)
 
     def log_file(self, data, url = None, params = None):
-        self.add_object(data)
+        if not self.maec11_enabled:
+            return
+
+        self._add_object(data)
 
     def export(self, basedir):
-        logdir = os.path.join(basedir, "analysis", "maec11")
+        if not self.maec11_enabled:
+            return
 
-        try:
-            os.makedirs(logdir)
-        except:
-            pass
+        output = StringIO()
+        self.maec_bundle.export(output,
+                                0,
+                                name_         = 'MAEC_Bundle',
+                                namespace_    = '',
+                                namespacedef_ = NAMESPACEDEF_)
 
-        with open(os.path.join(logdir, 'analysis.xml'), 'a+r') as fd:
-            self.maec_bundle.export(fd, 
-                                    0, 
-                                    name_         = 'MAEC_Bundle',
-                                    namespace_    = '',
-                                    namespacedef_ = NAMESPACEDEF_)
-            fd.seek(0)
-            self.cached_data = fd.read()
+        if log.ThugOpts.file_logging:
+            logdir = os.path.join(basedir, "analysis", "maec11")
+            log.ThugLogging.store_content(logdir, 'analysis.xml', output.getvalue())
 
-    def get_data(self, basedir):
+        self.cached_data = output
+
+    def get_maec11_data(self, basedir):
         if self.cached_data:
-            return self.cached_data
+            return self.cached_data.getvalue()
 
-        logdir = os.path.join(basedir, "analysis", "maec11")
-        with open(os.path.join(logdir, 'analysis.xml'), 'r') as fd:
-            data = fd.read()
-        
-        self.cached_data = data
-        return data
+        return None

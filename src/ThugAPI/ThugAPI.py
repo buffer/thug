@@ -93,6 +93,12 @@ class ThugAPI:
     def set_file_logging(self):
         log.ThugOpts.file_logging = True
 
+    def get_maec11_logging(self):
+        return log.ThugOpts.maec11_logging
+
+    def set_maec11_logging(self):
+        log.ThugOpts.maec11_logging = True
+
     def get_referer(self):
         return log.ThugOpts.referer
 

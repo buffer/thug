@@ -101,8 +101,9 @@ class MongoDB(object):
         self.peepdf       = db.peepdf
         self.exploits     = db.exploits
         self.codes        = db.codes
+        self.maec11       = db.maec11
         dbfs              = connection.thugfs
-        self.fs          = gridfs.GridFS(dbfs)
+        self.fs           = gridfs.GridFS(dbfs)
 
         self.__build_indexes()
 
@@ -268,6 +269,26 @@ class MongoDB(object):
 
         self.samples.insert(r)
 
+    def log_maec11(self, basedir):
+        if not log.ThugOpts.maec11_logging:
+            return
+
+        p = log.ThugLogging.modules.get('maec11', None)
+        if p is None:
+            return
+
+        m = getattr(p, 'get_maec11_data', None)
+        if m is None:
+            return
+
+        report = m(basedir)
+        analysis = {
+            'analysis_id'   : self.analysis_id,
+            'report'        : report
+        }
+
+        self.maec11.insert(analysis)
+
     def log_event(self, basedir):
         if not self.enabled:
             return
@@ -282,6 +303,8 @@ class MongoDB(object):
         }
 
         self.graphs.insert(graph)
+
+        self.log_maec11(basedir)
 
     def fix(self, data):
         """

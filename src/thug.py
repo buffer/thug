@@ -81,6 +81,7 @@ Synopsis:
 
         Logging:
         -F, --file-logging  \tEnable file logging mode (default: disabled)
+        -M, --maec11-logging\tEnable MAEC11 logging mode (default: disabled)
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
@@ -98,7 +99,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:ysNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:F',
+                                          'hVu:e:w:n:o:r:p:ysNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FM',
                 ['help',
                 'version',
                 'useragent=',
@@ -133,6 +134,7 @@ Synopsis:
                 'jsclassifier=',
                 'sampleclassifier=',
                 'file-logging',
+                'maec11-logging',
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -209,6 +211,8 @@ Synopsis:
                 self.set_broken_url()
             if option[0] in ('-F', '--file-logging', ):
                 self.set_file_logging()
+            if option[0] in ('-M', '--maec11-logging', ):
+                self.set_maec11_logging()
 
         self.log_init(args[0])
 

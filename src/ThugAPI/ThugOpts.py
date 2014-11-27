@@ -50,6 +50,7 @@ class ThugOpts(dict):
         self._events          = list()
         self._delay           = 0
         self._file_logging    = False
+        self._maec11_logging  = False
         self._no_fetch        = False
         self._broken_url      = False
         self._vt_query        = False
@@ -133,6 +134,14 @@ class ThugOpts(dict):
         self._file_logging = file_logging
 
     file_logging = property(get_file_logging, set_file_logging)
+
+    def get_maec11_logging(self):
+        return self._maec11_logging
+
+    def set_maec11_logging(self, maec11_logging):
+        self._maec11_logging = maec11_logging
+
+    maec11_logging = property(get_maec11_logging, set_maec11_logging)
 
     def get_no_fetch(self):
         return self._no_fetch
