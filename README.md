@@ -202,6 +202,7 @@ Synopsis:
 
 	Logging:
 		-F, --file-logging      Enable file logging mode (default: disabled)
+		-M, --maec11-logging    Enable MAEC11 logging mode (default: disabled)
 
     Available User-Agents:
         winxpie60               Internet Explorer 6.0   (Windows XP)

@@ -61,6 +61,7 @@ Let's start our Thug tour by taking a look at the options it provides.
 
         Logging:
             -F, --file-logging      Enable file logging mode (default: disabled)
+            -M, --maec11-logging    Enable MAEC11 logging mode (default: disabled)
 
         Proxy Format:
             scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
