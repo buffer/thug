@@ -199,6 +199,7 @@ Synopsis:
 
     Logging:
         -F, --file-logging      Enable file logging mode (default: disabled)
+		-Z, --json-logging      Enable JSON logging mode (default: disabled)
         -M, --maec11-logging    Enable MAEC11 logging mode (default: disabled)
 
     Proxy Format:

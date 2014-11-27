@@ -269,3 +269,17 @@ this collection
             "report"        : Analysis report (MITRE MAEC 1.1 format - XML)
     }
 
+Collection json
+^^^^^^^^^^^^^^^
+
+The collection *json* is used to store the Thug analysis reports in JSON format. 
+JSON logging mode should be enabled in order to have Thug saving data in
+this collection
+
+.. code-block:: sh
+
+    {
+            "analysis_id"   : Analysis ID
+            "report"        : Analysis report (JSON)
+    }
+
