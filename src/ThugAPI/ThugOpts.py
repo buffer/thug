@@ -49,6 +49,7 @@ class ThugOpts(dict):
         self._referer         = 'about:blank'
         self._events          = list()
         self._delay           = 0
+        self._file_logging    = False
         self._no_fetch        = False
         self._broken_url      = False
         self._vt_query        = False
@@ -124,6 +125,14 @@ class ThugOpts(dict):
         self._delay = abs(_timeout)
 
     delay = property(get_delay, set_delay)
+
+    def get_file_logging(self):
+        return self._file_logging
+
+    def set_file_logging(self, file_logging):
+        self._file_logging = file_logging
+
+    file_logging = property(get_file_logging, set_file_logging)
 
     def get_no_fetch(self):
         return self._no_fetch

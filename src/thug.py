@@ -79,6 +79,9 @@ Synopsis:
         -W, --jsclassifier  \tSpecify a list of additional (comma separated) JS classifier rule files
         -C, --sampleclassifier \tSpecify a list of additional (comma separated) sample classifier rule files
 
+        Logging:
+        -F, --file-logging  \tEnable file logging mode (default: disabled)
+
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
 
@@ -95,7 +98,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:ysNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:',
+                                          'hVu:e:w:n:o:r:p:ysNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:F',
                 ['help',
                 'version',
                 'useragent=',
@@ -128,7 +131,8 @@ Synopsis:
                 'broken-url',
                 'urlclassifier=',
                 'jsclassifier=',
-                'sampleclassifier='
+                'sampleclassifier=',
+                'file-logging',
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -203,6 +207,8 @@ Synopsis:
                         self.add_sampleclassifier(os.path.abspath(classifier))
             if option[0] in ('-B', '--broken-url', ):
                 self.set_broken_url()
+            if option[0] in ('-F', '--file-logging', ):
+                self.set_file_logging()
 
         self.log_init(args[0])
 

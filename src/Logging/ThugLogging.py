@@ -260,6 +260,9 @@ class ThugLogging(BaseLogging, SampleLogging):
         @filename   The file where to store content
         @content    The content to be stored
         """
+        if not log.ThugOpts.file_logging:
+            return
+
         try:
             os.makedirs(dirname)
         except OSError as e:

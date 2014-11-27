@@ -87,6 +87,12 @@ class ThugAPI:
     def set_delay(self, delay):
         log.ThugOpts.delay = delay
 
+    def get_file_logging(self):
+        return log.ThugOpts.file_logging
+
+    def set_file_logging(self):
+        log.ThugOpts.file_logging = True
+
     def get_referer(self):
         return log.ThugOpts.referer
 
