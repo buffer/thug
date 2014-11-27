@@ -169,7 +169,7 @@ class HPFeeds(object):
         for module in self.formats:
             if module in log.ThugLogging.modules:
                 p = log.ThugLogging.modules[module]
-                m = getattr(p, 'get_data', None)
+                m = getattr(p, 'get_%s_data' % (module, ), None)
                 if m:
                     break
 
