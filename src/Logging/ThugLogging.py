@@ -134,13 +134,17 @@ class ThugLogging(BaseLogging, SampleLogging):
         return sample
 
     def log_event(self):
-        log.warning("Saving log analysis at %s" % (self.baseDir, ))
-
         for m in self.resolve_method('export'):
             m(self.baseDir)
 
         for m in self.resolve_method('log_event'):
             m(self.baseDir)
+
+        if not os.listdir(self.baseDir):
+            os.rmdir(self.baseDir)
+            return
+
+        log.warning("Thug analysis logs saved at %s" % (self.baseDir, ))
 
     def log_connection(self, source, destination, method, flags = {}):
         """
