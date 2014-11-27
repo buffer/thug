@@ -200,6 +200,9 @@ Synopsis:
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
 
+	Logging:
+		-F, --file-logging      Enable file logging mode (default: disabled)
+
     Available User-Agents:
         winxpie60               Internet Explorer 6.0   (Windows XP)
         winxpie61               Internet Explorer 6.1   (Windows XP)
