@@ -81,6 +81,7 @@ Synopsis:
 
         Logging:
         -F, --file-logging  \tEnable file logging mode (default: disabled)
+        -Z, --json-logging  \tEnable JSON logging mode (default: disabled)
         -M, --maec11-logging\tEnable MAEC11 logging mode (default: disabled)
 
     Proxy Format:
@@ -99,7 +100,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:ysNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FM',
+                                          'hVu:e:w:n:o:r:p:ysNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZM',
                 ['help',
                 'version',
                 'useragent=',
@@ -134,6 +135,7 @@ Synopsis:
                 'jsclassifier=',
                 'sampleclassifier=',
                 'file-logging',
+                'json-logging',
                 'maec11-logging',
                 ])
         except getopt.GetoptError:
@@ -211,6 +213,8 @@ Synopsis:
                 self.set_broken_url()
             if option[0] in ('-F', '--file-logging', ):
                 self.set_file_logging()
+            if option[0] in ('-Z', '--json-logging', ):
+                self.set_json_logging()
             if option[0] in ('-M', '--maec11-logging', ):
                 self.set_maec11_logging()
 

@@ -26,6 +26,7 @@ import os
 import json
 import codecs
 import chardet
+from StringIO import StringIO
 from .Mapper import Mapper
 from .compatibility import *
 
@@ -45,6 +46,7 @@ class JSON(object):
         self.associated_code = None
         self.object_pool     = None
         self.signatures      = list()
+        self.cached_data     = None
 
         self.data = {
                         "url"         : None,
@@ -80,6 +82,10 @@ class JSON(object):
                         "exploits"    : []
                     }
 
+    @property
+    def json_enabled(self):
+        return log.ThugOpts.json_logging or 'json' in log.ThugLogging.formats
+
     def get_vuln_module(self, module):
         disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)
         if disabled: 
@@ -107,10 +113,15 @@ class JSON(object):
             id += 1
 
     def set_url(self, url):
+        if not self.json_enabled:
+            return
+
         self.data["url"] = self.fix(url)
 
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
-        #return  # Turned off. We first want files and connections
+        if not self.json_enabled:
+            return
+
         self.data["code"].append({"snippet"      : self.fix(snippet),
                                   "language"     : self.fix(language),
                                   "relationship" : self.fix(relationship),
@@ -125,11 +136,13 @@ class JSON(object):
         @method        Link, iframe, .... that moves the user from source to destination
         @flags         Additional information flags. Existing are: "exploit"
         """
+        if not self.json_enabled:
+            return
 
         if "exploit" in flags and flags["exploit"]:
-            self.add_behavior_warn("!!!Exploit!!!  %s -- %s --> %s" % (source,
-                                                                       method,
-                                                                       destination, ))
+            self.add_behavior_warn("[Exploit]  %s -- %s --> %s" % (source,
+                                                                   method,
+                                                                   destination, ))
         else:
             self.add_behavior_warn("%s -- %s --> %s" % (source,
                                                         method,
@@ -156,6 +169,9 @@ class JSON(object):
 
         @flags  Additional information flags (known flags: "error")
         """
+        if not self.json_enabled:
+            return
+
         self.data["locations"].append({"url"          : self.fix(url),
                                        "content-type" : data.get("ctype", None),
                                        "md5"          : data.get("md5", None),
@@ -173,6 +189,9 @@ class JSON(object):
         @description    Description of the exploit
         @cve            CVE number (if available)
         """
+        if not self.json_enabled:
+            return
+
         self.data["exploits"].append({"url"         : self.fix(url),
                                       "module"      : module,
                                       "description" : description,
@@ -180,6 +199,9 @@ class JSON(object):
                                       "data"        : data})
 
     def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
+        if not self.json_enabled:
+            return
+
         if not cve and not description:
             return
 
@@ -189,26 +211,35 @@ class JSON(object):
                                       "timestamp"   : str(datetime.datetime.now())})
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
+        if not self.json_enabled:
+            return
+
         self.add_behavior(description, cve, method)
-        #log.warning(description)
 
     def log_file(self, data, url = None, params = None):
+        if not self.json_enabled:
+            return
+
         self.data["files"].append(data)
 
     def export(self, basedir):
-        logdir = os.path.join(basedir, "analysis", "json")
-        try:
-            os.makedirs(logdir)
-        except:
-            pass
+        if not self.json_enabled:
+            return
 
-        report = codecs.open(os.path.join(logdir, "analysis.json"),
-                             "w", 
-                             errors='ignore', 
-                             encoding = 'utf-8')
+        output = StringIO()
+        json.dump(self.data, output, sort_keys = False, indent = 4)
+        if log.ThugOpts.json_logging and log.ThugOpts.file_logging:
+            logdir = os.path.join(basedir, "analysis", "json")
+            log.ThugLogging.store_content(logdir, 'analysis.json', output.getvalue())
 
-        json.dump(self.data, report, ensure_ascii = False, encoding = "utf-8", sort_keys = False, indent = 4)
-        report.close()
-        m = Mapper(logdir)
-        m.add_data(self.data)
-        m.write_svg()
+            m = Mapper(logdir)
+            m.add_data(self.data)
+            m.write_svg()
+
+        self.cached_data = output
+
+    def get_json_data(self, basedir):
+        if self.cached_data:
+            return self.cached_data.getvalue()
+
+        return None

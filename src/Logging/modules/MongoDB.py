@@ -102,6 +102,7 @@ class MongoDB(object):
         self.exploits     = db.exploits
         self.codes        = db.codes
         self.maec11       = db.maec11
+        self.json         = db.json
         dbfs              = connection.thugfs
         self.fs           = gridfs.GridFS(dbfs)
 
@@ -289,6 +290,26 @@ class MongoDB(object):
 
         self.maec11.insert(analysis)
 
+    def log_json(self, basedir):
+        if not log.ThugOpts.json_logging:
+            return
+
+        p = log.ThugLogging.modules.get('json', None)
+        if p is None:
+            return
+
+        m = getattr(p, 'get_json_data', None)
+        if m is None:
+            return
+
+        report = m(basedir)
+        analysis = {
+            'analysis_id'   : self.analysis_id,
+            'report'        : report
+        }
+
+        self.json.insert(analysis)
+
     def log_event(self, basedir):
         if not self.enabled:
             return
@@ -305,6 +326,7 @@ class MongoDB(object):
         self.graphs.insert(graph)
 
         self.log_maec11(basedir)
+        self.log_json(basedir)
 
     def fix(self, data):
         """

@@ -50,6 +50,7 @@ class ThugOpts(dict):
         self._events          = list()
         self._delay           = 0
         self._file_logging    = False
+        self._json_logging    = False
         self._maec11_logging  = False
         self._no_fetch        = False
         self._broken_url      = False
@@ -134,6 +135,14 @@ class ThugOpts(dict):
         self._file_logging = file_logging
 
     file_logging = property(get_file_logging, set_file_logging)
+
+    def get_json_logging(self):
+        return self._json_logging
+
+    def set_json_logging(self, json_logging):
+        self._json_logging = json_logging
+
+    json_logging = property(get_json_logging, set_json_logging)
 
     def get_maec11_logging(self):
         return self._maec11_logging
