@@ -49,6 +49,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.shellcodes     = set()
         self.shellcode_urls = set()
         self.methods_cache  = dict()
+        self.formats        = set()
 
         self.__init_config()
 
@@ -74,6 +75,8 @@ class ThugLogging(BaseLogging, SampleLogging):
         handler = getattr(module, component, None)
         if handler:
             p = handler(self.thug_version)
+            for format in getattr(handler, 'formats', tuple()):
+                self.formats.add(format)
 
         return p
 
