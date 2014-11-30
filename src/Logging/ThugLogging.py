@@ -140,11 +140,8 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_event'):
             m(self.baseDir)
 
-        if not os.listdir(self.baseDir):
-            os.rmdir(self.baseDir)
-            return
-
-        log.warning("Thug analysis logs saved at %s" % (self.baseDir, ))
+        if log.ThugOpts.file_logging:
+            log.warning("Thug analysis logs saved at %s" % (self.baseDir, ))
 
     def log_connection(self, source, destination, method, flags = {}):
         """

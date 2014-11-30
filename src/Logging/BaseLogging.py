@@ -55,6 +55,9 @@ class BaseLogging(object):
         base = os.getenv('THUG_LOGBASE', '..')
         self.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
 
+        if not log.ThugOpts.file_logging:
+            return
+
         try:
             os.makedirs(self.baseDir)
         except OSError as e:
@@ -73,6 +76,9 @@ class BaseLogging(object):
 
     def set_absbasedir(self, basedir):
         self.baseDir = basedir
+
+        if not log.ThugOpts.file_logging:
+            return
 
         try:
             os.makedirs(self.baseDir)
