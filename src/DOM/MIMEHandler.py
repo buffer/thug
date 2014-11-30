@@ -310,13 +310,9 @@ class MIMEHandler(dict):
         return True
 
     def handle_rar(self, url, content):
-        m = hashlib.md5()
-        m.update(content)
-        md5sum = m.hexdigest()
-
-        unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
-        filename = "%s.rar" % (md5sum, )
-        rfile    = log.ThugLogging.store_content(unzipped, filename, content)
+        fd, rfile = tempfile.mkstemp()
+        with open(rfile, 'wb') as fd:
+            fd.write(content)
 
         try:
             rardata = rarfile.RarFile(rfile)
@@ -339,6 +335,7 @@ class MIMEHandler(dict):
             except:
                 continue
 
+            unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
             log.ThugLogging.store_content(unzipped, md5, data)
 
         os.remove(rfile)
