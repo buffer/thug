@@ -3,14 +3,30 @@
 Logging
 *******
 
-MongoDB Logging module
-======================
+Currently different logging modes are available in Thug. Some of them can be combined
+in order to store the result of the analysis in different formats if needed. By default
+Thug attempts storing analysis logs in a MongoDB instance (see later for a detailed
+explanation of the MongoDB collection schema).
 
-MongoDB collection schema
--------------------------
+*BEWARE*: if a MongoDB instance is not available and no other logging mode is selected
+Thug will not store any analysis log.
 
-Collection urls
-^^^^^^^^^^^^^^^
+The available logging modes are:
+
+* MongoDB logging mode (enabled by default)
+* JSON logging mode
+* MAEC 1.1 logging mode
+* File logging mode
+
+
+MongoDB logging mode
+====================
+
+Collection schema
+-----------------
+
+urls
+^^^^
 
 The collection *urls* is used to keep track of the URLs visited during the analysis.
 A URL is always associated a single entry in this collection even if it is visited 
@@ -24,8 +40,8 @@ different redirection chains ending up using the same URLs.
             "url" : URL
         }
 
-Collection analyses
-^^^^^^^^^^^^^^^^^^^
+analyses
+^^^^^^^^
 
 The collection *analyses* is used to keep track of the Thug analyses. The analysis
 options used for the single analysis are stored together with other useful information 
@@ -62,8 +78,8 @@ initial URL is stored for convenience.
                             }
         }
 
-Collection connections 
-^^^^^^^^^^^^^^^^^^^^^^
+connections
+^^^^^^^^^^^
 
 The collection *connections* is used to keep track of the redirections which could happen
 during the single analysis. The field *chain_id* is a counter which is incremented by one at 
@@ -81,8 +97,8 @@ right order while analyzing data.
             "flags"          : Flags
         }
 
-Collection locations 
-^^^^^^^^^^^^^^^^^^^^
+locations
+^^^^^^^^^
 
 The collection *locations* is used to keep track of the content stored at each URL visited
 during the analysis. The content is stored in a MongoDB GridFS and additional metadata are 
@@ -104,8 +120,8 @@ and evaluated content type.
             "mime-type"     : Evaluated content type
         }
 
-Collection samples
-^^^^^^^^^^^^^^^^^^
+samples
+^^^^^^^
 
 The collection *samples* is used to keep track of the downloaded samples (currently supported 
 types: PE, PDF, JAR and SWF). The sample itself is stored in a MongoDB GridFS and additional 
@@ -124,8 +140,8 @@ is PE).
             "imphash"       : Imphash (if type is PE)
         }
 
-Collection exploits
-^^^^^^^^^^^^^^^^^^^
+exploits
+^^^^^^^^
 
 The collection *eploits* is used to keep track of the exploits which were successfully 
 identified during the analysis while visiting the URL referenced by *url_id*.
@@ -141,8 +157,8 @@ identified during the analysis while visiting the URL referenced by *url_id*.
             'data'        : Additional information
         }
 
-Collection codes
-^^^^^^^^^^^^^^^^
+codes
+^^^^^
 
 The collection *codes* is used to keep track of the (dynamic language) snippets of code 
 identified during the analysis.
@@ -157,8 +173,8 @@ identified during the analysis.
             'method'       : Analysis method
         }
 
-Collection behaviors
-^^^^^^^^^^^^^^^^^^^^
+behaviors
+^^^^^^^^^
 
 The collection *behaviors* is used to keep track of the suspicious and/or malicious 
 behaviors observed during the analysis.
@@ -173,8 +189,8 @@ behaviors observed during the analysis.
             'timestamp'   : Timestamp
         }
 
-Collection certificates
-^^^^^^^^^^^^^^^^^^^^^^^
+certificates
+^^^^^^^^^^^^
 
 The collection *certificates* is used to store the SSL certificates collected from
 servers during the analysis.
@@ -187,8 +203,8 @@ servers during the analysis.
             "certificate"   : SSL certificate
         }
 
-Collection graphs
-^^^^^^^^^^^^^^^^^
+graphs
+^^^^^^
 
 The collection *graphs* is used to store the analysis JSON exploit graph.  
 
@@ -199,8 +215,8 @@ The collection *graphs* is used to store the analysis JSON exploit graph.
             "graph"         : JSON exploit graph
         }
 
-Collection virustotal
-^^^^^^^^^^^^^^^^^^^^^
+virustotal
+^^^^^^^^^^
 
 The collection *virustotal* is used to store the VirusTotal sample analysis reports.
 The Sample ObjectID references the *samples* collection.
@@ -213,8 +229,8 @@ The Sample ObjectID references the *samples* collection.
             "report"        : VirusTotal report (JSON)
         }
 
-Collection honeyagent
-^^^^^^^^^^^^^^^^^^^^^
+honeyagent
+^^^^^^^^^^
 
 The collection *honeyagent* is used to store the HoneyAgent Java sandbox sample analysis
 reports. The Sample ObjectID references the *samples* collection.
@@ -227,8 +243,8 @@ reports. The Sample ObjectID references the *samples* collection.
             "report"        : HoneyAgent report (JSON)
         }
 
-Collection androguard
-^^^^^^^^^^^^^^^^^^^^^
+androguard
+^^^^^^^^^^
 
 The collection *androguard* is used to store the Androguard APK sample analysis reports. 
 The Sample ObjectID references the *samples* collection.
@@ -241,8 +257,8 @@ The Sample ObjectID references the *samples* collection.
             "report"        : Androguard report (TXT)
         }
 
-Collection peepdf
-^^^^^^^^^^^^^^^^^
+peepdf
+^^^^^^
 
 The collection *peepdf* is used to store the PeePDF PDF sample analysis reports.
 The Sample ObjectID references the *samples* collection.
@@ -255,8 +271,8 @@ The Sample ObjectID references the *samples* collection.
             "report"        : PeePDF report (XML)
         }
 
-Collection maec11
-^^^^^^^^^^^^^^^^^
+maec11
+^^^^^^
 
 The collection *maec11* is used to store the Thug analysis reports in MITRE MAEC 1.1
 format. MAEC 1.1 logging mode should be enabled in order to have Thug saving data in
@@ -269,8 +285,8 @@ this collection
             "report"        : Analysis report (MITRE MAEC 1.1 format - XML)
     }
 
-Collection json
-^^^^^^^^^^^^^^^
+json
+^^^^
 
 The collection *json* is used to store the Thug analysis reports in JSON format. 
 JSON logging mode should be enabled in order to have Thug saving data in
@@ -282,4 +298,16 @@ this collection
             "analysis_id"   : Analysis ID
             "report"        : Analysis report (JSON)
     }
+
+JSON logging mode
+=================
+
+
+MAEC 1.1 logging mode
+=====================
+
+
+File logging mode
+=================
+
 
