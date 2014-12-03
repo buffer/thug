@@ -19,8 +19,55 @@ The available logging modes are:
 * File logging mode
 
 
+Logging configuration
+=====================
+
+The configuration file *Logging/logging.conf* defines the way Thug uses to log the results 
+of its analyses. The default logging.conf file is shown below. 
+
+.. code-block:: sh
+
+    [modules]
+    maec11:     Logging.modules.MITRE.MAEC11
+    json:       Logging.modules.JSON
+    mongodb:    Logging.modules.MongoDB
+    hpfeeds:    Logging.modules.HPFeeds
+
+    [hpfeeds]
+    enable:     True
+    host:       hpfeeds.honeycloud.net
+    port:       10000
+    ident:      q6jyo@hp1
+    secret:     edymvouqpfe1ivud
+
+    [mongodb]
+    enable:     True
+    host:       localhost
+    port:       27017
+
+The different sections of the configuration files will be explained later in this 
+document. Just a suggestion before diving into details. *DO NOT CHANGE* the *modules*
+section unless you know exactly what you are doing.
+
+
 MongoDB logging mode
 ====================
+
+By default Thug attempts storing the result of its analyses in a MongoDB instance.
+The configuration file Logging/logging.conf defines the MongoDB instance configuration
+parameters
+
+.. code-block:: sh
+
+    [mongodb]
+    enable:     True
+    host:       localhost
+    port:       27017
+
+The parameters should be quite intuitive to understand. By the way if you install 
+MongoDB on the same host you are supposed to run Thug you should not need changing
+anything in the default configuration.
+
 
 Collection schema
 -----------------
