@@ -53,8 +53,14 @@ section unless you know exactly what you are doing.
 MongoDB logging mode
 ====================
 
-By default Thug attempts storing the result of its analyses in a MongoDB instance.
-The configuration file Logging/logging.conf defines the MongoDB instance configuration
+By default Thug attempts storing the result of its analyses in a MongoDB instance. Be
+aware that if you don't install MongoDB and pymongo (the Python wrapper) or if the 
+MongoDB process is not running, Thug will just emit a warning message and then continue 
+its analysis silently not storing the results. This could be exactly what you want but 
+please consider that if you do not enable any other logging mode you will end up with 
+no logs at all so bear it in mind.
+
+The configuration file *Logging/logging.conf* defines the MongoDB instance configuration
 parameters
 
 .. code-block:: sh
