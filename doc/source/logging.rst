@@ -8,7 +8,7 @@ in order to store the result of the analysis in different formats if needed. By 
 Thug attempts storing analysis logs in a MongoDB instance (see later for a detailed
 explanation of the MongoDB collection schema).
 
-*BEWARE*: if a MongoDB instance is not available and no other logging mode is selected
+**BEWARE**: if a MongoDB instance is not available and no other logging mode is selected
 Thug will not store any analysis log.
 
 The available logging modes are:
@@ -46,7 +46,7 @@ of its analyses. The default logging.conf file is shown below.
     port:       27017
 
 The different sections of the configuration files will be explained later in this 
-document. Just a suggestion before diving into details. *DO NOT CHANGE* the *modules*
+document. Just a suggestion before diving into details. **DO NOT CHANGE** the *modules*
 section unless you know exactly what you are doing.
 
 
