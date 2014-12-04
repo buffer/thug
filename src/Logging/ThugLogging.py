@@ -18,6 +18,7 @@
 
 from .BaseLogging import BaseLogging
 from .SampleLogging import SampleLogging
+from .LoggingModules import LoggingModules
 from Analysis.virustotal.VirusTotal import VirusTotal
 from Analysis.honeyagent.HoneyAgent import HoneyAgent
 
@@ -60,8 +61,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logging.conf')
         config.read(conf_file)
 
-        modules = config.items('modules')
-        for name, module in modules:
+        for name, module in LoggingModules.items():
             if self.check_module(name, config):
                 self.modules[name.strip()] = self.__init_module(module)
 
