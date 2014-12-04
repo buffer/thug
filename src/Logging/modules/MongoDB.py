@@ -79,8 +79,16 @@ class MongoDB(object):
         return self.enabled
 
     def __init_db(self):
+        # MongoDB Connection class is marked as deprecated (MongoDB >= 2.4).
+        # The following code tries to use the new MongoClient if available and
+        # reverts to the old Connection class if not. This code will hopefully
+        # disappear in the next future.
+        client = getattr(pymongo, 'MongoClient', None)
+        if client is None:
+            client = getattr(pymongo, 'Connection', None)
+
         try:
-            connection = pymongo.Connection(self.opts['host'], int(self.opts['port']))
+            connection = client(self.opts['host'], int(self.opts['port']))
         except:
             log.info('[MongoDB] MongoDB instance not available')
             self.enabled = False
