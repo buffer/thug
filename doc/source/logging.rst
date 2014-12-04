@@ -27,12 +27,6 @@ of its analyses. The default logging.conf file is shown below.
 
 .. code-block:: sh
 
-    [modules]
-    maec11:     Logging.modules.MITRE.MAEC11
-    json:       Logging.modules.JSON
-    mongodb:    Logging.modules.MongoDB
-    hpfeeds:    Logging.modules.HPFeeds
-
     [hpfeeds]
     enable:     True
     host:       hpfeeds.honeycloud.net
@@ -46,9 +40,7 @@ of its analyses. The default logging.conf file is shown below.
     port:       27017
 
 The different sections of the configuration files will be explained later in this 
-document. Just a suggestion before diving into details. **DO NOT CHANGE** the *modules*
-section unless you know exactly what you are doing.
-
+document.
 
 MongoDB logging mode
 ====================
