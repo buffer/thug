@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Logging &mdash; Thug 0.5.5 documentation</title>
+    <title>Logging &mdash; Thug 0.5.6 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.5',
+        VERSION:     '0.5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.5.5 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.5.6 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="Thug API" href="api.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="api.html" title="Thug API"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.5.5 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.5.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,12 +51,62 @@
             
   <div class="section" id="logging">
 <span id="id1"></span><h1>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="mongodb-logging-module">
-<h2>MongoDB Logging module<a class="headerlink" href="#mongodb-logging-module" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="mongodb-collection-schema">
-<h3>MongoDB collection schema<a class="headerlink" href="#mongodb-collection-schema" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="collection-urls">
-<h4>Collection urls<a class="headerlink" href="#collection-urls" title="Permalink to this headline">¶</a></h4>
+<p>Currently different logging modes are available in Thug. Some of them can be combined
+in order to store the result of the analysis in different formats if needed. By default
+Thug attempts storing analysis logs in a MongoDB instance (see later for a detailed
+explanation of the MongoDB collection schema).</p>
+<p><strong>BEWARE</strong>: if a MongoDB instance is not available and no other logging mode is selected
+Thug will not store any analysis log.</p>
+<p>The available logging modes are:</p>
+<ul class="simple">
+<li>MongoDB logging mode (enabled by default)</li>
+<li>JSON logging mode</li>
+<li>MAEC 1.1 logging mode</li>
+<li>File logging mode</li>
+</ul>
+<div class="section" id="logging-configuration">
+<h2>Logging configuration<a class="headerlink" href="#logging-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The configuration file <em>Logging/logging.conf</em> defines the way Thug uses to log the results
+of its analyses. The default logging.conf file is shown below.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>hpfeeds<span class="o">]</span>
+<span class="nb">enable</span>:     True
+host:       hpfeeds.honeycloud.net
+port:       10000
+ident:      q6jyo@hp1
+secret:     edymvouqpfe1ivud
+
+<span class="o">[</span>mongodb<span class="o">]</span>
+<span class="nb">enable</span>:     True
+host:       localhost
+port:       27017
+</pre></div>
+</div>
+<p>The different sections of the configuration files will be explained later in this
+document.</p>
+</div>
+<div class="section" id="mongodb-logging-mode">
+<h2>MongoDB logging mode<a class="headerlink" href="#mongodb-logging-mode" title="Permalink to this headline">¶</a></h2>
+<p>By default Thug attempts storing the result of its analyses in a MongoDB instance. Be
+aware that if you don&#8217;t install MongoDB and pymongo (the Python wrapper) or if the
+MongoDB process is not running, Thug will just emit a warning message and then continue
+its analysis silently not storing the results. This could be exactly what you want but
+please consider that if you do not enable any other logging mode you will end up with
+no logs at all so bear it in mind.</p>
+<p>The configuration file <em>Logging/logging.conf</em> defines the MongoDB instance configuration
+parameters</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>mongodb<span class="o">]</span>
+<span class="nb">enable</span>:     True
+host:       localhost
+port:       27017
+</pre></div>
+</div>
+<p>The parameters should be quite intuitive to understand. By the way if you install
+MongoDB on the same host you are supposed to run Thug you should not need changing
+anything in the default configuration.</p>
+<div class="section" id="collection-schema">
+<h3>Collection schema<a class="headerlink" href="#collection-schema" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="urls">
+<h4>urls<a class="headerlink" href="#urls" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>urls</em> is used to keep track of the URLs visited during the analysis.
 A URL is always associated a single entry in this collection even if it is visited
 multiple times (during the same analysis or in different analyses). Associating a
@@ -68,8 +118,8 @@ different redirection chains ending up using the same URLs.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-analyses">
-<h4>Collection analyses<a class="headerlink" href="#collection-analyses" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="analyses">
+<h4>analyses<a class="headerlink" href="#analyses" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>analyses</em> is used to keep track of the Thug analyses. The analysis
 options used for the single analysis are stored together with other useful information
 like the used Thug version and the analysis datetime. Moreover the URL ObjectID of the
@@ -103,8 +153,8 @@ initial URL is stored for convenience.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-connections">
-<h4>Collection connections<a class="headerlink" href="#collection-connections" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="connections">
+<h4>connections<a class="headerlink" href="#connections" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>connections</em> is used to keep track of the redirections which could happen
 during the single analysis. The field <em>chain_id</em> is a counter which is incremented by one at
 every redirection and it&#8217;s meant to be used in order to rebuild the redirection chain in the
@@ -120,8 +170,8 @@ right order while analyzing data.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-locations">
-<h4>Collection locations<a class="headerlink" href="#collection-locations" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="locations">
+<h4>locations<a class="headerlink" href="#locations" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>locations</em> is used to keep track of the content stored at each URL visited
 during the analysis. The content is stored in a MongoDB GridFS and additional metadata are
 saved like MD5 and SHA-256 checksums, content size, content type (as served by the server)
@@ -140,8 +190,8 @@ and evaluated content type.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-samples">
-<h4>Collection samples<a class="headerlink" href="#collection-samples" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="samples">
+<h4>samples<a class="headerlink" href="#samples" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>samples</em> is used to keep track of the downloaded samples (currently supported
 types: PE, PDF, JAR and SWF). The sample itself is stored in a MongoDB GridFS and additional
 metadata are saved like MD5 and SHA-1 checksums, sample type and imphash (if the sample type
@@ -158,8 +208,8 @@ is PE).</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-exploits">
-<h4>Collection exploits<a class="headerlink" href="#collection-exploits" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="exploits">
+<h4>exploits<a class="headerlink" href="#exploits" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>eploits</em> is used to keep track of the exploits which were successfully
 identified during the analysis while visiting the URL referenced by <em>url_id</em>.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
@@ -173,8 +223,8 @@ identified during the analysis while visiting the URL referenced by <em>url_id</
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-codes">
-<h4>Collection codes<a class="headerlink" href="#collection-codes" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="codes">
+<h4>codes<a class="headerlink" href="#codes" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>codes</em> is used to keep track of the (dynamic language) snippets of code
 identified during the analysis.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
@@ -187,8 +237,8 @@ identified during the analysis.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-behaviors">
-<h4>Collection behaviors<a class="headerlink" href="#collection-behaviors" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="behaviors">
+<h4>behaviors<a class="headerlink" href="#behaviors" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>behaviors</em> is used to keep track of the suspicious and/or malicious
 behaviors observed during the analysis.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
@@ -201,8 +251,8 @@ behaviors observed during the analysis.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-certificates">
-<h4>Collection certificates<a class="headerlink" href="#collection-certificates" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="certificates">
+<h4>certificates<a class="headerlink" href="#certificates" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>certificates</em> is used to store the SSL certificates collected from
 servers during the analysis.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
@@ -213,8 +263,8 @@ servers during the analysis.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-graphs">
-<h4>Collection graphs<a class="headerlink" href="#collection-graphs" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="graphs">
+<h4>graphs<a class="headerlink" href="#graphs" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>graphs</em> is used to store the analysis JSON exploit graph.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
@@ -223,8 +273,8 @@ servers during the analysis.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-virustotal">
-<h4>Collection virustotal<a class="headerlink" href="#collection-virustotal" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="virustotal">
+<h4>virustotal<a class="headerlink" href="#virustotal" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>virustotal</em> is used to store the VirusTotal sample analysis reports.
 The Sample ObjectID references the <em>samples</em> collection.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
@@ -235,8 +285,8 @@ The Sample ObjectID references the <em>samples</em> collection.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-honeyagent">
-<h4>Collection honeyagent<a class="headerlink" href="#collection-honeyagent" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="honeyagent">
+<h4>honeyagent<a class="headerlink" href="#honeyagent" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>honeyagent</em> is used to store the HoneyAgent Java sandbox sample analysis
 reports. The Sample ObjectID references the <em>samples</em> collection.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
@@ -247,8 +297,8 @@ reports. The Sample ObjectID references the <em>samples</em> collection.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-androguard">
-<h4>Collection androguard<a class="headerlink" href="#collection-androguard" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="androguard">
+<h4>androguard<a class="headerlink" href="#androguard" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>androguard</em> is used to store the Androguard APK sample analysis reports.
 The Sample ObjectID references the <em>samples</em> collection.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
@@ -259,8 +309,8 @@ The Sample ObjectID references the <em>samples</em> collection.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="collection-peepdf">
-<h4>Collection peepdf<a class="headerlink" href="#collection-peepdf" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="peepdf">
+<h4>peepdf<a class="headerlink" href="#peepdf" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>peepdf</em> is used to store the PeePDF PDF sample analysis reports.
 The Sample ObjectID references the <em>samples</em> collection.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
@@ -271,7 +321,40 @@ The Sample ObjectID references the <em>samples</em> collection.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="maec11">
+<h4>maec11<a class="headerlink" href="#maec11" title="Permalink to this headline">¶</a></h4>
+<p>The collection <em>maec11</em> is used to store the Thug analysis reports in MITRE MAEC 1.1
+format. MAEC 1.1 logging mode should be enabled in order to have Thug saving data in
+this collection</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+        <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
+        <span class="s2">&quot;report&quot;</span>        : Analysis report <span class="o">(</span>MITRE MAEC 1.1 format - XML<span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
 </div>
+</div>
+<div class="section" id="json">
+<h4>json<a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h4>
+<p>The collection <em>json</em> is used to store the Thug analysis reports in JSON format.
+JSON logging mode should be enabled in order to have Thug saving data in
+this collection</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+        <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
+        <span class="s2">&quot;report&quot;</span>        : Analysis report <span class="o">(</span>JSON<span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="json-logging-mode">
+<h2>JSON logging mode<a class="headerlink" href="#json-logging-mode" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="maec-1-1-logging-mode">
+<h2>MAEC 1.1 logging mode<a class="headerlink" href="#maec-1-1-logging-mode" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="file-logging-mode">
+<h2>File logging mode<a class="headerlink" href="#file-logging-mode" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -284,26 +367,32 @@ The Sample ObjectID references the <em>samples</em> collection.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Logging</a><ul>
-<li><a class="reference internal" href="#mongodb-logging-module">MongoDB Logging module</a><ul>
-<li><a class="reference internal" href="#mongodb-collection-schema">MongoDB collection schema</a><ul>
-<li><a class="reference internal" href="#collection-urls">Collection urls</a></li>
-<li><a class="reference internal" href="#collection-analyses">Collection analyses</a></li>
-<li><a class="reference internal" href="#collection-connections">Collection connections</a></li>
-<li><a class="reference internal" href="#collection-locations">Collection locations</a></li>
-<li><a class="reference internal" href="#collection-samples">Collection samples</a></li>
-<li><a class="reference internal" href="#collection-exploits">Collection exploits</a></li>
-<li><a class="reference internal" href="#collection-codes">Collection codes</a></li>
-<li><a class="reference internal" href="#collection-behaviors">Collection behaviors</a></li>
-<li><a class="reference internal" href="#collection-certificates">Collection certificates</a></li>
-<li><a class="reference internal" href="#collection-graphs">Collection graphs</a></li>
-<li><a class="reference internal" href="#collection-virustotal">Collection virustotal</a></li>
-<li><a class="reference internal" href="#collection-honeyagent">Collection honeyagent</a></li>
-<li><a class="reference internal" href="#collection-androguard">Collection androguard</a></li>
-<li><a class="reference internal" href="#collection-peepdf">Collection peepdf</a></li>
+<li><a class="reference internal" href="#logging-configuration">Logging configuration</a></li>
+<li><a class="reference internal" href="#mongodb-logging-mode">MongoDB logging mode</a><ul>
+<li><a class="reference internal" href="#collection-schema">Collection schema</a><ul>
+<li><a class="reference internal" href="#urls">urls</a></li>
+<li><a class="reference internal" href="#analyses">analyses</a></li>
+<li><a class="reference internal" href="#connections">connections</a></li>
+<li><a class="reference internal" href="#locations">locations</a></li>
+<li><a class="reference internal" href="#samples">samples</a></li>
+<li><a class="reference internal" href="#exploits">exploits</a></li>
+<li><a class="reference internal" href="#codes">codes</a></li>
+<li><a class="reference internal" href="#behaviors">behaviors</a></li>
+<li><a class="reference internal" href="#certificates">certificates</a></li>
+<li><a class="reference internal" href="#graphs">graphs</a></li>
+<li><a class="reference internal" href="#virustotal">virustotal</a></li>
+<li><a class="reference internal" href="#honeyagent">honeyagent</a></li>
+<li><a class="reference internal" href="#androguard">androguard</a></li>
+<li><a class="reference internal" href="#peepdf">peepdf</a></li>
+<li><a class="reference internal" href="#maec11">maec11</a></li>
+<li><a class="reference internal" href="#json">json</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li><a class="reference internal" href="#json-logging-mode">JSON logging mode</a></li>
+<li><a class="reference internal" href="#maec-1-1-logging-mode">MAEC 1.1 logging mode</a></li>
+<li><a class="reference internal" href="#file-logging-mode">File logging mode</a></li>
 </ul>
 </li>
 </ul>
@@ -348,7 +437,7 @@ The Sample ObjectID references the <em>samples</em> collection.</p>
         <li class="right" >
           <a href="api.html" title="Thug API"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.5.5 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.5.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
