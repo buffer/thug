@@ -349,7 +349,7 @@ this collection
 HPFeeds logging mode
 ====================
 
-HPFeeds is the Honeynet Project central logging feature
+HPFeeds is the Honeynet Project central logging feature.
 
 HPFeeds is a lightweight authenticated publish-subscribe protocol that supports arbitrary 
 binary payloads. HPFeeds was designed as a simple wire-format so that everyone is able to 
@@ -364,7 +364,7 @@ and a secret. The secret is sent to the server by hashing it together with a per
 nonce. This way no eavesdroppers can obtain valid credentials. Optionally the protocol can 
 be run on top of SSL/TLS, of course.
 
-HPFeeds logging mode is enable by default and its configuration is saved in the logging.conf 
+HPFeeds logging mode is enable by default and its configuration is saved in the *Logging/logging.conf* 
 file
 
 .. code-block:: sh
