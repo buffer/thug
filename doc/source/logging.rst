@@ -349,6 +349,44 @@ this collection
 HPFeeds logging mode
 ====================
 
+HPFeeds is the Honeynet Project central logging feature
+
+HPFeeds is a lightweight authenticated publish-subscribe protocol that supports arbitrary 
+binary payloads. HPFeeds was designed as a simple wire-format so that everyone is able to 
+subscribe to the feeds with his favorite language in almost no time.
+
+Different feeds are separated by channels and support arbitrary binary payloads. This means 
+that the channel users have to decide about the structure of data. This could for example 
+be done by choosing a serialization format.
+
+Access to channels is given to so-called Authkeys which essentially are pairs of an identifier 
+and a secret. The secret is sent to the server by hashing it together with a per-connection 
+nonce. This way no eavesdroppers can obtain valid credentials. Optionally the protocol can 
+be run on top of SSL/TLS, of course.
+
+HPFeeds logging mode is enable by default and its configuration is saved in the logging.conf 
+file
+
+.. code-block:: sh
+
+    [hpfeeds]
+    enable:     True
+    host:       hpfeeds.honeycloud.net
+    port:       10000
+    ident:      q6jyo@hp1
+    secret:     edymvouqpfe1ivud
+
+If you don't want to report your events and samples, you can turn off HPFeeds by modifying 
+the *enable* parameter to *False*. Do not change the other configuration parameters unless 
+you know exactly what you are doing. 
+
+Currently Thug shares data in two channels:
+
+- thug.events channel (URL analysis results published in MAEC 1.1 format)
+- thug.files channel (downloaded samples)
+
+If you are interested in the data collected by Thug instances, please contact me.
+
 
 JSON logging mode
 =================
