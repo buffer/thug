@@ -395,6 +395,28 @@ JSON logging mode
 MAEC 1.1 logging mode
 =====================
 
+Malware Attribute Enumeration and Characterization (MAEC) is a structured language for 
+encoding and communicating high fidelity information about any type of malware based upon 
+attributes such as behaviors, artifacts, and attack patterns. As a language, MAEC offers 
+a grammar and vocabulary that provide a standard means of communicating information about 
+malware attributes. MAEC is designed and maintaned by MITRE. 
+
+Thug currently supports MAEC version 1.1 and you should enable the *-M* (or *--maec11-logging*) 
+option in order to locally store the analysis results in such format. 
+
+If the MAEC 1.1 logging mode is enabled, Thug will attempt to store analysis results in a 
+MongoDB instance, if available. 
+
+If the MAEC 1.1 logging mode and the File logging mode are enabled, Thug will attempt to 
+store analysis results in a MongoDB instance, if available, and in a XML file in the log
+directory.
+
+Please note that not enabling MAEC 1.1 logging mode does not affect HPFeeds logging mode 
+proper operations so even if this mode is not enabled analysis results will be published in 
+MAEC 1.1 format on the *thug.events* channel.
+
+Further documentation about the MAEC 1.1 language can be found at http://maec.mitre.org/language/version1.1/
+
 
 File logging mode
 =================
