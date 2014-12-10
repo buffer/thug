@@ -364,7 +364,7 @@ and a secret. The secret is sent to the server by hashing it together with a per
 nonce. This way no eavesdroppers can obtain valid credentials. Optionally the protocol can 
 be run on top of SSL/TLS, of course.
 
-HPFeeds logging mode is enable by default and its configuration is saved in the *Logging/logging.conf* 
+HPFeeds logging mode is enabled by default and its configuration is saved in the *Logging/logging.conf* 
 file
 
 .. code-block:: sh
