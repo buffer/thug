@@ -349,6 +349,9 @@ class MongoDB(object):
             return thug_unicode(data).replace("\n", "").strip()
 
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
+        if not self.enabled:
+            return
+
         code = {
             'analysis_id'  : self.analysis_id,
             'snippet'      : self.fix(snippet),
@@ -360,6 +363,9 @@ class MongoDB(object):
         self.codes.insert(code)
 
     def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
+        if not self.enabled:
+            return
+
         if not cve and not description:
             return
 
@@ -374,6 +380,9 @@ class MongoDB(object):
         self.behaviors.insert(behavior)
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
+        if not self.enabled:
+            return
+
         self.add_behavior(description, cve, method)
 
     def log_certificate(self, url, certificate):
