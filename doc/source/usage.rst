@@ -223,9 +223,10 @@ Let's take a look at the directory which contains the logs for this session
         -rw-r--r-- 1 buffer buffer 878 Jul  2 19:15 d26b9b1a1f667004945d1d000cf4f19e
  
 
-The file *analysis.xml* contains the URL analysis results saved in MAEC format (please refer to
-http://maec.mitre.org for additional details). Please note that all the files downloaded during
-the URL analysis are saved in this directory based on their Content-Type for convenience.
+If the MAEC 1.1 logging mode is enabled, the file *analysis.xml* contains the URL analysis
+results saved in MAEC 1.1 format (please refer to http://maec.mitre.org for additional details).
+Please note that all the files downloaded during the URL analysis are saved in this directory
+based on their Content-Type for convenience (if the File logging mode is enabled).
 
 Moreover if MongoDB is installed the information you can see in this directory are saved in the 
 database instance too. Let's take a deeper look using pymongo (you can get the same result by
@@ -330,7 +331,6 @@ page with Internet Explorer 8.0 on Windows XP platform.
         [2012-07-02 19:21:17] [Navigator URL Translation] data/field.swf -->  http://[omitted]/data/field.swf
         [2012-07-02 19:21:18] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
         [2012-07-02 19:21:18] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-        [2012-07-02 19:21:18] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702192057
 
 
 It's quite simple to realize that the exploit for the Microsoft Data Access Components (MDAC)
@@ -434,7 +434,6 @@ the default one.
         [2012-07-02 19:18:28] [Navigator URL Translation] data/field.swf -->  http://[omitted]/data/field.swf
         [2012-07-02 19:18:28] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
         [2012-07-02 19:18:29] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-        [2012-07-02 19:18:29] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191758
 
 Comparing the following line
 
@@ -493,7 +492,6 @@ PluginDetect which is currently used by Blackhole exploit kit (see Local Analysi
         [2012-11-15 17:32:26] [Window] Alert Text: AdobeReader version: 9,1,0,0
         [2012-11-15 17:32:26] [Window] Alert Text: Flash version: 10,0,64,0
         [2012-11-15 17:32:26] [Window] Alert Text: Java version: 1,6,0,32
-        [2012-11-15 17:32:28] Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173225
 
 
 Let's try with different Adobe Acrobat Reader and Shockwave Flash versions now.
@@ -531,7 +529,6 @@ Let's try with different Adobe Acrobat Reader and Shockwave Flash versions now.
         [2012-11-15 17:32:58] [Window] Alert Text: AdobeReader version: 8,1,0,0
         [2012-11-15 17:32:58] [Window] Alert Text: Flash version: 10,3,1,180
         [2012-11-15 17:32:58] [Window] Alert Text: Java version: 1,6,0,32
-        [2012-11-15 17:33:00] Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173257
 
 
 JavaPlugin and JavaWebStart
@@ -575,7 +572,6 @@ exploit kit (see Local Analysis later for details).
         [2012-11-15 17:32:26] [Window] Alert Text: AdobeReader version: 9,1,0,0
         [2012-11-15 17:32:26] [Window] Alert Text: Flash version: 10,0,64,0
         [2012-11-15 17:32:26] [Window] Alert Text: Java version: 1,6,0,32
-        [2012-11-15 17:32:28] Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173225
 
 Let's try with a different JavaPlugin version now.
 
@@ -636,7 +632,6 @@ Let's try with a different JavaPlugin version now.
         [2012-11-15 17:40:56] [Window] Alert Text: AdobeReader version: 9,1,0,0
         [2012-11-15 17:40:56] [Window] Alert Text: Flash version: 10,0,64,0
         [2012-11-15 17:40:56] [Window] Alert Text: Java version: 1,7,0,7
-        [2012-11-15 17:40:57] Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115174054
 
 
 Proxy support
@@ -726,7 +721,6 @@ using *socks5://127.0.0.1:9050* as proxy and your real IP address will not be re
         [2012-07-02 19:22:46] [Navigator URL Translation] data/field.swf -->  http://[omitted]/data/field.swf
         [2012-07-02 19:22:49] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
         [2012-07-02 19:22:49] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-        [2012-07-02 19:22:49] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702192212
 
 
 Local Analysis
@@ -751,7 +745,6 @@ later (manual or automated) analysis (see also *Web Cache*)
                 UINT uExitCode = 0;
         ) =  0;
 
-        [2012-07-03 00:12:23] Saving log analysis at ../logs/c8f4c752383eb87ac4381a4f3f101ca7/20120703001222
 
 If you need to prevent remote content fetching while analyzing a locally saved page Thug
 provides the *-x (--local-nofetch)* option to you. Let's take a look at an example.
@@ -791,7 +784,6 @@ provides the *-x (--local-nofetch)* option to you. Let's take a look at an examp
     [2013-01-08 10:32:42] [iframe redirection] about:blank -> http://81.95.149.27/go.php?sid=1
     [2013-01-08 10:32:52] [HTTP] URL: http://81.95.149.27/go.php?sid=1 (Status: 408, Referrer: None)
     [2013-01-08 10:32:52] [Request Timeout] URL: http://81.95.149.27/go.php?sid=1
-    [2013-01-08 10:32:53] Saving log analysis at ../logs/f31f8f54bf5daa0effb237ddc4ad3727/20130108103227
 
 This is what we expect. Let's prevent remote content fetching now while analyzing the same
 locally saved page.
@@ -812,7 +804,6 @@ locally saved page.
     [2013-01-08 10:33:00] <link href="http://www.groundhogtech.com/xmlrpc.php" rel="pingback"/>
     [2013-01-08 10:33:01] <link href="http://www.groundhogtech.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
     [2013-01-08 10:33:01] <iframe frameborder="0" height="0" marginheight="0" marginwidth="0" scrolling="no" src="http://81.95.149.27/go.php?sid=1" style="border:0px solid gray;" width="0"></iframe>
-    [2013-01-08 10:33:01] Saving log analysis at ../logs/f31f8f54bf5daa0effb237ddc4ad3727/20130108103259
  
 
 Web Cache
