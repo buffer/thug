@@ -14,6 +14,7 @@ Thug will not store any analysis log.
 The available logging modes are:
 
 * MongoDB logging mode (enabled by default)
+* HPFeeds logging mode (enabled by default)
 * JSON logging mode
 * MAEC 1.1 logging mode
 * File logging mode
@@ -343,6 +344,11 @@ this collection
             "analysis_id"   : Analysis ID
             "report"        : Analysis report (JSON)
     }
+
+
+HPFeeds logging mode
+====================
+
 
 JSON logging mode
 =================

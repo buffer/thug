@@ -74,7 +74,7 @@ Synopsis:
         -J, --javaplugin=   \tSpecify the JavaPlugin version (default: 1.6.0.32)
         -K, --no-javaplugin \tDisable Java plugin
 
-        Classifier:
+        Classifiers:
         -Q, --urlclassifier \tSpecify a list of additional (comma separated) URL classifier rule files
         -W, --jsclassifier  \tSpecify a list of additional (comma separated) JS classifier rule files
         -C, --sampleclassifier \tSpecify a list of additional (comma separated) sample classifier rule files

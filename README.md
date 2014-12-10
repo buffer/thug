@@ -192,12 +192,12 @@ Synopsis:
         -J, --javaplugin=       Specify the JavaPlugin version (default: 1.6.0.32)
         -K, --no-javaplugin     Disable Java plugin
 
-        Classifier:
+        Classifiers:
         -Q, --urlclassifier     Specify a list of additional (comma separated) URL classifier rule files
         -W, --jsclassifier      Specify a list of additional (comma separated) JS classifier rule files
 		-C, --sampleclassifier  Specify a list of additional (comma separated) sample classifier rule file
 
-    Logging:
+		Logging:
         -F, --file-logging      Enable file logging mode (default: disabled)
 		-Z, --json-logging      Enable JSON logging mode (default: disabled)
         -M, --maec11-logging    Enable MAEC11 logging mode (default: disabled)
