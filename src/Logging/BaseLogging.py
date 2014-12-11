@@ -29,6 +29,9 @@ class BaseLogging(object):
         pass
 
     def check_module(self, module, config):
+        if not getattr(log.ThugOpts, "%s_logging" % (module, ), True):
+            return False
+
         try:
             section = config.options(module)
         except:
