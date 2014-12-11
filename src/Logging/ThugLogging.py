@@ -63,22 +63,11 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         for name, module in LoggingModules.items():
             if self.check_module(name, config):
-                self.modules[name.strip()] = self.__init_module(module)
+                self.modules[name.strip()] = module(self.thug_version)
 
-    def __init_module(self, source):
-        module = __import__(source)
-        components = source.split('.')
-        for component in components[1:]:
-            module = getattr(module, component)
-
-        p = None
-        handler = getattr(module, component, None)
-        if handler:
-            p = handler(self.thug_version)
-            for format in getattr(handler, 'formats', tuple()):
+        for m in self.modules.values():
+            for format in getattr(m, 'formats', tuple()):
                 self.formats.add(format)
-
-        return p
 
     def resolve_method(self, name):
         if name in self.methods_cache.keys():

@@ -16,9 +16,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA          
 
+from .modules import *
+
 LoggingModules = {
-    'maec11' :    'Logging.modules.MITRE.MAEC11',
-    'json'   :    'Logging.modules.JSON',
-    'mongodb':    'Logging.modules.MongoDB',
-    'hpfeeds':    'Logging.modules.HPFeeds'
+    'maec11' :    MITRE.MAEC11.MAEC11,
+    'json'   :    JSON.JSON,
+    'mongodb':    MongoDB.MongoDB,
+    'hpfeeds':    HPFeeds.HPFeeds
 }
