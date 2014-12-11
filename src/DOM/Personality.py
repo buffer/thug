@@ -687,6 +687,10 @@ class Personality(dict):
         return self[log.ThugOpts.useragent]['version']
 
     @property
+    def browserMajorVersion(self):
+        return int(self.browserVersion.split('.')[0])
+
+    @property
     def cc_on(self):
         return self[log.ThugOpts.useragent]['cc_on']
 
