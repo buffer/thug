@@ -89,7 +89,7 @@ class Navigator(PyV8.JSClass):
         self.systemLanguage  = self._systemLanguage
         self.userLanguage    = self._userLanguage
 
-        if log.ThugOpts.Personality.browserVersion < '9.0':
+        if log.ThugOpts.Personality.browserMajorVersion < 9:
             self.userProfile = UserProfile()
 
     def __init_personality_Firefox(self):

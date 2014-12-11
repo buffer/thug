@@ -36,7 +36,7 @@ class DocumentFragment(Node):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
-        if log.ThugOpts.Personality.browserVersion > '7.0':
+        if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.querySelectorAll = self._querySelectorAll
             self.querySelector    = self._querySelector
 

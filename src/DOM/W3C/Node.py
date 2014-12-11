@@ -67,7 +67,7 @@ class Node(PyV8.JSClass, EventTarget):
         self.applyElement = self._applyElement
 
         # Internet Explorer < 9 does not implement compareDocumentPosition
-        if log.ThugOpts.Personality.browserVersion >= '9.0':
+        if log.ThugOpts.Personality.browserMajorVersion >= 9:
             self.compareDocumentPosition = self._compareDocumentPosition
 
     def __init_personality_Firefox(self):

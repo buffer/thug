@@ -78,12 +78,12 @@ class HTMLDocument(Document):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
-        if log.ThugOpts.Personality.browserVersion < '8.0':
+        if log.ThugOpts.Personality.browserMajorVersion < 8:
             self._compatible = None
         else:
             self._compatible = DocumentCompatibleInfoCollection(self.doc, [])
 
-        if log.ThugOpts.Personality.browserVersion < '11.0':
+        if log.ThugOpts.Personality.browserMajorVersion < 11:
             self.all = self._all
 
     def __init_personality_Firefox(self):
@@ -176,7 +176,7 @@ class HTMLDocument(Document):
     def setCompatible(self, compatible):
         _compatibles = list()
 
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion >= '8.0':
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion >= 8:
             for s in compatible.split(';'):
                 try:
                     (useragent, version) = s.split('=')
@@ -196,9 +196,9 @@ class HTMLDocument(Document):
     @property
     def documentMode(self):
         version = log.ThugOpts.Personality.browserVersion
-        major   = int(version.split('.')[0])
+        major   = log.ThugOpts.Personality.browserMajorVersion
 
-        if version < '8.0':
+        if major < 8:
             return 7 if self.compatMode in ("CSS1Compat", ) else 5
 
         self.window.doc.DFT.force_handle_meta_x_ua_compatible()

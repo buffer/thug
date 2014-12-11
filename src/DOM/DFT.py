@@ -341,7 +341,7 @@ class DFT(object):
             handler = getattr(self.window, onevt, None)
             if handler:
                 evtObject = self.get_evtObject(self.window, onevt[2:])
-                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
                     self.window.event = evtObject
                     handler()
                 else:
@@ -352,7 +352,7 @@ class DFT(object):
             handler = getattr(self.window.doc, onevt, None)
             if handler:
                 evtObject = self.get_evtObject(self.window.doc, onevt[2:])
-                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
                     self.window.event = evtObject
                     handler()
                 else:
@@ -369,7 +369,7 @@ class DFT(object):
                 continue
                 
             evtObject = self.get_evtObject(self.window.doc, eventType)
-            if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+            if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
                 self.window.event = evtObject
                 listener()
             else:
@@ -871,7 +871,7 @@ class DFT(object):
     def handle_meta_x_ua_compatible(self, http_equiv, content):
         # Internet Explorer < 8.0 doesn't support the X-UA-Compatible header
         # and the webpage doesn't specify a <!DOCTYPE> directive.
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion >= "8.0":
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion >= 8:
             if http_equiv.lower() in ('x-ua-compatible'):
                 self.window.doc.compatible = content
 

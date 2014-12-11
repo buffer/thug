@@ -25,14 +25,14 @@ class Event:
         # property to true prevents any further propagation (IE8 and before do not 
         # support the captuting phase of event propagation so bubbling is the only
         # kind of propagation to be canceled)
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
             self.cancelBubble = property(self._getPropagationStatus, self._setPropagationStatus)
         else:
             self.stopPropagation = self._stopPropagation
 
         # In IE prior to IE9 the default action can be canceled by setting the
         # `returnValue' of the Event object to false
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
             self.returnValue = property(self._getDefaultPrevented, self._setDefaultPrevented)
         else:
             self.preventDefault = self._preventDefault
@@ -79,4 +79,3 @@ class Event:
         self._type       = eventTypeArg
         self._canBubble  = canBubbleArg
         self._cancelable = cancelableArg
-

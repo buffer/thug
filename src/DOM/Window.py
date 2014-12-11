@@ -800,14 +800,14 @@ class Window(PyV8.JSClass):
         self.clipboardData     = ClipboardData()
         self.external          = External()
 
-        if log.ThugOpts.Personality.browserVersion < '9.0':
+        if log.ThugOpts.Personality.browserMajorVersion < 9:
             self.attachEvent = self._attachEvent
             self.detachEvent = self._detachEvent
         else:
             self.addEventListener    = self._addEventListener
             self.removeEventListener = self._removeEventListener
 
-        if log.ThugOpts.Personality.browserVersion in ('8.0', ):
+        if log.ThugOpts.Personality.browserMajorVersion in (8, ):
             self.Storage = object()
 
         self.doc.parentWindow = self._parent
@@ -870,7 +870,7 @@ class Window(PyV8.JSClass):
                 thug_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thug.js")
                 ctxt.eval(open(thug_js, 'r').read())
 
-                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '8.0':
+                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 8:
                     sessionstorage_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sessionStorage.js")
                     ctxt.eval(open(sessionstorage_js, 'r').read())
 

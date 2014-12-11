@@ -11,7 +11,7 @@ log = logging.getLogger("Thug")
 # Introduced in DOM Level 2
 class EventTarget:
     def __init__(self):
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
             self.detachEvent = self._detachEvent
 
             def attachEvent(self, eventType, handler):
@@ -63,7 +63,7 @@ class EventTarget:
         # attachEvent() allows the same event handler to be registered more than
         # once. When the event of the specified type occurs, the registered 
         # function will be invoked as many times as it was registered
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
             self.__insert_listener(eventType, listener, capture, prio)
 
     def _removeEventListener(self, eventType, listener, capture = False):
@@ -98,7 +98,7 @@ class EventTarget:
         eventType, listener, capture = c
             
         with self.doc.window.context as ctx:
-            if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+            if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
                 self.doc.window.event = evtObject
                 listener()
             else:

@@ -49,10 +49,10 @@ class External(object):
         self.raiseEvent           = self._raiseEvent
         self.ShowBrowserUI        = self._ShowBrowserUI
 
-        if log.ThugOpts.Personality.browserVersion < '7.0':
+        if log.ThugOpts.Personality.browserMajorVersion < 7:
             self.AddChannel = self._AddChannel
 
-        if log.ThugOpts.Personality.browserVersion >= '7.0':
+        if log.ThugOpts.Personality.browserMajorVersion >= 7:
             self.AddSearchProvider         = self._AddSearchProvider
             self.IsSearchProviderInstalled = self._IsSearchProviderInstalled
 
@@ -85,7 +85,7 @@ class External(object):
     def _AutoScan(self, domainPart, defaultURL = None, target = None):
         # This method does not work in Internet Explorer from version 7 
         # and raises an exception.
-        if log.ThugOpts.Personality.browserVersion >= '7.0':
+        if log.ThugOpts.Personality.browserMajorVersion >= 7:
             raise TypeError()
 
     def _bubbleEvent(self):

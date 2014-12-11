@@ -60,11 +60,11 @@ class Screen(PyV8.JSClass):
         self.fontSmoothingEnabled = self._fontSmoothingEnabled
         self.updateInterval       = self._updateInterval
 
-        if log.ThugOpts.Personality.browserVersion >= '8.0':
+        if log.ThugOpts.Personality.browserMajorVersion >= 8:
             self.systemXDPI = self._systemXDPI
             self.systemYDPI = self._systemYDPI
 
-        if log.ThugOpts.Personality.browserVersion >= '9.0':
+        if log.ThugOpts.Personality.browserMajorVersion >= 9:
             self.pixelDepth = self._pixelDepth
 
     def __init_personality_Firefox(self):

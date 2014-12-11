@@ -46,7 +46,7 @@ class Element(Node, ElementCSSInlineStyle):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
-        if log.ThugOpts.Personality.browserVersion > '7.0':
+        if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.querySelectorAll = self._querySelectorAll
             self.querySelector    = self._querySelector
 
@@ -161,7 +161,7 @@ class Element(Node, ElementCSSInlineStyle):
             name = str(name)
 
         if log.ThugOpts.Personality.isIE():
-            if log.ThugOpts.Personality.browserVersion < '8.0':
+            if log.ThugOpts.Personality.browserMajorVersion < 8:
                 # flags parameter is only supported in Internet Explorer earlier 
                 # than version 8.
                 #

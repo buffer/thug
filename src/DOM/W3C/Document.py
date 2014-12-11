@@ -61,7 +61,7 @@ class Document(Node, DocumentEvent, DocumentView):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
-        if log.ThugOpts.Personality.browserVersion > '7.0':
+        if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.querySelectorAll = self._querySelectorAll
             self.querySelector    = self._querySelector
 
@@ -152,7 +152,7 @@ class Document(Node, DocumentEvent, DocumentView):
 
         # Internet Explorer 8 and below also support the syntax
         # document.createElement('<P>')
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '9.0':
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
             if tagname.startswith('<') and '>' in tagname:
                 tagname = tagname[1:].split('>')[0]
 
@@ -192,7 +192,7 @@ class Document(Node, DocumentEvent, DocumentView):
     
     # Introduced in DOM Level 2
     def getElementById(self, elementId):
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserVersion < '8.0':
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 8:
             return self._getElementById_IE67(elementId)
 
         return self._getElementById(elementId)
