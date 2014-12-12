@@ -85,6 +85,7 @@ class HTMLDocument(Document):
 
         if log.ThugOpts.Personality.browserMajorVersion < 11:
             self.all = self._all
+            self.createStyleSheet = self._createStyleSheet
 
     def __init_personality_Firefox(self):
         pass
@@ -298,3 +299,58 @@ class HTMLDocument(Document):
     def _all(self):
         s = [p for p in self.doc.find_all(text = False)]
         return HTMLAllCollection(self.doc, s)
+
+    def _createStyleSheet(self, URL = None, index = None):
+        # Creates a styleSheet object and inserts it into the current document.
+        # The createStyleSheet method is only supported by Internet Explorer.
+        # In other browsers, use the createElement method to create a new link
+        # or style element, and the insertBefore or appendChild method to insert
+        # it into the document.
+        #
+        # URL Optional. String that specifies the URL of a style file. If an
+        # URL is specified, a new link element is inserted into the current
+        # document that imports the style file. If this parameter is not specified
+        # or an empty string is set, then an empty style element is inserted into
+        # the current document.
+        #
+        # index Optional. Integer that specifies the position of the new styleSheet
+        # object in the styleSheets collection of the document. This parameter
+        # also has effect on the source position of the inserted link or style
+        # element. If this parameter is not specified, the new styleSheet object
+        # is inserted at the end of the styleSheets collection and the new link or
+        # style element is inserted after the other link and style elements in
+        # source order.
+
+        _type = 'style' if not URL else 'link'
+
+        obj = self.createElement(_type)
+        if _type in ('link', ):
+            obj.href = URL
+            obj.rel = "stylesheet"
+
+        head = self.getElementsByTagName("head")[0]
+        if head is None:
+            return obj
+
+        if index is None:
+            head.appendChild(obj)
+            return obj
+
+        length  = len(head.childNodes)
+        matches = 0
+        pos     = 0
+
+        while pos < length:
+            if head.childNodes[pos].tagName.lower() in (_type, ):
+                matches += 1
+
+            if matches > index:
+                head.insertBefore(obj, head.childNodes[pos])
+                break
+
+            pos += 1
+
+        if matches <= index:
+            head.appendChild(obj)
+
+        return obj
