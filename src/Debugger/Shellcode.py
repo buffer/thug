@@ -23,7 +23,6 @@ import struct
 import hashlib
 import logging
 import traceback
-import chardet
 import pylibemu
 from .Debugger import Debugger
 from DOM.W3C.Node import Node
@@ -102,7 +101,7 @@ class Shellcode(object):
             try:
                 result = self.ctxt.eval(self.script)
             except (UnicodeDecodeError, TypeError):
-                enc = chardet.detect(self.script)
+                enc = log.Encoding.detect(self.script)
                 try:
                     result = self.ctxt.eval(self.script.decode(enc['encoding']))
                 except:

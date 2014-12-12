@@ -20,7 +20,6 @@ import os
 import datetime
 import base64
 import logging
-import chardet
 from .compatibility import *
 
 try:
@@ -343,7 +342,7 @@ class MongoDB(object):
         @data  data to encode properly
         """
         try:
-            enc = chardet.detect(data)
+            enc = log.Encoding.detect(data)
             return data.decode(enc['encoding']).replace("\n", "").strip()
         except:
             return thug_unicode(data).replace("\n", "").strip()

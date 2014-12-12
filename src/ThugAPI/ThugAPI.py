@@ -28,6 +28,7 @@ except ImportError:
 
 from DOM.W3C import w3c
 from DOM import Window, DFT, MIMEHandler, SchemeHandler
+from Encoding import Encoding
 from Logging.ThugLogging import ThugLogging
 
 from .IThugAPI import IThugAPI
@@ -58,6 +59,7 @@ class ThugAPI:
         log.JSClassifier        = JSClassifier.JSClassifier()
         log.URLClassifier       = URLClassifier.URLClassifier()
         log.SampleClassifier    = SampleClassifier.SampleClassifier()
+        log.Encoding            = Encoding.Encoding()
 
     def __call__(self):
         self.analyze()

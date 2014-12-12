@@ -19,7 +19,6 @@
 import logging
 import PyV8
 import json
-import chardet
 import traceback
 
 log = logging.getLogger("Thug")
@@ -71,7 +70,7 @@ class AST(object):
         try:
             PyV8.JSEngine().compile(script).visit(self)
         except UnicodeDecodeError:
-            enc = chardet.detect(script)
+            enc = log.Encoding.detect(script)
             PyV8.JSEngine().compile(script.decode(enc['encoding'])).visit(self)
         except:
             pass

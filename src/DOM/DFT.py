@@ -25,7 +25,6 @@ import urlparse
 import base64
 import logging
 import PyV8
-import chardet
 import traceback
 import bs4 as BeautifulSoup
 import jsbeautifier
@@ -712,7 +711,7 @@ class DFT(object):
             try:
                 s.text = js
             except UnicodeDecodeError:
-                enc = chardet.detect(js)
+                enc = log.Encoding.detect(js)
                 if enc['encoding'] is None:
                     return
 

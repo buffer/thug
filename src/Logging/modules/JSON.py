@@ -25,7 +25,6 @@ import datetime
 import os
 import json
 import codecs
-import chardet
 from StringIO import StringIO
 from .Mapper import Mapper
 from .compatibility import *
@@ -101,7 +100,7 @@ class JSON(object):
         @data  data to encode properly
         """
         try:
-            enc = chardet.detect(data)
+            enc = log.Encoding.detect(data)
             return data.decode(enc['encoding']).replace("\n", "").strip()
         except:
             return thug_unicode(data).replace("\n", "").strip()
