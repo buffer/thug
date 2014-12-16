@@ -27,6 +27,7 @@ modules (ActiveX controls, core browser functionalities, browser plugins) are pr
 
    intro
    build
+   docker
    configuration
    usage
    api
