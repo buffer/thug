@@ -387,10 +387,132 @@ Currently Thug shares data in two channels:
 
 If you are interested in the data collected by Thug instances, please contact me.
 
-
 JSON logging mode
 =================
 
+The JSON logging mode allows to store both the analysis results and each resource
+downloaded during the analysis in JSON format. The JSON logging mode was enabled by default
+before Thug 0.5.6 together with the File logging mode. After that version you have to 
+explicitely enable it through the option *-Z* (or *--json-logging*). Please consider that 
+the JSON log is stored in the MongoDB instance (if available). See the *MongoDB logging 
+mode* for details. If the File logging format is enabled too, the JSON log will be stored
+in a JSON file in the log directory too. The JSON format is shown below.
+
+.. code-block:: sh
+
+    {
+        "url"         : Initial URL
+        "timestamp"   : Analysis datetime
+        "logtype"     : "json-log",
+        "thug"        : {
+                            "version"            : Thug version
+                            "personality" : {
+                                    "useragent"      : User Agent
+                            },
+                            "plugins" : {
+                                    "acropdf"        : Acrobat Reader version (if any)
+                                    "javaplugin"     : JavaPlugin version (if any),
+                                    "shockwaveflash" : Shockwave Flash version (if any)
+                            },
+                            "options" : { 
+                                    "local"          : Local analysis
+                                    "nofetch"        : Local no-fetch analysis
+                                    "proxy"          : Proxy (if any)
+                                    "events"         : Additional DOM events to be processed
+                                    "delay"          : Maximum setTimeout/setInterval delay value (in milliseconds)
+                                    "referer"        : Referer
+                                    "timeout"        : Analysis timeout
+                                    "threshold"      : Maximum pages to fetch
+                                    "extensive"      : Extensive fetch of linked pages
+                            },
+        "behavior"    : [],
+        "code"        : [],
+        "files"       : [],
+        "connections" : [],
+        "locations"   : [],
+        "exploits"    : []
+    }
+
+
+Following the format and additional details about the lists containing the analysis results
+and the resources downloaded during the analysis. 
+
+
+behaviors
+---------
+
+.. code-block:: sh
+
+        {
+            'description' : Observed behavior description 
+            'cve'         : CVE number (if available)
+            'method'      : Analysis method
+            'timestamp'   : Timestamp
+        }
+
+
+codes
+-----
+
+.. code-block:: sh
+
+        {
+            'snippet'      : Code snippet
+            'language'     : Code language
+            'relationship' : Relationship with the page that references the code
+            'method'       : Analysis method
+        }
+
+
+files
+-----
+
+Each content downloaded during the analysis is saved in an entry in the *files*
+list.
+
+
+connections
+-----------
+
+.. code-block:: sh
+
+        { 
+            "source"         : Source URL
+            "destination"    : Destination URL
+            "method"         : Method
+            "flags"          : Flags
+        }
+
+
+locations
+---------
+
+.. code-block:: sh
+
+
+        { 
+            "url"           : URL url
+            "content-type"  : Content Type
+            "md5"           : MD5 checksum
+            "sha256"        : SHA-256 checksum
+            "flags"         : Flags
+            "size"          : Data size
+            "mime-type"     : Evaluated content type
+        }
+
+
+exploits
+--------
+
+.. code-block:: sh
+
+        {
+            'url'         : URL url
+            'module'      : Module/ActiveX Control, etc. that gets exploited
+            'description' : Description of the exploit
+            'cve'         : CVE number (if available)
+            'data'        : Additional information
+        }
 
 MAEC 1.1 logging mode
 =====================
