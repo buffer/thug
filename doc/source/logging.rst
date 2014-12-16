@@ -421,4 +421,66 @@ Further documentation about the MAEC 1.1 language can be found at http://maec.mi
 File logging mode
 =================
 
+The File logging mode allows to store both the analysis results and each resource
+downloaded during the analysis in flat files. The File logging mode was enabled by default 
+before Thug 0.5.6. After that version you have to explicitely enable it through the option
+*-F* (or *--file-logging*). Please consider that all the information stored in flat files
+are stored in the MongoDB instance (if available). This option could be convenient in some
+situations but if you plan to analyze a huge number of URLs per day probably thinking 
+about storing results and resources in a database is better than spread such data on your
+hard disk. 
 
+If you enable the File logging mode the directory which contains the logs for the session
+will appear as shown below
+
+.. code-block:: sh
+
+        ~/thug/src $ cd ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
+        ~/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 $ ls -lhR
+        .:
+        total 232K
+        -rw-r--r-- 1 buffer buffer 1008 Jul  2 19:15 502da89357ca5d7c85dc7a67f8977b21
+        -rw-r--r-- 1 buffer buffer  81K Jul  2 19:15 analysis.xml
+        drwxr-xr-x 6 buffer buffer  176 Jul  2 19:15 application
+        -rwxr-xr-x 1 buffer buffer  89K Jul  2 19:15 d328b5a123bce1c0d20d763ad745303a
+        -rw-r--r-- 1 buffer buffer  51K Jul  2 19:15 Ryp.jar
+        drwxr-xr-x 3 buffer buffer   72 Jul  2 19:15 text
+
+        ./application:
+        total 0
+        drwxr-xr-x 2 buffer buffer 96 Jul  2 19:15 java-archive
+        drwxr-xr-x 2 buffer buffer 96 Jul  2 19:15 pdf
+        drwxr-xr-x 2 buffer buffer 96 Jul  2 19:15 x-msdownload
+        drwxr-xr-x 2 buffer buffer 96 Jul  2 19:15 x-shockwave-flash
+
+        ./application/java-archive:
+        total 52K
+        -rw-r--r-- 1 buffer buffer 51K Jul  2 19:15 e3639fde6ddf7fd0182fff9757143ff2
+
+        ./application/pdf:
+        total 16K
+        -rw-r--r-- 1 buffer buffer 15K Jul  2 19:15 3660fe0e4acd23ac13f3d043eebd2bbc
+
+        ./application/x-msdownload:
+        total 92K
+        -rw-r--r-- 1 buffer buffer 89K Jul  2 19:15 d328b5a123bce1c0d20d763ad745303a
+
+        ./application/x-shockwave-flash:
+        total 4.0K
+        -rw-r--r-- 1 buffer buffer 1008 Jul  2 19:15 502da89357ca5d7c85dc7a67f8977b21
+
+        ./text:
+        total 0
+        drwxr-xr-x 2 buffer buffer 144 Jul  2 19:15 html
+
+        ./text/html:
+        total 72K
+        -rw-r--r-- 1 buffer buffer 68K Jul  2 19:15 95ee609e6e3b69c2d9e68f34ff4a4335
+        -rw-r--r-- 1 buffer buffer 878 Jul  2 19:15 d26b9b1a1f667004945d1d000cf4f19e
+ 
+
+In this eaxample the MAEC 1.1 logging mode is enabled and the file *analysis.xml* contains the 
+URL analysis results saved in MAEC 1.1 format. Please note that all the resources downloaded 
+during the URL analysis are saved in the log directory based on their Content-Type for 
+convenience. Moreover if MongoDB is installed the information you can see in this directory 
+are saved in the database instance too.
