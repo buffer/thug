@@ -475,36 +475,36 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
-    def add_urlclassifier(rules):
+    def add_urlclassifier(rule):
         """
         add_urlclassifier
 
-        Add a list of additional URL classifier rule files
+        Add an additional URL classifier rule file
 
-        @param rules: a list of additional (comma separated) URL classifier rule files
-        @type rules: C{str}
+        @param rule: URL classifier rule file
+        @type rule: C{str}
         @return: None
         """
 
-  def add_jsclassifier(rules):
+    def add_jsclassifier(rule):
         """
         add_jsclassifier
 
-        Add a list of additional JS classifier rule files
+        Add an additional JS classifier rule file
 
-        @param rules: a list of additional (comma separated) JS classifier rule files
-        @type rules: C{str}
+        @param rule: JS classifier rule file
+        @type rule: C{str}
         @return: None
         """
 
-  def add_sampleclassifier(rules):
+    def add_sampleclassifier(rule):
         """
         add_sampleclassifier
 
-        Add a list of additional Sample classifier rule files
+        Add an additional Sample classifier rule file
 
-        @param rules: a list of additional (comma separated) Sample classifier rule files
-        @type rules: C{str}
+        @param rule: Sample classifier rule file
+        @type rule: C{str}
         @return: None
         """
 
