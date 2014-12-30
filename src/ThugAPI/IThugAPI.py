@@ -122,6 +122,60 @@ class IThugAPI(zope.interface.Interface):
         @return: None   
         """
 
+    def get_file_logging():
+        """
+        get_file_logging
+
+        Return True if file logging mode is enabled, False otherwise.
+
+        @return: boolean
+        """
+
+    def set_file_logging():
+        """
+        set_file_logging
+
+        Enable file logging mode
+
+        @return: None
+        """
+
+    def get_json_logging():
+        """
+        get_json_logging
+
+        Return True if JSON logging mode is enabled, False otherwise.
+
+        @return: boolean
+        """
+
+    def set_json_logging():
+        """
+        set_JSON_logging
+
+        Enable JSON logging mode
+
+        @return: None
+        """
+
+    def get_maec11_logging():
+        """
+        get_maec11_logging
+
+        Return True if MAEC 1.1 logging mode is enabled, False otherwise.
+
+        @return: boolean
+        """
+
+    def set_maec11_logging():
+        """
+        set_maec11_logging
+
+        Enable MAEC 1.1 logging mode
+
+        @return: None
+        """
+
     def get_referer():
         """
         get_referer
