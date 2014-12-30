@@ -457,6 +457,24 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def set_vt_query():
+        """
+        set_vt_query
+
+        Enable VirusTotal queries for sample analysis
+
+        @return: None
+        """
+
+    def set_vt_submit():
+        """
+        set_vt_submit
+
+        Enable VirusTotal samples submit
+
+        @return: None
+        """
+
     def log_event():
         """
         log_event
