@@ -397,6 +397,15 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def disable_honeyagent():
+        """
+        disable_honeyagent
+
+        Disable HoneyAgent Java sandbox analysis
+
+        @return: None
+        """
+
     def get_broken_url():
         """ 
         get_broken_url
