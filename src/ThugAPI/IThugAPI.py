@@ -207,6 +207,15 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def set_http_debug():
+        """
+        set_http_debug
+
+        Enable Thug HTTP debug mode
+
+        @return: None
+        """
+
     def set_acropdf_pdf(acropdf_pdf):
         """
         set_acropdf_pdf
