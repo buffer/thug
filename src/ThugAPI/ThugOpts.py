@@ -78,7 +78,8 @@ class ThugOpts(dict):
                                               proxy_host = p.hostname,
                                               proxy_port = p.port if p.port else 8080,
                                               proxy_user = p.username,
-                                              proxy_pass = p.password)
+                                              proxy_pass = p.password,
+                                              proxy_rdns = (proxy_scheme == "HTTP"))
 
     def get_proxy_info(self):
         return self._proxy_info
