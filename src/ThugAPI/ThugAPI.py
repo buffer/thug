@@ -43,7 +43,7 @@ from Classifier import SampleClassifier
 
 log = logging.getLogger("Thug")
 
-__thug_version__ = '0.5.6'
+__thug_version__ = '0.6'
 
 
 class ThugAPI:
