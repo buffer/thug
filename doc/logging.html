@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Logging &mdash; Thug 0.5.6 documentation</title>
+    <title>Logging &mdash; Thug 0.6 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.6',
+        VERSION:     '0.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.5.6 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.6 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="Thug API" href="api.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="api.html" title="Thug API"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.5.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -60,6 +60,7 @@ Thug will not store any analysis log.</p>
 <p>The available logging modes are:</p>
 <ul class="simple">
 <li>MongoDB logging mode (enabled by default)</li>
+<li>HPFeeds logging mode (enabled by default)</li>
 <li>JSON logging mode</li>
 <li>MAEC 1.1 logging mode</li>
 <li>File logging mode</li>
@@ -347,14 +348,229 @@ this collection</p>
 </div>
 </div>
 </div>
+<div class="section" id="hpfeeds-logging-mode">
+<h2>HPFeeds logging mode<a class="headerlink" href="#hpfeeds-logging-mode" title="Permalink to this headline">¶</a></h2>
+<p>HPFeeds is the Honeynet Project central logging feature.</p>
+<p>HPFeeds is a lightweight authenticated publish-subscribe protocol that supports arbitrary
+binary payloads. HPFeeds was designed as a simple wire-format so that everyone is able to
+subscribe to the feeds with his favorite language in almost no time.</p>
+<p>Different feeds are separated by channels and support arbitrary binary payloads. This means
+that the channel users have to decide about the structure of data. This could for example
+be done by choosing a serialization format.</p>
+<p>Access to channels is given to so-called Authkeys which essentially are pairs of an identifier
+and a secret. The secret is sent to the server by hashing it together with a per-connection
+nonce. This way no eavesdroppers can obtain valid credentials. Optionally the protocol can
+be run on top of SSL/TLS, of course.</p>
+<p>HPFeeds logging mode is enabled by default and its configuration is saved in the <em>Logging/logging.conf</em>
+file</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>hpfeeds<span class="o">]</span>
+<span class="nb">enable</span>:     True
+host:       hpfeeds.honeycloud.net
+port:       10000
+ident:      q6jyo@hp1
+secret:     edymvouqpfe1ivud
+</pre></div>
+</div>
+<p>If you don&#8217;t want to report your events and samples, you can turn off HPFeeds by modifying
+the <em>enable</em> parameter to <em>False</em>. Do not change the other configuration parameters unless
+you know exactly what you are doing.</p>
+<p>Currently Thug shares data in two channels:</p>
+<ul class="simple">
+<li>thug.events channel (URL analysis results published in MAEC 1.1 format)</li>
+<li>thug.files channel (downloaded samples)</li>
+</ul>
+<p>If you are interested in the data collected by Thug instances, please contact me.</p>
+</div>
 <div class="section" id="json-logging-mode">
 <h2>JSON logging mode<a class="headerlink" href="#json-logging-mode" title="Permalink to this headline">¶</a></h2>
+<p>The JSON logging mode allows to store both the analysis results and each resource
+downloaded during the analysis in JSON format. The JSON logging mode was enabled by default
+before Thug 0.5.6 together with the File logging mode. After that version you have to
+explicitely enable it through the option <em>-Z</em> (or <em>&#8211;json-logging</em>). Please consider that
+the JSON log is stored in the MongoDB instance (if available). See the <em>MongoDB logging
+mode</em> for details. If the File logging format is enabled too, the JSON log will be stored
+in a JSON file in the log directory too. The JSON format is shown below.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+    <span class="s2">&quot;url&quot;</span>         : Initial URL
+    <span class="s2">&quot;timestamp&quot;</span>   : Analysis datetime
+    <span class="s2">&quot;logtype&quot;</span>     : <span class="s2">&quot;json-log&quot;</span>,
+    <span class="s2">&quot;thug&quot;</span>        : <span class="o">{</span>
+                        <span class="s2">&quot;version&quot;</span>            : Thug version
+                        <span class="s2">&quot;personality&quot;</span> : <span class="o">{</span>
+                                <span class="s2">&quot;useragent&quot;</span>      : User Agent
+                        <span class="o">}</span>,
+                        <span class="s2">&quot;plugins&quot;</span> : <span class="o">{</span>
+                                <span class="s2">&quot;acropdf&quot;</span>        : Acrobat Reader version <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>
+                                <span class="s2">&quot;javaplugin&quot;</span>     : JavaPlugin version <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>,
+                                <span class="s2">&quot;shockwaveflash&quot;</span> : Shockwave Flash version <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>
+                        <span class="o">}</span>,
+                        <span class="s2">&quot;options&quot;</span> : <span class="o">{</span>
+                                <span class="s2">&quot;local&quot;</span>          : Local analysis
+                                <span class="s2">&quot;nofetch&quot;</span>        : Local no-fetch analysis
+                                <span class="s2">&quot;proxy&quot;</span>          : Proxy <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>
+                                <span class="s2">&quot;events&quot;</span>         : Additional DOM events to be processed
+                                <span class="s2">&quot;delay&quot;</span>          : Maximum setTimeout/setInterval delay value <span class="o">(</span>in milliseconds<span class="o">)</span>
+                                <span class="s2">&quot;referer&quot;</span>        : Referer
+                                <span class="s2">&quot;timeout&quot;</span>        : Analysis timeout
+                                <span class="s2">&quot;threshold&quot;</span>      : Maximum pages to fetch
+                                <span class="s2">&quot;extensive&quot;</span>      : Extensive fetch of linked pages
+                        <span class="o">}</span>,
+    <span class="s2">&quot;behavior&quot;</span>    : <span class="o">[]</span>,
+    <span class="s2">&quot;code&quot;</span>        : <span class="o">[]</span>,
+    <span class="s2">&quot;files&quot;</span>       : <span class="o">[]</span>,
+    <span class="s2">&quot;connections&quot;</span> : <span class="o">[]</span>,
+    <span class="s2">&quot;locations&quot;</span>   : <span class="o">[]</span>,
+    <span class="s2">&quot;exploits&quot;</span>    : <span class="o">[]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Following the format and additional details about the lists containing the analysis results
+and the resources downloaded during the analysis.</p>
+<div class="section" id="id2">
+<h3>behaviors<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+    <span class="s1">&#39;description&#39;</span> : Observed behavior description
+    <span class="s1">&#39;cve&#39;</span>         : CVE number <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
+    <span class="s1">&#39;method&#39;</span>      : Analysis method
+    <span class="s1">&#39;timestamp&#39;</span>   : Timestamp
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>codes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+    <span class="s1">&#39;snippet&#39;</span>      : Code snippet
+    <span class="s1">&#39;language&#39;</span>     : Code language
+    <span class="s1">&#39;relationship&#39;</span> : Relationship with the page that references the code
+    <span class="s1">&#39;method&#39;</span>       : Analysis method
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="files">
+<h3>files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h3>
+<p>Each content downloaded during the analysis is saved in an entry in the <em>files</em>
+list.</p>
+</div>
+<div class="section" id="id4">
+<h3>connections<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+    <span class="s2">&quot;source&quot;</span>         : Source URL
+    <span class="s2">&quot;destination&quot;</span>    : Destination URL
+    <span class="s2">&quot;method&quot;</span>         : Method
+    <span class="s2">&quot;flags&quot;</span>          : Flags
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>locations<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+    <span class="s2">&quot;url&quot;</span>           : URL url
+    <span class="s2">&quot;content-type&quot;</span>  : Content Type
+    <span class="s2">&quot;md5&quot;</span>           : MD5 checksum
+    <span class="s2">&quot;sha256&quot;</span>        : SHA-256 checksum
+    <span class="s2">&quot;flags&quot;</span>         : Flags
+    <span class="s2">&quot;size&quot;</span>          : Data size
+    <span class="s2">&quot;mime-type&quot;</span>     : Evaluated content <span class="nb">type</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>exploits<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+    <span class="s1">&#39;url&#39;</span>         : URL url
+    <span class="s1">&#39;module&#39;</span>      : Module/ActiveX Control, etc. that gets exploited
+    <span class="s1">&#39;description&#39;</span> : Description of the exploit
+    <span class="s1">&#39;cve&#39;</span>         : CVE number <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
+    <span class="s1">&#39;data&#39;</span>        : Additional information
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="maec-1-1-logging-mode">
 <h2>MAEC 1.1 logging mode<a class="headerlink" href="#maec-1-1-logging-mode" title="Permalink to this headline">¶</a></h2>
+<p>Malware Attribute Enumeration and Characterization (MAEC) is a structured language for
+encoding and communicating high fidelity information about any type of malware based upon
+attributes such as behaviors, artifacts, and attack patterns. As a language, MAEC offers
+a grammar and vocabulary that provide a standard means of communicating information about
+malware attributes. MAEC is designed and maintaned by MITRE.</p>
+<p>Thug currently supports MAEC version 1.1 and you should enable the <em>-M</em> (or <em>&#8211;maec11-logging</em>)
+option in order to locally store the analysis results in such format.</p>
+<p>If the MAEC 1.1 logging mode is enabled, Thug will attempt to store analysis results in a
+MongoDB instance, if available.</p>
+<p>If the MAEC 1.1 logging mode and the File logging mode are enabled, Thug will attempt to
+store analysis results in a MongoDB instance, if available, and in a XML file in the log
+directory.</p>
+<p>Please note that not enabling MAEC 1.1 logging mode does not affect HPFeeds logging mode
+proper operations so even if this mode is not enabled analysis results will be published in
+MAEC 1.1 format on the <em>thug.events</em> channel.</p>
+<p>Further documentation about the MAEC 1.1 language can be found at <a class="reference external" href="http://maec.mitre.org/language/version1.1/">http://maec.mitre.org/language/version1.1/</a></p>
 </div>
 <div class="section" id="file-logging-mode">
 <h2>File logging mode<a class="headerlink" href="#file-logging-mode" title="Permalink to this headline">¶</a></h2>
+<p>The File logging mode allows to store both the analysis results and each resource
+downloaded during the analysis in flat files. The File logging mode was enabled by default
+before Thug 0.5.6. After that version you have to explicitely enable it through the option
+<em>-F</em> (or <em>&#8211;file-logging</em>). Please consider that all the information stored in flat files
+are stored in the MongoDB instance (if available). This option could be convenient in some
+situations but if you plan to analyze a huge number of URLs per day probably thinking
+about storing results and resources in a database is better than spread such data on your
+hard disk.</p>
+<p>If you enable the File logging mode the directory which contains the logs for the session
+will appear as shown below</p>
+<div class="highlight-sh"><div class="highlight"><pre>~/thug/src <span class="nv">$ </span><span class="nb">cd</span> ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
+~/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 <span class="nv">$ </span>ls -lhR
+.:
+total 232K
+-rw-r--r-- 1 buffer buffer 1008 Jul  2 19:15 502da89357ca5d7c85dc7a67f8977b21
+-rw-r--r-- 1 buffer buffer  81K Jul  2 19:15 analysis.xml
+drwxr-xr-x 6 buffer buffer  176 Jul  2 19:15 application
+-rwxr-xr-x 1 buffer buffer  89K Jul  2 19:15 d328b5a123bce1c0d20d763ad745303a
+-rw-r--r-- 1 buffer buffer  51K Jul  2 19:15 Ryp.jar
+drwxr-xr-x 3 buffer buffer   72 Jul  2 19:15 text
+
+./application:
+total 0
+drwxr-xr-x 2 buffer buffer 96 Jul  2 19:15 java-archive
+drwxr-xr-x 2 buffer buffer 96 Jul  2 19:15 pdf
+drwxr-xr-x 2 buffer buffer 96 Jul  2 19:15 x-msdownload
+drwxr-xr-x 2 buffer buffer 96 Jul  2 19:15 x-shockwave-flash
+
+./application/java-archive:
+total 52K
+-rw-r--r-- 1 buffer buffer 51K Jul  2 19:15 e3639fde6ddf7fd0182fff9757143ff2
+
+./application/pdf:
+total 16K
+-rw-r--r-- 1 buffer buffer 15K Jul  2 19:15 3660fe0e4acd23ac13f3d043eebd2bbc
+
+./application/x-msdownload:
+total 92K
+-rw-r--r-- 1 buffer buffer 89K Jul  2 19:15 d328b5a123bce1c0d20d763ad745303a
+
+./application/x-shockwave-flash:
+total 4.0K
+-rw-r--r-- 1 buffer buffer 1008 Jul  2 19:15 502da89357ca5d7c85dc7a67f8977b21
+
+./text:
+total 0
+drwxr-xr-x 2 buffer buffer 144 Jul  2 19:15 html
+
+./text/html:
+total 72K
+-rw-r--r-- 1 buffer buffer 68K Jul  2 19:15 95ee609e6e3b69c2d9e68f34ff4a4335
+-rw-r--r-- 1 buffer buffer 878 Jul  2 19:15 d26b9b1a1f667004945d1d000cf4f19e
+</pre></div>
+</div>
+<p>In this eaxample the MAEC 1.1 logging mode is enabled and the file <em>analysis.xml</em> contains the
+URL analysis results saved in MAEC 1.1 format. Please note that all the resources downloaded
+during the URL analysis are saved in the log directory based on their Content-Type for
+convenience. Moreover if MongoDB is installed the information you can see in this directory
+are saved in the database instance too.</p>
 </div>
 </div>
 
@@ -390,7 +606,16 @@ this collection</p>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#json-logging-mode">JSON logging mode</a></li>
+<li><a class="reference internal" href="#hpfeeds-logging-mode">HPFeeds logging mode</a></li>
+<li><a class="reference internal" href="#json-logging-mode">JSON logging mode</a><ul>
+<li><a class="reference internal" href="#id2">behaviors</a></li>
+<li><a class="reference internal" href="#id3">codes</a></li>
+<li><a class="reference internal" href="#files">files</a></li>
+<li><a class="reference internal" href="#id4">connections</a></li>
+<li><a class="reference internal" href="#id5">locations</a></li>
+<li><a class="reference internal" href="#id6">exploits</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#maec-1-1-logging-mode">MAEC 1.1 logging mode</a></li>
 <li><a class="reference internal" href="#file-logging-mode">File logging mode</a></li>
 </ul>
@@ -437,11 +662,11 @@ this collection</p>
         <li class="right" >
           <a href="api.html" title="Thug API"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.5.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011-2014, Angelo Dell&#39;Aera.
+        &copy; Copyright 2011-2015, Angelo Dell&#39;Aera.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

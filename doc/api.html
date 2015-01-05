@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Thug API &mdash; Thug 0.5.6 documentation</title>
+    <title>Thug API &mdash; Thug 0.6 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.6',
+        VERSION:     '0.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.5.6 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.6 documentation" href="index.html" />
     <link rel="next" title="Logging" href="logging.html" />
     <link rel="prev" title="Usage" href="usage.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.5.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,9 +51,551 @@
             
   <div class="section" id="thug-api">
 <span id="api"></span><h1>Thug API<a class="headerlink" href="#thug-api" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul class="simple">
-</ul>
+<p>Thug provides a Python Application Program Interface (API) which allows external tools
+easily interfacing with Thug. Basic usage of the Thug API is really simple and just
+requires subclassing the ThugAPI class. Thug class (defined in <em>src/thug.py</em>) is a
+great example of such usage which should be enough in almost every scenario I can think
+about.</p>
+<p>Thug API interface definition is reported below for convenience.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">IThugAPI</span><span class="p">(</span><span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Interface</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print Thug version and exit</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_useragent</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_useragent</span>
+
+<span class="sd">        Return the emulated user agent</span>
+
+<span class="sd">        @return: user agent string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_useragent</span><span class="p">(</span><span class="n">useragent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_useragent</span>
+
+<span class="sd">        Set the user agent to emulate</span>
+<span class="sd">        Supported values:</span>
+
+<span class="sd">            winxpie60               Internet Explorer 6.0   (Windows XP)</span>
+<span class="sd">            winxpie61               Internet Explorer 6.1   (Windows XP)</span>
+<span class="sd">            winxpie70               Internet Explorer 7.0   (Windows XP)</span>
+<span class="sd">            winxpie80               Internet Explorer 8.0   (Windows XP)</span>
+<span class="sd">            winxpchrome20           Chrome 20.0.1132.47     (Windows XP)</span>
+<span class="sd">            winxpfirefox12          Firefox 12.0            (Windows XP)</span>
+<span class="sd">            winxpsafari5            Safari 5.1.7            (Windows XP)</span>
+<span class="sd">            win2kie60               Internet Explorer 6.0   (Windows 2000)</span>
+<span class="sd">            win2kie80               Internet Explorer 8.0   (Windows 2000)</span>
+<span class="sd">            win7ie80                Internet Explorer 8.0   (Windows 7)</span>
+<span class="sd">            win7ie90                Internet Explorer 9.0   (Windows 7)</span>
+<span class="sd">            win7chrome20            Chrome 20.0.1132.47     (Windows 7)</span>
+<span class="sd">            win7firefox3            Firefox 3.6.13          (Windows 7)</span>
+<span class="sd">            win7safari5             Safari 5.1.7            (Windows 7)</span>
+<span class="sd">            osx10safari5            Safari 5.1.1            (MacOS X 10.7.2)</span>
+<span class="sd">            osx10chrome19           Chrome 19.0.1084.54     (MacOS X 10.7.4)</span>
+<span class="sd">            linuxchrome26           Chrome 26.0.1410.19     (Linux)</span>
+<span class="sd">            linuxchrome30           Chrome 30.0.1599.15     (Linux)</span>
+<span class="sd">            linuxfirefox19          Firefox 19.0            (Linux)</span>
+<span class="sd">            galaxy2chrome18         Chrome 18.0.1025.166    (Samsung Galaxy S II, Android 4.0.3)</span>
+<span class="sd">            galaxy2chrome25         Chrome 25.0.1364.123    (Samsung Galaxy S II, Android 4.0.3)</span>
+<span class="sd">            galaxy2chrome29         Chrome 29.0.1547.59     (Samsung Galaxy S II, Android 4.1.2)</span>
+<span class="sd">            nexuschrome18           Chrome 18.0.1025.133    (Google Nexus, Android 4.0.4)</span>
+<span class="sd">            ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)</span>
+<span class="sd">            ipadsafari8             Safari 8.0              (iPad, iOS 8.0.2)</span>
+<span class="sd">            ipadchrome33            Chrome 33.0.1750.21     (iPad, iOS 7.1)</span>
+<span class="sd">            ipadchrome35            Chrome 35.0.1916.41     (iPad, iOS 7.1.1)</span>
+<span class="sd">            ipadchrome37            Chrome 37.0.2062.52     (iPad, iOS 7.1.2)</span>
+<span class="sd">            ipadchrome38            Chrome 38.0.2125.59     (iPad, iOS 8.0.2)</span>
+<span class="sd">            ipadchrome39            Chrome 39.0.2171.45     (iPad, iOS 8.1.1)</span>
+
+<span class="sd">        @param useragent: the user agent to emulate</span>
+<span class="sd">        @type useragent: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_events</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_events</span>
+
+<span class="sd">        Return the DOM events to emulate</span>
+<span class="sd">        Note: the load and mousemove are emulated by default and are not included in</span>
+<span class="sd">        the returned list</span>
+
+<span class="sd">        @return: List of the DOM events to emulate</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_events</span><span class="p">(</span><span class="n">events</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_events</span>
+
+<span class="sd">        Set the DOM events to emulate</span>
+<span class="sd">        Note: the load and mousemove events are emulated by default and do not</span>
+<span class="sd">        need to be added through set_events</span>
+
+<span class="sd">        @param events: comma separated list of DOM events to emulate</span>
+<span class="sd">        @type events: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_delay</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_delay</span>
+
+<span class="sd">        Return the maximum setTimeout/setInterval delay value (in milliseconds)</span>
+
+<span class="sd">        @return: maximum delay value (in milliseconds)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_delay</span><span class="p">(</span><span class="n">delay</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_delay</span>
+
+<span class="sd">        Set a maximum setTimeout/setInterval delay value (in milliseconds)</span>
+
+<span class="sd">        @param delay: maximum delay value (in milliseconds)</span>
+<span class="sd">        @type delay: C{int}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_file_logging</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_file_logging</span>
+
+<span class="sd">        Return True if file logging mode is enabled, False otherwise.</span>
+
+<span class="sd">        @return: boolean</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_file_logging</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_file_logging</span>
+
+<span class="sd">        Enable file logging mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_json_logging</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_json_logging</span>
+
+<span class="sd">        Return True if JSON logging mode is enabled, False otherwise.</span>
+
+<span class="sd">        @return: boolean</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_json_logging</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_JSON_logging</span>
+
+<span class="sd">        Enable JSON logging mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_maec11_logging</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_maec11_logging</span>
+
+<span class="sd">        Return True if MAEC 1.1 logging mode is enabled, False otherwise.</span>
+
+<span class="sd">        @return: boolean</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_maec11_logging</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_maec11_logging</span>
+
+<span class="sd">        Enable MAEC 1.1 logging mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_referer</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_referer</span>
+
+<span class="sd">        Return the emulated referer</span>
+
+<span class="sd">        @return: referer value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_referer</span><span class="p">(</span><span class="n">referer</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_referer</span>
+
+<span class="sd">        Set the referer to be emulated</span>
+
+<span class="sd">        @param referer: referer</span>
+<span class="sd">        @type referer: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_proxy</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_proxy</span>
+
+<span class="sd">        Get the proxy server to be used for estabilishing the connection</span>
+
+<span class="sd">        @return: httplib2.ProxyInfo</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_proxy</span><span class="p">(</span><span class="n">proxy</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_proxy</span>
+
+<span class="sd">        Set the proxy server to be used for estabilishing the connection</span>
+
+<span class="sd">        @param proxy: proxy server</span>
+<span class="sd">        @type proxy: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_no_fetch</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_no_fetch</span>
+
+<span class="sd">        Prevent remote content fetching in any case</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_verbose</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_verbose</span>
+
+<span class="sd">        Enable Thug verbose mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_debug</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_debug</span>
+
+<span class="sd">        Enable Thug debug mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_no_cache</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_no_cache</span>
+
+<span class="sd">        Disable local web cache</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_ast_debug</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_ast_debug</span>
+
+<span class="sd">        Enable Thug AST debug mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_http_debug</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_http_debug</span>
+
+<span class="sd">        Enable Thug HTTP debug mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_acropdf_pdf</span><span class="p">(</span><span class="n">acropdf_pdf</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_acropdf_pdf</span>
+
+<span class="sd">        Set the Adobe Acrobat Reader version</span>
+
+<span class="sd">        @param acropdf_pdf: Adobe Acrobat Reader version</span>
+<span class="sd">        @type acropdf_pdf: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">disable_acropdf</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        disable_acropdf</span>
+
+<span class="sd">        Disable Adobe Acrobat Reader</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_shockwave_flash</span><span class="p">(</span><span class="n">shockwave</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_shockwave_flash</span>
+
+<span class="sd">        Set the Shockwave Flash version (supported versions: 8, 9, 10, 11, 12)</span>
+
+<span class="sd">        @param shockwave: Shockwave Flash version</span>
+<span class="sd">        @type shockwave: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">disable_shockwave_flash</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        disable_shockwave_flash</span>
+
+<span class="sd">        Disable Shockwave Flash</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_javaplugin</span><span class="p">(</span><span class="n">javaplugin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_javaplugin</span>
+
+<span class="sd">        Set the Java plugin version</span>
+
+<span class="sd">        @param javaplugin: Java plugin version</span>
+<span class="sd">        @type javaplugin: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">disable_javaplugin</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        disable_javaplugin</span>
+
+<span class="sd">        Disable Java plugin</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_threshold</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_threshold</span>
+
+<span class="sd">        Get the maximum number of pages to fetch</span>
+
+<span class="sd">        @return: the maximum number of pages to fetch</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_threshold</span><span class="p">(</span><span class="n">threshold</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_threshold</span>
+
+<span class="sd">        Set the maximum number of pages to fetch</span>
+
+<span class="sd">        @param threshold: the maximum number of pages to fetch</span>
+<span class="sd">        @type threshold: C{int}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_extensive</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_extensive</span>
+
+<span class="sd">        Get the current extensive fetch of linked pages mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_extensive</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_extensive</span>
+
+<span class="sd">        Set the extensive fetch of linked pages mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_timeout</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_timeout</span>
+
+<span class="sd">        Get the analysis timeout (in seconds)</span>
+
+<span class="sd">        @return: the analysis timeout (in seconds)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_timeout</span>
+
+<span class="sd">        Set the analysis timeout (in seconds)</span>
+
+<span class="sd">        @param timeout: the analysis timeout (in seconds)</span>
+<span class="sd">        @type timeout: C{int}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_broken_url</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_broken_url</span>
+
+<span class="sd">        Get the broken URL mode</span>
+
+<span class="sd">        @return mode: broken URL mode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_broken_url</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_broken_url</span>
+
+<span class="sd">        Set the broken URL mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">disable_honeyagent</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        disable_honeyagent</span>
+
+<span class="sd">        Disable HoneyAgent Java sandbox analysis</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">log_init</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        log_init</span>
+
+<span class="sd">        Initialize logging subsystem</span>
+
+<span class="sd">        @param url: URL to analyze</span>
+<span class="sd">        @type url: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_log_dir</span><span class="p">(</span><span class="n">logdir</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_log_dir</span>
+
+<span class="sd">        Set the log output directory</span>
+
+<span class="sd">        @param logdir: the log output directory</span>
+<span class="sd">        @type logdir: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_log_output</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_log_output</span>
+
+<span class="sd">        Set the log output file</span>
+
+<span class="sd">        @param output: the log output file</span>
+<span class="sd">        @type output: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_log_quiet</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_log_quiet</span>
+
+<span class="sd">        Disable console logging</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_vt_query</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_vt_query</span>
+
+<span class="sd">        Enable VirusTotal queries for sample analysis</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_vt_submit</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_vt_submit</span>
+
+<span class="sd">        Enable VirusTotal samples submit</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">add_urlclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_urlclassifier</span>
+
+<span class="sd">        Add an additional URL classifier rule file</span>
+
+<span class="sd">        @param rule: URL classifier rule file</span>
+<span class="sd">        @type rule: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">add_jsclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_jsclassifier</span>
+
+<span class="sd">        Add an additional JS classifier rule file</span>
+
+<span class="sd">        @param rule: JS classifier rule file</span>
+<span class="sd">        @type rule: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">add_sampleclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_sampleclassifier</span>
+
+<span class="sd">        Add an additional Sample classifier rule file</span>
+
+<span class="sd">        @param rule: Sample classifier rule file</span>
+<span class="sd">        @type rule: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">log_event</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        log_event</span>
+
+<span class="sd">        Log the URL analysis results</span>
+
+<span class="sd">        @return None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        run</span>
+
+<span class="sd">        Method internally invoked by run_remote/run_local methods</span>
+
+<span class="sd">        @param window: Window object</span>
+<span class="sd">        @type window: Window</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">run_local</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        run_local</span>
+
+<span class="sd">        This method should be invoked by &#39;analyze&#39; method for local file analysis</span>
+
+<span class="sd">        @param url: URL to analyze</span>
+<span class="sd">        @type url: C{str}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">run_remote</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        run_remote</span>
+
+<span class="sd">        This method should be invoked by &#39;run&#39; method for URL analysis</span>
+
+<span class="sd">        @param url: URL to analyze</span>
+<span class="sd">        @type url: C{str}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">analyze</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        analyze</span>
+
+<span class="sd">        This method is called when the ThugAPI subclass is called and MUST be</span>
+<span class="sd">        implemented. This method can reference just the &#39;args&#39; class attribute.</span>
+<span class="sd">        Returning something from this method is up to you if needed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+</pre></div>
 </div>
 </div>
 
@@ -103,11 +645,11 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.5.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011-2014, Angelo Dell&#39;Aera.
+        &copy; Copyright 2011-2015, Angelo Dell&#39;Aera.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

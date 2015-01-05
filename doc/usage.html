@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.5.6 documentation</title>
+    <title>Usage &mdash; Thug 0.6 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.5.6',
+        VERSION:     '0.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.5.6 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.6 documentation" href="index.html" />
     <link rel="next" title="Thug API" href="api.html" />
     <link rel="prev" title="Configuration" href="configuration.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.5.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -63,85 +63,87 @@
 Synopsis:
     Thug: Pure Python honeyclient implementation
 
-    Usage:
-        python thug.py <span class="o">[</span> options <span class="o">]</span> url
+Usage:
+    python thug.py <span class="o">[</span> options <span class="o">]</span> url
 
-    Options:
-        -h, --help              Display this <span class="nb">help </span>information
-        -V, --version           Display Thug version
-        -u, --useragent<span class="o">=</span>        Select a user agent <span class="o">(</span>see below <span class="k">for</span> values, default: winxpie60<span class="o">)</span>
-        -e, --events<span class="o">=</span>           Enable comma-separated specified DOM events handling
-        -w, --delay<span class="o">=</span>            Set a maximum setTimeout/setInterval delay value <span class="o">(</span>in milliseconds<span class="o">)</span>
-        -n, --logdir<span class="o">=</span>           Set the log output directory
-        -o, --output<span class="o">=</span>           Log to a specified file
-        -r, --referer<span class="o">=</span>          Specify a referer
-        -p, --proxy<span class="o">=</span>            Specify a proxy <span class="o">(</span>see below <span class="k">for</span> format and supported schemes<span class="o">)</span>
-        -l, --local             Analyze a locally saved page
-        -x, --local-nofetch     Analyze a locally saved page and prevent remote content fetching
-        -v, --verbose           Enable verbose mode
-        -d, --debug             Enable debug mode
-        -q, --quiet             Disable console logging
-        -m, --no-cache          Disable <span class="nb">local </span>web cache
-        -a, --ast-debug         Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
-        -g, --http-debug        Enable HTTP debug mode
-        -t, --threshold<span class="o">=</span>        Maximum pages to fetch
-        -E, --extensive         Extensive fetch of linked pages
-        -T, --timeout<span class="o">=</span>          Set the analysis timeout <span class="o">(</span>in seconds<span class="o">)</span>
-        -B, --broken-url        Set the broken URL mode
-        -N, --no-honeyagent     Disable HoneyAgent support
+Options:
+    -h, --help              Display this <span class="nb">help </span>information
+    -V, --version           Display Thug version
+    -u, --useragent<span class="o">=</span>        Select a user agent <span class="o">(</span>see below <span class="k">for</span> values, default: winxpie60<span class="o">)</span>
+    -e, --events<span class="o">=</span>           Enable comma-separated specified DOM events handling
+    -w, --delay<span class="o">=</span>            Set a maximum setTimeout/setInterval delay value <span class="o">(</span>in milliseconds<span class="o">)</span>
+    -n, --logdir<span class="o">=</span>           Set the log output directory
+    -o, --output<span class="o">=</span>           Log to a specified file
+    -r, --referer<span class="o">=</span>          Specify a referer
+    -p, --proxy<span class="o">=</span>            Specify a proxy <span class="o">(</span>see below <span class="k">for</span> format and supported schemes<span class="o">)</span>
+    -l, --local             Analyze a locally saved page
+    -x, --local-nofetch     Analyze a locally saved page and prevent remote content fetching
+    -v, --verbose           Enable verbose mode
+    -d, --debug             Enable debug mode
+    -q, --quiet             Disable console logging
+    -m, --no-cache          Disable <span class="nb">local </span>web cache
+    -a, --ast-debug         Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
+    -g, --http-debug        Enable HTTP debug mode
+    -t, --threshold         Maximum pages to fetch
+    -E, --extensive         Extensive fetch of linked pages
+    -T, --timeout<span class="o">=</span>          Set the analysis timeout <span class="o">(</span>in seconds<span class="o">)</span>
+    -B, --broken-url        Set the broken URL mode
+    -y, --vtquery           Query VirusTotal <span class="k">for</span> samples analysis
+    -s, --vtsubmit          Submit samples to VirusTotal
+    -N, --no-honeyagent     Disable HoneyAgent support
 
-        Plugins:
-        -A, --adobepdf<span class="o">=</span>         Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 9.1.0<span class="o">)</span>
-        -P, --no-adobepdf       Disable Adobe Acrobat Reader plugin
-        -S, --shockwave<span class="o">=</span>        Specify the Shockwave Flash version <span class="o">(</span>default: 10.0.64.0<span class="o">)</span>
-        -R, --no-shockwave      Disable Shockwave Flash plugin
-        -J, --javaplugin<span class="o">=</span>       Specify the JavaPlugin version <span class="o">(</span>default: 1.6.0.32<span class="o">)</span>
-        -K, --no-javaplugin     Disable Java plugin
+    Plugins:
+    -A, --adobepdf<span class="o">=</span>         Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 9.1.0<span class="o">)</span>
+    -P, --no-adobepdf       Disable Adobe Acrobat Reader plugin
+    -S, --shockwave<span class="o">=</span>        Specify the Shockwave Flash version <span class="o">(</span>default: 10.0.64.0<span class="o">)</span>
+    -R, --no-shockwave      Disable Shockwave Flash plugin
+    -J, --javaplugin<span class="o">=</span>       Specify the JavaPlugin version <span class="o">(</span>default: 1.6.0.32<span class="o">)</span>
+    -K, --no-javaplugin     Disable Java plugin
 
-        Classifier:
-        -Q, --urlclassifier     Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> URL classifier rule files
-        -W, --jsclassifier      Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> JS classifier rule files
-        -C, --sampleclassifier  Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> sample classifier rule file
+    Classifiers:
+    -Q, --urlclassifier     Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> URL classifier rule files
+    -W, --jsclassifier      Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> JS classifier rule files
+    -C, --sampleclassifier  Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> sample classifier rule files
 
     Logging:
-        -F, --file-logging      Enable file logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
-        -Z, --json-logging      Enable JSON logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
-        -M, --maec11-logging    Enable MAEC11 logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
+    -F, --file-logging      Enable file logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
+    -Z, --json-logging      Enable JSON logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
+    -M, --maec11-logging    Enable MAEC11 logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
 
-    Proxy Format:
-        scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port <span class="o">(</span>supported schemes: http, http2, socks4, socks5<span class="o">)</span>
+Proxy Format:
+    scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port <span class="o">(</span>supported schemes: http, http2, socks4, socks5<span class="o">)</span>
 
-    Available User-Agents:
-        winxpie60               Internet Explorer 6.0   <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpie61               Internet Explorer 6.1   <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpie70               Internet Explorer 7.0   <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpie80               Internet Explorer 8.0   <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpchrome20           Chrome 20.0.1132.47     <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpfirefox12          Firefox 12.0            <span class="o">(</span>Windows XP<span class="o">)</span>
-        winxpsafari5            Safari 5.1.7            <span class="o">(</span>Windows XP<span class="o">)</span>
-        win2kie60               Internet Explorer 6.0   <span class="o">(</span>Windows 2000<span class="o">)</span>
-        win2kie80               Internet Explorer 8.0   <span class="o">(</span>Windows 2000<span class="o">)</span>
-        win7ie80                Internet Explorer 8.0   <span class="o">(</span>Windows 7<span class="o">)</span>
-        win7ie90                Internet Explorer 9.0   <span class="o">(</span>Windows 7<span class="o">)</span>
-        win7chrome20            Chrome 20.0.1132.47     <span class="o">(</span>Windows 7<span class="o">)</span>
-        win7firefox3            Firefox 3.6.13          <span class="o">(</span>Windows 7<span class="o">)</span>
-        win7safari5             Safari 5.1.7            <span class="o">(</span>Windows 7<span class="o">)</span>
-        osx10safari5            Safari 5.1.1            <span class="o">(</span>MacOS X 10.7.2<span class="o">)</span>
-        osx10chrome19           Chrome 19.0.1084.54     <span class="o">(</span>MacOS X 10.7.4<span class="o">)</span>
-        linuxchrome26           Chrome 26.0.1410.19     <span class="o">(</span>Linux<span class="o">)</span>
-        linuxchrome30           Chrome 30.0.1599.15     <span class="o">(</span>Linux<span class="o">)</span>
-        linuxfirefox19          Firefox 19.0            <span class="o">(</span>Linux<span class="o">)</span>
-        galaxy2chrome18         Chrome 18.0.1025.166    <span class="o">(</span>Samsung Galaxy S II, Android 4.0.3<span class="o">)</span>
-        galaxy2chrome25         Chrome 25.0.1364.123    <span class="o">(</span>Samsung Galaxy S II, Android 4.0.3<span class="o">)</span>
-        galaxy2chrome29         Chrome 29.0.1547.59     <span class="o">(</span>Samsung Galaxy S II, Android 4.1.2<span class="o">)</span>
-        nexuschrome18           Chrome 18.0.1025.133    <span class="o">(</span>Google Nexus, Android 4.0.4<span class="o">)</span>
-        ipadsafari7             Safari 7.0              <span class="o">(</span>iPad, iOS 7.0.4<span class="o">)</span>
-        ipadsafari8             Safari 8.0              <span class="o">(</span>iPad, iOS 8.0.2<span class="o">)</span>
-        ipadchrome33            Chrome 33.0.1750.21     <span class="o">(</span>iPad, iOS 7.1<span class="o">)</span>
-        ipadchrome35            Chrome 35.0.1916.41     <span class="o">(</span>iPad, iOS 7.1.1<span class="o">)</span>
-        ipadchrome37            Chrome 37.0.2062.52     <span class="o">(</span>iPad, iOS 7.1.2<span class="o">)</span>
-        ipadchrome38            Chrome 38.0.2125.59     <span class="o">(</span>iPad, iOS 8.0.2<span class="o">)</span>
-        ipadchrome39            Chrome 39.0.2171.45     <span class="o">(</span>iPad, iOS 8.1.1<span class="o">)</span>
+Available User-Agents:
+    winxpie60               Internet Explorer 6.0   <span class="o">(</span>Windows XP<span class="o">)</span>
+    winxpie61               Internet Explorer 6.1   <span class="o">(</span>Windows XP<span class="o">)</span>
+    winxpie70               Internet Explorer 7.0   <span class="o">(</span>Windows XP<span class="o">)</span>
+    winxpie80               Internet Explorer 8.0   <span class="o">(</span>Windows XP<span class="o">)</span>
+    winxpchrome20           Chrome 20.0.1132.47     <span class="o">(</span>Windows XP<span class="o">)</span>
+    winxpfirefox12          Firefox 12.0            <span class="o">(</span>Windows XP<span class="o">)</span>
+    winxpsafari5            Safari 5.1.7            <span class="o">(</span>Windows XP<span class="o">)</span>
+    win2kie60               Internet Explorer 6.0   <span class="o">(</span>Windows 2000<span class="o">)</span>
+    win2kie80               Internet Explorer 8.0   <span class="o">(</span>Windows 2000<span class="o">)</span>
+    win7ie80                Internet Explorer 8.0   <span class="o">(</span>Windows 7<span class="o">)</span>
+    win7ie90                Internet Explorer 9.0   <span class="o">(</span>Windows 7<span class="o">)</span>
+    win7chrome20            Chrome 20.0.1132.47     <span class="o">(</span>Windows 7<span class="o">)</span>
+    win7firefox3            Firefox 3.6.13          <span class="o">(</span>Windows 7<span class="o">)</span>
+    win7safari5             Safari 5.1.7            <span class="o">(</span>Windows 7<span class="o">)</span>
+    osx10safari5            Safari 5.1.1            <span class="o">(</span>MacOS X 10.7.2<span class="o">)</span>
+    osx10chrome19           Chrome 19.0.1084.54     <span class="o">(</span>MacOS X 10.7.4<span class="o">)</span>
+    linuxchrome26           Chrome 26.0.1410.19     <span class="o">(</span>Linux<span class="o">)</span>
+    linuxchrome30           Chrome 30.0.1599.15     <span class="o">(</span>Linux<span class="o">)</span>
+    linuxfirefox19          Firefox 19.0            <span class="o">(</span>Linux<span class="o">)</span>
+    galaxy2chrome18         Chrome 18.0.1025.166    <span class="o">(</span>Samsung Galaxy S II, Android 4.0.3<span class="o">)</span>
+    galaxy2chrome25         Chrome 25.0.1364.123    <span class="o">(</span>Samsung Galaxy S II, Android 4.0.3<span class="o">)</span>
+    galaxy2chrome29         Chrome 29.0.1547.59     <span class="o">(</span>Samsung Galaxy S II, Android 4.1.2<span class="o">)</span>
+    nexuschrome18           Chrome 18.0.1025.133    <span class="o">(</span>Google Nexus, Android 4.0.4<span class="o">)</span>
+    ipadsafari7             Safari 7.0              <span class="o">(</span>iPad, iOS 7.0.4<span class="o">)</span>
+    ipadsafari8             Safari 8.0              <span class="o">(</span>iPad, iOS 8.0.2<span class="o">)</span>
+    ipadchrome33            Chrome 33.0.1750.21     <span class="o">(</span>iPad, iOS 7.1<span class="o">)</span>
+    ipadchrome35            Chrome 35.0.1916.41     <span class="o">(</span>iPad, iOS 7.1.1<span class="o">)</span>
+    ipadchrome37            Chrome 37.0.2062.52     <span class="o">(</span>iPad, iOS 7.1.2<span class="o">)</span>
+    ipadchrome38            Chrome 38.0.2125.59     <span class="o">(</span>iPad, iOS 8.0.2<span class="o">)</span>
+    ipadchrome39            Chrome 39.0.2171.45     <span class="o">(</span>iPad, iOS 8.1.1<span class="o">)</span>
 </pre></div>
 </div>
 <p>Let&#8217;s start with a first basic real-world example: a Blackhole exploit kit.</p>
@@ -331,9 +333,10 @@ total 72K
 -rw-r--r-- 1 buffer buffer 878 Jul  2 19:15 d26b9b1a1f667004945d1d000cf4f19e
 </pre></div>
 </div>
-<p>The file <em>analysis.xml</em> contains the URL analysis results saved in MAEC format (please refer to
-<a class="reference external" href="http://maec.mitre.org">http://maec.mitre.org</a> for additional details). Please note that all the files downloaded during
-the URL analysis are saved in this directory based on their Content-Type for convenience.</p>
+<p>If the MAEC 1.1 logging mode is enabled, the file <em>analysis.xml</em> contains the URL analysis
+results saved in MAEC 1.1 format (please refer to <a class="reference external" href="http://maec.mitre.org">http://maec.mitre.org</a> for additional details).
+Please note that all the files downloaded during the URL analysis are saved in this directory
+based on their Content-Type for convenience (if the File logging mode is enabled).</p>
 <p>Moreover if MongoDB is installed the information you can see in this directory are saved in the
 database instance too. Let&#8217;s take a deeper look using pymongo (you can get the same result by
 using the MongoDB client <em>mongo</em>).</p>
@@ -430,7 +433,6 @@ W.eXeC &quot;taskkill /F /IM wm&quot; &amp; &quot;player.e&quot; &amp; &quot;xe&
 [2012-07-02 19:21:17] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
 [2012-07-02 19:21:18] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:21:18] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-[2012-07-02 19:21:18] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702192057
 </pre></div>
 </div>
 <p>It&#8217;s quite simple to realize that the exploit for the Microsoft Data Access Components (MDAC)
@@ -525,7 +527,6 @@ W.eXeC &quot;taskkill /F /IM wm&quot; &amp; &quot;player.e&quot; &amp; &quot;xe&
 [2012-07-02 19:18:28] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
 [2012-07-02 19:18:28] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:18:29] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-[2012-07-02 19:18:29] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191758
 </pre></div>
 </div>
 <p>Comparing the following line</p>
@@ -576,7 +577,6 @@ PluginDetect which is currently used by Blackhole exploit kit (see Local Analysi
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 9,1,0,0
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,0,64,0
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,6,0,32
-<span class="o">[</span>2012-11-15 17:32:28<span class="o">]</span> Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173225
 </pre></div>
 </div>
 <p>Let&#8217;s try with different Adobe Acrobat Reader and Shockwave Flash versions now.</p>
@@ -611,7 +611,6 @@ PluginDetect which is currently used by Blackhole exploit kit (see Local Analysi
 <span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 8,1,0,0
 <span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,3,1,180
 <span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,6,0,32
-<span class="o">[</span>2012-11-15 17:33:00<span class="o">]</span> Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173257
 </pre></div>
 </div>
 </div>
@@ -652,7 +651,6 @@ exploit kit (see Local Analysis later for details).</p>
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 9,1,0,0
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,0,64,0
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,6,0,32
-<span class="o">[</span>2012-11-15 17:32:28<span class="o">]</span> Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115173225
 </pre></div>
 </div>
 <p>Let&#8217;s try with a different JavaPlugin version now.</p>
@@ -711,7 +709,6 @@ exploit kit (see Local Analysis later for details).</p>
 <span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: AdobeReader version: 9,1,0,0
 <span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Flash version: 10,0,64,0
 <span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: 1,7,0,7
-<span class="o">[</span>2012-11-15 17:40:57<span class="o">]</span> Saving log analysis at ../logs/99b29da6ee04763a12c215f0441d0700/20121115174054
 </pre></div>
 </div>
 </div>
@@ -796,7 +793,6 @@ W.eXeC &quot;taskkill /F /IM wm&quot; &amp; &quot;player.e&quot; &amp; &quot;xe&
 [2012-07-02 19:22:46] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf
 [2012-07-02 19:22:49] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 [2012-07-02 19:22:49] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-[2012-07-02 19:22:49] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702192212
 </pre></div>
 </div>
 </div>
@@ -817,8 +813,6 @@ later (manual or automated) analysis (see also <em>Web Cache</em>)</p>
 void ExitProcess <span class="o">(</span>
         UINT <span class="nv">uExitCode</span> <span class="o">=</span> 0<span class="p">;</span>
 <span class="o">)</span> <span class="o">=</span>  0<span class="p">;</span>
-
-<span class="o">[</span>2012-07-03 00:12:23<span class="o">]</span> Saving log analysis at ../logs/c8f4c752383eb87ac4381a4f3f101ca7/20120703001222
 </pre></div>
 </div>
 <p>If you need to prevent remote content fetching while analyzing a locally saved page Thug
@@ -856,7 +850,6 @@ provides the <em>-x (&#8211;local-nofetch)</em> option to you. Let&#8217;s take 
 <span class="o">[</span>2013-01-08 10:32:42<span class="o">]</span> <span class="o">[</span>iframe redirection<span class="o">]</span> about:blank -&gt; http://81.95.149.27/go.php?sid<span class="o">=</span>1
 <span class="o">[</span>2013-01-08 10:32:52<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://81.95.149.27/go.php?sid<span class="o">=</span>1 <span class="o">(</span>Status: 408, Referrer: None<span class="o">)</span>
 <span class="o">[</span>2013-01-08 10:32:52<span class="o">]</span> <span class="o">[</span>Request Timeout<span class="o">]</span> URL: http://81.95.149.27/go.php?sid<span class="o">=</span>1
-<span class="o">[</span>2013-01-08 10:32:53<span class="o">]</span> Saving log analysis at ../logs/f31f8f54bf5daa0effb237ddc4ad3727/20130108103227
 </pre></div>
 </div>
 <p>This is what we expect. Let&#8217;s prevent remote content fetching now while analyzing the same
@@ -875,7 +868,6 @@ locally saved page.</p>
 <span class="o">[</span>2013-01-08 10:33:00<span class="o">]</span> &lt;link <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://www.groundhogtech.com/xmlrpc.php&quot;</span> <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;pingback&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:33:01<span class="o">]</span> &lt;link <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;http://www.groundhogtech.com/xmlrpc.php?rsd&quot;</span> <span class="nv">rel</span><span class="o">=</span><span class="s2">&quot;EditURI&quot;</span> <span class="nv">title</span><span class="o">=</span><span class="s2">&quot;RSD&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;application/rsd+xml&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:33:01<span class="o">]</span> &lt;iframe <span class="nv">frameborder</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">marginheight</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">marginwidth</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">scrolling</span><span class="o">=</span><span class="s2">&quot;no&quot;</span> <span class="nv">src</span><span class="o">=</span><span class="s2">&quot;http://81.95.149.27/go.php?sid=1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;border:0px solid gray;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>&gt;&lt;/iframe&gt;
-<span class="o">[</span>2013-01-08 10:33:01<span class="o">]</span> Saving log analysis at ../logs/f31f8f54bf5daa0effb237ddc4ad3727/20130108103259
 </pre></div>
 </div>
 </div>
@@ -979,11 +971,11 @@ option. Simply running Thug this way (please note the interval is expressed in m
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.5.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2011-2014, Angelo Dell&#39;Aera.
+        &copy; Copyright 2011-2015, Angelo Dell&#39;Aera.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
