@@ -3,11 +3,11 @@
 Thug API
 ========
 
-Thug provides a Python Application Program Interface (API) which allows external tools 
-easily interfacing with Thug. Basic usage of the Thug API is really simple and just 
-requires subclassing the ThugAPI class. Thug class (defined in *src/thug.py*) is a 
-great example of such usage which should be enough in almost every scenario I can think 
-about. 
+Thug provides a Python Application Program Interface (API) which allows external tools
+easily interfacing with Thug. Basic usage of the Thug API is really simple and just
+requires subclassing the ThugAPI class. Thug class (defined in *src/thug.py*) is a
+great example of such usage which should be enough in almost every scenario I can think
+about.
 
 Thug API interface definition is reported below for convenience.
 
@@ -79,8 +79,8 @@ Thug API interface definition is reported below for convenience.
             """
             get_events
 
-            Return the DOM events to emulate 
-            Note: the load and mousemove are emulated by default and are not included in 
+            Return the DOM events to emulate
+            Note: the load and mousemove are emulated by default and are not included in
             the returned list
 
             @return: List of the DOM events to emulate
@@ -116,7 +116,7 @@ Thug API interface definition is reported below for convenience.
 
             @param delay: maximum delay value (in milliseconds)
             @type delay: C{int}
-            @return: None   
+            @return: None
             """
 
         def get_file_logging():
@@ -346,13 +346,13 @@ Thug API interface definition is reported below for convenience.
             @type threshold: C{int}
             @return: None
             """
-    
+
         def get_extensive():
             """
             get_extensive
 
             Get the current extensive fetch of linked pages mode
-        
+
             @return: None
             """
 
@@ -370,7 +370,7 @@ Thug API interface definition is reported below for convenience.
             get_timeout
 
             Get the analysis timeout (in seconds)
-        
+
             @return: the analysis timeout (in seconds)
             """
 
@@ -385,12 +385,21 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def get_broken_url():
+            """
+            get_broken_url
+
+            Get the broken URL mode
+
+            @return mode: broken URL mode
+            """
+
         def set_broken_url():
             """
             set_broken_url
 
             Set the broken URL mode
-        
+
             @return: None
             """
 
@@ -401,15 +410,6 @@ Thug API interface definition is reported below for convenience.
             Disable HoneyAgent Java sandbox analysis
 
             @return: None
-            """
-
-        def get_broken_url():
-            """ 
-            get_broken_url
-
-            Get the broken URL mode
-        
-            @return mode: broken URL mode
             """
 
         def log_init(url):
@@ -544,12 +544,12 @@ Thug API interface definition is reported below for convenience.
             @param url: URL to analyze
             @type url: C{str}
             """
-    
+
         def analyze():
             """
             analyze
 
             This method is called when the ThugAPI subclass is called and MUST be
             implemented. This method can reference just the 'args' class attribute.
-            Returning something from this method is up to you if needed. 
+            Returning something from this method is up to you if needed.
             """

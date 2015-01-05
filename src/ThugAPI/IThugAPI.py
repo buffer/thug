@@ -387,6 +387,14 @@ class IThugAPI(zope.interface.Interface):
         @type timeout: C{int}
         @return: None
         """
+    def get_broken_url():
+        """
+        get_broken_url
+
+        Get the broken URL mode
+
+        @return mode: broken URL mode
+        """
 
     def set_broken_url():
         """
@@ -404,15 +412,6 @@ class IThugAPI(zope.interface.Interface):
         Disable HoneyAgent Java sandbox analysis
 
         @return: None
-        """
-
-    def get_broken_url():
-        """ 
-        get_broken_url
-
-        Get the broken URL mode
-        
-        @return mode: broken URL mode
         """
 
     def log_init(url):
