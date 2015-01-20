@@ -735,9 +735,7 @@ class MIMEHandler(dict):
         for jar in jars:
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
-                response, content = self.window._navigator.fetch(url,
-                                                                 headers = headers,
-                                                                 redirect_type = "JNLP")
+                self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
             except:
                 pass
 
