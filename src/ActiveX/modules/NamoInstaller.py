@@ -21,10 +21,6 @@ def Install(self, arg):
                                                  }
                                          )
         try:
-            response, content = self._window._navigator.fetch(url, redirect_type = "NamoInstaller Exploit")
+            self._window._navigator.fetch(url, redirect_type = "NamoInstaller Exploit")
         except:
             log.ThugLogging.add_behavior_warn('[NamoInstaller ActiveX] Fetch failed')
-            return
-
-        if response.status == 404:
-            log.ThugLogging.add_behavior_warn("[NamoInstaller ActiveX] FileNotFoundError: %s" % (url, ))
