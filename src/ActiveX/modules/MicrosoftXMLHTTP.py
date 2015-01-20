@@ -65,13 +65,16 @@ def send(self, varBody = None):
                                      )
 
     try:
-        self.responseHeaders, self.responseBody = self._window._navigator.fetch(self.bstrUrl,
-                                                                                method        = self.bstrMethod,
-                                                                                headers       = self.requestHeaders,
-                                                                                body          = varBody,
-                                                                                redirect_type = "Microsoft XMLHTTP Exploit")
+        response = self._window._navigator.fetch(self.bstrUrl,
+                                                 method        = self.bstrMethod,
+                                                 headers       = self.requestHeaders,
+                                                 body          = varBody,
+                                                 redirect_type = "Microsoft XMLHTTP Exploit")
     except:
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
+
+    self.responseHeaders = response.headers
+    self.responseBody    = response.content
 
     contenttype = self.responseHeaders.get('content-type', None)
     if contenttype is None:
@@ -104,10 +107,10 @@ def getResponseHeader(self, header):
         body = self.responseHeaders[header]
 
     try:
-        response, content = self._window._navigator.fetch(self.bstrUrl,
-                                                          method  = self.bstrMethod,
-                                                          headers = self.requestHeaders,
-                                                          body    = body)
+        self._window._navigator.fetch(self.bstrUrl,
+                                      method  = self.bstrMethod,
+                                      headers = self.requestHeaders,
+                                      body    = body)
     except:
         pass
 
@@ -118,9 +121,9 @@ def getAllResponseHeaders(self):
         body += "%s: %s\r\n" % (k, v, )
 
     try:
-        response, content = self._window._navigator.fetch(self.bstrUrl,
-                                                          method  = self.bstrMethod,
-                                                          headers = self.requestHeaders,
-                                                          body    = body)
+        self._window._navigator.fetch(self.bstrUrl,
+                                      method  = self.bstrMethod,
+                                      headers = self.requestHeaders,
+                                      body    = body)
     except:
         pass
