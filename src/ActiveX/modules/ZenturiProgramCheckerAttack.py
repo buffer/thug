@@ -18,7 +18,7 @@ def DownloadFile(self, *arg):
                                      )
 
     try:
-        response, content = self._window._navigator.fetch(arg[0], redirect_type = "ZenturiProgramChecker Exploit")
+        self._window._navigator.fetch(arg[0], redirect_type = "ZenturiProgramChecker Exploit")
     except:
         log.ThugLogging.add_behavior_warn('[ZenturiProgramChecker ActiveX] Fetch failed')
 
