@@ -34,7 +34,7 @@ def DownloadAndExecute(self, arg0, arg1, arg2, arg3, arg4):
     log.ThugLogging.add_behavior_warn("[Macrovision ActiveX] Fetching from URL %s" % (arg3, ))
 
     try:
-        response, content = self._window._navigator.fetch(arg3, redirect_type = "Macrovision Exploit")
+        self._window._navigator.fetch(arg3, redirect_type = "Macrovision Exploit")
     except:
         log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] Fetch failed')
 
@@ -63,7 +63,7 @@ def AddFile(self, arg0, arg1):
                                      )
 
     try:
-        response, content = self._window._navigator.fetch(arg0, redirect_type = "Macrovision Exploit 2")
+        self._window._navigator.fetch(arg0, redirect_type = "Macrovision Exploit 2")
     except:
         log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] Fetch failed')
 
