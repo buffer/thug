@@ -189,28 +189,32 @@ class ThugLogging(BaseLogging, SampleLogging):
         if not response:
             return None
 
-        if response.previous is None:
+        if not response.history:
+            if response.url:
+                log.URLClassifier.classify(response.url)
+                log.HTTPSession.fetch_ssl_certificate(response.url)
+
             return None
 
-        redirects = list()
-        r         = response
-        final     = response['content-location'] if 'content-location' in response else None
+        final = response.url
 
-        while r.previous:
-            if final is None and 'location' in r.previous:
-                final = r.previous['location']
+        while final is None:
+            for h in reversed(response.history):
+                final = h.url
 
-            redirects.append(r.previous)
-            r = r.previous
+        for h in response.history:
+            location = h.headers.get('location', None)
 
-        while len(redirects):
-            p = redirects.pop()
-            log.URLClassifier.classify(p['content-location'])
-            self.add_behavior_warn("[HTTP Redirection (Status: %s)] Content-Location: %s --> Location: %s" % (p['status'],
-                                                                                                              p['content-location'],
-                                                                                                              p['location'], ))
-            self.log_connection(p['content-location'], p['location'], "http-redirect")
-            last = p['location']
+            self.add_behavior_warn("[HTTP Redirection (Status: %s)] Content-Location: %s --> Location: %s" % (h.status_code,
+                                                                                                              h.url,
+                                                                                                              location))
+            self.log_connection(h.url, location, "http-redirect")
+
+            log.URLClassifier.classify(h.url)
+            log.HTTPSession.fetch_ssl_certificate(h.url)
+
+        log.URLClassifier.classify(final)
+        log.HTTPSession.fetch_ssl_certificate(final)
 
         return final
 
