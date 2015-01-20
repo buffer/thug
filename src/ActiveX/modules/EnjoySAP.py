@@ -30,6 +30,6 @@ def Comp_Download(self, arg0, arg1):
                                       forward = False)
 
     try:
-        response, content = self._window._navigator.fetch(url, redirect_type = "EnjoySAP Exploit")
+        self._window._navigator.fetch(url, redirect_type = "EnjoySAP Exploit")
     except:
         log.ThugLogging.add_behavior_warn('[EnjoySAP ActiveX] Fetch failed')
