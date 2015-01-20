@@ -19,13 +19,10 @@
 
 import PyV8
 import os
-import httplib2
 import hashlib
 import logging
 import socket
 import magic
-import datetime
-import urllib
 import ssl
 
 try:
@@ -36,15 +33,10 @@ except ImportError:
 from .MimeTypes import MimeTypes
 from .Plugins import Plugins
 from .UserProfile import UserProfile
+from .HTTPSession import AboutBlank, FetchForbidden
 
 log = logging.getLogger("Thug")
 
-
-class AboutBlank(httplib2.HttpLib2Error): 
-    pass
-
-class FetchForbidden(httplib2.HttpLib2Error):
-    pass
 
 class Navigator(PyV8.JSClass):
     def __init__(self, personality, window = None):
@@ -295,75 +287,19 @@ class Navigator(PyV8.JSClass):
     def _taintEnabled(self, *arg):
         return True
 
-    def __build_http_headers(self, headers):
-        http_headers = {
-            'Cache-Control'   : 'no-cache',
-            'Accept-Language' : 'en-US',
-            'Accept'          : '*/*',
-            'User-Agent'      :  self.userAgent
-        }
-
-        if self._window.url not in ('about:blank', ):
-            http_headers['Referer'] = self._normalize_url(self._window.url)
-
-        if self._window.doc.cookie:
-            http_headers['Cookie'] = self._window.doc.cookie
-
-        if headers:
-            for name, value in headers.items():
-                http_headers[name] = value
-
-        return http_headers
-
-    def __normalize_protocol_relative_url(self, url):
-        if self._window.url in ('about:blank', ):
-            return 'http:%s' % (url, )
-
-        _base_url = urlparse.urlparse(self._window.url)
-        if not _base_url.scheme:
-            return 'http:%s' % (url, )
-
-        return "%s:%s" % (_base_url.scheme, url)
-
-    def _check_compatibility(self, url, scheme):
-        return url.startswith("%s:/" % (scheme, )) and not url.startswith("%s://" % (scheme, ))
-
-    def _normalize_url(self, url):
-        if log.ThugOpts.broken_url:
-            for scheme in ("http", "https", ):
-                if self._check_compatibility(url, scheme):
-                    url = "%s://%s" % (scheme, url.split("%s:/" % (scheme, ))[1], ) 
-
-        if url.startswith('//'):
-            url = self.__normalize_protocol_relative_url(url)
-
-        url = urllib.quote(url, safe = "%/:=&?~#+!$,;'@()*[]")
-        _url = urlparse.urlparse(url)
-
-        handler = getattr(log.SchemeHandler, 'handle_%s' % (_url.scheme, ), None)
-        if handler:
-            handler(self._window, url)
-            return None
-
-        if not _url.netloc:
-            _url = urlparse.urljoin(self._window.url, url)
-            log.warning("[Navigator URL Translation] %s --> %s" % (url, _url, ))
-            return _url
-
-        return url
-
-    def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None):
-        httplib2.debuglevel = log.ThugOpts.http_debug
-
-        # The command-line option -x (--local-nofetch) prevents remote content
-        # fetching so we raise an exception and exit the method.
-        if log.ThugOpts.no_fetch:
+    def fetch(self, url, method = "GET", headers = {}, body = None, redirect_type = None, params = None):
+        # The command-line option -x (--local-nofetch) prevents remote
+        # content fetching so raise an exception and exit the method.
+        if log.HTTPSession.no_fetch:
             raise FetchForbidden
 
-        if url == 'about:blank':
+        # Do not attempt to fetch content if the URL is "about:blank".
+        if log.HTTPSession.about_blank(url):
             raise AboutBlank
 
-        url = self._normalize_url(url)
+        # URL normalization and fixing (if broken and the option is
+        # enabled).
+        url = log.HTTPSession.normalize_url(self._window, url)
         if url is None:
             return
 
@@ -373,102 +309,68 @@ class Navigator(PyV8.JSClass):
         else:
             log.ThugLogging.log_connection(self._window.url, url, "unknown")
 
-        self.filecount += 1
-
-        # The command-line option -t (--threshold) defines the maximum number of
-        # pages to fetch. If the threshold is reached we avoid fetching the
-        # contents.
-        if log.ThugOpts.threshold and self.filecount >= log.ThugOpts.threshold:
-            log.ThugLogging.log_location(url, None, flags = {"error" : "Threshold Exceeded"})
+        # The command-line option -t (--threshold) defines the maximum
+        # number of pages to fetch. If the threshold is reached avoid
+        # fetching the contents.
+        if log.HTTPSession.threshold_expired(url):
             return
 
-        # The command-line option -T (--timeout) set the analysis timeout (in
-        # seconds). If the analysis lasts more than this value we avoid fetching
-        # the contents.
-        if log.ThugOpts.timeout is not None and datetime.datetime.now() > log.ThugOpts.timeout:
-            log.ThugLogging.log_location(url, None, flags = {"error" : "Timeout"})
+        # The command-line option -T (--timeout) set the analysis timeout
+        # (in seconds). If the analysis lasts more than this value avoid
+        # fetching the contents.
+        if log.HTTPSession.timeout_expired(url):
             return
 
-        http_headers = self.__build_http_headers(headers)
-
-        h = httplib2.Http(cache      = log.ThugOpts.cache,
-                          proxy_info = log.ThugOpts.proxy_info,
-                          timeout    = 10,
-                          disable_ssl_certificate_validation = True)
-
-        h.force_exception_to_status_code = True
-
-        response, content = h.request(url,
-                                      method.upper(),
-                                      body,
-                                      redirections = 1024,
-                                      headers = http_headers)
+        response = log.HTTPSession.fetch(url, method, self._window, self.userAgent, headers, body)
 
         _url = log.ThugLogging.log_redirect(response)
         if _url:
             url = _url
 
-        log.URLClassifier.classify(url)
+        referer = response.request.headers.get('referer', 'None')
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referer: %s)" % (url, response.status_code, referer, ))
 
-        referrer = http_headers['Referer'] if 'Referer' in http_headers else 'None'
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referrer: %s)" % (url, response['status'], referrer, ))
+        if log.HTTPSession.handle_status_code_error(response):
+            response.raise_for_status()
+            return response
 
-        _url = urlparse.urlparse(url)
-
-        if _url.scheme in ('https', ):
-            port = _url.port if  _url.port else 443
-            certificate = ssl.get_server_certificate((_url.netloc, port))
-            log.ThugLogging.log_certificate(url, certificate)
-
-        if response.status == 404:
-            log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (url, ))
-            log.ThugLogging.log_location(url, None, flags = {"error" : "File Not Found"})
-            return response, content
-
-        if response.status in (400, 408, 500, ):
-            log.ThugLogging.add_behavior_warn("[%s] URL: %s" % (response.reason, url, ))
-            return response, ''
-
-        mime_base = log.ThugLogging.baseDir
-        if 'content-type' in response:
-            mime_base = os.path.join(mime_base, response['content-type'])
+        ctype     = response.headers.get('content-type', 'unknown')
+        mime_base = os.path.join(log.ThugLogging.baseDir, ctype)
 
         md5 = hashlib.md5()
-        md5.update(content)
+        md5.update(response.content)
         sha256 = hashlib.sha256()
-        sha256.update(content)
-
-        ctype     = response['content-type'] if 'content-type' in response else 'unknown'
-        clocation = response['content-location'] if 'content-location' in response else url
+        sha256.update(response.content)
 
         try:
-            mtype = magic.from_buffer(content)
+            mtype = magic.from_buffer(response.content)
         except:
             # Ubuntu workaround
             # There is an old pymagic version in Ubuntu
             ms = magic.open(magic.MAGIC_NONE)
             ms.load()
-            mtype = ms.buffer(content)
+            mtype = ms.buffer(response.content)
 
         data = {
-            "content" : content,
+            "content" : response.content,
             "md5"     : md5.hexdigest(),
             "sha256"  : sha256.hexdigest(),
-            "fsize"   : len(content),
+            "fsize"   : len(response.content),
             "ctype"   : ctype,
             "mtype"   : mtype
         }
 
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (clocation, ctype, data["md5"]))
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (response.url, ctype, data["md5"]))
         log.ThugLogging.log_location(url, data)
 
-        if response.previous and 'content-location' in response and response['content-location']:
-            if redirect_type not in ("URL found", "JNLP", "iframe", ):
-                self._window.url = response['content-location']
+        if response.history:
+            location = response.headers.get('location', None)
+            if location and redirect_type not in ("URL found", "JNLP", "iframe", ):
+                self._window.url = location
 
         if redirect_type in ("meta", ):
             self._window.url = url
 
-        log.ThugLogging.store_content(mime_base, data["md5"], content)
-        log.ThugLogging.log_file(content, url, params)
-        return response, content
+        log.ThugLogging.store_content(mime_base, data["md5"], response.content)
+        log.ThugLogging.log_file(response.content, response.url, params)
+        return response
