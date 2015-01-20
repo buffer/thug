@@ -19,7 +19,6 @@
 import sys
 import os
 import datetime
-import httplib2
 import logging
 
 try:
@@ -33,7 +32,7 @@ log = logging.getLogger("Thug")
 
 
 class ThugOpts(dict):
-    proxy_schemes = ('http', 'http2', 'socks4', 'socks5', )
+    proxy_schemes = ('http', 'socks4', 'socks5', )
 
     def __init__(self):
         self._proxy_info      = None
@@ -60,31 +59,19 @@ class ThugOpts(dict):
         self._cache           = '/tmp/thug-cache-%s' % (os.getuid(), )
         self.Personality      = Personality()
 
-    def set_proxy_info(self, proxy):
-        self._proxy = proxy 
-
+    def set_proxy(self, proxy):
         p = urlparse.urlparse(proxy)
 
         if p.scheme.lower() not in self.proxy_schemes:
-            log.warning('[ERROR] Invalid proxy scheme (valid schemes: http, http2, socks4, socks5)')
+            log.warning('[ERROR] Invalid proxy scheme (valid schemes: http, socks4, socks5)')
             sys.exit(0)
 
-        proxy_scheme = p.scheme.upper()
-        if proxy_scheme in ('HTTP2', ):
-            proxy_scheme = 'HTTP_NO_TUNNEL'
+        self._proxy = proxy
 
-        proxy_type = getattr(httplib2.socks, "PROXY_TYPE_%s" % proxy_scheme)
-        self._proxy_info = httplib2.ProxyInfo(proxy_type = proxy_type,
-                                              proxy_host = p.hostname,
-                                              proxy_port = p.port if p.port else 8080,
-                                              proxy_user = p.username,
-                                              proxy_pass = p.password,
-                                              proxy_rdns = (proxy_scheme == "HTTP"))
+    def get_proxy(self):
+        return self._proxy
 
-    def get_proxy_info(self):
-        return self._proxy_info
-
-    proxy_info = property(get_proxy_info, set_proxy_info)
+    proxy = property(get_proxy, set_proxy)
 
     def get_useragent(self):
         return self._useragent

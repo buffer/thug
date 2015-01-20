@@ -114,10 +114,10 @@ class ThugAPI:
         log.ThugOpts.referer = referer
 
     def get_proxy(self):
-        return log.ThugOpts.proxy_info
+        return log.ThugOpts.proxy
 
     def set_proxy(self, proxy):
-        log.ThugOpts.proxy_info = proxy
+        log.ThugOpts.proxy = proxy
 
     def set_no_fetch(self):
         log.ThugOpts.no_fetch = True
