@@ -27,7 +27,7 @@ except ImportError:
     import urlparse
 
 from DOM.W3C import w3c
-from DOM import Window, DFT, MIMEHandler, SchemeHandler
+from DOM import Window, HTTPSession, DFT, MIMEHandler, SchemeHandler
 from Encoding import Encoding
 from Logging.ThugLogging import ThugLogging
 
@@ -225,6 +225,8 @@ class ThugAPI:
         log.ThugLogging.set_url(url)
         log.ThugOpts.local = True
 
+        log.HTTPSession = HTTPSession.HTTPSession()
+
         html   = open(url, 'r').read()
         doc    = w3c.parseString(html)
         window = Window.Window('about:blank', doc, personality = log.ThugOpts.useragent)
@@ -238,6 +240,8 @@ class ThugAPI:
             url = 'http://%s' % (url, )
 
         log.ThugLogging.set_url(url)
+
+        log.HTTPSession = HTTPSession.HTTPSession()
 
         doc    = w3c.parseString('')
         window = Window.Window(log.ThugOpts.referer, doc, personality = log.ThugOpts.useragent)
