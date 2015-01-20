@@ -198,19 +198,21 @@ class Element(Node, ElementCSSInlineStyle):
                 handler(self.doc.window, value)
                 return
             
-            # FIXME
             try:
-                response, content = self.doc.window._navigator.fetch(value, redirect_type = "element workaround")
+                response = self.doc.window._navigator.fetch(value, redirect_type = "element workaround")
             except:
                 return
                 
-            if response.status == 404:
+            if response.status_code == 404:
                 return
 
-            if 'content-type' in response:
-                handler = log.MIMEHandler.get_handler(response['content-type'])
-                if handler:
-                    handler(self.doc.window.url, content)
+            ctype = response.headers.get('content-type', None)
+            if ctype is None:
+                return
+
+            handler = log.MIMEHandler.get_handler(ctype)
+            if handler:
+                handler(self.doc.window.url, response.content)
 
     def removeAttribute(self, name):
         del self.tag[name]
