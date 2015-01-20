@@ -67,7 +67,7 @@ Let's start our Thug tour by taking a look at the options it provides.
         -M, --maec11-logging    Enable MAEC11 logging mode (default: disabled)
 
     Proxy Format:
-        scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
+        scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
 
     Available User-Agents:
         winxpie60               Internet Explorer 6.0   (Windows XP)
@@ -643,10 +643,7 @@ Another really useful option is *-p (--proxy)* which allows to specify a proxy. 
 supports HTTP, SOCKS4 and SOCKS5 proxy using the following format
         
         scheme://[username:password@]host:port 
-        (supported schemes: http, http2, socks4, socks5)
-
-Please consider that http2 is an alternate HTTP proxy mode not using tunnels which works
-better with proxies like burpsuite or mitmproxy.
+        (supported schemes: http, socks4, socks5)
 
 This option allows Thug to make use of Tor in order to anonymize the access to a malicious 
 page. The trick is quite simple and requires a Tor instance up and running. Simply run Thug
