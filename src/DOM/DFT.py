@@ -498,10 +498,7 @@ class DFT(object):
         for jar in jars:
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
-                response, content = self.window._navigator.fetch(url,
-                                                                 headers = headers,
-                                                                 redirect_type = "JNLP",
-                                                                 params = params)
+                self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP", params = params)
             except:
                 pass
 
@@ -560,11 +557,12 @@ class DFT(object):
                 continue
 
             try:
-                response, content = self.window._navigator.fetch(value,
-                                                                 headers = headers,
-                                                                 redirect_type = "params",
-                                                                 params = params)
-                self._handle_jnlp(content, headers, params)
+                response = self.window._navigator.fetch(value,
+                                                        headers = headers,
+                                                        redirect_type = "params",
+                                                        params = params)
+
+                self._handle_jnlp(response.content, headers, params)
             except:
                 pass
 
@@ -691,12 +689,14 @@ class DFT(object):
         relationship = 'External'
 
         try:
-            response, js = self.window._navigator.fetch(src, redirect_type = "script src")
+            response = self.window._navigator.fetch(src, redirect_type = "script src")
         except:
             return
 
-        if response.status == 404:
+        if response.status_code == 404:
             return
+
+        js = response.content
 
         if len(js):
             log.ThugLogging.add_code_snippet(js, 'Javascript', 'External')
@@ -835,10 +835,10 @@ class DFT(object):
             headers['User-Agent'] = self.javaUserAgent
 
         try:
-            response, content = self.window._navigator.fetch(archive,
-                                                             headers = headers,
-                                                             redirect_type = "applet",
-                                                             params = params)
+            self.window._navigator.fetch(archive,
+                                         headers = headers,
+                                         redirect_type = "applet",
+                                         params = params)
         except:
             pass
 
@@ -918,11 +918,11 @@ class DFT(object):
             return
 
         try:
-            response, content = self.window._navigator.fetch(url, redirect_type = "meta")
+            response = self.window._navigator.fetch(url, redirect_type = "meta")
         except:
             return
 
-        if response.status == 404:
+        if response.status_code == 404:
             return
 
         if url in self.meta:
@@ -935,7 +935,7 @@ class DFT(object):
         #self.window.open(url)
         #self.run()
 
-        doc    = w3c.parseString(content)
+        doc    = w3c.parseString(response.content)
         window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
         window.open(url)
 
@@ -950,23 +950,24 @@ class DFT(object):
             return 
 
         try:
-            response, content = self.window._navigator.fetch(src, redirect_type = redirect_type)
+            response = self.window._navigator.fetch(src, redirect_type = redirect_type)
         except:
             return
 
-        if response.status == 404:
+        if response.status_code == 404:
             return
 
-        if 'content-type' in response:
-            handler = log.MIMEHandler.get_handler(response['content-type'])
-            if handler and handler(src, content):
+        ctype = response.headers.get('content-type', None)
+        if ctype:
+            handler = log.MIMEHandler.get_handler(ctype)
+            if handler and handler(src, response.content):
                 return
 
         _src = self.window._navigator._normalize_url(src)
         if _src:
             src = _src
 
-        doc    = w3c.parseString(content)
+        doc    = w3c.parseString(response.content)
         window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
         window.open(src)
 
@@ -1069,11 +1070,11 @@ class DFT(object):
                 return
 
             try:
-                response, content = self.window._navigator.fetch(href, redirect_type = "anchor")
+                response = self.window._navigator.fetch(href, redirect_type = "anchor")
             except:
                 return
 
-            if response.status == 404:
+            if response.status_code == 404:
                 return
 
         self.anchors.append(anchor)
@@ -1089,11 +1090,11 @@ class DFT(object):
             return
 
         try:
-            response, content = self.window._navigator.fetch(href, redirect_type = "link")
+            response = self.window._navigator.fetch(href, redirect_type = "link")
         except:
             return
 
-        if response.status == 404:
+        if response.status_code == 404:
             return
 
     def check_anchors(self):
