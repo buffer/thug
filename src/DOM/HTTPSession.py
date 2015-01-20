@@ -201,11 +201,8 @@ class HTTPSession(dict):
         self.handle_status_code_error_400(response)
 
     def handle_status_code_error(self, response):
-        print response.url
-        print response.status_code
         handler = getattr(self, "handle_status_error_code_%s" % (response.status_code, ), None)
 
-        print handler
         if handler is None:
             return False
 
