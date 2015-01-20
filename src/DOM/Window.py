@@ -724,19 +724,19 @@ class Window(PyV8.JSClass):
             log.warning("[Windows Script Host Run - Stage %d] Downloading from URL %s" % (stage, url, ))
 
             try:
-                response, content = self._navigator.fetch(url, redirect_type = "doRun")
+                response = self._navigator.fetch(url, redirect_type = "doRun")
             except:
                 continue
 
-            if response.status == 404:
+            if response.status_code == 404:
                 continue
 
             md5 = hashlib.md5()
-            md5.update(content)
+            md5.update(response.content)
             log.warning("[Windows Script Host Run - Stage %d] Saving file %s" % (stage, md5.hexdigest()))
             p = '"'.join(s[1:])
             
-            self._doRun(content, stage + 1)
+            self._doRun(response.content, stage + 1)
                 
     def _attachEvent(self, sEvent, fpNotify):
         log.debug("[attachEvent] %s %s" % (sEvent, fpNotify, ))
