@@ -23,7 +23,7 @@ def launch(self, arg):
                                           forward = False)
 
         try:
-            response, content = self._window._navigator.fetch(token, redirect_type = "Java Deployment Toolkit Exploit")
+            self._window._navigator.fetch(token, redirect_type = "Java Deployment Toolkit Exploit")
         except:
             log.ThugLogging.add_behavior_warn("[Java Deployment Toolkit ActiveX] Fetch Failed")
 
