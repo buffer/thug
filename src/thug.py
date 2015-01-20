@@ -85,7 +85,7 @@ Synopsis:
         -M, --maec11-logging\tEnable MAEC11 logging mode (default: disabled)
 
     Proxy Format:
-        scheme://[username:password@]host:port (supported schemes: http, http2, socks4, socks5)
+        scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
 
     Available User-Agents:
 """
