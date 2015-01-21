@@ -331,7 +331,7 @@ class Navigator(PyV8.JSClass):
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referer: %s)" % (url, response.status_code, referer, ))
 
         if log.HTTPSession.handle_status_code_error(response):
-            response.raise_for_status()
+            #response.raise_for_status()
             return response
 
         ctype     = response.headers.get('content-type', 'unknown')
