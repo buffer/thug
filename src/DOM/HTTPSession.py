@@ -41,8 +41,8 @@ class FetchForbidden(requests.RequestException):
 
 class HTTPSession(dict):
     def __init__(self, proxy = None):
-        if log.ThugOpts._proxy:
-            proxy = log.ThugOpts._proxy
+        if proxy is None:
+            proxy = log.ThugOpts.proxy
 
         self.__init_session(proxy)
         self.__init_proxy(proxy)
