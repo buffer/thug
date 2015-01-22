@@ -970,13 +970,14 @@ class Window(PyV8.JSClass):
                 src = tag.get('src', None)
                 if src:
                     try:
-                        response, js = self._navigator.fetch(src, redirect_type = "onload script")
+                        response = self._navigator.fetch(src, redirect_type = "onload script")
                     except:
                         continue
 
-                    if response.status == 404:
+                    if response.status_code == 404:
                         continue
 
+                    js = response.content
                     tag.setString(js)
             try:
                 self.evalScript(tag.string, tag = tag)
@@ -1004,27 +1005,30 @@ class Window(PyV8.JSClass):
     def open(self, url = None, name = '_blank', specs = '', replace = False):
         if url:
             try:
-                response, html = self._navigator.fetch(url, redirect_type = "window open")
+                response = self._navigator.fetch(url, redirect_type = "window open")
             except:
                 return None
 
-            if response.status == 404:
+            if response.status_code == 404:
                 return None
 
-            if response.previous and 'content-location' in response and response['content-location']:
-                url = response['content-location']
+            html = response.content
 
-            if 'content-type' in response:
-                handler = log.MIMEHandler.get_handler(response['content-type'])
+            if response.history:
+                url = response.url
+
+            content_type = response.headers.get('content-type' , None)
+            if content_type:
+                handler = log.MIMEHandler.get_handler(content_type)
                 if handler and handler(url, html):
                     return None
 
             # Log response here
             kwds = { 'referer' : self.url }
-            if 'set-cookie' in response:
-                kwds['cookie'] = response['set-cookie']
-            if 'last-modified' in response:
-                kwds['lastModified'] = response['last-modified']
+            if 'set-cookie' in response.headers:
+                kwds['cookie'] = response.headers['set-cookie']
+            if 'last-modified' in response.headers:
+                kwds['lastModified'] = response.headers['last-modified']
         else:
             url  = 'about:blank'
             html = ''
