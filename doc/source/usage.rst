@@ -46,6 +46,7 @@ Let's start our Thug tour by taking a look at the options it provides.
         -B, --broken-url        Set the broken URL mode
         -y, --vtquery           Query VirusTotal for samples analysis
         -s, --vtsubmit          Submit samples to VirusTotal
+        -z, --web-tracking      Enable web client tracking inspection
         -N, --no-honeyagent     Disable HoneyAgent support
 
         Plugins:
