@@ -165,6 +165,7 @@ class HTTPSession(object):
                            verify  = False)
         
         self.filecount += 1
+        log.WebTracking.inspect_response(response)
         return response
 
     def threshold_expired(self, url):
