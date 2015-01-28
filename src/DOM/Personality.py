@@ -292,8 +292,29 @@ class Personality(dict):
                 "browserTag"      : "chrome20",
                 }
 
-        self['win7firefox3'] = {
+        self['win7chrome40'] = {
                 "id"              : 13,
+                "description"     : "Chrome 40.0.2214.91\t(Windows 7)",
+                "version"         : "40.0.2214.91",
+                "userAgent"       : "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.91 Safari/537.36",
+                "appCodeName"     : "Mozilla",
+                "appName"         : "Netscape",
+                "appVersion"      : "5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.91 Safari/537.36",
+                "appMinorVersion" : None,
+                "platform"        : "Win32",
+                "product"         : "Gecko",
+                "productSub"      : "20030107",
+                "vendor"          : "Google Inc.",
+                "vendorSub"       : "",
+                "oscpu"           : None,
+                "buildID"         : None,
+                "javaUserAgent"   : "Mozilla/5.0 (Windows 7 6.1) Java/%s",
+                "cc_on"           : None,
+                "browserTag"      : "chrome40",
+                }
+
+        self['win7firefox3'] = {
+                "id"              : 14,
                 "description"     : "Firefox 3.6.13\t\t(Windows 7)",
                 "version"         : "3.6.13",
                 "userAgent"       : "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13",
@@ -314,7 +335,7 @@ class Personality(dict):
                 }
 
         self['win7safari5'] = {
-                "id"              : 14,
+                "id"              : 15,
                 "description"     : "Safari 5.1.7\t\t(Windows 7)",
                 "version"         : "5.1.7",
                 "userAgent"       : "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2",
@@ -336,7 +357,7 @@ class Personality(dict):
 
         # MacOS X personalities
         self['osx10safari5'] = {
-                "id"              : 15,
+                "id"              : 16,
                 "description"     : "Safari 5.1.1\t\t(MacOS X 10.7.2)",
                 "version"         : "5.1.1",
                 "userAgent"       : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22",
@@ -357,7 +378,7 @@ class Personality(dict):
                 }  
 
         self['osx10chrome19'] = {
-                "id"              : 16,
+                "id"              : 17,
                 "description"     : "Chrome 19.0.1084.54\t(MacOS X 10.7.4)",
                 "version"         : "19.0.1084.54",
                 "userAgent"       : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.54 Safari/536.5",
@@ -379,7 +400,7 @@ class Personality(dict):
 
         # Linux personalities
         self['linuxchrome26'] = {
-                "id"              : 17,
+                "id"              : 18,
                 "description"     : "Chrome 26.0.1410.19\t(Linux)",
                 "version"         : "26.0.1410.19",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.19 Safari/537.31",
@@ -400,7 +421,7 @@ class Personality(dict):
                 }
 
         self['linuxchrome30'] = { 
-                "id"              : 18, 
+                "id"              : 19,
                 "description"     : "Chrome 30.0.1599.15\t(Linux)",
                 "version"         : "30.0.1599.15",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.15 Safari/537.36",
@@ -421,7 +442,7 @@ class Personality(dict):
                 }   
 
         self['linuxfirefox19'] = {
-                "id"              : 19,
+                "id"              : 20,
                 "description"     : "Firefox 19.0\t\t(Linux)",
                 "version"         : "19.0",
                 "userAgent"       : "Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0",
@@ -443,7 +464,7 @@ class Personality(dict):
 
         # Android personalities
         self['galaxy2chrome18'] = {
-                "id"              : 20,
+                "id"              : 21,
                 "description"     : "Chrome 18.0.1025.166\t(Samsung Galaxy S II, Android 4.0.3)",
                 "version"         : "18.0.1025.166",
                 "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
@@ -464,7 +485,7 @@ class Personality(dict):
                 }
 
         self['galaxy2chrome25'] = {
-                "id"              : 21,
+                "id"              : 22,
                 "description"     : "Chrome 25.0.1364.123\t(Samsung Galaxy S II, Android 4.0.3)",
                 "version"         : "25.0.1364.123",
                 "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.3; GT-I9100 Build/IML74K) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/25.0.1364.123 Mobile Safari/537.22",
@@ -485,7 +506,7 @@ class Personality(dict):
                 }
 
         self['galaxy2chrome29'] = {
-                "id"              : 22,
+                "id"              : 23,
                 "description"     : "Chrome 29.0.1547.59\t(Samsung Galaxy S II, Android 4.1.2)",
                 "version"         : "29.0.1547.59",
                 "userAgent"       : "Mozilla/5.0 (Linux; Android 4.1.2; GT-I9100 Build/JZO54K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.59 Mobile Safari/537.36",
@@ -506,7 +527,7 @@ class Personality(dict):
         }
 
         self['nexuschrome18'] = {
-                "id"              : 23,
+                "id"              : 24,
                 "description"     : "Chrome 18.0.1025.133\t(Google Nexus, Android 4.0.4)",
                 "version"         : "18.0.1025.133",
                 "userAgent"       : "Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19",
@@ -528,7 +549,7 @@ class Personality(dict):
 
         # iOS personalities
         self['ipadsafari7'] = { 
-                "id"              : 24,
+                "id"              : 25,
                 "description"     : "Safari 7.0\t\t(iPad, iOS 7.0.4)",
                 "version"         : "7.0",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_0_4 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11B554a Safari/9537.53",
@@ -549,7 +570,7 @@ class Personality(dict):
                 }
 
         self['ipadsafari8'] = {
-                "id"              : 25, 
+                "id"              : 26,
                 "description"     : "Safari 8.0\t\t(iPad, iOS 8.0.2)",
                 "version"         : "8.0",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A405 Safari/600.1.4",
@@ -570,7 +591,7 @@ class Personality(dict):
                 }
 
         self['ipadchrome33'] = {
-                "id"              : 26,
+                "id"              : 27,
                 "description"     : "Chrome 33.0.1750.21\t(iPad, iOS 7.1)",
                 "version"         : "33.0.1750.21",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_1 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/33.0.1750.21 Mobile/11D167 Safari/9537.53 (7C45F3C7-DC11-40F0-9B5B-AA4A771C0904)",
@@ -591,7 +612,7 @@ class Personality(dict):
                 } 
 
         self['ipadchrome35'] = {
-                "id"              : 27,
+                "id"              : 28,
                 "description"     : "Chrome 35.0.1916.41\t(iPad, iOS 7.1.1)",
                 "version"         : "35.0.1916.41",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_1_1 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/35.0.1916.41 Mobile/11D201 Safari/9537.53 (000125)",
@@ -612,7 +633,7 @@ class Personality(dict):
                 }
 
         self['ipadchrome37'] = {
-                "id"              : 28,
+                "id"              : 29,
                 "description"     : "Chrome 37.0.2062.52\t(iPad, iOS 7.1.2)",
                 "version"         : "37.0.2062.52",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 7_1_2 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) CriOS/37.0.2062.52 Mobile/11D257 Safari/9537.53 (000658)",
@@ -633,7 +654,7 @@ class Personality(dict):
                 }
 
         self['ipadchrome38'] = {
-                "id"              : 29,
+                "id"              : 30,
                 "description"     : "Chrome 38.0.2125.59\t(iPad, iOS 8.0.2)",
                 "version"         : "38.0.2125.59",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 8_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) CriOS/38.0.2125.59 Mobile/12A405 Safari/600.1.4 (000938)",
@@ -654,7 +675,7 @@ class Personality(dict):
                 }
 
         self['ipadchrome39'] = {
-                "id"              : 30,
+                "id"              : 31,
                 "description"     : "Chrome 39.0.2171.45\t(iPad, iOS 8.1.1)",
                 "version"         : "39.0.2171.45",
                 "userAgent"       : "Mozilla/5.0 (iPad; CPU OS 8_1_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) CriOS/39.0.2171.45 Mobile/12B435 Safari/600.1.4 (000545)",

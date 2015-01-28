@@ -54,6 +54,7 @@ class IThugAPI(zope.interface.Interface):
             win7ie80                Internet Explorer 8.0   (Windows 7)
             win7ie90                Internet Explorer 9.0   (Windows 7)
             win7chrome20            Chrome 20.0.1132.47     (Windows 7)
+            win7chrome40            Chrome 40.0.2214.91     (Windows 7)
             win7firefox3            Firefox 3.6.13          (Windows 7)
             win7safari5             Safari 5.1.7            (Windows 7)
             osx10safari5            Safari 5.1.1            (MacOS X 10.7.2)
