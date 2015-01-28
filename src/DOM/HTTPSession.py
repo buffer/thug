@@ -133,7 +133,7 @@ class HTTPSession(object):
         }
 
         if window and window.url not in ('about:blank', ):
-            http_headers['Referer'] = self.normalize_url(window.url)
+            http_headers['Referer'] = self.normalize_url(window, window.url)
 
         if window and window.doc.cookie:
             http_headers['Cookie'] = window.doc.cookie
