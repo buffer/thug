@@ -993,6 +993,30 @@ class Window(PyV8.JSClass):
         if hasattr(self, 'onload'):
             self.evalScript(self.onload)
 
+    @property
+    def Array(self):
+        return self._context.eval("Array")
+
+    @property
+    def Boolean(self):
+        return self._context.eval("Boolean")
+
+    @property
+    def Date(self):
+        return self._context.eval("Date")
+
+    @property
+    def Math(self):
+        return self._context.eval("Math")
+
+    @property
+    def Number(self):
+        return self._context.eval("Number")
+
+    @property
+    def RegExp(self):
+        return self._context.eval("RegExp")
+
     def Image(self, width = 800, height = 600):
         return self.doc.createElement('img')
 
