@@ -23,8 +23,17 @@ class Encoding:
     def __init__(self):
         self.detector = UniversalDetector()
 
-    def detect(self, data):
+    def _detect(self, data):
         self.detector.reset()
         self.detector.feed(data)
         self.detector.close()
         return self.detector.result
+
+    def detect(self, data, safe = False):
+        try:
+            return self._detect(data)
+        except:
+            if safe:
+                return None
+
+            raise
