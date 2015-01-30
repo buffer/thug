@@ -70,7 +70,10 @@ class AST(object):
         try:
             PyV8.JSEngine().compile(script).visit(self)
         except UnicodeDecodeError:
-            enc = log.Encoding.detect(script)
+            enc = log.Encoding.detect(script, safe = True)
+            if enc is None:
+                return
+
             PyV8.JSEngine().compile(script.decode(enc['encoding'])).visit(self)
         except:
             pass
