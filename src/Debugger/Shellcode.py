@@ -101,8 +101,8 @@ class Shellcode(object):
             try:
                 result = self.ctxt.eval(self.script)
             except (UnicodeDecodeError, TypeError):
-                enc = log.Encoding.detect(self.script)
                 try:
+                    enc = log.Encoding.detect(self.script)
                     result = self.ctxt.eval(self.script.decode(enc['encoding']))
                 except:
                     trace = traceback.format_exc()
