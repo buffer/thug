@@ -680,13 +680,40 @@ class DFT(object):
             self._handle_script_for_event(script)
 
         handler(script)
-            
+
+    def handle_external_javascript_text(self, s, response):
+        js = response.content
+
+        # First attempt
+        # No specified encoding. This attempt succeeds most of the times.
+        try:
+            s.text = js
+            return True
+        except:
+            pass
+
+        # Second attempt
+        # Requests will automatically decode content from the server. Most
+        # unicode charsets are seamlessly decoded. When you make a request,
+        # Requests makes educated guesses about the encoding of the response
+        # based on the HTTP headers.
+        if response.encoding:
+            s.text = response.text
+            return True
+
+        # Third (and last) attempt
+        # The encoding is (hopefully) detected through the Encoding class.
+        enc = log.Encoding.detect(js)
+        if enc['encoding'] is None:
+            return False
+
+        s.text = js.decode(enc['encoding'])
+        return True
+
     def handle_external_javascript(self, script):
         src = script.get('src', None)
         if src is None:
             return
-
-        relationship = 'External'
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = "script src")
@@ -696,36 +723,29 @@ class DFT(object):
         if response.status_code == 404:
             return
 
-        js = response.content
+        if not len(response.content):
+            return
 
-        if len(js):
-            log.ThugLogging.add_code_snippet(js, 'Javascript', 'External')
-            s = self.window.doc.createElement('script')
+        log.ThugLogging.add_code_snippet(response.content, 'Javascript', 'External')
 
-            for attr in script.attrs:
-                if attr.lower() in ('src', ):
-                    continue
+        s = self.window.doc.createElement('script')
 
+        for attr in script.attrs:
+            if attr.lower() not in ('src', ):
                 s.setAttribute(attr, script.get(attr))
 
-            try:
-                s.text = js
-            except UnicodeDecodeError:
-                enc = log.Encoding.detect(js)
-                if enc['encoding'] is None:
-                    return
+        if not self.handle_external_javascript_text(s, response):
+            return
 
-                s.text = js.decode(enc['encoding'])
+        try:
+            body = self.window.doc.body
+        except:
+            body = self.window.doc.getElementsByTagName('body')[0]
 
-            try:
-                body = self.window.doc.body
-            except:
-                body = self.window.doc.getElementsByTagName('body')[0]
+        if body:
+            body.appendChild(s)
 
-            if body:
-                body.appendChild(s)
-
-            self.window.evalScript(js, tag = script)
+        self.window.evalScript(response.content, tag = script)
 
     def handle_javascript(self, script):
         try:
