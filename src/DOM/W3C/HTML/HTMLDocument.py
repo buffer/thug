@@ -258,6 +258,9 @@ class HTMLDocument(Document):
         parent = tag.parent
         pos    = parent.contents.index(tag) + 1
 
+        if not isinstance(html, basestring):
+            html = str(html)
+
         soup = BeautifulSoup.BeautifulSoup(html, "html5lib")
         soup.html.unwrap()
         soup.head.unwrap()
