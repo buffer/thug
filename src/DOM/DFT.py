@@ -983,7 +983,7 @@ class DFT(object):
             if handler and handler(src, response.content):
                 return
 
-        _src = self.window._navigator._normalize_url(src)
+        _src = log.HTTPSession.normalize_url(self.window, src)
         if _src:
             src = _src
 
