@@ -62,7 +62,7 @@ class Location(PyV8.JSClass):
             if log.ThugOpts.Personality[p]['userAgent'] == self._window._navigator.userAgent:
                 break
 
-        url = self._window.navigator._normalize_url(url)
+        url = log.HTTPSession.normalize_url(self._window, url)
         log.ThugLogging.log_href_redirect(referer, url)
 
         doc    = w3c.parseString('')
