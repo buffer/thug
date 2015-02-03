@@ -31,4 +31,3 @@ class System:
 
         if property == "java.vendor":
             return 'Sun Microsystems Inc.'
-
