@@ -57,7 +57,8 @@ def intervals(graph):
             while change:
                 change = False
                 for node in graph.rpo[1:]:
-                    if all(p in interv_heads[head] for p in graph.all_preds(node)):
+                    if all(
+                      p in interv_heads[head] for p in graph.all_preds(node)):
                         change |= interv_heads[head].add_node(node)
 
             # At this stage, a node which is not in the interval, but has one
@@ -65,7 +66,8 @@ def intervals(graph):
             # we add all such nodes to the header list.
             for node in graph:
                 if node not in interv_heads[head] and node not in heads:
-                    if any(p in interv_heads[head] for p in graph.all_preds(node)):
+                    if any(
+                      p in interv_heads[head] for p in graph.all_preds(node)):
                         edges[interv_heads[head]].append(node)
                         assert(node not in heads)
                         heads.append(node)
@@ -290,6 +292,8 @@ def short_circuit_struct(graph, idom, node_map):
                 if node in (then, els):
                     continue
                 if then.type.is_cond and len(graph.preds(then)) == 1:
+                    if node in (then.true, then.false):
+                        continue
                     if then.false is els:  # node && t
                         change = True
                         merged_node = MergeNodes(node, then, True, False)
@@ -301,6 +305,8 @@ def short_circuit_struct(graph, idom, node_map):
                         merged_node.true = els
                         merged_node.false = then.false
                 elif els.type.is_cond and len(graph.preds(els)) == 1:
+                    if node in (els.false, els.true):
+                        continue
                     if els.false is then:  # !node && e
                         change = True
                         merged_node = MergeNodes(node, els, True, True)
@@ -429,4 +435,3 @@ def identify_structures(graph, idoms):
             node.follow['if'] = follow
 
     catch_struct(graph, idoms)
-

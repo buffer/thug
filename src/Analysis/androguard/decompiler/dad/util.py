@@ -29,8 +29,6 @@ TYPE_DESCRIPTOR = {
     'J': 'long',
     'F': 'float',
     'D': 'double',
-    'STR': 'String',
-    'StringBuilder': 'String',
 }
 
 ACCESS_FLAGS_CLASSES = {
@@ -69,7 +67,7 @@ ACCESS_FLAGS_METHODS = {
     0x80:    'varargs',
     0x100:   'native',
     0x400:   'abstract',
-    0x800:   'strict',
+    0x800:   'strictfp',
     0x1000:  'synthetic',
     0x10000: 'constructor',
     0x20000: 'declared_synchronized',
@@ -87,18 +85,18 @@ TYPE_LEN = {
 
 
 def get_access_class(access):
-  sorted_access = [i for i in ACCESS_ORDER if i & access]
-  return [ACCESS_FLAGS_CLASSES[flag] for flag in sorted_access]
+    sorted_access = [i for i in ACCESS_ORDER if i & access]
+    return [ACCESS_FLAGS_CLASSES[flag] for flag in sorted_access]
 
 
 def get_access_method(access):
-  sorted_access = [i for i in ACCESS_ORDER if i & access]
-  return [ACCESS_FLAGS_METHODS[flag] for flag in sorted_access]
+    sorted_access = [i for i in ACCESS_ORDER if i & access]
+    return [ACCESS_FLAGS_METHODS[flag] for flag in sorted_access]
 
 
 def get_access_field(access):
-  sorted_access = [i for i in ACCESS_ORDER if i & access]
-  return [ACCESS_FLAGS_FIELDS[flag] for flag in sorted_access]
+    sorted_access = [i for i in ACCESS_ORDER if i & access]
+    return [ACCESS_FLAGS_FIELDS[flag] for flag in sorted_access]
 
 
 def build_path(graph, node1, node2, path=None):
@@ -133,7 +131,7 @@ def common_dom(idom, cur, pred):
 
 def merge_inner(clsdict):
     '''
-    Merge the inner class(es) of a class :
+    Merge the inner class(es) of a class:
     e.g class A { ... } class A$foo{ ... } class A$bar{ ... }
        ==> class A { class foo{...} class bar{...} ... }
     '''
@@ -207,4 +205,3 @@ def create_png(cls_name, meth_name, graph, dir_name='graphs2'):
     m_name = ''.join(x for x in meth_name if x.isalnum())
     name = ''.join((cls_name.split('/')[-1][:-1], '#', m_name))
     graph.draw(name, dir_name)
-

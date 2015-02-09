@@ -36,7 +36,7 @@ class BasicReachDef(object):
         self.def_to_loc = defaultdict(set)
         # Deal with special entry node
         entry = graph.entry
-        self.A[entry] = range(-1, -len(params) - 1, -1)
+        self.A[entry] = set(range(-1, -len(params) - 1, -1))
         for loc, param in enumerate(params, 1):
             self.defs[entry][param].add(-loc)
             self.def_to_loc[param].add(-loc)
@@ -47,7 +47,7 @@ class BasicReachDef(object):
                 if kill is not None:
                     self.defs[node][kill].add(i)
                     self.def_to_loc[kill].add(i)
-            for defs, values in self.defs[node].items():
+            for defs, values in self.defs[node].iteritems():
                 self.DB[node].add(max(values))
 
     def run(self):
@@ -90,11 +90,11 @@ def update_chain(graph, loc, du, ud):
     ins = graph.get_ins_from_loc(loc)
     for var in ins.get_used_vars():
         # We get the definition points of the current variable
-        for def_loc in set(ud[(var, loc)]):
+        for def_loc in set(ud[var, loc]):
             # We remove the use of the variable at loc from the DU chain of
             # the variable definition located at def_loc
-            du[(var, def_loc)].remove(loc)
-            ud[(var, loc)].remove(def_loc)
+            du[var, def_loc].remove(loc)
+            ud[var, loc].remove(def_loc)
             if not ud.get((var, loc)):
                 ud.pop((var, loc))
             # If the DU chain of the defined variable is now empty, this means
@@ -103,7 +103,7 @@ def update_chain(graph, loc, du, ud):
             # the new dead instruction, and we delete it.
             # We also make sure that def_loc is not < 0. This is the case when
             # the current variable is a method parameter.
-            if  def_loc >= 0 and not du[(var, def_loc)]:
+            if def_loc >= 0 and not du[var, def_loc]:
                 du.pop((var, def_loc))
                 def_ins = graph.get_ins_from_loc(def_loc)
                 if def_ins.is_call():
@@ -205,15 +205,10 @@ def register_propagation(graph, du, ud):
         for node in graph.rpo:
             for i, ins in node.get_loc_with_ins()[:]:
                 logger.debug('Treating instruction %d: %s', i, ins)
-                # We make sure the ins has not been deleted since the start of
-                # the iteration
-                if ins not in node.get_ins():
-                    logger.debug(' => skip instruction (deleted)')
-                    continue
                 logger.debug('  Used vars: %s', ins.get_used_vars())
                 for var in ins.get_used_vars():
                     # Get the list of locations this variable is defined at.
-                    locs = ud[(var, i)]
+                    locs = ud[var, i]
                     logger.debug('    var %s defined in lines %s', var, locs)
                     # If the variable is uniquely defined for this instruction
                     # it may be eligible for propagation.
@@ -226,9 +221,8 @@ def register_propagation(graph, du, ud):
                         continue
                     orig_ins = graph.get_ins_from_loc(loc)
                     logger.debug('     -> %s', orig_ins)
-
                     logger.debug('     -> DU(%s, %s) = %s', var, loc,
-                                                    du[(var, loc)])
+                                                    du[var, loc])
 
                     # We defined some instructions as not propagable.
                     # Actually this is the case only for array creation
@@ -240,7 +234,7 @@ def register_propagation(graph, du, ud):
                     if not orig_ins.get_rhs().is_const():
                         # We only try to propagate constants and definition
                         # points which are used at only one location.
-                        if len(du[(var, loc)]) > 1:
+                        if len(du[var, loc]) > 1:
                             logger.debug('       => variable has multiple uses'
                                          ' and is not const => skip')
                             continue
@@ -279,10 +273,10 @@ def register_propagation(graph, du, ud):
                     logger.debug('      - BEFORE: %s', ins)
                     ins.replace(var, orig_ins.get_rhs())
                     logger.debug('      -> AFTER: %s', ins)
-                    logger.debug('\t UD(%s, %s) : %s', var, i, ud[(var, i)])
-                    ud[(var, i)].remove(loc)
-                    logger.debug('\t    -> %s', ud[(var, i)])
-                    if len(ud[(var, i)]) == 0:
+                    logger.debug('\t UD(%s, %s) : %s', var, i, ud[var, i])
+                    ud[var, i].remove(loc)
+                    logger.debug('\t    -> %s', ud[var, i])
+                    if len(ud[var, i]) == 0:
                         ud.pop((var, i))
                     for var2 in orig_ins.get_used_vars():
                         # We update the UD chain of the variables we
@@ -297,16 +291,16 @@ def register_propagation(graph, du, ud):
                         # will be None because already treated.
                         if old_ud is None:
                             continue
-                        ud[(var2, i)].extend(old_ud)
+                        ud[var2, i].extend(old_ud)
                         logger.debug('\t  - ud(%s, %s) = %s', var2, i,
-                                                          ud[(var2, i)])
+                                                          ud[var2, i])
                         ud.pop((var2, loc))
 
                         for def_loc in old_ud:
-                            du[(var2, def_loc)].remove(loc)
-                            du[(var2, def_loc)].append(i)
+                            du[var2, def_loc].remove(loc)
+                            du[var2, def_loc].append(i)
 
-                    new_du = du[(var, loc)]
+                    new_du = du[var, loc]
                     logger.debug('\t new_du(%s, %s): %s', var, loc, new_du)
                     new_du.remove(i)
                     logger.debug('\t    -> %s', new_du)
@@ -331,7 +325,7 @@ class DummyNode(Node):
         return '%s-dummynode' % self.name
 
 
-def split_variables(graph, lvars, DU, UD):
+def group_variables(lvars, DU, UD):
     treated = defaultdict(list)
     variables = defaultdict(list)
     for var, loc in sorted(DU):
@@ -340,24 +334,29 @@ def split_variables(graph, lvars, DU, UD):
         if loc in treated[var]:
             continue
         defs = [loc]
-        uses = set(DU[(var, loc)])
+        uses = set(DU[var, loc])
         change = True
         while change:
             change = False
             for use in uses:
-                ldefs = UD[(var, use)]
+                ldefs = UD[var, use]
                 for ldef in ldefs:
                     if ldef not in defs:
                         defs.append(ldef)
                         change = True
             for ldef in defs[1:]:
-                luses = set(DU[(var, ldef)])
+                luses = set(DU[var, ldef])
                 for use in luses:
                     if use not in uses:
                         uses.add(use)
                         change = True
         treated[var].extend(defs)
         variables[var].append((defs, list(uses)))
+    return variables
+
+
+def split_variables(graph, lvars, DU, UD):
+    variables = group_variables(lvars, DU, UD)
 
     if lvars:
         nb_vars = max(lvars) + 1
@@ -394,11 +393,7 @@ def split_variables(graph, lvars, DU, UD):
                 UD[(new_version.value(), loc)] = UD.pop((var, loc))
 
 
-def build_def_use(graph, lparams):
-    '''
-    Builds the Def-Use and Use-Def (DU/UD) chains of the variables of the
-    method.
-    '''
+def reach_def_analysis(graph, lparams):
     # We insert two special nodes : entry & exit, to the graph.
     # This is done to simplify the reaching definition analysis.
     old_entry = graph.entry
@@ -421,6 +416,15 @@ def build_def_use(graph, lparams):
     if old_exit:
         graph.remove_node(new_exit)
     graph.entry = old_entry
+    return analysis
+
+
+def build_def_use(graph, lparams):
+    '''
+    Builds the Def-Use and Use-Def (DU/UD) chains of the variables of the
+    method.
+    '''
+    analysis = reach_def_analysis(graph, lparams)
 
     UD = defaultdict(list)
     for node in graph.rpo:
@@ -439,29 +443,29 @@ def build_def_use(graph, lparams):
                     if prior_def < v < i:
                         prior_def = v
                 if prior_def >= 0:
-                    UD[(var, i)].append(prior_def)
+                    UD[var, i].append(prior_def)
                 else:
                     intersect = analysis.def_to_loc[var].intersection(
                                                             analysis.R[node])
-                    UD[(var, i)].extend(intersect)
+                    UD[var, i].extend(intersect)
     DU = defaultdict(list)
     for var_loc, defs_loc in UD.items():
         var, loc = var_loc
         for def_loc in defs_loc:
-            DU[(var, def_loc)].append(loc)
+            DU[var, def_loc].append(loc)
 
     return UD, DU
 
 
 def place_declarations(graph, dvars, du, ud):
     idom = graph.immediate_dominators()
-    for node in graph.rpo:
+    for node in graph.post_order():
         for loc, ins in node.get_loc_with_ins():
             for var in ins.get_used_vars():
                 if (not isinstance(dvars[var], Variable)
                     or isinstance(dvars[var], Param)):
                     continue
-                var_defs_locs = ud[(var, loc)]
+                var_defs_locs = ud[var, loc]
                 def_nodes = set()
                 for def_loc in var_defs_locs:
                     def_node = graph.get_node_from_loc(def_loc)
@@ -474,9 +478,8 @@ def place_declarations(graph, dvars, du, ud):
                 common_dominator = def_nodes.pop()
                 for def_node in def_nodes:
                     common_dominator = common_dom(
-                                      idom,common_dominator, def_node)
+                                      idom, common_dominator, def_node)
                 if any(var in range(*common_dominator.ins_range)
-                       for var in ud[(var, loc)]):
+                       for var in ud[var, loc]):
                     continue
                 common_dominator.add_variable_declaration(dvars[var])
-
