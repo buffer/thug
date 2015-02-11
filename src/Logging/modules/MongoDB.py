@@ -321,6 +321,9 @@ class MongoDB(object):
         if not self.enabled:
             return
 
+        self.log_maec11(basedir)
+        self.log_json(basedir)
+
         G = self.graph.draw()
         if G is None:
             return
@@ -331,9 +334,6 @@ class MongoDB(object):
         }
 
         self.graphs.insert(graph)
-
-        self.log_maec11(basedir)
-        self.log_json(basedir)
 
     def fix(self, data):
         """
