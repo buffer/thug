@@ -17,8 +17,8 @@ Requirements
 * Pefile
 * lxml
 * Chardet                  
-* httplib2
 * Requests
+* Requesocks
 * boost
 * Cssutils
 * Zope interface
@@ -264,8 +264,8 @@ to install httplib2 is through easy_install.
 Requests
 ^^^^^^^^
 
-Requests is an Apache2 Licensed HTTP library, written in Python, for human 
-beings. Requests homepage is located at 
+Requests is an Apache2 Licensed HTTP library, written in Python, for human
+beings. Requests homepage is located at
 http://docs.python-requests.org/en/latest/
 
 If not available as a package for your Linux distribution, the best way
@@ -274,6 +274,22 @@ to install requests is through easy_install.
 .. code-block:: sh
 
         # easy_install requests
+
+
+Requesocks
+^^^^^^^^^^
+
+Requesocks is the fork of github.com/foxx/requests == python-requests working 
+with SOCKS proxy (i.e Tor). The package was renamed to allow simultaneously 
+use of original requests and socks-capable-requests. Requesocks homepage is 
+located at https://github.com/dvska/requesocks
+
+If not available as a package for your Linux distribution, the best way
+to install requests is through easy_install.
+
+.. code-block:: sh
+
+        # easy_install requesocks
 
 
 Boost

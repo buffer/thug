@@ -199,7 +199,7 @@ Thug API interface definition is reported below for convenience.
 
             Get the proxy server to be used for estabilishing the connection
 
-            @return: httplib2.ProxyInfo
+            @return: proxy server
             """
 
         def set_proxy(proxy):

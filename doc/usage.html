@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.6 documentation</title>
+    <title>Usage &mdash; Thug 0.6.1 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6',
+        VERSION:     '0.6.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.6 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.6.1 documentation" href="index.html" />
     <link rel="next" title="Thug API" href="api.html" />
     <link rel="prev" title="Configuration" href="configuration.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.6.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -111,7 +111,7 @@ Options:
     -M, --maec11-logging    Enable MAEC11 logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
 
 Proxy Format:
-    scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port <span class="o">(</span>supported schemes: http, http2, socks4, socks5<span class="o">)</span>
+    scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port <span class="o">(</span>supported schemes: http, socks4, socks5<span class="o">)</span>
 
 Available User-Agents:
     winxpie60               Internet Explorer 6.0   <span class="o">(</span>Windows XP<span class="o">)</span>
@@ -126,6 +126,7 @@ Available User-Agents:
     win7ie80                Internet Explorer 8.0   <span class="o">(</span>Windows 7<span class="o">)</span>
     win7ie90                Internet Explorer 9.0   <span class="o">(</span>Windows 7<span class="o">)</span>
     win7chrome20            Chrome 20.0.1132.47     <span class="o">(</span>Windows 7<span class="o">)</span>
+    win7chrome40            Chrome 40.0.2214.91     <span class="o">(</span>Windows 7<span class="o">)</span>
     win7firefox3            Firefox 3.6.13          <span class="o">(</span>Windows 7<span class="o">)</span>
     win7safari5             Safari 5.1.7            <span class="o">(</span>Windows 7<span class="o">)</span>
     osx10safari5            Safari 5.1.1            <span class="o">(</span>MacOS X 10.7.2<span class="o">)</span>
@@ -718,9 +719,7 @@ exploit kit (see Local Analysis later for details).</p>
 supports HTTP, SOCKS4 and SOCKS5 proxy using the following format</p>
 <blockquote>
 <div>scheme://[username:password&#64;]host:port
-(supported schemes: http, http2, socks4, socks5)</div></blockquote>
-<p>Please consider that http2 is an alternate HTTP proxy mode not using tunnels which works
-better with proxies like burpsuite or mitmproxy.</p>
+(supported schemes: http, socks4, socks5)</div></blockquote>
 <p>This option allows Thug to make use of Tor in order to anonymize the access to a malicious
 page. The trick is quite simple and requires a Tor instance up and running. Simply run Thug
 using <em>socks5://127.0.0.1:9050</em> as proxy and your real IP address will not be revealed.</p>
@@ -971,7 +970,7 @@ option. Simply running Thug this way (please note the interval is expressed in m
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.6 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.6.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
