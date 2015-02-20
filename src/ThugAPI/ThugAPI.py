@@ -27,7 +27,12 @@ except ImportError:
     import urlparse
 
 from DOM.W3C import w3c
-from DOM import Window, HTTPSession, DFT, MIMEHandler, SchemeHandler
+from DOM import Window
+from DOM import HTTPSession
+from DOM import WebTracking
+from DOM import DFT
+from DOM import MIMEHandler
+from DOM import SchemeHandler
 from Encoding import Encoding
 from Logging.ThugLogging import ThugLogging
 
@@ -54,6 +59,7 @@ class ThugAPI:
         self.thug_version       = __thug_version__
         log.ThugOpts            = ThugOpts()
         log.ThugVulnModules     = ThugVulnModules()
+        log.WebTracking         = WebTracking.WebTracking()
         log.MIMEHandler         = MIMEHandler.MIMEHandler()
         log.SchemeHandler       = SchemeHandler.SchemeHandler()
         log.JSClassifier        = JSClassifier.JSClassifier()
@@ -178,6 +184,12 @@ class ThugAPI:
 
     def set_broken_url(self):
         log.ThugOpts.broken_url = True
+
+    def get_web_tracking(self):
+        return log.ThugOpts.web_tracking
+
+    def set_web_tracking(self):
+        log.ThugOpts.web_tracking = True
 
     def disable_honeyagent(self):
         log.ThugOpts.honeyagent = False

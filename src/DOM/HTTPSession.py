@@ -135,8 +135,9 @@ class HTTPSession(object):
         if window and window.url not in ('about:blank', ):
             http_headers['Referer'] = self.normalize_url(window, window.url)
 
-        if window and window.doc.cookie:
-            http_headers['Cookie'] = window.doc.cookie
+        # REVIEW ME!
+        #if window and window.doc.cookie:
+        #    http_headers['Cookie'] = window.doc.cookie
 
         for name, value in headers.items():
             http_headers[name] = value
@@ -165,6 +166,7 @@ class HTTPSession(object):
                            verify  = False)
         
         self.filecount += 1
+        log.WebTracking.inspect_response(response)
         return response
 
     def threshold_expired(self, url):

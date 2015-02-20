@@ -64,6 +64,7 @@ Synopsis:
         -B, --broken-url    \tSet the broken URL mode
         -y, --vtquery       \tQuery VirusTotal for samples analysis
         -s, --vtsubmit      \tSubmit samples to VirusTotal
+        -z, --web-tracking  \tEnable web client tracking inspection
         -N, --no-honeyagent \tDisable HoneyAgent support
 
         Plugins:
@@ -100,7 +101,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:ysNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZM',
+                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZM',
                 ['help',
                 'version',
                 'useragent=',
@@ -112,6 +113,7 @@ Synopsis:
                 'proxy=',
                 'vtquery',
                 'vtsubmit',
+                'web-tracking',
                 'no-honeyagent',
                 'local',
                 'local-nofetch',
@@ -165,6 +167,8 @@ Synopsis:
                 self.set_vt_query()
             if option[0] in ('-s', '--vtsubmit', ):
                 self.set_vt_submit()
+            if option[0] in ('-z', '--web-tracking', ):
+                self.set_web_tracking()
             if option[0] in ('-N', '--no-honeyagent', ):
                 self.disable_honeyagent()
             if option[0] in ('-l', '--local', ):
