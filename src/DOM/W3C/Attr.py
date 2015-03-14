@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 
-import sys, re, string
+import sys, re
 
 import bs4 as BeautifulSoup
-import PyV8
 
-from DOMException import DOMException
 from Node import Node
 
 class Attr(Node):

@@ -104,7 +104,9 @@ class Screen(PyV8.JSClass):
     @property
     def colorDepth(self):
         """
-            The bit depth of the color palette for displaying images
+            The bit depth of the color palette for displaying images/
+            The color resolution (in bits per pixel) of the screen
+
         """
         return self._depth
 
@@ -121,13 +123,6 @@ class Screen(PyV8.JSClass):
             The color resolution (in bits per pixel) of the screen
         """
         return self._depth               
-
-    @property
-    def colorDepth(self):
-        """
-            The color resolution (in bits per pixel) of the screen
-        """
-        return self._depth
 
     def _get_bufferDepth(self):
         return self._depth

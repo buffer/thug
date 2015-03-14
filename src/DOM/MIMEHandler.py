@@ -516,7 +516,7 @@ class MIMEHandler(dict):
                     vulnsList = etree.SubElement(suspicious, 'js_vulns')
                     for vuln in vulns:
                         vulnInfo = etree.SubElement(vulnsList, 'vulnerable_function', name = vuln)
-                        if vulnsDict.has_key(vuln):
+                        if vuln in vulnsDict:
                             for vulnCVE in vulnsDict[vuln]:
                                 if isinstance(vulnCVE, (list, tuple)):
                                     vulnCVE=",".join(vulnCVE)

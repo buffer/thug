@@ -64,8 +64,8 @@ class ThugPlugins:
     def run(self):
         for source in self.plugins:
             module = __import__(source)
-            components = source.split('.')
-            for component in components[1:]:
+            components = source.split('.')[1:]
+            for component in components:
                 module = getattr(module, component)
 
             handler = getattr(module, "Handler", None)
