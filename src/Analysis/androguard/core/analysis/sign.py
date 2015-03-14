@@ -98,7 +98,7 @@ class Signature(object):
 
     def _get_hex(self, analysis_method):
         code = analysis_method.get_method().get_code()
-        if code is None:
+        if code == None:
             return ""
 
         buff = ""
@@ -187,7 +187,7 @@ class Signature(object):
 
         method = analysis_method.get_method()
         code = method.get_code()
-        if code is None or code.get_tries_size() <= 0:
+        if code == None or code.get_tries_size() <= 0:
             return buff
 
         handler_catch_list = code.get_handlers()
@@ -265,7 +265,7 @@ class Signature(object):
             return self._global_cached[ key ]
 
         packages_method = self.tainted_packages.get_packages_by_method( analysis_method.get_method() )
-        if self.classes_names is None:
+        if self.classes_names == None:
             self.classes_names = analysis_method.get_vm().get_classes_names()
 
         l = []
@@ -311,7 +311,7 @@ class Signature(object):
                         present = True
                         break
 
-                if present is True:
+                if present == True:
                     l.append( (path.get_idx(), "P%s" % (PACKAGE_ACCESS[ path.get_access_flag() ]) ) )
                     continue
 
