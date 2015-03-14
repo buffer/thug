@@ -30,7 +30,6 @@ except ImportError:
 import os
 import errno
 import copy
-import datetime
 
 import logging
 log = logging.getLogger("Thug")
