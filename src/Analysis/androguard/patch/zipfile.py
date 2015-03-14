@@ -377,7 +377,7 @@ class ZipInfo (object):
                 elif ln == 0:
                     counts = ()
                 else:
-                    raise RuntimeError, "Corrupt extra field %s"%(ln,)
+                    raise RuntimeError("Corrupt extra field %s" % (ln,) )
 
                 idx = 0
 
@@ -673,10 +673,9 @@ class ZipFile(object):
             pass
         elif compression == ZIP_DEFLATED:
             if not zlib:
-                raise RuntimeError,\
-                      "Compression requires the (missing) zlib module"
+                raise RuntimeError("Compression requires the (missing) zlib module")
         else:
-            raise RuntimeError, "That compression method is not supported"
+            raise RuntimeError("That compression method is not supported")
 
         self._allowZip64 = allowZip64
         self._didModify = False
@@ -729,7 +728,7 @@ class ZipFile(object):
             if not self._filePassed:
                 self.fp.close()
                 self.fp = None
-            raise RuntimeError, 'Mode must be "r", "w" or "a"'
+            raise RuntimeError('Mode must be "r", "w" or "a"')
 
     def __enter__(self):
         return self

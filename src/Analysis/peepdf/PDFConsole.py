@@ -102,7 +102,7 @@ class PDFConsole(cmd.Cmd):
         else:
             self.prompt = 'PPDF> '       
         self.use_rawinput = True
-        if stdin != None:
+        if stdin is not None:
             self.use_rawinput = False
             self.prompt = '' 
         self.pdfFile = pdfFile
@@ -134,13 +134,13 @@ class PDFConsole(cmd.Cmd):
         self.leaving = True
 
     def do_bytes(self, argv):
-        if self.pdfFile == None:
+        if self.pdfFile is None:
             message = '*** Error: You must open a file!!'
             self.log_output('bytes ' + argv, message)
             return False
         bytes = ''
         args = self.parseArgs(argv)
-        if args == None:
+        if args is None:
             message = '*** Error: The command line arguments have not been parsed successfully!!'
             self.log_output('bytes ' + argv, message)
             return False
@@ -167,13 +167,13 @@ class PDFConsole(cmd.Cmd):
         print newLine + 'Shows or stores in the specified file $num_bytes of the file beginning from $offset' + newLine    
 
     def do_changelog(self, argv):
-        if self.pdfFile == None:
+        if self.pdfFile is None:
             message = '*** Error: You must open a file!!'
             self.log_output('changelog ' + argv, message)
             return False
         output = ''
         args = self.parseArgs(argv)
-        if args == None:
+        if args is None:
             message = '*** Error: The command line arguments have not been parsed successfully!!'
             self.log_output('changelog ' + argv, message)
             return False
@@ -184,28 +184,28 @@ class PDFConsole(cmd.Cmd):
         else:
             self.help_changelog()
             return False
-        if version != None and not version.isdigit():
+        if version is not None and not version.isdigit():
             self.help_changelog()
             return False
-        if version != None:
+        if version is not None:
             version = int(version)
             if version > self.pdfFile.getNumUpdates():
                 message = '*** Error: The version number is not valid!!'
                 self.log_output('changelog ' + argv, message)
                 return False
-        if version == 0 or (version == None and self.pdfFile.getNumUpdates() == 0):
+        if version == 0 or (version is None and self.pdfFile.getNumUpdates() == 0):
             message = '*** No changes!!'
             self.log_output('changelog ' + argv, message)
             return False
         # Getting information about original document
         data = self.pdfFile.getBasicMetadata(0)
-        if data.has_key('author'):
+        if 'author' in data:
             output += '\tAuthor: ' + data['author'] + newLine
-        if data.has_key('creator'):
+        if 'creator' in data:
             output += '\tCreator: ' + data['creator'] + newLine
-        if data.has_key('producer'):
+        if 'producer' in data:
             output += '\tProducer: ' + data['producer'] + newLine
-        if data.has_key('creation'):
+        if 'creation' in data:
             output += '\tCreation date: ' + data['creation'] + newLine
         if output != '':
             output = 'Original document information:' + newLine + output + newLine
@@ -220,13 +220,13 @@ class PDFConsole(cmd.Cmd):
                 output += 'Changes in version ' + str(i+1) + ':' + newLine
             # Getting modification information
             data = self.pdfFile.getBasicMetadata(i+1)
-            if data.has_key('author'):
+            if 'author' in data:
                 output += '\tAuthor: ' + data['author'] + newLine
-            if data.has_key('creator'):
+            if 'creator' in data:
                 output += '\tCreator: ' + data['creator'] + newLine
-            if data.has_key('producer'):
+            if 'producer' in data:
                 output += '\tProducer: ' + data['producer'] + newLine
-            if data.has_key('modification'):
+            if 'modification' in data:
                 output += '\tModification date: ' + data['modification'] + newLine
             addedObjects = changelog[0]
             modifiedObjects = changelog[1]
@@ -251,7 +251,7 @@ class PDFConsole(cmd.Cmd):
         message = ''
         validCreateTypes = ['pdf','object_stream']
         args = self.parseArgs(argv)
-        if args == None:
+        if args is None:
             message = '*** Error: The command line arguments have not been parsed successfully!!'
             self.log_output('create ' + argv, message)
             return False
@@ -314,7 +314,7 @@ class PDFConsole(cmd.Cmd):
             elif numArgs > 2:
                 self.help_create()
                 return False
-            if version != None and not version.isdigit():
+            if version is not None and not version.isdigit():
                 self.help_create()
                 return False
             if version != None:

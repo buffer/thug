@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import sys
 import PyV8
 
 class DOMException(RuntimeError, PyV8.JSClass):

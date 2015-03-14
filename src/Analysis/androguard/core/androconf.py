@@ -172,10 +172,10 @@ def long2int(l):
 def long2str(l):
     """Convert an integer to a string."""
     if type(l) not in (types.IntType, types.LongType):
-        raise ValueError, 'the input must be an integer'
+        raise ValueError('the input must be an integer')
 
     if l < 0:
-        raise ValueError, 'the input must be greater than 0'
+        raise ValueError('the input must be greater than 0')
     s = ''
     while l:
         s = s + chr(l & 255L)
@@ -186,7 +186,7 @@ def long2str(l):
 def str2long(s):
     """Convert a string to a long integer."""
     if type(s) not in (types.StringType, types.UnicodeType):
-        raise ValueError, 'the input must be a string'
+        raise ValueError('the input must be a string')
 
     l = 0L
     for i in s:

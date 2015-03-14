@@ -9,7 +9,6 @@ For the iTES project (www.ites-project.org)
 import argparse
 import pika
 import sys
-import time
 import json
 
 try:

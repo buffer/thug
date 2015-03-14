@@ -7,7 +7,6 @@ Send commands to Thug
 
 import argparse
 import pika
-import sys
 import json
 from ConfigParser import ConfigParser
 from urlparse import urlparse

@@ -622,7 +622,6 @@ def export_system(system, directory):
             isinstance(system.variables[in_vars[1]].fuzzify,fuzzy.fuzzify.Dict.Dict)
     ):
         for out_var in out_vars:
-            args = []
             if isinstance(system.variables[out_var].defuzzify,fuzzy.defuzzify.Dict.Dict):
                 for adj in system.variables[out_var].adjectives:
                     d.create3DPlot_adjective(system, in_vars[0], in_vars[1], out_var, adj, {})
