@@ -21,22 +21,26 @@ import logging
 
 log = logging.getLogger("Thug")
 
-
 MAX_COOKIE_EXPIRES_DAYS = 365 
 
 
 class WebTracking(object):
+    now = datetime.datetime.now()
     cookie_expires_delta = datetime.timedelta(days = MAX_COOKIE_EXPIRES_DAYS)
 
     def __init__(self):
-        self.now = datetime.datetime.now()
+        self.cookies = set()
     
+    def _inspect_cookie_expires(self, cookie):
+        expires = datetime.datetime.fromtimestamp(cookie.expires)
+        if self.now + self.cookie_expires_delta < expires:
+            log.ThugLogging.log_warning("[PRIVACY] Cookie expiring at %s (more than %s days from now)" % (expires,
+                                                                                                          MAX_COOKIE_EXPIRES_DAYS, ))
+
     def _do_inspect_cookies(self, response):
         for cookie in response.cookies:
-            expires = datetime.datetime.fromtimestamp(cookie.expires)
-            if self.now + self.cookie_expires_delta < expires:
-                log.ThugLogging.log_warning("[PRIVACY] Cookie expiring at %s (more than %s days from now)" % (expires, 
-                                                                                                              MAX_COOKIE_EXPIRES_DAYS, ))
+            self.cookies.add(cookie)
+            self._inspect_cookie_expires(cookie)
 
     def _inspect_cookies(self, response):
         if response.history:
