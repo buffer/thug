@@ -149,77 +149,77 @@ Synopsis:
         for option in options:
             if option[0] in ('-h', '--help'):
                 self.usage()
-            if option[0] in ('-V', '--version'):
+            elif option[0] in ('-V', '--version'):
                 self.version()
 
         for option in options:
             if option[0] in ('-u', '--useragent', ):
                 self.set_useragent(option[1])
-            if option[0] in ('-e', '--events'):
+            elif option[0] in ('-e', '--events'):
                 self.set_events(option[1])
-            if option[0] in ('-w', '--delay'):
+            elif option[0] in ('-w', '--delay'):
                 self.set_delay(option[1])
-            if option[0] in ('-r', '--referer', ):
+            elif option[0] in ('-r', '--referer', ):
                 self.set_referer(option[1])
-            if option[0] in ('-p', '--proxy', ):
+            elif option[0] in ('-p', '--proxy', ):
                 self.set_proxy(option[1])
-            if option[0] in ('-y', '--vtquery', ):
+            elif option[0] in ('-y', '--vtquery', ):
                 self.set_vt_query()
-            if option[0] in ('-s', '--vtsubmit', ):
+            elif option[0] in ('-s', '--vtsubmit', ):
                 self.set_vt_submit()
-            if option[0] in ('-z', '--web-tracking', ):
+            elif option[0] in ('-z', '--web-tracking', ):
                 self.set_web_tracking()
-            if option[0] in ('-N', '--no-honeyagent', ):
+            elif option[0] in ('-N', '--no-honeyagent', ):
                 self.disable_honeyagent()
-            if option[0] in ('-l', '--local', ):
+            elif option[0] in ('-l', '--local', ):
                 p = getattr(self, 'run_local')
-            if option[0] in ('-x', '--local-nofetch', ):
+            elif option[0] in ('-x', '--local-nofetch', ):
                 p = getattr(self, 'run_local')
                 self.set_no_fetch()
-            if option[0] in ('-v', '--verbose', ):
+            elif option[0] in ('-v', '--verbose', ):
                 self.set_verbose()
-            if option[0] in ('-d', '--debug', ):
+            elif option[0] in ('-d', '--debug', ):
                 self.set_debug()
-            if option[0] in ('-m', '--no-cache'):
+            elif option[0] in ('-m', '--no-cache'):
                 self.set_no_cache()
-            if option[0] in ('-a', '--ast-debug', ):
+            elif option[0] in ('-a', '--ast-debug', ):
                 self.set_ast_debug()
-            if option[0] in ('-g', '--http-debug', ):
+            elif option[0] in ('-g', '--http-debug', ):
                 self.set_http_debug()
-            if option[0] in ('-A', '--adobepdf', ):
+            elif option[0] in ('-A', '--adobepdf', ):
                 self.set_acropdf_pdf(option[1])
-            if option[0] in ('-P', '--no-adobepdf', ):
+            elif option[0] in ('-P', '--no-adobepdf', ):
                 self.disable_acropdf()
-            if option[0] in ('-S', '--shockwave', ):
+            elif option[0] in ('-S', '--shockwave', ):
                 self.set_shockwave_flash(option[1])
-            if option[0] in ('-R', '--no-shockwave', ):
+            elif option[0] in ('-R', '--no-shockwave', ):
                 self.disable_shockwave_flash()
-            if option[0] in ('-J', '--javaplugin', ):
+            elif option[0] in ('-J', '--javaplugin', ):
                 self.set_javaplugin(option[1])
-            if option[0] in ('-K', '--no-javaplugin', ):
+            elif option[0] in ('-K', '--no-javaplugin', ):
                 self.disable_javaplugin()
-            if option[0] in ('-t', '--threshold', ):
+            elif option[0] in ('-t', '--threshold', ):
                 self.set_threshold(option[1])
-            if option[0] in ('-E', '--extensive', ):
+            elif option[0] in ('-E', '--extensive', ):
                 self.set_extensive()
-            if option[0] in ('-T', '--timeout', ):
+            elif option[0] in ('-T', '--timeout', ):
                 self.set_timeout(option[1])
-            if option[0] in ('-Q', '--urlclassifier'):
+            elif option[0] in ('-Q', '--urlclassifier'):
                 for classifier in option[1].split(','):
                     self.add_urlclassifier(os.path.abspath(classifier))
-            if option[0] in ('-W', '--jsclassifier'):
+            elif option[0] in ('-W', '--jsclassifier'):
                 for classifier in option[1].split(','):
                     self.add_jsclassifier(os.path.abspath(classifier))
-            if option[0] in ('-C', '--sampleclassifier'):
+            elif option[0] in ('-C', '--sampleclassifier'):
                     for classifier in option[1].split(','):
                         self.add_sampleclassifier(os.path.abspath(classifier))
-            if option[0] in ('-B', '--broken-url', ):
+            elif option[0] in ('-B', '--broken-url', ):
                 self.set_broken_url()
-            if option[0] in ('-F', '--file-logging', ):
+            elif option[0] in ('-F', '--file-logging', ):
                 self.set_file_logging()
-            if option[0] in ('-Z', '--json-logging', ):
+            elif option[0] in ('-Z', '--json-logging', ):
                 self.set_json_logging()
-            if option[0] in ('-M', '--maec11-logging', ):
+            elif option[0] in ('-M', '--maec11-logging', ):
                 self.set_maec11_logging()
 
         self.log_init(args[0])
@@ -227,9 +227,9 @@ Synopsis:
         for option in options:
             if option[0] in ('-n', '--logdir'):
                 self.set_log_dir(option[1])
-            if option[0] in ('-o', '--output', ):
+            elif option[0] in ('-o', '--output', ):
                 self.set_log_output(option[1])
-            if option[0] in ('-q', '--quiet', ):
+            elif option[0] in ('-q', '--quiet', ):
                 self.set_log_quiet()
 
         if p:
