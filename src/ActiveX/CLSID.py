@@ -524,6 +524,21 @@ CLSID = [
                           }
         },
 
+        # MicrosoftXMLDOM
+        {
+            'id'        : (),
+            'name'      : ( 'microsoft.xmldom', ),
+            'attrs'     : {
+                            'async'            : False,
+                            'parseError'       : XMLDOMParseError.XMLDOMParseError(),
+                          },
+            'funcattrs' : {},
+            'methods'   : {
+                            'loadXML'          : MicrosoftXMLDOM.loadXML,
+                          }
+        },
+
+
         # MicrosoftXMLHTTP
         {
             'id'        : (),
