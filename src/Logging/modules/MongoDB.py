@@ -137,7 +137,7 @@ class MongoDB(object):
             return entry
 
         try:
-            entry = self.urls.insert({'url' : url}, safe = True)
+            entry = self.urls.insert({'url' : url})
         except DuplicateKeyError:
             entry = self.__get_url(url)
 
