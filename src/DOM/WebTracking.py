@@ -29,18 +29,50 @@ class WebTracking(object):
     cookie_expires_delta = datetime.timedelta(days = MAX_COOKIE_EXPIRES_DAYS)
 
     def __init__(self):
+        self.cookie_id = 1
         self.cookies = set()
     
     def _inspect_cookie_expires(self, cookie):
         expires = datetime.datetime.fromtimestamp(cookie.expires)
         if self.now + self.cookie_expires_delta < expires:
-            log.ThugLogging.log_warning("[PRIVACY] Cookie expiring at %s (more than %s days from now)" % (expires,
-                                                                                                          MAX_COOKIE_EXPIRES_DAYS, ))
+            log.ThugLogging.log_warning("[TRACKING] [Cookie #%d] Expiring at %s (more than %s days from now)" % (self.cookie_id,
+                                                                                                              expires,
+                                                                                                              MAX_COOKIE_EXPIRES_DAYS, ))
+
+        if self.now > expires:
+            log.ThugLogging.log_warning("[TRACKING] [Cookie #%d] Expired at %s" % (self.cookie_id, expires, ))
+
+    def _inspect_cookie_domain_initial_dot(self, cookie):
+        if cookie.domain_specified and cookie.domain_initial_dot:
+            log.ThugLogging.log_warning("[TRACKING] [Cookie #%d] Domain starting with initial dot: %s" % (self.cookie_id,
+                                                                                                        cookie.domain, ))
+
+    def _inspect_cookie_path(self, cookie):
+        if cookie.path_specified:
+            log.ThugLogging.log_warning("[TRACKING] [Cookie #%d] Path: %s" % (self.cookie_id,
+                                                                            cookie.path, ))
+
+    def _inspect_cookie_port(self, cookie):
+        if cookie.port_specified:
+            log.ThugLogging.log_warning("[TRACKING] [Cookie #%d] Port: %s" % (self.cookie_id,
+                                                                            cookie.port, ))
+
+    def _inspect_cookie_secure(self, cookie):
+        if cookie.secure:
+            log.ThugLogging.log_warning("[TRACKING] [Cookie #%d] Secure flag set")
 
     def _do_inspect_cookies(self, response):
         for cookie in response.cookies:
             self.cookies.add(cookie)
+            log.ThugLogging.log_warning("[TRACKING] [Cookie #%d] %s" % (self.cookie_id,
+                                                                       cookie.value, ))
+
             self._inspect_cookie_expires(cookie)
+            self._inspect_cookie_domain_initial_dot(cookie)
+            self._inspect_cookie_path(cookie)
+            self._inspect_cookie_port(cookie)
+            self._inspect_cookie_secure(cookie)
+            self.cookie_id += 1
 
     def _inspect_cookies(self, response):
         if response.history:
