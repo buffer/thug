@@ -1,7 +1,7 @@
 # Tools
 
-This directory contains tools which makes use of the Thug honeyclient
-which could be useful in order to automate the analysis and/or improve 
+This directory contains tools which make use of the Thug honeyclient
+which could be useful in order to automate the analysis and/or improve
 its efficiency.
 
 ## License information
