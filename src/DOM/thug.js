@@ -22,7 +22,7 @@ window.isFinite 	  	  = isFinite;
 window.isNaN 		  	  = isNaN;
 window.parseFloat 	  	  = parseFloat;
 window.parseInt     	  = parseInt;
-unescape            	  = window.unescape;
+//unescape            	  = window.unescape;
 
 window.String       = String;
 window.charAt       = String.charAt;
