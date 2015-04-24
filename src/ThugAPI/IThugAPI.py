@@ -83,8 +83,8 @@ class IThugAPI(zope.interface.Interface):
         """
         get_events
 
-        Return the DOM events to emulate 
-        Note: the load and mousemove are emulated by default and are not included in 
+        Return the DOM events to emulate
+        Note: the load and mousemove are emulated by default and are not included in
         the returned list
 
         @return: List of the DOM events to emulate
@@ -120,7 +120,7 @@ class IThugAPI(zope.interface.Interface):
 
         @param delay: maximum delay value (in milliseconds)
         @type delay: C{int}
-        @return: None   
+        @return: None
         """
 
     def get_file_logging():
@@ -201,7 +201,7 @@ class IThugAPI(zope.interface.Interface):
         """
         get_proxy
 
-        Get the proxy server to be used for estabilishing the connection
+        Get the proxy server to be used for establishing the connection
 
         @return: proxy server
         """
@@ -210,7 +210,7 @@ class IThugAPI(zope.interface.Interface):
         """
         set_proxy
 
-        Set the proxy server to be used for estabilishing the connection
+        Set the proxy server to be used for establishing the connection
 
         @param proxy: proxy server
         @type proxy: C{str}
@@ -350,13 +350,13 @@ class IThugAPI(zope.interface.Interface):
         @type threshold: C{int}
         @return: None
         """
-    
+
     def get_extensive():
         """
         get_extensive
 
         Get the current extensive fetch of linked pages mode
-        
+
         @return: None
         """
 
@@ -374,7 +374,7 @@ class IThugAPI(zope.interface.Interface):
         get_timeout
 
         Get the analysis timeout (in seconds)
-        
+
         @return: the analysis timeout (in seconds)
         """
 
@@ -402,7 +402,7 @@ class IThugAPI(zope.interface.Interface):
         set_broken_url
 
         Set the broken URL mode
-        
+
         @return: None
         """
 
@@ -565,12 +565,12 @@ class IThugAPI(zope.interface.Interface):
         @param url: URL to analyze
         @type url: C{str}
         """
-    
+
     def analyze():
         """
         analyze
 
         This method is called when the ThugAPI subclass is called and MUST be
         implemented. This method can reference just the 'args' class attribute.
-        Returning something from this method is up to you if needed. 
+        Returning something from this method is up to you if needed.
         """
