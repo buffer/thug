@@ -222,7 +222,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.log_connection(referer, url, "href")
 
     def log_certificate(self, url, certificate):
-        self.add_behavior_warn("[Certificate]\n %s" % (certificate, ))
+        #self.add_behavior_warn("[Certificate]\n %s" % (certificate, ))
 
         for m in self.resolve_method('log_certificate'):
             m(url, certificate)
