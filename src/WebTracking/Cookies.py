@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# WebTracking.py
+# Cookies.py
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -24,7 +24,7 @@ log = logging.getLogger("Thug")
 MAX_COOKIE_EXPIRES_DAYS = 365 
 
 
-class WebTracking(object):
+class Cookies(object):
     now = datetime.datetime.now()
     cookie_expires_delta = datetime.timedelta(days = MAX_COOKIE_EXPIRES_DAYS)
 
@@ -74,15 +74,9 @@ class WebTracking(object):
             self._inspect_cookie_secure(cookie)
             self.cookie_id += 1
 
-    def _inspect_cookies(self, response):
+    def inspect(self, response):
         if response.history:
             for r in response.history:
                 self._do_inspect_cookies(r)
 
         self._do_inspect_cookies(response)
-
-    def inspect_response(self, response):
-        if not log.ThugOpts.web_tracking:
-            return
-
-        self._inspect_cookies(response)

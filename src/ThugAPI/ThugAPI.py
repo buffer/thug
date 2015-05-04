@@ -29,10 +29,10 @@ except ImportError:
 from DOM.W3C import w3c
 from DOM import Window
 from DOM import HTTPSession
-from DOM import WebTracking
 from DOM import DFT
 from DOM import MIMEHandler
 from DOM import SchemeHandler
+from WebTracking import WebTracking
 from Encoding import Encoding
 from Logging.ThugLogging import ThugLogging
 
