@@ -472,6 +472,24 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def get_web_tracking():
+            """
+            get_web_tracking
+
+            Return True if web client tracking inspection is enabled, False otherwise.
+
+            @return: bool
+            """
+
+        def set_web_tracking():
+            """
+            set_web_tracking
+
+            Enable web client tracking inspection
+
+            @return: None
+            """
+
         def add_urlclassifier(rule):
             """
             add_urlclassifier
