@@ -49,7 +49,7 @@ Then mount your host ~/logs dir and enable it to keep the logs on the host
 
 .. code-block:: sh
 
-    $ docker run -it -v ~/logs:/logs honeynet/thug /bin/bash
+    $ docker run -it -v ~/logs:/logs honeynet/thug
 
 Test the dockerized Thug inside the container analyzing 20 random samples
 
