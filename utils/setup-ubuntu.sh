@@ -4,7 +4,8 @@
 #based on https://github.com/buffer/thug/blob/master/doc/source/build.rst
 
 echo "Installing needed libraries and tools..."
-sudo apt-get install subversion git python build-essential python-setuptools libboost-python-dev libboost-thread-dev python-dev build-essential git-core autoconf libtool
+sudo apt-get install subversion git python build-essential python-setuptools libboost-python-dev libboost-thread-dev \
+libboost-system-dev python-dev build-essential git-core autoconf libtool
 echo "Installing pip..."
 sudo easy_install pip
 
@@ -20,7 +21,6 @@ svn checkout -r478 http://pyv8.googlecode.com/svn/trunk/ pyv8 1>>setup-ubuntu.lo
 
 
 echo 'Setting environment variable...'
-#export V8_HOME=`pwd`/v8
 echo "V8_HOME = \"$PWD/v8\"" >> pyv8/buildconf.py
 echo "DEBUG = True" >> pyv8/buildconf.py
 echo "V8_SVN_REVISION = 14110" >> pyv8/buildconf.py
@@ -77,13 +77,13 @@ sudo pip install httplib2 1>>setup-ubuntu.log
 	
 echo "Installing python library: cssutils..."
 sudo pip install cssutils 1>>setup-ubuntu.log
+
+echo "Installing python library: requesocks..."
+sudo pip install requesocks 1>>setup-ubuntu.log
 	
 echo "Installing python library: zope..."
 sudo pip install zope.interface 1>>setup-ubuntu.log
 	
-echo "Installing python library: cssutils..."
-sudo pip install cssutils 1>>setup-ubuntu.log
-
 echo "Installing graphviz..."
 sudo apt-get install graphviz
 
