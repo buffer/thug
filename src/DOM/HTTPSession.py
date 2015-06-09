@@ -150,7 +150,7 @@ class HTTPSession(object):
             return
 
         port = _url.port if  _url.port else 443
-        certificate = ssl.get_server_certificate((_url.netloc, port))
+        certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_SSLv23)
         log.ThugLogging.log_certificate(url, certificate)
 
     def fetch(self, url, method = "GET", window = None, personality = None, headers = {}, body = None):
