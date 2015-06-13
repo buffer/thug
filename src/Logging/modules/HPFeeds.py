@@ -79,7 +79,7 @@ class HPFeeds(object):
         config.read(conf_file)
         
         for option in config.options('hpfeeds'):
-            self.opts[option] = config.get('hpfeeds', option)
+            self.opts[option] = str(config.get('hpfeeds', option))
 
     def set_url(self, url):
         self.url = url
