@@ -32,29 +32,29 @@ except ImportError:
 log = logging.getLogger("Thug")
 
 class FeedUnpack(object):
-	def __init__(self):
-		self.buf = bytearray()
+    def __init__(self):
+        self.buf = bytearray()
 
-	def __iter__(self):
-		return self
+    def __iter__(self):
+        return self
 
-	def next(self):
-		return self.unpack()
+    def next(self):
+        return self.unpack()
 
-	def feed(self, data):
-		self.buf.extend(data)
+    def feed(self, data):
+        self.buf.extend(data)
 
-	def unpack(self):
-		if len(self.buf) < 5:
-			raise StopIteration('No message')
+    def unpack(self):
+        if len(self.buf) < 5:
+            raise StopIteration('No message')
 
-		ml, opcode = struct.unpack('!iB', buffer(self.buf, 0, 5))
-		if len(self.buf) < ml:
-			raise StopIteration('No message')
+        ml, opcode = struct.unpack('!iB', buffer(self.buf, 0, 5))
+        if len(self.buf) < ml:
+            raise StopIteration('No message')
 		
-		data = bytearray(buffer(self.buf, 5, ml - 5))
-		del self.buf[:ml]
-		return opcode, data
+        data = bytearray(buffer(self.buf, 5, ml - 5))
+        del self.buf[:ml]
+        return opcode, data
 
 
 class HPFeeds(object):
