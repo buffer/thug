@@ -47,10 +47,15 @@ from Analysis.peepdf.PDFCore import PDFParser, vulnsDict
 from datetime import datetime
 from lxml import etree
 
-from Analysis.androguard.core import androconf
-from Analysis.androguard.core.bytecodes import apk
-from Analysis.androguard.core.bytecodes import dvm
-from Analysis.androguard.core.analysis import analysis
+ANDROGUARD = True
+try:
+    from androguard.core import androconf
+    from androguard.core.bytecodes import apk
+    from androguard.core.bytecodes import dvm
+    from androguard.core.analysis import analysis
+except ImportError:
+    log.warning("[WARNING] Androguard not found - APK analysis disabled")
+    ANDROGUARD = False
 
 
 class MIMEHandler(dict):
@@ -679,6 +684,9 @@ class MIMEHandler(dict):
 
     def handle_android(self, url, content):
         ret = False
+
+        if not ANDROGUARD:
+            return ret
 
         fd, rfile = tempfile.mkstemp()
         with open(rfile, 'wb') as fd:
