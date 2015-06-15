@@ -103,6 +103,7 @@ class MIMEHandler(dict):
                  "application/rtf",
                  "application/set-payment-initiation",
                  "application/set-registration-initiation",
+                 "application/vnd.android.package-archive",
                  "application/vnd.ms-excel",
                  "application/vnd.ms-outlook",
                  "application/vnd.ms-pkicertstore",
@@ -272,7 +273,8 @@ class MIMEHandler(dict):
         self.register_handler('application/pdf', self.handle_pdf)
 
     def register_android_handlers(self):
-        self['application/vnd.android.package-archive'] = self.handle_android
+        if ANDROGUARD:
+            self['application/vnd.android.package-archive'] = self.handle_android
 
     def register_java_jnlp_handlers(self):
         self['application/x-java-jnlp-file'] = self.handle_java_jnlp
@@ -684,9 +686,6 @@ class MIMEHandler(dict):
 
     def handle_android(self, url, content):
         ret = False
-
-        if not ANDROGUARD:
-            return ret
 
         fd, rfile = tempfile.mkstemp()
         with open(rfile, 'wb') as fd:
