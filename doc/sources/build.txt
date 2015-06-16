@@ -32,6 +32,7 @@ Requirements
 * NetworkX (optional)
 * MongoDB (optional)
 * PyMongo (optional)
+* Androguard (optional)
 * Ssdeep (optional)
 * Python-Ssdeep (optional)
 * RabbitMQ (optional)
@@ -450,6 +451,21 @@ to install pymongo is through easy_install.
 
         # easy_install pymongo  
 
+
+Androguard (optional)
+^^^^^^^^^^^^^^^^^^^^^
+
+Androguard is a tool useful for Android applications static analysis. Androguard homepage
+is located at https://github.com/androguard/androguard.
+
+If not available as a package for your Linux distribution, the best way to install Androguard
+is the one shown below
+
+.. code-block:: sh
+
+        # git clone git@github.com:androguard/androguard.git
+        # cd androguard
+        # python setup.py install
 
 Ssdeep (optional)
 ^^^^^^^^^^^^^^^^^
