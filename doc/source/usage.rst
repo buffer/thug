@@ -48,6 +48,7 @@ Let's start our Thug tour by taking a look at the options it provides.
         -s, --vtsubmit          Submit samples to VirusTotal
         -z, --web-tracking      Enable web client tracking inspection
         -N, --no-honeyagent     Disable HoneyAgent support
+        -D, --mongodb-address   Specify address and port of the MongoDB instance ("host:port")
 
         Plugins:
         -A, --adobepdf=         Specify the Adobe Acrobat Reader version (default: 9.1.0)

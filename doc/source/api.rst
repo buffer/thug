@@ -1,7 +1,8 @@
 .. _api:
 
 Thug API
-========
+========
+
 
 Thug provides a Python Application Program Interface (API) which allows external tools
 easily interfacing with Thug. Basic usage of the Thug API is really simple and just
@@ -468,6 +469,25 @@ Thug API interface definition is reported below for convenience.
             set_vt_submit
 
             Enable VirusTotal samples submit
+
+            @return: None
+            """
+
+        def get_mongodb_instance():
+            """
+            get_mongodb_instance
+
+            Get the address ("host:port") of the MongoDB instance specified at runtime
+            (not the one from the logging.conf file)
+
+            @return: None
+            """
+
+        def set_mongodb_instance():
+            """
+            set_mongodb_instance
+
+            Set the address ("host:port") of a running MongoDB instance to be used at runtime
 
             @return: None
             """
