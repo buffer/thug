@@ -217,7 +217,7 @@ class ThugAPI:
     def set_vt_submit(self):
         log.ThugOpts.set_vt_submit()
 
-    def set_vt_runtime_apikey(self, vt_apikey):
+    def set_vt_runtime_apikey(self, vt_runtime_apikey):
         log.ThugOpts.vt_runtime_apikey = vt_runtime_apikey
 
     def get_vt_runtime_apikey(self):
