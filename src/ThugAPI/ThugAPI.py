@@ -217,6 +217,12 @@ class ThugAPI:
     def set_vt_submit(self):
         log.ThugOpts.set_vt_submit()
 
+    def set_vt_runtime_apikey(self, vt_apikey):
+        log.ThugOpts.vt_runtime_apikey = vt_runtime_apikey
+
+    def get_vt_runtime_apikey(self):
+        return log.ThugOpts.vt_runtime_apikey
+
     def add_urlclassifier(self, rule):
         log.URLClassifier.add_rule(rule)
 
