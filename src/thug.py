@@ -64,7 +64,7 @@ Synopsis:
         -B, --broken-url    \tSet the broken URL mode
         -y, --vtquery       \tQuery VirusTotal for samples analysis
         -s, --vtsubmit      \tSubmit samples to VirusTotal
-        -b, --vt-apikey     \tVirusTotal API key to be used at runtime
+        -b, --vt-apikey=    \tVirusTotal API key to be used at runtime
         -z, --web-tracking  \tEnable web client tracking inspection
         -N, --no-honeyagent \tDisable HoneyAgent support
 
