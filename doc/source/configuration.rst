@@ -129,8 +129,11 @@ Thug supports VirusTotal but you need to get an API key to use the
 VirusTotal Public API 2.0. To do so, just sign-up on the service at 
 https://www.virustotal.com/ and get your own API Key.
 
-Rename the file src/virustotal/virustotal.conf.sample in src/virustotal/virustotal.conf
-and insert your own API key in the configuration file as shown below
+To set up a static VirusTotal key that will be used every time you run Thug with the
+--vtquery and --vtscan options, just rename the file src/virustotal/virustotal.conf.sample
+in src/virustotal/virustotal.conf and insert your own API key in the configuration file
+as shown below. Please note that you can avoid redefining both scanurl and reporturl if
+you are happy with the default values, which can be found in src/virustotal/virustotal.default.conf
 
 .. code-block:: sh
 
@@ -138,3 +141,7 @@ and insert your own API key in the configuration file as shown below
     apikey:                         <enter your API key here>
     scanurl:                        https://www.virustotal.com/vtapi/v2/file/scan
     reporturl:                      https://www.virustotal.com/vtapi/v2/file/report
+
+You may also pass a runtime value for the API key parameter by using the --vt-apikey or -b parameter:
+this may come handy when using a dockerized Thug instance where editing the configuration file prior
+to each run may not be so simple.
