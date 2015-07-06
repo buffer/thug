@@ -72,6 +72,13 @@ class MongoDB(object):
         for option in config.options('mongodb'):
             self.opts[option] = config.get('mongodb', option)
 
+        if log.ThugOpts.mongodb_address:
+            try:
+                (self.opts['host'], self.opts['port']) = log.ThugOpts.mongodb_address.split(':', 1)
+                self.opts['enable'] = 'True'
+            except:
+                log.warning("Invalid MongoDB address specified at runtime, using default values instead")
+
         if self.opts['enable'].lower() in ('false', ):
             self.enabled = False
 

@@ -67,6 +67,12 @@ The parameters should be quite intuitive to understand. By the way if you instal
 MongoDB on the same host you are supposed to run Thug you should not need changing
 anything in the default configuration.
 
+If you want Thug to store its results to a different MongoDB instance than that defined
+in your *Logging/logging.conf* file, you can specify a different address at runtime, for
+example by using the *--mongodb-address* option from the command line. This can be especially
+useful when using the dockerized version of Thug, where storing results in Docker itself would
+mean to loose them as soon as the Docker instance is shut down.
+
 
 Collection schema
 -----------------

@@ -228,3 +228,11 @@ class ThugOpts(dict):
         self._honeyagent = enabled
 
     honeyagent = property(get_honeyagent, set_honeyagent)
+
+    def get_mongodb_address(self):
+        return self._mongodb_address
+
+    def set_mongodb_address(self, mongodb_address):
+        self._mongodb_address = mongodb_address
+
+    mongodb_address = property(get_mongodb_address, set_mongodb_address)
