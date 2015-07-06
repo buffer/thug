@@ -125,15 +125,11 @@ VirusTotal is a free service that analyzes suspicious files and URLs and
 facilitates the quick detection of viruses, worms, trojans, and all kinds 
 of malware. 
 
-Thug supports VirusTotal but you need to get an API key to use the 
-VirusTotal Public API 2.0. To do so, just sign-up on the service at 
-https://www.virustotal.com/ and get your own API Key.
-
-To set up a static VirusTotal key that will be used every time you run Thug with the
---vtquery and --vtscan options, just rename the file src/virustotal/virustotal.conf.sample
-in src/virustotal/virustotal.conf and insert your own API key in the configuration file
-as shown below. Please note that you can avoid redefining both scanurl and reporturl if
-you are happy with the default values, which can be found in src/virustotal/virustotal.default.conf
+Thug supports VirusTotal and a default API key is now included in the default
+configuration file (many thanks to the VirusTotal crew for this!). Please
+consider getting your own API key by signing-up on the service at 
+https://www.virustotal.com/. To change the default VirusTotal key with your
+own, simply edit *src/Analysis/virustotal/virustotal.conf* as follows:
 
 .. code-block:: sh
 

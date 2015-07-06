@@ -50,19 +50,13 @@ class VirusTotal(object):
     def __init_config(self):
         config = ConfigParser.ConfigParser()
 
-        # virustotal.default.conf should contain at least scanurl and reporturl
-        default_conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'virustotal.default.conf')
-        if not os.path.isfile(default_conf_file):
+        conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'virustotal.conf')
+
+        if not os.path.isfile(conf_file):
             self.enabled = False
             return
 
-        with open(default_conf_file, 'rb') as default_conf:
-            config.read_file(default_conf)
-
-        conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'virustotal.conf')
-
-        if os.path.isfile(conf_file):
-            config.read(conf_file)
+        config.read(conf_file)
 
         for option in config.options('VirusTotal'):
             self.opts[option] = config.get('VirusTotal', option)
