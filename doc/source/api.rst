@@ -473,23 +473,6 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
-        def get_mongodb_instance():
-            """
-            get_mongodb_instance
-
-            Get the address ("host:port") of the MongoDB instance specified at runtime
-            (not the one from the logging.conf file)
-            """
-
-        def set_mongodb_instance():
-            """
-            set_mongodb_instance
-
-            Set the address ("host:port") of a running MongoDB instance to be used at runtime
-
-            @return: None
-            """
-
          def get_vt_runtime_apikey():
             """
             get_vt_runtime_apikey
@@ -506,6 +489,23 @@ Thug API interface definition is reported below for convenience.
 
             Set the key to be used when interacting with VirusTotal APIs, overriding
             any static value defined in virustotal.conf
+
+            @return: None
+            """
+
+        def get_mongodb_instance():
+            """
+            get_mongodb_instance
+
+            Get the address ("host:port") of the MongoDB instance specified at runtime
+            (not the one from the logging.conf file)
+            """
+
+        def set_mongodb_instance():
+            """
+            set_mongodb_instance
+
+            Set the address ("host:port") of a running MongoDB instance to be used at runtime
 
             @return: None
             """
