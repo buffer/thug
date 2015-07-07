@@ -55,6 +55,7 @@ class ThugOpts(dict):
         self._broken_url      = False
         self._vt_query        = False
         self._vt_submit       = False
+        self._vt_runtime_apikey = None
         self._web_tracking    = False
         self._honeyagent      = True
         self._cache           = '/tmp/thug-cache-%s' % (os.getuid(), )
@@ -212,6 +213,14 @@ class ThugOpts(dict):
         self._vt_submit = True
 
     vt_submit = property(get_vt_submit, set_vt_submit)
+
+    def get_vt_runtime_apikey(self):
+        return self._vt_runtime_apikey
+
+    def set_vt_runtime_apikey(self, vt_apikey):
+        self._vt_runtime_apikey = vt_apikey
+
+    vt_runtime_apikey = property(get_vt_runtime_apikey, set_vt_runtime_apikey)
 
     def get_web_tracking(self):
         return self._web_tracking

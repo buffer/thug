@@ -223,6 +223,12 @@ class ThugAPI:
     def set_mongodb_address(self, mongodb_address):
         log.ThugOpts.mongodb_address = mongodb_address
 
+    def get_vt_runtime_apikey(self):
+        return log.ThugOpts.vt_runtime_apikey
+
+    def set_vt_runtime_apikey(self, vt_runtime_apikey):
+        log.ThugOpts.vt_runtime_apikey = vt_runtime_apikey
+
     def add_urlclassifier(self, rule):
         log.URLClassifier.add_rule(rule)
 
