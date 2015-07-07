@@ -1,7 +1,8 @@
 .. _api:
 
 Thug API
-========
+========
+
 
 Thug provides a Python Application Program Interface (API) which allows external tools
 easily interfacing with Thug. Basic usage of the Thug API is really simple and just
@@ -470,6 +471,26 @@ Thug API interface definition is reported below for convenience.
             Enable VirusTotal samples submit
 
             @return: None
+            """
+
+        def set_vt_runtime_apikey():
+            """
+            set_vt_runtime_apikey
+
+            Set the key to be used when interacting with VirusTotal APIs, overriding
+            any static value defined in virustotal.conf
+
+            @return: None
+            """
+
+         def get_vt_runtime_apikey():
+            """
+            get_vt_runtime_apikey
+
+            Get the VirusTotal API key set as runtime parameter (not the one defined in
+            the configuration file)
+
+            @return: string
             """
 
         def get_web_tracking():

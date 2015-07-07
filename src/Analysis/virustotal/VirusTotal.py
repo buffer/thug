@@ -51,6 +51,7 @@ class VirusTotal(object):
         config = ConfigParser.ConfigParser()
 
         conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'virustotal.conf')
+
         if not os.path.isfile(conf_file):
             self.enabled = False
             return
@@ -59,6 +60,13 @@ class VirusTotal(object):
 
         for option in config.options('VirusTotal'):
             self.opts[option] = config.get('VirusTotal', option)
+
+        runtime_apikey = log.ThugOpts.get_vt_runtime_apikey()
+        if runtime_apikey:
+            self.opts['apikey'] = runtime_apikey
+
+        if not self.opts.get('apikey', None):
+            self.enabled = False
 
     def save_report(self, response_dict, basedir, sample):
         log_dir = os.path.join(basedir, 'analysis', 'virustotal')

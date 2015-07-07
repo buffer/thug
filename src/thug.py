@@ -64,6 +64,7 @@ Synopsis:
         -B, --broken-url    \tSet the broken URL mode
         -y, --vtquery       \tQuery VirusTotal for samples analysis
         -s, --vtsubmit      \tSubmit samples to VirusTotal
+        -b, --vt-apikey=    \tVirusTotal API key to be used at runtime
         -z, --web-tracking  \tEnable web client tracking inspection
         -N, --no-honeyagent \tDisable HoneyAgent support
 
@@ -101,7 +102,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZM',
+                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZMb:',
                 ['help',
                 'version',
                 'useragent=',
@@ -139,6 +140,7 @@ Synopsis:
                 'file-logging',
                 'json-logging',
                 'maec11-logging',
+                'vt-apikey=',
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -167,6 +169,8 @@ Synopsis:
                 self.set_vt_query()
             elif option[0] in ('-s', '--vtsubmit', ):
                 self.set_vt_submit()
+            elif option[0] in ('-b', '--vt-apikey', ):
+                self.set_vt_runtime_apikey(option[1])
             elif option[0] in ('-z', '--web-tracking', ):
                 self.set_web_tracking()
             elif option[0] in ('-N', '--no-honeyagent', ):
