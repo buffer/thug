@@ -85,6 +85,7 @@ Synopsis:
         -F, --file-logging  \tEnable file logging mode (default: disabled)
         -Z, --json-logging  \tEnable JSON logging mode (default: disabled)
         -M, --maec11-logging\tEnable MAEC11 logging mode (default: disabled)
+        -D, --mongodb-address\tSpecify address and port of the MongoDB instance ("host:port")
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
@@ -102,7 +103,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZMb:',
+                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZMD:b:',
                 ['help',
                 'version',
                 'useragent=',
@@ -140,6 +141,7 @@ Synopsis:
                 'file-logging',
                 'json-logging',
                 'maec11-logging',
+                'mongodb-address=',
                 'vt-apikey=',
                 ])
         except getopt.GetoptError:
@@ -225,6 +227,8 @@ Synopsis:
                 self.set_json_logging()
             elif option[0] in ('-M', '--maec11-logging', ):
                 self.set_maec11_logging()
+            elif option[0] in ('-D', '--mongodb-address', ):
+                self.set_mongodb_address(option[1])
 
         self.log_init(args[0])
 
