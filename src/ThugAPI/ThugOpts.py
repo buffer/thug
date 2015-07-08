@@ -56,6 +56,7 @@ class ThugOpts(dict):
         self._vt_query        = False
         self._vt_submit       = False
         self._vt_runtime_apikey = None
+	self._mongodb_address = None
         self._web_tracking    = False
         self._honeyagent      = True
         self._cache           = '/tmp/thug-cache-%s' % (os.getuid(), )
