@@ -1,0 +1,20 @@
+{
+    "oscpu": null, 
+    "product": "Gecko", 
+    "vendor": "Apple Computer, Inc.", 
+    "description": "Safari 5.1.7\t\t(Windows XP)", 
+    "buildID": null, 
+    "appName": "Netscape", 
+    "appCodeName": "Mozilla", 
+    "productSub": "20030107", 
+    "appVersion": "5.0 (Windows NT 5.1) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2", 
+    "appMinorVersion": null, 
+    "platform": "Win32", 
+    "browserTag": "safari5", 
+    "version": "5.1.7", 
+    "vendorSub": "", 
+    "javaUserAgent": "Mozilla/5.0 (Windows XP 5.1) Java/%s", 
+    "userAgent": "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/534.57.2 (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2", 
+    "cc_on": null, 
+    "id": 7
+}

@@ -1,0 +1,22 @@
+{
+    "oscpu": null, 
+    "product": null, 
+    "vendor": null, 
+    "description": "Internet Explorer 7.0\t(Windows XP)", 
+    "buildID": null, 
+    "appName": "Microsoft Internet Explorer", 
+    "appCodeName": "Mozilla", 
+    "productSub": null, 
+    "appVersion": "4.0 (Windows; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)", 
+    "appMinorVersion": ";SP2;", 
+    "platform": "Win32", 
+    "browserTag": "ie70", 
+    "version": "7.0", 
+    "vendorSub": null, 
+    "javaUserAgent": "Mozilla/4.0 (Windows XP 5.1) Java/%s", 
+    "userAgent": "Mozilla/4.0 (Windows; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)", 
+    "cc_on": {
+        "_jscript_version": "5.7"
+    }, 
+    "id": 3
+}

@@ -1,0 +1,20 @@
+{
+    "oscpu": null, 
+    "product": "Gecko", 
+    "vendor": "Google Inc.", 
+    "description": "Chrome 18.0.1025.133\t(Google Nexus, Android 4.0.4)", 
+    "buildID": null, 
+    "appName": "Netscape", 
+    "appCodeName": "Mozilla", 
+    "productSub": "20030107", 
+    "appVersion": "5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19", 
+    "appMinorVersion": null, 
+    "platform": "Linux armv71", 
+    "browserTag": "chrome18", 
+    "version": "18.0.1025.133", 
+    "vendorSub": "", 
+    "javaUserAgent": null, 
+    "userAgent": "Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.133 Mobile Safari/535.19", 
+    "cc_on": null, 
+    "id": 24
+}

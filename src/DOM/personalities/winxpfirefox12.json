@@ -1,0 +1,20 @@
+{
+    "oscpu": "Windows NT 5.1", 
+    "product": "Gecko", 
+    "vendor": "", 
+    "description": "Firefox 12.0\t\t(Windows XP)", 
+    "buildID": "20120403211507", 
+    "appName": "Netscape", 
+    "appCodeName": "Mozilla", 
+    "productSub": "2010101", 
+    "appVersion": "5.0 (Windows)", 
+    "appMinorVersion": null, 
+    "platform": "Win32", 
+    "browserTag": "firefox12", 
+    "version": "12.0", 
+    "vendorSub": "", 
+    "javaUserAgent": "Mozilla/5.0 (Windows XP 5.1) Java/%s", 
+    "userAgent": "Mozilla/5.0 (Windows NT 5.1; rv:12.0) Gecko/20120403211507 Firefox/12.0", 
+    "cc_on": null, 
+    "id": 6
+}
