@@ -344,7 +344,7 @@ class Navigator(PyV8.JSClass):
 
         try:
             # This works with python-magic >= 0.4.6 from pypi
-            mtype = magic.from_buffer(response.content, mime=True)
+            mtype = magic.from_buffer(response.content, mime = True)
         except:
             try:
                 # Ubuntu workaround
@@ -355,7 +355,7 @@ class Navigator(PyV8.JSClass):
             except:
                 # Filemagic workaround
                 # This works with filemagic >= 1.6 from pypi
-                with magic.Magic(flags=magic.MAGIC_MIME_TYPE) as m:
+                with magic.Magic(flags = magic.MAGIC_MIME_TYPE) as m:
                     mtype = m.id_buffer(response.content)
 
 
