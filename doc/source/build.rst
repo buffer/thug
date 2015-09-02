@@ -372,8 +372,8 @@ to install pydot is through easy_install.
 Python-Magic
 ^^^^^^^^^^^^
 
-The recommended implementation of python-magic (currently 0.4.6) can be
-found at https://github.com/ahupp/python-magic.
+The recommended implementation of python-magic can be found at 
+https://github.com/ahupp/python-magic.
 
 The best way to install python-magic is through easy_install.
 
@@ -382,7 +382,7 @@ The best way to install python-magic is through easy_install.
         # easy_install python-magic
 
 If you are running Ubuntu, you may want to use a completely different
-implementation of python-magic (5.x) which is packaged through apt.
+implementation of python-magic which is packaged through apt.
 
 .. code-block:: sh
 
