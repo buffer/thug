@@ -1,15 +1,21 @@
-Windows            1000
- Windows XP        1100
- Windows 2000      1200
- Windows 7         1300
+Windows            10
+ Windows XP        11
+ Windows 2000      12
+ Windows 7         13
 
-Mac OS X		   2000
+Mac OS X		   20
 
-Linux			   3000
+Linux			   30
 
-Android			   4000
- Samsung Galaxy S2 4100
- Google Nexus      4200
+Android			   40
+ Samsung Galaxy S2 41
+ Google Nexus      42
 
-iOS                5000
- iPad			   5100
+iOS                50
+ iPad			   51
+
+
+ Internet Explorer 01
+ Google Chrome     02
+ Firefox           03
+ Safari            04
