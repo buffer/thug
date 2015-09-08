@@ -1,0 +1,15 @@
+Windows            1000
+ Windows XP        1100
+ Windows 2000      1200
+ Windows 7         1300
+
+Mac OS X		   2000
+
+Linux			   3000
+
+Android			   4000
+ Samsung Galaxy S2 4100
+ Google Nexus      4200
+
+iOS                5000
+ iPad			   5100
