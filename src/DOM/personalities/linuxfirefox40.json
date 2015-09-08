@@ -1,0 +1,20 @@
+{
+    "oscpu": "Linux x86_64", 
+    "product": "Gecko", 
+    "vendor": "", 
+    "description": "Firefox 40.0\t\t(Linux)", 
+    "buildID": "20150826023504", 
+    "appName": "Netscape", 
+    "appCodeName": "Mozilla", 
+    "productSub": "20100101", 
+    "appVersion": "5.0 (X11)", 
+    "appMinorVersion": null, 
+    "platform": "Linux x86_64", 
+    "browserTag": "firefox40", 
+    "version": "40.0", 
+    "vendorSub": "", 
+    "javaUserAgent": null, 
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:40.0) Gecko/20100101 Firefox/40.0", 
+    "cc_on": null, 
+    "id": 3102
+}
