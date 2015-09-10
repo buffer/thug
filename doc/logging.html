@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Logging &mdash; Thug 0.6.3 documentation</title>
+    <title>Logging &mdash; Thug 0.6.4 documentation</title>
     
     <link rel="stylesheet" href="static/default.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6.3',
+        VERSION:     '0.6.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.6.3 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.6.4 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="Thug API" href="api.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="api.html" title="Thug API"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.6.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.6.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -104,6 +104,11 @@ port:       27017
 <p>The parameters should be quite intuitive to understand. By the way if you install
 MongoDB on the same host you are supposed to run Thug you should not need changing
 anything in the default configuration.</p>
+<p>If you want Thug to store its results to a different MongoDB instance than that defined
+in your <em>Logging/logging.conf</em> file, you can specify a different address at runtime, for
+example by using the <em>&#8211;mongodb-address</em> option from the command line. This can be especially
+useful when using the dockerized version of Thug, where storing results in Docker itself would
+mean to loose them as soon as the Docker instance is shut down.</p>
 <div class="section" id="collection-schema">
 <h3>Collection schema<a class="headerlink" href="#collection-schema" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="urls">
@@ -662,7 +667,7 @@ are saved in the database instance too.</p>
         <li class="right" >
           <a href="api.html" title="Thug API"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.6.3 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Thug 0.6.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
