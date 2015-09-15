@@ -104,7 +104,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZMD:b:',
+                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZMGD:b:',
                 ['help',
                 'version',
                 'useragent=',
@@ -142,6 +142,7 @@ Synopsis:
                 'file-logging',
                 'json-logging',
                 'maec11-logging',
+                'elasticsearch-logging',
                 'mongodb-address=',
                 'vt-apikey=',
                 ])
@@ -228,6 +229,8 @@ Synopsis:
                 self.set_json_logging()
             elif option[0] in ('-M', '--maec11-logging', ):
                 self.set_maec11_logging()
+            elif option[0] in ('-G', '--elasticsearch-logging', ):
+                self.set_elasticsearch_logging()
             elif option[0] in ('-D', '--mongodb-address', ):
                 self.set_mongodb_address(option[1])
 

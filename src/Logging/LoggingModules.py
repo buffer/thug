@@ -19,8 +19,9 @@
 from .modules import *
 
 LoggingModules = {
-    'maec11' :    MITRE.MAEC11.MAEC11,
-    'json'   :    JSON.JSON,
-    'mongodb':    MongoDB.MongoDB,
-    'hpfeeds':    HPFeeds.HPFeeds
+    'maec11'        : MITRE.MAEC11.MAEC11,
+    'json'          : JSON.JSON,
+    'mongodb'       : MongoDB.MongoDB,
+    'elasticsearch' : ElasticSearch.ElasticSearch,
+    'hpfeeds'       : HPFeeds.HPFeeds
 }

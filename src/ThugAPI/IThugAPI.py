@@ -144,6 +144,25 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def get_elasticsearch_logging():
+        """
+        get_elasticsearch_logging
+
+        Return True if ElasticSearch logging mode is enabled, False otherwise.
+
+        @return: boolean
+        """
+
+    def set_elasticsearch_logging():
+        """
+        set_elasticsearch_logging
+
+        Enable ElasticSearch logging mode
+
+        @return: None
+        """
+
+
     def get_referer():
         """
         get_referer

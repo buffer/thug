@@ -51,6 +51,7 @@ class ThugOpts(dict):
         self._file_logging    = False
         self._json_logging    = False
         self._maec11_logging  = False
+        self._es_logging      = False
         self._no_fetch        = False
         self._broken_url      = False
         self._vt_query        = False
@@ -142,6 +143,14 @@ class ThugOpts(dict):
         self._maec11_logging = maec11_logging
 
     maec11_logging = property(get_maec11_logging, set_maec11_logging)
+
+    def get_es_logging(self):
+        return self._es_logging
+
+    def set_es_logging(self, es_logging):
+        self._es_logging = es_logging
+
+    elasticsearch_logging = property(get_es_logging, set_es_logging)
 
     def get_no_fetch(self):
         return self._no_fetch

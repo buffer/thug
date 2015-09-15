@@ -113,6 +113,13 @@ class ThugAPI:
     def set_maec11_logging(self):
         log.ThugOpts.maec11_logging = True
 
+    def get_elasticsearch_logging(self):
+        return log.ThugOpts.elasticsearch_logging
+
+    def set_elasticsearch_logging(self):
+        log.ThugOpts.elasticsearch_logging = True
+        logging.getLogger("elasticsearch").setLevel(logging.ERROR)
+
     def get_referer(self):
         return log.ThugOpts.referer
 
