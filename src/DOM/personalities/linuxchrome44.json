@@ -10,7 +10,7 @@
     "appVersion": "5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.89 Safari/537.36", 
     "appMinorVersion": null, 
     "platform": "Linux x86_64", 
-    "browserTag": "chrome30", 
+    "browserTag": "chrome44", 
     "version": "44.0.2403.89", 
     "vendorSub": "", 
     "javaUserAgent": null, 
