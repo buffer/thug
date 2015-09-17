@@ -10,7 +10,7 @@
     "appVersion": "5.0 (iPad; CPU OS 8_4_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) CriOS/45.0.2454.68 Mobile/12H321 Safari/600.1.4 (000591)", 
     "appMinorVersion": null, 
     "platform": "iPad", 
-    "browserTag": "chrome39", 
+    "browserTag": "chrome45",
     "version": "45.0.2454.68", 
     "vendorSub": "", 
     "javaUserAgent": null, 
