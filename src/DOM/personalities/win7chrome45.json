@@ -1,0 +1,20 @@
+{
+    "oscpu": null, 
+    "product": "Gecko", 
+    "vendor": "Google Inc.", 
+    "description": "Chrome 45.0.2454.85\t(Windows 7)", 
+    "buildID": null, 
+    "appName": "Netscape", 
+    "appCodeName": "Mozilla", 
+    "productSub": "20030107", 
+    "appVersion": "5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36", 
+    "appMinorVersion": null, 
+    "platform": "Win32", 
+    "browserTag": "chrome45", 
+    "version": "45.0.2454.85", 
+    "vendorSub": "", 
+    "javaUserAgent": "Mozilla/5.0 (Windows 7 6.1) Java/%s", 
+    "userAgent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36", 
+    "cc_on": null, 
+    "id": 130203
+}
