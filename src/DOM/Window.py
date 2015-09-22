@@ -170,18 +170,22 @@ class Window(PyV8.JSClass):
             self._symbols.discard(name)
 
         if isinstance(symbol, PyV8.JSFunction):
-            _method = None
+            #_method = None
+            #
+            #if symbol in self._methods:
+            #   _method = symbol.clone()
+            #
+            #if _method is None:
+            #   _method = new.instancemethod(symbol, self, Window)
+            #   _method = symbol.__get__(self, Window)
+            #
+            #setattr(self, name, _method)
+            #context.locals[name] = _method
+            #return _method
 
-            if symbol in self._methods:
-                _method = symbol.clone()
-
-            if _method is None:
-                _method = new.instancemethod(symbol, self, Window)
-                #_method = symbol.__get__(self, Window)
-
-            setattr(self, name, _method)
-            context.locals[name] = _method
-            return _method
+            setattr(self, name, symbol)
+            context.locals[name] = symbol
+            return symbol
 
         if isinstance(symbol, (thug_string,
                                bool,
