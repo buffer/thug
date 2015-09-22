@@ -42,15 +42,15 @@ window.toLowerCase  = String.toLowerCase;
 window.toUpperCase  = String.toUpperCase;
 window.valueOf      = String.valueOf;
 
-window._Function = Function;
-Function = function(code) {
-	if (navigator.appName == 'Microsoft Internet Explorer') {
-		if (code.indexOf("@cc_on!@") >= 0) {
-			code = code.replace("@cc_on!@", "*/!/*");
-		}
-	}
-	return window._Function(code);
-}
+//window._Function = Function;
+//Function = function(code) {
+//	if (navigator.appName == 'Microsoft Internet Explorer') {
+//		if (code.indexOf("@cc_on!@") >= 0) {
+//			code = code.replace("@cc_on!@", "*/!/*");
+//		}
+//	}
+//	return window._Function(code);
+//}
 
 Object.defineProperty(this, "location", {
 	set: function(value){
