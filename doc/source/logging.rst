@@ -15,6 +15,7 @@ The available logging modes are:
 
 * MongoDB logging mode (enabled by default)
 * HPFeeds logging mode (enabled by default)
+* ElasticSearch
 * JSON logging mode
 * MAEC 1.1 logging mode
 * File logging mode
@@ -39,6 +40,12 @@ of its analyses. The default logging.conf file is shown below.
     enable:     True
     host:       localhost
     port:       27017
+
+    [elasticsearch]
+    enable:     True
+    url:        http://192.168.56.101:9200
+    index:      thug
+
 
 The different sections of the configuration files will be explained later in this 
 document.
@@ -392,6 +399,28 @@ Currently Thug shares data in two channels:
 - thug.files channel (downloaded samples)
 
 If you are interested in the data collected by Thug instances, please contact me.
+
+
+ElasticSearch logging module
+============================
+
+The ElasticSearch logging mode allows to store both the analysis results and each resource
+downloaded during the analysis in an ElasticSearch instance. Deploying and configuring the
+instance is totally up to you and no images are provided for that. 
+
+ElasticSearch logging mode is not enabled by default and you need to enable the option -G 
+(--elasticsearch-logging). The ElasticSearch configuration is saved in in the *Logging/logging.conf* 
+file. Be sure of defining the right URL for connecting to your instance. You may want to
+change the index name where data will be stored but this is not really necessary in the most 
+common situations.
+
+.. code-block:: sh
+
+    [elasticsearch]
+    enable:     True
+    url:        http://192.168.56.101:9200
+    index:      thug
+
 
 JSON logging mode
 =================
