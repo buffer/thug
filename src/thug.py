@@ -66,7 +66,7 @@ Synopsis:
         -s, --vtsubmit          \tSubmit samples to VirusTotal
         -b, --vt-apikey=        \tVirusTotal API key to be used at runtime
         -z, --web-tracking      \tEnable web client tracking inspection
-        -N, --no-honeyagen      \tDisable HoneyAgent support
+        -N, --no-honeyagent     \tDisable HoneyAgent support
 
         Plugins:
         -A, --adobepdf=         \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
