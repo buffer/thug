@@ -3,3 +3,5 @@ logs
 .project
 .pydevproject
 build
+dist
+thug.egg-info
