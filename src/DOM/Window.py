@@ -28,7 +28,7 @@ import numbers
 import datetime
 import collections
 import urllib
-import new
+#import new
 import bs4 as BeautifulSoup
 import jsbeautifier
 from .W3C import *
