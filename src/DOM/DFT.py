@@ -21,7 +21,6 @@ import pylibemu
 import struct
 import hashlib
 import string
-import urlparse
 import base64
 import logging
 import PyV8
@@ -29,6 +28,11 @@ import traceback
 import bs4 as BeautifulSoup
 import jsbeautifier
 from cssutils.parse import CSSParser
+
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 
 try:
     from . import Window
