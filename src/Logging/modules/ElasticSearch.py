@@ -38,6 +38,8 @@ except ImportError:
 
 class ElasticSearch(JSON):
     def __init__(self, thug_version):
+        JSON.__init__(self, thug_version, provider = True)
+
         self.enabled = True
 
         if not ELASTICSEARCH_MODULE:
@@ -47,8 +49,6 @@ class ElasticSearch(JSON):
         if not log.ThugOpts.elasticsearch_logging:
             self.enabled = False
             return
-
-        JSON.__init__(self, thug_version, provider = True)
 
         if not self.__init_elasticsearch():
             self.enabled = False
