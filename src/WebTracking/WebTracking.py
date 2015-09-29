@@ -16,7 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-from Cookies import Cookies
+from .Cookies import Cookies
 
 import logging
 log = logging.getLogger("Thug")
