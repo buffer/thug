@@ -14,7 +14,7 @@ pymongo==3.0.1
 pyparsing==1.5.7
 python-magic==0.4.6
 rarfile==2.7
-requesocks>=0.10.8
+requesocks==0.10.8
 requests==2.6.0
 six==1.9.0
 yara==3.3.0
