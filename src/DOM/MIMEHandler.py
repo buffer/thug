@@ -30,8 +30,11 @@ import tempfile
 
 try:
     from cStringIO import StringIO
-except:
-    from StringIO import StringIO
+except ImportError:
+    try:
+        from StringIO import StringIO
+    except ImportError:
+        from io import StringIO
 
 SSDEEP = True
 try:
