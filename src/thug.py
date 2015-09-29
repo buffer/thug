@@ -253,7 +253,7 @@ Synopsis:
         return log
 
 
-if __name__ == "__main__":
+def main():
     if not os.getenv('THUG_PROFILE', None):
         Thug(sys.argv[1:])()
     else:
@@ -262,3 +262,6 @@ if __name__ == "__main__":
         cProfile.run('Thug(sys.argv[1:])()', 'countprof')
         p = pstats.Stats('countprof')
         p.print_stats()
+
+if __name__ == "__main__":
+    main()
