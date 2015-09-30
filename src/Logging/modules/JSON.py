@@ -25,8 +25,12 @@ import datetime
 import os
 import json
 import codecs
-from StringIO import StringIO
-from .Mapper import Mapper
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+
+#from .Mapper import Mapper
 from .compatibility import *
 
 log = logging.getLogger("Thug")
