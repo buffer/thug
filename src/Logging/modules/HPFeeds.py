@@ -70,12 +70,27 @@ class HPFeeds(object):
         self.unpacker = FeedUnpack()
         self.opts     = dict()
         self.url      = ""
+        self.enabled  = True
         self.__init_config()
 
     def __init_config(self):
         config = ConfigParser.ConfigParser()
 
         conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, 'logging.conf')
+        if not os.path.exists(conf_file):
+            if log.configuration_path is None:
+                self.enabled = False
+                return
+
+            conf_file = os.path.join(log.configuration_path, 'logging.conf')
+
+        if not os.path.exists(conf_file):
+            conf_file = os.path.join(log.configuration_path, 'logging.conf.default')
+
+        if not os.path.exists(conf_file):
+            self.enabled = False
+            return
+
         config.read(conf_file)
         
         for option in config.options('hpfeeds'):
@@ -161,6 +176,9 @@ class HPFeeds(object):
         self.sockfd.close()
 
     def log_event(self, basedir):
+        if not self.enabled:
+            return
+
         if log.ThugOpts.local:
             return
 
@@ -180,6 +198,9 @@ class HPFeeds(object):
         self.__log_event(data)
 
     def log_file(self, pubdata, url = None, params = None):
+        if not self.enabled:
+            return
+
         if log.ThugOpts.local:
             return
 
@@ -192,6 +213,9 @@ class HPFeeds(object):
         self.sockfd.close()
 
     def log_warning(self, pubdata):
+        if not self.enabled:
+            return
+
         if log.ThugOpts.local:
             return
 
