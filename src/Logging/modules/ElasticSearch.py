@@ -57,8 +57,22 @@ class ElasticSearch(JSON):
     def __init_config(self):
         self.opts = dict()
 
-        config    = ConfigParser.ConfigParser()
+        config = ConfigParser.ConfigParser()
+
         conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, "logging.conf")
+
+        if not os.path.exists(conf_file):
+            if log.configuration_path is None:
+                return False
+
+            conf_file = os.path.join(log.configuration_path, 'logging.conf')
+
+        if not os.path.exists(conf_file):
+            conf_file = os.path.join(log.configuration_path, 'logging.conf.default')
+
+        if not os.path.exists(conf_file):
+            return False
+
         config.read(conf_file)
 
         for option in config.options('elasticsearch'):
