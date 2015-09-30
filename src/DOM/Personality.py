@@ -16,6 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import sys
 import os
 import json
 import logging
@@ -24,6 +25,12 @@ log = logging.getLogger("Thug")
 class Personality(dict):
     def __init__(self):
         personalities = os.path.join(os.path.dirname(os.path.abspath(__file__)), "personalities")
+        if not os.path.exists(personalities):
+            personalities = log.personalities_path
+
+        if personalities is None:
+            log.warning("[CRITICAL] Thug personalities not found! Exiting")
+            sys.exit(0)
 
         for root, dir, files in os.walk(personalities):
             for f in files:
