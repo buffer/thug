@@ -52,6 +52,14 @@ class HoneyAgent(object):
         config = ConfigParser.ConfigParser()
 
         conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'honeyagent.conf')
+
+        if not os.path.exists(conf_file):
+            if log.configuration_path is None:
+                self.enabled = False
+                return
+
+            conf_file = os.path.join(log.configuration_path, 'honeyagent.conf')
+
         if not os.path.isfile(conf_file):
             self.enabled = False
             return
