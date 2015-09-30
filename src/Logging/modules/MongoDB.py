@@ -65,19 +65,35 @@ class MongoDB(object):
     def __init_config(self):
         self.opts = dict()
 
-        config    = ConfigParser.ConfigParser()
-        conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, "logging.conf")
-        config.read(conf_file)
-
-        for option in config.options('mongodb'):
-            self.opts[option] = config.get('mongodb', option)
-
         if log.ThugOpts.mongodb_address:
             try:
                 (self.opts['host'], self.opts['port']) = log.ThugOpts.mongodb_address.split(':', 1)
                 self.opts['enable'] = 'True'
+                return True
             except:
-                log.warning("Invalid MongoDB address specified at runtime, using default values instead")
+                log.warning("Invalid MongoDB address specified at runtime, using default values instead (if any)"
+
+        config = ConfigParser.ConfigParser()
+
+        conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, "logging.conf") 
+        if not os.path.exists(conf_file):
+            if log.configuration_path is None:
+                self.enabled = False
+                return False
+
+            conf_file = os.path.join(log.configuration_path, 'logging.conf')
+
+        if not os.path.exists(conf_file):
+            conf_file = os.path.join(log.configuration_path, 'logging.conf.default')
+
+        if not os.path.exists(conf_file):
+            self.enabled = False
+            return False
+
+        config.read(conf_file)
+
+        for option in config.options('mongodb'):
+            self.opts[option] = config.get('mongodb', option)
 
         if self.opts['enable'].lower() in ('false', ):
             self.enabled = False
