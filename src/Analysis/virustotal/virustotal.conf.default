@@ -1,0 +1,4 @@
+[VirusTotal]
+apikey:				98910858ab5e3c5a2d7c977ed3fca22e8ff1f1e082f0a045f3f3ec27d6a01c1f
+scanurl:			https://www.virustotal.com/vtapi/v2/file/scan
+reporturl:			https://www.virustotal.com/vtapi/v2/file/report
