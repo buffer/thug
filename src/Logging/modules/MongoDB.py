@@ -71,7 +71,7 @@ class MongoDB(object):
                 self.opts['enable'] = 'True'
                 return True
             except:
-                log.warning("Invalid MongoDB address specified at runtime, using default values instead (if any)"
+                log.warning("Invalid MongoDB address specified at runtime, using default values instead (if any)")
 
         config = ConfigParser.ConfigParser()
 
