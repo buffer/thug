@@ -38,6 +38,13 @@ class BaseClassifier:
 
         r = os.path.join(os.path.dirname(os.path.abspath(__file__)), p)
         if not os.path.exists(r):
+            if log.configuration_path is None:
+                log.warn("[%s] Skipping not existing default classification rule file" % (self.classifier, ))
+                return
+
+            r = os.path.join(log.configuration_path, p)
+
+        if not os.path.exists(r):
             log.warn("[%s] Skipping not existing default classification rule file" % (self.classifier, ))
             return
 
