@@ -30,7 +30,7 @@ try:
 except ImportError:
     from io import StringIO
 
-#from .Mapper import Mapper
+from .Mapper import Mapper
 from .compatibility import *
 
 log = logging.getLogger("Thug")
