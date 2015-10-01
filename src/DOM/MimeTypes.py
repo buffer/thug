@@ -27,6 +27,7 @@ class MimeTypes(dict):
         self['application/pdf'] = MimeType({   
                                             'description'   : 'Adobe Acrobat Plug-In',
                                             'suffixes'      : 'pdf',
+                                            'filename'      : 'npctrl.dll',
                                             'type'          : 'application/pdf',
                                             'enabledPlugin' : Plugin({'name'        : 'Adobe Acrobat',
                                                                       'version'     : '%s' % (log.ThugVulnModules.acropdf_pdf, ),
@@ -36,6 +37,7 @@ class MimeTypes(dict):
         self['application/x-shockwave-flash'] = MimeType({  
                                             'description'   : 'Shockwave Flash',
                                             'suffixes'      : 'swf',
+                                            'filename'      : 'Flash32_%s.ocx' % ('_'.join(log.ThugVulnModules.shockwave_flash.split('.')), ),
                                             'type'          : 'application/x-shockwave-flash',
                                             'enabledPlugin' : Plugin({'name'        : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),
                                                                       'version'     : '%s' % (log.ThugVulnModules.shockwave_flash, ),
@@ -47,6 +49,7 @@ class MimeTypes(dict):
                 self['application/x-java-applet'] = MimeType({
                                                               'description'   : 'Java Applet',
                                                               'suffixes'      : 'jar',
+                                                              'filename'      : 'npjp2.dll',
                                                               'type'          : 'application/x-java-applet;jpi-version=%s' % (log.ThugVulnModules._javaplugin, ),
                                                               'enabledPlugin' : Plugin({'name'        : 'Java %s' % (log.ThugVulnModules._javaplugin, ),
                                                                                         'version'     : '%s' % (log.ThugVulnModules._javaplugin, ),
@@ -57,6 +60,7 @@ class MimeTypes(dict):
             self['application/x-ms-wmz'] = MimeType({
                                                 'description'   : 'Windows Media Player',
                                                 'suffixes'      : 'wmz',
+                                                'filename'      : 'npdsplay.dll',
                                                 'type'          : 'application/x-ms-wmz',
                                                 'enabledPlugin' : Plugin({'name'        : 'Windows Media Player 7',
                                                                           'version'     : '7',
