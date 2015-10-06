@@ -33,6 +33,9 @@ class Cookies(object):
         self.cookies = set()
     
     def _inspect_cookie_expires(self, cookie):
+        if not cookie.expires:
+            return
+
         expires = datetime.datetime.fromtimestamp(cookie.expires)
         if self.now + self.cookie_expires_delta < expires:
             log.ThugLogging.log_warning("[TRACKING] [Cookie #%d] Expiring at %s (more than %s days from now)" % (self.cookie_id,
