@@ -87,7 +87,7 @@ Synopsis:
         -Z, --json-logging      \tEnable JSON logging mode (default: disabled)
         -M, --maec11-logging    \tEnable MAEC11 logging mode (default: disabled)
         -G, --elasticsearch-logging\tEnable ElasticSearch logging mode (default: disabled)
-        -D, --mongodb-address   \tSpecify address and port of the MongoDB instance (format: host:port)
+        -D, --mongodb-address=  \tSpecify address and port of the MongoDB instance (format: host:port)
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
