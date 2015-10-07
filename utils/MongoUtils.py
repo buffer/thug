@@ -125,7 +125,6 @@ Synopsis:
         print(msg)
         sys.exit(0)
 
-
 def main(args):
     host = 'localhost'
     port = 27017
@@ -159,7 +158,6 @@ def main(args):
             analysis = mongoutils.query_analysis_by_id(option[1])
             if analysis:
                 mongoutils.remove_analysis(analysis)
-
 
 if __name__ == '__main__':
     main(sys.argv[1:])
