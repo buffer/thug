@@ -19,6 +19,15 @@ setup(
     author_email = "buffer@antifork.org",
     description = "Low-interaction honeyclient Thug",
     long_description = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, "README.md")).read(),
+    classifiers = [
+        "Development Status :: 4 - Beta",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python",
+        "Topic :: Security",
+    ],
     package_data = {
            "DOM"       : ["*.js"],
            "Debugger"  : ["*.js"],
