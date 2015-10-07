@@ -19,6 +19,8 @@
 import sys
 import os
 import logging
+import PyV8
+
 from zope.interface import implements
 
 try:
@@ -251,8 +253,9 @@ class ThugAPI:
         log.ThugLogging.log_event()
 
     def run(self, window):
-        dft = DFT.DFT(window)
-        dft.run()
+        with PyV8.JSLocker():
+            dft = DFT.DFT(window)
+            dft.run()
 
     def run_local(self, url):
         log.ThugLogging.set_url(url)

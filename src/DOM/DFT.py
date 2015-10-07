@@ -1229,7 +1229,6 @@ class DFT(object):
                 log.warning("[handle_element_event] Event %s not properly handled" % (evt, ))
 
     def run(self):
-        with PyV8.JSLocker():
-            with self.context as ctx:
-                self._run()
-                self.check_shellcodes()
+        with self.context as ctx:
+            self._run()
+            self.check_shellcodes()
