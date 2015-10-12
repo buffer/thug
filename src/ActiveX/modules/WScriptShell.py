@@ -30,3 +30,14 @@ def Environment(self, strType = None):
                                              },
                                       forward = False)
     return _Environment(strType)
+
+def ExpandEnvironmentStrings(self, strWshShell):
+    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Expanding: ("%s")' % (strWshShell, ))
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "WScript.Shell ActiveX",
+                                      "ExpandEnvironmentStrings",
+                                      data = {
+                                                "wshshell" : strWshShell
+                                             },
+                                      forward = False)
+    return strWshShell

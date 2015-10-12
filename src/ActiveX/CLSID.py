@@ -35,23 +35,23 @@ CLSID = [
         },
 
         # Adodb.Stream
-        {   
-            'id'        : (), 
+        {
+            'id'        : (),
             'name'      : ( 'adodb.stream', ),
             'attrs'     : {
                             'type'          : 1,
                             'Type'          : 1,
                             'Mode'          : 3},
             'funcattrs' : {},
-            'methods'   : { 
+            'methods'   : {
                             'open'          : AdodbStream.open,
                             'Open'          : AdodbStream.open,
                             'Write'         : AdodbStream.Write,
                             'SaveToFile'    : AdodbStream.SaveToFile,
                             'SaveTofile'    : AdodbStream.SaveToFile,
                             'Close'         : AdodbStream.Close,
-                          }   
-        },  
+                          }
+        },
 
         # AnswerWorks
         {
@@ -64,21 +64,21 @@ CLSID = [
                             'GetSeedQuery'  : AnswerWorks.GetSeedQuery,
                             'SetSeedQuery'  : AnswerWorks.SetSeedQuery,
                           }
-        },  
+        },
 
         # AolAmpX
-        {   
+        {
             'id'        : ( 'B49C4597-8721-4789-9250-315DFBD9F525',
                             'FA3662C3-B8E8-11D6-A667-0010B556D978',
                             'FE0BD779-44EE-4A4B-AA2E-743C63F2E5E6' ),
             'name'      : (),
             'attrs'     : {},
             'funcattrs' : {},
-            'methods'   : { 
+            'methods'   : {
                             'AppendFileToPlayList'  : AolAmpX.AppendFileToPlayList,
                             'ConvertFile'           : AolAmpX.ConvertFile,
-                          }   
-        }, 
+                          }
+        },
 
         # AolICQ
         {
@@ -114,15 +114,15 @@ CLSID = [
         },
 
         # BitDefender
-        {   
+        {
             'id'        : ( '5D86DDB5-BDF9-441B-9E9E-D4730F4EE499', ),
             'name'      : ( ),
             'attrs'     : {},
             'funcattrs' : {},
-            'methods'   : { 
+            'methods'   : {
                             'initx'                 : BitDefender.initx,
-                          }   
-        },  
+                          }
+        },
 
         # CABrightStor
         {
@@ -131,9 +131,9 @@ CLSID = [
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {
-                            'AddColumn'              : CABrightStor.AddColumn, 
+                            'AddColumn'              : CABrightStor.AddColumn,
                           }
-        },  
+        },
 
         # CGAgent
         {
@@ -142,9 +142,9 @@ CLSID = [
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {
-                            'CreateChinagames'       : CGAgent.CreateChinagames, 
+                            'CreateChinagames'       : CGAgent.CreateChinagames,
                           }
-        },  
+        },
 
         # Comodo
         {
@@ -153,9 +153,9 @@ CLSID = [
             'attrs'     : {},
             'funcattrs' : {},
             'methods'   : {
-                            'ExecuteStr'             : Comodo.ExecuteStr, 
+                            'ExecuteStr'             : Comodo.ExecuteStr,
                           }
-        },  
+        },
 
         # ConnectAndEnterRoom
         {
@@ -166,14 +166,14 @@ CLSID = [
             'methods'   : {
                             'ConnectAndEnterRoom'    : ConnectAndEnterRoom.ConnectAndEnterRoom,
                           }
-        },  
+        },
 
         # CreativeSoftAttack
         {
             'id'        : ( '0A5FD7C5-A45C-49FC-ADB5-9952547D5715', ),
             'name'      : (),
             'attrs'     : {
-                            'cachefolder'           : '',              
+                            'cachefolder'           : '',
                           },
             'funcattrs' : {
                             'cachefolder'           : CreativeSoftAttack.Setcachefolder,
@@ -181,7 +181,7 @@ CLSID = [
             'methods'   : {
                             'Setcachefolder'        : CreativeSoftAttack.Setcachefolder,
                           }
-        },  
+        },
 
         # DirectShow
         {
@@ -200,29 +200,29 @@ CLSID = [
         },
 
         # DivX
-        {   
+        {
             'id'        : ( 'D050D736-2D21-4723-AD58-5B541FFB6C11', ),
-            'name'      : (), 
-            'attrs'     : {}, 
-            'funcattrs' : {}, 
-            'methods'   : { 
+            'name'      : (),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
                             'SetPassword'           : DivX.SetPassword,
-                          }   
-        },  
+                          }
+        },
 
         # DLinkMPEG
-        {   
+        {
             'id'        : ( 'A93B47FD-9BF6-4DA8-97FC-9270B9D64A6C', ),
-            'name'      : (), 
+            'name'      : (),
             'attrs'     : {
                             'Url'                   : ''
-                          }, 
-            'funcattrs' : {     
+                          },
+            'funcattrs' : {
                             'Url'                   : DLinkMPEG.SetUrl,
-                          }, 
-            'methods'   : { 
+                          },
+            'methods'   : {
                             'SetUrl'                : DLinkMPEG.SetUrl,
-                          }   
+                          }
         },
 
         # Domino
@@ -311,7 +311,7 @@ CLSID = [
             'attrs'     : {
                             'HandWriterFilename'    : ''
                           },
-            'funcattrs' : { 
+            'funcattrs' : {
                             'HandwriterFilename'    :  FileUploader.SetHandwriterFilename,
                           },
             'methods'   : {
@@ -339,7 +339,7 @@ CLSID = [
                             'DoWebLaunch'           : GatewayWeblaunch.DoWebLaunch,
                           }
         },
-        
+
         # GLIEDown2
         {
             'id'        : ( 'F917534D-535B-416B-8E8F-0C04756C31A8', ),
@@ -375,7 +375,7 @@ CLSID = [
 
         # HPInfo
         {
-            'id'        : ( '62DDEB79-15B2-41E3-8834-D3B80493887A', 
+            'id'        : ( '62DDEB79-15B2-41E3-8834-D3B80493887A',
                             '7CB9D4F5-C492-42A4-93B1-3F7D6946470D', ),
             'name'      : ( 'hpinfodll.hpinfo.1', 'hprulesengine.contentcollection.1', ),
             'attrs'     : {},
@@ -386,7 +386,7 @@ CLSID = [
                             'GetRegValue'           : HPInfo.GetRegValue,
                             'EvaluateRules'         : HPInfo.EvaluateRules,
                             'SaveToFile'            : HPInfo.SaveToFile,
-                            'ProcessRegistryData'   : HPInfo.ProcessRegistryData, 
+                            'ProcessRegistryData'   : HPInfo.ProcessRegistryData,
                           }
         },
 
@@ -409,7 +409,7 @@ CLSID = [
                             'GetPropertyById'       : ICQToolbar.GetPropertyById,
                           }
         },
-   
+
         # IMWebControl
         {
             'id'        : ( '7C3B01BC-53A5-48A0-A43B-0C67731134B9', ),
@@ -436,7 +436,7 @@ CLSID = [
 
         # JavaDeploymentToolkit
         {
-            'id'        : ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA', 
+            'id'        : ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA',
                             'CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA',
                             '8AD9C840-044E-11D1-B3E9-00805F499D93', ),
             'name'      : (),
@@ -543,7 +543,7 @@ CLSID = [
         {
             'id'        : (),
             'name'      : ( 'msxml2.xmlhttp', 'microsoft.xmlhttp', ),
-            'attrs'     : { 
+            'attrs'     : {
                             'bstrMethod'       : '',
                             'bstrUrl'          : '',
                             'varAsync'         : True,
@@ -565,18 +565,18 @@ CLSID = [
         },
 
         # Move
-        {   
+        {
             'id'        : ( '6054D082-355D-4B47-B77C-36A778899F48', ),
             'name'      : ( 'qmpupgrade.upgrade.1', ),
-            'attrs'     : {}, 
-            'funcattrs' : {}, 
-            'methods'   : { 
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
                             'Upgrade'       :   Move.Upgrade,
-                          }   
-        },  
+                          }
+        },
 
         # MSRICHTXT
-        {                    
+        {
             'id'        : ( '3B7C8860-D78F-101B-B9B5-04021C009402',
                             'B617B991-A767-4F05-99BA-AC6FCABB102E' ),
             'name'      : (),
@@ -585,7 +585,7 @@ CLSID = [
             'methods'   : {
                             'SaveFile'      : MSRICHTXT.SaveFile,
                           }
-        }, 
+        },
 
         # MSVFP
         {
@@ -606,7 +606,7 @@ CLSID = [
         {
             'id'        : ( 'F6D90F11-9C73-11D3-B32E-00C04F990BB4', ),
             'name'      : ( 'MSXML2.DOMDocument', ),
-            'attrs'     : { 
+            'attrs'     : {
                             'object'        : MSXML2DOMDocument,
                           },
             'funcattrs' : {},
@@ -650,7 +650,7 @@ CLSID = [
                             'SetFormatLikeSample'   :   NCTAudioFile2.SetFormatLikeSample,
                           }
         },
-        
+
         # NeoTracePro
         {
             'id'        : ( '3E1DD897-F300-486C-BEAF-711183773554',  ),
@@ -705,7 +705,7 @@ CLSID = [
 
         # PPlayer
         {
-            'id'        : ( 'F3E70CEA-956E-49CC-B444-73AFE593AD7F', 
+            'id'        : ( 'F3E70CEA-956E-49CC-B444-73AFE593AD7F',
                             '5EC7C511-CD0F-42E6-830C-1BD9882F3458', ),
             'name'      : ( 'pplayer.xpplayer.1', ),
             'attrs'     : {
@@ -791,13 +791,13 @@ CLSID = [
                             '2F542A2E-EDC9-4BF7-8CB1-87C9919F7F93',
                             '0FDF6D6B-D672-463B-846E-C6FF49109662',
                             '224E833B-2CC6-42D9-AE39-90B6A38A4FA2',
-                            '3B46067C-FD87-49B6-8DDD-12F0D687035F',      
+                            '3B46067C-FD87-49B6-8DDD-12F0D687035F',
                             '3B5E0503-DE28-4BE8-919C-76E0E894A3C2',
                             '44CCBCEB-BA7E-4C99-A078-9F683832D493',
                             'A1A41E11-91DB-4461-95CD-0C02327FD934',
                             'CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA', ),
             'name'      : ( 'ierpctl.ierpctl', 'ierpctl.ierpctl.1', ),
-            'attrs'     : { 
+            'attrs'     : {
                             'Console'               : '',
                           },
             'funcattrs' : {
@@ -858,7 +858,7 @@ CLSID = [
             'id'        : ( '361E6B79-4A69-4376-B0F2-3D1EBEE9D7E2', ),
             'name'      : ( 'rtspvapgdecoder.rtspvapgctrl.1', ),
             'attrs'     : {
-                            'MP4Prefix'         : '',  
+                            'MP4Prefix'         : '',
                           },
             'funcattrs' : {
                             'MP4Prefix'         : RtspVaPgCtrl.SetMP4Prefix,
@@ -940,15 +940,15 @@ CLSID = [
         },
 
         # ShockwaveFlash.ShockwaveFlash.12
-        {    
+        {
             'id'        : (),
             'name'      : ( 'shockwaveflash.shockwaveflash.12', ),
             'attrs'     : {},
             'funcattrs' : {},
-            'methods'   : {  
+            'methods'   : {
                             'GetVariable'   : ShockwaveFlash12.GetVariable,
-                          }    
-        }, 
+                          }
+        },
 
         # SilverLight
         {
@@ -1078,7 +1078,7 @@ CLSID = [
         {
             'id'        : ( '22ACD16F-99EB-11D2-9BB3-00400561D975', ),
             'name'      : ( 'pvatlcalendar.pvcalendar.1', ),
-            'attrs'     : { 
+            'attrs'     : {
                             '_DOWText0'         : '',
                             '_DOWText6'         : '',
                             '_MonthText0'       : '',
@@ -1110,20 +1110,20 @@ CLSID = [
                           }
         },
 
-        # Toshiba 
-        {   
+        # Toshiba
+        {
             'id'        : ( 'AD315309-EA00-45AE-9E8E-B6A61CE6B974', ),
             'name'      : ( 'meipcamx.recordsend.1', ),
-            'attrs'     : {}, 
-            'funcattrs' : {}, 
-            'methods'   : { 
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
                             'SetPort'               : Toshiba.SetPort,
                             'SetIpAddress'          : Toshiba.SetIpAddress,
-                          }   
-        },  
+                          }
+        },
 
-        # UniversalUpload 
-        {  
+        # UniversalUpload
+        {
             'id'        : ( '04FD48E6-0712-4937-B09E-F3D285B11D82', ),
             'name'      : (),
             'attrs'     : {},
@@ -1133,8 +1133,8 @@ CLSID = [
                           }
         },
 
-        # UUSeeUpdate 
-        { 
+        # UUSeeUpdate
+        {
             'id'        : ( '2CACD7BB-1C59-4BBB-8E81-6E83F82C813B', ),
             'name'      : ( 'uuupgrade.uuupgradectrl.1', ),
             'attrs'     : {},
@@ -1253,8 +1253,9 @@ CLSID = [
             'funcattrs' : {},
             'methods'   :
                           {
-                            'Run'                   : WScriptShell.Run,
-                            'Environment'           : WScriptShell.Environment,
+                            'Run'                       : WScriptShell.Run,
+                            'Environment'               : WScriptShell.Environment,
+                            'ExpandEnvironmentStrings'  : WScriptShell.ExpandEnvironmentStrings,
                           }
         },
 
@@ -1309,7 +1310,7 @@ CLSID = [
 
         # YahooMessengerYwcvwr
         {
-            'id'        : ( '9D39223E-AE8E-11D4-8FD3-00D0B7730277', 
+            'id'        : ( '9D39223E-AE8E-11D4-8FD3-00D0B7730277',
                             'DCE2F8B1-A520-11D4-8FD0-00D0B7730277',
                             '7EC7B6C5-25BD-4586-A641-D2ACBB6629DD'),
             'name'      : (),
