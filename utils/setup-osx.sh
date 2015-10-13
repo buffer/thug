@@ -133,8 +133,8 @@ echo "Installing python libraries..."
 echo "Installing python library: pyparsing==1.5.7..."
 easy_install pyparsing==1.5.7
 
-echo "Installing python library: pydot..."
-pip install pydot 1>>setup-osx.log
+echo "Installing python library: pygraphviz..."
+pip install pygraphviz 1>>setup-osx.log
 
 echo "Installing python library: python-magic..."
 pip install python-magic 1>>setup-osx.log

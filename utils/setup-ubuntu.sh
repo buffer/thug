@@ -95,8 +95,8 @@ echo "Installing python libraries..."
 echo "Installing python library: pyparsing==1.5.7..."
 sudo easy_install pyparsing==1.5.7
 	
-echo "Installing python library: pydot..."
-sudo pip install pydot 1>>setup-ubuntu.log
+echo "Installing python library: pygraphviz..."
+sudo pip install pygraphviz 1>>setup-ubuntu.log
 	
 echo "Installing python library: python-magic..."
 sudo pip install python-magic 1>>setup-ubuntu.log
