@@ -24,7 +24,7 @@ Requirements
 * Zope interface
 * Graphviz
 * Pyparsing
-* Pydot
+* Pygraphviz
 * Python-Magic
 * Rarfile
 * Yara 2.0
@@ -356,17 +356,17 @@ to install pyparsing is through easy_install.
         # easy_install pyparsing
 
 
-Pydot
-^^^^^
+Pygraphviz
+^^^^^^^^^^
 
-Pydot homepage is located at https://code.google.com/p/pydot/.
+Pydot homepage is located at http://pygraphviz.github.io.
 
 If not available as a package for your Linux distribution, the best way
 to install pydot is through easy_install.
 
 .. code-block:: sh
 
-        # easy_install pydot
+        # easy_install pygraphviz
 
 
 Python-Magic
