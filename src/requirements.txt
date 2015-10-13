@@ -9,8 +9,8 @@ requesocks==0.10.8
 cssutils==1.0
 zope.interface==4.1.2
 graphviz==0.4.6
-pyparsing==1.5.7
-pydot==1.0.28
+pyparsing==2.0.3
+pygraphviz==1.2
 python-magic==0.4.6
 rarfile==2.7
 yara==3.3.0
