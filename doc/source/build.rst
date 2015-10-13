@@ -168,7 +168,7 @@ below
 
 .. code-block:: sh
 
-        $ git clone git://git.carnivore.it/libemu.git
+        $ git clone git://github.com/buffer/libemu.git
         $ cd libemu
         $ autoreconf -v -i
         $ ./configure --prefix=/opt/libemu
