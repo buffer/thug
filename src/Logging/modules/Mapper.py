@@ -20,13 +20,13 @@
 #           (developed for the iTES Project http://ites-project.org)
 #
 # Changes:
-#           - pydot support
-#             Angelo Dell'Aera <angelo.dellaera@honeynet.org>
+#           - pydot support                 (Angelo Dell'Aera <angelo.dellaera@honeynet.org>)
+#           - Replace pydot with pygraphviz (Angelo Dell'Aera <angelo.dellaera@honeynet.org>)
 
 import os
 import json
 import fnmatch
-import pydot
+import pygraphviz
 
 try:
     import urllib.parse as urlparse
@@ -94,11 +94,8 @@ class Mapper():
         @resdir     : Directory to store the result svg in
         @simplify   : Reduce the urls to server names
         """
-        self.resdir   = resdir
-        self.simplify = simplify
 
-        graphdir     = os.path.abspath(os.path.join(self.resdir, os.pardir))
-        self.svgfile = os.path.join(graphdir, "graph.svg")
+        self.simplify = simplify
 
         self.data = {
                         "locations"   : [],
@@ -106,32 +103,33 @@ class Mapper():
                     }
 
         self.first_track = True   # flag indicating that we did not follow a track yet
-        self._init_graph()
+        self.__init_graph(resdir)
 
-    def _init_graph(self):
-        """
-            Write the dot header
-        """
-        self.graph = pydot.Dot(graph_type = 'digraph', rankdir = 'LR')
+    def __init_graph(self, resdir):
+        graphdir     = os.path.abspath(os.path.join(resdir, os.pardir))
+        self.svgfile = os.path.join(graphdir, "graph.svg")
+        self.graph   = pygraphviz.AGraph(strict   = False,
+                                         directed = True,
+                                         rankdir  = 'LR')
 
-    def _check_content_type(self, loc, t):
+    def check_content_type(self, loc, t):
         return loc["content-type"] and loc["content-type"].lower().startswith(t)
 
-    def _check_types(self, loc, _types):
+    def check_types(self, loc, _types):
         for t in _types:
-            if self._check_content_type(loc, t):
+            if self.check_content_type(loc, t):
                 return True
 
         return False
 
     def check_markup(self, loc):
-        return self._check_types(loc, self.markup_types)
+        return self.check_types(loc, self.markup_types)
 
     def check_image(self, loc):
-        return self._check_types(loc, self.image_types)
+        return self.check_types(loc, self.image_types)
 
     def check_exec(self, loc):
-        return self._check_types(loc, self.exec_types)
+        return self.check_types(loc, self.exec_types)
 
     def get_shape(self, loc):
         # Markup
@@ -160,36 +158,33 @@ class Mapper():
 
         return None
 
-    def _normalize(self, p):
-        if not p.startswith('"'):
-            return '"%s"' % (p, )
+    def normalize_url(self, url):
+        if url.endswith("/"):
+            return url[:-1]
 
-        return p
+        return url
 
-    def _dot_from_data(self):
+    def dot_from_data(self):
         # Create dot from data
         if "locations" in self.data:
             for loc in self.data["locations"]:
                 if loc["display"] is False:
                     continue
 
-                url = self._normalize(loc["url"])
+                url = self.normalize_url(loc["url"])
 
-                node = pydot.Node(url)
-                node.set_label(url)
+                self.graph.add_node(url)
+
+                node = self.graph.get_node(url)
 
                 shape = self.get_shape(loc)
                 if shape:
-                    node.set_shape(shape)
+                    node.attr['shape'] = shape
 
                 fillcolor = self.get_fillcolor(loc)
                 if fillcolor:
-                    node.set_style('filled')
-                    node.set_fillcolor(fillcolor)
-
-                node.set_fontname('arial')
-                node.set_fontsize('7')
-                self.graph.add_node(node)
+                    node.attr['style']     = 'filled'
+                    node.attr['fillcolor'] = fillcolor
 
         if "connections" in self.data:
             # Add edges
@@ -197,22 +192,26 @@ class Mapper():
                 if con["display"] is False:
                     continue
 
+                _s = self.normalize_url(con["source"])
+                source = self.graph.get_node(_s)
+                if not source:
+                    source = _s
+
+                _d = self.normalize_url(con["destination"])
+                destination = self.graph.get_node(_d)
+                if not destination:
+                    destination = _d
+
+                self.graph.add_edge(source, destination)
+
+                edge = self.graph.get_edge(source, destination)
+                edge.attr['label'] = con['method']
+
                 color = self.get_color(con)
-
-                source      = self._normalize(con["source"])
-                destination = self._normalize(con["destination"])
-
-                edge = pydot.Edge(source, destination)
-                edge.set_label(con['method'])
-
                 if color:
-                    edge.set_color(color)
+                    edge.attr['color'] = color
 
-                edge.set_fontname('arial')
-                edge.set_fontsize('7')
-                self.graph.add_edge(edge)
-
-    def _add_to_loc(self, loc):
+    def add_location(self, loc):
         """
             Add location information to location data
         """
@@ -230,13 +229,13 @@ class Mapper():
 
         self.data["locations"].append(loc)
 
-    def _add_weak_loc(self, url):
+    def add_weak_location(self, url):
         """
-        Generate a weak loc for the given url.
+        Generate a weak location for the given url.
         """
 
-        for al in self.data["locations"]:
-            if al["url"] == url:
+        for l in self.data["locations"]:
+            if l["url"] == url:
                 return
 
         loc = {'mimetype'       : '',
@@ -248,9 +247,9 @@ class Mapper():
                'display'        : True,
                'md5'            : None}
 
-        self._add_to_loc(loc)
+        self.add_location(loc)
 
-    def _add_to_con(self, con):
+    def add_connection(self, con):
         """
             Add connection information to connection data
         """
@@ -265,8 +264,8 @@ class Mapper():
             if url:
                 con["destination"] = url
 
-        self._add_weak_loc(con["source"])
-        self._add_weak_loc(con["destination"])
+        self.add_weak_location(con["source"])
+        self.add_weak_location(con["destination"])
 
         for a in self.data["connections"]:
             d = DictDiffer(a, con)
@@ -279,11 +278,11 @@ class Mapper():
         # Add nodes
         if "locations" in data:
             for loc in data["locations"]:
-                self._add_to_loc(loc)
+                self.add_location(loc)
 
         if "connections" in data:
             for con in data["connections"]:
-                self._add_to_con(con)
+                self.add_connection(con)
 
     def add_file(self, filename):
         """
@@ -298,14 +297,15 @@ class Mapper():
         """
             Create SVG file
         """
-        self._dot_from_data()
+        self.dot_from_data()
 
         try:
-            self.graph.write_svg(self.svgfile)
+            self.graph.layout(prog = 'dot')
+            self.graph.draw(self.svgfile, format = 'svg')
         except:
             pass
 
-    def _activate(self, conto):
+    def activate(self, conto):
         """
             Iterate through data and set display for hot connections
         """
@@ -322,7 +322,7 @@ class Mapper():
                 l["display"] = True
 
         for t in tofix:
-            self._activate(t)
+            self.activate(t)
 
     def follow_track(self, end):
         """
@@ -340,10 +340,11 @@ class Mapper():
                 loc["display"] = False
 
         self.first_track = False
-        self._activate(end)
+        self.activate(end)
 
     def write_text(self):
-        """ Return text representation
+        """
+            Return text representation
         """
 
         res = ""
@@ -388,7 +389,6 @@ if __name__ == "__main__":
     m = Mapper(args.resdir, simplify = args.simplify)
     if os.path.isdir(args.source):
         for afile in allFiles(args.source, "analysis.json"):
-            #print afile
             m.add_file(afile)
     else:
         m.add_file(args.source)
@@ -396,5 +396,5 @@ if __name__ == "__main__":
     if args.tracks:
         for atrack in args.tracks:
             m.follow_track(atrack)
-    #print m.write_text()
+    
     m.write_svg()
