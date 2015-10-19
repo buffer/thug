@@ -13,7 +13,6 @@ pyparsing==2.0.3
 pygraphviz==1.2
 python-magic==0.4.6
 rarfile==2.7
-yara==3.3.0
 networkx==1.10
 pymongo==3.0.1
 ssdeep==3.1
