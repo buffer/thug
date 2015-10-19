@@ -19,12 +19,12 @@
 import PyV8
 import logging
 
-try:
-    from . import Window
-    from . import DFT
-except ImportError:
-    import Window
-    import DFT
+#try:
+    #from . import Window
+    #from . import DFT
+#except ImportError:
+    #import Window
+    #import DFT
 
 from .W3C import *
 
