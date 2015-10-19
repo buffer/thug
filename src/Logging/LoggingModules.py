@@ -19,7 +19,7 @@
 from .modules import *
 
 LoggingModules = {
-    'maec11'        : MITRE.MAEC11.MAEC11,
+    'maec11'        : MITRE.MAEC11,
     'json'          : JSON.JSON,
     'mongodb'       : MongoDB.MongoDB,
     'elasticsearch' : ElasticSearch.ElasticSearch,
