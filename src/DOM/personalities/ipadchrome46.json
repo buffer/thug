@@ -1,0 +1,20 @@
+{
+    "oscpu": null, 
+    "product": "Gecko", 
+    "vendor": "Apple Computer, Inc.", 
+    "description": "Chrome 46.0.2490.73\t(iPad, iOS 9.0.2)", 
+    "buildID": null, 
+    "appName": "Netscape", 
+    "appCodeName": "Mozilla", 
+    "productSub": "20030107", 
+    "appVersion": "5.0 (iPad; CPU OS 9_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) CriOS/46.0.2490.73 Mobile/13A452 Safari/600.1.4 (000445)", 
+    "appMinorVersion": null,
+    "platform": "iPad",
+    "browserTag": "chrome46",
+    "version": "46.0.2490.73", 
+    "vendorSub": "", 
+    "javaUserAgent": null,
+    "userAgent": "Mozilla/5.0 (iPad; CPU OS 9_0_2 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) CriOS/46.0.2490.73 Mobile/13A452 Safari/600.1.4 (000445)", 
+    "cc_on": null, 
+    "id": 510207
+}
