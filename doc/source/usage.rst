@@ -106,8 +106,10 @@ Let's start our Thug tour by taking a look at the options it provides.
         ipadchrome38                    Chrome 38.0.2125.59     (iPad, iOS 8.0.2)
         ipadchrome39                    Chrome 39.0.2171.45     (iPad, iOS 8.1.1)
         ipadchrome45                    Chrome 45.0.2454.68     (iPad, iOS 8.4.1)
+        ipadchrome46                    Chrome 46.0.2490.73     (iPad, iOS 9.0.2)
         ipadsafari7                     Safari 7.0              (iPad, iOS 7.0.4)
         ipadsafari8                     Safari 8.0              (iPad, iOS 8.0.2)
+        ipadsafari9                     Safari 9.0              (iPad, iOS 9.1)
 
 
 Let's start with a first basic real-world example: a Blackhole exploit kit.  
