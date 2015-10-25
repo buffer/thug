@@ -1,0 +1,20 @@
+{
+    "oscpu": null, 
+    "product": "Gecko", 
+    "vendor": "Apple Computer, Inc.", 
+    "description": "Safari 9.0\t\t(iPad, iOS 9.1)", 
+    "buildID": null, 
+    "appName": "Netscape",
+    "appCodeName": "Mozilla",
+    "productSub": "20030107", 
+    "appVersion": "5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1", 
+    "appMinorVersion": null,
+    "platform": "iPad", 
+    "browserTag": "safari9", 
+    "version": "9.0", 
+    "vendorSub": "", 
+    "javaUserAgent": null, 
+    "userAgent": "Mozilla/5.0 (iPad; CPU OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1", 
+    "cc_on": null, 
+    "id": 510403
+}
