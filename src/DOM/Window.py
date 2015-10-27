@@ -49,7 +49,7 @@ from .CCInterpreter import CCInterpreter
 from .compatibility import *
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
-from Debugger import Shellcode, Global
+from Debugger import Shellcode
 from Java.java import java
 
 sched = sched.scheduler(time.time, time.sleep)
