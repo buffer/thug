@@ -26,6 +26,9 @@ import logging
     #import Window
     #import DFT
 
+import Window
+#from .Window import Window
+from .DFT import DFT
 from .W3C import *
 
 try:
@@ -72,7 +75,7 @@ class Location(PyV8.JSClass):
             return
 
         #self._window.url = url
-        dft = DFT.DFT(window)
+        dft = DFT(window)
         dft.run()
 
     href = property(get_href, set_href)
