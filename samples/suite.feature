@@ -139,5 +139,15 @@ Feature: Exploits
 			| stormplayer.html                             | [MPS.StormPlayer.1 ActiveX] rawParse Method Overflow,GetProcAddress,GetSystemDirectoryA,WinExec,ExitThread,http://w.qqnetcn.cn/d2.exe,a.exe              |
 			| toshiba.html                                 | [Toshiba Surveillance RecordSend Class ActiveX] Overflow in SetPort                                                                                      |
 			| xupload.html                                 | [XUpload ActiveX] Overflow in AddFolder method                                                                                                           |
-			
 		then run exploit 
+
+	Scenario: misc
+		Given set of misc
+			| sample                                       | output                                                                                                                                                   |
+			| testLocation1.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
+			| testLocation2.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
+			| testLocation3.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
+			| testLocation4.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
+			| testLocation5.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
+			| testLocation6.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
+		then run misc
