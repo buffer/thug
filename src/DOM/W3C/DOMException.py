@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-import PyV8
+from DOM.JSClass import JSClass
 
-class DOMException(RuntimeError, PyV8.JSClass):
+class DOMException(RuntimeError, JSClass):
     def __init__(self, code):
         self.code = code
 
