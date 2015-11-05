@@ -938,7 +938,7 @@ class Window(PyV8.JSClass):
                 i += 1
                 continue
 
-            if s[i] == '%' and s[i + 1] == 'u':
+            if s[i] == '%' and (i + 1) < len(s) and  s[i + 1] == 'u':
                 if (i + 6) <= len(s):
                     currchar = int(s[i + 2: i + 4], 16) 
                     nextchar = int(s[i + 4: i + 6], 16) 
