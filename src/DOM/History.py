@@ -16,13 +16,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import PyV8
 import logging
 
 log = logging.getLogger("Thug")
 
+from .JSClass import JSClass
 
-class History(PyV8.JSClass):
+class History(JSClass):
     def __init__(self, window):
         self._window = window
         self.urls    = []
