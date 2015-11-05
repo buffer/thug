@@ -114,9 +114,6 @@ pip install pefile 1>>setup-osx.log
 echo "Installing python library: chardet..."
 pip install chardet 1>>setup-osx.log
 
-echo "Installing python library: httplib2..."
-pip install httplib2 1>>setup-osx.log
-
 echo "Installing python library: cssutils..."
 pip install cssutils 1>>setup-osx.log
 

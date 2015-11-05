@@ -8,7 +8,7 @@ if [ `id -u` != "0" ]; then
 	exit 1;
 fi
 
-PIP_INSTALLS="beautifulsoup4 html5lib jsbeautifier pefile chardet httplib2 requesocks cssutils zope.interface pygraphviz python-magic rarfile"
+PIP_INSTALLS="beautifulsoup4 html5lib jsbeautifier pefile chardet PySocks cssutils zope.interface pygraphviz python-magic rarfile"
 APT_INSTALLS="subversion git python build-essential python-setuptools libboost-python-dev libboost-thread-dev libboost-system-dev python-dev build-essential git-core autoconf libtool python-pip graphviz"
 
 # Forced mitigations just in case

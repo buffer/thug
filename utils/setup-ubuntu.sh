@@ -72,14 +72,11 @@ sudo pip install pefile 1>>setup-ubuntu.log
 echo "Installing python library: chardet..."
 sudo pip install chardet 1>>setup-ubuntu.log
 	
-echo "Installing python library: httplib2..."
-sudo pip install httplib2 1>>setup-ubuntu.log
-	
 echo "Installing python library: cssutils..."
 sudo pip install cssutils 1>>setup-ubuntu.log
 
-echo "Installing python library: requesocks..."
-sudo pip install requesocks 1>>setup-ubuntu.log
+echo "Installing python library: PySocks..."
+sudo pip install PySocks 1>>setup-ubuntu.log
 	
 echo "Installing python library: zope..."
 sudo pip install zope.interface 1>>setup-ubuntu.log
