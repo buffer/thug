@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import sys
-import PyV8
+from DOM.JSClass import JSClass
 
-class NodeList(PyV8.JSClass):
+class NodeList(JSClass):
     def __init__(self, doc, nodes):
         self.doc = doc
         self.nodes = nodes
