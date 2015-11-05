@@ -19,7 +19,7 @@ class Misc(object):
         sample = os.path.join(MISC, exploit[0])
 
         instance = ThugAPI(None, None)
-        #instance.set_events('click')
+        instance.set_events('click')
         instance.set_timeout(1)
         instance.log_init(sample)
         instance.run_local(sample)
