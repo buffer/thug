@@ -605,7 +605,7 @@ CLSID = [
         # MSXML2.DOMDocument
         {
             'id'        : ( 'F6D90F11-9C73-11D3-B32E-00C04F990BB4', ),
-            'name'      : ( 'MSXML2.DOMDocument', ),
+            'name'      : ( 'msxml2.domdocument', 'msxml2.domdocument.6.0'),
             'attrs'     : {
                             'object'        : MSXML2DOMDocument,
                           },
@@ -1256,6 +1256,7 @@ CLSID = [
                             'Run'                       : WScriptShell.Run,
                             'Environment'               : WScriptShell.Environment,
                             'ExpandEnvironmentStrings'  : WScriptShell.ExpandEnvironmentStrings,
+                            'CreateObject'              : WScriptShell.CreateObject,
                           }
         },
 

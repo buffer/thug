@@ -122,6 +122,9 @@ class _ActiveXObject:
         for attr_name, attr_value in obj['funcattrs'].items():
             self.funcattrs[attr_name] = methods[attr_value]
 
+        if cls.lower() in ('wscript.shell', ):
+            window.WScript = self
+
     def __setattr__(self, name, value):
         self.__dict__[name] = value
 
