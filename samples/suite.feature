@@ -147,10 +147,15 @@ Feature: Exploits
 			| PluginDetect-0.7.6.html                      | AdobeReader version: 9.1.0.0,Flash version: 10.0.64.0                                                                                                    |
 			| PluginDetect-0.7.8.html                      | ActiveXObject: shockwaveflash.shockwaveflash.10,ActiveXObject: javawebstart.isinstalled.1.6.0.0,ActiveXObject: javaplugin.160_32                         |
 			| PluginDetect-0.7.8.html                      | 9.1.0,10.0.64.0,ActiveXObject: javawebstart.isinstalled.1.6.0.0,ActiveXObject: javaplugin.160_32                                                         |
+			| test1.html                                   | [Window] Alert Text: one                                                                                                                                 |
+			| test2.html                                   | [Window] Alert Text: Java enabled: true                                                                                                                  |
+			| test3.html                                   | [Window] Alert Text: foo                                                                                                                                 |
+			| testAppendChild.html                         | <div>Don't care about me</div>,<div>Just a sample</div>                                                                                                  |
 			| testLocation1.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
 			| testLocation2.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
 			| testLocation3.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
 			| testLocation4.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
 			| testLocation5.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
 			| testLocation6.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
+			| testScope.html                               | foobar,foo,bar,True,3,2012-10-07 11:13:00,3.14159265359,/foo/i                                                                                           |
 		then run misc
