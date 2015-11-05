@@ -4,8 +4,8 @@ import sys
 import re
 import string
 
-import PyV8
 import logging
+
 try:
     from .HTML import *
 except ValueError:
