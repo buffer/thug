@@ -24,11 +24,8 @@ import PyV8
 import traceback
 import hashlib
 import pefile
-import numbers
 import datetime
-import collections
 import urllib
-#import new
 import bs4 as BeautifulSoup
 import jsbeautifier
 from .W3C import *
