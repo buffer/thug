@@ -135,7 +135,6 @@ class Window(JSClass):
         self.java          = java()
 
         self._symbols      = set()
-        self._methods      = tuple()
 
         log.MIMEHandler.window = self
 
@@ -867,8 +866,6 @@ class Window(JSClass):
         #if not hasattr(self, '_context'):
             self._context = PyV8.JSContext(self)
             with self._context as ctxt:
-                self._methods = (ctxt.eval('eval'), ctxt.eval('unescape'), )
-
                 thug_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thug.js")
                 ctxt.eval(open(thug_js, 'r').read())
 
