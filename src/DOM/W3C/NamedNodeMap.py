@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-import PyV8
+from DOM.JSClass import JSClass
 
-class NamedNodeMap(PyV8.JSClass):
+class NamedNodeMap(JSClass):
     def __init__(self, parent):
         self.parent = parent
 
