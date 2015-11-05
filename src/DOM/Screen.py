@@ -16,12 +16,12 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import PyV8
-
 import logging
 log = logging.getLogger("Thug")
 
-class Screen(PyV8.JSClass):
+from .JSClass import JSClass
+
+class Screen(JSClass):
     def __init__(self, width = 800, height = 600, depth = 32):
         self._width  = width
         self._height = height
