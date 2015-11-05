@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import sys, re, string
-import PyV8
 
 from DOMException import DOMException
 from Node import Node
