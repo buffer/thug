@@ -21,7 +21,6 @@ except ImportError:
         from StringIO import StringIO
 
 import bs4 as BeautifulSoup
-import PyV8
 
 from Document import Document
 from DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
