@@ -16,9 +16,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import sys
 import datetime
+import socket
+import socks
 import requests
-import requesocks
 import urllib
 import ssl
 
@@ -45,32 +47,61 @@ class HTTPSession(object):
             proxy = log.ThugOpts.proxy
 
         self.__init_session(proxy)
-        self.__init_proxy(proxy)
-
         self.filecount = 0
 
-    def __is_socks_proxy(self, proxy):
+    def __init_socks_proxy(self, proxy):
         url = urlparse.urlparse(proxy)
         if not url.scheme:
             return False
 
-        return url.scheme.lower().startswith('socks')
-        
-    def __init_session(self, proxy):
-        if proxy is None or not self.__is_socks_proxy(proxy):
-            self.session = requests.Session()
-            return
+        if not url.scheme.lower().startswith('socks'):
+            return False
 
-        self.session = requesocks.Session()
+        proxy_type = getattr(socks, url.scheme.upper(), None)
+        if proxy_type is None:
+            return False
 
-    def __init_proxy(self, proxy):
-        if proxy is None:
-            return
+        addr, port = url.netloc.split(':')
+        socks.set_default_proxy(proxy_type = proxy_type,
+                                addr       = addr,
+                                port       = int(port),
+                                username = url.username,
+                                password = url.password)
+
+        socket.socket = socks.socksocket
+        return True
+
+    def __init_http_proxy(self, proxy):
+        url = urlparse.urlparse(proxy)
+        if not url.scheme:
+            return False
+
+        if not url.scheme.lower().startswith('http'):
+            return False
 
         self.session.proxies = {
             'http'  : proxy,
             'https' : proxy
         }
+
+        return True
+
+    def __init_proxy(self, proxy):
+        if proxy is None:
+            return
+
+        if self.__init_http_proxy(proxy):
+            return
+
+        if self.__init_socks_proxy(proxy):
+            return
+
+        log.warning("[WARNING] Wrong proxy specified. Aborting the analysis!")
+        sys.exit(0)
+
+    def __init_session(self, proxy):
+        self.session = requests.Session()
+        self.__init_proxy(proxy)
 
     def _normalize_protocol_relative_url(self, window, url):
         if not url.startswith('//'):
