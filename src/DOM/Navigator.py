@@ -17,7 +17,6 @@
 # MA  02111-1307  USA
 
 
-import PyV8
 import os
 import hashlib
 import logging
@@ -30,6 +29,7 @@ try:
 except ImportError:
     import urlparse
 
+from .JSClass import JSClass
 from .MimeTypes import MimeTypes
 from .Plugins import Plugins
 from .UserProfile import UserProfile
@@ -38,7 +38,7 @@ from .HTTPSession import AboutBlank, FetchForbidden
 log = logging.getLogger("Thug")
 
 
-class Navigator(PyV8.JSClass):
+class Navigator(JSClass):
     def __init__(self, personality, window = None):
         self.personality = log.ThugOpts.Personality[personality]
         self._plugins    = Plugins()  # An array of the plugins installed in the browser
