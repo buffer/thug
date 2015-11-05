@@ -138,63 +138,6 @@ class Window(JSClass):
 
         log.MIMEHandler.window = self
 
-    def __getattr__(self, name):
-        if name in self._symbols:
-            raise AttributeError(name)
-
-        if name in ('__members__', '__methods__'):
-            raise AttributeError(name)
-
-        if name == 'constructor':
-            return PyV8.JSClassConstructor(self.__class__)
-
-        if name == 'prototype':
-            return PyV8.JSClassPrototype(self.__class__)
-
-        prop = self.__dict__.setdefault('__properties__', {}).get(name, None)
-
-        if prop and isinstance(prop[0], collections.Callable):
-            return prop[0]()
-
-        context = self.__class__.__dict__['context'].__get__(self, Window)
-
-        try:
-            self._symbols.add(name)
-            symbol = context.eval(name)
-        except:
-            raise AttributeError(name)
-        finally:
-            self._symbols.discard(name)
-
-        if isinstance(symbol, PyV8.JSFunction):
-            #_method = None
-            #
-            #if symbol in self._methods:
-            #   _method = symbol.clone()
-            #
-            #if _method is None:
-            #   _method = new.instancemethod(symbol, self, Window)
-            #   _method = symbol.__get__(self, Window)
-            #
-            #setattr(self, name, _method)
-            #context.locals[name] = _method
-            #return _method
-
-            setattr(self, name, symbol)
-            context.locals[name] = symbol
-            return symbol
-
-        if isinstance(symbol, (thug_string,
-                               bool,
-                               numbers.Number,
-                               datetime.datetime,
-                               PyV8.JSObject)):
-            setattr(self, name, symbol)
-            context.locals[name] = symbol
-            return symbol
-
-        raise AttributeError(name)
-
     @property 
     def closed(self):
         return self._closed
@@ -991,30 +934,6 @@ class Window(JSClass):
 
         if hasattr(self, 'onload'):
             self.evalScript(self.onload)
-
-    @property
-    def Array(self):
-        return self._context.eval("Array")
-
-    @property
-    def Boolean(self):
-        return self._context.eval("Boolean")
-
-    @property
-    def Date(self):
-        return self._context.eval("Date")
-
-    @property
-    def Math(self):
-        return self._context.eval("Math")
-
-    @property
-    def Number(self):
-        return self._context.eval("Number")
-
-    @property
-    def RegExp(self):
-        return self._context.eval("RegExp")
 
     def Image(self, width = 800, height = 600):
         return self.doc.createElement('img')
