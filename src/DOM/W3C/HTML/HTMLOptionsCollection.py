@@ -3,7 +3,6 @@
 import sys, re, string
 
 import bs4 as BeautifulSoup
-import PyV8
 
 from DOMException import DOMException
 from .HTMLCollection import HTMLCollection
