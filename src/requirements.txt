@@ -5,7 +5,7 @@ pefile==1.2.10-114
 lxml==3.4.4
 chardet==2.3.0
 requests==2.6.0
-requesocks==0.10.8
+PySocks==1.5.6
 cssutils==1.0
 zope.interface==4.1.2
 pyparsing==2.0.3
