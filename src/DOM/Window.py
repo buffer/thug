@@ -30,6 +30,7 @@ import bs4 as BeautifulSoup
 import jsbeautifier
 from .W3C import *
 from .W3C.HTML.HTMLCollection import HTMLCollection
+from .JSClass import *
 from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
@@ -53,7 +54,7 @@ sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug")
 
 
-class Window(PyV8.JSClass):
+class Window(JSClass):
 
     class Timer(object):
         def __init__(self, window, code, delay, repeat, lang = 'JavaScript'):
