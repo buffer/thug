@@ -16,13 +16,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import PyV8
 import logging
 
 log = logging.getLogger("Thug")
 
+from .JSClass import JSClass
 
-class Console(PyV8.JSClass):
+class Console(JSClass):
     def __init__(self):
         self.__init_personality()
 
