@@ -3,7 +3,6 @@
 import sys
 import copy
 import bs4 as BeautifulSoup
-import PyV8
 import logging
 
 from abstractmethod import abstractmethod
@@ -13,8 +12,9 @@ from NodeList import NodeList
 
 log = logging.getLogger("Thug")
 
+from DOM.JSClass import JSClass
 
-class Node(PyV8.JSClass, EventTarget):
+class Node(JSClass, EventTarget):
     # NodeType
     ELEMENT_NODE                   = 1
     ATTRIBUTE_NODE                 = 2
