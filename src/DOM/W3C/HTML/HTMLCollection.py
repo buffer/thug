@@ -5,9 +5,9 @@ import sys, re, string
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
-import PyV8
+from DOM.JSClass import JSClass
 
-class HTMLCollection(PyV8.JSClass):
+class HTMLCollection(JSClass):
     def __init__(self, doc, nodes):
         self.doc   = doc
         self.nodes = nodes
