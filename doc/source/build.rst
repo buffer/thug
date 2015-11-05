@@ -117,11 +117,11 @@ files. Beautiful Soup source code can be downloaded at
 http://www.crummy.com/software/BeautifulSoup/.
 
 If not available as a package for your Linux distribution, the best way 
-to install Beautiful Soup 4 is through easy_install.
+to install Beautiful Soup 4 is through pip.
 
 .. code-block:: sh
 
-        # easy_install beautifulsoup4  
+        # pip install beautifulsoup4  
 
  
 html5lib
@@ -133,11 +133,11 @@ web browsers. html5lib source code can be downloaded at
 http://code.google.com/p/html5lib/.
 
 If not available as a package for your Linux distribution, the best way 
-to install html5lib is through easy_install. 
+to install html5lib is through pip. 
 
 .. code-block:: sh
 
-        # easy_install html5lib 
+        # pip install html5lib 
 
 
 Jsbeautifier
@@ -148,11 +148,11 @@ popular online obfuscators. jsbeautifier code can be downloaded at
 https://github.com/einars/js-beautify
 
 If not available as a package for your Linux distribution, the best way
-to install jsbeautifier is through easy_install.
+to install jsbeautifier is through pip.
 
 .. code-block:: sh
 
-        # easy_install jsbeautifier 
+        # pip install jsbeautifier 
 
 
 Libemu
@@ -208,11 +208,11 @@ http://code.google.com/p/pefile/.
 Pefile r141 or later is strictly required.
 
 If not available as a package for your Linux distribution, the best way
-to install Pefile is through easy_install.
+to install Pefile is through pip.
 
 .. code-block:: sh
 
-        # easy_install pefile 
+        # pip install pefile 
 
 
 lxml
@@ -224,11 +224,11 @@ libraries with the simplicity of a native Python API, mostly compatible but supe
 to the well-known ElementTree API.
 
 If not available as a package for your Linux distribution, the best way
-to install lxml is through easy_install.
+to install lxml is through pip.
 
 .. code-block:: sh
 
-        # easy_install lxml
+        # pip install lxml
 
 
 chardet
@@ -238,28 +238,11 @@ Chardet is a universal encoding detector. Chardet homepage is located at
 http://pypi.python.org/pypi/chardet.
 
 If not available as a package for your Linux distribution, the best way
-to install chardet is through easy_install.
+to install chardet is through pip.
 
 .. code-block:: sh
 
-        # easy_install chardet  
-
-
-httplib2
-^^^^^^^^
-
-Httplib2 is a comprehensive HTTP client library that supports many features 
-left out of other HTTP libraries. Httplib2 homepage is located at 
-http://code.google.com/p/httplib2/
-
-Httplib 0.7.4 or later is strictly required.
-
-If not available as a package for your Linux distribution, the best way
-to install httplib2 is through easy_install.
-
-.. code-block:: sh
-
-        # easy_install httplib2
+        # pip install chardet  
 
 
 Requests
@@ -270,35 +253,32 @@ beings. Requests homepage is located at
 http://docs.python-requests.org/en/latest/
 
 If not available as a package for your Linux distribution, the best way
-to install requests is through easy_install.
+to install requests is through pip.
 
 .. code-block:: sh
 
-        # easy_install requests
+        # pip install requests
 
 
-Requesocks
-^^^^^^^^^^
+PySocks
+^^^^^^^
 
-Requesocks is the fork of github.com/foxx/requests == python-requests working 
-with SOCKS proxy (i.e Tor). The package was renamed to allow simultaneously 
-use of original requests and socks-capable-requests. Requesocks homepage is 
-located at https://github.com/dvska/requesocks
+PySocks is an actively maintained SocksiPy fork. It contains many improvements to 
+the original. PySocks homepage is located at https://github.com/Anorov/PySocks.
 
 If not available as a package for your Linux distribution, the best way
-to install requests is through easy_install.
+to install requests is through pip.
 
 .. code-block:: sh
 
-        # easy_install requesocks
+        # pip install PySocks
 
 
 Boost
 ^^^^^
 
-Boost provides free peer-reviewed portable C++ source libraries.
-Boost homepage is located at http://www.boost.org/
-Packages for most Linux distributions are provided.
+Boost provides free peer-reviewed portable C++ source libraries. Boost homepage is 
+located at http://www.boost.org/. Packages for most Linux distributions are provided.
 
 
 Cssutils
@@ -308,13 +288,13 @@ Cssutils is a CSS Cascading Style Sheets library for Python. Cssutils homepage
 is located at http://pypi.python.org/pypi/cssutils.
 
 If not available as a package for your Linux distribution, the best way
-to install cssutils is through easy_install.
+to install cssutils is through pip.
 
 Cssutils 0.9.9 or later is strictly required.
 
 .. code-block:: sh
 
-        # easy_install cssutils
+        # pip install cssutils
 
 
 Zope Interface
@@ -323,11 +303,11 @@ Zope Interface
 Zope Interface homepage is located at http://pypi.python.org/pypi/zope.interface.
 
 If not available as a package for your Linux distribution, the best way
-to install zope.interface is through easy_install.
+to install zope.interface is through pip.
 
 .. code-block:: sh
 
-        # easy_install zope.interface
+        # pip install zope.interface
 
 
 Graphviz
@@ -349,11 +329,11 @@ Pyparsing
 Pyparsing homepage is located at http://pyparsing.wikispaces.com/.
 
 If not available as a package for your Linux distribution, the best way 
-to install pyparsing is through easy_install.
+to install pyparsing is through pip.
 
 .. code-block:: sh
 
-        # easy_install pyparsing
+        # pip install pyparsing
 
 
 Pygraphviz
@@ -362,11 +342,11 @@ Pygraphviz
 Pydot homepage is located at http://pygraphviz.github.io.
 
 If not available as a package for your Linux distribution, the best way
-to install pydot is through easy_install.
+to install pydot is through pip.
 
 .. code-block:: sh
 
-        # easy_install pygraphviz
+        # pip install pygraphviz
 
 
 Python-Magic
@@ -375,11 +355,11 @@ Python-Magic
 The recommended implementation of python-magic can be found at 
 https://github.com/ahupp/python-magic.
 
-The best way to install python-magic is through easy_install.
+The best way to install python-magic is through pip.
 
 .. code-block:: sh
 
-        # easy_install python-magic
+        # pip install python-magic
 
 If you are running Ubuntu, you may want to use a completely different
 implementation of python-magic which is packaged through apt.
@@ -395,11 +375,11 @@ Rarfile
 Rarfile homepage is located at http://rarfile.berlios.de/.
 
 If not available as a package for your Linux distribution, the best way 
-to install rarfile is through easy_install.
+to install rarfile is through pip.
 
 .. code-block:: sh
 
-        # easy_install rarfile
+        # pip install rarfile
 
 
 Yara
@@ -431,11 +411,11 @@ NetworkX is a Python language software package for the creation, manipulation,
 and study of the structure, dynamics, and functions of complex networks.
 
 If not available as a package for your Linux distribution, the best way 
-to install networkx is through easy_install.
+to install networkx is through pip.
 
 .. code-block:: sh
 
-        # easy_install networkx
+        # pip install networkx
 
 
 MongoDB (optional)
@@ -452,11 +432,11 @@ PyMongo (optional)
 PyMongo homepage is located at http://www.mongodb.org/display/DOCS/Python+Language+Center.
 
 If not available as a package for your Linux distribution, the best way
-to install pymongo is through easy_install.
+to install pymongo is through pip.
 
 .. code-block:: sh
 
-        # easy_install pymongo  
+        # pip install pymongo  
 
 
 Androguard (optional)
@@ -473,6 +453,7 @@ is the one shown below
         # git clone git@github.com:androguard/androguard.git
         # cd androguard
         # python setup.py install
+
 
 Ssdeep (optional)
 ^^^^^^^^^^^^^^^^^
@@ -491,11 +472,11 @@ Python-Ssdeep (optional)
 Python-Ssdeep homepage is located at https://github.com/DinoTools/python-ssdeep.
 
 If not available as a package for your Linux distribution, the best way
-to install python-ssdeep is through easy_install.
+to install python-ssdeep is through pip.
 
 .. code-block:: sh
 
-        # easy_install ssdeep
+        # pip install ssdeep
 
 
 RabbitMQ (optional)
@@ -518,8 +499,8 @@ independent of the underlying network support library and it's needed just if yo
 with Thug distributed mode.
 
 If not available as a package for your Linux distribution, the best way
-to install pika is through easy_install.
+to install pika is through pip.
 
 .. code-block:: sh
 
-    # easy_install pika
+    # pip install pika
