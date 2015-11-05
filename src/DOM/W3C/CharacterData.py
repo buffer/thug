@@ -3,7 +3,6 @@
 import sys
 import re
 import string
-import PyV8
 
 from DOMException import DOMException
 from Node import Node
