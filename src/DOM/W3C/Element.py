@@ -2,7 +2,6 @@
 
 import sys, re, string
 
-import PyV8
 import logging
 
 try:
