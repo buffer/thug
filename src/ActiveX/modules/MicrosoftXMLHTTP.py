@@ -3,6 +3,7 @@
 import os
 import hashlib
 import logging
+import urlparse
 
 try:
     import urllib.parse as urlparse
@@ -21,6 +22,11 @@ def abort(self):
 
 
 def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword = None):
+    # Internet Explorer ignores any \r\n or %0d%0a or whitespace appended to the domain name
+    parsedUrl = urlparse.urlparse(bstrUrl)
+    netloc = parsedUrl.netloc.strip("\r\n\t")
+    bstrUrl = urlparse.urlunparse((parsedUrl.scheme, netloc, parsedUrl.path, parsedUrl.params, parsedUrl.query, parsedUrl.fragment))
+
     msg = "[Microsoft XMLHTTP ActiveX] open('%s', '%s', %s" % (bstrMethod, bstrUrl, varAsync is True, )
     if varUser:
         msg = "%s, '%s'" % (msg, varUser, )
@@ -38,7 +44,7 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
                                                 "async"  : str(varAsync)
                                              }
                                      )
-    
+
     self.bstrMethod  = bstrMethod
     self.bstrUrl     = str(bstrUrl)
     self.varAsync    = varAsync
