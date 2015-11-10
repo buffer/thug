@@ -183,10 +183,14 @@ Pylibemu
 Pylibemu is a Cython wrapper for the Libemu library. Pylibemu homepage is located
 at https://github.com/buffer/pylibemu.
 
-Pylibemu 0.2.4 or later is strictly required.
+If not available as a package for your Linux distribution, the best way to install 
+Pylibemu is through pip.
 
-In order to properly install Pylibemu please follow the procedure described
-below
+.. code-block:: sh
+
+        # pip install pylibemu
+
+Alternatively follow the procedure described below
 
 .. code-block:: sh
         
