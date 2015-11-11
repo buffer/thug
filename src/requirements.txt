@@ -17,4 +17,4 @@ pymongo==3.0.1
 ssdeep==3.1
 six==1.9.0
 pika==0.9.14
-pylibemu==0.3.2
+pylibemu==0.3.3
