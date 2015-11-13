@@ -261,6 +261,9 @@ class MongoDB(object):
         @description    Description of the exploit
         @cve            CVE number (if available)
         """
+        if not self.enabled:
+            return
+
         exploit = {
             'analysis_id' : self.analysis_id,
             'url_id'      : self.get_url(url),
@@ -301,6 +304,9 @@ class MongoDB(object):
         self.samples.insert(r)
 
     def log_maec11(self, basedir):
+        if not self.enabled:
+            return
+
         if not log.ThugOpts.maec11_logging:
             return
 
@@ -321,6 +327,9 @@ class MongoDB(object):
         self.maec11.insert(analysis)
 
     def log_json(self, basedir):
+        if not self.enabled:
+            return
+
         if not log.ThugOpts.json_logging:
             return
 
