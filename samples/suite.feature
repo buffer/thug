@@ -151,6 +151,8 @@ Feature: Exploits
 			| test2.html                                   | [Window] Alert Text: Java enabled: true                                                                                                                  |
 			| test3.html                                   | [Window] Alert Text: foo                                                                                                                                 |
 			| testAppendChild.html                         | <div>Don't care about me</div>,<div>Just a sample</div>                                                                                                  |
+			| testClipboardData.html                       | Test ClipboardData                                                                                                                                       |
+			| testCreateStyleSheet.html                    | style1.css" rel="stylesheet"></link><link href="style2.css" rel="stylesheet"></link><link href="style3.css" rel="stylesheet"></link><link href="style4   |
 			| testLocation1.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
 			| testLocation2.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
 			| testLocation3.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
