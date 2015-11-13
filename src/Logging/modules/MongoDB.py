@@ -112,7 +112,7 @@ class MongoDB(object):
         try:
             connection = client(self.opts['host'], int(self.opts['port']))
         except:
-            log.info('[MongoDB] MongoDB instance not available')
+            log.warning('[MongoDB] MongoDB instance not available')
             self.enabled = False
             return
 
