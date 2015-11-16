@@ -152,7 +152,12 @@ Feature: Exploits
 			| test3.html                                   | [Window] Alert Text: foo                                                                                                                                 |
 			| testAppendChild.html                         | <div>Don't care about me</div>,<div>Just a sample</div>                                                                                                  |
 			| testClipboardData.html                       | Test ClipboardData                                                                                                                                       |
+			| testCloneNode.html                           | <div id="cloned"><q>Can you copy <em>everything</em> I say?</q></div>                                                                                    |
+			| testCloneNode2.html                          | <button align="left" id="myButton">Clone node</button>                                                                                                   |
 			| testCreateStyleSheet.html                    | style1.css" rel="stylesheet"></link><link href="style2.css" rel="stylesheet"></link><link href="style3.css" rel="stylesheet"></link><link href="style4   |
+			| testDocumentAll.html                         | <a href="http://www.google.com">Google</a>                                                                                                               |
+			| testInnerHTML.html                           | dude,Fred Flinstone                                                                                                                                      |
+			| testPlugins.html                             | Shockwave Flash 10.0.64.0,Windows Media Player 7,Adobe Acrobat                                                                                           |
 			| testLocation1.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
 			| testLocation2.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
 			| testLocation3.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
