@@ -362,7 +362,7 @@ url = 'http://peepdf.eternal-todo.com'
 twitter = 'http://twitter.com/EternalTodo'
 peepTwitter = 'http://twitter.com/peepdf'
 version = '0.3'
-revision = '255'
+revision = '257'
 stats = ''
 pdf = None
 fileName = None
@@ -708,6 +708,8 @@ try:
                     while not console.leaving:
                         try:
                             console.cmdloop()
+                        except KeyboardInterrupt as e:
+                            sys.exit()
                         except:
                             errorMessage = '*** Error: Exception not handled using the interactive console!! Please, report it to the author!!'
                             print errorColor + errorMessage + resetColor + newLine
