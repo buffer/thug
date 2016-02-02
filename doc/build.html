@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build and Install &mdash; Thug 0.6.5 documentation</title>
+    <title>Build and Install &mdash; Thug 0.6.6 documentation</title>
     
-    <link rel="stylesheet" href="static/default.css" type="text/css" />
+    <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6.5',
+        VERSION:     '0.6.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,12 +23,12 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.6.5 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.6.6 documentation" href="index.html" />
     <link rel="next" title="Docker" href="docker.html" />
     <link rel="prev" title="Introduction" href="intro.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -40,14 +40,14 @@
         <li class="right" >
           <a href="intro.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Thug 0.6.5 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="build-and-install">
 <span id="build"></span><h1>Build and Install<a class="headerlink" href="#build-and-install" title="Permalink to this headline">¶</a></h1>
@@ -72,7 +72,7 @@
 <li>Zope interface</li>
 <li>Graphviz</li>
 <li>Pyparsing</li>
-<li>Pydot</li>
+<li>Pygraphviz</li>
 <li>Python-Magic</li>
 <li>Rarfile</li>
 <li>Yara 2.0</li>
@@ -155,8 +155,8 @@ and PyV8)</li>
 files. Beautiful Soup source code can be downloaded at
 <a class="reference external" href="http://www.crummy.com/software/BeautifulSoup/">http://www.crummy.com/software/BeautifulSoup/</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install Beautiful Soup 4 is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install beautifulsoup4</span>
+to install Beautiful Soup 4 is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install beautifulsoup4</span>
 </pre></div>
 </div>
 </div>
@@ -167,8 +167,8 @@ WHATWG HTML5 specification for maximum compatibility with major desktop
 web browsers. html5lib source code can be downloaded at
 <a class="reference external" href="http://code.google.com/p/html5lib/">http://code.google.com/p/html5lib/</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install html5lib is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install html5lib</span>
+to install html5lib is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install html5lib</span>
 </pre></div>
 </div>
 </div>
@@ -178,8 +178,8 @@ to install html5lib is through easy_install.</p>
 popular online obfuscators. jsbeautifier code can be downloaded at
 <a class="reference external" href="https://github.com/einars/js-beautify">https://github.com/einars/js-beautify</a></p>
 <p>If not available as a package for your Linux distribution, the best way
-to install jsbeautifier is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install jsbeautifier</span>
+to install jsbeautifier is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install jsbeautifier</span>
 </pre></div>
 </div>
 </div>
@@ -191,7 +191,7 @@ within network intrusion/prevention detections and honeypots. Libemu
 homepage is located at <a class="reference external" href="http://libemu.carnivore.it/">http://libemu.carnivore.it/</a>.</p>
 <p>In order to properly install Libemu please follow the procedure described
 below</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone git://git.carnivore.it/libemu.git
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone git://github.com/buffer/libemu.git
 <span class="nv">$ </span><span class="nb">cd </span>libemu
 <span class="nv">$ </span>autoreconf -v -i
 <span class="nv">$ </span>./configure --prefix<span class="o">=</span>/opt/libemu
@@ -204,9 +204,12 @@ below</p>
 <h3>Pylibemu<a class="headerlink" href="#pylibemu" title="Permalink to this headline">¶</a></h3>
 <p>Pylibemu is a Cython wrapper for the Libemu library. Pylibemu homepage is located
 at <a class="reference external" href="https://github.com/buffer/pylibemu">https://github.com/buffer/pylibemu</a>.</p>
-<p>Pylibemu 0.2.4 or later is strictly required.</p>
-<p>In order to properly install Pylibemu please follow the procedure described
-below</p>
+<p>If not available as a package for your Linux distribution, the best way to install
+Pylibemu is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pylibemu</span>
+</pre></div>
+</div>
+<p>Alternatively follow the procedure described below</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone git://github.com/buffer/pylibemu.git
 <span class="nv">$ </span>python setup.py build
 <span class="nv">$ </span>sudo python setup.py install
@@ -222,8 +225,8 @@ all the sections, section&#8217;s information and data. Pefile homepage is locat
 <a class="reference external" href="http://code.google.com/p/pefile/">http://code.google.com/p/pefile/</a>.</p>
 <p>Pefile r141 or later is strictly required.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install Pefile is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pefile</span>
+to install Pefile is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pefile</span>
 </pre></div>
 </div>
 </div>
@@ -234,8 +237,8 @@ It is unique in that it combines the speed and XML feature completeness of these
 libraries with the simplicity of a native Python API, mostly compatible but superior
 to the well-known ElementTree API.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install lxml is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install lxml</span>
+to install lxml is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install lxml</span>
 </pre></div>
 </div>
 </div>
@@ -244,20 +247,8 @@ to install lxml is through easy_install.</p>
 <p>Chardet is a universal encoding detector. Chardet homepage is located at
 <a class="reference external" href="http://pypi.python.org/pypi/chardet">http://pypi.python.org/pypi/chardet</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install chardet is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install chardet</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="httplib2">
-<h3>httplib2<a class="headerlink" href="#httplib2" title="Permalink to this headline">¶</a></h3>
-<p>Httplib2 is a comprehensive HTTP client library that supports many features
-left out of other HTTP libraries. Httplib2 homepage is located at
-<a class="reference external" href="http://code.google.com/p/httplib2/">http://code.google.com/p/httplib2/</a></p>
-<p>Httplib 0.7.4 or later is strictly required.</p>
-<p>If not available as a package for your Linux distribution, the best way
-to install httplib2 is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install httplib2</span>
+to install chardet is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install chardet</span>
 </pre></div>
 </div>
 </div>
@@ -267,37 +258,34 @@ to install httplib2 is through easy_install.</p>
 beings. Requests homepage is located at
 <a class="reference external" href="http://docs.python-requests.org/en/latest/">http://docs.python-requests.org/en/latest/</a></p>
 <p>If not available as a package for your Linux distribution, the best way
-to install requests is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install requests</span>
+to install requests is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install requests</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="requesocks">
-<h3>Requesocks<a class="headerlink" href="#requesocks" title="Permalink to this headline">¶</a></h3>
-<p>Requesocks is the fork of github.com/foxx/requests == python-requests working
-with SOCKS proxy (i.e Tor). The package was renamed to allow simultaneously
-use of original requests and socks-capable-requests. Requesocks homepage is
-located at <a class="reference external" href="https://github.com/dvska/requesocks">https://github.com/dvska/requesocks</a></p>
+<div class="section" id="pysocks">
+<h3>PySocks<a class="headerlink" href="#pysocks" title="Permalink to this headline">¶</a></h3>
+<p>PySocks is an actively maintained SocksiPy fork. It contains many improvements to
+the original. PySocks homepage is located at <a class="reference external" href="https://github.com/Anorov/PySocks">https://github.com/Anorov/PySocks</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install requests is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install requesocks</span>
+to install requests is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install PySocks</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="boost">
 <h3>Boost<a class="headerlink" href="#boost" title="Permalink to this headline">¶</a></h3>
-<p>Boost provides free peer-reviewed portable C++ source libraries.
-Boost homepage is located at <a class="reference external" href="http://www.boost.org/">http://www.boost.org/</a>
-Packages for most Linux distributions are provided.</p>
+<p>Boost provides free peer-reviewed portable C++ source libraries. Boost homepage is
+located at <a class="reference external" href="http://www.boost.org/">http://www.boost.org/</a>. Packages for most Linux distributions are provided.</p>
 </div>
 <div class="section" id="cssutils">
 <h3>Cssutils<a class="headerlink" href="#cssutils" title="Permalink to this headline">¶</a></h3>
 <p>Cssutils is a CSS Cascading Style Sheets library for Python. Cssutils homepage
 is located at <a class="reference external" href="http://pypi.python.org/pypi/cssutils">http://pypi.python.org/pypi/cssutils</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install cssutils is through easy_install.</p>
+to install cssutils is through pip.</p>
 <p>Cssutils 0.9.9 or later is strictly required.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install cssutils</span>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install cssutils</span>
 </pre></div>
 </div>
 </div>
@@ -305,8 +293,8 @@ to install cssutils is through easy_install.</p>
 <h3>Zope Interface<a class="headerlink" href="#zope-interface" title="Permalink to this headline">¶</a></h3>
 <p>Zope Interface homepage is located at <a class="reference external" href="http://pypi.python.org/pypi/zope.interface">http://pypi.python.org/pypi/zope.interface</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install zope.interface is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install zope.interface</span>
+to install zope.interface is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install zope.interface</span>
 </pre></div>
 </div>
 </div>
@@ -323,17 +311,17 @@ and in visual interfaces for other technical domains.</p>
 <h3>Pyparsing<a class="headerlink" href="#pyparsing" title="Permalink to this headline">¶</a></h3>
 <p>Pyparsing homepage is located at <a class="reference external" href="http://pyparsing.wikispaces.com/">http://pyparsing.wikispaces.com/</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install pyparsing is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pyparsing</span>
+to install pyparsing is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pyparsing</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="pydot">
-<h3>Pydot<a class="headerlink" href="#pydot" title="Permalink to this headline">¶</a></h3>
-<p>Pydot homepage is located at <a class="reference external" href="https://code.google.com/p/pydot/">https://code.google.com/p/pydot/</a>.</p>
+<div class="section" id="pygraphviz">
+<h3>Pygraphviz<a class="headerlink" href="#pygraphviz" title="Permalink to this headline">¶</a></h3>
+<p>Pydot homepage is located at <a class="reference external" href="http://pygraphviz.github.io">http://pygraphviz.github.io</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install pydot is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pydot</span>
+to install pydot is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pygraphviz</span>
 </pre></div>
 </div>
 </div>
@@ -341,8 +329,8 @@ to install pydot is through easy_install.</p>
 <h3>Python-Magic<a class="headerlink" href="#python-magic" title="Permalink to this headline">¶</a></h3>
 <p>The recommended implementation of python-magic can be found at
 <a class="reference external" href="https://github.com/ahupp/python-magic">https://github.com/ahupp/python-magic</a>.</p>
-<p>The best way to install python-magic is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install python-magic</span>
+<p>The best way to install python-magic is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install python-magic</span>
 </pre></div>
 </div>
 <p>If you are running Ubuntu, you may want to use a completely different
@@ -355,8 +343,8 @@ implementation of python-magic which is packaged through apt.</p>
 <h3>Rarfile<a class="headerlink" href="#rarfile" title="Permalink to this headline">¶</a></h3>
 <p>Rarfile homepage is located at <a class="reference external" href="http://rarfile.berlios.de/">http://rarfile.berlios.de/</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install rarfile is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install rarfile</span>
+to install rarfile is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install rarfile</span>
 </pre></div>
 </div>
 </div>
@@ -380,8 +368,8 @@ at Yara-Python documentation for details.</p>
 <p>NetworkX is a Python language software package for the creation, manipulation,
 and study of the structure, dynamics, and functions of complex networks.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install networkx is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install networkx</span>
+to install networkx is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install networkx</span>
 </pre></div>
 </div>
 </div>
@@ -394,8 +382,8 @@ to install networkx is through easy_install.</p>
 <h3>PyMongo (optional)<a class="headerlink" href="#pymongo-optional" title="Permalink to this headline">¶</a></h3>
 <p>PyMongo homepage is located at <a class="reference external" href="http://www.mongodb.org/display/DOCS/Python+Language+Center">http://www.mongodb.org/display/DOCS/Python+Language+Center</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install pymongo is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pymongo</span>
+to install pymongo is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pymongo</span>
 </pre></div>
 </div>
 </div>
@@ -423,8 +411,8 @@ different in both content and length.</p>
 <h3>Python-Ssdeep (optional)<a class="headerlink" href="#python-ssdeep-optional" title="Permalink to this headline">¶</a></h3>
 <p>Python-Ssdeep homepage is located at <a class="reference external" href="https://github.com/DinoTools/python-ssdeep">https://github.com/DinoTools/python-ssdeep</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install python-ssdeep is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install ssdeep</span>
+to install python-ssdeep is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install ssdeep</span>
 </pre></div>
 </div>
 </div>
@@ -442,8 +430,8 @@ with Thug distributed mode.</p>
 independent of the underlying network support library and it&#8217;s needed just if you want to play
 with Thug distributed mode.</p>
 <p>If not available as a package for your Linux distribution, the best way
-to install pika is through easy_install.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># easy_install pika</span>
+to install pika is through pip.</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pika</span>
 </pre></div>
 </div>
 </div>
@@ -454,7 +442,7 @@ to install pika is through easy_install.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
@@ -471,15 +459,14 @@ to install pika is through easy_install.</p>
 <li><a class="reference internal" href="#pefile">Pefile</a></li>
 <li><a class="reference internal" href="#lxml">lxml</a></li>
 <li><a class="reference internal" href="#chardet">chardet</a></li>
-<li><a class="reference internal" href="#httplib2">httplib2</a></li>
 <li><a class="reference internal" href="#requests">Requests</a></li>
-<li><a class="reference internal" href="#requesocks">Requesocks</a></li>
+<li><a class="reference internal" href="#pysocks">PySocks</a></li>
 <li><a class="reference internal" href="#boost">Boost</a></li>
 <li><a class="reference internal" href="#cssutils">Cssutils</a></li>
 <li><a class="reference internal" href="#zope-interface">Zope Interface</a></li>
 <li><a class="reference internal" href="#graphviz">Graphviz</a></li>
 <li><a class="reference internal" href="#pyparsing">Pyparsing</a></li>
-<li><a class="reference internal" href="#pydot">Pydot</a></li>
+<li><a class="reference internal" href="#pygraphviz">Pygraphviz</a></li>
 <li><a class="reference internal" href="#python-magic">Python-Magic</a></li>
 <li><a class="reference internal" href="#rarfile">Rarfile</a></li>
 <li><a class="reference internal" href="#yara">Yara</a></li>
@@ -504,12 +491,14 @@ to install pika is through easy_install.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="docker.html"
                         title="next chapter">Docker</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="sources/build.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="sources/build.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -526,7 +515,7 @@ to install pika is through easy_install.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -538,12 +527,12 @@ to install pika is through easy_install.</p>
         <li class="right" >
           <a href="intro.html" title="Introduction"
              >previous</a> |</li>
-        <li><a href="index.html">Thug 0.6.5 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2011-2015, Angelo Dell&#39;Aera.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2011-2016, Angelo Dell&#39;Aera.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>
