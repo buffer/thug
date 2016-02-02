@@ -51,7 +51,7 @@ from Classifier import SampleClassifier
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
 
-__thug_version__ = '0.6.5'
+__thug_version__ = '0.6.6'
 
 
 class ThugAPI:
