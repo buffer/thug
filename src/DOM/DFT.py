@@ -1207,6 +1207,8 @@ class DFT(object):
             analyzed.clear()
             _soup = soup
 
+        self.window.doc._readyState = "complete"
+
         for child in soup.descendants:
             self.set_event_listeners(child)
 

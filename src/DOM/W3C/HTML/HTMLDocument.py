@@ -52,6 +52,7 @@ class HTMLDocument(Document):
         self._lastModified  = lastModified
         self._cookie        = cookie
         self._html          = None
+        self._readyState    = "loading"
         self._domain        = urlparse(self._win.url).hostname if self._win else ''
         self.current        = None
         self.__init_personality()
@@ -164,7 +165,7 @@ class HTMLDocument(Document):
     # FIXME
     @property
     def readyState(self):
-        return "complete"
+        return self._readyState
 
     @property
     def compatMode(self):
