@@ -46,7 +46,12 @@ import bs4 as BeautifulSoup
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
-from Analysis.peepdf.PDFCore import PDFParser, vulnsDict
+PEEPDF = True
+try:
+    from Analysis.peepdf.PDFCore import PDFParser, vulnsDict
+except:
+    PEEPDF = False
+
 from datetime import datetime
 from lxml import etree
 
@@ -273,7 +278,8 @@ class MIMEHandler(dict):
         self.register_handler('application/x-rar-compressed', self.handle_rar)
 
     def register_pdf_handlers(self):
-        self.register_handler('application/pdf', self.handle_pdf)
+        if PEEPDF:
+            self.register_handler('application/pdf', self.handle_pdf)
 
     def register_android_handlers(self):
         if ANDROGUARD:
