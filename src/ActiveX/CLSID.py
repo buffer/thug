@@ -50,7 +50,7 @@ CLSID = [
                             'SaveToFile'    : AdodbStream.SaveToFile,
                             'SaveTofile'    : AdodbStream.SaveToFile,
                             'Close'         : AdodbStream.Close,
-                          }
+                         }
         },
 
         # AnswerWorks
@@ -527,7 +527,7 @@ CLSID = [
         # MicrosoftXMLDOM
         {
             'id'        : (),
-            'name'      : ( 'microsoft.xmldom', ),
+            'name'      : ( 'microsoft.xmldom', 'msxml2.domdocument.3.0', ),
             'attrs'     : {
                             'async'            : False,
                             'parseError'       : XMLDOMParseError.XMLDOMParseError(),
@@ -535,6 +535,7 @@ CLSID = [
             'funcattrs' : {},
             'methods'   : {
                             'loadXML'          : MicrosoftXMLDOM.loadXML,
+                            'createElement'    : MicrosoftXMLDOM.createElement,
                           }
         },
 
