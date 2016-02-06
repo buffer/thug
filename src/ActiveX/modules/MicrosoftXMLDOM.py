@@ -1,4 +1,5 @@
 # Microsoft XMLDOM
+from lxml import etree
 
 import bs4 as BeautifulSoup
 from DOM.W3C import w3c
@@ -26,3 +27,6 @@ def loadXML(self, bstrXML):
             log.ThugLogging.add_behavior_warn("[Microsoft XMLDOM ActiveX] Attempting to load %s" % (p, ))
             if any(sys.lower() in p.lower() for sys in security_sys):
                 self.parseError._errorCode = 0
+
+def createElement(self, bstrTagName):
+    return etree.Element(bstrTagName)
