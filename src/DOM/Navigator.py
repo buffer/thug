@@ -301,7 +301,7 @@ class Navigator(JSClass):
         # enabled).
         url = log.HTTPSession.normalize_url(self._window, url)
         if url is None:
-            return
+            return None
 
         if redirect_type:
             log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, self._window.url, url, )))
@@ -313,15 +313,17 @@ class Navigator(JSClass):
         # number of pages to fetch. If the threshold is reached avoid
         # fetching the contents.
         if log.HTTPSession.threshold_expired(url):
-            return
+            return None
 
         # The command-line option -T (--timeout) set the analysis timeout
         # (in seconds). If the analysis lasts more than this value avoid
         # fetching the contents.
         if log.HTTPSession.timeout_expired(url):
-            return
+            return None
 
         response = log.HTTPSession.fetch(url, method, self._window, self.userAgent, headers, body)
+        if response is None:
+            return None
 
         _url = log.ThugLogging.log_redirect(response)
         if _url:
