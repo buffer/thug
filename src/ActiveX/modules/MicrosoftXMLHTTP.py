@@ -79,6 +79,9 @@ def send(self, varBody = None):
     except:
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
 
+    if response is None:
+        return
+
     self.responseHeaders = response.headers
     self.responseBody    = response.content
 
