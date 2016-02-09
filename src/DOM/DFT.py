@@ -566,7 +566,8 @@ class DFT(object):
                                                         redirect_type = "params",
                                                         params = params)
 
-                self._handle_jnlp(response.content, headers, params)
+                if response:
+                    self._handle_jnlp(response.content, headers, params)
             except:
                 pass
 
@@ -722,6 +723,9 @@ class DFT(object):
         try:
             response = self.window._navigator.fetch(src, redirect_type = "script src")
         except:
+            return
+
+        if response is None:
             return
 
         if response.status_code == 404:
@@ -946,6 +950,9 @@ class DFT(object):
         except:
             return
 
+        if response is None:
+            return
+
         if response.status_code == 404:
             return
 
@@ -976,6 +983,9 @@ class DFT(object):
         try:
             response = self.window._navigator.fetch(src, redirect_type = redirect_type)
         except:
+            return
+
+        if response is None:
             return
 
         if response.status_code == 404:
@@ -1098,6 +1108,9 @@ class DFT(object):
             except:
                 return
 
+            if response is None:
+                return
+
             if response.status_code == 404:
                 return
 
@@ -1116,6 +1129,9 @@ class DFT(object):
         try:
             response = self.window._navigator.fetch(href, redirect_type = "link")
         except:
+            return
+
+        if response is None:
             return
 
         if response.status_code == 404:
