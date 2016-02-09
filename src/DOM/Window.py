@@ -672,6 +672,9 @@ class Window(JSClass):
             except:
                 continue
 
+            if response is None:
+                continue
+
             if response.status_code == 404:
                 continue
 
@@ -917,6 +920,9 @@ class Window(JSClass):
                     except:
                         continue
 
+                    if response is None:
+                        continue
+
                     if response.status_code == 404:
                         continue
 
@@ -950,6 +956,10 @@ class Window(JSClass):
             try:
                 response = self._navigator.fetch(url, redirect_type = "window open")
             except:
+                #traceback.print_exc()
+                return None
+
+            if response is None:
                 return None
 
             if response.status_code == 404:
