@@ -116,8 +116,8 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('add_code_snippet'):
             m(snippet, language, relationship, method)
 
-    def log_file(self, data, url = None, params = None):
-        sample = self.build_sample(data, url)
+    def log_file(self, data, url = None, params = None, sampletype = None):
+        sample = self.build_sample(data, url, sampletype)
         if sample is None:
             return None
 

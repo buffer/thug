@@ -94,12 +94,17 @@ class SampleLogging(object):
 
         return None
 
-    def build_sample(self, data, url = None):
+    def build_sample(self, data, url = None, sampletype = None):
         if not data:
             return None
 
         p = dict()
-        p['type'] = self.get_sample_type(data)
+
+        if sampletype:
+            p['type'] = sampletype
+        else:
+            p['type'] = self.get_sample_type(data)
+
         if p['type'] is None:
             return None
 
