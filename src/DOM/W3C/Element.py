@@ -201,7 +201,10 @@ class Element(Node, ElementCSSInlineStyle):
                 response = self.doc.window._navigator.fetch(value, redirect_type = "element workaround")
             except:
                 return
-                
+
+            if response is None:
+                return
+
             if response.status_code == 404:
                 return
 
