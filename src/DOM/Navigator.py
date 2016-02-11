@@ -21,7 +21,6 @@ import os
 import hashlib
 import logging
 import socket
-import magic
 import ssl
 
 try:
@@ -34,6 +33,7 @@ from .MimeTypes import MimeTypes
 from .Plugins import Plugins
 from .UserProfile import UserProfile
 from .HTTPSession import AboutBlank, FetchForbidden
+from Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
 
@@ -344,22 +344,7 @@ class Navigator(JSClass):
         sha256 = hashlib.sha256()
         sha256.update(response.content)
 
-        try:
-            # This works with python-magic >= 0.4.6 from pypi
-            mtype = magic.from_buffer(response.content, mime = True)
-        except:
-            try:
-                # Ubuntu workaround
-                # This works with python-magic >= 5.22 from Ubuntu (apt)
-                ms = magic.open(magic.MAGIC_MIME)
-                ms.load()
-                mtype = ms.buffer(response.content).split(';')[0]
-            except:
-                # Filemagic workaround
-                # This works with filemagic >= 1.6 from pypi
-                with magic.Magic(flags = magic.MAGIC_MIME_TYPE) as m:
-                    mtype = m.id_buffer(response.content)
-
+        mtype = Magic(response.content).get_mime()
 
         data = {
             "content" : response.content,
