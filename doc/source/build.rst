@@ -72,35 +72,27 @@ below.
 
         $ svn checkout http://v8.googlecode.com/svn/trunk/ v8
 
-2. Checkout PyV8 source code from SVN
+2. Clone PyV8 source code from GIT
 
 .. code-block:: sh
 
-        $ svn checkout http://pyv8.googlecode.com/svn/trunk/ pyv8
+        $ git clone https://github.com/buffer/pyv8.git
 
-3. Patch PyV8 
 
-.. code-block:: sh
-
-	$ cp thug/patches/PyV8-patch1.diff .
-	$ patch -p0 < PyV8-patch1.diff
-	patching file pyv8/src/Context.cpp
-	$
-
-4. Set the environment variable V8_HOME with the V8 source code
+3. Set the environment variable V8_HOME with the V8 source code
    absolute path (you need to change the value reported below)
 
 .. code-block:: sh
 
         $ export V8_HOME=/home/buffer/v8
 
-5. Move to PyV8 source code directory
+4. Move to PyV8 source code directory
 
 .. code-block:: sh
 
         $ cd pyv8
 
-6. Build and install (PyV8 setup.py will properly install both V8
+5. Build and install (PyV8 setup.py will properly install both V8
    and PyV8)
 
 .. code-block:: sh
