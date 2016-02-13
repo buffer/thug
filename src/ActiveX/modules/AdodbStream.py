@@ -1,12 +1,15 @@
-
+import StringIO
 import logging
+from Magic.Magic import Magic
 log = logging.getLogger("Thug")
 
 def open(self):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] open")
+    self.fobject = StringIO.StringIO()
 
 def Write(self, s):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Write")
+    self.fobject.write(s)
 
 def SaveToFile(self, filename, opt):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] SaveToFile (%s)" % (filename, ))
@@ -18,7 +21,15 @@ def SaveToFile(self, filename, opt):
                                              },
                                       forward = False)
 
+    content = self.fobject.getvalue()
+    mtype = Magic(content).get_mime()
+
+    log.ThugLogging.log_file(
+        content,
+        url=filename,
+        sampletype=mtype,
+    )
+
 def Close(self):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Close")
-
-
+    self.fobject.close()
