@@ -22,6 +22,8 @@ import logging
 import PyV8
 
 from zope.interface import implements
+from lxml.html import builder as E
+from lxml.html import tostring
 
 try:
     import urllib.parse as urlparse
@@ -264,7 +266,14 @@ class ThugAPI:
 
         log.HTTPSession = HTTPSession.HTTPSession()
 
-        html   = open(url, 'r').read()
+        content   = open(url, 'r').read()
+        extension = os.path.splitext(url)
+
+        if len(extension) > 1 and extension[1].lower() in ('.js'):
+            html = tostring(E.HTML(E.BODY(E.SCRIPT(content))))
+        else:
+            html = content
+
         doc    = w3c.parseString(html)
         window = Window.Window('about:blank', doc, personality = log.ThugOpts.useragent)
         window.open()
