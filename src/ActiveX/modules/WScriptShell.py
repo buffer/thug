@@ -1,4 +1,7 @@
 
+import string
+import random
+import re
 import logging
 log = logging.getLogger("Thug")
 
@@ -42,6 +45,23 @@ def ExpandEnvironmentStrings(self, strWshShell):
                                                 "wshshell" : strWshShell
                                              },
                                       forward = False)
+
+    # Substitute shell variables
+    strWshShell = re.sub(
+        r'%([a-zA-Z-0-9_\(\)]+)%',
+        (lambda m: log.ThugOpts.Personality.getShellVariable(m.group(1))),
+        strWshShell)
+
+    # Generate random username
+    strWshShell = strWshShell.replace(
+        '{{username}}',
+        ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8)))
+
+    # Generate random computer name
+    strWshShell = strWshShell.replace(
+        '{{computername}}',
+        ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8)))
+
     return strWshShell
 
 

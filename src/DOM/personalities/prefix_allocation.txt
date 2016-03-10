@@ -2,6 +2,9 @@ Windows            10
  Windows XP        11
  Windows 2000      12
  Windows 7         13
+ Windows 8         14
+ Windows 8.1       15
+ Windows 10        16
 
 Mac OS X		   20
 
@@ -19,3 +22,4 @@ iOS                50
  Google Chrome     02
  Firefox           03
  Safari            04
+ Microsoft Edge    05
