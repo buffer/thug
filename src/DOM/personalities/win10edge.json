@@ -13,7 +13,7 @@
     "browserTag": "edge",
     "version": "20.10240",
     "vendorSub": null, 
-    "javaUserAgent": "Mozilla/5.0 (Windows 7 6.1) Java/%s",
+    "javaUserAgent": "Mozilla/5.0 (Windows 10.0) Java/%s",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240", 
     "cc_on": {
         "_jscript_version": "11"
