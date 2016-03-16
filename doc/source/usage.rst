@@ -89,7 +89,7 @@ Let's start our Thug tour by taking a look at the options it provides.
         win7chrome45                    Chrome 45.0.2454.85     (Windows 7)
         win7firefox3                    Firefox 3.6.13          (Windows 7)
         win7safari5                     Safari 5.1.7            (Windows 7)
-        win10edge20			Microsoft Edge		(Windows 10)
+        win10edge20			Microsoft Edge 20.10240	(Windows 10)
         win10ie110			Internet Explorer 11.0	(Windows 10)
         osx10chrome19                   Chrome 19.0.1084.54     (MacOS X 10.7.4)
         osx10safari5                    Safari 5.1.1            (MacOS X 10.7.2)
