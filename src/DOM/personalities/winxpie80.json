@@ -18,5 +18,36 @@
     "cc_on": {
         "_jscript_version": "5.8"
     }, 
+    "shellVariables": {
+        "ALLUSERSPROFILE": "C:\\Documents and Settings\\All Users",
+        "APPDATA": "C:\\Documents and Settings\\{{username}}\\Application Data",
+        "CLIENTNAME": "Console",
+        "CommonProgramFiles": "C:\\Program Files\\Common Files",
+        "COMPUTERNAME": "{{computername}}",
+        "ComSpec": "C:\\Windows\\system32\\cmd.exe",
+        "FP_NO_HOST_CHECK": "NO",
+        "HOMEDRIVE": "C:",
+        "HOMEPATH": "\\Documents and Settings\\{{username}}",
+        "LOGONSERVER": "\\\\{{computername}}",
+        "NUMBER_OF_PROCESSORS": "2",
+        "OS": "Windows_NT",
+        "Path": "C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem",
+        "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH",
+        "PROCESSOR_ARCHITECTURE": "x86",
+        "PROCESSOR_IDENTIFIER": "x86 Family 6 Model 58 Stepping 9, GenuineIntel",
+        "PROCESSOR_LEVEL": "6",
+        "PROCESSOR_REVISION": "3a09",
+        "ProgramFiles": "C:\\Program Files",
+        "PROMPT": "$P$G",
+        "SESSIONNAME": "Console",
+        "SystemDrive": "C:",
+        "SystemRoot": "C:\\WINDOWS",
+        "TEMP": "C:\\DOCUME~1\\{{username}}\\LOCALS~1\\Temp",
+        "TMP": "C:\\DOCUME~1\\{{username}}\\LOCALS~1\\Temp",
+        "USERDOMAIN": "{{computername}}",
+        "USERNAME": "{{username}}",
+        "USERPROFILE": "C:\\Documents and Settings\\{{username}}",
+        "windir": "C:\\WINDOWS"
+    },
     "id": 110104
 }

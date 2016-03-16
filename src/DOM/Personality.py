@@ -78,3 +78,6 @@ class Personality(dict):
 
     def isOpera(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('opera')
+
+    def getShellVariable(self, variableName):
+        return self[log.ThugOpts.useragent].get('shellVariables', dict()).get(variableName.strip("%"), '')
