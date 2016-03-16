@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build and Install &mdash; Thug 0.6.6 documentation</title>
+    <title>Build and Install &mdash; Thug 0.6.7 documentation</title>
     
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6.6',
+        VERSION:     '0.6.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.6.6 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.6.7 documentation" href="index.html" />
     <link rel="next" title="Docker" href="docker.html" />
     <link rel="prev" title="Introduction" href="intro.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="intro.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.7 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -109,43 +109,34 @@ below.</p>
 <ol class="arabic simple">
 <li>Checkout V8 source code from SVN</li>
 </ol>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn checkout http://v8.googlecode.com/svn/trunk/ v8
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ svn checkout http://v8.googlecode.com/svn/trunk/ v8
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li>Checkout PyV8 source code from SVN</li>
+<li>Clone PyV8 source code from GIT</li>
 </ol>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn checkout http://pyv8.googlecode.com/svn/trunk/ pyv8
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git clone https://github.com/buffer/pyv8.git
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li>Patch PyV8</li>
-</ol>
-<div class="highlight-sh"><div class="highlight"><pre>$ cp thug/patches/PyV8-patch1.diff .
-$ patch -p0 &lt; PyV8-patch1.diff
-patching file pyv8/src/Context.cpp
-$
-</pre></div>
-</div>
-<ol class="arabic simple" start="4">
 <li>Set the environment variable V8_HOME with the V8 source code
 absolute path (you need to change the value reported below)</li>
 </ol>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">V8_HOME</span><span class="o">=</span>/home/buffer/v8
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">V8_HOME</span><span class="o">=</span>/home/buffer/v8
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Move to PyV8 source code directory</li>
+</ol>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> pyv8
 </pre></div>
 </div>
 <ol class="arabic simple" start="5">
-<li>Move to PyV8 source code directory</li>
-</ol>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>pyv8
-</pre></div>
-</div>
-<ol class="arabic simple" start="6">
 <li>Build and install (PyV8 setup.py will properly install both V8
 and PyV8)</li>
 </ol>
-<div class="highlight-sh"><div class="highlight"><pre>~/pyv8 <span class="nv">$ </span>python setup.py build
-~/pyv8 <span class="nv">$ </span>sudo python setup.py install
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~/pyv8 $ python setup.py build
+~/pyv8 $ sudo python setup.py install
 </pre></div>
 </div>
 </div>
@@ -156,7 +147,7 @@ files. Beautiful Soup source code can be downloaded at
 <a class="reference external" href="http://www.crummy.com/software/BeautifulSoup/">http://www.crummy.com/software/BeautifulSoup/</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install Beautiful Soup 4 is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install beautifulsoup4</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install beautifulsoup4</span>
 </pre></div>
 </div>
 </div>
@@ -168,7 +159,7 @@ web browsers. html5lib source code can be downloaded at
 <a class="reference external" href="http://code.google.com/p/html5lib/">http://code.google.com/p/html5lib/</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install html5lib is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install html5lib</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install html5lib</span>
 </pre></div>
 </div>
 </div>
@@ -179,7 +170,7 @@ popular online obfuscators. jsbeautifier code can be downloaded at
 <a class="reference external" href="https://github.com/einars/js-beautify">https://github.com/einars/js-beautify</a></p>
 <p>If not available as a package for your Linux distribution, the best way
 to install jsbeautifier is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install jsbeautifier</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install jsbeautifier</span>
 </pre></div>
 </div>
 </div>
@@ -191,11 +182,11 @@ within network intrusion/prevention detections and honeypots. Libemu
 homepage is located at <a class="reference external" href="http://libemu.carnivore.it/">http://libemu.carnivore.it/</a>.</p>
 <p>In order to properly install Libemu please follow the procedure described
 below</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone git://github.com/buffer/libemu.git
-<span class="nv">$ </span><span class="nb">cd </span>libemu
-<span class="nv">$ </span>autoreconf -v -i
-<span class="nv">$ </span>./configure --prefix<span class="o">=</span>/opt/libemu
-<span class="nv">$ </span>sudo make install
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git clone git://github.com/buffer/libemu.git
+$ <span class="nb">cd</span> libemu
+$ autoreconf -v -i
+$ ./configure --prefix<span class="o">=</span>/opt/libemu
+$ sudo make install
 </pre></div>
 </div>
 <p>For additional details about installation please refer to the Libemu homepage.</p>
@@ -206,13 +197,13 @@ below</p>
 at <a class="reference external" href="https://github.com/buffer/pylibemu">https://github.com/buffer/pylibemu</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way to install
 Pylibemu is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pylibemu</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install pylibemu</span>
 </pre></div>
 </div>
 <p>Alternatively follow the procedure described below</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>git clone git://github.com/buffer/pylibemu.git
-<span class="nv">$ </span>python setup.py build
-<span class="nv">$ </span>sudo python setup.py install
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git clone git://github.com/buffer/pylibemu.git
+$ python setup.py build
+$ sudo python setup.py install
 </pre></div>
 </div>
 <p>For additional details about installation please refer to the Pylibemu homepage.</p>
@@ -226,7 +217,7 @@ all the sections, section&#8217;s information and data. Pefile homepage is locat
 <p>Pefile r141 or later is strictly required.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install Pefile is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pefile</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install pefile</span>
 </pre></div>
 </div>
 </div>
@@ -238,7 +229,7 @@ libraries with the simplicity of a native Python API, mostly compatible but supe
 to the well-known ElementTree API.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install lxml is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install lxml</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install lxml</span>
 </pre></div>
 </div>
 </div>
@@ -248,7 +239,7 @@ to install lxml is through pip.</p>
 <a class="reference external" href="http://pypi.python.org/pypi/chardet">http://pypi.python.org/pypi/chardet</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install chardet is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install chardet</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install chardet</span>
 </pre></div>
 </div>
 </div>
@@ -259,7 +250,7 @@ beings. Requests homepage is located at
 <a class="reference external" href="http://docs.python-requests.org/en/latest/">http://docs.python-requests.org/en/latest/</a></p>
 <p>If not available as a package for your Linux distribution, the best way
 to install requests is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install requests</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install requests</span>
 </pre></div>
 </div>
 </div>
@@ -269,7 +260,7 @@ to install requests is through pip.</p>
 the original. PySocks homepage is located at <a class="reference external" href="https://github.com/Anorov/PySocks">https://github.com/Anorov/PySocks</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install requests is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install PySocks</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install PySocks</span>
 </pre></div>
 </div>
 </div>
@@ -285,7 +276,7 @@ is located at <a class="reference external" href="http://pypi.python.org/pypi/cs
 <p>If not available as a package for your Linux distribution, the best way
 to install cssutils is through pip.</p>
 <p>Cssutils 0.9.9 or later is strictly required.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install cssutils</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install cssutils</span>
 </pre></div>
 </div>
 </div>
@@ -294,7 +285,7 @@ to install cssutils is through pip.</p>
 <p>Zope Interface homepage is located at <a class="reference external" href="http://pypi.python.org/pypi/zope.interface">http://pypi.python.org/pypi/zope.interface</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install zope.interface is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install zope.interface</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install zope.interface</span>
 </pre></div>
 </div>
 </div>
@@ -312,7 +303,7 @@ and in visual interfaces for other technical domains.</p>
 <p>Pyparsing homepage is located at <a class="reference external" href="http://pyparsing.wikispaces.com/">http://pyparsing.wikispaces.com/</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install pyparsing is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pyparsing</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install pyparsing</span>
 </pre></div>
 </div>
 </div>
@@ -321,7 +312,7 @@ to install pyparsing is through pip.</p>
 <p>Pydot homepage is located at <a class="reference external" href="http://pygraphviz.github.io">http://pygraphviz.github.io</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install pydot is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pygraphviz</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install pygraphviz</span>
 </pre></div>
 </div>
 </div>
@@ -330,12 +321,12 @@ to install pydot is through pip.</p>
 <p>The recommended implementation of python-magic can be found at
 <a class="reference external" href="https://github.com/ahupp/python-magic">https://github.com/ahupp/python-magic</a>.</p>
 <p>The best way to install python-magic is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install python-magic</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install python-magic</span>
 </pre></div>
 </div>
 <p>If you are running Ubuntu, you may want to use a completely different
 implementation of python-magic which is packaged through apt.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># apt-get install python-magic</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># apt-get install python-magic</span>
 </pre></div>
 </div>
 </div>
@@ -344,7 +335,7 @@ implementation of python-magic which is packaged through apt.</p>
 <p>Rarfile homepage is located at <a class="reference external" href="http://rarfile.berlios.de/">http://rarfile.berlios.de/</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install rarfile is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install rarfile</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install rarfile</span>
 </pre></div>
 </div>
 </div>
@@ -369,7 +360,7 @@ at Yara-Python documentation for details.</p>
 and study of the structure, dynamics, and functions of complex networks.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install networkx is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install networkx</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install networkx</span>
 </pre></div>
 </div>
 </div>
@@ -383,7 +374,7 @@ to install networkx is through pip.</p>
 <p>PyMongo homepage is located at <a class="reference external" href="http://www.mongodb.org/display/DOCS/Python+Language+Center">http://www.mongodb.org/display/DOCS/Python+Language+Center</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install pymongo is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pymongo</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install pymongo</span>
 </pre></div>
 </div>
 </div>
@@ -393,9 +384,9 @@ to install pymongo is through pip.</p>
 is located at <a class="reference external" href="https://github.com/androguard/androguard">https://github.com/androguard/androguard</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way to install Androguard
 is the one shown below</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># git clone git@github.com:androguard/androguard.git</span>
-<span class="c"># cd androguard</span>
-<span class="c"># python setup.py install</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># git clone git@github.com:androguard/androguard.git</span>
+<span class="c1"># cd androguard</span>
+<span class="c1"># python setup.py install</span>
 </pre></div>
 </div>
 </div>
@@ -412,7 +403,7 @@ different in both content and length.</p>
 <p>Python-Ssdeep homepage is located at <a class="reference external" href="https://github.com/DinoTools/python-ssdeep">https://github.com/DinoTools/python-ssdeep</a>.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install python-ssdeep is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install ssdeep</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install ssdeep</span>
 </pre></div>
 </div>
 </div>
@@ -431,7 +422,7 @@ independent of the underlying network support library and it&#8217;s needed just
 with Thug distributed mode.</p>
 <p>If not available as a package for your Linux distribution, the best way
 to install pika is through pip.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="c"># pip install pika</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install pika</span>
 </pre></div>
 </div>
 </div>
@@ -527,7 +518,7 @@ to install pika is through pip.</p>
         <li class="right" >
           <a href="intro.html" title="Introduction"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.7 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

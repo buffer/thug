@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Logging &mdash; Thug 0.6.6 documentation</title>
+    <title>Logging &mdash; Thug 0.6.7 documentation</title>
     
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6.6',
+        VERSION:     '0.6.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.6.6 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.6.7 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="Thug API" href="api.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="api.html" title="Thug API"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.7 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -70,20 +70,20 @@ Thug will not store any analysis log.</p>
 <h2>Logging configuration<a class="headerlink" href="#logging-configuration" title="Permalink to this headline">¶</a></h2>
 <p>The configuration file <em>Logging/logging.conf</em> defines the way Thug uses to log the results
 of its analyses. The default logging.conf file is shown below.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>hpfeeds<span class="o">]</span>
-<span class="nb">enable</span>:     True
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>hpfeeds<span class="o">]</span>
+enable:     True
 host:       hpfeeds.honeycloud.net
 port:       10000
 ident:      q6jyo@hp1
 secret:     edymvouqpfe1ivud
 
 <span class="o">[</span>mongodb<span class="o">]</span>
-<span class="nb">enable</span>:     True
+enable:     True
 host:       localhost
 port:       27017
 
 <span class="o">[</span>elasticsearch<span class="o">]</span>
-<span class="nb">enable</span>:     True
+enable:     True
 url:        http://192.168.56.101:9200
 index:      thug
 </pre></div>
@@ -101,8 +101,8 @@ please consider that if you do not enable any other logging mode you will end up
 no logs at all so bear it in mind.</p>
 <p>The configuration file <em>Logging/logging.conf</em> defines the MongoDB instance configuration
 parameters</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>mongodb<span class="o">]</span>
-<span class="nb">enable</span>:     True
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>mongodb<span class="o">]</span>
+enable:     True
 host:       localhost
 port:       27017
 </pre></div>
@@ -124,7 +124,7 @@ A URL is always associated a single entry in this collection even if it is visit
 multiple times (during the same analysis or in different analyses). Associating a
 unique ObjectID to a given URL allows to easily spot interesting scenarios like
 different redirection chains ending up using the same URLs.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;url&quot;</span> : URL
 <span class="o">}</span>
 </pre></div>
@@ -136,7 +136,7 @@ different redirection chains ending up using the same URLs.</p>
 options used for the single analysis are stored together with other useful information
 like the used Thug version and the analysis datetime. Moreover the URL ObjectID of the
 initial URL is stored for convenience.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;url_id&quot;</span>      : Initial URL url_id
     <span class="s2">&quot;timestamp&quot;</span>   : Analysis datetime
     <span class="s2">&quot;thug&quot;</span>        : <span class="o">{</span>
@@ -171,7 +171,7 @@ initial URL is stored for convenience.</p>
 during the single analysis. The field <em>chain_id</em> is a counter which is incremented by one at
 every redirection and it&#8217;s meant to be used in order to rebuild the redirection chain in the
 right order while analyzing data.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>    : Analysis ID
     <span class="s2">&quot;chain_id&quot;</span>       : Chain ID
     <span class="s2">&quot;source_id&quot;</span>      : Source URL url_id
@@ -188,7 +188,7 @@ right order while analyzing data.</p>
 during the analysis. The content is stored in a MongoDB GridFS and additional metadata are
 saved like MD5 and SHA-256 checksums, content size, content type (as served by the server)
 and evaluated content type.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
     <span class="s2">&quot;url_id&quot;</span>        : URL url_id
     <span class="s2">&quot;content_id&quot;</span>    : Content ID <span class="o">(</span>content stored in the GridFS fs<span class="o">)</span>
@@ -208,14 +208,14 @@ and evaluated content type.</p>
 types: PE, PDF, JAR and SWF). The sample itself is stored in a MongoDB GridFS and additional
 metadata are saved like MD5 and SHA-1 checksums, sample type and imphash (if the sample type
 is PE).</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
     <span class="s2">&quot;url_id&quot;</span>        : URL url_id
     <span class="s2">&quot;sample_id&quot;</span>     : Sample ID <span class="o">(</span>sample stored in the GridFS fs<span class="o">)</span>
     <span class="s2">&quot;type&quot;</span>          : Sample <span class="nb">type</span>
     <span class="s2">&quot;md5&quot;</span>           : MD5 checksum
     <span class="s2">&quot;sha1&quot;</span>          : SHA-1 checksum
-    <span class="s2">&quot;imphash&quot;</span>       : Imphash <span class="o">(</span><span class="k">if</span> <span class="nb">type </span>is PE<span class="o">)</span>
+    <span class="s2">&quot;imphash&quot;</span>       : Imphash <span class="o">(</span><span class="k">if</span> <span class="nb">type</span> is PE<span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -224,7 +224,7 @@ is PE).</p>
 <h4>exploits<a class="headerlink" href="#exploits" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>eploits</em> is used to keep track of the exploits which were successfully
 identified during the analysis while visiting the URL referenced by <em>url_id</em>.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;analysis_id&#39;</span> : Analysis ID
     <span class="s1">&#39;url_id&#39;</span>      : URL url_id
     <span class="s1">&#39;module&#39;</span>      : Module/ActiveX Control, etc. that gets exploited
@@ -239,7 +239,7 @@ identified during the analysis while visiting the URL referenced by <em>url_id</
 <h4>codes<a class="headerlink" href="#codes" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>codes</em> is used to keep track of the (dynamic language) snippets of code
 identified during the analysis.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;analysis_id&#39;</span>  : Analysis ID
     <span class="s1">&#39;snippet&#39;</span>      : Code snippet
     <span class="s1">&#39;language&#39;</span>     : Code language
@@ -253,7 +253,7 @@ identified during the analysis.</p>
 <h4>behaviors<a class="headerlink" href="#behaviors" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>behaviors</em> is used to keep track of the suspicious and/or malicious
 behaviors observed during the analysis.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;analysis_id&#39;</span> : Analysis ID
     <span class="s1">&#39;description&#39;</span> : Observed behavior description
     <span class="s1">&#39;cve&#39;</span>         : CVE number <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
@@ -267,7 +267,7 @@ behaviors observed during the analysis.</p>
 <h4>certificates<a class="headerlink" href="#certificates" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>certificates</em> is used to store the SSL certificates collected from
 servers during the analysis.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
     <span class="s2">&quot;url_id&quot;</span>        : URL url_id
     <span class="s2">&quot;certificate&quot;</span>   : SSL certificate
@@ -278,7 +278,7 @@ servers during the analysis.</p>
 <div class="section" id="graphs">
 <h4>graphs<a class="headerlink" href="#graphs" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>graphs</em> is used to store the analysis JSON exploit graph.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
     <span class="s2">&quot;graph&quot;</span>         : JSON exploit graph
 <span class="o">}</span>
@@ -289,7 +289,7 @@ servers during the analysis.</p>
 <h4>virustotal<a class="headerlink" href="#virustotal" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>virustotal</em> is used to store the VirusTotal sample analysis reports.
 The Sample ObjectID references the <em>samples</em> collection.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
     <span class="s2">&quot;sample_id&quot;</span>     : Sample ID
     <span class="s2">&quot;report&quot;</span>        : VirusTotal report <span class="o">(</span>JSON<span class="o">)</span>
@@ -301,7 +301,7 @@ The Sample ObjectID references the <em>samples</em> collection.</p>
 <h4>honeyagent<a class="headerlink" href="#honeyagent" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>honeyagent</em> is used to store the HoneyAgent Java sandbox sample analysis
 reports. The Sample ObjectID references the <em>samples</em> collection.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
     <span class="s2">&quot;sample_id&quot;</span>     : Sample ID
     <span class="s2">&quot;report&quot;</span>        : HoneyAgent report <span class="o">(</span>JSON<span class="o">)</span>
@@ -313,7 +313,7 @@ reports. The Sample ObjectID references the <em>samples</em> collection.</p>
 <h4>androguard<a class="headerlink" href="#androguard" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>androguard</em> is used to store the Androguard APK sample analysis reports.
 The Sample ObjectID references the <em>samples</em> collection.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
     <span class="s2">&quot;sample_id&quot;</span>     : Sample ID
     <span class="s2">&quot;report&quot;</span>        : Androguard report <span class="o">(</span>TXT<span class="o">)</span>
@@ -325,7 +325,7 @@ The Sample ObjectID references the <em>samples</em> collection.</p>
 <h4>peepdf<a class="headerlink" href="#peepdf" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>peepdf</em> is used to store the PeePDF PDF sample analysis reports.
 The Sample ObjectID references the <em>samples</em> collection.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
     <span class="s2">&quot;sample_id&quot;</span>     : Sample ID
     <span class="s2">&quot;report&quot;</span>        : PeePDF report <span class="o">(</span>XML<span class="o">)</span>
@@ -338,7 +338,7 @@ The Sample ObjectID references the <em>samples</em> collection.</p>
 <p>The collection <em>maec11</em> is used to store the Thug analysis reports in MITRE MAEC 1.1
 format. MAEC 1.1 logging mode should be enabled in order to have Thug saving data in
 this collection</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
         <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
         <span class="s2">&quot;report&quot;</span>        : Analysis report <span class="o">(</span>MITRE MAEC 1.1 format - XML<span class="o">)</span>
 <span class="o">}</span>
@@ -350,7 +350,7 @@ this collection</p>
 <p>The collection <em>json</em> is used to store the Thug analysis reports in JSON format.
 JSON logging mode should be enabled in order to have Thug saving data in
 this collection</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
         <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
         <span class="s2">&quot;report&quot;</span>        : Analysis report <span class="o">(</span>JSON<span class="o">)</span>
 <span class="o">}</span>
@@ -374,8 +374,8 @@ nonce. This way no eavesdroppers can obtain valid credentials. Optionally the pr
 be run on top of SSL/TLS, of course.</p>
 <p>HPFeeds logging mode is enabled by default and its configuration is saved in the <em>Logging/logging.conf</em>
 file</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>hpfeeds<span class="o">]</span>
-<span class="nb">enable</span>:     True
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>hpfeeds<span class="o">]</span>
+enable:     True
 host:       hpfeeds.honeycloud.net
 port:       10000
 ident:      q6jyo@hp1
@@ -402,8 +402,8 @@ instance is totally up to you and no images are provided for that.</p>
 file. Be sure of defining the right URL for connecting to your instance. You may want to
 change the index name where data will be stored but this is not really necessary in the most
 common situations.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">[</span>elasticsearch<span class="o">]</span>
-<span class="nb">enable</span>:     True
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>elasticsearch<span class="o">]</span>
+enable:     True
 url:        http://192.168.56.101:9200
 index:      thug
 </pre></div>
@@ -418,7 +418,7 @@ explicitely enable it through the option <em>-Z</em> (or <em>&#8211;json-logging
 the JSON log is stored in the MongoDB instance (if available). See the <em>MongoDB logging
 mode</em> for details. If the File logging format is enabled too, the JSON log will be stored
 in a JSON file in the log directory too. The JSON format is shown below.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;url&quot;</span>         : Initial URL
     <span class="s2">&quot;timestamp&quot;</span>   : Analysis datetime
     <span class="s2">&quot;logtype&quot;</span>     : <span class="s2">&quot;json-log&quot;</span>,
@@ -456,7 +456,7 @@ in a JSON file in the log directory too. The JSON format is shown below.</p>
 and the resources downloaded during the analysis.</p>
 <div class="section" id="id2">
 <h3>behaviors<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;description&#39;</span> : Observed behavior description
     <span class="s1">&#39;cve&#39;</span>         : CVE number <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
     <span class="s1">&#39;method&#39;</span>      : Analysis method
@@ -467,7 +467,7 @@ and the resources downloaded during the analysis.</p>
 </div>
 <div class="section" id="id3">
 <h3>codes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;snippet&#39;</span>      : Code snippet
     <span class="s1">&#39;language&#39;</span>     : Code language
     <span class="s1">&#39;relationship&#39;</span> : Relationship with the page that references the code
@@ -483,7 +483,7 @@ list.</p>
 </div>
 <div class="section" id="id4">
 <h3>connections<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;source&quot;</span>         : Source URL
     <span class="s2">&quot;destination&quot;</span>    : Destination URL
     <span class="s2">&quot;method&quot;</span>         : Method
@@ -494,7 +494,7 @@ list.</p>
 </div>
 <div class="section" id="id5">
 <h3>locations<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;url&quot;</span>           : URL url
     <span class="s2">&quot;content-type&quot;</span>  : Content Type
     <span class="s2">&quot;md5&quot;</span>           : MD5 checksum
@@ -508,7 +508,7 @@ list.</p>
 </div>
 <div class="section" id="id6">
 <h3>exploits<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">{</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;url&#39;</span>         : URL url
     <span class="s1">&#39;module&#39;</span>      : Module/ActiveX Control, etc. that gets exploited
     <span class="s1">&#39;description&#39;</span> : Description of the exploit
@@ -550,8 +550,8 @@ about storing results and resources in a database is better than spread such dat
 hard disk.</p>
 <p>If you enable the File logging mode the directory which contains the logs for the session
 will appear as shown below</p>
-<div class="highlight-sh"><div class="highlight"><pre>~/thug/src <span class="nv">$ </span><span class="nb">cd</span> ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
-~/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 <span class="nv">$ </span>ls -lhR
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ <span class="nb">cd</span> ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
+~/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 $ ls -lhR
 .:
 total 232K
 -rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">1008</span> Jul  <span class="m">2</span> 19:15 502da89357ca5d7c85dc7a67f8977b21
@@ -693,7 +693,7 @@ are saved in the database instance too.</p>
         <li class="right" >
           <a href="api.html" title="Thug API"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.7 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

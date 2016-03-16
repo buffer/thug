@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Thug API &mdash; Thug 0.6.6 documentation</title>
+    <title>Thug API &mdash; Thug 0.6.7 documentation</title>
     
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6.6',
+        VERSION:     '0.6.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.6.6 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.6.7 documentation" href="index.html" />
     <link rel="next" title="Logging" href="logging.html" />
     <link rel="prev" title="Usage" href="usage.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.7 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,7 +57,7 @@ requires subclassing the ThugAPI class. Thug class (defined in <em>src/thug.py</
 great example of such usage which should be enough in almost every scenario I can think
 about.</p>
 <p>Thug API interface definition is reported below for convenience.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">IThugAPI</span><span class="p">(</span><span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Interface</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IThugAPI</span><span class="p">(</span><span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Interface</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">version</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Print Thug version and exit</span>
@@ -79,38 +79,6 @@ about.</p>
 <span class="sd">        set_useragent</span>
 
 <span class="sd">        Set the user agent to emulate</span>
-<span class="sd">        Supported values:</span>
-
-<span class="sd">            winxpie60               Internet Explorer 6.0   (Windows XP)</span>
-<span class="sd">            winxpie61               Internet Explorer 6.1   (Windows XP)</span>
-<span class="sd">            winxpie70               Internet Explorer 7.0   (Windows XP)</span>
-<span class="sd">            winxpie80               Internet Explorer 8.0   (Windows XP)</span>
-<span class="sd">            winxpchrome20           Chrome 20.0.1132.47     (Windows XP)</span>
-<span class="sd">            winxpfirefox12          Firefox 12.0            (Windows XP)</span>
-<span class="sd">            winxpsafari5            Safari 5.1.7            (Windows XP)</span>
-<span class="sd">            win2kie60               Internet Explorer 6.0   (Windows 2000)</span>
-<span class="sd">            win2kie80               Internet Explorer 8.0   (Windows 2000)</span>
-<span class="sd">            win7ie80                Internet Explorer 8.0   (Windows 7)</span>
-<span class="sd">            win7ie90                Internet Explorer 9.0   (Windows 7)</span>
-<span class="sd">            win7chrome20            Chrome 20.0.1132.47     (Windows 7)</span>
-<span class="sd">            win7firefox3            Firefox 3.6.13          (Windows 7)</span>
-<span class="sd">            win7safari5             Safari 5.1.7            (Windows 7)</span>
-<span class="sd">            osx10safari5            Safari 5.1.1            (MacOS X 10.7.2)</span>
-<span class="sd">            osx10chrome19           Chrome 19.0.1084.54     (MacOS X 10.7.4)</span>
-<span class="sd">            linuxchrome26           Chrome 26.0.1410.19     (Linux)</span>
-<span class="sd">            linuxchrome30           Chrome 30.0.1599.15     (Linux)</span>
-<span class="sd">            linuxfirefox19          Firefox 19.0            (Linux)</span>
-<span class="sd">            galaxy2chrome18         Chrome 18.0.1025.166    (Samsung Galaxy S II, Android 4.0.3)</span>
-<span class="sd">            galaxy2chrome25         Chrome 25.0.1364.123    (Samsung Galaxy S II, Android 4.0.3)</span>
-<span class="sd">            galaxy2chrome29         Chrome 29.0.1547.59     (Samsung Galaxy S II, Android 4.1.2)</span>
-<span class="sd">            nexuschrome18           Chrome 18.0.1025.133    (Google Nexus, Android 4.0.4)</span>
-<span class="sd">            ipadsafari7             Safari 7.0              (iPad, iOS 7.0.4)</span>
-<span class="sd">            ipadsafari8             Safari 8.0              (iPad, iOS 8.0.2)</span>
-<span class="sd">            ipadchrome33            Chrome 33.0.1750.21     (iPad, iOS 7.1)</span>
-<span class="sd">            ipadchrome35            Chrome 35.0.1916.41     (iPad, iOS 7.1.1)</span>
-<span class="sd">            ipadchrome37            Chrome 37.0.2062.52     (iPad, iOS 7.1.2)</span>
-<span class="sd">            ipadchrome38            Chrome 38.0.2125.59     (iPad, iOS 8.0.2)</span>
-<span class="sd">            ipadchrome39            Chrome 39.0.2171.45     (iPad, iOS 8.1.1)</span>
 
 <span class="sd">        @param useragent: the user agent to emulate</span>
 <span class="sd">        @type useragent: C{str}</span>
@@ -702,7 +670,7 @@ about.</p>
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.7 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
