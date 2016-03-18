@@ -78,7 +78,7 @@ If you want Thug to store its results to a different MongoDB instance than that 
 in your *Logging/logging.conf* file, you can specify a different address at runtime, for
 example by using the *--mongodb-address* option from the command line. This can be especially
 useful when using the dockerized version of Thug, where storing results in Docker itself would
-mean to loose them as soon as the Docker instance is shut down.
+mean to lose them as soon as the Docker instance is shut down.
 
 
 Collection schema
@@ -427,9 +427,9 @@ JSON logging mode
 
 The JSON logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in JSON format. The JSON logging mode was enabled by default
-before Thug 0.5.6 together with the File logging mode. After that version you have to 
-explicitely enable it through the option *-Z* (or *--json-logging*). Please consider that 
-the JSON log is stored in the MongoDB instance (if available). See the *MongoDB logging 
+before Thug 0.5.6 together with the File logging mode. If you are using Thug 0.5.7 (or later) 
+you have to explicitely enable it through the option *-Z* (or *--json-logging*). Please consider 
+that the JSON log is stored in the MongoDB instance (if available). See the *MongoDB logging 
 mode* for details. If the File logging format is enabled too, the JSON log will be stored
 in a JSON file in the log directory too. The JSON format is shown below.
 
@@ -580,12 +580,12 @@ File logging mode
 
 The File logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in flat files. The File logging mode was enabled by default 
-before Thug 0.5.6. After that version you have to explicitely enable it through the option
-*-F* (or *--file-logging*). Please consider that all the information stored in flat files
-are stored in the MongoDB instance (if available). This option could be convenient in some
-situations but if you plan to analyze a huge number of URLs per day probably thinking 
-about storing results and resources in a database is better than spread such data on your
-hard disk. 
+before Thug 0.5.6. If you are using Thug 0.5.7 (or later) you have to explicitely enable 
+it through the option *-F* (or *--file-logging*). Please consider that all the information 
+stored in flat files are stored in the MongoDB instance (if available). This option could 
+be convenient in some situations but if you plan to analyze a huge number of URLs per day 
+probably thinking about storing results and resources in a database is better than spread 
+such data on your hard drive. 
 
 If you enable the File logging mode the directory which contains the logs for the session
 will appear as shown below
@@ -640,4 +640,4 @@ In this eaxample the MAEC 1.1 logging mode is enabled and the file *analysis.xml
 URL analysis results saved in MAEC 1.1 format. Please note that all the resources downloaded 
 during the URL analysis are saved in the log directory based on their Content-Type for 
 convenience. Moreover if MongoDB is installed the information you can see in this directory 
-are saved in the database instance too.
+are saved in the database instance as well.

@@ -2,8 +2,8 @@
 Plugin Framework
 ================
 
-The Thug Plugin Framework was introduced in the version 0.3.0. If you ever thought about extending Thug 
-with additional features but didn’t know how to do it you should really keep on reading. Let’s start 
+The Thug Plugin Framework was introduced in version 0.3.0. If you ever thought about extending Thug 
+with additional features but do not know how to do it you should really keep on reading. Let’s start 
 by taking a look a the code.
 
 Taking a look at *src/thug.py* we can now read these lines of code
@@ -15,9 +15,9 @@ Taking a look at *src/thug.py* we can now read these lines of code
                 p(args[0])
                 ThugPlugins(POST_ANALYSIS_PLUGINS, self)()
  
-Please note that every operation done by Thug is started by the line *p(args[0])* so you can realize that 
-two hooks exist in order to execute plugins in a pre and post-analysis stage. Let’s keep exploring the 
-source code and let’s take a look at *src/Plugins/ThugPlugins.py*.
+Please note that every operation performed by Thug is started by the line *p(args[0])* so you can 
+realize that two hooks exist in order to execute plugins in a pre and post-analysis stage. Let’s keep 
+exploring the source code and let’s take a look at *src/Plugins/ThugPlugins.py*.
  
 
 .. code-block:: python
@@ -74,9 +74,9 @@ and *src/Plugins/plugins.conf*
         [ThugPluginsPost]
         plugins: Plugins.TestPlugin
  
-The configuration file plugins.conf defines which plugins are to be loaded in pre and post-analysis 
-stage (you can specify many plugins by simply comma separating them). The plugins should contain a 
-class named *Handler* which should be conform to this interface
+The configuration file plugins.conf defines which plugins are to be loaded in the pre and post-analysis 
+stages (you can specify many plugins by simply comma separating them). The plugins should contain a 
+class named *Handler* which should be compliant with the following interface
 
 .. code-block:: python
  
@@ -107,4 +107,4 @@ main instance and the Thug root logger. Let’s see a really simple example of p
  
 This plugin just logs the parameters but you can do whatever you want. Do you want to pre-check if the URL 
 domain is within a blacklist? Just do it with a pre-analysis plugin. Do you want to extract and/or correlate 
-information from the MAEC log files? Just do it with a post-analysis plugin. Simply staten... have fun!
+information from the MAEC log files? Just do it with a post-analysis plugin.

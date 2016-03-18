@@ -4,7 +4,7 @@ Docker
 ======
 
 If you want to run up a quick instance of Thug on a couple of malicious web sites or try 
-it out but just lack the knowledge and/or time to install it an alternative exists. Thanks 
+it out but just lack the knowledge and/or time to install it, an alternative exists. Thanks 
 to Docker you can run Thug up in a matter of minutes. 
 
 Currently there exist a few docker images in the Docker Hub ready to run.

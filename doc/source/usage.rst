@@ -277,12 +277,12 @@ Browser personality
 
 If no additional option (other than the URL) is provided the emulated browser personality is 
 Internet Explorer 6.0 on Windows XP platform. This choice is usually quite interesting for
-the really simple reason a lot of exploit kits out try to exploit a vulnerability in Microsoft 
+the really simple reason a lot of exploit kits out there try to exploit a vulnerability in Microsoft 
 Data Access Components (MDAC) which allows remote code execution if facing such personality.
 Thug emulates perfectly this exploit thus allowing to quite easily download a malicious 
 executable for later analysis. 
 
-If there's the need to test the content that would be served if using a different browser 
+If there's the need to test the content that would be served while using a different browser 
 personality the *-u (--useragent)* option should be used. In the following example, the
 option *-u winxpie80* is used in order to test the content served when surfing the same 
 page with Internet Explorer 8.0 on Windows XP platform.
@@ -349,7 +349,7 @@ page with Internet Explorer 8.0 on Windows XP platform.
 
 
 It's quite simple to realize that the exploit for the Microsoft Data Access Components (MDAC)
-vulnerability is not served as previously staten. 
+vulnerability is not served in this case. 
 
 
 DOM Events Handling
@@ -365,7 +365,7 @@ a comma-separated list of events to handle as shown below.
         ~/thug/src $ python thug.py -e click,mouseover URL
         
 In this example, the DOM events `load`, `mousemove`, `click` and `mouseover` will be handled by 
-Thug while all the others will be ignored.
+Thug while all the other ones will be ignored.
 
  
 Adobe Acrobat Reader
@@ -374,9 +374,9 @@ Adobe Acrobat Reader
 Taking a look at the available options you can see the -A (--adobepdf) option which is quite 
 useful for getting different PDF exploits which target different version of Adobe Acrobat
 Reader. This happens because exploit kits usually serve PDF files which exploit specific 
-vulnerabilities basing on Adobe Acrobat Reader version. Let's take a look at what happens if
-we try to analyze the same page with Adobe Acrobat Reader 8.1.0 instead of 9.1.0 which is
-the default one. 
+vulnerabilities basing on the Adobe Acrobat Reader version. Let's take a look at what happens if
+we try to analyze the same page with Adobe Acrobat Reader 8.1.0 instead of 9.1.0 (which is
+the default one). 
 
 .. code-block:: sh
 
@@ -456,13 +456,13 @@ Comparing the following line
 
         [2012-07-02 19:18:14] [HTTP] URL: http://[omitted]/data/ap2.php (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 
-with what we saw using Adobe Acrobat Reader 9.1.0
+with what we got using Adobe Acrobat Reader 9.1.0
 
 .. code-block:: sh
 
         [2012-07-02 19:15:36] [HTTP] URL: http://[omitted]/data/ap1.php?f=b081d (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
 
-it's easy to realize that a different PDF file was served in this case.
+it's easy to realize that a different malicious PDF file was served in this case.
 
 
 Shockwave Flash
@@ -472,7 +472,7 @@ Taking a look at the available options you can see the -S (--shockwave) option w
 useful for getting different Flash exploits which target differents version of Shockwave Flash. 
 This happens because exploit kits usually serve Flash files which exploit specific vulnerabilities 
 basing on Shockwave Flash version. Let's take a look at what happens if we locally analyze
-PluginDetect which is currently used by Blackhole exploit kit (see Local Analysis later for details).
+PluginDetect (see Local Analysis later for details).
 
 .. code-block:: sh
 
@@ -551,8 +551,7 @@ JavaPlugin and JavaWebStart
 
 Taking a look at the available options you can see the -J (--javaplugin) option which is quite
 useful for getting different Java exploits which target different versions of Java. Let's take 
-a look at what happens if we locally analyze PluginDetect which is currently used by Blackhole 
-exploit kit (see Local Analysis later for details).
+a look at what happens if we locally analyze PluginDetect (see Local Analysis later for details).
 
 .. code-block:: sh
 

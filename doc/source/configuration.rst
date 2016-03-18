@@ -126,7 +126,7 @@ facilitates the quick detection of viruses, worms, trojans, and all kinds
 of malware. 
 
 Thug supports VirusTotal and a default API key is now included in the default
-configuration file (many thanks to the VirusTotal). To change the default 
+configuration file (many thanks to the VirusTotal team). To change the default 
 VirusTotal key with your own, simply edit *src/Analysis/virustotal/virustotal.conf* 
 as follows:
 
@@ -139,4 +139,4 @@ as follows:
 
 You may also pass a runtime value for the API key parameter by using the --vt-apikey or -b parameter:
 this may come handy when using a dockerized Thug instance where editing the configuration file prior
-to each run may not be so simple.
+to each run may not be that simple.

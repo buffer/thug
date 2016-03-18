@@ -47,8 +47,8 @@ Python
 ^^^^^^
 
 Python 2.7 is required in order to properly run Thug. You may be lucky running it with
-Python 2.6 but please consider that it is not supported so issues related to Python 2.6
-will be simply ignored. Python source code can be downloaded at http://www.python.org.
+Python 2.6 but please consider this version is not supported so issues related to Python 
+2.6 will be simply ignored. Python source code can be downloaded at http://www.python.org.
 
 
 Google V8/PyV8
@@ -77,7 +77,6 @@ below.
 .. code-block:: sh
 
         $ git clone https://github.com/buffer/pyv8.git
-
 
 3. Set the environment variable V8_HOME with the V8 source code
    absolute path (you need to change the value reported below)
@@ -121,7 +120,7 @@ html5lib
 
 html5lib is a Python and PHP implementations of a HTML parser based on the 
 WHATWG HTML5 specification for maximum compatibility with major desktop 
-web browsers. html5lib source code can be downloaded at 
+web browsers. Html5lib source code can be downloaded at 
 http://code.google.com/p/html5lib/.
 
 If not available as a package for your Linux distribution, the best way 
@@ -136,7 +135,7 @@ Jsbeautifier
 ^^^^^^^^^^^^
 
 Jsbeautifier beautifies, unpacks or deobfuscates JavaScript and handles 
-popular online obfuscators. jsbeautifier code can be downloaded at
+popular online obfuscators. Jsbeautifier code can be downloaded at
 https://github.com/einars/js-beautify
 
 If not available as a package for your Linux distribution, the best way
@@ -316,7 +315,7 @@ structural information as diagrams of abstract graphs and networks. It has impor
 in networking, bioinformatics, software engineering, database and web design, machine learning, 
 and in visual interfaces for other technical domains.
 
-If not available as a package for your Linux distribution, change distribution!
+Packages for most Linux distributions are provided.
 
 
 Pyparsing

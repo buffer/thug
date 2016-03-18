@@ -4,11 +4,11 @@ Thug API
 ========
 
 
-Thug provides a Python Application Program Interface (API) which allows external tools
-easily interfacing with Thug. Basic usage of the Thug API is really simple and just
+Thug provides a Python Application Program Interface (API) which can be used by external 
+tools to easily interface with Thug. Basic usage of the Thug API is simple and just
 requires subclassing the ThugAPI class. Thug class (defined in *src/thug.py*) is a
-great example of such usage which should be enough in almost every scenario I can think
-about.
+great example of such basic usage and it clearly illustrates all the details that should
+be needed in almost every scenario.
 
 Thug API interface definition is reported below for convenience.
 
