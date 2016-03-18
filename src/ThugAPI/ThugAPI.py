@@ -216,7 +216,7 @@ class ThugAPI:
         log.ThugLogging.set_absbasedir(logdir)
 
     def set_log_output(self, output):
-        fh = logging.FileHandler(os.path.join(log.ThugLogging.baseDir, output))
+        fh = logging.FileHandler(output)
         log.addHandler(fh)
 
     def set_log_quiet(self):
