@@ -158,11 +158,11 @@ Feature: Exploits
 			| testDocumentAll.html                         | <a href="http://www.google.com">Google</a>                                                                                                               |
 			| testInnerHTML.html                           | dude,Fred Flinstone                                                                                                                                      |
 			| testPlugins.html                             | Shockwave Flash 10.0.64.0,Windows Media Player 7,Adobe Acrobat                                                                                           |
-			| testLocation1.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
-			| testLocation2.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
-			| testLocation3.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
-			| testLocation4.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
-			| testLocation5.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
-			| testLocation6.html                           | [HREF Redirection (document.location)],Status: 302,Content-Location: http://www.google.com/                                                              |
+			| testLocation1.html                           | [HREF Redirection (document.location)] Content-Location: about:blank --> Location: http://www.google.com                                                 |
+			| testLocation2.html                           | [HREF Redirection (document.location)],Content-Location: about:blank --> Location: http://www.google.com                                                 |
+			| testLocation3.html                           | [HREF Redirection (document.location)],Content-Location: about:blank --> Location: http://www.google.com                                                 |
+			| testLocation4.html                           | [HREF Redirection (document.location)],Content-Location: about:blank --> Location: http://www.google.com                                                 |
+			| testLocation5.html                           | [HREF Redirection (document.location)],Content-Location: about:blank --> Location: http://www.google.com                                                 |
+			| testLocation6.html                           | [HREF Redirection (document.location)],Content-Location: about:blank --> Location: http://www.google.com                                                 |
 			| testScope.html                               | foobar,foo,bar,True,3,2012-10-07 11:13:00,3.14159265359,/foo/i                                                                                           |
 		then run misc
