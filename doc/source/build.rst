@@ -463,13 +463,11 @@ Androguard is a tool useful for Android applications static analysis. Androguard
 is located at https://github.com/androguard/androguard.
 
 If not available as a package for your Linux distribution, the best way to install Androguard
-is the one shown below
+is through pip
 
 .. code-block:: sh
 
-        # git clone git@github.com:androguard/androguard.git
-        # cd androguard
-        # python setup.py install
+        # pip install androguard
 
 
 Python-Ssdeep (optional)
