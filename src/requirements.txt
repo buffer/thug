@@ -1,5 +1,5 @@
 beautifulsoup4==4.4.1
-html5lib==0.99999
+html5lib==0.9999999
 jsbeautifier==1.6.2
 lxml==3.4.4
 chardet==2.2.1
