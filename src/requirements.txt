@@ -17,3 +17,4 @@ ssdeep==3.1
 six==1.10.0
 pika==0.10.0
 pylibemu==0.3.3
+androguard==3.0
