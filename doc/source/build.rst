@@ -7,35 +7,35 @@ Requirements
 ------------
 
 * Python
+* Boost
 * Google V8                
-* PyV8                     
-* Beautiful Soup 4         
+* PyV8
+* Libemu
+* Yara
+* Yara-Python
+* MongoDB (optional)
+* PEfile
+* Graphviz
+* RabbitMQ (optional)
+* Ssdeep (optional)
+* BeautifulSoup4
 * Html5lib
 * Jsbeautifier
-* Libemu                   
 * Pylibemu
-* Pefile
-* lxml
+* Lxml
 * Chardet                  
 * Requests
-* Requesocks
-* boost
+* PySocks
 * Cssutils
 * Zope interface
-* Graphviz
 * Pyparsing
 * Pygraphviz
 * Python-Magic
 * Rarfile
-* Yara 2.0
-* Yara-Python 2.0
 * NetworkX (optional)
-* MongoDB (optional)
 * PyMongo (optional)
 * Androguard (optional)
-* Ssdeep (optional)
 * Python-Ssdeep (optional)
-* RabbitMQ (optional)
 * Pika (optional)
 
 
@@ -49,6 +49,15 @@ Python
 Python 2.7 is required in order to properly run Thug. You may be lucky running it with
 Python 2.6 but please consider this version is not supported so issues related to Python 
 2.6 will be simply ignored. Python source code can be downloaded at http://www.python.org.
+
+
+Boost
+^^^^^
+
+Boost provides free peer-reviewed portable C++ source libraries. Boost homepage is
+located at http://www.boost.org/. 
+
+Packages for most Linux distributions are available.
 
 
 Google V8/PyV8
@@ -100,31 +109,146 @@ below.
         ~/pyv8 $ sudo python setup.py install
 
 
-Beautiful Soup 4
-^^^^^^^^^^^^^^^^
+Libemu
+^^^^^^
 
-Beautiful Soup is a Python library for pulling data out of HTML and XML 
-files. Beautiful Soup source code can be downloaded at 
-http://www.crummy.com/software/BeautifulSoup/.
+Libemu is a small library written in C offering basic x86 emulation and
+shellcode detection using GetPC heuristics. It is designed to be used
+within network intrusion/prevention detections and honeypots. Libemu
+homepage is located at http://libemu.carnivore.it/.
 
-If not available as a package for your Linux distribution, the best way 
-to install Beautiful Soup 4 is through pip.
+In order to properly install Libemu please follow the procedure described
+below
+
+.. code-block:: sh
+
+        $ git clone https://github.com/buffer/libemu.git
+        $ cd libemu
+        $ autoreconf -v -i
+        $ ./configure --prefix=/opt/libemu
+        $ sudo make install
+
+For additional details about installation please refer to the Libemu homepage.
+
+
+Yara
+^^^^
+
+Yara homepage is located at https://github.com/plusvic/yara
+
+If not available as a package for your Linux distribution, the best way
+to install Yara is compiling its source code. Please take a look at Yara
+documentation for details.
+
+
+Yara-Python
+^^^^^^^^^^^
+
+Yara-Python homepage is located at https://github.com/plusvic/yara-python
+
+If not available as a package for your Linux distribution, the best way
+to install Yara-Python is compiling its source code. Please take a look
+at Yara-Python documentation for details.
+
+
+MongoDB (optional)
+^^^^^^^^^^^^^^^^^^
+
+MongoDB homepage is located at http://www.mongodb.org.
+
+Packages for most Linux distributions are available.
+
+
+PEfile
+^^^^^^
+
+PEfile is a multi-platform Python module to read and work with Portable Executable
+(aka PE) files. Most of the information in the PE Header is accessible, as well as
+all the sections, section's information and data. PEfile homepage is located at
+https://github.com/erocarrera/pefile.
+
+In order to properly install PEfile please follow the procedure described
+below
+
+.. code-block:: sh
+
+        $ git clone https://github.com/erocarrera/pefile.git
+        $ python setup.py build
+        $ sudo python setup.py install
+ 
+
+Graphviz
+^^^^^^^^
+
+Graphviz homepage is located at http://www.graphviz.org/.
+
+Graphviz is open source graph visualization software. Graph visualization is a way of representing
+structural information as diagrams of abstract graphs and networks. It has important applications
+in networking, bioinformatics, software engineering, database and web design, machine learning,
+and in visual interfaces for other technical domains.
+
+Packages for most Linux distributions are available.
+
+
+RabbitMQ (optional)
+^^^^^^^^^^^^^^^^^^^
+
+RabbitMQ homepage is located at http://www.rabbitmq.com/. RabbitMQ is a high-performance
+AMQP-compliant message broker written in Erlang and it's needed just if you want to play
+with Thug distributed mode.
+
+Packages for most Linux distributions are available.
+
+
+Ssdeep (optional)
+^^^^^^^^^^^^^^^^^
+
+Ssdeep is a program for computing context triggered piecewise hashes (CTPH). Also called
+fuzzy hashes, CTPH can match inputs that have homologies. Such inputs have sequences of
+identical bytes in the same order, although bytes in between these sequences may be
+different in both content and length.
+
+Packages for most Linux distributions are available.
+
+
+Further dependencies
+--------------------
+
+The following dependencies are grouped together because they can be installed with the following
+procedure (starting from Thug 0.6.8). 
+
+.. code-block:: sh
+
+	# cd thug/src
+	# pip install -r requirements.txt
+
+You are strongly encouraged to install these dependencies using this procedure. In such case you
+can skip the following sections, otherwise keep on reading.  
+
+
+BeautifulSoup4
+^^^^^^^^^^^^^^
+
+BeautifulSoup4 is a Python library for pulling data out of HTML and XML files. BeautifulSoup4 source 
+code can be downloaded at http://www.crummy.com/software/BeautifulSoup/.
+
+If not available as a package for your Linux distribution, the best way to install BeautifulSoup4 is 
+through pip.
 
 .. code-block:: sh
 
         # pip install beautifulsoup4  
 
  
-html5lib
+Html5lib
 ^^^^^^^^
 
-html5lib is a Python and PHP implementations of a HTML parser based on the 
-WHATWG HTML5 specification for maximum compatibility with major desktop 
-web browsers. Html5lib source code can be downloaded at 
+Html5lib is a Python and PHP implementations of a HTML parser based on the WHATWG HTML5 specification 
+for maximum compatibility with major desktop web browsers. Html5lib source code can be downloaded at 
 http://code.google.com/p/html5lib/.
 
-If not available as a package for your Linux distribution, the best way 
-to install html5lib is through pip. 
+If not available as a package for your Linux distribution, the best way to install html5lib is through 
+pip. 
 
 .. code-block:: sh
 
@@ -134,48 +258,25 @@ to install html5lib is through pip.
 Jsbeautifier
 ^^^^^^^^^^^^
 
-Jsbeautifier beautifies, unpacks or deobfuscates JavaScript and handles 
-popular online obfuscators. Jsbeautifier code can be downloaded at
-https://github.com/einars/js-beautify
+Jsbeautifier beautifies, unpacks or deobfuscates JavaScript and handles popular online obfuscators. 
+Jsbeautifier code can be downloaded at https://github.com/einars/js-beautify
 
-If not available as a package for your Linux distribution, the best way
-to install jsbeautifier is through pip.
+If not available as a package for your Linux distribution, the best way to install jsbeautifier is 
+through pip.
 
 .. code-block:: sh
 
         # pip install jsbeautifier 
 
 
-Libemu
-^^^^^^
-
-Libemu is a small library written in C offering basic x86 emulation and 
-shellcode detection using GetPC heuristics. It is designed to be used 
-within network intrusion/prevention detections and honeypots. Libemu 
-homepage is located at http://libemu.carnivore.it/.
-
-In order to properly install Libemu please follow the procedure described
-below
-
-.. code-block:: sh
-
-        $ git clone git://github.com/buffer/libemu.git
-        $ cd libemu
-        $ autoreconf -v -i
-        $ ./configure --prefix=/opt/libemu
-        $ sudo make install
-
-For additional details about installation please refer to the Libemu homepage.
-
-
 Pylibemu
 ^^^^^^^^
 
-Pylibemu is a Cython wrapper for the Libemu library. Pylibemu homepage is located
-at https://github.com/buffer/pylibemu.
+Pylibemu is a Cython wrapper for the Libemu library. Pylibemu homepage is located at 
+https://github.com/buffer/pylibemu.
 
-If not available as a package for your Linux distribution, the best way to install 
-Pylibemu is through pip.
+If not available as a package for your Linux distribution, the best way to install Pylibemu is through 
+pip.
 
 .. code-block:: sh
 
@@ -192,48 +293,26 @@ Alternatively follow the procedure described below
 For additional details about installation please refer to the Pylibemu homepage.
 
 
-Pefile
-^^^^^^
-
-Pefile is a multi-platform Python module to read and work with Portable Executable 
-(aka PE) files. Most of the information in the PE Header is accessible, as well as 
-all the sections, section's information and data. Pefile homepage is located at
-http://code.google.com/p/pefile/.
-
-Pefile r141 or later is strictly required.
-
-If not available as a package for your Linux distribution, the best way
-to install Pefile is through pip.
-
-.. code-block:: sh
-
-        # pip install pefile 
-
-
-lxml
+Lxml
 ^^^^
 
-The lxml XML toolkit is a Pythonic binding for the C libraries libxml2 and libxslt.
-It is unique in that it combines the speed and XML feature completeness of these
-libraries with the simplicity of a native Python API, mostly compatible but superior
-to the well-known ElementTree API.
+The lxml XML toolkit is a Pythonic binding for the C libraries libxml2 and libxslt. It is unique in that it 
+combines the speed and XML feature completeness of these libraries with the simplicity of a native Python API, 
+mostly compatible but superior to the well-known ElementTree API.
 
-If not available as a package for your Linux distribution, the best way
-to install lxml is through pip.
+If not available as a package for your Linux distribution, the best way to install lxml is through pip.
 
 .. code-block:: sh
 
         # pip install lxml
 
 
-chardet
+Chardet
 ^^^^^^^
 
-Chardet is a universal encoding detector. Chardet homepage is located at
-http://pypi.python.org/pypi/chardet.
+Chardet is a universal encoding detector. Chardet homepage is located at http://pypi.python.org/pypi/chardet.
 
-If not available as a package for your Linux distribution, the best way
-to install chardet is through pip.
+If not available as a package for your Linux distribution, the best way to install chardet is through pip.
 
 .. code-block:: sh
 
@@ -243,12 +322,10 @@ to install chardet is through pip.
 Requests
 ^^^^^^^^
 
-Requests is an Apache2 Licensed HTTP library, written in Python, for human
-beings. Requests homepage is located at
-http://docs.python-requests.org/en/latest/
+Requests is an Apache2 Licensed HTTP library, written in Python, for human beings. Requests homepage is located 
+at http://docs.python-requests.org/en/latest/
 
-If not available as a package for your Linux distribution, the best way
-to install requests is through pip.
+If not available as a package for your Linux distribution, the best way to install requests is through pip.
 
 .. code-block:: sh
 
@@ -258,34 +335,23 @@ to install requests is through pip.
 PySocks
 ^^^^^^^
 
-PySocks is an actively maintained SocksiPy fork. It contains many improvements to 
-the original. PySocks homepage is located at https://github.com/Anorov/PySocks.
+PySocks is an actively maintained SocksiPy fork. It contains many improvements to the original. PySocks homepage 
+is located at https://github.com/Anorov/PySocks.
 
-If not available as a package for your Linux distribution, the best way
-to install requests is through pip.
+If not available as a package for your Linux distribution, the best way to install requests is through pip.
 
 .. code-block:: sh
 
         # pip install PySocks
 
 
-Boost
-^^^^^
-
-Boost provides free peer-reviewed portable C++ source libraries. Boost homepage is 
-located at http://www.boost.org/. Packages for most Linux distributions are provided.
-
-
 Cssutils
 ^^^^^^^^
 
-Cssutils is a CSS Cascading Style Sheets library for Python. Cssutils homepage
-is located at http://pypi.python.org/pypi/cssutils.
+Cssutils is a CSS Cascading Style Sheets library for Python. Cssutils homepage is located at http://pypi.python.org/pypi/cssutils.
 
-If not available as a package for your Linux distribution, the best way
-to install cssutils is through pip.
+If not available as a package for your Linux distribution, the best way to install cssutils is through pip.
 
-Cssutils 0.9.9 or later is strictly required.
 
 .. code-block:: sh
 
@@ -297,25 +363,12 @@ Zope Interface
 
 Zope Interface homepage is located at http://pypi.python.org/pypi/zope.interface.
 
-If not available as a package for your Linux distribution, the best way
-to install zope.interface is through pip.
+If not available as a package for your Linux distribution, the best way to install zope.interface is 
+through pip.
 
 .. code-block:: sh
 
         # pip install zope.interface
-
-
-Graphviz
-^^^^^^^^
-
-Graphviz homepage is located at http://www.graphviz.org/.
-
-Graphviz is open source graph visualization software. Graph visualization is a way of representing 
-structural information as diagrams of abstract graphs and networks. It has important applications 
-in networking, bioinformatics, software engineering, database and web design, machine learning, 
-and in visual interfaces for other technical domains.
-
-Packages for most Linux distributions are provided.
 
 
 Pyparsing
@@ -323,8 +376,8 @@ Pyparsing
 
 Pyparsing homepage is located at http://pyparsing.wikispaces.com/.
 
-If not available as a package for your Linux distribution, the best way 
-to install pyparsing is through pip.
+If not available as a package for your Linux distribution, the best way to install pyparsing is 
+through pip.
 
 .. code-block:: sh
 
@@ -334,10 +387,10 @@ to install pyparsing is through pip.
 Pygraphviz
 ^^^^^^^^^^
 
-Pydot homepage is located at http://pygraphviz.github.io.
+Pygraphviz homepage is located at http://pygraphviz.github.io.
 
-If not available as a package for your Linux distribution, the best way
-to install pydot is through pip.
+If not available as a package for your Linux distribution, the best way to install pygraphviz is through 
+pip.
 
 .. code-block:: sh
 
@@ -347,8 +400,7 @@ to install pydot is through pip.
 Python-Magic
 ^^^^^^^^^^^^
 
-The recommended implementation of python-magic can be found at 
-https://github.com/ahupp/python-magic.
+The recommended implementation of python-magic can be found at https://github.com/ahupp/python-magic.
 
 The best way to install python-magic is through pip.
 
@@ -356,8 +408,8 @@ The best way to install python-magic is through pip.
 
         # pip install python-magic
 
-If you are running Ubuntu, you may want to use a completely different
-implementation of python-magic which is packaged through apt.
+If you are running Ubuntu, you may want to use a completely different implementation of python-magic 
+which is packaged through apt.
 
 .. code-block:: sh
 
@@ -369,32 +421,12 @@ Rarfile
 
 Rarfile homepage is located at http://rarfile.berlios.de/.
 
-If not available as a package for your Linux distribution, the best way 
-to install rarfile is through pip.
+If not available as a package for your Linux distribution, the best way to install rarfile is through pip.
 
 .. code-block:: sh
 
         # pip install rarfile
 
-
-Yara
-^^^^
-
-Yara homepage is located at https://github.com/plusvic/yara
-
-If not available as a package for your Linux distribution, the best way
-to install Yara is compiling its source code. Please take a look at Yara
-documentation for details.
-
-
-Yara-Python
-^^^^^^^^^^^
-
-Yara-Python homepage is located at https://github.com/plusvic/yara
-
-If not available as a package for your Linux distribution, the best way
-to install Yara-Python is compiling its source code. Please take a look 
-at Yara-Python documentation for details.
 
 
 NetworkX (optional)
@@ -402,23 +434,14 @@ NetworkX (optional)
 
 NetworkX homepage is located at https://networkx.github.io/
  
-NetworkX is a Python language software package for the creation, manipulation, 
-and study of the structure, dynamics, and functions of complex networks.
+NetworkX is a Python language software package for the creation, manipulation, and study of the structure, 
+dynamics, and functions of complex networks.
 
-If not available as a package for your Linux distribution, the best way 
-to install networkx is through pip.
+If not available as a package for your Linux distribution, the best way to install networkx is through pip.
 
 .. code-block:: sh
 
         # pip install networkx
-
-
-MongoDB (optional)
-^^^^^^^^^^^^^^^^^^
-
-MongoDB homepage is located at http://www.mongodb.org.
-
-If not available as a package for your Linux distribution, change distribution!
 
 
 PyMongo (optional)
@@ -426,8 +449,7 @@ PyMongo (optional)
 
 PyMongo homepage is located at http://www.mongodb.org/display/DOCS/Python+Language+Center.
 
-If not available as a package for your Linux distribution, the best way
-to install pymongo is through pip.
+If not available as a package for your Linux distribution, the best way to install pymongo is through pip.
 
 .. code-block:: sh
 
@@ -450,38 +472,17 @@ is the one shown below
         # python setup.py install
 
 
-Ssdeep (optional)
-^^^^^^^^^^^^^^^^^
-
-Ssdeep is a program for computing context triggered piecewise hashes (CTPH). Also called 
-fuzzy hashes, CTPH can match inputs that have homologies. Such inputs have sequences of 
-identical bytes in the same order, although bytes in between these sequences may be 
-different in both content and length.
-
-Packages for most Linux distributions are provided.
-
-
 Python-Ssdeep (optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 Python-Ssdeep homepage is located at https://github.com/DinoTools/python-ssdeep.
 
-If not available as a package for your Linux distribution, the best way
-to install python-ssdeep is through pip.
+If not available as a package for your Linux distribution, the best way to install python-ssdeep 
+is through pip.
 
 .. code-block:: sh
 
         # pip install ssdeep
-
-
-RabbitMQ (optional)
-^^^^^^^^^^^^^^^^^^^
-
-RabbitMQ homepage is located at http://www.rabbitmq.com/. RabbitMQ is a high-performance 
-AMQP-compliant message broker written in Erlang and it's needed just if you want to play
-with Thug distributed mode.
-
-If not available as a package for your Linux distribution, change distribution!
 
 
 Pika (optional)
@@ -493,8 +494,8 @@ Pika is a pure-Python implementation of the AMQP 0-9-1 protocol that tries to st
 independent of the underlying network support library and it's needed just if you want to play
 with Thug distributed mode.
 
-If not available as a package for your Linux distribution, the best way
-to install pika is through pip.
+If not available as a package for your Linux distribution, the best way to install pika is through 
+pip.
 
 .. code-block:: sh
 
