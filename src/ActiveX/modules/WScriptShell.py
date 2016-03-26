@@ -78,3 +78,10 @@ def CreateObject(self, strProgID, strPrefix = ""):
                                       },
                                      forward = False)
     return ActiveX.ActiveX._ActiveXObject(self._window, strProgID)
+
+def Sleep(self, intTime):
+    import time
+
+    time.sleep(intTime * 0.01)
+
+    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Sleep (%s)" % (intTime))

@@ -1259,6 +1259,7 @@ CLSID = [
                             'Environment'               : WScriptShell.Environment,
                             'ExpandEnvironmentStrings'  : WScriptShell.ExpandEnvironmentStrings,
                             'CreateObject'              : WScriptShell.CreateObject,
+                            'Sleep'                     : WScriptShell.Sleep,
                           }
         },
 
