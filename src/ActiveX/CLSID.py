@@ -553,6 +553,7 @@ CLSID = [
                             'requestHeaders'   : {},
                             'responseHeaders'  : {},
                             'responseBody'     : '',
+                            'readyState'       : 4,
                           },
             'funcattrs' : {},
             'methods'   : {
@@ -1342,4 +1343,3 @@ CLSID = [
                           }
         },
 ]
-

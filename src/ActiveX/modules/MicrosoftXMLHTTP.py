@@ -50,6 +50,7 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     self.varAsync    = varAsync
     self.varUser     = varUser
     self.varPassword = varPassword
+    self.readyState  = 1
     return 0
 
 
@@ -84,6 +85,7 @@ def send(self, varBody = None):
 
     self.responseHeaders = response.headers
     self.responseBody    = response.content
+    self.readyState      = 4
 
     contenttype = self.responseHeaders.get('content-type', None)
     if contenttype is None:
