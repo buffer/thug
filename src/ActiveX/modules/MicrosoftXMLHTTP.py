@@ -103,7 +103,7 @@ def send(self, varBody = None):
 
     handler = log.MIMEHandler.get_handler(contenttype)
     if handler:
-        handler(url, html)
+        handler(self.bstrUrl, self.responseBody)
 
 
 def setRequestHeader(self, bstrHeader, bstrValue):
