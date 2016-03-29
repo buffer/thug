@@ -550,6 +550,7 @@ CLSID = [
                             'varAsync'         : True,
                             'varUser'          : None,
                             'varPassword'      : None,
+                            'status'           : 0,
                             'requestHeaders'   : {},
                             'responseHeaders'  : {},
                             'responseBody'     : '',

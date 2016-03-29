@@ -83,6 +83,7 @@ def send(self, varBody = None):
     if response is None:
         return
 
+    self.status          = response.status_code
     self.responseHeaders = response.headers
     self.responseBody    = response.content
     self.readyState      = 4
