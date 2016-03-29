@@ -543,7 +543,7 @@ CLSID = [
         # MicrosoftXMLHTTP
         {
             'id'        : (),
-            'name'      : ( 'msxml2.xmlhttp', 'microsoft.xmlhttp', ),
+            'name'      : ( 'msxml2.xmlhttp', 'microsoft.xmlhttp', 'msxml2.xmlhttp.6.0'),
             'attrs'     : {
                             'bstrMethod'       : '',
                             'bstrUrl'          : '',
