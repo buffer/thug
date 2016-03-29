@@ -37,7 +37,7 @@ shockwave = ( 'shockwaveflash.shockwaveflash',
 java_deployment_toolkit = ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA',
                             '8AD9C840-044E-11D1-B3E9-00805F499D93', )
 
-class _ActiveXObject:
+class _ActiveXObject(object):
     shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10',
                         'shockwaveflash.shockwaveflash.9'  : '9' ,
                         'shockwaveflash.shockwaveflash.10' : '10',
@@ -50,6 +50,7 @@ class _ActiveXObject:
         obj            = None
         methods        = dict()
         self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
+        self.cls       = cls
 
         if type == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':
@@ -132,11 +133,16 @@ class _ActiveXObject:
             self.funcattrs[name](value)
 
     def __getattribute__(self, name):
-        if name in self.__dict__:
-            return self.__dict__[name]
+        try:
+            res = super(_ActiveXObject, self).__getattribute__(name)
+            return res
+        except AttributeError:
+            for key, value in self.__dict__.items():
+                if(key.lower() == name.lower()):
+                    return value
 
-        log.warning("Unknown ActiveX Object attribute: %s" % (name, ))
-
+            log.warning("Unknown ActiveX Object (%s) attribute: %s" % (self.cls, name, ))
+            raise
 
 def register_object(s, clsid):
     funcattrs = dict()
