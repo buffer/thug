@@ -6,43 +6,32 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Logging &mdash; Thug 0.6.7 documentation</title>
+    <title>Logging &mdash; Thug 0.6.8 documentation</title>
     
-    <link rel="stylesheet" href="static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6.7',
+        VERSION:     '0.6.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="static/jquery.js"></script>
-    <script type="text/javascript" src="static/underscore.js"></script>
-    <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.6.7 documentation" href="index.html" />
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Thug 0.6.8 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
-    <link rel="prev" title="Thug API" href="api.html" /> 
+    <link rel="prev" title="Thug API" href="api.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="plugins.html" title="Plugin Framework"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="api.html" title="Thug API"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.7 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -71,7 +60,7 @@ Thug will not store any analysis log.</p>
 <p>The configuration file <em>Logging/logging.conf</em> defines the way Thug uses to log the results
 of its analyses. The default logging.conf file is shown below.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>hpfeeds<span class="o">]</span>
-enable:     True
+enable:     False
 host:       hpfeeds.honeycloud.net
 port:       10000
 ident:      q6jyo@hp1
@@ -114,7 +103,7 @@ anything in the default configuration.</p>
 in your <em>Logging/logging.conf</em> file, you can specify a different address at runtime, for
 example by using the <em>&#8211;mongodb-address</em> option from the command line. This can be especially
 useful when using the dockerized version of Thug, where storing results in Docker itself would
-mean to loose them as soon as the Docker instance is shut down.</p>
+mean to lose them as soon as the Docker instance is shut down.</p>
 <div class="section" id="collection-schema">
 <h3>Collection schema<a class="headerlink" href="#collection-schema" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="urls">
@@ -372,18 +361,18 @@ be done by choosing a serialization format.</p>
 and a secret. The secret is sent to the server by hashing it together with a per-connection
 nonce. This way no eavesdroppers can obtain valid credentials. Optionally the protocol can
 be run on top of SSL/TLS, of course.</p>
-<p>HPFeeds logging mode is enabled by default and its configuration is saved in the <em>Logging/logging.conf</em>
+<p>HPFeeds logging mode is disabled by default and its configuration is saved in the <em>Logging/logging.conf</em>
 file</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>hpfeeds<span class="o">]</span>
-enable:     True
+enable:     False
 host:       hpfeeds.honeycloud.net
 port:       10000
 ident:      q6jyo@hp1
 secret:     edymvouqpfe1ivud
 </pre></div>
 </div>
-<p>If you don&#8217;t want to report your events and samples, you can turn off HPFeeds by modifying
-the <em>enable</em> parameter to <em>False</em>. Do not change the other configuration parameters unless
+<p>If you want to report your events and samples, you can turn on HPFeeds by modifying
+the <em>enable</em> parameter to <em>True</em>. Do not change the other configuration parameters unless
 you know exactly what you are doing.</p>
 <p>Currently Thug shares data in two channels:</p>
 <ul class="simple">
@@ -413,9 +402,9 @@ index:      thug
 <h2>JSON logging mode<a class="headerlink" href="#json-logging-mode" title="Permalink to this headline">¶</a></h2>
 <p>The JSON logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in JSON format. The JSON logging mode was enabled by default
-before Thug 0.5.6 together with the File logging mode. After that version you have to
-explicitely enable it through the option <em>-Z</em> (or <em>&#8211;json-logging</em>). Please consider that
-the JSON log is stored in the MongoDB instance (if available). See the <em>MongoDB logging
+before Thug 0.5.6 together with the File logging mode. If you are using Thug 0.5.7 (or later)
+you have to explicitely enable it through the option <em>-Z</em> (or <em>&#8211;json-logging</em>). Please consider
+that the JSON log is stored in the MongoDB instance (if available). See the <em>MongoDB logging
 mode</em> for details. If the File logging format is enabled too, the JSON log will be stored
 in a JSON file in the log directory too. The JSON format is shown below.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
@@ -542,12 +531,12 @@ MAEC 1.1 format on the <em>thug.events</em> channel.</p>
 <h2>File logging mode<a class="headerlink" href="#file-logging-mode" title="Permalink to this headline">¶</a></h2>
 <p>The File logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in flat files. The File logging mode was enabled by default
-before Thug 0.5.6. After that version you have to explicitely enable it through the option
-<em>-F</em> (or <em>&#8211;file-logging</em>). Please consider that all the information stored in flat files
-are stored in the MongoDB instance (if available). This option could be convenient in some
-situations but if you plan to analyze a huge number of URLs per day probably thinking
-about storing results and resources in a database is better than spread such data on your
-hard disk.</p>
+before Thug 0.5.6. If you are using Thug 0.5.7 (or later) you have to explicitely enable
+it through the option <em>-F</em> (or <em>&#8211;file-logging</em>). Please consider that all the information
+stored in flat files are stored in the MongoDB instance (if available). This option could
+be convenient in some situations but if you plan to analyze a huge number of URLs per day
+probably thinking about storing results and resources in a database is better than spread
+such data on your hard drive.</p>
 <p>If you enable the File logging mode the directory which contains the logs for the session
 will appear as shown below</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ <span class="nb">cd</span> ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
@@ -598,7 +587,7 @@ total 72K
 URL analysis results saved in MAEC 1.1 format. Please note that all the resources downloaded
 during the URL analysis are saved in the log directory based on their Content-Type for
 convenience. Moreover if MongoDB is installed the information you can see in this directory
-are saved in the database instance too.</p>
+are saved in the database instance as well.</p>
 </div>
 </div>
 
@@ -650,17 +639,19 @@ are saved in the database instance too.</p>
 </ul>
 </li>
 </ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="api.html"
-                        title="previous chapter">Thug API</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="plugins.html"
-                        title="next chapter">Plugin Framework</a></p>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="api.html" title="previous chapter">Thug API</a></li>
+      <li>Next: <a href="plugins.html" title="next chapter">Plugin Framework</a></li>
+  </ul></li>
+</ul>
+</div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="sources/logging.txt"
+      <li><a href="_sources/logging.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -681,24 +672,20 @@ are saved in the database instance too.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="plugins.html" title="Plugin Framework"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="api.html" title="Thug API"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.7 documentation</a> &raquo;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2011-2016, Angelo Dell'Aera.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/logging.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &copy; Copyright 2011-2016, Angelo Dell&#39;Aera.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
-    </div>
+
+    
+
+    
   </body>
 </html>

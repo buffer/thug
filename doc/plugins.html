@@ -6,39 +6,31 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plugin Framework &mdash; Thug 0.6.7 documentation</title>
+    <title>Plugin Framework &mdash; Thug 0.6.8 documentation</title>
     
-    <link rel="stylesheet" href="static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6.7',
+        VERSION:     '0.6.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="static/jquery.js"></script>
-    <script type="text/javascript" src="static/underscore.js"></script>
-    <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.6.7 documentation" href="index.html" />
-    <link rel="prev" title="Logging" href="logging.html" /> 
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Thug 0.6.8 documentation" href="index.html" />
+    <link rel="prev" title="Logging" href="logging.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="logging.html" title="Logging"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.7 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -47,8 +39,8 @@
             
   <div class="section" id="plugin-framework">
 <h1>Plugin Framework<a class="headerlink" href="#plugin-framework" title="Permalink to this headline">¶</a></h1>
-<p>The Thug Plugin Framework was introduced in the version 0.3.0. If you ever thought about extending Thug
-with additional features but didn’t know how to do it you should really keep on reading. Let’s start
+<p>The Thug Plugin Framework was introduced in version 0.3.0. If you ever thought about extending Thug
+with additional features but do not know how to do it you should really keep on reading. Let’s start
 by taking a look a the code.</p>
 <p>Taking a look at <em>src/thug.py</em> we can now read these lines of code</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">p</span><span class="p">:</span>
@@ -57,9 +49,9 @@ by taking a look a the code.</p>
         <span class="n">ThugPlugins</span><span class="p">(</span><span class="n">POST_ANALYSIS_PLUGINS</span><span class="p">,</span> <span class="bp">self</span><span class="p">)()</span>
 </pre></div>
 </div>
-<p>Please note that every operation done by Thug is started by the line <em>p(args[0])</em> so you can realize that
-two hooks exist in order to execute plugins in a pre and post-analysis stage. Let’s keep exploring the
-source code and let’s take a look at <em>src/Plugins/ThugPlugins.py</em>.</p>
+<p>Please note that every operation performed by Thug is started by the line <em>p(args[0])</em> so you can
+realize that two hooks exist in order to execute plugins in a pre and post-analysis stage. Let’s keep
+exploring the source code and let’s take a look at <em>src/Plugins/ThugPlugins.py</em>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ThugPlugins</span><span class="p">:</span>
         <span class="n">phases</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="n">PRE_ANALYSIS_PLUGINS</span>  <span class="p">:</span> <span class="s1">&#39;ThugPluginsPre&#39;</span><span class="p">,</span>
@@ -110,9 +102,9 @@ plugins: Plugins.TestPlugin
 plugins: Plugins.TestPlugin
 </pre></div>
 </div>
-<p>The configuration file plugins.conf defines which plugins are to be loaded in pre and post-analysis
-stage (you can specify many plugins by simply comma separating them). The plugins should contain a
-class named <em>Handler</em> which should be conform to this interface</p>
+<p>The configuration file plugins.conf defines which plugins are to be loaded in the pre and post-analysis
+stages (you can specify many plugins by simply comma separating them). The plugins should contain a
+class named <em>Handler</em> which should be compliant with the following interface</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IPlugin</span><span class="p">(</span><span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Interface</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">thug</span><span class="p">,</span> <span class="n">log</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -139,7 +131,7 @@ main instance and the Thug root logger. Let’s see a really simple example of p
 </div>
 <p>This plugin just logs the parameters but you can do whatever you want. Do you want to pre-check if the URL
 domain is within a blacklist? Just do it with a pre-analysis plugin. Do you want to extract and/or correlate
-information from the MAEC log files? Just do it with a post-analysis plugin. Simply staten... have fun!</p>
+information from the MAEC log files? Just do it with a post-analysis plugin.</p>
 </div>
 
 
@@ -147,14 +139,18 @@ information from the MAEC log files? Just do it with a post-analysis plugin. Sim
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="logging.html"
-                        title="previous chapter">Logging</a></p>
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="logging.html" title="previous chapter">Logging</a></li>
+  </ul></li>
+</ul>
+</div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="sources/plugins.txt"
+      <li><a href="_sources/plugins.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -175,21 +171,20 @@ information from the MAEC log files? Just do it with a post-analysis plugin. Sim
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="logging.html" title="Logging"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.6.7 documentation</a> &raquo;</li> 
-      </ul>
+    <div class="footer">
+      &copy;2011-2016, Angelo Dell'Aera.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/plugins.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &copy; Copyright 2011-2016, Angelo Dell&#39;Aera.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
-    </div>
+
+    
+
+    
   </body>
 </html>
