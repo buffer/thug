@@ -30,7 +30,7 @@ of its analyses. The default logging.conf file is shown below.
 .. code-block:: sh
 
     [hpfeeds]
-    enable:     True
+    enable:     False
     host:       hpfeeds.honeycloud.net
     port:       10000
     ident:      q6jyo@hp1
@@ -377,20 +377,20 @@ and a secret. The secret is sent to the server by hashing it together with a per
 nonce. This way no eavesdroppers can obtain valid credentials. Optionally the protocol can 
 be run on top of SSL/TLS, of course.
 
-HPFeeds logging mode is enabled by default and its configuration is saved in the *Logging/logging.conf* 
+HPFeeds logging mode is disabled by default and its configuration is saved in the *Logging/logging.conf* 
 file
 
 .. code-block:: sh
 
     [hpfeeds]
-    enable:     True
+    enable:     False
     host:       hpfeeds.honeycloud.net
     port:       10000
     ident:      q6jyo@hp1
     secret:     edymvouqpfe1ivud
 
-If you don't want to report your events and samples, you can turn off HPFeeds by modifying 
-the *enable* parameter to *False*. Do not change the other configuration parameters unless 
+If you want to report your events and samples, you can turn on HPFeeds by modifying 
+the *enable* parameter to *True*. Do not change the other configuration parameters unless 
 you know exactly what you are doing. 
 
 Currently Thug shares data in two channels:
