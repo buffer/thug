@@ -291,9 +291,11 @@ pip.
 
 Alternatively follow the procedure described below
 
-$ git clone https://github.com/erocarrera/pefile.git
-$ python setup.py build
-$ sudo python setup.py install
+.. code-block:: sh
+
+	$ git clone https://github.com/erocarrera/pefile.git
+	$ python setup.py build
+	$ sudo python setup.py install
 
 
 Lxml
