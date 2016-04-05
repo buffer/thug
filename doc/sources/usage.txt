@@ -87,6 +87,7 @@ Let's start our Thug tour by taking a look at the options it provides.
         win7chrome20                    Chrome 20.0.1132.47     (Windows 7)
         win7chrome40                    Chrome 40.0.2214.91     (Windows 7)
         win7chrome45                    Chrome 45.0.2454.85     (Windows 7)
+        win7chrome49                    Chrome 49.0.2623.87     (Windows 7)
         win7firefox3                    Firefox 3.6.13          (Windows 7)
         win7safari5                     Safari 5.1.7            (Windows 7)
         win10edge20			Microsoft Edge 20.10240	(Windows 10)
