@@ -184,10 +184,12 @@ class DFT(object):
                 return
 
             try:
-                self.window._navigator.fetch(url, redirect_type = "URLDownloadToFile")
+                if self.window._navigator.fetch(url, redirect_type = "URLDownloadToFile") is None:
+                    log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed')
+
                 log.ThugLogging.shellcode_urls.add(url)
             except:
-                pass
+                log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed')
 
             profile = profile[1:]
 
