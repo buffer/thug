@@ -14,7 +14,6 @@ Requirements
 * Yara
 * Yara-Python
 * MongoDB (optional)
-* PEfile
 * Graphviz
 * RabbitMQ (optional)
 * Ssdeep (optional)
@@ -22,6 +21,7 @@ Requirements
 * Html5lib
 * Jsbeautifier
 * Pylibemu
+* PEfile
 * Lxml
 * Chardet                  
 * Requests
@@ -157,24 +157,6 @@ MongoDB (optional)
 MongoDB homepage is located at http://www.mongodb.org.
 
 Packages for most Linux distributions are available.
-
-
-PEfile
-^^^^^^
-
-PEfile is a multi-platform Python module to read and work with Portable Executable
-(aka PE) files. Most of the information in the PE Header is accessible, as well as
-all the sections, section's information and data. PEfile homepage is located at
-https://github.com/erocarrera/pefile.
-
-In order to properly install PEfile please follow the procedure described
-below
-
-.. code-block:: sh
-
-        $ git clone https://github.com/erocarrera/pefile.git
-        $ python setup.py build
-        $ sudo python setup.py install
  
 
 Graphviz
@@ -291,6 +273,29 @@ Alternatively follow the procedure described below
         $ sudo python setup.py install
 
 For additional details about installation please refer to the Pylibemu homepage.
+
+
+PEfile
+^^^^^^
+
+PEfile is a multi-platform Python module to read and work with Portable Executable (aka PE) files. 
+Most of the information in the PE Header is accessible, as well as all the sections, section's 
+information and data. PEfile homepage is located at https://github.com/erocarrera/pefile.
+
+If not available as a package for your Linux distribution, the best way to install PEfile is through
+pip.
+
+.. code-block:: sh
+
+	# pip install pefile
+
+Alternatively follow the procedure described below
+
+.. code-block:: sh
+
+	$ git clone https://github.com/erocarrera/pefile.git
+	$ python setup.py build
+	$ sudo python setup.py install
 
 
 Lxml

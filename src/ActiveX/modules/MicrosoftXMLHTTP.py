@@ -3,7 +3,6 @@
 import os
 import hashlib
 import logging
-import urlparse
 
 try:
     import urllib.parse as urlparse
