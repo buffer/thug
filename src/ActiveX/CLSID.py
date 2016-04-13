@@ -1316,7 +1316,9 @@ CLSID = [
                             'DCE2F8B1-A520-11D4-8FD0-00D0B7730277',
                             '7EC7B6C5-25BD-4586-A641-D2ACBB6629DD'),
             'name'      : (),
-            'attrs'     : {},
+            'attrs'     : {
+                            'server'                : ''
+                          },
             'funcattrs' : {
                             'server'                : YahooMessengerYwcvwr.Setserver,
                           },
