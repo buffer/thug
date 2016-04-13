@@ -133,18 +133,14 @@ class _ActiveXObject(object):
             self.funcattrs[name](value)
 
     def __getattr__(self, name):
-        try:
-            res = super(_ActiveXObject, self).__getattribute__(name)
-            return res
-        except AttributeError:
-            for key, value in self.__dict__.items():
-                if(key.lower() == name.lower()):
-                    return value
+        for key, value in self.__dict__.items():
+            if(key.lower() == name.lower()):
+                return value
 
-            if name not in ('__watchpoints__'):
-                log.warning("Unknown ActiveX Object (%s) attribute: %s" % (self.cls, name, ))
+        if name not in ('__watchpoints__'):
+            log.warning("Unknown ActiveX Object (%s) attribute: %s" % (self.cls, name, ))
 
-            raise
+        raise AttributeError
 
 def register_object(s, clsid):
     funcattrs = dict()
