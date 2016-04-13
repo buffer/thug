@@ -1,4 +1,3 @@
-
 try:
     from io import StringIO
 except ImportError:
@@ -13,11 +12,11 @@ log = logging.getLogger("Thug")
 
 def open(self):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] open")
-    self.fobject = StringIO.StringIO()
+    self.fobject = StringIO()
 
 def Write(self, s):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Write")
-    self.fobject.write(s)
+    self.fobject.write(unicode(s))
 
 def SaveToFile(self, filename, opt):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] SaveToFile (%s)" % (filename, ))
