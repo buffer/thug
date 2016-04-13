@@ -823,6 +823,8 @@ CLSID = [
             'name'      : (),
             'attrs'     : {
                             'url'       : '',
+                            'fontsize'  : 14,
+                            'barcolor'  : 'EE4E00',
                           },
             'funcattrs' : {
                             'url'       : RediffBolDownloaderAttack.Seturl,
