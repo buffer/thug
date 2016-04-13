@@ -516,12 +516,14 @@ CLSID = [
         {
             'id'        : ( '00E1DB59-6EFD-4CE7-8C0A-2DA3BCAAD9C6',  ),
             'name'      : (),
-            'attrs'     : {},
+            'attrs'     : {
+                            'WksPictureInterface'       : 0,
+                          },
             'funcattrs' : {
                             'WksPictureInterface'       : MicrosoftWorks7Attack.SetWksPictureInterface,
                           },
             'methods'   : {
-                            'SetWksPictureInterface'    :  MicrosoftWorks7Attack.SetWksPictureInterface,
+                            'SetWksPictureInterface'    : MicrosoftWorks7Attack.SetWksPictureInterface,
                           }
         },
 
