@@ -621,7 +621,8 @@ CLSID = [
         {
             'id'        : ( '48DD0448-9209-4F81-9F6D-D83562940134', ),
             'name'      : ( 'aurigma.imageuploader.4.1', ),
-            'attrs'     : {},
+            'attrs'     : {
+                            'Action'        : ''},
             'funcattrs' : {
                             'Action'        : MyspaceUploader.SetAction,
                           },
