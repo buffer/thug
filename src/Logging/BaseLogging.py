@@ -53,7 +53,7 @@ class BaseLogging(object):
 
         t = datetime.datetime.now()
         m = hashlib.md5()
-        m.update(url)
+        m.update(url.encode('utf8'))
 
         base = os.getenv('THUG_LOGBASE', '..')
         self.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
