@@ -98,9 +98,8 @@ main instance and the Thug root logger. Let’s see a really simple example of p
         import zope.interface
         from .IPlugin import IPlugin
 
+        @implementer(IPlugin)
         class Handler:
-                zope.interface.implements(IPlugin)
-
                 def run(self, thug, log):
                         log.debug(thug)
                         log.debug(log)
