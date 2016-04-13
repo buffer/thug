@@ -37,7 +37,7 @@ shockwave = ( 'shockwaveflash.shockwaveflash',
 java_deployment_toolkit = ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA',
                             '8AD9C840-044E-11D1-B3E9-00805F499D93', )
 
-class _ActiveXObject:
+class _ActiveXObject(object):
     shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10',
                         'shockwaveflash.shockwaveflash.9'  : '9' ,
                         'shockwaveflash.shockwaveflash.10' : '10',
@@ -131,12 +131,17 @@ class _ActiveXObject:
         if name in self.funcattrs:
             self.funcattrs[name](value)
 
-    def __getattribute__(self, name):
-        if name in self.__dict__:
-            return self.__dict__[name]
+    #def __getattribute__(self, name):
+    #    if name in self.__dict__:
+    #        return self.__dict__[name]
+    #
+    #    log.warning("Unknown ActiveX Object attribute: %s" % (name, ))
 
-        log.warning("Unknown ActiveX Object attribute: %s" % (name, ))
+    def __getattr__(self, name):
+        if name not in ('__watchpoints__'):
+            log.warning("Unknown ActiveX Object attribute: %s" % (name, ))
 
+        raise AttributeError
 
 def register_object(s, clsid):
     funcattrs = dict()
