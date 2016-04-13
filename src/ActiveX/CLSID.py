@@ -189,6 +189,8 @@ CLSID = [
             'name'      : (),
             'attrs'     : {
                             'data'                  : '',
+                            'width'                 : '1',
+                            'height'                : '1',
                           },
             'funcattrs' : {
                             'data'                  : DirectShow.Setdata,
