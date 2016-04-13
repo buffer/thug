@@ -98,7 +98,7 @@ class ThugLogging(BaseLogging, SampleLogging):
 
     def set_url(self, url):
         for m in self.resolve_method('set_url'):
-            m(url)
+            m(url.encode('utf8'))
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
         for m in self.resolve_method('add_behavior_warn'):

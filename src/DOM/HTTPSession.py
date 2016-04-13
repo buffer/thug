@@ -21,13 +21,14 @@ import datetime
 import socket
 import socks
 import requests
-import urllib
 import ssl
 
 try:
     import urllib.parse as urlparse
+    from urllib.parse import quote
 except ImportError:
     import urlparse
+    from urllib import quote
 
 import logging
 log = logging.getLogger("Thug")
@@ -133,7 +134,7 @@ class HTTPSession(object):
             url = self._check_compatibility(url)
 
         url = self._normalize_protocol_relative_url(window, url)
-        url = urllib.quote(url, safe = "%/:=&?~#+!$,;'@()*[]")
+        url = quote(url, safe = "%/:=&?~#+!$,;'@()*[]")
         
         _url = urlparse.urlparse(url)
 

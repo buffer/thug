@@ -53,7 +53,7 @@ class BaseLogging(object):
 
         t = datetime.datetime.now()
         m = hashlib.md5()
-        m.update(url)
+        m.update(url.encode('utf8'))
 
         base = os.getenv('THUG_LOGBASE', '..')
         self.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
@@ -69,7 +69,7 @@ class BaseLogging(object):
             else:
                 raise
 
-        with open(os.path.join(base, 'logs', 'thug.csv'), 'a+r') as fd:
+        with open(os.path.join(base, 'logs', 'thug.csv'), 'at+') as fd:
             csv_line = '%s,%s\n' % (m.hexdigest(), url, )
             for l in fd.readlines():
                 if l == csv_line:

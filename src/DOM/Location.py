@@ -18,7 +18,7 @@
 
 import logging
 
-import Window
+#import Window
 #from .Window import Window
 from .DFT import DFT
 from .W3C import *

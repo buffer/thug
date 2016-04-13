@@ -27,6 +27,7 @@ import PyV8
 import traceback
 import bs4 as BeautifulSoup
 import jsbeautifier
+import six
 from cssutils.parse import CSSParser
 
 try:
@@ -34,17 +35,16 @@ try:
 except ImportError:
     import urlparse
 
-try:
-    from . import Window
-except ImportError:
-    import Window
+#try:
+#    from . import Window
+#except ImportError:
+#    import Window
 
 from .W3C import *
 from .W3C.DOMImplementation import DOMImplementation
 from .W3C.Events.Event import Event
 from .W3C.Events.MouseEvent import MouseEvent
 from .W3C.Events.HTMLEvent import HTMLEvent
-from .compatibility import *
 from ActiveX.ActiveX import _ActiveXObject
 
 log        = logging.getLogger("Thug")
@@ -413,7 +413,7 @@ class DFT(object):
     def attach_event(self, elem, evt, h):
         handler = None
 
-        if isinstance(h, thug_string):
+        if isinstance(h, six.string_types):
             handler = self.build_event_handler(self.context, h)
             #PyV8.JSEngine.collect()
         elif isinstance(h, PyV8.JSFunction):

@@ -7,8 +7,8 @@ import string
 import logging
 
 try:
-    from .HTML import *
-except ValueError:
+    from DOM.W3C.HTML import *
+except ImportError:
     from HTML import *
 
 import bs4 as BeautifulSoup

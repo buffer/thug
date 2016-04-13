@@ -189,6 +189,8 @@ CLSID = [
             'name'      : (),
             'attrs'     : {
                             'data'                  : '',
+                            'width'                 : '1',
+                            'height'                : '1',
                           },
             'funcattrs' : {
                             'data'                  : DirectShow.Setdata,
@@ -309,7 +311,7 @@ CLSID = [
             'id'        : ( 'C36112BF-2FA3-4694-8603-3B510EA3B465', ),
             'name'      : ( 'fileuploader.fuploadctl.1', ),
             'attrs'     : {
-                            'HandWriterFilename'    : ''
+                            'HandwriterFilename'    : ''
                           },
             'funcattrs' : {
                             'HandwriterFilename'    :  FileUploader.SetHandwriterFilename,
@@ -496,7 +498,8 @@ CLSID = [
                             '85A4A99C-8C3D-499E-A386-E0743DFF8FB7',
                             'E9880553-B8A7-4960-A668-95C68BED571E',),
             'name'      : (),
-            'attrs'     : {},
+            'attrs'     : {
+                            'ScheduleInterval'      : 0},
             'funcattrs' : {},
             'methods'   : {
                             'Initialize'            : MacrovisionFlexNet.Initialize,
@@ -515,12 +518,14 @@ CLSID = [
         {
             'id'        : ( '00E1DB59-6EFD-4CE7-8C0A-2DA3BCAAD9C6',  ),
             'name'      : (),
-            'attrs'     : {},
+            'attrs'     : {
+                            'WksPictureInterface'       : 0,
+                          },
             'funcattrs' : {
                             'WksPictureInterface'       : MicrosoftWorks7Attack.SetWksPictureInterface,
                           },
             'methods'   : {
-                            'SetWksPictureInterface'    :  MicrosoftWorks7Attack.SetWksPictureInterface,
+                            'SetWksPictureInterface'    : MicrosoftWorks7Attack.SetWksPictureInterface,
                           }
         },
 
@@ -622,7 +627,8 @@ CLSID = [
         {
             'id'        : ( '48DD0448-9209-4F81-9F6D-D83562940134', ),
             'name'      : ( 'aurigma.imageuploader.4.1', ),
-            'attrs'     : {},
+            'attrs'     : {
+                            'Action'        : ''},
             'funcattrs' : {
                             'Action'        : MyspaceUploader.SetAction,
                           },
@@ -821,6 +827,9 @@ CLSID = [
             'name'      : (),
             'attrs'     : {
                             'url'       : '',
+                            'start'     : '',
+                            'fontsize'  : 14,
+                            'barcolor'  : 'EE4E00',
                           },
             'funcattrs' : {
                             'url'       : RediffBolDownloaderAttack.Seturl,
@@ -1319,7 +1328,9 @@ CLSID = [
                             'DCE2F8B1-A520-11D4-8FD0-00D0B7730277',
                             '7EC7B6C5-25BD-4586-A641-D2ACBB6629DD'),
             'name'      : (),
-            'attrs'     : {},
+            'attrs'     : {
+                            'server'                : ''
+                          },
             'funcattrs' : {
                             'server'                : YahooMessengerYwcvwr.Setserver,
                           },

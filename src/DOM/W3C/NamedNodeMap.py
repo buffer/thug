@@ -28,7 +28,7 @@ class NamedNodeMap(JSClass):
         self.parent.removeAttribute(name)
 
     def item(self, index):
-        names = self.parent.tag.attrMap.keys()
+        names = list(self.parent.tag.attrMap.keys())
         return self.parent.getAttributeNode(names[index]) if 0 <= index and index < len(names) else None
 
     @property

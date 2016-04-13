@@ -21,7 +21,7 @@ import os
 import logging
 import PyV8
 
-from zope.interface import implements
+from zope.interface import implementer
 from lxml.html import builder as E
 from lxml.html import tostring
 
@@ -56,9 +56,8 @@ log.setLevel(logging.WARN)
 __thug_version__ = '0.6.9'
 
 
+@implementer(IThugAPI)
 class ThugAPI:
-    implements(IThugAPI)
-
     def __init__(self, args, configuration_path = None):
         self.args               = args
         self.thug_version       = __thug_version__

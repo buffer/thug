@@ -28,6 +28,7 @@ import datetime
 import urllib
 import bs4 as BeautifulSoup
 import jsbeautifier
+import six
 from .W3C import *
 from .W3C.HTML.HTMLCollection import HTMLCollection
 from .JSClass import *
@@ -44,7 +45,6 @@ from .Console import Console
 from .Components import Components
 from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
-from .compatibility import *
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
 from Debugger import Shellcode
@@ -84,7 +84,7 @@ class Window(JSClass):
             log.debug(str(self.code))
 
             with self.window.context as ctx:
-                if isinstance(self.code, thug_string):
+                if isinstance(self.code, six.string_types):
                     return ctx.eval(self.code)
                 elif isinstance(self.code, PyV8.JSFunction):
                     return self.code()
@@ -641,7 +641,7 @@ class Window(JSClass):
         self._doRun(strCommand, 1)
 
     def _doRun(self, p, stage):
-        if not isinstance(p, str):
+        if not isinstance(p, six.string_types):
             return
 
         try:
