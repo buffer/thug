@@ -309,7 +309,7 @@ CLSID = [
             'id'        : ( 'C36112BF-2FA3-4694-8603-3B510EA3B465', ),
             'name'      : ( 'fileuploader.fuploadctl.1', ),
             'attrs'     : {
-                            'HandWriterFilename'    : ''
+                            'HandwriterFilename'    : ''
                           },
             'funcattrs' : {
                             'HandwriterFilename'    :  FileUploader.SetHandwriterFilename,
