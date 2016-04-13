@@ -496,7 +496,8 @@ CLSID = [
                             '85A4A99C-8C3D-499E-A386-E0743DFF8FB7',
                             'E9880553-B8A7-4960-A668-95C68BED571E',),
             'name'      : (),
-            'attrs'     : {},
+            'attrs'     : {
+                            'ScheduleInterval'      : 0},
             'funcattrs' : {},
             'methods'   : {
                             'Initialize'            : MacrovisionFlexNet.Initialize,
