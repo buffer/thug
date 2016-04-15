@@ -23,6 +23,7 @@ import struct
 import hashlib
 import logging
 import traceback
+import six
 import pylibemu
 from .Debugger import Debugger
 from DOM.W3C.Node import Node
@@ -123,7 +124,7 @@ class Shellcode(object):
                 if not s:
                     continue
 
-                if not isinstance(s, basestring):
+                if not isinstance(s, six.string_types):
                     continue
               
                 log.debug("[Shellcode] Testing variable: %s" % (name, ))
