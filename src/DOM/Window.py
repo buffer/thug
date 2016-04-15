@@ -641,7 +641,7 @@ class Window(JSClass):
         self._doRun(strCommand, 1)
 
     def _doRun(self, p, stage):
-        if not isinstance(p, str):
+        if not isinstance(p, six.string_types):
             return
 
         try:
