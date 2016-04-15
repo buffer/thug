@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
-import sys, re, string
+import sys
+import re
+import string
+import six
 
 import logging
 
@@ -156,7 +159,7 @@ class Element(Node, ElementCSSInlineStyle):
         return self.tag.name.upper()
     
     def getAttribute(self, name, flags = 0):
-        if not isinstance(name, basestring):
+        if not isinstance(name, six.string_types):
             name = str(name)
 
         if log.ThugOpts.Personality.isIE():
@@ -184,7 +187,7 @@ class Element(Node, ElementCSSInlineStyle):
         return self.tag[name] if self.tag.has_attr(name) else ""
 
     def setAttribute(self, name, value):
-        if not isinstance(name, basestring):
+        if not isinstance(name, six.string_types):
             name = str(name)
 
         self.tag[name] = value
