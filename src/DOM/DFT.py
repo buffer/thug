@@ -35,10 +35,10 @@ try:
 except ImportError:
     import urlparse
 
-try:
-    from . import Window
-except ImportError:
-    import Window
+#try:
+#    from . import Window
+#except ImportError:
+#    import Window
 
 from .W3C import *
 from .W3C.DOMImplementation import DOMImplementation
