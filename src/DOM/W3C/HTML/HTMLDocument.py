@@ -3,6 +3,7 @@
 import sys
 import re
 import string
+import six
 import logging
 
 log = logging.getLogger("Thug")
@@ -258,7 +259,7 @@ class HTMLDocument(Document):
         parent = tag.parent
         pos    = parent.contents.index(tag) + 1
 
-        if not isinstance(html, basestring):
+        if not isinstance(html, six.string_types):
             html = str(html)
 
         soup = BeautifulSoup.BeautifulSoup(html, "html5lib")
