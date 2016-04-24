@@ -134,7 +134,7 @@ class _ActiveXObject(object):
 
     def __getattr__(self, name):
         for key, value in self.__dict__.items():
-            if(key.lower() == name.lower()):
+            if key.lower() == name.lower():
                 return value
 
         if name not in ('__watchpoints__'):
