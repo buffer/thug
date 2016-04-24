@@ -39,6 +39,7 @@ class CCInterpreter(object):
             script = script.replace('@else', 'else')
             script = script.replace('/*@end', '')
             script = script.replace('@end', '')
+            script = script.replace('@_win64', 'false')
             script = script.replace('@_win32', 'true')
             script = script.replace('@_win16', 'false')
             script = script.replace('@*/', '')

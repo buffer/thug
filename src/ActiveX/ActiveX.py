@@ -41,7 +41,7 @@ class _ActiveXObject(object):
     shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10',
                         'shockwaveflash.shockwaveflash.9'  : '9' ,
                         'shockwaveflash.shockwaveflash.10' : '10',
-                        'shockwaveflash.shockwaveflash.11' : '11', 
+                        'shockwaveflash.shockwaveflash.11' : '11',
                         'shockwaveflash.shockwaveflash.12' : '12'}
 
     def __init__(self, window, cls, type = 'name'):
@@ -50,6 +50,7 @@ class _ActiveXObject(object):
         obj            = None
         methods        = dict()
         self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
+        self.cls       = cls
 
         if type == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':
@@ -131,15 +132,13 @@ class _ActiveXObject(object):
         if name in self.funcattrs:
             self.funcattrs[name](value)
 
-    #def __getattribute__(self, name):
-    #    if name in self.__dict__:
-    #        return self.__dict__[name]
-    #
-    #    log.warning("Unknown ActiveX Object attribute: %s" % (name, ))
-
     def __getattr__(self, name):
+        for key, value in self.__dict__.items():
+            if(key.lower() == name.lower()):
+                return value
+
         if name not in ('__watchpoints__'):
-            log.warning("Unknown ActiveX Object attribute: %s" % (name, ))
+            log.warning("Unknown ActiveX Object (%s) attribute: %s" % (self.cls, name, ))
 
         raise AttributeError
 

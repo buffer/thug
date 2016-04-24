@@ -49,6 +49,7 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     self.varAsync    = varAsync
     self.varUser     = varUser
     self.varPassword = varPassword
+    self.readyState  = 1
     return 0
 
 
@@ -81,8 +82,10 @@ def send(self, varBody = None):
     if response is None:
         return
 
+    self.status          = response.status_code
     self.responseHeaders = response.headers
     self.responseBody    = response.content
+    self.readyState      = 4
 
     contenttype = self.responseHeaders.get('content-type', None)
     if contenttype is None:
@@ -100,7 +103,7 @@ def send(self, varBody = None):
 
     handler = log.MIMEHandler.get_handler(contenttype)
     if handler:
-        handler(url, html)
+        handler(self.bstrUrl, self.responseBody)
 
 
 def setRequestHeader(self, bstrHeader, bstrValue):

@@ -548,16 +548,18 @@ CLSID = [
         # MicrosoftXMLHTTP
         {
             'id'        : (),
-            'name'      : ( 'msxml2.xmlhttp', 'microsoft.xmlhttp', ),
+            'name'      : ( 'msxml2.xmlhttp', 'microsoft.xmlhttp', 'msxml2.xmlhttp.6.0'),
             'attrs'     : {
                             'bstrMethod'       : '',
                             'bstrUrl'          : '',
                             'varAsync'         : True,
                             'varUser'          : None,
                             'varPassword'      : None,
+                            'status'           : 0,
                             'requestHeaders'   : {},
                             'responseHeaders'  : {},
                             'responseBody'     : '',
+                            'readyState'       : 4,
                           },
             'funcattrs' : {},
             'methods'   : {
@@ -1267,6 +1269,7 @@ CLSID = [
                             'Environment'               : WScriptShell.Environment,
                             'ExpandEnvironmentStrings'  : WScriptShell.ExpandEnvironmentStrings,
                             'CreateObject'              : WScriptShell.CreateObject,
+                            'Sleep'                     : WScriptShell.Sleep,
                           }
         },
 
@@ -1353,4 +1356,3 @@ CLSID = [
                           }
         },
 ]
-
