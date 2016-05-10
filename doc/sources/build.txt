@@ -11,8 +11,6 @@ Requirements
 * Google V8                
 * PyV8
 * Libemu
-* Yara
-* Yara-Python
 * MongoDB (optional)
 * Graphviz
 * RabbitMQ (optional)
@@ -22,6 +20,8 @@ Requirements
 * Jsbeautifier
 * Pylibemu
 * PEfile
+* Yara
+* Yara-Python
 * Lxml
 * Chardet                  
 * Requests
@@ -129,26 +129,6 @@ below
         $ sudo make install
 
 For additional details about installation please refer to the Libemu homepage.
-
-
-Yara
-^^^^
-
-Yara homepage is located at https://github.com/plusvic/yara
-
-If not available as a package for your Linux distribution, the best way
-to install Yara is compiling its source code. Please take a look at Yara
-documentation for details.
-
-
-Yara-Python
-^^^^^^^^^^^
-
-Yara-Python homepage is located at https://github.com/plusvic/yara-python
-
-If not available as a package for your Linux distribution, the best way
-to install Yara-Python is compiling its source code. Please take a look
-at Yara-Python documentation for details.
 
 
 MongoDB (optional)
@@ -296,6 +276,37 @@ Alternatively follow the procedure described below
 	$ git clone https://github.com/erocarrera/pefile.git
 	$ python setup.py build
 	$ sudo python setup.py install
+
+Yara
+^^^^
+
+Yara homepage is located at https://github.com/plusvic/yara
+
+If not available as a package for your Linux distribution, the best way
+to install Yara is compiling its source code. Please take a look at the 
+following paragraph about Yara-Python for additional details.
+documentation for details.
+
+
+Yara-Python
+^^^^^^^^^^^
+
+Yara-Python homepage is located at https://github.com/plusvic/yara-python
+
+If not available as a package for your Linux distribution, the best way
+to install Yara-Python is compiling its source code with the following 
+procedure 
+
+.. code-block:: sh
+
+	$ git clone --recursive https://github.com/plusvic/yara-python
+	$ cd yara-python
+	$ python setup.py build
+	$ sudo python setup.py install
+
+Notice the --recursive option used with git. This is important because we 
+need to download the yara subproject containing the source code for libyara 
+(the core YARA library).
 
 
 Lxml

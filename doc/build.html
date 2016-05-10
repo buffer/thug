@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build and Install &mdash; Thug 0.6.9 documentation</title>
+    <title>Build and Install &mdash; Thug 0.6.10 documentation</title>
     
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6.9',
+        VERSION:     '0.6.10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.6.9 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.6.10 documentation" href="index.html" />
     <link rel="next" title="Docker" href="docker.html" />
     <link rel="prev" title="Introduction" href="intro.html" />
    
@@ -48,8 +48,6 @@
 <li>Google V8</li>
 <li>PyV8</li>
 <li>Libemu</li>
-<li>Yara</li>
-<li>Yara-Python</li>
 <li>MongoDB (optional)</li>
 <li>Graphviz</li>
 <li>RabbitMQ (optional)</li>
@@ -59,6 +57,8 @@
 <li>Jsbeautifier</li>
 <li>Pylibemu</li>
 <li>PEfile</li>
+<li>Yara</li>
+<li>Yara-Python</li>
 <li>Lxml</li>
 <li>Chardet</li>
 <li>Requests</li>
@@ -151,20 +151,6 @@ $ sudo make install
 </pre></div>
 </div>
 <p>For additional details about installation please refer to the Libemu homepage.</p>
-</div>
-<div class="section" id="yara">
-<h3>Yara<a class="headerlink" href="#yara" title="Permalink to this headline">¶</a></h3>
-<p>Yara homepage is located at <a class="reference external" href="https://github.com/plusvic/yara">https://github.com/plusvic/yara</a></p>
-<p>If not available as a package for your Linux distribution, the best way
-to install Yara is compiling its source code. Please take a look at Yara
-documentation for details.</p>
-</div>
-<div class="section" id="yara-python">
-<h3>Yara-Python<a class="headerlink" href="#yara-python" title="Permalink to this headline">¶</a></h3>
-<p>Yara-Python homepage is located at <a class="reference external" href="https://github.com/plusvic/yara-python">https://github.com/plusvic/yara-python</a></p>
-<p>If not available as a package for your Linux distribution, the best way
-to install Yara-Python is compiling its source code. Please take a look
-at Yara-Python documentation for details.</p>
 </div>
 <div class="section" id="mongodb-optional">
 <h3>MongoDB (optional)<a class="headerlink" href="#mongodb-optional" title="Permalink to this headline">¶</a></h3>
@@ -270,6 +256,30 @@ $ python setup.py build
 $ sudo python setup.py install
 </pre></div>
 </div>
+</div>
+<div class="section" id="yara">
+<h3>Yara<a class="headerlink" href="#yara" title="Permalink to this headline">¶</a></h3>
+<p>Yara homepage is located at <a class="reference external" href="https://github.com/plusvic/yara">https://github.com/plusvic/yara</a></p>
+<p>If not available as a package for your Linux distribution, the best way
+to install Yara is compiling its source code. Please take a look at the
+following paragraph about Yara-Python for additional details.
+documentation for details.</p>
+</div>
+<div class="section" id="yara-python">
+<h3>Yara-Python<a class="headerlink" href="#yara-python" title="Permalink to this headline">¶</a></h3>
+<p>Yara-Python homepage is located at <a class="reference external" href="https://github.com/plusvic/yara-python">https://github.com/plusvic/yara-python</a></p>
+<p>If not available as a package for your Linux distribution, the best way
+to install Yara-Python is compiling its source code with the following
+procedure</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git clone --recursive https://github.com/plusvic/yara-python
+$ <span class="nb">cd</span> yara-python
+$ python setup.py build
+$ sudo python setup.py install
+</pre></div>
+</div>
+<p>Notice the &#8211;recursive option used with git. This is important because we
+need to download the yara subproject containing the source code for libyara
+(the core YARA library).</p>
 </div>
 <div class="section" id="lxml">
 <h3>Lxml<a class="headerlink" href="#lxml" title="Permalink to this headline">¶</a></h3>
