@@ -40,5 +40,5 @@ using Paypal (details at http://buffer.github.com/thug/).
 
 Copyright (C) 2011-2016 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
 
-License: GNU General Public License, version 2 or later; see COPYING.txt
+License: GNU General Public License, version 2; see COPYING.txt
          included in this archive for details.
