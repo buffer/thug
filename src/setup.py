@@ -14,7 +14,7 @@ sample_rules_path  = os.path.join(rules_path, "sampleclassifier")
 
 setup(
     name = "thug",
-    version = "0.6.9",
+    version = "0.6.10",
     author = "Angelo Dell'Aera",
     author_email = "buffer@antifork.org",
     description = "Low-interaction honeyclient Thug",
