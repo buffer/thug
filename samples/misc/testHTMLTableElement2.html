@@ -1,10 +1,11 @@
+<!DOCTYPE html>
 <html>
 <body>
-<script>
+<script type="text/javascript">
 
-function test(){
+function test() {
 
-	var Table	= document.createElement("TABLE");
+	var Table = document.createElement("TABLE");
 	Table.setAttribute("class","table");
 	alert(Table);
 
@@ -44,13 +45,13 @@ function test(){
 	Table.setAttribute("border", 1);
 	alert(Table);
 
-	for(i=0;i<rowdata.length; i++)
+	for(i=0; i < rowdata.length; i++)
 	{
     	var oBody = (i<2) ? TBody0 : TBody1;
     	Row = document.createElement("TR");
     	oBody.appendChild(Row);
 
-    	for(j=0;j<rowdata[i].length;j++)
+    	for(j=0; j < rowdata[i].length; j++)
     	{
         	Cell = document.createElement("TD");
         	Cell.innerHTML = rowdata[i][j];

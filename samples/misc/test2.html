@@ -1,10 +1,11 @@
-
+<!DOCTYPE html>
 <html>
-<body>
-
-<script type="text/javascript">
-alert("Java enabled: " + navigator.javaEnabled());
-</script>
-
-</body>
+  <head>
+    <title>Java enabled?</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      alert("Java enabled: " + (typeof(navigator.javaEnabled) == "function" ? navigator.javaEnabled() : false));
+    </script>
+  </body>
 </html>
