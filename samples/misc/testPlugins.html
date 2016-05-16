@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <html>
 <body>
     <script type="text/javascript">
-        function GetPluginsDesc() { 
+        function getPluginsDesc() {
             if ('plugins' in navigator) {
                 var plugins = navigator.plugins;
                 for (var i=0; i < plugins.length; i++) {
@@ -13,7 +14,7 @@
                 alert ("Your browser doesn't support this property!");
             }
         }
-	GetPluginsDesc();
+	getPluginsDesc();
     </script>
 </body>
 </html>

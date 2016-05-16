@@ -1,5 +1,6 @@
+<!DOCTYPE html>
 <html>
-<body>
+<head>
 <script language="javascript">
 function testAppendChild(){
 	var newElem = document.createElement("div");
@@ -18,8 +19,9 @@ function testAppendChild(){
 	alert(divs[1]);
 }
 
-testAppendChild();
+window.onload = testAppendChild;
 </script>
+</head>
 <body id="foobar">
 </body>
 </html>
