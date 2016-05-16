@@ -21,17 +21,16 @@ iOS 9.1) personalities are emulated and about 90 vulnerability modules (ActiveX 
 functionalities, browser plugins) are provided.
 
 
-.. [#f1] `W3C DOM Specifications <http://www.w3.org/TR/#tr_DOM>`_
+.. [#f1] `W3C DOM Specifications <https://www.w3.org/TR/#tr_DOM>`_
 
-.. [#f2] `Google V8 <http://code.google.com/p/v8/>`_ is Google's open source JavaScript engine. V8 is written in C++ and is used in Google Chrome, the open source browser from Google.
+.. [#f2] `Google V8 <https://bugs.chromium.org/p/v8/>`_ is Google's open source JavaScript engine. V8 is written in C++ and is used in Google Chrome, the open source browser from Google.
          V8 implements ECMAScript as specified in ECMA-262, 3rd edition, and runs on Windows XP and Vista, Mac OS X 10.5 (Leopard), and Linux systems that use IA-32 or ARM processors.
          V8 can run standalone, or can be embedded into any C++ application.
 
-.. [#f3] `PyV8 <http://code.google.com/p/pyv8/>`_ is a Python wrapper for the Google V8 engine. PyV8 acts as a bridge between the Python and JavaScript objects and supports the Google 
+.. [#f3] `PyV8 <https://github.com/buffer/pyv8>`_ is a Python wrapper for the Google V8 engine. PyV8 acts as a bridge between the Python and JavaScript objects and supports the Google
          V8 engine in Python scripts.
 
 .. [#f4] `Libemu <http://libemu.carnivore.it/>`_ is a small library written in C offering basic x86 emulation and shellcode detection using GetPC heuristics. It is designed to be used 
          within network intrusion/prevention detections and honeypots.
 
 .. [#f5] `Pylibemu <https://github.com/buffer/pylibemu>`_ is a Libemu Cython wrapper
-
