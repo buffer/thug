@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 import sys
 print ("Checking proper Thug installation...")
 try:
@@ -40,7 +41,7 @@ try:
     from androguard.core.analysis import analysis
 except ImportError:
     print("Androguard not found - APK analysis disabled")
-    print ("All requirements for Thug except Androguard are satisfied.")
+    print("All requirements for Thug except Androguard are satisfied.")
     sys.exit()
 
-print ("All requirements for Thug are satisfied.")
+print("All requirements for Thug are satisfied.")

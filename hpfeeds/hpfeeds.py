@@ -53,12 +53,16 @@ def msgauth(rand, ident, secret):
 class FeedUnpack(object):
 	def __init__(self):
 		self.buf = bytearray()
+
 	def __iter__(self):
 		return self
+
 	def next(self):
 		return self.unpack()
+
 	def feed(self, data):
 		self.buf.extend(data)
+
 	def unpack(self):
 		if len(self.buf) < 5:
 			raise StopIteration('No message.')
@@ -178,5 +182,6 @@ class HPC(object):
 		except: logger.warn('Socket exception when closing.')
 
 def new(host=None, port=10000, ident=None, secret=None, reconnect=True, sleepwait=20):
+        # TODO use or rm param sleepwait
 	return HPC(host, port, ident, secret, reconnect)
 
