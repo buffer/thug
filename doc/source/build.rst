@@ -48,7 +48,7 @@ Python
 
 Python 2.7 is required in order to properly run Thug. You may be lucky running it with
 Python 2.6 but please consider this version is not supported so issues related to Python 
-2.6 will be simply ignored. Python source code can be downloaded at http://www.python.org.
+2.6 will be simply ignored. Python source code can be downloaded at https://www.python.org.
 
 
 Boost
@@ -64,7 +64,7 @@ Google V8/PyV8
 ^^^^^^^^^^^^^^
   
 Google V8 is Google's open source JavaScript engine. V8 is written in C++ and is used
-in Google Chrome, the open source browser from Google. V8 implements ECMAScript as 
+in Chromium, the open source web browser from Google. V8 implements ECMAScript as
 specified in ECMA-262, 3rd edition, and runs on Windows XP and Vista, Mac OS X 10.5 
 (Leopard), and Linux systems that use IA-32 or ARM processors. V8 can run standalone, 
 or can be embedded into any C++ application.  
@@ -75,13 +75,13 @@ Python and JavaScript objects and supports the Google V8 engine in Python script
 In order to properly install Google V8 and PyV8 please follow the procedure described 
 below.
 
-1. Checkout V8 source code from SVN
+1. Clone V8 source code from Git
 
 .. code-block:: sh
 
-        $ svn checkout http://v8.googlecode.com/svn/trunk/ v8
+        $ git clone https://chromium.googlesource.com/v8/v8
 
-2. Clone PyV8 source code from GIT
+2. Clone PyV8 source code from Git
 
 .. code-block:: sh
 
@@ -134,7 +134,7 @@ For additional details about installation please refer to the Libemu homepage.
 MongoDB (optional)
 ^^^^^^^^^^^^^^^^^^
 
-MongoDB homepage is located at http://www.mongodb.org.
+MongoDB homepage is located at https://www.mongodb.org.
 
 Packages for most Linux distributions are available.
  
@@ -155,7 +155,7 @@ Packages for most Linux distributions are available.
 RabbitMQ (optional)
 ^^^^^^^^^^^^^^^^^^^
 
-RabbitMQ homepage is located at http://www.rabbitmq.com/. RabbitMQ is a high-performance
+RabbitMQ homepage is located at https://www.rabbitmq.com/. RabbitMQ is a high-performance
 AMQP-compliant message broker written in Erlang and it's needed just if you want to play
 with Thug distributed mode.
 
@@ -192,7 +192,7 @@ BeautifulSoup4
 ^^^^^^^^^^^^^^
 
 BeautifulSoup4 is a Python library for pulling data out of HTML and XML files. BeautifulSoup4 source 
-code can be downloaded at http://www.crummy.com/software/BeautifulSoup/.
+code can be downloaded at https://www.crummy.com/software/BeautifulSoup/.
 
 If not available as a package for your Linux distribution, the best way to install BeautifulSoup4 is 
 through pip.
@@ -207,7 +207,7 @@ Html5lib
 
 Html5lib is a Python and PHP implementations of a HTML parser based on the WHATWG HTML5 specification 
 for maximum compatibility with major desktop web browsers. Html5lib source code can be downloaded at 
-http://code.google.com/p/html5lib/.
+https://github.com/html5lib/.
 
 If not available as a package for your Linux distribution, the best way to install html5lib is through 
 pip. 
@@ -326,7 +326,7 @@ If not available as a package for your Linux distribution, the best way to insta
 Chardet
 ^^^^^^^
 
-Chardet is a universal encoding detector. Chardet homepage is located at http://pypi.python.org/pypi/chardet.
+Chardet is a universal encoding detector. Chardet homepage is located at https://pypi.python.org/pypi/chardet.
 
 If not available as a package for your Linux distribution, the best way to install chardet is through pip.
 
@@ -364,7 +364,7 @@ If not available as a package for your Linux distribution, the best way to insta
 Cssutils
 ^^^^^^^^
 
-Cssutils is a CSS Cascading Style Sheets library for Python. Cssutils homepage is located at http://pypi.python.org/pypi/cssutils.
+Cssutils is a CSS Cascading Style Sheets library for Python. Cssutils homepage is located at https://pypi.python.org/pypi/cssutils.
 
 If not available as a package for your Linux distribution, the best way to install cssutils is through pip.
 
@@ -377,7 +377,7 @@ If not available as a package for your Linux distribution, the best way to insta
 Zope Interface
 ^^^^^^^^^^^^^^
 
-Zope Interface homepage is located at http://pypi.python.org/pypi/zope.interface.
+Zope Interface homepage is located at https://pypi.python.org/pypi/zope.interface.
 
 If not available as a package for your Linux distribution, the best way to install zope.interface is 
 through pip.
@@ -435,7 +435,7 @@ which is packaged through apt.
 Rarfile
 ^^^^^^^
 
-Rarfile homepage is located at http://rarfile.berlios.de/.
+Rarfile homepage is located at https://github.com/markokr/rarfile.
 
 If not available as a package for your Linux distribution, the best way to install rarfile is through pip.
 
@@ -463,7 +463,7 @@ If not available as a package for your Linux distribution, the best way to insta
 PyMongo (optional)
 ^^^^^^^^^^^^^^^^^^
 
-PyMongo homepage is located at http://www.mongodb.org/display/DOCS/Python+Language+Center.
+PyMongo homepage is located at https://www.mongodb.org/display/DOCS/Python+Language+Center.
 
 If not available as a package for your Linux distribution, the best way to install pymongo is through pip.
 
