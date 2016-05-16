@@ -16,7 +16,7 @@ web browser in order to detect and emulate malicious contents.
 ## Documentation
 
 Documentation about Thug installation and usage can be found in the source
-tree or alternatively at http://buffer.github.com/thug/
+tree or alternatively at https://buffer.github.com/thug/
 
 
 ## Support
@@ -33,7 +33,7 @@ tree or alternatively at http://buffer.github.com/thug/
 
 Thug is open source and free to use for any purpose (even commercial ones). If
 you use and appreciate Thug, consider supporting the project with a donation
-using Paypal (details at http://buffer.github.com/thug/).
+using Paypal (details at https://buffer.github.com/thug/).
 
 
 ## License information
