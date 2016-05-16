@@ -46,6 +46,7 @@ class Thugd():
 
         @configfile: The configfile to use
         """
+
         self.host   = "localhost"
         self.queue  = "thugctrl"
         self.rhost  = "localhost"
@@ -84,13 +85,14 @@ class Thugd():
         channel.start_consuming()
 
     def runProcess(self, exe):
-        p = subprocess.Popen(exe, stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT)
+        p = subprocess.Popen(exe,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
         while(True):
             retcode = p.poll()
             line = p.stdout.readline()
             yield line
-            if(retcode is not None):
+            if retcode is not None:
                 break
 
     def send_results(self, data):
@@ -126,21 +128,22 @@ class Thugd():
         """
         Execute thug to process a job
         """
+
         print("job" + str(job))
 
         print os.getcwd()
 
         command = ["python", "thug.py", "-t", str(job["threshold"])]
 
-        if job["extensive"]:
+        if "extensive" in job and job["extensive"]:
             command.append("-E")
-        if job["timeout"]:
+        if "timeout" in job and job["timeout"]:
             command.append("-T")
             command.append(str(job["timeout"]))
-        if job["referer"]:
+        if "referer" in job and job["referer"]:
             command.append("-r")
             command.append(job["referer"])
-        if job["proxy"]:
+        if "proxy" in job and job["proxy"]:
             command.append("-p")
             command.append(job["proxy"])
 
@@ -151,7 +154,7 @@ class Thugd():
 
         for line in self.runProcess(command):
             if line.startswith("["):
-                print line,
+                print(line)
 
             if line.find("] Saving log analysis at ") >= 0:
                 pathname = line.split(" ")[-1].strip()
@@ -163,6 +166,7 @@ class Thugd():
         self.send_results(res)
 
     def callback(self, ch, method, properties, body):
+        # TODO use or rm param properties
         print("[x] Received %r" % (body, ))
 
         if not self.clear:

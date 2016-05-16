@@ -93,6 +93,7 @@ class ThugCollect():
         print data
 
     def callback(self, ch, method, properties, body):
+        # TODO use or rm param properties
         self.process(json.loads(body))
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
