@@ -10,6 +10,7 @@ import argparse
 import pika
 import sys
 import json
+import six
 
 try:
     from configparser import ConfigParser
@@ -107,7 +108,7 @@ class Thugd():
                               body        = message,
                               properties  = pika.BasicProperties(delivery_mode = 2,))
 
-        print ("[x] Sent %r" % (message,))
+        print("[x] Sent %r" % (message,))
         connection.close()
 
     def copy_to_result(self, frompath, job):
@@ -127,8 +128,7 @@ class Thugd():
         Execute thug to process a job
         """
         print("job" + str(job))
-
-        print os.getcwd()
+        print(os.getcwd())
 
         command = ["python", "thug.py", "-t", str(job["threshold"])]
 
@@ -151,7 +151,7 @@ class Thugd():
 
         for line in self.runProcess(command):
             if line.startswith("["):
-                print line,
+                six.print_(line, end = " ")
 
             if line.find("] Saving log analysis at ") >= 0:
                 pathname = line.split(" ")[-1].strip()
