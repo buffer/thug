@@ -24,7 +24,6 @@
 #     module into such module
 #   - Converted to YARA rules
 
-import os
 import logging
 from .BaseClassifier import BaseClassifier
 
