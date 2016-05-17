@@ -5,7 +5,7 @@
 #    http://peepdf.eternal-todo.com
 #    By Jose Miguel Esparza <jesparza AT eternal-todo.com>
 #
-#    Copyright (C) 2011-2015 Jose Miguel Esparza
+#    Copyright (C) 2011-2017 Jose Miguel Esparza
 #
 #    This file is part of peepdf.
 #
@@ -362,7 +362,7 @@ url = 'http://peepdf.eternal-todo.com'
 twitter = 'http://twitter.com/EternalTodo'
 peepTwitter = 'http://twitter.com/peepdf'
 version = '0.3'
-revision = '264'
+revision = '275'
 stats = ''
 pdf = None
 fileName = None
@@ -403,6 +403,8 @@ argsParser.add_option('-x', '--xml', action='store_true', dest='xmlOutput', defa
                       help='Shows the document information in XML format.')
 argsParser.add_option('-j', '--json', action='store_true', dest='jsonOutput', default=False,
                       help='Shows the document information in JSON format.')
+argsParser.add_option('-C', '--command', action='append', type='string', dest='commands',
+                      help='Specifies a command from the interactive console to be executed.')
 (options, args) = argsParser.parse_args()
 
 try:
@@ -522,7 +524,7 @@ try:
                 errorMessage = '*** Error: Exception while generating the XML file!!'
                 traceback.print_exc(file=open(errorsFile, 'a'))
                 raise Exception('PeepException', 'Send me an email ;)')
-        elif options.jsonOutput:
+        elif options.jsonOutput and not options.commands:
             try:
                 jsonReport = getPeepJSON(statsDict, version, revision)
                 sys.stdout.write(jsonReport)
@@ -536,7 +538,7 @@ try:
                     init()
                 except:
                     COLORIZED_OUTPUT = False
-            if options.scriptFile != None:
+            if options.scriptFile is not None:
                 from PDFConsole import PDFConsole
 
                 scriptFileObject = open(options.scriptFile, 'rb')
@@ -548,8 +550,19 @@ try:
                     scriptFileObject.close()
                     traceback.print_exc(file=open(errorsFile, 'a'))
                     raise Exception('PeepException', 'Send me an email ;)')
+            elif options.commands is not None:
+                from PDFConsole import PDFConsole
+
+                console = PDFConsole(pdf, VT_KEY, options.avoidColors)
+                try:
+                    for command in options.commands:
+                        console.onecmd(command)
+                except:
+                    errorMessage = '*** Error: Exception not handled using the batch commands!!'
+                    traceback.print_exc(file=open(errorsFile, 'a'))
+                    raise Exception('PeepException', 'Send me an email ;)')
             else:
-                if statsDict != None:
+                if statsDict is not None:
                     if COLORIZED_OUTPUT and not options.avoidColors:
                         beforeStaticLabel = staticColor
                     else:
@@ -665,12 +678,12 @@ try:
                             stats += newLine + beforeStaticLabel + '\tSuspicious elements:' + resetColor + newLine
                             if events != None:
                                 for event in events:
-                                    stats += '\t\t' + beforeStaticLabel + event + ': ' + resetColor + str(
-                                        events[event]) + newLine
+                                    stats += '\t\t' + beforeStaticLabel + event + ' (%d): ' % len(events[event]) + \
+                                             resetColor + str(events[event]) + newLine
                             if actions != None:
                                 for action in actions:
-                                    stats += '\t\t' + beforeStaticLabel + action + ': ' + resetColor + str(
-                                        actions[action]) + newLine
+                                    stats += '\t\t' + beforeStaticLabel + action + ' (%d): ' % len(actions[action]) + \
+                                             resetColor + str(actions[action]) + newLine
                             if vulns != None:
                                 for vuln in vulns:
                                     if vulnsDict.has_key(vuln):
@@ -679,10 +692,10 @@ try:
                                         stats += '\t\t' + beforeStaticLabel + vulnName + ' ('
                                         for vulnCVE in vulnCVEList:
                                             stats += vulnCVE + ','
-                                        stats = stats[:-1] + '): ' + resetColor + str(vulns[vuln]) + newLine
+                                        stats = stats[:-1] + ') (%d): ' % len(vulns[vuln]) + resetColor + str(vulns[vuln]) + newLine
                                     else:
-                                        stats += '\t\t' + beforeStaticLabel + vuln + ': ' + resetColor + str(
-                                            vulns[vuln]) + newLine
+                                        stats += '\t\t' + beforeStaticLabel + vuln + ' (%d): ' % len(vulns[vuln]) + \
+                                                 resetColor + str(vulns[vuln]) + newLine
                             if elements != None:
                                 for element in elements:
                                     if vulnsDict.has_key(element):
