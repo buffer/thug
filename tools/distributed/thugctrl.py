@@ -8,9 +8,17 @@ Send commands to Thug
 import argparse
 import pika
 import json
-from ConfigParser import ConfigParser
-from urlparse import urlparse
 import datetime
+
+try:
+    import configparser as ConfigParser
+except ImportError:
+    import ConfigParser
+
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 
 
 class ThugCtrl():
@@ -59,7 +67,7 @@ class ThugCtrl():
                               properties=pika.BasicProperties(
                                  delivery_mode=2,
                               ))
-        print " [x] Sent %r" % (message,)
+        print(" [x] Sent %r" % (message,))
         connection.close()
 
     def process(self, url):
@@ -68,7 +76,7 @@ class ThugCtrl():
 
         if url.find("://") < 0:
             url = "http://" + url
-        o = urlparse(url)
+        o = urlparse.urlparse(url)
 
         jid = o.netloc + "_" + datetime.datetime.now().strftime(
             "%Y_%m_%d__%H_%M_%S")
@@ -80,7 +88,7 @@ class ThugCtrl():
                 "proxy": self.proxy,
                 "timeout": self.timeout
                 }
-        print data
+        print(data)
 
         self.send_command(data)
 
@@ -90,7 +98,7 @@ class ThugCollect():
     """
 
     def process(self, data):
-        print data
+        print(data)
 
     def callback(self, ch, method, properties, body):
         self.process(json.loads(body))
@@ -113,8 +121,8 @@ class ThugCollect():
         channel = connection.channel()
 
         channel.queue_declare(queue=self.rqueue, durable=True)
-        print ' [*] Waiting for messages on %s %s To exit press CTRL+C' % (
-            self.rhost, self.rqueue)
+        print(' [*] Waiting for messages on %s %s To exit press CTRL+C' % (
+            self.rhost, self.rqueue))
 
         channel.basic_qos(prefetch_count=1)
         channel.basic_consume(lambda c, m, p, b: self.callback(c, m, p, b),
