@@ -28,7 +28,7 @@ try:
     import ssdeep
     import yara
     import zope.interface
-except ImportError, error:
+except ImportError as error:
     print(error)
     print("Make sure to install above packages before running Thug.")
     sys.exit(-1)
