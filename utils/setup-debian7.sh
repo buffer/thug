@@ -36,8 +36,8 @@ cd ..
 
 # Libemu
 
-echo "Please wait, cloning git repo for [git://git.carnivore.it/libemu.git] ..."
-git clone git://git.carnivore.it/libemu.git
+echo "Please wait, cloning git repo for [https://github.com/buffer/libemu.git] ..."
+git clone https://github.com/buffer/libemu.git
 
 echo "Configuring libemu ..."
 cd libemu
