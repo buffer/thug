@@ -82,8 +82,8 @@ echo "Installing python libraries (beautifulsoup4, html5lib)..."
 pip install beautifulsoup4 1>>setup-osx.log
 pip install html5lib 1>>setup-osx.log
 
-echo 'Please wait, cloning git repo for [git://git.carnivore.it/libemu.git]...'
-git clone git://git.carnivore.it/libemu.git 1>>setup-osx.log
+echo 'Please wait, cloning git repo for [https://github.com/buffer/libemu.git]...'
+git clone https://github.com/buffer/libemu.git 1>>setup-osx.log
 
 echo "Configuring libemu..."
 cd libemu

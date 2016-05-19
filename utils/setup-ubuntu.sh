@@ -40,8 +40,8 @@ sudo pip install html5lib 1>>setup-ubuntu.log
 
 
 
-echo 'Please wait, cloning git repo for [git://git.carnivore.it/libemu.git]...'
-git clone git://git.carnivore.it/libemu.git 1>>setup-ubuntu.log
+echo 'Please wait, cloning git repo for [https://github.com/buffer/libemu.git]...'
+git clone https://github.com/buffer/libemu.git 1>>setup-ubuntu.log
 
 echo "Configuring libemu..."
 cd libemu
@@ -105,7 +105,7 @@ echo "Installing python library: jsbeautifier..."
 sudo pip install jsbeautifier 1>>setup-ubuntu.log
 
 echo "Installing python library: yara..."
-sudo pip install yara 1>>setup--ubuntu.log
+sudo pip install yara 1>>setup-ubuntu.log
 
 echo -n "Install MongoDB?(y/n): "
 read response
