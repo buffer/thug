@@ -53,7 +53,7 @@ from Classifier import SampleClassifier
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
 
-__thug_version__ = '0.6.10'
+__thug_version__ = '0.7'
 
 
 @implementer(IThugAPI)
