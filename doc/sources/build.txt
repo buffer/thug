@@ -75,36 +75,10 @@ Python and JavaScript objects and supports the Google V8 engine in Python script
 In order to properly install Google V8 and PyV8 please follow the procedure described 
 below.
 
-1. Checkout V8 source code from SVN
-
-.. code-block:: sh
-
-        $ svn checkout http://v8.googlecode.com/svn/trunk/ v8
-
-2. Clone PyV8 source code from GIT
-
 .. code-block:: sh
 
         $ git clone https://github.com/buffer/pyv8.git
-
-3. Set the environment variable V8_HOME with the V8 source code
-   absolute path (you need to change the value reported below)
-
-.. code-block:: sh
-
-        $ export V8_HOME=/home/buffer/v8
-
-4. Move to PyV8 source code directory
-
-.. code-block:: sh
-
         $ cd pyv8
-
-5. Build and install (PyV8 setup.py will properly install both V8
-   and PyV8)
-
-.. code-block:: sh
-
         ~/pyv8 $ python setup.py build
         ~/pyv8 $ sudo python setup.py install
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build and Install &mdash; Thug 0.6.10 documentation</title>
+    <title>Build and Install &mdash; Thug 0.7 documentation</title>
     
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.6.10',
+        VERSION:     '0.7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.6.10 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.7 documentation" href="index.html" />
     <link rel="next" title="Docker" href="docker.html" />
     <link rel="prev" title="Introduction" href="intro.html" />
    
@@ -101,36 +101,9 @@ or can be embedded into any C++ application.</p>
 Python and JavaScript objects and supports the Google V8 engine in Python scripts.</p>
 <p>In order to properly install Google V8 and PyV8 please follow the procedure described
 below.</p>
-<ol class="arabic simple">
-<li>Checkout V8 source code from SVN</li>
-</ol>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>$ svn checkout http://v8.googlecode.com/svn/trunk/ v8
-</pre></div>
-</div>
-<ol class="arabic simple" start="2">
-<li>Clone PyV8 source code from GIT</li>
-</ol>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>$ git clone https://github.com/buffer/pyv8.git
-</pre></div>
-</div>
-<ol class="arabic simple" start="3">
-<li>Set the environment variable V8_HOME with the V8 source code
-absolute path (you need to change the value reported below)</li>
-</ol>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">V8_HOME</span><span class="o">=</span>/home/buffer/v8
-</pre></div>
-</div>
-<ol class="arabic simple" start="4">
-<li>Move to PyV8 source code directory</li>
-</ol>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> pyv8
-</pre></div>
-</div>
-<ol class="arabic simple" start="5">
-<li>Build and install (PyV8 setup.py will properly install both V8
-and PyV8)</li>
-</ol>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/pyv8 $ python setup.py build
+$ <span class="nb">cd</span> pyv8
+~/pyv8 $ python setup.py build
 ~/pyv8 $ sudo python setup.py install
 </pre></div>
 </div>
