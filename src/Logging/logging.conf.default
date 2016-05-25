@@ -1,16 +1,15 @@
 [hpfeeds]
-enable:		True
+enable:		False
 host:		hpfeeds.honeycloud.net
 port:		10000
 ident:		q6jyo@hp1
 secret:		edymvouqpfe1ivud
 
 [mongodb]
-enable:		False
-host:		localhost
-port:		27017
+enable:     False
+host:		mongodb://localhost:27018
 
 [elasticsearch]
-enable:		True
+enable:		False
 url:		http://192.168.56.101:9200
 index:		thug
