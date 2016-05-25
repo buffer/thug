@@ -67,7 +67,7 @@ class MongoDB(object):
 
         if log.ThugOpts.mongodb_address:
             try:
-                (self.opts['host'], self.opts['port']) = log.ThugOpts.mongodb_address.split(':', 1)
+                self.opts['host'] = log.ThugOpts.mongodb_address
                 self.opts['enable'] = 'True'
                 return True
             except:
@@ -110,7 +110,7 @@ class MongoDB(object):
             client = getattr(pymongo, 'Connection', None)
 
         try:
-            connection = client(self.opts['host'], int(self.opts['port']))
+            connection = client(self.opts['host'])
         except:
             log.warning('[MongoDB] MongoDB instance not available')
             self.enabled = False
