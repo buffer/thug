@@ -84,4 +84,4 @@ def Sleep(self, intTime):
 
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Sleep (%s)" % (intTime))
 
-    time.sleep(intTime * 0.01)
+    time.sleep(intTime * 0.001)
