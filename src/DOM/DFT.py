@@ -95,6 +95,10 @@ class DFT(object):
 
     window_on_events = ['on' + e for e in window_events]
 
+    window_storage_events = ('storage', )
+    window_on_storage_events = ['on' + e for e in window_storage_events]
+
+
     def __init__(self, window):
         self.window            = window
         self.window.doc.DFT    = self
@@ -343,8 +347,14 @@ class DFT(object):
                 elem._node.dispatchEvent(evt)
                 self.dispatched_events.add((elem._node, evt))
 
-    def handle_window_event(self, onevt):
+    def handle_window_storage_event(self, onevt, evtObject):
         if onevt in self.handled_on_events:
+            handler = getattr(self.window, onevt, None)
+            if handler:
+                handler(evtObject)
+
+    def handle_window_event(self, onevt):
+        if onevt in self.handled_on_events and onevt not in self.window_on_storage_events:
             handler = getattr(self.window, onevt, None)
             if handler:
                 evtObject = self.get_evtObject(self.window, onevt[2:])
