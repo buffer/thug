@@ -45,6 +45,7 @@ from .Console import Console
 from .Components import Components
 from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
+from .Storage import Storage
 from ActiveX.ActiveX import _ActiveXObject
 from AST.AST import AST
 from Debugger import Shellcode
@@ -755,8 +756,9 @@ class Window(JSClass):
             self.addEventListener    = self._addEventListener
             self.removeEventListener = self._removeEventListener
 
-        if log.ThugOpts.Personality.browserMajorVersion in (8, ):
-            self.Storage = object()
+        if log.ThugOpts.Personality.browserMajorVersion >= 8:
+            self.localStorage   = Storage()
+            self.sessionStorage = Storage()
 
         self.doc.parentWindow = self._parent
 
@@ -767,6 +769,8 @@ class Window(JSClass):
         self.sidebar             = Sidebar()
         self.Components          = Components()
         self.console             = Console()
+        self.localStorage        = Storage()
+        self.sessionStorage      = Storage()
 
     def __init_personality_Chrome(self):
         self.addEventListener    = self._addEventListener
@@ -775,12 +779,16 @@ class Window(JSClass):
         self.external            = External()
         self.chrome              = Chrome()
         self.console             = Console()
+        self.localStorage        = Storage()
+        self.sessionStorage      = Storage()
 
     def __init_personality_Safari(self):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.clientInformation   = self.navigator
         self.console             = Console()
+        self.localStorage        = Storage()
+        self.sessionStorage      = Storage()
 
     def __init_personality_Opera(self):
         self.addEventListener    = self._addEventListener
@@ -788,6 +796,8 @@ class Window(JSClass):
         self.opera               = Opera()
         self.doc.parentWindow    = self._parent
         self.console             = Console()
+        self.localStorage        = Storage()
+        self.sessionStorage      = Storage()
 
     def eval(self, script):
         if script is None:
