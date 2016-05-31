@@ -43,6 +43,9 @@ class Storage(OrderedDict):
         except KeyError:
             return None
 
+    def __setitem__(self, key, value):
+        self.setItem(key, value)
+
     def setItem(self, key, value):
         oldvalue = getattr(self, key, None)
         super(Storage, self).__setitem__(key, value)
@@ -58,6 +61,9 @@ class Storage(OrderedDict):
                                    self)
         
         log.DFT.handle_window_storage_event('onstorage', evtObject)
+
+    def __delitem__(self, key):
+        self.removeItem(key)
 
     def removeItem(self, key):
         oldvalue = getattr(self, key, None)
@@ -77,6 +83,7 @@ class Storage(OrderedDict):
 
     def clear(self):
         super(Storage, self).clear()
+        self.__init__()
 
         evtObject = StorageEvent('storage', log.DFT.window)
         evtObject.initStorageEvent('storage',
@@ -89,4 +96,3 @@ class Storage(OrderedDict):
                                    self)
    
         log.DFT.handle_window_storage_event('onstorage', evtObject)
-
