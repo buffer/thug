@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script type="text/javascript">
+	  window.addEventListener('storage', function(e) {
+			  alert("Fired!");
+	  });
+      localStorage.setItem('key1', 'value1');
+	  localStorage.setItem('key2', 'value2');
+      alert(localStorage.length);
+	  alert(localStorage.key(1));
+	  alert(localStorage.key(2));
+	  alert(localStorage.key(100));
+	  alert(localStorage.getItem('key1'));
+	  alert(localStorage.getItem('key2'));
+	  alert(localStorage.getItem('key100'));
+	  localStorage.clear();
+	  alert(localStorage.length);
+	  localStorage.setItem('key123', 'value123');
+	  alert(localStorage.length);
+	  localStorage['foo'] = 'bar';
+	  localStorage.north = 'south';
+	  alert(localStorage.length);
+	  alert(localStorage.getItem('foo'));
+	  alert(localStorage.getItem('north'));
+    </script>
+</body>
+</html
