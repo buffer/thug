@@ -827,8 +827,8 @@ class Window(JSClass):
                 ctxt.eval(open(thug_js, 'r').read())
 
                 if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 8:
-                    sessionstorage_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sessionStorage.js")
-                    ctxt.eval(open(sessionstorage_js, 'r').read())
+                    storage_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "storage.js")
+                    ctxt.eval(open(storage_js, 'r').read())
 
                 PyV8.JSEngine.collect()
 
