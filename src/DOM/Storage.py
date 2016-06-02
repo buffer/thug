@@ -47,7 +47,7 @@ class Storage(OrderedDict):
         self.setItem(key, value)
 
     def setItem(self, key, value):
-        oldvalue = getattr(self, key, None)
+        oldvalue = self[key] if key in self else None
         super(Storage, self).__setitem__(key, value)
 
         evtObject = StorageEvent('storage', log.DFT.window)
@@ -66,7 +66,7 @@ class Storage(OrderedDict):
         self.removeItem(key)
 
     def removeItem(self, key):
-        oldvalue = getattr(self, key, None)
+        oldvalue = self[key] if key in self else None
         super(Storage, self).__delitem__(key)
 
         evtObject = StorageEvent('storage', log.DFT.window)
