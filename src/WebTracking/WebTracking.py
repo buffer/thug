@@ -17,17 +17,36 @@
 # MA  02111-1307  USA
 
 from .Cookies import Cookies
+from .WebStorage import WebStorage
 
 import logging
 log = logging.getLogger("Thug")
 
-
 class WebTracking(object):
     def __init__(self):
-        self.cookies = Cookies()
+        self.cookies    = Cookies()
+        self.webstorage = WebStorage()
 
     def inspect_response(self, response):
         if not log.ThugOpts.web_tracking:
             return
 
         self.cookies.inspect(response)
+
+    def inspect_storage_setitem(self, storage, key, value):
+        if not log.ThugOpts.web_tracking:
+            return
+
+        self.webstorage.inspect_set_item(storage, key, value)
+
+    def inspect_storage_removeitem(self, storage, key):
+        if not log.ThugOpts.web_tracking:
+            return
+
+        self.webstorage.inspect_remove_item(storage, key)
+
+    def inspect_storage_clear(self, storage):
+        if not log.ThugOpts.web_tracking:
+            return
+
+        self.webstorage.inspect_clear(storage)

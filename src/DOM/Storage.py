@@ -49,6 +49,7 @@ class Storage(OrderedDict):
     def setItem(self, key, value):
         oldvalue = self[key] if key in self else None
         super(Storage, self).__setitem__(key, value)
+        log.WebTracking.inspect_storage_setitem(self, key, value)
 
         evtObject = StorageEvent('storage', log.DFT.window)
         evtObject.initStorageEvent('storage',
@@ -68,6 +69,7 @@ class Storage(OrderedDict):
     def removeItem(self, key):
         oldvalue = self[key] if key in self else None
         super(Storage, self).__delitem__(key)
+        log.WebTracking.inspect_storage_removeitem(self, key)
 
         evtObject = StorageEvent('storage', log.DFT.window)
         evtObject.initStorageEvent('storage',
@@ -84,6 +86,7 @@ class Storage(OrderedDict):
     def clear(self):
         super(Storage, self).clear()
         self.__init__()
+        log.WebTracking.inspect_storage_clear(self)
 
         evtObject = StorageEvent('storage', log.DFT.window)
         evtObject.initStorageEvent('storage',
