@@ -376,7 +376,7 @@ class Node(JSClass, EventTarget):
    
     # Introduced in DOM Level 3
     def _compareDocumentPosition(self, node):
-       return None
+        return None
 
     #@abstractmethod
     def cloneNode(self, deep):
