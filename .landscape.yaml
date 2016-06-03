@@ -1,0 +1,6 @@
+strictness: medium
+autodetect: yes
+ignore-paths:
+  - src/Analysis/peepdf/
+  - src/Logging/modules/MITRE/MAEC_v1_1.py
+  - src/Logging/modules/MITRE/MAEC_v4_0.py
