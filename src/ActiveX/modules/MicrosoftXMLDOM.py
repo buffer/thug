@@ -32,7 +32,7 @@ class Node(etree.ElementBase):
     def setNodeTypedValue(self, value):
         try:
             if self.dataType == 'bin.base64':
-                    self.text = base64.b64encode(value)
+                self.text = base64.b64encode(value)
             elif self.dataType == 'bin.hex':
                 self.text = binascii.hexlify(value)
             else:
