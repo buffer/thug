@@ -142,10 +142,10 @@ class MongoDB(object):
         self.urls.ensure_index('url', unique = True)
 
     def make_counter(self, p):
-        id = p
+        _id = p
         while True:
-            yield id
-            id += 1
+            yield _id
+            _id += 1
 
     def __get_url(self, url):
         entry = self.urls.find_one({'url': url})
