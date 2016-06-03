@@ -5,6 +5,7 @@ import re
 import string
 import logging
 import site
+import six
 
 import bs4 as BeautifulSoup
 from .DOMImplementation import DOMImplementation
@@ -16,7 +17,7 @@ def parseString(html, **kwds):
     return DOMImplementation(BeautifulSoup.BeautifulSoup(html, "html.parser"), **kwds)
     
 def parse(file, **kwds):
-    if isinstance(file, StringTypes):
+    if isinstance(file, six.string_types):
         with open(file, 'r') as f:
             return parseString(f.read())
     
