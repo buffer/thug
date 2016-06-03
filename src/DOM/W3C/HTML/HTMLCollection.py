@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
-import sys, re, string
+import sys
+import os
+import string
 
-import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 from DOM.JSClass import JSClass
