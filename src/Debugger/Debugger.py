@@ -41,7 +41,7 @@ class Debugger(PyV8.JSDebugger):
         log.debug("Debug message: %s" % (msg, ))
        
         if msg['type'] == 'event' and msg['event'] == 'break':
-           self.stepNext()
+            self.stepNext()
         return True
 
     def onDebugEvent(self, type, state, evt):
@@ -66,7 +66,7 @@ class Debugger(PyV8.JSDebugger):
         return True
 
     def processDebugEvent(self, evt):
-        log.debug("Received debug event: %s", repr(event))
+        log.debug("Received debug event: %s", repr(evt))
 
     def onBreak(self):
         log.debug("onBreak")
