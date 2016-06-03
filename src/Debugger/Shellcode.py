@@ -16,17 +16,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import os
-import PyV8 
-import string
-import struct
-import hashlib
 import logging
 import traceback
 import six
 import pylibemu
 from .Debugger import Debugger
-from DOM.W3C.Node import Node
 
 log = logging.getLogger("Thug")
 
@@ -110,7 +104,6 @@ class Shellcode(object):
             except:
                 trace = traceback.format_exc()
             finally:
-                #PyV8.JSEngine.collect()
                 if trace:
                     log.ThugLogging.log_warning(trace)
                     return None
@@ -132,7 +125,7 @@ class Shellcode(object):
 
                 if self.emu.emu_profile_output:
                     log.ThugLogging.add_code_snippet(self.emu.emu_profile_output, 'Assembly', 'Shellcode')
-                    log.warning("[Shellcode Profile]\n\n%s" % (emu.emu_profile_output, ))
+                    log.warning("[Shellcode Profile]\n\n%s" % (self.emu.emu_profile_output, ))
                     self.check_URLDownloadToFile(emu)
 
                 self.emu.free()
