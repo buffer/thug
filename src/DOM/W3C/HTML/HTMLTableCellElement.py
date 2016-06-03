@@ -11,7 +11,7 @@ class HTMLTableCellElement(HTMLElement):
 
     @property
     def cellIndex(self):
-        raise self._cellIndex
+        return self._cellIndex
 
     abbr            = attr_property("abbr")
     align           = attr_property("align")
