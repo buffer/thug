@@ -40,15 +40,7 @@ from .W3C.Events.HTMLEvent import HTMLEvent
 from ActiveX.ActiveX import _ActiveXObject
 
 log        = logging.getLogger("Thug")
-vbs_parser = True
-    
-try:
-    #from vb2py.vbparser import convertVBtoPython, VBCodeModule
-    import pyjs
-except ImportError:
-    vbs_parser = False
-    pass
-    
+
 class DFT(object):
     javascript     = ('javascript', )
     vbscript       = ('vbs', 'vbscript', 'visualbasic')
@@ -781,20 +773,7 @@ class DFT(object):
     def handle_vbscript(self, script):
         log.info(script)
         log.ThugLogging.add_code_snippet(str(script), 'VBScript', 'Contained_Inside')
-
-        if not vbs_parser:
-            log.warning("VBScript parsing not enabled (vb2py is needed)")
-            return
-
-        vbs_py = convertVBtoPython(script.string, container = VBCodeModule())
-        log.warning(vbs_py)
-
-        #pyjs_js = os.path.join(os.path.dirname(__file__), 'py.js')
-        #self.window.evalScript(open(pyjs_js, 'r').read())
-
-        #vbs_js = pyjs.compile(vbs_py)
-        #print vbs_js
-        #self.window.evalScript(vbs_js)
+        log.warning("VBScript parsing not available")
 
     def handle_vbs(self, script):
         self.handle_vbscript(script)
