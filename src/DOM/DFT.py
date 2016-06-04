@@ -18,13 +18,10 @@
 
 import os
 import pylibemu
-import struct
-import hashlib
 import string
 import base64
 import logging
 import PyV8
-import traceback
 import bs4 as BeautifulSoup
 import jsbeautifier
 import six
@@ -34,11 +31,6 @@ try:
     import urllib.parse as urlparse
 except ImportError:
     import urlparse
-
-#try:
-#    from . import Window
-#except ImportError:
-#    import Window
 
 from .W3C import *
 from .W3C.DOMImplementation import DOMImplementation
