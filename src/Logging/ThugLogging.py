@@ -79,8 +79,8 @@ class ThugLogging(BaseLogging, SampleLogging):
                 self.modules[name.strip()] = module(self.thug_version)
 
         for m in self.modules.values():
-            for format in getattr(m, 'formats', tuple()):
-                self.formats.add(format)
+            for fmt in getattr(m, 'formats', tuple()):
+                self.formats.add(fmt)
 
     def resolve_method(self, name):
         if name in self.methods_cache.keys():
@@ -241,8 +241,8 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_certificate'):
             m(url, certificate)
 
-    def log_analysis_module(self, dirname, sample, report, module, format = "json"):
-        filename = "%s.%s" % (sample['md5'], format, )
+    def log_analysis_module(self, dirname, sample, report, module, fmt = "json"):
+        filename = "%s.%s" % (sample['md5'], fmt, )
         self.store_content(dirname, filename, report)
 
         method = "log_%s" % (module, )
