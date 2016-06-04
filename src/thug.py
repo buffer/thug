@@ -21,8 +21,10 @@ import os
 import getopt
 import logging
 
-from ThugAPI import *
-from Plugins.ThugPlugins import *
+from ThugAPI import ThugAPI
+from Plugins.ThugPlugins import ThugPlugins
+from Plugins.ThugPlugins import PRE_ANALYSIS_PLUGINS
+from Plugins.ThugPlugins import POST_ANALYSIS_PLUGINS
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
@@ -220,8 +222,8 @@ Synopsis:
                 for classifier in option[1].split(','):
                     self.add_jsclassifier(os.path.abspath(classifier))
             elif option[0] in ('-C', '--sampleclassifier'):
-                    for classifier in option[1].split(','):
-                        self.add_sampleclassifier(os.path.abspath(classifier))
+                for classifier in option[1].split(','):
+                    self.add_sampleclassifier(os.path.abspath(classifier))
             elif option[0] in ('-B', '--broken-url', ):
                 self.set_broken_url()
             elif option[0] in ('-F', '--file-logging', ):
