@@ -7,3 +7,5 @@ ignore-paths:
   - tools/checkinstall.py
   - samples/steps/exploits.py
   - samples/steps/misc.py
+  - src/ThugAPI/IThugAPI.py
+  - src/Plugins/IPlugin.py
