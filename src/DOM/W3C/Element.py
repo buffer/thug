@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-import re
-import string
 import six
 
 import logging
@@ -15,7 +12,7 @@ except ImportError:
 from Attr import Attr
 from Node import Node
 from NodeList import NodeList
-from DOMException import DOMException
+from NamedNodeMap import NamedNodeMap
 
 from Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 log = logging.getLogger("Thug")
@@ -69,8 +66,6 @@ class Element(Node, ElementCSSInlineStyle):
         self.querySelector    = self._querySelector
 
     def _querySelectorAll(self, selectors):
-        from DOMImplementation import DOMImplementation
-
         try:
             s = self.tag.select(selectors)
         except:
@@ -117,7 +112,6 @@ class Element(Node, ElementCSSInlineStyle):
     
     @property
     def attributes(self):
-        from NamedNodeMap import NamedNodeMap
         return NamedNodeMap(self)    
     
     @property
@@ -126,7 +120,6 @@ class Element(Node, ElementCSSInlineStyle):
     
     @property
     def childNodes(self):
-        from NodeList import NodeList
         #return Node.wrap(self.doc, NodeList(self.doc, self.tag.contents))
         return NodeList(self.doc, self.tag.contents)
         
@@ -232,14 +225,5 @@ class Element(Node, ElementCSSInlineStyle):
         del self.tag[attr.name]
     
     def getElementsByTagName(self, tagname):
-        from NodeList import NodeList
         return NodeList(self.doc, self.tag.find_all(tagname))
         #return self.doc.getElementsByTagName(tagname)
-
-    # DOM Level 2 Core [Appendix A]
-    # The method normalize is now inherited from the Node interface where
-    # it was moved
-    #
-    #def normalize(self):
-    #    pass
-
