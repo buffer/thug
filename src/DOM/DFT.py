@@ -362,11 +362,11 @@ class DFT(object):
         #if not getattr(self.window.doc.tag, '_listeners', None):
         #    return
 
-        if not '_listeners' in self.window.doc.tag.__dict__:
+        if '_listeners' not in self.window.doc.tag.__dict__:
             return
 
         for (eventType, listener, capture) in self.window.doc.tag._listeners:
-            if not eventType in (onevt[2:], ):
+            if eventType not in (onevt[2:], ):
                 continue
                 
             evtObject = self.get_evtObject(self.window.doc, eventType)
@@ -540,7 +540,7 @@ class DFT(object):
             headers['User-Agent'] = self.javaUserAgent
 
         for key in ('filename', 'movie', ):
-            if not key in params:
+            if key not in params:
                 continue
 
             try:
@@ -578,7 +578,7 @@ class DFT(object):
             except:
                 pass
 
-        if not 'archive' in params and not 'code' in params:
+        if 'archive' not in params and 'code' not in params:
             return params
 
         if 'codebase' in params:
@@ -906,7 +906,7 @@ class DFT(object):
         if http_equiv.lower() != 'refresh':
             return
 
-        if not 'url' in content.lower():
+        if 'url' not in content.lower():
             return
 
         timeout = 0
