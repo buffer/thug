@@ -145,7 +145,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         if log.ThugOpts.file_logging:
             log.warning("Thug analysis logs saved at %s" % (self.baseDir, ))
 
-    def log_connection(self, source, destination, method, flags = {}):
+    def log_connection(self, source, destination, method, flags = None):
         """
         Log the connection (redirection, link) between two pages
 
@@ -154,10 +154,13 @@ class ThugLogging(BaseLogging, SampleLogging):
         @method         Link, iframe, .... that moves the user from source to destination
         @flags          Additional information flags. Existing are: "exploit"
         """
+        if flags is None:
+            flags = dict()
+
         for m in self.resolve_method('log_connection'):
             m(source, destination, method, flags)
 
-    def log_location(self, url, data, flags = {}):
+    def log_location(self, url, data, flags = None):
         """
         Log file information for a given url
 
@@ -173,6 +176,9 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         @flags  Additional information flags
         """
+        if flags is None:
+            flags = dict()
+
         for m in self.resolve_method('log_location'):
             m(url, data, flags = flags)
 

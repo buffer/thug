@@ -131,7 +131,7 @@ class JSON(object):
                                   "relationship" : self.fix(relationship),
                                   "method"       : self.fix(method)})
 
-    def log_connection(self, source, destination, method, flags = {}):
+    def log_connection(self, source, destination, method, flags = None):
         """
         Log the connection (redirection, link) between two pages
 
@@ -142,6 +142,9 @@ class JSON(object):
         """
         if not self.json_enabled:
             return
+
+        if flags is None:
+            flags = dict()
 
         if "exploit" in flags and flags["exploit"]:
             self.add_behavior_warn("[Exploit]  %s -- %s --> %s" % (source,
@@ -157,7 +160,7 @@ class JSON(object):
                                          "method"       : method,
                                          "flags"        : flags})
 
-    def log_location(self, url, data, flags = {}):
+    def log_location(self, url, data, flags = None):
         """
         Log file information for a given url
 
@@ -175,6 +178,9 @@ class JSON(object):
         """
         if not self.json_enabled:
             return
+
+        if flags is None:
+            flags = dict()
 
         self.data["locations"].append({"url"          : self.fix(url),
                                        "content-type" : data.get("ctype", None),

@@ -215,9 +215,12 @@ class MongoDB(object):
 
         return getattr(log.ThugVulnModules, module)
 
-    def log_location(self, url, data, flags = {}):
+    def log_location(self, url, data, flags = None):
         if not self.enabled:
             return
+
+        if flags is None:
+            flags = dict()
 
         content    = data.get("content", None)
         content_id = self.fs.put(base64.b64encode(content)) if content else None
@@ -236,9 +239,12 @@ class MongoDB(object):
 
         self.locations.insert(location)
 
-    def log_connection(self, source, destination, method, flags = {}):
+    def log_connection(self, source, destination, method, flags = None):
         if not self.enabled:
             return
+
+        if flags is None:
+            flags = dict()
 
         connection = {
             'analysis_id'    : self.analysis_id,

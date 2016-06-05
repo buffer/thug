@@ -185,11 +185,14 @@ class HTTPSession(object):
         certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_SSLv23)
         log.ThugLogging.log_certificate(url, certificate)
 
-    def fetch(self, url, method = "GET", window = None, personality = None, headers = {}, body = None):
+    def fetch(self, url, method = "GET", window = None, personality = None, headers = None, body = None):
         fetcher = getattr(self.session, method.lower(), None)
         if fetcher is None:
             log.ThugLogging.log_warning("Not supported method: %s" % (method, ))
             return None
+
+        if headers is None:
+            headers = dict()
 
         _headers = self.build_http_headers(window, personality, headers)
         response = fetcher(url, 

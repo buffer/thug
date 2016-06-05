@@ -286,7 +286,7 @@ class Navigator(JSClass):
     def _taintEnabled(self, *arg):
         return True
 
-    def fetch(self, url, method = "GET", headers = {}, body = None, redirect_type = None, params = None):
+    def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None):
         # The command-line option -x (--local-nofetch) prevents remote
         # content fetching so raise an exception and exit the method.
         if log.HTTPSession.no_fetch:
@@ -319,6 +319,9 @@ class Navigator(JSClass):
         # fetching the contents.
         if log.HTTPSession.timeout_expired(url):
             return None
+
+        if headers is None:
+            headers = dict()
 
         response = log.HTTPSession.fetch(url, method, self._window, self.userAgent, headers, body)
         if response is None:

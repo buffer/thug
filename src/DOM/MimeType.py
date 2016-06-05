@@ -19,7 +19,10 @@
 class MimeType(dict):
     """A dictionary with attribute-style access. It maps attribute access to
     the real dictionary.  """
-    def __init__(self, init = {}):
+    def __init__(self, init = None):
+        if init is None:
+            init = dict()
+
         dict.__init__(self, init)
 
     def __getstate__(self):
