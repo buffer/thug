@@ -15,7 +15,7 @@ class Node(etree.ElementBase):
     def __init__(self, elementName):
         self._nodeTypedValue = None
         self._dataType = None
-        return super(Node, self).__init__(elementName)
+        super(Node, self).__init__(elementName)
 
     def getNodeTypedValue(self):
         try:
