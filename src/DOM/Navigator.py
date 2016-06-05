@@ -20,7 +20,6 @@
 import os
 import hashlib
 import logging
-import socket
 import ssl
 
 try:
