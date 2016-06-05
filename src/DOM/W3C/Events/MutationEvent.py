@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from .Event import Event
+
 # Introduced in DOM Level 2
 class MutationEvent(Event):
     MODIFICATION = 1 # The Attr was just added
