@@ -1,12 +1,11 @@
 # Microsoft XMLDOM
 from lxml import etree
 
-import bs4 as BeautifulSoup
 import base64
 import binascii
 from DOM.W3C import w3c
 from OS.Windows import security_sys
-from DOM.W3C.NamedNodeMap import NamedNodeMap
+#from DOM.W3C.NamedNodeMap import NamedNodeMap
 
 import logging
 log = logging.getLogger("Thug")
