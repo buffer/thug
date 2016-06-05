@@ -18,7 +18,6 @@
 
 import logging
 import PyV8
-import json
 import traceback
 
 log = logging.getLogger("Thug")
