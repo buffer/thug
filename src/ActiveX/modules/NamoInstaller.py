@@ -17,10 +17,10 @@ def Install(self, arg):
                                           "Insecure download from URL",
                                           forward = False,
                                           data = {
-                                                    "url":arg
+                                                    "url": arg
                                                  }
                                          )
         try:
-            self._window._navigator.fetch(url, redirect_type = "NamoInstaller Exploit")
+            self._window._navigator.fetch(arg, redirect_type = "NamoInstaller Exploit")
         except:
             log.ThugLogging.add_behavior_warn('[NamoInstaller ActiveX] Fetch failed')
