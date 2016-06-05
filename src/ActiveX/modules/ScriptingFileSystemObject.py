@@ -8,7 +8,7 @@ def OpenTextFile(self, sFilePathAndName, ForWriting = True, flag = True):
                                       "Script.FileSystemObject ActiveX",
                                       "OpenTextFile",
                                       data = {
-                                                "filename"  : argsFilePathAndName,
+                                                "filename"  : sFilePathAndName,
                                                 "ForWriting": ForWriting,
                                                 "flag"      : flag
                                              },
