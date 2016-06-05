@@ -1,7 +1,5 @@
 # Microsoft XMLHTTP
 
-import os
-import hashlib
 import logging
 
 try:
