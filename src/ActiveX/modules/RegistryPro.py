@@ -12,9 +12,8 @@ def DeleteKey(self, arg0, arg1):
                                           "Deleting Regkey",
                                           forward = False,
                                           data = {
-                                                    "regkey": "HKEY_LOCAL_MACHINE/" + str(arg1)
-                                                 }
-                                         )
-	
+                                              "regkey": "HKEY_LOCAL_MACHINE/" + str(arg1)
+                                          })
+
 def About(self):
     log.ThugLogging.add_behavior_warn('[RegistryPro ActiveX] About called')
