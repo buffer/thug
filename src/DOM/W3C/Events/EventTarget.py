@@ -4,12 +4,11 @@ from .Event import Event
 from .HTMLEvent import HTMLEvent
 from .MouseEvent import MouseEvent
 
-import traceback
 import logging
 log = logging.getLogger("Thug")
 
 # Introduced in DOM Level 2
-class EventTarget:
+class EventTarget(object):
     def __init__(self):
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
             self.detachEvent = self._detachEvent
