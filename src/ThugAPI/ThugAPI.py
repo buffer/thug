@@ -57,7 +57,7 @@ __thug_version__ = '0.7'
 
 
 @implementer(IThugAPI)
-class ThugAPI:
+class ThugAPI(object):
     def __init__(self, args, configuration_path = None):
         self.args               = args
         self.thug_version       = __thug_version__
