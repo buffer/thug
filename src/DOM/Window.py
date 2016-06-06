@@ -687,7 +687,7 @@ class Window(JSClass):
             
             self._doRun(response.content, stage + 1)
                 
-    def _attachEvent(self, sEvent, fpNotify):
+    def _attachEvent(self, sEvent, fpNotify, useCapture = False):
         log.debug("[attachEvent] %s %s" % (sEvent, fpNotify, ))
         setattr(self, sEvent.lower(), fpNotify)
     
