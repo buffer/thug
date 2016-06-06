@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 
 import sys
-import re
-import string
 import logging
-import site
 import six
 
 import bs4 as BeautifulSoup
@@ -16,12 +13,12 @@ def getDOMImplementation(dom = None, **kwds):
 def parseString(html, **kwds):
     return DOMImplementation(BeautifulSoup.BeautifulSoup(html, "html.parser"), **kwds)
     
-def parse(file, **kwds):
-    if isinstance(file, six.string_types):
-        with open(file, 'r') as f:
+def parse(_file, **kwds):
+    if isinstance(_file, six.string_types):
+        with open(_file, 'r') as f:
             return parseString(f.read())
     
-    return parseString(file.read(), **kwds)
+    return parseString(_file.read(), **kwds)
 
 
 import unittest
