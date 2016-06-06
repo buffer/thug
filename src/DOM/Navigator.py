@@ -20,7 +20,6 @@
 import os
 import hashlib
 import logging
-import ssl
 
 try:
     import urllib.parse as urlparse
