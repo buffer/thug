@@ -255,7 +255,7 @@ class Node(JSClass, EventTarget):
             raise DOMException(DOMException.HIERARCHY_REQUEST_ERR)
 
         index = self.findChild(oldChild)
-        if index < 0 and not self.is_text(refChild):
+        if index < 0:
             raise DOMException(DOMException.NOT_FOUND_ERR)
 
         if self.is_text(newChild):
