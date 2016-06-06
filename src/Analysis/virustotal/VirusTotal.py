@@ -18,7 +18,6 @@
 
 
 import os
-import sys
 import json
 import requests
 import tempfile
@@ -30,14 +29,6 @@ try:
     import configparser as ConfigParser
 except ImportError:
     import ConfigParser
-
-try:
-    from io import StringIO
-except ImportError:
-    try:
-        from cStringIO import StringIO
-    except ImportError:
-        from StringIO import StringIO
 
 
 class VirusTotal(object):
