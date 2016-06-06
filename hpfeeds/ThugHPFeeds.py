@@ -20,7 +20,6 @@ import os
 import sys
 import time
 import hashlib
-import datetime
 import json
 import logging
 import threading
