@@ -903,6 +903,8 @@ class DFT(object):
             self.handle_meta_x_ua_compatible(http_equiv, content)
 
     def handle_meta_refresh(self, http_equiv, content):
+        from .Window import Window
+
         if http_equiv.lower() != 'refresh':
             return
 
@@ -952,13 +954,15 @@ class DFT(object):
         #self.run()
 
         doc    = w3c.parseString(response.content)
-        window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+        window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
         window.open(url)
 
         dft = DFT(window)
         dft.run()
 
     def handle_frame(self, frame, redirect_type = 'frame'):
+        from .Window import Window
+
         log.warning(frame)
         
         src = frame.get('src', None)
@@ -987,7 +991,7 @@ class DFT(object):
             src = _src
 
         doc    = w3c.parseString(response.content)
-        window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+        window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
         window.open(src)
 
         frame_id = frame.get('id', None)
@@ -1143,8 +1147,10 @@ class DFT(object):
                 self.follow_href(href)
 
     def follow_href(self, href):
+        from .Window import Window
+
         doc    = w3c.parseString('')
-        window = Window.Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+        window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
         window = window.open(href)
             
         if window:

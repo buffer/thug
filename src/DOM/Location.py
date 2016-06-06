@@ -51,6 +51,8 @@ class Location(JSClass):
         return self._window.url
 
     def set_href(self, url):
+        from .Window import Window
+
         referer = self._window.url
         if referer == url:
             log.warning("Detected redirection from %s to %s... skipping" % (referer, url, ))
@@ -64,7 +66,7 @@ class Location(JSClass):
         log.ThugLogging.log_href_redirect(referer, url)
 
         doc    = w3c.parseString('')
-        window = Window.Window(referer, doc, personality = p)
+        window = Window(referer, doc, personality = p)
         window = window.open(url)
         if not window:
             return
