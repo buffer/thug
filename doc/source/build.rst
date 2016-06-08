@@ -204,7 +204,7 @@ Alternatively follow the procedure described below
 
 .. code-block:: sh
         
-        $ git clone --recursive git://github.com/buffer/pylibemu.git
+        $ git clone --recursive https://github.com/buffer/pylibemu.git
         $ python setup.py build
         $ sudo python setup.py install
 
