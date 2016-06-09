@@ -9,3 +9,6 @@ ignore-paths:
   - samples/steps/misc.py
   - src/ThugAPI/IThugAPI.py
   - src/Plugins/IPlugin.py
+pylint:
+  disable:
+    - too-many-arguments
