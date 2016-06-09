@@ -14,3 +14,4 @@ pylint:
     - too-many-arguments
     - too-many-locals
     - unused-argument
+    - E116
