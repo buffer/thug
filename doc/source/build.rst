@@ -205,7 +205,6 @@ Alternatively follow the procedure described below
 .. code-block:: sh
         
         $ git clone --recursive https://github.com/buffer/pylibemu.git
-        $ python setup.py build
         $ sudo python setup.py install
 
 For additional details about installation please refer to the Pylibemu homepage.
