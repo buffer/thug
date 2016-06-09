@@ -48,4 +48,5 @@ License information
 -------------------
 
 Copyright (C) 2011-2016 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
+
 License: GNU General Public License, version 2
