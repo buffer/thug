@@ -26,12 +26,7 @@ class HTMLFormElement(HTMLElement):
     target          = attr_property("target")
 
     def submit(self):
-        #raise NotImplementedError()
         log.warning('[HTMLFormElement] submit method not defined')
-        pass
 
     def reset(self):
-        #raise NotImplementedError()
         log.warning('[HTMLFormElement] reset method not defined')
-        pass
-
