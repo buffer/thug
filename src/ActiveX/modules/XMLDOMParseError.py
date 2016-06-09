@@ -1,5 +1,5 @@
 
-class XMLDOMParseError:
+class XMLDOMParseError(object):
     def __init__(self):
         self._errorCode = 0
         self._filepos   = 0
