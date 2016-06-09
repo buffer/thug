@@ -12,3 +12,4 @@ ignore-paths:
 pylint:
   disable:
     - too-many-arguments
+    - too-many-locals
