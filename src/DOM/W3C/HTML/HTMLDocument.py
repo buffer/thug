@@ -227,7 +227,7 @@ class HTMLDocument(Document):
             except:
                 continue
 
-            if not mode_version in (5, 7, 8, 9, 10):
+            if mode_version not in (5, 7, 8, 9, 10):
                 continue
 
             if mode_version <= major and mode_version >= engine:

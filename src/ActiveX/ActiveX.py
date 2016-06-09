@@ -71,7 +71,7 @@ class _ActiveXObject(object):
             log.warning("Unknown ActiveX Object: %s" % (cls, ))
             raise TypeError()
 
-        if cls in self.shockwave_flash and not self.shockwave in (self.shockwave_flash[cls], ):
+        if cls in self.shockwave_flash and self.shockwave not in (self.shockwave_flash[cls], ):
                 log.warning("Unknown ActiveX Object: %s" % (cls, ))
                 raise TypeError()
 
