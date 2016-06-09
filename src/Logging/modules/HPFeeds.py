@@ -16,7 +16,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import sys
 import os
 import struct
 import socket
@@ -30,6 +29,7 @@ except ImportError:
     import ConfigParser
 
 log = logging.getLogger("Thug")
+
 
 class FeedUnpack(object):
     def __init__(self):
@@ -67,10 +67,12 @@ class HPFeeds(object):
     OP_SUBSCRIBE    = 4
 
     def __init__(self, thug_version):
-        self.unpacker = FeedUnpack()
-        self.opts     = dict()
-        self.url      = ""
-        self.enabled  = True
+        self.unpacker     = FeedUnpack()
+        self.thug_version = thug_version
+        self.opts         = dict()
+        self.url          = ""
+        self.enabled      = True
+
         self.__init_config()
 
     def __init_config(self):
@@ -106,20 +108,19 @@ class HPFeeds(object):
         #if isinstance(data, str):
         #    data = data.encode('latin1')
 
-        return self.msg_hdr(self.OP_PUBLISH, 
-                            struct.pack('!B', len(self.opts['ident']))      + 
-                                              self.opts['ident']            + 
-                                              struct.pack('!B', len(chan))  + 
-                                              chan                          + 
-                                              data)
+        return self.msg_hdr(self.OP_PUBLISH,
+                            struct.pack('!B', len(self.opts['ident'])) +
+                            self.opts['ident'] +
+                            struct.pack('!B', len(chan)) +
+                            chan +
+                            data)
 
     def msg_auth(self, rand):
-        hash = hashlib.sha1(rand + self.opts['secret']).digest()
-        return self.msg_hdr(self.OP_AUTH, 
-                           struct.pack('!B', len(self.opts['ident']))   + 
-                                             self.opts['ident']         + 
-                                             hash)
-    
+        _hash = hashlib.sha1(rand + self.opts['secret']).digest()
+        return self.msg_hdr(self.OP_AUTH,
+                            struct.pack('!B', len(self.opts['ident'])) +
+                            self.opts['ident'] +
+                            _hash)
 
     def msg_send(self, msg):
         self.sockfd.send(msg)
@@ -159,7 +160,7 @@ class HPFeeds(object):
                     published = True
                     self.sockfd.settimeout(0.1)
                 if opcode == self.OP_ERROR:
-                    log.warning('[HPFeeds] Error message from server: {0}'.format(data))
+                    log.warning('[HPFeeds] Error message from server: %s' % (data, ))
 
             try:
                 d = self.sockfd.recv(1024)
@@ -229,5 +230,5 @@ class HPFeeds(object):
 
 
 if __name__ == '__main__':
-    hpfeeds = HPFeeds()
+    hpfeeds = HPFeeds('0.7.1')
     hpfeeds.log_event('Test foobar!')
