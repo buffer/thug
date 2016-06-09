@@ -2,7 +2,7 @@
 from DOMException import DOMException
 
 # Introduced in DOM Level 2
-class DocumentEvent:
+class DocumentEvent(object):
     def __init__(self, doc):
         self.doc = doc
 

@@ -18,7 +18,7 @@
 
 import magic
 
-class Magic:
+class Magic(object):
     def __init__(self, data):
         self.data = data
 

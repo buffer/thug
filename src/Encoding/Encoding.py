@@ -19,7 +19,7 @@
 
 from chardet.universaldetector import UniversalDetector
 
-class Encoding:
+class Encoding(object):
     def __init__(self):
         self.detector = UniversalDetector()
 

@@ -74,7 +74,7 @@ class DictDiffer(object):
         return False
 
 
-class Mapper():
+class Mapper(object):
     """
         Map URL relationships
     """

@@ -2,7 +2,7 @@
 import logging
 log = logging.getLogger("Thug")
 
-class SchemeHandler:
+class SchemeHandler(object):
     def __init__(self):
         pass
 

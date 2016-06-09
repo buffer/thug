@@ -36,7 +36,7 @@ log = logging.getLogger("Thug")
     POST_ANALYSIS_PLUGINS,
 ) = list(range(0, 2))
 
-class ThugPlugins:
+class ThugPlugins(object):
     phases = {
                 PRE_ANALYSIS_PLUGINS  : 'ThugPluginsPre',
                 POST_ANALYSIS_PLUGINS : 'ThugPluginsPost'

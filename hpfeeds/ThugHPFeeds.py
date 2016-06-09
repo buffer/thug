@@ -143,7 +143,7 @@ class ThugEvents(threading.Thread):
                 time.sleep(20)
 
 
-class ThugHPFeeds:
+class ThugHPFeeds(object):
     def __init__(self):
         self.events_opts  = dict()
         self.files_opts   = dict()

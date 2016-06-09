@@ -23,7 +23,7 @@ from .abstractmethod import abstractmethod
 
 log = logging.getLogger("Thug")
 
-class BaseClassifier:
+class BaseClassifier(object):
     def __init__(self):
         self._rules       = dict()
         self.matches      = list()

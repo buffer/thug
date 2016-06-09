@@ -22,7 +22,7 @@ import os
 import shutil
 
 
-class Thugd():
+class Thugd(object):
     """ 
         A class waiting for jobs, starting thug, returning results
     """

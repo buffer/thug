@@ -5,7 +5,7 @@ import logging
 log = logging.getLogger("Thug")
 
 # Introduced in DOM Level 2
-class AbstractView:
+class AbstractView(object):
     def __init__(self):
         pass
 

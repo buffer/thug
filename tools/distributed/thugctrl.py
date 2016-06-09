@@ -21,7 +21,7 @@ except ImportError:
     import urlparse
 
 
-class ThugCtrl():
+class ThugCtrl(object):
     """ Thug remote control
     """
 
@@ -93,7 +93,7 @@ class ThugCtrl():
         self.send_command(data)
 
 
-class ThugCollect():
+class ThugCollect(object):
     """ A class collecting thug results
     """
 

@@ -6,7 +6,7 @@ log = logging.getLogger("Thug")
 
 # Introduced in DOM Level 2
 
-class Event:
+class Event(object):
     CAPTURING_PHASE     = 1 # The current event phase is the capturing phase.
     AT_TARGET           = 2 # The event is currently being evaluated at the target EventTarget
     BUBBLING_PHASE      = 3 # The current event phase is the bubbling phase.
