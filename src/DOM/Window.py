@@ -24,14 +24,13 @@ import PyV8
 import traceback
 import hashlib
 import pefile
-import datetime
 import urllib
 import bs4 as BeautifulSoup
 import jsbeautifier
 import six
 from .W3C import *
 from .W3C.HTML.HTMLCollection import HTMLCollection
-from .JSClass import *
+from .JSClass import JSClass
 from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
@@ -237,7 +236,7 @@ class Window(JSClass):
         return self._top
 
     def _do_ActiveXObject(self, cls, type = 'name'):
-        return _ActiveXObject(self, cls, type = 'name')
+        return _ActiveXObject(self, cls, type)
 
     # Window object methods
     #
@@ -637,7 +636,7 @@ class Window(JSClass):
     # http://msdn.microsoft.com/en-us/library/d5fk67ky(v=vs.85).aspx
     def _Run(self, strCommand, intWindowStyle = 0, bWaitOnReturn = False):
         log.warning("[Windows Script Host Run] Command: \n%s\n", strCommand)
-        if not 'http' in strCommand:
+        if 'http' not in strCommand:
             return
 
         self._doRun(strCommand, 1)
@@ -820,7 +819,7 @@ class Window(JSClass):
 
     @property
     def context(self):
-        if not '_context' in self.__dict__:
+        if '_context' not in self.__dict__:
         #if not hasattr(self, '_context'):
             self._context = PyV8.JSContext(self)
             with self._context as ctxt:
