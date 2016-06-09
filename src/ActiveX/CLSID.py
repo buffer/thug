@@ -195,8 +195,7 @@ CLSID = [
             'funcattrs' : {
                             'data'                  : DirectShow.Setdata,
                           },
-            'methods'   :
-                          {
+            'methods'   : {
                             'Setdata'               : DirectShow.Setdata,
                           }
         },
@@ -812,8 +811,7 @@ CLSID = [
             'funcattrs' : {
                             'Console'               : RealPlayer.SetConsole,
                           },
-            'methods'   :
-                          {
+            'methods'   : {
                             'DoAutoUpdateRequest'   : RealPlayer.DoAutoUpdateRequest,
                             'PlayerProperty'        : RealPlayer.PlayerProperty,
                             'Import'                : RealPlayer.Import,
