@@ -18,13 +18,15 @@ Thug is a Python low-interaction honeyclient aimed at mimicing the behavior of a
 web browser in order to detect and emulate malicious contents.
 
 
-## Documentation
+Documentation
+-------------
 
 Documentation about Thug installation and usage can be found in the source
 tree or alternatively at https://buffer.github.com/thug/
 
 
-## Support
+Support
+-------
 
 * Mailing Lists
 	* Thug users 	     https://public.honeynet.org/mailman/listinfo/thug
@@ -34,14 +36,16 @@ tree or alternatively at https://buffer.github.com/thug/
 	* Freenode #thug-dev
 
 
-## Contributions
+Contributions
+-------------
 
 Thug is open source and free to use for any purpose (even commercial ones). If
 you use and appreciate Thug, consider supporting the project with a donation
 using Paypal (details at https://buffer.github.com/thug/).
 
 
-## License information
+License information
+-------------------
 
 Copyright (C) 2011-2016 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
 
