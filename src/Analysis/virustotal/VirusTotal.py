@@ -80,7 +80,7 @@ class VirusTotal(object):
         positives = str(response_dict.get("positives", {}))
         total     = str(response_dict.get("total", {}))
 
-        log.warning("[VirusTotal] Sample %s analysis ratio: %s/%s" % (response_dict['md5'], positives, total, )) 
+        log.warning("[VirusTotal] Sample %s analysis ratio: %s/%s", response_dict['md5'], positives, total)
 
     def get_report(self, report):
         params   = { "resource": report,

@@ -77,7 +77,7 @@ class Shellcode(object):
             if url in log.ThugLogging.shellcode_urls:
                 return
 
-            log.info('[Shellcode Analysis] URL Detected: %s' % (url, ))
+            log.info('[Shellcode Analysis] URL Detected: %s', url)
 
             try:
                 self.window._navigator.fetch(url, redirect_type = "URL found")
@@ -120,12 +120,12 @@ class Shellcode(object):
                 if not isinstance(s, six.string_types):
                     continue
               
-                log.debug("[Shellcode] Testing variable: %s" % (name, ))
+                log.debug("[Shellcode] Testing variable: %s", name)
                 self.emu.run(s)
 
                 if self.emu.emu_profile_output:
                     log.ThugLogging.add_code_snippet(self.emu.emu_profile_output, 'Assembly', 'Shellcode')
-                    log.warning("[Shellcode Profile]\n\n%s" % (self.emu.emu_profile_output, ))
+                    log.warning("[Shellcode Profile]\n\n%s", self.emu.emu_profile_output)
                     self.check_URLDownloadToFile(self.emu)
 
                 self.emu.free()

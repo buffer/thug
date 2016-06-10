@@ -185,7 +185,7 @@ def register_object(s, clsid):
             break
 
     if obj is None:
-        log.warning("Unknown ActiveX object: %s" % (clsid, ))
+        log.warning("Unknown ActiveX object: %s", clsid)
         #return None
         raise TypeError()
 

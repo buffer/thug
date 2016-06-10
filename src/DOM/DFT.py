@@ -101,7 +101,7 @@ class DFT(object):
         for event in log.ThugOpts.events:
             self.handled_events.append(event)
 
-        log.debug("Handling DOM Events: %s" % (",".join(self.handled_events), ))
+        log.debug("Handling DOM Events: %s", ",".join(self.handled_events))
         self.handled_on_events = ['on' + e for e in self.handled_events]
         self.dispatched_events = set()
 
@@ -230,7 +230,7 @@ class DFT(object):
         
         if emu.emu_profile_output:
             log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
-            log.warning("[Shellcode Profile]\n\n%s" % (emu.emu_profile_output, ))
+            log.warning("[Shellcode Profile]\n\n%s", emu.emu_profile_output)
             self.check_URLDownloadToFile(emu)
             self.check_WinExec(emu)
 
@@ -676,7 +676,7 @@ class DFT(object):
         handler = getattr(self, "handle_%s" % (language, ), None)
 
         if not handler:
-            log.warning("Unhandled script language: %s" % (language, ))
+            log.warning("Unhandled script language: %s", language)
             return
 
         if log.ThugOpts.Personality.isIE():
@@ -1223,19 +1223,19 @@ class DFT(object):
             try:
                 self.handle_window_event(evt)
             except:
-                log.warning("[handle_window_event] Event %s not properly handled" % (evt, ))
+                log.warning("[handle_window_event] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
             try:
                 self.handle_document_event(evt)
             except:
-                log.warning("[handle_document_event] Event %s not properly handled" % (evt, ))
+                log.warning("[handle_document_event] Event %s not properly handled", evt)
 
         for evt in self.handled_events:
             try:
                 self.handle_element_event(evt)
             except:
-                log.warning("[handle_element_event] Event %s not properly handled" % (evt, ))
+                log.warning("[handle_element_event] Event %s not properly handled", evt)
 
     def run(self):
         with self.context as ctx:
