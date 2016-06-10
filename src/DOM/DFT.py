@@ -235,7 +235,7 @@ class DFT(object):
             self.check_WinExec(emu)
 
         self.check_url(sc, shellcode)
-        #emu.free()
+        emu.free()
 
     def check_url(self, sc, shellcode):
         schemes = []

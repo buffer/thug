@@ -128,7 +128,7 @@ class Shellcode(object):
                     log.warning("[Shellcode Profile]\n\n%s" % (self.emu.emu_profile_output, ))
                     self.check_URLDownloadToFile(self.emu)
 
-                #self.emu.free()
+                self.emu.free()
                 self.search_url(s)
             
         return result
