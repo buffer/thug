@@ -24,211 +24,211 @@ import logging
 import json
 
 try:
-    import configparser as ConfigParser
+	import configparser as ConfigParser
 except ImportError:
-    import ConfigParser
+	import ConfigParser
 
 log = logging.getLogger("Thug")
 
 
 class FeedUnpack(object):
-    def __init__(self):
-        self.buf = bytearray()
+	def __init__(self):
+		self.buf = bytearray()
 
-    def __iter__(self):
-        return self
+	def __iter__(self):
+		return self
 
-    def next(self):
-        return self.unpack()
+	def next(self):
+		return self.unpack()
 
-    def feed(self, data):
-        self.buf.extend(data)
+	def feed(self, data):
+		self.buf.extend(data)
 
-    def unpack(self):
-        if len(self.buf) < 5:
-            raise StopIteration('No message')
+	def unpack(self):
+		if len(self.buf) < 5:
+			raise StopIteration('No message')
 
-        ml, opcode = struct.unpack('!iB', buffer(self.buf, 0, 5))
-        if len(self.buf) < ml:
-            raise StopIteration('No message')
+		ml, opcode = struct.unpack('!iB', buffer(self.buf, 0, 5))
+		if len(self.buf) < ml:
+			raise StopIteration('No message')
 		
-        data = bytearray(buffer(self.buf, 5, ml - 5))
-        del self.buf[:ml]
-        return opcode, data
+		data = bytearray(buffer(self.buf, 5, ml - 5))
+		del self.buf[:ml]
+		return opcode, data
 
 
 class HPFeeds(object):
-    formats = ('maec11', )
+	formats = ('maec11', )
 
-    OP_ERROR        = 0 
-    OP_INFO         = 1 
-    OP_AUTH         = 2 
-    OP_PUBLISH      = 3 
-    OP_SUBSCRIBE    = 4
+	OP_ERROR        = 0
+	OP_INFO         = 1
+	OP_AUTH         = 2
+	OP_PUBLISH      = 3
+	OP_SUBSCRIBE    = 4
 
-    def __init__(self, thug_version):
-        self.unpacker     = FeedUnpack()
-        self.thug_version = thug_version
-        self.opts         = dict()
-        self.url          = ""
-        self.enabled      = True
+	def __init__(self, thug_version):
+		self.unpacker     = FeedUnpack()
+		self.thug_version = thug_version
+		self.opts         = dict()
+		self.url          = ""
+		self.enabled      = True
 
-        self.__init_config()
+		self.__init_config()
 
-    def __init_config(self):
-        config = ConfigParser.ConfigParser()
+	def __init_config(self):
+		config = ConfigParser.ConfigParser()
 
-        conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, 'logging.conf')
-        if not os.path.exists(conf_file):
-            if log.configuration_path is None:
-                self.enabled = False
-                return
+		conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, 'logging.conf')
+		if not os.path.exists(conf_file):
+			if log.configuration_path is None:
+				self.enabled = False
+				return
 
-            conf_file = os.path.join(log.configuration_path, 'logging.conf')
+			conf_file = os.path.join(log.configuration_path, 'logging.conf')
 
-        if not os.path.exists(conf_file):
-            conf_file = os.path.join(log.configuration_path, 'logging.conf.default')
+		if not os.path.exists(conf_file):
+			conf_file = os.path.join(log.configuration_path, 'logging.conf.default')
 
-        if not os.path.exists(conf_file):
-            self.enabled = False
-            return
+		if not os.path.exists(conf_file):
+			self.enabled = False
+			return
 
-        config.read(conf_file)
-        
-        for option in config.options('hpfeeds'):
-            self.opts[option] = str(config.get('hpfeeds', option))
+		config.read(conf_file)
 
-    def set_url(self, url):
-        self.url = url
+		for option in config.options('hpfeeds'):
+			self.opts[option] = str(config.get('hpfeeds', option))
 
-    def msg_hdr(self, op, data):
-        return struct.pack('!iB', 5 + len(data), op) + data
+	def set_url(self, url):
+		self.url = url
 
-    def msg_publish(self, chan, data):
-        #if isinstance(data, str):
-        #    data = data.encode('latin1')
+	def msg_hdr(self, op, data):
+		return struct.pack('!iB', 5 + len(data), op) + data
 
-        return self.msg_hdr(self.OP_PUBLISH,
-                            struct.pack('!B', len(self.opts['ident'])) +
-                            self.opts['ident'] +
-                            struct.pack('!B', len(chan)) +
-                            chan +
-                            data)
+	def msg_publish(self, chan, data):
+		#if isinstance(data, str):
+		#    data = data.encode('latin1')
 
-    def msg_auth(self, rand):
-        _hash = hashlib.sha1(rand + self.opts['secret']).digest()
-        return self.msg_hdr(self.OP_AUTH,
-                            struct.pack('!B', len(self.opts['ident'])) +
-                            self.opts['ident'] +
-                            _hash)
+		return self.msg_hdr(self.OP_PUBLISH,
+							struct.pack('!B', len(self.opts['ident'])) +
+							self.opts['ident'] +
+							struct.pack('!B', len(chan)) +
+							chan +
+							data)
 
-    def msg_send(self, msg):
-        self.sockfd.send(msg)
+	def msg_auth(self, rand):
+		_hash = hashlib.sha1(rand + self.opts['secret']).digest()
+		return self.msg_hdr(self.OP_AUTH,
+							struct.pack('!B', len(self.opts['ident'])) +
+							self.opts['ident'] +
+							_hash)
 
-    def get_data(self, host, port):
-        self.sockfd.settimeout(3)
+	def msg_send(self, msg):
+		self.sockfd.send(msg)
 
-        try:
-            self.sockfd.connect((host, port))
-        except:
-            log.warning('[HPFeeds] Unable to connect to broker')
-            return None
+	def get_data(self, host, port):
+		self.sockfd.settimeout(3)
 
-        try:
-            d = self.sockfd.recv(1024)
-        except socket.timeout:
-            log.warning('[HPFeeds] Timeout on banner')
-            return None
+		try:
+			self.sockfd.connect((host, port))
+		except:
+			log.warning('[HPFeeds] Unable to connect to broker')
+			return None
 
-        self.sockfd.settimeout(None)
-        return d
-            
-    def publish_data(self, d, chan, pubdata):
-        published = False
+		try:
+			d = self.sockfd.recv(1024)
+		except socket.timeout:
+			log.warning('[HPFeeds] Timeout on banner')
+			return None
 
-        while d and not published:
-            self.unpacker.feed(d)
+		self.sockfd.settimeout(None)
+		return d
 
-            for opcode, data in self.unpacker:
-                if opcode == self.OP_INFO:
-                    rest = buffer(data, 0)
-                    name, rest = rest[1:1 + ord(rest[0])], buffer(rest, 1 + ord(rest[0]))
-                    rand = str(rest)
+	def publish_data(self, d, chan, pubdata):
+		published = False
 
-                    self.msg_send(self.msg_auth(rand))
-                    self.msg_send(self.msg_publish(chan, pubdata))
-                    published = True
-                    self.sockfd.settimeout(0.1)
-                if opcode == self.OP_ERROR:
-                    log.warning('[HPFeeds] Error message from server: %s' % (data, ))
+		while d and not published:
+			self.unpacker.feed(d)
 
-            try:
-                d = self.sockfd.recv(1024)
-            except socket.timeout:
-                break
+			for opcode, data in self.unpacker:
+				if opcode == self.OP_INFO:
+					rest = buffer(data, 0)
+					name, rest = rest[1:1 + ord(rest[0])], buffer(rest, 1 + ord(rest[0]))
+					rand = str(rest)
 
-    def __log_event(self, pubdata):
-        self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        data = self.get_data(self.opts['host'], int(self.opts['port']))
-        if data is None:
-            return
+					self.msg_send(self.msg_auth(rand))
+					self.msg_send(self.msg_publish(chan, pubdata))
+					published = True
+					self.sockfd.settimeout(0.1)
+				if opcode == self.OP_ERROR:
+					log.warning('[HPFeeds] Error message from server: %s' % (data, ))
 
-        self.publish_data(data, 'thug.events', pubdata)
-        self.sockfd.close()
+			try:
+				d = self.sockfd.recv(1024)
+			except socket.timeout:
+				break
 
-    def log_event(self, basedir):
-        if not self.enabled:
-            return
+	def __log_event(self, pubdata):
+		self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		data = self.get_data(self.opts['host'], int(self.opts['port']))
+		if data is None:
+			return
 
-        if log.ThugOpts.local:
-            return
+		self.publish_data(data, 'thug.events', pubdata)
+		self.sockfd.close()
 
-        m = None
+	def log_event(self, basedir):
+		if not self.enabled:
+			return
 
-        for module in self.formats:
-            if module in log.ThugLogging.modules:
-                p = log.ThugLogging.modules[module]
-                m = getattr(p, 'get_%s_data' % (module, ), None)
-                if m:
-                    break
+		if log.ThugOpts.local:
+			return
 
-        if m is None:
-            return
+		m = None
 
-        data = m(basedir)
-        self.__log_event(data)
+		for module in self.formats:
+			if module in log.ThugLogging.modules:
+				p = log.ThugLogging.modules[module]
+				m = getattr(p, 'get_%s_data' % (module, ), None)
+				if m:
+					break
 
-    def log_file(self, pubdata, url = None, params = None):
-        if not self.enabled:
-            return
+		if m is None:
+			return
 
-        if log.ThugOpts.local:
-            return
+		data = m(basedir)
+		self.__log_event(data)
 
-        self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        data = self.get_data(self.opts['host'], int(self.opts['port']))
-        if data is None:
-            return
+	def log_file(self, pubdata, url = None, params = None):
+		if not self.enabled:
+			return
 
-        self.publish_data(data, 'thug.files', json.dumps(pubdata))
-        self.sockfd.close()
+		if log.ThugOpts.local:
+			return
 
-    def log_warning(self, pubdata):
-        if not self.enabled:
-            return
+		self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		data = self.get_data(self.opts['host'], int(self.opts['port']))
+		if data is None:
+			return
 
-        if log.ThugOpts.local:
-            return
+		self.publish_data(data, 'thug.files', json.dumps(pubdata))
+		self.sockfd.close()
 
-        self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        data = self.get_data(self.opts['host'], int(self.opts['port']))
-        if data is None:
-            return
+	def log_warning(self, pubdata):
+		if not self.enabled:
+			return
 
-        self.publish_data(data, 'thug.warnings', json.dumps({'url': self.url, 'warning': pubdata}))
-        self.sockfd.close()
+		if log.ThugOpts.local:
+			return
+
+		self.sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		data = self.get_data(self.opts['host'], int(self.opts['port']))
+		if data is None:
+			return
+
+		self.publish_data(data, 'thug.warnings', json.dumps({'url': self.url, 'warning': pubdata}))
+		self.sockfd.close()
 
 
 if __name__ == '__main__':
-    hpfeeds = HPFeeds('0.7.1')
-    hpfeeds.log_event('Test foobar!')
+	hpfeeds = HPFeeds('0.7.1')
+	hpfeeds.log_event('Test foobar!')
