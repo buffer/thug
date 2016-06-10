@@ -109,7 +109,7 @@ class MongoUtils(object):
 
 
 def usage():
-        msg = """
+    msg = """
 Synopsis:
     MongoUtils.py
 
@@ -122,8 +122,8 @@ Synopsis:
         -r, --rm=               \tRemove the analysis identified by the specified ID
         -M, --mongodb-address=  \tSpecify address and port of the MongoDB instance (format: host:port)
 """
-        print(msg)
-        sys.exit(0)
+    print(msg)
+    sys.exit(0)
 
 def main(args):
     host = 'localhost'
