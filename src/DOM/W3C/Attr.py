@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import sys, re
-
+import sys
+import re
 import bs4 as BeautifulSoup
 
 from Node import Node

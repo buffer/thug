@@ -78,7 +78,7 @@ class HoneyAgent(object):
         log_dir = os.path.join(basedir, 'analysis', 'honeyagent', 'dropped')
 
         for filename in files.keys():
-            log.warning("[HoneyAgent][%s] Dropped sample %s" % (md5, os.path.basename(filename),))
+            log.warning("[HoneyAgent][%s] Dropped sample %s", md5, os.path.basename(filename))
             data = base64.b64decode(files[filename])
             log.ThugLogging.store_content(log_dir, os.path.basename(filename), data)
             log.ThugLogging.log_file(data)
@@ -94,7 +94,7 @@ class HoneyAgent(object):
 
         for key in yara.keys():
             for v in yara[key]:
-                log.warning("[HoneyAgent][%s] Yara %s rule %s match" % (md5, key, v['rule'], ))
+                log.warning("[HoneyAgent][%s] Yara %s rule %s match", md5, key, v['rule'])
 
     def submit(self, data, sample, params):
         md5    = sample['md5']
@@ -107,7 +107,7 @@ class HoneyAgent(object):
         response = requests.post(self.opts["scanurl"], files = files, params = params)
         
         if response.ok:
-            log.warning("[HoneyAgent][%s] Sample submitted" % (md5, ))
+            log.warning("[HoneyAgent][%s] Sample submitted", md5)
 
         os.remove(sample)
         return response

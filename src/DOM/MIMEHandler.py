@@ -239,7 +239,7 @@ class MIMEHandler(dict):
         if _key in self:
             return self[_key]
 
-        log.warning("[MIMEHandler] Unknown MIME Type: %s" % (key, ))
+        log.warning("[MIMEHandler] Unknown MIME Type: %s", key)
         return self.passthrough
 
     def __init__(self):
@@ -587,7 +587,7 @@ class MIMEHandler(dict):
 
                         swffile = "%s.swf" % (sample["md5"], )
                         log.ThugLogging.store_content(swfdir, swffile, data)
-                        log.warning("[PDF] Embedded SWF %s extracted from PDF %s" % (sample["md5"], statsDict["MD5"], ))
+                        log.warning("[PDF] Embedded SWF %s extracted from PDF %s", sample["md5"], statsDict["MD5"])
 
             count += 1
 

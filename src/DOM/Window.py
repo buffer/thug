@@ -255,7 +255,7 @@ class Window(JSClass):
 
         text is a string of the text you want displayed in the alert dialog.
         """
-        log.warning('[Window] Alert Text: %s' % (str(text), ))
+        log.warning('[Window] Alert Text: %s', str(text))
 
     def back(self):
         """
@@ -652,7 +652,7 @@ class Window(JSClass):
             pass
 
         log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
-        log.warning("[Windows Script Host Run - Stage %d] Code:\n%s" % (stage, p, ))
+        log.warning("[Windows Script Host Run - Stage %d] Code:\n%s", stage, p)
 
         while True:
             try:
@@ -666,7 +666,7 @@ class Window(JSClass):
                 break
 
             url = s[0]
-            log.warning("[Windows Script Host Run - Stage %d] Downloading from URL %s" % (stage, url, ))
+            log.warning("[Windows Script Host Run - Stage %d] Downloading from URL %s", stage, url)
 
             try:
                 response = self._navigator.fetch(url, redirect_type = "doRun")
@@ -681,17 +681,17 @@ class Window(JSClass):
 
             md5 = hashlib.md5()
             md5.update(response.content)
-            log.warning("[Windows Script Host Run - Stage %d] Saving file %s" % (stage, md5.hexdigest()))
+            log.warning("[Windows Script Host Run - Stage %d] Saving file %s", stage, md5.hexdigest())
             p = '"'.join(s[1:])
             
             self._doRun(response.content, stage + 1)
                 
     def _attachEvent(self, sEvent, fpNotify, useCapture = False):
-        log.debug("[attachEvent] %s %s" % (sEvent, fpNotify, ))
+        log.debug("[attachEvent] %s %s", sEvent, fpNotify)
         setattr(self, sEvent.lower(), fpNotify)
     
     def _detachEvent(self, sEvent, fpNotify):
-        log.debug("[detachEvent] %s %s" % (sEvent, fpNotify, ))
+        log.debug("[detachEvent] %s %s", sEvent, fpNotify)
         notify = getattr(self, sEvent.lower(), None)
         if notify is None:
             return
@@ -699,18 +699,18 @@ class Window(JSClass):
         if notify in (fpNotify, ):
             delattr(self, sEvent.lower())
     
-    def _addEventListener(self, type, listener, useCapture = False):
-        log.debug("[addEventListener] %s %s %s" % (type, listener, useCapture, ))
-        setattr(self, 'on%s' % (type.lower(), ), listener)
+    def _addEventListener(self, _type, listener, useCapture = False):
+        log.debug("[addEventListener] %s %s %s", _type, listener, useCapture)
+        setattr(self, 'on%s' % (_type.lower(), ), listener)
     
-    def _removeEventListener(self, type, listener, useCapture = False):
-        log.debug("[removeEventListener] %s %s %s" % (type, listener, useCapture, ))
-        _listener = getattr(self, 'on%s' % (type.lower(), ), None)
+    def _removeEventListener(self, _type, listener, useCapture = False):
+        log.debug("[removeEventListener] %s %s %s", _type, listener, useCapture)
+        _listener = getattr(self, 'on%s' % (_type.lower(), ), None)
         if _listener is None:
             return
     
         if _listener in (listener, ):
-            delattr(self, 'on%s' % (type.lower(), ))
+            delattr(self, 'on%s' % (_type.lower(), ))
 
     def _CollectGarbage(self):
         pass
@@ -810,7 +810,7 @@ class Window(JSClass):
                 log.info(script)
 
         if len(script) > 64: 
-            log.warning("[Window] Eval argument length > 64 (%d)" % (len(script), ))
+            log.warning("[Window] Eval argument length > 64 (%d)", len(script))
 
         if len(script) > 4:
             log.ThugLogging.add_code_snippet(script, 'Javascript', 'Dynamically_Evaluated', True)

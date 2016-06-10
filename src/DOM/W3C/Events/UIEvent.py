@@ -24,11 +24,12 @@ class UIEvent(Event):
         return self._detail
 
     def initUIEvent(self, typeArg, canBubbleArg, cancelableArg, viewArg = None, detailArg = 0):
-        log.debug('initUIEvent(%s, %s, %s, %s, %s)' % (typeArg, 
-                                                       canBubbleArg, 
-                                                       cancelableArg, 
-                                                       viewArg, 
-                                                       detailArg))
+        log.debug('initUIEvent(%s, %s, %s, %s, %s)', typeArg,
+                                                     canBubbleArg,
+                                                     cancelableArg,
+                                                     viewArg,
+                                                     detailArg)
+
         self.initEvent(typeArg, canBubbleArg, cancelableArg)
         self._view   = viewArg
         self._detail = detailArg

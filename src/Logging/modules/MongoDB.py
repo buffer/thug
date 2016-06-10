@@ -206,7 +206,7 @@ class MongoDB(object):
         }
 
         self.analysis_id = self.analyses.insert(analysis)
-        log.warning('[MongoDB] Analysis ID: %s' % (str(self.analysis_id), ))
+        log.warning('[MongoDB] Analysis ID: %s', str(self.analysis_id))
 
     def get_vuln_module(self, module):
         disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)

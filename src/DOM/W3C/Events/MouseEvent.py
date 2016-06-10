@@ -79,11 +79,11 @@ class MouseEvent(UIEvent):
                        metaKeyArg         = False,
                        buttonArg          = 1,
                        relatedTargetArg   = None):
-        log.debug('initMouseEvent(%s, %s, %s, %s, %s)' % (typeArg, 
-                                                          canBubbleArg, 
-                                                          cancelableArg, 
-                                                          viewArg, 
-                                                          detailArg, ))
+        log.debug('initMouseEvent(%s, %s, %s, %s, %s)', typeArg,
+                                                        canBubbleArg,
+                                                        cancelableArg,
+                                                        viewArg,
+                                                        detailArg)
 
         self._screenX       = screenXArg
         self._screenY       = screenYArg

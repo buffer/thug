@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 import sys
-import re
-import string
 
 from DOMException import DOMException
 from Node import Node

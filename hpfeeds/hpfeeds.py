@@ -89,7 +89,7 @@ class HPC(object):
 		self.connect()
 
 	def connect(self):
-		logger.info('connecting to %s:%s' % (self.host, self.port, ))
+		logger.info('connecting to %s:%s', self.host, self.port)
 		self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.s.settimeout(self.timeout)
 		try: self.s.connect((self.host, self.port))
@@ -106,7 +106,7 @@ class HPC(object):
 				name, rest = rest[1:1+ord(rest[0])], buffer(rest, 1+ord(rest[0]))
 				rand = str(rest)
 
-				logger.debug('info message name: %s, rand: %s' % (name, repr(rand), ))
+				logger.debug('info message name: %s, rand: %s', name, repr(rand))
 				self.brokername = name
 				
 				self.s.send(msgauth(rand, self.ident, self.secret))

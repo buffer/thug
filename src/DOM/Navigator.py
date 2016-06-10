@@ -21,11 +21,6 @@ import os
 import hashlib
 import logging
 
-try:
-    import urllib.parse as urlparse
-except ImportError:
-    import urlparse
-
 from .JSClass import JSClass
 from .MimeTypes import MimeTypes
 from .Plugins import Plugins

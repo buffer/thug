@@ -151,7 +151,7 @@ class HTTPSession(object):
 
         if not _url.netloc:
             _url = urlparse.urljoin(window.url, url)
-            log.warning("[Navigator URL Translation] %s --> %s" % (url, _url, ))
+            log.warning("[Navigator URL Translation] %s --> %s", url, _url)
             return _url
 
         return url

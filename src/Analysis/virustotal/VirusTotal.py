@@ -101,7 +101,7 @@ class VirusTotal(object):
                 self.save_report(response_dict, basedir, sample)
                 return True
             
-            log.warning("[VirusTotal] %s" % (response_dict['verbose_msg'], ))
+            log.warning("[VirusTotal] %s", response_dict['verbose_msg'])
 
         return False
 
@@ -117,7 +117,7 @@ class VirusTotal(object):
         response = requests.post(self.opts["scanurl"], files = files, params = params)
         
         if response.ok:
-            log.warning("[VirusTotal] Sample %s submitted" % (md5, ))
+            log.warning("[VirusTotal] Sample %s submitted", md5)
 
         os.remove(s)
 

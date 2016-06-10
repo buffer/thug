@@ -143,7 +143,7 @@ class ThugLogging(BaseLogging, SampleLogging):
             m(self.baseDir)
 
         if log.ThugOpts.file_logging:
-            log.warning("Thug analysis logs saved at %s" % (self.baseDir, ))
+            log.warning("Thug analysis logs saved at %s", self.baseDir)
 
     def log_connection(self, source, destination, method, flags = None):
         """

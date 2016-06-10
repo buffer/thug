@@ -71,13 +71,13 @@ class ThugFiles(threading.Thread):
                 fd.write(filedata)
 
         def on_error(payload):
-            self.log.critical("Error message from server: %s" % (payload, ))
+            self.log.critical("Error message from server: %s", payload)
             self.hpc.stop()
 
         while True:
             try:
                 self.hpc = hpfeeds.new(self.opts['host'], int(self.opts['port']), self.opts['ident'], self.opts['secret'])
-                self.log.info("Connected to %s" % (self.hpc.brokername, ))
+                self.log.info("Connected to %s", self.hpc.brokername)
                 self.hpc.subscribe([self.opts['channel'], ])
             except hpfeeds.FeedException:
                 break
@@ -125,13 +125,13 @@ class ThugEvents(threading.Thread):
                 fd.write(payload)
     
         def on_error(payload):
-            self.log.critical("Error message from server: %s" % (payload, ))
+            self.log.critical("Error message from server: %s", payload)
             self.hpc.stop()
 
         while True:
             try:
                 self.hpc = hpfeeds.new(self.opts['host'], int(self.opts['port']), self.opts['ident'], self.opts['secret'])
-                self.log.info("Connected to %s" % (self.hpc.brokername, ))
+                self.log.info("Connected to %s", self.hpc.brokername)
                 self.hpc.subscribe(self.opts['channel'])
             except hpfeeds.FeedException:
                 break

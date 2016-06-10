@@ -87,4 +87,4 @@ class ThugPlugins(object):
                     verifyObject(IPlugin, p)
                     p.run(self.thug, log)
                 except BrokenImplementation as e:
-                    log.warning("[%s] %s" % (source, e, ))
+                    log.warning("[%s] %s", source, e)

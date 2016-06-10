@@ -55,7 +55,7 @@ class Location(JSClass):
 
         referer = self._window.url
         if referer == url:
-            log.warning("Detected redirection from %s to %s... skipping" % (referer, url, ))
+            log.warning("Detected redirection from %s to %s... skipping", referer, url)
             return
 
         for p in log.ThugOpts.Personality:

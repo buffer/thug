@@ -33,19 +33,19 @@ class BaseClassifier(object):
     def init_rules(self):
         p = getattr(self, 'default_rule_file', None)
         if p is None:
-            log.warn("[%s] Skipping not existing default classification rule file" % (self.classifier, ))
+            log.warn("[%s] Skipping not existing default classification rule file", self.classifier)
             return
 
         r = os.path.join(os.path.dirname(os.path.abspath(__file__)), p)
         if not os.path.exists(r):
             if log.configuration_path is None:
-                log.warn("[%s] Skipping not existing default classification rule file" % (self.classifier, ))
+                log.warn("[%s] Skipping not existing default classification rule file", self.classifier)
                 return
 
             r = os.path.join(log.configuration_path, p)
 
         if not os.path.exists(r):
-            log.warn("[%s] Skipping not existing default classification rule file" % (self.classifier, ))
+            log.warn("[%s] Skipping not existing default classification rule file", self.classifier)
             return
 
         self._rules['namespace0'] = r
@@ -53,7 +53,7 @@ class BaseClassifier(object):
 
     def add_rule(self, rule_file):
         if not os.path.exists(rule_file):
-            log.warn("[%s] Skipping not existing classification rule file %s" % (self.classifier, rule_file, ))
+            log.warn("[%s] Skipping not existing classification rule file %s", self.classifier, rule_file)
             return
 
         self._rules["namespace%s" % (self.namespace_id, )] = rule_file

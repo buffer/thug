@@ -10,5 +10,4 @@ class EventListener(object):
         pass
 
     def handleEvent(self, evt):
-        log.debug('handleEvent(%s)' % (evt, ))
-
+        log.debug('handleEvent(%s)', evt)

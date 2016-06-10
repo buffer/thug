@@ -82,7 +82,7 @@ class ThugOpts(dict):
 
     def set_useragent(self, useragent):
         if useragent not in self.Personality:
-            log.warning('[WARNING] Invalid User Agent provided (using default "%s")' % (self._useragent, ))
+            log.warning('[WARNING] Invalid User Agent provided (using default "%s")', self._useragent)
             return
 
         self._useragent = useragent

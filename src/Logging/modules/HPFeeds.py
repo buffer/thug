@@ -160,7 +160,7 @@ class HPFeeds(object):
 					published = True
 					self.sockfd.settimeout(0.1)
 				if opcode == self.OP_ERROR:
-					log.warning('[HPFeeds] Error message from server: %s' % (data, ))
+					log.warning('[HPFeeds] Error message from server: %s', data)
 
 			try:
 				d = self.sockfd.recv(1024)

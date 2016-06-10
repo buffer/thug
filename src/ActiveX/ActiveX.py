@@ -63,29 +63,29 @@ class _ActiveXObject(object):
 
         # Adobe Acrobat Reader
         if cls in acropdf and log.ThugVulnModules.acropdf_disabled:
-            log.warning("Unknown ActiveX Object: %s" % (cls, ))
+            log.warning("Unknown ActiveX Object: %s", cls)
             raise TypeError()
 
         # Shockwave Flash
         if cls in shockwave and log.ThugVulnModules.shockwave_flash_disabled:
-            log.warning("Unknown ActiveX Object: %s" % (cls, ))
+            log.warning("Unknown ActiveX Object: %s", cls)
             raise TypeError()
 
         if cls in self.shockwave_flash and self.shockwave not in (self.shockwave_flash[cls], ):
-                log.warning("Unknown ActiveX Object: %s" % (cls, ))
-                raise TypeError()
+            log.warning("Unknown ActiveX Object: %s", cls)
+            raise TypeError()
 
         _cls = cls
 
         # Java Deployment Toolkit
         if cls in java_deployment_toolkit and log.ThugVulnModules.javaplugin_disabled:
-            log.warning("Unknown ActiveX Object: %s" % (cls, ))
+            log.warning("Unknown ActiveX Object: %s", cls)
             raise TypeError()
 
         # JavaPlugin
         if cls.lower().startswith('javaplugin'):
             if log.ThugVulnModules.javaplugin_disabled or not cls.endswith(log.ThugVulnModules.javaplugin):
-                log.warning("Unknown ActiveX Object: %s" % (cls, ))
+                log.warning("Unknown ActiveX Object: %s", cls)
                 raise TypeError()
             else:
                 _cls = 'javaplugin'
@@ -93,7 +93,7 @@ class _ActiveXObject(object):
         # JavaWebStart
         if cls.lower().startswith('javawebstart.isinstalled'):
             if log.ThugVulnModules.javaplugin_disabled or not cls.endswith(log.ThugVulnModules.javawebstart_isinstalled):
-                log.warning("Unknown ActiveX Object: %s" % (cls, ))
+                log.warning("Unknown ActiveX Object: %s", cls)
                 raise TypeError()
             else:
                 _cls = 'javawebstart.isinstalled'
@@ -104,11 +104,11 @@ class _ActiveXObject(object):
                 break
 
         if not obj:
-            log.warning("Unknown ActiveX Object: %s" % (cls, ))
+            log.warning("Unknown ActiveX Object: %s", cls)
             #return None
             raise TypeError()
 
-        log.warning("ActiveXObject: %s" % (cls, ))
+        log.warning("ActiveXObject: %s", cls)
 
         for method_name, method in obj['methods'].items():
             #_method = new.instancemethod(method, self, _ActiveXObject)
@@ -137,7 +137,7 @@ class _ActiveXObject(object):
                 return value
 
         if name not in ('__watchpoints__'):
-            log.warning("Unknown ActiveX Object (%s) attribute: %s" % (self.cls, name, ))
+            log.warning("Unknown ActiveX Object (%s) attribute: %s", self.cls, name)
 
         raise AttributeError
 
@@ -147,7 +147,7 @@ def register_object(s, clsid):
     obj       = None
 
     if not clsid.startswith('clsid:'):
-        log.warning("Unknown ActiveX object: %s" % (clsid, ))
+        log.warning("Unknown ActiveX object: %s", clsid)
         return None
 
     clsid = clsid[6:].upper()
@@ -156,27 +156,27 @@ def register_object(s, clsid):
 
     # Adobe Acrobat Reader
     if clsid in acropdf and log.ThugVulnModules.acropdf_disabled:
-        log.warning("Unknown ActiveX Object: %s" % (clsid, ))
+        log.warning("Unknown ActiveX Object: %s", clsid)
         raise TypeError()
 
     # Shockwave Flash
     if clsid in shockwave and log.ThugVulnModules.shockwave_flash_disabled:
-        log.warning("Unknown ActiveX Object: %s" % (clsid, ))
+        log.warning("Unknown ActiveX Object: %s", clsid)
         raise TypeError()
 
     # Java Deployment Toolkit
     if clsid in java_deployment_toolkit and log.ThugVulnModules.javaplugin_disabled:
-        log.warning("Unknown ActiveX Object: %s" % (clsid, ))
+        log.warning("Unknown ActiveX Object: %s", clsid)
         raise TypeError()
 
     # JavaPlugin
     if clsid.lower().startswith('javaplugin') and log.ThugVulnModules.javaplugin_disabled:
-        log.warning("Unknown ActiveX Object: %s" % (clsid, ))
+        log.warning("Unknown ActiveX Object: %s", clsid)
         raise TypeError()
 
     # JavaWebStart
     if clsid.lower().startswith('javawebstart.isinstalled') and log.ThugVulnModules.javaplugin_disabled:
-        log.warning("Unknown ActiveX Object: %s" % (clsid, ))
+        log.warning("Unknown ActiveX Object: %s", clsid)
         raise TypeError()
 
     for c in CLSID:
