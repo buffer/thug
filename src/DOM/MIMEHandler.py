@@ -381,7 +381,7 @@ class MIMEHandler(dict):
         size.text         = statsDict['Size']
         detection         = etree.SubElement(basicInfo, 'detection')
 
-        if statsDict['Detection'] != [] and statsDict['Detection'] != None:
+        if statsDict['Detection'] != [] and statsDict['Detection'] is not None:
             detectionRate        = etree.SubElement(detection, 'rate')
             detectionRate.text   = '%d/%d' % (statsDict['Detection'][0], statsDict['Detection'][1])
             detectionReport      = etree.SubElement(detection, 'report_link')

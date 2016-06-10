@@ -173,7 +173,7 @@ class DocumentTest(unittest.TestCase):
         
         self.assertEquals(html, attr.parentNode)
         self.failIf(attr.hasChildNodes())        
-        self.assert_(attr.childNodes != None)
+        self.assert_(attr.childNodes is not None)
         self.assertEquals(0, attr.childNodes.length)
         self.failIf(attr.firstChild)
         self.failIf(attr.lastChild)
@@ -325,7 +325,7 @@ class HTMLDocumentTest(unittest.TestCase):
         
         forms = self.doc.forms
         
-        self.assert_(forms != None)
+        self.assert_(forms is not None)
         self.assertEquals(2, len(forms))
         
         self.assert_(isinstance(forms[0], HTMLFormElement))
