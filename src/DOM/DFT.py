@@ -317,7 +317,7 @@ class DFT(object):
 
     # Events handling
     def handle_element_event(self, evt):
-        for (elem, eventType, listener, capture) in self.listeners:
+        for (elem, eventType, listener, capture) in self.listeners: #pylint:disable=unused-variable
             if getattr(elem, 'name', None) is None:
                 continue
 
@@ -365,7 +365,7 @@ class DFT(object):
         if '_listeners' not in self.window.doc.tag.__dict__:
             return
 
-        for (eventType, listener, capture) in self.window.doc.tag._listeners:
+        for (eventType, listener, capture) in self.window.doc.tag._listeners: #pylint:disable=unused-variable
             if eventType not in (onevt[2:], ):
                 continue
                 
@@ -787,8 +787,8 @@ class DFT(object):
     def handle_param(self, param):
         log.info(param)
 
-        name  = param.get('name' , None)
-        value = param.get('value', None)
+        name  = param.get('name' , None) #pylint:disable=unused-variable
+        value = param.get('value', None) #pylint:disable=unused-variable
 
     def handle_embed(self, embed):
         log.warning(embed)
