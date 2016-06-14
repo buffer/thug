@@ -21,7 +21,7 @@ from zope.interface import implementer
 from .IPlugin import IPlugin
 
 @implementer(IPlugin)
-class Handler:
+class Handler(object):
     def run(self, thug, log):
         log.debug(thug)
         log.debug(log)

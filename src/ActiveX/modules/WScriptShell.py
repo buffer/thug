@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-class _Environment:
+class _Environment(object):
     def __init__(self, strType):
         self.strType = strType
 
