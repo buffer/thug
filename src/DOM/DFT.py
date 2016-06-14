@@ -787,8 +787,8 @@ class DFT(object):
     def handle_param(self, param):
         log.info(param)
 
-        name  = param.get('name' , None) #pylint:disable=unused-variable
-        value = param.get('value', None) #pylint:disable=unused-variable
+        #name  = param.get('name' , None)
+        #value = param.get('value', None)
 
     def handle_embed(self, embed):
         log.warning(embed)
