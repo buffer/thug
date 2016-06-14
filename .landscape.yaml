@@ -17,4 +17,4 @@ pylint:
     - too-many-locals
     - unused-argument
     - protected-access
-    - E116
+    - unnecessary-lambda
