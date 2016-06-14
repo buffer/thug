@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div class="example">First</div>
+<div class="example">Second</div>
+<button onclick="myFunction()">test</button>
+<!--from  w w w  .j a  v a  2  s . c o m-->
+<script>
+function run() {
+    var x = document.getElementsByClassName("example");
+    alert(x[0]);
+    x[0].innerHTML = "Hello World!";
+    alert(x[0]);
+    alert(x[1]);
+}
+
+run();
+</script>
+
+</body>
+</html>
