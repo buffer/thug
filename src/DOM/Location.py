@@ -66,7 +66,7 @@ class Location(JSClass):
         log.ThugLogging.log_href_redirect(referer, url)
 
         doc    = w3c.parseString('')
-        window = Window(referer, doc, personality = p)
+        window = Window(referer, doc, personality = p) #pylint:disable=undefined-loop-variable
         window = window.open(url)
         if not window:
             return
