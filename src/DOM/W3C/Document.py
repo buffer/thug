@@ -1,19 +1,8 @@
 #!/usr/bin/env python
 
-import sys
-import re
-import string
 import logging
 
 log = logging.getLogger("Thug")
-
-try:
-    from io import StringIO
-except ImportError:
-    try:
-        from cStringIO import StringIO
-    except ImportError:
-        from StringIO import StringIO
 
 import bs4 as BeautifulSoup
 
