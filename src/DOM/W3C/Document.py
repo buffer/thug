@@ -157,7 +157,7 @@ class Document(Node, DocumentEvent, DocumentView):
 
         element = DOMImplementation.createHTMLElement(self, BeautifulSoup.Tag(parser = self.doc, name = tagname))
         if self.onCreateElement:
-            self.onCreateElement(element)
+            self.onCreateElement(element) #pylint:disable=not-callable
         
         return element
     
