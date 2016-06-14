@@ -18,7 +18,7 @@ def Write(self, s):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Write")
     self.fobject.write(unicode(s))
 
-def SaveToFile(self, filename, opt):
+def SaveToFile(self, filename, opt = 0):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] SaveToFile (%s)" % (filename, ))
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Adodb.Stream ActiveX",
