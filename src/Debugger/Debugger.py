@@ -38,31 +38,31 @@ class Debugger(PyV8.JSDebugger):
         return PyV8.JSDebugger.__enter__(self)
         
     def onMessage(self, msg):
-        log.debug("Debug message: %s" % (msg, ))
+        log.debug("Debug message: %s", msg)
        
         if msg['type'] == 'event' and msg['event'] == 'break':
             self.stepNext()
         return True
 
-    def onDebugEvent(self, type, state, evt):
+    def onDebugEvent(self, _type, state, evt):
         json = evt.toJSONProtocol()
-        log.debug("%s event: %s" % (type, json, ))
+        log.debug("%s event: %s", _type, json)
 
     def onBreakEvent(self, evt):
-        log.debug("Break event: %s" % (evt, ))
+        log.debug("Break event: %s", evt)
 
     def onException(self, evt):
-        log.debug("Exception event: %s" % (evt, ))
+        log.debug("Exception event: %s", evt)
 
     def onNewFunction(self, evt):
-        log.debug("New function event: %s" % (evt, ))
+        log.debug("New function event: %s", evt)
 
     def onBeforeCompile(self, evt):
-        log.debug("Before compile event: %s" % (evt, ))
+        log.debug("Before compile event: %s", evt)
         return True
 
     def onAfterCompile(self, evt):
-        log.debug("After compile event: %s" % (evt, ))
+        log.debug("After compile event: %s", evt)
         return True
 
     def processDebugEvent(self, evt):
@@ -70,4 +70,3 @@ class Debugger(PyV8.JSDebugger):
 
     def onBreak(self):
         log.debug("onBreak")
-
