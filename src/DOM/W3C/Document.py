@@ -53,21 +53,28 @@ class Document(Node, DocumentEvent, DocumentView):
             self.querySelectorAll = self._querySelectorAll
             self.querySelector    = self._querySelector
 
+        if log.ThugOpts.Personality.browserMajorVersion > 8:
+            self.getElementsByClassName = self._getElementsByClassName
+
     def __init_personality_Firefox(self):
-        self.querySelectorAll = self._querySelectorAll
-        self.querySelector    = self._querySelector
+        self.querySelectorAll       = self._querySelectorAll
+        self.querySelector          = self._querySelector
+        self.getElementsByClassName = self._getElementsByClassName
 
     def __init_personality_Chrome(self):
-        self.querySelectorAll = self._querySelectorAll
-        self.querySelector    = self._querySelector
+        self.querySelectorAll       = self._querySelectorAll
+        self.querySelector          = self._querySelector
+        self.getElementsByClassName = self._getElementsByClassName
 
     def __init_personality_Safari(self):
-        self.querySelectorAll = self._querySelectorAll
-        self.querySelector    = self._querySelector
+        self.querySelectorAll       = self._querySelectorAll
+        self.querySelector          = self._querySelector
+        self.getElementsByClassName = self._getElementsByClassName
 
     def __init_personality_Opera(self):
-        self.querySelectorAll = self._querySelectorAll
-        self.querySelector    = self._querySelector
+        self.querySelectorAll       = self._querySelectorAll
+        self.querySelector          = self._querySelector
+        self.getElementsByClassName = self._getElementsByClassName
 
     def _querySelectorAll(self, selectors):
         from DOMImplementation import DOMImplementation
@@ -177,7 +184,10 @@ class Document(Node, DocumentEvent, DocumentView):
             return NodeList(self.doc, s)
 
         return NodeList(self.doc, self.doc.find_all(tagname.lower()))
-    
+
+    def _getElementsByClassName(self, classname):
+        return NodeList(self.doc, self.doc.find_all(class_ = classname))
+
     # Introduced in DOM Level 2
     def getElementById(self, elementId):
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 8:
