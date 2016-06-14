@@ -49,21 +49,28 @@ class Element(Node, ElementCSSInlineStyle):
             self.querySelectorAll = self._querySelectorAll
             self.querySelector    = self._querySelector
 
+        if log.ThugOpts.Personality.browserMajorVersion > 8:
+            self.getElementsByClassName = self._getElementsByClassName
+
     def __init_personality_Firefox(self):
-        self.querySelectorAll = self._querySelectorAll
-        self.querySelector    = self._querySelector
+        self.querySelectorAll       = self._querySelectorAll
+        self.querySelector          = self._querySelector
+        self.getElementsByClassName = self._getElementsByClassName
 
     def __init_personality_Chrome(self):
-        self.querySelectorAll = self._querySelectorAll
-        self.querySelector    = self._querySelector
+        self.querySelectorAll       = self._querySelectorAll
+        self.querySelector          = self._querySelector
+        self.getElementsByClassName = self._getElementsByClassName
 
     def __init_personality_Safari(self):
-        self.querySelectorAll = self._querySelectorAll
-        self.querySelector    = self._querySelector
+        self.querySelectorAll       = self._querySelectorAll
+        self.querySelector          = self._querySelector
+        self.getElementsByClassName = self._getElementsByClassName
 
     def __init_personality_Opera(self):
-        self.querySelectorAll = self._querySelectorAll
-        self.querySelector    = self._querySelector
+        self.querySelectorAll       = self._querySelectorAll
+        self.querySelector          = self._querySelector
+        self.getElementsByClassName = self._getElementsByClassName
 
     def _querySelectorAll(self, selectors):
         try:
@@ -227,3 +234,6 @@ class Element(Node, ElementCSSInlineStyle):
     def getElementsByTagName(self, tagname):
         return NodeList(self.doc, self.tag.find_all(tagname))
         #return self.doc.getElementsByTagName(tagname)
+
+    def _getElementsByClassName(self, classname):
+        return NodeList(self.doc, self.tag.find_all(class_ = classname))
