@@ -3,7 +3,7 @@ import logging
 log = logging.getLogger("Thug")
 
 def definition(arg):
-    log.ThugLogging.log_exploit_event(self._window.url,
+    log.ThugLogging.log_exploit_event(self._window.url, #pylint:disable=undefined-variable
                                       "MSXML2.DOMDocument",
                                       "Microsoft XML Core Services MSXML Uninitialized Memory Corruption",
-                                      cve = "CVE-2012-1889") #pylint:disable=undefined-variable
+                                      cve = "CVE-2012-1889")
