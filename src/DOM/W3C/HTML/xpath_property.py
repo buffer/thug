@@ -47,14 +47,16 @@ def xpath_property(xpath, readonly = False):
 
         children = []
 
-        tags = tag.find_all(name, recursive = recursive)
+        _tags = tag.find_all(name, recursive = recursive)
 
         if idx:
             if idx[0] == '@':
-                tags = [tag for tag in tags if tag.has_attr(idx[1:])]
+                tags = [tag for tag in _tags if tag.has_attr(idx[1:])]
             else:
-                tags = [tags[int(idx)-1]]
-        
+                tags = [_tags[int(idx)-1]]
+        else:
+            tags = _tags
+
         for child in tags:
             children += getChildren(child, parts[1:])
             
