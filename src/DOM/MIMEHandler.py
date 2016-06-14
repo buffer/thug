@@ -498,7 +498,7 @@ class MIMEHandler(dict):
                             log.ThugLogging.log_exploit_event(url,
                                                               "Adobe Acrobat Reader",
                                                               "Adobe Acrobat Reader suspicious trigger: %s [object %s]" % (event, id, )
-                                                              ),
+                                                              )
                             etree.SubElement(trigger, 'container_object', id = str(id))
                 if actions:
                     actionsList = etree.SubElement(suspicious, 'actions')
@@ -508,7 +508,7 @@ class MIMEHandler(dict):
                             log.ThugLogging.log_exploit_event(url,
                                                               "Adobe Acrobat Reader",
                                                               "Adobe Acrobat Reader suspicious action: %s [object %s]" % (action, id, )
-                                                              ),
+                                                              )
                             etree.SubElement(actionInfo, 'container_object', id = str(id))
 
                 if elements:
