@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import logging
-from abstractmethod import abstractmethod
 from .UIEvent import UIEvent
 
 log = logging.getLogger("Thug")
@@ -96,4 +95,3 @@ class MouseEvent(UIEvent):
         self._button        = buttonArg
         self._relatedTarget = relatedTargetArg
         self.initUIEvent(typeArg, canBubbleArg, cancelableArg, viewArg, detailArg)
-
