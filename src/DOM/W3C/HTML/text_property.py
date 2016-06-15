@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import bs4 as BeautifulSoup
+#import bs4 as BeautifulSoup
 
 def text_property(readonly = False):
     def getter(self):
