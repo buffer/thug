@@ -17,7 +17,6 @@ import logging
 from Element import Element
 from Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 from .attr_property import attr_property
-from .text_property import text_property
 
 log = logging.getLogger("Thug")
 
