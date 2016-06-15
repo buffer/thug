@@ -42,7 +42,7 @@ def xpath_property(xpath, readonly = False):
 
         if idx:
             if idx[0] == '@':
-                tags = [tag for tag in _tags if tag.has_attr(idx[1:])]
+                tags = [t for t in _tags if t.has_attr(idx[1:])]
             else:
                 tags = [_tags[int(idx)-1]]
         else:
