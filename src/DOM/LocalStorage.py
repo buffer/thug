@@ -22,5 +22,5 @@ class LocalStorage(Storage):
     def __init__(self, *args, **kwargs):
         super(LocalStorage, self).__init__(*args, **kwargs)
 
-    def __repr__(self, _repr_running = {}):
+    def __repr__(self, _repr_running = None):
         return "localStorage"
