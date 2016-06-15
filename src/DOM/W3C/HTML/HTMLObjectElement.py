@@ -4,7 +4,7 @@ import logging
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
-from .compatibility import *
+from .compatibility import thug_long
 
 log = logging.getLogger("Thug")
 

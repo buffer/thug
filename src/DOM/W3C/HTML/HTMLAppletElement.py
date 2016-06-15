@@ -2,7 +2,7 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
-from .compatibility import *
+from .compatibility import thug_long
 
 class HTMLAppletElement(HTMLElement):
     def __init__(self, doc, tag):
@@ -19,4 +19,3 @@ class HTMLAppletElement(HTMLElement):
     object          = attr_property("object")
     vspace          = attr_property("vspace", thug_long)
     width           = attr_property("width")
-
