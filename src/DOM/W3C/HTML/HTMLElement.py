@@ -28,6 +28,10 @@ class HTMLElement(Element, ElementCSSInlineStyle):
     dir             = attr_property("dir")
     className       = attr_property("class", default = "")
 
+    def __init__(self, doc, tag):
+        Element.__init__(self, doc, tag)
+        ElementCSSInlineStyle.__init__(self, doc, tag)
+
     def getInnerHTML(self):
         if not self.hasChildNodes():
             return ""
