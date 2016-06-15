@@ -47,8 +47,8 @@ def msgsubscribe(ident, chan):
 	return msghdr(OP_SUBSCRIBE, struct.pack('!B', len(ident)) + ident + chan)
 
 def msgauth(rand, ident, secret):
-	hash = hashlib.sha1(rand+secret).digest()
-	return msghdr(OP_AUTH, struct.pack('!B', len(ident)) + ident + hash)
+	_hash = hashlib.sha1(rand+secret).digest()
+	return msghdr(OP_AUTH, struct.pack('!B', len(ident)) + ident + _hash)
 
 class FeedUnpack(object):
 	def __init__(self):
