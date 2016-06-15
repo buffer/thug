@@ -106,7 +106,7 @@ class Shellcode(object):
             finally:
                 if trace:
                     log.ThugLogging.log_warning(trace)
-                    return None
+                    return None ##pylint:disable=lost-exception
 
             for name in self.ast.names:
                 s = None
