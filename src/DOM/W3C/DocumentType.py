@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-import sys, re, string
+import re
+import string
 
-from DOMException import DOMException
 from Node import Node
 from Events import *
 

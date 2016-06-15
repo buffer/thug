@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-import sys, re, string
-
-import bs4 as BeautifulSoup
+import re
+import string
 
 from DOMException import DOMException
 from .HTMLCollection import HTMLCollection

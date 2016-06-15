@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-
 from abstractmethod import abstractmethod
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property

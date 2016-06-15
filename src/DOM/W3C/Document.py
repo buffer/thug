@@ -6,7 +6,6 @@ log = logging.getLogger("Thug")
 
 import bs4 as BeautifulSoup
 
-from DOMException import DOMException
 from Node import Node
 from NodeList import NodeList
 from DocumentFragment import DocumentFragment

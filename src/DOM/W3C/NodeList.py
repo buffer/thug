@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import sys
 from DOM.JSClass import JSClass
 
 class NodeList(JSClass):
@@ -21,4 +20,3 @@ class NodeList(JSClass):
     @property
     def length(self):
         return len(self.nodes)
-

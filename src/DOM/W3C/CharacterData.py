@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-
-from DOMException import DOMException
 from Node import Node
 
 class CharacterData(Node):

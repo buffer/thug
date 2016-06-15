@@ -3,7 +3,7 @@
 import logging
 
 try:
-    from DOM.W3C.HTML import *
+    from DOM.W3C.HTML import * #pylint:disable=unused-wildcard-import
 except ImportError:
     from HTML import *
 

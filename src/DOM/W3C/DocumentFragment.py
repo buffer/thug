@@ -5,7 +5,6 @@ import logging
 log = logging.getLogger("Thug")
 
 import bs4 as BeautifulSoup
-from DOMException import DOMException
 from Node import Node
 from NodeList import NodeList
 
@@ -90,4 +89,3 @@ class DocumentFragment(Node):
     @property
     def nodeValue(self):
         return None
-
