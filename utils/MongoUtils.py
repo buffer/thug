@@ -17,7 +17,6 @@
 # MA  02111-1307  USA
 
 import sys
-import os
 import getopt
 
 MONGO_MODULE = True
@@ -26,7 +25,6 @@ try:
     import pymongo
     import gridfs
     from bson.objectid import ObjectId
-    from pymongo.errors import DuplicateKeyError
 except ImportError:
     MONGO_MODULE = False
 
