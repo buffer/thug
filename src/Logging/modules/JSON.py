@@ -19,12 +19,11 @@
 # Author:   Thorsten Sick <thorsten.sick@avira.com> from Avira
 #           (developed for the iTES Project http://ites-project.org)
 
-import sys
 import logging
 import datetime
 import os
 import json
-import codecs
+
 try:
     from StringIO import StringIO
 except ImportError:
