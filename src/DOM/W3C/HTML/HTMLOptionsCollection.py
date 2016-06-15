@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import re
-
 from DOMException import DOMException
 from .HTMLCollection import HTMLCollection
 

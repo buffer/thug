@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import re
-
 from Node import Node
 from Text import Text
 

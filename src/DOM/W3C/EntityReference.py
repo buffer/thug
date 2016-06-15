@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from Node import Node
-from Events import *
 
 class EntityReference(Node):
     def __init__(self, doc, name):

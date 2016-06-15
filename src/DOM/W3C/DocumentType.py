@@ -3,7 +3,6 @@
 import re
 
 from Node import Node
-from Events import *
 
 class DocumentType(Node):
     RE_DOCTYPE = re.compile("^DOCTYPE (\w+)", re.M + re.S)

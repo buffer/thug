@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from Node import Node
-from Events import *
 
 class ProcessingInstruction(Node):
     def __init__(self, doc, target, data):

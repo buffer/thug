@@ -56,8 +56,6 @@ class DocumentFragment(Node):
         self.querySelector    = self._querySelector
 
     def _querySelectorAll(self, selectors):
-        from DOMImplementation import DOMImplementation
-
         try:
             s = self.tag.select(selectors)
         except:

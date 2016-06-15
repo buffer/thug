@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import re
-
 from DOMException import DOMException
 from Node import Node
 from CharacterData import CharacterData

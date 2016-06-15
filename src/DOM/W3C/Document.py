@@ -76,8 +76,6 @@ class Document(Node, DocumentEvent, DocumentView):
         self.getElementsByClassName = self._getElementsByClassName
 
     def _querySelectorAll(self, selectors):
-        from DOMImplementation import DOMImplementation
-
         try:
             s = self.doc.select(selectors)
         except:
