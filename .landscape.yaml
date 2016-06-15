@@ -11,6 +11,7 @@ ignore-paths:
   - src/ThugAPI/IThugAPI.py
   - src/ThugAPI/__init__.py
   - src/Plugins/IPlugin.py
+  - src/ActiveX/modules/MSXML2DOMDocument.py
 pylint:
   disable:
     - too-many-arguments
