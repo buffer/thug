@@ -19,7 +19,6 @@
 import os
 import yara
 import logging
-from .abstractmethod import abstractmethod
 
 log = logging.getLogger("Thug")
 
@@ -59,10 +58,6 @@ class BaseClassifier(object):
         self._rules["namespace%s" % (self.namespace_id, )] = rule_file
         self.namespace_id += 1
         self.rules = yara.compile(filepaths = self._rules)
-
-    @abstractmethod
-    def classify(self):
-        pass
 
     @property
     def result(self):
