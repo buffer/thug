@@ -30,7 +30,7 @@ except ImportError:
     from io import StringIO
 
 from .Mapper import Mapper
-from .compatibility import *
+from .compatibility import thug_unicode
 
 log = logging.getLogger("Thug")
 

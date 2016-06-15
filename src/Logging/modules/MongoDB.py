@@ -20,7 +20,7 @@ import os
 import datetime
 import base64
 import logging
-from .compatibility import *
+from .compatibility import thug_unicode
 
 try:
     import configparser as ConfigParser
