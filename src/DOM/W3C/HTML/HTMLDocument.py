@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-import re
-import string
 import six
 import logging
 
@@ -25,7 +22,6 @@ import bs4 as BeautifulSoup
 
 from Document import Document
 from DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
-from DOMException import DOMException
 from .HTMLCollection import HTMLCollection
 from .HTMLElement import HTMLElement
 from .HTMLBodyElement import HTMLBodyElement
