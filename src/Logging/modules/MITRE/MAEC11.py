@@ -17,9 +17,9 @@
 # MA  02111-1307  USA
 
 import os
-import sys
 import logging
 import datetime
+
 try:
     from StringIO import StringIO
 except:
