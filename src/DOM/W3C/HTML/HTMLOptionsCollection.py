@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import re
-import string
 
 from DOMException import DOMException
 from .HTMLCollection import HTMLCollection
@@ -18,4 +17,3 @@ class HTMLOptionsCollection(HTMLCollection):
         raise DOMException(DOMException.NOT_SUPPORTED_ERR)
 
     length = property(getLength, setLength)
-

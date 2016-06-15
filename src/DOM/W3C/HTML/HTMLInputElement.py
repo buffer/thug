@@ -3,7 +3,8 @@
 from abstractmethod import abstractmethod
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
-from .compatibility import *
+from .compatibility import thug_long
+from .compatibility import thug_maxint
 
 class HTMLInputElement(HTMLElement):
     def __init__(self, doc, tag):

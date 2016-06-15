@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import re
-import string
 
 from Node import Node
 from Events import *
@@ -63,4 +62,3 @@ class DocumentType(Node):
     @property
     def internalSubset(self):
         pass
-
