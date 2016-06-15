@@ -43,7 +43,7 @@ class Storage(OrderedDict):
         except KeyError:
             return None
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key, value, dict_setitem = dict.__setitem__):
         self.setItem(key, value)
 
     def setItem(self, key, value):
@@ -63,7 +63,7 @@ class Storage(OrderedDict):
         
         log.DFT.handle_window_storage_event('onstorage', evtObject)
 
-    def __delitem__(self, key):
+    def __delitem__(self, key, dict_delitem = dict.__delitem__):
         self.removeItem(key)
 
     def removeItem(self, key):
