@@ -8,16 +8,7 @@ import bs4 as BeautifulSoup
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
-try:
-    from io import StringIO
-except ImportError:
-    try:
-        from cStringIO import StringIO
-    except ImportError:
-        from StringIO import StringIO
-
 from .HTMLCollection import HTMLCollection
-from .attr_property import attr_property
 
 def xpath_property(xpath, readonly = False):
     RE_INDEXED = re.compile("(\w+)\[([^\]]+)\]")
@@ -110,4 +101,3 @@ def xpath_property(xpath, readonly = False):
         tag.append(value)
 
     return property(getter) if readonly else property(getter, setter)
-
