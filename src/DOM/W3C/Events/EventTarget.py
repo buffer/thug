@@ -94,9 +94,9 @@ class EventTarget(object):
         return capture_listeners, bubbling_listeners
 
     def _do_dispatch(self, c, evtObject):
-        eventType, listener, capture = c
+        eventType, listener, capture = c #pylint:disable=unused-variable
             
-        with self.doc.window.context as ctx:
+        with self.doc.window.context as ctx: #pylint:disable=unused-variable
             if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
                 self.doc.window.event = evtObject
                 listener()
@@ -107,7 +107,7 @@ class EventTarget(object):
         try:
             self._do_dispatch(c, evtObject)
         except:
-            eventType, listener, capture = c
+            eventType, listener, capture = c #pylint:disable=unused-variable
             log.warning("[WARNING] Error while dispatching %s event", eventType)
 
     def _dispatchCaptureEvent(self, tag, evtType, evtObject):
@@ -122,7 +122,7 @@ class EventTarget(object):
         if evtObject._stoppedPropagation:
             return
 
-        capture_listeners, bubbling_listeners = self._get_listeners(tag.parent, evtType)
+        capture_listeners, bubbling_listeners = self._get_listeners(tag.parent, evtType) #pylint:disable=unused-variable
         for c in capture_listeners:
             evtObject.currentTarget = tag.parent._node
             self.do_dispatch(c, evtObject)
@@ -138,7 +138,7 @@ class EventTarget(object):
             if evtObject._stoppedPropagation:
                 continue
 
-            capture_listeners, bubbling_listeners = self._get_listeners(node, evtType)
+            capture_listeners, bubbling_listeners = self._get_listeners(node, evtType) #pylint:disable=unused-variable
             for c in bubbling_listeners:
                 evtObject.currentTarget = node._node
                 self.do_dispatch(c, evtObject)
