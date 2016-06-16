@@ -193,7 +193,7 @@ class HTMLDocument(Document):
 
     @property
     def documentMode(self):
-        version = log.ThugOpts.Personality.browserVersion
+        #version = log.ThugOpts.Personality.browserVersion
         major   = log.ThugOpts.Personality.browserMajorVersion
 
         if major < 8:

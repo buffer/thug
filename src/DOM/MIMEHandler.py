@@ -389,8 +389,8 @@ class MIMEHandler(dict):
 
         version      = etree.SubElement(basicInfo, 'pdf_version')
         version.text = statsDict['Version']
-        binary       = etree.SubElement(basicInfo, 'binary', status = statsDict['Binary'].lower())
-        linearized   = etree.SubElement(basicInfo, 'linearized', status = statsDict['Linearized'].lower())
+        #binary       = etree.SubElement(basicInfo, 'binary', status = statsDict['Binary'].lower())
+        #linearized   = etree.SubElement(basicInfo, 'linearized', status = statsDict['Linearized'].lower())
         encrypted    = etree.SubElement(basicInfo, 'encrypted', status = statsDict['Encrypted'].lower())
 
         if statsDict['Encryption Algorithms'] != []:
@@ -547,7 +547,7 @@ class MIMEHandler(dict):
                             etree.SubElement(vulnInfo, 'container_object', id = str(id))
             
             urls           = statsVersion['URLs']
-            suspiciousURLs = etree.SubElement(versionInfo, 'suspicious_urls')
+            #suspiciousURLs = etree.SubElement(versionInfo, 'suspicious_urls')
             
             if urls:
                 for url in urls:
@@ -568,9 +568,9 @@ class MIMEHandler(dict):
             objs = body.objects
 
             for index in objs:
-                oid     = objs[index].id
-                offset  = objs[index].offset
-                size    = objs[index].size
+                #oid    = objs[index].id
+                #offset = objs[index].offset
+                #size   = objs[index].size
                 details = objs[index].object
 
                 if details.type in ("stream", ):
