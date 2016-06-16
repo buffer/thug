@@ -5,7 +5,8 @@ ignore-paths:
   - src/Logging/modules/MITRE/__init__.py
   - src/Logging/modules/MITRE/MAEC_v1_1.py
   - src/Logging/modules/MITRE/MAEC_v4_0.py
-  - utils/checkinstall.py
+  - utils/
+  - tools/
   - samples/steps/exploits.py
   - samples/steps/misc.py
   - src/ThugAPI/IThugAPI.py
