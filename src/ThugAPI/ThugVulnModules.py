@@ -108,5 +108,5 @@ class ThugVulnModules(dict):
     @property
     def javawebstart_isinstalled(self):
         javawebstart = self._javaplugin.split('.')
-        last         = javawebstart.pop()
+        last         = javawebstart.pop() #pylint:disable=unused-variable
         return '%s.%s' % ('.'.join(javawebstart), '0')
