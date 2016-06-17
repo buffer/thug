@@ -18,7 +18,7 @@ setup(
     author = "Angelo Dell'Aera",
     author_email = "buffer@antifork.org",
     description = "Low-interaction honeyclient Thug",
-    long_description = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, "README.md")).read(),
+    long_description = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, "README.rst")).read(),
     classifiers = [
         "Development Status :: 4 - Beta",
         "Environment :: Console",
