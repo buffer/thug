@@ -31,3 +31,5 @@ pep8:
   disable:
     # E116 - Unexpected indent for comment
     - E116
+    # E501 - Line too long
+    - E501
