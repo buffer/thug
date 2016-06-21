@@ -47,7 +47,12 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     self.varAsync    = varAsync
     self.varUser     = varUser
     self.varPassword = varPassword
-    self.readyState  = 1
+    self.readyState  = 4
+
+    if self.onreadystatechange:
+        with self._window.context as ctx:
+            self.onreadystatechange.__call__()
+
     return 0
 
 
@@ -102,6 +107,10 @@ def send(self, varBody = None):
     handler = log.MIMEHandler.get_handler(contenttype)
     if handler:
         handler(self.bstrUrl, self.responseBody)
+
+    if self.onreadystatechange:
+        with DOM.DFT.context as ctx:
+            ctx.eval(self.onreadystatechange)
 
 
 def setRequestHeader(self, bstrHeader, bstrValue):
