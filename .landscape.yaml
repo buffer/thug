@@ -22,6 +22,7 @@ pylint:
     - unused-argument
     - protected-access
     - unnecessary-lambda
+    - line-too-long
 
 pyflakes:
   disable:
