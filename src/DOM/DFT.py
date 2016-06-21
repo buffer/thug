@@ -815,22 +815,6 @@ class DFT(object):
         except:
             pass
 
-        codebase = embed.get('codebase', None)
-        archive  = embed.get('archive', None)
-        
-        if codebase is None and archive is None:
-            return
-
-        if codebase:
-            url = urlparse.urljoin(codebase, archive)
-        else:
-            url = archive
-
-        try:
-            self.window._navigator.fetch(src, headers = headers, redirect_type = "embed")
-        except:
-            pass
-
     def handle_applet(self, applet):
         log.warning(applet)
 
