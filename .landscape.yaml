@@ -23,6 +23,10 @@ pylint:
     - protected-access
     - unnecessary-lambda
 
+pyflakes:
+  disable:
+    - F841
+
 pep8:
   disable:
     # E116 - Unexpected indent for comment
