@@ -1238,6 +1238,6 @@ class DFT(object):
                 log.warning("[handle_element_event] Event %s not properly handled", evt)
 
     def run(self):
-        with self.context as ctx:
+        with self.context as ctx: #pylint:disable=unused-variable
             self._run()
             self.check_shellcodes()
