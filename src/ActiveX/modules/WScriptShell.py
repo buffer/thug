@@ -3,6 +3,7 @@ import string
 import random
 import re
 import logging
+import PyV8
 log = logging.getLogger("Thug")
 
 
@@ -82,6 +83,10 @@ def CreateObject(self, strProgID, strPrefix = ""):
 def Sleep(self, intTime):
     import time
 
-    time.sleep(intTime * 0.01)
-
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Sleep (%s)" % (intTime))
+
+    time.sleep(intTime * 0.001)
+
+def Quit(self, code):
+    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Quit (%s)" % code)
+    PyV8.JSEngine.terminateAllThreads()
