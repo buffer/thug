@@ -1,5 +1,6 @@
 strictness: medium
 autodetect: yes
+
 ignore-paths:
   - src/Analysis/peepdf/
   - src/Logging/modules/MITRE/__init__.py
@@ -13,6 +14,7 @@ ignore-paths:
   - src/ThugAPI/__init__.py
   - src/Plugins/IPlugin.py
   - src/ActiveX/modules/MSXML2DOMDocument.py
+
 pylint:
   disable:
     - too-many-arguments
@@ -20,3 +22,8 @@ pylint:
     - unused-argument
     - protected-access
     - unnecessary-lambda
+
+pep8:
+  disable:
+    # E116 - Unexpected indent for comment
+    - E116
