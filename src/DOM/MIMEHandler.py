@@ -574,7 +574,7 @@ class MIMEHandler(dict):
                 details = objs[index].object
 
                 if details.type in ("stream", ):
-                    encoded_stream = details.encodedStream
+                    #encoded_stream = details.encodedStream
                     decoded_stream = details.decodedStream
                     header         = decoded_stream[:3]
                     is_flash       = [s for s in objs if header in ("CWS", "FWS")]

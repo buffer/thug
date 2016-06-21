@@ -108,7 +108,7 @@ class DFT(object):
     def __enter__(self):
         return self
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, _type, value, traceback):
         pass
 
     @property
@@ -286,7 +286,7 @@ class DFT(object):
                 break
 
     def check_attrs(self, p):
-        for attr, value in p.attrs.items():
+        for value in p.attrs.values():
             self.check_shellcode(value)
         
     def shift(self, script, s):
@@ -504,10 +504,10 @@ class DFT(object):
             except:
                 pass
 
-    def do_handle_params(self, object):
+    def do_handle_params(self, _object):
         params = dict()
 
-        for child in object.find_all():
+        for child in _object.find_all():
             name = getattr(child, 'name', None)
             if name is None:
                 continue
@@ -528,7 +528,7 @@ class DFT(object):
         if 'type' in params:
             headers['Content-Type'] = params['type']
         else:
-            name = getattr(object, 'name', None)
+            name = getattr(_object, 'name', None)
 
             if name in ('applet', ) or 'archive' in params:
                 headers['Content-Type'] = 'application/x-java-archive'
@@ -596,16 +596,16 @@ class DFT(object):
 
         return params
 
-    def handle_object(self, object):
-        log.warning(object)
+    def handle_object(self, _object):
+        log.warning(_object)
 
-        #self.check_attrs(object)
-        params = self.do_handle_params(object)
+        #self.check_attrs(_object)
+        params = self.do_handle_params(_object)
 
-        classid  = object.get('classid', None)
-        id       = object.get('id', None)
-        codebase = object.get('codebase', None)
-        data     = object.get('data', None)
+        classid  = _object.get('classid', None)
+        id       = _object.get('id', None)
+        codebase = _object.get('codebase', None)
+        data     = _object.get('data', None)
 
         if codebase:
             try:
