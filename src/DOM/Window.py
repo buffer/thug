@@ -28,7 +28,7 @@ import urllib
 import bs4 as BeautifulSoup
 import jsbeautifier
 import six
-from .W3C import *
+from .W3C import w3c
 from .W3C.HTML.HTMLCollection import HTMLCollection
 from .JSClass import JSClass
 from .Navigator import Navigator
