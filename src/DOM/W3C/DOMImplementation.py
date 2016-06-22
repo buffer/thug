@@ -1,11 +1,62 @@
 #!/usr/bin/env python
 
-import logging
+from DOM.W3C.HTML import HTMLAnchorElement
+from DOM.W3C.HTML import HTMLAppletElement
+from DOM.W3C.HTML import HTMLBRElement
+from DOM.W3C.HTML import HTMLBaseElement
+from DOM.W3C.HTML import HTMLBaseFontElement
+from DOM.W3C.HTML import HTMLBodyElement
+from DOM.W3C.HTML import HTMLButtonElement
+from DOM.W3C.HTML import HTMLCollection
+from DOM.W3C.HTML import HTMLDListElement
+from DOM.W3C.HTML import HTMLDirectoryElement
+from DOM.W3C.HTML import HTMLDivElement
+from DOM.W3C.HTML import HTMLDocument
+from DOM.W3C.HTML import HTMLElement
+from DOM.W3C.HTML import HTMLFieldSetElement
+from DOM.W3C.HTML import HTMLFontElement
+from DOM.W3C.HTML import HTMLFormElement
+from DOM.W3C.HTML import HTMLFrameElement
+from DOM.W3C.HTML import HTMLFrameSetElement
+from DOM.W3C.HTML import HTMLHRElement
+from DOM.W3C.HTML import HTMLHeadElement
+from DOM.W3C.HTML import HTMLHeadingElement
+from DOM.W3C.HTML import HTMLHtmlElement
+from DOM.W3C.HTML import HTMLIFrameElement
+from DOM.W3C.HTML import HTMLImageElement
+from DOM.W3C.HTML import HTMLInputElement
+from DOM.W3C.HTML import HTMLIsIndexElement
+from DOM.W3C.HTML import HTMLLIElement
+from DOM.W3C.HTML import HTMLLabelElement
+from DOM.W3C.HTML import HTMLLegendElement
+from DOM.W3C.HTML import HTMLLinkElement
+from DOM.W3C.HTML import HTMLMenuElement
+from DOM.W3C.HTML import HTMLMetaElement
+from DOM.W3C.HTML import HTMLModElement
+from DOM.W3C.HTML import HTMLOListElement
+from DOM.W3C.HTML import HTMLObjectElement
+from DOM.W3C.HTML import HTMLOptGroupElement
+from DOM.W3C.HTML import HTMLOptionElement
+from DOM.W3C.HTML import HTMLOptionsCollection
+from DOM.W3C.HTML import HTMLParagraphElement
+from DOM.W3C.HTML import HTMLParamElement
+from DOM.W3C.HTML import HTMLPreElement
+from DOM.W3C.HTML import HTMLQuoteElement
+from DOM.W3C.HTML import HTMLScriptElement
+from DOM.W3C.HTML import HTMLSelectElement
+from DOM.W3C.HTML import HTMLStyleElement
+from DOM.W3C.HTML import HTMLTableCaptionElement
+from DOM.W3C.HTML import HTMLTableCellElement
+from DOM.W3C.HTML import HTMLTableColElement
+from DOM.W3C.HTML import HTMLTableElement
+from DOM.W3C.HTML import HTMLTableRowElement
+from DOM.W3C.HTML import HTMLTableSectionElement
+from DOM.W3C.HTML import HTMLTextAreaElement
+from DOM.W3C.HTML import HTMLTitleElement
+from DOM.W3C.HTML import HTMLUListElement
+from DOM.W3C.HTML import TAnimateColor
 
-try:
-    from DOM.W3C.HTML import * #pylint:disable=unused-wildcard-import
-except ImportError:
-    from HTML import *
+import logging
 
 import bs4 as BeautifulSoup
 from Node import Node
