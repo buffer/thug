@@ -32,7 +32,7 @@ try:
 except ImportError:
     import urlparse
 
-from .W3C import *
+from .W3C import w3c
 from .W3C.DOMImplementation import DOMImplementation
 from .W3C.Events.Event import Event
 from .W3C.Events.MouseEvent import MouseEvent
