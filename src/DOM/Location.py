@@ -21,7 +21,7 @@ import logging
 #import Window
 #from .Window import Window
 from .DFT import DFT
-from .W3C import *
+from .W3C import w3c
 
 from .JSClass import JSClass
 
