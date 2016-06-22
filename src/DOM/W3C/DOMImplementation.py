@@ -7,7 +7,7 @@ from DOM.W3C.HTML import HTMLBaseElement
 from DOM.W3C.HTML import HTMLBaseFontElement
 from DOM.W3C.HTML import HTMLBodyElement
 from DOM.W3C.HTML import HTMLButtonElement
-from DOM.W3C.HTML import HTMLCollection
+#from DOM.W3C.HTML import HTMLCollection
 from DOM.W3C.HTML import HTMLDListElement
 from DOM.W3C.HTML import HTMLDirectoryElement
 from DOM.W3C.HTML import HTMLDivElement
@@ -37,7 +37,7 @@ from DOM.W3C.HTML import HTMLOListElement
 from DOM.W3C.HTML import HTMLObjectElement
 from DOM.W3C.HTML import HTMLOptGroupElement
 from DOM.W3C.HTML import HTMLOptionElement
-from DOM.W3C.HTML import HTMLOptionsCollection
+#from DOM.W3C.HTML import HTMLOptionsCollection
 from DOM.W3C.HTML import HTMLParagraphElement
 from DOM.W3C.HTML import HTMLParamElement
 from DOM.W3C.HTML import HTMLPreElement
