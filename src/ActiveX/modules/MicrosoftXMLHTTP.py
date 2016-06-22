@@ -7,7 +7,6 @@ try:
 except ImportError:
     import urlparse
 
-from DOM.W3C import *
 import DOM
 
 log = logging.getLogger("Thug")
@@ -95,7 +94,7 @@ def send(self, varBody = None):
         return
 
     if 'text/html' in contenttype:
-        doc = w3c.parseString(self.responseBody)
+        doc = DOM.W3C.w3c.parseString(self.responseBody)
 
         window = DOM.Window.Window(self.bstrUrl, doc, personality = log.ThugOpts.useragent)
         #window.open(self.bstrUrl)
