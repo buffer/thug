@@ -16,7 +16,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA          
 
-from .modules import *
+from .modules import MITRE
+from .modules import JSON
+from .modules import MongoDB
+from .modules import ElasticSearch
+from .modules import HPFeeds
 
 LoggingModules = {
     'maec11'        : MITRE.MAEC11,
