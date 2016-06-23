@@ -10,7 +10,7 @@ import logging
 from Magic.Magic import Magic
 log = logging.getLogger("Thug")
 
-def open(self):
+def open(self): #pylint:disable=redefined-builtin
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] open")
     self.fobject = StringIO()
 
