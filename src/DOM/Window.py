@@ -819,8 +819,8 @@ class Window(JSClass):
 
     @property
     def context(self):
-        if '_context' not in self.__dict__:
         #if not hasattr(self, '_context'):
+        if '_context' not in self.__dict__:
             self._context = PyV8.JSContext(self)
             with self._context as ctxt:
                 thug_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thug.js")
