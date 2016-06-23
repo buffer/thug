@@ -49,7 +49,7 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     self.readyState  = 4
 
     if self.onreadystatechange:
-        with self._window.context as ctx:
+        with self._window.context as ctx: #pylint:disable=unused-variable
             self.onreadystatechange.__call__()
 
     return 0
