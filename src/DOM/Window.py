@@ -646,7 +646,7 @@ class Window(JSClass):
             return
 
         try:
-            pe = pefile.PE(data = p, fast_load = True)
+            pe = pefile.PE(data = p, fast_load = True) #pylint:disable=unused-variable
             return
         except:
             pass
