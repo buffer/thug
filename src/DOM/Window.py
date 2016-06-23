@@ -920,8 +920,8 @@ class Window(JSClass):
 
         index = 0
         tags  = self._findAll('script')
-        while index < len(self._findAll('script')):
-            tag = self._findAll('script')[index]
+        while index < len(tags):
+            tag = tags[index]
             if not tag.string:
                 src = tag.get('src', None)
                 if src:
