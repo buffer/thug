@@ -603,7 +603,7 @@ class MIMEHandler(dict):
         pdfparser = PDFParser()
 
         try:
-            ret, pdf = pdfparser.parse(rfile, forceMode = True, looseMode = True)
+            ret, pdf = pdfparser.parse(rfile, forceMode = True, looseMode = True) #pylint:disable=unused-variable
         except:
             os.remove(rfile)
             return False
