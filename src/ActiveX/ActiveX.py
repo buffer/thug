@@ -142,7 +142,7 @@ class _ActiveXObject(object):
         raise AttributeError
 
 def register_object(s, clsid):
-    funcattrs = dict()
+    funcattrs = dict() #pylint:disable=unused-variable
     methods   = dict()
     obj       = None
 
