@@ -152,7 +152,7 @@ class HPFeeds(object):
 			for opcode, data in self.unpacker:
 				if opcode == self.OP_INFO:
 					rest = buffer(data, 0)
-					name, rest = rest[1:1 + ord(rest[0])], buffer(rest, 1 + ord(rest[0]))
+					name, rest = rest[1:1 + ord(rest[0])], buffer(rest, 1 + ord(rest[0])) #pylint:disable=unused-variable
 					rand = str(rest)
 
 					self.msg_send(self.msg_auth(rand))
