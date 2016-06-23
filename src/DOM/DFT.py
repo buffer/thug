@@ -92,7 +92,7 @@ class DFT(object):
         log.DFT                = self
         self._init_events()
 
-        PyV8.JSEngine.setStackLimit(10 * 1024 * 1024);
+        PyV8.JSEngine.setStackLimit(10 * 1024 * 1024)
    
     def _init_events(self):
         self.listeners = list()
