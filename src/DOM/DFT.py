@@ -895,7 +895,7 @@ class DFT(object):
         if 'url' not in content.lower():
             return
 
-        timeout = 0
+        timeout = 0 #pylint:disable=unused-variable
         url     = None
 
         for s in content.split(';'):
