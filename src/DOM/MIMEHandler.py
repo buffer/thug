@@ -563,7 +563,7 @@ class MIMEHandler(dict):
         swfdir = os.path.join(log.ThugLogging.baseDir, 'dropped', 'swf')
         count  = 0
 
-        for version in range(len(statsDict['Versions'])):
+        for version in range(len(statsDict['Versions'])): #pylint:disable=unused-variable
             body = pdf.body[count]
             objs = body.objects
 
