@@ -53,10 +53,10 @@ class MAEC11(object):
         self.__add_subject_to_analysis()
 
     def __make_counter(self, p):
-        id = p
+        _id = p
         while True:
-            yield id
-            id += 1
+            yield _id
+            _id += 1
 
     def __init_tools_used(self):
         self.tools_used = maec.Tools_Used()
@@ -184,8 +184,8 @@ class MAEC11(object):
         if not cve and not description:
             return
 
-        id       = "maec:thug:bhv:%s" % (next(self.id))
-        behavior = maec.BehaviorType(id = id)
+        _id      = "maec:thug:bhv:%s" % (next(self.id))
+        behavior = maec.BehaviorType(id = _id)
         behavior.set_Discovery_Method(self._create_discovery_method(method))
 
         purpose = maec.Purpose()
@@ -249,10 +249,10 @@ class MAEC11(object):
                 file_type = signature[item]
                 continue
 
-            hash = maec.HashType(type_      = item, 
+            _hash = maec.HashType(type_     = item,
                                  Hash_Value = signature[item])
 
-            hashes.add_Hash(hash)
+            hashes.add_Hash(_hash)
 
         if not file_type:
             return
