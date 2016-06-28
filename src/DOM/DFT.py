@@ -178,7 +178,7 @@ class DFT(object):
                     log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed')
 
                 log.ThugLogging.shellcode_urls.add(url)
-            except:
+            except: #pylint:disable=bare-except
                 log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed')
 
             profile = profile[1:]
@@ -216,7 +216,7 @@ class DFT(object):
                     log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed')
 
                 log.ThugLogging.shellcode_urls.add(url)
-            except:
+            except: #pylint:disable=bare-except
                 log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed')
 
             profile = profile[1:]
@@ -276,7 +276,7 @@ class DFT(object):
             try:
                 self.window._navigator.fetch(url, redirect_type = "URL found")
                 log.ThugLogging.shellcode_urls.add(url)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
     def check_shellcodes(self):
@@ -503,7 +503,7 @@ class DFT(object):
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
                 self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP", params = params)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
     def do_handle_params(self, _object):
@@ -550,7 +550,7 @@ class DFT(object):
                                              headers = headers,
                                              redirect_type = "params",
                                              params = params)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
         for key, value in params.items():
@@ -568,7 +568,7 @@ class DFT(object):
 
                 if response:
                     self._handle_jnlp(response.content, headers, params)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
         if 'source' in params:
@@ -577,7 +577,7 @@ class DFT(object):
                                              headers = headers,
                                              redirect_type = "params",
                                              params = params)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
         if 'archive' not in params and 'code' not in params:
@@ -593,7 +593,7 @@ class DFT(object):
                                          headers = headers,
                                          redirect_type = "params",
                                          params = params)
-        except:
+        except: #pylint:disable=bare-except
             pass
 
         return params
@@ -614,7 +614,7 @@ class DFT(object):
                 self.window._navigator.fetch(codebase,
                                              redirect_type = "object codebase",
                                              params = params)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
         if data and not data.startswith('data:'):
@@ -622,7 +622,7 @@ class DFT(object):
                 self.window._navigator.fetch(data,
                                              redirect_type = "object data",
                                              params = params)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
         if not log.ThugOpts.Personality.isIE():
@@ -722,7 +722,7 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = "script src")
-        except:
+        except: #pylint:disable=bare-except
             return
 
         if response is None:
@@ -814,7 +814,7 @@ class DFT(object):
 
         try:
             self.window._navigator.fetch(src, headers = headers, redirect_type = "embed")
-        except:
+        except: #pylint:disable=bare-except
             pass
 
     def handle_applet(self, applet):
@@ -838,7 +838,7 @@ class DFT(object):
                                          headers = headers,
                                          redirect_type = "applet",
                                          params = params)
-        except:
+        except: #pylint:disable=bare-except
             pass
 
     def handle_meta(self, meta):
@@ -920,7 +920,7 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(url, redirect_type = "meta")
-        except:
+        except: #pylint:disable=bare-except
             return
 
         if response is None:
@@ -957,7 +957,7 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = redirect_type)
-        except:
+        except: #pylint:disable=bare-except
             return
 
         if response is None:
@@ -1004,7 +1004,7 @@ class DFT(object):
 
             try:
                 self.window._navigator.fetch(url, redirect_type = "font face")
-            except:
+            except: #pylint:disable=bare-except
                 return
 
     def handle_style(self, style):
@@ -1080,7 +1080,7 @@ class DFT(object):
 
             try:
                 response = self.window._navigator.fetch(href, redirect_type = "anchor")
-            except:
+            except: #pylint:disable=bare-except
                 return
 
             if response is None:
@@ -1103,7 +1103,7 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(href, redirect_type = "link")
-        except:
+        except: #pylint:disable=bare-except
             return
 
         if response is None:

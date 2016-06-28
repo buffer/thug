@@ -752,7 +752,7 @@ class MIMEHandler(dict):
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
                 self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
     def passthrough(self, url, data):

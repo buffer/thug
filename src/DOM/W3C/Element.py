@@ -202,7 +202,7 @@ class Element(Node, ElementCSSInlineStyle):
             
             try:
                 response = self.doc.window._navigator.fetch(value, redirect_type = "element workaround")
-            except:
+            except: #pylint:disable=bare-except
                 return
 
             if response is None:

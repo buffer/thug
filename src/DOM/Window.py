@@ -670,7 +670,7 @@ class Window(JSClass):
 
             try:
                 response = self._navigator.fetch(url, redirect_type = "doRun")
-            except:
+            except: #pylint:disable=bare-except
                 continue
 
             if response is None:
@@ -927,7 +927,7 @@ class Window(JSClass):
                 if src:
                     try:
                         response = self._navigator.fetch(src, redirect_type = "onload script")
-                    except:
+                    except: #pylint:disable=bare-except
                         continue
 
                     if response is None:
@@ -965,7 +965,7 @@ class Window(JSClass):
         if url:
             try:
                 response = self._navigator.fetch(url, redirect_type = "window open")
-            except:
+            except: #pylint:disable=bare-except
                 #traceback.print_exc()
                 return None
 
