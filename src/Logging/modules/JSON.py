@@ -110,10 +110,10 @@ class JSON(object):
             return thug_unicode(data).replace("\n", "").strip()
 
     def make_counter(self, p):
-        id = p
+        _id = p
         while True:
-            yield id
-            id += 1
+            yield _id
+            _id += 1
 
     def set_url(self, url):
         if not self.json_enabled:
