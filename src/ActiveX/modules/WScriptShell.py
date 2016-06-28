@@ -1,5 +1,6 @@
 
 import string
+import time
 import random
 import re
 import logging
@@ -38,7 +39,7 @@ def Environment(self, strType = None):
     return _Environment(strType)
 
 def ExpandEnvironmentStrings(self, strWshShell):
-    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Expanding: ("%s")' % (strWshShell, ))
+    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Expanding environment string "%s"' % (strWshShell, ))
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
                                       "ExpandEnvironmentStrings",
@@ -63,6 +64,7 @@ def ExpandEnvironmentStrings(self, strWshShell):
         '{{computername}}',
         ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8)))
 
+    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Expanded environment string to "%s"' % (strWshShell, ))
     return strWshShell
 
 
@@ -81,12 +83,9 @@ def CreateObject(self, strProgID, strPrefix = ""):
     return ActiveX.ActiveX._ActiveXObject(self._window, strProgID)
 
 def Sleep(self, intTime):
-    import time
-
-    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Sleep (%s)" % (intTime))
-
+    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Sleep(%s)" % (intTime))
     time.sleep(intTime * 0.001)
 
 def Quit(self, code):
-    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Quit (%s)" % code)
+    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Quit(%s)" % code)
     PyV8.JSEngine.terminateAllThreads()
