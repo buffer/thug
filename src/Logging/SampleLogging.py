@@ -43,7 +43,7 @@ class SampleLogging(object):
     def is_pe(self, data):
         try:
             pefile.PE(data = data, fast_load = True)
-        except:
+        except: #pylint:disable=bare-except
             return False
 
         return True
@@ -51,7 +51,7 @@ class SampleLogging(object):
     def get_imphash(self, data):
         try:
             pe = pefile.PE(data = data)
-        except:
+        except: #pylint:disable=bare-except
             return None
 
         return pe.get_imphash()
