@@ -18,7 +18,7 @@ class DocumentCompatibleInfoCollection(object):
     def __getitem__(self, key):
         try:
             return self.item(int(key))
-        except:
+        except ValueError:
             return None
 
     @property
