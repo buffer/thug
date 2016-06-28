@@ -25,7 +25,11 @@ from .JSClass import JSClass
 from .MimeTypes import MimeTypes
 from .Plugins import Plugins
 from .UserProfile import UserProfile
-from .HTTPSession import AboutBlank, FetchForbidden
+from .HTTPSessionException import AboutBlank
+from .HTTPSessionException import FetchForbidden
+from .HTTPSessionException import InvalidUrl
+from .HTTPSessionException import ThresholdExpired
+from .HTTPSessionException import TimeoutExpired
 from Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
@@ -294,7 +298,7 @@ class Navigator(JSClass):
         # enabled).
         url = log.HTTPSession.normalize_url(self._window, url)
         if url is None:
-            return None
+            raise InvalidUrl
 
         if redirect_type:
             log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, self._window.url, url, )))
@@ -306,13 +310,13 @@ class Navigator(JSClass):
         # number of pages to fetch. If the threshold is reached avoid
         # fetching the contents.
         if log.HTTPSession.threshold_expired(url):
-            return None
+            raise ThresholdExpired
 
         # The command-line option -T (--timeout) set the analysis timeout
         # (in seconds). If the analysis lasts more than this value avoid
         # fetching the contents.
         if log.HTTPSession.timeout_expired(url):
-            return None
+            raise TimeoutExpired
 
         if headers is None:
             headers = dict()

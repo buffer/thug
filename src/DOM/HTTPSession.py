@@ -34,14 +34,6 @@ import logging
 log = logging.getLogger("Thug")
 
 
-class AboutBlank(requests.RequestException): 
-    pass
-
-
-class FetchForbidden(requests.RequestException):
-    pass
-
-
 class HTTPSession(object):
     def __init__(self, proxy = None):
         if proxy is None:
