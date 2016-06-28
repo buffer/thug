@@ -130,7 +130,7 @@ class Screen(JSClass):
     def _set_bufferDepth(self, value):
         try:
             self._depth = int(value)
-        except:
+        except ValueError:
             pass
 
     @property
