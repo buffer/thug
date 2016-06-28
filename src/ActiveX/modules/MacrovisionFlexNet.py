@@ -35,7 +35,7 @@ def DownloadAndExecute(self, arg0, arg1, arg2, arg3, arg4):
 
     try:
         self._window._navigator.fetch(arg3, redirect_type = "Macrovision Exploit")
-    except:
+    except: #pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] Fetch failed')
 
 def DownloadAndInstall(self, *args):
@@ -64,7 +64,7 @@ def AddFile(self, arg0, arg1):
 
     try:
         self._window._navigator.fetch(arg0, redirect_type = "Macrovision Exploit 2")
-    except:
+    except: #pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] Fetch failed')
 
 def SetPriority(self, priority):

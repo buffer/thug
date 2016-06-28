@@ -19,7 +19,7 @@ def DownloadFile(self, *arg):
 
     try:
         self._window._navigator.fetch(arg[0], redirect_type = "ZenturiProgramChecker Exploit")
-    except:
+    except: #pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[ZenturiProgramChecker ActiveX] Fetch failed')
 
 def DebugMsgLog(self, *arg):

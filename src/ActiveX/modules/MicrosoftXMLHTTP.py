@@ -78,7 +78,7 @@ def send(self, varBody = None):
                                                  headers       = self.requestHeaders,
                                                  body          = varBody,
                                                  redirect_type = "Microsoft XMLHTTP Exploit")
-    except:
+    except: #pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
 
     if response is None:
@@ -128,7 +128,7 @@ def getResponseHeader(self, header):
                                       method  = self.bstrMethod,
                                       headers = self.requestHeaders,
                                       body    = body)
-    except:
+    except: #pylint:disable=bare-except
         pass
 
 
@@ -142,5 +142,5 @@ def getAllResponseHeaders(self):
                                       method  = self.bstrMethod,
                                       headers = self.requestHeaders,
                                       body    = body)
-    except:
+    except: #pylint:disable=bare-except
         pass

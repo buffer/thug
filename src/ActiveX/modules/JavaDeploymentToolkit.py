@@ -24,7 +24,7 @@ def launch(self, arg):
 
         try:
             self._window._navigator.fetch(token, redirect_type = "Java Deployment Toolkit Exploit")
-        except:
+        except: #pylint:disable=bare-except
             log.ThugLogging.add_behavior_warn("[Java Deployment Toolkit ActiveX] Fetch Failed")
 
 

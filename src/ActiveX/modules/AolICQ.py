@@ -18,5 +18,5 @@ def DownloadAgent(self, url):
     
     try:
         self._window._navigator.fetch(url, redirect_type = "AOL ICQ Exploit")
-    except:
+    except: #pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[AOL ICQ ActiveX] Fetch failed')

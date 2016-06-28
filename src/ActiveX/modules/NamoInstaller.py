@@ -22,5 +22,5 @@ def Install(self, arg):
                                          )
         try:
             self._window._navigator.fetch(arg, redirect_type = "NamoInstaller Exploit")
-        except:
+        except: #pylint:disable=bare-except
             log.ThugLogging.add_behavior_warn('[NamoInstaller ActiveX] Fetch failed')

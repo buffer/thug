@@ -31,5 +31,5 @@ def Comp_Download(self, arg0, arg1):
 
     try:
         self._window._navigator.fetch(url, redirect_type = "EnjoySAP Exploit")
-    except:
+    except: #pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[EnjoySAP ActiveX] Fetch failed')
