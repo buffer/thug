@@ -61,7 +61,7 @@ class Shellcode(object):
             try:
                 self.window._navigator.fetch(p[1], redirect_type = "Found URLDownloadToFile")
                 log.ThugLogging.shellcode_urls.add(url)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
             profile = profile[1:]
@@ -82,7 +82,7 @@ class Shellcode(object):
             try:
                 self.window._navigator.fetch(url, redirect_type = "URL found")
                 log.ThugLogging.shellcode_urls.add(url)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
     def run(self):
