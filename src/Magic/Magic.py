@@ -26,14 +26,14 @@ class Magic(object):
         try:
             # This works with python-magic >= 0.4.6 from pypi
             mtype = magic.from_buffer(self.data, mime = True)
-        except:
+        except: #pylint:disable=bare-except
             try:
                 # Ubuntu workaround
                 # This works with python-magic >= 5.22 from Ubuntu (apt)
                 ms = magic.open(magic.MAGIC_MIME)
                 ms.load()
                 mtype = ms.buffer(self.data).split(';')[0]
-            except:
+            except: #pylint:disable=bare-except
                 # Filemagic workaround
                 # This works with filemagic >= 1.6 from pypi
                 with magic.Magic(flags = magic.MAGIC_MIME_TYPE) as m:
