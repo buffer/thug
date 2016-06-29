@@ -23,7 +23,7 @@ class Node(etree.ElementBase):
                 return base64.b64decode(self.text)
             elif self._dataType == 'bin.hex':
                 return binascii.unhexlify(self.text)
-        except:
+        except: #pylint:disable=bare-except
             pass
 
         return self.text
@@ -36,7 +36,7 @@ class Node(etree.ElementBase):
                 self.text = binascii.hexlify(value)
             else:
                 self.text = value
-        except:
+        except: #pylint:disable=bare-except
             self.text = value
 
     nodeTypedValue = property(getNodeTypedValue, setNodeTypedValue)
