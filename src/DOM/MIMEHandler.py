@@ -302,13 +302,13 @@ class MIMEHandler(dict):
 
         try:
             zipdata = zipfile.ZipFile(fp)
-        except:
+        except: #pylint:disable=bare-except
             return False
 
         for filename in zipdata.namelist():
             try:
                 data = zipdata.read(filename)
-            except:
+            except: #pylint:disable=bare-except
                 continue
 
             sample = log.ThugLogging.log_file(data)
@@ -317,7 +317,7 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except:
+            except: #pylint:disable=bare-except
                 continue
 
             unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
@@ -332,14 +332,14 @@ class MIMEHandler(dict):
 
         try:
             rardata = rarfile.RarFile(rfile)
-        except:
+        except: #pylint:disable=bare-except
             os.remove(rfile)
             return False
 
         for filename in rardata.namelist():
             try:
                 data = rardata.read(filename)
-            except:
+            except: #pylint:disable=bare-except
                 continue
 
             sample = log.ThugLogging.log_file(data)
@@ -348,7 +348,7 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except:
+            except: #pylint:disable=bare-except
                 continue
 
             unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
@@ -434,43 +434,43 @@ class MIMEHandler(dict):
             
             objects = etree.SubElement(versionInfo, 'objects', num = statsVersion['Objects'][0])
 
-            for id in statsVersion['Objects'][1]:
-                object = etree.SubElement(objects, 'object', id = str(id))
+            for _id in statsVersion['Objects'][1]:
+                _object = etree.SubElement(objects, 'object', id = str(_id))
                 
                 if statsVersion['Compressed Objects']:
-                    if id in statsVersion['Compressed Objects'][1]:
-                        object.set('compressed', 'true')
+                    if _id in statsVersion['Compressed Objects'][1]:
+                        _object.set('compressed', 'true')
                     else:
-                        object.set('compressed', 'false')
+                        _object.set('compressed', 'false')
                 
                 if statsVersion['Errors']:
-                    if id in statsVersion['Errors'][1]:
-                        object.set('errors', 'true')
+                    if _id in statsVersion['Errors'][1]:
+                        _object.set('errors', 'true')
                     else:
-                        object.set('errors', 'false')
+                        _object.set('errors', 'false')
             
             streams = etree.SubElement(versionInfo, 'streams', num = statsVersion['Streams'][0])
             
-            for id in statsVersion['Streams'][1]:
-                stream = etree.SubElement(streams, 'stream', id = str(id))
+            for _id in statsVersion['Streams'][1]:
+                stream = etree.SubElement(streams, 'stream', id = str(_id))
                 
                 if statsVersion['Xref Streams']:
-                    if id in statsVersion['Xref Streams'][1]:
+                    if _id in statsVersion['Xref Streams'][1]:
                         stream.set('xref_stream', 'true')
                     else:
                         stream.set('xref_stream', 'false')
                 
                 if statsVersion['Object Streams']:
-                    if id in statsVersion['Object Streams'][1]:
+                    if _id in statsVersion['Object Streams'][1]:
                         stream.set('object_stream', 'true')
                     else:
                         stream.set('object_stream', 'false')
                 
                 if statsVersion['Encoded']:
-                    if id in statsVersion['Encoded'][1]:
+                    if _id in statsVersion['Encoded'][1]:
                         stream.set('encoded', 'true')
                         if statsVersion['Decoding Errors']:
-                            if id in statsVersion['Decoding Errors'][1]:
+                            if _id in statsVersion['Decoding Errors'][1]:
                                 stream.set('decoding_errors', 'true')
                             else:
                                 stream.set('decoding_errors', 'false')
@@ -480,8 +480,8 @@ class MIMEHandler(dict):
             jsObjects = etree.SubElement(versionInfo, 'js_objects')
 
             if statsVersion['Objects with JS code']:
-                for id in statsVersion['Objects with JS code'][1]:
-                    etree.SubElement(jsObjects, 'container_object', id = str(id))
+                for _id in statsVersion['Objects with JS code'][1]:
+                    etree.SubElement(jsObjects, 'container_object', id = str(_id))
 
             actions    = statsVersion['Actions']
             events     = statsVersion['Events']
@@ -494,22 +494,22 @@ class MIMEHandler(dict):
                     triggers = etree.SubElement(suspicious, 'triggers')
                     for event in events:
                         trigger = etree.SubElement(triggers, 'trigger', name = event)
-                        for id in events[event]:
+                        for _id in events[event]:
                             log.ThugLogging.log_exploit_event(url,
                                                               "Adobe Acrobat Reader",
-                                                              "Adobe Acrobat Reader suspicious trigger: %s [object %s]" % (event, id, )
+                                                              "Adobe Acrobat Reader suspicious trigger: %s [object %s]" % (event, _id, )
                                                               )
-                            etree.SubElement(trigger, 'container_object', id = str(id))
+                            etree.SubElement(trigger, 'container_object', id = str(_id))
                 if actions:
                     actionsList = etree.SubElement(suspicious, 'actions')
                     for action in actions:
                         actionInfo = etree.SubElement(actionsList, 'action', name = action)
-                        for id in actions[action]:
+                        for _id in actions[action]:
                             log.ThugLogging.log_exploit_event(url,
                                                               "Adobe Acrobat Reader",
-                                                              "Adobe Acrobat Reader suspicious action: %s [object %s]" % (action, id, )
+                                                              "Adobe Acrobat Reader suspicious action: %s [object %s]" % (action, _id, )
                                                               )
-                            etree.SubElement(actionInfo, 'container_object', id = str(id))
+                            etree.SubElement(actionInfo, 'container_object', id = str(_id))
 
                 if elements:
                     elementsList = etree.SubElement(suspicious, 'elements')
@@ -526,8 +526,8 @@ class MIMEHandler(dict):
                                                                   cve = vulnCVE)
                                 cve = etree.SubElement(elementInfo, 'cve')
                                 cve.text = vulnCVE
-                        for id in elements[element]:
-                            etree.SubElement(elementInfo, 'container_object', id = str(id))
+                        for _id in elements[element]:
+                            etree.SubElement(elementInfo, 'container_object', id = str(_id))
                 if vulns:
                     vulnsList = etree.SubElement(suspicious, 'js_vulns')
                     for vuln in vulns:
@@ -543,8 +543,8 @@ class MIMEHandler(dict):
                                                                   cve = vulnCVE)
                                 cve = etree.SubElement(vulnInfo, 'cve')
                                 cve.text = vulnCVE
-                        for id in vulns[vuln]:
-                            etree.SubElement(vulnInfo, 'container_object', id = str(id))
+                        for _id in vulns[vuln]:
+                            etree.SubElement(vulnInfo, 'container_object', id = str(_id))
             
             urls           = statsVersion['URLs']
             #suspiciousURLs = etree.SubElement(versionInfo, 'suspicious_urls')
@@ -604,7 +604,7 @@ class MIMEHandler(dict):
 
         try:
             ret, pdf = pdfparser.parse(rfile, forceMode = True, looseMode = True) #pylint:disable=unused-variable
-        except:
+        except: #pylint:disable=bare-except
             os.remove(rfile)
             return False
 
@@ -712,7 +712,7 @@ class MIMEHandler(dict):
                 sample = self.build_apk_sample(content, url)
                 self.save_apk_report(sample, a, url)
                 ret = True
-        except:
+        except: #pylint:disable=bare-except
             pass
 
         os.remove(rfile)
@@ -731,7 +731,7 @@ class MIMEHandler(dict):
 
         try:
             soup = BeautifulSoup.BeautifulSoup(data, "lxml")
-        except:
+        except: #pylint:disable=bare-except
             return
 
         jnlp = soup.find("jnlp")
