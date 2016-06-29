@@ -32,7 +32,7 @@ class Plugins(list):
         try:
             key = int(key)
             return self.item(key)
-        except:
+        except ValueError:
             return self.namedItem(key)
 
     def item(self, index):
