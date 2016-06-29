@@ -3,10 +3,12 @@ import string
 import time
 import random
 import re
+import six
 import logging
+import hashlib
+import pefile
 import PyV8
 log = logging.getLogger("Thug")
-
 
 class _Environment(object):
     def __init__(self, strType):
@@ -16,16 +18,73 @@ class _Environment(object):
         log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Getting Environment Item: %s" % (item, ))
         return item
 
-
 def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Executing: %s" % (strCommand, ))
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
-                                      "Execute",
+                                      "Run",
                                       data = {
                                                 "command" : strCommand
                                              },
                                       forward = False)
+
+    if 'http' not in strCommand:
+        return
+
+    self._doRun(strCommand, 1)
+
+def _doRun(self, p, stage):
+    if not isinstance(p, six.string_types):
+        return
+
+    try:
+        pefile.PE(data = p, fast_load = True)
+        return
+    except:
+        pass
+
+    log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
+    log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Code:\n%s", stage, p)
+    log.ThugLogging.log_exploit_event(self._window.url,
+                                      "WScript.Shell ActiveX",
+                                      "Run",
+                                      data = {
+                                                "stage" : stage,
+                                                "code"  : p,
+                                             },
+                                      forward = False)
+
+    while True:
+        try:
+            index = p.index('"http')
+        except ValueError:
+            break
+
+        p = p[index + 1:]
+        s = p.split('"')
+        if len(s) < 2:
+            break
+
+        url = s[0]
+        log.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Downloading from URL %s", stage, url)
+
+        try:
+            response = self._window._navigator.fetch(url, redirect_type = "doRun")
+        except: #pylint:disable=bare-except
+            continue
+
+        if response is None:
+            continue
+
+        if response.status_code == 404:
+            continue
+
+        md5 = hashlib.md5()
+        md5.update(response.content)
+        log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Saving file %s", stage, md5.hexdigest())
+        p = '"'.join(s[1:])
+
+        self._doRun(response.content, stage + 1)
 
 def Environment(self, strType = None):
     log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Environment("%s")' % (strType, ))

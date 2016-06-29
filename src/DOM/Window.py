@@ -631,60 +631,6 @@ class Window(JSClass):
         None.
         """
         pass
-
-    # Windows Script Host Run method documentation at
-    # http://msdn.microsoft.com/en-us/library/d5fk67ky(v=vs.85).aspx
-    def _Run(self, strCommand, intWindowStyle = 0, bWaitOnReturn = False):
-        log.warning("[Windows Script Host Run] Command: \n%s\n", strCommand)
-        if 'http' not in strCommand:
-            return
-
-        self._doRun(strCommand, 1)
-
-    def _doRun(self, p, stage):
-        if not isinstance(p, six.string_types):
-            return
-
-        try:
-            pefile.PE(data = p, fast_load = True)
-            return
-        except:
-            pass
-
-        log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
-        log.warning("[Windows Script Host Run - Stage %d] Code:\n%s", stage, p)
-
-        while True:
-            try:
-                index = p.index('"http')
-            except ValueError:
-                break
-
-            p = p[index + 1:]
-            s = p.split('"')
-            if len(s) < 2:
-                break
-
-            url = s[0]
-            log.warning("[Windows Script Host Run - Stage %d] Downloading from URL %s", stage, url)
-
-            try:
-                response = self._navigator.fetch(url, redirect_type = "doRun")
-            except: #pylint:disable=bare-except
-                continue
-
-            if response is None:
-                continue
-
-            if response.status_code == 404:
-                continue
-
-            md5 = hashlib.md5()
-            md5.update(response.content)
-            log.warning("[Windows Script Host Run - Stage %d] Saving file %s", stage, md5.hexdigest())
-            p = '"'.join(s[1:])
-            
-            self._doRun(response.content, stage + 1)
                 
     def _attachEvent(self, sEvent, fpNotify, useCapture = False):
         log.debug("[attachEvent] %s %s", sEvent, fpNotify)
@@ -741,7 +687,6 @@ class Window(JSClass):
 
     def __init_personality_IE(self):
         self.ActiveXObject     = self._do_ActiveXObject
-        self.Run               = self._Run
         self.CollectGarbage    = self._CollectGarbage
         self.navigate          = self._navigate
         self.clientInformation = self.navigator

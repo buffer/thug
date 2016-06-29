@@ -1369,6 +1369,7 @@ CLSID = [
             'methods'   :
                           {
                             'Run'                       : WScriptShell.Run,
+                            '_doRun'                    : WScriptShell._doRun,
                             'Environment'               : WScriptShell.Environment,
                             'ExpandEnvironmentStrings'  : WScriptShell.ExpandEnvironmentStrings,
                             'CreateObject'              : WScriptShell.CreateObject,
