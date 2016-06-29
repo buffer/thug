@@ -80,9 +80,8 @@ class HTMLElement(Element, ElementCSSInlineStyle):
             if not name:
                 continue
 
-            try:
-                p = getattr(self.doc.window.doc.DFT, 'handle_%s' % (name, ), None)
-            except:
+            p = getattr(self.doc.window.doc.DFT, 'handle_%s' % (name, ), None)
+            if p is None:
                 p = getattr(log.DFT, 'handle_%s' % (name, ), None)
 
             if p:
