@@ -99,9 +99,9 @@ class Shellcode(object):
                 try:
                     enc = log.Encoding.detect(self.script)
                     result = self.ctxt.eval(self.script.decode(enc['encoding']))
-                except:
+                except: #pylint:disable=bare-except
                     trace = traceback.format_exc()
-            except:
+            except: #pylint:disable=bare-except
                 trace = traceback.format_exc()
             finally:
                 if trace:
