@@ -31,13 +31,13 @@ except ImportError:
     import urlparse
 
 from DOM.W3C import w3c
-from DOM import Window
-from DOM import HTTPSession
-from DOM import DFT
-from DOM import MIMEHandler
-from DOM import SchemeHandler
-from WebTracking import WebTracking
-from Encoding import Encoding
+from DOM.Window import Window
+from DOM.HTTPSession import HTTPSession
+from DOM.DFT import DFT
+from DOM.MIMEHandler import MIMEHandler
+from DOM.SchemeHandler import SchemeHandler
+from WebTracking.WebTracking import WebTracking
+from Encoding.Encoding import Encoding
 from Logging.ThugLogging import ThugLogging
 
 from .IThugAPI import IThugAPI
@@ -46,9 +46,9 @@ from .ThugVulnModules import ThugVulnModules
 from .OpaqueFilter import OpaqueFilter
 from .abstractmethod import abstractmethod
 
-from Classifier import JSClassifier
-from Classifier import URLClassifier
-from Classifier import SampleClassifier
+from Classifier.JSClassifier import JSClassifier
+from Classifier.URLClassifier import URLClassifier
+from Classifier.SampleClassifier import SampleClassifier
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
@@ -65,13 +65,13 @@ class ThugAPI(object):
         log.personalities_path  = os.path.join(configuration_path, "personalities") if configuration_path else None
         log.ThugOpts            = ThugOpts()
         log.ThugVulnModules     = ThugVulnModules()
-        log.WebTracking         = WebTracking.WebTracking()
-        log.MIMEHandler         = MIMEHandler.MIMEHandler()
-        log.SchemeHandler       = SchemeHandler.SchemeHandler()
-        log.JSClassifier        = JSClassifier.JSClassifier()
-        log.URLClassifier       = URLClassifier.URLClassifier()
-        log.SampleClassifier    = SampleClassifier.SampleClassifier()
-        log.Encoding            = Encoding.Encoding()
+        log.WebTracking         = WebTracking()
+        log.MIMEHandler         = MIMEHandler()
+        log.SchemeHandler       = SchemeHandler()
+        log.JSClassifier        = JSClassifier()
+        log.URLClassifier       = URLClassifier()
+        log.SampleClassifier    = SampleClassifier()
+        log.Encoding            = Encoding()
 
     def __call__(self):
         self.analyze()
@@ -256,14 +256,14 @@ class ThugAPI(object):
 
     def run(self, window):
         with PyV8.JSLocker():
-            dft = DFT.DFT(window)
+            dft = DFT(window)
             dft.run()
 
     def run_local(self, url):
         log.ThugLogging.set_url(url)
         log.ThugOpts.local = True
 
-        log.HTTPSession = HTTPSession.HTTPSession()
+        log.HTTPSession = HTTPSession()
 
         content   = open(url, 'r').read()
         extension = os.path.splitext(url)
@@ -274,7 +274,7 @@ class ThugAPI(object):
             html = content
 
         doc    = w3c.parseString(html)
-        window = Window.Window('about:blank', doc, personality = log.ThugOpts.useragent)
+        window = Window('about:blank', doc, personality = log.ThugOpts.useragent)
         window.open()
         self.run(window)
 
@@ -286,10 +286,10 @@ class ThugAPI(object):
 
         log.ThugLogging.set_url(url)
 
-        log.HTTPSession = HTTPSession.HTTPSession()
+        log.HTTPSession = HTTPSession()
 
         doc    = w3c.parseString('')
-        window = Window.Window(log.ThugOpts.referer, doc, personality = log.ThugOpts.useragent)
+        window = Window(log.ThugOpts.referer, doc, personality = log.ThugOpts.useragent)
         window = window.open(url)
         if window:
             self.run(window)
