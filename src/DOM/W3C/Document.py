@@ -78,7 +78,7 @@ class Document(Node, DocumentEvent, DocumentView):
     def _querySelectorAll(self, selectors):
         try:
             s = self.doc.select(selectors)
-        except:
+        except: #pylint:disable=bare-except
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -88,7 +88,7 @@ class Document(Node, DocumentEvent, DocumentView):
 
         try:
             s = self.doc.select(selectors)
-        except:
+        except: #pylint:disable=bare-except
             return None
 
         if s and s[0]:
@@ -206,8 +206,8 @@ class Document(Node, DocumentEvent, DocumentView):
         def _match_tag(tag, p):
             return p in tag.attrs and tag.attrs[p] == elementId
 
-        def match_tag(tag, id):
-            if _match_tag(tag, id):
+        def match_tag(tag, _id):
+            if _match_tag(tag, _id):
                 return True
 
             return False
