@@ -224,7 +224,7 @@ class DFT(object):
     def check_shellcode(self, shellcode):
         try:
             sc = self.build_shellcode(shellcode)
-        except:
+        except: #pylint:disable=bare-except
             sc = shellcode
 
         emu = pylibemu.Emulator(enable_hooks = False)
@@ -394,7 +394,7 @@ class DFT(object):
     def set_event_handler_attributes(self, elem):
         try:
             attrs = elem.attrs
-        except:
+        except: #pylint:disable=bare-except
             return
        
         if 'language' in list(attrs.keys()) and not attrs['language'].lower() in ('javascript', ):
@@ -417,7 +417,7 @@ class DFT(object):
         else:
             try:
                 handler = getattr(self.context.locals, h, None)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
         if not handler:
@@ -478,7 +478,7 @@ class DFT(object):
     def _handle_jnlp(self, data, headers, params):
         try:
             soup = BeautifulSoup.BeautifulSoup(data, "lxml")
-        except:
+        except: #pylint:disable=bare-except
             return
 
         jnlp = soup.find("jnlp")
@@ -605,7 +605,7 @@ class DFT(object):
         params = self.do_handle_params(_object)
 
         classid  = _object.get('classid', None)
-        id       = _object.get('id', None)
+        _id      = _object.get('id', None)
         codebase = _object.get('codebase', None)
         data     = _object.get('data', None)
 
@@ -628,18 +628,18 @@ class DFT(object):
         if not log.ThugOpts.Personality.isIE():
             return
 
-        #if classid and id:
+        #if classid and _id:
         if classid:
             try:
                 axo = _ActiveXObject(self.window, classid, 'id')
             except TypeError:
                 return
 
-            if id is None:
+            if _id is None:
                 return
 
-            setattr(self.window, id, axo)
-            setattr(self.window.doc, id, axo)
+            setattr(self.window, _id, axo)
+            setattr(self.window.doc, _id, axo)
 
     def _get_script_for_event_params(self, attr_event):
         params = attr_event.split('(')
@@ -667,7 +667,7 @@ class DFT(object):
                 try:
                     oldState = params.pop()
                     ctx.eval("%s = 3;" % (oldState.strip(), ))
-                except:
+                except: #pylint:disable=bare-except
                     pass
 
     def handle_script(self, script):
@@ -694,7 +694,7 @@ class DFT(object):
         try:
             s.text = js
             return True
-        except:
+        except: #pylint:disable=bare-except
             pass
 
         # Second attempt
@@ -747,7 +747,7 @@ class DFT(object):
 
         try:
             body = self.window.doc.body
-        except:
+        except: #pylint:disable=bare-except
             body = self.window.doc.getElementsByTagName('body')[0]
 
         if body:
@@ -758,7 +758,7 @@ class DFT(object):
     def handle_javascript(self, script):
         try:
             log.info(jsbeautifier.beautify(str(script)))
-        except:
+        except: #pylint:disable=bare-except
             log.info(script)
 
         self.handle_external_javascript(script)
@@ -906,7 +906,7 @@ class DFT(object):
                 url = s[4:]
             try:
                 timeout = int(s)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
         if not url:
@@ -1014,7 +1014,7 @@ class DFT(object):
 
         try:
             sheet = cssparser.parseString(style.text)
-        except:
+        except: #pylint:disable=bare-except
             return
 
         for rule in sheet:
@@ -1208,19 +1208,19 @@ class DFT(object):
         for evt in self.handled_on_events:
             try:
                 self.handle_window_event(evt)
-            except:
+            except: #pylint:disable=bare-except
                 log.warning("[handle_window_event] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
             try:
                 self.handle_document_event(evt)
-            except:
+            except: #pylint:disable=bare-except
                 log.warning("[handle_document_event] Event %s not properly handled", evt)
 
         for evt in self.handled_events:
             try:
                 self.handle_element_event(evt)
-            except:
+            except: #pylint:disable=bare-except
                 log.warning("[handle_element_event] Event %s not properly handled", evt)
 
     def run(self):
