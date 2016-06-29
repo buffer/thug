@@ -22,8 +22,6 @@ import time
 import logging
 import PyV8
 import traceback
-import hashlib
-import pefile
 import urllib
 import bs4 as BeautifulSoup
 import jsbeautifier
