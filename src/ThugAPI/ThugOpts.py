@@ -112,7 +112,7 @@ class ThugOpts(dict):
     def set_delay(self, timeout):
         try:
             _timeout = int(timeout)
-        except:
+        except ValueError:
             log.warning('[WARNING] Ignoring invalid delay value (should be an integer)')
             return
 
@@ -174,7 +174,7 @@ class ThugOpts(dict):
     def set_threshold(self, threshold):
         try:
             value = int(threshold)
-        except:
+        except ValueError:
             log.warning('[WARNING] Ignoring invalid threshold value (should be an integer)')
             return
 
@@ -190,7 +190,7 @@ class ThugOpts(dict):
 
         try:
             seconds = int(timeout)
-        except:
+        except ValueError:
             log.warning('[WARNING] Ignoring invalid timeout value (should be an integer)')
             return
 
