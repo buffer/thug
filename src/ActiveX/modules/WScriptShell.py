@@ -40,7 +40,7 @@ def _doRun(self, p, stage):
     try:
         pefile.PE(data = p, fast_load = True)
         return
-    except:
+    except: #pylint:disable=bare-except
         pass
 
     log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
