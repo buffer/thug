@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-import logging
 import six
 import bs4 as BeautifulSoup
 from .DOMImplementation import DOMImplementation
