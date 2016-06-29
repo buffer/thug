@@ -8,6 +8,7 @@ ignore-paths:
   - src/Logging/modules/MITRE/MAEC_v4_0.py
   - utils/
   - tools/
+  - hpfeeds/
   - samples/steps/exploits.py
   - samples/steps/misc.py
   - src/ThugAPI/IThugAPI.py
