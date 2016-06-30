@@ -137,6 +137,18 @@ class Window(JSClass):
 
         log.MIMEHandler.window = self
 
+    def __getattr__(self, key):
+        if log.ThugOpts.Personality.isIE() and key.lower() in ('wscript', ):
+            # Prevent _ActiveXObject loops
+            super(Window, self).__setattr__("WScript", None)
+
+            WScript = _ActiveXObject(self, "WScript.Shell")
+            super(Window, self).__setattr__(key, WScript)
+            super(Window, self).__setattr__("WScript", WScript)
+            return WScript
+
+        return super(Window, self).__getattr__(key)
+
     @property 
     def closed(self):
         return self._closed
@@ -690,7 +702,7 @@ class Window(JSClass):
         self.clientInformation = self.navigator
         self.clipboardData     = ClipboardData()
         self.external          = External()
-        _ActiveXObject(self, "WScript.Shell")
+        #_ActiveXObject(self, "WScript.Shell")
 
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             self.attachEvent = self._attachEvent
