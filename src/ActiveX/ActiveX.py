@@ -122,7 +122,7 @@ class _ActiveXObject(object):
         for attr_name, attr_value in obj['funcattrs'].items():
             self.funcattrs[attr_name] = methods[attr_value]
 
-        if cls.lower() in ('wscript.shell', ):
+        if cls.lower() in ('wscript.shell', ) and (not hasattr(window, 'WScript') or window.WScript is None):
             window.WScript = self
 
     def __setattr__(self, name, value):
