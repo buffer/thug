@@ -70,7 +70,7 @@ class EventTarget(object):
         
         try:
             self.tag._listeners.remove((eventType, listener, capture))
-        except:
+        except: #pylint:disable=bare-except
             pass
 
     def _attachEvent(self, eventType, handler, prio = False):
@@ -106,7 +106,7 @@ class EventTarget(object):
     def do_dispatch(self, c, evtObject):
         try:
             self._do_dispatch(c, evtObject)
-        except:
+        except: #pylint:disable=bare-except
             eventType, listener, capture = c #pylint:disable=unused-variable
             log.warning("[WARNING] Error while dispatching %s event", eventType)
 

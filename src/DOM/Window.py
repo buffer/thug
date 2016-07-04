@@ -761,7 +761,7 @@ class Window(JSClass):
         if len(script) > 4:
             try:
                 log.info(jsbeautifier.beautify(script))
-            except:
+            except: #pylint:disable=bare-except
                 log.info(script)
 
         if len(script) > 64: 
@@ -795,7 +795,7 @@ class Window(JSClass):
         try:
             log.JSClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url,
                                       script)
-        except:
+        except: #pylint:disable=bare-except
             pass
 
         if tag:
@@ -803,7 +803,7 @@ class Window(JSClass):
         else:
             try:
                 body = self.doc.body
-            except:
+            except: #pylint:disable=bare-except
                 # This code is for when you are desperate :)
                 body = self.doc.getElementsByTagName('body')[0]
 
@@ -815,7 +815,7 @@ class Window(JSClass):
         with self.context as ctxt:
             try:
                 ast = AST(self, script)
-            except:
+            except: #pylint:disable=bare-except
                 log.debug(traceback.format_exc())
                 return result
 

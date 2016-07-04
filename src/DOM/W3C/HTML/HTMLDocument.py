@@ -274,7 +274,7 @@ class HTMLDocument(Document):
 
             try:
                 handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
-            except:
+            except: #pylint:disable=bare-except
                 handler = getattr(log.DFT, "handle_%s" % (name, ), None)
 
             if handler:

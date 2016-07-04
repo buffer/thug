@@ -69,7 +69,7 @@ class SampleLogging(object):
             if [t for t in z.namelist() if t.endswith('.class')]:
                 os.remove(jar)
                 return True
-        except:
+        except: #pylint:disable=bare-except
             pass
 
         os.remove(jar)

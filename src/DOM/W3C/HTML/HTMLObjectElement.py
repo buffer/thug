@@ -76,7 +76,7 @@ class HTMLObjectElement(HTMLElement):
 
             try:
                 register_object(self, value)
-            except:
+            except: #pylint:disable=bare-except
                 return
 
         self.tag[name] = value

@@ -70,7 +70,7 @@ class MongoDB(object):
                 self.opts['host'] = log.ThugOpts.mongodb_address
                 self.opts['enable'] = 'True'
                 return True
-            except:
+            except: #pylint:disable=bare-except
                 log.warning("Invalid MongoDB address specified at runtime, using default values instead (if any)")
 
         config = ConfigParser.ConfigParser()
@@ -111,7 +111,7 @@ class MongoDB(object):
 
         try:
             connection = client(self.opts['host'])
-        except:
+        except: #pylint:disable=bare-except
             log.warning('[MongoDB] MongoDB instance not available')
             self.enabled = False
             return
@@ -382,7 +382,7 @@ class MongoDB(object):
         try:
             enc = log.Encoding.detect(data)
             return data.decode(enc['encoding']).replace("\n", "").strip()
-        except:
+        except: #pylint:disable=bare-except
             return thug_unicode(data).replace("\n", "").strip()
 
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):

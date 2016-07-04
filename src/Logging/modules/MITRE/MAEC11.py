@@ -137,7 +137,7 @@ class MAEC11(object):
        
         try:
             return _snippet.encode('ascii', 'ignore')
-        except:
+        except: #pylint:disable=bare-except
             return _snippet.decode('ascii', 'ignore')
 
     def _add_snippet_to_associated_code(self, snippet, language, relationship, method = "Dynamic Analysis"):
@@ -206,7 +206,7 @@ class MAEC11(object):
             
             try:
                 desc.add_Text(description)
-            except:
+            except: #pylint:disable=bare-except
                 desc.add_Text(description.decode('utf-8'))
 
             behavior.set_Description(desc)

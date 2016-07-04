@@ -302,7 +302,7 @@ class Mapper(object):
         try:
             self.graph.layout(prog = 'dot')
             self.graph.draw(self.svgfile, format = 'svg')
-        except:
+        except: #pylint:disable=bare-except
             pass
 
     def activate(self, conto):

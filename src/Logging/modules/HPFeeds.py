@@ -130,7 +130,7 @@ class HPFeeds(object):
 
 		try:
 			self.sockfd.connect((host, port))
-		except:
+		except: #pylint:disable=bare-except
 			log.warning('[HPFeeds] Unable to connect to broker')
 			return None
 
