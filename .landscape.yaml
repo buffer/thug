@@ -21,6 +21,7 @@ pylint:
     - too-many-arguments
     - too-many-locals
     - too-many-statements
+    - too-many-branches
     - unused-argument
     - protected-access
     - unnecessary-lambda
