@@ -245,8 +245,8 @@ class Window(JSClass):
     def screenY(self):
         return self._top
 
-    def _do_ActiveXObject(self, cls, type = 'name'):
-        return _ActiveXObject(self, cls, type)
+    def _do_ActiveXObject(self, cls, typename = 'name'):
+        return _ActiveXObject(self, cls, typename)
 
     # Window object methods
     #

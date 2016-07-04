@@ -43,7 +43,7 @@ class _ActiveXObject(object):
                         'shockwaveflash.shockwaveflash.11' : '11',
                         'shockwaveflash.shockwaveflash.12' : '12'}
 
-    def __init__(self, window, cls, type = 'name'):
+    def __init__(self, window, cls, typename = 'name'):
         self.funcattrs = dict()
         self._window   = window
         obj            = None
@@ -51,14 +51,14 @@ class _ActiveXObject(object):
         self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
         self.cls       = cls
 
-        if type == 'id':
+        if typename == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':
                 cls = cls[6:].upper()
 
             if cls.startswith('{') and cls.endswith('}'):
                 cls = cls[1:-1]
 
-        if type == 'name':
+        if typename == 'name':
             cls = cls.lower()
 
         # Adobe Acrobat Reader
@@ -99,7 +99,7 @@ class _ActiveXObject(object):
                 _cls = 'javawebstart.isinstalled'
 
         for c in CLSID:
-            if _cls in c[type]:
+            if _cls in c[typename]:
                 obj = c
                 break
 
