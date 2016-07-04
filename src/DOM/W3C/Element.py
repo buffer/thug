@@ -85,7 +85,7 @@ class Element(Node, ElementCSSInlineStyle):
 
         try:
             s = self.tag.select(selectors)
-        except:
+        except: #pylint:disable=bare-except
             return None
 
         if s and s[0]:
