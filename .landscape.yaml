@@ -20,6 +20,7 @@ pylint:
   disable:
     - too-many-arguments
     - too-many-locals
+    - too-many-statements
     - unused-argument
     - protected-access
     - unnecessary-lambda
