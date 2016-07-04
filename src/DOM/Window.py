@@ -68,7 +68,7 @@ class Window(JSClass):
             self.event = sched.enter(self.delay, 1, self.execute, ())
             try:
                 sched.run()
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
         def stop(self):
