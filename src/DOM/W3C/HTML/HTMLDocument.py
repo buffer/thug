@@ -220,7 +220,7 @@ class HTMLDocument(Document):
 
             try:
                 mode_version = int(mode_version)
-            except:
+            except ValueError:
                 continue
 
             if mode_version not in (5, 7, 8, 9, 10):
