@@ -71,7 +71,7 @@ class MimeTypes(dict):
         try:
             key = int(key)
             return self.item(key)
-        except:
+        except ValueError:
             return dict.__getitem__(self, key) if key in self else MimeType()
 
     @property
