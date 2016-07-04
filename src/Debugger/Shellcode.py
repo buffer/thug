@@ -90,7 +90,7 @@ class Shellcode(object):
 
         with Debugger() as dbg:
             dbg._context = self.ctxt
-            vars = self.ctxt.locals
+            _vars = self.ctxt.locals
             #dbg.debugBreak()
 
             try:
@@ -111,8 +111,8 @@ class Shellcode(object):
             for name in self.ast.names:
                 s = None
 
-                if name in vars.keys():
-                    s = vars[name]
+                if name in _vars.keys():
+                    s = _vars[name]
 
                 if not s:
                     continue
