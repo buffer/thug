@@ -148,3 +148,6 @@ def Sleep(self, intTime):
 def Quit(self, code):
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Quit(%s)" % code)
     PyV8.JSEngine.terminateAllThreads()
+
+def Echo(self, text):
+    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Echo(%s)" % (text))

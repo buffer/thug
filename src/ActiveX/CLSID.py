@@ -1376,6 +1376,7 @@ CLSID = [
                             'CreateObject'              : WScriptShell.CreateObject,
                             'Sleep'                     : WScriptShell.Sleep,
                             'Quit'                      : WScriptShell.Quit,
+                            'Echo'                      : WScriptShell.Echo,
                           }
         },
 
