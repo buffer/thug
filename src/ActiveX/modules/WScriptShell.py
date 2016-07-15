@@ -151,3 +151,9 @@ def Quit(self, code):
 
 def Echo(self, text):
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Echo(%s)" % (text))
+
+def valueOf(self):
+    return "Windows Script Host"
+
+def toString(self):
+    return "Windows Script Host"
