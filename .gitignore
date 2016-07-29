@@ -19,6 +19,7 @@ dist
 # IDE
 .project
 .pydevproject
+.ropeproject
 
 # Archives
 *.zip
