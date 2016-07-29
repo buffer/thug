@@ -68,24 +68,24 @@ except ImportError:
 
 class MIMEHandler(dict):
     """
-        MIMEHandler class is meant to allow registering MIME handlers the 
-        same way a real browser would do. 
-        
-        The default handling for almost all Content-Types is to not further 
-        processing the downloaded content and this can be done by returning 
-        True from the Content-Type handler. The method `passthrough' is the 
-        default handler associated to almost all Content-Types with the few 
-        exceptions defined in the method `register_empty_handlers'. 
+        MIMEHandler class is meant to allow registering MIME handlers the
+        same way a real browser would do.
 
-        Two ways actually exist for further processing a downloaded content. 
+        The default handling for almost all Content-Types is to not further
+        processing the downloaded content and this can be done by returning
+        True from the Content-Type handler. The method `passthrough' is the
+        default handler associated to almost all Content-Types with the few
+        exceptions defined in the method `register_empty_handlers'.
+
+        Two ways actually exist for further processing a downloaded content.
         The first one is returning False from the the Content-Type handler.
-        The second one is having a None Content-Type handler which turns to 
-        be quite useful when an unknown Content-Type is served. In such case 
+        The second one is having a None Content-Type handler which turns to
+        be quite useful when an unknown Content-Type is served. In such case
         the __missing__ method will return None (thus enabling further content
         processing) and log the unknown Content-Type for convenience.
-        
-        This design is quite flexible because i.e. you can decide to instantiate 
-        your own PDF analysis system really quickly by simply defining a new 
+
+        This design is quite flexible because i.e. you can decide to instantiate
+        your own PDF analysis system really quickly by simply defining a new
         application/pdf Content-Type handler.
     """
     mimetypes = ("application/download",
@@ -235,7 +235,7 @@ class MIMEHandler(dict):
                  "x-world/x-vrml")
 
     def __missing__(self, key):
-        _key = key.split(';')[0].strip() 
+        _key = key.split(';')[0].strip()
         if _key in self:
             return self[_key]
 
@@ -290,9 +290,11 @@ class MIMEHandler(dict):
 
     def handle_fallback(self, url, content):
         for handler in self.handlers:
-            if handler(url, content):
-                return True
-
+            try:
+                if handler(url, content):
+                    return True
+            except:
+                pass
         return False
 
     def handle_zip(self, url, content):
@@ -356,14 +358,14 @@ class MIMEHandler(dict):
 
         os.remove(rfile)
         return True
-      
+
     def getPeepXML(self, statsDict, url):
         """
             Slightly modified version of Peepdf getPeepXML function
         """
 
-        root              = etree.Element('peepdf_analysis', 
-                                          url    = 'http://peepdf.eternal-todo.com', 
+        root              = etree.Element('peepdf_analysis',
+                                          url    = 'http://peepdf.eternal-todo.com',
                                           author = 'Jose Miguel Esparza')
 
         analysisDate      = etree.SubElement(root, 'date')
@@ -427,45 +429,45 @@ class MIMEHandler(dict):
 
             if statsVersion['Catalog']:
                 catalog.set('object_id', statsVersion['Catalog'])
-            
+
             info = etree.SubElement(versionInfo, 'info')
             if statsVersion['Info']:
                 info.set('object_id', statsVersion['Info'])
-            
+
             objects = etree.SubElement(versionInfo, 'objects', num = statsVersion['Objects'][0])
 
             for _id in statsVersion['Objects'][1]:
                 _object = etree.SubElement(objects, 'object', id = str(_id))
-                
+
                 if statsVersion['Compressed Objects']:
                     if _id in statsVersion['Compressed Objects'][1]:
                         _object.set('compressed', 'true')
                     else:
                         _object.set('compressed', 'false')
-                
+
                 if statsVersion['Errors']:
                     if _id in statsVersion['Errors'][1]:
                         _object.set('errors', 'true')
                     else:
                         _object.set('errors', 'false')
-            
+
             streams = etree.SubElement(versionInfo, 'streams', num = statsVersion['Streams'][0])
-            
+
             for _id in statsVersion['Streams'][1]:
                 stream = etree.SubElement(streams, 'stream', id = str(_id))
-                
+
                 if statsVersion['Xref Streams']:
                     if _id in statsVersion['Xref Streams'][1]:
                         stream.set('xref_stream', 'true')
                     else:
                         stream.set('xref_stream', 'false')
-                
+
                 if statsVersion['Object Streams']:
                     if _id in statsVersion['Object Streams'][1]:
                         stream.set('object_stream', 'true')
                     else:
                         stream.set('object_stream', 'false')
-                
+
                 if statsVersion['Encoded']:
                     if _id in statsVersion['Encoded'][1]:
                         stream.set('encoded', 'true')
@@ -537,18 +539,18 @@ class MIMEHandler(dict):
                                 if isinstance(vulnCVE, (list, tuple)):
                                     vulnCVE=",".join(vulnCVE)
 
-                                log.ThugLogging.log_exploit_event(url, 
+                                log.ThugLogging.log_exploit_event(url,
                                                                   "Adobe Acrobat Reader",
-                                                                  "Adobe Acrobat Reader Exploit (%s)" % (vulnCVE, ), 
+                                                                  "Adobe Acrobat Reader Exploit (%s)" % (vulnCVE, ),
                                                                   cve = vulnCVE)
                                 cve = etree.SubElement(vulnInfo, 'cve')
                                 cve.text = vulnCVE
                         for _id in vulns[vuln]:
                             etree.SubElement(vulnInfo, 'container_object', id = str(_id))
-            
+
             urls           = statsVersion['URLs']
             #suspiciousURLs = etree.SubElement(versionInfo, 'suspicious_urls')
-            
+
             if urls:
                 for url in urls:
                     urlInfo      = etree.SubElement(versionInfo, 'url')
@@ -608,7 +610,7 @@ class MIMEHandler(dict):
             os.remove(rfile)
             return False
 
-        statsDict = pdf.getStats() 
+        statsDict = pdf.getStats()
         analysis  = self.getPeepXML(statsDict, url)
 
         log_dir = os.path.join(log.ThugLogging.baseDir, "analysis", "pdf")
@@ -625,7 +627,7 @@ class MIMEHandler(dict):
 
         output.write("[FILES] \n")
         for i in a.get_files():
-            try: 
+            try:
                 output.write("\t%s %s %x\n" % (i, a.files[i], a.files_crc32[i], ))
             except KeyError:
                 output.write("\t%s %x\n" % (i, a.files_crc32[i], ))
@@ -759,7 +761,7 @@ class MIMEHandler(dict):
         """
         The method passthrough is the default handler associated to
         almost all Content-Types with the few exceptions defined in
-        register_empty_handlers. 
+        register_empty_handlers.
         """
         return True
 
