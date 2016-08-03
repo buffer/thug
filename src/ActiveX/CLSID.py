@@ -1379,6 +1379,7 @@ CLSID = [
                             'Echo'                      : WScriptShell.Echo,
                             'valueOf'                   : WScriptShell.valueOf,
                             'toString'                  : WScriptShell.toString,
+                            'SpecialFolders'            : WScriptShell.SpecialFolders,
                           }
         },
 
