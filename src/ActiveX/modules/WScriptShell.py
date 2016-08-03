@@ -164,3 +164,9 @@ def SpecialFolders(self, strFolderName):
     if folderPath:
         folderPath = ExpandEnvironmentStrings(self, folderPath)
     return "{}".format(folderPath)
+
+def CreateShortcut(self, strPathname):
+    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] CreateShortcut "%s"' % (strPathname, ))
+    obj = CreateObject(self, "wscript.shortcut")
+    obj.FullName = strPathname
+    return obj

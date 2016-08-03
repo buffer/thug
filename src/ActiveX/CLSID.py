@@ -105,6 +105,7 @@ from .modules import WinZip
 from .modules import WMEncProfileManager
 from .modules import WMP
 from .modules import WScriptShell
+from .modules import WScriptShortcut
 from .modules import XMLDOMParseError
 from .modules import XUpload
 from .modules import YahooJukebox
@@ -1380,7 +1381,22 @@ CLSID = [
                             'valueOf'                   : WScriptShell.valueOf,
                             'toString'                  : WScriptShell.toString,
                             'SpecialFolders'            : WScriptShell.SpecialFolders,
+                            'CreateShortcut'            : WScriptShell.CreateShortcut,
                           }
+        },
+
+        # WScriptShortcut
+        {
+        'id'        : (),
+        'name'      : ( 'wscript.shortcut'),
+        'attrs'     : {
+                        'FullName'              : '',
+                        'TargetPath'            : '',
+                      },
+        'funcattrs' : {},
+        'methods'   : {
+                        'save'                  : WScriptShortcut.save,
+                      }
         },
 
         # XUpload
