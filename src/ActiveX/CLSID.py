@@ -1392,6 +1392,12 @@ CLSID = [
         'attrs'     : {
                         'FullName'              : '',
                         'TargetPath'            : '',
+                        'Description'           : '',
+                        'Hotkey'                : '',
+                        'IconLocation'          : '',
+                        'RelativePath'          : '',
+                        'WindowStyle'           : 1,
+                        'WorkingDirectory'      : '',
                       },
         'funcattrs' : {},
         'methods'   : {
