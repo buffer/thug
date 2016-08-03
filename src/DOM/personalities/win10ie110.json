@@ -6,7 +6,7 @@
     "buildID": null,
     "appName": "Netscape",
     "appCodeName": "Mozilla",
-    "productSub": null, 
+    "productSub": null,
     "appVersion": "5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; InfoPath.3; rv:11.0) like Gecko",
     "appMinorVersion": null,
     "platform": "Win32",
@@ -17,7 +17,7 @@
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; InfoPath.3; rv:11.0) like Gecko",
     "cc_on": {
         "_jscript_version": "11"
-    }, 
+    },
     "shellVariables": {
         "ALLUSERSPROFILE": "C:\\ProgramData",
         "APPDATA": "C:\\Users\\{{username}}\\AppData\\Roaming",
@@ -57,6 +57,24 @@
         "USERNAME": "{{username}}",
         "USERPROFILE": "C:\\Users\\{{username}}",
         "windir": "C:\\WINDOWS"
+    },
+    "specialFolders": {
+        "AllUsersDesktop": "%PUBLIC%\\Desktop",
+        "AllUsersStartMenu": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu",
+        "AllUsersPrograms": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs",
+        "AllUsersStartup": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup",
+        "Desktop": "%USERPROFILE%\\Desktop",
+        "Favorites": "%USERPROFILE%\\Favorites",
+        "Fonts": "%windir%\\Fonts",
+        "MyDocuments": "%USERPROFILE%\\Documents",
+        "NetHood": "%APPDATA%\\Microsoft\\Windows\\Network Shortcuts",
+        "PrintHood": "%APPDATA%\\Microsoft\\Windows\\Printer Shortcuts",
+        "Programs": "%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs",
+        "Recent": "%APPDATA%\\Microsoft\\Windows\\Recent",
+        "SendTo": "%APPDATA%\\Microsoft\\Windows\\SendTo",
+        "StartMenu": "%APPDATA%\\Microsoft\\Windows\\Start Menu",
+        "Startup": "%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup",
+        "Templates": "%APPDATA%\\Microsoft\\Windows\\Templates"
     },
     "id": 160501
 }

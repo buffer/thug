@@ -81,3 +81,6 @@ class Personality(dict):
 
     def getShellVariable(self, variableName):
         return self[log.ThugOpts.useragent].get('shellVariables', dict()).get(variableName.strip("%"), '')
+
+    def getSpecialFolder(self, folderName):
+        return self[log.ThugOpts.useragent].get('specialFolders', dict()).get(folderName, '')
