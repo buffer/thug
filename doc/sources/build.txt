@@ -10,7 +10,6 @@ Requirements
 * Boost
 * Google V8                
 * PyV8
-* Libemu
 * MongoDB (optional)
 * Graphviz
 * RabbitMQ (optional)
@@ -18,7 +17,7 @@ Requirements
 * BeautifulSoup4
 * Html5lib
 * Jsbeautifier
-* Pylibemu
+* Libemu/Pylibemu
 * PEfile
 * Yara
 * Yara-Python
@@ -81,28 +80,6 @@ below.
         $ cd pyv8
         ~/pyv8 $ python setup.py build
         ~/pyv8 $ sudo python setup.py install
-
-
-Libemu
-^^^^^^
-
-Libemu is a small library written in C offering basic x86 emulation and
-shellcode detection using GetPC heuristics. It is designed to be used
-within network intrusion/prevention detections and honeypots. Libemu
-homepage is located at http://libemu.carnivore.it/.
-
-In order to properly install Libemu please follow the procedure described
-below
-
-.. code-block:: sh
-
-        $ git clone https://github.com/buffer/libemu.git
-        $ cd libemu
-        $ autoreconf -v -i
-        $ ./configure --prefix=/opt/libemu
-        $ sudo make install
-
-For additional details about installation please refer to the Libemu homepage.
 
 
 MongoDB (optional)
@@ -205,14 +182,19 @@ through pip.
         # pip install jsbeautifier 
 
 
-Pylibemu
-^^^^^^^^
+Libemu/Pylibemu
+^^^^^^^^^^^^^^^
 
-Pylibemu is a Cython wrapper for the Libemu library. Pylibemu homepage is located at 
-https://github.com/buffer/pylibemu.
+Libemu is a small library written in C offering basic x86 emulation and 
+shellcode detection using GetPC heuristics. It is designed to be used
+within network intrusion/prevention detections and honeypots. Libemu
+homepage is located at http://libemu.carnivore.it/.
 
-If not available as a package for your Linux distribution, the best way to install Pylibemu is through 
-pip.
+Pylibemu is a Cython wrapper for the Libemu library. Pylibemu homepage is 
+located at https://github.com/buffer/pylibemu.
+
+The best way to install Pylibemu is through pip (which will take care of
+installing and configuring Libemu too).
 
 .. code-block:: sh
 
@@ -222,8 +204,7 @@ Alternatively follow the procedure described below
 
 .. code-block:: sh
         
-        $ git clone git://github.com/buffer/pylibemu.git
-        $ python setup.py build
+        $ git clone --recursive https://github.com/buffer/pylibemu.git
         $ sudo python setup.py install
 
 For additional details about installation please refer to the Pylibemu homepage.

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build and Install &mdash; Thug 0.7.1 documentation</title>
+    <title>Build and Install &mdash; Thug 0.7.2 documentation</title>
     
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.1',
+        VERSION:     '0.7.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.7.1 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.7.2 documentation" href="index.html" />
     <link rel="next" title="Docker" href="docker.html" />
     <link rel="prev" title="Introduction" href="intro.html" />
    
@@ -47,7 +47,6 @@
 <li>Boost</li>
 <li>Google V8</li>
 <li>PyV8</li>
-<li>Libemu</li>
 <li>MongoDB (optional)</li>
 <li>Graphviz</li>
 <li>RabbitMQ (optional)</li>
@@ -55,7 +54,7 @@
 <li>BeautifulSoup4</li>
 <li>Html5lib</li>
 <li>Jsbeautifier</li>
-<li>Pylibemu</li>
+<li>Libemu/Pylibemu</li>
 <li>PEfile</li>
 <li>Yara</li>
 <li>Yara-Python</li>
@@ -107,23 +106,6 @@ $ <span class="nb">cd</span> pyv8
 ~/pyv8 $ sudo python setup.py install
 </pre></div>
 </div>
-</div>
-<div class="section" id="libemu">
-<h3>Libemu<a class="headerlink" href="#libemu" title="Permalink to this headline">¶</a></h3>
-<p>Libemu is a small library written in C offering basic x86 emulation and
-shellcode detection using GetPC heuristics. It is designed to be used
-within network intrusion/prevention detections and honeypots. Libemu
-homepage is located at <a class="reference external" href="http://libemu.carnivore.it/">http://libemu.carnivore.it/</a>.</p>
-<p>In order to properly install Libemu please follow the procedure described
-below</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git clone https://github.com/buffer/libemu.git
-$ <span class="nb">cd</span> libemu
-$ autoreconf -v -i
-$ ./configure --prefix<span class="o">=</span>/opt/libemu
-$ sudo make install
-</pre></div>
-</div>
-<p>For additional details about installation please refer to the Libemu homepage.</p>
 </div>
 <div class="section" id="mongodb-optional">
 <h3>MongoDB (optional)<a class="headerlink" href="#mongodb-optional" title="Permalink to this headline">¶</a></h3>
@@ -196,18 +178,21 @@ through pip.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="pylibemu">
-<h3>Pylibemu<a class="headerlink" href="#pylibemu" title="Permalink to this headline">¶</a></h3>
-<p>Pylibemu is a Cython wrapper for the Libemu library. Pylibemu homepage is located at
-<a class="reference external" href="https://github.com/buffer/pylibemu">https://github.com/buffer/pylibemu</a>.</p>
-<p>If not available as a package for your Linux distribution, the best way to install Pylibemu is through
-pip.</p>
+<div class="section" id="libemu-pylibemu">
+<h3>Libemu/Pylibemu<a class="headerlink" href="#libemu-pylibemu" title="Permalink to this headline">¶</a></h3>
+<p>Libemu is a small library written in C offering basic x86 emulation and
+shellcode detection using GetPC heuristics. It is designed to be used
+within network intrusion/prevention detections and honeypots. Libemu
+homepage is located at <a class="reference external" href="http://libemu.carnivore.it/">http://libemu.carnivore.it/</a>.</p>
+<p>Pylibemu is a Cython wrapper for the Libemu library. Pylibemu homepage is
+located at <a class="reference external" href="https://github.com/buffer/pylibemu">https://github.com/buffer/pylibemu</a>.</p>
+<p>The best way to install Pylibemu is through pip (which will take care of
+installing and configuring Libemu too).</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install pylibemu</span>
 </pre></div>
 </div>
 <p>Alternatively follow the procedure described below</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git clone git://github.com/buffer/pylibemu.git
-$ python setup.py build
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ git clone --recursive https://github.com/buffer/pylibemu.git
 $ sudo python setup.py install
 </pre></div>
 </div>

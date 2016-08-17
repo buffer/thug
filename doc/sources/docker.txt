@@ -39,11 +39,18 @@ dockerized Thug from the Honeynet Project's Docker repository at https://registr
 
 Thug will be installed in the directory */opt/thug*. To run it just execute *python /opt/thug/src/thug.py [options] URL*.
 
-Download the latest container
+Download the latest stable container
 
 .. code-block:: sh
 
     $ docker pull honeynet/thug
+
+Alternately if you feel brave enough to test the really last commits you should download 
+the latest automated build container
+
+.. code-block:: sh
+
+    $ docker pull buffer/thug
 
 Then mount your host ~/logs dir and enable it to keep the logs on the host
 
