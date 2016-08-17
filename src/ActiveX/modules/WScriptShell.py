@@ -138,7 +138,7 @@ def CreateObject(self, strProgID, strPrefix = ""):
                                           "strProgID": strProgID,
                                           "strPrefix": strPrefix
                                       },
-                                     forward = False)
+                                      forward = False)
     return ActiveX.ActiveX._ActiveXObject(self._window, strProgID)
 
 def Sleep(self, intTime):
@@ -157,3 +157,16 @@ def valueOf(self):
 
 def toString(self):
     return "Windows Script Host"
+
+def SpecialFolders(self, strFolderName):
+    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Received call to SpecialFolders property "%s"' % (strFolderName, ))
+    folderPath = log.ThugOpts.Personality.getSpecialFolder(strFolderName)
+    if folderPath:
+        folderPath = ExpandEnvironmentStrings(self, folderPath)
+    return "{}".format(folderPath)
+
+def CreateShortcut(self, strPathname):
+    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] CreateShortcut "%s"' % (strPathname, ))
+    obj = CreateObject(self, "wscript.shortcut")
+    obj.FullName = strPathname
+    return obj
