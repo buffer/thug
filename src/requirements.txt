@@ -1,4 +1,4 @@
-beautifulsoup4==4.4.1
+beautifulsoup4==4.5.1
 html5lib==0.9999999
 jsbeautifier==1.6.2
 lxml==3.5.0
