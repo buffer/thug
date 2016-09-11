@@ -4,13 +4,15 @@ import os
 import glob
 from setuptools import setup, find_packages
 
-from thug import configuration_path
+configuration_path = "/etc/thug"
 
 personalities_path = os.path.join(configuration_path, "personalities") 
 rules_path         = os.path.join(configuration_path, "rules")
 js_rules_path      = os.path.join(rules_path, "jsclassifier")
 url_rules_path     = os.path.join(rules_path, "urlclassifier")
 sample_rules_path  = os.path.join(rules_path, "sampleclassifier")
+
+os.chdir("src")
 
 setup(
     name = "thug",
