@@ -1152,7 +1152,18 @@ class DFT(object):
         if skip and name in ('object', 'applet', ):
             return False
 
-        handler = getattr(self, "handle_%s" % (str(name.lower()), ), None)
+        # FIXME: this workaround should be not necessary once the Python 3
+        # porting will be completed.
+        handler = None
+
+        try:
+            handler = getattr(self, "handle_%s" % (str(name.lower()), ), None)
+        except:
+            try:
+                handler = getattr(self, "handle_%s" % (name.encode('utf-8', 'replace'),  ), None)
+            except:
+                pass
+
         if handler:
             handler(child)
             return True
