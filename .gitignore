@@ -39,6 +39,7 @@ dist
 *.msi
 *.dmg
 *.ipa
+*.egg
 
 # OS specific useless files
 thumbs.db
