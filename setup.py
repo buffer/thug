@@ -47,7 +47,7 @@ setup(
         (url_rules_path    , glob.glob("Classifier/rules/urlclassifier/*.yar")),
         (sample_rules_path , glob.glob("Classifier/rules/sampleclassifier/*.yar")),
     ],
-    install_requires = ["distribute"],
+    install_requires = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, "requirements.txt")).read().splitlines(),
     entry_points = {
         "console_scripts": [
             "thug = thug:main",
