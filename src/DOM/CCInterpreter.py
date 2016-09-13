@@ -28,27 +28,21 @@ class CCInterpreter(object):
         pass
 
     def run(self, script):
-        try:
-            enc     = log.Encoding.detect(script)
-            _script = script.decode(enc['encoding'])
-            _script = _script.replace('@cc_on!@', '*/!/*')
-        except:
-            traceback.print_exc()
-            return script
+        script = script.replace('@cc_on!@', '*/!/*')
 
-        if '/*@cc_on' in _script:
-            _script = _script.replace('/*@cc_on', '')
-            _script = _script.replace('@_jscript_version', log.ThugOpts.Personality.cc_on['_jscript_version'].decode(enc['encoding']))
-            _script = _script.replace('/*@if', 'if')
-            _script = _script.replace('@if', 'if')
-            _script = _script.replace('@elif', 'else if')
-            _script = _script.replace('@else', 'else')
-            _script = _script.replace('/*@end', '')
-            _script = _script.replace('@end', '')
-            _script = _script.replace('@_win64', 'false')
-            _script = _script.replace('@_win32', 'true')
-            _script = _script.replace('@_win16', 'false')
-            _script = _script.replace('@*/', '')
-            _script = _script.replace('/*@', '')
+        if '/*@cc_on' in script:
+            script = script.replace('/*@cc_on', '')
+            script = script.replace('@_jscript_version', str(log.ThugOpts.Personality.cc_on['_jscript_version']))
+            script = script.replace('/*@if', 'if')
+            script = script.replace('@if', 'if')
+            script = script.replace('@elif', 'else if')
+            script = script.replace('@else', 'else')
+            script = script.replace('/*@end', '')
+            script = script.replace('@end', '')
+            script = script.replace('@_win64', 'false')
+            script = script.replace('@_win32', 'true')
+            script = script.replace('@_win16', 'false')
+            script = script.replace('@*/', '')
+            script = script.replace('/*@', '')
 
-        return _script
+        return script
