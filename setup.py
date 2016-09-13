@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+import ez_setup
+ez_setup.use_setuptools()
+
 import os
 import glob
 from setuptools import setup, find_packages
