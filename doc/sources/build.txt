@@ -132,7 +132,6 @@ procedure (starting from Thug 0.6.8).
 
 .. code-block:: sh
 
-	# cd thug/src
 	# pip install -r requirements.txt
 
 You are strongly encouraged to install these dependencies using this procedure. In such case you
