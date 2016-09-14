@@ -6,7 +6,7 @@ ident:		q6jyo@hp1
 secret:		edymvouqpfe1ivud
 
 [mongodb]
-enable:     False
+enable:		False
 host:		mongodb://localhost:27018
 
 [elasticsearch]
