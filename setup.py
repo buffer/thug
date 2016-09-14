@@ -19,7 +19,7 @@ os.chdir("src")
 
 setup(
     name = "thug",
-    version = "0.7.2",
+    version = "0.7.3",
     author = "Angelo Dell'Aera",
     author_email = "buffer@antifork.org",
     description = "Low-interaction honeyclient Thug",
