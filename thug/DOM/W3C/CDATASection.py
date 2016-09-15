@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from Node import Node
-from Text import Text
+from .Node import Node
+from .Text import Text
 
 class CDATASection(Text):
     def __repr__(self):

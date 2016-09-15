@@ -5,8 +5,8 @@ import logging
 log = logging.getLogger("Thug")
 
 import bs4 as BeautifulSoup
-from Node import Node
-from NodeList import NodeList
+from .Node import Node
+from .NodeList import NodeList
 
 class DocumentFragment(Node):
     def __init__(self, doc):
@@ -64,7 +64,7 @@ class DocumentFragment(Node):
         return NodeList(self.doc, s)
 
     def _querySelector(self, selectors):
-        from DOMImplementation import DOMImplementation
+        from .DOMImplementation import DOMImplementation
 
         try:
             s = self.tag.select(selectors)

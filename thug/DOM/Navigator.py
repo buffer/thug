@@ -30,7 +30,7 @@ from .HTTPSessionException import FetchForbidden
 from .HTTPSessionException import InvalidUrl
 from .HTTPSessionException import ThresholdExpired
 from .HTTPSessionException import TimeoutExpired
-from Magic.Magic import Magic
+from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
 

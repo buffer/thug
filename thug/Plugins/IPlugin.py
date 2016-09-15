@@ -27,3 +27,4 @@ class IPlugin(zope.interface.Interface):
         @thug:  Thug class main instance
         @log:   Thug root logger
         """
+        pass

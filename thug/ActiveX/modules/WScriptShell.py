@@ -128,7 +128,7 @@ def ExpandEnvironmentStrings(self, strWshShell):
 
 
 def CreateObject(self, strProgID, strPrefix = ""):
-    import ActiveX
+    import thug.ActiveX as ActiveX
 
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] CreateObject (%s)" % (strProgID))
     log.ThugLogging.log_exploit_event(self._window.url,

@@ -37,7 +37,7 @@ from .W3C.DOMImplementation import DOMImplementation
 from .W3C.Events.Event import Event
 from .W3C.Events.MouseEvent import MouseEvent
 from .W3C.Events.HTMLEvent import HTMLEvent
-from ActiveX.ActiveX import _ActiveXObject
+from thug.ActiveX.ActiveX import _ActiveXObject
 
 log        = logging.getLogger("Thug")
 

@@ -2,7 +2,7 @@
 
 import logging
 import bs4 as BeautifulSoup
-from DOMException import DOMException
+from thug.DOM.W3C.DOMException import DOMException
 from .HTMLElement import HTMLElement
 from .HTMLCollection import HTMLCollection
 from .HTMLTableRowElement import HTMLTableRowElement

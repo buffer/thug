@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from DOM.JSClass import JSClass
+from thug.DOM.JSClass import JSClass
 
 class NodeList(JSClass):
     def __init__(self, doc, nodes):
@@ -14,7 +14,7 @@ class NodeList(JSClass):
         return self.item(int(key))
 
     def item(self, index):
-        from DOMImplementation import DOMImplementation
+        from thug.DOM.W3C.DOMImplementation import DOMImplementation
         return DOMImplementation.createHTMLElement(self.doc, self.nodes[index]) if 0 <= index and index < len(self.nodes) else None
 
     @property

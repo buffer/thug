@@ -2,7 +2,7 @@
 
 import bs4 as BeautifulSoup
 
-from Node import Node
+from .Node import Node
 
 class Attr(Node):
     _value = ""
@@ -42,7 +42,7 @@ class Attr(Node):
     
     @property
     def childNodes(self):
-        from NodeList import NodeList
+        from .NodeList import NodeList
 
         return NodeList(self.parent.doc, [])
     

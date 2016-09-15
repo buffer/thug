@@ -20,8 +20,8 @@ except ImportError:
 
 import bs4 as BeautifulSoup
 
-from Document import Document
-from DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
+from thug.DOM.W3C.Document import Document
+from thug.DOM.W3C.DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
 from .HTMLCollection import HTMLCollection
 from .HTMLElement import HTMLElement
 from .HTMLBodyElement import HTMLBodyElement

@@ -5,7 +5,7 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
-from DOM.JSClass import JSClass
+from thug.DOM.JSClass import JSClass
 
 class HTMLCollection(JSClass):
     def __init__(self, doc, nodes):
@@ -26,14 +26,14 @@ class HTMLCollection(JSClass):
         return len(self.nodes)
 
     def item(self, index):
-        from DOMImplementation import DOMImplementation
+        from thug.DOM.W3C.DOMImplementation import DOMImplementation
 
         node = self.nodes[index]
 
         return DOMImplementation.createHTMLElement(self.doc, node) if node else None
 
     def namedItem(self, name):
-        from DOMImplementation import DOMImplementation
+        from thug.DOM.W3C.DOMImplementation import DOMImplementation
 
         for node in self.nodes:
             if node.nodeName == name:

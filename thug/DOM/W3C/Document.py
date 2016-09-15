@@ -6,19 +6,19 @@ log = logging.getLogger("Thug")
 
 import bs4 as BeautifulSoup
 
-from Node import Node
-from NodeList import NodeList
-from DocumentFragment import DocumentFragment
-from DocumentType import DocumentType
-from Element import Element
-from Comment import Comment
-from Text import Text
-from CDATASection import CDATASection
-from Attr import Attr
-from EntityReference import EntityReference
-from ProcessingInstruction import ProcessingInstruction
-from Events.DocumentEvent import DocumentEvent
-from Views.DocumentView import DocumentView
+from .Node import Node
+from .NodeList import NodeList
+from .DocumentFragment import DocumentFragment
+from .DocumentType import DocumentType
+from .Element import Element
+from .Comment import Comment
+from .Text import Text
+from .CDATASection import CDATASection
+from .Attr import Attr
+from .EntityReference import EntityReference
+from .ProcessingInstruction import ProcessingInstruction
+from .Events.DocumentEvent import DocumentEvent
+from .Views.DocumentView import DocumentView
 
 class Document(Node, DocumentEvent, DocumentView):
     def __init__(self, doc):
@@ -84,7 +84,7 @@ class Document(Node, DocumentEvent, DocumentView):
         return NodeList(self.doc, s)
 
     def _querySelector(self, selectors):
-        from DOMImplementation import DOMImplementation
+        from .DOMImplementation import DOMImplementation
 
         try:
             s = self.doc.select(selectors)
@@ -140,7 +140,7 @@ class Document(Node, DocumentEvent, DocumentView):
     onCreateElement = None
     
     def createElement(self, tagname, tagvalue = None):
-        from DOMImplementation import DOMImplementation
+        from .DOMImplementation import DOMImplementation
 
         # Internet Explorer 8 and below also support the syntax
         # document.createElement('<P>')
@@ -193,7 +193,7 @@ class Document(Node, DocumentEvent, DocumentView):
         return self._getElementById(elementId)
 
     def _getElementById(self, elementId):
-        from DOMImplementation import DOMImplementation
+        from .DOMImplementation import DOMImplementation
 
         tag = self.doc.find(id = elementId)
         return DOMImplementation.createHTMLElement(self, tag) if tag else None
@@ -201,7 +201,7 @@ class Document(Node, DocumentEvent, DocumentView):
     # Internet Explorer 6 and 7 getElementById is broken and returns 
     # elements with 'id' or 'name' attributes equal to elementId
     def _getElementById_IE67(self, elementId):
-        from DOMImplementation import DOMImplementation
+        from .DOMImplementation import DOMImplementation
 
         def _match_tag(tag, p):
             return p in tag.attrs and tag.attrs[p] == elementId

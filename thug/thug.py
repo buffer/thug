@@ -21,10 +21,10 @@ import os
 import getopt
 import logging
 
-from ThugAPI import ThugAPI
-from Plugins.ThugPlugins import ThugPlugins
-from Plugins.ThugPlugins import PRE_ANALYSIS_PLUGINS
-from Plugins.ThugPlugins import POST_ANALYSIS_PLUGINS
+from .ThugAPI import ThugAPI
+from .Plugins.ThugPlugins import ThugPlugins
+from .Plugins.ThugPlugins import PRE_ANALYSIS_PLUGINS
+from .Plugins.ThugPlugins import POST_ANALYSIS_PLUGINS
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)

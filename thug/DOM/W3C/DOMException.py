@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from DOM.JSClass import JSClass
+from thug.DOM.JSClass import JSClass
 
 class DOMException(RuntimeError, JSClass):
     def __init__(self, code):

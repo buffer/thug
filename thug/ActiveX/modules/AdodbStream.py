@@ -7,7 +7,8 @@ except ImportError:
         from StringIO import StringIO
 
 import logging
-from Magic.Magic import Magic
+from thug.Magic.Magic import Magic
+
 log = logging.getLogger("Thug")
 
 def open(self): #pylint:disable=redefined-builtin

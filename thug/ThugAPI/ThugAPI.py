@@ -30,15 +30,16 @@ try:
 except ImportError:
     import urlparse
 
-from DOM.W3C import w3c
-from DOM.Window import Window
-from DOM.HTTPSession import HTTPSession
-from DOM.DFT import DFT
-from DOM.MIMEHandler import MIMEHandler
-from DOM.SchemeHandler import SchemeHandler
-from WebTracking.WebTracking import WebTracking
-from Encoding.Encoding import Encoding
-from Logging.ThugLogging import ThugLogging
+import thug
+from thug.DOM.W3C import w3c
+from thug.DOM.Window import Window
+from thug.DOM.HTTPSession import HTTPSession
+from thug.DOM.DFT import DFT
+from thug.DOM.MIMEHandler import MIMEHandler
+from thug.DOM.SchemeHandler import SchemeHandler
+from thug.WebTracking.WebTracking import WebTracking
+from thug.Encoding.Encoding import Encoding
+from thug.Logging.ThugLogging import ThugLogging
 
 from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
@@ -46,21 +47,18 @@ from .ThugVulnModules import ThugVulnModules
 from .OpaqueFilter import OpaqueFilter
 from .abstractmethod import abstractmethod
 
-from Classifier.JSClassifier import JSClassifier
-from Classifier.URLClassifier import URLClassifier
-from Classifier.SampleClassifier import SampleClassifier
+from thug.Classifier.JSClassifier import JSClassifier
+from thug.Classifier.URLClassifier import URLClassifier
+from thug.Classifier.SampleClassifier import SampleClassifier
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
-
-__thug_version__ = '0.7.3'
 
 
 @implementer(IThugAPI)
 class ThugAPI(object):
     def __init__(self, args, configuration_path = None):
         self.args               = args
-        self.thug_version       = __thug_version__
         log.configuration_path  = configuration_path
         log.personalities_path  = os.path.join(configuration_path, "personalities") if configuration_path else None
         log.ThugOpts            = ThugOpts()
@@ -80,7 +78,7 @@ class ThugAPI(object):
         pass
 
     def version(self):
-        print("Thug %s" % (self.thug_version, ))
+        print("Thug %s" % (thug.__version__, ))
         sys.exit(0)
 
     def get_useragent(self):
@@ -208,7 +206,7 @@ class ThugAPI(object):
         log.ThugOpts.honeyagent = False
 
     def log_init(self, url):
-        log.ThugLogging = ThugLogging(self.thug_version)
+        log.ThugLogging = ThugLogging(thug.__version__)
         log.ThugLogging.set_basedir(url)
 
     def set_log_dir(self, logdir):

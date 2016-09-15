@@ -66,7 +66,7 @@ def xpath_property(xpath, readonly = False):
 
         if m:
             try:
-                from DOMImplementation import DOMImplementation
+                from thug.DOM.W3C.DOMImplementation import DOMImplementation
                 string.atoi(m.group(2))
 
                 return DOMImplementation.createHTMLElement(self.doc, children[0]) if len(children) > 0 else None

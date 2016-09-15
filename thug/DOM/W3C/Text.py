@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-from DOMException import DOMException
-from Node import Node
-from CharacterData import CharacterData
+from .DOMException import DOMException
+from .Node import Node
+from .CharacterData import CharacterData
 
 class Text(CharacterData):
     def __repr__(self):

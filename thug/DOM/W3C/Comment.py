@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from Node import Node
-from CharacterData import CharacterData
+from .Node import Node
+from .CharacterData import CharacterData
 
 class Comment(CharacterData):
     @property

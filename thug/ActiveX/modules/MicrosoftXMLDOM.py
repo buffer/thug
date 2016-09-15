@@ -3,8 +3,8 @@ from lxml import etree
 
 import base64
 import binascii
-from DOM.W3C import w3c
-from OS.Windows import security_sys
+from thug.DOM.W3C import w3c
+from thug.OS.Windows import security_sys
 #from DOM.W3C.NamedNodeMap import NamedNodeMap
 
 import logging

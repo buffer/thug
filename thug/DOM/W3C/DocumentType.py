@@ -2,7 +2,7 @@
 
 import re
 
-from Node import Node
+from .Node import Node
 
 class DocumentType(Node):
     RE_DOCTYPE = re.compile("^DOCTYPE (\w+)", re.M + re.S)

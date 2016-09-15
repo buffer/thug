@@ -27,7 +27,7 @@ except ImportError:
 import logging
 from zope.interface.verify import verifyObject
 from zope.interface.exceptions import BrokenImplementation
-from .IPlugin import IPlugin
+from thug.Plugins.IPlugin import IPlugin
 
 log = logging.getLogger("Thug")
 

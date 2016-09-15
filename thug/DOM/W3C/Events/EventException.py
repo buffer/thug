@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from DOM.JSClass import JSClass
+from thug.DOM.JSClass import JSClass
 
 # Introduced in DOM Level 2
 class EventException(RuntimeError, JSClass):

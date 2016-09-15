@@ -6,7 +6,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 from .HTMLCollection import HTMLCollection
-from NodeList import NodeList
+from thug.DOM.W3C.NodeList import NodeList
 
 class HTMLAllCollection(HTMLCollection):
     def __init__(self, doc, nodes):

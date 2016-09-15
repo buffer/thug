@@ -4,14 +4,14 @@ import copy
 import bs4 as BeautifulSoup
 import logging
 
-from abstractmethod import abstractmethod
-from DOMException import DOMException
-from Events.EventTarget import EventTarget
-from NodeList import NodeList
+from .abstractmethod import abstractmethod
+from .DOMException import DOMException
+from .Events.EventTarget import EventTarget
+from .NodeList import NodeList
 
 log = logging.getLogger("Thug")
 
-from DOM.JSClass import JSClass
+from thug.DOM.JSClass import JSClass
 
 class Node(JSClass, EventTarget):
     # NodeType
@@ -366,7 +366,7 @@ class Node(JSClass, EventTarget):
 
     # Introduced in DOM Level 2
     def isSupported(self, feature, version):
-        from DOMImplementation import DOMImplementation
+        from .DOMImplementation import DOMImplementation
         return DOMImplementation.hasFeature(feature, version)
 
     # Introduced in DOM Level 2
@@ -396,18 +396,18 @@ class Node(JSClass, EventTarget):
     
     @staticmethod
     def wrap(doc, obj):
-        from Element import Element
+        from .Element import Element
 
         if obj is None:
             return None
         
         if type(obj) == BeautifulSoup.CData:
-            from CDATASection import CDATASection
+            from .CDATASection import CDATASection
 
             return CDATASection(doc, obj)
         
         if type(obj) == BeautifulSoup.NavigableString:
-            from Text import Text
+            from .Text import Text
 
             return Text(doc, obj)        
        

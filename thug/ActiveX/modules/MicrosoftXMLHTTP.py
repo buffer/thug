@@ -7,7 +7,7 @@ try:
 except ImportError:
     import urlparse
 
-import DOM
+import thug.DOM
 
 log = logging.getLogger("Thug")
 

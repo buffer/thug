@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from abstractmethod import abstractmethod
+from thug.DOM.W3C.abstractmethod import abstractmethod
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 from .compatibility import thug_long

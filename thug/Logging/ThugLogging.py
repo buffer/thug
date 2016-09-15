@@ -19,8 +19,8 @@
 from .BaseLogging import BaseLogging
 from .SampleLogging import SampleLogging
 from .LoggingModules import LoggingModules
-from Analysis.virustotal.VirusTotal import VirusTotal
-from Analysis.honeyagent.HoneyAgent import HoneyAgent
+from thug.Analysis.virustotal.VirusTotal import VirusTotal
+from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
 
 try:
     import configparser as ConfigParser

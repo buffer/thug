@@ -44,10 +44,10 @@ from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
 from .LocalStorage import LocalStorage
 from .SessionStorage import SessionStorage
-from ActiveX.ActiveX import _ActiveXObject
-from AST.AST import AST
-from Debugger import Shellcode
-from Java.java import java
+from thug.ActiveX.ActiveX import _ActiveXObject
+from thug.AST.AST import AST
+from thug.Debugger import Shellcode
+from thug.Java.java import java
 
 sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug")

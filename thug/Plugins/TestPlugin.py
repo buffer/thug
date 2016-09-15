@@ -18,7 +18,7 @@
 
 
 from zope.interface import implementer
-from .IPlugin import IPlugin
+from thug.Plugins.IPlugin import IPlugin
 
 @implementer(IPlugin)
 class Handler(object):

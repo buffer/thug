@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from DOMException import DOMException
+from thug.DOM.W3C.DOMException import DOMException
 from .HTMLCollection import HTMLCollection
 
 # Introduced in DOM Level 2

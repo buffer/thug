@@ -14,8 +14,8 @@ except ImportError:
 import bs4 as BeautifulSoup
 import logging
 
-from Element import Element
-from Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
+from thug.DOM.W3C.Element import Element
+from thug.DOM.W3C.Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 from .attr_property import attr_property
 
 log = logging.getLogger("Thug")

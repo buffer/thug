@@ -9,12 +9,12 @@ try:
 except ImportError:
     import urlparse
 
-from Attr import Attr
-from Node import Node
-from NodeList import NodeList
-from NamedNodeMap import NamedNodeMap
+from .Attr import Attr
+from .Node import Node
+from .NodeList import NodeList
+from .NamedNodeMap import NamedNodeMap
 
-from Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
+from .Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 log = logging.getLogger("Thug")
 
 class Element(Node, ElementCSSInlineStyle):
@@ -81,7 +81,7 @@ class Element(Node, ElementCSSInlineStyle):
         return NodeList(self.doc, s)
 
     def _querySelector(self, selectors):
-        from DOMImplementation import DOMImplementation
+        from .DOMImplementation import DOMImplementation
 
         try:
             s = self.tag.select(selectors)
