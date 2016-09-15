@@ -7,7 +7,7 @@ THUG = os.path.dirname(os.path.abspath(__file__)).split("samples")[0]
 MISC = os.path.join(THUG, 'samples', 'misc')
 sys.path.append(os.path.join(THUG, 'src'))
 
-from ThugAPI import ThugAPI
+from thug.ThugAPI.ThugAPI import ThugAPI
 
 class Misc(object):
     def __init__(self, context):
@@ -18,7 +18,7 @@ class Misc(object):
     def _run(self, context, exploit):
         sample = os.path.join(MISC, exploit[0])
 
-        instance = ThugAPI(None, None)
+        instance = ThugAPI(None, configuration_path = "/etc/thug")
         instance.set_events('click')
         instance.set_timeout(1)
         instance.log_init(sample)
