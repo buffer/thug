@@ -4,6 +4,10 @@ Thug |landscape badge|
 .. |landscape badge| image:: https://landscape.io/github/buffer/thug/master/landscape.png
    :target: https://landscape.io/github/buffer/thug/master
    :alt: Code Health
+.. |downloads badge| image:: https://img.shields.io/pypi/dm/thug.svg
+   :target: https://pypi.python.org/pypi/thug/
+.. |version badge| image:: https://img.shields.io/pypi/v/thug.svg
+   :target: https://pypi.python.org/pypi/thug/
 
 The number of client-side attacks has grown significantly in the past few years
 shifting focus on poorly protected vulnerable clients. Just as the most known
