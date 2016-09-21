@@ -13,7 +13,6 @@ Requirements
 * MongoDB (optional)
 * Graphviz
 * RabbitMQ (optional)
-* Ssdeep (optional)
 * BeautifulSoup4
 * Html5lib
 * Jsbeautifier
@@ -112,16 +111,6 @@ with Thug distributed mode.
 
 Packages for most Linux distributions are available.
 
-
-Ssdeep (optional)
-^^^^^^^^^^^^^^^^^
-
-Ssdeep is a program for computing context triggered piecewise hashes (CTPH). Also called
-fuzzy hashes, CTPH can match inputs that have homologies. Such inputs have sequences of
-identical bytes in the same order, although bytes in between these sequences may be
-different in both content and length.
-
-Packages for most Linux distributions are available.
 
 
 Thug installation
@@ -461,7 +450,7 @@ is through pip.
 
 .. code-block:: sh
 
-        # pip install ssdeep
+        # BUILD_LIB=1 pip install ssdeep
 
 
 Pika (optional)
