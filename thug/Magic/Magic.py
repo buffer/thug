@@ -36,7 +36,7 @@ class Magic(object):
             except: #pylint:disable=bare-except
                 # Filemagic workaround
                 # This works with filemagic >= 1.6 from pypi
-                with magic.Magic(flags = magic.MAGIC_MIME_TYPE) as m:
+                with magic.Magic(flags = magic.MAGIC_MIME_TYPE) as m: #pylint:disable=unexpected-keyword-arg
                     mtype = m.id_buffer(self.data)
 
         return mtype
