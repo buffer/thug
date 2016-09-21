@@ -48,7 +48,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardi
 
 PEEPDF = True
 try:
-    from Analysis.peepdf.PDFCore import PDFParser, vulnsDict
+    from thug.Analysis.peepdf.PDFCore import PDFParser, vulnsDict
 except:
     PEEPDF = False
 
