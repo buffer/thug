@@ -54,18 +54,6 @@ RUN apt-get update && \
 RUN easy_install -U setuptools pygraphviz
 
 WORKDIR /home
-RUN git clone https://github.com/buffer/libemu.git && \
-  cd libemu && \
-  autoreconf -v -i && \
-  export CFLAGS=-Wno-error && \
-  ./configure --prefix=/opt/libemu && \
-  make install && \
-  ldconfig -n /opt/libemu && \
-  touch /etc/ld.so.conf.d/libemu.conf && \
-  echo "/opt/libemu/lib/" > /etc/ld.so.conf.d/libemu.conf && \
-  ldconfig && \
-  cd .. && \
-  rm -rf libemu
 
 RUN git clone https://github.com/buffer/pyv8.git && \
   cd pyv8 && \
@@ -74,11 +62,11 @@ RUN git clone https://github.com/buffer/pyv8.git && \
   cd .. && \
   rm -rf pyv8
 
-RUN pip install thug
+RUN pip install thug==0.8rc2
 
 RUN groupadd -r thug && \
   useradd -r -g thug -d /home/thug -s /sbin/nologin -c "Thug User" thug && \
-  mkdir /home/thug /tmp/thug/logs && \
+  mkdir -p /home/thug /tmp/thug/logs && \
   chown -R thug:thug /home/thug /tmp/thug/logs
 
 USER thug
