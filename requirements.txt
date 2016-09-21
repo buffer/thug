@@ -16,7 +16,7 @@ pymongo==3.2.2
 ssdeep==3.1.1
 six==1.10.0
 pika==0.10.0
-pylibemu==0.5.6
+pylibemu==0.5.7
 androguard==3.0
 pefile==2016.3.28
 yara-python==3.5.0
