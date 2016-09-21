@@ -74,11 +74,11 @@ RUN git clone https://github.com/buffer/pyv8.git && \
   cd .. && \
   rm -rf pyv8
 
-RUN pip install thug
+RUN pip install thug==0.8rc2
 
 RUN groupadd -r thug && \
   useradd -r -g thug -d /home/thug -s /sbin/nologin -c "Thug User" thug && \
-  mkdir /home/thug /tmp/thug/logs && \
+  mkdir -p /home/thug /tmp/thug/logs && \
   chown -R thug:thug /home/thug /tmp/thug/logs
 
 USER thug
