@@ -7,6 +7,8 @@ import os
 import glob
 from setuptools import setup, find_packages
 
+os.environ['BUILD_LIB'] = 1
+
 import thug
 
 configuration_path = "/etc/thug"
