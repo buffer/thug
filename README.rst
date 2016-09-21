@@ -1,6 +1,8 @@
-Thug |landscape badge|
+Thug |travis badge| |landscape badge| |downloads badge| |version badge|
 ======================
 
+.. |travis badge| image:: https://img.shields.io/travis/buffer/thug/master.svg
+   :target: https://travis-ci.org/buffer/thug
 .. |landscape badge| image:: https://landscape.io/github/buffer/thug/master/landscape.png
    :target: https://landscape.io/github/buffer/thug/master
    :alt: Code Health
@@ -8,6 +10,7 @@ Thug |landscape badge|
    :target: https://pypi.python.org/pypi/thug/
 .. |version badge| image:: https://img.shields.io/pypi/v/thug.svg
    :target: https://pypi.python.org/pypi/thug/
+
 
 The number of client-side attacks has grown significantly in the past few years
 shifting focus on poorly protected vulnerable clients. Just as the most known
@@ -33,7 +36,7 @@ Support
 -------
 
 * Mailing Lists
-	* Thug users 	     https://public.honeynet.org/mailman/listinfo/thug
+	* Thug users         https://public.honeynet.org/mailman/listinfo/thug
 	* Thug development   https://public.honeynet.org/mailman/listinfo/thug-dev
 
 * IRC
