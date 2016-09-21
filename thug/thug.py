@@ -41,7 +41,7 @@ Synopsis:
     Thug: Pure Python honeyclient implementation
 
     Usage:
-        python thug.py [ options ] url
+        thug [ options ] url
 
     Options:
         -h, --help              \tDisplay this help information
