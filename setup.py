@@ -7,7 +7,7 @@ import os
 import glob
 from setuptools import setup, find_packages
 
-os.environ['BUILD_LIB'] = 1
+os.environ['BUILD_LIB'] = '1'
 
 import thug
 
