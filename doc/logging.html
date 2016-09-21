@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Logging &mdash; Thug 0.7.3 documentation</title>
+    <title>Logging &mdash; Thug 0.8rc1 documentation</title>
     
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.3',
+        VERSION:     '0.8rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.7.3 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8rc1 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="Thug API" href="api.html" />
    
@@ -57,7 +57,7 @@ Thug will not store any analysis log.</p>
 </ul>
 <div class="section" id="logging-configuration">
 <h2>Logging configuration<a class="headerlink" href="#logging-configuration" title="Permalink to this headline">¶</a></h2>
-<p>The configuration file <em>Logging/logging.conf</em> defines the way Thug uses to log the results
+<p>The configuration file <em>/etc/thug/logging.conf</em> defines the way Thug uses to log the results
 of its analyses. The default logging.conf file is shown below.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>hpfeeds<span class="o">]</span>
 enable:     False
@@ -88,7 +88,7 @@ MongoDB process is not running, Thug will just emit a warning message and then c
 its analysis silently not storing the results. This could be exactly what you want but
 please consider that if you do not enable any other logging mode you will end up with
 no logs at all so bear it in mind.</p>
-<p>The configuration file <em>Logging/logging.conf</em> defines the MongoDB instance configuration
+<p>The configuration file <em>/etc/thug/logging.conf</em> defines the MongoDB instance configuration
 parameters</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>mongodb<span class="o">]</span>
 enable:     True
@@ -100,7 +100,7 @@ port:       27017
 MongoDB on the same host you are supposed to run Thug you should not need changing
 anything in the default configuration.</p>
 <p>If you want Thug to store its results to a different MongoDB instance than that defined
-in your <em>Logging/logging.conf</em> file, you can specify a different address at runtime, for
+in your <em>/etc/thug/logging.conf</em> file, you can specify a different address at runtime, for
 example by using the <em>&#8211;mongodb-address</em> option from the command line. This can be especially
 useful when using the dockerized version of Thug, where storing results in Docker itself would
 mean to lose them as soon as the Docker instance is shut down.</p>
@@ -361,7 +361,7 @@ be done by choosing a serialization format.</p>
 and a secret. The secret is sent to the server by hashing it together with a per-connection
 nonce. This way no eavesdroppers can obtain valid credentials. Optionally the protocol can
 be run on top of SSL/TLS, of course.</p>
-<p>HPFeeds logging mode is disabled by default and its configuration is saved in the <em>Logging/logging.conf</em>
+<p>HPFeeds logging mode is disabled by default and its configuration is saved in the <em>/etc/thug/logging.conf</em>
 file</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>hpfeeds<span class="o">]</span>
 enable:     False
@@ -387,7 +387,7 @@ you know exactly what you are doing.</p>
 downloaded during the analysis in an ElasticSearch instance. Deploying and configuring the
 instance is totally up to you and no images are provided for that.</p>
 <p>ElasticSearch logging mode is not enabled by default and you need to enable the option -G
-(&#8211;elasticsearch-logging). The ElasticSearch configuration is saved in in the <em>Logging/logging.conf</em>
+(&#8211;elasticsearch-logging). The ElasticSearch configuration is saved in in the <em>/etc/thug/logging.conf</em>
 file. Be sure of defining the right URL for connecting to your instance. You may want to
 change the index name where data will be stored but this is not really necessary in the most
 common situations.</p>

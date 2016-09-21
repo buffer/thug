@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plugin Framework &mdash; Thug 0.7.3 documentation</title>
+    <title>Plugin Framework &mdash; Thug 0.8rc1 documentation</title>
     
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.3',
+        VERSION:     '0.8rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.7.3 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8rc1 documentation" href="index.html" />
     <link rel="prev" title="Logging" href="logging.html" />
    
   
@@ -40,7 +40,7 @@
   <div class="section" id="plugin-framework">
 <h1>Plugin Framework<a class="headerlink" href="#plugin-framework" title="Permalink to this headline">¶</a></h1>
 <p>The Thug Plugin Framework was introduced in version 0.3.0. If you ever thought about extending Thug
-with additional features but do not know how to do it you should really keep on reading. Let’s start
+with additional features but do not know how to do it you should really keep on reading. Let&#8217;s start
 by taking a look a the code.</p>
 <p>Taking a look at <em>src/thug.py</em> we can now read these lines of code</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">p</span><span class="p">:</span>
@@ -51,7 +51,7 @@ by taking a look a the code.</p>
 </div>
 <p>Please note that every operation performed by Thug is started by the line <em>p(args[0])</em> so you can
 realize that two hooks exist in order to execute plugins in a pre and post-analysis stage. Let’s keep
-exploring the source code and let’s take a look at <em>src/Plugins/ThugPlugins.py</em>.</p>
+exploring the source code and let&#8217;s take a look at <em>src/Plugins/ThugPlugins.py</em>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ThugPlugins</span><span class="p">:</span>
         <span class="n">phases</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="n">PRE_ANALYSIS_PLUGINS</span>  <span class="p">:</span> <span class="s1">&#39;ThugPluginsPre&#39;</span><span class="p">,</span>
@@ -94,7 +94,7 @@ exploring the source code and let’s take a look at <em>src/Plugins/ThugPlugins
                                         <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">] </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="p">))</span>
 </pre></div>
 </div>
-<p>and <em>src/Plugins/plugins.conf</em></p>
+<p>and <em>/etc/thug/plugins.conf</em></p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>ThugPluginsPre<span class="o">]</span>
 plugins: Plugins.TestPlugin
 
@@ -117,7 +117,7 @@ class named <em>Handler</em> which should be compliant with the following interf
 </pre></div>
 </div>
 <p>If the interface is correctly implemented the <em>run</em> method is called with two parameters: the Thug class
-main instance and the Thug root logger. Let’s see a really simple example of plugin</p>
+main instance and the Thug root logger. Let&#8217;s see a really simple example of plugin</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zope.interface</span>
 <span class="kn">from</span> <span class="nn">.IPlugin</span> <span class="kn">import</span> <span class="n">IPlugin</span>
 

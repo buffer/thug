@@ -45,7 +45,7 @@ Login   : thug
 Password: thug
 
 In order to configure Thug to submit applets for analysis to HoneyAgent
-rename the file src/honeyagent/honeyagent.conf.sample in src/honeyagent/honeyagent.conf
+rename the file */etc/thug/honeyagent.conf.sample* in */etc/thug/honeyagent.conf*
 and edit it like shown later. 
 
 .. code-block:: sh
@@ -53,10 +53,10 @@ and edit it like shown later.
     [HoneyAgent]
     scanurl:                        http://192.168.56.101:8000
 
-Please note that if the file honeyagent.conf does not exists Thug will
+Please note that if the file *honeyagent.conf* does not exists Thug will
 assume you do not want to submit applets to HoneyAgent. Alternatively 
 you can disable the HoneyAgent support through command line even if the
-the honeyagent.conf file exists (option -N or --no-honeyagent).
+the *honeyagent.conf* file exists (option -N or --no-honeyagent).
 
 This configuration instructs Thug to send the applet to analyze to the
 server whose IP address is 192.168.56.101 (please verify your network 
@@ -77,7 +77,7 @@ able to automatically analyze applets like shown later.
 
 .. code-block:: sh
 
-    buffer@rigel ~/thug/src $ python thug.py http://192.168.0.100:8080/1
+    buffer@rigel ~ $ thug http://192.168.0.100:8080/1
     [2014-07-07 23:50:53] [window open redirection] about:blank -> http://192.168.0.100:8080/1
     [2014-07-07 23:50:53] [HTTP Redirection (Status: 302)] Content-Location: http://192.168.0.100:8080/1 --> Location: http://192.168.0.100:8080/1/
     [2014-07-07 23:50:53] [HTTP] URL: http://192.168.0.100:8080/1/ (Status: 200, Referrer: None)
@@ -96,10 +96,10 @@ able to automatically analyze applets like shown later.
     [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Yara heuristics rule WritesExeFile match
     [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Yara heuristics rule LocalFileAccess match
     [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Yara heuristics rule RestrictedPropertyAccess match
-    [2014-07-07 23:50:57] Saving log analysis at ../logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053
+    [2014-07-07 23:50:57] Saving log analysis at /tmp/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053
     
-    buffer@rigel ~/thug/src $ cd ../logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent/
-    buffer@rigel ~/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent $ ls -lhR
+    buffer@rigel ~ $ cd /tmp/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent/
+    buffer@rigel /tmp/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent $ ls -lhR
     .:
     total 668K
     -rw-r--r-- 1 buffer buffer 665K Jul  7 23:50 1b3354f594522ff32791c278f50f2efa.json
@@ -111,8 +111,8 @@ able to automatically analyze applets like shown later.
     -rw-r--r-- 1 buffer buffer 9.2K Jul  7 23:50 IixfXAb.class
     -rw-r--r-- 1 buffer buffer  73K Jul  7 23:50 uAzpYJRZ.exe
     
-    buffer@rigel ~/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent $ cd dropped/
-    buffer@rigel ~/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent/dropped $ file *
+    buffer@rigel /tmp/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent $ cd dropped/
+    buffer@rigel /tmp/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent/dropped $ file *
     ArIBNUkvAi.dat: ASCII text
     IixfXAb.class:  compiled Java class data, version 45.3
     uAzpYJRZ.exe:   PE32 executable (GUI) Intel 80386, for MS Windows
@@ -127,7 +127,7 @@ of malware.
 
 Thug supports VirusTotal and a default API key is now included in the default
 configuration file (many thanks to the VirusTotal team). To change the default 
-VirusTotal key with your own, simply edit *src/Analysis/virustotal/virustotal.conf* 
+VirusTotal key with your own, simply edit */etc/thug/virustotal.conf* 
 as follows:
 
 .. code-block:: sh

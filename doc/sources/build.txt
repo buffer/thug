@@ -124,17 +124,28 @@ different in both content and length.
 Packages for most Linux distributions are available.
 
 
-Further dependencies
---------------------
+Thug installation
+-----------------
 
-The following dependencies are grouped together because they can be installed with the following
-procedure (starting from Thug 0.6.8). 
+Starting from Thug 0.8.0, Thug is installable through pip with the following procedure 
 
 .. code-block:: sh
 
-	# pip install -r requirements.txt
+	# pip install thug
 
-You are strongly encouraged to install these dependencies using this procedure. In such case you
+Alternatively you can clone the Thug repository and install it executing
+
+.. code-block:: sh
+
+    $ cd thug
+    $ python setup.py build
+    $ sudo python setup.py install
+
+
+The procedure will install the dependencies not already mentioned in the previous sections so you 
+should take care of installing them before actually installing Thug.
+
+You are strongly encouraged to install such dependencies using this procedure. In such case you
 can skip the following sections, otherwise keep on reading.  
 
 

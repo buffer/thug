@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build and Install &mdash; Thug 0.7.3 documentation</title>
+    <title>Build and Install &mdash; Thug 0.8rc1 documentation</title>
     
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.3',
+        VERSION:     '0.8rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.7.3 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8rc1 documentation" href="index.html" />
     <link rel="next" title="Docker" href="docker.html" />
     <link rel="prev" title="Introduction" href="intro.html" />
    
@@ -137,14 +137,21 @@ different in both content and length.</p>
 <p>Packages for most Linux distributions are available.</p>
 </div>
 </div>
-<div class="section" id="further-dependencies">
-<h2>Further dependencies<a class="headerlink" href="#further-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>The following dependencies are grouped together because they can be installed with the following
-procedure (starting from Thug 0.6.8).</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install -r requirements.txt</span>
+<div class="section" id="thug-installation">
+<h2>Thug installation<a class="headerlink" href="#thug-installation" title="Permalink to this headline">¶</a></h2>
+<p>Starting from Thug 0.8.0, Thug is installable through pip with the following procedure</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="c1"># pip install thug</span>
 </pre></div>
 </div>
-<p>You are strongly encouraged to install these dependencies using this procedure. In such case you
+<p>Alternatively you can clone the Thug repository and install it executing</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> thug
+$ python setup.py build
+$ sudo python setup.py install
+</pre></div>
+</div>
+<p>The procedure will install the dependencies not already mentioned in the previous sections so you
+should take care of installing them before actually installing Thug.</p>
+<p>You are strongly encouraged to install such dependencies using this procedure. In such case you
 can skip the following sections, otherwise keep on reading.</p>
 <div class="section" id="beautifulsoup4">
 <h3>BeautifulSoup4<a class="headerlink" href="#beautifulsoup4" title="Permalink to this headline">¶</a></h3>
@@ -393,7 +400,7 @@ pip.</p>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Build and Install</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#further-dependencies">Further dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#thug-installation">Thug installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>

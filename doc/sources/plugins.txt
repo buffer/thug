@@ -3,7 +3,7 @@ Plugin Framework
 ================
 
 The Thug Plugin Framework was introduced in version 0.3.0. If you ever thought about extending Thug 
-with additional features but do not know how to do it you should really keep on reading. Let’s start 
+with additional features but do not know how to do it you should really keep on reading. Let's start 
 by taking a look a the code.
 
 Taking a look at *src/thug.py* we can now read these lines of code
@@ -17,7 +17,7 @@ Taking a look at *src/thug.py* we can now read these lines of code
  
 Please note that every operation performed by Thug is started by the line *p(args[0])* so you can 
 realize that two hooks exist in order to execute plugins in a pre and post-analysis stage. Let’s keep 
-exploring the source code and let’s take a look at *src/Plugins/ThugPlugins.py*.
+exploring the source code and let's take a look at *src/Plugins/ThugPlugins.py*.
  
 
 .. code-block:: python
@@ -64,7 +64,7 @@ exploring the source code and let’s take a look at *src/Plugins/ThugPlugins.py
                                                 log.warning("[%s] %s" % (source, e, ))
 
  
-and *src/Plugins/plugins.conf*
+and */etc/thug/plugins.conf*
  
 .. code-block:: sh
 
@@ -91,7 +91,7 @@ class named *Handler* which should be compliant with the following interface
                 """
  
 If the interface is correctly implemented the *run* method is called with two parameters: the Thug class 
-main instance and the Thug root logger. Let’s see a really simple example of plugin
+main instance and the Thug root logger. Let's see a really simple example of plugin
 
 .. code-block:: python
  

@@ -14,13 +14,13 @@ Let's start our Thug tour by taking a look at the options it provides.
 
 .. code-block:: sh
 
-    ~/thug/src $ python thug.py -h
+    ~ $ thug -h
 
     Synopsis:
         Thug: Pure Python honeyclient implementation
 
     Usage:
-        python thug.py [ options ] url
+        thug [ options ] url
 
     Options:
         -h, --help              Display this help information
@@ -120,7 +120,7 @@ Let's start with a first basic real-world example: a Blackhole exploit kit.
 .. code-block:: sh
  :linenos:
 
-        ~/thug/src $ python thug.py "http://[omitted]/main.php?page=8c6c59becaa0da07"
+        ~ $ thug "http://[omitted]/main.php?page=8c6c59becaa0da07"
         [2012-07-02 19:15:20] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
         [2012-07-02 19:15:20] <applet archive="Ryp.jar" code="sIda.sIda"><param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"></param></applet>
         [2012-07-02 19:15:20] [Navigator URL Translation] Ryp.jar -->  http://[omitted]/Ryp.jar
@@ -189,14 +189,14 @@ Let's start with a first basic real-world example: a Blackhole exploit kit.
         [2012-07-02 19:15:52] [Navigator URL Translation] data/field.swf -->  http://[omitted]/data/field.swf
         [2012-07-02 19:15:53] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
         [2012-07-02 19:15:53] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
-        [2012-07-02 19:15:53] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
+        [2012-07-02 19:15:53] Saving log analysis at /tmp/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
 
 Let's take a look at the directory which contains the logs for this session
 
 .. code-block:: sh
 
-        ~/thug/src $ cd ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
-        ~/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 $ ls -lhR
+        ~ $ cd /tmp/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
+        /tmp/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 $ ls -lhR
         .:
         total 232K
         -rw-r--r-- 1 buffer buffer 1008 Jul  2 19:15 502da89357ca5d7c85dc7a67f8977b21
@@ -291,7 +291,7 @@ page with Internet Explorer 8.0 on Windows XP platform.
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -u winxpie80 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+        ~ $ thug -u winxpie80 "http://[omitted]/main.php?page=8c6c59becaa0da07"
         [2012-07-02 19:21:00] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
         [2012-07-02 19:21:00] <applet archive="Ryp.jar" code="sIda.sIda"><param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"></param></applet>
         [2012-07-02 19:21:00] [Navigator URL Translation] Ryp.jar -->  http://[omitted]/Ryp.jar
@@ -363,7 +363,7 @@ a comma-separated list of events to handle as shown below.
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -e click,mouseover URL
+        ~ $ thug -e click,mouseover URL
         
 In this example, the DOM events `load`, `mousemove`, `click` and `mouseover` will be handled by 
 Thug while all the other ones will be ignored.
@@ -381,7 +381,7 @@ the default one).
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -A 8.1.0 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+        ~ $ thug -A 8.1.0 "http://[omitted]/main.php?page=8c6c59becaa0da07"
         [2012-07-02 19:18:00] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
         [2012-07-02 19:18:00] <applet archive="Ryp.jar" code="sIda.sIda"><param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"></param></applet>
         [2012-07-02 19:18:00] [Navigator URL Translation] Ryp.jar -->  http://[omitted]/Ryp.jar
@@ -477,7 +477,7 @@ PluginDetect (see Local Analysis later for details).
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -l ../samples/misc/PluginDetect-0.7.8.html 
+        ~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html 
         [2012-11-15 17:32:26] ActiveXObject: msxml2.xmlhttp
         [2012-11-15 17:32:26] ActiveXObject: acropdf.pdf
         [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -514,7 +514,7 @@ Let's try with different Adobe Acrobat Reader and Shockwave Flash versions now.
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html 
+        ~ $ thug -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html 
         [2012-11-15 17:32:58] ActiveXObject: msxml2.xmlhttp
         [2012-11-15 17:32:58] ActiveXObject: acropdf.pdf
         [2012-11-15 17:32:58] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -556,7 +556,7 @@ a look at what happens if we locally analyze PluginDetect (see Local Analysis la
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -l ../samples/misc/PluginDetect-0.7.8.html 
+        ~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html 
         [2012-11-15 17:32:26] ActiveXObject: msxml2.xmlhttp
         [2012-11-15 17:32:26] ActiveXObject: acropdf.pdf
         [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -592,7 +592,7 @@ Let's try with a different JavaPlugin version now.
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -l -J 1.7.0.7 ../samples/misc/PluginDetect-0.7.8.html 
+        ~ $ thug -l -J 1.7.0.7 ../samples/misc/PluginDetect-0.7.8.html 
         [2012-11-15 17:40:55] ActiveXObject: msxml2.xmlhttp
         [2012-11-15 17:40:56] ActiveXObject: acropdf.pdf
         [2012-11-15 17:40:56] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -664,7 +664,7 @@ using *socks5://127.0.0.1:9050* as proxy and your real IP address will not be re
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -p socks5://127.0.0.1:9050 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+        ~ $ thug -p socks5://127.0.0.1:9050 "http://[omitted]/main.php?page=8c6c59becaa0da07"
         [2012-07-02 19:22:14] [HTTP] URL: http://[omitted]/main.php?page=8c6c59becaa0da07 (Status: 200, Referrer: None)
         [2012-07-02 19:22:14] <applet archive="Ryp.jar" code="sIda.sIda"><param name="b" value="56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12"></param></applet>
         [2012-07-02 19:22:14] [Navigator URL Translation] Ryp.jar -->  http://[omitted]/Ryp.jar
@@ -744,7 +744,7 @@ later (manual or automated) analysis (see also *Web Cache*)
 
 .. code-block:: sh
 
-        ~/thug/src $ python thug.py -l ../samples/exploits/4042.html 
+        ~/thug/src $ thug -l ../samples/exploits/4042.html 
         [2012-07-03 00:12:23] <object classid="clsid:DCE2F8B1-A520-11D4-8FD0-00D0B7730277" id="target"></object>
         [2012-07-03 00:12:23] ActiveXObject: DCE2F8B1-A520-11D4-8FD0-00D0B7730277
         [2012-07-03 00:12:23] [Yahoo! Messenger 8.x Ywcvwr ActiveX] Server Console Overflow
@@ -763,7 +763,7 @@ provides the *-x (--local-nofetch)* option to you. Let's take a look at an examp
 
 .. code-block:: sh
 
-    ~/thug/src $ python thug.py -l ../samples/exploits/55875.html 
+    ~/thug/src $ thug -l ../samples/exploits/55875.html 
     [2013-01-08 10:32:28] <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     [2013-01-08 10:32:28] <meta content="Acer Inc.'s shares fell sharply Tuesday, one day after the Taiwanese computer maker said it would acquire Gateway Inc. for $710 million.  Acer said it ..." name="description"/>
     [2013-01-08 10:32:28] <meta content="index,follow" name="robots"/>
@@ -802,7 +802,7 @@ locally saved page.
 
 .. code-block:: sh
 
-    ~/thug/src $ python thug.py -x ../samples/exploits/55875.html 
+    ~/thug/src $ thug -x ../samples/exploits/55875.html 
     [2013-01-08 10:33:00] <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
     [2013-01-08 10:33:00] <meta content="Acer Inc.'s shares fell sharply Tuesday, one day after the Taiwanese computer maker said it would acquire Gateway Inc. for $710 million.  Acer said it ..." name="description"/>
     [2013-01-08 10:33:00] <meta content="index,follow" name="robots"/>
@@ -857,6 +857,6 @@ option. Simply running Thug this way (please note the interval is expressed in m
 
 .. code-block:: sh
  
-         ~/thug/src $ python thug.py -w 2000 "http://[omitted]/main.php?page=8c6c59becaa0da07"
+         ~ $ thug -w 2000 "http://[omitted]/main.php?page=8c6c59becaa0da07"
  
 will force a maximum delay of 2 seconds. 

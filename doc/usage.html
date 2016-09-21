@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.7.3 documentation</title>
+    <title>Usage &mdash; Thug 0.8rc1 documentation</title>
     
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.7.3',
+        VERSION:     '0.8rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.7.3 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8rc1 documentation" href="index.html" />
     <link rel="next" title="Thug API" href="api.html" />
     <link rel="prev" title="Configuration" href="configuration.html" />
    
@@ -47,13 +47,13 @@
 <div class="section" id="basic-usage">
 <h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s start our Thug tour by taking a look at the options it provides.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -h
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -h
 
 Synopsis:
     Thug: Pure Python honeyclient implementation
 
 Usage:
-    python thug.py <span class="o">[</span> options <span class="o">]</span> url
+    thug <span class="o">[</span> options <span class="o">]</span> url
 
 Options:
     -h, --help              Display this <span class="nb">help</span> information
@@ -218,7 +218,7 @@ Available User-Agents:
 67
 68
 69
-70</pre></div></td><td class="code"><div class="highlight"><pre><span></span>       ~/thug/src $ python thug.py <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
+70</pre></div></td><td class="code"><div class="highlight"><pre><span></span>       ~ $ thug <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
        <span class="o">[</span>2012-07-02 19:15:20<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07 <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
        <span class="o">[</span>2012-07-02 19:15:20<span class="o">]</span> &lt;applet <span class="nv">archive</span><span class="o">=</span><span class="s2">&quot;Ryp.jar&quot;</span> <span class="nv">code</span><span class="o">=</span><span class="s2">&quot;sIda.sIda&quot;</span>&gt;&lt;param <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;b&quot;</span> <span class="nv">value</span><span class="o">=</span><span class="s2">&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;</span>&gt;&lt;/param&gt;&lt;/applet&gt;
        <span class="o">[</span>2012-07-02 19:15:20<span class="o">]</span> <span class="o">[</span>Navigator URL Translation<span class="o">]</span> Ryp.jar --&gt;  http://<span class="o">[</span>omitted<span class="o">]</span>/Ryp.jar
@@ -287,12 +287,12 @@ Available User-Agents:
 <span class="s2">       [2012-07-02 19:15:52] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf</span>
 <span class="s2">       [2012-07-02 19:15:53] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)</span>
 <span class="s2">       [2012-07-02 19:15:53] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)</span>
-<span class="s2">       [2012-07-02 19:15:53] Saving log analysis at ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511</span>
+<span class="s2">       [2012-07-02 19:15:53] Saving log analysis at /tmp/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511</span>
 </pre></div>
 </td></tr></table></div>
 <p>Let&#8217;s take a look at the directory which contains the logs for this session</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ <span class="nb">cd</span> ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
-~/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 $ ls -lhR
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ <span class="nb">cd</span> /tmp/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
+/tmp/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 $ ls -lhR
 .:
 total 232K
 -rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">1008</span> Jul  <span class="m">2</span> 19:15 502da89357ca5d7c85dc7a67f8977b21
@@ -379,7 +379,7 @@ executable for later analysis.</p>
 personality the <em>-u (&#8211;useragent)</em> option should be used. In the following example, the
 option <em>-u winxpie80</em> is used in order to test the content served when surfing the same
 page with Internet Explorer 8.0 on Windows XP platform.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -u winxpie80 <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -u winxpie80 <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
 <span class="o">[</span>2012-07-02 19:21:00<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07 <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
 <span class="o">[</span>2012-07-02 19:21:00<span class="o">]</span> &lt;applet <span class="nv">archive</span><span class="o">=</span><span class="s2">&quot;Ryp.jar&quot;</span> <span class="nv">code</span><span class="o">=</span><span class="s2">&quot;sIda.sIda&quot;</span>&gt;&lt;param <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;b&quot;</span> <span class="nv">value</span><span class="o">=</span><span class="s2">&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;</span>&gt;&lt;/param&gt;&lt;/applet&gt;
 <span class="o">[</span>2012-07-02 19:21:00<span class="o">]</span> <span class="o">[</span>Navigator URL Translation<span class="o">]</span> Ryp.jar --&gt;  http://<span class="o">[</span>omitted<span class="o">]</span>/Ryp.jar
@@ -446,7 +446,7 @@ vulnerability is not served in this case.</p>
 be handled by Thug. By default <cite>load</cite> and <cite>mousemove</cite> events are always handled but you can add
 other ones with this option. Using this option is quite simple. All you need to do is to specify
 a comma-separated list of events to handle as shown below.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -e click,mouseover URL
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -e click,mouseover URL
 </pre></div>
 </div>
 <p>In this example, the DOM events <cite>load</cite>, <cite>mousemove</cite>, <cite>click</cite> and <cite>mouseover</cite> will be handled by
@@ -460,7 +460,7 @@ Reader. This happens because exploit kits usually serve PDF files which exploit 
 vulnerabilities basing on the Adobe Acrobat Reader version. Let&#8217;s take a look at what happens if
 we try to analyze the same page with Adobe Acrobat Reader 8.1.0 instead of 9.1.0 (which is
 the default one).</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -A 8.1.0 <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -A 8.1.0 <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
 <span class="o">[</span>2012-07-02 19:18:00<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07 <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
 <span class="o">[</span>2012-07-02 19:18:00<span class="o">]</span> &lt;applet <span class="nv">archive</span><span class="o">=</span><span class="s2">&quot;Ryp.jar&quot;</span> <span class="nv">code</span><span class="o">=</span><span class="s2">&quot;sIda.sIda&quot;</span>&gt;&lt;param <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;b&quot;</span> <span class="nv">value</span><span class="o">=</span><span class="s2">&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;</span>&gt;&lt;/param&gt;&lt;/applet&gt;
 <span class="o">[</span>2012-07-02 19:18:00<span class="o">]</span> <span class="o">[</span>Navigator URL Translation<span class="o">]</span> Ryp.jar --&gt;  http://<span class="o">[</span>omitted<span class="o">]</span>/Ryp.jar
@@ -548,7 +548,7 @@ useful for getting different Flash exploits which target differents version of S
 This happens because exploit kits usually serve Flash files which exploit specific vulnerabilities
 basing on Shockwave Flash version. Let&#8217;s take a look at what happens if we locally analyze
 PluginDetect (see Local Analysis later for details).</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -l ../samples/misc/PluginDetect-0.7.8.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: acropdf.pdf
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -582,7 +582,7 @@ PluginDetect (see Local Analysis later for details).</p>
 </pre></div>
 </div>
 <p>Let&#8217;s try with different Adobe Acrobat Reader and Shockwave Flash versions now.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html
 <span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
 <span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> ActiveXObject: acropdf.pdf
 <span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -621,7 +621,7 @@ PluginDetect (see Local Analysis later for details).</p>
 <p>Taking a look at the available options you can see the -J (&#8211;javaplugin) option which is quite
 useful for getting different Java exploits which target different versions of Java. Let&#8217;s take
 a look at what happens if we locally analyze PluginDetect (see Local Analysis later for details).</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -l ../samples/misc/PluginDetect-0.7.8.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: acropdf.pdf
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -655,7 +655,7 @@ a look at what happens if we locally analyze PluginDetect (see Local Analysis la
 </pre></div>
 </div>
 <p>Let&#8217;s try with a different JavaPlugin version now.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -l -J 1.7.0.7 ../samples/misc/PluginDetect-0.7.8.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l -J 1.7.0.7 ../samples/misc/PluginDetect-0.7.8.html
 <span class="o">[</span>2012-11-15 17:40:55<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
 <span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> ActiveXObject: acropdf.pdf
 <span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -723,7 +723,7 @@ supports HTTP, SOCKS4 and SOCKS5 proxy using the following format</p>
 <p>This option allows Thug to make use of Tor in order to anonymize the access to a malicious
 page. The trick is quite simple and requires a Tor instance up and running. Simply run Thug
 using <em>socks5://127.0.0.1:9050</em> as proxy and your real IP address will not be revealed.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -p socks5://127.0.0.1:9050 <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -p socks5://127.0.0.1:9050 <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
 <span class="o">[</span>2012-07-02 19:22:14<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07 <span class="o">(</span>Status: 200, Referrer: None<span class="o">)</span>
 <span class="o">[</span>2012-07-02 19:22:14<span class="o">]</span> &lt;applet <span class="nv">archive</span><span class="o">=</span><span class="s2">&quot;Ryp.jar&quot;</span> <span class="nv">code</span><span class="o">=</span><span class="s2">&quot;sIda.sIda&quot;</span>&gt;&lt;param <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;b&quot;</span> <span class="nv">value</span><span class="o">=</span><span class="s2">&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;</span>&gt;&lt;/param&gt;&lt;/applet&gt;
 <span class="o">[</span>2012-07-02 19:22:14<span class="o">]</span> <span class="o">[</span>Navigator URL Translation<span class="o">]</span> Ryp.jar --&gt;  http://<span class="o">[</span>omitted<span class="o">]</span>/Ryp.jar
@@ -800,7 +800,7 @@ W.eXeC <span class="s2">&quot;taskkill /F /IM wm&quot;</span> <span class="p">&a
 <p>May you need to analyze a locally saved page Thug provides the <em>-l (&#8211;local)</em> option to you.
 Using such option is really simple and could turn to be really useful for testing and for
 later (manual or automated) analysis (see also <em>Web Cache</em>)</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -l ../samples/exploits/4042.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ thug -l ../samples/exploits/4042.html
 <span class="o">[</span>2012-07-03 00:12:23<span class="o">]</span> &lt;object <span class="nv">classid</span><span class="o">=</span><span class="s2">&quot;clsid:DCE2F8B1-A520-11D4-8FD0-00D0B7730277&quot;</span> <span class="nv">id</span><span class="o">=</span><span class="s2">&quot;target&quot;</span>&gt;&lt;/object&gt;
 <span class="o">[</span>2012-07-03 00:12:23<span class="o">]</span> ActiveXObject: DCE2F8B1-A520-11D4-8FD0-00D0B7730277
 <span class="o">[</span>2012-07-03 00:12:23<span class="o">]</span> <span class="o">[</span>Yahoo! Messenger 8.x Ywcvwr ActiveX<span class="o">]</span> Server Console Overflow
@@ -816,7 +816,7 @@ void ExitProcess <span class="o">(</span>
 </div>
 <p>If you need to prevent remote content fetching while analyzing a locally saved page Thug
 provides the <em>-x (&#8211;local-nofetch)</em> option to you. Let&#8217;s take a look at an example.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -l ../samples/exploits/55875.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ thug -l ../samples/exploits/55875.html
 <span class="o">[</span>2013-01-08 10:32:28<span class="o">]</span> &lt;meta <span class="nv">content</span><span class="o">=</span><span class="s2">&quot;text/html; charset=utf-8&quot;</span> http-equiv<span class="o">=</span><span class="s2">&quot;Content-Type&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:32:28<span class="o">]</span> &lt;meta <span class="nv">content</span><span class="o">=</span><span class="s2">&quot;Acer Inc.&#39;s shares fell sharply Tuesday, one day after the Taiwanese computer maker said it would acquire Gateway Inc. for </span><span class="nv">$710</span><span class="s2"> million.  Acer said it ...&quot;</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;description&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:32:28<span class="o">]</span> &lt;meta <span class="nv">content</span><span class="o">=</span><span class="s2">&quot;index,follow&quot;</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;robots&quot;</span>/&gt;
@@ -853,7 +853,7 @@ provides the <em>-x (&#8211;local-nofetch)</em> option to you. Let&#8217;s take 
 </div>
 <p>This is what we expect. Let&#8217;s prevent remote content fetching now while analyzing the same
 locally saved page.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -x ../samples/exploits/55875.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ thug -x ../samples/exploits/55875.html
 <span class="o">[</span>2013-01-08 10:33:00<span class="o">]</span> &lt;meta <span class="nv">content</span><span class="o">=</span><span class="s2">&quot;text/html; charset=utf-8&quot;</span> http-equiv<span class="o">=</span><span class="s2">&quot;Content-Type&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:33:00<span class="o">]</span> &lt;meta <span class="nv">content</span><span class="o">=</span><span class="s2">&quot;Acer Inc.&#39;s shares fell sharply Tuesday, one day after the Taiwanese computer maker said it would acquire Gateway Inc. for </span><span class="nv">$710</span><span class="s2"> million.  Acer said it ...&quot;</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;description&quot;</span>/&gt;
 <span class="o">[</span>2013-01-08 10:33:00<span class="o">]</span> &lt;meta <span class="nv">content</span><span class="o">=</span><span class="s2">&quot;index,follow&quot;</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;robots&quot;</span>/&gt;
@@ -900,7 +900,7 @@ if the original code contains a statement like</p>
 <p>the code will sleep for 60 seconds before executing the function <cite>do_stuff</cite>. There are situations
 where you would like to avoid wasting this time. In such cases, Thug provides the -w (&#8211;delay)
 option. Simply running Thug this way (please note the interval is expressed in milliseconds)</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src $ python thug.py -w <span class="m">2000</span> <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -w <span class="m">2000</span> <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
 </pre></div>
 </div>
 <p>will force a maximum delay of 2 seconds.</p>
