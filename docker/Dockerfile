@@ -69,6 +69,8 @@ RUN groupadd -r thug && \
   mkdir -p /home/thug /tmp/thug/logs && \
   chown -R thug:thug /home/thug /tmp/thug/logs
 
+RUN echo "/opt/libemu/lib/" > /etc/ld.so.conf.d/libemu.conf && ldconfig
+
 USER thug
 ENV HOME /home/thug
 ENV USER thug
