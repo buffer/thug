@@ -57,8 +57,7 @@ log.setLevel(logging.WARN)
 
 @implementer(IThugAPI)
 class ThugAPI(object):
-    def __init__(self, args, configuration_path = None):
-        self.args               = args
+    def __init__(self, configuration_path = thug.__configuration_path__):
         log.configuration_path  = configuration_path
         log.personalities_path  = os.path.join(configuration_path, "personalities") if configuration_path else None
         log.ThugOpts            = ThugOpts()

@@ -18,7 +18,7 @@ class Misc(object):
     def _run(self, context, exploit):
         sample = os.path.join(MISC, exploit[0])
 
-        instance = ThugAPI(None, configuration_path = "/etc/thug")
+        instance = ThugAPI()
         instance.set_events('click')
         instance.set_timeout(1)
         instance.log_init(sample)

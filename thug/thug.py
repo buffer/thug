@@ -29,11 +29,11 @@ from .Plugins.ThugPlugins import POST_ANALYSIS_PLUGINS
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
 
-configuration_path = "/etc/thug"
 
 class Thug(ThugAPI):
     def __init__(self, args):
-        ThugAPI.__init__(self, args, configuration_path)
+        self.args = args
+        ThugAPI.__init__(self)
 
     def usage(self):
         msg = """

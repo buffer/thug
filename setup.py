@@ -11,10 +11,8 @@ os.environ['BUILD_LIB'] = '1'
 
 import thug
 
-configuration_path = "/etc/thug"
-
-personalities_path = os.path.join(configuration_path, "personalities") 
-rules_path         = os.path.join(configuration_path, "rules")
+personalities_path = os.path.join(thug.__configuration_path__, "personalities")
+rules_path         = os.path.join(thug.__configuration_path__, "rules")
 js_rules_path      = os.path.join(rules_path, "jsclassifier")
 url_rules_path     = os.path.join(rules_path, "urlclassifier")
 sample_rules_path  = os.path.join(rules_path, "sampleclassifier")
@@ -41,15 +39,15 @@ setup(
     packages = find_packages(),
     #scripts = ["thug/thug.py", ],
     data_files = [
-        (configuration_path, ["thug/Analysis/honeyagent/honeyagent.conf.sample",
-                              "thug/Analysis/virustotal/virustotal.conf.default",
-                              "thug/Logging/logging.conf.default",
-                              "thug/Plugins/plugins.conf.default"]),
-        (personalities_path, glob.glob("thug/DOM/personalities/*.json")),
-        (rules_path        , glob.glob("thug/Classifier/rules/*.yar")),
-        (js_rules_path     , glob.glob("thug/Classifier/rules/jsclassifier/*.yar")),
-        (url_rules_path    , glob.glob("thug/Classifier/rules/urlclassifier/*.yar")),
-        (sample_rules_path , glob.glob("thug/Classifier/rules/sampleclassifier/*.yar")),
+        (thug.__configuration_path__, ["thug/Analysis/honeyagent/honeyagent.conf.sample",
+                                       "thug/Analysis/virustotal/virustotal.conf.default",
+                                       "thug/Logging/logging.conf.default",
+                                       "thug/Plugins/plugins.conf.default"]),
+        (personalities_path         , glob.glob("thug/DOM/personalities/*.json")),
+        (rules_path                 , glob.glob("thug/Classifier/rules/*.yar")),
+        (js_rules_path              , glob.glob("thug/Classifier/rules/jsclassifier/*.yar")),
+        (url_rules_path             , glob.glob("thug/Classifier/rules/urlclassifier/*.yar")),
+        (sample_rules_path          , glob.glob("thug/Classifier/rules/sampleclassifier/*.yar")),
     ],
     install_requires = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "requirements.txt")).read().splitlines(),
     entry_points = {
