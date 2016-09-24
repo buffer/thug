@@ -51,12 +51,7 @@ class ThugPlugins(object):
         self.plugins = set()
         config       = ConfigParser.ConfigParser()
 
-        conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'plugins.conf')
-        if not os.path.exists(conf_file):
-            if log.configuration_path is None:
-                return
-
-            conf_file = os.path.join(log.configuration_path, 'plugins.conf')
+        conf_file = os.path.join(log.configuration_path, 'plugins.conf')
 
         if not os.path.exists(conf_file):
             conf_file = os.path.join(log.configuration_path, 'plugins.conf.default')
