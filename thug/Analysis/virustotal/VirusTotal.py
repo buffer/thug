@@ -41,15 +41,7 @@ class VirusTotal(object):
     def __init_config(self):
         config = ConfigParser.ConfigParser()
 
-        conf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'virustotal.conf')
-
-        if not os.path.exists(conf_file):
-            if log.configuration_path is None:
-                log.warning("[WARNING] VirusTotal disabled (no configuration file found)")
-                self.enabled = False
-                return
-
-            conf_file = os.path.join(log.configuration_path, 'virustotal.conf')
+        conf_file = os.path.join(log.configuration_path, 'virustotal.conf')
 
         if not os.path.exists(conf_file):
             conf_file = os.path.join(log.configuration_path, 'virustotal.conf.default')
