@@ -17,7 +17,6 @@
 # MA  02111-1307  USA
 
 
-import sys
 import os
 import logging
 log = logging.getLogger("Thug")
@@ -43,8 +42,6 @@ except ImportError:
     SSDEEP = False
 
 import bs4 as BeautifulSoup
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 PEEPDF = True
 try:
