@@ -1,5 +1,5 @@
 [ThugPluginsPre]
-plugins:	Plugins.TestPlugin
+plugins:	thug.Plugins.TestPlugin
 
 [ThugPluginsPost]
-plugins:	Plugins.TestPlugin
+plugins:	thug.Plugins.TestPlugin
