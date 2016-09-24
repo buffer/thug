@@ -52,6 +52,7 @@ from thug.Java.java import java
 sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug")
 
+import thug
 
 class Window(JSClass):
 
@@ -778,11 +779,11 @@ class Window(JSClass):
         if '_context' not in self.__dict__:
             self._context = PyV8.JSContext(self)
             with self._context as ctxt:
-                thug_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "thug.js")
+                thug_js = os.path.join(thug.__configuration_path__, 'scripts', "thug.js")
                 ctxt.eval(open(thug_js, 'r').read())
 
                 if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 8:
-                    storage_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "storage.js")
+                    storage_js = os.path.join(thug.__configuration_path__, 'scripts', "storage.js")
                     ctxt.eval(open(storage_js, 'r').read())
 
                 PyV8.JSEngine.collect()

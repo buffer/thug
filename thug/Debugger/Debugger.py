@@ -22,13 +22,15 @@ import PyV8
 
 log = logging.getLogger("Thug")
 
+import thug
+
 class Debugger(PyV8.JSDebugger):
     def __init__(self):
         PyV8.JSDebugger.__init__(self)
         #self.evalContext = PyV8.JSContext()
 
     def __enter__(self):
-        script_filename = os.path.join(os.path.dirname(__file__), 'd8.js')
+        script_filename = os.path.join(thug.__configuration_path__, 'scripts', 'd8.js')
         with self.context as ctxt:
             ctxt.eval(open(script_filename, 'r').read())
 
