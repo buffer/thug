@@ -24,9 +24,7 @@ log = logging.getLogger("Thug")
 
 class Personality(dict):
     def __init__(self):
-        personalities = os.path.join(os.path.dirname(os.path.abspath(__file__)), "personalities")
-        if not os.path.exists(personalities):
-            personalities = log.personalities_path
+        personalities = log.personalities_path
 
         if personalities is None:
             log.warning("[CRITICAL] Thug personalities not found! Exiting")
