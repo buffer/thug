@@ -72,7 +72,7 @@ class HTMLObjectElement(HTMLElement):
     def setAttribute(self, name, value):
         # ActiveX registration
         if name == 'classid':
-            from ActiveX.ActiveX import register_object
+            from thug.ActiveX.ActiveX import register_object
 
             try:
                 register_object(self, value)
