@@ -26,7 +26,7 @@ try:
 except ImportError:
     import urlparse
 
-from DOM.Personality import Personality
+from thug.DOM.Personality import Personality
 
 log = logging.getLogger("Thug")
 
