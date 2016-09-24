@@ -1,12 +1,8 @@
 #!/usr/bin/env python
 
-import sys
 import re
 import string
-import os
 import bs4 as BeautifulSoup
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 from .HTMLCollection import HTMLCollection
 
