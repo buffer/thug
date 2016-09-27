@@ -260,11 +260,25 @@ def main():
     if not os.getenv('THUG_PROFILE', None):
         Thug(sys.argv[1:])()
     else:
+        try:
+            from StringIO import StringIO
+        except ImportError:
+            from io import StringIO
+
         import cProfile
         import pstats
-        cProfile.run('Thug(sys.argv[1:])()', 'countprof')
-        p = pstats.Stats('countprof')
-        p.print_stats()
+
+        profiler = cProfile.Profile()
+        profiler.enable()
+        Thug(sys.argv[1:])()
+        profiler.disable()
+
+        s  = StringIO()
+        ps = pstats.Stats(profiler, stream = s).sort_stats('cumulative')
+        ps.print_stats()
+        with open('/tmp/thug-profiler.log', 'w') as fd:
+            fd.write(s.getvalue())
+
 
 if __name__ == "__main__":
     main()
