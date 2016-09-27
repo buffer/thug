@@ -9,27 +9,28 @@ sys.path.append(os.path.join(THUG, 'src'))
 
 from thug.ThugAPI.ThugAPI import ThugAPI
 
-class Misc(object):
+class Misc(ThugAPI):
     def __init__(self, context):
+        ThugAPI.__init__(self)
+
         self.misc = list()
         for row in context.table:
             self.misc.append(row)
 
-    def _run(self, context, exploit):
+    def _run_step(self, context, exploit):
         sample = os.path.join(MISC, exploit[0])
 
-        instance = ThugAPI()
-        instance.set_events('click')
-        instance.set_timeout(1)
-        instance.log_init(sample)
-        instance.run_local(sample)
+        self.set_events('click')
+        self.set_timeout(1)
+        self.log_init(sample)
+        self.run_local(sample)
 
         for assertion in exploit[1].split(","):
             assert assertion in context.log_capture.getvalue()
 
-    def run(self, context):
+    def run_step(self, context):
         for misc in self.misc:
-            self._run(context, misc)
+            self._run_step(context, misc)
 
 @given('set of misc')
 def step_impl(context):
@@ -39,4 +40,4 @@ def step_impl(context):
 @capture
 @then('run misc')
 def step_impl(context):
-    misc.run(context)
+    misc.run_step(context)
