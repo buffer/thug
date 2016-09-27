@@ -477,7 +477,7 @@ PluginDetect (see Local Analysis later for details).
 
 .. code-block:: sh
 
-        ~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html 
+        ~/thug/src ~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html 
         [2012-11-15 17:32:26] ActiveXObject: msxml2.xmlhttp
         [2012-11-15 17:32:26] ActiveXObject: acropdf.pdf
         [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -514,7 +514,7 @@ Let's try with different Adobe Acrobat Reader and Shockwave Flash versions now.
 
 .. code-block:: sh
 
-        ~ $ thug -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html 
+        ~/thug/src ~ $ thug -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html 
         [2012-11-15 17:32:58] ActiveXObject: msxml2.xmlhttp
         [2012-11-15 17:32:58] ActiveXObject: acropdf.pdf
         [2012-11-15 17:32:58] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -556,7 +556,7 @@ a look at what happens if we locally analyze PluginDetect (see Local Analysis la
 
 .. code-block:: sh
 
-        ~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html 
+        ~/thug/src ~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html 
         [2012-11-15 17:32:26] ActiveXObject: msxml2.xmlhttp
         [2012-11-15 17:32:26] ActiveXObject: acropdf.pdf
         [2012-11-15 17:32:26] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -592,7 +592,7 @@ Let's try with a different JavaPlugin version now.
 
 .. code-block:: sh
 
-        ~ $ thug -l -J 1.7.0.7 ../samples/misc/PluginDetect-0.7.8.html 
+        ~/thug/src ~ $ thug -l -J 1.7.0.7 ../samples/misc/PluginDetect-0.7.8.html 
         [2012-11-15 17:40:55] ActiveXObject: msxml2.xmlhttp
         [2012-11-15 17:40:56] ActiveXObject: acropdf.pdf
         [2012-11-15 17:40:56] Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
