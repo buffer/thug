@@ -521,17 +521,6 @@ class IThugAPI(zope.interface.Interface):
         @return None
         """
 
-    def run(window):
-        """
-        run
-
-        Method internally invoked by run_remote/run_local methods
-
-        @param window: Window object
-        @type window: Window
-        @return: None
-        """
-
     def run_local(url):
         """
         run_local

@@ -251,7 +251,7 @@ class ThugAPI(object):
     def log_event(self):
         log.ThugLogging.log_event()
 
-    def run(self, window):
+    def __run(self, window):
         with PyV8.JSLocker():
             dft = DFT(window)
             dft.run()
@@ -273,7 +273,7 @@ class ThugAPI(object):
         doc    = w3c.parseString(html)
         window = Window('about:blank', doc, personality = log.ThugOpts.useragent)
         window.open()
-        self.run(window)
+        self.__run(window)
 
     def run_remote(self, url):
         scheme = urlparse.urlparse(url).scheme
@@ -289,7 +289,7 @@ class ThugAPI(object):
         window = Window(log.ThugOpts.referer, doc, personality = log.ThugOpts.useragent)
         window = window.open(url)
         if window:
-            self.run(window)
+            self.__run(window)
 
     @abstractmethod
     def analyze(self):
