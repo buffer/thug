@@ -24,7 +24,7 @@ setup(
     author = "Angelo Dell'Aera",
     author_email = "buffer@antifork.org",
     description = "Low-interaction honeyclient Thug",
-    long_description = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "README.rst")).read(),
+    long_description = open("README.rst").read(),
     classifiers = [
         "Development Status :: 4 - Beta",
         "Environment :: Console",
@@ -53,7 +53,7 @@ setup(
         (url_rules_path             , glob.glob("thug/Classifier/rules/urlclassifier/*.yar")),
         (sample_rules_path          , glob.glob("thug/Classifier/rules/sampleclassifier/*.yar")),
     ],
-    install_requires = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "requirements.txt")).read().splitlines(),
+    install_requires = open("requirements.txt").read().splitlines(),
     entry_points = {
         "console_scripts": [
             "thug = thug.thug:main",
