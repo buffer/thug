@@ -24,7 +24,11 @@ setup(
     author = "Angelo Dell'Aera",
     author_email = "buffer@antifork.org",
     description = "Low-interaction honeyclient Thug",
+    license = "GPLv2",
     long_description = open("README.rst").read(),
+    url = "http://buffer.github.io/thug/",
+    download_url = "https://github.com/buffer/thug/",
+    platforms = ["Linux", ],
     classifiers = [
         "Development Status :: 4 - Beta",
         "Environment :: Console",
@@ -38,7 +42,6 @@ setup(
            ""       : ["*.js"],
            },
     packages = find_packages(),
-    #scripts = ["thug/thug.py", ],
     data_files = [
         (thug.__configuration_path__, ["thug/Analysis/honeyagent/honeyagent.conf.sample",
                                        "thug/Analysis/virustotal/virustotal.conf.default",
