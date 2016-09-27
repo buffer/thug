@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.8rc5 documentation</title>
+    <title>Usage &mdash; Thug 0.8rc6 documentation</title>
     
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8rc5',
+        VERSION:     '0.8rc6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.8rc5 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8rc6 documentation" href="index.html" />
     <link rel="next" title="Thug API" href="api.html" />
     <link rel="prev" title="Configuration" href="configuration.html" />
    
@@ -548,7 +548,7 @@ useful for getting different Flash exploits which target differents version of S
 This happens because exploit kits usually serve Flash files which exploit specific vulnerabilities
 basing on Shockwave Flash version. Let&#8217;s take a look at what happens if we locally analyze
 PluginDetect (see Local Analysis later for details).</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src ~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: acropdf.pdf
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -582,7 +582,7 @@ PluginDetect (see Local Analysis later for details).</p>
 </pre></div>
 </div>
 <p>Let&#8217;s try with different Adobe Acrobat Reader and Shockwave Flash versions now.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src ~ $ thug -l -A 8.1.0 -S 10.3.1.180 ../samples/misc/PluginDetect-0.7.8.html
 <span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
 <span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> ActiveXObject: acropdf.pdf
 <span class="o">[</span>2012-11-15 17:32:58<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -621,7 +621,7 @@ PluginDetect (see Local Analysis later for details).</p>
 <p>Taking a look at the available options you can see the -J (&#8211;javaplugin) option which is quite
 useful for getting different Java exploits which target different versions of Java. Let&#8217;s take
 a look at what happens if we locally analyze PluginDetect (see Local Analysis later for details).</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src ~ $ thug -l ../samples/misc/PluginDetect-0.7.8.html
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> ActiveXObject: acropdf.pdf
 <span class="o">[</span>2012-11-15 17:32:26<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
@@ -655,7 +655,7 @@ a look at what happens if we locally analyze PluginDetect (see Local Analysis la
 </pre></div>
 </div>
 <p>Let&#8217;s try with a different JavaPlugin version now.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l -J 1.7.0.7 ../samples/misc/PluginDetect-0.7.8.html
+<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/src ~ $ thug -l -J 1.7.0.7 ../samples/misc/PluginDetect-0.7.8.html
 <span class="o">[</span>2012-11-15 17:40:55<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
 <span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> ActiveXObject: acropdf.pdf
 <span class="o">[</span>2012-11-15 17:40:56<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15

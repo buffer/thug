@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Thug API &mdash; Thug 0.8rc5 documentation</title>
+    <title>Thug API &mdash; Thug 0.8rc6 documentation</title>
     
     <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8rc5',
+        VERSION:     '0.8rc6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.8rc5 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8rc6 documentation" href="index.html" />
     <link rel="next" title="Logging" href="logging.html" />
     <link rel="prev" title="Usage" href="usage.html" />
    
@@ -52,11 +52,28 @@ Python 2.7.10 <span class="o">(</span>default, Nov <span class="m">18</span> 201
 Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&quot;</span>, <span class="s2">&quot;credits&quot;</span> or <span class="s2">&quot;license&quot;</span> <span class="k">for</span> more information.
 &gt;&gt;&gt; from thug.ThugAPI import ThugAPI
 &gt;&gt;&gt; dir<span class="o">(</span>ThugAPI<span class="o">)</span>
-<span class="o">[</span><span class="s1">&#39;__call__&#39;</span>, <span class="s1">&#39;__class__&#39;</span>, <span class="s1">&#39;__delattr__&#39;</span>, <span class="s1">&#39;__dict__&#39;</span>, <span class="s1">&#39;__doc__&#39;</span>, <span class="s1">&#39;__format__&#39;</span>, <span class="s1">&#39;__getattribute__&#39;</span>, <span class="s1">&#39;__hash__&#39;</span>, <span class="s1">&#39;__implemented__&#39;</span>, <span class="s1">&#39;__init__&#39;</span>, <span class="s1">&#39;__module__&#39;</span>, <span class="s1">&#39;__new__&#39;</span>, <span class="s1">&#39;__providedBy__&#39;</span>, <span class="s1">&#39;__provides__&#39;</span>, <span class="s1">&#39;__reduce__&#39;</span>, <span class="s1">&#39;__reduce_ex__&#39;</span>, <span class="s1">&#39;__repr__&#39;</span>, <span class="s1">&#39;__setattr__&#39;</span>, <span class="s1">&#39;__sizeof__&#39;</span>, <span class="s1">&#39;__str__&#39;</span>, <span class="s1">&#39;__subclasshook__&#39;</span>, <span class="s1">&#39;__weakref__&#39;</span>, <span class="s1">&#39;add_jsclassifier&#39;</span>, <span class="s1">&#39;add_sampleclassifier&#39;</span>, <span class="s1">&#39;add_urlclassifier&#39;</span>, <span class="s1">&#39;analyze&#39;</span>, <span class="s1">&#39;disable_acropdf&#39;</span>, <span class="s1">&#39;disable_honeyagent&#39;</span>, <span class="s1">&#39;disable_javaplugin&#39;</span>, <span class="s1">&#39;disable_shockwave_flash&#39;</span>, <span class="s1">&#39;get_broken_url&#39;</span>, <span class="s1">&#39;get_delay&#39;</span>, <span class="s1">&#39;get_elasticsearch_logging&#39;</span>, <span class="s1">&#39;get_events&#39;</span>, <span class="s1">&#39;get_extensive&#39;</span>, <span class="s1">&#39;get_file_logging&#39;</span>, <span class="s1">&#39;get_json_logging&#39;</span>, <span class="s1">&#39;get_maec11_logging&#39;</span>, <span class="s1">&#39;get_mongodb_address&#39;</span>, <span class="s1">&#39;get_proxy&#39;</span>, <span class="s1">&#39;get_referer&#39;</span>, <span class="s1">&#39;get_threshold&#39;</span>, <span class="s1">&#39;get_timeout&#39;</span>, <span class="s1">&#39;get_useragent&#39;</span>, <span class="s1">&#39;get_vt_runtime_apikey&#39;</span>, <span class="s1">&#39;get_web_tracking&#39;</span>, <span class="s1">&#39;log_event&#39;</span>, <span class="s1">&#39;log_init&#39;</span>, <span class="s1">&#39;run&#39;</span>, <span class="s1">&#39;run_local&#39;</span>, <span class="s1">&#39;run_remote&#39;</span>, <span class="s1">&#39;set_acropdf_pdf&#39;</span>, <span class="s1">&#39;set_ast_debug&#39;</span>, <span class="s1">&#39;set_broken_url&#39;</span>, <span class="s1">&#39;set_debug&#39;</span>, <span class="s1">&#39;set_delay&#39;</span>, <span class="s1">&#39;set_elasticsearch_logging&#39;</span>, <span class="s1">&#39;set_events&#39;</span>, <span class="s1">&#39;set_extensive&#39;</span>, <span class="s1">&#39;set_file_logging&#39;</span>, <span class="s1">&#39;set_http_debug&#39;</span>, <span class="s1">&#39;set_javaplugin&#39;</span>, <span class="s1">&#39;set_json_logging&#39;</span>, <span class="s1">&#39;set_log_dir&#39;</span>, <span class="s1">&#39;set_log_output&#39;</span>, <span class="s1">&#39;set_log_quiet&#39;</span>, <span class="s1">&#39;set_maec11_logging&#39;</span>, <span class="s1">&#39;set_mongodb_address&#39;</span>, <span class="s1">&#39;set_no_cache&#39;</span>, <span class="s1">&#39;set_no_fetch&#39;</span>, <span class="s1">&#39;set_proxy&#39;</span>, <span class="s1">&#39;set_referer&#39;</span>, <span class="s1">&#39;set_shockwave_flash&#39;</span>, <span class="s1">&#39;set_threshold&#39;</span>, <span class="s1">&#39;set_timeout&#39;</span>, <span class="s1">&#39;set_useragent&#39;</span>, <span class="s1">&#39;set_verbose&#39;</span>, <span class="s1">&#39;set_vt_query&#39;</span>, <span class="s1">&#39;set_vt_runtime_apikey&#39;</span>, <span class="s1">&#39;set_vt_submit&#39;</span>, <span class="s1">&#39;set_web_tracking&#39;</span>, <span class="s1">&#39;usage&#39;</span>, <span class="s1">&#39;version&#39;</span><span class="o">]</span>
+<span class="o">[</span><span class="s1">&#39;_ThugAPI__run&#39;</span>, <span class="s1">&#39;__call__&#39;</span>, <span class="s1">&#39;__class__&#39;</span>, <span class="s1">&#39;__delattr__&#39;</span>, <span class="s1">&#39;__dict__&#39;</span>, <span class="s1">&#39;__doc__&#39;</span>, <span class="s1">&#39;__format__&#39;</span>, <span class="s1">&#39;__getattribute__&#39;</span>, <span class="s1">&#39;__hash__&#39;</span>, <span class="s1">&#39;__implemented__&#39;</span>, <span class="s1">&#39;__init__&#39;</span>, <span class="s1">&#39;__module__&#39;</span>, <span class="s1">&#39;__new__&#39;</span>, <span class="s1">&#39;__providedBy__&#39;</span>, <span class="s1">&#39;__provides__&#39;</span>, <span class="s1">&#39;__reduce__&#39;</span>, <span class="s1">&#39;__reduce_ex__&#39;</span>, <span class="s1">&#39;__repr__&#39;</span>, <span class="s1">&#39;__setattr__&#39;</span>, <span class="s1">&#39;__sizeof__&#39;</span>, <span class="s1">&#39;__str__&#39;</span>, <span class="s1">&#39;__subclasshook__&#39;</span>, <span class="s1">&#39;__weakref__&#39;</span>, <span class="s1">&#39;add_jsclassifier&#39;</span>, <span class="s1">&#39;add_sampleclassifier&#39;</span>, <span class="s1">&#39;add_urlclassifier&#39;</span>, <span class="s1">&#39;analyze&#39;</span>, <span class="s1">&#39;disable_acropdf&#39;</span>, <span class="s1">&#39;disable_honeyagent&#39;</span>, <span class="s1">&#39;disable_javaplugin&#39;</span>, <span class="s1">&#39;disable_shockwave_flash&#39;</span>, <span class="s1">&#39;get_broken_url&#39;</span>, <span class="s1">&#39;get_delay&#39;</span>, <span class="s1">&#39;get_elasticsearch_logging&#39;</span>, <span class="s1">&#39;get_events&#39;</span>, <span class="s1">&#39;get_extensive&#39;</span>, <span class="s1">&#39;get_file_logging&#39;</span>, <span class="s1">&#39;get_json_logging&#39;</span>, <span class="s1">&#39;get_maec11_logging&#39;</span>, <span class="s1">&#39;get_mongodb_address&#39;</span>, <span class="s1">&#39;get_proxy&#39;</span>, <span class="s1">&#39;get_referer&#39;</span>, <span class="s1">&#39;get_threshold&#39;</span>, <span class="s1">&#39;get_timeout&#39;</span>, <span class="s1">&#39;get_useragent&#39;</span>, <span class="s1">&#39;get_vt_runtime_apikey&#39;</span>, <span class="s1">&#39;get_web_tracking&#39;</span>, <span class="s1">&#39;log_event&#39;</span>, <span class="s1">&#39;log_init&#39;</span>, <span class="s1">&#39;run_local&#39;</span>, <span class="s1">&#39;run_remote&#39;</span>, <span class="s1">&#39;set_acropdf_pdf&#39;</span>, <span class="s1">&#39;set_ast_debug&#39;</span>, <span class="s1">&#39;set_broken_url&#39;</span>, <span class="s1">&#39;set_debug&#39;</span>, <span class="s1">&#39;set_delay&#39;</span>, <span class="s1">&#39;set_elasticsearch_logging&#39;</span>, <span class="s1">&#39;set_events&#39;</span>, <span class="s1">&#39;set_extensive&#39;</span>, <span class="s1">&#39;set_file_logging&#39;</span>, <span class="s1">&#39;set_http_debug&#39;</span>, <span class="s1">&#39;set_javaplugin&#39;</span>, <span class="s1">&#39;set_json_logging&#39;</span>, <span class="s1">&#39;set_log_dir&#39;</span>, <span class="s1">&#39;set_log_output&#39;</span>, <span class="s1">&#39;set_log_quiet&#39;</span>, <span class="s1">&#39;set_maec11_logging&#39;</span>, <span class="s1">&#39;set_mongodb_address&#39;</span>, <span class="s1">&#39;set_no_cache&#39;</span>, <span class="s1">&#39;set_no_fetch&#39;</span>, <span class="s1">&#39;set_proxy&#39;</span>, <span class="s1">&#39;set_referer&#39;</span>, <span class="s1">&#39;set_shockwave_flash&#39;</span>, <span class="s1">&#39;set_threshold&#39;</span>, <span class="s1">&#39;set_timeout&#39;</span>, <span class="s1">&#39;set_useragent&#39;</span>, <span class="s1">&#39;set_verbose&#39;</span>, <span class="s1">&#39;set_vt_query&#39;</span>, <span class="s1">&#39;set_vt_runtime_apikey&#39;</span>, <span class="s1">&#39;set_vt_submit&#39;</span>, <span class="s1">&#39;set_web_tracking&#39;</span>, <span class="s1">&#39;usage&#39;</span>, <span class="s1">&#39;version&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p>The following example explains how to properly make a basic use of the Thug API. Take
+a look at the interface definition below for more advanced scenarios.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thug.ThugAPI</span> <span class="kn">import</span> <span class="n">ThugAPI</span>
+
+<span class="k">class</span> <span class="nc">TestAPI</span><span class="p">(</span><span class="n">ThugAPI</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ThugAPI</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_init</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_remote</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">TestAPI</span><span class="p">()</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;http://www.google.com&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Take a look at how the test suite automation scripts in <em>samples/steps/</em> directory make
-use of the Thug API for another great example.</p>
+use of the Thug API for another additional great example.</p>
 <p>Thug API interface definition is reported below for convenience.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IThugAPI</span><span class="p">(</span><span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Interface</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">version</span><span class="p">():</span>
@@ -578,17 +595,6 @@ use of the Thug API for another great example.</p>
 <span class="sd">        Log the URL analysis results</span>
 
 <span class="sd">        @return None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        run</span>
-
-<span class="sd">        Method internally invoked by run_remote/run_local methods</span>
-
-<span class="sd">        @param window: Window object</span>
-<span class="sd">        @type window: Window</span>
-<span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">run_local</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>

@@ -20,13 +20,33 @@ Using Thug API is really straightforward as you can see below
     Type "help", "copyright", "credits" or "license" for more information.
     >>> from thug.ThugAPI import ThugAPI
     >>> dir(ThugAPI)
-    ['__call__', '__class__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattribute__', '__hash__', '__implemented__', '__init__', '__module__', '__new__', '__providedBy__', '__provides__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_jsclassifier', 'add_sampleclassifier', 'add_urlclassifier', 'analyze', 'disable_acropdf', 'disable_honeyagent', 'disable_javaplugin', 'disable_shockwave_flash', 'get_broken_url', 'get_delay', 'get_elasticsearch_logging', 'get_events', 'get_extensive', 'get_file_logging', 'get_json_logging', 'get_maec11_logging', 'get_mongodb_address', 'get_proxy', 'get_referer', 'get_threshold', 'get_timeout', 'get_useragent', 'get_vt_runtime_apikey', 'get_web_tracking', 'log_event', 'log_init', 'run', 'run_local', 'run_remote', 'set_acropdf_pdf', 'set_ast_debug', 'set_broken_url', 'set_debug', 'set_delay', 'set_elasticsearch_logging', 'set_events', 'set_extensive', 'set_file_logging', 'set_http_debug', 'set_javaplugin', 'set_json_logging', 'set_log_dir', 'set_log_output', 'set_log_quiet', 'set_maec11_logging', 'set_mongodb_address', 'set_no_cache', 'set_no_fetch', 'set_proxy', 'set_referer', 'set_shockwave_flash', 'set_threshold', 'set_timeout', 'set_useragent', 'set_verbose', 'set_vt_query', 'set_vt_runtime_apikey', 'set_vt_submit', 'set_web_tracking', 'usage', 'version']
+    ['_ThugAPI__run', '__call__', '__class__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattribute__', '__hash__', '__implemented__', '__init__', '__module__', '__new__', '__providedBy__', '__provides__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_jsclassifier', 'add_sampleclassifier', 'add_urlclassifier', 'analyze', 'disable_acropdf', 'disable_honeyagent', 'disable_javaplugin', 'disable_shockwave_flash', 'get_broken_url', 'get_delay', 'get_elasticsearch_logging', 'get_events', 'get_extensive', 'get_file_logging', 'get_json_logging', 'get_maec11_logging', 'get_mongodb_address', 'get_proxy', 'get_referer', 'get_threshold', 'get_timeout', 'get_useragent', 'get_vt_runtime_apikey', 'get_web_tracking', 'log_event', 'log_init', 'run_local', 'run_remote', 'set_acropdf_pdf', 'set_ast_debug', 'set_broken_url', 'set_debug', 'set_delay', 'set_elasticsearch_logging', 'set_events', 'set_extensive', 'set_file_logging', 'set_http_debug', 'set_javaplugin', 'set_json_logging', 'set_log_dir', 'set_log_output', 'set_log_quiet', 'set_maec11_logging', 'set_mongodb_address', 'set_no_cache', 'set_no_fetch', 'set_proxy', 'set_referer', 'set_shockwave_flash', 'set_threshold', 'set_timeout', 'set_useragent', 'set_verbose', 'set_vt_query', 'set_vt_runtime_apikey', 'set_vt_submit', 'set_web_tracking', 'usage', 'version']
+
+
+The following example explains how to properly make a basic use of the Thug API. Take
+a look at the interface definition below for more advanced scenarios.
+
+.. code-block:: python
+
+    from thug.ThugAPI import ThugAPI
+
+    class TestAPI(ThugAPI):
+        def __init__(self):
+            ThugAPI.__init__(self)
+
+        def run(self, url):
+            self.log_init(url)
+            self.run_remote(url)
+
+    if __name__ == "__main__":
+        t = TestAPI()
+        t.run("http://www.google.com")
+
 
 Take a look at how the test suite automation scripts in *samples/steps/* directory make 
-use of the Thug API for another great example.
+use of the Thug API for another additional great example.
 
 Thug API interface definition is reported below for convenience.
-
 
 .. code-block:: python
 
@@ -551,17 +571,6 @@ Thug API interface definition is reported below for convenience.
             Log the URL analysis results
 
             @return None
-            """
-
-        def run(window):
-            """
-            run
-
-            Method internally invoked by run_remote/run_local methods
-
-            @param window: Window object
-            @type window: Window
-            @return: None
             """
 
         def run_local(url):
