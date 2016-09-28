@@ -34,17 +34,42 @@ a look at the interface definition below for more advanced scenarios.
         def __init__(self):
             ThugAPI.__init__(self)
 
-        def run(self, url):
+        def analyze(self, url):
+            # Set useragent to Internet Explorer 9.0 (Windows 7)
+            self.set_useragent('win7ie90')
+
+            # Set referer to http://www.honeynet.org
+            self.set_referer('http://www.honeynet.org')
+
+            # Enable file logging mode
+            self.set_file_logging()
+
+            # Enable JSON logging mode (requires file logging mode enabled)
+            self.set_json_logging()
+
+            # Enable MAEC 1.1 logging mode (requires file logging mode enabled)
+            self.set_maec11_logging()
+
+            # [IMPORTANT] The following three steps should be implemented (in the exact
+            # order of this example) almost in every situation when you are going to
+            # analyze a remote site.
+
+            # Initialize logging
             self.log_init(url)
+
+            # Run analysis
             self.run_remote(url)
+
+            # Log analysis results
+            self.log_event()
 
     if __name__ == "__main__":
         t = TestAPI()
-        t.run("http://www.google.com")
+        t.analyze("http://www.google.com")
 
 
 Take a look at how the test suite automation scripts in *samples/steps/* directory make 
-use of the Thug API for another additional great example.
+use of the Thug API for an example of how to perform a local file analysis.
 
 Thug API interface definition is reported below for convenience.
 
@@ -587,7 +612,7 @@ Thug API interface definition is reported below for convenience.
             """
             run_remote
 
-            This method should be invoked by 'run' method for URL analysis
+            This method should be invoked by 'analyze' method for URL analysis
 
             @param url: URL to analyze
             @type url: C{str}
@@ -597,7 +622,10 @@ Thug API interface definition is reported below for convenience.
             """
             analyze
 
-            This method is called when the ThugAPI subclass is called and MUST be
-            implemented. This method can reference just the 'args' class attribute.
-            Returning something from this method is up to you if needed.
+            This method is implicitely called when the ThugAPI instance is directly called
+            (take a look at thug/thug.py for an example). It is a good practice to implement
+            this method in any case as entry point and invoke it directly or by calling the
+            instance (in such case implementing it is mandatory) on your requirements. This
+            method can reference just  the (optional) 'args' attribute. Returning something
+            from this method is up to you if needed.
             """
