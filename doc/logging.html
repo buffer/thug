@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Logging &mdash; Thug 0.8rc6 documentation</title>
+    <title>Logging &mdash; Thug 0.8rc7 documentation</title>
     
-    <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8rc6',
+        VERSION:     '0.8rc7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,15 +23,26 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.8rc6 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8rc7 documentation" href="index.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
-    <link rel="prev" title="Thug API" href="api.html" />
-   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
-
+    <link rel="prev" title="Thug API" href="api.html" /> 
   </head>
-  <body role="document">  
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="plugins.html" title="Plugin Framework"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="Thug API"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8rc7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -583,7 +594,7 @@ total 72K
 -rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">878</span> Jul  <span class="m">2</span> 19:15 d26b9b1a1f667004945d1d000cf4f19e
 </pre></div>
 </div>
-<p>In this eaxample the MAEC 1.1 logging mode is enabled and the file <em>analysis.xml</em> contains the
+<p>In this example the MAEC 1.1 logging mode is enabled and the file <em>analysis.xml</em> contains the
 URL analysis results saved in MAEC 1.1 format. Please note that all the resources downloaded
 during the URL analysis are saved in the log directory based on their Content-Type for
 convenience. Moreover if MongoDB is installed the information you can see in this directory
@@ -596,36 +607,13 @@ are saved in the database instance as well.</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="build.html">Build and Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">Thug API</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Logging</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#logging-configuration">Logging configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#mongodb-logging-mode">MongoDB logging mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hpfeeds-logging-mode">HPFeeds logging mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#elasticsearch-logging-module">ElasticSearch logging module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#json-logging-mode">JSON logging mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#maec-1-1-logging-mode">MAEC 1.1 logging mode</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#file-logging-mode">File logging mode</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugin Framework</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="api.html" title="previous chapter">Thug API</a></li>
-      <li>Next: <a href="plugins.html" title="next chapter">Plugin Framework</a></li>
-  </ul></li>
-</ul>
-</div>
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="previous chapter">Thug API</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="plugins.html"
+                        title="next chapter">Plugin Framework</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -643,20 +631,24 @@ are saved in the database instance as well.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2011-2016, Angelo Dell'Aera.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
-      
-      |
-      <a href="sources/logging.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="plugins.html" title="Plugin Framework"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="Thug API"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8rc7 documentation</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2011-2016, Angelo Dell&#39;Aera.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
   </body>
 </html>

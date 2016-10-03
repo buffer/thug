@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Thug API &mdash; Thug 0.8rc6 documentation</title>
+    <title>Thug API &mdash; Thug 0.8rc7 documentation</title>
     
-    <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8rc6',
+        VERSION:     '0.8rc7',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,15 +23,26 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.8rc6 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8rc7 documentation" href="index.html" />
     <link rel="next" title="Logging" href="logging.html" />
-    <link rel="prev" title="Usage" href="usage.html" />
-   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
-
+    <link rel="prev" title="Usage" href="usage.html" /> 
   </head>
-  <body role="document">  
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="logging.html" title="Logging"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8rc7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -63,17 +74,42 @@ a look at the interface definition below for more advanced scenarios.</p>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ThugAPI</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="c1"># Set useragent to Internet Explorer 9.0 (Windows 7)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_useragent</span><span class="p">(</span><span class="s1">&#39;win7ie90&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Set referer to http://www.honeynet.org</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_referer</span><span class="p">(</span><span class="s1">&#39;http://www.honeynet.org&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Enable file logging mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_file_logging</span><span class="p">()</span>
+
+        <span class="c1"># Enable JSON logging mode (requires file logging mode enabled)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_json_logging</span><span class="p">()</span>
+
+        <span class="c1"># Enable MAEC 1.1 logging mode (requires file logging mode enabled)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_maec11_logging</span><span class="p">()</span>
+
+        <span class="c1"># [IMPORTANT] The following three steps should be implemented (in the exact</span>
+        <span class="c1"># order of this example) almost in every situation when you are going to</span>
+        <span class="c1"># analyze a remote site.</span>
+
+        <span class="c1"># Initialize logging</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">log_init</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="c1"># Run analysis</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">run_remote</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="c1"># Log analysis results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_event</span><span class="p">()</span>
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">TestAPI</span><span class="p">()</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;http://www.google.com&quot;</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="s2">&quot;http://www.google.com&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Take a look at how the test suite automation scripts in <em>samples/steps/</em> directory make
-use of the Thug API for another additional great example.</p>
+use of the Thug API for an example of how to perform a local file analysis.</p>
 <p>Thug API interface definition is reported below for convenience.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IThugAPI</span><span class="p">(</span><span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Interface</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">version</span><span class="p">():</span>
@@ -611,7 +647,7 @@ use of the Thug API for another additional great example.</p>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        run_remote</span>
 
-<span class="sd">        This method should be invoked by &#39;run&#39; method for URL analysis</span>
+<span class="sd">        This method should be invoked by &#39;analyze&#39; method for URL analysis</span>
 
 <span class="sd">        @param url: URL to analyze</span>
 <span class="sd">        @type url: C{str}</span>
@@ -621,9 +657,12 @@ use of the Thug API for another additional great example.</p>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        analyze</span>
 
-<span class="sd">        This method is called when the ThugAPI subclass is called and MUST be</span>
-<span class="sd">        implemented. This method can reference just the &#39;args&#39; class attribute.</span>
-<span class="sd">        Returning something from this method is up to you if needed.</span>
+<span class="sd">        This method is implicitely called when the ThugAPI instance is directly called</span>
+<span class="sd">        (take a look at thug/thug.py for an example). It is a good practice to implement</span>
+<span class="sd">        this method in any case as entry point and invoke it directly or by calling the</span>
+<span class="sd">        instance (in such case implementing it is mandatory) on your requirements. This</span>
+<span class="sd">        method can reference just  the (optional) &#39;args&#39; attribute. Returning something</span>
+<span class="sd">        from this method is up to you if needed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 </pre></div>
 </div>
@@ -634,27 +673,13 @@ use of the Thug API for another additional great example.</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="build.html">Build and Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Thug API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugin Framework</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="usage.html" title="previous chapter">Usage</a></li>
-      <li>Next: <a href="logging.html" title="next chapter">Logging</a></li>
-  </ul></li>
-</ul>
-</div>
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usage.html"
+                        title="previous chapter">Usage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="logging.html"
+                        title="next chapter">Logging</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -672,20 +697,24 @@ use of the Thug API for another additional great example.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2011-2016, Angelo Dell'Aera.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
-      
-      |
-      <a href="sources/api.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="logging.html" title="Logging"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usage.html" title="Usage"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8rc7 documentation</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2011-2016, Angelo Dell&#39;Aera.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
   </body>
 </html>
