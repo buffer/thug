@@ -636,7 +636,7 @@ will appear as shown below
         -rw-r--r-- 1 buffer buffer 878 Jul  2 19:15 d26b9b1a1f667004945d1d000cf4f19e
  
 
-In this eaxample the MAEC 1.1 logging mode is enabled and the file *analysis.xml* contains the 
+In this example the MAEC 1.1 logging mode is enabled and the file *analysis.xml* contains the
 URL analysis results saved in MAEC 1.1 format. Please note that all the resources downloaded 
 during the URL analysis are saved in the log directory based on their Content-Type for 
 convenience. Moreover if MongoDB is installed the information you can see in this directory 
