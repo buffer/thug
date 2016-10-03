@@ -18,8 +18,6 @@
 
 import sys
 import datetime
-import socket
-import socks
 import requests
 import ssl
 
@@ -42,34 +40,12 @@ class HTTPSession(object):
         self.__init_session(proxy)
         self.filecount = 0
 
-    def __init_socks_proxy(self, proxy):
+    def __do_init_proxy(self, proxy):
         url = urlparse.urlparse(proxy)
         if not url.scheme:
             return False
 
-        if not url.scheme.lower().startswith('socks'):
-            return False
-
-        proxy_type = getattr(socks, url.scheme.upper(), None)
-        if proxy_type is None:
-            return False
-
-        addr, port = url.netloc.split(':')
-        socks.set_default_proxy(proxy_type = proxy_type,
-                                addr       = addr,
-                                port       = int(port),
-                                username = url.username,
-                                password = url.password)
-
-        socket.socket = socks.socksocket
-        return True
-
-    def __init_http_proxy(self, proxy):
-        url = urlparse.urlparse(proxy)
-        if not url.scheme:
-            return False
-
-        if not url.scheme.lower().startswith('http'):
+        if not url.scheme.lower().startswith(('http', 'socks4', 'socks5')):
             return False
 
         self.session.proxies = {
@@ -83,10 +59,7 @@ class HTTPSession(object):
         if proxy is None:
             return
 
-        if self.__init_http_proxy(proxy):
-            return
-
-        if self.__init_socks_proxy(proxy):
+        if self.__do_init_proxy(proxy):
             return
 
         log.warning("[WARNING] Wrong proxy specified. Aborting the analysis!")
