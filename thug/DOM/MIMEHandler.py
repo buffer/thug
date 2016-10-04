@@ -45,7 +45,7 @@ import bs4 as BeautifulSoup
 
 PEEPDF = True
 try:
-    from thug.Analysis.peepdf.PDFCore import PDFParser, vulnsDict
+    from peepdf.PDFCore import PDFParser, vulnsDict
 except:
     PEEPDF = False
 
