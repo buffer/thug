@@ -48,6 +48,7 @@ RUN apt-get update && \
     libffi-dev \
     graphviz \
     libfuzzy-dev \
+	libjpeg8-dev \
     autoconf && \
   rm -rf /var/lib/apt/lists/*
 
