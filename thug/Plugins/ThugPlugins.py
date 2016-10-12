@@ -16,14 +16,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-
 import os
-
-try:
-    import configparser as ConfigParser
-except ImportError:
-    import ConfigParser
-
+import sys
 import logging
 from zope.interface.verify import verifyObject
 from zope.interface.exceptions import BrokenImplementation
@@ -31,45 +25,73 @@ from thug.Plugins.IPlugin import IPlugin
 
 log = logging.getLogger("Thug")
 
-(
-    PRE_ANALYSIS_PLUGINS, 
-    POST_ANALYSIS_PLUGINS,
-) = list(range(0, 2))
+PLUGINS_PATH          = "/etc/thug/plugins"
+HANDLER_NAME          = "Handler"
+HANDLER_MODULE        = "%s.py" % (HANDLER_NAME, )
+LAST_PRIO             = 1000
+PRE_ANALYSIS_PLUGINS  = 'PRE'
+POST_ANALYSIS_PLUGINS = 'POST'
+
+sys.path.append(PLUGINS_PATH)
+
 
 class ThugPlugins(object):
-    phases = {
-                PRE_ANALYSIS_PLUGINS  : 'ThugPluginsPre',
-                POST_ANALYSIS_PLUGINS : 'ThugPluginsPost'
-             }
-
     def __init__(self, phase, thug):
-        self.phase = phase
-        self.thug  = thug
-        self.__init_config()
-
-    def __init_config(self):
-        self.plugins = set()
-        config       = ConfigParser.ConfigParser()
-
-        conf_file = os.path.join(log.configuration_path, 'plugins.conf')
-
-        if not os.path.exists(conf_file):
-            conf_file = os.path.join(log.configuration_path, 'plugins.conf.default')
-
-        if not os.path.exists(conf_file):
-            return
-
-        config.read(conf_file)
-        
-        plugins = config.get(self.phases[self.phase], 'plugins')
-        for plugin in plugins.split(','):
-            self.plugins.add(plugin.strip())
+        self.phase            = phase
+        self.thug             = thug
+        self.plugins          = dict()
+        self.last_low_prio    = LAST_PRIO
+        self.get_plugins()
 
     def __call__(self):
         self.run()
 
+    def handle_low_prio_plugin(self):
+        plugin_prio = self.last_low_prio
+        self.last_low_prio += 1
+        return plugin_prio
+
+    def get_plugin_prio(self, plugin_info):
+        if len(plugin_info) < 3:
+            return self.handle_low_prio_plugin()
+
+        try:
+            plugin_prio = int(plugin_info[2])
+        except:
+            plugin_prio = self.handle_low_prio_plugin()
+
+        return plugin_prio
+
+    def get_plugins(self):
+        plugins = dict()
+
+        for p in os.listdir(PLUGINS_PATH):
+            if not p.startswith(self.phase):
+                continue
+
+            pkg = os.path.join(PLUGINS_PATH, p)
+            if not os.path.isdir(pkg):
+                continue
+        
+            if not HANDLER_MODULE in os.listdir(pkg):
+                continue
+
+            plugin_info = p.split('-')
+            if len(plugin_info) < 2:
+                continue
+
+            plugin_name = p
+            plugin_prio = self.get_plugin_prio(plugin_info)
+
+            plugins[plugin_name] = plugin_prio
+
+        self.plugins = sorted(plugins.items(), key = lambda x: x[1])
+
     def run(self):
-        for source in self.plugins:
+        for plugin in self.plugins:
+            name, prio = plugin
+            source = "%s.%s" % (name, HANDLER_NAME)
+
             module = __import__(source)
             components = source.split('.')[1:]
             for component in components:
@@ -77,6 +99,9 @@ class ThugPlugins(object):
 
             handler = getattr(module, "Handler", None)
             if handler:
+                log.warning("[PLUGIN][%s] Phase: %s_ANALYSIS Priority: %d" % (name.split('-')[1],
+                                                                              self.phase,
+                                                                              prio))
                 p = handler()
                 try:
                     verifyObject(IPlugin, p)
