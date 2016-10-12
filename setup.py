@@ -14,6 +14,7 @@ import thug
 personalities_path = os.path.join(thug.__configuration_path__, "personalities")
 rules_path         = os.path.join(thug.__configuration_path__, "rules")
 scripts_path       = os.path.join(thug.__configuration_path__, "scripts")
+plugins_path       = os.path.join(thug.__configuration_path__, "plugins")
 js_rules_path      = os.path.join(rules_path, "jsclassifier")
 url_rules_path     = os.path.join(rules_path, "urlclassifier")
 sample_rules_path  = os.path.join(rules_path, "sampleclassifier")
@@ -45,13 +46,13 @@ setup(
     data_files = [
         (thug.__configuration_path__, ["thug/Analysis/honeyagent/honeyagent.conf.sample",
                                        "thug/Analysis/virustotal/virustotal.conf.default",
-                                       "thug/Logging/logging.conf.default",
-                                       "thug/Plugins/plugins.conf.default"]),
+                                       "thug/Logging/logging.conf.default"]),
         (personalities_path         , glob.glob("thug/DOM/personalities/*.json")),
         (rules_path                 , glob.glob("thug/Classifier/rules/*.yar")),
         (scripts_path               , ["thug/DOM/thug.js",
                                        "thug/DOM/storage.js",
                                        "thug/Debugger/d8.js"]),
+        (plugins_path               , []),
         (js_rules_path              , glob.glob("thug/Classifier/rules/jsclassifier/*.yar")),
         (url_rules_path             , glob.glob("thug/Classifier/rules/urlclassifier/*.yar")),
         (sample_rules_path          , glob.glob("thug/Classifier/rules/sampleclassifier/*.yar")),
