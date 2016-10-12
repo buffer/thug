@@ -28,7 +28,7 @@ log = logging.getLogger("Thug")
 PLUGINS_PATH          = "/etc/thug/plugins"
 HANDLER_NAME          = "Handler"
 HANDLER_MODULE        = "%s.py" % (HANDLER_NAME, )
-LAST_PRIO             = 1000
+FIRST_LOW_PRIO        = 1000
 PRE_ANALYSIS_PLUGINS  = 'PRE'
 POST_ANALYSIS_PLUGINS = 'POST'
 
@@ -40,7 +40,7 @@ class ThugPlugins(object):
         self.phase            = phase
         self.thug             = thug
         self.plugins          = dict()
-        self.last_low_prio    = LAST_PRIO
+        self.last_low_prio    = FIRST_LOW_PRIO
         self.get_plugins()
 
     def __call__(self):
