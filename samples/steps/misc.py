@@ -20,7 +20,8 @@ class Misc(ThugAPI):
     def _run_step(self, context, exploit):
         sample = os.path.join(MISC, exploit[0])
 
-        self.set_events('click')
+        self.set_useragent('win7ie90')
+        self.set_events('click,storage')
         self.set_timeout(1)
         self.log_init(sample)
         self.run_local(sample)

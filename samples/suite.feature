@@ -156,7 +156,11 @@ Feature: Exploits
 			| testCloneNode2.html                          | <button align="left" id="myButton">Clone node</button>                                                                                                   |
 			| testCreateStyleSheet.html                    | style1.css" rel="stylesheet"></link><link href="style2.css" rel="stylesheet"></link><link href="style3.css" rel="stylesheet"></link><link href="style4   |
 			| testDocumentAll.html                         | <a href="http://www.google.com">Google</a>                                                                                                               |
+			| testExternalSidebar.html                     | [Window] Alert Text: Internet Explorer >= 7.0 or Chrome                                                                                                  |
+			| testGetElementsByClassName.html              | <div class="example">First</div>,<div class="example">Hello World!</div>,<div class="example">Second</div>                                               |
 			| testInnerHTML.html                           | dude,Fred Flinstone                                                                                                                                      |
+			| testInsertBefore.html                        | <div>Just a sample</div><div>I'm your reference!</div></body></html>                                                                                     |
+			| testLocalStorage.html                        | Window] Alert Text: Fired,Alert Text: bar,Alert Text: south                                                                                              |
 			| testPlugins.html                             | Shockwave Flash 10.0.64.0,Windows Media Player 7,Adobe Acrobat                                                                                           |
 			| testLocation1.html                           | [HREF Redirection (document.location)] Content-Location: about:blank --> Location: http://www.google.com                                                 |
 			| testLocation2.html                           | [HREF Redirection (document.location)],Content-Location: about:blank --> Location: http://www.google.com                                                 |
@@ -164,5 +168,17 @@ Feature: Exploits
 			| testLocation4.html                           | [HREF Redirection (document.location)],Content-Location: about:blank --> Location: http://www.google.com                                                 |
 			| testLocation5.html                           | [HREF Redirection (document.location)],Content-Location: about:blank --> Location: http://www.google.com                                                 |
 			| testLocation6.html                           | [HREF Redirection (document.location)],Content-Location: about:blank --> Location: http://www.google.com                                                 |
+			| testMetaXUACompatibleEdge.html               | [Window] Alert Text: 9                                                                                                                                   |
+			| testMetaXUACompatibleEmulateIE.html          | [Window] Alert Text: 8                                                                                                                                   |
+			| testMetaXUACompatibleIE.html                 | [Window] Alert Text: 9                                                                                                                                   |
+			| testNode.html                                | <a href="/" id="thelink">test</a>,thediv                                                                                                                 |
+			| testNode2.html                               | <a href="/bar.html" id="thelink">test</a>,thediv2                                                                                                        |
+			| testPlugins.html                             | Shockwave Flash 10.0.64.0,Windows Media Player 7                                                                                                         |
+			| testQuerySelector.html                       | Alert Text: Have a Good life.,CoursesWeb.net                                                                                                             |
+			| testQuerySelector2.html                      | <li class="aclass">CoursesWeb.net</li>,<li>MarPlo.net</li>,<li class="aclass">php.net</li>                                                               |
 			| testScope.html                               | foobar,foo,bar,True,3,2012-10-07 11:13:00,3.14159265359,/foo/i                                                                                           |
+			| testSessionStorage.html                      | key1,key2,value1,value3                                                                                                                                  |
+			| testSetInterval.html                         | [Window] Alert Text: Hello                                                                                                                               |
+			| testText.html                                | <p id="p1">First line of paragraph.<br/> Some text added dynamically. </p>                                                                               |
+			| test_click.html                              | [window open redirection] about:blank -> https://www.google.com                                                                                          |
 		then run misc
