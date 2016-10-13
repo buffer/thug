@@ -2,11 +2,10 @@
 <body>
 <script language="javascript">
 function testAppendChild(){
-	var bodyElem = document.getElementById("foobar");
 	var refElem = document.createElement("div");
+	refElem.innerHTML = "I'm your reference!";
 
 	var bodyElem = document.body;
-	refElem.innerHTML = "I'm your reference!";
 	bodyElem.appendChild(refElem);
 	alert(document);
      
