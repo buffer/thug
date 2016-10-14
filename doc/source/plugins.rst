@@ -47,11 +47,13 @@ Before moving on, some details about the plugin directory name convention. The P
 names in the following format for high-priority plugins: 
 
 .. code-block:: sh
+
     [PHASE]-[PLUGIN NAME]-[PRIORITY]
     
 or the following one for low-priority plugins (more on that later)
 
 .. code-block:: sh
+
     [PHASE]-[PLUGIN NAME]
 
 where 
@@ -67,6 +69,7 @@ order of execution for your plugins. For instance, if plugin B requires plugin A
 its task all you need to do is to define the plugin directory names this way
 
 .. code-block:: sh
+
     PRE-PluginA-1
     PRE-PluginB-2
 
