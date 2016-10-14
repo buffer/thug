@@ -17,6 +17,7 @@ Welcome to Thug's documentation!
    configuration
    usage
    api
+   jshooks
    logging
    plugins
 
