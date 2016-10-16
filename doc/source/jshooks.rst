@@ -100,5 +100,39 @@ and run Thug once again
 The three scripts are executed again in the right order and the hook defined in 3-hook.js
 overwrites the other ones as expected.
 
+Let's try something more advanced now. 
+
+.. code-block:: javascript
+
+    var saved_eval = this.eval;
+
+    this.eval = function() {
+        alert("Hook me Captain Hook!");
+
+        // Call the original function
+        returnValue = saved_eval.apply(this, arguments);
+
+        // Do your own stuff..
+        alert("The original return value is: " + returnValue);
+        alert("Is it what you expected?");
+
+        // .. and return whatever you want
+        return "two";
+    }
+
+Let's take a look at what happens when we run Thug now. Please note that all the files we used in the previous examples
+were removed and the folder */etc/thug/hooks* contains just the previously shown file.
+
+.. code-block:: sh
+
+    ~ $ thug -l test.html 
+    [2016-10-16 21:02:46] [Window] Alert Text: Hook me Captain Hook!
+    [2016-10-16 21:02:46] [Window] Alert Text: The original return value is: one
+    [2016-10-16 21:02:46] [Window] Alert Text: Is it what you expected?
+    [2016-10-16 21:02:46] [Window] Alert Text: two
+
+Seems like we actually hooked the eval method. It was not so hard in the end, isn't it?
+
+
 .. [#f1] `RetireJS <https://github.com/retirejs/retire.js>`_ is a scanner detecting the use of JavaScript libraries
          with known vulnerabilities
