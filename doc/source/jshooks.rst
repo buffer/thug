@@ -19,7 +19,8 @@ Thug will execute them in that order. A good practice I would like to suggest is
 name with a numerical prefix (and remember that the string '10' is lesser than '9' so use '09' instead 
 if you have to execute more than nine hooks). 
 
-Let's take a look at an example. We will make use of the following simple page. 
+Let's take a look at an example. We will make use of the following simple page and overwrite the 
+eval method. 
 
 .. code-block:: javascript
 
@@ -51,14 +52,14 @@ Let's now drop the file 1-hook.js in the folder */etc/thug/hooks* and run Thug a
     -rw-r--r-- 1 root root 35 Oct 14 10:22 1-hook.js
 
     ~ $ cat /etc/thug/hooks/1-hook.js 
-    function eval() {
+    function eval(arg) {
             return "two";
     }
 
     ~$ thug -l test.html 
     [2016-10-14 10:22:58] [Window] Alert Text: two
 
-It's easy to realize that the eval method was hooked. Let's now drop the file 2-hook.js in 
+It's easy to realize that the eval method was overwritten. Let's now drop the file 2-hook.js in 
 the folder */etc/thug/hooks* and run Thug again
 
 .. code-block:: sh
@@ -69,7 +70,7 @@ the folder */etc/thug/hooks* and run Thug again
     -rw-r--r-- 1 root root 37 Oct 14 10:26 2-hook.js
 
     ~$ cat /etc/thug/hooks/2-hook.js 
-    function eval() {
+    function eval(arg) {
             return "three";
     }
 
@@ -89,7 +90,7 @@ and run Thug once again
     -rw-r--r-- 1 root root 36 Oct 14 10:28 3-hook.js
 
     ~ $ cat /etc/thug/hooks/3-hook.js 
-    function eval() {
+    function eval(arg) {
             return "four";
     }
 
