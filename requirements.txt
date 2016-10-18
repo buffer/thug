@@ -22,3 +22,4 @@ pefile==2016.3.28
 yara-python==3.5.0
 elasticsearch==2.4.0
 peepdf==0.3.2
+pycparser==2.14
