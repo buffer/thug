@@ -63,7 +63,7 @@ RUN git clone https://github.com/buffer/pyv8.git && \
   cd .. && \
   rm -rf pyv8
 
-RUN pip install thug==0.8rc3
+RUN pip install thug
 
 RUN groupadd -r thug && \
   useradd -r -g thug -d /home/thug -s /sbin/nologin -c "Thug User" thug && \
