@@ -106,6 +106,7 @@ from .modules import WMEncProfileManager
 from .modules import WMP
 from .modules import WScriptShell
 from .modules import WScriptShortcut
+from .modules import WScriptNetwork
 from .modules import XMLDOMParseError
 from .modules import XUpload
 from .modules import YahooJukebox
@@ -1402,6 +1403,22 @@ CLSID = [
         'funcattrs' : {},
         'methods'   : {
                         'save'                  : WScriptShortcut.save,
+                      }
+        },
+
+        # WScriptNetwork
+        {
+        'id'        : (),
+        'name'      : ('wscript.network'),
+        'attrs'     : {
+                        'UserDomain'            : 'User',
+                        'ComputerName'          : 'User-PC',
+                        'UserName'              : 'User',
+                      },
+        'funcattrs' : {},
+        'methods'   : {
+                        'EnumPrinterConnections': WScriptNetwork.EnumPrinterConnections,
+                        'EnumNetworkDrives': WScriptNetwork.EnumNetworkDrives,
                       }
         },
 
