@@ -1,4 +1,6 @@
-
+from thug.ActiveX.modules import WScriptShell
+import string
+import random
 import logging
 log = logging.getLogger("Thug")
 
@@ -26,4 +28,19 @@ def BuildPath(self, arg0, arg1):
 
 def GetSpecialFolder(self, arg):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetSpecialFolder(%s)' % (arg, ))
-    return '%TEMP%'
+
+    arg = int(arg)
+    folder = ''
+    if arg == 0:
+        folder = WScriptShell.ExpandEnvironmentStrings(self, "%windir%")
+    elif arg == 1:
+        folder = WScriptShell.ExpandEnvironmentStrings(self, "%SystemRoot%\\system32")
+    elif arg == 2:
+        folder = WScriptShell.ExpandEnvironmentStrings(self, "%TEMP%")
+
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] Returning %s for GetSpecialFolder(%s)' % (folder, arg, ))
+    return folder
+
+def GetTempName(self):
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetTempName()')
+    return ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))

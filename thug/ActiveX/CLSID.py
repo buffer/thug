@@ -998,6 +998,7 @@ CLSID = [
                             'Close'             : ScriptingFileSystemObject.Close,
                             'BuildPath'         : ScriptingFileSystemObject.BuildPath,
                             'GetSpecialFolder'  : ScriptingFileSystemObject.GetSpecialFolder,
+                            'GetTempName'       : ScriptingFileSystemObject.GetTempName,
                           },
         },
 
