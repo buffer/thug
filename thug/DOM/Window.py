@@ -94,17 +94,17 @@ class Window(JSClass):
 
             if self.repeat:
                 self.start()
-        
-    def __init__(self, url, dom_or_doc, navigator = None, personality = 'winxpie60', name="", 
-                 target='_blank', parent = None, opener = None, replace = False, screen = None, 
+
+    def __init__(self, url, dom_or_doc, navigator = None, personality = 'winxpie60', name="",
+                 target='_blank', parent = None, opener = None, replace = False, screen = None,
                  width = 800, height = 600, left = 0, top = 0, **kwds):
 
         self.url = url
         self.doc = w3c.getDOMImplementation(dom_or_doc, **kwds) if isinstance(dom_or_doc, BeautifulSoup.BeautifulSoup) else dom_or_doc
-        
+
         self.doc.window        = self
         self.doc.contentWindow = self
-         
+
         self._navigator = navigator if navigator else Navigator(personality, self)
         self._location  = Location(self)
         self._history   = History(self)
@@ -118,7 +118,7 @@ class Window(JSClass):
         self._opener = opener
         self._screen = screen or Screen(width, height, 32)
         self._closed = False
-        
+
         self._personality = personality
         self.__init_personality()
 
@@ -139,7 +139,8 @@ class Window(JSClass):
         log.MIMEHandler.window = self
 
     def __getattr__(self, key):
-        if log.ThugOpts.Personality.isIE() and key.lower() in ('wscript', ):
+        if log.ThugOpts.Personality.isIE() and (key.lower() in ('wscript', ) or
+                                                key in ('WSH', )):
             # Prevent _ActiveXObject loops
             super(Window, self).__setattr__("WScript", None)
 
@@ -150,7 +151,7 @@ class Window(JSClass):
 
         return super(Window, self).__getattr__(key)
 
-    @property 
+    @property
     def closed(self):
         return self._closed
 
@@ -229,7 +230,7 @@ class Window(JSClass):
     @property
     def screen(self):
         return self._screen
-        
+
     @property
     def screenLeft(self):
         return self._left
@@ -260,7 +261,7 @@ class Window(JSClass):
         Display an alert dialog with the specified text.
         Syntax
 
-        window.alert(text) 
+        window.alert(text)
 
         Parameters
 
@@ -273,7 +274,7 @@ class Window(JSClass):
         Returns the window to the previous item in the history.
         Syntax
 
-        window.back() 
+        window.back()
 
         Parameters
 
@@ -286,7 +287,7 @@ class Window(JSClass):
         Shifts focus away from the window.
         Syntax
 
-        window.blur() 
+        window.blur()
 
         Parameters
 
@@ -299,7 +300,7 @@ class Window(JSClass):
         Registers the window to capture all events of the specified type.
         Syntax
 
-        window.captureEvents(Event.eventType) 
+        window.captureEvents(Event.eventType)
 
         Parameters
 
@@ -312,7 +313,7 @@ class Window(JSClass):
         Clears a delay that's been set for a specific function.
         Syntax
 
-        window.clearInterval(intervalID) 
+        window.clearInterval(intervalID)
 
         Parameters
 
@@ -325,20 +326,20 @@ class Window(JSClass):
         Clears the delay set by window.setTimeout().
         Syntax
 
-        window.clearTimeout(timeoutID) 
+        window.clearTimeout(timeoutID)
 
         Parameters
 
         timeoutID is the ID of the timeout you wish you clear.
         """
         self.timers[timeoutID].stop()
-    
+
     def confirm(self, text):
         """
         Displays a dialog with a message that the user needs to respond to.
         Syntax
 
-        result = window.confirm(text) 
+        result = window.confirm(text)
 
         Parameters
 
@@ -353,7 +354,7 @@ class Window(JSClass):
         Prints messages to the console.
         Syntax
 
-        window.dump(text) 
+        window.dump(text)
 
         Parameters
 
@@ -366,20 +367,20 @@ class Window(JSClass):
         Sets focus on the window.
         Syntax
 
-        window.focus() 
+        window.focus()
 
         Parameters
 
         None.
         """
         pass
-    
+
     def forward(self):
         """
         Moves the window one document forward in the history.
         Syntax
 
-        window.forward() 
+        window.forward()
 
         Parameters
 
@@ -392,7 +393,7 @@ class Window(JSClass):
         Flashes the application icon to get the user's attention.
         Syntax
 
-        window.GetAttention() 
+        window.GetAttention()
 
         Parameters
 
@@ -405,7 +406,7 @@ class Window(JSClass):
         Returns the selection (generally text).
         Syntax
 
-        selection = window.getSelection() 
+        selection = window.getSelection()
 
         Parameters
 
@@ -418,7 +419,7 @@ class Window(JSClass):
         Returns the window to the home page.
         Syntax
 
-        window.home() 
+        window.home()
 
         Parameters
 
@@ -431,7 +432,7 @@ class Window(JSClass):
         Moves the current window by a specified amount.
         Syntax
 
-        window.moveBy(deltaX, deltaY) 
+        window.moveBy(deltaX, deltaY)
 
         Parameters
 
@@ -445,7 +446,7 @@ class Window(JSClass):
         Moves the window to the specified coordinates.
         Syntax
 
-        window.moveTo(x, y) 
+        window.moveTo(x, y)
 
         Parameters
 
@@ -453,10 +454,10 @@ class Window(JSClass):
         y is the vertical coordinate to be moved to.
         """
         pass
-    
+
     def prompt(self, text):
         """
-        Returns the text entered by the user in a prompt dialog. 
+        Returns the text entered by the user in a prompt dialog.
         """
         return text
 
@@ -465,7 +466,7 @@ class Window(JSClass):
         Releases the window from trapping events of a specific type.
         Syntax
 
-        window.releaseEvents(Event.eventType) 
+        window.releaseEvents(Event.eventType)
 
         Parameters
 
@@ -478,7 +479,7 @@ class Window(JSClass):
         Resizes the current window by a certain amount.
         Syntax
 
-        window.resizeBy(xDelta, yDelta) 
+        window.resizeBy(xDelta, yDelta)
 
         Parameters
 
@@ -492,7 +493,7 @@ class Window(JSClass):
         Dynamically resizes window.
         Syntax
 
-        window.resizeTo(iWidth, iHeight) 
+        window.resizeTo(iWidth, iHeight)
 
         Parameters
 
@@ -506,7 +507,7 @@ class Window(JSClass):
         Scrolls the window to a particular place in the document.
         Syntax
 
-        window.scroll(x-coord, y-coord) 
+        window.scroll(x-coord, y-coord)
 
         Parameters
 
@@ -522,7 +523,7 @@ class Window(JSClass):
         Scrolls the document in the window by the given amount.
         Syntax
 
-        window.scrollBy(xDelta, yDelta) 
+        window.scrollBy(xDelta, yDelta)
 
         Parameters
 
@@ -531,13 +532,13 @@ class Window(JSClass):
         yDelta is the amount of pixels to scroll vertically.
         """
         pass
-    
+
     def scrollByLines(self, lines):
         """
         Scrolls the document by the given number of lines.
         Syntax
 
-        window.scrollByLines(lines) 
+        window.scrollByLines(lines)
 
         Parameters
 
@@ -550,7 +551,7 @@ class Window(JSClass):
         Scrolls the current document by the specified number of pages.
         Syntax
 
-        window.scrollByPages(pages) 
+        window.scrollByPages(pages)
 
         Parameters
 
@@ -563,7 +564,7 @@ class Window(JSClass):
         Scrolls to a particular set of coordinates in the document.
         Syntax
 
-        window.scrollTo(x-coord, y-coord) 
+        window.scrollTo(x-coord, y-coord)
 
         Parameters
 
@@ -602,14 +603,14 @@ class Window(JSClass):
         self.timers.append(timer)
         timer.start()
 
-        return len(self.timers) - 1 
+        return len(self.timers) - 1
 
     def setTimeout(self, f, delay = 0, lang = 'JavaScript'):
         """
         Sets a delay for executing a function.
         Syntax
 
-        ID = window.setTimeout("funcName", delay) 
+        ID = window.setTimeout("funcName", delay)
 
         Parameters
 
@@ -635,37 +636,37 @@ class Window(JSClass):
         This method stops window loading.
         Syntax
 
-        window.stop() 
+        window.stop()
 
         Parameters
 
         None.
         """
         pass
-                
+
     def _attachEvent(self, sEvent, fpNotify, useCapture = False):
         log.debug("[attachEvent] %s %s", sEvent, fpNotify)
         setattr(self, sEvent.lower(), fpNotify)
-    
+
     def _detachEvent(self, sEvent, fpNotify):
         log.debug("[detachEvent] %s %s", sEvent, fpNotify)
         notify = getattr(self, sEvent.lower(), None)
         if notify is None:
             return
-    
+
         if notify in (fpNotify, ):
             delattr(self, sEvent.lower())
-    
+
     def _addEventListener(self, _type, listener, useCapture = False):
         log.debug("[addEventListener] %s %s %s", _type, listener, useCapture)
         setattr(self, 'on%s' % (_type.lower(), ), listener)
-    
+
     def _removeEventListener(self, _type, listener, useCapture = False):
         log.debug("[removeEventListener] %s %s %s", _type, listener, useCapture)
         _listener = getattr(self, 'on%s' % (_type.lower(), ), None)
         if _listener is None:
             return
-    
+
         if _listener in (listener, ):
             delattr(self, 'on%s' % (_type.lower(), ))
 
@@ -765,7 +766,7 @@ class Window(JSClass):
             except: #pylint:disable=bare-except
                 log.info(script)
 
-        if len(script) > 64: 
+        if len(script) > 64:
             log.warning("[Window] Eval argument length > 64 (%d)", len(script))
 
         if len(script) > 4:
@@ -834,7 +835,7 @@ class Window(JSClass):
         return result
 
     def unescape(self, s):
-        i  = 0 
+        i  = 0
         sc = list()
 
         if len(s) > 16:
@@ -852,13 +853,13 @@ class Window(JSClass):
 
             if s[i] == '%' and (i + 1) < len(s) and  s[i + 1] == 'u':
                 if (i + 6) <= len(s):
-                    currchar = int(s[i + 2: i + 4], 16) 
-                    nextchar = int(s[i + 4: i + 6], 16) 
+                    currchar = int(s[i + 2: i + 4], 16)
+                    nextchar = int(s[i + 4: i + 6], 16)
                     sc.append(chr(nextchar))
                     sc.append(chr(currchar))
                     i += 6
                 elif (i + 3) <= len(s):
-                    currchar = int(s[i + 2: i + 4], 16) 
+                    currchar = int(s[i + 2: i + 4], 16)
                     sc.append(chr(currchar))
                     i += 3
             else:
@@ -911,9 +912,9 @@ class Window(JSClass):
             url  = 'about:blank'
             html = ''
             kwds = {}
-       
+
         dom = BeautifulSoup.BeautifulSoup(html, "html5lib")
-        
+
         for spec in specs.split(','):
             spec = [s.strip() for s in spec.split('=')]
 
@@ -927,5 +928,5 @@ class Window(JSClass):
             else:
                 kwds['target'] = '_blank'
 
-        return Window(url, dom, navigator = None, personality = self._personality, 
+        return Window(url, dom, navigator = None, personality = self._personality,
                         name = name, parent = self, opener = self, replace = replace, **kwds)
