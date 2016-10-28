@@ -44,7 +44,7 @@ def _doRun(self, p, stage):
         pass
 
     log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
-    log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Code:\n%s", stage, p)
+    log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Code:\n%s" % (stage, p))
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
                                       "Run",
@@ -66,7 +66,7 @@ def _doRun(self, p, stage):
             break
 
         url = s[0]
-        log.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Downloading from URL %s", stage, url)
+        log.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Downloading from URL %s" % (stage, url))
 
         try:
             response = self._window._navigator.fetch(url, redirect_type = "doRun")
@@ -81,7 +81,7 @@ def _doRun(self, p, stage):
 
         md5 = hashlib.md5()
         md5.update(response.content)
-        log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Saving file %s", stage, md5.hexdigest())
+        log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Saving file %s", % (stage, md5.hexdigest()))
         p = '"'.join(s[1:])
 
         self._doRun(response.content, stage + 1)
