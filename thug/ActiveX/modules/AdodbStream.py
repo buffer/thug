@@ -17,7 +17,11 @@ def open(self): #pylint:disable=redefined-builtin
 
 def Write(self, s):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Write")
-    self.fobject.write(unicode(s))
+    try:
+
+        self.fobject.write(unicode(s))
+    except Exception as e:
+        log.ThugLogging.add_behavior_warn("WWWWWWW")
 
 def SaveToFile(self, filename, opt = 0):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] SaveToFile(%s, %s)" % (filename, opt, ))
@@ -59,5 +63,5 @@ def Close(self):
 
 def setPosition(self, pos):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Changed position in fileobject to: (%s)" % (pos, ))
-    self.dict['position'] = pos
+    self.__dict__['position'] = pos
     self.fobject.seek(pos)
