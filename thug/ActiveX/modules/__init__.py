@@ -87,6 +87,7 @@ __all__ = [
             'WinZip',
             'WMEncProfileManager',
             'WScriptShell',
+            'WScriptNetwork',
             'WMP',
             'XMLDOMParseError',
             'XUpload',
