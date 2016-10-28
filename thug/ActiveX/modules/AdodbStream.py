@@ -59,4 +59,5 @@ def Close(self):
 
 def setPosition(self, pos):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Changed position in fileobject to: (%s)" % (pos, ))
+    self.dict['position'] = pos
     self.fobject.seek(pos)
