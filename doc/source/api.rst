@@ -10,21 +10,9 @@ requires subclassing the ThugAPI class. Thug class (defined in *src/thug.py*) is
 great example of such basic usage and it clearly illustrates all the details that should
 be needed in almost every scenario.
 
-Using Thug API is really straightforward as you can see below
-
-.. code-block:: sh
-
-    ~ $ python
-    Python 2.7.10 (default, Nov 18 2015, 17:37:17) 
-    [GCC 4.8.5] on linux2
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>> from thug.ThugAPI import ThugAPI
-    >>> dir(ThugAPI)
-    ['_ThugAPI__run', '__call__', '__class__', '__delattr__', '__dict__', '__doc__', '__format__', '__getattribute__', '__hash__', '__implemented__', '__init__', '__module__', '__new__', '__providedBy__', '__provides__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'add_jsclassifier', 'add_sampleclassifier', 'add_urlclassifier', 'analyze', 'disable_acropdf', 'disable_honeyagent', 'disable_javaplugin', 'disable_shockwave_flash', 'get_broken_url', 'get_delay', 'get_elasticsearch_logging', 'get_events', 'get_extensive', 'get_file_logging', 'get_json_logging', 'get_maec11_logging', 'get_mongodb_address', 'get_proxy', 'get_referer', 'get_threshold', 'get_timeout', 'get_useragent', 'get_vt_runtime_apikey', 'get_web_tracking', 'log_event', 'log_init', 'run_local', 'run_remote', 'set_acropdf_pdf', 'set_ast_debug', 'set_broken_url', 'set_debug', 'set_delay', 'set_elasticsearch_logging', 'set_events', 'set_extensive', 'set_file_logging', 'set_http_debug', 'set_javaplugin', 'set_json_logging', 'set_log_dir', 'set_log_output', 'set_log_quiet', 'set_maec11_logging', 'set_mongodb_address', 'set_no_cache', 'set_no_fetch', 'set_proxy', 'set_referer', 'set_shockwave_flash', 'set_threshold', 'set_timeout', 'set_useragent', 'set_verbose', 'set_vt_query', 'set_vt_runtime_apikey', 'set_vt_submit', 'set_web_tracking', 'usage', 'version']
-
-
-The following example explains how to properly make a basic use of the Thug API. Take
-a look at the interface definition below for more advanced scenarios.
+Using Thug API is really straightforward and the following example explains how to properly 
+make a basic use of the Thug API. Take a look at the interface definition below for more 
+advanced scenarios.
 
 .. code-block:: python
 
@@ -437,6 +425,24 @@ Thug API interface definition is reported below for convenience.
             disable_honeyagent
 
             Disable HoneyAgent Java sandbox analysis
+
+            @return: None
+            """
+
+        def disable_code_logging():
+            """
+            disable_code_logging
+
+            Disable code logging
+
+            @return: None
+            """
+
+        def disable_cert_logging():
+            """
+            disable_cert_logging
+
+            Disable SSL/TLS certificate logging
 
             @return: None
             """
