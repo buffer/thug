@@ -401,6 +401,24 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def disable_code_logging():
+        """
+        disable_code_logging
+
+        Disable code logging
+
+        @return: None
+        """
+
+    def disable_cert_logging():
+        """
+        disable_cert_logging
+
+        Disable SSL/TLS certificate logging
+
+        @return: None
+        """
+
     def log_init(url):
         """
         log_init

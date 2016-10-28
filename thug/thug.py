@@ -90,6 +90,8 @@ Synopsis:
         -M, --maec11-logging    \tEnable MAEC11 logging mode (default: disabled)
         -G, --elasticsearch-logging\tEnable ElasticSearch logging mode (default: disabled)
         -D, --mongodb-address=  \tSpecify address and port of the MongoDB instance (format: host:port)
+        -Y, --no-code-logging   \tDisable code logging
+        -U, --no-cert-logging   \tDisable SSL/TLS certificate logging
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
@@ -107,7 +109,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZMGD:b:',
+                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZMGYUD:b:',
                 ['help',
                 'version',
                 'useragent=',
@@ -146,6 +148,8 @@ Synopsis:
                 'json-logging',
                 'maec11-logging',
                 'elasticsearch-logging',
+                'no-code-logging',
+                'no-cert-logging',
                 'mongodb-address=',
                 'vt-apikey=',
                 ])
@@ -234,6 +238,10 @@ Synopsis:
                 self.set_maec11_logging()
             elif option[0] in ('-G', '--elasticsearch-logging', ):
                 self.set_elasticsearch_logging()
+            elif option[0] in ('-Y', '--no-code-logging', ):
+                self.disable_code_logging()
+            elif option[0] in ('-U', '--no-cert-logging', ):
+                self.disable_cert_logging()
             elif option[0] in ('-D', '--mongodb-address', ):
                 self.set_mongodb_address(option[1])
 

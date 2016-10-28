@@ -104,6 +104,9 @@ class ThugLogging(BaseLogging, SampleLogging):
         return len(s) < self.eval_min_length_logging
 
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis", check = False):
+        if not log.ThugOpts.code_logging:
+            return
+
         if check and self.check_snippet(snippet):
             return
 
@@ -236,6 +239,9 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.log_connection(referer, url, "href")
 
     def log_certificate(self, url, certificate):
+        if not log.ThugOpts.cert_logging:
+            return
+
         self.add_behavior_warn("[Certificate]\n %s" % (certificate, ))
 
         for m in self.resolve_method('log_certificate'):

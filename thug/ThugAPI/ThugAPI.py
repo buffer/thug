@@ -204,6 +204,12 @@ class ThugAPI(object):
     def disable_honeyagent(self):
         log.ThugOpts.honeyagent = False
 
+    def disable_code_logging(self):
+        log.ThugOpts.code_logging = False
+
+    def disable_cert_logging(self):
+        log.ThugOpts.cert_logging = False
+
     def log_init(self, url):
         log.ThugLogging = ThugLogging(thug.__version__)
         log.ThugLogging.set_basedir(url)
