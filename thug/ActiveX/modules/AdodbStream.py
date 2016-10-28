@@ -17,8 +17,8 @@ def open(self): #pylint:disable=redefined-builtin
 
 def Write(self, s):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Write")
-        self.fobject.write(unicode(s))
-    
+    self.fobject.write(unicode(s))
+
 def SaveToFile(self, filename, opt = 0):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] SaveToFile(%s, %s)" % (filename, opt, ))
     log.ThugLogging.log_exploit_event(self._window.url,
