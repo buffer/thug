@@ -39,6 +39,16 @@ class Personality(dict):
                 with open(os.path.join(root, f)) as personality:
                     self[name] = json.load(personality)
 
+                # Shell variables are case insensitive, will process them
+                # to make sure all keys in the dict are lowercase.
+                for k, v in self[name].pop('shellVariables', dict()).iteritems():
+                    self[name]['shellVariables'][k.lower()] = v
+
+                # Special folder names are case insensitive, will process them
+                # to make sure all keys in the dict are lowercase.
+                for k, v in self[name].pop('specialFolders', dict()).iteritems():
+                    self[name]['specialFolders'][k.lower()] = v
+
     @property
     def userAgent(self):
         return self[log.ThugOpts.useragent]['userAgent']
@@ -78,7 +88,7 @@ class Personality(dict):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('opera')
 
     def getShellVariable(self, variableName):
-        return self[log.ThugOpts.useragent].get('shellVariables', dict()).get(variableName.strip("%"), '')
+        return self[log.ThugOpts.useragent].get('shellVariables', dict()).get(variableName.strip("%").lower(), '')
 
     def getSpecialFolder(self, folderName):
-        return self[log.ThugOpts.useragent].get('specialFolders', dict()).get(folderName, '')
+        return self[log.ThugOpts.useragent].get('specialFolders', dict()).get(folderName.lower(), '')
