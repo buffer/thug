@@ -81,7 +81,7 @@ def _doRun(self, p, stage):
 
         md5 = hashlib.md5()
         md5.update(response.content)
-        log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Saving file %s", % (stage, md5.hexdigest()))
+        log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Saving file %s" % (stage, md5.hexdigest()))
         p = '"'.join(s[1:])
 
         self._doRun(response.content, stage + 1)
