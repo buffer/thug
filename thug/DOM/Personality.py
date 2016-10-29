@@ -42,11 +42,17 @@ class Personality(dict):
                 # Shell variables are case insensitive, will process them
                 # to make sure all keys in the dict are lowercase.
                 for k, v in self[name].pop('shellVariables', dict()).iteritems():
+                    if not 'shellVariables' in self[name]:
+                        self[name]['shellVariables'] = dict()
+
                     self[name]['shellVariables'][k.lower()] = v
 
                 # Special folder names are case insensitive, will process them
                 # to make sure all keys in the dict are lowercase.
                 for k, v in self[name].pop('specialFolders', dict()).iteritems():
+                    if not 'specialFolders' in self[name]:
+                        self[name]['specialFolders'] = dict()
+
                     self[name]['specialFolders'][k.lower()] = v
 
     @property
