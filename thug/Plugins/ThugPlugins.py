@@ -73,7 +73,7 @@ class ThugPlugins(object):
             if not os.path.isdir(pkg):
                 continue
         
-            if not HANDLER_MODULE in os.listdir(pkg):
+            if HANDLER_MODULE not in os.listdir(pkg):
                 continue
 
             plugin_info = p.split('-')
