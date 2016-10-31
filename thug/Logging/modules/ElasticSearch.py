@@ -87,7 +87,7 @@ class ElasticSearch(JSON):
             log.warning("[WARNING] ElasticSearch instance not properly initialized")
             return False
 
-        self.es.indices.create(index = self.opts['index'], ignore = 400)
+        self.es.indices.create(index = self.opts['index'], ignore = 400) #pylint:disable=unexpected-keyword-arg
         return True
 
     def export(self, basedir):
