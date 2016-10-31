@@ -99,9 +99,7 @@ class ThugPlugins(object):
 
             handler = getattr(module, "Handler", None)
             if handler:
-                log.warning("[PLUGIN][%s] Phase: %s_ANALYSIS Priority: %d" % (name.split('-')[1],
-                                                                              self.phase,
-                                                                              prio))
+                log.warning("[PLUGIN][%s] Phase: %s_ANALYSIS Priority: %d", name.split('-')[1], self.phase, prio)
                 p = handler()
                 try:
                     verifyObject(IPlugin, p)
