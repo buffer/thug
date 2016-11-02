@@ -892,6 +892,11 @@ class Window(JSClass):
 
             html = response.content
 
+            try:
+                log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else url, html)
+            except: #pylint:disable=bare-except
+                pass
+
             if response.history:
                 url = response.url
 

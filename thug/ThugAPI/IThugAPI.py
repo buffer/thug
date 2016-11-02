@@ -508,6 +508,17 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def add_htmlclassifier(rule):
+        """
+        add_htmlclassifier
+
+        Add an additional HTML classifier rule file
+
+        @param rule: HTML classifier rule file
+        @type rule: C{str}
+        @return: None
+        """
+
     def add_jsclassifier(rule):
         """
         add_jsclassifier

@@ -80,9 +80,10 @@ Synopsis:
         -K, --no-javaplugin     \tDisable Java plugin
 
         Classifiers:
-        -Q, --urlclassifier     \tSpecify a list of additional (comma separated) URL classifier rule files
-        -W, --jsclassifier      \tSpecify a list of additional (comma separated) JS classifier rule files
-        -C, --sampleclassifier  \tSpecify a list of additional (comma separated) sample classifier rule files
+        -L, --htmlclassifier=   \tSpecify a list of additional (comma separated) HTML classifier rule files
+        -Q, --urlclassifier=    \tSpecify a list of additional (comma separated) URL classifier rule files
+        -W, --jsclassifier=     \tSpecify a list of additional (comma separated) JS classifier rule files
+        -C, --sampleclassifier= \tSpecify a list of additional (comma separated) sample classifier rule files
 
         Logging:
         -F, --file-logging      \tEnable file logging mode (default: disabled)
@@ -109,7 +110,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZMGYUD:b:',
+                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BL:Q:W:C:FZMGYUD:b:',
                 ['help',
                 'version',
                 'useragent=',
@@ -141,6 +142,7 @@ Synopsis:
                 'extensive',
                 'timeout=',
                 'broken-url',
+                'htmlclassifier=',
                 'urlclassifier=',
                 'jsclassifier=',
                 'sampleclassifier=',
@@ -219,6 +221,9 @@ Synopsis:
                 self.set_extensive()
             elif option[0] in ('-T', '--timeout', ):
                 self.set_timeout(option[1])
+            elif option[0] in ('-L', '--htmlclassifier'):
+                for classifier in option[1].split(','):
+                    self.add_htmlclassifier(os.path.abspath(classifier))
             elif option[0] in ('-Q', '--urlclassifier'):
                 for classifier in option[1].split(','):
                     self.add_urlclassifier(os.path.abspath(classifier))

@@ -47,6 +47,7 @@ from .ThugVulnModules import ThugVulnModules
 from .OpaqueFilter import OpaqueFilter
 from .abstractmethod import abstractmethod
 
+from thug.Classifier.HTMLClassifier import HTMLClassifier
 from thug.Classifier.JSClassifier import JSClassifier
 from thug.Classifier.URLClassifier import URLClassifier
 from thug.Classifier.SampleClassifier import SampleClassifier
@@ -65,6 +66,7 @@ class ThugAPI(object):
         log.WebTracking         = WebTracking()
         log.MIMEHandler         = MIMEHandler()
         log.SchemeHandler       = SchemeHandler()
+        log.HTMLClassifier      = HTMLClassifier()
         log.JSClassifier        = JSClassifier()
         log.URLClassifier       = URLClassifier()
         log.SampleClassifier    = SampleClassifier()
@@ -244,6 +246,9 @@ class ThugAPI(object):
 
     def set_mongodb_address(self, mongodb_address):
         log.ThugOpts.mongodb_address = mongodb_address
+
+    def add_htmlclassifier(self, rule):
+        log.HTMLClassifier.add_rule(rule)
 
     def add_urlclassifier(self, rule):
         log.URLClassifier.add_rule(rule)
