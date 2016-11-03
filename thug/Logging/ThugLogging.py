@@ -195,6 +195,20 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_exploit_event'):
             m(url, module, description, cve = cve, data = data)
 
+    def log_classifier(self, classifier, url, rule, tags):
+        """
+        Log classifiers matching for a given url
+
+        @classifier     Classifier name
+        @url            URL where the rule match occurred
+        @rule           Rule name
+        @tags           Rule tags
+        """
+        self.add_behavior_warn("[%s Classifier] URL: %s (Rule: %s, Classification: %s)" % (classifier.upper(), url, rule, tags, ))
+
+        for m in self.resolve_method('log_classifier'):
+            m(classifier, url, rule, tags)
+
     def log_warning(self, data):
         log.warning(data)
 

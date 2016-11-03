@@ -32,6 +32,6 @@ class JSClassifier(BaseClassifier):
         for match in self.rules.match(data = script):
             self.matches.append((url, match))
 
-            rule = " ".join(match.rule.split('_'))
+            rule = match.rule
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
-            log.ThugLogging.add_behavior_warn("[JS Classifier] URL: %s (Rule: %s, Classification: %s)" % (url, rule, tags, ))
+            log.ThugLogging.log_classifier("js", url, rule, tags)

@@ -82,7 +82,8 @@ class JSON(object):
                         "files"       : [],
                         "connections" : [],
                         "locations"   : [],
-                        "exploits"    : []
+                        "exploits"    : [],
+                        "classifiers" : [],
                     }
 
     @property
@@ -206,6 +207,23 @@ class JSON(object):
                                       "description" : description,
                                       "cve"         : cve,
                                       "data"        : data})
+
+    def log_classifier(self, classifier, url, rule, tags):
+        """
+        Log classifiers matching for a given url
+
+        @classifier     Classifier name
+        @url            URL where the rule match occurred
+        @rule           Rule name
+        @tags           Rule tags
+        """
+        if not self.json_enabled:
+            return
+
+        self.data["classifiers"].append({"classifier" : classifier,
+                                         "url"        : self.fix(url),
+                                         "rule"       : rule,
+                                         "tags"       : tags})
 
     def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
         if not self.json_enabled:
