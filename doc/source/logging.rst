@@ -216,6 +216,22 @@ identified during the analysis while visiting the URL referenced by *url_id*.
             'data'        : Additional information
         }
 
+classifiers
+^^^^^^^^^^^
+
+The collection *classifiers* is used to keep track of the Thug classifiers matches that
+fire during the analysis while visiting the URL referenced by *url_id*.
+
+.. code-block:: sh
+
+        {
+            'analysis_id' : Analysis ID
+            'url_id'      : URL url_id
+            'classifier'  : Classifier name (possible values: html, js, url, sample)
+            'rule'        : Rule name
+            'tags'        : Rule tags
+        }
+
 codes
 ^^^^^
 
@@ -465,7 +481,8 @@ in a JSON file in the log directory too. The JSON format is shown below.
         "files"       : [],
         "connections" : [],
         "locations"   : [],
-        "exploits"    : []
+        "exploits"    : [],
+        "classifiers" : []
     }
 
 
@@ -542,12 +559,25 @@ exploits
 .. code-block:: sh
 
         {
-            'url'         : URL url
+            'url'         : URL
             'module'      : Module/ActiveX Control, etc. that gets exploited
             'description' : Description of the exploit
             'cve'         : CVE number (if available)
             'data'        : Additional information
         }
+
+classifiers
+-----------
+
+.. code-block:: sh
+
+        {
+            "classifier"  : Classifier (possible values: html, js, url, sample)
+            'url'         : URL
+            'rule'        : Rule name
+            'tags'        : Rule tags
+        }
+
 
 MAEC 1.1 logging mode
 =====================
