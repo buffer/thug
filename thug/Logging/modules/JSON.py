@@ -220,10 +220,13 @@ class JSON(object):
         if not self.json_enabled:
             return
 
-        self.data["classifiers"].append({"classifier" : classifier,
-                                         "url"        : self.fix(url),
-                                         "rule"       : rule,
-                                         "tags"       : tags})
+        item = {"classifier" : classifier,
+                "url"        : self.fix(url),
+                "rule"       : rule,
+                "tags"       : tags}
+
+        if item not in self.data["classifiers"]:
+            self.data["classifiers"].append(item)
 
     def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
         if not self.json_enabled:
