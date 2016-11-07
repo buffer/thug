@@ -63,7 +63,7 @@ Synopsis:
         -g, --http-debug        \tEnable HTTP debug mode
         -t, --threshold         \tMaximum pages to fetch
         -E, --extensive         \tExtensive fetch of linked pages
-        -T, --timeout=          \tSet the analysis timeout (in seconds)
+        -T, --timeout=          \tSet the analysis timeout (in seconds, default: 600 seconds)
         -B, --broken-url        \tSet the broken URL mode
         -y, --vtquery           \tQuery VirusTotal for samples analysis
         -s, --vtsubmit          \tSubmit samples to VirusTotal

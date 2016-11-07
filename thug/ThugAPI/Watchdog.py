@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# HTTPSession.py
+# Watchdog.py
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -16,16 +16,28 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import requests
+import os
+import signal
+import logging
 
-class AboutBlank(requests.RequestException): 
-    pass
+log = logging.getLogger("Thug")
 
-class FetchForbidden(requests.RequestException):
-    pass
 
-class InvalidUrl(requests.RequestException):
-    pass
+class Watchdog(object):
+    def __init__(self, time, callback = None):
+        self.time     = time
+        self.callback = callback 
 
-class ThresholdExpired(requests.RequestException):
-    pass
+    def __enter__(self):
+        signal.signal(signal.SIGALRM, self.handler)
+        signal.alarm(self.time)
+
+    def __exit__(self, type, value, traceback):
+        signal.alarm(0)
+
+    def handler(self, signum, frame):
+        log.critical("The analysis took more than {:d} seconds. Aborting!".format(self.time))
+        if self.callback:
+            self.callback(signum, frame)
+
+        os.kill(os.getpid(), signal.SIGTERM)

@@ -29,7 +29,6 @@ from .HTTPSessionException import AboutBlank
 from .HTTPSessionException import FetchForbidden
 from .HTTPSessionException import InvalidUrl
 from .HTTPSessionException import ThresholdExpired
-from .HTTPSessionException import TimeoutExpired
 from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
@@ -311,12 +310,6 @@ class Navigator(JSClass):
         # fetching the contents.
         if log.HTTPSession.threshold_expired(url):
             raise ThresholdExpired
-
-        # The command-line option -T (--timeout) set the analysis timeout
-        # (in seconds). If the analysis lasts more than this value avoid
-        # fetching the contents.
-        if log.HTTPSession.timeout_expired(url):
-            raise TimeoutExpired
 
         if headers is None:
             headers = dict()

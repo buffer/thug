@@ -179,16 +179,6 @@ class HTTPSession(object):
 
         return False
 
-    def timeout_expired(self, url):
-        if log.ThugOpts.timeout is None:
-            return False
-
-        if datetime.datetime.now() > log.ThugOpts.timeout:
-            log.ThugLogging.log_location(url, None, flags = {"error" : "Timeout"})
-            return True
-
-        return False
-
     def handle_status_code_error_404(self, response):
         log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (response.url, ))
         log.ThugLogging.log_location(response.url, None, flags = {"error" : "File Not Found"})

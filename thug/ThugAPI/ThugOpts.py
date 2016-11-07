@@ -18,7 +18,6 @@
 
 import sys
 import os
-import datetime
 import logging
 
 try:
@@ -40,8 +39,7 @@ class ThugOpts(dict):
         self.local            = False
         self.extensive        = False
         self._threshold       = 0
-        self._timeout         = None
-        self._timeout_in_secs = None
+        self._timeout         = 600
         self.ast_debug        = False
         self.http_debug       = 0
         self._useragent       = 'winxpie60'
@@ -204,17 +202,13 @@ class ThugOpts(dict):
         return self._timeout
 
     def set_timeout(self, timeout):
-        self._timeout_in_secs = timeout
-
         try:
             seconds = int(timeout)
         except ValueError:
             log.warning('[WARNING] Ignoring invalid timeout value (should be an integer)')
             return
 
-        now   = datetime.datetime.now()
-        delta = datetime.timedelta(seconds = seconds)
-        self._timeout = now + delta
+        self._timeout = seconds
 
     timeout = property(get_timeout, set_timeout)
 

@@ -45,6 +45,7 @@ from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
 from .ThugVulnModules import ThugVulnModules
 from .OpaqueFilter import OpaqueFilter
+from .Watchdog import Watchdog
 from .abstractmethod import abstractmethod
 
 from thug.Classifier.HTMLClassifier import HTMLClassifier
@@ -262,10 +263,14 @@ class ThugAPI(object):
     def log_event(self):
         log.ThugLogging.log_event()
 
+    def watchdog_cb(self, signum, frame):
+        pass
+
     def __run(self, window):
         with PyV8.JSLocker():
-            dft = DFT(window)
-            dft.run()
+            with Watchdog(log.ThugOpts.timeout, callback = self.watchdog_cb):
+                dft = DFT(window)
+                dft.run()
 
     def run_local(self, url):
         log.ThugLogging.set_url(url)
