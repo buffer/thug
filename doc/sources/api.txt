@@ -645,4 +645,3 @@ Thug API interface definition is reported below for convenience.
             instance (in such case implementing it is mandatory) on your requirements. This
             method can reference just  the (optional) 'args' attribute. Returning something
             from this method is up to you if needed.
-            """
