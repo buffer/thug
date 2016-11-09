@@ -17,6 +17,7 @@
 # MA  02111-1307  USA
 
 import sys
+import socket
 import datetime
 import requests
 import ssl
@@ -40,6 +41,11 @@ class HTTPSession(object):
         self.__init_session(proxy)
         self.filecount = 0
 
+    def __check_proxy_alive(self, hostname, port):
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((hostname, port))
+        s.close()
+
     def __do_init_proxy(self, proxy):
         url = urlparse.urlparse(proxy)
         if not url.scheme:
@@ -47,6 +53,12 @@ class HTTPSession(object):
 
         if not url.scheme.lower().startswith(('http', 'socks4', 'socks5')):
             return False
+
+        try:
+            self.__check_proxy_alive(url.hostname, url.port)
+        except:
+            log.critical("[CRITICAL] Proxy not available. Aborting the analysis!")
+            sys.exit(0)
 
         self.session.proxies = {
             'http'  : proxy,
@@ -62,7 +74,7 @@ class HTTPSession(object):
         if self.__do_init_proxy(proxy):
             return
 
-        log.warning("[WARNING] Wrong proxy specified. Aborting the analysis!")
+        log.critical("[CRITICAL] Wrong proxy specified. Aborting the analysis!")
         sys.exit(0)
 
     def __init_session(self, proxy):
