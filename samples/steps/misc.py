@@ -22,7 +22,6 @@ class Misc(ThugAPI):
 
         self.set_useragent('win7ie90')
         self.set_events('click,storage')
-        self.set_timeout(1)
         self.log_init(sample)
         self.run_local(sample)
 
