@@ -193,7 +193,7 @@ class MongoDB(object):
                                     "events"         : log.ThugOpts.events,
                                     "delay"          : log.ThugOpts.delay,
                                     "referer"        : log.ThugOpts.referer,
-                                    "timeout"        : log.ThugOpts._timeout_in_secs,
+                                    "timeout"        : log.ThugOpts.timeout,
                                     "threshold"      : log.ThugOpts.threshold,
                                     "extensive"      : log.ThugOpts.extensive,
                                 },
