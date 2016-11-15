@@ -675,6 +675,7 @@ CLSID = [
                             'setRequestHeader'      : MicrosoftXMLHTTP.setRequestHeader,
                             'getResponseHeader'     : MicrosoftXMLHTTP.getResponseHeader,
                             'getAllResponseHeaders' : MicrosoftXMLHTTP.getAllResponseHeaders,
+                            'overrideMimeType'      : MicrosoftXMLHTTP.overrideMimeType,
                           }
         },
 

@@ -72,6 +72,8 @@ def send(self, varBody = None):
                                              }
                                      )
 
+    response = None
+
     try:
         response = self._window._navigator.fetch(self.bstrUrl,
                                                  method        = self.bstrMethod,
@@ -144,3 +146,7 @@ def getAllResponseHeaders(self):
                                       body    = body)
     except: #pylint:disable=bare-except
         pass
+
+
+def overrideMimeType(self, mimetype):
+    pass
