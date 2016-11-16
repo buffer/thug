@@ -180,5 +180,6 @@ Feature: Exploits
 			| testSessionStorage.html                      | key1,key2,value1,value3                                                                                                                                  |
 			| testSetInterval.html                         | [Window] Alert Text: Hello                                                                                                                               |
 			| testText.html                                | <p id="p1">First line of paragraph.<br/> Some text added dynamically. </p>                                                                               |
+			| testWindowOnload.html                        | [Window] Alert Text: Fired                                                                                                                               |
 			| test_click.html                              | [window open redirection] about:blank -> https://www.google.com                                                                                          |
 		then run misc
