@@ -786,6 +786,9 @@ class Window(JSClass):
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
 
+        if log.ThugOpts.Personality.browserMajorVersion > 32:
+            self.RadioNodeList = None
+
     def __init_personality_Chrome(self):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
