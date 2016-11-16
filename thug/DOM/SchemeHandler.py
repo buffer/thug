@@ -27,3 +27,11 @@ class SchemeHandler(object):
             return
 
         window.evalScript(hcp[0])
+
+    def handle_res(self, window, url):
+        log.warning('Microsoft Internet Explorer RES Scheme Detected')
+
+        try:
+            log.URLClassifier.classify(url)
+        except: #pylint:disable=bare-except
+            pass
