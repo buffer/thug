@@ -47,6 +47,7 @@ from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
 from .LocalStorage import LocalStorage
 from .SessionStorage import SessionStorage
+from .w3c_bindings import w3c_bindings
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.AST.AST import AST
 from thug.Debugger import Shellcode
@@ -107,6 +108,8 @@ class Window(JSClass):
         
         self.doc.window        = self
         self.doc.contentWindow = self
+        for p in w3c_bindings:
+            setattr(self, p, w3c_bindings[p])
          
         self._navigator = navigator if navigator else Navigator(personality, self)
         self._location  = Location(self)
