@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 
+import logging
+log = logging.getLogger("Thug")
+
+from thug.DOM.W3C.DOMException import DOMException
+
+
 class CSSStyleDeclaration(object):
     def __init__(self, style):
         #self.props = dict([prop.strip().split(': ') for prop in style.split(';') if prop])
@@ -34,6 +40,9 @@ class CSSStyleDeclaration(object):
 
     def item(self, index):
         if type(index) == str:
+            if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 7 and index in ('maxHeight', ):
+                raise AttributeError(index)
+
             return self.props.get(index, '')
 
         if index < 0 or index >= len(self.props):
@@ -42,6 +51,9 @@ class CSSStyleDeclaration(object):
         return self.props[self.props.keys()[index]]
 
     def __getattr__(self, name):
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 7 and name in ('maxHeight', ):
+            raise AttributeError(name)
+
         if hasattr(object, name):
             return object.__getattribute__(self, name)
         else:
