@@ -795,6 +795,7 @@ class Window(JSClass):
         self.console             = Console()
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
+        self.onmousewheel        = None
 
     def __init_personality_Safari(self):
         self.addEventListener    = self._addEventListener
@@ -803,6 +804,7 @@ class Window(JSClass):
         self.console             = Console()
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
+        self.onmousewheel        = None
 
     def __init_personality_Opera(self):
         self.addEventListener    = self._addEventListener
