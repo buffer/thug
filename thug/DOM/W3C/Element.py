@@ -112,7 +112,10 @@ class Element(Node, ElementCSSInlineStyle):
        
     @property
     def nodeName(self):
-        return self.tagName
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion == 10:
+            return self.tagName.upper()
+
+        return self.tagName.lower()
     
     @property
     def nodeValue(self):
