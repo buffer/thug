@@ -758,7 +758,10 @@ class Window(JSClass):
         self.clientInformation = self.navigator
         self.clipboardData     = ClipboardData()
         self.external          = External()
-        #_ActiveXObject(self, "WScript.Shell")
+
+        self.ScriptEngineMajorVersion = log.ThugOpts.Personality.ScriptEngineMajorVersion
+        self.ScriptEngineMinorVersion = log.ThugOpts.Personality.ScriptEngineMinorVersion
+        self.ScriptEngineBuildVersion = log.ThugOpts.Personality.ScriptEngineBuildVersion
 
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             self.attachEvent = self._attachEvent
