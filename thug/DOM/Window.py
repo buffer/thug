@@ -25,6 +25,9 @@ import traceback
 import urllib
 import bs4 as BeautifulSoup
 import jsbeautifier
+import new
+import numbers
+import datetime
 import six
 from .W3C import w3c
 from .W3C.HTML.HTMLCollection import HTMLCollection
@@ -135,20 +138,72 @@ class Window(JSClass):
         self.java          = java()
 
         self._symbols      = set()
+        self._methods      = tuple()
 
         log.MIMEHandler.window = self
 
     def __getattr__(self, key):
+        if key in self._symbols:
+            raise AttributeError(key)
+
+        if key in ('__members__', '__methods__'):
+            raise AttributeError(key)
+
+        if key == 'constructor':
+            return PyV8.JSClassConstructor(self.__class__)
+
+        if key == 'prototype':
+            return PyV8.JSClassPrototype(self.__class__)
+
+        prop = self.__dict__.setdefault('__properties__', {}).get(key, None)
+
+        if prop and isinstance(prop[0], collections.Callable):
+            return prop[0]()
+
         if log.ThugOpts.Personality.isIE() and key.lower() in ('wscript', ):
             # Prevent _ActiveXObject loops
             super(Window, self).__setattr__("WScript", None)
-
             WScript = _ActiveXObject(self, "WScript.Shell")
             super(Window, self).__setattr__(key, WScript)
             super(Window, self).__setattr__("WScript", WScript)
             return WScript
 
-        return super(Window, self).__getattr__(key)
+        context = self.__class__.__dict__['context'].__get__(self, Window)
+
+        log.debug(key)
+
+        try:
+            self._symbols.add(key)
+            symbol = context.eval(key)
+        except:
+            raise AttributeError(key)
+        finally:
+            self._symbols.discard(key)
+
+        if isinstance(symbol, PyV8.JSFunction):
+            _method = None
+
+            if symbol in self._methods:
+                _method = symbol.clone()
+
+            if _method is None:
+                _method = new.instancemethod(symbol, self, Window)
+                #_method = symbol.__get__(self, Window)
+
+            setattr(self, key, _method)
+            context.locals[key] = _method
+            return _method
+
+        if isinstance(symbol, (six.string_types,
+                               bool,
+                               numbers.Number,
+                               datetime.datetime,
+                               PyV8.JSObject)):
+            setattr(self, key, symbol)
+            context.locals[key] = symbol
+            return symbol
+
+        raise AttributeError(key)
 
     @property 
     def closed(self):
