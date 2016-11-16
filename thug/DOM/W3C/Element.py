@@ -17,6 +17,7 @@ from .NamedNodeMap import NamedNodeMap
 from .Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 log = logging.getLogger("Thug")
 
+
 class Element(Node, ElementCSSInlineStyle):
     def __init__(self, doc, tag):
         self.tag       = tag

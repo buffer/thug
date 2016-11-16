@@ -22,4 +22,3 @@ class Notation(Node):
     @property
     def nodeValue(self):
         return None
-
