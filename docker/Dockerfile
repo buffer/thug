@@ -53,7 +53,8 @@ RUN apt-get update && \
     autoconf && \
   rm -rf /var/lib/apt/lists/*
 
-RUN easy_install -U setuptools pygraphviz
+RUN easy_install -U setuptools
+RUN pip install pygraphviz --install-option="--include-path=/usr/include/graphviz" --install-option="--library-path=/usr/lib/graphviz/"
 
 WORKDIR /home
 
