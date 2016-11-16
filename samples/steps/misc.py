@@ -22,6 +22,7 @@ class Misc(ThugAPI):
 
         self.set_useragent('win7ie90')
         self.set_events('click,storage')
+        self.disable_cert_logging()
         self.log_init(sample)
         self.run_local(sample)
 
