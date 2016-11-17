@@ -175,6 +175,7 @@ class HTTPSession(object):
         response = fetcher(url, 
                            headers = _headers, 
                            timeout = 10,
+                           data    = body,
                            verify  = False)
         
         self.filecount += 1
