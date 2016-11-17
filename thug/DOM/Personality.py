@@ -78,6 +78,9 @@ class Personality(dict):
     def isIE(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('ie')
 
+    def isEdge(self):
+        return self[log.ThugOpts.useragent]['browserTag'].startswith('edge')
+
     def isWindows(self):
         return log.ThugOpts.useragent.startswith('win')
 
