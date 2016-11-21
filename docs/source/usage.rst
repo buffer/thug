@@ -25,7 +25,8 @@ Let's start our Thug tour by taking a look at the options it provides.
     Options:
         -h, --help                      Display this help information
         -V, --version                   Display Thug version
-        -u, --useragent=                Select a user agent (see below for values, default: winxpie60)
+        -b, --list-ua                   Display available user agents
+        -u, --useragent=                Select a user agent (use option -b for values, default: winxpie60)
         -e, --events=                   Enable comma-separated specified DOM events handling
         -w, --delay=                    Set a maximum setTimeout/setInterval delay value (in milliseconds)
         -n, --logdir=                   Set the log output directory
@@ -74,6 +75,16 @@ Let's start our Thug tour by taking a look at the options it provides.
                                 
     Proxy Format:               
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
+
+
+Before diving deep into details let's take a look at the available personalities
+
+.. code-block:: sh
+
+    $ thug --list-ua
+
+    Synopsis:
+        Thug: Pure Python honeyclient implementation
 
     Available User-Agents:
         winxpie60                       Internet Explorer 6.0   (Windows XP)
