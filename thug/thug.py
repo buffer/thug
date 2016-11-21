@@ -46,7 +46,8 @@ Synopsis:
     Options:
         -h, --help              \tDisplay this help information
         -V, --version           \tDisplay Thug version
-        -u, --useragent=        \tSelect a user agent (see below for values, default: winxpie60)
+        -b, --list-ua           \tDisplay available user agents
+        -u, --useragent=        \tSelect a user agent (use option -b for values, default: winxpie60)
         -e, --events=           \tEnable comma-separated specified DOM events handling
         -w, --delay=            \tSet a maximum setTimeout/setInterval delay value (in milliseconds)
         -n, --logdir=           \tSet the log output directory
@@ -96,9 +97,19 @@ Synopsis:
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
+"""
+
+        print(msg)
+        sys.exit(0)
+
+    def list_ua(self):
+        msg = """
+Synopsis:
+    Thug: Pure Python honeyclient implementation
 
     Available User-Agents:
 """
+
         for key, value in sorted(iter(log.ThugOpts.Personality.items()), key = lambda k_v: (k_v[1]['id'], k_v[0])):
             msg += "\t%s\t\t\t%s\n" % (key, value['description'], )
 
@@ -110,9 +121,10 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BL:Q:W:C:FZMGYUD:b:',
+                                          'hVbu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BL:Q:W:C:FZMGYUD:b:',
                 ['help',
                 'version',
+                'list-ua',
                 'useragent=',
                 'events=',
                 'delay=',
@@ -166,6 +178,8 @@ Synopsis:
                 self.usage()
             elif option[0] in ('-V', '--version'):
                 self.version()
+            elif option[0] in ('-b', '--list-ua'):
+                self.list_ua()
 
         for option in options:
             if option[0] in ('-u', '--useragent', ):
