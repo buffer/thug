@@ -18,6 +18,16 @@ from .Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 log = logging.getLogger("Thug")
 
 
+FF_STYLES = (
+                (27, 'cursor'   ),
+                (19, 'font-size'),
+            )
+
+FF_INPUTS = (
+                (23, 'range'),
+            )
+
+
 class Element(Node, ElementCSSInlineStyle):
     def __init__(self, doc, tag):
         self.tag       = tag
@@ -193,6 +203,25 @@ class Element(Node, ElementCSSInlineStyle):
     def setAttribute(self, name, value):
         if not isinstance(name, six.string_types):
             name = str(name)
+
+        if log.ThugOpts.Personality.isFirefox():
+            if name in ('style', ):
+                svalue = value.split('-')
+
+                _value = svalue[0]
+                if len(svalue) > 1:
+                    _value = '{}{}'.format(_value, ''.join([s.capitalize() for s in svalue[1:]]))
+
+                for css in [p for p in FF_STYLES if log.ThugOpts.Personality.browserMajorVersion >= p[0]]:
+                    if css[1] in value:
+                        self.tag[name] = _value
+                return
+
+            if name in ('type', ):
+                for inputs in [p for p in FF_INPUTS if log.ThugOpts.Personality.browserMajorVersion > p[0]]:
+                    if input[1] in value:
+                        self.tag[name] = value
+                return
 
         self.tag[name] = value
 
