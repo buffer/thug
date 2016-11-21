@@ -792,6 +792,18 @@ class Window(JSClass):
         if log.ThugOpts.Personality.browserMajorVersion > 32:
             self.RadioNodeList = None
 
+        if log.ThugOpts.Personality.browserMajorVersion > 12:
+            self.Map = object()
+
+        if log.ThugOpts.Personality.browserMajorVersion > 11:
+            self.navigator.mozConnection = object()
+
+        with self.context as ctxt:
+            if log.ThugOpts.Personality.browserMajorVersion <= 20:
+                ctxt.eval("delete Math.imul;")
+            if log.ThugOpts.Personality.browserMajorVersion <= 4:
+                ctxt.eval("delete Array.isArray;")
+
     def __init_personality_Chrome(self):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
