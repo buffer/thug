@@ -59,12 +59,14 @@ def loadXML(self, bstrXML):
 
     for p in bstrXML.split('"'):
         if p.startswith("res://"):
+            log.URLClassifier.classify(p)
             log.ThugLogging.add_behavior_warn("[Microsoft XMLDOM ActiveX] Attempting to load %s" % (p, ))
             if any(sys.lower() in p.lower() for sys in security_sys):
                 self.parseError._errorCode = 0
 
     for p in bstrXML.split("'"):
         if p.startswith("res://"):
+            log.URLClassifier.classify(p)
             log.ThugLogging.add_behavior_warn("[Microsoft XMLDOM ActiveX] Attempting to load %s" % (p, ))
             if any(sys.lower() in p.lower() for sys in security_sys):
                 self.parseError._errorCode = 0
