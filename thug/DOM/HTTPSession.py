@@ -172,11 +172,15 @@ class HTTPSession(object):
             headers = dict()
 
         _headers = self.build_http_headers(window, personality, headers)
-        response = fetcher(url, 
-                           headers = _headers, 
-                           timeout = 10,
-                           data    = body,
-                           verify  = False)
+
+        try:
+            response = fetcher(url,
+                               headers = _headers,
+                               timeout = 10,
+                               data    = body,
+                               verify  = False)
+        except requests.ConnectionError as e:
+            log.ThugLogging.log_warning("[HTTPSession] {0}".format(e.message))
         
         self.filecount += 1
         log.WebTracking.inspect_response(response)
