@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.8.10 documentation</title>
+    <title>Usage &mdash; Thug 0.8.11 documentation</title>
     
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.10',
+        VERSION:     '0.8.11',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.8.10 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8.11 documentation" href="index.html" />
     <link rel="next" title="Thug API" href="api.html" />
     <link rel="prev" title="Configuration" href="configuration.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.10 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.11 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -69,7 +69,8 @@ Usage:
 Options:
     -h, --help                      Display this <span class="nb">help</span> information
     -V, --version                   Display Thug version
-    -u, --useragent<span class="o">=</span>                Select a user agent <span class="o">(</span>see below <span class="k">for</span> values, default: winxpie60<span class="o">)</span>
+    -b, --list-ua                   Display available user agents
+    -u, --useragent<span class="o">=</span>                Select a user agent <span class="o">(</span>use option -b <span class="k">for</span> values, default: winxpie60<span class="o">)</span>
     -e, --events<span class="o">=</span>                   Enable comma-separated specified DOM events handling
     -w, --delay<span class="o">=</span>                    Set a maximum setTimeout/setInterval delay value <span class="o">(</span>in milliseconds<span class="o">)</span>
     -n, --logdir<span class="o">=</span>                   Set the log output directory
@@ -118,6 +119,13 @@ Options:
 
 Proxy Format:
     scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port <span class="o">(</span>supported schemes: http, socks4, socks5<span class="o">)</span>
+</pre></div>
+</div>
+<p>Before diving deep into details let&#8217;s take a look at the available personalities</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>$ thug --list-ua
+
+Synopsis:
+    Thug: Pure Python honeyclient implementation
 
 Available User-Agents:
     winxpie60                       Internet Explorer 6.0   <span class="o">(</span>Windows XP<span class="o">)</span>
@@ -137,13 +145,13 @@ Available User-Agents:
     win7chrome49                    Chrome 49.0.2623.87     <span class="o">(</span>Windows 7<span class="o">)</span>
     win7firefox3                    Firefox 3.6.13          <span class="o">(</span>Windows 7<span class="o">)</span>
     win7safari5                     Safari 5.1.7            <span class="o">(</span>Windows 7<span class="o">)</span>
-    win10edge20                     Microsoft Edge 20.10240 <span class="o">(</span>Windows 10<span class="o">)</span>
     win10ie110                      Internet Explorer 11.0  <span class="o">(</span>Windows 10<span class="o">)</span>
     osx10chrome19                   Chrome 19.0.1084.54     <span class="o">(</span>MacOS X 10.7.4<span class="o">)</span>
     osx10safari5                    Safari 5.1.1            <span class="o">(</span>MacOS X 10.7.2<span class="o">)</span>
     linuxchrome26                   Chrome 26.0.1410.19     <span class="o">(</span>Linux<span class="o">)</span>
     linuxchrome30                   Chrome 30.0.1599.15     <span class="o">(</span>Linux<span class="o">)</span>
     linuxchrome44                   Chrome 44.0.2403.89     <span class="o">(</span>Linux<span class="o">)</span>
+    linuxchrome54                   Chrome 54.0.2840.100    <span class="o">(</span>Linux<span class="o">)</span>
     linuxfirefox19                  Firefox 19.0            <span class="o">(</span>Linux<span class="o">)</span>
     linuxfirefox40                  Firefox 40.0            <span class="o">(</span>Linux<span class="o">)</span>
     galaxy2chrome18                 Chrome 18.0.1025.166    <span class="o">(</span>Samsung Galaxy S II, Android 4.0.3<span class="o">)</span>
@@ -963,7 +971,7 @@ option. Simply running Thug this way (please note the interval is expressed in m
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.10 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.11 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
