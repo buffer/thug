@@ -154,6 +154,9 @@ class HTTPSession(object):
         return http_headers
 
     def fetch_ssl_certificate(self, url):
+        if not log.ThugOpts.cert_logging:
+            return
+
         _url = urlparse.urlparse(url)
         if _url.scheme not in ('https', ):
             return
