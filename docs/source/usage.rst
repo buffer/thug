@@ -43,6 +43,7 @@ Let's start our Thug tour by taking a look at the options it provides.
         -g, --http-debug                Enable HTTP debug mode
         -t, --threshold                 Maximum pages to fetch
         -E, --extensive                 Extensive fetch of linked pages
+        -O, --connect-timeout           Set the connect timeout (in seconds, default: 10 seconds)
         -T, --timeout=                  Set the analysis timeout (in seconds, default: 600 seconds)
         -B, --broken-url                Set the broken URL mode
         -y, --vtquery                   Query VirusTotal for samples analysis
