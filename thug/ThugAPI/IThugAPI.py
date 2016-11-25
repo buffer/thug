@@ -355,6 +355,26 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def get_connect_timeout():
+        """
+        get_connect_timeout
+
+        Get the connect timeout (in seconds)
+
+        @return: the connect timeout (in seconds)
+        """
+
+    def set_connect_timeout(timeout):
+        """
+        set_connect_timeout
+
+        Set the connect timeout (in seconds)
+
+        @param timeout: the connect timeout (in seconds)
+        @type timeout: C{int}
+        @return: None
+        """
+
     def get_timeout():
         """
         get_timeout
@@ -374,6 +394,7 @@ class IThugAPI(zope.interface.Interface):
         @type timeout: C{int}
         @return: None
         """
+
     def get_broken_url():
         """
         get_broken_url

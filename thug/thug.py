@@ -64,6 +64,7 @@ Synopsis:
         -g, --http-debug        \tEnable HTTP debug mode
         -t, --threshold         \tMaximum pages to fetch
         -E, --extensive         \tExtensive fetch of linked pages
+        -O, --connect-timeout   \tSet the connect timeout (in seconds, default: 10 seconds)
         -T, --timeout=          \tSet the analysis timeout (in seconds, default: 600 seconds)
         -B, --broken-url        \tSet the broken URL mode
         -y, --vtquery           \tQuery VirusTotal for samples analysis
@@ -121,7 +122,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVbu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BL:Q:W:C:FZMGYUD:b:',
+                                          'hVbu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:EO:T:BL:Q:W:C:FZMGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -152,6 +153,7 @@ Synopsis:
                 'no-javaplugin',
                 'threshold=',
                 'extensive',
+                'connect-timeout=',
                 'timeout=',
                 'broken-url',
                 'htmlclassifier=',
@@ -233,6 +235,8 @@ Synopsis:
                 self.set_threshold(option[1])
             elif option[0] in ('-E', '--extensive', ):
                 self.set_extensive()
+            elif option[0] in ('-O', '--connect-timeout', ):
+                self.set_connect_timeout(option[1])
             elif option[0] in ('-T', '--timeout', ):
                 self.set_timeout(option[1])
             elif option[0] in ('-L', '--htmlclassifier'):

@@ -39,6 +39,7 @@ class ThugOpts(dict):
         self.local            = False
         self.extensive        = False
         self._threshold       = 0
+        self._connect_timeout = 10
         self._timeout         = 600
         self.ast_debug        = False
         self.http_debug       = 0
@@ -197,6 +198,20 @@ class ThugOpts(dict):
         self._threshold = value
 
     threshold = property(get_threshold, set_threshold)
+
+    def get_connect_timeout(self):
+        return self._connect_timeout
+
+    def set_connect_timeout(self, timeout):
+        try:
+            seconds = int(timeout)
+        except ValueError:
+            log.warning('[WARNING] Ignoring invalid connect timeout value (should be an integer)')
+            return
+
+        self._connect_timeout = seconds
+
+    connect_timeout = property(get_connect_timeout, set_connect_timeout)
 
     def get_timeout(self):
         return self._timeout

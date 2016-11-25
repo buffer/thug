@@ -192,6 +192,12 @@ class ThugAPI(object):
     def set_timeout(self, timeout):
         log.ThugOpts.timeout = timeout
 
+    def get_connect_timeout(self):
+        return log.ThugOpts.connect_timeout
+
+    def set_connect_timeout(self, timeout):
+        log.ThugOpts.connect_timeout = timeout
+
     def get_broken_url(self):
         return log.ThugOpts.broken_url
 

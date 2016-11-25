@@ -179,7 +179,7 @@ class HTTPSession(object):
         try:
             response = fetcher(url,
                                headers = _headers,
-                               timeout = 10,
+                               timeout = log.ThugOpts.connect_timeout,
                                data    = body,
                                verify  = False)
         except requests.ConnectionError as e:

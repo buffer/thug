@@ -22,6 +22,7 @@ from .WebStorage import WebStorage
 import logging
 log = logging.getLogger("Thug")
 
+
 class WebTracking(object):
     def __init__(self):
         self.cookies    = Cookies()
