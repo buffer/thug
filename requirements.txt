@@ -2,7 +2,7 @@ beautifulsoup4==4.5.1
 html5lib==0.9999999
 jsbeautifier==1.6.2
 lxml==3.6.0
-chardet==2.2.1
+chardet==2.3.0
 requests==2.11.1
 PySocks==1.5.6
 cssutils==1.0.1
