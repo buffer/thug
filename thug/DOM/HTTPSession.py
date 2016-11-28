@@ -186,7 +186,10 @@ class HTTPSession(object):
             log.ThugLogging.log_warning("[HTTPSession] {0}".format(e.message))
         
         self.filecount += 1
-        log.WebTracking.inspect_response(response)
+
+        if log.ThugOpts.web_tracking:
+            log.WebTracking.inspect_response(response)
+
         return response
 
     def threshold_expired(self, url):
