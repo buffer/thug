@@ -671,14 +671,19 @@ class DFT(object):
                     pass
 
     def handle_script(self, script):
-        language = script.get('language', 'javascript').lower()
-        if 'javascript' in language:
-            language = 'javascript'
+        language = script.get('language', None)
+        if language is None:
+            language = script.get('type', None)
 
-        handler = getattr(self, "handle_%s" % (language, ), None)
+        if language is None:
+            _language = 'javascript'
+        else:
+            _language = language.lower().split('/')[-1]
+
+        handler = getattr(self, "handle_{}".format(_language), None)
 
         if not handler:
-            log.warning("Unhandled script language: %s", language)
+            log.warning("[SCRIPT] Unhandled script type: {}".format(language))
             return
 
         if log.ThugOpts.Personality.isIE():
