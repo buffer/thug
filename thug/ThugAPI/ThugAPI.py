@@ -287,7 +287,7 @@ class ThugAPI(object):
         content   = open(url, 'r').read()
         extension = os.path.splitext(url)
 
-        if len(extension) > 1 and extension[1].lower() in ('.js'):
+        if len(extension) > 1 and extension[1].lower() in ('.js', ):
             html = tostring(E.HTML(E.BODY(E.SCRIPT(content))))
         else:
             html = content
