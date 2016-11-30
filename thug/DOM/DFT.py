@@ -1148,7 +1148,7 @@ class DFT(object):
             dft = DFT(window)
             dft.run()
 
-    def do_handle(self, child, skip = True):
+    def do_handle(self, child, soup, skip = True):
         name = getattr(child, "name", None)
 
         if name is None:
@@ -1171,9 +1171,14 @@ class DFT(object):
 
         if handler:
             handler(child)
+            if name in ('script', ):
+                self.run_htmlclassifier(soup)
             return True
 
         return False
+
+    def run_htmlclassifier(self, soup):
+        log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.window.url, str(soup))
 
     def _run(self, soup = None):
         log.debug(self.window.doc)
@@ -1186,13 +1191,14 @@ class DFT(object):
         # Dirty hack
         for p in soup.find_all('object'):
             self.handle_object(p)
+            self.run_htmlclassifier(soup)
 
         for p in soup.find_all('applet'):
             self.handle_applet(p)
 
         for child in soup.descendants:
             self.set_event_handler_attributes(child)
-            if not self.do_handle(child):
+            if not self.do_handle(child, soup):
                 continue
 
             analyzed = set()
@@ -1211,7 +1217,7 @@ class DFT(object):
 
                         name  = getattr(_child, "name", None)
                         if name:
-                            self.do_handle(_child, False)
+                            self.do_handle(_child, soup, False)
             
             analyzed.clear()
             _soup = soup
@@ -1224,20 +1230,24 @@ class DFT(object):
         for evt in self.handled_on_events:
             try:
                 self.handle_window_event(evt)
+                self.run_htmlclassifier(soup)
             except: #pylint:disable=bare-except
                 log.warning("[handle_window_event] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
             try:
                 self.handle_document_event(evt)
+                self.run_htmlclassifier(soup)
             except: #pylint:disable=bare-except
                 log.warning("[handle_document_event] Event %s not properly handled", evt)
 
         for evt in self.handled_events:
             try:
                 self.handle_element_event(evt)
+                self.run_htmlclassifier(soup)
             except: #pylint:disable=bare-except
                 log.warning("[handle_element_event] Event %s not properly handled", evt)
+
 
     def run(self):
         with self.context as ctx: #pylint:disable=unused-variable

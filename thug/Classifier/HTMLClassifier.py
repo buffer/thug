@@ -30,6 +30,9 @@ class HTMLClassifier(BaseClassifier):
 
     def classify(self, url, html):
         for match in self.rules.match(data = html):
+            if (url, match) in self.matches:
+                continue
+
             self.matches.append((url, match))
 
             rule = match.rule
