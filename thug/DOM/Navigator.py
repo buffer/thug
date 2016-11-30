@@ -284,6 +284,8 @@ class Navigator(JSClass):
         return True
 
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None):
+        log.URLClassifier.classify(url)
+
         # The command-line option -x (--local-nofetch) prevents remote
         # content fetching so raise an exception and exit the method.
         if log.HTTPSession.no_fetch:
