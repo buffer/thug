@@ -166,6 +166,9 @@ class HTTPSession(object):
         log.ThugLogging.log_certificate(url, certificate)
 
     def fetch(self, url, method = "GET", window = None, personality = None, headers = None, body = None):
+        if log.URLClassifier.filter(url):
+            return None
+
         fetcher = getattr(self.session, method.lower(), None)
         if fetcher is None:
             log.ThugLogging.log_warning("Not supported method: %s" % (method, ))
