@@ -734,6 +734,15 @@ class Window(JSClass):
         self.location = location
         return 0
 
+    def _execScript(self, code, language = "JScript"):
+        log.ThugLogging.add_code_snippet(code, language, 'Contained_Inside')
+        if language in ("JScript", ):
+            self.eval(code)
+        else:
+            log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url, code)
+
+        return None
+
     def __init_personality(self):
         if log.ThugOpts.Personality.isIE():
             self.__init_personality_IE()
@@ -765,6 +774,9 @@ class Window(JSClass):
         self.ScriptEngineMajorVersion = log.ThugOpts.Personality.ScriptEngineMajorVersion
         self.ScriptEngineMinorVersion = log.ThugOpts.Personality.ScriptEngineMinorVersion
         self.ScriptEngineBuildVersion = log.ThugOpts.Personality.ScriptEngineBuildVersion
+
+        if log.ThugOpts.Personality.browserMajorVersion < 11:
+            self.execScript = self._execScript
 
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             self.attachEvent = self._attachEvent
