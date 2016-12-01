@@ -24,6 +24,7 @@ from .Debugger import Debugger
 
 log = logging.getLogger("Thug")
 
+
 class Shellcode(object):
     emu = pylibemu.Emulator(enable_hooks = False)
 
@@ -91,6 +92,7 @@ class Shellcode(object):
         with Debugger() as dbg:
             dbg._context = self.ctxt
             _vars = self.ctxt.locals
+            trace = None
             #dbg.debugBreak()
 
             try:
@@ -103,10 +105,10 @@ class Shellcode(object):
                     trace = traceback.format_exc()
             except: #pylint:disable=bare-except
                 trace = traceback.format_exc()
-            finally:
-                if trace:
-                    log.ThugLogging.log_warning(trace)
-                    return None ##pylint:disable=lost-exception
+
+            if trace:
+                log.ThugLogging.log_warning(trace)
+                return None
 
             for name in self.ast.names:
                 s = None
