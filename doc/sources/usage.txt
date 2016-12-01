@@ -64,6 +64,10 @@ Let's start our Thug tour by taking a look at the options it provides.
         -Q, --urlclassifier             Specify a list of additional (comma separated) URL classifier rule files
         -W, --jsclassifier              Specify a list of additional (comma separated) JS classifier rule files
         -C, --sampleclassifier          Specify a list of additional (comma separated) sample classifier rule files
+        -I, --htmlfilter=               Specify a list of additional (comma separated) HTML filter files
+        -H, --urlfilter=                Specify a list of additional (comma separated) URL filter files
+        -X, --jsfilter=                 Specify a list of additional (comma separated) JS filter files
+        -V, --samplefilter=             Specify a list of additional (comma separated) sample filter files
                                 
         Logging:                
         -F, --file-logging              Enable file logging mode (default: disabled)
