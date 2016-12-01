@@ -40,4 +40,5 @@ class Watchdog(object):
         if self.callback:
             self.callback(signum, frame)
 
+        log.ThugLogging.log_event()
         os.kill(os.getpid(), signal.SIGTERM)
