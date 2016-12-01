@@ -16,10 +16,16 @@ rules_path         = os.path.join(thug.__configuration_path__, "rules")
 scripts_path       = os.path.join(thug.__configuration_path__, "scripts")
 plugins_path       = os.path.join(thug.__configuration_path__, "plugins")
 hooks_path         = os.path.join(thug.__configuration_path__, "hooks")
+
 html_rules_path    = os.path.join(rules_path, "htmlclassifier")
 js_rules_path      = os.path.join(rules_path, "jsclassifier")
 url_rules_path     = os.path.join(rules_path, "urlclassifier")
 sample_rules_path  = os.path.join(rules_path, "sampleclassifier")
+html_filter_path   = os.path.join(rules_path, "htmlfilter")
+js_filter_path     = os.path.join(rules_path, "jsfilter")
+url_filter_path    = os.path.join(rules_path, "urlfilter")
+sample_filter_path = os.path.join(rules_path, "samplefilter")
+
 
 setup(
     name = "thug",
@@ -60,6 +66,11 @@ setup(
         (js_rules_path              , glob.glob("thug/Classifier/rules/jsclassifier/*.yar")),
         (url_rules_path             , glob.glob("thug/Classifier/rules/urlclassifier/*.yar")),
         (sample_rules_path          , glob.glob("thug/Classifier/rules/sampleclassifier/*.yar")),
+        (html_filter_path           , glob.glob("thug/Classifier/rules/htmlfilter/*.yar")),
+        (js_filter_path             , glob.glob("thug/Classifier/rules/jsfilter/*.yar")),
+        (url_filter_path            , glob.glob("thug/Classifier/rules/urlfilter/*.yar")),
+        (sample_filter_path         , glob.glob("thug/Classifier/rules/samplefilter/*.yar")),
+
     ],
     install_requires = open("requirements.txt").read().splitlines(),
     entry_points = {
