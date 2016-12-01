@@ -18,4 +18,3 @@ def text_property(readonly = False):
             self.doc.window.evalScript(text, self.tag)
         
     return property(getter) if readonly else property(getter, setter)
-

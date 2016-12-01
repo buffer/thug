@@ -252,7 +252,7 @@ class HTMLDocument(Document):
             return
 
         tag    = self.current
-        parent = tag.parent
+        parent = tag.parent if tag.parent else self.current
         pos    = parent.contents.index(tag) + 1
 
         if not isinstance(html, six.string_types):
