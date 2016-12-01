@@ -555,10 +555,54 @@ class IThugAPI(zope.interface.Interface):
         """
         add_sampleclassifier
 
-        Add an additional Sample classifier rule file
+        Add an additional sample classifier rule file
 
         @param rule: Sample classifier rule file
         @type rule: C{str}
+        @return: None
+        """
+
+    def add_urlfilter(filter):
+        """
+        add_urlfilter
+
+        Add an additional URL filter file
+
+        @param filter: URL filter file
+        @type filter: C{str}
+        @return: None
+        """
+
+    def add_htmlfilter(filter):
+        """
+        add_htmlfilter
+
+        Add an additional HTML filter file
+
+        @param filter: HTML filter file
+        @type filter: C{str}
+        @return: None
+        """
+
+    def add_jsfilter(filter):
+        """
+        add_jsfilter
+
+        Add an additional JS filter file
+
+        @param filter: JS filter file
+        @type filter: C{str}
+        @return: None
+        """
+
+    def add_samplefilter(filter):
+        """
+        add_samplefilter
+
+        Add an additional sample filter file
+
+        @param filter: Sample filter file
+        @type filter: C{str}
         @return: None
         """
 

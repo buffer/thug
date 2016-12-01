@@ -86,6 +86,10 @@ Synopsis:
         -Q, --urlclassifier=    \tSpecify a list of additional (comma separated) URL classifier rule files
         -W, --jsclassifier=     \tSpecify a list of additional (comma separated) JS classifier rule files
         -C, --sampleclassifier= \tSpecify a list of additional (comma separated) sample classifier rule files
+        -I, --htmlfilter=       \tSpecify a list of additional (comma separated) HTML filter files
+        -H, --urlfilter=        \tSpecify a list of additional (comma separated) URL filter files
+        -X, --jsfilter=         \tSpecify a list of additional (comma separated) JS filter files
+        -V, --samplefilter=     \tSpecify a list of additional (comma separated) sample filter files
 
         Logging:
         -F, --file-logging      \tEnable file logging mode (default: disabled)
@@ -122,7 +126,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVbu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:EO:T:BL:Q:W:C:FZMGYUD:b:',
+                                          'hVbu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:EO:T:BL:Q:W:C:I:H:X:V:FZMGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -160,6 +164,10 @@ Synopsis:
                 'urlclassifier=',
                 'jsclassifier=',
                 'sampleclassifier=',
+                'htmlfilter=',
+                'urlfilter=',
+                'jsfilter=',
+                'samplefilter=',
                 'file-logging',
                 'json-logging',
                 'maec11-logging',
@@ -251,6 +259,18 @@ Synopsis:
             elif option[0] in ('-C', '--sampleclassifier'):
                 for classifier in option[1].split(','):
                     self.add_sampleclassifier(os.path.abspath(classifier))
+            elif option[0] in ('-I', '--htmlfilter'):
+                for filter in option[1].split(','):
+                    self.add_htmlfilter(os.path.abspath(filter))
+            elif option[0] in ('-H', '--urlfilter'):
+                for filter in option[1].split(','):
+                    self.add_urlfilter(os.path.abspath(filter))
+            elif option[0] in ('-X', '--jsfilter'):
+                for filter in option[1].split(','):
+                    self.add_jsfilter(os.path.abspath(filter))
+            elif option[0] in ('-V', '--samplefilter'):
+                for filter in option[1].split(','):
+                    self.add_samplefilter(os.path.abspath(filter))
             elif option[0] in ('-B', '--broken-url', ):
                 self.set_broken_url()
             elif option[0] in ('-F', '--file-logging', ):

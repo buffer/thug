@@ -266,6 +266,18 @@ class ThugAPI(object):
     def add_sampleclassifier(self, rule):
         log.SampleClassifier.add_rule(rule)
 
+    def add_htmlfilter(self, filter):
+        log.HTMLClassifier.add_filter(filter)
+
+    def add_urlfilter(self, filter):
+        log.URLClassifier.add_filter(filter)
+
+    def add_jsfilter(self, filter):
+        log.JSClassifier.add_filter(filter)
+
+    def add_samplefilter(self, filter):
+        log.SampleClassifier.add_filter(filter)
+
     def log_event(self):
         log.ThugLogging.log_event()
 

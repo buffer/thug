@@ -21,9 +21,11 @@ from .BaseClassifier import BaseClassifier
 
 log = logging.getLogger("Thug")
 
+
 class HTMLClassifier(BaseClassifier):
-    default_rule_file = "rules/htmlclassifier.yar"
-    classifier        = "HTML Classifier"
+    default_rule_file   = "rules/htmlclassifier.yar"
+    default_filter_file = "rules/htmlfilter.yar"
+    classifier          = "HTML Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
@@ -38,3 +40,14 @@ class HTMLClassifier(BaseClassifier):
             rule = match.rule
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("html", url, rule, tags)
+
+    def filter(self, url, html):
+        ret = False
+
+        for match in self.filters.match(data = html):
+            rule = match.rule
+            tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
+            log.ThugLogging.log_classifier("htmlfilter", url, rule, tags)
+            ret = True
+
+        return ret

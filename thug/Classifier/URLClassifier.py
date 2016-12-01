@@ -29,9 +29,11 @@ from .BaseClassifier import BaseClassifier
 
 log = logging.getLogger("Thug")
 
+
 class URLClassifier(BaseClassifier):
-    default_rule_file = "rules/urlclassifier.yar"
-    classifier        = "URL Classifier"
+    default_rule_file   = "rules/urlclassifier.yar"
+    default_filter_file = "rules/urlfilter.yar"
+    classifier          = "URL Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
@@ -43,3 +45,14 @@ class URLClassifier(BaseClassifier):
             rule = match.rule
             tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("url", url, rule, tags)
+
+    def filter(self, url):
+        ret = False
+
+        for match in self.filters.match(data = url):
+            rule = match.rule
+            tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
+            log.ThugLogging.log_classifier("urlfilter", url, rule, tags)
+            ret = True
+
+        return ret

@@ -22,36 +22,66 @@ import logging
 
 log = logging.getLogger("Thug")
 
+
 class BaseClassifier(object):
     def __init__(self):
-        self._rules       = dict()
-        self.matches      = list()
-        self.namespace_id = 1
+        self.matches = list()
         self.init_rules()
+        self.init_filters()
 
     def init_rules(self):
+        self._rules = dict()
+        self.rules_namespace_id = 1
+
         p = getattr(self, 'default_rule_file', None)
         if p is None:
-            log.warn("[%s] Skipping not existing default classification rule file", self.classifier)
+            log.warn("[{}] Skipping not existing default classification rule file".format(self.classifier))
             return
 
         r = os.path.join(log.configuration_path, p)
 
         if not os.path.exists(r):
-            log.warn("[%s] Skipping not existing default classification rule file", self.classifier)
+            log.warn("[{}] Skipping not existing default classification rule file".format(self.classifier))
             return
 
         self._rules['namespace0'] = r
         self.rules = yara.compile(filepaths = self._rules)
 
-    def add_rule(self, rule_file):
-        if not os.path.exists(rule_file):
-            log.warn("[%s] Skipping not existing classification rule file %s", self.classifier, rule_file)
+    def init_filters(self):
+        self._filters = dict()
+        self.filters_namespace_id = 1
+
+        p = getattr(self, 'default_filter_file', None)
+        if p is None:
+            log.warn("[{}] Skipping not existing default filter file".format(self.classifier))
             return
 
-        self._rules["namespace%s" % (self.namespace_id, )] = rule_file
-        self.namespace_id += 1
+        r = os.path.join(log.configuration_path, p)
+
+        if not os.path.exists(r):
+            log.warn("[{}] Skipping not existing default filter file".format(self.classifier))
+            return
+
+        self._filters['namespace0'] = r
+        self.filters = yara.compile(filepaths = self._filters)
+
+    def add_rule(self, rule_file):
+        if not os.path.exists(rule_file):
+            log.warn("[{}] Skipping not existing classification rule file {}".format(self.classifier, rule_file))
+            return
+
+        self._rules["namespace{}".format(self.rules_namespace_id)] = rule_file
+        self.rules_namespace_id += 1
         self.rules = yara.compile(filepaths = self._rules)
+
+    def add_filter(self, filter_file):
+        if not os.path.exists(filter_file):
+            log.warn("[{}] Skipping not existing filter file {}".format(self.classifier, filter_file))
+            return
+
+        self._filters["namespace{}".format(self.filters_namespace_id)] = filter_file
+        self.filters_namespace_id += 1
+        self.filters = yara.compile(filepaths = self._filters)
 
     @property
     def result(self):
