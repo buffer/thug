@@ -46,7 +46,7 @@ Synopsis:
     Options:
         -h, --help              \tDisplay this help information
         -V, --version           \tDisplay Thug version
-        -b, --list-ua           \tDisplay available user agents
+        -i, --list-ua           \tDisplay available user agents
         -u, --useragent=        \tSelect a user agent (use option -b for values, default: winxpie60)
         -e, --events=           \tEnable comma-separated specified DOM events handling
         -w, --delay=            \tSet a maximum setTimeout/setInterval delay value (in milliseconds)
@@ -126,7 +126,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVbu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:EO:T:BL:Q:W:C:I:H:X:V:FZMGYUD:b:',
+                                          'hViu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:EO:T:BL:Q:W:C:I:H:X:V:FZMGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -188,7 +188,7 @@ Synopsis:
                 self.usage()
             elif option[0] in ('-V', '--version'):
                 self.version()
-            elif option[0] in ('-b', '--list-ua'):
+            elif option[0] in ('-i', '--list-ua'):
                 self.list_ua()
 
         for option in options:
