@@ -25,7 +25,8 @@ class HTMLCollection(JSClass):
 
         node = self.nodes[index]
 
-        return DOMImplementation.createHTMLElement(self.doc, node) if node else None
+        return node
+        #return DOMImplementation.createHTMLElement(self.doc, node) if node else None
 
     def namedItem(self, name):
         from thug.DOM.W3C.DOMImplementation import DOMImplementation
