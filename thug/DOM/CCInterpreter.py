@@ -19,6 +19,7 @@
 import logging
 log = logging.getLogger("Thug")
 
+
 class CCInterpreter(object):
     """
         Microsoft Internet Explorer Conditional Comments tiny interpreter

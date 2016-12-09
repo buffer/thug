@@ -107,7 +107,7 @@ w3c_bindings = {
                 'Document'                   : Document,
                 'DocumentFragment'           : DocumentFragment,
                 'DocumentType'               : DocumentType,
-                'Element'                    : Element, 
+                'Element'                    : Element,
                 'NamedNodeMap'               : NamedNodeMap,
                 'Node'                       : Node,
                 'NodeList'                   : NodeList,

@@ -18,14 +18,18 @@
 
 import requests
 
-class AboutBlank(requests.RequestException): 
+
+class AboutBlank(requests.RequestException):
     pass
+
 
 class FetchForbidden(requests.RequestException):
     pass
 
+
 class InvalidUrl(requests.RequestException):
     pass
+
 
 class ThresholdExpired(requests.RequestException):
     pass

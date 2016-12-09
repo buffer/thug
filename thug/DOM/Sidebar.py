@@ -20,6 +20,7 @@ import logging
 
 log = logging.getLogger("Thug")
 
+
 class Sidebar(object):
     def __init__(self):
         self._providers  = set()

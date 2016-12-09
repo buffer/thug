@@ -22,6 +22,7 @@ from .Plugin import Plugin
 
 log = logging.getLogger("Thug")
 
+
 class MimeTypes(dict):
     def __init__(self):
         if not log.ThugVulnModules.acropdf_disabled:
@@ -33,7 +34,7 @@ class MimeTypes(dict):
                                             'enabledPlugin' : Plugin({'name'        : 'Adobe Acrobat',
                                                                       'version'     : '%s' % (log.ThugVulnModules.acropdf_pdf, ),
                                                                       'description' : 'Adobe Acrobat Plug-In'}),
-                                            'enabled'       : True})  
+                                            'enabled'       : True})
 
         if not log.ThugVulnModules.shockwave_flash_disabled:
             self['application/x-shockwave-flash'] = MimeType({

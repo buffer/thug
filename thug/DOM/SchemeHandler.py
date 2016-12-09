@@ -2,6 +2,7 @@
 import logging
 log = logging.getLogger("Thug")
 
+
 class SchemeHandler(object):
     def __init__(self):
         pass
@@ -15,13 +16,13 @@ class SchemeHandler(object):
 
         hcp = hcp[1].split('defer>')
         if len(hcp) < 2:
-            return 
+            return
 
         hcp = hcp[1].split('</script')
         if not hcp:
-            return 
+            return
 
-        log.ThugLogging.add_behavior_warn('Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling', 
+        log.ThugLogging.add_behavior_warn('Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling',
                                           'CVE-2010-1885')
         if not hcp[0]:
             return

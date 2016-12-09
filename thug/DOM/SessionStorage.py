@@ -18,6 +18,7 @@
 
 from .Storage import Storage
 
+
 class SessionStorage(Storage):
     def __init__(self, *args, **kwargs):
         super(SessionStorage, self).__init__(*args, **kwargs)

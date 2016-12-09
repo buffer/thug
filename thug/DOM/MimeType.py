@@ -16,6 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+
 class MimeType(dict):
     """A dictionary with attribute-style access. It maps attribute access to
     the real dictionary.  """

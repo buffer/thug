@@ -20,7 +20,9 @@ import sys
 import os
 import json
 import logging
+
 log = logging.getLogger("Thug")
+
 
 class Personality(dict):
     def __init__(self):

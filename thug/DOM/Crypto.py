@@ -37,5 +37,3 @@ class Crypto(object):
 
     def logout(self):
         pass
-
-

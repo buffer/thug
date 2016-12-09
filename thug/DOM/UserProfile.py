@@ -26,7 +26,7 @@ class UserProfile(object):
                     "vCard.Business.StreetAddress",
                     "vCard.Business.URL",
                     "vCard.Business.Zipcode",
-                    "vCard.Cellular",	
+                    "vCard.Cellular",
                     "vCard.Company",
                     "vCard.Department",
                     "vCard.DisplayName",
@@ -60,11 +60,11 @@ class UserProfile(object):
 
         return False
 
-    def doReadRequest(self, usageCode, 
-                            displayName = None, 
-                            domain = None, 
-                            path = None, 
-                            expiration = None, 
+    def doReadRequest(self, usageCode,
+                            displayName = None,
+                            domain = None,
+                            path = None,
+                            expiration = None,
                             reserved = None):
         pass
 

@@ -21,6 +21,7 @@ log = logging.getLogger("Thug")
 
 from .JSClass import JSClass
 
+
 class Screen(JSClass):
     def __init__(self, width = 800, height = 600, depth = 32):
         self._width  = width
@@ -122,7 +123,7 @@ class Screen(JSClass):
         """
             The color resolution (in bits per pixel) of the screen
         """
-        return self._depth               
+        return self._depth
 
     def _get_bufferDepth(self):
         return self._depth
@@ -143,7 +144,7 @@ class Screen(JSClass):
     @property
     def _availLeft(self):
         """
-            The first available pixel available from the left side 
+            The first available pixel available from the left side
             of the screen
         """
         return self._left + 1
@@ -151,7 +152,7 @@ class Screen(JSClass):
     @property
     def _availTop(self):
         """
-            The first available pixel from the top of the screen 
+            The first available pixel from the top of the screen
             available to the browser
         """
         return self._top + 1

@@ -39,17 +39,18 @@ from .W3C.Events.MouseEvent import MouseEvent
 from .W3C.Events.HTMLEvent import HTMLEvent
 from thug.ActiveX.ActiveX import _ActiveXObject
 
-log        = logging.getLogger("Thug")
+log = logging.getLogger("Thug")
+
 
 class DFT(object):
     javascript     = ('javascript', )
     vbscript       = ('vbs', 'vbscript', 'visualbasic')
 
-    # Some event types are directed at the browser as a whole, rather than at 
-    # any particular document element. In JavaScript, handlers for these events 
+    # Some event types are directed at the browser as a whole, rather than at
+    # any particular document element. In JavaScript, handlers for these events
     # are registered on the Window object. In HTML, we place them on the <body>
     # tag, but the browser registers them on the Window. The following is the
-    # complete list of such event handlers as defined by the draft HTML5 
+    # complete list of such event handlers as defined by the draft HTML5
     # specification:
     #
     # onafterprint      onfocus         ononline        onresize
@@ -93,7 +94,7 @@ class DFT(object):
         self._init_events()
 
         PyV8.JSEngine.setStackLimit(10 * 1024 * 1024)
-   
+
     def _init_events(self):
         self.listeners = list()
 
@@ -163,7 +164,7 @@ class DFT(object):
             if len(p) < 2:
                 profile = profile[1:]
                 continue
-            
+
             p = p[1].split('"')
             if len(p) < 3:
                 profile = profile[1:]
@@ -229,7 +230,7 @@ class DFT(object):
 
         emu = pylibemu.Emulator(enable_hooks = False)
         emu.run(sc)
-        
+
         if emu.emu_profile_output:
             log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
             log.warning("[Shellcode Profile]\n\n%s", emu.emu_profile_output)
@@ -254,7 +255,7 @@ class DFT(object):
             url = url.split()[0]
             if url.endswith("'") or url.endswith('"'):
                 url = url[:-1]
-            
+
             if len(url) == 0:
                 continue
 
@@ -290,7 +291,7 @@ class DFT(object):
     def check_attrs(self, p):
         for value in p.attrs.values():
             self.check_shellcode(value)
-        
+
     def shift(self, script, s):
         if script.lower().startswith(s):
             return script[len(s):].lstrip()
@@ -329,7 +330,7 @@ class DFT(object):
             if eventType in (evt, ):
                 if (elem._node, evt) in self.dispatched_events:
                     continue
-            
+
                 elem._node.dispatchEvent(evt)
                 self.dispatched_events.add((elem._node, evt))
 
@@ -370,7 +371,7 @@ class DFT(object):
         for (eventType, listener, capture) in self.window.doc.tag._listeners: #pylint:disable=unused-variable
             if eventType not in (onevt[2:], ):
                 continue
-                
+
             evtObject = self.get_evtObject(self.window.doc, eventType)
             if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
                 self.window.event = evtObject
@@ -396,7 +397,7 @@ class DFT(object):
             attrs = elem.attrs
         except: #pylint:disable=bare-except
             return
-       
+
         if 'language' in list(attrs.keys()) and not attrs['language'].lower() in ('javascript', ):
             return
 
@@ -429,7 +430,7 @@ class DFT(object):
 
         if not getattr(elem, '_node', None):
             DOMImplementation.createHTMLElement(self.window.doc, elem)
-            
+
         elem._node._attachEvent(evt, handler, True)
 
     def set_event_listeners(self, elem):
@@ -440,7 +441,7 @@ class DFT(object):
                 h = getattr(p, evt, None)
                 if h:
                     self.attach_event(elem, evt, h)
-            
+
         listeners = getattr(elem, '_listeners', None)
         if listeners:
             for (eventType, listener, capture) in listeners:
@@ -955,7 +956,7 @@ class DFT(object):
         from .Window import Window
 
         log.warning(frame)
-        
+
         src = frame.get('src', None)
         if not src:
             return 
@@ -1123,11 +1124,11 @@ class DFT(object):
             return
 
         clicked_anchors.sort(key = lambda anchor: anchor['_clicked'])
-        
+
         for anchor in clicked_anchors:
             href = anchor['href']
             del anchor['_clicked']
-            
+
             if 'target' in anchor.attrs and not anchor.attrs['target'] in ('_self', ):
                 pid = os.fork()
                 if pid == 0:
@@ -1143,7 +1144,7 @@ class DFT(object):
         doc    = w3c.parseString('')
         window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
         window = window.open(href)
-            
+
         if window:
             dft = DFT(window)
             dft.run()
@@ -1182,10 +1183,10 @@ class DFT(object):
 
     def _run(self, soup = None):
         log.debug(self.window.doc)
-        
+
         if soup is None:
             soup = self.window.doc.doc
-    
+
         _soup = soup
 
         # Dirty hack
@@ -1206,10 +1207,10 @@ class DFT(object):
 
             while recur:
                 recur = False
-                
+
                 if tuple(soup.descendants) == tuple(_soup.descendants):
                     break
-                
+
                 for _child in set(soup.descendants) - set(_soup.descendants): 
                     if _child not in analyzed:
                         analyzed.add(_child)
@@ -1218,7 +1219,7 @@ class DFT(object):
                         name  = getattr(_child, "name", None)
                         if name:
                             self.do_handle(_child, soup, False)
-            
+
             analyzed.clear()
             _soup = soup
 
@@ -1247,7 +1248,6 @@ class DFT(object):
                 self.run_htmlclassifier(soup)
             except: #pylint:disable=bare-except
                 log.warning("[handle_element_event] Event %s not properly handled", evt)
-
 
     def run(self):
         with self.context as ctx: #pylint:disable=unused-variable
