@@ -889,8 +889,8 @@ class Window(JSClass):
         result = 0
 
         try:
-            log.JSClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url,
-                                      script)
+            log.JSClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url, script)
+            log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
         except: #pylint:disable=bare-except
             pass
 
