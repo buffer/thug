@@ -69,12 +69,13 @@ class BaseLogging(object):
             else:
                 raise
 
-        with open(os.path.join(base, 'logs', 'thug.csv'), 'at+') as fd:
+        with open(os.path.join(base, 'logs', 'thug.csv'), 'r') as fd:
             csv_line = '%s,%s\n' % (m.hexdigest(), url, )
             for l in fd.readlines():
                 if l == csv_line:
                     return
 
+        with open(os.path.join(base, 'logs', 'thug.csv'), 'at+') as fd:
             fd.write(csv_line)
 
     def set_absbasedir(self, basedir):
