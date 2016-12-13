@@ -92,11 +92,10 @@ class JSON(object):
 
     def get_vuln_module(self, module):
         disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)
-        if disabled: 
+        if disabled:
             return "disabled"
 
         return getattr(log.ThugVulnModules, module)
-
 
     def fix(self, data):
         """

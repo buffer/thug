@@ -52,7 +52,7 @@ class ElasticSearch(JSON):
 
         if not self.__init_elasticsearch():
             self.enabled = False
-            return 
+            return
 
     def __init_config(self):
         self.opts = dict()

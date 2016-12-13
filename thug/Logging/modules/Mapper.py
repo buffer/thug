@@ -350,7 +350,7 @@ class Mapper(object):
         res = ""
         for con in self.data["connections"]:
             if con["display"]:
-                res += "%s -- %s --> %s \n" % (str(con["source"]),str(con["method"]), str(con["destination"]))
+                res += "%s -- %s --> %s \n" % (str(con["source"]), str(con["method"]), str(con["destination"]))
         return res
 
 
@@ -396,5 +396,5 @@ if __name__ == "__main__":
     if args.tracks:
         for atrack in args.tracks:
             m.follow_track(atrack)
-    
+
     m.write_svg()

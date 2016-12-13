@@ -31,6 +31,7 @@ NAMESPACEDEF_ = 'xmlns:ns1="http://xml/metadataSharing.xsd" xmlns="http://maec.m
 
 log = logging.getLogger("Thug")
 
+
 class MAEC11(object):
     def __init__(self, thug_version):
         self._tools = ({
@@ -60,14 +61,14 @@ class MAEC11(object):
 
     def __init_tools_used(self):
         self.tools_used = maec.Tools_Used()
-        
+
         for t in self._tools:
             tool = maec.ToolType(id           = t['id'],
                                  Name         = t['Name'],
                                  Version      = t['Version'],
                                  Vendor       = t['Vendor'],
                                  Organization = t['Organization'])
-        
+
             self.tools_used.add_Tool(tool)
 
     def __create_maec_bundle(self):
@@ -134,7 +135,7 @@ class MAEC11(object):
         for line in snippet.splitlines():
             _snippet += 5 * '\t' + line + '\n'
         _snippet += 4 * '\t'
-       
+
         try:
             return _snippet.encode('ascii', 'ignore')
         except: #pylint:disable=bare-except
@@ -142,7 +143,7 @@ class MAEC11(object):
 
     def _add_snippet_to_associated_code(self, snippet, language, relationship, method = "Dynamic Analysis"):
         discovery_method = self._create_discovery_method(method)
-        
+
         code = self._create_code_segment(self._normalize_snippet(snippet),
                                         language,
                                         discovery_method)
@@ -197,20 +198,20 @@ class MAEC11(object):
             if cve:
                 c = maec.CVEVulnerabilityType(cve_id = cve)
                 t.set_Known_Exploit(c)
-        
+
             purpose.set_Attempted_Vulnerability_Exploit(t)
             behavior.set_Purpose(purpose)
 
         if description:
             desc = maec.StructuredTextType()
-            
+
             try:
                 desc.add_Text(description)
             except: #pylint:disable=bare-except
                 desc.add_Text(description.decode('utf-8'))
 
             behavior.set_Description(desc)
-        
+
         self.behaviors.add_Behavior(behavior)
 
     def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
