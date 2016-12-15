@@ -27,6 +27,7 @@ import bs4 as BeautifulSoup
 import jsbeautifier
 import new
 import numbers
+import collections
 import datetime
 import six
 from .W3C import w3c
