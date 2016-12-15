@@ -83,11 +83,11 @@ class DFT(object):
     window_storage_events = ('storage', )
     window_on_storage_events = ['on' + e for e in window_storage_events]
 
-
-    def __init__(self, window):
+    def __init__(self, window, **kwds):
         self.window            = window
         self.window.doc.DFT    = self
         self.anchors           = list()
+        self.forms             = kwds['forms'] if 'forms' in kwds else list()
         self.meta              = dict()
         self._context          = None
         log.DFT                = self
@@ -791,6 +791,48 @@ class DFT(object):
 
     def handle_noscript(self, script):
         pass
+
+    def handle_form(self, form):
+        from .Window import Window
+
+        log.info(form)
+
+        action = form.get('action', None)
+        if action is None:
+            return
+
+        _action = log.HTTPSession.normalize_url(self.window, action)
+        if _action is None:
+            return
+
+        if _action in self.forms:
+            return
+
+        self.forms.append(_action)
+        method = form.get('method', 'get')
+
+        try:
+            response = self.window._navigator.fetch(action, method = method.upper(), redirect_type = "form")
+        except:
+            return
+
+        if response is None:
+            return
+
+        if response.status_code == 404:
+            return
+
+        ctype = response.headers.get('content-type', None)
+        if ctype:
+            handler = log.MIMEHandler.get_handler(ctype)
+            if handler and handler(action, response.content):
+                return
+
+        doc    = w3c.parseString(response.content)
+        window = Window(_action, doc, personality = log.ThugOpts.useragent)
+
+        dft = DFT(window, forms = self.forms)
+        dft.run()
 
     def handle_param(self, param):
         log.info(param)
