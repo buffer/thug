@@ -97,6 +97,9 @@ class HTMLDocument(Document):
         pass
 
     def __getattr__(self, attr):
+        if attr in ('getBoxObjectFor', ) and not log.ThugOpts.Personality.isFirefox():
+            raise AttributeError
+
         if self._win and getattr(self._win, "doc", None):
             if attr in self._win.doc.DFT.handled_on_events:
                 return None
