@@ -218,8 +218,8 @@ class Element(Node, ElementCSSInlineStyle):
                 return
 
             if name in ('type', ):
-                for input in [p for p in FF_INPUTS if log.ThugOpts.Personality.browserMajorVersion > p[0]]:
-                    if input[1] in value:
+                for _input in [p for p in FF_INPUTS if log.ThugOpts.Personality.browserMajorVersion > p[0]]:
+                    if _input[1] in value:
                         self.tag[name] = value
                 return
 

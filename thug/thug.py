@@ -260,17 +260,17 @@ Synopsis:
                 for classifier in option[1].split(','):
                     self.add_sampleclassifier(os.path.abspath(classifier))
             elif option[0] in ('-I', '--htmlfilter'):
-                for filter in option[1].split(','):
-                    self.add_htmlfilter(os.path.abspath(filter))
+                for f in option[1].split(','):
+                    self.add_htmlfilter(os.path.abspath(f))
             elif option[0] in ('-H', '--urlfilter'):
-                for filter in option[1].split(','):
-                    self.add_urlfilter(os.path.abspath(filter))
+                for f in option[1].split(','):
+                    self.add_urlfilter(os.path.abspath(f))
             elif option[0] in ('-X', '--jsfilter'):
-                for filter in option[1].split(','):
-                    self.add_jsfilter(os.path.abspath(filter))
+                for f in option[1].split(','):
+                    self.add_jsfilter(os.path.abspath(f))
             elif option[0] in ('-V', '--samplefilter'):
-                for filter in option[1].split(','):
-                    self.add_samplefilter(os.path.abspath(filter))
+                for f in option[1].split(','):
+                    self.add_samplefilter(os.path.abspath(f))
             elif option[0] in ('-B', '--broken-url', ):
                 self.set_broken_url()
             elif option[0] in ('-F', '--file-logging', ):
