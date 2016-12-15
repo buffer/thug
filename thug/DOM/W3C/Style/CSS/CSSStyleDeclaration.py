@@ -3,8 +3,6 @@
 import logging
 log = logging.getLogger("Thug")
 
-from thug.DOM.W3C.DOMException import DOMException
-
 
 class CSSStyleDeclaration(object):
     def __init__(self, style):
