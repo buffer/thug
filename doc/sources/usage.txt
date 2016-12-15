@@ -25,7 +25,7 @@ Let's start our Thug tour by taking a look at the options it provides.
     Options:
         -h, --help                      Display this help information
         -V, --version                   Display Thug version
-        -b, --list-ua                   Display available user agents
+        -i, --list-ua                   Display available user agents
         -u, --useragent=                Select a user agent (use option -b for values, default: winxpie60)
         -e, --events=                   Enable comma-separated specified DOM events handling
         -w, --delay=                    Set a maximum setTimeout/setInterval delay value (in milliseconds)
