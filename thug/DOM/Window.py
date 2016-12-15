@@ -164,7 +164,7 @@ class Window(JSClass):
         if prop and isinstance(prop[0], collections.Callable):
             return prop[0]()
 
-        if log.ThugOpts.Personality.isIE() and key.lower() in ('wscript', ):
+        if log.ThugOpts.Personality.isIE() and key.lower() in ('wscript', 'wsh', ):
             # Prevent _ActiveXObject loops
             super(Window, self).__setattr__("WScript", None)
             WScript = _ActiveXObject(self, "WScript.Shell")
