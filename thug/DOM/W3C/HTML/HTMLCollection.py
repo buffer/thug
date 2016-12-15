@@ -21,7 +21,7 @@ class HTMLCollection(JSClass):
         return len(self.nodes)
 
     def item(self, index):
-        from thug.DOM.W3C.DOMImplementation import DOMImplementation
+        #from thug.DOM.W3C.DOMImplementation import DOMImplementation
 
         node = self.nodes[index]
 
