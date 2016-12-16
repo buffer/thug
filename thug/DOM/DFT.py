@@ -684,7 +684,7 @@ class DFT(object):
         handler = getattr(self, "handle_{}".format(_language), None)
 
         if not handler:
-            log.warning("[SCRIPT] Unhandled script type: {}".format(language))
+            log.warning("[SCRIPT] Unhandled script type: %s", language)
             return
 
         if log.ThugOpts.Personality.isIE():

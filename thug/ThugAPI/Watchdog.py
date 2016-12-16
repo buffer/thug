@@ -36,7 +36,7 @@ class Watchdog(object):
         signal.alarm(0)
 
     def handler(self, signum, frame):
-        log.critical("The analysis took more than {:d} seconds. Aborting!".format(self.time))
+        log.critical("The analysis took more than %d seconds. Aborting!", self.time)
         if self.callback:
             self.callback(signum, frame)
 
