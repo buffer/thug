@@ -9,7 +9,7 @@ try:
 except ImportError:
     import urlparse
 
-#from .Attr import Attr
+from .Attr import Attr
 from .Node import Node
 from .NodeList import NodeList
 from .NamedNodeMap import NamedNodeMap
@@ -256,7 +256,6 @@ class Element(Node, ElementCSSInlineStyle):
         del self.tag[name]
         
     def getAttributeNode(self, name):
-        from .Attr import Attr
         return Attr(self.doc, self, name) if self.tag.has_attr(name) else None
     
     def setAttributeNode(self, attr):
