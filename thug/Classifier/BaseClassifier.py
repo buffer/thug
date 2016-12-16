@@ -35,13 +35,13 @@ class BaseClassifier(object):
 
         p = getattr(self, 'default_rule_file', None)
         if p is None:
-            log.warn("[{}] Skipping not existing default classification rule file".format(self.classifier))
+            log.warn("[%s] Skipping not existing default classification rule file", self.classifier)
             return
 
         r = os.path.join(log.configuration_path, p)
 
         if not os.path.exists(r):
-            log.warn("[{}] Skipping not existing default classification rule file".format(self.classifier))
+            log.warn("[%s] Skipping not existing default classification rule file", self.classifier)
             return
 
         self._rules['namespace0'] = r
@@ -53,13 +53,13 @@ class BaseClassifier(object):
 
         p = getattr(self, 'default_filter_file', None)
         if p is None:
-            log.warn("[{}] Skipping not existing default filter file".format(self.classifier))
+            log.warn("[%s] Skipping not existing default filter file", self.classifier)
             return
 
         r = os.path.join(log.configuration_path, p)
 
         if not os.path.exists(r):
-            log.warn("[{}] Skipping not existing default filter file".format(self.classifier))
+            log.warn("[%s] Skipping not existing default filter file", self.classifier)
             return
 
         self._filters['namespace0'] = r
@@ -67,7 +67,7 @@ class BaseClassifier(object):
 
     def add_rule(self, rule_file):
         if not os.path.exists(rule_file):
-            log.warn("[{}] Skipping not existing classification rule file {}".format(self.classifier, rule_file))
+            log.warn("[%s] Skipping not existing classification rule file %s", self.classifier, rule_file)
             return
 
         self._rules["namespace{}".format(self.rules_namespace_id)] = rule_file
@@ -76,7 +76,7 @@ class BaseClassifier(object):
 
     def add_filter(self, filter_file):
         if not os.path.exists(filter_file):
-            log.warn("[{}] Skipping not existing filter file {}".format(self.classifier, filter_file))
+            log.warn("[%s] Skipping not existing filter file %s", self.classifier, filter_file)
             return
 
         self._filters["namespace{}".format(self.filters_namespace_id)] = filter_file
