@@ -181,7 +181,7 @@ class HTMLDocument(Document):
             for s in compatible.split(';'):
                 try:
                     (useragent, version) = s.split('=')
-                except:
+                except ValueError:
                     # Ignore the http-equiv X-UA-Compatible content if its
                     # format is not correct
                     return

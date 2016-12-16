@@ -57,7 +57,7 @@ class ThugPlugins(object):
 
         try:
             plugin_prio = int(plugin_info[2])
-        except:
+        except ValueError:
             plugin_prio = self.handle_low_prio_plugin()
 
         return plugin_prio

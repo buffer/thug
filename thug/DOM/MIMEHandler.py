@@ -46,7 +46,7 @@ import bs4 as BeautifulSoup
 PEEPDF = True
 try:
     from peepdf.PDFCore import PDFParser, vulnsDict
-except:
+except ImportError:
     PEEPDF = False
 
 from datetime import datetime
