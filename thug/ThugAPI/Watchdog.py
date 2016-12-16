@@ -32,7 +32,7 @@ class Watchdog(object):
         signal.signal(signal.SIGALRM, self.handler)
         signal.alarm(self.time)
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, exception_type, exception_value, traceback):
         signal.alarm(0)
 
     def handler(self, signum, frame):
