@@ -136,6 +136,11 @@ class _ActiveXObject(object):
             if key.lower() == name.lower():
                 return value
 
+        if name in self.funcattrs:
+            value = self.funcattrs[name]()
+            self.__dict__[name] = value
+            return value
+
         if name not in ('__watchpoints__'):
             log.warning("Unknown ActiveX Object (%s) attribute: %s", self.cls, name)
 
