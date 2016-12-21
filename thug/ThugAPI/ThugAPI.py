@@ -219,6 +219,9 @@ class ThugAPI(object):
     def disable_code_logging(self):
         log.ThugOpts.code_logging = False
 
+    def enable_cert_logging(self):
+        log.ThugOpts.cert_logging = True
+
     def disable_cert_logging(self):
         log.ThugOpts.cert_logging = False
 

@@ -440,6 +440,15 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def enable_cert_logging():
+        """
+        enable_cert_logging
+
+        Enable SSL/TLS certificate logging
+
+        @return: None
+        """
+
     def disable_cert_logging():
         """
         disable_cert_logging
