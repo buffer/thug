@@ -1417,16 +1417,16 @@ CLSID = [
         'name'      : ('wscript.network'),
         'attrs'     : {},
         'funcattrs' : {
-                        'ComputerName': WScriptNetwork.GetComputerName,
-                        'UserDomain': WScriptNetwork.GetUserDomain,
-                        'UserName': WScriptNetwork.GetUserName,
+                        'ComputerName'          : WScriptNetwork.GetComputerName,
+                        'UserDomain'            : WScriptNetwork.GetUserDomain,
+                        'UserName'              : WScriptNetwork.GetUserName,
         },
         'methods'   : {
                         'EnumPrinterConnections': WScriptNetwork.EnumPrinterConnections,
-                        'EnumNetworkDrives': WScriptNetwork.EnumNetworkDrives,
-                        'GetComputerName': WScriptNetwork.GetComputerName,
-                        'GetUserDomain': WScriptNetwork.GetUserDomain,
-                        'GetUserName': WScriptNetwork.GetUserName,
+                        'EnumNetworkDrives'     : WScriptNetwork.EnumNetworkDrives,
+                        'GetComputerName'       : WScriptNetwork.GetComputerName,
+                        'GetUserDomain'         : WScriptNetwork.GetUserDomain,
+                        'GetUserName'           : WScriptNetwork.GetUserName,
                       }
         },
 
