@@ -18,7 +18,6 @@
 
 import os
 import datetime
-import base64
 import logging
 from .compatibility import thug_unicode
 
@@ -218,7 +217,9 @@ class MongoDB(object):
             flags = dict()
 
         content    = data.get("content", None)
-        content_id = self.fs.put(base64.b64encode(content)) if content else None
+        content_id = self.fs.put(content,
+            mtype  = data.get("mtype", None)
+        ) if content else None
 
         location = {
             'analysis_id'   : self.analysis_id,
