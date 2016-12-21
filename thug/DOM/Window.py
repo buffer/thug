@@ -110,6 +110,7 @@ class Window(JSClass):
 
         self.doc.window        = self
         self.doc.contentWindow = self
+
         for p in w3c_bindings:
             setattr(self, p, w3c_bindings[p])
 

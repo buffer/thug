@@ -106,6 +106,7 @@ from .modules import WMEncProfileManager
 from .modules import WMP
 from .modules import WScriptShell
 from .modules import WScriptShortcut
+from .modules import WScriptNetwork
 from .modules import XMLDOMParseError
 from .modules import XUpload
 from .modules import YahooJukebox
@@ -143,7 +144,9 @@ CLSID = [
                             'position'      : 0,
                             '_files'        : dict(),
                             '_current'      : None},
-            'funcattrs' : {},
+            'funcattrs' : {
+                            'position'      : AdodbStream.setPosition,
+            },
             'methods'   : {
                             'Open'          : AdodbStream.open,
                             'Write'         : AdodbStream.Write,
@@ -153,6 +156,7 @@ CLSID = [
                             'ReadText'      : AdodbStream.ReadText,
                             'WriteText'     : AdodbStream.WriteText,
                             'Close'         : AdodbStream.Close,
+                            'setPosition'   : AdodbStream.setPosition,
                          }
         },
 
@@ -998,6 +1002,7 @@ CLSID = [
                             'Close'             : ScriptingFileSystemObject.Close,
                             'BuildPath'         : ScriptingFileSystemObject.BuildPath,
                             'GetSpecialFolder'  : ScriptingFileSystemObject.GetSpecialFolder,
+                            'GetTempName'       : ScriptingFileSystemObject.GetTempName,
                           },
         },
 
@@ -1403,6 +1408,25 @@ CLSID = [
         'funcattrs' : {},
         'methods'   : {
                         'save'                  : WScriptShortcut.save,
+                      }
+        },
+
+        # WScriptNetwork
+        {
+        'id'        : (),
+        'name'      : ('wscript.network'),
+        'attrs'     : {},
+        'funcattrs' : {
+                        'ComputerName': WScriptNetwork.GetComputerName,
+                        'UserDomain': WScriptNetwork.GetUserDomain,
+                        'UserName': WScriptNetwork.GetUserName,
+        },
+        'methods'   : {
+                        'EnumPrinterConnections': WScriptNetwork.EnumPrinterConnections,
+                        'EnumNetworkDrives': WScriptNetwork.EnumNetworkDrives,
+                        'GetComputerName': WScriptNetwork.GetComputerName,
+                        'GetUserDomain': WScriptNetwork.GetUserDomain,
+                        'GetUserName': WScriptNetwork.GetUserName,
                       }
         },
 
