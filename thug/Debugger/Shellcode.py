@@ -126,7 +126,7 @@ class Shellcode(object):
                 self.emu.run(s)
 
                 if self.emu.emu_profile_output:
-                    log.ThugLogging.add_code_snippet(self.emu.emu_profile_output, 'Assembly', 'Shellcode')
+                    log.ThugLogging.add_shellcode_snippet(self.emu.emu_profile_output, 'Assembly', 'Shellcode')
                     log.warning("[Shellcode Profile]\n\n%s", self.emu.emu_profile_output)
                     self.check_URLDownloadToFile(self.emu)
 

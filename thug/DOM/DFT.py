@@ -232,7 +232,7 @@ class DFT(object):
         emu.run(sc)
 
         if emu.emu_profile_output:
-            log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
+            log.ThugLogging.add_shellcode_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
             log.warning("[Shellcode Profile]\n\n%s", emu.emu_profile_output)
             self.check_URLDownloadToFile(emu)
             self.check_WinExec(emu)
@@ -268,7 +268,7 @@ class DFT(object):
 
             url = url[:i]
 
-            log.ThugLogging.add_code_snippet(shellcode, 'Assembly', 'Shellcode', method = 'Static Analysis')
+            log.ThugLogging.add_shellcode_snippet(shellcode, 'Assembly', 'Shellcode', method = 'Static Analysis')
             log.ThugLogging.add_behavior_warn(description = '[Shellcode Analysis] URL Detected: %s' % (url, ), method = 'Static Analysis')
 
             if url in log.ThugLogging.shellcode_urls:
