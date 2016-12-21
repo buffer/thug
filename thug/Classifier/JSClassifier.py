@@ -21,9 +21,11 @@ from .BaseClassifier import BaseClassifier
 
 log = logging.getLogger("Thug")
 
+
 class JSClassifier(BaseClassifier):
-    default_rule_file = "rules/jsclassifier.yar"
-    classifier        = "JS Classifier"
+    default_rule_file   = "rules/jsclassifier.yar"
+    default_filter_file = "rules/jsfilter.yar"
+    classifier          = "JS Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
@@ -32,6 +34,17 @@ class JSClassifier(BaseClassifier):
         for match in self.rules.match(data = script):
             self.matches.append((url, match))
 
-            rule = " ".join(match.rule.split('_'))
+            rule = match.rule
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
-            log.ThugLogging.add_behavior_warn("[JS Classifier] URL: %s (Rule: %s, Classification: %s)" % (url, rule, tags, ))
+            log.ThugLogging.log_classifier("js", url, rule, tags)
+
+    def filter(self, url, script):
+        ret = False
+
+        for match in self.filters.match(data = script):
+            rule = match.rule
+            tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
+            log.ThugLogging.log_classifier("jsfilter", url, rule, tags)
+            ret = True
+
+        return ret

@@ -29,9 +29,11 @@ from .BaseClassifier import BaseClassifier
 
 log = logging.getLogger("Thug")
 
+
 class SampleClassifier(BaseClassifier):
-    default_rule_file = "rules/sampleclassifier.yar"
-    classifier        = "Sample Classifier"
+    default_rule_file   = "rules/sampleclassifier.yar"
+    default_filter_file = "rules/samplefilter.yar"
+    classifier          = "Sample Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
@@ -40,6 +42,17 @@ class SampleClassifier(BaseClassifier):
         for match in self.rules.match(data = sample):
             self.matches.append((sample, match))
 
-            rule = " ".join(match.rule.split('_'))
+            rule = match.rule
             tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
-            log.ThugLogging.add_behavior_warn("[Sample Classifier] MD5: %s (Rule: %s, Classification: %s)" % (md5, rule, tags, ))
+            log.ThugLogging.log_classifier("sample", md5, rule, tags)
+
+    def filter(self, sample, md5):
+        ret = False
+
+        for match in self.filters.match(data = sample):
+            rule = match.rule
+            tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
+            log.ThugLogging.log_classifier("samplefilter", md5, rule, tags)
+            ret = True
+
+        return ret

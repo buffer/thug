@@ -48,11 +48,12 @@ RUN apt-get update && \
     libffi-dev \
     graphviz \
     libfuzzy-dev \
-	libjpeg8-dev \
+    libjpeg8-dev \
+    pkg-config \
     autoconf && \
   rm -rf /var/lib/apt/lists/*
 
-RUN easy_install -U setuptools pygraphviz
+RUN easy_install -U setuptools pygraphviz==1.3.1
 
 WORKDIR /home
 

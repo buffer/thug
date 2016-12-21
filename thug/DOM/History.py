@@ -22,6 +22,7 @@ log = logging.getLogger("Thug")
 
 from .JSClass import JSClass
 
+
 class History(JSClass):
     def __init__(self, window):
         self._window = window
@@ -131,4 +132,3 @@ class History(JSClass):
             self.urls = self.urls[:self.pos + 1]
             self.urls.append(url)
             self.pos += 1
-

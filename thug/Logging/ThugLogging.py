@@ -104,9 +104,16 @@ class ThugLogging(BaseLogging, SampleLogging):
         return len(s) < self.eval_min_length_logging
 
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis", check = False):
+        if not log.ThugOpts.code_logging:
+            return
+
         if check and self.check_snippet(snippet):
             return
 
+        for m in self.resolve_method('add_code_snippet'):
+            m(snippet, language, relationship, method)
+
+    def add_shellcode_snippet(self, snippet, language, relationship, method):
         for m in self.resolve_method('add_code_snippet'):
             m(snippet, language, relationship, method)
 
@@ -192,6 +199,20 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_exploit_event'):
             m(url, module, description, cve = cve, data = data)
 
+    def log_classifier(self, classifier, url, rule, tags):
+        """
+        Log classifiers matching for a given url
+
+        @classifier     Classifier name
+        @url            URL where the rule match occurred
+        @rule           Rule name
+        @tags           Rule tags
+        """
+        self.add_behavior_warn("[%s Classifier] URL: %s (Rule: %s, Classification: %s)" % (classifier.upper(), url, rule, tags, ))
+
+        for m in self.resolve_method('log_classifier'):
+            m(classifier, url, rule, tags)
+
     def log_warning(self, data):
         log.warning(data)
 
@@ -236,6 +257,9 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.log_connection(referer, url, "href")
 
     def log_certificate(self, url, certificate):
+        if not log.ThugOpts.cert_logging:
+            return
+
         self.add_behavior_warn("[Certificate]\n %s" % (certificate, ))
 
         for m in self.resolve_method('log_certificate'):

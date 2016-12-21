@@ -39,17 +39,18 @@ from .W3C.Events.MouseEvent import MouseEvent
 from .W3C.Events.HTMLEvent import HTMLEvent
 from thug.ActiveX.ActiveX import _ActiveXObject
 
-log        = logging.getLogger("Thug")
+log = logging.getLogger("Thug")
+
 
 class DFT(object):
     javascript     = ('javascript', )
     vbscript       = ('vbs', 'vbscript', 'visualbasic')
 
-    # Some event types are directed at the browser as a whole, rather than at 
-    # any particular document element. In JavaScript, handlers for these events 
+    # Some event types are directed at the browser as a whole, rather than at
+    # any particular document element. In JavaScript, handlers for these events
     # are registered on the Window object. In HTML, we place them on the <body>
     # tag, but the browser registers them on the Window. The following is the
-    # complete list of such event handlers as defined by the draft HTML5 
+    # complete list of such event handlers as defined by the draft HTML5
     # specification:
     #
     # onafterprint      onfocus         ononline        onresize
@@ -82,18 +83,18 @@ class DFT(object):
     window_storage_events = ('storage', )
     window_on_storage_events = ['on' + e for e in window_storage_events]
 
-
-    def __init__(self, window):
+    def __init__(self, window, **kwds):
         self.window            = window
         self.window.doc.DFT    = self
         self.anchors           = list()
+        self.forms             = kwds['forms'] if 'forms' in kwds else list()
         self.meta              = dict()
         self._context          = None
         log.DFT                = self
         self._init_events()
 
         PyV8.JSEngine.setStackLimit(10 * 1024 * 1024)
-   
+
     def _init_events(self):
         self.listeners = list()
 
@@ -163,7 +164,7 @@ class DFT(object):
             if len(p) < 2:
                 profile = profile[1:]
                 continue
-            
+
             p = p[1].split('"')
             if len(p) < 3:
                 profile = profile[1:]
@@ -229,9 +230,9 @@ class DFT(object):
 
         emu = pylibemu.Emulator(enable_hooks = False)
         emu.run(sc)
-        
+
         if emu.emu_profile_output:
-            log.ThugLogging.add_code_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
+            log.ThugLogging.add_shellcode_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
             log.warning("[Shellcode Profile]\n\n%s", emu.emu_profile_output)
             self.check_URLDownloadToFile(emu)
             self.check_WinExec(emu)
@@ -254,7 +255,7 @@ class DFT(object):
             url = url.split()[0]
             if url.endswith("'") or url.endswith('"'):
                 url = url[:-1]
-            
+
             if len(url) == 0:
                 continue
 
@@ -267,7 +268,7 @@ class DFT(object):
 
             url = url[:i]
 
-            log.ThugLogging.add_code_snippet(shellcode, 'Assembly', 'Shellcode', method = 'Static Analysis')
+            log.ThugLogging.add_shellcode_snippet(shellcode, 'Assembly', 'Shellcode', method = 'Static Analysis')
             log.ThugLogging.add_behavior_warn(description = '[Shellcode Analysis] URL Detected: %s' % (url, ), method = 'Static Analysis')
 
             if url in log.ThugLogging.shellcode_urls:
@@ -290,7 +291,7 @@ class DFT(object):
     def check_attrs(self, p):
         for value in p.attrs.values():
             self.check_shellcode(value)
-        
+
     def shift(self, script, s):
         if script.lower().startswith(s):
             return script[len(s):].lstrip()
@@ -329,7 +330,7 @@ class DFT(object):
             if eventType in (evt, ):
                 if (elem._node, evt) in self.dispatched_events:
                     continue
-            
+
                 elem._node.dispatchEvent(evt)
                 self.dispatched_events.add((elem._node, evt))
 
@@ -370,7 +371,7 @@ class DFT(object):
         for (eventType, listener, capture) in self.window.doc.tag._listeners: #pylint:disable=unused-variable
             if eventType not in (onevt[2:], ):
                 continue
-                
+
             evtObject = self.get_evtObject(self.window.doc, eventType)
             if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
                 self.window.event = evtObject
@@ -396,7 +397,7 @@ class DFT(object):
             attrs = elem.attrs
         except: #pylint:disable=bare-except
             return
-       
+
         if 'language' in list(attrs.keys()) and not attrs['language'].lower() in ('javascript', ):
             return
 
@@ -429,7 +430,7 @@ class DFT(object):
 
         if not getattr(elem, '_node', None):
             DOMImplementation.createHTMLElement(self.window.doc, elem)
-            
+
         elem._node._attachEvent(evt, handler, True)
 
     def set_event_listeners(self, elem):
@@ -440,7 +441,7 @@ class DFT(object):
                 h = getattr(p, evt, None)
                 if h:
                     self.attach_event(elem, evt, h)
-            
+
         listeners = getattr(elem, '_listeners', None)
         if listeners:
             for (eventType, listener, capture) in listeners:
@@ -671,14 +672,19 @@ class DFT(object):
                     pass
 
     def handle_script(self, script):
-        language = script.get('language', 'javascript').lower()
-        if 'javascript' in language:
-            language = 'javascript'
+        language = script.get('language', None)
+        if language is None:
+            language = script.get('type', None)
 
-        handler = getattr(self, "handle_%s" % (language, ), None)
+        if language is None:
+            _language = 'javascript'
+        else:
+            _language = language.lower().split('/')[-1]
+
+        handler = getattr(self, "handle_{}".format(_language), None)
 
         if not handler:
-            log.warning("Unhandled script language: %s", language)
+            log.warning("[SCRIPT] Unhandled script type: %s", language)
             return
 
         if log.ThugOpts.Personality.isIE():
@@ -785,6 +791,48 @@ class DFT(object):
 
     def handle_noscript(self, script):
         pass
+
+    def handle_form(self, form):
+        from .Window import Window
+
+        log.info(form)
+
+        action = form.get('action', None)
+        if action is None:
+            return
+
+        _action = log.HTTPSession.normalize_url(self.window, action)
+        if _action is None:
+            return
+
+        if _action in self.forms:
+            return
+
+        self.forms.append(_action)
+        method = form.get('method', 'get')
+
+        try:
+            response = self.window._navigator.fetch(action, method = method.upper(), redirect_type = "form")
+        except:
+            return
+
+        if response is None:
+            return
+
+        if response.status_code == 404:
+            return
+
+        ctype = response.headers.get('content-type', None)
+        if ctype:
+            handler = log.MIMEHandler.get_handler(ctype)
+            if handler and handler(action, response.content):
+                return
+
+        doc    = w3c.parseString(response.content)
+        window = Window(_action, doc, personality = log.ThugOpts.useragent)
+
+        dft = DFT(window, forms = self.forms)
+        dft.run()
 
     def handle_param(self, param):
         log.info(param)
@@ -950,7 +998,7 @@ class DFT(object):
         from .Window import Window
 
         log.warning(frame)
-        
+
         src = frame.get('src', None)
         if not src:
             return 
@@ -1118,11 +1166,11 @@ class DFT(object):
             return
 
         clicked_anchors.sort(key = lambda anchor: anchor['_clicked'])
-        
+
         for anchor in clicked_anchors:
             href = anchor['href']
             del anchor['_clicked']
-            
+
             if 'target' in anchor.attrs and not anchor.attrs['target'] in ('_self', ):
                 pid = os.fork()
                 if pid == 0:
@@ -1138,12 +1186,12 @@ class DFT(object):
         doc    = w3c.parseString('')
         window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
         window = window.open(href)
-            
+
         if window:
             dft = DFT(window)
             dft.run()
 
-    def do_handle(self, child, skip = True):
+    def do_handle(self, child, soup, skip = True):
         name = getattr(child, "name", None)
 
         if name is None:
@@ -1166,28 +1214,34 @@ class DFT(object):
 
         if handler:
             handler(child)
+            if name in ('script', ):
+                self.run_htmlclassifier(soup)
             return True
 
         return False
 
+    def run_htmlclassifier(self, soup):
+        log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.window.url, str(soup))
+
     def _run(self, soup = None):
         log.debug(self.window.doc)
-        
+
         if soup is None:
             soup = self.window.doc.doc
-    
+
         _soup = soup
 
         # Dirty hack
         for p in soup.find_all('object'):
             self.handle_object(p)
+            self.run_htmlclassifier(soup)
 
         for p in soup.find_all('applet'):
             self.handle_applet(p)
 
         for child in soup.descendants:
             self.set_event_handler_attributes(child)
-            if not self.do_handle(child):
+            if not self.do_handle(child, soup):
                 continue
 
             analyzed = set()
@@ -1195,10 +1249,10 @@ class DFT(object):
 
             while recur:
                 recur = False
-                
+
                 if tuple(soup.descendants) == tuple(_soup.descendants):
                     break
-                
+
                 for _child in set(soup.descendants) - set(_soup.descendants): 
                     if _child not in analyzed:
                         analyzed.add(_child)
@@ -1206,8 +1260,8 @@ class DFT(object):
 
                         name  = getattr(_child, "name", None)
                         if name:
-                            self.do_handle(_child, False)
-            
+                            self.do_handle(_child, soup, False)
+
             analyzed.clear()
             _soup = soup
 
@@ -1219,18 +1273,21 @@ class DFT(object):
         for evt in self.handled_on_events:
             try:
                 self.handle_window_event(evt)
+                self.run_htmlclassifier(soup)
             except: #pylint:disable=bare-except
                 log.warning("[handle_window_event] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
             try:
                 self.handle_document_event(evt)
+                self.run_htmlclassifier(soup)
             except: #pylint:disable=bare-except
                 log.warning("[handle_document_event] Event %s not properly handled", evt)
 
         for evt in self.handled_events:
             try:
                 self.handle_element_event(evt)
+                self.run_htmlclassifier(soup)
             except: #pylint:disable=bare-except
                 log.warning("[handle_element_event] Event %s not properly handled", evt)
 

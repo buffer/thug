@@ -26,4 +26,3 @@ class Entity(Node):
     @property
     def nodeValue(self):
         return None
-

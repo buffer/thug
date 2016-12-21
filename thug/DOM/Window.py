@@ -25,6 +25,10 @@ import traceback
 import urllib
 import bs4 as BeautifulSoup
 import jsbeautifier
+import new
+import numbers
+import collections
+import datetime
 import six
 from .W3C import w3c
 from .W3C.HTML.HTMLCollection import HTMLCollection
@@ -44,6 +48,7 @@ from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
 from .LocalStorage import LocalStorage
 from .SessionStorage import SessionStorage
+from .w3c_bindings import w3c_bindings
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.AST.AST import AST
 from thug.Debugger import Shellcode
@@ -53,6 +58,7 @@ sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug")
 
 import thug
+
 
 class Window(JSClass):
 
@@ -105,6 +111,9 @@ class Window(JSClass):
         self.doc.window        = self
         self.doc.contentWindow = self
 
+        for p in w3c_bindings:
+            setattr(self, p, w3c_bindings[p])
+
         self._navigator = navigator if navigator else Navigator(personality, self)
         self._location  = Location(self)
         self._history   = History(self)
@@ -135,21 +144,72 @@ class Window(JSClass):
         self.java          = java()
 
         self._symbols      = set()
+        self._methods      = tuple()
 
         log.MIMEHandler.window = self
 
     def __getattr__(self, key):
-        if log.ThugOpts.Personality.isIE() and (key.lower() in ('wscript', ) or
-                                                key in ('WSH', )):
+        if key in self._symbols:
+            raise AttributeError(key)
+
+        if key in ('__members__', '__methods__'):
+            raise AttributeError(key)
+
+        if key == 'constructor':
+            return PyV8.JSClassConstructor(self.__class__)
+
+        if key == 'prototype':
+            return PyV8.JSClassPrototype(self.__class__)
+
+        prop = self.__dict__.setdefault('__properties__', {}).get(key, None)
+
+        if prop and isinstance(prop[0], collections.Callable):
+            return prop[0]()
+
+        if log.ThugOpts.Personality.isIE() and key.lower() in ('wscript', 'wsh', ):
             # Prevent _ActiveXObject loops
             super(Window, self).__setattr__("WScript", None)
-
             WScript = _ActiveXObject(self, "WScript.Shell")
             super(Window, self).__setattr__(key, WScript)
             super(Window, self).__setattr__("WScript", WScript)
             return WScript
 
-        return super(Window, self).__getattr__(key)
+        context = self.__class__.__dict__['context'].__get__(self, Window)
+
+        log.debug(key)
+
+        try:
+            self._symbols.add(key)
+            symbol = context.eval(key)
+        except:
+            raise AttributeError(key)
+        finally:
+            self._symbols.discard(key)
+
+        if isinstance(symbol, PyV8.JSFunction):
+            _method = None
+
+            if symbol in self._methods:
+                _method = symbol.clone()
+
+            if _method is None:
+                _method = new.instancemethod(symbol, self, Window)
+                #_method = symbol.__get__(self, Window)
+
+            setattr(self, key, _method)
+            context.locals[key] = _method
+            return _method
+
+        if isinstance(symbol, (six.string_types,
+                               bool,
+                               numbers.Number,
+                               datetime.datetime,
+                               PyV8.JSObject)):
+            setattr(self, key, symbol)
+            context.locals[key] = symbol
+            return symbol
+
+        raise AttributeError(key)
 
     @property
     def closed(self):
@@ -677,6 +737,15 @@ class Window(JSClass):
         self.location = location
         return 0
 
+    def _execScript(self, code, language = "JScript"):
+        log.ThugLogging.add_code_snippet(code, language, 'Contained_Inside')
+        if language in ("JScript", ):
+            self.eval(code)
+        else:
+            log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url, code)
+
+        return None
+
     def __init_personality(self):
         if log.ThugOpts.Personality.isIE():
             self.__init_personality_IE()
@@ -704,7 +773,13 @@ class Window(JSClass):
         self.clientInformation = self.navigator
         self.clipboardData     = ClipboardData()
         self.external          = External()
-        #_ActiveXObject(self, "WScript.Shell")
+
+        self.ScriptEngineMajorVersion = log.ThugOpts.Personality.ScriptEngineMajorVersion
+        self.ScriptEngineMinorVersion = log.ThugOpts.Personality.ScriptEngineMinorVersion
+        self.ScriptEngineBuildVersion = log.ThugOpts.Personality.ScriptEngineBuildVersion
+
+        if log.ThugOpts.Personality.browserMajorVersion < 11:
+            self.execScript = self._execScript
 
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             self.attachEvent = self._attachEvent
@@ -729,6 +804,21 @@ class Window(JSClass):
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
 
+        if log.ThugOpts.Personality.browserMajorVersion > 32:
+            self.RadioNodeList = None
+
+        if log.ThugOpts.Personality.browserMajorVersion > 12:
+            self.Map = object()
+
+        if log.ThugOpts.Personality.browserMajorVersion > 11:
+            self.navigator.mozConnection = object()
+
+        with self.context as ctxt:
+            if log.ThugOpts.Personality.browserMajorVersion <= 20:
+                ctxt.eval("delete Math.imul;")
+            if log.ThugOpts.Personality.browserMajorVersion <= 4:
+                ctxt.eval("delete Array.isArray;")
+
     def __init_personality_Chrome(self):
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
@@ -738,6 +828,7 @@ class Window(JSClass):
         self.console             = Console()
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
+        self.onmousewheel        = None
 
     def __init_personality_Safari(self):
         self.addEventListener    = self._addEventListener
@@ -746,6 +837,7 @@ class Window(JSClass):
         self.console             = Console()
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
+        self.onmousewheel        = None
 
     def __init_personality_Opera(self):
         self.addEventListener    = self._addEventListener
@@ -799,8 +891,8 @@ class Window(JSClass):
         result = 0
 
         try:
-            log.JSClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url,
-                                      script)
+            log.JSClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url, script)
+            log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
         except: #pylint:disable=bare-except
             pass
 
@@ -892,6 +984,11 @@ class Window(JSClass):
                 return None
 
             html = response.content
+
+            try:
+                log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else url, html)
+            except: #pylint:disable=bare-except
+                pass
 
             if response.history:
                 url = response.url

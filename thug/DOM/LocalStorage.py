@@ -18,6 +18,7 @@
 
 from .Storage import Storage
 
+
 class LocalStorage(Storage):
     def __init__(self, *args, **kwargs):
         super(LocalStorage, self).__init__(*args, **kwargs)

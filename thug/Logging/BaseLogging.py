@@ -24,6 +24,7 @@ import logging
 
 log = logging.getLogger("Thug")
 
+
 class BaseLogging(object):
     def __init__(self):
         pass
@@ -69,12 +70,16 @@ class BaseLogging(object):
             else:
                 raise
 
-        with open(os.path.join(base, 'logs', 'thug.csv'), 'at+') as fd:
-            csv_line = '%s,%s\n' % (m.hexdigest(), url, )
-            for l in fd.readlines():
-                if l == csv_line:
-                    return
+        thug_csv = os.path.join(base, 'logs', 'thug.csv')
+        csv_line = '{},{}\n'.format(m.hexdigest(), url)
 
+        if os.path.exists(thug_csv):
+            with open(thug_csv, 'r') as fd:
+                for l in fd.readlines():
+                    if l == csv_line:
+                        return
+
+        with open(thug_csv, 'at+') as fd:
             fd.write(csv_line)
 
     def set_absbasedir(self, basedir):

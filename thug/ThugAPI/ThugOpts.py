@@ -18,7 +18,6 @@
 
 import sys
 import os
-import datetime
 import logging
 
 try:
@@ -40,8 +39,8 @@ class ThugOpts(dict):
         self.local            = False
         self.extensive        = False
         self._threshold       = 0
-        self._timeout         = None
-        self._timeout_in_secs = None
+        self._connect_timeout = 10
+        self._timeout         = 600
         self.ast_debug        = False
         self.http_debug       = 0
         self._useragent       = 'winxpie60'
@@ -52,6 +51,8 @@ class ThugOpts(dict):
         self._json_logging    = False
         self._maec11_logging  = False
         self._es_logging      = False
+        self._code_logging    = True
+        self._cert_logging    = True
         self._no_fetch        = False
         self._broken_url      = False
         self._vt_query        = False
@@ -152,6 +153,22 @@ class ThugOpts(dict):
 
     elasticsearch_logging = property(get_es_logging, set_es_logging)
 
+    def get_code_logging(self):
+        return self._code_logging
+
+    def set_code_logging(self, code_logging):
+        self._code_logging = code_logging
+
+    code_logging = property(get_code_logging, set_code_logging)
+
+    def get_cert_logging(self):
+        return self._cert_logging
+
+    def set_cert_logging(self, cert_logging):
+        self._cert_logging = cert_logging
+
+    cert_logging = property(get_cert_logging, set_cert_logging)
+
     def get_no_fetch(self):
         return self._no_fetch
 
@@ -182,21 +199,31 @@ class ThugOpts(dict):
 
     threshold = property(get_threshold, set_threshold)
 
+    def get_connect_timeout(self):
+        return self._connect_timeout
+
+    def set_connect_timeout(self, timeout):
+        try:
+            seconds = int(timeout)
+        except ValueError:
+            log.warning('[WARNING] Ignoring invalid connect timeout value (should be an integer)')
+            return
+
+        self._connect_timeout = seconds
+
+    connect_timeout = property(get_connect_timeout, set_connect_timeout)
+
     def get_timeout(self):
         return self._timeout
 
     def set_timeout(self, timeout):
-        self._timeout_in_secs = timeout
-
         try:
             seconds = int(timeout)
         except ValueError:
             log.warning('[WARNING] Ignoring invalid timeout value (should be an integer)')
             return
 
-        now   = datetime.datetime.now()
-        delta = datetime.timedelta(seconds = seconds)
-        self._timeout = now + delta
+        self._timeout = seconds
 
     timeout = property(get_timeout, set_timeout)
 

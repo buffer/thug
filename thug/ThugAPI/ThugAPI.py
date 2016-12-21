@@ -45,8 +45,10 @@ from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
 from .ThugVulnModules import ThugVulnModules
 from .OpaqueFilter import OpaqueFilter
+from .Watchdog import Watchdog
 from .abstractmethod import abstractmethod
 
+from thug.Classifier.HTMLClassifier import HTMLClassifier
 from thug.Classifier.JSClassifier import JSClassifier
 from thug.Classifier.URLClassifier import URLClassifier
 from thug.Classifier.SampleClassifier import SampleClassifier
@@ -65,6 +67,7 @@ class ThugAPI(object):
         log.WebTracking         = WebTracking()
         log.MIMEHandler         = MIMEHandler()
         log.SchemeHandler       = SchemeHandler()
+        log.HTMLClassifier      = HTMLClassifier()
         log.JSClassifier        = JSClassifier()
         log.URLClassifier       = URLClassifier()
         log.SampleClassifier    = SampleClassifier()
@@ -189,6 +192,12 @@ class ThugAPI(object):
     def set_timeout(self, timeout):
         log.ThugOpts.timeout = timeout
 
+    def get_connect_timeout(self):
+        return log.ThugOpts.connect_timeout
+
+    def set_connect_timeout(self, timeout):
+        log.ThugOpts.connect_timeout = timeout
+
     def get_broken_url(self):
         return log.ThugOpts.broken_url
 
@@ -203,6 +212,18 @@ class ThugAPI(object):
 
     def disable_honeyagent(self):
         log.ThugOpts.honeyagent = False
+
+    def enable_code_logging(self):
+        log.ThugOpts.code_logging = True
+
+    def disable_code_logging(self):
+        log.ThugOpts.code_logging = False
+
+    def enable_cert_logging(self):
+        log.ThugOpts.cert_logging = True
+
+    def disable_cert_logging(self):
+        log.ThugOpts.cert_logging = False
 
     def log_init(self, url):
         log.ThugLogging = ThugLogging(thug.__version__)
@@ -239,6 +260,9 @@ class ThugAPI(object):
     def set_mongodb_address(self, mongodb_address):
         log.ThugOpts.mongodb_address = mongodb_address
 
+    def add_htmlclassifier(self, rule):
+        log.HTMLClassifier.add_rule(rule)
+
     def add_urlclassifier(self, rule):
         log.URLClassifier.add_rule(rule)
 
@@ -248,13 +272,29 @@ class ThugAPI(object):
     def add_sampleclassifier(self, rule):
         log.SampleClassifier.add_rule(rule)
 
+    def add_htmlfilter(self, f):
+        log.HTMLClassifier.add_filter(f)
+
+    def add_urlfilter(self, f):
+        log.URLClassifier.add_filter(f)
+
+    def add_jsfilter(self, f):
+        log.JSClassifier.add_filter(f)
+
+    def add_samplefilter(self, f):
+        log.SampleClassifier.add_filter(f)
+
     def log_event(self):
         log.ThugLogging.log_event()
 
+    def watchdog_cb(self, signum, frame):
+        pass
+
     def __run(self, window):
         with PyV8.JSLocker():
-            dft = DFT(window)
-            dft.run()
+            with Watchdog(log.ThugOpts.timeout, callback = self.watchdog_cb):
+                dft = DFT(window)
+                dft.run()
 
     def run_local(self, url):
         log.ThugLogging.set_url(url)
@@ -265,7 +305,7 @@ class ThugAPI(object):
         content   = open(url, 'r').read()
         extension = os.path.splitext(url)
 
-        if len(extension) > 1 and extension[1].lower() in ('.js'):
+        if len(extension) > 1 and extension[1].lower() in ('.js', '.jse', ):
             html = tostring(E.HTML(E.BODY(E.SCRIPT(content))))
         else:
             html = content

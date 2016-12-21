@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import logging
+
+import thug.DOM.W3C as W3C
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 
@@ -10,6 +12,7 @@ log = logging.getLogger("Thug")
 class HTMLIFrameElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
+        self.document = W3C.w3c.getDOMImplementation()
 
     align           = attr_property("align")
     frameBorder     = attr_property("frameborder")

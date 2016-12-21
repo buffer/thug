@@ -72,6 +72,8 @@ def send(self, varBody = None):
                                              }
                                      )
 
+    response = None
+
     try:
         response = self._window._navigator.fetch(self.bstrUrl,
                                                  method        = self.bstrMethod,
@@ -82,7 +84,7 @@ def send(self, varBody = None):
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
 
     if response is None:
-        return
+        return 0
 
     self.status          = response.status_code
     self.responseHeaders = response.headers
@@ -91,7 +93,7 @@ def send(self, varBody = None):
 
     contenttype = self.responseHeaders.get('content-type', None)
     if contenttype is None:
-        return
+        return 0
 
     if 'text/html' in contenttype:
         doc = DOM.W3C.w3c.parseString(self.responseBody)
@@ -110,6 +112,8 @@ def send(self, varBody = None):
     if self.onreadystatechange:
         with DOM.DFT.context as ctx:
             ctx.eval(self.onreadystatechange)
+
+    return 0
 
 
 def setRequestHeader(self, bstrHeader, bstrValue):
@@ -144,3 +148,7 @@ def getAllResponseHeaders(self):
                                       body    = body)
     except: #pylint:disable=bare-except
         pass
+
+
+def overrideMimeType(self, mimetype):
+    pass

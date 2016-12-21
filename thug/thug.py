@@ -46,7 +46,8 @@ Synopsis:
     Options:
         -h, --help              \tDisplay this help information
         -V, --version           \tDisplay Thug version
-        -u, --useragent=        \tSelect a user agent (see below for values, default: winxpie60)
+        -i, --list-ua           \tDisplay available user agents
+        -u, --useragent=        \tSelect a user agent (use option -b for values, default: winxpie60)
         -e, --events=           \tEnable comma-separated specified DOM events handling
         -w, --delay=            \tSet a maximum setTimeout/setInterval delay value (in milliseconds)
         -n, --logdir=           \tSet the log output directory
@@ -63,7 +64,8 @@ Synopsis:
         -g, --http-debug        \tEnable HTTP debug mode
         -t, --threshold         \tMaximum pages to fetch
         -E, --extensive         \tExtensive fetch of linked pages
-        -T, --timeout=          \tSet the analysis timeout (in seconds)
+        -O, --connect-timeout   \tSet the connect timeout (in seconds, default: 10 seconds)
+        -T, --timeout=          \tSet the analysis timeout (in seconds, default: 600 seconds)
         -B, --broken-url        \tSet the broken URL mode
         -y, --vtquery           \tQuery VirusTotal for samples analysis
         -s, --vtsubmit          \tSubmit samples to VirusTotal
@@ -80,9 +82,14 @@ Synopsis:
         -K, --no-javaplugin     \tDisable Java plugin
 
         Classifiers:
-        -Q, --urlclassifier     \tSpecify a list of additional (comma separated) URL classifier rule files
-        -W, --jsclassifier      \tSpecify a list of additional (comma separated) JS classifier rule files
-        -C, --sampleclassifier  \tSpecify a list of additional (comma separated) sample classifier rule files
+        -L, --htmlclassifier=   \tSpecify a list of additional (comma separated) HTML classifier rule files
+        -Q, --urlclassifier=    \tSpecify a list of additional (comma separated) URL classifier rule files
+        -W, --jsclassifier=     \tSpecify a list of additional (comma separated) JS classifier rule files
+        -C, --sampleclassifier= \tSpecify a list of additional (comma separated) sample classifier rule files
+        -I, --htmlfilter=       \tSpecify a list of additional (comma separated) HTML filter files
+        -H, --urlfilter=        \tSpecify a list of additional (comma separated) URL filter files
+        -X, --jsfilter=         \tSpecify a list of additional (comma separated) JS filter files
+        -V, --samplefilter=     \tSpecify a list of additional (comma separated) sample filter files
 
         Logging:
         -F, --file-logging      \tEnable file logging mode (default: disabled)
@@ -90,12 +97,24 @@ Synopsis:
         -M, --maec11-logging    \tEnable MAEC11 logging mode (default: disabled)
         -G, --elasticsearch-logging\tEnable ElasticSearch logging mode (default: disabled)
         -D, --mongodb-address=  \tSpecify address and port of the MongoDB instance (format: host:port)
+        -Y, --no-code-logging   \tDisable code logging
+        -U, --no-cert-logging   \tDisable SSL/TLS certificate logging
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
+"""
+
+        print(msg)
+        sys.exit(0)
+
+    def list_ua(self):
+        msg = """
+Synopsis:
+    Thug: Pure Python honeyclient implementation
 
     Available User-Agents:
 """
+
         for key, value in sorted(iter(log.ThugOpts.Personality.items()), key = lambda k_v: (k_v[1]['id'], k_v[0])):
             msg += "\t%s\t\t\t%s\n" % (key, value['description'], )
 
@@ -107,9 +126,10 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hVu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:ET:BQ:W:C:FZMGD:b:',
+                                          'hViu:e:w:n:o:r:p:yszNlxvdqmagA:PS:RJ:Kt:EO:T:BL:Q:W:C:I:H:X:V:FZMGYUD:b:',
                 ['help',
                 'version',
+                'list-ua',
                 'useragent=',
                 'events=',
                 'delay=',
@@ -137,15 +157,23 @@ Synopsis:
                 'no-javaplugin',
                 'threshold=',
                 'extensive',
+                'connect-timeout=',
                 'timeout=',
                 'broken-url',
+                'htmlclassifier=',
                 'urlclassifier=',
                 'jsclassifier=',
                 'sampleclassifier=',
+                'htmlfilter=',
+                'urlfilter=',
+                'jsfilter=',
+                'samplefilter=',
                 'file-logging',
                 'json-logging',
                 'maec11-logging',
                 'elasticsearch-logging',
+                'no-code-logging',
+                'no-cert-logging',
                 'mongodb-address=',
                 'vt-apikey=',
                 ])
@@ -160,6 +188,8 @@ Synopsis:
                 self.usage()
             elif option[0] in ('-V', '--version'):
                 self.version()
+            elif option[0] in ('-i', '--list-ua'):
+                self.list_ua()
 
         for option in options:
             if option[0] in ('-u', '--useragent', ):
@@ -213,8 +243,13 @@ Synopsis:
                 self.set_threshold(option[1])
             elif option[0] in ('-E', '--extensive', ):
                 self.set_extensive()
+            elif option[0] in ('-O', '--connect-timeout', ):
+                self.set_connect_timeout(option[1])
             elif option[0] in ('-T', '--timeout', ):
                 self.set_timeout(option[1])
+            elif option[0] in ('-L', '--htmlclassifier'):
+                for classifier in option[1].split(','):
+                    self.add_htmlclassifier(os.path.abspath(classifier))
             elif option[0] in ('-Q', '--urlclassifier'):
                 for classifier in option[1].split(','):
                     self.add_urlclassifier(os.path.abspath(classifier))
@@ -224,6 +259,18 @@ Synopsis:
             elif option[0] in ('-C', '--sampleclassifier'):
                 for classifier in option[1].split(','):
                     self.add_sampleclassifier(os.path.abspath(classifier))
+            elif option[0] in ('-I', '--htmlfilter'):
+                for f in option[1].split(','):
+                    self.add_htmlfilter(os.path.abspath(f))
+            elif option[0] in ('-H', '--urlfilter'):
+                for f in option[1].split(','):
+                    self.add_urlfilter(os.path.abspath(f))
+            elif option[0] in ('-X', '--jsfilter'):
+                for f in option[1].split(','):
+                    self.add_jsfilter(os.path.abspath(f))
+            elif option[0] in ('-V', '--samplefilter'):
+                for f in option[1].split(','):
+                    self.add_samplefilter(os.path.abspath(f))
             elif option[0] in ('-B', '--broken-url', ):
                 self.set_broken_url()
             elif option[0] in ('-F', '--file-logging', ):
@@ -234,6 +281,10 @@ Synopsis:
                 self.set_maec11_logging()
             elif option[0] in ('-G', '--elasticsearch-logging', ):
                 self.set_elasticsearch_logging()
+            elif option[0] in ('-Y', '--no-code-logging', ):
+                self.disable_code_logging()
+            elif option[0] in ('-U', '--no-cert-logging', ):
+                self.disable_cert_logging()
             elif option[0] in ('-D', '--mongodb-address', ):
                 self.set_mongodb_address(option[1])
 

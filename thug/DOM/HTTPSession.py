@@ -17,7 +17,7 @@
 # MA  02111-1307  USA
 
 import sys
-import datetime
+import socket
 import requests
 import ssl
 
@@ -40,6 +40,11 @@ class HTTPSession(object):
         self.__init_session(proxy)
         self.filecount = 0
 
+    def __check_proxy_alive(self, hostname, port):
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((hostname, port))
+        s.close()
+
     def __do_init_proxy(self, proxy):
         url = urlparse.urlparse(proxy)
         if not url.scheme:
@@ -47,6 +52,12 @@ class HTTPSession(object):
 
         if not url.scheme.lower().startswith(('http', 'socks4', 'socks5')):
             return False
+
+        try:
+            self.__check_proxy_alive(url.hostname, url.port)
+        except:
+            log.critical("[CRITICAL] Proxy not available. Aborting the analysis!")
+            sys.exit(0)
 
         self.session.proxies = {
             'http'  : proxy,
@@ -62,7 +73,7 @@ class HTTPSession(object):
         if self.__do_init_proxy(proxy):
             return
 
-        log.warning("[WARNING] Wrong proxy specified. Aborting the analysis!")
+        log.critical("[CRITICAL] Wrong proxy specified. Aborting the analysis!")
         sys.exit(0)
 
     def __init_session(self, proxy):
@@ -94,20 +105,20 @@ class HTTPSession(object):
 
     def normalize_url(self, window, url):
         # Check the URL is not broken (i.e. http:/www.google.com) and
-        # fix it if the broken URL option is enabled. 
+        # fix it if the broken URL option is enabled.
         if log.ThugOpts.broken_url:
             url = self._check_compatibility(url)
 
         url = self._normalize_protocol_relative_url(window, url)
         url = quote(url, safe = "%/:=&?~#+!$,;'@()*[]")
-        
+
         _url = urlparse.urlparse(url)
 
         # Check if a scheme handler is registered and calls the proper
         # handler in such case. This is how a real browser would handle
-        # a specific scheme so if you want to add your own handler for 
-        # analyzing specific schemes the proper way to go is to define 
-        # a method named handle_<scheme> in the SchemeHandler and put 
+        # a specific scheme so if you want to add your own handler for
+        # analyzing specific schemes the proper way to go is to define
+        # a method named handle_<scheme> in the SchemeHandler and put
         # the logic within such method.
         handler = getattr(log.SchemeHandler, 'handle_%s' % (_url.scheme, ), None)
         if handler:
@@ -122,7 +133,7 @@ class HTTPSession(object):
         return url
 
     def build_http_headers(self, window, personality, headers):
-        http_headers = { 
+        http_headers = {
             'Cache-Control'   : 'no-cache',
             'Accept-Language' : 'en-US',
             'Accept'          : '*/*',
@@ -133,7 +144,7 @@ class HTTPSession(object):
             http_headers['Referer'] = self.normalize_url(window, window.url)
 
         # REVIEW ME!
-        #if window and window.doc.cookie:
+        # if window and window.doc.cookie:
         #    http_headers['Cookie'] = window.doc.cookie
 
         for name, value in headers.items():
@@ -142,6 +153,9 @@ class HTTPSession(object):
         return http_headers
 
     def fetch_ssl_certificate(self, url):
+        if not log.ThugOpts.cert_logging:
+            return
+
         _url = urlparse.urlparse(url)
         if _url.scheme not in ('https', ):
             return
@@ -151,6 +165,9 @@ class HTTPSession(object):
         log.ThugLogging.log_certificate(url, certificate)
 
     def fetch(self, url, method = "GET", window = None, personality = None, headers = None, body = None):
+        if log.URLClassifier.filter(url):
+            return None
+
         fetcher = getattr(self.session, method.lower(), None)
         if fetcher is None:
             log.ThugLogging.log_warning("Not supported method: %s" % (method, ))
@@ -160,31 +177,29 @@ class HTTPSession(object):
             headers = dict()
 
         _headers = self.build_http_headers(window, personality, headers)
-        response = fetcher(url, 
-                           headers = _headers, 
-                           timeout = 10,
-                           verify  = False)
-        
+
+        try:
+            response = fetcher(url,
+                               headers = _headers,
+                               timeout = log.ThugOpts.connect_timeout,
+                               data    = body,
+                               verify  = False)
+        except requests.ConnectionError as e:
+            log.ThugLogging.log_warning("[HTTPSession] {0}".format(e.message))
+
         self.filecount += 1
-        log.WebTracking.inspect_response(response)
+
+        if log.ThugOpts.web_tracking:
+            log.WebTracking.inspect_response(response)
+
         return response
 
     def threshold_expired(self, url):
         if not log.ThugOpts.threshold:
             return False
-        
+
         if self.filecount >= log.ThugOpts.threshold:
             log.ThugLogging.log_location(url, None, flags = {"error" : "Threshold Exceeded"})
-            return True
-
-        return False
-
-    def timeout_expired(self, url):
-        if log.ThugOpts.timeout is None:
-            return False
-
-        if datetime.datetime.now() > log.ThugOpts.timeout:
-            log.ThugLogging.log_location(url, None, flags = {"error" : "Timeout"})
             return True
 
         return False
@@ -221,6 +236,7 @@ class HTTPSession(object):
 
 import unittest
 
+
 class HTTPSessionTest(unittest.TestCase):
     def setUp(self):
         self.check_ip_url = "http://ifconfig.me/ip"
@@ -238,7 +254,6 @@ class HTTPSessionTest(unittest.TestCase):
         s = HTTPSession(proxy = "socks5://127.0.0.1:9050")
         r = s.session.get(self.check_ip_url)
         ipaddress = r.text.replace("\n", "")
-        
         self.assertIn(ipaddress, tor_exit_nodes)
 
     def testHTTPSessionNotSupportedMethod(self):

@@ -72,7 +72,7 @@ class JSON(object):
                                             "events"         : log.ThugOpts.events,
                                             "delay"          : log.ThugOpts.delay,
                                             "referer"        : log.ThugOpts.referer,
-                                            "timeout"        : log.ThugOpts._timeout_in_secs,
+                                            "timeout"        : log.ThugOpts.timeout,
                                             "threshold"      : log.ThugOpts.threshold,
                                             "extensive"      : log.ThugOpts.extensive,
                                             },
@@ -82,7 +82,8 @@ class JSON(object):
                         "files"       : [],
                         "connections" : [],
                         "locations"   : [],
-                        "exploits"    : []
+                        "exploits"    : [],
+                        "classifiers" : [],
                     }
 
     @property
@@ -91,11 +92,10 @@ class JSON(object):
 
     def get_vuln_module(self, module):
         disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)
-        if disabled: 
+        if disabled:
             return "disabled"
 
         return getattr(log.ThugVulnModules, module)
-
 
     def fix(self, data):
         """
@@ -206,6 +206,26 @@ class JSON(object):
                                       "description" : description,
                                       "cve"         : cve,
                                       "data"        : data})
+
+    def log_classifier(self, classifier, url, rule, tags):
+        """
+        Log classifiers matching for a given url
+
+        @classifier     Classifier name
+        @url            URL where the rule match occurred
+        @rule           Rule name
+        @tags           Rule tags
+        """
+        if not self.json_enabled:
+            return
+
+        item = {"classifier" : classifier,
+                "url"        : self.fix(url),
+                "rule"       : rule,
+                "tags"       : tags}
+
+        if item not in self.data["classifiers"]:
+            self.data["classifiers"].append(item)
 
     def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
         if not self.json_enabled:

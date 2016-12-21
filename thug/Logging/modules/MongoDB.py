@@ -18,7 +18,6 @@
 
 import os
 import datetime
-import base64
 import logging
 from .compatibility import thug_unicode
 
@@ -124,6 +123,7 @@ class MongoDB(object):
         self.androguard   = db.androguard
         self.peepdf       = db.peepdf
         self.exploits     = db.exploits
+        self.classifiers  = db.classifiers
         self.codes        = db.codes
         self.maec11       = db.maec11
         self.json         = db.json
@@ -192,7 +192,7 @@ class MongoDB(object):
                                     "events"         : log.ThugOpts.events,
                                     "delay"          : log.ThugOpts.delay,
                                     "referer"        : log.ThugOpts.referer,
-                                    "timeout"        : log.ThugOpts._timeout_in_secs,
+                                    "timeout"        : log.ThugOpts.timeout,
                                     "threshold"      : log.ThugOpts.threshold,
                                     "extensive"      : log.ThugOpts.extensive,
                                 },
@@ -217,7 +217,9 @@ class MongoDB(object):
             flags = dict()
 
         content    = data.get("content", None)
-        content_id = self.fs.put(base64.b64encode(content)) if content else None
+        content_id = self.fs.put(content,
+            mtype  = data.get("mtype", None)
+        ) if content else None
 
         location = {
             'analysis_id'   : self.analysis_id,
@@ -274,6 +276,28 @@ class MongoDB(object):
         }
 
         self.exploits.insert(exploit)
+
+    def log_classifier(self, classifier, url, rule, tags):
+        """
+        Log classifiers matching for a given url
+
+        @classifier     Classifier name
+        @url            URL where the rule match occurred
+        @rule           Rule name
+        @tags           Rule tags
+        """
+        if not self.enabled:
+            return
+
+        classification = {
+            'analysis_id' : self.analysis_id,
+            'url_id'      : self.get_url(url),
+            'classifier'  : classifier,
+            'rule'        : rule,
+            'tags'        : tags
+        }
+
+        self.classifiers.insert(classification)
 
     def get_url_from_location(self, md5):
         result = self.locations.find_one({'analysis_id' : self.analysis_id,

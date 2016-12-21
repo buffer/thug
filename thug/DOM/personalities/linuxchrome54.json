@@ -1,0 +1,20 @@
+{
+    "oscpu": null, 
+    "product": "Gecko", 
+    "vendor": "Google Inc.", 
+    "description": "Chrome 54.0.2840.100\t(Linux)", 
+    "buildID": null, 
+    "appName": "Netscape", 
+    "appCodeName": "Mozilla", 
+    "productSub": "20030107", 
+    "appVersion": "5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.100 Safari/537.36", 
+    "appMinorVersion": null, 
+    "platform": "Linux x86_64", 
+    "browserTag": "chrome54", 
+    "version": "54.0.2840.100", 
+    "vendorSub": "", 
+    "javaUserAgent": null, 
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.100 Safari/537.36", 
+    "cc_on": null, 
+    "id": 300204
+}

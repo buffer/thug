@@ -14,6 +14,7 @@ def text_property(readonly = False):
         #
         #self.tag.string = self.tag.contents[0]
         self.tag.string = text
+        if self.tagName.lower() in ('script', ):
+            self.doc.window.evalScript(text, self.tag)
         
     return property(getter) if readonly else property(getter, setter)
-

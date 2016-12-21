@@ -29,7 +29,6 @@ from .HTTPSessionException import AboutBlank
 from .HTTPSessionException import FetchForbidden
 from .HTTPSessionException import InvalidUrl
 from .HTTPSessionException import ThresholdExpired
-from .HTTPSessionException import TimeoutExpired
 from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
@@ -285,6 +284,8 @@ class Navigator(JSClass):
         return True
 
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None):
+        log.URLClassifier.classify(url)
+
         # The command-line option -x (--local-nofetch) prevents remote
         # content fetching so raise an exception and exit the method.
         if log.HTTPSession.no_fetch:
@@ -311,12 +312,6 @@ class Navigator(JSClass):
         # fetching the contents.
         if log.HTTPSession.threshold_expired(url):
             raise ThresholdExpired
-
-        # The command-line option -T (--timeout) set the analysis timeout
-        # (in seconds). If the analysis lasts more than this value avoid
-        # fetching the contents.
-        if log.HTTPSession.timeout_expired(url):
-            raise TimeoutExpired
 
         if headers is None:
             headers = dict()

@@ -20,6 +20,7 @@ import logging
 
 log = logging.getLogger("Thug")
 
+
 class External(object):
     def __init__(self):
         self._providers = set()
@@ -83,7 +84,7 @@ class External(object):
         pass
 
     def _AutoScan(self, domainPart, defaultURL = None, target = None):
-        # This method does not work in Internet Explorer from version 7 
+        # This method does not work in Internet Explorer from version 7
         # and raises an exception.
         if log.ThugOpts.Personality.browserMajorVersion >= 7:
             raise TypeError()

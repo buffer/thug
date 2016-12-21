@@ -355,6 +355,26 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def get_connect_timeout():
+        """
+        get_connect_timeout
+
+        Get the connect timeout (in seconds)
+
+        @return: the connect timeout (in seconds)
+        """
+
+    def set_connect_timeout(timeout):
+        """
+        set_connect_timeout
+
+        Set the connect timeout (in seconds)
+
+        @param timeout: the connect timeout (in seconds)
+        @type timeout: C{int}
+        @return: None
+        """
+
     def get_timeout():
         """
         get_timeout
@@ -374,6 +394,7 @@ class IThugAPI(zope.interface.Interface):
         @type timeout: C{int}
         @return: None
         """
+
     def get_broken_url():
         """
         get_broken_url
@@ -397,6 +418,42 @@ class IThugAPI(zope.interface.Interface):
         disable_honeyagent
 
         Disable HoneyAgent Java sandbox analysis
+
+        @return: None
+        """
+
+    def enable_code_logging():
+        """
+        enable_code_logging
+
+        Enable code logging
+
+        @return: None
+        """
+
+    def disable_code_logging():
+        """
+        disable_code_logging
+
+        Disable code logging
+
+        @return: None
+        """
+
+    def enable_cert_logging():
+        """
+        enable_cert_logging
+
+        Enable SSL/TLS certificate logging
+
+        @return: None
+        """
+
+    def disable_cert_logging():
+        """
+        disable_cert_logging
+
+        Disable SSL/TLS certificate logging
 
         @return: None
         """
@@ -490,6 +547,17 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def add_htmlclassifier(rule):
+        """
+        add_htmlclassifier
+
+        Add an additional HTML classifier rule file
+
+        @param rule: HTML classifier rule file
+        @type rule: C{str}
+        @return: None
+        """
+
     def add_jsclassifier(rule):
         """
         add_jsclassifier
@@ -505,10 +573,54 @@ class IThugAPI(zope.interface.Interface):
         """
         add_sampleclassifier
 
-        Add an additional Sample classifier rule file
+        Add an additional sample classifier rule file
 
         @param rule: Sample classifier rule file
         @type rule: C{str}
+        @return: None
+        """
+
+    def add_urlfilter(filter):
+        """
+        add_urlfilter
+
+        Add an additional URL filter file
+
+        @param filter: URL filter file
+        @type filter: C{str}
+        @return: None
+        """
+
+    def add_htmlfilter(filter):
+        """
+        add_htmlfilter
+
+        Add an additional HTML filter file
+
+        @param filter: HTML filter file
+        @type filter: C{str}
+        @return: None
+        """
+
+    def add_jsfilter(filter):
+        """
+        add_jsfilter
+
+        Add an additional JS filter file
+
+        @param filter: JS filter file
+        @type filter: C{str}
+        @return: None
+        """
+
+    def add_samplefilter(filter):
+        """
+        add_samplefilter
+
+        Add an additional sample filter file
+
+        @param filter: Sample filter file
+        @type filter: C{str}
         @return: None
         """
 

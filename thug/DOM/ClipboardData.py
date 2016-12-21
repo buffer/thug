@@ -26,7 +26,7 @@ class ClipboardData(object):
             return self._data[dataFormat]
 
         return None
-        
+
     def setData(self, dataFormat, data):
         if dataFormat not in ('Text', 'URL'):
             return False

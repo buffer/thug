@@ -55,6 +55,9 @@ class Document(Node, DocumentEvent, DocumentView):
         if log.ThugOpts.Personality.browserMajorVersion > 8:
             self.getElementsByClassName = self._getElementsByClassName
 
+        if log.ThugOpts.Personality.browserMajorVersion > 10:
+            self.__proto__ = None
+
     def __init_personality_Firefox(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector

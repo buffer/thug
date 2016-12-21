@@ -13,6 +13,9 @@
     "browserTag": "ie110",
     "version": "11.103.10586.0",
     "vendorSub": null,
+	"ScriptEngineMajorVersion": 11,
+	"ScriptEngineMinorVersion": 0,
+	"ScriptEngineBuildVersion": 0,
     "javaUserAgent": "Mozilla/4.0 (Windows 10 10.0) Java/%s",
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; InfoPath.3; rv:11.0) like Gecko",
     "cc_on": {

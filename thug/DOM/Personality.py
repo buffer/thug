@@ -20,7 +20,9 @@ import sys
 import os
 import json
 import logging
+
 log = logging.getLogger("Thug")
+
 
 class Personality(dict):
     def __init__(self):
@@ -38,6 +40,22 @@ class Personality(dict):
                 name = f.split(".json")[0]
                 with open(os.path.join(root, f)) as personality:
                     self[name] = json.load(personality)
+
+                # Shell variables are case insensitive, will process them
+                # to make sure all keys in the dict are lowercase.
+                for k, v in self[name].pop('shellVariables', dict()).iteritems():
+                    if 'shellVariables' not in self[name]:
+                        self[name]['shellVariables'] = dict()
+
+                    self[name]['shellVariables'][k.lower()] = v
+
+                # Special folder names are case insensitive, will process them
+                # to make sure all keys in the dict are lowercase.
+                for k, v in self[name].pop('specialFolders', dict()).iteritems():
+                    if 'specialFolders' not in self[name]:
+                        self[name]['specialFolders'] = dict()
+
+                    self[name]['specialFolders'][k.lower()] = v
 
     @property
     def userAgent(self):
@@ -62,6 +80,9 @@ class Personality(dict):
     def isIE(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('ie')
 
+    def isEdge(self):
+        return self[log.ThugOpts.useragent]['browserTag'].startswith('edge')
+
     def isWindows(self):
         return log.ThugOpts.useragent.startswith('win')
 
@@ -77,8 +98,17 @@ class Personality(dict):
     def isOpera(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('opera')
 
+    def ScriptEngineMajorVersion(self):
+        return self[log.ThugOpts.useragent]['ScriptEngineMajorVersion']
+
+    def ScriptEngineMinorVersion(self):
+        return self[log.ThugOpts.useragent]['ScriptEngineMinorVersion']
+
+    def ScriptEngineBuildVersion(self):
+        return self[log.ThugOpts.useragent]['ScriptEngineBuildVersion']
+
     def getShellVariable(self, variableName):
-        return self[log.ThugOpts.useragent].get('shellVariables', dict()).get(variableName.strip("%"), '')
+        return self[log.ThugOpts.useragent].get('shellVariables', dict()).get(variableName.strip("%").lower(), '')
 
     def getSpecialFolder(self, folderName):
-        return self[log.ThugOpts.useragent].get('specialFolders', dict()).get(folderName, '')
+        return self[log.ThugOpts.useragent].get('specialFolders', dict()).get(folderName.lower(), '')

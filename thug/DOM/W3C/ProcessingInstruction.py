@@ -27,4 +27,3 @@ class ProcessingInstruction(Node):
         self.data = data
 
     nodeValue = property(getNodeValue, setNodeValue)
-

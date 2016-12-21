@@ -55,12 +55,12 @@ class Storage(OrderedDict):
         evtObject.initStorageEvent('storage',
                                    False,
                                    False,
-                                   key, 
-                                   oldvalue, 
-                                   value, 
-                                   log.DFT.window.url, 
+                                   key,
+                                   oldvalue,
+                                   value,
+                                   log.DFT.window.url,
                                    self)
-        
+
         log.DFT.handle_window_storage_event('onstorage', evtObject)
 
     def __delitem__(self, key, dict_delitem = dict.__delitem__):
@@ -75,12 +75,12 @@ class Storage(OrderedDict):
         evtObject.initStorageEvent('storage',
                                    False,
                                    False,
-                                   key, 
-                                   oldvalue, 
-                                   None, 
-                                   log.DFT.window.url, 
+                                   key,
+                                   oldvalue,
+                                   None,
+                                   log.DFT.window.url,
                                    self)
-   
+
         log.DFT.handle_window_storage_event('onstorage', evtObject)
 
     def clear(self):
@@ -94,8 +94,8 @@ class Storage(OrderedDict):
                                    False,
                                    None,
                                    None,
-                                   None, 
+                                   None,
                                    log.DFT.window.url,
                                    self)
-   
+
         log.DFT.handle_window_storage_event('onstorage', evtObject)

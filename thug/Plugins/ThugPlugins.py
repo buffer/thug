@@ -57,7 +57,7 @@ class ThugPlugins(object):
 
         try:
             plugin_prio = int(plugin_info[2])
-        except:
+        except ValueError:
             plugin_prio = self.handle_low_prio_plugin()
 
         return plugin_prio
@@ -73,7 +73,7 @@ class ThugPlugins(object):
             if not os.path.isdir(pkg):
                 continue
         
-            if not HANDLER_MODULE in os.listdir(pkg):
+            if HANDLER_MODULE not in os.listdir(pkg):
                 continue
 
             plugin_info = p.split('-')
@@ -99,9 +99,7 @@ class ThugPlugins(object):
 
             handler = getattr(module, "Handler", None)
             if handler:
-                log.warning("[PLUGIN][%s] Phase: %s_ANALYSIS Priority: %d" % (name.split('-')[1],
-                                                                              self.phase,
-                                                                              prio))
+                log.warning("[PLUGIN][%s] Phase: %s_ANALYSIS Priority: %d", name.split('-')[1], self.phase, prio)
                 p = handler()
                 try:
                     verifyObject(IPlugin, p)

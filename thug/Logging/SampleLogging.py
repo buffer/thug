@@ -33,6 +33,7 @@ except ImportError:
 
 log = logging.getLogger("Thug")
 
+
 class SampleLogging(object):
     def __init__(self):
         self.types = ('PE',
@@ -105,7 +106,7 @@ class SampleLogging(object):
 
         if SSDEEP:
             p['ssdeep'] = ssdeep.hash(data)
-        
+
         if p['type'] in ('PE', ):
             imphash = self.get_imphash(data)
             if imphash:

@@ -21,11 +21,12 @@ class HTMLCollection(JSClass):
         return len(self.nodes)
 
     def item(self, index):
-        from thug.DOM.W3C.DOMImplementation import DOMImplementation
+        #from thug.DOM.W3C.DOMImplementation import DOMImplementation
 
         node = self.nodes[index]
 
-        return DOMImplementation.createHTMLElement(self.doc, node) if node else None
+        return node
+        #return DOMImplementation.createHTMLElement(self.doc, node) if node else None
 
     def namedItem(self, name):
         from thug.DOM.W3C.DOMImplementation import DOMImplementation
