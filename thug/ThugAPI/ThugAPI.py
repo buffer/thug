@@ -213,6 +213,9 @@ class ThugAPI(object):
     def disable_honeyagent(self):
         log.ThugOpts.honeyagent = False
 
+    def enable_code_logging(self):
+        log.ThugOpts.code_logging = True
+
     def disable_code_logging(self):
         log.ThugOpts.code_logging = False
 

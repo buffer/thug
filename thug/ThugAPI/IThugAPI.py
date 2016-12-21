@@ -422,6 +422,15 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def enable_code_logging():
+        """
+        enable_code_logging
+
+        Enable code logging
+
+        @return: None
+        """
+
     def disable_code_logging():
         """
         disable_code_logging
