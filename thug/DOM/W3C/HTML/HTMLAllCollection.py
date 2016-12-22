@@ -3,6 +3,7 @@
 from .HTMLCollection import HTMLCollection
 from thug.DOM.W3C.NodeList import NodeList
 
+
 class HTMLAllCollection(HTMLCollection):
     def __init__(self, doc, nodes):
         HTMLCollection.__init__(self, doc, nodes)

@@ -4,6 +4,7 @@ from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 from .compatibility import thug_long
 
+
 class HTMLTableCellElement(HTMLElement):
     def __init__(self, doc, tag, index = 0):
         HTMLElement.__init__(self, doc, tag)
@@ -27,4 +28,3 @@ class HTMLTableCellElement(HTMLElement):
     scope           = attr_property("scope")
     vAlign          = attr_property("valign")
     width           = attr_property("width")
-

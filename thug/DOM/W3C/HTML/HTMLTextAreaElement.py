@@ -5,6 +5,7 @@ from .attr_property import attr_property
 from .text_property import text_property
 from .compatibility import thug_long
 
+
 class HTMLTextAreaElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)

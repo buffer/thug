@@ -33,7 +33,7 @@ from .xpath_property import xpath_property
 
 class HTMLDocument(Document):
     title       = xpath_property("/html/head/title/text()")
-    #body        = xpath_property("/html/body[1]", readonly = True)
+    # body        = xpath_property("/html/body[1]", readonly = True)
     images      = xpath_property("//img", readonly = True)
     applets     = xpath_property("//applet", readonly = True)
     forms       = xpath_property("//form", readonly = True)
@@ -145,10 +145,10 @@ class HTMLDocument(Document):
         self._cookie = value
 
     cookie = property(getCookie, setCookie)
-        
+
     def getDomain(self):
         return self._domain
-    
+
     def setDomain(self, value):
         self._domain = value
 
@@ -196,7 +196,7 @@ class HTMLDocument(Document):
 
     @property
     def documentMode(self):
-        #version = log.ThugOpts.Personality.browserVersion
+        # version = log.ThugOpts.Personality.browserVersion
         major   = log.ThugOpts.Personality.browserMajorVersion
 
         if major < 8:
@@ -241,7 +241,7 @@ class HTMLDocument(Document):
         self._html = StringIO()
 
         return self
-    
+
     def close(self):
         html = self._html.getvalue()
         self._html.close()
@@ -277,7 +277,7 @@ class HTMLDocument(Document):
 
             try:
                 handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 handler = getattr(log.DFT, "handle_%s" % (name, ), None)
 
             if handler:
@@ -285,17 +285,17 @@ class HTMLDocument(Document):
 
     def writeln(self, text):
         self.write(text + "\n")
-   
-    # DOM Level 2 moves getElementbyId in Document object inherited by 
+
+    # DOM Level 2 moves getElementbyId in Document object inherited by
     # HTMLDocument
     #
-    #def getElementById(self, elementId):
+    # def getElementById(self, elementId):
     #    tag = self.doc.find(id = elementId)
     #    return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None
 
     def getElementsByName(self, elementName):
         tags = self.doc.find_all(attrs = {'name': elementName})
-        
+
         return HTMLCollection(self.doc, tags)
 
     @property

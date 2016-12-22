@@ -4,6 +4,7 @@ from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 from .compatibility import thug_long
 
+
 class HTMLImageElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
@@ -16,7 +17,7 @@ class HTMLImageElement(HTMLElement):
     isMap           = attr_property("ismap", bool)
     longDesc        = attr_property("longdesc")
     # Removed in DOM Level 2
-    #lowSrc          = attr_property("lowsrc")
+    # lowSrc          = attr_property("lowsrc")
     name            = attr_property("name")
     src             = attr_property("src")
     useMap          = attr_property("usemap")

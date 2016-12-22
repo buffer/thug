@@ -8,16 +8,17 @@ from .compatibility import thug_long
 
 log = logging.getLogger("Thug")
 
+
 class HTMLObjectElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
         self._window = self.doc.window
-    
+
     def __getattr__(self, name):
         for (key, value) in self.tag.attrs.iteritems():
             if key != 'id':
                 continue
-        
+
             _obj = getattr(self.doc.window, value)
             if _obj:
                 return getattr(_obj, name)
@@ -34,7 +35,7 @@ class HTMLObjectElement(HTMLElement):
             return
 
         self.__dict__[name] = value
-        
+
         if 'funcattrs' not in self.__dict__:
             return
 
@@ -76,7 +77,7 @@ class HTMLObjectElement(HTMLElement):
 
             try:
                 register_object(self, value)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 return
 
         self.tag[name] = value

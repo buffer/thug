@@ -67,10 +67,10 @@ class HTMLElement(Element, ElementCSSInlineStyle):
             if handler:
                 handler(node)
 
-        #soup.head.unwrap()
-        #soup.body.unwrap()
-        #soup.html.wrap(self.tag)
-        #self.tag.html.unwrap()
+        # soup.head.unwrap()
+        # soup.body.unwrap()
+        # soup.html.wrap(self.tag)
+        # self.tag.html.unwrap()
 
         for node in self.tag.descendants:
             name = getattr(node, 'name', None)
@@ -83,7 +83,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
 
             if p:
                 p(node)
-            
+
     innerHTML = property(getInnerHTML, setInnerHTML)
 
     # WARNING: NOT DEFINED IN W3C SPECS!

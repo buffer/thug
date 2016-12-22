@@ -3,6 +3,7 @@
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 
+
 class HTMLLinkElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
@@ -16,4 +17,3 @@ class HTMLLinkElement(HTMLElement):
     rev             = attr_property("rev")
     target          = attr_property("target")
     type            = attr_property("type")
-

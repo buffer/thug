@@ -9,6 +9,7 @@ from .compatibility import thug_long
 
 log = logging.getLogger("Thug")
 
+
 class HTMLAnchorElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)

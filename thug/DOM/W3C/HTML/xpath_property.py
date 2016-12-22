@@ -6,25 +6,26 @@ import bs4 as BeautifulSoup
 
 from .HTMLCollection import HTMLCollection
 
+
 def xpath_property(xpath, readonly = False):
     RE_INDEXED = re.compile("(\w+)\[([^\]]+)\]")
-    
+
     parts = xpath.split('/')
-    
+
     def getChildren(tag, parts, recursive = False):
         if len(parts) == 0:
             return [tag]
-        
+
         part = parts[0]
-        
+
         if part == '':
             return getChildren(tag, parts[1:], True)
-            
+
         if part == 'text()':
             return [tag.string]
-        
+
         m = RE_INDEXED.match(part)
-        
+
         if m:
             name = m.group(1)
             idx = m.group(2)
@@ -40,15 +41,15 @@ def xpath_property(xpath, readonly = False):
             if idx[0] == '@':
                 tags = [t for t in _tags if t.has_attr(idx[1:])]
             else:
-                tags = [_tags[int(idx)-1]]
+                tags = [_tags[int(idx) - 1]]
         else:
             tags = _tags
 
         for child in tags:
             children += getChildren(child, parts[1:])
-            
+
         return children
-        
+
     def getter(self):
         children = getChildren(self.doc, parts)
 
@@ -66,14 +67,14 @@ def xpath_property(xpath, readonly = False):
                 string.atoi(m.group(2))
 
                 return DOMImplementation.createHTMLElement(self.doc, children[0]) if len(children) > 0 else None
-            except ValueError: 
+            except ValueError:
                 pass
-                
+
         return HTMLCollection(self.doc, children)
-        
+
     def setter(self, value):
         tag = self.doc
-        
+
         for part in parts:
             if part == '':
                 continue
@@ -81,19 +82,19 @@ def xpath_property(xpath, readonly = False):
                 if tag.string:
                     tag.contents[0] = BeautifulSoup.NavigableString(value)
                 else:
-                    tag.append(value)                    
+                    tag.append(value)
                     tag.string = tag.contents[0]
                 return
             else:
                 child = tag.find(part)
-                
+
                 if not child:
                     child = BeautifulSoup.Tag(parser = self.doc, name = part)
-                    
+
                     tag.append(child)
-                    
+
                 tag = child
-                
+
         tag.append(value)
 
     return property(getter) if readonly else property(getter, setter)

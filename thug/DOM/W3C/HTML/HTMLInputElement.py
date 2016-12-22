@@ -6,11 +6,12 @@ from .attr_property import attr_property
 from .compatibility import thug_long
 from .compatibility import thug_maxint
 
+
 class HTMLInputElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
 
-    #defaultValue    = attr_property("value")
+    # defaultValue    = attr_property("value")
     value           = attr_property("value")
     defaultChecked  = attr_property("checked", bool)
 
@@ -41,7 +42,7 @@ class HTMLInputElement(HTMLElement):
     def setValue(self, value):
         pass
 
-    #value = property(getValue, setValue)
+    # value = property(getValue, setValue)
 
     def blur(self):
         pass
@@ -54,4 +55,3 @@ class HTMLInputElement(HTMLElement):
 
     def click(self):
         pass
-

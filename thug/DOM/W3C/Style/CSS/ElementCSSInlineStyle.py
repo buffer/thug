@@ -2,6 +2,7 @@
 
 from .CSSStyleDeclaration import CSSStyleDeclaration
 
+
 class ElementCSSInlineStyle(object):
     def __init__(self, doc, tag):
         self.doc = doc

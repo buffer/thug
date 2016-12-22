@@ -3,6 +3,7 @@
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 
+
 class HTMLHRElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
@@ -11,4 +12,3 @@ class HTMLHRElement(HTMLElement):
     noShade         = attr_property("noshade", bool)
     size            = attr_property("size")
     width           = attr_property("width")
-

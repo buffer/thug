@@ -3,6 +3,7 @@
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 
+
 class HTMLMetaElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
@@ -11,5 +12,3 @@ class HTMLMetaElement(HTMLElement):
     httpEquiv       = attr_property("http-equiv")
     name            = attr_property("name", default = '')
     scheme          = attr_property("scheme")
-
-
