@@ -290,8 +290,9 @@ class MIMEHandler(dict):
             try:
                 if handler(url, content):
                     return True
-            except:
+            except: #pylint:disable=bare-except
                 pass
+
         return False
 
     def handle_zip(self, url, content):
@@ -517,7 +518,7 @@ class MIMEHandler(dict):
                         if element in vulnsDict:
                             for vulnCVE in vulnsDict[element]:
                                 if isinstance(vulnCVE, (list, tuple)):
-                                    vulnCVE=",".join(vulnCVE)
+                                    vulnCVE = ",".join(vulnCVE)
 
                                 log.ThugLogging.log_exploit_event(url,
                                                                   "Adobe Acrobat Reader",
@@ -534,7 +535,7 @@ class MIMEHandler(dict):
                         if vuln in vulnsDict:
                             for vulnCVE in vulnsDict[vuln]:
                                 if isinstance(vulnCVE, (list, tuple)):
-                                    vulnCVE=",".join(vulnCVE)
+                                    vulnCVE = ",".join(vulnCVE)
 
                                 log.ThugLogging.log_exploit_event(url,
                                                                   "Adobe Acrobat Reader",
