@@ -2,7 +2,9 @@
 # CVE-2007-5601
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def DoAutoUpdateRequest(self, arg0, arg1, arg2):
     if len(arg0) > 1000 or len(arg1) > 1000:
@@ -10,6 +12,7 @@ def DoAutoUpdateRequest(self, arg0, arg1, arg2):
                                           "RealMedia RealPlayer Ierpplug.DLL ActiveX",
                                           "Overflow in DoAutoUpdateRequest",
                                           cve = "CVE-2007-5601")
+
 
 def PlayerProperty(self, arg):
     if arg == 'PRODUCTVERSION':
@@ -21,12 +24,14 @@ def PlayerProperty(self, arg):
                                           "Overflow in PlayerProperty",
                                           cve = "CVE-2007-5601")
 
+
 def Import(self, arg):
     if len(arg) > 0x8000:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "RealMedia RealPlayer Ierpplug.DLL ActiveX",
                                           "Overflow in Import",
                                           cve = "CVE-2007-5601")
+
 
 def SetConsole(self, val):
     self.__dict__['Console'] = val

@@ -2,7 +2,9 @@
 # CVE-NOMATCH
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def UploadLogs(self, url, arg):
     if len(url) > 20000:

@@ -1,8 +1,10 @@
 # Gogago YouTube Video Converter Buffer Overflow
 # HTB23012
 
-import logging 
+import logging
+
 log = logging.getLogger("Thug")
+
 
 def Download(self, arg):
     if len(arg) > 1024:

@@ -5,7 +5,7 @@ import base64
 import binascii
 from thug.DOM.W3C import w3c
 from thug.OS.Windows import security_sys
-#from DOM.W3C.NamedNodeMap import NamedNodeMap
+# from DOM.W3C.NamedNodeMap import NamedNodeMap
 
 import logging
 log = logging.getLogger("Thug")
@@ -23,7 +23,7 @@ class Node(etree.ElementBase):
                 return base64.b64decode(self.text)
             elif self._dataType == 'bin.hex':
                 return binascii.unhexlify(self.text)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             pass
 
         return self.text
@@ -36,7 +36,7 @@ class Node(etree.ElementBase):
                 self.text = binascii.hexlify(value)
             else:
                 self.text = value
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             self.text = value
 
     nodeTypedValue = property(getNodeTypedValue, setNodeTypedValue)
@@ -52,7 +52,7 @@ class Node(etree.ElementBase):
 
 def loadXML(self, bstrXML):
     self.xml = w3c.parseString(bstrXML)
-    #self.attributes = NamedNodeMap(self.xml._node)
+    # self.attributes = NamedNodeMap(self.xml._node)
 
     if "res://" not in bstrXML:
         return

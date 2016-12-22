@@ -2,6 +2,7 @@
 import logging
 log = logging.getLogger("Thug")
 
+
 def DownloadFile(self, *arg):
     log.ThugLogging.add_behavior_warn('[ZenturiProgramChecker ActiveX] Attack in DownloadFile function')
 
@@ -19,14 +20,16 @@ def DownloadFile(self, *arg):
 
     try:
         self._window._navigator.fetch(arg[0], redirect_type = "ZenturiProgramChecker Exploit")
-    except: #pylint:disable=bare-except
+    except:  # pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[ZenturiProgramChecker ActiveX] Fetch failed')
+
 
 def DebugMsgLog(self, *arg):
     log.ThugLogging.add_behavior_warn('[ZenturiProgramChecker ActiveX] Attack in DebugMsgLog function')
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "ZenturiProgramChecker ActiveX",
                                       "Attack in DebugMsgLog function")
+
 
 def NavigateUrl(self, *arg):
     log.ThugLogging.add_behavior_warn('[ZenturiProgramChecker ActiveX] Attack in NavigateUrl function')

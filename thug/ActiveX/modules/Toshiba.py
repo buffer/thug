@@ -2,13 +2,16 @@
 # CVE-NOMATCH
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def SetPort(self, arg):
     if len(arg) > 10:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Toshiba Surveillance RecordSend Class ActiveX",
                                           "Overflow in SetPort")
+
 
 def SetIpAddress(self, arg):
     if len(arg) > 18:

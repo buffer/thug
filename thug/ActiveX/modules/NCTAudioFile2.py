@@ -2,7 +2,9 @@
 # CVE-2007-0018
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def SetFormatLikeSample(self, arg):
     if len(arg) > 4000:

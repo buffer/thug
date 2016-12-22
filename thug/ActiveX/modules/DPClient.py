@@ -2,7 +2,9 @@
 # CVE-2007-5064
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def DownURL2(self, arg0, *args):
     if len(arg0) > 1024:

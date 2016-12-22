@@ -2,7 +2,9 @@ from thug.ActiveX.modules import WScriptShell
 import string
 import random
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def OpenTextFile(self, sFilePathAndName, ForWriting = True, flag = True):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] OpenTextFile("%s", "%s", "%s")' % (sFilePathAndName, ForWriting, flag))
@@ -16,15 +18,19 @@ def OpenTextFile(self, sFilePathAndName, ForWriting = True, flag = True):
                                              },
                                       forward = False)
 
+
 def Write(self, sFileContents):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] Write("%s")' % (sFileContents, ))
+
 
 def Close(self):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] Close()')
 
+
 def BuildPath(self, arg0, arg1):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] BuildPath("%s", "%s")' % (arg0, arg1, ))
     return "%s\%s" % (arg0, arg1)
+
 
 def GetSpecialFolder(self, arg):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetSpecialFolder(%s)' % (arg, ))
@@ -40,6 +46,7 @@ def GetSpecialFolder(self, arg):
 
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] Returning %s for GetSpecialFolder(%s)' % (folder, arg, ))
     return folder
+
 
 def GetTempName(self):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetTempName()')

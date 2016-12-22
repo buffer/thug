@@ -2,7 +2,9 @@
 # CVE-2008-0015,CVE-2008-0020
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def Setdata(self, val):
     self.__dict__['data'] = val

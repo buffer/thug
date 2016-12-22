@@ -2,7 +2,9 @@
 # CVE-2008-4388
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def installAppMgr(self, url):
     log.ThugLogging.log_exploit_event(self._window.url,
@@ -18,5 +20,5 @@ def installAppMgr(self, url):
 
     try:
         self._window._navigator.fetch(url, redirect_type = "CVE-2088-4388")
-    except: #pylint:disable=bare-except
+    except:  # pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[Symantec AppStream LaunchObj ActiveX] Fetch failed')

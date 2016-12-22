@@ -2,7 +2,9 @@
 # CVE-NOMATCH
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def ConnectServer(self, server, user):
     if len(user) > 1024:

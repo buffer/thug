@@ -2,7 +2,9 @@
 # CVE-2007-5775
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def initx(self, arg):
     if len(arg) > 1024:
@@ -10,4 +12,3 @@ def initx(self, arg):
                                           "BitDefender Online Scanner ActiveX",
                                           "InitX overflow",
                                           cve = "CVE-2007-5775")
-

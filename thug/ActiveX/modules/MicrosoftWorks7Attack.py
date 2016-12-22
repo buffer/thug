@@ -1,6 +1,8 @@
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def SetWksPictureInterface(self, val):
     self.__dict__['WksPictureInterface'] = val

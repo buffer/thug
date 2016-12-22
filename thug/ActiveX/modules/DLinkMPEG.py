@@ -2,7 +2,9 @@
 # CVE-NOMATCH
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def SetUrl(self, val):
     self.__dict__['Url'] = val

@@ -2,7 +2,9 @@
 # CVE-2007-5722
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def ConnectAndEnterRoom(self, arg0, arg1, arg2, arg3, arg4, arg5):
     if len(arg0) > 172:
@@ -10,4 +12,3 @@ def ConnectAndEnterRoom(self, arg0, arg1, arg2, arg3, arg4, arg5):
                                           "GlobalLink ConnectAndEnterRoom ActiveX",
                                           "ConnectAndEnterRoom Overflow",
                                           cve = 'CVE-2007-5722')
-

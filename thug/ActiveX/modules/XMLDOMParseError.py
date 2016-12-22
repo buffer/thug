@@ -10,29 +10,29 @@ class XMLDOMParseError(object):
         self._url       = ''
 
         @property
-        def errorCode(self): #pylint:disable=unused-variable
+        def errorCode(self):  # pylint:disable=unused-variable
             return self._errorCode
 
         @property
-        def filepos(self): #pylint:disable=unused-variable
+        def filepos(self):  # pylint:disable=unused-variable
             return self._filepos
 
         @property
-        def line(self): #pylint:disable=unused-variable
+        def line(self):  # pylint:disable=unused-variable
             return self._line
 
         @property
-        def linepos(self): #pylint:disable=unused-variable
+        def linepos(self):  # pylint:disable=unused-variable
             return self._linepos
 
         @property
-        def reason(self): #pylint:disable=unused-variable
+        def reason(self):  # pylint:disable=unused-variable
             return self._reason
 
         @property
-        def srcText(self): #pylint:disable=unused-variable
+        def srcText(self):  # pylint:disable=unused-variable
             return self._srcText
 
         @property
-        def url(self): #pylint:disable=unused-variable
+        def url(self):  # pylint:disable=unused-variable
             return self._url

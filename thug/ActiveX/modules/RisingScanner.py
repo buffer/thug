@@ -2,7 +2,9 @@
 # CVE-NOMATCH
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def UpdateEngine(self):
     log.ThugLogging.log_exploit_event(self._window.url,

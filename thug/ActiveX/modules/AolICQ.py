@@ -2,7 +2,9 @@
 # CVE-2006-5650
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def DownloadAgent(self, url):
     log.ThugLogging.log_exploit_event(self._window.url,
@@ -15,8 +17,8 @@ def DownloadAgent(self, url):
                                      )
 
     log.ThugLogging.add_behavior_warn('[AOL ICQ ActiveX] Fetching from URL: %s' % (url, ))
-    
+
     try:
         self._window._navigator.fetch(url, redirect_type = "AOL ICQ Exploit")
-    except: #pylint:disable=bare-except
+    except:  # pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[AOL ICQ ActiveX] Fetch failed')

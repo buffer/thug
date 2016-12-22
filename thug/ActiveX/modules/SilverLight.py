@@ -1,5 +1,7 @@
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def isVersionSupported(self, version):
     shockwave = log.ThugVulnModules.shockwave_flash.split('.')
@@ -10,7 +12,7 @@ def isVersionSupported(self, version):
 
     if len(sversion) != 4:
         return False
-   
+
     for i in range(0, 4):
         if int(sversion[i]) > int(shockwave[i]):
             return False

@@ -2,7 +2,9 @@
 # CVE-2006-6707
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def TraceTarget(self, target):
     if len(target) > 255:

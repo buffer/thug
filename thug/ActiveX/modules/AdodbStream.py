@@ -11,13 +11,16 @@ from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
 
-def open(self): #pylint:disable=redefined-builtin
+
+def open(self):  # pylint:disable=redefined-builtin
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] open")
     self.fobject = StringIO()
+
 
 def Write(self, s):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Write")
     self.fobject.write(unicode(s))
+
 
 def SaveToFile(self, filename, opt = 0):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] SaveToFile(%s, %s)" % (filename, opt, ))
@@ -35,12 +38,14 @@ def SaveToFile(self, filename, opt = 0):
     log.ThugLogging.log_file(content, url = filename, sampletype = mtype)
     self._files[filename] = content
 
+
 def LoadFromFile(self, filename):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] LoadFromFile(%s)" % (filename, ))
     if filename not in self._files:
         raise TypeError()
 
     self._current = filename
+
 
 def ReadText(self, NumChars = -1):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] ReadText")
@@ -50,12 +55,15 @@ def ReadText(self, NumChars = -1):
 
     return self._files[self._current][:NumChars - 1]
 
+
 def WriteText(self, data, options = None):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] WriteText(%s)" % (data, ))
+
 
 def Close(self):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Close")
     self.fobject.close()
+
 
 def setPosition(self, pos):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Changed position in fileobject to: (%s)" % (pos, ))

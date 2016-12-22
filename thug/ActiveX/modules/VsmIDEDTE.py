@@ -1,6 +1,8 @@
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def CreateObject(self, _object, param = ''):
     import thug.ActiveX as ActiveX
@@ -15,4 +17,3 @@ def CreateObject(self, _object, param = ''):
                                       forward = False)
 
     return ActiveX.ActiveX._ActiveXObject(self._window, _object)
-

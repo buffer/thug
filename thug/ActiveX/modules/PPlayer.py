@@ -1,13 +1,16 @@
 # Xunlei Thunder PPLAYER.DLL_1.WORK ActiveX Control
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def DownURL2(self, arg0, arg1, arg2, arg3):
     if len(arg0) > 1024:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Xunlei Thunder PPlayer ActiveX",
                                           "DownURL2 Overflow")
+
 
 def SetFlvPlayerUrl(self, val):
     self.__dict__['FlvPlayerUrl'] = val
@@ -16,6 +19,7 @@ def SetFlvPlayerUrl(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Xunlei Thunder PPlayer ActiveX",
                                           "FlvPlayerUrl Property Handling Buffer Overflow")
+
 
 def SetLogo(self, val):
     self.__dict__['Logo'] = val

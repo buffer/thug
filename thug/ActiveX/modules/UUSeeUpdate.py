@@ -2,7 +2,9 @@
 # CVE...
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def Update(self, *args):
     log.ThugLogging.log_exploit_event(self._window.url,

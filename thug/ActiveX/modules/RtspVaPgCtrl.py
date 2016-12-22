@@ -2,7 +2,9 @@
 # CVE-NOMATCH
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def SetMP4Prefix(self, val):
     self.__dict__['MP4Prefix'] = val

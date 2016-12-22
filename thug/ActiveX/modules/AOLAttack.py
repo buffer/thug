@@ -1,6 +1,7 @@
 
-import logging 
+import logging
 log = logging.getLogger("Thug")
+
 
 def LinkSBIcons(self):
     log.ThugLogging.log_exploit_event(self._window.url,

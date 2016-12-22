@@ -1,6 +1,8 @@
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def ShellExecute(self, *args):
     cmdLine = ''

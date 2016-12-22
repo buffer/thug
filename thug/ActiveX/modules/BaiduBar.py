@@ -2,7 +2,9 @@
 # BUGTRAQ  ID: 25121
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def DloadDS(self, arg0, arg1, arg2):
     if str(arg0).lower().find(".cab") != -1:

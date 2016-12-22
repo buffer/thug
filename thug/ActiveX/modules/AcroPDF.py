@@ -1,13 +1,15 @@
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def GetVersions(self):
     versions = ""
-    for feature in ('Accessibility', 
-                    'AcroForm', 
-                    'Annots', 
-                    'Checkers', 
+    for feature in ('Accessibility',
+                    'AcroForm',
+                    'Annots',
+                    'Checkers',
                     'DigSig',
                     'DVA',
                     'eBook',
@@ -30,6 +32,3 @@ def GetVersions(self):
         versions += "%s=%s," % (feature, log.ThugVulnModules.acropdf_pdf, )
 
     return versions
-
-
-

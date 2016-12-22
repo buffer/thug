@@ -2,7 +2,9 @@
 # CVE-NOMATCH
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def DeleteKey(self, arg0, arg1):
     if arg0 in (80000001, 80000002, ):
@@ -14,6 +16,7 @@ def DeleteKey(self, arg0, arg1):
                                           data = {
                                               "regkey": "HKEY_LOCAL_MACHINE/" + str(arg1)
                                           })
+
 
 def About(self):
     log.ThugLogging.add_behavior_warn('[RegistryPro ActiveX] About called')

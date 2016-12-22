@@ -2,7 +2,9 @@
 # CVE-2009-1807
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def SetAttributeValue(self, arg0, arg1, arg2):
     if len(arg0) > 260:

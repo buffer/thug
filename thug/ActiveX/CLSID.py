@@ -405,7 +405,8 @@ CLSID = [
                           },
             'funcattrs' : {
                             'ExtractIptc'       : FacebookPhotoUploader.SetExtractIptc,
-                            'ExtractExif'       : FacebookPhotoUploader.SetExtractExif,},
+                            'ExtractExif'       : FacebookPhotoUploader.SetExtractExif,
+                          },
             'methods'   : {
                             'SetExtractIptc'    : FacebookPhotoUploader.SetExtractIptc,
                             'SetExtractExif'    : FacebookPhotoUploader.SetExtractExif,
@@ -1368,7 +1369,7 @@ CLSID = [
                           }
         },
 
-        #WScriptShell
+        # WScriptShell
         {
             'id'        : (),
             'name'      : 'wscript.shell',

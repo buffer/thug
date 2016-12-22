@@ -1,6 +1,8 @@
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def GetVariable(self, arg):
     if arg in ("$version", ):

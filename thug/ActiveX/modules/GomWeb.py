@@ -2,7 +2,9 @@
 # CVE-2007-5779
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def OpenURL(self, arg):
     if len(arg) > 500:
@@ -10,4 +12,3 @@ def OpenURL(self, arg):
                                           "GOM Player Manager ActiveX",
                                           "Overflow in OpenURL",
                                           cve = "CVE-2007-5779")
-

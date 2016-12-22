@@ -8,7 +8,9 @@ import logging
 import hashlib
 import pefile
 import PyV8
+
 log = logging.getLogger("Thug")
+
 
 class _Environment(object):
     def __init__(self, strType):
@@ -17,6 +19,7 @@ class _Environment(object):
     def Item(self, item):
         log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Getting Environment Item: %s" % (item, ))
         return item
+
 
 def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Executing: %s" % (strCommand, ))
@@ -33,6 +36,7 @@ def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
 
     self._doRun(strCommand, 1)
 
+
 def _doRun(self, p, stage):
     if not isinstance(p, six.string_types):
         return
@@ -40,7 +44,7 @@ def _doRun(self, p, stage):
     try:
         pefile.PE(data = p, fast_load = True)
         return
-    except: #pylint:disable=bare-except
+    except:  # pylint:disable=bare-except
         pass
 
     log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
@@ -70,7 +74,7 @@ def _doRun(self, p, stage):
 
         try:
             response = self._window._navigator.fetch(url, redirect_type = "doRun")
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             continue
 
         if response is None:
@@ -86,6 +90,7 @@ def _doRun(self, p, stage):
 
         self._doRun(response.content, stage + 1)
 
+
 def Environment(self, strType = None):
     log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Environment("%s")' % (strType, ))
     log.ThugLogging.log_exploit_event(self._window.url,
@@ -96,6 +101,7 @@ def Environment(self, strType = None):
                                              },
                                       forward = False)
     return _Environment(strType)
+
 
 def ExpandEnvironmentStrings(self, strWshShell):
     log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Expanding environment string "%s"' % (strWshShell, ))
@@ -141,22 +147,28 @@ def CreateObject(self, strProgID, strPrefix = ""):
                                       forward = False)
     return ActiveX.ActiveX._ActiveXObject(self._window, strProgID)
 
+
 def Sleep(self, intTime):
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Sleep(%s)" % (intTime))
     time.sleep(intTime * 0.001)
+
 
 def Quit(self, code):
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Quit(%s)" % code)
     PyV8.JSEngine.terminateAllThreads()
 
+
 def Echo(self, text):
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Echo(%s)" % (text))
+
 
 def valueOf(self):
     return "Windows Script Host"
 
+
 def toString(self):
     return "Windows Script Host"
+
 
 def SpecialFolders(self, strFolderName):
     log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Received call to SpecialFolders property "%s"' % (strFolderName, ))
@@ -164,6 +176,7 @@ def SpecialFolders(self, strFolderName):
     if folderPath:
         folderPath = ExpandEnvironmentStrings(self, folderPath)
     return "{}".format(folderPath)
+
 
 def CreateShortcut(self, strPathname):
     log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] CreateShortcut "%s"' % (strPathname, ))

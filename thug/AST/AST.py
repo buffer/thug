@@ -68,7 +68,7 @@ class AST(object):
                 return
 
             PyV8.JSEngine().compile(script.decode(enc['encoding'])).visit(self)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             pass
 
     def onProgram(self, prog):
@@ -101,7 +101,7 @@ class AST(object):
                 # AstCallRuntime has no 'pos' attribute
                 try:
                     pos = stmt.expression.pos
-                except: #pylint:disable=bare-except
+                except:  # pylint:disable=bare-except
                     traceback.print_exc()
                     return
             else:
@@ -131,7 +131,7 @@ class AST(object):
 
             d.function.visit(self)
 
-            #for stmt in d.function.body:
+            # for stmt in d.function.body:
             #    stmt.visit(self)
 
     def onAssignment(self, expr):

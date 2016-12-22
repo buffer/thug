@@ -2,7 +2,9 @@
 # CVE-2008-3008
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def GetDetailsString(self, arg0, arg1):
     if len(arg0) > 1023:

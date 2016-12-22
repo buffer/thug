@@ -2,7 +2,9 @@
 # CVE-NOMATCH
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def SetExtractIptc(self, val):
     self.__dict__['ExtractIptc'] = val
@@ -11,6 +13,7 @@ def SetExtractIptc(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "FaceBook Photo Uploader ActiveX",
                                           "Overflow in ExtractIptc property")
+
 
 def SetExtractExif(self, val):
     self.__dict__['ExtractExif'] = val

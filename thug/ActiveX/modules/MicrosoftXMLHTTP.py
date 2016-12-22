@@ -17,7 +17,7 @@ def abort(self):
     return 0
 
 
-def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword = None): #pylint:disable=redefined-builtin
+def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword = None):  # pylint:disable=redefined-builtin
     # Internet Explorer ignores any \r\n or %0d%0a or whitespace appended to the domain name
     parsedUrl = urlparse.urlparse(bstrUrl)
     netloc = parsedUrl.netloc.strip("\r\n\t")
@@ -49,7 +49,7 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     self.readyState  = 4
 
     if self.onreadystatechange:
-        with self._window.context as ctx: #pylint:disable=unused-variable
+        with self._window.context as ctx:  # pylint:disable=unused-variable
             self.onreadystatechange.__call__()
 
     return 0
@@ -80,7 +80,7 @@ def send(self, varBody = None):
                                                  headers       = self.requestHeaders,
                                                  body          = varBody,
                                                  redirect_type = "Microsoft XMLHTTP Exploit")
-    except: #pylint:disable=bare-except
+    except:  # pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
 
     if response is None:
@@ -99,7 +99,7 @@ def send(self, varBody = None):
         doc = DOM.W3C.w3c.parseString(self.responseBody)
 
         window = DOM.Window.Window(self.bstrUrl, doc, personality = log.ThugOpts.useragent)
-        #window.open(self.bstrUrl)
+        # window.open(self.bstrUrl)
 
         dft = DOM.DFT.DFT(window)
         dft.run()
@@ -132,7 +132,7 @@ def getResponseHeader(self, header):
                                       method  = self.bstrMethod,
                                       headers = self.requestHeaders,
                                       body    = body)
-    except: #pylint:disable=bare-except
+    except:  # pylint:disable=bare-except
         pass
 
 
@@ -146,7 +146,7 @@ def getAllResponseHeaders(self):
                                       method  = self.bstrMethod,
                                       headers = self.requestHeaders,
                                       body    = body)
-    except: #pylint:disable=bare-except
+    except:  # pylint:disable=bare-except
         pass
 
 

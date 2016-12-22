@@ -2,7 +2,9 @@
 # CVE-NOMATCH
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def TimeSpanFormat(self, arg0, arg1):
     if len(arg1) > 512:

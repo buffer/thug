@@ -16,7 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-#import new
+# import new
 import logging
 from .CLSID import CLSID
 
@@ -35,6 +35,7 @@ shockwave = ( 'shockwaveflash.shockwaveflash',
 
 java_deployment_toolkit = ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA',
                             '8AD9C840-044E-11D1-B3E9-00805F499D93', )
+
 
 class _ActiveXObject(object):
     shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10',
@@ -105,13 +106,12 @@ class _ActiveXObject(object):
 
         if not obj:
             log.warning("Unknown ActiveX Object: %s", cls)
-            #return None
             raise TypeError()
 
         log.warning("ActiveXObject: %s", cls)
 
         for method_name, method in obj['methods'].items():
-            #_method = new.instancemethod(method, self, _ActiveXObject)
+            # _method = new.instancemethod(method, self, _ActiveXObject)
             _method = method.__get__(self, _ActiveXObject)
             setattr(self, method_name, _method)
             methods[method] = _method
@@ -146,8 +146,9 @@ class _ActiveXObject(object):
 
         raise AttributeError
 
+
 def register_object(s, clsid):
-    funcattrs = dict() #pylint:disable=unused-variable
+    funcattrs = dict()  # pylint:disable=unused-variable
     methods   = dict()
     obj       = None
 
@@ -191,11 +192,10 @@ def register_object(s, clsid):
 
     if obj is None:
         log.warning("Unknown ActiveX object: %s", clsid)
-        #return None
         raise TypeError()
 
     for method_name, method in obj['methods'].items():
-        #_method = new.instancemethod(method, s, s.__class__)
+        # _method = new.instancemethod(method, s, s.__class__)
         _method = method.__get__(s, s.__class__)
         setattr(s, method_name, _method)
         methods[method] = _method

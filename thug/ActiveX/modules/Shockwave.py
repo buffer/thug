@@ -1,6 +1,8 @@
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 def ShockwaveVersion(self, arg):
     if len(arg) >= 768 * 768:

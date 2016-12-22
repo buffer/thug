@@ -1,8 +1,10 @@
-# Microsoft Internet Explorer 6 WebViewFolderIcon 
+# Microsoft Internet Explorer 6 WebViewFolderIcon
 # CVE-2006-3730
 
-import logging 
+import logging
+
 log = logging.getLogger("Thug")
+
 
 def setSlice(self, arg0, arg1, arg2, arg3):
     log.ThugLogging.add_behavior_warn('[WebViewFolderIcon ActiveX] setSlice(%s, %s, %s, %s)' % (arg0, arg1, arg2, arg3, ))
