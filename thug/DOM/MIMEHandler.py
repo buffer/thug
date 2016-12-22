@@ -258,7 +258,7 @@ class MIMEHandler(dict):
         self['application/x-javascript'] = None
         self['text/css']                 = None
         self['text/html']                = None
-        #self['text/plain']              = None
+        # self['text/plain']             = None
         self['text/javascript']          = None
 
     def register_fallback_handlers(self):
@@ -290,7 +290,7 @@ class MIMEHandler(dict):
             try:
                 if handler(url, content):
                     return True
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
         return False
@@ -302,13 +302,13 @@ class MIMEHandler(dict):
 
         try:
             zipdata = zipfile.ZipFile(fp)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return False
 
         for filename in zipdata.namelist():
             try:
                 data = zipdata.read(filename)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 continue
 
             sample = log.ThugLogging.log_file(data)
@@ -317,7 +317,7 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 continue
 
             unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
@@ -332,14 +332,14 @@ class MIMEHandler(dict):
 
         try:
             rardata = rarfile.RarFile(rfile)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             os.remove(rfile)
             return False
 
         for filename in rardata.namelist():
             try:
                 data = rardata.read(filename)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 continue
 
             sample = log.ThugLogging.log_file(data)
@@ -348,7 +348,7 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 continue
 
             unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
@@ -389,8 +389,8 @@ class MIMEHandler(dict):
 
         version      = etree.SubElement(basicInfo, 'pdf_version')
         version.text = statsDict['Version']
-        #binary       = etree.SubElement(basicInfo, 'binary', status = statsDict['Binary'].lower())
-        #linearized   = etree.SubElement(basicInfo, 'linearized', status = statsDict['Linearized'].lower())
+        # binary       = etree.SubElement(basicInfo, 'binary', status = statsDict['Binary'].lower())
+        # linearized   = etree.SubElement(basicInfo, 'linearized', status = statsDict['Linearized'].lower())
         encrypted    = etree.SubElement(basicInfo, 'encrypted', status = statsDict['Encrypted'].lower())
 
         if statsDict['Encryption Algorithms'] != []:
@@ -547,7 +547,7 @@ class MIMEHandler(dict):
                             etree.SubElement(vulnInfo, 'container_object', id = str(_id))
 
             urls           = statsVersion['URLs']
-            #suspiciousURLs = etree.SubElement(versionInfo, 'suspicious_urls')
+            # suspiciousURLs = etree.SubElement(versionInfo, 'suspicious_urls')
 
             if urls:
                 for url in urls:
@@ -563,18 +563,18 @@ class MIMEHandler(dict):
         swfdir = os.path.join(log.ThugLogging.baseDir, 'dropped', 'swf')
         count  = 0
 
-        for version in range(len(statsDict['Versions'])): #pylint:disable=unused-variable
+        for version in range(len(statsDict['Versions'])):  # pylint:disable=unused-variable
             body = pdf.body[count]
             objs = body.objects
 
             for index in objs:
-                #oid    = objs[index].id
-                #offset = objs[index].offset
-                #size   = objs[index].size
+                # oid    = objs[index].id
+                # offset = objs[index].offset
+                # size   = objs[index].size
                 details = objs[index].object
 
                 if details.type in ("stream", ):
-                    #encoded_stream = details.encodedStream
+                    # encoded_stream = details.encodedStream
                     decoded_stream = details.decodedStream
                     header         = decoded_stream[:3]
                     is_flash       = [s for s in objs if header in ("CWS", "FWS")]
@@ -603,8 +603,8 @@ class MIMEHandler(dict):
         pdfparser = PDFParser()
 
         try:
-            ret, pdf = pdfparser.parse(rfile, forceMode = True, looseMode = True) #pylint:disable=unused-variable
-        except: #pylint:disable=bare-except
+            ret, pdf = pdfparser.parse(rfile, forceMode = True, looseMode = True)  # pylint:disable=unused-variable
+        except:  # pylint:disable=bare-except
             os.remove(rfile)
             return False
 
@@ -712,7 +712,7 @@ class MIMEHandler(dict):
                 sample = self.build_apk_sample(content, url)
                 self.save_apk_report(sample, a, url)
                 ret = True
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             pass
 
         os.remove(rfile)
@@ -722,7 +722,7 @@ class MIMEHandler(dict):
     def javaWebStartUserAgent(self):
         javaplugin = log.ThugVulnModules._javaplugin.split('.')
         last = javaplugin.pop()
-        version =  '%s_%s' % ('.'.join(javaplugin), last)
+        version = '%s_%s' % ('.'.join(javaplugin), last)
         return "JNLP/6.0 javaws/%s (b04) Java/%s" % (version, version, )
 
     def handle_java_jnlp(self, url, data):
@@ -731,7 +731,7 @@ class MIMEHandler(dict):
 
         try:
             soup = BeautifulSoup.BeautifulSoup(data, "lxml")
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return
 
         jnlp = soup.find("jnlp")
@@ -752,7 +752,7 @@ class MIMEHandler(dict):
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
                 self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
     def passthrough(self, url, data):

@@ -45,6 +45,6 @@ class Sidebar(object):
 
     def IsSearchProviderInstalled(self, URL):
         if URL in self._providers:
-            return 1 # A matching search provider is installed, but it is not the default.
+            return 1  # A matching search provider is installed, but it is not the default.
 
         return 0    # No installed search provider was found with the specified prefix

@@ -55,7 +55,7 @@ class HTTPSession(object):
 
         try:
             self.__check_proxy_alive(url.hostname, url.port)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             log.critical("[CRITICAL] Proxy not available. Aborting the analysis!")
             sys.exit(0)
 
@@ -160,7 +160,7 @@ class HTTPSession(object):
         if _url.scheme not in ('https', ):
             return
 
-        port = _url.port if  _url.port else 443
+        port = _url.port if _url.port else 443
         certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_SSLv23)
         log.ThugLogging.log_certificate(url, certificate)
 

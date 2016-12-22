@@ -71,7 +71,7 @@ class External(object):
     def _AddChannel(self, URL):
         self._channels.add(URL)
 
-    def _AddDesktopComponent(self, URL, type, left = None, top = None, width = None, height = None): # pylint:disable=redefined-builtin
+    def _AddDesktopComponent(self, URL, type, left = None, top = None, width = None, height = None):  # pylint:disable=redefined-builtin
         pass
 
     def _AddFavorite(self, URL, title = None):
@@ -94,7 +94,7 @@ class External(object):
 
     def _IsSearchProviderInstalled(self, URL):
         if URL in self._providers:
-            return 1 # A matching search provider is installed, but it is not the default.
+            return 1  # A matching search provider is installed, but it is not the default.
 
         return 0    # No installed search provider was found with the specified prefix
 

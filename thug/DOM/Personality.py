@@ -32,7 +32,7 @@ class Personality(dict):
             log.warning("[CRITICAL] Thug personalities not found! Exiting")
             sys.exit(0)
 
-        for root, _dir, files in os.walk(personalities): #pylint:disable=unused-variable
+        for root, _dir, files in os.walk(personalities):  # pylint:disable=unused-variable
             for f in files:
                 if not f.endswith('.json'):
                     continue

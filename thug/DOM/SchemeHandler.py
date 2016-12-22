@@ -34,5 +34,5 @@ class SchemeHandler(object):
 
         try:
             log.URLClassifier.classify(url)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             pass

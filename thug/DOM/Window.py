@@ -75,7 +75,7 @@ class Window(JSClass):
             self.event = sched.enter(self.delay, 1, self.execute, ())
             try:
                 sched.run()
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
         def stop(self):
@@ -119,7 +119,7 @@ class Window(JSClass):
         self._history   = History(self)
         self._history.update(url, replace)
 
-        #self.doc.location = self._location
+        # self.doc.location = self._location
         self.doc.location = property(self.getLocation, self.setLocation)
 
         self._target = target
@@ -194,7 +194,7 @@ class Window(JSClass):
 
             if _method is None:
                 _method = new.instancemethod(symbol, self, Window)
-                #_method = symbol.__get__(self, Window)
+                # _method = symbol.__get__(self, Window)
 
             setattr(self, key, _method)
             context.locals[key] = _method
@@ -855,7 +855,7 @@ class Window(JSClass):
         if len(script) > 4:
             try:
                 log.info(jsbeautifier.beautify(script))
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 log.info(script)
 
         if len(script) > 64:
@@ -868,7 +868,7 @@ class Window(JSClass):
 
     @property
     def context(self):
-        #if not hasattr(self, '_context'):
+        # if not hasattr(self, '_context'):
         if '_context' not in self.__dict__:
             self._context = PyV8.JSContext(self)
             with self._context as ctxt:
@@ -893,7 +893,7 @@ class Window(JSClass):
         try:
             log.JSClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url, script)
             log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             pass
 
         if tag:
@@ -901,7 +901,7 @@ class Window(JSClass):
         else:
             try:
                 body = self.doc.body
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 # This code is for when you are desperate :)
                 body = self.doc.getElementsByTagName('body')[0]
 
@@ -913,7 +913,7 @@ class Window(JSClass):
         with self.context as ctxt:
             try:
                 ast = AST(self, script)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 log.debug(traceback.format_exc())
                 return result
 
@@ -943,7 +943,7 @@ class Window(JSClass):
                 i += 1
                 continue
 
-            if s[i] == '%' and (i + 1) < len(s) and  s[i + 1] == 'u':
+            if s[i] == '%' and (i + 1) < len(s) and s[i + 1] == 'u':
                 if (i + 6) <= len(s):
                     currchar = int(s[i + 2: i + 4], 16)
                     nextchar = int(s[i + 4: i + 6], 16)
@@ -973,8 +973,8 @@ class Window(JSClass):
         if url:
             try:
                 response = self._navigator.fetch(url, redirect_type = "window open")
-            except: #pylint:disable=bare-except
-                #traceback.print_exc()
+            except:  # pylint:disable=bare-except
+                # traceback.print_exc()
                 return None
 
             if response is None:
@@ -987,7 +987,7 @@ class Window(JSClass):
 
             try:
                 log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else url, html)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
             if response.history:

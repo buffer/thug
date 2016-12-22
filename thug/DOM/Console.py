@@ -22,6 +22,7 @@ log = logging.getLogger("Thug")
 
 from .JSClass import JSClass
 
+
 class Console(JSClass):
     def __init__(self):
         self.__init_personality()
@@ -64,10 +65,10 @@ class Console(JSClass):
     def debug(self, *args):
         pass
 
-    #def dir(self, *args):
+    # def dir(self, *args):
     #    pass
 
-    #def error(self, *args):
+    # def error(self, *args):
     #    pass
 
     def group(self):
@@ -79,10 +80,10 @@ class Console(JSClass):
     def groupEnd(self):
         pass
 
-    #def info(self, *args):
+    # def info(self, *args):
     #    pass
 
-    #def log(self, *args):
+    # def log(self, *args):
     #    pass
 
     def time(self, timerName):

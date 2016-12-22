@@ -44,7 +44,7 @@ class MimeTypes(dict):
                                             'type'          : 'application/x-shockwave-flash',
                                             'enabledPlugin' : Plugin({'name'        : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),
                                                                       'version'     : '%s' % (log.ThugVulnModules.shockwave_flash, ),
-                                                                      'description' : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),}),
+                                                                      'description' : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ), }),
                                             'enabled'       : True})
 
         if not log.ThugOpts.Personality.isIE():
@@ -67,7 +67,7 @@ class MimeTypes(dict):
                                                 'type'          : 'application/x-ms-wmz',
                                                 'enabledPlugin' : Plugin({'name'        : 'Windows Media Player 7',
                                                                           'version'     : '7',
-                                                                          'description' : 'Windows Media Player 7',}),
+                                                                          'description' : 'Windows Media Player 7', }),
                                                 'enabled'       : True})
 
     def __getitem__(self, key):

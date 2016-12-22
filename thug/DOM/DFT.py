@@ -179,7 +179,7 @@ class DFT(object):
                     log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed')
 
                 log.ThugLogging.shellcode_urls.add(url)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed')
 
             profile = profile[1:]
@@ -217,7 +217,7 @@ class DFT(object):
                     log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed')
 
                 log.ThugLogging.shellcode_urls.add(url)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed')
 
             profile = profile[1:]
@@ -225,7 +225,7 @@ class DFT(object):
     def check_shellcode(self, shellcode):
         try:
             sc = self.build_shellcode(shellcode)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             sc = shellcode
 
         emu = pylibemu.Emulator(enable_hooks = False)
@@ -277,7 +277,7 @@ class DFT(object):
             try:
                 self.window._navigator.fetch(url, redirect_type = "URL found")
                 log.ThugLogging.shellcode_urls.add(url)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
     def check_shellcodes(self):
@@ -320,7 +320,7 @@ class DFT(object):
 
     # Events handling
     def handle_element_event(self, evt):
-        for (elem, eventType, listener, capture) in self.listeners: #pylint:disable=unused-variable
+        for (elem, eventType, listener, capture) in self.listeners:  # pylint:disable=unused-variable
             if getattr(elem, 'name', None) is None:
                 continue
 
@@ -362,13 +362,13 @@ class DFT(object):
                 else:
                     handler(evtObject)
 
-        #if not getattr(self.window.doc.tag, '_listeners', None):
+        # if not getattr(self.window.doc.tag, '_listeners', None):
         #    return
 
         if '_listeners' not in self.window.doc.tag.__dict__:
             return
 
-        for (eventType, listener, capture) in self.window.doc.tag._listeners: #pylint:disable=unused-variable
+        for (eventType, listener, capture) in self.window.doc.tag._listeners:  # pylint:disable=unused-variable
             if eventType not in (onevt[2:], ):
                 continue
 
@@ -385,7 +385,7 @@ class DFT(object):
         # Browsers other than IE construct a function with a single argument
         # named `event'. IE constructs a function that expects no argument.
         # If the identifier `event' is used in such a function, it refers to
-        # `window.event'. In either case, HTML event handlers can refer to 
+        # `window.event'. In either case, HTML event handlers can refer to
         # the event object as `event'.
         if log.ThugOpts.Personality.isIE():
             return ctx.eval("(function() { with(document) { with(this.form || {}) { with(this) { event = window.event; %s } } } }) " % (h, ))
@@ -395,7 +395,7 @@ class DFT(object):
     def set_event_handler_attributes(self, elem):
         try:
             attrs = elem.attrs
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return
 
         if 'language' in list(attrs.keys()) and not attrs['language'].lower() in ('javascript', ):
@@ -412,13 +412,13 @@ class DFT(object):
 
         if isinstance(h, six.string_types):
             handler = self.build_event_handler(self.context, h)
-            #PyV8.JSEngine.collect()
+            # PyV8.JSEngine.collect()
         elif isinstance(h, PyV8.JSFunction):
             handler = h
         else:
             try:
                 handler = getattr(self.context.locals, h, None)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
         if not handler:
@@ -479,7 +479,7 @@ class DFT(object):
     def _handle_jnlp(self, data, headers, params):
         try:
             soup = BeautifulSoup.BeautifulSoup(data, "lxml")
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return
 
         jnlp = soup.find("jnlp")
@@ -504,7 +504,7 @@ class DFT(object):
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
                 self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP", params = params)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
     def do_handle_params(self, _object):
@@ -551,7 +551,7 @@ class DFT(object):
                                              headers = headers,
                                              redirect_type = "params",
                                              params = params)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
         for key, value in params.items():
@@ -569,7 +569,7 @@ class DFT(object):
 
                 if response:
                     self._handle_jnlp(response.content, headers, params)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
         if 'source' in params:
@@ -578,7 +578,7 @@ class DFT(object):
                                              headers = headers,
                                              redirect_type = "params",
                                              params = params)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
         if 'archive' not in params and 'code' not in params:
@@ -594,7 +594,7 @@ class DFT(object):
                                          headers = headers,
                                          redirect_type = "params",
                                          params = params)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             pass
 
         return params
@@ -602,7 +602,7 @@ class DFT(object):
     def handle_object(self, _object):
         log.warning(_object)
 
-        #self.check_attrs(_object)
+        # self.check_attrs(_object)
         params = self.do_handle_params(_object)
 
         classid  = _object.get('classid', None)
@@ -615,7 +615,7 @@ class DFT(object):
                 self.window._navigator.fetch(codebase,
                                              redirect_type = "object codebase",
                                              params = params)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
         if data and not data.startswith('data:'):
@@ -623,13 +623,13 @@ class DFT(object):
                 self.window._navigator.fetch(data,
                                              redirect_type = "object data",
                                              params = params)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
         if not log.ThugOpts.Personality.isIE():
             return
 
-        #if classid and _id:
+        # if classid and _id:
         if classid:
             try:
                 axo = _ActiveXObject(self.window, classid, 'id')
@@ -668,7 +668,7 @@ class DFT(object):
                 try:
                     oldState = params.pop()
                     ctx.eval("%s = 3;" % (oldState.strip(), ))
-                except: #pylint:disable=bare-except
+                except:  # pylint:disable=bare-except
                     pass
 
     def handle_script(self, script):
@@ -700,7 +700,7 @@ class DFT(object):
         try:
             s.text = js
             return True
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             pass
 
         # Second attempt
@@ -728,7 +728,7 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = "script src")
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return
 
         if response is None:
@@ -753,7 +753,7 @@ class DFT(object):
 
         try:
             body = self.window.doc.body
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             body = self.window.doc.getElementsByTagName('body')[0]
 
         if body:
@@ -764,7 +764,7 @@ class DFT(object):
     def handle_javascript(self, script):
         try:
             log.info(jsbeautifier.beautify(str(script)))
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             log.info(script)
 
         self.handle_external_javascript(script)
@@ -813,7 +813,7 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(action, method = method.upper(), redirect_type = "form")
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return
 
         if response is None:
@@ -837,8 +837,8 @@ class DFT(object):
     def handle_param(self, param):
         log.info(param)
 
-        #name  = param.get('name' , None)
-        #value = param.get('value', None)
+        # name  = param.get('name' , None)
+        # value = param.get('value', None)
 
     def handle_embed(self, embed):
         log.warning(embed)
@@ -854,7 +854,7 @@ class DFT(object):
             headers['Content-Type'] = embed_type
 
         if 'Content-Type' in headers:
-            if 'java' in headers['Content-Type'] and log.ThugOpts.Personality.javaUserAgent: 
+            if 'java' in headers['Content-Type'] and log.ThugOpts.Personality.javaUserAgent:
                 headers['User-Agent'] = self.javaUserAgent
 
             if 'shockwave-flash' in headers['Content-Type']:
@@ -862,7 +862,7 @@ class DFT(object):
 
         try:
             self.window._navigator.fetch(src, headers = headers, redirect_type = "embed")
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             pass
 
     def handle_applet(self, applet):
@@ -886,7 +886,7 @@ class DFT(object):
                                          headers = headers,
                                          redirect_type = "applet",
                                          params = params)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             pass
 
     def handle_meta(self, meta):
@@ -945,7 +945,7 @@ class DFT(object):
         if 'url' not in content.lower():
             return
 
-        timeout = 0 #pylint:disable=unused-variable
+        timeout = 0  # pylint:disable=unused-variable
         url     = None
 
         for s in content.split(';'):
@@ -954,7 +954,7 @@ class DFT(object):
                 url = s[4:]
             try:
                 timeout = int(s)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
         if not url:
@@ -968,7 +968,7 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(url, redirect_type = "meta")
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return
 
         if response is None:
@@ -982,10 +982,10 @@ class DFT(object):
         else:
             self.meta[url] = 1
 
-        #self.window.doc     = w3c.parseString(content)
-        #self.window.doc.DFT = self
-        #self.window.open(url)
-        #self.run()
+        # self.window.doc     = w3c.parseString(content)
+        # self.window.doc.DFT = self
+        # self.window.open(url)
+        # self.run()
 
         doc    = w3c.parseString(response.content)
         window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
@@ -1001,11 +1001,11 @@ class DFT(object):
 
         src = frame.get('src', None)
         if not src:
-            return 
+            return
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = redirect_type)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return
 
         if response is None:
@@ -1052,7 +1052,7 @@ class DFT(object):
 
             try:
                 self.window._navigator.fetch(url, redirect_type = "font face")
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 return
 
     def handle_style(self, style):
@@ -1062,7 +1062,7 @@ class DFT(object):
 
         try:
             sheet = cssparser.parseString(style.text)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return
 
         for rule in sheet:
@@ -1128,7 +1128,7 @@ class DFT(object):
 
             try:
                 response = self.window._navigator.fetch(href, redirect_type = "anchor")
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 return
 
             if response is None:
@@ -1151,7 +1151,7 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(href, redirect_type = "link")
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return
 
         if response is None:
@@ -1206,10 +1206,10 @@ class DFT(object):
 
         try:
             handler = getattr(self, "handle_%s" % (str(name.lower()), ), None)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             try:
                 handler = getattr(self, "handle_%s" % (name.encode('utf-8', 'replace'),  ), None)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
         if handler:
@@ -1253,7 +1253,7 @@ class DFT(object):
                 if tuple(soup.descendants) == tuple(_soup.descendants):
                     break
 
-                for _child in set(soup.descendants) - set(_soup.descendants): 
+                for _child in set(soup.descendants) - set(_soup.descendants):
                     if _child not in analyzed:
                         analyzed.add(_child)
                         recur = True
@@ -1274,24 +1274,24 @@ class DFT(object):
             try:
                 self.handle_window_event(evt)
                 self.run_htmlclassifier(soup)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 log.warning("[handle_window_event] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
             try:
                 self.handle_document_event(evt)
                 self.run_htmlclassifier(soup)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 log.warning("[handle_document_event] Event %s not properly handled", evt)
 
         for evt in self.handled_events:
             try:
                 self.handle_element_event(evt)
                 self.run_htmlclassifier(soup)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 log.warning("[handle_element_event] Event %s not properly handled", evt)
 
     def run(self):
-        with self.context as ctx: #pylint:disable=unused-variable
+        with self.context as ctx:  # pylint:disable=unused-variable
             self._run()
             self.check_shellcodes()
