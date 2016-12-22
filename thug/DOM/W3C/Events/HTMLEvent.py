@@ -3,17 +3,18 @@
 from .Event import Event
 
 import logging
+
 log = logging.getLogger("Thug")
 
-# Introduced in DOM Level 2
 
+# Introduced in DOM Level 2
 class HTMLEvent(Event):
-    HTMLEventTypes = ('load', 
-                      'unload', 
-                      'abort', 
-                      'error', 
-                      'select', 
-                      'change', 
+    HTMLEventTypes = ('load',
+                      'unload',
+                      'abort',
+                      'error',
+                      'select',
+                      'change',
                       'submit',
                       'reset',
                       'focus',

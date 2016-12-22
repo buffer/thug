@@ -4,12 +4,12 @@ import logging
 
 log = logging.getLogger("Thug")
 
-# Introduced in DOM Level 2
 
+# Introduced in DOM Level 2
 class Event(object):
-    CAPTURING_PHASE     = 1 # The current event phase is the capturing phase.
-    AT_TARGET           = 2 # The event is currently being evaluated at the target EventTarget
-    BUBBLING_PHASE      = 3 # The current event phase is the bubbling phase.
+    CAPTURING_PHASE     = 1  # The current event phase is the capturing phase.
+    AT_TARGET           = 2  # The event is currently being evaluated at the target EventTarget
+    BUBBLING_PHASE      = 3  # The current event phase is the bubbling phase.
 
     def __init__(self, target):
         self._target             = target
@@ -20,9 +20,9 @@ class Event(object):
         self._canBubble          = False
         self._cancelable         = False
 
-        # Prior to IE9, IE does not support the stopPropagation() method. Instead, 
-        # the IE Event object has a property named `cancelBubble'. Setting this 
-        # property to true prevents any further propagation (IE8 and before do not 
+        # Prior to IE9, IE does not support the stopPropagation() method. Instead,
+        # the IE Event object has a property named `cancelBubble'. Setting this
+        # property to true prevents any further propagation (IE8 and before do not
         # support the captuting phase of event propagation so bubbling is the only
         # kind of propagation to be canceled)
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:

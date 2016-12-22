@@ -8,6 +8,7 @@ import bs4 as BeautifulSoup
 from .Node import Node
 from .NodeList import NodeList
 
+
 class DocumentFragment(Node):
     def __init__(self, doc):
         self.tag = BeautifulSoup.Tag(parser = doc, name = 'documentfragment')
@@ -58,8 +59,8 @@ class DocumentFragment(Node):
     def _querySelectorAll(self, selectors):
         try:
             s = self.tag.select(selectors)
-        except: #pylint:disable=bare-except
-            return NodeList(self.doc, []) 
+        except:  # pylint:disable=bare-except
+            return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
 
@@ -68,7 +69,7 @@ class DocumentFragment(Node):
 
         try:
             s = self.tag.select(selectors)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return None
 
         if s and s[0]:

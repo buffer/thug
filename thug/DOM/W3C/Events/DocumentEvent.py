@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from thug.DOM.W3C.DOMException import DOMException
 
+
 # Introduced in DOM Level 2
 class DocumentEvent(object):
     def __init__(self, doc):

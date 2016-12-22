@@ -20,6 +20,7 @@ from .ProcessingInstruction import ProcessingInstruction
 from .Events.DocumentEvent import DocumentEvent
 from .Views.DocumentView import DocumentView
 
+
 class Document(Node, DocumentEvent, DocumentView):
     def __init__(self, doc):
         Node.__init__(self, doc)
@@ -81,7 +82,7 @@ class Document(Node, DocumentEvent, DocumentView):
     def _querySelectorAll(self, selectors):
         try:
             s = self.doc.select(selectors)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -91,7 +92,7 @@ class Document(Node, DocumentEvent, DocumentView):
 
         try:
             s = self.doc.select(selectors)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return None
 
         if s and s[0]:
@@ -111,37 +112,37 @@ class Document(Node, DocumentEvent, DocumentView):
     @property
     def nodeType(self):
         return Node.DOCUMENT_NODE
-    
+
     @property
     def nodeName(self):
         return "#document"
-    
+
     @property
     def nodeValue(self):
         return None
-    
+
     @property
     def childNodes(self):
         return NodeList(self.doc, self.doc.contents)
-        
+
     @property
     def doctype(self):
         for tag in self.doc:
             if isinstance(tag, BeautifulSoup.Declaration) and tag.startswith("DOCTYPE"):
                 return DocumentType(self.doc, tag)
-                
+
         return None
-    
+
     @property
     def implementation(self):
         return self
-    
+
     @property
     def documentElement(self):
         return Element(self, self.doc.find('html'))
-        
+
     onCreateElement = None
-    
+
     def createElement(self, tagname, tagvalue = None):
         from .DOMImplementation import DOMImplementation
 
@@ -153,31 +154,31 @@ class Document(Node, DocumentEvent, DocumentView):
 
         element = DOMImplementation.createHTMLElement(self, BeautifulSoup.Tag(parser = self.doc, name = tagname))
         if self.onCreateElement:
-            self.onCreateElement(element) #pylint:disable=not-callable
-        
+            self.onCreateElement(element)  # pylint:disable=not-callable
+
         return element
-    
+
     def createDocumentFragment(self):
         return DocumentFragment(self)
-    
+
     def createTextNode(self, data):
         return Text(self, BeautifulSoup.NavigableString(data))
-    
+
     def createComment(self, data):
         return Comment(self, BeautifulSoup.Comment(data))
-    
+
     def createCDATASection(self, data):
         return CDATASection(self, BeautifulSoup.CData(data))
-    
+
     def createProcessingInstruction(self, target, data):
         return ProcessingInstruction(self, target, BeautifulSoup.ProcessingInstruction(data))
-    
+
     def createAttribute(self, name):
         return Attr(self, None, name)
-    
+
     def createEntityReference(self, name):
         return EntityReference(self, name)
-    
+
     def getElementsByTagName(self, tagname):
         if log.ThugOpts.Personality.isIE() and tagname in ('*', ):
             s = [p for p in self.doc.find_all(text = False)]
@@ -201,7 +202,7 @@ class Document(Node, DocumentEvent, DocumentView):
         tag = self.doc.find(id = elementId)
         return DOMImplementation.createHTMLElement(self, tag) if tag else None
 
-    # Internet Explorer 6 and 7 getElementById is broken and returns 
+    # Internet Explorer 6 and 7 getElementById is broken and returns
     # elements with 'id' or 'name' attributes equal to elementId
     def _getElementById_IE67(self, elementId):
         from .DOMImplementation import DOMImplementation

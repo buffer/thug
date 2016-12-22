@@ -2,6 +2,7 @@
 
 from .Node import Node
 
+
 class ProcessingInstruction(Node):
     def __init__(self, doc, target, data):
         self._target = target

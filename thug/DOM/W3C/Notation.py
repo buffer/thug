@@ -2,6 +2,7 @@
 
 from .Node import Node
 
+
 class Notation(Node):
     @property
     def publicId(self):

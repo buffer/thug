@@ -3,19 +3,20 @@
 from .Event import Event
 
 import logging
+
 log = logging.getLogger("Thug")
 
-# Introduced in DOM Level 2
 
+# Introduced in DOM Level 2
 class StorageEvent(Event):
     StorageEventTypes = ('storage', )
 
     def __init__(self, eventTypeArg, target):
         Event.__init__(self, target)
 
-    def initStorageEvent(self, 
-                         eventTypeArg, 
-                         canBubbleArg, 
+    def initStorageEvent(self,
+                         eventTypeArg,
+                         canBubbleArg,
                          cancelableArg,
                          keyArg,
                          oldValueArg,

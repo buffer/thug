@@ -2,6 +2,7 @@
 
 from thug.DOM.JSClass import JSClass
 
+
 class NamedNodeMap(JSClass):
     def __init__(self, parent):
         self.parent = parent
@@ -34,4 +35,3 @@ class NamedNodeMap(JSClass):
     @property
     def length(self):
         return len(self.parent.tag._getAttrMap())
-

@@ -13,6 +13,7 @@ log = logging.getLogger("Thug")
 
 from thug.DOM.JSClass import JSClass
 
+
 class Node(JSClass, EventTarget):
     # NodeType
     ELEMENT_NODE                   = 1
@@ -27,7 +28,7 @@ class Node(JSClass, EventTarget):
     DOCUMENT_TYPE_NODE             = 10
     DOCUMENT_FRAGMENT_NODE         = 11
     NOTATION_NODE                  = 12
-    
+
     def __init__(self, doc):
         self.doc = doc
         EventTarget.__init__(self)
@@ -35,10 +36,10 @@ class Node(JSClass, EventTarget):
 
     def __repr__(self):
         return "<Node %s at 0x%08X>" % (self.nodeName, id(self))
-                
+
     def __eq__(self, other):
         return hasattr(other, "doc") and self.doc == other.doc
-        
+
     def __ne__(self, other):
         return not self.__eq__(other)
 
@@ -85,46 +86,46 @@ class Node(JSClass, EventTarget):
     @abstractmethod
     def nodeType(self):
         pass
-    
+
     @property
     @abstractmethod
     def nodeName(self):
         pass
-    
+
     @abstractmethod
     def getNodeValue(self):
         return None
-    
+
     @abstractmethod
     def setNodeValue(self, value):
         raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
-    
+
     nodeValue = property(getNodeValue, setNodeValue)
-    
+
     @property
     def attributes(self):
         return None
-    
+
     @property
     def childNodes(self):
         return NodeList(self.doc, [])
-        
+
     @property
     def firstChild(self):
         return None
-            
+
     @property
     def lastChild(self):
         return None
-            
+
     @property
     def nextSibling(self):
         return None
-            
+
     @property
     def previousSibling(self):
         return None
-            
+
     @property
     def parentNode(self):
         return None
@@ -140,20 +141,20 @@ class Node(JSClass, EventTarget):
         return None
 
     # Introduced in DOM Level 2
-    @property 
+    @property
     def localName(self):
         return None
-   
+
     # Modified in DOM Level 2
     @property
     def ownerDocument(self):
         return log.DFT.window.doc
-        #return self.doc
+        # return self.doc
 
     def findChild(self, child):
-        #try:
+        # try:
         #    return self.tag.contents.index(child.tag)
-        #except:
+        # except:
         #    return -1
         if getattr(child, 'tag', None) and child.tag in self.tag.contents:
             childHash = hash(child.tag._node)
@@ -178,15 +179,15 @@ class Node(JSClass, EventTarget):
                                  Node.PROCESSING_INSTRUCTION_NODE,
                                  Node.CDATA_SECTION_NODE,
                                  Node.COMMENT_NODE, )
-    
+
     def insertBefore(self, newChild, refChild):
         if not newChild:
             raise DOMException(DOMException.HIERARCHY_REQUEST_ERR)
-        
+
         if not isinstance(newChild, Node):
             raise DOMException(DOMException.HIERARCHY_REQUEST_ERR)
 
-        # If refChild is null, insert newChild at the end of the list 
+        # If refChild is null, insert newChild at the end of the list
         # of children
         if not refChild:
             return self.appendChild(newChild)
@@ -194,8 +195,8 @@ class Node(JSClass, EventTarget):
         if not isinstance(refChild, Node):
             raise DOMException(DOMException.HIERARCHY_REQUEST_ERR)
 
-        #index = self.findChild(refChild)
-        #if index < 0 and not self.is_text(refChild):
+        # index = self.findChild(refChild)
+        # if index < 0 and not self.is_text(refChild):
         #    raise DOMException(DOMException.NOT_FOUND_ERR)
 
         # If the newChild is already in the tree, it is first removed
@@ -209,7 +210,7 @@ class Node(JSClass, EventTarget):
                 if newChildHash == hash(p._node):
                     p.extract()
 
-            #self.tag.contents.remove(newChild.tag)
+            # self.tag.contents.remove(newChild.tag)
 
         index = self.findChild(refChild)
         if index < 0 and not self.is_text(refChild):
@@ -230,14 +231,14 @@ class Node(JSClass, EventTarget):
                     node.append(p)
 
                 node = p
-                    
+
             return newChild
 
         self.tag.insert(index, newChild.tag)
         return newChild
 
     def replaceChild(self, newChild, oldChild):
-        # NO_MODIFICATION_ALLOWED_ERR: Raised if this node or the parent of 
+        # NO_MODIFICATION_ALLOWED_ERR: Raised if this node or the parent of
         # the new node is readonly.
         if self.is_readonly(self):
             raise DOMException(DOMException.NO_MODIFICATION_ALLOWED)
@@ -262,7 +263,7 @@ class Node(JSClass, EventTarget):
             return oldChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
-            #self.tag.contents[index] = newChild.tag.findChild()
+            # self.tag.contents[index] = newChild.tag.findChild()
             node = None
 
             for p in newChild.tag.find_all_next():
@@ -302,7 +303,7 @@ class Node(JSClass, EventTarget):
 
                 if oldChildHash == hash(p._node):
                     p.extract()
-            #self.tag.contents.remove(oldChild.tag)
+            # self.tag.contents.remove(oldChild.tag)
 
         return oldChild
 
@@ -330,14 +331,14 @@ class Node(JSClass, EventTarget):
 
                 if newChildHash == hash(p._node):
                     p.extract()
-            #self.tag.contents.remove(newChild.tag)
+            # self.tag.contents.remove(newChild.tag)
 
         if self.is_text(newChild):
             self.tag.append(newChild.data.output_ready(formatter = lambda x: x))
             return newChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
-            #self.tag.append(newChild.tag.findChild())
+            # self.tag.append(newChild.tag.findChild())
             node = self.tag
             for p in newChild.tag.find_all_next():
                 node.append(p)
@@ -372,12 +373,12 @@ class Node(JSClass, EventTarget):
     # Introduced in DOM Level 2
     def hasAttributes(self):
         return False
-   
+
     # Introduced in DOM Level 3
     def _compareDocumentPosition(self, node):
         return None
 
-    #@abstractmethod
+    # @abstractmethod
     def cloneNode(self, deep):
         # Returns a duplicate of this node
         cloned = copy.copy(self)
@@ -391,24 +392,22 @@ class Node(JSClass, EventTarget):
         if cloned.nodeType in (Node.ELEMENT_NODE, ) and deep is False:
             cloned.tag.string = ''
 
-        #return cloned
+        # return cloned
         return self.wrap(self.doc, cloned.tag)
-    
+
     @staticmethod
     def wrap(doc, obj):
         from .Element import Element
 
         if obj is None:
             return None
-        
+
         if type(obj) == BeautifulSoup.CData:
             from .CDATASection import CDATASection
-
             return CDATASection(doc, obj)
-        
+
         if type(obj) == BeautifulSoup.NavigableString:
             from .Text import Text
+            return Text(doc, obj)
 
-            return Text(doc, obj)        
-       
         return Element(doc, obj)

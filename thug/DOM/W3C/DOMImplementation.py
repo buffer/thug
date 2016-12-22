@@ -7,7 +7,7 @@ from thug.DOM.W3C.HTML import HTMLBaseElement
 from thug.DOM.W3C.HTML import HTMLBaseFontElement
 from thug.DOM.W3C.HTML import HTMLBodyElement
 from thug.DOM.W3C.HTML import HTMLButtonElement
-#from thug.DOM.W3C.HTML import HTMLCollection
+# from thug.DOM.W3C.HTML import HTMLCollection
 from thug.DOM.W3C.HTML import HTMLDListElement
 from thug.DOM.W3C.HTML import HTMLDirectoryElement
 from thug.DOM.W3C.HTML import HTMLDivElement
@@ -37,7 +37,7 @@ from thug.DOM.W3C.HTML import HTMLOListElement
 from thug.DOM.W3C.HTML import HTMLObjectElement
 from thug.DOM.W3C.HTML import HTMLOptGroupElement
 from thug.DOM.W3C.HTML import HTMLOptionElement
-#from thug.DOM.W3C.HTML import HTMLOptionsCollection
+# from thug.DOM.W3C.HTML import HTMLOptionsCollection
 from thug.DOM.W3C.HTML import HTMLParagraphElement
 from thug.DOM.W3C.HTML import HTMLParamElement
 from thug.DOM.W3C.HTML import HTMLPreElement
@@ -83,13 +83,13 @@ class DOMImplementation(HTMLDocument.HTMLDocument):
                  ('views'       , None ),
                  ('stylesheets' , '2.0'),
                  ('stylesheets' , None ))
-    
+
     @staticmethod
     def hasFeature(feature, version):
         if version == "":
             version = None
         return (feature.lower(), version) in DOMImplementation.features
-        
+
     TAGS = {
         "html"          : HTMLHtmlElement.HTMLHtmlElement,
         "head"          : HTMLHeadElement.HTMLHeadElement,
@@ -153,7 +153,7 @@ class DOMImplementation(HTMLDocument.HTMLDocument):
         "th"            : HTMLTableCellElement.HTMLTableCellElement,
         "td"            : HTMLTableCellElement.HTMLTableCellElement,
     }
-        
+
     @staticmethod
     def createHTMLElement(doc, tag):
         if isinstance(tag, BeautifulSoup.NavigableString):

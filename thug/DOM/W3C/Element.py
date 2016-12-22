@@ -86,7 +86,7 @@ class Element(Node, ElementCSSInlineStyle):
     def _querySelectorAll(self, selectors):
         try:
             s = self.tag.select(selectors)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -96,7 +96,7 @@ class Element(Node, ElementCSSInlineStyle):
 
         try:
             s = self.tag.select(selectors)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return None
 
         if s and s[0]:
@@ -109,57 +109,57 @@ class Element(Node, ElementCSSInlineStyle):
 
     def __unicode__(self):
         return unicode(self.tag)
-        
+
     def __repr__(self):
         return "<Element %s at 0x%08X>" % (self.tag.name, id(self))
-        
+
     def __eq__(self, other):
         return Node.__eq__(self, other) and hasattr(other, "tag") and self.tag == other.tag
 
     @property
     def nodeType(self):
         return Node.ELEMENT_NODE
-       
+
     @property
     def nodeName(self):
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion == 10:
             return self.tagName.upper()
 
         return self.tagName.lower()
-    
+
     @property
     def nodeValue(self):
         return None
-    
+
     @property
     def attributes(self):
-        return NamedNodeMap(self)    
-    
+        return NamedNodeMap(self)
+
     @property
     def parentNode(self):
         return Node.wrap(self.doc, self.tag.parent) if self.tag.parent else None
-    
+
     @property
     def childNodes(self):
-        #return Node.wrap(self.doc, NodeList(self.doc, self.tag.contents))
+        # return Node.wrap(self.doc, NodeList(self.doc, self.tag.contents))
         return NodeList(self.doc, self.tag.contents)
-        
+
     @property
     def firstChild(self):
         return Node.wrap(self.doc, self.tag.contents[0]) if len(self.tag) > 0 else None
-            
+
     @property
     def lastChild(self):
         return Node.wrap(self.doc, self.tag.contents[-1]) if len(self.tag) > 0 else None
-            
+
     @property
     def nextSibling(self):
         return Node.wrap(self.doc, self.tag.next_sibling)
-            
+
     @property
     def previousSibling(self):
         return Node.wrap(self.doc, self.tag.previous_sibling)
-  
+
     # Introduced in DOM Level 2
     def hasAttributes(self):
         return self.attributes.length > 0
@@ -167,25 +167,25 @@ class Element(Node, ElementCSSInlineStyle):
     # Introduced in DOM Level 2
     def hasAttribute(self, name):
         return self.tag.has_attr(name)
-        
+
     @property
     def tagName(self):
         return self.tag.name.upper()
-    
+
     def getAttribute(self, name, flags = 0):
         if not isinstance(name, six.string_types):
             name = str(name)
 
         if log.ThugOpts.Personality.isIE():
             if log.ThugOpts.Personality.browserMajorVersion < 8:
-                # flags parameter is only supported in Internet Explorer earlier 
+                # flags parameter is only supported in Internet Explorer earlier
                 # than version 8.
                 #
-                # A value of 0 means that the search is case-insensitive and the 
-                # returned value does not need to be converted. Other values can 
-                # be any combination of the following integer constants with the 
+                # A value of 0 means that the search is case-insensitive and the
+                # returned value does not need to be converted. Other values can
+                # be any combination of the following integer constants with the
                 # bitwise OR operator:
-                # 
+                #
                 # 1   Case-sensitive search
                 # 2   Returns the value as a string
                 # 4   Returns the value as an URL
@@ -232,10 +232,10 @@ class Element(Node, ElementCSSInlineStyle):
             if handler:
                 handler(self.doc.window, value)
                 return
-            
+
             try:
                 response = self.doc.window._navigator.fetch(value, redirect_type = "element workaround")
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 return
 
             if response is None:
@@ -254,19 +254,19 @@ class Element(Node, ElementCSSInlineStyle):
 
     def removeAttribute(self, name):
         del self.tag[name]
-        
+
     def getAttributeNode(self, name):
         return Attr(self.doc, self, name) if self.tag.has_attr(name) else None
-    
+
     def setAttributeNode(self, attr):
         self.tag[attr.name] = attr.value
-    
+
     def removeAttributeNode(self, attr):
         del self.tag[attr.name]
-    
+
     def getElementsByTagName(self, tagname):
         return NodeList(self.doc, self.tag.find_all(tagname))
-        #return self.doc.getElementsByTagName(tagname)
+        # return self.doc.getElementsByTagName(tagname)
 
     def _getElementsByClassName(self, classname):
         return NodeList(self.doc, self.tag.find_all(class_ = classname))

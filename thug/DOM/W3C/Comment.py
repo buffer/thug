@@ -3,6 +3,7 @@
 from .Node import Node
 from .CharacterData import CharacterData
 
+
 class Comment(CharacterData):
     @property
     def nodeName(self):

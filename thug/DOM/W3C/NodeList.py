@@ -2,6 +2,7 @@
 
 from thug.DOM.JSClass import JSClass
 
+
 class NodeList(JSClass):
     def __init__(self, doc, nodes):
         self.doc = doc

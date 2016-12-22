@@ -5,7 +5,7 @@ class DocumentCompatibleInfoCollection(object):
     """
     http://msdn.microsoft.com/en-us/library/hh826015(v=vs.85).aspx
 
-    There are no standards that apply here. 
+    There are no standards that apply here.
     """
 
     def __init__(self, doc, nodes):

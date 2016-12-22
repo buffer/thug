@@ -5,6 +5,7 @@ from .UIEvent import UIEvent
 
 log = logging.getLogger("Thug")
 
+
 # Introduced in DOM Level 2
 class MouseEvent(UIEvent):
     MouseEventTypes = ('click', 'mousedown', 'mouseup', 'mouseover', 'mousemove', 'mouseout')
@@ -12,8 +13,8 @@ class MouseEvent(UIEvent):
     def __init__(self, typeArg, target):
         UIEvent.__init__(self, typeArg, target)
         canBubbleArg  = typeArg in ('click', 'mousedown', 'mouseup', 'mouseover', 'mousemove', 'mouseout')
-        cancelableArg = typeArg in ('click', 'mousedown', 'mouseup', 'mouseover', 'mouseout')        
-        self.initMouseEvent(typeArg          = typeArg, 
+        cancelableArg = typeArg in ('click', 'mousedown', 'mouseup', 'mouseover', 'mouseout')
+        self.initMouseEvent(typeArg          = typeArg,
                             canBubbleArg     = canBubbleArg,
                             cancelableArg    = cancelableArg,
                             relatedTargetArg = target)
@@ -34,15 +35,15 @@ class MouseEvent(UIEvent):
     def clientY(self):
         return self._clientY
 
-    @property 
+    @property
     def ctrlKey(self):
         return self._ctrlKey
 
-    @property 
+    @property
     def metaKey(self):
         return self._metaKey
 
-    @property 
+    @property
     def relatedTarget(self):
         return self._relatedTarget
 
@@ -62,11 +63,11 @@ class MouseEvent(UIEvent):
     def detail(self):
         return self._detail
 
-    def initMouseEvent(self, 
-                       typeArg, 
-                       canBubbleArg, 
-                       cancelableArg, 
-                       viewArg            = None, 
+    def initMouseEvent(self,
+                       typeArg,
+                       canBubbleArg,
+                       cancelableArg,
+                       viewArg            = None,
                        detailArg          = 1,
                        screenXArg         = 0,
                        screenYArg         = 0,
@@ -91,7 +92,7 @@ class MouseEvent(UIEvent):
         self._ctrlKey       = ctrlKeyArg
         self._altKey        = altKeyArg
         self._shiftKey      = shiftKeyArg
-        self._metaKey       = metaKeyArg 
+        self._metaKey       = metaKeyArg
         self._button        = buttonArg
         self._relatedTarget = relatedTargetArg
         self.initUIEvent(typeArg, canBubbleArg, cancelableArg, viewArg, detailArg)

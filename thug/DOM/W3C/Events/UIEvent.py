@@ -3,7 +3,9 @@
 from .Event import Event
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 # Introduced in DOM Level 2
 class UIEvent(Event):

@@ -4,6 +4,7 @@ from .DOMException import DOMException
 from .Node import Node
 from .CharacterData import CharacterData
 
+
 class Text(CharacterData):
     def __repr__(self):
         return "<Text '%s' at 0x%08X>" % (self.tag, id(self))
@@ -30,4 +31,4 @@ class Text(CharacterData):
     def replaceData(self, offset, count, arg):
         s = self.data[:offset] + arg + self.data[offset + count:]
         self.data = s
-        #raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
+        # raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)

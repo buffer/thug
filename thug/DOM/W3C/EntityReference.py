@@ -2,6 +2,7 @@
 
 from Node import Node
 
+
 class EntityReference(Node):
     def __init__(self, doc, name):
         self.name = name

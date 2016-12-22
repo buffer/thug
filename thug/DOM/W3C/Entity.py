@@ -2,6 +2,7 @@
 
 from .Node import Node
 
+
 class Entity(Node):
     @property
     def publicId(self):

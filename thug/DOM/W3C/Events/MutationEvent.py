@@ -2,17 +2,18 @@
 
 from .Event import Event
 
+
 # Introduced in DOM Level 2
 class MutationEvent(Event):
-    MODIFICATION = 1 # The Attr was just added
-    ADDITION     = 2 # The Attr was modified in place
-    REMOVAL      = 3 # The Attr was just removed
+    MODIFICATION = 1  # The Attr was just added
+    ADDITION     = 2  # The Attr was modified in place
+    REMOVAL      = 3  # The Attr was just removed
 
     @property
     def relatedNode(self):
         return None
 
-    @property 
+    @property
     def prevValue(self):
         return None
 

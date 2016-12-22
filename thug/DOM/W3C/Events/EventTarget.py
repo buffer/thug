@@ -7,6 +7,7 @@ from .MouseEvent import MouseEvent
 import logging
 log = logging.getLogger("Thug")
 
+
 # Introduced in DOM Level 2
 class EventTarget(object):
     def __init__(self):
@@ -26,22 +27,22 @@ class EventTarget(object):
             setattr(self.__class__, 'addEventListener', addEventListener)
 
     def __insert_listener(self, eventType, listener, capture, prio):
-        # A document element or other object may have more than one event 
-        # handler registered for a particular type of event. When an appropriate 
-        # event occurs, the browser must invoke all of the handlers, following 
+        # A document element or other object may have more than one event
+        # handler registered for a particular type of event. When an appropriate
+        # event occurs, the browser must invoke all of the handlers, following
         # these rules of invocation order:
         #
-        # - Handlers registered by setting an object property or HTML attribute, 
+        # - Handlers registered by setting an object property or HTML attribute,
         # if any, are always invoked first
         #
-        # - Handlers registered with addEventListener() are invoked in the order 
+        # - Handlers registered with addEventListener() are invoked in the order
         # in which they were registered
         #
-        # - Handlers registered with attachEvent() may be invoked in any order 
+        # - Handlers registered with attachEvent() may be invoked in any order
         # and your code should not depend on sequential invocation
         #
-        # The `prio' parameter is used for deciding if the handler has to be 
-        # appended at the end of the _listener list (addEventListener and 
+        # The `prio' parameter is used for deciding if the handler has to be
+        # appended at the end of the _listener list (addEventListener and
         # attachEvent) or at the beginning (setting an object property or HTML
         # attribute)
         if prio:
@@ -51,7 +52,7 @@ class EventTarget(object):
 
     def _addEventListener(self, eventType, listener, capture = False, prio = False):
         log.debug('_addEventListener(%s, \n%r, \n%s)', eventType, listener, capture)
-        
+
         if getattr(self.tag, '_listeners', None) is None:
             self.tag._listeners = list()
 
@@ -60,17 +61,17 @@ class EventTarget(object):
             return
 
         # attachEvent() allows the same event handler to be registered more than
-        # once. When the event of the specified type occurs, the registered 
+        # once. When the event of the specified type occurs, the registered
         # function will be invoked as many times as it was registered
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
             self.__insert_listener(eventType, listener, capture, prio)
 
     def _removeEventListener(self, eventType, listener, capture = False):
         log.debug('_removeEventListener(%s, \n%r, \n%s)', eventType, listener, capture)
-        
+
         try:
             self.tag._listeners.remove((eventType, listener, capture))
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             pass
 
     def _attachEvent(self, eventType, handler, prio = False):
@@ -94,9 +95,9 @@ class EventTarget(object):
         return capture_listeners, bubbling_listeners
 
     def _do_dispatch(self, c, evtObject):
-        eventType, listener, capture = c #pylint:disable=unused-variable
-            
-        with self.doc.window.context as ctx: #pylint:disable=unused-variable
+        eventType, listener, capture = c  # pylint:disable=unused-variable
+
+        with self.doc.window.context as ctx:  # pylint:disable=unused-variable
             if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
                 self.doc.window.event = evtObject
                 listener()
@@ -106,8 +107,8 @@ class EventTarget(object):
     def do_dispatch(self, c, evtObject):
         try:
             self._do_dispatch(c, evtObject)
-        except: #pylint:disable=bare-except
-            eventType, listener, capture = c #pylint:disable=unused-variable
+        except:  # pylint:disable=bare-except
+            eventType, listener, capture = c  # pylint:disable=unused-variable
             log.warning("[WARNING] Error while dispatching %s event", eventType)
 
     def _dispatchCaptureEvent(self, tag, evtType, evtObject):
@@ -115,14 +116,14 @@ class EventTarget(object):
             return
 
         self._dispatchCaptureEvent(tag.parent, evtType, evtObject)
-        
+
         if not tag.parent._listeners:
             return
 
         if evtObject._stoppedPropagation:
             return
 
-        capture_listeners, bubbling_listeners = self._get_listeners(tag.parent, evtType) #pylint:disable=unused-variable
+        capture_listeners, bubbling_listeners = self._get_listeners(tag.parent, evtType)  # pylint:disable=unused-variable
         for c in capture_listeners:
             evtObject.currentTarget = tag.parent._node
             self.do_dispatch(c, evtObject)
@@ -131,14 +132,14 @@ class EventTarget(object):
         for node in tag.parents:
             if node is None:
                 break
-            
+
             if not node._listeners:
                 continue
 
             if evtObject._stoppedPropagation:
                 continue
 
-            capture_listeners, bubbling_listeners = self._get_listeners(node, evtType) #pylint:disable=unused-variable
+            capture_listeners, bubbling_listeners = self._get_listeners(node, evtType)  # pylint:disable=unused-variable
             for c in bubbling_listeners:
                 evtObject.currentTarget = node._node
                 self.do_dispatch(c, evtObject)
@@ -153,13 +154,13 @@ class EventTarget(object):
         if evtType in HTMLEvent.HTMLEventTypes:
             evtObject = HTMLEvent(evtType, self)
 
-        #print evtObject
+        # print evtObject
         capture_listeners, bubbling_listeners = self._get_listeners(self.tag, evtType)
 
         if capture_listeners:
             evtObject.eventPhase = Event.CAPTURING_PHASE
             self._dispatchCaptureEvent(self.tag, evtType, evtObject)
-   
+
         evtObject.eventPhase    = Event.AT_TARGET
         evtObject.currentTarget = self
 
@@ -176,4 +177,3 @@ class EventTarget(object):
 
         evtObject.eventPhase = Event.AT_TARGET
         return True
-
