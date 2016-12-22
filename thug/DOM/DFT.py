@@ -813,7 +813,7 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(action, method = method.upper(), redirect_type = "form")
-        except:
+        except: #pylint:disable=bare-except
             return
 
         if response is None:
