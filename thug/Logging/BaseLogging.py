@@ -35,7 +35,7 @@ class BaseLogging(object):
 
         try:
             section = config.options(module)
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return True
 
         for option in section:

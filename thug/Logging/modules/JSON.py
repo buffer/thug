@@ -106,7 +106,7 @@ class JSON(object):
         try:
             enc = log.Encoding.detect(data)
             return data.decode(enc['encoding']).replace("\n", "").strip()
-        except: #pylint:disable=bare-except
+        except:  # pylint:disable=bare-except
             return thug_unicode(data).replace("\n", "").strip()
 
     def make_counter(self, p):

@@ -32,7 +32,9 @@ import errno
 import copy
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 class ThugLogging(BaseLogging, SampleLogging):
     eval_min_length_logging = 4
