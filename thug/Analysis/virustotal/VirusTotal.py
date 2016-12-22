@@ -76,7 +76,7 @@ class VirusTotal(object):
 
     def get_report(self, report):
         params   = { "resource": report,
-                     "allinfo" : 1, 
+                     "allinfo" : 1,
                      "apikey"  : self.opts['apikey']}
 
         response = requests.get(self.opts["reporturl"], params = params)
@@ -92,7 +92,7 @@ class VirusTotal(object):
             if response_code == 1:
                 self.save_report(response_dict, basedir, sample)
                 return True
-            
+
             log.warning("[VirusTotal] %s", response_dict['verbose_msg'])
 
         return False
@@ -103,11 +103,11 @@ class VirusTotal(object):
 
         with open(s, "wb") as fd:
             fd.write(data)
-        
+
         params   = {'apikey': self.opts['apikey']}
         files    = {'file'  : (md5, open(s, "rb"))}
         response = requests.post(self.opts["scanurl"], files = files, params = params)
-        
+
         if response.ok:
             log.warning("[VirusTotal] Sample %s submitted", md5)
 

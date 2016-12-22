@@ -95,10 +95,10 @@ class HoneyAgent(object):
 
         with open(sample, "wb") as fd:
             fd.write(data)
-       
+
         files    = {'file'  : (md5, open(sample, "rb"))}
         response = requests.post(self.opts["scanurl"], files = files, params = params)
-        
+
         if response.ok:
             log.warning("[HoneyAgent][%s] Sample submitted", md5)
 
