@@ -1206,10 +1206,10 @@ class DFT(object):
 
         try:
             handler = getattr(self, "handle_%s" % (str(name.lower()), ), None)
-        except:
+        except: #pylint:disable=bare-except
             try:
                 handler = getattr(self, "handle_%s" % (name.encode('utf-8', 'replace'),  ), None)
-            except:
+            except: #pylint:disable=bare-except
                 pass
 
         if handler:
