@@ -71,7 +71,7 @@ class External(object):
     def _AddChannel(self, URL):
         self._channels.add(URL)
 
-    def _AddDesktopComponent(self, URL, type, left = None, top = None, width = None, height = None):
+    def _AddDesktopComponent(self, URL, type, left = None, top = None, width = None, height = None): # pylint:disable=redefined-builtin
         pass
 
     def _AddFavorite(self, URL, title = None):
