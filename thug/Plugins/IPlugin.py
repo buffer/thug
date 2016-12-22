@@ -18,6 +18,7 @@
 
 import zope.interface
 
+
 class IPlugin(zope.interface.Interface):
     def run(thug, log):
         """

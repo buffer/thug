@@ -21,7 +21,7 @@ import logging
 
 log = logging.getLogger("Thug")
 
-MAX_COOKIE_EXPIRES_DAYS = 365 
+MAX_COOKIE_EXPIRES_DAYS = 365
 
 
 class Cookies(object):
@@ -31,7 +31,7 @@ class Cookies(object):
     def __init__(self):
         self.cookie_id = 1
         self.cookies = set()
-    
+
     def _inspect_cookie_expires(self, cookie):
         if not cookie.expires:
             return

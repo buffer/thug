@@ -20,7 +20,8 @@
 import logging
 
 log = logging.getLogger("Thug")
- 
+
+
 class WebStorage(object):
     def __init__(self):
         self.storage = dict()

@@ -72,7 +72,7 @@ class ThugPlugins(object):
             pkg = os.path.join(PLUGINS_PATH, p)
             if not os.path.isdir(pkg):
                 continue
-        
+
             if HANDLER_MODULE not in os.listdir(pkg):
                 continue
 
