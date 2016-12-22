@@ -55,7 +55,7 @@ class HTTPSession(object):
 
         try:
             self.__check_proxy_alive(url.hostname, url.port)
-        except:
+        except: #pylint:disable=bare-except
             log.critical("[CRITICAL] Proxy not available. Aborting the analysis!")
             sys.exit(0)
 
