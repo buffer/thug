@@ -16,7 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 #
-# Original code written by Thorsten Sick <thorsten.sick@avira.com> 
+# Original code written by Thorsten Sick <thorsten.sick@avira.com>
 # from Avira (developed for the iTES Project http://ites-project.org)
 #
 # Modified by Angelo Dell'Aera:
