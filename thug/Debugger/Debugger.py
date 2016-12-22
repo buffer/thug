@@ -24,10 +24,11 @@ log = logging.getLogger("Thug")
 
 import thug
 
+
 class Debugger(PyV8.JSDebugger):
     def __init__(self):
         PyV8.JSDebugger.__init__(self)
-        #self.evalContext = PyV8.JSContext()
+        # self.evalContext = PyV8.JSContext()
 
     def __enter__(self):
         script_filename = os.path.join(thug.__configuration_path__, 'scripts', 'd8.js')
@@ -35,13 +36,13 @@ class Debugger(PyV8.JSDebugger):
             ctxt.eval(open(script_filename, 'r').read())
 
         PyV8.JSEngine.collect()
-        #self.setEnabled(True)
+        # self.setEnabled(True)
 
         return PyV8.JSDebugger.__enter__(self)
-        
+
     def onMessage(self, msg):
         log.debug("Debug message: %s", msg)
-       
+
         if msg['type'] == 'event' and msg['event'] == 'break':
             self.stepNext()
         return True

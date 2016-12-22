@@ -62,14 +62,14 @@ class Shellcode(object):
             try:
                 self.window._navigator.fetch(p[1], redirect_type = "Found URLDownloadToFile")
                 log.ThugLogging.shellcode_urls.add(url)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
             profile = profile[1:]
 
     def search_url(self, sc):
         offset = sc.find('http')
-        
+
         if offset > 0:
             url = sc[offset:].split()[0]
             if url.endswith("'") or url.endswith('"'):
@@ -83,7 +83,7 @@ class Shellcode(object):
             try:
                 self.window._navigator.fetch(url, redirect_type = "URL found")
                 log.ThugLogging.shellcode_urls.add(url)
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 pass
 
     def run(self):
@@ -93,7 +93,7 @@ class Shellcode(object):
             dbg._context = self.ctxt
             _vars = self.ctxt.locals
             trace = None
-            #dbg.debugBreak()
+            # dbg.debugBreak()
 
             try:
                 result = self.ctxt.eval(self.script)
@@ -101,9 +101,9 @@ class Shellcode(object):
                 try:
                     enc = log.Encoding.detect(self.script)
                     result = self.ctxt.eval(self.script.decode(enc['encoding']))
-                except: #pylint:disable=bare-except
+                except:  # pylint:disable=bare-except
                     trace = traceback.format_exc()
-            except: #pylint:disable=bare-except
+            except:  # pylint:disable=bare-except
                 trace = traceback.format_exc()
 
             if trace:
@@ -121,7 +121,7 @@ class Shellcode(object):
 
                 if not isinstance(s, six.string_types):
                     continue
-              
+
                 log.debug("[Shellcode] Testing variable: %s", name)
                 self.emu.run(s)
 
@@ -132,5 +132,5 @@ class Shellcode(object):
 
                 self.emu.free()
                 self.search_url(s)
-            
+
         return result

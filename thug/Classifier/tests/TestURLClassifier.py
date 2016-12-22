@@ -20,6 +20,7 @@ import unittest
 import yara
 import json
 
+
 class TestURLClassifier(unittest.TestCase):
     rule_file = "../rules/urlclassifier.yar"
     test_file = "testurlclassifier.json"
