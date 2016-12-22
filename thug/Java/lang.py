@@ -18,6 +18,7 @@
 
 from .System import System
 
+
 class lang(object):
     def __init__(self):
         self.System = System()

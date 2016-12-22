@@ -17,7 +17,9 @@
 # MA  02111-1307  USA
 
 import logging
+
 log = logging.getLogger("Thug")
+
 
 class System(object):
     def __init__(self):
