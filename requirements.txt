@@ -3,7 +3,7 @@ html5lib==0.999999999
 jsbeautifier==1.6.2
 lxml==3.6.0
 chardet==2.3.0
-requests==2.12.3
+requests==2.12.4
 PySocks==1.6.5
 cssutils==1.0.1
 zope.interface==4.3.2
