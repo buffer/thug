@@ -174,7 +174,7 @@ class MongoDB(object):
 
         analysis = {
             "url_id"      : self.url_id,
-            "timestamp"   : str(datetime.datetime.now()),
+            "timestamp"   : datetime.datetime.now(),
             "thug"        : {
                                 "version"            : self.thug_version,
                                 "personality" : {
@@ -429,7 +429,7 @@ class MongoDB(object):
             'description' : self.fix(description),
             'cve'         : self.fix(cve),
             'method'      : self.fix(method),
-            'timestamp'   : str(datetime.datetime.now())
+            'timestamp'   : datetime.datetime.now()
         }
 
         self.behaviors.insert(behavior)
