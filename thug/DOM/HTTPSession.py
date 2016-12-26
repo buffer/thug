@@ -204,28 +204,6 @@ class HTTPSession(object):
 
         return False
 
-    def handle_status_code_error_404(self, response):
-        log.ThugLogging.add_behavior_warn("[File Not Found] URL: %s" % (response.url, ))
-        log.ThugLogging.log_location(response.url, None, flags = {"error" : "File Not Found"})
-
-    def handle_status_code_error_400(self, response):
-        log.ThugLogging.add_behavior_warn("[%s] URL: %s" % (response.reason, response.url, ))
-
-    def handle_status_code_error_408(self, response):
-        self.handle_status_code_error_400(response)
-
-    def handle_status_code_error_500(self, response):
-        self.handle_status_code_error_400(response)
-
-    def handle_status_code_error(self, response):
-        handler = getattr(self, "handle_status_error_code_%s" % (response.status_code, ), None)
-
-        if handler is None:
-            return False
-
-        handler(response)
-        return True
-
     @property
     def no_fetch(self):
         return log.ThugOpts.no_fetch

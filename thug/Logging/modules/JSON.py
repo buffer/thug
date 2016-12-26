@@ -182,6 +182,7 @@ class JSON(object):
             flags = dict()
 
         self.data["locations"].append({"url"          : self.fix(url),
+                                       "status"       : data.get("status", None),
                                        "content-type" : data.get("ctype", None),
                                        "md5"          : data.get("md5", None),
                                        "sha256"       : data.get("sha256", None),

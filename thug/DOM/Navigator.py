@@ -327,10 +327,6 @@ class Navigator(JSClass):
         referer = response.request.headers.get('referer', 'None')
         log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referer: %s)" % (url, response.status_code, referer, ))
 
-        if log.HTTPSession.handle_status_code_error(response):
-            # response.raise_for_status()
-            return response
-
         ctype     = response.headers.get('content-type', 'unknown')
         mime_base = os.path.join(log.ThugLogging.baseDir, ctype)
 
@@ -343,6 +339,7 @@ class Navigator(JSClass):
 
         data = {
             "content" : response.content,
+            "status"  : response.status_code,
             "md5"     : md5.hexdigest(),
             "sha256"  : sha256.hexdigest(),
             "fsize"   : len(response.content),
