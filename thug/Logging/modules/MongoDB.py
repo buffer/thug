@@ -224,6 +224,7 @@ class MongoDB(object):
         location = {
             'analysis_id'   : self.analysis_id,
             'url_id'        : self.get_url(url),
+            'status'        : data.get("status", None),
             "content_id"    : content_id,
             'content-type'  : data.get("ctype", None),
             'md5'           : data.get("md5", None),
