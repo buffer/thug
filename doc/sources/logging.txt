@@ -170,6 +170,7 @@ and evaluated content type.
         { 
             "analysis_id"   : Analysis ID
             "url_id"        : URL url_id
+            "status"        : HTTP status code
             "content_id"    : Content ID (content stored in the GridFS fs)
             "content-type"  : Content Type
             "md5"           : MD5 checksum
@@ -544,6 +545,7 @@ locations
 
         { 
             "url"           : URL url
+            "status"        : HTTP status code
             "content-type"  : Content Type
             "md5"           : MD5 checksum
             "sha256"        : SHA-256 checksum

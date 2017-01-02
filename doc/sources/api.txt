@@ -449,6 +449,15 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def enable_code_logging():
+            """
+        	enable_code_logging
+
+        	Enable code logging
+
+        	@return: None
+        	"""
+
         def disable_code_logging():
             """
             disable_code_logging
@@ -457,6 +466,15 @@ Thug API interface definition is reported below for convenience.
 
             @return: None
             """
+
+        def enable_cert_logging():
+        	"""
+        	enable_cert_logging
+
+        	Enable SSL/TLS certificate logging
+
+        	@return: None
+        	"""
 
         def disable_cert_logging():
             """
