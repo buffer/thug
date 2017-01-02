@@ -31,7 +31,7 @@ setup(
     name = "thug",
     version = thug.__version__,
     author = "Angelo Dell'Aera",
-    author_email = "buffer@antifork.org",
+    author_email = "angelo.dellaera@honeynet.org",
     description = "Low-interaction honeyclient Thug",
     license = "GPLv2",
     long_description = open("README.rst").read(),
