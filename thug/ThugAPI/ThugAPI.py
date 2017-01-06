@@ -138,6 +138,12 @@ class ThugAPI(object):
     def set_proxy(self, proxy):
         log.ThugOpts.proxy = proxy
 
+    def get_raise_for_proxy(self):
+        return log.ThugOpts.raise_for_proxy
+
+    def set_raise_for_proxy(self, raise_for_proxy):
+        log.ThugOpts.raise_for_proxy = raise_for_proxy
+
     def set_no_fetch(self):
         log.ThugOpts.no_fetch = True
 

@@ -34,8 +34,8 @@ class ThugOpts(dict):
     proxy_schemes = ('http', 'socks4', 'socks5', )
 
     def __init__(self):
-        self._proxy_info      = None
         self._proxy           = None
+        self._raise_for_proxy = True
         self.local            = False
         self.extensive        = False
         self._threshold       = 0
@@ -77,6 +77,14 @@ class ThugOpts(dict):
         return self._proxy
 
     proxy = property(get_proxy, set_proxy)
+
+    def set_raise_for_proxy(self, raise_for_proxy):
+        self._raise_for_proxy = raise_for_proxy
+
+    def get_raise_for_proxy(self):
+        return self._raise_for_proxy
+
+    raise_for_proxy = property(get_raise_for_proxy, set_raise_for_proxy)
 
     def get_useragent(self):
         return self._useragent

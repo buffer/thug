@@ -162,7 +162,6 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
-
     def get_referer():
         """
         get_referer
@@ -200,6 +199,28 @@ class IThugAPI(zope.interface.Interface):
 
         @param proxy: proxy server
         @type proxy: C{str}
+        @return: None
+        """
+
+    def get_raise_for_proxy():
+        """
+        get_raise_for_proxy
+
+        Get the raise_for_proxy flag. If the flag is True (default) a ValueError exception
+        is raised if the specified proxy is not available.
+
+        @return: boolean
+        """
+
+    def set_raise_for_proxy(raise_for_proxy):
+        """
+        set_raise_for_proxy
+
+        Set the raise_for_proxy flag. If the flag is True (default) a ValueError exception
+        is raised if the specified proxy is not available.
+
+        @param raise_for_proxy: raise_for_proxy flag
+        @type: raise_for_proxy: boolean
         @return: None
         """
 

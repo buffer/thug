@@ -57,6 +57,10 @@ class HTTPSession(object):
             self.__check_proxy_alive(url.hostname, url.port)
         except:  # pylint:disable=bare-except
             log.critical("[CRITICAL] Proxy not available. Aborting the analysis!")
+
+            if log.ThugOpts.raise_for_proxy:
+                raise ValueError("[CRITICAL] Proxy not available")
+
             sys.exit(0)
 
         self.session.proxies = {
