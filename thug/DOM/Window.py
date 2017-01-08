@@ -24,7 +24,6 @@ import PyV8
 import traceback
 import urllib
 import bs4 as BeautifulSoup
-import jsbeautifier
 import new
 import numbers
 import collections
@@ -851,12 +850,6 @@ class Window(JSClass):
     def eval(self, script):
         if script is None:
             return
-
-        if len(script) > 4:
-            try:
-                log.info(jsbeautifier.beautify(script))
-            except:  # pylint:disable=bare-except
-                log.info(script)
 
         if len(script) > 64:
             log.warning("[Window] Eval argument length > 64 (%d)", len(script))

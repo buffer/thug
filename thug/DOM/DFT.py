@@ -23,7 +23,6 @@ import base64
 import logging
 import PyV8
 import bs4 as BeautifulSoup
-import jsbeautifier
 import six
 from cssutils.parse import CSSParser
 
@@ -762,10 +761,7 @@ class DFT(object):
         self.window.evalScript(response.content, tag = script)
 
     def handle_javascript(self, script):
-        try:
-            log.info(jsbeautifier.beautify(str(script)))
-        except:  # pylint:disable=bare-except
-            log.info(script)
+        log.info(script)
 
         self.handle_external_javascript(script)
 
