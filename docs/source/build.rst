@@ -15,7 +15,6 @@ Requirements
 * RabbitMQ (optional)
 * BeautifulSoup4
 * Html5lib
-* Jsbeautifier
 * Libemu/Pylibemu
 * PEfile
 * Yara
@@ -165,20 +164,6 @@ pip.
 .. code-block:: sh
 
         # pip install html5lib 
-
-
-Jsbeautifier
-^^^^^^^^^^^^
-
-Jsbeautifier beautifies, unpacks or deobfuscates JavaScript and handles popular online obfuscators. 
-Jsbeautifier code can be downloaded at https://github.com/einars/js-beautify
-
-If not available as a package for your Linux distribution, the best way to install jsbeautifier is 
-through pip.
-
-.. code-block:: sh
-
-        # pip install jsbeautifier 
 
 
 Libemu/Pylibemu
