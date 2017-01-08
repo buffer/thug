@@ -20,7 +20,7 @@ Requirements
 * Yara
 * Yara-Python
 * Lxml
-* Chardet                  
+* cChardet
 * Requests
 * PySocks
 * Cssutils
@@ -262,16 +262,17 @@ If not available as a package for your Linux distribution, the best way to insta
         # pip install lxml
 
 
-Chardet
-^^^^^^^
+cChardet
+^^^^^^^^
 
-Chardet is a universal encoding detector. Chardet homepage is located at http://pypi.python.org/pypi/chardet.
+cChardet is high speed universal character encoding detector. cChardet homepage is located at
+http://pypi.python.org/pypi/cchardet.
 
-If not available as a package for your Linux distribution, the best way to install chardet is through pip.
+If not available as a package for your Linux distribution, the best way to install cChardet is through pip.
 
 .. code-block:: sh
 
-        # pip install chardet  
+        # pip install cchardet
 
 
 Requests
