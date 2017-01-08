@@ -17,22 +17,16 @@
 # MA  02111-1307  USA
 
 
-from chardet.universaldetector import UniversalDetector
+import cchardet
 
 
 class Encoding(object):
     def __init__(self):
-        self.detector = UniversalDetector()
-
-    def _detect(self, data):
-        self.detector.reset()
-        self.detector.feed(data)
-        self.detector.close()
-        return self.detector.result
+        pass
 
     def detect(self, data, safe = False):
         try:
-            return self._detect(data)
+            return cchardet.detect(data)
         except:
             if safe:
                 return None
