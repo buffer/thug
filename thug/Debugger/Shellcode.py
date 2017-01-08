@@ -91,8 +91,6 @@ class Shellcode(object):
 
         with Debugger() as dbg:
             dbg._context = self.ctxt
-            _vars = self.ctxt.locals
-            trace = None
             # dbg.debugBreak()
 
             try:
@@ -102,19 +100,14 @@ class Shellcode(object):
                     enc = log.Encoding.detect(self.script)
                     result = self.ctxt.eval(self.script.decode(enc['encoding']))
                 except:  # pylint:disable=bare-except
-                    trace = traceback.format_exc()
+                    log.ThugLogging.log_warning(traceback.format_exc())
+                    return None
             except:  # pylint:disable=bare-except
-                trace = traceback.format_exc()
-
-            if trace:
-                log.ThugLogging.log_warning(trace)
+                log.ThugLogging.log_warning(traceback.format_exc())
                 return None
 
-            for name in self.ast.names:
-                s = None
-
-                if name in _vars.keys():
-                    s = _vars[name]
+            for name in (n for n in self.ast.names if n in self.ctxt.locals):
+                s = self.ctxt.locals[name]
 
                 if not s:
                     continue
@@ -122,7 +115,7 @@ class Shellcode(object):
                 if not isinstance(s, six.string_types):
                     continue
 
-                log.debug("[Shellcode] Testing variable: %s", name)
+                # log.debug("[Shellcode] Testing variable: %s", name)
                 self.emu.run(s)
 
                 if self.emu.emu_profile_output:
