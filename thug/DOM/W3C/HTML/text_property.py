@@ -11,11 +11,11 @@ def text_property(readonly = False):
         # if self.tag.string:
         #    self.tag.contents[0] = BeautifulSoup.NavigableString(text)
         # else:
-        #   self.tag.append(text)
+        #    self.tag.append(text)
         #
         # self.tag.string = self.tag.contents[0]
         self.tag.string = text
         if self.tagName.lower() in ('script', ):
-            self.doc.window.evalScript(text, self.tag)
+            self.doc.window.evalScript(text, self.tag.string)
 
     return property(getter) if readonly else property(getter, setter)
