@@ -737,7 +737,9 @@ class Window(JSClass):
         return 0
 
     def _execScript(self, code, language = "JScript"):
-        log.ThugLogging.add_code_snippet(code, language, 'Contained_Inside')
+        if log.ThugOpts.code_logging:
+            log.ThugLogging.add_code_snippet(code, language, 'Contained_Inside')
+
         if language in ("JScript", ):
             self.eval(code)
         else:
@@ -854,7 +856,7 @@ class Window(JSClass):
         if len(script) > 64:
             log.warning("[Window] Eval argument length > 64 (%d)", len(script))
 
-        if len(script) > 4:
+        if log.ThugOpts.code_logging and len(script) > 4:
             log.ThugLogging.add_code_snippet(script, 'Javascript', 'Dynamically_Evaluated', True)
 
         return self.evalScript(script)
@@ -885,7 +887,9 @@ class Window(JSClass):
 
         try:
             log.JSClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url, script)
-            log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
+
+            if log.ThugOpts.code_logging:
+                log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
         except:  # pylint:disable=bare-except
             pass
 

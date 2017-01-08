@@ -739,7 +739,8 @@ class DFT(object):
         if not len(response.content):
             return
 
-        log.ThugLogging.add_code_snippet(response.content, 'Javascript', 'External')
+        if log.ThugOpts.code_logging:
+            log.ThugLogging.add_code_snippet(response.content, 'Javascript', 'External')
 
         s = self.window.doc.createElement('script')
 
@@ -768,7 +769,9 @@ class DFT(object):
         js = getattr(script, 'text', None)
 
         if js:
-            log.ThugLogging.add_code_snippet(js, 'Javascript', 'Contained_Inside')
+            if log.ThugOpts.code_logging:
+                log.ThugLogging.add_code_snippet(js, 'Javascript', 'Contained_Inside')
+
             self.window.evalScript(js, tag = script)
 
         self.check_shellcodes()
@@ -776,7 +779,10 @@ class DFT(object):
 
     def handle_vbscript(self, script):
         log.info(script)
-        log.ThugLogging.add_code_snippet(str(script), 'VBScript', 'Contained_Inside')
+
+        if log.ThugOpts.code_logging:
+            log.ThugLogging.add_code_snippet(str(script), 'VBScript', 'Contained_Inside')
+
         log.warning("VBScript parsing not available")
 
     def handle_vbs(self, script):

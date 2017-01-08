@@ -47,7 +47,9 @@ def _doRun(self, p, stage):
     except:  # pylint:disable=bare-except
         pass
 
-    log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
+    if log.ThugOpts.code_logging:
+        log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
+
     log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Code:\n%s" % (stage, p))
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
