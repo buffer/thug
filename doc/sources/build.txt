@@ -15,13 +15,12 @@ Requirements
 * RabbitMQ (optional)
 * BeautifulSoup4
 * Html5lib
-* Jsbeautifier
 * Libemu/Pylibemu
 * PEfile
 * Yara
 * Yara-Python
 * Lxml
-* Chardet                  
+* cChardet
 * Requests
 * PySocks
 * Cssutils
@@ -167,20 +166,6 @@ pip.
         # pip install html5lib 
 
 
-Jsbeautifier
-^^^^^^^^^^^^
-
-Jsbeautifier beautifies, unpacks or deobfuscates JavaScript and handles popular online obfuscators. 
-Jsbeautifier code can be downloaded at https://github.com/einars/js-beautify
-
-If not available as a package for your Linux distribution, the best way to install jsbeautifier is 
-through pip.
-
-.. code-block:: sh
-
-        # pip install jsbeautifier 
-
-
 Libemu/Pylibemu
 ^^^^^^^^^^^^^^^
 
@@ -277,16 +262,17 @@ If not available as a package for your Linux distribution, the best way to insta
         # pip install lxml
 
 
-Chardet
-^^^^^^^
+cChardet
+^^^^^^^^
 
-Chardet is a universal encoding detector. Chardet homepage is located at http://pypi.python.org/pypi/chardet.
+cChardet is high speed universal character encoding detector. cChardet homepage is located at
+http://pypi.python.org/pypi/cchardet.
 
-If not available as a package for your Linux distribution, the best way to install chardet is through pip.
+If not available as a package for your Linux distribution, the best way to install cChardet is through pip.
 
 .. code-block:: sh
 
-        # pip install chardet  
+        # pip install cchardet
 
 
 Requests
