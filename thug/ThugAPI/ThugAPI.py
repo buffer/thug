@@ -21,6 +21,7 @@ import os
 import logging
 import PyV8
 
+from bs4 import BeautifulSoup
 from zope.interface import implementer
 from lxml.html import builder as E
 from lxml.html import tostring
@@ -320,7 +321,30 @@ class ThugAPI(object):
         extension = os.path.splitext(url)
 
         if len(extension) > 1 and extension[1].lower() in ('.js', '.jse', ):
-            html = tostring(E.HTML(E.BODY(E.SCRIPT(content))))
+            if not 'script' in content:
+                html = tostring(E.HTML(E.BODY(E.SCRIPT(content))))
+            else:
+                soup = BeautifulSoup(content)
+
+                try:
+                    soup.html.unwrap()
+                except AttributeError:
+                    pass
+
+                try:
+                    soup.head.unwrap()
+                except AttributeError:
+                    pass
+
+                try:
+                    soup.body.unwrap()
+                except AttributeError:
+                    pass
+
+                if soup.next_element.name in ('script', ):
+                    soup.script.unwrap()
+
+                html = tostring(E.HTML(E.BODY(E.SCRIPT(str(soup)))))
         else:
             html = content
 
