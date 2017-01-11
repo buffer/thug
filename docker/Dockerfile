@@ -27,7 +27,7 @@
 # (https://github.com/PayloadSecurity/VxCommunity/blob/master/bash/thuginstallation.sh)
 #
 
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Lenny Zeltser (@lennyzeltser, www.zeltser.com)
 
 USER root
@@ -48,7 +48,7 @@ RUN apt-get update && \
     libffi-dev \
     graphviz \
     libfuzzy-dev \
-    libjpeg8-dev \
+    libjpeg-dev \
     pkg-config \
     autoconf && \
   rm -rf /var/lib/apt/lists/*
