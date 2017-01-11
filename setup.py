@@ -19,10 +19,12 @@ hooks_path         = os.path.join(thug.__configuration_path__, "hooks")
 
 html_rules_path    = os.path.join(rules_path, "htmlclassifier")
 js_rules_path      = os.path.join(rules_path, "jsclassifier")
+vbs_rules_path     = os.path.join(rules_path, "vbsclassifier")
 url_rules_path     = os.path.join(rules_path, "urlclassifier")
 sample_rules_path  = os.path.join(rules_path, "sampleclassifier")
 html_filter_path   = os.path.join(rules_path, "htmlfilter")
 js_filter_path     = os.path.join(rules_path, "jsfilter")
+vbs_filter_path    = os.path.join(rules_path, "vbsfilter")
 url_filter_path    = os.path.join(rules_path, "urlfilter")
 sample_filter_path = os.path.join(rules_path, "samplefilter")
 
@@ -64,10 +66,12 @@ setup(
         (hooks_path                 , []),
         (html_rules_path            , glob.glob("thug/Classifier/rules/htmlclassifier/*.yar")),
         (js_rules_path              , glob.glob("thug/Classifier/rules/jsclassifier/*.yar")),
+        (vbs_rules_path             , glob.glob("thug/Classifier/rules/vbsclassifier/*.yar")),
         (url_rules_path             , glob.glob("thug/Classifier/rules/urlclassifier/*.yar")),
         (sample_rules_path          , glob.glob("thug/Classifier/rules/sampleclassifier/*.yar")),
         (html_filter_path           , glob.glob("thug/Classifier/rules/htmlfilter/*.yar")),
         (js_filter_path             , glob.glob("thug/Classifier/rules/jsfilter/*.yar")),
+        (vbs_filter_path            , glob.glob("thug/Classifier/rules/vbsfilter/*.yar")),
         (url_filter_path            , glob.glob("thug/Classifier/rules/urlfilter/*.yar")),
         (sample_filter_path         , glob.glob("thug/Classifier/rules/samplefilter/*.yar")),
 

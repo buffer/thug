@@ -50,6 +50,7 @@ from .abstractmethod import abstractmethod
 
 from thug.Classifier.HTMLClassifier import HTMLClassifier
 from thug.Classifier.JSClassifier import JSClassifier
+from thug.Classifier.VBSClassifier import VBSClassifier
 from thug.Classifier.URLClassifier import URLClassifier
 from thug.Classifier.SampleClassifier import SampleClassifier
 
@@ -69,6 +70,7 @@ class ThugAPI(object):
         log.SchemeHandler       = SchemeHandler()
         log.HTMLClassifier      = HTMLClassifier()
         log.JSClassifier        = JSClassifier()
+        log.VBSClassifier       = VBSClassifier()
         log.URLClassifier       = URLClassifier()
         log.SampleClassifier    = SampleClassifier()
         log.Encoding            = Encoding()
@@ -275,6 +277,9 @@ class ThugAPI(object):
     def add_jsclassifier(self, rule):
         log.JSClassifier.add_rule(rule)
 
+    def add_vbsclassifier(self, rule):
+        log.VBSClassifier.add_rule(rule)
+
     def add_sampleclassifier(self, rule):
         log.SampleClassifier.add_rule(rule)
 
@@ -286,6 +291,9 @@ class ThugAPI(object):
 
     def add_jsfilter(self, f):
         log.JSClassifier.add_filter(f)
+
+    def add_vbsfilter(self, f):
+        log.VBSClassifier.add_filter(f)
 
     def add_samplefilter(self, f):
         log.SampleClassifier.add_filter(f)
