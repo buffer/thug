@@ -321,10 +321,10 @@ class ThugAPI(object):
         extension = os.path.splitext(url)
 
         if len(extension) > 1 and extension[1].lower() in ('.js', '.jse', ):
-            if not 'script' in content:
+            if not content.lstrip().startswith('<script'):
                 html = tostring(E.HTML(E.BODY(E.SCRIPT(content))))
             else:
-                soup = BeautifulSoup(content)
+                soup = BeautifulSoup(content, "html.parser")
 
                 try:
                     soup.html.unwrap()
@@ -341,10 +341,7 @@ class ThugAPI(object):
                 except AttributeError:
                     pass
 
-                if soup.next_element.name in ('script', ):
-                    soup.script.unwrap()
-
-                html = tostring(E.HTML(E.BODY(E.SCRIPT(str(soup)))))
+                html = tostring(E.HTML(E.BODY(E.SCRIPT(soup.script.get_text()))))
         else:
             html = content
 
