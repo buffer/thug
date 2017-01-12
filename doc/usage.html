@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.8.21 documentation</title>
+    <title>Usage &mdash; Thug 0.8.23 documentation</title>
     
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.21',
+        VERSION:     '0.8.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.8.21 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8.23 documentation" href="index.html" />
     <link rel="next" title="Thug API" href="api.html" />
     <link rel="prev" title="Configuration" href="configuration.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.21 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.23 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -86,15 +86,15 @@ Options:
     -a, --ast-debug                 Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
     -g, --http-debug                Enable HTTP debug mode
     -t, --threshold                 Maximum pages to fetch
-    -E, --extensive                 Extensive fetch of linked pages
+    -j, --extensive                 Extensive fetch of linked pages
     -O, --connect-timeout           Set the connect timeout <span class="o">(</span>in seconds, default: <span class="m">10</span> seconds<span class="o">)</span>
     -T, --timeout<span class="o">=</span>                  Set the analysis timeout <span class="o">(</span>in seconds, default: <span class="m">600</span> seconds<span class="o">)</span>
-    -B, --broken-url                Set the broken URL mode
+    -c, --broken-url                Set the broken URL mode
     -y, --vtquery                   Query VirusTotal <span class="k">for</span> samples analysis
     -s, --vtsubmit                  Submit samples to VirusTotal
     -b, --vt-apikey<span class="o">=</span>                VirusTotal API key to be used at runtime
     -z, --web-tracking              Enable web client tracking inspection
-    -N, --no-honeyagent             Disable HoneyAgent support
+    -k, --no-honeyagent             Disable HoneyAgent support
 
     Plugins:
     -A, --adobepdf<span class="o">=</span>                 Specify the Adobe Acrobat Reader version <span class="o">(</span>default: 9.1.0<span class="o">)</span>
@@ -105,13 +105,16 @@ Options:
     -K, --no-javaplugin             Disable Java plugin
 
     Classifiers:
-    -Q, --urlclassifier             Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> URL classifier rule files
-    -W, --jsclassifier              Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> JS classifier rule files
-    -C, --sampleclassifier          Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> sample classifier rule files
+    -L, --htmlclassifier<span class="o">=</span>           Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> HTML classifier rule files
+    -Q, --urlclassifier<span class="o">=</span>            Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> URL classifier rule files
+    -W, --jsclassifier<span class="o">=</span>             Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> JS classifier rule files
+    -N, --vbsclassifier<span class="o">=</span>            Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> VBS classifier rule files
+    -C, --sampleclassifier<span class="o">=</span>         Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> sample classifier rule files
     -I, --htmlfilter<span class="o">=</span>               Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> HTML filter files
     -H, --urlfilter<span class="o">=</span>                Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> URL filter files
     -X, --jsfilter<span class="o">=</span>                 Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> JS filter files
-    -V, --samplefilter<span class="o">=</span>             Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> sample filter files
+    -B, --vbsfilter<span class="o">=</span>                Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> VBS filter files
+    -E, --samplefilter<span class="o">=</span>             Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> sample filter files
 
     Logging:
     -F, --file-logging              Enable file logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
@@ -898,25 +901,6 @@ locally saved page.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="web-cache">
-<h2>Web Cache<a class="headerlink" href="#web-cache" title="Permalink to this headline">¶</a></h2>
-<p>Another interesting feature which may turn to be useful for later (manual or automated) analysis
-is the Web Cache. Thug stores the raw file downloaded during the analysis in a directory
-named <em>/tmp/thug-cache-NNNN</em> with NNNN being the UID of the user running Thug.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /tmp/thug-cache-1000/
-$ ls -lh
-total 356K
--rw-r--r-- <span class="m">1</span> buffer buffer  15K Jul  <span class="m">2</span> 19:22 <span class="o">[</span>omitted<span class="o">]</span>,data,ap1.php,f<span class="o">=</span>b081d,cd73e46d5d3ac64d00553aa7393808fc
--rw-r--r-- <span class="m">1</span> buffer buffer  25K Jul  <span class="m">2</span> 19:18 <span class="o">[</span>omitted<span class="o">]</span>,data,ap2.php,39e5c34cd8c8c8791e2715c83f6a9cf3
--rw-r--r-- <span class="m">1</span> buffer buffer 1.3K Jul  <span class="m">2</span> 19:22 <span class="o">[</span>omitted<span class="o">]</span>,data,field.swf,0887e8c1673cec525ce8aa694192e9c7
--rw-r--r-- <span class="m">1</span> buffer buffer 1.1K Jul  <span class="m">2</span> 19:22 <span class="o">[</span>omitted<span class="o">]</span>,data,hcp_vbs.php,f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">d</span><span class="o">=</span>0,eec4de0470135e1d5de7eb1a76f2624b
--rw-r--r-- <span class="m">1</span> buffer buffer  68K Jul  <span class="m">2</span> 19:22 <span class="o">[</span>omitted<span class="o">]</span>,main.php,page<span class="o">=</span>8c6c59becaa0da07,baa880d8d79c3488f2c0557be24cca6b
--rw-r--r-- <span class="m">1</span> buffer buffer  51K Jul  <span class="m">2</span> 19:22 <span class="o">[</span>omitted<span class="o">]</span>,Ryp.jar,1cc224d259fd079dc8fc964de421c9dd
--rw-r--r-- <span class="m">1</span> buffer buffer  90K Jul  <span class="m">2</span> 19:22 <span class="o">[</span>omitted<span class="o">]</span>,w.php,e<span class="o">=</span>5<span class="p">&amp;</span><span class="nv">f</span><span class="o">=</span>b081d,6aa8d9e4db0d7b4433e791c898e7090e
--rw-r--r-- <span class="m">1</span> buffer buffer  90K Jul  <span class="m">2</span> 19:22 <span class="o">[</span>omitted<span class="o">]</span>,w.php,f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">e</span><span class="o">=</span>2,af58f45673d97ba4643bb1c87c4505b2
-</pre></div>
-</div>
-</div>
 <div class="section" id="other-useful-features">
 <h2>Other useful features<a class="headerlink" href="#other-useful-features" title="Permalink to this headline">¶</a></h2>
 <p>An interesting feature (introduced in Thug 0.4.13) allows you to define a maximum delay for
@@ -976,7 +960,7 @@ option. Simply running Thug this way (please note the interval is expressed in m
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.21 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.23 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

@@ -655,6 +655,17 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def add_vbsclassifier(rule):
+            """
+            add_vbsclassifier
+
+            Add an additional VBS classifier rule file
+
+            @param rule: VBS classifier rule file
+            @type rule: C{str}
+            @return: None
+            """
+
         def add_sampleclassifier(rule):
             """
             add_sampleclassifier
@@ -695,6 +706,17 @@ Thug API interface definition is reported below for convenience.
             Add an additional JS filter file
 
             @param filter: JS filter file
+            @type filter: C{str}
+            @return: None
+            """
+
+        def add_vbsfilter(filter):
+            """
+            add_vbsfilter
+
+            Add an additional VBS filter file
+
+            @param filter: VBS filter file
             @type filter: C{str}
             @return: None
             """

@@ -42,34 +42,37 @@ Let's start our Thug tour by taking a look at the options it provides.
         -a, --ast-debug                 Enable AST debug mode (requires debug mode)
         -g, --http-debug                Enable HTTP debug mode
         -t, --threshold                 Maximum pages to fetch
-        -E, --extensive                 Extensive fetch of linked pages
+        -j, --extensive                 Extensive fetch of linked pages
         -O, --connect-timeout           Set the connect timeout (in seconds, default: 10 seconds)
         -T, --timeout=                  Set the analysis timeout (in seconds, default: 600 seconds)
-        -B, --broken-url                Set the broken URL mode
+        -c, --broken-url                Set the broken URL mode
         -y, --vtquery                   Query VirusTotal for samples analysis
         -s, --vtsubmit                  Submit samples to VirusTotal
         -b, --vt-apikey=                VirusTotal API key to be used at runtime
         -z, --web-tracking              Enable web client tracking inspection
-        -N, --no-honeyagent             Disable HoneyAgent support
-                                
-        Plugins:                
+        -k, --no-honeyagent             Disable HoneyAgent support
+
+        Plugins:
         -A, --adobepdf=                 Specify the Adobe Acrobat Reader version (default: 9.1.0)
         -P, --no-adobepdf               Disable Adobe Acrobat Reader plugin
         -S, --shockwave=                Specify the Shockwave Flash version (default: 10.0.64.0)
         -R, --no-shockwave              Disable Shockwave Flash plugin
         -J, --javaplugin=               Specify the JavaPlugin version (default: 1.6.0.32)
         -K, --no-javaplugin             Disable Java plugin
-                                
-        Classifiers:            
-        -Q, --urlclassifier             Specify a list of additional (comma separated) URL classifier rule files
-        -W, --jsclassifier              Specify a list of additional (comma separated) JS classifier rule files
-        -C, --sampleclassifier          Specify a list of additional (comma separated) sample classifier rule files
+
+        Classifiers:
+        -L, --htmlclassifier=           Specify a list of additional (comma separated) HTML classifier rule files
+        -Q, --urlclassifier=            Specify a list of additional (comma separated) URL classifier rule files
+        -W, --jsclassifier=             Specify a list of additional (comma separated) JS classifier rule files
+        -N, --vbsclassifier=            Specify a list of additional (comma separated) VBS classifier rule files
+        -C, --sampleclassifier=         Specify a list of additional (comma separated) sample classifier rule files
         -I, --htmlfilter=               Specify a list of additional (comma separated) HTML filter files
         -H, --urlfilter=                Specify a list of additional (comma separated) URL filter files
         -X, --jsfilter=                 Specify a list of additional (comma separated) JS filter files
-        -V, --samplefilter=             Specify a list of additional (comma separated) sample filter files
-                                
-        Logging:                
+        -B, --vbsfilter=                Specify a list of additional (comma separated) VBS filter files
+        -E, --samplefilter=             Specify a list of additional (comma separated) sample filter files
+
+        Logging:
         -F, --file-logging              Enable file logging mode (default: disabled)
         -Z, --json-logging              Enable JSON logging mode (default: disabled)
         -M, --maec11-logging            Enable MAEC11 logging mode (default: disabled)
@@ -77,8 +80,8 @@ Let's start our Thug tour by taking a look at the options it provides.
         -D, --mongodb-address=          Specify address and port of the MongoDB instance (format: host:port)
         -Y, --no-code-logging           Disable code logging
         -U, --no-cert-logging           Disable SSL/TLS certificate logging
-                                
-    Proxy Format:               
+
+    Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
 
 
@@ -837,28 +840,6 @@ locally saved page.
     [2013-01-08 10:33:01] <link href="http://www.groundhogtech.com/xmlrpc.php?rsd" rel="EditURI" title="RSD" type="application/rsd+xml"/>
     [2013-01-08 10:33:01] <iframe frameborder="0" height="0" marginheight="0" marginwidth="0" scrolling="no" src="http://81.95.149.27/go.php?sid=1" style="border:0px solid gray;" width="0"></iframe>
  
-
-Web Cache
----------
-
-Another interesting feature which may turn to be useful for later (manual or automated) analysis
-is the Web Cache. Thug stores the raw file downloaded during the analysis in a directory 
-named */tmp/thug-cache-NNNN* with NNNN being the UID of the user running Thug.   
-
-.. code-block:: sh
-
-        $ cd /tmp/thug-cache-1000/
-        $ ls -lh
-        total 356K
-        -rw-r--r-- 1 buffer buffer  15K Jul  2 19:22 [omitted],data,ap1.php,f=b081d,cd73e46d5d3ac64d00553aa7393808fc
-        -rw-r--r-- 1 buffer buffer  25K Jul  2 19:18 [omitted],data,ap2.php,39e5c34cd8c8c8791e2715c83f6a9cf3
-        -rw-r--r-- 1 buffer buffer 1.3K Jul  2 19:22 [omitted],data,field.swf,0887e8c1673cec525ce8aa694192e9c7
-        -rw-r--r-- 1 buffer buffer 1.1K Jul  2 19:22 [omitted],data,hcp_vbs.php,f=b081d&d=0,eec4de0470135e1d5de7eb1a76f2624b
-        -rw-r--r-- 1 buffer buffer  68K Jul  2 19:22 [omitted],main.php,page=8c6c59becaa0da07,baa880d8d79c3488f2c0557be24cca6b
-        -rw-r--r-- 1 buffer buffer  51K Jul  2 19:22 [omitted],Ryp.jar,1cc224d259fd079dc8fc964de421c9dd
-        -rw-r--r-- 1 buffer buffer  90K Jul  2 19:22 [omitted],w.php,e=5&f=b081d,6aa8d9e4db0d7b4433e791c898e7090e
-        -rw-r--r-- 1 buffer buffer  90K Jul  2 19:22 [omitted],w.php,f=b081d&e=2,af58f45673d97ba4643bb1c87c4505b2
-
 
 Other useful features
 ---------------------

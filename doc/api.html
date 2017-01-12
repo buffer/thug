@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Thug API &mdash; Thug 0.8.21 documentation</title>
+    <title>Thug API &mdash; Thug 0.8.23 documentation</title>
     
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.21',
+        VERSION:     '0.8.23',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.8.21 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8.23 documentation" href="index.html" />
     <link rel="next" title="JS Hooks" href="jshooks.html" />
     <link rel="prev" title="Usage" href="usage.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.21 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.23 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -693,6 +693,17 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+    <span class="k">def</span> <span class="nf">add_vbsclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_vbsclassifier</span>
+
+<span class="sd">        Add an additional VBS classifier rule file</span>
+
+<span class="sd">        @param rule: VBS classifier rule file</span>
+<span class="sd">        @type rule: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">add_sampleclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        add_sampleclassifier</span>
@@ -733,6 +744,17 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        Add an additional JS filter file</span>
 
 <span class="sd">        @param filter: JS filter file</span>
+<span class="sd">        @type filter: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">add_vbsfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_vbsfilter</span>
+
+<span class="sd">        Add an additional VBS filter file</span>
+
+<span class="sd">        @param filter: VBS filter file</span>
 <span class="sd">        @type filter: C{str}</span>
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -832,7 +854,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.21 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.23 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
