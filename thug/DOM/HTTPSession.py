@@ -108,6 +108,10 @@ class HTTPSession(object):
         return url
 
     def normalize_url(self, window, url):
+        # Do not normalize Data URI scheme
+        if url.lower().startswith('url='):
+            return url
+
         # Check the URL is not broken (i.e. http:/www.google.com) and
         # fix it if the broken URL option is enabled.
         if log.ThugOpts.broken_url:

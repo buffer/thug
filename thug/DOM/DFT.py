@@ -948,17 +948,16 @@ class DFT(object):
         if 'url' not in content.lower():
             return
 
-        timeout = 0  # pylint:disable=unused-variable
-        url     = None
+        url = None
+        data_uri = True if 'data:' in content else False
 
         for s in content.split(';'):
+            if data_uri is True and url is not None:
+                url = "{};{}".format(url, s)
+
             s = s.strip()
             if s.lower().startswith('url='):
                 url = s[4:]
-            try:
-                timeout = int(s)
-            except:  # pylint:disable=bare-except
-                pass
 
         if not url:
             return
@@ -967,6 +966,10 @@ class DFT(object):
             url = url[1:-1]
 
         if url in self.meta and self.meta[url] >= 3:
+            return
+
+        if data_uri:
+            self._handle_data_uri(url)
             return
 
         try:
@@ -984,11 +987,6 @@ class DFT(object):
             self.meta[url] += 1
         else:
             self.meta[url] = 1
-
-        # self.window.doc     = w3c.parseString(content)
-        # self.window.doc.DFT = self
-        # self.window.open(url)
-        # self.run()
 
         doc    = w3c.parseString(response.content)
         window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
@@ -1072,7 +1070,7 @@ class DFT(object):
             if rule.type == rule.FONT_FACE_RULE:
                 self.do_handle_font_face_rule(rule)
 
-    def _handle_data_uri(self, href):
+    def _handle_data_uri(self, uri):
         """
         Data URI Scheme
         data:[<MIME-type>][;charset=<encoding>][;base64],<data>
@@ -1090,10 +1088,12 @@ class DFT(object):
         Explorer requires that the charset's specification must precede the
         base64 token.
         """
-        if not href.lower().startswith("data:"):
+        if not uri.lower().startswith("data:"):
             return False
 
-        h = href.split(",")
+        log.URLClassifier.classify(uri)
+
+        h = uri.split(",")
         if len(h) < 2:
             return False
 
@@ -1108,8 +1108,19 @@ class DFT(object):
             opts = ["text/plain", "charset=US-ASCII"]
 
         mimetype = opts[0]
-        handler  = log.MIMEHandler.get_handler(mimetype)
 
+        if mimetype in ('text/html', ):
+            from .Window import Window
+
+            doc    = w3c.parseString(data)
+            window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+            window.open(uri)
+
+            dft = DFT(window)
+            dft.run()
+            return True
+
+        handler = log.MIMEHandler.get_handler(mimetype)
         if handler:
             handler(self.window.url, data)
             return True
