@@ -44,6 +44,7 @@ from thug.DOM.W3C.HTML import HTMLPreElement
 from thug.DOM.W3C.HTML import HTMLQuoteElement
 from thug.DOM.W3C.HTML import HTMLScriptElement
 from thug.DOM.W3C.HTML import HTMLSelectElement
+from thug.DOM.W3C.HTML import HTMLSpanElement
 from thug.DOM.W3C.HTML import HTMLStyleElement
 from thug.DOM.W3C.HTML import HTMLTableCaptionElement
 from thug.DOM.W3C.HTML import HTMLTableCellElement
@@ -126,6 +127,7 @@ class DOMImplementation(HTMLDocument.HTMLDocument):
         "h6"            : HTMLHeadingElement.HTMLHeadingElement,
         "q"             : HTMLQuoteElement.HTMLQuoteElement,
         "blockquote"    : HTMLQuoteElement.HTMLQuoteElement,
+        "span"          : HTMLSpanElement.HTMLSpanElement,
         "pre"           : HTMLPreElement.HTMLPreElement,
         "br"            : HTMLBRElement.HTMLBRElement,
         "basefont"      : HTMLBaseFontElement.HTMLBaseFontElement,
