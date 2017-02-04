@@ -75,6 +75,7 @@ class ThugAPI(object):
         log.URLClassifier       = URLClassifier()
         log.SampleClassifier    = SampleClassifier()
         log.Encoding            = Encoding()
+        log.JSExtensions        = list()
 
     def __call__(self):
         self.analyze()

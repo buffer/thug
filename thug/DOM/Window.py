@@ -865,7 +865,7 @@ class Window(JSClass):
     def context(self):
         # if not hasattr(self, '_context'):
         if '_context' not in self.__dict__:
-            self._context = PyV8.JSContext(self)
+            self._context = PyV8.JSContext(self, extensions = log.JSExtensions)
             with self._context as ctxt:
                 thug_js = os.path.join(thug.__configuration_path__, 'scripts', "thug.js")
                 ctxt.eval(open(thug_js, 'r').read())
