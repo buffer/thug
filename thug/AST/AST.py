@@ -197,23 +197,18 @@ class AST(object):
         stmt.body.visit(self)
         self.exitLoop()
 
-    def handle_eval(self, args):
-        for arg in args:
-            if len(str(arg)) > 64:
-                log.warning("[AST]: Eval argument length > 64")
-
     def onCall(self, expr):
         for arg in expr.args:
             arg.visit(self)
 
-        handle = getattr(self, "handle_%s" % (expr.expression, ), None)
+        handle = getattr(log.ASTHandler, "handle_%s" % (expr.expression, ), None)
         if handle:
             handle(expr.args)
 
         expr.expression.visit(self)
 
     def onCallNew(self, expr):
-        handle = getattr(self, "handle_%s" % (expr.expression, ), None)
+        handle = getattr(log.ASTHandler, "handle_%s" % (expr.expression, ), None)
         if handle:
             handle(expr.args)
 

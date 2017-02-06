@@ -41,6 +41,7 @@ from thug.DOM.SchemeHandler import SchemeHandler
 from thug.WebTracking.WebTracking import WebTracking
 from thug.Encoding.Encoding import Encoding
 from thug.Logging.ThugLogging import ThugLogging
+from thug.AST.ASTHandler import ASTHandler
 
 from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
@@ -75,6 +76,7 @@ class ThugAPI(object):
         log.URLClassifier       = URLClassifier()
         log.SampleClassifier    = SampleClassifier()
         log.Encoding            = Encoding()
+        log.ASTHandler          = ASTHandler()
         log.JSExtensions        = list()
 
     def __call__(self):
