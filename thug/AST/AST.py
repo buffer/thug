@@ -113,8 +113,8 @@ class AST(object):
     def onVariableDeclaration(self, decl):
         var = decl.proxy
 
-        if decl.scope.isGlobal:
-            getattr(self.window, var.name, None)
+        # if decl.scope.isGlobal:
+        #    getattr(self.window, var.name, None)
 
         if decl.mode == PyV8.AST.VarMode.var:
             self.names.add(var.name)
@@ -122,8 +122,8 @@ class AST(object):
     def onFunctionDeclaration(self, decl):
         f = decl.proxy
 
-        if decl.scope.isGlobal:
-            getattr(self.window, f.name, None)
+        # if decl.scope.isGlobal:
+        #    getattr(self.window, f.name, None)
 
         for d in decl.scope.declarations:
             if not getattr(d, 'function', None):
