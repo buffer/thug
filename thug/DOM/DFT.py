@@ -103,7 +103,6 @@ class DFT(object):
         for event in log.ThugOpts.events:
             self.handled_events.append(event)
 
-        log.debug("Handling DOM Events: %s", ",".join(self.handled_events))
         self.handled_on_events = ['on' + e for e in self.handled_events]
         self.dispatched_events = set()
 
@@ -840,9 +839,6 @@ class DFT(object):
     def handle_param(self, param):
         log.info(param)
 
-        # name  = param.get('name' , None)
-        # value = param.get('value', None)
-
     def handle_embed(self, embed):
         log.warning(embed)
 
@@ -1238,8 +1234,6 @@ class DFT(object):
         log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.window.url, str(soup))
 
     def _run(self, soup = None):
-        log.debug(self.window.doc)
-
         if soup is None:
             soup = self.window.doc.doc
 
