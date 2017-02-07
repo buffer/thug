@@ -86,8 +86,6 @@ class Window(JSClass):
             if not self.running:
                 return
 
-            log.debug(str(self.code))
-
             with self.window.context as ctx:
                 if isinstance(self.code, six.string_types):
                     return ctx.eval(self.code)
@@ -118,7 +116,6 @@ class Window(JSClass):
         self._history   = History(self)
         self._history.update(url, replace)
 
-        # self.doc.location = self._location
         self.doc.location = property(self.getLocation, self.setLocation)
 
         self._target = target
@@ -174,8 +171,6 @@ class Window(JSClass):
             return WScript
 
         context = self.__class__.__dict__['context'].__get__(self, Window)
-
-        log.debug(key)
 
         try:
             self._symbols.add(key)
@@ -704,11 +699,9 @@ class Window(JSClass):
         pass
 
     def _attachEvent(self, sEvent, fpNotify, useCapture = False):
-        log.debug("[attachEvent] %s %s", sEvent, fpNotify)
         setattr(self, sEvent.lower(), fpNotify)
 
     def _detachEvent(self, sEvent, fpNotify):
-        log.debug("[detachEvent] %s %s", sEvent, fpNotify)
         notify = getattr(self, sEvent.lower(), None)
         if notify is None:
             return
@@ -717,11 +710,9 @@ class Window(JSClass):
             delattr(self, sEvent.lower())
 
     def _addEventListener(self, _type, listener, useCapture = False):
-        log.debug("[addEventListener] %s %s %s", _type, listener, useCapture)
         setattr(self, 'on%s' % (_type.lower(), ), listener)
 
     def _removeEventListener(self, _type, listener, useCapture = False):
-        log.debug("[removeEventListener] %s %s %s", _type, listener, useCapture)
         _listener = getattr(self, 'on%s' % (_type.lower(), ), None)
         if _listener is None:
             return
@@ -911,7 +902,7 @@ class Window(JSClass):
             try:
                 ast = AST(self, script)
             except:  # pylint:disable=bare-except
-                log.debug(traceback.format_exc())
+                # log.debug(traceback.format_exc())
                 return result
 
             if log.ThugOpts.Personality.isIE():
