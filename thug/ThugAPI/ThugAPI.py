@@ -78,6 +78,7 @@ class ThugAPI(object):
         log.Encoding            = Encoding()
         log.ASTHandler          = ASTHandler()
         log.JSExtensions        = list()
+        log.Trace               = None
 
     def __call__(self):
         self.analyze()
@@ -309,6 +310,9 @@ class ThugAPI(object):
         pass
 
     def __run(self, window):
+        if log.Trace:
+            sys.settrace(log.Trace)
+
         with PyV8.JSLocker():
             with Watchdog(log.ThugOpts.timeout, callback = self.watchdog_cb):
                 dft = DFT(window)
