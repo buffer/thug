@@ -254,9 +254,13 @@ class HTMLDocument(Document):
             self._html.write(html)
             return
 
-        tag    = self.current
-        body   = self.doc.find('body')
-        parent = body if body else tag.parent
+        tag  = self.current
+        body = self.doc.find('body')
+
+        if tag.parent is None:
+            parent = body
+        else:
+            parent = body if body and tag.parent.name in ('html', ) else tag.parent
 
         for t in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
             if isinstance(t, six.string_types):
