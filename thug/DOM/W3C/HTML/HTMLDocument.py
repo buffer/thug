@@ -255,15 +255,12 @@ class HTMLDocument(Document):
             return
 
         tag    = self.current
-        parent = tag.parent
-        pos    = parent.contents.index(tag) + 1
-
-        if getattr(tag, '_offset', None) is None:
-            tag._offset = 0
+        body   = self.doc.find('body')
+        parent = body if body else tag.parent
 
         for t in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
             if isinstance(t, six.string_types):
-                child = parent.contents[pos + tag._offset]
+                child = list(parent.children)[-1]
 
                 if isinstance(child, BeautifulSoup.NavigableString):
                     child.string.replace_with(child.string + t)
@@ -271,8 +268,7 @@ class HTMLDocument(Document):
                     child.append(t)
 
             if isinstance(t, BeautifulSoup.Tag):
-                tag._offset += 1
-                parent.insert(pos + tag._offset, t)
+                parent.insert(len(parent.contents), t)
 
             name = getattr(tag, "name", None)
             if name in ('script', None):
