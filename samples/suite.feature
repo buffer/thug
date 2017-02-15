@@ -70,6 +70,7 @@ Feature: Exploits
 			| Domino.htm                                   | [IBM Lotus Domino Web Access Control ActiveX] Overflow in General_ServerName property                                                                    |
 			| FileUploader.htm                             | [Lycos FileUploader ActiveX] Overflow in HandwriterFilename property                                                                                     |
 			| GatewayWeblaunch.htm                         | [Gateway Weblaunch ActiveX] Trying to execute ..\..\..\..\windows\system32\calc.exe                                                                      |
+			| GLIEDown2.htm                                | LoadLibraryA,URLDownloadToFile,http://www.baiduuo.cn/123/ok.exe,WinExec                                                                                  | 
 			| Gogago.html                                  | [Gogago YouTube Video Converter ActiveX] Buffer Overflow                                                                                                 |
 			| GomWeb.htm                                   | [GOM Player Manager ActiveX] Overflow in OpenURL                                                                                                         |
 			| HPInfo_GetRegValue.htm                       | [HP Info Center ActiveX] GetRegValue, reading: //                                                                                                        |
