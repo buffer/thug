@@ -157,7 +157,7 @@ Feature: Exploits
 			| testCloneNode2.html                          | <button align="left" id="myButton">Clone node</button>                                                                                                   |
 			| testCreateStyleSheet.html                    | style1.css" rel="stylesheet"></link><link href="style2.css" rel="stylesheet"></link><link href="style3.css" rel="stylesheet"></link><link href="style4   |
 			| testDocumentAll.html                         | <a href="http://www.google.com">Google</a>                                                                                                               |
-			| testDocumentWrite.html                       | Foobar,Google</a><script>alert('foobar');</script><script language="VBScript">alert('Gnam');</script><script>alert('Aieeeeee');</script></body>          |
+			| testDocumentWrite1.html                      | Foobar,Google</a><script>alert('foobar');</script><script language="VBScript">alert('Gnam');</script><script>alert('Aieeeeee');</script></body>          |
 			| testExternalSidebar.html                     | [Window] Alert Text: Internet Explorer >= 7.0 or Chrome                                                                                                  |
 			| testGetElementsByClassName.html              | <div class="example">First</div>,<div class="example">Hello World!</div>,<div class="example">Second</div>                                               |
 			| testInnerHTML.html                           | dude,Fred Flinstone                                                                                                                                      |
