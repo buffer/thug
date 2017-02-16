@@ -70,6 +70,7 @@ Feature: Exploits
 			| Domino.htm                                   | [IBM Lotus Domino Web Access Control ActiveX] Overflow in General_ServerName property                                                                    |
 			| FileUploader.htm                             | [Lycos FileUploader ActiveX] Overflow in HandwriterFilename property                                                                                     |
 			| GatewayWeblaunch.htm                         | [Gateway Weblaunch ActiveX] Trying to execute ..\..\..\..\windows\system32\calc.exe                                                                      |
+			| GLIEDown2.htm                                | LoadLibraryA,URLDownloadToFile,http://www.baiduuo.cn/123/ok.exe,WinExec                                                                                  | 
 			| Gogago.html                                  | [Gogago YouTube Video Converter ActiveX] Buffer Overflow                                                                                                 |
 			| GomWeb.htm                                   | [GOM Player Manager ActiveX] Overflow in OpenURL                                                                                                         |
 			| HPInfo_GetRegValue.htm                       | [HP Info Center ActiveX] GetRegValue, reading: //                                                                                                        |
@@ -156,6 +157,7 @@ Feature: Exploits
 			| testCloneNode2.html                          | <button align="left" id="myButton">Clone node</button>                                                                                                   |
 			| testCreateStyleSheet.html                    | style1.css" rel="stylesheet"></link><link href="style2.css" rel="stylesheet"></link><link href="style3.css" rel="stylesheet"></link><link href="style4   |
 			| testDocumentAll.html                         | <a href="http://www.google.com">Google</a>                                                                                                               |
+			| testDocumentWrite1.html                      | Foobar,Google</a><script>alert('foobar');</script><script language="VBScript">alert('Gnam');</script><script>alert('Aieeeeee');</script></body>          |
 			| testExternalSidebar.html                     | [Window] Alert Text: Internet Explorer >= 7.0 or Chrome                                                                                                  |
 			| testGetElementsByClassName.html              | <div class="example">First</div>,<div class="example">Hello World!</div>,<div class="example">Second</div>                                               |
 			| testInnerHTML.html                           | dude,Fred Flinstone                                                                                                                                      |
