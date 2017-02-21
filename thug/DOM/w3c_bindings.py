@@ -78,6 +78,7 @@ from thug.DOM.W3C.HTML.HTMLPreElement import HTMLPreElement
 from thug.DOM.W3C.HTML.HTMLQuoteElement import HTMLQuoteElement
 from thug.DOM.W3C.HTML.HTMLScriptElement import HTMLScriptElement
 from thug.DOM.W3C.HTML.HTMLSelectElement import HTMLSelectElement
+from thug.DOM.W3C.HTML.HTMLSpanElement import HTMLSpanElement
 from thug.DOM.W3C.HTML.HTMLStyleElement import HTMLStyleElement
 from thug.DOM.W3C.HTML.HTMLTableCaptionElement import HTMLTableCaptionElement
 from thug.DOM.W3C.HTML.HTMLTableCellElement import HTMLTableCellElement
@@ -159,6 +160,7 @@ w3c_bindings = {
                 'HTMLQuoteElement'           : HTMLQuoteElement,
                 'HTMLScriptElement'          : HTMLScriptElement,
                 'HTMLSelectElement'          : HTMLSelectElement,
+                'HTMLSpanElement'            : HTMLSpanElement,
                 'HTMLStyleElement'           : HTMLStyleElement,
                 'HTMLTableCaptionElement'    : HTMLTableCaptionElement,
                 'HTMLTableCellElement'       : HTMLTableCellElement,
