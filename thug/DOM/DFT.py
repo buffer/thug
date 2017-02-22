@@ -822,7 +822,7 @@ class DFT(object):
                 if payload is None:
                     payload = dict()
 
-                if 'name' in child.attrs:
+                if all(p in child.attrs for p in ('name', 'value', )):
                     payload[child.attrs['name']] = child.attrs['value']
         try:
             response = self.window._navigator.fetch(action,
