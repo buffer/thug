@@ -813,8 +813,22 @@ class DFT(object):
         self.forms.append(_action)
         method = form.get('method', 'get')
 
+        payload = None
+
+        for child in form.find_all():
+            name = getattr(child, 'name', None)
+
+            if name.lower() in ('input', ):
+                if payload is None:
+                    payload = dict()
+
+                if 'name' in child.attrs:
+                    payload[child.attrs['name']] = child.attrs['value']
         try:
-            response = self.window._navigator.fetch(action, method = method.upper(), redirect_type = "form")
+            response = self.window._navigator.fetch(action,
+                                                    method = method.upper(),
+                                                    body = payload,
+                                                    redirect_type = "form")
         except:  # pylint:disable=bare-except
             return
 
