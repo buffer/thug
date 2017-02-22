@@ -2,7 +2,7 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
-
+from .text_property import text_property
 
 class HTMLBodyElement(HTMLElement):
     def __init__(self, doc, tag):
@@ -14,6 +14,7 @@ class HTMLBodyElement(HTMLElement):
     aLink           = attr_property("alink")
     vLink           = attr_property("vlink")
     text            = attr_property("text")
+    innerHTML       = text_property()
 
     def __repr__(self):
         return "<HTMLBodyElement at 0x%08X>" % (id(self), )
