@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Chrome.py
+# WebStore.py
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -17,9 +17,8 @@
 # MA  02111-1307  USA
 
 from .JSClass import JSClass
-from .WebStore import WebStore
 
 
-class Chrome(JSClass):
+class WebStore(JSClass):
     def __init__(self):
-        self.webstore = WebStore()
+        pass
