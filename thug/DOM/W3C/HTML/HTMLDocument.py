@@ -274,7 +274,7 @@ class HTMLDocument(Document):
             if isinstance(t, BeautifulSoup.Tag):
                 parent.insert(len(parent.contents), t)
 
-            name = getattr(tag, "name", None)
+            name = getattr(t, "name", None)
             if name in ('script', None):
                 continue
 
@@ -284,7 +284,7 @@ class HTMLDocument(Document):
                 handler = getattr(log.DFT, "handle_%s" % (name, ), None)
 
             if handler:
-                handler(tag)
+                handler(t)
 
     def writeln(self, text):
         self.write(text + "\n")
