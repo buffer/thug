@@ -267,6 +267,9 @@ class HTMLDocument(Document):
         else:
             parent = body if body and tag.parent.name in ('html', ) else tag.parent
 
+        if isinstance(html, six.integer_types):
+            html = unicode(html)
+
         for t in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
             if isinstance(t, six.string_types):
                 child = list(parent.children)[-1]
