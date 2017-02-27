@@ -36,7 +36,7 @@ class HTMLDocument(Document):
     # body        = xpath_property("/html/body[1]", readonly = True)
     images      = xpath_property("//img", readonly = True)
     applets     = xpath_property("//applet", readonly = True)
-    forms       = xpath_property("//form", readonly = True)
+    # forms       = xpath_property("//form", readonly = True)
     links       = xpath_property("//a[@href]", readonly = True)
     anchors     = xpath_property("//a[@name]", readonly = True)
     innerHTML   = text_property()
@@ -133,6 +133,11 @@ class HTMLDocument(Document):
             return str(self._referer)
 
         return ""
+
+    @property
+    def forms(self):
+        from thug.DOM.W3C.DOMImplementation import DOMImplementation
+        return HTMLCollection(self.doc, [DOMImplementation.createHTMLElement(self.doc, f) for f in self.doc.find_all('form')])
 
     @property
     def lastModified(self):
