@@ -5,7 +5,7 @@
 
 //this.eval     = window.eval;
 this.unescape = window.unescape;
-//window = this;
+window = this;
 
 Object.defineProperty(window, "location", {
 	set: function(value){
