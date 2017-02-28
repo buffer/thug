@@ -70,6 +70,10 @@ class Personality(dict):
         return self[log.ThugOpts.useragent]['version']
 
     @property
+    def platform(self):
+        return self[log.ThugOpts.useragent]['platform']
+
+    @property
     def browserMajorVersion(self):
         return int(self.browserVersion.split('.')[0])
 
