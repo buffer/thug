@@ -39,9 +39,19 @@ class CCInterpreter(object):
             script = script.replace('@else', 'else')
             script = script.replace('/*@end', '')
             script = script.replace('@end', '')
-            script = script.replace('@_win64', 'false')
-            script = script.replace('@_win32', 'true')
+            script = script.replace('@_alpha', 'false')
+            script = script.replace('@_mc680x0', 'false')
             script = script.replace('@_win16', 'false')
+            script = script.replace('@_win64', 'false')
+            script = script.replace('@_x86', 'true')
+
+            if log.ThugOpts.Personality.platform in ('Win32', ):
+                script = script.replace('@_win32', 'true')
+                script = script.replace('@_mac', 'false')
+            if log.ThugOpts.Personality.platform in ('MacIntel', ):
+                script = script.replace('@_win32', 'false')
+                script = script.replace('@_mac', 'true')
+
             script = script.replace('@*/', '')
             script = script.replace('/*@', '')
 

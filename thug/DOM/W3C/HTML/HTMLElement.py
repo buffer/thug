@@ -11,6 +11,7 @@ except ImportError:
 import bs4 as BeautifulSoup
 import logging
 
+from thug.DOM.W3C.DOMException import DOMException
 from thug.DOM.W3C.Element import Element
 from thug.DOM.W3C.Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 from .attr_property import attr_property
@@ -28,6 +29,16 @@ class HTMLElement(Element, ElementCSSInlineStyle):
     def __init__(self, doc, tag):
         Element.__init__(self, doc, tag)
         ElementCSSInlineStyle.__init__(self, doc, tag)
+
+    def __getattr__(self, key):
+        if key in log.DFT.handled_on_events:
+            return None
+
+        if key in log.DFT._on_events:
+            return None
+
+        log.info("[HTMLElement] Undefined: {}".format(key))
+        raise AttributeError
 
     def getInnerHTML(self):
         if not self.hasChildNodes():
@@ -93,3 +104,24 @@ class HTMLElement(Element, ElementCSSInlineStyle):
     @property
     def sourceIndex(self):
         return None
+
+    def insertAdjacentHTML(self, position, text):
+        if position not in ('beforebegin', 'afterbegin', 'beforeend', 'afterend', ):
+            raise DOMException(DOMException.NOT_SUPPORTED_ERR)
+
+        if position in ('beforebegin', ):
+            target = self.tag.parent if self.tag.parent else self.doc.find('body')
+            pos    = target.index(self.tag) - 1
+        if position in ('afterbegin', ):
+            target = self.tag
+            pos    = 0
+        if position in ('beforeend' ):
+            target = self.tag
+            pos    = len(list(self.tag.children))
+        if position in ('afterend', ):
+            target = self.tag.parent if self.tag.parent else self.doc.find('body')
+            pos    = target.index(self.tag) + 1
+
+        for node in BeautifulSoup.BeautifulSoup(text, "html.parser").contents:
+            target.insert(pos, node)
+            pos += 1

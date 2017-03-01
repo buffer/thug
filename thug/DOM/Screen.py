@@ -116,7 +116,7 @@ class Screen(JSClass):
         """
             The total height of the screen
         """
-        return self._heigth
+        return self._height
 
     @property
     def _pixelDepth(self):

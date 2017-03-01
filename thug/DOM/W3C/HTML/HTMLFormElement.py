@@ -28,7 +28,9 @@ class HTMLFormElement(HTMLElement):
     target          = attr_property("target")
 
     def submit(self):
-        log.warning('[HTMLFormElement] submit method not defined')
+        handler = getattr(log.DFT, 'handle_form', None)
+        if handler:
+            handler(self.tag)
 
     def reset(self):
         log.warning('[HTMLFormElement] reset method not defined')

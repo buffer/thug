@@ -36,7 +36,7 @@ class HTMLDocument(Document):
     # body        = xpath_property("/html/body[1]", readonly = True)
     images      = xpath_property("//img", readonly = True)
     applets     = xpath_property("//applet", readonly = True)
-    forms       = xpath_property("//form", readonly = True)
+    # forms       = xpath_property("//form", readonly = True)
     links       = xpath_property("//a[@href]", readonly = True)
     anchors     = xpath_property("//a[@name]", readonly = True)
     innerHTML   = text_property()
@@ -104,7 +104,15 @@ class HTMLDocument(Document):
             if attr in self._win.doc.DFT.handled_on_events:
                 return None
 
-        return self.getElementById(attr)
+            if attr in self._win.doc.DFT._on_events:
+                return None
+
+        _attr = self.getElementById(attr)
+        if _attr:
+            return _attr
+
+        log.info("[HTMLDocument] Undefined: {}".format(attr))
+        raise AttributeError
 
     def getWindow(self):
         return self._win
@@ -133,6 +141,16 @@ class HTMLDocument(Document):
             return str(self._referer)
 
         return ""
+
+    @property
+    def forms(self):
+        from thug.DOM.W3C.DOMImplementation import DOMImplementation
+        return HTMLCollection(self.doc, [DOMImplementation.createHTMLElement(self.doc, f) for f in self.doc.find_all('form')])
+
+    @property
+    def styleSheets(self):
+        from thug.DOM.W3C.DOMImplementation import DOMImplementation
+        return HTMLCollection(self.doc, [DOMImplementation.createHTMLElement(self.doc, f) for f in self.doc.find_all('style')])
 
     @property
     def lastModified(self):
@@ -261,6 +279,9 @@ class HTMLDocument(Document):
             parent = body
         else:
             parent = body if body and tag.parent.name in ('html', ) else tag.parent
+
+        if isinstance(html, six.integer_types):
+            html = unicode(html)
 
         for t in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
             if isinstance(t, six.string_types):

@@ -141,6 +141,8 @@ class Window(JSClass):
 
         self._symbols      = set()
         self._methods      = tuple()
+        self._frames       = set()
+        self._inner_frames = set()
 
         log.MIMEHandler.window = self
 
@@ -238,7 +240,16 @@ class Window(JSClass):
     @property
     def frames(self):
         """an array of all the frames (including iframes) in the current window"""
-        return HTMLCollection(self.doc, [self.doc.createHTMLElement(self.doc, f) for f in self._findAll(['frame', 'iframe'])])
+        for frame in self._findAll(['frame', 'iframe']):
+            code = unicode(frame)
+
+            if code in self._inner_frames:
+                continue
+
+            self._inner_frames.add(code)
+            self._frames.add(Window(self.url, w3c.parseString(code), personality = log.ThugOpts.useragent))
+
+        return HTMLCollection(self.doc, list(self._frames))
 
     @property
     def length(self):

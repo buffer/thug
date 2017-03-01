@@ -184,4 +184,8 @@ Feature: Exploits
 			| testText.html                                | <p id="p1">First line of paragraph.<br/> Some text added dynamically. </p>                                                                               |
 			| testWindowOnload.html                        | [Window] Alert Text: Fired                                                                                                                               |
 			| test_click.html                              | [window open redirection] about:blank -> https://www.google.com                                                                                          |
+			| testInsertAdjacentHTML1.html                 | <div id="five">five</div><div id="one">one</div>                                                                                                         |
+			| testInsertAdjacentHTML2.html                 | <div id="two"><div id="six">six</div>two</div>                                                                                                           |
+			| testInsertAdjacentHTML3.html                 | <div id="three">three<div id="seven">seven</div></div>                                                                                                   |
+			| testInsertAdjacentHTML4.html                 | <div id="four">four</div><div id="eight">eight</div>                                                                                                     |
 		then run misc
