@@ -104,7 +104,15 @@ class HTMLDocument(Document):
             if attr in self._win.doc.DFT.handled_on_events:
                 return None
 
-        return self.getElementById(attr)
+            if attr in self._win.doc.DFT._on_events:
+                return None
+
+        _attr = self.getElementById(attr)
+        if _attr:
+            return _attr
+
+        log.warning("[HTMLDocument] Undefined: {}".format(attr))
+        raise AttributeError
 
     def getWindow(self):
         return self._win
