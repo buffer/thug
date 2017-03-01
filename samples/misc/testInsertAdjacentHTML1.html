@@ -1,0 +1,11 @@
+<html>
+<body>
+<div id="one">one</div>
+<script>
+var d1 = document.getElementById('one');
+d1.insertAdjacentHTML('beforebegin', '<div id="five">five</div>');
+var page = document.body.innerHTML;
+alert(page.replace(/(\r\n|\n|\r)/gm,""))
+</script>
+</body>
+</html>
