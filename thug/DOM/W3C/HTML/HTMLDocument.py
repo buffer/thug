@@ -140,6 +140,11 @@ class HTMLDocument(Document):
         return HTMLCollection(self.doc, [DOMImplementation.createHTMLElement(self.doc, f) for f in self.doc.find_all('form')])
 
     @property
+    def styleSheets(self):
+        from thug.DOM.W3C.DOMImplementation import DOMImplementation
+        return HTMLCollection(self.doc, [DOMImplementation.createHTMLElement(self.doc, f) for f in self.doc.find_all('style')])
+
+    @property
     def lastModified(self):
         return self._lastModified
 
