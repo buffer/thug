@@ -82,6 +82,7 @@ class DFT(object):
 
     window_storage_events = ('storage', )
     window_on_storage_events = ['on' + e for e in window_storage_events]
+    _on_events = window_on_events + window_on_storage_events
 
     def __init__(self, window, **kwds):
         self.window            = window
