@@ -1,0 +1,19 @@
+<html>
+<body>
+<div id="one">one</div>
+<div id="two">two</div>
+<div id="three">three</div>
+<div id="four">four</div>
+<script>
+var d1 = document.getElementById('one');
+d1.insertAdjacentHTML('beforebegin', '<div id="five">five</div>');
+var d2 = document.getElementById('two');
+d2.insertAdjacentHTML('afterbegin', '<div id="six">six</div>');
+var d3 = document.getElementById('three');
+d3.insertAdjacentHTML('beforeend', '<div id="seven">seven</div>');
+var d4 = document.getElementById('four');
+d4.insertAdjacentHTML('afterend', '<div id="eight">eight</div>');
+alert(document.body);
+</script>
+</body>
+</html>
