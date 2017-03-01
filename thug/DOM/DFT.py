@@ -57,7 +57,8 @@ class DFT(object):
     # onbeforeunload    onload          onpageshow      onundo
     # onblur            onmessage       onpopstate      onunload
     # onerror           onoffline       onredo
-    window_events = ('afterprint',
+    window_events = ('abort',
+                     'afterprint',
                      'beforeprint',
                      'beforeunload',
                      'blur',
