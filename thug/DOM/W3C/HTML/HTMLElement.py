@@ -37,7 +37,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
         if key in log.DFT._on_events:
             return None
 
-        log.warning("[HTMLElement] Undefined: {}".format(key))
+        log.info("[HTMLElement] Undefined: {}".format(key))
         raise AttributeError
 
     def getInnerHTML(self):

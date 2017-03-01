@@ -111,7 +111,7 @@ class HTMLDocument(Document):
         if _attr:
             return _attr
 
-        log.warning("[HTMLDocument] Undefined: {}".format(attr))
+        log.info("[HTMLDocument] Undefined: {}".format(attr))
         raise AttributeError
 
     def getWindow(self):
