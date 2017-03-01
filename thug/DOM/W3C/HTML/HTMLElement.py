@@ -30,6 +30,16 @@ class HTMLElement(Element, ElementCSSInlineStyle):
         Element.__init__(self, doc, tag)
         ElementCSSInlineStyle.__init__(self, doc, tag)
 
+    def __getattr__(self, key):
+        if key in log.DFT.handled_on_events:
+            return None
+
+        if key in log.DFT._on_events:
+            return None
+
+        log.warning("[HTMLElement] Undefined: {}".format(key))
+        raise AttributeError
+
     def getInnerHTML(self):
         if not self.hasChildNodes():
             return ""
