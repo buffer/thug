@@ -261,6 +261,9 @@ class HTMLDocument(Document):
         return self
 
     def close(self):
+        if self._html is None:
+            return
+
         html = self._html.getvalue()
         self._html.close()
         self._html = None
@@ -269,7 +272,7 @@ class HTMLDocument(Document):
 
     def write(self, html):
         if self._html:
-            self._html.write(html)
+            self._html.write(unicode(html))
             return
 
         tag  = self.current
