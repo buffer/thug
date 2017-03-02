@@ -110,8 +110,8 @@ def send(self, varBody = None):
         handler(self.bstrUrl, self.responseBody)
 
     if self.onreadystatechange:
-        with DOM.DFT.context as ctx:
-            ctx.eval(self.onreadystatechange)
+        with self._window.context as ctx: # pylint:disable=unused-variable
+            self.onreadystatechange.__call__()
 
     return 0
 
