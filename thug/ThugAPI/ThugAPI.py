@@ -329,7 +329,7 @@ class ThugAPI(object):
 
         if len(extension) > 1 and extension[1].lower() in ('.js', '.jse', ):
             if not content.lstrip().startswith('<script'):
-                html = tostring(E.HTML(E.BODY(E.SCRIPT(content))))
+                html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(content))))
             else:
                 soup = BeautifulSoup(content, "html.parser")
 
@@ -348,7 +348,7 @@ class ThugAPI(object):
                 except AttributeError:
                     pass
 
-                html = tostring(E.HTML(E.BODY(E.SCRIPT(soup.script.get_text()))))
+                html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(soup.script.get_text()))))
         else:
             html = content
 

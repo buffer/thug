@@ -12,7 +12,7 @@ class HTMLScriptElement(HTMLElement):
     text            = text_property()
     htmlFor         = None
     event           = None
-    charset         = attr_property("charset")
+    charset         = attr_property("charset", default = "")
     defer           = attr_property("defer", bool)
     src             = attr_property("src", default = "")
     type            = attr_property("type")

@@ -15,7 +15,7 @@ class HTMLAnchorElement(HTMLElement):
         HTMLElement.__init__(self, doc, tag)
 
     accessKey       = attr_property("accesskey")
-    charset         = attr_property("charset")
+    charset         = attr_property("charset", default = "")
     coords          = attr_property("coords")
     href            = attr_property("href")
     hreflang        = attr_property("hreflang")
