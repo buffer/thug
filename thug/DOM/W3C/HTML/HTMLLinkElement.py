@@ -9,7 +9,7 @@ class HTMLLinkElement(HTMLElement):
         HTMLElement.__init__(self, doc, tag)
 
     disabled        = False
-    charset         = attr_property("charset")
+    charset         = attr_property("charset", default = "")
     href            = attr_property("href")
     hreflang        = attr_property("hreflang")
     media           = attr_property("media")
