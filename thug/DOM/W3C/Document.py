@@ -29,6 +29,8 @@ class Document(Node, DocumentEvent, DocumentView):
         self.__init_personality()
 
     def __init_personality(self):
+        self._charset = ""
+
         if log.ThugOpts.Personality.isIE():
             self.__init_personality_IE()
             return
@@ -142,6 +144,14 @@ class Document(Node, DocumentEvent, DocumentView):
         return Element(self, self.doc.find('html'))
 
     onCreateElement = None
+
+    def getCharset(self):
+        return self._charset
+
+    def setCharset(self, value):
+        self._charset = value
+
+    charset = property(getCharset, setCharset)
 
     def createElement(self, tagname, tagvalue = None):
         from .DOMImplementation import DOMImplementation
