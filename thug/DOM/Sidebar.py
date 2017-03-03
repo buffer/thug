@@ -16,12 +16,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import logging
+from .JSClass import JSClass
 
+import logging
 log = logging.getLogger("Thug")
 
 
-class Sidebar(object):
+class Sidebar(JSClass):
     def __init__(self):
         self._providers  = set()
         self._engines    = set()
