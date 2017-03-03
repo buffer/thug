@@ -16,7 +16,9 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+from .JSClass import JSClass
 
-class Opera(object):
+
+class Opera(JSClass):
     def __init__(self):
         pass
