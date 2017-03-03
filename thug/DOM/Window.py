@@ -47,6 +47,8 @@ from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
 from .LocalStorage import LocalStorage
 from .SessionStorage import SessionStorage
+from .Map import Map
+from .MozConnection import mozConnection
 from .w3c_bindings import w3c_bindings
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.AST.AST import AST
@@ -811,10 +813,10 @@ class Window(JSClass):
             self.RadioNodeList = None
 
         if log.ThugOpts.Personality.browserMajorVersion > 12:
-            self.Map = object()
+            self.Map = Map()
 
         if log.ThugOpts.Personality.browserMajorVersion > 11:
-            self.navigator.mozConnection = object()
+            self.navigator.mozConnection = mozConnection()
 
         with self.context as ctxt:
             if log.ThugOpts.Personality.browserMajorVersion <= 20:
