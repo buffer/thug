@@ -17,6 +17,21 @@ def open(self):  # pylint:disable=redefined-builtin
     self.fobject = StringIO()
 
 
+def Read(self, length = -1):
+    log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Read")
+
+    fobject = getattr(self, 'fobject', None)
+    if fobject is None:
+        return None
+
+    content = self.fobject.getvalue()
+
+    if length > 0:
+        length = min(length, len(content))
+
+    return content[:length]
+
+
 def Write(self, s):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Write")
     self.fobject.write(unicode(s))
