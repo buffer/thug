@@ -11,6 +11,15 @@ from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
 
+@property
+def Size(self):
+    fobject = getattr(self, 'fobject', None)
+    if fobject is None:
+        return 0
+
+    content = self.fobject.getvalue()
+    return len(content)
+
 
 def open(self):  # pylint:disable=redefined-builtin
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] open")
