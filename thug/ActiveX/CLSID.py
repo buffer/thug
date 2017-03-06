@@ -17,6 +17,7 @@
 # MA  02111-1307  USA
 
 from .modules import AcroPDF
+from .modules import AdodbRecordset
 from .modules import AdodbStream
 from .modules import AnswerWorks
 from .modules import AolAmpX
@@ -129,6 +130,17 @@ CLSID = [
             'methods'   : {
                             'GetVersions'   : AcroPDF.GetVersions,
                           }
+        },
+
+        # Adodb.Recordset
+        {
+            'id'        : (),
+            'name'      : ( 'adodb.recordset', ),
+            'attrs'     : {
+                            'Fields'        : AdodbRecordset.Fields(),
+                          },
+            'funcattrs' : {},
+            'methods'   : {}
         },
 
         # Adodb.Stream
