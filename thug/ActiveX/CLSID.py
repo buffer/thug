@@ -1407,6 +1407,7 @@ CLSID = [
                             'toString'                  : WScriptShell.toString,
                             'SpecialFolders'            : WScriptShell.SpecialFolders,
                             'CreateShortcut'            : WScriptShell.CreateShortcut,
+                            'RegRead'                   : WScriptShell.RegRead,
                           }
         },
 

@@ -147,6 +147,7 @@ def CreateObject(self, strProgID, strPrefix = ""):
                                           "strPrefix": strPrefix
                                       },
                                       forward = False)
+
     return ActiveX.ActiveX._ActiveXObject(self._window, strProgID)
 
 
@@ -185,3 +186,17 @@ def CreateShortcut(self, strPathname):
     obj = CreateObject(self, "wscript.shortcut")
     obj.FullName = strPathname
     return obj
+
+
+def RegRead(self, registry):
+    reg_map = {
+        'hklm\software\microsoft\windows\currentversion\programfilesdir' : 'ProgramFiles',
+    }
+
+    if registry.lower() in reg_map:
+        value = log.ThugOpts.Personality.getShellVariable(reg_map[registry.lower()])
+        log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegRead("{}") = "{}"'.format(registry, value))
+        return value
+
+    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegRead("{}") = {}'.format(registry, 'NOT FOUND'))
+    return ''
