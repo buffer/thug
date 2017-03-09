@@ -887,6 +887,8 @@ class Window(JSClass):
         return self._context
 
     def evalScript(self, script, tag = None):
+        log.info(script)
+
         result = 0
 
         try:
