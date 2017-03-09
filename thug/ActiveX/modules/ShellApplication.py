@@ -19,8 +19,6 @@ def ShellExecute(self, *args):
 
     if 'http' in cmdLine:
         for sep in ("'", '"'):
-            s = "{}http".format(sep)
-
             offset = cmdLine.find("{}http".format(sep))
             if offset < 0:
                 continue
