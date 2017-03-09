@@ -87,8 +87,6 @@ class Shellcode(object):
                 pass
 
     def run(self):
-        trace = None
-
         with Debugger() as dbg:
             dbg._context = self.ctxt
             # dbg.debugBreak()
