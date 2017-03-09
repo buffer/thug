@@ -887,7 +887,8 @@ class Window(JSClass):
         return self._context
 
     def evalScript(self, script, tag = None):
-        log.info(script)
+        if log.ThugOpts.verbose or log.ThugOpts.debug:
+            log.info(script)
 
         result = 0
 
