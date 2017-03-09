@@ -11,10 +11,34 @@ from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
 
+@property
+def Size(self):
+    fobject = getattr(self, 'fobject', None)
+    if fobject is None:
+        return 0
+
+    content = self.fobject.getvalue()
+    return len(content)
+
 
 def open(self):  # pylint:disable=redefined-builtin
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] open")
     self.fobject = StringIO()
+
+
+def Read(self, length = -1):
+    log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Read")
+
+    fobject = getattr(self, 'fobject', None)
+    if fobject is None:
+        return None
+
+    content = self.fobject.getvalue()
+
+    if length > 0:
+        length = min(length, len(content))
+
+    return content[:length]
 
 
 def Write(self, s):

@@ -155,9 +155,11 @@ class ThugAPI(object):
         log.ThugOpts.no_fetch = True
 
     def set_verbose(self):
+        log.ThugOpts.verbose = True
         log.setLevel(logging.INFO)
 
     def set_debug(self):
+        log.ThugOpts.debug = True
         log.setLevel(logging.DEBUG)
 
     def set_no_cache(self):

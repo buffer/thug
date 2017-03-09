@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# ClipboardData.py
+# Map.py
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -19,27 +19,6 @@
 from .JSClass import JSClass
 
 
-class ClipboardData(JSClass):
+class Map(JSClass):
     def __init__(self):
-        self._data = dict()
-
-    def getData(self, dataFormat):
-        if dataFormat in self._data:
-            return self._data[dataFormat]
-
-        return None
-
-    def setData(self, dataFormat, data):
-        if dataFormat not in ('Text', 'URL'):
-            return False
-
-        self._data[dataFormat] = data
-        return True
-
-    def clearData(self, dataFormat = None):
-        if dataFormat is None:
-            self._data.clear()
-            return
-
-        if dataFormat in self._data:
-            del self._data[dataFormat]
+        pass

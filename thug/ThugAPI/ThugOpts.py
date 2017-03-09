@@ -34,35 +34,53 @@ class ThugOpts(dict):
     proxy_schemes = ('http', 'socks4', 'socks5', )
 
     def __init__(self):
-        self._proxy           = None
-        self._raise_for_proxy = True
-        self.local            = False
-        self.extensive        = False
-        self._threshold       = 0
-        self._connect_timeout = 10
-        self._timeout         = 600
-        self.ast_debug        = False
-        self.http_debug       = 0
-        self._useragent       = 'winxpie60'
-        self._referer         = 'about:blank'
-        self._events          = list()
-        self._delay           = 0
-        self._file_logging    = False
-        self._json_logging    = False
-        self._maec11_logging  = False
-        self._es_logging      = False
-        self._code_logging    = True
-        self._cert_logging    = True
-        self._no_fetch        = False
-        self._broken_url      = False
-        self._vt_query        = False
-        self._vt_submit       = False
+        self._verbose           = False
+        self._debug             = False
+        self._proxy             = None
+        self._raise_for_proxy   = True
+        self.local              = False
+        self.extensive          = False
+        self._threshold         = 0
+        self._connect_timeout   = 10
+        self._timeout           = 600
+        self.ast_debug          = False
+        self.http_debug         = 0
+        self._useragent         = 'winxpie60'
+        self._referer           = 'about:blank'
+        self._events            = list()
+        self._delay             = 0
+        self._file_logging      = False
+        self._json_logging      = False
+        self._maec11_logging    = False
+        self._es_logging        = False
+        self._code_logging      = True
+        self._cert_logging      = True
+        self._no_fetch          = False
+        self._broken_url        = False
+        self._vt_query          = False
+        self._vt_submit         = False
         self._vt_runtime_apikey = None
-        self._mongodb_address = None
-        self._web_tracking    = False
-        self._honeyagent      = True
-        self._cache           = '/tmp/thug-cache-%s' % (os.getuid(), )
-        self.Personality      = Personality()
+        self._mongodb_address   = None
+        self._web_tracking      = False
+        self._honeyagent        = True
+        self._cache             = '/tmp/thug-cache-%s' % (os.getuid(), )
+        self.Personality        = Personality()
+
+    def set_verbose(self, verbose):
+        self._verbose = verbose
+
+    def get_verbose(self):
+        return self._verbose
+
+    verbose = property(get_verbose, set_verbose)
+
+    def set_debug(self, debug):
+        self._debug = debug
+
+    def get_debug(self):
+        return self._debug
+
+    debug = property(get_debug, set_debug)
 
     def set_proxy(self, proxy):
         p = urlparse.urlparse(proxy)

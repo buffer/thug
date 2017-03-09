@@ -21,7 +21,7 @@ import sched
 import time
 import logging
 import PyV8
-import traceback
+# import traceback
 import urllib
 import bs4 as BeautifulSoup
 import new
@@ -47,6 +47,8 @@ from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
 from .LocalStorage import LocalStorage
 from .SessionStorage import SessionStorage
+from .Map import Map
+from .MozConnection import mozConnection
 from .w3c_bindings import w3c_bindings
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.AST.AST import AST
@@ -811,10 +813,10 @@ class Window(JSClass):
             self.RadioNodeList = None
 
         if log.ThugOpts.Personality.browserMajorVersion > 12:
-            self.Map = object()
+            self.Map = Map()
 
         if log.ThugOpts.Personality.browserMajorVersion > 11:
-            self.navigator.mozConnection = object()
+            self.navigator.mozConnection = mozConnection()
 
         with self.context as ctxt:
             if log.ThugOpts.Personality.browserMajorVersion <= 20:
@@ -885,6 +887,9 @@ class Window(JSClass):
         return self._context
 
     def evalScript(self, script, tag = None):
+        if log.ThugOpts.verbose or log.ThugOpts.debug:
+            log.info(script)
+
         result = 0
 
         try:

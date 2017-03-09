@@ -16,9 +16,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+from .JSClass import JSClass
 from .Utils import Utils
 
 
-class Components(object):
+class Components(JSClass):
     def __init__(self):
         self.utils = Utils()

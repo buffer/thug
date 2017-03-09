@@ -22,3 +22,9 @@ from .JSClass import JSClass
 class WebStore(JSClass):
     def __init__(self):
         pass
+
+    def __str__(self):
+        return "[object Object]"
+
+    def __unicode__(self):
+        return "[object Object]"

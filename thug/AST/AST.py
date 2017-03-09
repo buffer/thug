@@ -120,7 +120,7 @@ class AST(object):
             self.names.add(var.name)
 
     def onFunctionDeclaration(self, decl):
-        f = decl.proxy
+        # f = decl.proxy
 
         # if decl.scope.isGlobal:
         #    getattr(self.window, f.name, None)

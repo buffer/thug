@@ -4,7 +4,6 @@ import bs4 as BeautifulSoup
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
-from .text_property import text_property
 
 
 class HTMLBodyElement(HTMLElement):

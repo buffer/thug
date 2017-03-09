@@ -17,6 +17,7 @@
 # MA  02111-1307  USA
 
 from .modules import AcroPDF
+from .modules import AdodbRecordset
 from .modules import AdodbStream
 from .modules import AnswerWorks
 from .modules import AolAmpX
@@ -131,6 +132,17 @@ CLSID = [
                           }
         },
 
+        # Adodb.Recordset
+        {
+            'id'        : (),
+            'name'      : ( 'adodb.recordset', ),
+            'attrs'     : {
+                            'Fields'        : AdodbRecordset.Fields(),
+                          },
+            'funcattrs' : {},
+            'methods'   : {}
+        },
+
         # Adodb.Stream
         {
             'id'        : (),
@@ -142,6 +154,7 @@ CLSID = [
                             'Mode'          : 3,
                             'Position'      : 0,
                             'position'      : 0,
+                            'Size'          : 0,
                             '_files'        : dict(),
                             '_current'      : None},
             'funcattrs' : {
@@ -149,6 +162,7 @@ CLSID = [
             },
             'methods'   : {
                             'Open'          : AdodbStream.open,
+                            'Read'          : AdodbStream.Read,
                             'Write'         : AdodbStream.Write,
                             'SaveToFile'    : AdodbStream.SaveToFile,
                             'SaveTofile'    : AdodbStream.SaveToFile,
@@ -1393,6 +1407,7 @@ CLSID = [
                             'toString'                  : WScriptShell.toString,
                             'SpecialFolders'            : WScriptShell.SpecialFolders,
                             'CreateShortcut'            : WScriptShell.CreateShortcut,
+                            'RegRead'                   : WScriptShell.RegRead,
                           }
         },
 

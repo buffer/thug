@@ -18,14 +18,21 @@
 
 import logging
 from collections import OrderedDict
+from .JSClass import JSClass
 from .W3C.Events.StorageEvent import StorageEvent
 
 log = logging.getLogger("Thug")
 
 
-class Storage(OrderedDict):
+class Storage(OrderedDict, JSClass):
     def __init__(self, *args, **kwargs):
         super(Storage, self).__init__(*args, **kwargs)
+
+    def __str__(self):
+        return "[object Storage]"
+
+    def __unicode__(self):
+        return "[object Storage]"
 
     @property
     def length(self):
