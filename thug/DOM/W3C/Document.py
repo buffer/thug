@@ -29,7 +29,7 @@ class Document(Node, DocumentEvent, DocumentView):
         self.__init_personality()
 
     def __init_personality(self):
-        self._charset = ""
+        self.__init_characterSet()
 
         if log.ThugOpts.Personality.isIE():
             self.__init_personality_IE()
@@ -50,13 +50,25 @@ class Document(Node, DocumentEvent, DocumentView):
         if log.ThugOpts.Personality.isOpera():
             self.__init_personality_Opera()
 
+    def __init_characterSet(self):
+        self._character_set = ""
+        for meta in self.doc.find_all("meta"):
+            if 'charset' in meta.attrs:
+                self._characterSet = meta.attrs['charset'].upper()
+
     def __init_personality_IE(self):
+        self.defaultCharset = self._defaultCharset
+
         if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.querySelectorAll = self._querySelectorAll
             self.querySelector    = self._querySelector
 
         if log.ThugOpts.Personality.browserMajorVersion > 8:
             self.getElementsByClassName = self._getElementsByClassName
+            self.characterSet           = self._characterSet
+            self.inputEncoding          = self._inputEncoding
+        else:
+            self.charset                = self._characterSet
 
         if log.ThugOpts.Personality.browserMajorVersion > 10:
             self.__proto__ = None
@@ -65,21 +77,28 @@ class Document(Node, DocumentEvent, DocumentView):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
+        self.characterSet           = self._characterSet
+        self.inputEncoding          = self._inputEncoding
 
     def __init_personality_Chrome(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
+        self.characterSet           = self._characterSet
+        self.inputEncoding          = self._inputEncoding
 
     def __init_personality_Safari(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
+        self.characterSet           = self._characterSet
+        self.inputEncoding          = self._inputEncoding
 
     def __init_personality_Opera(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
+        self.characterSet           = self._characterSet
 
     def _querySelectorAll(self, selectors):
         try:
@@ -145,13 +164,25 @@ class Document(Node, DocumentEvent, DocumentView):
 
     onCreateElement = None
 
-    def getCharset(self):
-        return self._charset
+    def getCharacterSet(self):
+        return self._character_set
 
-    def setCharset(self, value):
-        self._charset = value
+    def setCharacterSet(self, value):
+        self._character_set = value
 
-    charset = property(getCharset, setCharset)
+    _characterSet = property(getCharacterSet, setCharacterSet)
+
+    @property
+    def _inputEncoding(self):
+        for meta in self.doc.find_all("meta"):
+            if 'charset' in meta.attrs:
+                return meta.attrs['charset'].upper()
+
+        return ""
+
+    @property
+    def _defaultCharset(self):
+        return "Windows-1252"
 
     def createElement(self, tagname, tagvalue = None):
         from .DOMImplementation import DOMImplementation
