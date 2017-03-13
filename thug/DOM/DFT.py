@@ -20,6 +20,7 @@ import os
 import pylibemu
 import string
 import base64
+import random
 import logging
 import PyV8
 import bs4 as BeautifulSoup
@@ -83,6 +84,10 @@ class DFT(object):
     window_storage_events = ('storage', )
     window_on_storage_events = ['on' + e for e in window_storage_events]
     _on_events = window_on_events + window_on_storage_events
+
+    user_detection_events = ('mousemove', 'scroll', )
+    on_user_detection_events = ['on' + e for e in user_detection_events]
+
 
     def __init__(self, window, **kwds):
         self.window            = window
@@ -340,27 +345,38 @@ class DFT(object):
             if handler:
                 handler(evtObject)
 
+    def run_event_handler(self, handler, evtObject):
+        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
+            self.window.event = evtObject
+            handler()
+        else:
+            handler(evtObject)
+
     def handle_window_event(self, onevt):
         if onevt in self.handled_on_events and onevt not in self.window_on_storage_events:
-            handler = getattr(self.window, onevt, None)
-            if handler:
+            count = random.randint(30, 50) if onevt in self.on_user_detection_events else 1
+
+            while count > 0:
                 evtObject = self.get_evtObject(self.window, onevt[2:])
-                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
-                    self.window.event = evtObject
-                    handler()
-                else:
-                    handler(evtObject)
+
+                handler = getattr(self.window, onevt, None)
+                if handler:
+                    self.run_event_handler(handler, evtObject)
+
+                count -= 1
 
     def handle_document_event(self, onevt):
         if onevt in self.handled_on_events:
-            handler = getattr(self.window.doc, onevt, None)
-            if handler:
+            count = random.randint(30, 50) if onevt in self.on_user_detection_events else 1
+
+            while count > 0:
                 evtObject = self.get_evtObject(self.window.doc, onevt[2:])
-                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
-                    self.window.event = evtObject
-                    handler()
-                else:
-                    handler(evtObject)
+
+                handler = getattr(self.window.doc, onevt, None)
+                if handler:
+                    self.run_event_handler(handler, evtObject)
+
+                count -= 1
 
         # if not getattr(self.window.doc.tag, '_listeners', None):
         #    return
@@ -372,12 +388,12 @@ class DFT(object):
             if eventType not in (onevt[2:], ):
                 continue
 
-            evtObject = self.get_evtObject(self.window.doc, eventType)
-            if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
-                self.window.event = evtObject
-                listener()
-            else:
-                listener(evtObject)
+            count = random.randint(30, 50) if onevt in self.on_user_detection_events else 1
+
+            while count > 0:
+                evtObject = self.get_evtObject(self.window.doc, eventType)
+                self.run_event_handler(listener, evtObject)
+                count -= 1
 
     def build_event_handler(self, ctx, h):
         # When an event handler is registered by setting an HTML attribute
