@@ -1408,6 +1408,7 @@ CLSID = [
                             'SpecialFolders'            : WScriptShell.SpecialFolders,
                             'CreateShortcut'            : WScriptShell.CreateShortcut,
                             'RegRead'                   : WScriptShell.RegRead,
+                            'RegWrite'                  : WScriptShell.RegWrite,
                           }
         },
 
