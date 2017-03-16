@@ -279,15 +279,6 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
-        def set_no_cache():
-            """
-            set_no_cache
-
-            Disable local web cache
-
-            @return: None
-            """
-
         def set_ast_debug():
             """
             set_ast_debug

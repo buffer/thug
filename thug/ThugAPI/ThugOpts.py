@@ -63,7 +63,6 @@ class ThugOpts(dict):
         self._mongodb_address   = None
         self._web_tracking      = False
         self._honeyagent        = True
-        self._cache             = '/tmp/thug-cache-%s' % (os.getuid(), )
         self.Personality        = Personality()
 
     def set_verbose(self, verbose):
@@ -202,14 +201,6 @@ class ThugOpts(dict):
         self._no_fetch = fetch
 
     no_fetch = property(get_no_fetch, set_no_fetch)
-
-    def get_cache(self):
-        return self._cache
-
-    def set_cache(self, cache):
-        self._cache = cache
-
-    cache = property(get_cache, set_cache)
 
     def get_threshold(self):
         return self._threshold

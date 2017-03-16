@@ -59,7 +59,6 @@ Synopsis:
         -v, --verbose           \tEnable verbose mode
         -d, --debug             \tEnable debug mode
         -q, --quiet             \tDisable console logging
-        -m, --no-cache          \tDisable local web cache
         -a, --ast-debug         \tEnable AST debug mode (requires debug mode)
         -g, --http-debug        \tEnable HTTP debug mode
         -t, --threshold         \tMaximum pages to fetch
@@ -128,7 +127,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:yszklxvdqmagA:PS:RJ:Kt:jO:T:cL:Q:W:N:C:I:H:X:B:E:FZMGYUD:b:',
+                                          'hViu:e:w:n:o:r:p:yszklxvdqagA:PS:RJ:Kt:jO:T:cL:Q:W:N:C:I:H:X:B:E:FZMGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -148,7 +147,6 @@ Synopsis:
                 'verbose',
                 'debug',
                 'quiet',
-                'no-cache',
                 'ast-debug',
                 'http-debug',
                 'adobepdf=',
@@ -227,8 +225,6 @@ Synopsis:
                 self.set_verbose()
             elif option[0] in ('-d', '--debug', ):
                 self.set_debug()
-            elif option[0] in ('-m', '--no-cache'):
-                self.set_no_cache()
             elif option[0] in ('-a', '--ast-debug', ):
                 self.set_ast_debug()
             elif option[0] in ('-g', '--http-debug', ):

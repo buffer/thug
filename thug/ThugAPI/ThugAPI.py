@@ -162,9 +162,6 @@ class ThugAPI(object):
         log.ThugOpts.debug = True
         log.setLevel(logging.DEBUG)
 
-    def set_no_cache(self):
-        log.ThugOpts.cache = None
-
     def set_ast_debug(self):
         log.ThugOpts.ast_debug = True
 
