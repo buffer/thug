@@ -54,6 +54,7 @@ Synopsis:
         -o, --output=           \tLog to a specified file
         -r, --referer           \tSpecify a referer
         -p, --proxy=            \tSpecify a proxy (see below for format and supported schemes)
+        -m, --attachment        \tSet the attachment mode
         -l, --local             \tAnalyze a locally saved page
         -x, --local-nofetch     \tAnalyze a locally saved page and prevent remote content fetching
         -v, --verbose           \tEnable verbose mode
@@ -127,7 +128,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:yszklxvdqagA:PS:RJ:Kt:jO:T:cL:Q:W:N:C:I:H:X:B:E:FZMGYUD:b:',
+                                          'hViu:e:w:n:o:r:p:myszklxvdqagA:PS:RJ:Kt:jO:T:cL:Q:W:N:C:I:H:X:B:E:FZMGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -138,6 +139,7 @@ Synopsis:
                 'output=',
                 'referer=',
                 'proxy=',
+                'attachment',
                 'vtquery',
                 'vtsubmit',
                 'web-tracking',
@@ -206,6 +208,8 @@ Synopsis:
                 self.set_referer(option[1])
             elif option[0] in ('-p', '--proxy', ):
                 self.set_proxy(option[1])
+            elif option[0] in ('-m', '--attachment', ):
+                self.set_attachment()
             elif option[0] in ('-y', '--vtquery', ):
                 self.set_vt_query()
             elif option[0] in ('-s', '--vtsubmit', ):

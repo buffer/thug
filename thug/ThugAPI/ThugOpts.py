@@ -49,6 +49,7 @@ class ThugOpts(dict):
         self._referer           = 'about:blank'
         self._events            = list()
         self._delay             = 0
+        self._attachment        = False
         self._file_logging      = False
         self._json_logging      = False
         self._maec11_logging    = False
@@ -145,6 +146,14 @@ class ThugOpts(dict):
         self._delay = abs(_timeout)
 
     delay = property(get_delay, set_delay)
+
+    def get_attachment(self):
+        return self._attachment
+
+    def set_attachment(self, attachment):
+        self._attachment = attachment
+
+    attachment = property(get_attachment, set_attachment)
 
     def get_file_logging(self):
         return self._file_logging

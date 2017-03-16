@@ -108,6 +108,12 @@ class ThugAPI(object):
     def set_delay(self, delay):
         log.ThugOpts.delay = delay
 
+    def get_attachment(self):
+        return log.ThugOpts.attachment
+
+    def set_attachment(self):
+        log.ThugOpts.attachment = True
+
     def get_file_logging(self):
         return log.ThugOpts.file_logging
 

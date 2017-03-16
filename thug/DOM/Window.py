@@ -233,7 +233,7 @@ class Window(JSClass):
         return self
 
     @property
-    def document(self):
+    def _document(self):
         return self.doc
 
     def _findAll(self, tags):
@@ -772,6 +772,10 @@ class Window(JSClass):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
+        if not (log.ThugOpts.local and log.ThugOpts.attachment):
+            self.document       = self._document
+            self.XMLHttpRequest = self._XMLHttpRequest
+
         self.ActiveXObject     = self._do_ActiveXObject
         self.CollectGarbage    = self._CollectGarbage
         self.navigate          = self._navigate
@@ -800,6 +804,8 @@ class Window(JSClass):
         self.doc.parentWindow = self._parent
 
     def __init_personality_Firefox(self):
+        self.document            = self._document
+        self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.crypto              = Crypto()
@@ -825,6 +831,8 @@ class Window(JSClass):
                 ctxt.eval("delete Array.isArray;")
 
     def __init_personality_Chrome(self):
+        self.document            = self._document
+        self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.clientInformation   = self.navigator
@@ -836,6 +844,8 @@ class Window(JSClass):
         self.onmousewheel        = None
 
     def __init_personality_Safari(self):
+        self.document            = self._document
+        self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.clientInformation   = self.navigator
@@ -845,6 +855,8 @@ class Window(JSClass):
         self.onmousewheel        = None
 
     def __init_personality_Opera(self):
+        self.document            = self._document
+        self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
         self.opera               = Opera()
@@ -967,7 +979,7 @@ class Window(JSClass):
     def Image(self, width = 800, height = 600):
         return self.doc.createElement('img')
 
-    def XMLHttpRequest(self):
+    def _XMLHttpRequest(self):
         return _ActiveXObject(self, 'microsoft.xmlhttp')
 
     def getComputedStyle(self, element, pseudoelt = None):
