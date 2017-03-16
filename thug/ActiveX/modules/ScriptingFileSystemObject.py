@@ -58,7 +58,7 @@ def GetTempName(self):
 
 def FileExists(self, filespec):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] FileExists(%s)' % (filespec, ))
-    return False
+    return True
 
 
 def CreateTextFile(self, filename, overwrite = False, _unicode = False):
