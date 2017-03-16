@@ -33,6 +33,7 @@ Let's start our Thug tour by taking a look at the options it provides.
         -o, --output=                   Log to a specified file
         -r, --referer                   Specify a referer
         -p, --proxy=                    Specify a proxy (see below for format and supported schemes)
+        -m, --attachment                Set the attachment mode
         -l, --local                     Analyze a locally saved page
         -x, --local-nofetch             Analyze a locally saved page and prevent remote content fetching
         -v, --verbose                   Enable verbose mode

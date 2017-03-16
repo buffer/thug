@@ -136,6 +136,26 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def get_attachment():
+        	"""
+        	get_attachment
+
+        	Return True if the attachment mode is set, False otherwise
+
+        	@return: boolean
+        	"""
+
+    	def set_attachment(attachment):
+        	"""
+        	set_attachment
+
+        	Set the attachment mode to the specified value
+
+        	@param attachment: enable/disable attachment mode
+        	@type delay: C{bool}
+        	@return: None
+        	"""
+
         def get_file_logging():
             """
             get_file_logging
