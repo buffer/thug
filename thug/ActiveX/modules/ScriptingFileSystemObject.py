@@ -2,6 +2,7 @@ from thug.ActiveX.modules import WScriptShell
 from thug.ActiveX.modules import TextStream
 from thug.ActiveX.modules import File
 
+import os
 import string
 import random
 import logging
@@ -71,3 +72,9 @@ def CreateTextFile(self, filename, overwrite = False, _unicode = False):
 def GetFile(self, filespec):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetFile(%s)' % (filespec, ))
     return File.File(filespec)
+
+
+def GetExtensionName(self, path):
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetExtensionName(%s)' % (path, ))
+    name, ext = os.path.splitext(path)
+    return ext if ext else ""
