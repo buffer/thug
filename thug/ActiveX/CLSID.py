@@ -1022,6 +1022,9 @@ CLSID = [
                             'BuildPath'         : ScriptingFileSystemObject.BuildPath,
                             'GetSpecialFolder'  : ScriptingFileSystemObject.GetSpecialFolder,
                             'GetTempName'       : ScriptingFileSystemObject.GetTempName,
+                            'FileExists'        : ScriptingFileSystemObject.FileExists,
+                            'CreateTextFile'    : ScriptingFileSystemObject.CreateTextFile,
+                            'GetFile'           : ScriptingFileSystemObject.GetFile,
                           },
         },
 
