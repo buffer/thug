@@ -89,6 +89,7 @@ def send(self, varBody = None):
     self.status          = response.status_code
     self.responseHeaders = response.headers
     self.responseBody    = response.content
+    self.responseText    = response.content
     self.readyState      = 4
 
     contenttype = self.responseHeaders.get('content-type', None)
