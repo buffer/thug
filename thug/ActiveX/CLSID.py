@@ -1391,7 +1391,9 @@ CLSID = [
         {
             'id'        : (),
             'name'      : 'wscript.shell',
-            'attrs'     : {},
+            'attrs'     : {
+                            'scriptFullName'            : '',
+                          },
             'funcattrs' : {},
             'methods'   :
                           {
