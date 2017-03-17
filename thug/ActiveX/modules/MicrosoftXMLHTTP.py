@@ -35,13 +35,13 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
                                       "Open",
                                       forward = False,
                                       data = {
-                                                "method" : bstrMethod,
+                                                "method" : str(bstrMethod),
                                                 "url"    : str(bstrUrl),
                                                 "async"  : str(varAsync)
                                              }
                                      )
 
-    self.bstrMethod  = bstrMethod
+    self.bstrMethod  = str(bstrMethod)
     self.bstrUrl     = str(bstrUrl)
     self.varAsync    = varAsync
     self.varUser     = varUser
