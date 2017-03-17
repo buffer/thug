@@ -33,12 +33,12 @@ Let's start our Thug tour by taking a look at the options it provides.
         -o, --output=                   Log to a specified file
         -r, --referer                   Specify a referer
         -p, --proxy=                    Specify a proxy (see below for format and supported schemes)
+        -m, --attachment                Set the attachment mode
         -l, --local                     Analyze a locally saved page
         -x, --local-nofetch             Analyze a locally saved page and prevent remote content fetching
         -v, --verbose                   Enable verbose mode
         -d, --debug                     Enable debug mode
         -q, --quiet                     Disable console logging
-        -m, --no-cache                  Disable local web cache
         -a, --ast-debug                 Enable AST debug mode (requires debug mode)
         -g, --http-debug                Enable HTTP debug mode
         -t, --threshold                 Maximum pages to fetch
@@ -61,16 +61,16 @@ Let's start our Thug tour by taking a look at the options it provides.
         -K, --no-javaplugin             Disable Java plugin
 
         Classifiers:
-        -L, --htmlclassifier=           Specify a list of additional (comma separated) HTML classifier rule files
-        -Q, --urlclassifier=            Specify a list of additional (comma separated) URL classifier rule files
-        -W, --jsclassifier=             Specify a list of additional (comma separated) JS classifier rule files
-        -N, --vbsclassifier=            Specify a list of additional (comma separated) VBS classifier rule files
-        -C, --sampleclassifier=         Specify a list of additional (comma separated) sample classifier rule files
-        -I, --htmlfilter=               Specify a list of additional (comma separated) HTML filter files
-        -H, --urlfilter=                Specify a list of additional (comma separated) URL filter files
-        -X, --jsfilter=                 Specify a list of additional (comma separated) JS filter files
-        -B, --vbsfilter=                Specify a list of additional (comma separated) VBS filter files
-        -E, --samplefilter=             Specify a list of additional (comma separated) sample filter files
+        --htmlclassifier=               Specify a list of additional (comma separated) HTML classifier rule files
+        --urlclassifier=                Specify a list of additional (comma separated) URL classifier rule files
+        --jsclassifier=                 Specify a list of additional (comma separated) JS classifier rule files
+        --vbsclassifier=                Specify a list of additional (comma separated) VBS classifier rule files
+        --sampleclassifier=             Specify a list of additional (comma separated) sample classifier rule files
+        --htmlfilter=                   Specify a list of additional (comma separated) HTML filter files
+        --urlfilter=                    Specify a list of additional (comma separated) URL filter files
+        --jsfilter=                     Specify a list of additional (comma separated) JS filter files
+        --vbsfilter=                    Specify a list of additional (comma separated) VBS filter files
+        --samplefilter=                 Specify a list of additional (comma separated) sample filter files
 
         Logging:
         -F, --file-logging              Enable file logging mode (default: disabled)

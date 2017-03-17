@@ -35,13 +35,13 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
                                       "Open",
                                       forward = False,
                                       data = {
-                                                "method" : bstrMethod,
+                                                "method" : str(bstrMethod),
                                                 "url"    : str(bstrUrl),
                                                 "async"  : str(varAsync)
                                              }
                                      )
 
-    self.bstrMethod  = bstrMethod
+    self.bstrMethod  = str(bstrMethod)
     self.bstrUrl     = str(bstrUrl)
     self.varAsync    = varAsync
     self.varUser     = varUser
@@ -89,6 +89,7 @@ def send(self, varBody = None):
     self.status          = response.status_code
     self.responseHeaders = response.headers
     self.responseBody    = response.content
+    self.responseText    = response.content
     self.readyState      = 4
 
     contenttype = self.responseHeaders.get('content-type', None)

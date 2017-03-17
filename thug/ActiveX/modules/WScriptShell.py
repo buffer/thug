@@ -193,6 +193,12 @@ def RegRead(self, registry):
         'hklm\software\microsoft\windows\currentversion\programfilesdir' : 'ProgramFiles',
     }
 
+    win32_registry = getattr(log, 'win32_registry', None)
+    if win32_registry and registry.lower() in win32_registry:
+        value = win32_registry[registry.lower()]
+        log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegRead("{}") = "{}"'.format(registry, value))
+        return value
+
     if registry.lower() in reg_map:
         value = log.ThugOpts.Personality.getShellVariable(reg_map[registry.lower()])
         log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegRead("{}") = "{}"'.format(registry, value))
@@ -200,3 +206,13 @@ def RegRead(self, registry):
 
     log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegRead("{}") = {}'.format(registry, 'NOT FOUND'))
     return ''
+
+
+def RegWrite(self, registry, value, strType = "REG_SZ"):
+    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegWrite("{}", "{}", "{}")'.format(registry, value, strType))
+
+    win32_registry = getattr(log, 'win32_registry', None)
+    if win32_registry is None:
+        log.win32_registry = dict()
+
+    log.win32_registry[registry.lower()] = value

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+        function GetCharSet () {
+            var message = "";
+
+            var docCharSet = document.characterSet ? document.characterSet : document.charset;
+            message += "The character encoding of the document: <b>" + docCharSet + "</b><br />";
+
+            if (document.defaultCharset) {
+                message += "The character encoding that belongs to the operating system:  <b>" + document.defaultCharset + "</b><br />";
+            }
+            if (document.inputEncoding) {
+                message += "The character encoding used for parsing the document:  <b>" + document.inputEncoding + "</b><br />";
+            }
+
+            var info = document.getElementById ("info");
+            info.innerHTML = message;
+			alert(message);
+        }
+    </script>
+</head>
+<body onload="GetCharSet ()">
+    <div id="info" style="width:500px; background-color:#e0d0d0;"></div>
+</body>

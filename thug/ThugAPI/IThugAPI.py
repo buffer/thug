@@ -90,6 +90,26 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def get_attachment():
+        """
+        get_attachment
+
+        Return True if the attachment mode is set, False otherwise
+
+        @return: boolean
+        """
+
+    def set_attachment(attachment):
+        """
+        set_attachment
+
+        Set the attachment mode to the specified value
+
+        @param attachment: enable/disable attachment mode
+        @type delay: C{bool}
+        @return: None
+        """
+
     def get_file_logging():
         """
         get_file_logging
@@ -247,15 +267,6 @@ class IThugAPI(zope.interface.Interface):
         set_debug
 
         Enable Thug debug mode
-
-        @return: None
-        """
-
-    def set_no_cache():
-        """
-        set_no_cache
-
-        Disable local web cache
 
         @return: None
         """
@@ -601,6 +612,17 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def add_textclassifier(rule):
+        """
+        add_textclassifier
+
+        Add an additional Text classifier rule file
+
+        @param rule: Text classifier rule file
+        @type rule: C{str}
+        @return: None
+        """
+
     def add_sampleclassifier(rule):
         """
         add_sampleclassifier
@@ -652,6 +674,17 @@ class IThugAPI(zope.interface.Interface):
         Add an additional VBS filter file
 
         @param filter: VBS filter file
+        @type filter: C{str}
+        @return: None
+        """
+
+    def add_textfilter(filter):
+        """
+        add_textfilter
+
+        Add an additional Text filter file
+
+        @param filter: Text filter file
         @type filter: C{str}
         @return: None
         """

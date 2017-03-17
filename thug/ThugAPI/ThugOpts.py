@@ -49,6 +49,7 @@ class ThugOpts(dict):
         self._referer           = 'about:blank'
         self._events            = list()
         self._delay             = 0
+        self._attachment        = False
         self._file_logging      = False
         self._json_logging      = False
         self._maec11_logging    = False
@@ -63,7 +64,6 @@ class ThugOpts(dict):
         self._mongodb_address   = None
         self._web_tracking      = False
         self._honeyagent        = True
-        self._cache             = '/tmp/thug-cache-%s' % (os.getuid(), )
         self.Personality        = Personality()
 
     def set_verbose(self, verbose):
@@ -147,6 +147,14 @@ class ThugOpts(dict):
 
     delay = property(get_delay, set_delay)
 
+    def get_attachment(self):
+        return self._attachment
+
+    def set_attachment(self, attachment):
+        self._attachment = attachment
+
+    attachment = property(get_attachment, set_attachment)
+
     def get_file_logging(self):
         return self._file_logging
 
@@ -202,14 +210,6 @@ class ThugOpts(dict):
         self._no_fetch = fetch
 
     no_fetch = property(get_no_fetch, set_no_fetch)
-
-    def get_cache(self):
-        return self._cache
-
-    def set_cache(self, cache):
-        self._cache = cache
-
-    cache = property(get_cache, set_cache)
 
     def get_threshold(self):
         return self._threshold

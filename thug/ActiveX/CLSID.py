@@ -1022,6 +1022,10 @@ CLSID = [
                             'BuildPath'         : ScriptingFileSystemObject.BuildPath,
                             'GetSpecialFolder'  : ScriptingFileSystemObject.GetSpecialFolder,
                             'GetTempName'       : ScriptingFileSystemObject.GetTempName,
+                            'FileExists'        : ScriptingFileSystemObject.FileExists,
+                            'CreateTextFile'    : ScriptingFileSystemObject.CreateTextFile,
+                            'GetFile'           : ScriptingFileSystemObject.GetFile,
+                            'GetExtensionName'  : ScriptingFileSystemObject.GetExtensionName,
                           },
         },
 
@@ -1391,7 +1395,9 @@ CLSID = [
         {
             'id'        : (),
             'name'      : 'wscript.shell',
-            'attrs'     : {},
+            'attrs'     : {
+                            'scriptFullName'            : '',
+                          },
             'funcattrs' : {},
             'methods'   :
                           {
@@ -1408,6 +1414,7 @@ CLSID = [
                             'SpecialFolders'            : WScriptShell.SpecialFolders,
                             'CreateShortcut'            : WScriptShell.CreateShortcut,
                             'RegRead'                   : WScriptShell.RegRead,
+                            'RegWrite'                  : WScriptShell.RegWrite,
                           }
         },
 

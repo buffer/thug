@@ -1,4 +1,9 @@
 from thug.ActiveX.modules import WScriptShell
+from thug.ActiveX.modules import TextStream
+from thug.ActiveX.modules import File
+from thug.OS.Windows import win32_files
+
+import os
 import string
 import random
 import logging
@@ -51,3 +56,29 @@ def GetSpecialFolder(self, arg):
 def GetTempName(self):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetTempName()')
     return ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
+
+
+def FileExists(self, filespec):
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] FileExists(%s)' % (filespec, ))
+    if filespec.lower() in win32_files:
+        return True
+
+    return False
+
+
+def CreateTextFile(self, filename, overwrite = False, _unicode = False):
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] CreateTextFile(%s, %s, %s)' % (filename, overwrite, _unicode))
+    stream = TextStream.TextStream()
+    stream._filename = filename
+    return stream
+
+
+def GetFile(self, filespec):
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetFile(%s)' % (filespec, ))
+    return File.File(filespec)
+
+
+def GetExtensionName(self, path):
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetExtensionName(%s)' % (path, ))
+    name, ext = os.path.splitext(path)
+    return ext if ext else ""
