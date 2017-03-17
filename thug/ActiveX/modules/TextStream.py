@@ -114,6 +114,8 @@ class TextStream(object):
         content = self.stream.getvalue()
         log.info(content)
 
+        log.TextClassifier.classify("{} (file: {})".format(log.ThugLogging.url, self._filename), content)
+
         if not log.ThugOpts.file_logging:
             return
 
