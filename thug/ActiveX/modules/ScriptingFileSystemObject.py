@@ -1,6 +1,7 @@
 from thug.ActiveX.modules import WScriptShell
 from thug.ActiveX.modules import TextStream
 from thug.ActiveX.modules import File
+from thug.OS.Windows import win32_files
 
 import os
 import string
@@ -59,7 +60,10 @@ def GetTempName(self):
 
 def FileExists(self, filespec):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] FileExists(%s)' % (filespec, ))
-    return True
+    if filespec.lower() in win32_files:
+        return True
+
+    return False
 
 
 def CreateTextFile(self, filename, overwrite = False, _unicode = False):

@@ -133,3 +133,5 @@ security_sys = ("afwcore.sys",
                 "wpsman.dll",
                 "WZSHLSTB.DLL",
                 "ZipSendB.dll")
+
+win32_files = ("c:\\windows\\system32\\drivers\\etc\\hosts", )
