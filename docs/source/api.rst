@@ -688,6 +688,17 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def add_textclassifier(rule):
+            """
+            add_textclassifier
+
+            Add an additional Text classifier rule file
+
+            @param rule: Text classifier rule file
+            @type rule: C{str}
+            @return: None
+            """
+
         def add_urlfilter(filter):
             """
             add_urlfilter
@@ -736,9 +747,20 @@ Thug API interface definition is reported below for convenience.
             """
             add_samplefilter
 
-            Add an additional sample filter file
+            Add an additional Sample filter file
 
             @param filter: Sample filter file
+            @type filter: C{str}
+            @return: None
+            """
+
+        def add_textfilter(filter):
+            """
+            add_textfilter
+
+            Add an additional Text filter file
+
+            @param filter: Text filter file
             @type filter: C{str}
             @return: None
             """
