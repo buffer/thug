@@ -82,16 +82,18 @@ Synopsis:
         -K, --no-javaplugin     \tDisable Java plugin
 
         Classifiers:
-        -L, --htmlclassifier=   \tSpecify a list of additional (comma separated) HTML classifier rule files
-        -Q, --urlclassifier=    \tSpecify a list of additional (comma separated) URL classifier rule files
-        -W, --jsclassifier=     \tSpecify a list of additional (comma separated) JS classifier rule files
-        -N, --vbsclassifier=    \tSpecify a list of additional (comma separated) VBS classifier rule files
-        -C, --sampleclassifier= \tSpecify a list of additional (comma separated) sample classifier rule files
-        -I, --htmlfilter=       \tSpecify a list of additional (comma separated) HTML filter files
-        -H, --urlfilter=        \tSpecify a list of additional (comma separated) URL filter files
-        -X, --jsfilter=         \tSpecify a list of additional (comma separated) JS filter files
-        -B, --vbsfilter=        \tSpecify a list of additional (comma separated) VBS filter files
-        -E, --samplefilter=     \tSpecify a list of additional (comma separated) sample filter files
+        --htmlclassifier=       \tSpecify a list of additional (comma separated) HTML classifier rule files
+        --urlclassifier=        \tSpecify a list of additional (comma separated) URL classifier rule files
+        --jsclassifier=         \tSpecify a list of additional (comma separated) JS classifier rule files
+        --vbsclassifier=        \tSpecify a list of additional (comma separated) VBS classifier rule files
+        --sampleclassifier=     \tSpecify a list of additional (comma separated) Sample classifier rule files
+        --textclassifier=       \tSpecify a list of additional (comma separated) Text classifier rule files
+        --htmlfilter=           \tSpecify a list of additional (comma separated) HTML filter files
+        --urlfilter=            \tSpecify a list of additional (comma separated) URL filter files
+        --jsfilter=             \tSpecify a list of additional (comma separated) JS filter files
+        --vbsfilter=            \tSpecify a list of additional (comma separated) VBS filter files
+        --samplefilter=         \tSpecify a list of additional (comma separated) Sample filter files
+        --textfilter=           \tSpecify a list of additional (comma separated) Text filter files
 
         Logging:
         -F, --file-logging      \tEnable file logging mode (default: disabled)
@@ -128,7 +130,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:myszklxvdqagA:PS:RJ:Kt:jO:T:cL:Q:W:N:C:I:H:X:B:E:FZMGYUD:b:',
+                                          'hViu:e:w:n:o:r:p:myszklxvdqagA:PS:RJ:Kt:jO:T:cFZMGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -167,11 +169,13 @@ Synopsis:
                 'jsclassifier=',
                 'vbsclassifier=',
                 'sampleclassifier=',
+                'textclassifier=',
                 'htmlfilter=',
                 'urlfilter=',
                 'jsfilter=',
                 'vbsfilter=',
                 'samplefilter=',
+                'textfilter='
                 'file-logging',
                 'json-logging',
                 'maec11-logging',
@@ -253,36 +257,42 @@ Synopsis:
                 self.set_connect_timeout(option[1])
             elif option[0] in ('-T', '--timeout', ):
                 self.set_timeout(option[1])
-            elif option[0] in ('-L', '--htmlclassifier'):
+            elif option[0] in ('--htmlclassifier', ):
                 for classifier in option[1].split(','):
                     self.add_htmlclassifier(os.path.abspath(classifier))
-            elif option[0] in ('-Q', '--urlclassifier'):
+            elif option[0] in ('--urlclassifier', ):
                 for classifier in option[1].split(','):
                     self.add_urlclassifier(os.path.abspath(classifier))
-            elif option[0] in ('-W', '--jsclassifier'):
+            elif option[0] in ('--jsclassifier', ):
                 for classifier in option[1].split(','):
                     self.add_jsclassifier(os.path.abspath(classifier))
-            elif option[0] in ('-N', '--vbsclassifier'):
+            elif option[0] in ('--vbsclassifier', ):
                 for classifier in option[1].split(','):
                     self.add_vbsclassifier(os.path.abspath(classifier))
-            elif option[0] in ('-C', '--sampleclassifier'):
+            elif option[0] in ('--sampleclassifier', ):
                 for classifier in option[1].split(','):
                     self.add_sampleclassifier(os.path.abspath(classifier))
-            elif option[0] in ('-I', '--htmlfilter'):
+            elif option[0] in ('--textclassifier', ):
+                for classifier in option[1].split(','):
+                    self.add_textclassifier(os.path.abspath(classifier))
+            elif option[0] in ('--htmlfilter', ):
                 for f in option[1].split(','):
                     self.add_htmlfilter(os.path.abspath(f))
-            elif option[0] in ('-H', '--urlfilter'):
+            elif option[0] in ('--urlfilter', ):
                 for f in option[1].split(','):
                     self.add_urlfilter(os.path.abspath(f))
-            elif option[0] in ('-X', '--jsfilter'):
+            elif option[0] in ('--jsfilter', ):
                 for f in option[1].split(','):
                     self.add_jsfilter(os.path.abspath(f))
-            elif option[0] in ('-B', '--vbsfilter'):
+            elif option[0] in ('--vbsfilter', ):
                 for f in option[1].split(','):
                     self.add_vbsfilter(os.path.abspath(f))
-            elif option[0] in ('-E', '--samplefilter'):
+            elif option[0] in ('--samplefilter', ):
                 for f in option[1].split(','):
                     self.add_samplefilter(os.path.abspath(f))
+            elif option[0] in ('--textfilter', ):
+                for f in option[1].split(','):
+                    self.add_textfilter(os.path.abspath(f))
             elif option[0] in ('-c', '--broken-url', ):
                 self.set_broken_url()
             elif option[0] in ('-F', '--file-logging', ):

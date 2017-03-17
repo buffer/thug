@@ -55,6 +55,7 @@ from thug.Classifier.JSClassifier import JSClassifier
 from thug.Classifier.VBSClassifier import VBSClassifier
 from thug.Classifier.URLClassifier import URLClassifier
 from thug.Classifier.SampleClassifier import SampleClassifier
+from thug.Classifier.TextClassifier import TextClassifier
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
@@ -75,6 +76,7 @@ class ThugAPI(object):
         log.VBSClassifier       = VBSClassifier()
         log.URLClassifier       = URLClassifier()
         log.SampleClassifier    = SampleClassifier()
+        log.TextClassifier      = TextClassifier()
         log.Encoding            = Encoding()
         log.ASTHandler          = ASTHandler()
         log.JSExtensions        = list()
@@ -290,6 +292,9 @@ class ThugAPI(object):
     def add_vbsclassifier(self, rule):
         log.VBSClassifier.add_rule(rule)
 
+    def add_textclassifier(self, rule):
+        log.TextClassifier.add_rule(rule)
+
     def add_sampleclassifier(self, rule):
         log.SampleClassifier.add_rule(rule)
 
@@ -304,6 +309,9 @@ class ThugAPI(object):
 
     def add_vbsfilter(self, f):
         log.VBSClassifier.add_filter(f)
+
+    def add_textfilter(self, f):
+        log.TextClassifier.add_filter(f)
 
     def add_samplefilter(self, f):
         log.SampleClassifier.add_filter(f)

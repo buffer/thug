@@ -612,6 +612,17 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def add_textclassifier(rule):
+        """
+        add_textclassifier
+
+        Add an additional Text classifier rule file
+
+        @param rule: Text classifier rule file
+        @type rule: C{str}
+        @return: None
+        """
+
     def add_sampleclassifier(rule):
         """
         add_sampleclassifier
@@ -663,6 +674,17 @@ class IThugAPI(zope.interface.Interface):
         Add an additional VBS filter file
 
         @param filter: VBS filter file
+        @type filter: C{str}
+        @return: None
+        """
+
+    def add_textfilter(filter):
+        """
+        add_textfilter
+
+        Add an additional Text filter file
+
+        @param filter: Text filter file
         @type filter: C{str}
         @return: None
         """
