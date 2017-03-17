@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage &mdash; Thug 0.8.30 documentation</title>
+    <title>Usage &mdash; Thug 0.8.32 documentation</title>
     
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.30',
+        VERSION:     '0.8.32',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.8.30 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8.32 documentation" href="index.html" />
     <link rel="next" title="Thug API" href="api.html" />
     <link rel="prev" title="Configuration" href="configuration.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.30 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.32 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -77,12 +77,12 @@ Options:
     -o, --output<span class="o">=</span>                   Log to a specified file
     -r, --referer                   Specify a referer
     -p, --proxy<span class="o">=</span>                    Specify a proxy <span class="o">(</span>see below <span class="k">for</span> format and supported schemes<span class="o">)</span>
+    -m, --attachment                Set the attachment mode
     -l, --local                     Analyze a locally saved page
     -x, --local-nofetch             Analyze a locally saved page and prevent remote content fetching
     -v, --verbose                   Enable verbose mode
     -d, --debug                     Enable debug mode
     -q, --quiet                     Disable console logging
-    -m, --no-cache                  Disable <span class="nb">local</span> web cache
     -a, --ast-debug                 Enable AST debug mode <span class="o">(</span>requires debug mode<span class="o">)</span>
     -g, --http-debug                Enable HTTP debug mode
     -t, --threshold                 Maximum pages to fetch
@@ -105,16 +105,16 @@ Options:
     -K, --no-javaplugin             Disable Java plugin
 
     Classifiers:
-    -L, --htmlclassifier<span class="o">=</span>           Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> HTML classifier rule files
-    -Q, --urlclassifier<span class="o">=</span>            Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> URL classifier rule files
-    -W, --jsclassifier<span class="o">=</span>             Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> JS classifier rule files
-    -N, --vbsclassifier<span class="o">=</span>            Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> VBS classifier rule files
-    -C, --sampleclassifier<span class="o">=</span>         Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> sample classifier rule files
-    -I, --htmlfilter<span class="o">=</span>               Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> HTML filter files
-    -H, --urlfilter<span class="o">=</span>                Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> URL filter files
-    -X, --jsfilter<span class="o">=</span>                 Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> JS filter files
-    -B, --vbsfilter<span class="o">=</span>                Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> VBS filter files
-    -E, --samplefilter<span class="o">=</span>             Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> sample filter files
+    --htmlclassifier<span class="o">=</span>               Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> HTML classifier rule files
+    --urlclassifier<span class="o">=</span>                Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> URL classifier rule files
+    --jsclassifier<span class="o">=</span>                 Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> JS classifier rule files
+    --vbsclassifier<span class="o">=</span>                Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> VBS classifier rule files
+    --sampleclassifier<span class="o">=</span>             Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> sample classifier rule files
+    --htmlfilter<span class="o">=</span>                   Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> HTML filter files
+    --urlfilter<span class="o">=</span>                    Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> URL filter files
+    --jsfilter<span class="o">=</span>                     Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> JS filter files
+    --vbsfilter<span class="o">=</span>                    Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> VBS filter files
+    --samplefilter<span class="o">=</span>                 Specify a list of additional <span class="o">(</span>comma separated<span class="o">)</span> sample filter files
 
     Logging:
     -F, --file-logging              Enable file logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
@@ -960,7 +960,7 @@ option. Simply running Thug this way (please note the interval is expressed in m
         <li class="right" >
           <a href="configuration.html" title="Configuration"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.30 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.32 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

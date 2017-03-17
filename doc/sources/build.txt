@@ -25,7 +25,6 @@ Requirements
 * PySocks
 * Cssutils
 * Zope interface
-* Pyparsing
 * Pygraphviz
 * Python-Magic
 * Rarfile
@@ -325,19 +324,6 @@ through pip.
 .. code-block:: sh
 
         # pip install zope.interface
-
-
-Pyparsing
-^^^^^^^^^
-
-Pyparsing homepage is located at http://pyparsing.wikispaces.com/.
-
-If not available as a package for your Linux distribution, the best way to install pyparsing is 
-through pip.
-
-.. code-block:: sh
-
-        # pip install pyparsing
 
 
 Pygraphviz

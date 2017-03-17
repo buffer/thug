@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Thug API &mdash; Thug 0.8.30 documentation</title>
+    <title>Thug API &mdash; Thug 0.8.32 documentation</title>
     
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.8.30',
+        VERSION:     '0.8.32',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.8.30 documentation" href="index.html" />
+    <link rel="top" title="Thug 0.8.32 documentation" href="index.html" />
     <link rel="next" title="JS Hooks" href="jshooks.html" />
     <link rel="prev" title="Usage" href="usage.html" /> 
   </head>
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.30 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.32 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -173,6 +173,26 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @type delay: C{int}</span>
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_attachment</span><span class="p">():</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            get_attachment</span>
+
+<span class="sd">            Return True if the attachment mode is set, False otherwise</span>
+
+<span class="sd">            @return: boolean</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_attachment</span><span class="p">(</span><span class="n">attachment</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            set_attachment</span>
+
+<span class="sd">            Set the attachment mode to the specified value</span>
+
+<span class="sd">            @param attachment: enable/disable attachment mode</span>
+<span class="sd">            @type delay: C{bool}</span>
+<span class="sd">            @return: None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">get_file_logging</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -313,15 +333,6 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        set_debug</span>
 
 <span class="sd">        Enable Thug debug mode</span>
-
-<span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="nf">set_no_cache</span><span class="p">():</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        set_no_cache</span>
-
-<span class="sd">        Disable local web cache</span>
 
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -715,6 +726,17 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+    <span class="k">def</span> <span class="nf">add_textclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_textclassifier</span>
+
+<span class="sd">        Add an additional Text classifier rule file</span>
+
+<span class="sd">        @param rule: Text classifier rule file</span>
+<span class="sd">        @type rule: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">add_urlfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        add_urlfilter</span>
@@ -763,9 +785,20 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        add_samplefilter</span>
 
-<span class="sd">        Add an additional sample filter file</span>
+<span class="sd">        Add an additional Sample filter file</span>
 
 <span class="sd">        @param filter: Sample filter file</span>
+<span class="sd">        @type filter: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">add_textfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_textfilter</span>
+
+<span class="sd">        Add an additional Text filter file</span>
+
+<span class="sd">        @param filter: Text filter file</span>
 <span class="sd">        @type filter: C{str}</span>
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -854,7 +887,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.30 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.8.32 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

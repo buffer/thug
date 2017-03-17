@@ -136,6 +136,26 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def get_attachment():
+        	"""
+        	get_attachment
+
+        	Return True if the attachment mode is set, False otherwise
+
+        	@return: boolean
+        	"""
+
+    	def set_attachment(attachment):
+        	"""
+        	set_attachment
+
+        	Set the attachment mode to the specified value
+
+        	@param attachment: enable/disable attachment mode
+        	@type delay: C{bool}
+        	@return: None
+        	"""
+
         def get_file_logging():
             """
             get_file_logging
@@ -275,15 +295,6 @@ Thug API interface definition is reported below for convenience.
             set_debug
 
             Enable Thug debug mode
-
-            @return: None
-            """
-
-        def set_no_cache():
-            """
-            set_no_cache
-
-            Disable local web cache
 
             @return: None
             """
@@ -677,6 +688,17 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def add_textclassifier(rule):
+            """
+            add_textclassifier
+
+            Add an additional Text classifier rule file
+
+            @param rule: Text classifier rule file
+            @type rule: C{str}
+            @return: None
+            """
+
         def add_urlfilter(filter):
             """
             add_urlfilter
@@ -725,9 +747,20 @@ Thug API interface definition is reported below for convenience.
             """
             add_samplefilter
 
-            Add an additional sample filter file
+            Add an additional Sample filter file
 
             @param filter: Sample filter file
+            @type filter: C{str}
+            @return: None
+            """
+
+        def add_textfilter(filter):
+            """
+            add_textfilter
+
+            Add an additional Text filter file
+
+            @param filter: Text filter file
             @type filter: C{str}
             @return: None
             """
