@@ -3,7 +3,7 @@ import os
 import hashlib
 import errno
 
-from Thug.Magic.Magic import Magic
+from thug.Magic.Magic import Magic
 
 import logging
 
