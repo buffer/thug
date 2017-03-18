@@ -1,5 +1,6 @@
 
 import os
+import hashlib
 import errno
 import logging
 
@@ -114,7 +115,19 @@ class TextStream(object):
         content = self.stream.getvalue()
         log.info(content)
 
-        log.TextClassifier.classify("{} (file: {})".format(log.ThugLogging.url, self._filename), content)
+        data = {
+            'content' : content,
+            'md5'     : hashlib.md5(content).hexdigest(),
+            'sha256'  : hashlib.sha256(content).hexdigest(),
+            'fsize'   : len(content),
+            'ctype'   : '',
+            'mtype'   : 'textstream',
+        }
+
+        url = "{} (file: {})".format(log.ThugLogging.url, self._filename)
+        log.ThugLogging.log_location(url, data)
+
+        log.TextClassifier.classify(url, content)
 
         if not log.ThugOpts.file_logging:
             return
