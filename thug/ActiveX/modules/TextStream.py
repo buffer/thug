@@ -2,6 +2,9 @@
 import os
 import hashlib
 import errno
+
+from Thug.Magic.Magic import Magic
+
 import logging
 
 log = logging.getLogger("Thug")
@@ -117,11 +120,12 @@ class TextStream(object):
 
         data = {
             'content' : content,
+            'status'  : 200,
             'md5'     : hashlib.md5(content).hexdigest(),
             'sha256'  : hashlib.sha256(content).hexdigest(),
             'fsize'   : len(content),
-            'ctype'   : '',
-            'mtype'   : 'textstream',
+            'ctype'   : 'textstream',
+            'mtype'   : Magic(content).get_mime(),
         }
 
         url = "{} (file: {})".format(log.ThugLogging.url, self._filename)
