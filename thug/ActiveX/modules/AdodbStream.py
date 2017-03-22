@@ -1,10 +1,4 @@
-try:
-    from io import StringIO
-except ImportError:
-    try:
-        from cStringIO import StringIO
-    except ImportError:
-        from StringIO import StringIO
+from io import BytesIO
 
 import logging
 from thug.Magic.Magic import Magic
@@ -23,7 +17,7 @@ def Size(self):
 
 def open(self):  # pylint:disable=redefined-builtin
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] open")
-    self.fobject = StringIO()
+    self.fobject = BytesIO()
 
 
 def Read(self, length = -1):
@@ -43,7 +37,7 @@ def Read(self, length = -1):
 
 def Write(self, s):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Write")
-    self.fobject.write(unicode(s))
+    self.fobject.write(s)
 
 
 def SaveToFile(self, filename, opt = 0):
