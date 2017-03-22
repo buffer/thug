@@ -747,7 +747,7 @@ class Window(JSClass):
         if language in ("JScript", ):
             self.eval(code)
         else:
-            log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url, code)
+            log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.url, code)
 
         return None
 
@@ -905,7 +905,7 @@ class Window(JSClass):
         result = 0
 
         try:
-            log.JSClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.url, script)
+            log.JSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.url, script)
 
             if log.ThugOpts.code_logging:
                 log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
@@ -1002,7 +1002,7 @@ class Window(JSClass):
             html = response.content
 
             try:
-                log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else url, html)
+                log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else url, html)
             except:  # pylint:disable=bare-except
                 pass
 

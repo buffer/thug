@@ -800,7 +800,7 @@ class DFT(object):
         if log.ThugOpts.code_logging:
             log.ThugLogging.add_code_snippet(str(script), 'VBScript', 'Contained_Inside')
 
-        log.VBSClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.window.url, str(script))
+        log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, str(script))
         log.warning("VBScript parsing not available")
 
     def handle_vbs(self, script):
@@ -1263,7 +1263,7 @@ class DFT(object):
         return False
 
     def run_htmlclassifier(self, soup):
-        log.HTMLClassifier.classify('[Local analysis]' if log.ThugOpts.local else self.window.url, str(soup))
+        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, str(soup))
 
     def _run(self, soup = None):
         if soup is None:
