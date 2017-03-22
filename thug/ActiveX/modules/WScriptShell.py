@@ -9,6 +9,8 @@ import hashlib
 import pefile
 import PyV8
 
+from thug.Magic.Magic import Magic
+
 log = logging.getLogger("Thug")
 
 
@@ -30,6 +32,13 @@ def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
                                                 "command" : strCommand
                                              },
                                       forward = False)
+
+    data = {
+        'content' : strCommand,
+    }
+
+    log.ThugLogging.log_location(log.ThugLogging.url, data)
+    log.TextClassifier.classify(log.ThugLogging.url, strCommand)
 
     if 'http' not in strCommand:
         return
@@ -87,8 +96,26 @@ def _doRun(self, p, stage):
 
         md5 = hashlib.md5()
         md5.update(response.content)
-        log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Saving file %s" % (stage, md5.hexdigest()))
+	md5sum = md5.hexdigest()
+        sha256 = hashlib.sha256()
+        sha256.update(response.content)
+	sha256sum = sha256.hexdigest()
+
+        log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Saving file %s" % (stage, md5sum, ))
         p = '"'.join(s[1:])
+
+        data = {
+                'status'  : response.status_code,
+                'content' : response.content,
+                'md5'	  : md5sum,
+                'sha256'  : sha256sum,
+                'fsize'   : len(response.content),
+                'ctype'   : response.headers.get('content-type', 'unknown'),
+                'mtype'   : Magic(response.content).get_mime(),
+        }
+
+        log.ThugLogging.log_location(url, data)
+        log.TextClassifier.classify(url, response.content)
 
         self._doRun(response.content, stage + 1)
 
