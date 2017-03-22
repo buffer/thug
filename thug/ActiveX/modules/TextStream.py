@@ -128,10 +128,8 @@ class TextStream(object):
             'mtype'   : Magic(content).get_mime(),
         }
 
-        url = "{} (file: {})".format(log.ThugLogging.url, self._filename)
-        log.ThugLogging.log_location(url, data)
-
-        log.TextClassifier.classify(url, content)
+        log.ThugLogging.log_location(log.ThugLogging.url, data)
+        log.TextClassifier.classify(log.ThugLogging.url, content)
 
         if not log.ThugOpts.file_logging:
             return
