@@ -35,6 +35,56 @@ class File(object):
 
     Attributes = property(getAttributes, setAttributes)
 
+    @property
+    def ShortPath(self):
+        _shortPath = []
+
+        for p in self.Path.split('\\'):
+            sp = p.split('.')
+
+            if len(sp) == 1:
+                spfn = p if len(p) <= 8 else "{}~1".format(p[:6])
+            else:
+                spfn = ".".join(sp[:-1])
+                ext  = sp[-1]
+
+                if len(spfn) > 8:
+                    spfn = "{}~1".format(spfn[:6])
+
+                spfn = "{}.{}".format(spfn, ext)
+
+            _shortPath.append(spfn)
+
+        return("\\\\".join(_shortPath))
+
+    @property
+    def ShortName(self):
+        spath = self.Path.split('\\')
+        name  = spath[-1]
+        sp    = name.split('.')
+
+        if len(sp) == 1:
+            if len(p) <= 8:
+                return name
+            else:
+                return "{}~1".format(name[:6])
+
+        spfn = ".".join(sp[:-1])
+        ext = sp[-1]
+
+        if len(spfn) > 8:
+            spfn = "{}~1".format(spfn[:6])
+
+        return "{}.{}".format(spfn, ext)
+
+    @property
+    def Drive(self):
+        spath = self.Path.split('\\')
+        if spath[0].endswith(':'):
+            return spath[0]
+
+        return 'C:'
+
     def Copy(self, destination, overwrite = True):
         log.ThugLogging.add_behavior_warn('[File ActiveX] Copy(%s, %s)' % (destination, overwrite, ))
 
