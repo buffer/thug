@@ -12,3 +12,5 @@ def initx(self, arg):
                                           "BitDefender Online Scanner ActiveX",
                                           "InitX overflow",
                                           cve = "CVE-2007-5775")
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5775", None)
