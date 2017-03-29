@@ -18,6 +18,7 @@ def deleteReport(self, arg):
                                              },
                                       forward = False)
 
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4031", None)
 
 def deleteNessusRC(self, arg):
     log.ThugLogging.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] deleteNessusRC(%s)' % (arg, ),
@@ -31,6 +32,8 @@ def deleteNessusRC(self, arg):
                                              },
                                       forward = False)
 
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4062", None)
+
 
 def saveNessusRC(self, arg):
     log.ThugLogging.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] saveNessusRC(%s)' % (arg, ),
@@ -43,6 +46,8 @@ def saveNessusRC(self, arg):
                                                 "arg": arg
                                              },
                                       forward = False)
+
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4061", None)
 
 
 def addsetConfig(self, arg, arg1, arg2):
@@ -58,3 +63,5 @@ def addsetConfig(self, arg, arg1, arg2):
                                                 "arg2": arg2
                                              },
                                       forward = False)
+
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4061", None)
