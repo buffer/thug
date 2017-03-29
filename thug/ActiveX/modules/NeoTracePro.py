@@ -12,3 +12,5 @@ def TraceTarget(self, target):
                                           "NeoTraceExplorer.NeoTraceLoader ActiveX",
                                           "Overflow in arg0",
                                           cve = 'CVE-2006-6707')
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-6707", None)
