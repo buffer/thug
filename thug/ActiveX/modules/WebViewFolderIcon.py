@@ -13,3 +13,5 @@ def setSlice(self, arg0, arg1, arg2, arg3):
                                           "WebViewFolderIcon ActiveX",
                                           "setSlice attack",
                                           cve = 'CVE-2006-3730')
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-3730", None)
