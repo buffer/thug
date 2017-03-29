@@ -26,7 +26,7 @@ def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
                                                 "CompressedPath": self.CompressedPath
                                              }
                                      )
-
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-2463", None)
     url = self.SnapshotPath
 
     try:
