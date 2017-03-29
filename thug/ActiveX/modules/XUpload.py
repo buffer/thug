@@ -13,6 +13,7 @@ def AddFolder(self, arg):
                                           "Overflow in AddFolder method",
                                           cve = 'CVE-2007-6530')
 
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6530", None)
 
 def AddFile(self, arg):
     if len(arg) > 255:
@@ -20,3 +21,5 @@ def AddFile(self, arg):
                                           "XUpload ActiveX",
                                           "Overflow in AddFile method",
                                           cve = 'CVE-2007-6530')
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6530", None)
