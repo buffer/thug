@@ -12,3 +12,5 @@ def SetAttributeValue(self, arg0, arg1, arg2):
                                           "BaoFeng Storm ActiveX Control",
                                           "SetAttributeValue Buffer Overflow",
                                           cve = "CVE-2009-1807")
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1807", None)
