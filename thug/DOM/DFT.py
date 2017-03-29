@@ -492,6 +492,8 @@ class DFT(object):
                                               'Java Security Warning Bypass (CVE-2013-2423)',
                                               cve = 'CVE-2013-2423')
 
+            log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2013-2423", None)
+
     def _handle_jnlp(self, data, headers, params):
         try:
             soup = BeautifulSoup.BeautifulSoup(data, "lxml")
