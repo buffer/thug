@@ -14,12 +14,16 @@ def Setserver(self, name):
                                           "Server Console Overflow",
                                           cve = "CVE-2007-4391")
 
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4391", None)
+
 
 def GetComponentVersion(self, arg):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Yahoo! Messenger 8.x Ywcvwr ActiveX",
                                       "GetComponentVersion Overflow",
                                       cve = "CVE-2007-4391")
+
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4391", None)
 
 
 def initialize(self):
