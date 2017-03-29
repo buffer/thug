@@ -15,6 +15,8 @@ def Set_DOWText0(self, val):
                                           "Overflow in property _DOWText0",
                                           cve = 'CVE-2007-6016')
 
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016", None)
+
 
 def Set_DOWText6(self, val):
     self.__dict__['_DOWText6'] = val
@@ -24,6 +26,8 @@ def Set_DOWText6(self, val):
                                           "Symantec BackupExec ActiveX",
                                           "Overflow in property _DOWText6",
                                           cve = 'CVE-2007-6016')
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016", None)
 
 
 def Set_MonthText0(self, val):
@@ -35,6 +39,8 @@ def Set_MonthText0(self, val):
                                           "Overflow in property _MonthText6",
                                           cve = 'CVE-2007-6016')
 
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016", None)
+
 
 def Set_MonthText11(self, val):
     self.__dict__['_MonthText11'] = val
@@ -44,6 +50,8 @@ def Set_MonthText11(self, val):
                                           "Symantec BackupExec ActiveX",
                                           "Overflow in property _MonthText11",
                                           cve = 'CVE-2007-6016')
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016", None)
 
 
 def Save(self, a, b):
