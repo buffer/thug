@@ -15,6 +15,8 @@ def SetGeneral_ServerName(self, val):
                                           "Overflow in General_ServerName property",
                                           cve = 'CVE-2007-4474')
 
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474", None)
+
 
 def SetGeneral_JunctionName(self, val):
     self.__dict__['General_JunctionName'] = val
@@ -25,6 +27,8 @@ def SetGeneral_JunctionName(self, val):
                                           "Overflow in General_JunctionName property",
                                           cve = 'CVE-2007-4474')
 
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474", None)
+
 
 def SetMail_MailDbPath(self, val):
     self.__dict__['Mail_MailDbPath'] = val
@@ -34,6 +38,8 @@ def SetMail_MailDbPath(self, val):
                                           "IBM Lotus Domino Web Access Control ActiveX",
                                           "Overflow in Mail_MailDbPath property",
                                           cve = 'CVE-2007-4474')
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474", None)
 
 
 def InstallBrowserHelperDll(self):
