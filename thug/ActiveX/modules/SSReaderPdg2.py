@@ -13,6 +13,8 @@ def Register(self, arg0, arg1):
                                           "Register Method Overflow",
                                           cve = "CVE-2007-5892")
 
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5892", None)
+
 
 def LoadPage(self, arg0, arg1, arg2, arg3):
     if len(arg0) > 255:
@@ -20,3 +22,5 @@ def LoadPage(self, arg0, arg1, arg2, arg3):
                                           "SSReader Pdg2 ActiveX",
                                           "LoadPage Method Overflow",
                                           cve = "CVE-2007-5892")
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5892", None)
