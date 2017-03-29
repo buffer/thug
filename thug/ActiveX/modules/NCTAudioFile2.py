@@ -12,3 +12,5 @@ def SetFormatLikeSample(self, arg):
                                           "NCTAudioFile2 ActiveX",
                                           "Overflow in SetFormatLikeSample",
                                           cve = "CVE-2007-0018")
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-0018", None)
