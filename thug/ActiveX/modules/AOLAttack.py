@@ -8,3 +8,5 @@ def LinkSBIcons(self):
                                       "AOL ActiveX",
                                       "Attack in LinkSBIcons function",
                                       cve = "CVE-2006-5820")
+
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-5820", None)
