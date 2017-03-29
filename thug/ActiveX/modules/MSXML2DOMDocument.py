@@ -9,3 +9,5 @@ def definition(self, arg):
                                       "MSXML2.DOMDocument",
                                       "Microsoft XML Core Services MSXML Uninitialized Memory Corruption",
                                       cve = "CVE-2012-1889")  # pylint:disable=undefined-variable
+
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2012-1889", None)
