@@ -12,3 +12,5 @@ def DownURL2(self, arg0, *args):
                                           "Xunlei DPClient.Vod.1 ActiveX",
                                           "DownURL2 Method Buffer Overflow",
                                           cve = "CVE-2007-5064")
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5064", None)
