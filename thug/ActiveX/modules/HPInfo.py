@@ -19,6 +19,8 @@ def LaunchApp(self, prog, args, unk):
                                       }
                                      )
 
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6331", None)
+
 
 def SetRegValue(self, key, section, keyname, value):
     log.ThugLogging.add_behavior_warn("[HP Info Center ActiveX] SetRegValue: %s/%s/%s set to %s" % (str(key),
@@ -40,6 +42,8 @@ def SetRegValue(self, key, section, keyname, value):
                                       }
                                      )
 
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6332", None)
+
 
 def GetRegValue(self, key, section, keyname):
     log.ThugLogging.add_behavior_warn("[HP Info Center ActiveX] GetRegValue, reading: %s/%s/%s" % (str(key),
@@ -58,6 +62,8 @@ def GetRegValue(self, key, section, keyname):
                                           "keyname": str(keyname)
                                       }
                                      )
+
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6333", None)
 
 
 def EvaluateRules(self):
