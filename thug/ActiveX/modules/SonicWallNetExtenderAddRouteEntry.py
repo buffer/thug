@@ -12,3 +12,5 @@ def AddRouteEntry(self, arg0, arg1):
                                           "SonicWall SSL-VPN NetExtender NELaunchCtrl ActiveX",
                                           "Overflow in AddRouteEntry",
                                           cve = 'CVE-2007-5603')
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5603", None)
