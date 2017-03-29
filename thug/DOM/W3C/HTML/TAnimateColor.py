@@ -24,6 +24,8 @@ class TAnimateColor(HTMLElement):
                                               cve = 'CVE-2012-4792',
                                               forward = True)
 
+            log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2012-4792", None)
+
         log.DFT.check_shellcode(values)
         self._values = values
 
