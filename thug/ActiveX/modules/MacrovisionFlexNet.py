@@ -35,6 +35,9 @@ def DownloadAndExecute(self, arg0, arg1, arg2, arg3, arg4):
                                           "DownloadAndExecute overflow",
                                           cve = "CVE-2007-2419, CVE-2007-6654")
 
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-2419", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6654", None)
+
     log.ThugLogging.add_behavior_warn("[Macrovision ActiveX] Fetching from URL %s" % (arg3, ))
 
     try:
@@ -54,6 +57,7 @@ def AddFileEx(self, arg0, arg1, arg2, arg3, arg4, arg5, arg6):
                                           "AddFileEx overflow",
                                           cve = "CVE-2007-2419")
 
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-2419", None)
 
 def AddFile(self, arg0, arg1):
     log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] AddFile("%s", "%s")' % (arg0, arg1))
@@ -68,6 +72,8 @@ def AddFile(self, arg0, arg1):
                                                 "arg1": arg1
                                              }
                                      )
+
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-2419", None)
 
     try:
         self._window._navigator.fetch(arg0, redirect_type = "Macrovision Exploit 2")
