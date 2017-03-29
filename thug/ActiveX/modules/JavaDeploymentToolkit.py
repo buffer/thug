@@ -46,3 +46,5 @@ def launchApp(self, pJNLP, pEmbedded = None, pVmArgs = None):
                                           "Java ActiveX component memory corruption (CVE-2013-2416)",
                                           cve = "CVE-2013-2416",
                                           forward = True)
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2013-2416", None)
