@@ -14,3 +14,5 @@ def GetDetailsString(self, arg0, arg1):
                                           "Microsoft Windows Media Encoder WMEX.DLL ActiveX",
                                           "GetDetailsString Method Buffer Overflow",
                                           cve = "CVE-2008-3008")
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-3008", None)
