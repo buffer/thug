@@ -12,3 +12,5 @@ def Setdata(self, val):
                                       "Microsoft DirectShow MPEG2TuneRequest ActiveX",
                                       "Stack Overflow in data property",
                                       cve = 'CVE-2008-0015')
+
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0015", None)
