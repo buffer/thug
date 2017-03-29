@@ -13,6 +13,7 @@ def fvcom(self, arg0):
                                           "Overflow in fvCom arg0",
                                           cve = 'CVE-2007-4515')
 
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4515", None)
 
 def info(self, arg0):
     if len(arg0) > 20:
@@ -20,3 +21,5 @@ def info(self, arg0):
                                           "Yahoo! Messenger 8.x YVerInfo.dll ActiveX Control",
                                           "Overflow in info arg0",
                                           cve = 'CVE-2007-4515')
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4515", None)
