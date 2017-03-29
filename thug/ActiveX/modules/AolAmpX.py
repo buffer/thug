@@ -13,6 +13,8 @@ def AppendFileToPlayList(self, arg):
                                           "Overflow in AppendFileToPlayList",
                                           cve = 'CVE-2007-6250')
 
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6250", None)
+
 
 def ConvertFile(self, *arg):
     # FIXME
@@ -21,3 +23,5 @@ def ConvertFile(self, *arg):
                                           "AOL Radio AOLMediaPlaybackControl ActiveX",
                                           "Overflow in ConvertFile",
                                           cve = 'CVE-2007-6250')
+
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6250", None)
