@@ -116,7 +116,9 @@ class Window(JSClass):
         self._navigator = navigator if navigator else Navigator(personality, self)
         self._location  = Location(self)
         self._history   = History(self)
-        self._history.update(url, replace)
+
+        if url not in ('about:blank', ):
+            self._history.update(url, replace)
 
         self.doc.location = property(self.getLocation, self.setLocation)
 
