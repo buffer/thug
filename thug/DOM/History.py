@@ -21,13 +21,15 @@ import logging
 log = logging.getLogger("Thug")
 
 from .JSClass import JSClass
+from .Alexa import Alexa
 
 
 class History(JSClass):
     def __init__(self, window):
-        self._window = window
-        self.urls    = []
-        self.pos     = None
+        self._window  = window
+        self.urls     = Alexa
+        self.pos      = None
+
         self.__init_personality()
 
     def __init_personality(self):
