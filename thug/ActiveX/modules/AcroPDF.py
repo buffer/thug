@@ -32,3 +32,8 @@ def GetVersions(self):
         versions += "%s=%s," % (feature, log.ThugVulnModules.acropdf_pdf, )
 
     return versions
+
+
+def GetVariable(self, variable):
+    if variable in ('$version', ):
+        return log.ThugVulnModules.acropdf_pdf

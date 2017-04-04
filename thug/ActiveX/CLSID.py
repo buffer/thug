@@ -129,6 +129,7 @@ CLSID = [
             'funcattrs' : {},
             'methods'   : {
                             'GetVersions'   : AcroPDF.GetVersions,
+                            'GetVariable'   : AcroPDF.GetVariable,
                           }
         },
 
