@@ -61,6 +61,7 @@ setup(
         (rules_path                 , glob.glob("thug/Classifier/rules/*.yar")),
         (scripts_path               , ["thug/DOM/thug.js",
                                        "thug/DOM/storage.js",
+                                       "thug/DOM/date.js",
                                        "thug/Debugger/d8.js"]),
         (plugins_path               , []),
         (hooks_path                 , []),

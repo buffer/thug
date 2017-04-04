@@ -888,9 +888,14 @@ class Window(JSClass):
                 thug_js = os.path.join(thug.__configuration_path__, 'scripts', "thug.js")
                 ctxt.eval(open(thug_js, 'r').read())
 
-                if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 8:
-                    storage_js = os.path.join(thug.__configuration_path__, 'scripts', "storage.js")
-                    ctxt.eval(open(storage_js, 'r').read())
+                if log.ThugOpts.Personality.isIE():
+                    if log.ThugOpts.Personality.browserMajorVersion < 8:
+                        storage_js = os.path.join(thug.__configuration_path__, 'scripts', "storage.js")
+                        ctxt.eval(open(storage_js, 'r').read())
+
+                    if log.ThugOpts.Personality.browserMajorVersion < 9:
+                        date_js = os.path.join(thug.__configuration_path__, 'scripts', "date.js")
+                        ctxt.eval(open(date_js, 'r').read())
 
                 hooks_folder = os.path.join(thug.__configuration_path__, 'hooks')
                 for hook in sorted([h for h in os.listdir(hooks_folder) if h.endswith('.js')]):
