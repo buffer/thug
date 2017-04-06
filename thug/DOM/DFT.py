@@ -709,6 +709,7 @@ class DFT(object):
             self._handle_script_for_event(script)
 
         handler(script)
+        self.handle_events(script._soup)
 
     def handle_external_javascript_text(self, s, response):
         js = response.content
@@ -1261,6 +1262,8 @@ class DFT(object):
             except:  # pylint:disable=bare-except
                 pass
 
+        child._soup = soup
+
         if handler:
             handler(child)
             if name in ('script', ):
@@ -1317,6 +1320,9 @@ class DFT(object):
         for child in soup.descendants:
             self.set_event_listeners(child)
 
+        self.handle_events(soup)
+
+    def handle_events(self, soup):
         for evt in self.handled_on_events:
             try:
                 self.handle_window_event(evt)
