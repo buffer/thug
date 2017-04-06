@@ -844,8 +844,13 @@ class DFT(object):
 
                 if all(p in child.attrs for p in ('name', 'value', )):
                     payload[child.attrs['name']] = child.attrs['value']
+
+        headers = dict()
+        headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
         try:
             response = self.window._navigator.fetch(action,
+                                                    headers = headers,
                                                     method = method.upper(),
                                                     body = payload,
                                                     redirect_type = "form")
