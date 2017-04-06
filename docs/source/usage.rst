@@ -59,6 +59,8 @@ Let's start our Thug tour by taking a look at the options it provides.
         -R, --no-shockwave              Disable Shockwave Flash plugin
         -J, --javaplugin=               Specify the JavaPlugin version (default: 1.6.0.32)
         -K, --no-javaplugin             Disable Java plugin
+        -L, --silverlight               Specify SilverLight version (default: 4.0.50826.0)
+        -N, --no-silverlight            Disable SilverLight plugin
 
         Classifiers:
         --htmlclassifier=               Specify a list of additional (comma separated) HTML classifier rule files
