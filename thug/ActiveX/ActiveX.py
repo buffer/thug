@@ -26,31 +26,37 @@ acropdf   = ( 'acropdf.pdf',
               'pdf.pdfctrl',
               'CA8A9780-280D-11CF-A24D-444553540000', )
 
+
 shockwave = ( 'shockwaveflash.shockwaveflash',
+              'shockwaveflash.shockwaveflash.1',
               'shockwaveflash.shockwaveflash.9',
               'shockwaveflash.shockwaveflash.10',
+	      'shockwaveflash.shockwaveflash.11',
+	      'shockwaveflash.shockwaveflash.12',
               'swctl.swctl',
               'swctl.swctl.8',
               '233C1507-6A77-46A4-9443-F871F945D258', )
+
 
 java_deployment_toolkit = ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA',
                             '8AD9C840-044E-11D1-B3E9-00805F499D93', )
 
 
 class _ActiveXObject(object):
-    shockwave_flash = { 'shockwaveflash.shockwaveflash'    : '10',
-                        'shockwaveflash.shockwaveflash.9'  : '9' ,
-                        'shockwaveflash.shockwaveflash.10' : '10',
-                        'shockwaveflash.shockwaveflash.11' : '11',
-                        'shockwaveflash.shockwaveflash.12' : '12'}
-
     def __init__(self, window, cls, typename = 'name'):
         self.funcattrs = dict()
         self._window   = window
         obj            = None
         methods        = dict()
-        self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
         self.cls       = cls
+
+        self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
+	self.shockwave_flash = { 'shockwaveflash.shockwaveflash'    : self.shockwave,
+                                 'shockwaveflash.shockwaveflash.1'  : self.shockwave,
+                                 'shockwaveflash.shockwaveflash.9'  : '9' ,
+                                 'shockwaveflash.shockwaveflash.10' : '10',
+                                 'shockwaveflash.shockwaveflash.11' : '11',
+                                 'shockwaveflash.shockwaveflash.12' : '12'}
 
         if typename == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':
@@ -72,9 +78,14 @@ class _ActiveXObject(object):
             log.warning("Unknown ActiveX Object: %s", cls)
             raise TypeError()
 
-        if cls in self.shockwave_flash and self.shockwave not in (self.shockwave_flash[cls], ):
-            log.warning("Unknown ActiveX Object: %s", cls)
-            raise TypeError()
+        if cls in self.shockwave_flash:
+	    if cls in ('shockwaveflash.shockwaveflash', 'shockwaveflash.shockwaveflash.1'):
+                version = self.shockwave_flash[cls]
+                cls = 'shockwaveflash.shockwaveflash.{}'.format(version)
+
+            if self.shockwave not in (self.shockwave_flash[cls], ):
+                log.warning("Unknown ActiveX Object: %s", cls)
+                raise TypeError()
 
         _cls = cls
 
