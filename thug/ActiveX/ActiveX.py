@@ -38,6 +38,8 @@ shockwave = ( 'shockwaveflash.shockwaveflash',
               '233C1507-6A77-46A4-9443-F871F945D258', )
 
 
+silverlight = ( 'agcontrol.agcontrol', )
+
 java_deployment_toolkit = ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA',
                             '8AD9C840-044E-11D1-B3E9-00805F499D93', )
 
@@ -109,6 +111,10 @@ class _ActiveXObject(object):
                 raise TypeError()
             else:
                 _cls = 'javawebstart.isinstalled'
+
+        if cls in silverlight and log.ThugVulnModules.silverlight_disabled:
+            log.warning("Unknown ActiveX Object: %s", cls)
+            raise TypeError()
 
         for c in CLSID:
             if _cls in c[typename]:

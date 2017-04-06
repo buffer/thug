@@ -74,12 +74,14 @@ Synopsis:
         -k, --no-honeyagent     \tDisable HoneyAgent support
 
         Plugins:
-        -A, --adobepdf=         \tSpecify the Adobe Acrobat Reader version (default: 9.1.0)
+        -A, --adobepdf=         \tSpecify Adobe Acrobat Reader version (default: 9.1.0)
         -P, --no-adobepdf       \tDisable Adobe Acrobat Reader plugin
-        -S, --shockwave=        \tSpecify the Shockwave Flash version (default: 10.0.64.0)
+        -S, --shockwave=        \tSpecify Shockwave Flash version (default: 10.0.64.0)
         -R, --no-shockwave      \tDisable Shockwave Flash plugin
-        -J, --javaplugin=       \tSpecify the JavaPlugin version (default: 1.6.0.32)
+        -J, --javaplugin=       \tSpecify JavaPlugin version (default: 1.6.0.32)
         -K, --no-javaplugin     \tDisable Java plugin
+        -L, --silverlight       \tSpecify SilverLight version (default: 4.0.50826.0)
+        -N, --no-silverlight    \tDisable SilverLight plugin
 
         Classifiers:
         --htmlclassifier=       \tSpecify a list of additional (comma separated) HTML classifier rule files
@@ -130,7 +132,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:myszklxvdqagA:PS:RJ:Kt:jO:T:cFZMGYUD:b:',
+                                          'hViu:e:w:n:o:r:p:myszklxvdqagA:PS:RJ:KL:Nt:jO:T:cFZMGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -159,6 +161,8 @@ Synopsis:
                 'no-shockwave',
                 'javaplugin=',
                 'no-javaplugin',
+                'silverlight=',
+                'no-silverlight',
                 'threshold=',
                 'extensive',
                 'connect-timeout=',
@@ -249,6 +253,10 @@ Synopsis:
                 self.set_javaplugin(option[1])
             elif option[0] in ('-K', '--no-javaplugin', ):
                 self.disable_javaplugin()
+            elif option[0] in ('-L', '--silverlight', ):
+                self.set_silverlight(option[1])
+            elif option[0] in ('-N', '--no-silverlight', ):
+                self.disable_silverlight()
             elif option[0] in ('-t', '--threshold', ):
                 self.set_threshold(option[1])
             elif option[0] in ('-j', '--extensive', ):

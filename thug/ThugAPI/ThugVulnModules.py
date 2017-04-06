@@ -27,6 +27,8 @@ class ThugVulnModules(dict):
         self._shockwave_flash_disabled  = False
         self._javaplugin                = '1.6.0.32'
         self._javaplugin_disabled       = False
+        self._silverlight               = '4.0.50826.0'
+        self._silverlight_disabled      = False
 
     def invalid_version(self, version):
         for p in version.split('.'):
@@ -110,3 +112,22 @@ class ThugVulnModules(dict):
         javawebstart = self._javaplugin.split('.')
         last         = javawebstart.pop() #pylint:disable=unused-variable
         return '%s.%s' % ('.'.join(javawebstart), '0')
+
+    def get_silverlight(self):
+        return self._silverlight
+
+    def set_silverlight(self, version):
+        if not version.split('.')[0] in ('1', '2', '3', '4', '5', ) or self.invalid_version(version):
+            log.warning('[WARNING] Invalid Silverlight version provided (using default one)')
+            return
+
+        self._silverlight = version
+
+    silverlight = property(get_silverlight, set_silverlight)
+
+    def disable_silverlight(self):
+        self._silverlight_disabled = True
+
+    @property
+    def silverlight_disabled(self):
+        return self._silverlight_disabled

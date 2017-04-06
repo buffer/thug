@@ -194,6 +194,12 @@ class ThugAPI(object):
     def disable_javaplugin(self):
         log.ThugVulnModules.disable_javaplugin()
 
+    def set_silverlight(self, silverlight):
+        log.ThugVulnModules.silverlight = silverlight
+
+    def disable_silverlight(self):
+        log.ThugVulnModules.disable_silverlight()
+
     def get_threshold(self):
         return log.ThugOpts.threshold
 
