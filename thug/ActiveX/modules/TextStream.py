@@ -1,6 +1,8 @@
 
 import os
 import hashlib
+import string
+import random
 import errno
 
 from thug.Magic.Magic import Magic
@@ -146,7 +148,9 @@ class TextStream(object):
                 raise
 
         filename = self._filename.split('\\')[-1] if '\\' in self._filename else self._filename
-        log_file = os.path.join(log_dir, filename)
+        if not filename:
+            filename = ''.join(random.choice(string.lowercase) for i in range(8))
 
+        log_file = os.path.join(log_dir, filename)
         with open(log_file, 'wb') as fd:
             fd.write(content)
