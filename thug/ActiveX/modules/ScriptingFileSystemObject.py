@@ -24,6 +24,10 @@ def OpenTextFile(self, sFilePathAndName, ForWriting = True, flag = True):
                                       forward = False)
 
 
+    stream = TextStream.TextStream()
+    stream._filename = sFilePathAndName
+    return stream
+
 def Write(self, sFileContents):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] Write("%s")' % (sFileContents, ))
 
