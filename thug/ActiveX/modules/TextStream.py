@@ -80,18 +80,19 @@ class TextStream(object):
         return self.stream.getvalue()
 
     def Write(self, _string):
-	sstring = _string.split('\n')
+        __string = str(_string)
+	sstring  = __string.split('\n')
 
         if len(sstring) > 1:
 	    self._Line  += len(sstring)
 	    self._Column = len(sstring[-1]) + 1
         else:
-            self._Column += len(_string)
+            self._Column += len(__string)
 
-        self.stream.write(_string)
+        self.stream.write(__string)
 
     def WriteLine(self, string):
-        self.Write(string + '\n')
+        self.Write(str(string) + '\n')
 
     def WriteBlankLines(self, lines):
         self.Write(lines * '\n')
