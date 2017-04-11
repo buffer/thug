@@ -141,6 +141,7 @@ class _ActiveXObject(object):
 
         if cls.lower() in ('wscript.shell', ) and (not hasattr(window, 'WScript') or window.WScript is None):
             window.WScript = self
+            self.scriptFullName = log.ThugLogging.url if log.ThugOpts.local else ''
 
     def __setattr__(self, name, value):
         self.__dict__[name] = value

@@ -116,9 +116,6 @@ from .modules import YahooMessengerYVerInfo
 from .modules import YahooMessengerYwcvwr
 from .modules import ZenturiProgramCheckerAttack
 
-import logging
-log = logging.getLogger("Thug")
-
 
 CLSID = [
         # AcroPDF.PDF
@@ -1396,9 +1393,7 @@ CLSID = [
         {
             'id'        : (),
             'name'      : 'wscript.shell',
-            'attrs'     : {
-                            'scriptFullName'            : '',
-                          },
+            'attrs'     : {},
             'funcattrs' : {},
             'methods'   :
                           {
