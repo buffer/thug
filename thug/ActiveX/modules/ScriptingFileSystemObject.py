@@ -86,3 +86,6 @@ def GetExtensionName(self, path):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetExtensionName("%s")' % (path, ))
     name, ext = os.path.splitext(path)
     return ext if ext else ""
+
+def MoveFile(self, source, destination):
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] MoveFile("%s", "%s")' % (source, destination))

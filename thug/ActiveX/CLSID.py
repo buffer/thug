@@ -1024,6 +1024,7 @@ CLSID = [
                             'CreateTextFile'    : ScriptingFileSystemObject.CreateTextFile,
                             'GetFile'           : ScriptingFileSystemObject.GetFile,
                             'GetExtensionName'  : ScriptingFileSystemObject.GetExtensionName,
+                            'MoveFile'          : ScriptingFileSystemObject.MoveFile,
                           },
         },
 
