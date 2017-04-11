@@ -42,7 +42,7 @@ def BuildPath(self, arg0, arg1):
 
 
 def GetSpecialFolder(self, arg):
-    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetSpecialFolder(%s)' % (arg, ))
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetSpecialFolder("%s")' % (arg, ))
 
     arg = int(arg)
     folder = ''
@@ -53,7 +53,7 @@ def GetSpecialFolder(self, arg):
     elif arg == 2:
         folder = WScriptShell.ExpandEnvironmentStrings(self, "%TEMP%")
 
-    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] Returning %s for GetSpecialFolder(%s)' % (folder, arg, ))
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] Returning %s for GetSpecialFolder("%s")' % (folder, arg, ))
     return folder
 
 
