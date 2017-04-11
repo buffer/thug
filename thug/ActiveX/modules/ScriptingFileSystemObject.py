@@ -63,7 +63,7 @@ def GetTempName(self):
 
 
 def FileExists(self, filespec):
-    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] FileExists(%s)' % (filespec, ))
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] FileExists("%s")' % (filespec, ))
     if filespec.lower() in win32_files:
         return True
 
@@ -71,18 +71,18 @@ def FileExists(self, filespec):
 
 
 def CreateTextFile(self, filename, overwrite = False, _unicode = False):
-    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] CreateTextFile(%s, %s, %s)' % (filename, overwrite, _unicode))
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] CreateTextFile("%s", "%s", "%s")' % (filename, overwrite, _unicode))
     stream = TextStream.TextStream()
     stream._filename = filename
     return stream
 
 
 def GetFile(self, filespec):
-    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetFile(%s)' % (filespec, ))
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetFile("%s")' % (filespec, ))
     return File.File(filespec)
 
 
 def GetExtensionName(self, path):
-    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetExtensionName(%s)' % (path, ))
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetExtensionName("%s")' % (path, ))
     name, ext = os.path.splitext(path)
     return ext if ext else ""
