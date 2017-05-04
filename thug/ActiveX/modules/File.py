@@ -97,5 +97,5 @@ class File(object):
     def OpenAsTextStream(iomode = 'ForReading', _format = 0):
         log.ThugLogging.add_behavior_warn('[File ActiveX] OpenAsTextStream(%s, %s)' % (iomode, _format, ))
         stream = TextStream.TextStream()
-        stream._filename = self.Path
+        stream._filename = self.Path # pylint:disable=undefined-variable
         return stream
