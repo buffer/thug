@@ -96,10 +96,10 @@ def _doRun(self, p, stage):
 
         md5 = hashlib.md5()
         md5.update(response.content)
-	md5sum = md5.hexdigest()
+        md5sum = md5.hexdigest()
         sha256 = hashlib.sha256()
         sha256.update(response.content)
-	sha256sum = sha256.hexdigest()
+        sha256sum = sha256.hexdigest()
 
         log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Saving file %s" % (stage, md5sum, ))
         p = '"'.join(s[1:])
