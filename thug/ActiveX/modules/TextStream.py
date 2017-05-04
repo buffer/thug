@@ -22,8 +22,8 @@ class TextStream(object):
         self.stream = StringIO()
         self._Line          = 1
         self._Column        = 1
-	self._currentLine   = 1
-	self._currentColumn = 1 
+        self._currentLine   = 1
+        self._currentColumn = 1
 
     @property
     def Line(self):
@@ -37,7 +37,7 @@ class TextStream(object):
     def AtEndOfLine(self):
         sstream = self.stream.getvalue().split('\n')
         line    = sstream[self._currentLine]
-      
+
         if len(line[self._currentColumn:]) == 0:
             return True
 
@@ -49,7 +49,7 @@ class TextStream(object):
             return True
 
         return False
-		
+
     def Read(self, characters):
         consume = characters
         sstream = self.stream.getvalue().split('\n')
@@ -71,7 +71,7 @@ class TextStream(object):
                 self._currentColumn += length
 
         return result
-           
+
     def ReadLine(self):
         sstream = self.stream.getvalue().split('\n')
         result  = sstream[self._currentLine]
@@ -83,11 +83,11 @@ class TextStream(object):
 
     def Write(self, _string):
         _str_string = str(_string)
-	sstring     = _str_string.split('\n')
+        sstring     = _str_string.split('\n')
 
         if len(sstring) > 1:
-	    self._Line  += len(sstring)
-	    self._Column = len(sstring[-1]) + 1
+            self._Line  += len(sstring)
+            self._Column = len(sstring[-1]) + 1
         else:
             self._Column += len(_str_string)
 
@@ -106,7 +106,7 @@ class TextStream(object):
         while skip > 0:
             line  = sstream[self._currentLine]
             eline = line[self._currentColumn:]
-            
+
             if skip > len(eline):
                 self._currentLine  += 1
                 self._currentColumn = 1
@@ -137,7 +137,7 @@ class TextStream(object):
         if not log.ThugOpts.file_logging:
             return
 
-	log_dir = os.path.join(log.ThugLogging.baseDir, "analysis", "textstream")
+        log_dir = os.path.join(log.ThugLogging.baseDir, "analysis", "textstream")
 
         try:
             os.makedirs(log_dir)
