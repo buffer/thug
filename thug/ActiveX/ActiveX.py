@@ -31,8 +31,8 @@ shockwave = ( 'shockwaveflash.shockwaveflash',
               'shockwaveflash.shockwaveflash.1',
               'shockwaveflash.shockwaveflash.9',
               'shockwaveflash.shockwaveflash.10',
-	      'shockwaveflash.shockwaveflash.11',
-	      'shockwaveflash.shockwaveflash.12',
+              'shockwaveflash.shockwaveflash.11',
+              'shockwaveflash.shockwaveflash.12',
               'swctl.swctl',
               'swctl.swctl.8',
               '233C1507-6A77-46A4-9443-F871F945D258', )
@@ -53,12 +53,12 @@ class _ActiveXObject(object):
         self.cls       = cls
 
         self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
-	self.shockwave_flash = { 'shockwaveflash.shockwaveflash'    : self.shockwave,
+        self.shockwave_flash = { 'shockwaveflash.shockwaveflash'    : self.shockwave,
                                  'shockwaveflash.shockwaveflash.1'  : self.shockwave,
                                  'shockwaveflash.shockwaveflash.9'  : '9' ,
                                  'shockwaveflash.shockwaveflash.10' : '10',
                                  'shockwaveflash.shockwaveflash.11' : '11',
-                                 'shockwaveflash.shockwaveflash.12' : '12'}
+                                 'shockwaveflash.shockwaveflash.12' : '12' }
 
         if typename == 'id':
             if len(cls) > 5 and cls[:6].lower() == 'clsid:':
@@ -81,7 +81,7 @@ class _ActiveXObject(object):
             raise TypeError()
 
         if cls in self.shockwave_flash:
-	    if cls in ('shockwaveflash.shockwaveflash', 'shockwaveflash.shockwaveflash.1'):
+            if cls in ('shockwaveflash.shockwaveflash', 'shockwaveflash.shockwaveflash.1'):
                 version = self.shockwave_flash[cls]
                 cls = 'shockwaveflash.shockwaveflash.{}'.format(version)
 
