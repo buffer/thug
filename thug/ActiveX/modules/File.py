@@ -64,7 +64,7 @@ class File(object):
         sp    = name.split('.')
 
         if len(sp) == 1:
-            if len(p) <= 8:
+            if len(name) <= 8:
                 return name
             else:
                 return "{}~1".format(name[:6])
