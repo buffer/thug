@@ -377,6 +377,26 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def set_silverlight(silverlight):
+            """
+            set_silverlight
+
+            Set the SilverLight version
+
+            @param silverlight: SilverLight version
+            @type silverlight: C{str}
+            @return: None
+            """
+
+        def disable_silverlight():
+            """
+            disable_silverlight
+
+            Disable SilverLight
+
+            @return: None
+            """
+
         def get_threshold():
             """
             get_threshold
