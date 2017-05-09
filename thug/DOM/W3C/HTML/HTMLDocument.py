@@ -271,6 +271,8 @@ class HTMLDocument(Document):
         self.doc = BeautifulSoup.BeautifulSoup(html, "html5lib")
 
     def write(self, html):
+        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.URL, html)
+
         if self._html:
             self._html.write(unicode(html))
             return
