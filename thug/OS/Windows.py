@@ -134,4 +134,18 @@ security_sys = ("afwcore.sys",
                 "WZSHLSTB.DLL",
                 "ZipSendB.dll")
 
+
+win32_folders = ("c:\\windows",
+                 "c:\\windows\\system32",
+                 "c:\\windows\\system32\\drivers",
+                 "c:\\windows\\system32\\drivers\\etc")
+
 win32_files = ("c:\\windows\\system32\\drivers\\etc\\hosts", )
+
+win32_registry = {
+    'hklm\software\microsoft\windows nt\currentversion\systemroot' : 'C:\\Windows',
+}
+
+win32_registry_map = {
+    'hklm\software\microsoft\windows\currentversion\programfilesdir' : 'ProgramFiles',
+}
