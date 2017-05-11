@@ -4,20 +4,13 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def ShellExecute(self, *args):
+def ShellExecute(self, sFile, vArguments = "", vDirectory = "", vOperation = "open", vShow = 1):
     cmdLine = ''
 
-    for arg in args:
-        if not arg or len(arg) == 0:
-            continue
-
-        cmdLine += str(arg)
-
     # Attempt to extract some URLs from the command line
-
     urls = set()
 
-    if 'http' in cmdLine:
+    if 'http' in sFile:
         for sep in ("'", '"'):
             offset = cmdLine.find("{}http".format(sep))
             if offset < 0:
@@ -26,12 +19,20 @@ def ShellExecute(self, *args):
             url = cmdLine[offset + 1:].split("'")
             urls.add(url[0])
 
-    log.ThugLogging.add_behavior_warn('[Shell.Application ActiveX] ShellExecute command: {}'.format(cmdLine))
+    log.ThugLogging.add_behavior_warn('[Shell.Application ActiveX] ShellExecute("{}", "{}", "{}", "{}", "{}")'.format(sFile,
+                                                                                                                      vArguments,
+                                                                                                                      vDirectory,
+                                                                                                                      vOperation,
+                                                                                                                      vShow))
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Shell.Application ActiveX",
                                       "ShellExecute command",
                                       data = {
-                                                "command" : cmdLine
+                                                "sFile"      : sFile,
+                                                "vArguments" : vArguments,
+                                                "vDirectory" : vDirectory,
+                                                "vOperation" : vOperation,
+                                                "vShow"      : vShow
                                              },
                                       forward = False)
 
