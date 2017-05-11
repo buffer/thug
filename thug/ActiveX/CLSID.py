@@ -1026,6 +1026,7 @@ CLSID = [
                             'GetFile'           : ScriptingFileSystemObject.GetFile,
                             'GetExtensionName'  : ScriptingFileSystemObject.GetExtensionName,
                             'MoveFile'          : ScriptingFileSystemObject.MoveFile,
+                            'FolderExists'      : ScriptingFileSystemObject.FolderExists,
                           },
         },
 
