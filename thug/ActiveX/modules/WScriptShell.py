@@ -234,9 +234,4 @@ def RegRead(self, registry):
 
 def RegWrite(self, registry, value, strType = "REG_SZ"):
     log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegWrite("{}", "{}", "{}")'.format(registry, value, strType))
-
-    win32_registry = getattr(log, 'win32_registry', None)
-    if win32_registry is None:
-        log.win32_registry = dict()
-
-    log.win32_registry[registry.lower()] = value
+    win32_registry[registry.lower()] = value
