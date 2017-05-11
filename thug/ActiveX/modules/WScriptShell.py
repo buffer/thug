@@ -10,6 +10,8 @@ import pefile
 import PyV8
 
 from thug.Magic.Magic import Magic
+from thug.OS.Windows import win32_registry
+from thug.OS.Windows import win32_registry_map
 
 log = logging.getLogger("Thug")
 
@@ -216,18 +218,13 @@ def CreateShortcut(self, strPathname):
 
 
 def RegRead(self, registry):
-    reg_map = {
-        'hklm\software\microsoft\windows\currentversion\programfilesdir' : 'ProgramFiles',
-    }
-
-    win32_registry = getattr(log, 'win32_registry', None)
-    if win32_registry and registry.lower() in win32_registry:
+    if registry.lower() in win32_registry:
         value = win32_registry[registry.lower()]
         log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegRead("{}") = "{}"'.format(registry, value))
         return value
 
-    if registry.lower() in reg_map:
-        value = log.ThugOpts.Personality.getShellVariable(reg_map[registry.lower()])
+    if registry.lower() in win32_registry_map:
+        value = log.ThugOpts.Personality.getShellVariable(win32_registry_map[registry.lower()])
         log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegRead("{}") = "{}"'.format(registry, value))
         return value
 
