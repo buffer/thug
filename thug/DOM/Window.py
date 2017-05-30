@@ -336,6 +336,7 @@ class Window(JSClass):
 
         text is a string of the text you want displayed in the alert dialog.
         """
+        log.TextClassifier.classify(self.url, str(text))
         log.warning('[Window] Alert Text: %s', str(text))
 
     def back(self):
