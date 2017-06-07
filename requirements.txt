@@ -1,6 +1,6 @@
 beautifulsoup4==4.6.0
 html5lib==0.999999999
-lxml==3.7.3
+lxml==3.8.0
 cchardet==2.1.0
 requests==2.17.3
 PySocks==1.6.7
@@ -15,5 +15,5 @@ ssdeep==3.2
 six==1.10.0
 pylibemu==0.5.8
 pefile==2016.3.28
-yara-python==3.6.0
+yara-python==3.6.1
 elasticsearch==5.4.0
