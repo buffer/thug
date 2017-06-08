@@ -329,7 +329,7 @@ class Navigator(JSClass):
             url = _url
 
         referer = response.request.headers.get('referer', 'None')
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Status: %s, Referer: %s)" % (url, response.status_code, referer, ))
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: {} (Status: {}, Referer: {})".format(url, response.status_code, referer), snippet = snippet)
 
         ctype     = response.headers.get('content-type', 'unknown')
         mime_base = os.path.join(log.ThugLogging.baseDir, ctype)
@@ -351,7 +351,7 @@ class Navigator(JSClass):
             "mtype"   : mtype
         }
 
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: %s (Content-type: %s, MD5: %s)" % (response.url, ctype, data["md5"]))
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: {} (Content-type: {}, MD5: {})".format(response.url, ctype, data["md5"]), snippet = snippet)
         log.ThugLogging.log_location(url, data)
 
         if response.history:
