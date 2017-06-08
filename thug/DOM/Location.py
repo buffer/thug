@@ -17,16 +17,11 @@
 # MA  02111-1307  USA
 
 import logging
+import six.moves.urllib.parse as urlparse
 
 from .DFT import DFT
 from .W3C import w3c
-
 from .JSClass import JSClass
-
-try:
-    import urllib.parse as urlparse
-except ImportError:
-    import urlparse
 
 log = logging.getLogger("Thug")
 

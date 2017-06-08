@@ -9,16 +9,12 @@ import argparse
 import pika
 import json
 import datetime
+import six.moves.urllib.parse as urlparse
 
 try:
     import configparser as ConfigParser
 except ImportError:
     import ConfigParser
-
-try:
-    import urllib.parse as urlparse
-except ImportError:
-    import urlparse
 
 
 class ThugCtrl(object):

@@ -2,12 +2,7 @@
 
 import six
 import logging
-
-try:
-    from urllib.parse import urlparse
-except ImportError:
-    from urlparse import urlparse
-
+import six.moves.urllib.parse as urlparse
 import bs4 as BeautifulSoup
 
 from thug.DOM.W3C.Document import Document
@@ -43,7 +38,7 @@ class HTMLDocument(Document):
         self._cookie        = cookie
         self._html          = None
         self._readyState    = "loading"
-        self._domain        = urlparse(self._win.url).hostname if self._win else ''
+        self._domain        = urlparse.urlparse(self._win.url).hostname if self._win else ''
         self.current        = None
         self.__init_personality()
 

@@ -25,12 +25,8 @@ import logging
 import PyV8
 import bs4 as BeautifulSoup
 import six
+import six.moves.urllib.parse as urlparse
 from cssutils.parse import CSSParser
-
-try:
-    import urllib.parse as urlparse
-except ImportError:
-    import urlparse
 
 from .W3C import w3c
 from .W3C.DOMImplementation import DOMImplementation

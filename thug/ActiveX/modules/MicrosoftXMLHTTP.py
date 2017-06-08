@@ -1,12 +1,7 @@
 # Microsoft XMLHTTP
 
 import logging
-
-try:
-    import urllib.parse as urlparse
-except ImportError:
-    import urlparse
-
+import six.moves.urllib.parse as urlparse
 import thug.DOM as DOM
 
 log = logging.getLogger("Thug")

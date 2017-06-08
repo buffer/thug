@@ -18,11 +18,7 @@
 
 import sys
 import logging
-
-try:
-    import urllib.parse as urlparse
-except ImportError:
-    import urlparse
+import six.moves.urllib.parse as urlparse
 
 from thug.DOM.Personality import Personality
 

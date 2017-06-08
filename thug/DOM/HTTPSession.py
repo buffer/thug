@@ -20,15 +20,8 @@ import sys
 import socket
 import requests
 import ssl
+import six.moves.urllib.parse as urlparse
 import unittest
-
-try:
-    import urllib.parse as urlparse
-    from urllib.parse import quote
-except ImportError:
-    import urlparse
-    from urllib import quote
-
 import logging
 log = logging.getLogger("Thug")
 
@@ -119,7 +112,7 @@ class HTTPSession(object):
             url = self._check_compatibility(url)
 
         url = self._normalize_protocol_relative_url(window, url)
-        url = quote(url, safe = "%/:=&?~#+!$,;'@()*[]")
+        url = urlparse.quote(url, safe = "%/:=&?~#+!$,;'@()*[]")
 
         _url = urlparse.urlparse(url)
 

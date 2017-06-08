@@ -27,11 +27,7 @@ import os
 import json
 import fnmatch
 import pygraphviz
-
-try:
-    import urllib.parse as urlparse
-except ImportError:
-    import urlparse
+import six.moves.urllib.parse as urlparse
 
 
 class DictDiffer(object):

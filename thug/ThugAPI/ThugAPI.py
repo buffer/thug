@@ -20,16 +20,12 @@ import sys
 import os
 import logging
 import PyV8
+import six.moves.urllib.parse as urlparse
 
 from bs4 import BeautifulSoup
 from zope.interface import implementer
 from lxml.html import builder as E
 from lxml.html import tostring
-
-try:
-    import urllib.parse as urlparse
-except ImportError:
-    import urlparse
 
 import thug
 from thug.DOM.W3C import w3c

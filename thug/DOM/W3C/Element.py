@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 
 import six
-
+import six.moves.urllib.parse as urlparse
 import logging
-
-try:
-    import urllib.parse as urlparse
-except ImportError:
-    import urlparse
 
 from .Attr import Attr
 from .Node import Node
