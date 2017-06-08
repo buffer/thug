@@ -736,8 +736,14 @@ class DFT(object):
         if enc['encoding'] is None:
             return False
 
-        s.text = js.decode(enc['encoding'])
-        return True
+        try:
+            s.text = js.decode(enc['encoding'])
+            return True
+        except:  # pylint:disable=bare-except
+            pass
+
+        log.warning("[handle_external_javascript_text] Encoding failure (URL: {})".format(response.url))
+        return False
 
     def handle_external_javascript(self, script):
         src = script.get('src', None)
