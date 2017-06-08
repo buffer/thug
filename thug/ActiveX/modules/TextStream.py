@@ -4,17 +4,12 @@ import hashlib
 import string
 import random
 import errno
-
-from thug.Magic.Magic import Magic
-
 import logging
 
-log = logging.getLogger("Thug")
+from six import StringIO
+from thug.Magic.Magic import Magic
 
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+log = logging.getLogger("Thug")
 
 
 class TextStream(object):

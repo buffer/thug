@@ -22,16 +22,9 @@ import logging
 import zipfile
 import rarfile
 import tempfile
-
-try:
-    from cStringIO import StringIO
-except ImportError:
-    try:
-        from StringIO import StringIO
-    except ImportError:
-        from io import StringIO
-
 import bs4 as BeautifulSoup
+
+from six import StringIO
 
 log = logging.getLogger("Thug")
 

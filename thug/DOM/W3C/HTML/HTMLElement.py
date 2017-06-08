@@ -1,15 +1,9 @@
 #!/usr/bin/env python
 
-try:
-    from io import StringIO
-except ImportError:
-    try:
-        from cStringIO import StringIO
-    except ImportError:
-        from StringIO import StringIO
-
 import bs4 as BeautifulSoup
 import logging
+
+from six import StringIO
 
 from thug.DOM.W3C.DOMException import DOMException
 from thug.DOM.W3C.Element import Element

@@ -3,20 +3,10 @@
 import six
 import logging
 
-log = logging.getLogger("Thug")
-
 try:
     from urllib.parse import urlparse
 except ImportError:
     from urlparse import urlparse
-
-try:
-    from io import StringIO
-except ImportError:
-    try:
-        from cStringIO import StringIO
-    except ImportError:
-        from StringIO import StringIO
 
 import bs4 as BeautifulSoup
 
@@ -29,6 +19,9 @@ from .HTMLAllCollection import HTMLAllCollection
 from .HTMLDocumentCompatibleInfo import HTMLDocumentCompatibleInfo
 from .text_property import text_property
 from .xpath_property import xpath_property
+
+
+log = logging.getLogger("Thug")
 
 
 class HTMLDocument(Document):
@@ -256,7 +249,7 @@ class HTMLDocument(Document):
         return engine
 
     def open(self, mimetype = 'text/html', replace = False):
-        self._html = StringIO()
+        self._html = six.StringIO()
 
         return self
 

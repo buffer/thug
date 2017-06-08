@@ -341,11 +341,7 @@ def main():
     if not os.getenv('THUG_PROFILE', None):
         Thug(sys.argv[1:])()
     else:
-        try:
-            from StringIO import StringIO
-        except ImportError:
-            from io import StringIO
-
+        from six import StringIO
         import cProfile
         import pstats
 
