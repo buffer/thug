@@ -262,6 +262,7 @@ behaviors observed during the analysis.
             'analysis_id' : Analysis ID
             'description' : Observed behavior description 
             'cve'         : CVE number (if available)
+            'snippet'     : Code snippet tag (if available)
             'method'      : Analysis method
             'timestamp'   : Timestamp
         }
@@ -472,6 +473,7 @@ behaviors
         {
             'description' : Observed behavior description 
             'cve'         : CVE number (if available)
+            'snippet'     : Code snippet tag (if available)
             'method'      : Analysis method
             'timestamp'   : Timestamp
         }
