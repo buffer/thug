@@ -51,6 +51,10 @@ class Location(JSClass):
     def set_href(self, url):
         from .Window import Window
 
+        if url.startswith("data:"):
+            log.DFT._handle_data_uri(url)
+            return
+
         referer = self._window.url
         if referer == url:
             log.warning("Detected redirection from %s to %s... skipping", referer, url)

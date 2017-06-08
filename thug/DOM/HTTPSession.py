@@ -110,7 +110,7 @@ class HTTPSession(object):
 
     def normalize_url(self, window, url):
         # Do not normalize Data URI scheme
-        if url.lower().startswith('url='):
+        if url.lower().startswith('url=') or url.lower().startswith('data:'):
             return url
 
         # Check the URL is not broken (i.e. http:/www.google.com) and
@@ -176,6 +176,10 @@ class HTTPSession(object):
     def fetch(self, url, method = "GET", window = None, personality = None, headers = None, body = None):
         if log.URLClassifier.filter(url):
             return None
+
+        if url.startswith("data:"):
+            log.DFT._handle_data_uri(url)
+            return
 
         fetcher = getattr(self.session, method.lower(), None)
         if fetcher is None:
