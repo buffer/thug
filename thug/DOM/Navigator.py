@@ -324,7 +324,7 @@ class Navigator(JSClass):
         if response is None:
             return None
 
-        _url = log.ThugLogging.log_redirect(response)
+        _url = log.ThugLogging.log_redirect(response, self._window)
         if _url:
             url = _url
 

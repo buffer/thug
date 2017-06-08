@@ -232,7 +232,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_warning'):
             m(data)
 
-    def log_redirect(self, response):
+    def log_redirect(self, response, window):
         if not response:
             return None
 
@@ -255,6 +255,7 @@ class ThugLogging(BaseLogging, SampleLogging):
             self.add_behavior_warn("[HTTP Redirection (Status: %s)] Content-Location: %s --> Location: %s" % (h.status_code,
                                                                                                               h.url,
                                                                                                               location))
+            location = log.HTTPSession.normalize_url(window, location)
             self.log_connection(h.url, location, "http-redirect")
 
             log.URLClassifier.classify(h.url)
