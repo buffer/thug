@@ -360,4 +360,5 @@ class Navigator(JSClass):
 
         log.ThugLogging.store_content(mime_base, data["md5"], response.content)
         log.ThugLogging.log_file(response.content, response.url, params)
+        log.last_url = response.url
         return response
