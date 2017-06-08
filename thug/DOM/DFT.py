@@ -796,24 +796,32 @@ class DFT(object):
             if attr.lower() not in ('src', ):
                 s.setAttribute(attr, script.get(attr))
 
+        # FIXME
+        # Checking `handle_external_javascript_text' return value is not
+        # really required
+        #
+        # The method `handle_external_javascript_text' is invoked to set
+        # the text property of the newly created script element s. If the
+        # operation succeeds, the script code is logged and executed by
+        # the code at DOM/W3C/HTML/text_property.py so no further processing
+        # is required here
         if not self.handle_external_javascript_text(s, response):
             return
 
-        try:
-            body = self.window.doc.body
-        except:  # pylint:disable=bare-except
-            body = self.window.doc.getElementsByTagName('body')[0]
+        # try:
+        #   body = self.window.doc.body
+        # except:  # pylint:disable=bare-except
+        #   body = self.window.doc.getElementsByTagName('body')[0]
 
-        if body:
-            body.appendChild(s)
+        # if body:
+        #   body.appendChild(s)
 
-        self.window.evalScript(response.content, tag = script)
+        # self.window.evalScript(response.content, tag = script)
 
     def handle_javascript(self, script):
         log.info(script)
 
         self.handle_external_javascript(script)
-
         js = getattr(script, 'text', None)
 
         if js:
