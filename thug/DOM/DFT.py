@@ -154,7 +154,7 @@ class DFT(object):
 
         return ''.join(sc)
 
-    def check_URLDownloadToFile(self, emu):
+    def check_URLDownloadToFile(self, emu, snippet):
         profile = emu.emu_profile_output
 
         while True:
@@ -179,16 +179,16 @@ class DFT(object):
                 return
 
             try:
-                if self.window._navigator.fetch(url, redirect_type = "URLDownloadToFile") is None:
-                    log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed')
+                if self.window._navigator.fetch(url, redirect_type = "URLDownloadToFile", snippet = snippet) is None:
+                    log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = snippet)
 
                 log.ThugLogging.shellcode_urls.add(url)
             except:  # pylint:disable=bare-except
-                log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed')
+                log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = snippet)
 
             profile = profile[1:]
 
-    def check_WinExec(self, emu):
+    def check_WinExec(self, emu, snippet):
         profile = emu.emu_profile_output
 
         while True:
@@ -217,12 +217,12 @@ class DFT(object):
                 return
 
             try:
-                if self.window._navigator.fetch(url, redirect_type = "WinExec") is None:
-                    log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed')
+                if self.window._navigator.fetch(url, redirect_type = "WinExec", snippet = snippet) is None:
+                    log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed', snippet = snippet)
 
                 log.ThugLogging.shellcode_urls.add(url)
             except:  # pylint:disable=bare-except
-                log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed')
+                log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed', snippet = snippet)
 
             profile = profile[1:]
 
@@ -236,10 +236,22 @@ class DFT(object):
         emu.run(sc)
 
         if emu.emu_profile_output:
-            log.ThugLogging.add_shellcode_snippet(emu.emu_profile_output, 'Assembly', 'Shellcode', method = 'Static Analysis')
-            log.warning("[Shellcode Profile]\n\n%s", emu.emu_profile_output)
-            self.check_URLDownloadToFile(emu)
-            self.check_WinExec(emu)
+            try:
+                encoded_sc = shellcode.encode('unicode-escape')
+            except:  # pylint:disable=bare-except
+                encoded_sc = "Unable to encode shellcode"
+
+            snippet = log.ThugLogging.add_shellcode_snippet(encoded_sc,
+                                                            "Assembly",
+                                                            "Shellcode",
+                                                            method = "Static Analysis")
+
+            log.ThugLogging.add_behavior_warn(description = "[Shellcode Profile] {}".format(emu.emu_profile_output),
+                                              snippet     = snippet,
+                                              method      = "Static Analysis")
+
+            self.check_URLDownloadToFile(emu, snippet)
+            self.check_WinExec(emu, snippet)
 
         self.check_url(sc, shellcode)
         emu.free()
@@ -272,8 +284,19 @@ class DFT(object):
 
             url = url[:i]
 
-            log.ThugLogging.add_shellcode_snippet(shellcode, 'Assembly', 'Shellcode', method = 'Static Analysis')
-            log.ThugLogging.add_behavior_warn(description = '[Shellcode Analysis] URL Detected: %s' % (url, ), method = 'Static Analysis')
+            try:
+                encoded_sc = shellcode.encode('unicode-escape')
+            except:  # pylint:disable=bare-except
+                encoded_sc = "Unable to encode shellcode"
+
+            snippet = log.ThugLogging.add_shellcode_snippet(encoded_sc,
+                                                            "Assembly",
+                                                            "Shellcode",
+                                                            method = "Static Analysis")
+
+            log.ThugLogging.add_behavior_warn(description = "[Shellcode Analysis] URL Detected: {}".format(url),
+                                              snippet     = snippet,
+                                              method      = "Static Analysis")
 
             if url in log.ThugLogging.shellcode_urls:
                 return

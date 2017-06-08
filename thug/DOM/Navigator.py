@@ -283,7 +283,7 @@ class Navigator(JSClass):
     def _taintEnabled(self, *arg):
         return True
 
-    def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None):
+    def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None, snippet = None):
         log.URLClassifier.classify(url)
 
         # The command-line option -x (--local-nofetch) prevents remote
@@ -301,11 +301,15 @@ class Navigator(JSClass):
         if url is None:
             raise InvalidUrl
 
+        last_url = getattr(log, 'last_url', None)
+        if last_url is None:
+            last_url = self._window.url
+
         if redirect_type:
-            log.ThugLogging.add_behavior_warn(("[%s redirection] %s -> %s" % (redirect_type, self._window.url, url, )))
-            log.ThugLogging.log_connection(self._window.url, url, redirect_type)
+            log.ThugLogging.add_behavior_warn("[{} redirection] {} -> {}".format(redirect_type, last_url, url), snippet = snippet)
+            log.ThugLogging.log_connection(last_url, url, redirect_type)
         else:
-            log.ThugLogging.log_connection(self._window.url, url, "unknown")
+            log.ThugLogging.log_connection(last_url, url, "unknown")
 
         # The command-line option -t (--threshold) defines the maximum
         # number of pages to fetch. If the threshold is reached avoid

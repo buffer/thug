@@ -117,8 +117,19 @@ class Shellcode(object):
                 self.emu.run(s)
 
                 if self.emu.emu_profile_output:
-                    log.ThugLogging.add_shellcode_snippet(self.emu.emu_profile_output, 'Assembly', 'Shellcode')
-                    log.warning("[Shellcode Profile]\n\n%s", self.emu.emu_profile_output)
+                    try:
+                        encoded_sc = s.encode('unicode-escape')
+                    except:  # pylint:disable=bare-except
+                        encoded_sc = "Unable to encode shellcode"
+
+                    snippet = log.ThugLogging.add_shellcode_snippet(encoded_sc,
+                                                                    "Assembly",
+                                                                    "Shellcode")
+
+                    log.ThugLogging.add_behavior_warn("[Shellcode Profile] {}".format(self.emu.emu_profile_output),
+                                                      snippet = snippet,
+                                                      method  = "Static Analysis")
+
                     self.check_URLDownloadToFile(self.emu)
 
                 self.emu.free()
