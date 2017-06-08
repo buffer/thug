@@ -246,6 +246,7 @@ identified during the analysis.
             'snippet'      : Code snippet
             'language'     : Code language
             'relationship' : Relationship with the page that references the code
+            'tag'          : Snippet tag (cross-references)
             'method'       : Analysis method
         }
 
@@ -317,34 +318,6 @@ reports. The Sample ObjectID references the *samples* collection.
             "analysis_id"   : Analysis ID
             "sample_id"     : Sample ID
             "report"        : HoneyAgent report (JSON)
-        }
-
-androguard
-^^^^^^^^^^
-
-The collection *androguard* is used to store the Androguard APK sample analysis reports. 
-The Sample ObjectID references the *samples* collection.
-
-.. code-block:: sh
-
-        {
-            "analysis_id"   : Analysis ID
-            "sample_id"     : Sample ID
-            "report"        : Androguard report (TXT)
-        }
-
-peepdf
-^^^^^^
-
-The collection *peepdf* is used to store the PeePDF PDF sample analysis reports.
-The Sample ObjectID references the *samples* collection.
-
-.. code-block:: sh
-
-        {
-            "analysis_id"   : Analysis ID
-            "sample_id"     : Sample ID
-            "report"        : PeePDF report (XML)
         }
 
 maec11
@@ -513,6 +486,7 @@ codes
             'snippet'      : Code snippet
             'language'     : Code language
             'relationship' : Relationship with the page that references the code
+            'tag'          : Snippet tag (cross-references)
             'method'       : Analysis method
         }
 
