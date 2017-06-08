@@ -30,7 +30,7 @@ except ImportError:
 import os
 import errno
 import copy
-
+import uuid
 import logging
 
 log = logging.getLogger("Thug")
@@ -115,12 +115,20 @@ class ThugLogging(BaseLogging, SampleLogging):
         if check and self.check_snippet(snippet):
             return
 
+        tag = uuid.uuid4()
+
         for m in self.resolve_method('add_code_snippet'):
-            m(snippet, language, relationship, method)
+            m(snippet, language, relationship, tag.hex, method)
+
+        return tag.hex
 
     def add_shellcode_snippet(self, snippet, language, relationship, method):
+        tag = uuid.uuid4()
+
         for m in self.resolve_method('add_code_snippet'):
-            m(snippet, language, relationship, method)
+            m(snippet, language, relationship, tag.hex, method)
+
+        return tag.hex
 
     def log_file(self, data, url = None, params = None, sampletype = None):
         sample = self.build_sample(data, url, sampletype)

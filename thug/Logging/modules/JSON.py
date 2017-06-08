@@ -121,13 +121,14 @@ class JSON(object):
 
         self.data["url"] = self.fix(url)
 
-    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
+    def add_code_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
         if not self.json_enabled:
             return
 
         self.data["code"].append({"snippet"      : self.fix(snippet),
                                   "language"     : self.fix(language),
                                   "relationship" : self.fix(relationship),
+                                  "tag"          : self.fix(tag),
                                   "method"       : self.fix(method)})
 
     def log_connection(self, source, destination, method, flags = None):

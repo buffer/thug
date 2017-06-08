@@ -404,7 +404,7 @@ class MongoDB(object):
         except:  # pylint:disable=bare-except
             return thug_unicode(data).replace("\n", "").strip()
 
-    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
+    def add_code_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
         if not self.enabled:
             return
 
@@ -413,6 +413,7 @@ class MongoDB(object):
             'snippet'      : self.fix(snippet),
             'language'     : self.fix(language),
             'relationship' : self.fix(relationship),
+            'tag'          : self.fix(tag),
             'method'       : self.fix(method)
         }
 

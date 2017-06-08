@@ -153,7 +153,7 @@ class MAEC11(object):
         snippet.set_Nature_Of_Relationship(relationship)
         self.associated_code.add_Associated_Code_Snippet(snippet)
 
-    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis"):
+    def add_code_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
         if not self.maec11_enabled:
             return
 
