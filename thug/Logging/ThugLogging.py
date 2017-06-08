@@ -219,7 +219,7 @@ class ThugLogging(BaseLogging, SampleLogging):
             m(classifier, url, rule, tags)
 
     def log_warning(self, data):
-        #log.warning(data)
+        # log.warning(data)
 
         for m in self.resolve_method('log_warning'):
             m(data)

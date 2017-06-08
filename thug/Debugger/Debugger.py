@@ -19,10 +19,9 @@
 import os
 import logging
 import PyV8
+import thug
 
 log = logging.getLogger("Thug")
-
-import thug
 
 
 class Debugger(PyV8.JSDebugger):

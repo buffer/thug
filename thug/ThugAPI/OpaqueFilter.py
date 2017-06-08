@@ -18,6 +18,7 @@
 
 import logging
 
+
 class OpaqueFilter(logging.Filter):
     def __init__(self):
         pass

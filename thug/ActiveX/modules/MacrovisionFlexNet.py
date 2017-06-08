@@ -59,6 +59,7 @@ def AddFileEx(self, arg0, arg1, arg2, arg3, arg4, arg5, arg6):
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-2419", None)
 
+
 def AddFile(self, arg0, arg1):
     log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] AddFile("%s", "%s")' % (arg0, arg1))
     log.ThugLogging.add_behavior_warn("[Macrovision ActiveX] Fetching from URL %s" % (arg0, ))

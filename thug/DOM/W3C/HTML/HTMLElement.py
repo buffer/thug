@@ -115,7 +115,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
         if position in ('afterbegin', ):
             target = self.tag
             pos    = 0
-        if position in ('beforeend' ):
+        if position in ('beforeend', ):
             target = self.tag
             pos    = len(list(self.tag.children))
         if position in ('afterend', ):

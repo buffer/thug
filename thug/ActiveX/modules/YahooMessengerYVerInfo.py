@@ -15,6 +15,7 @@ def fvcom(self, arg0):
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4515", None)
 
+
 def info(self, arg0):
     if len(arg0) > 20:
         log.ThugLogging.log_exploit_event(self._window.url,

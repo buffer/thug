@@ -2,6 +2,7 @@
 
 import sys
 
+
 class abstractmethod(object):
     def __init__(self, func):
         self.func = func

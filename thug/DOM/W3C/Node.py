@@ -8,10 +8,9 @@ from .abstractmethod import abstractmethod
 from .DOMException import DOMException
 from .Events.EventTarget import EventTarget
 from .NodeList import NodeList
+from thug.DOM.JSClass import JSClass
 
 log = logging.getLogger("Thug")
-
-from thug.DOM.JSClass import JSClass
 
 
 class Node(JSClass, EventTarget):

@@ -17,9 +17,10 @@
 # MA  02111-1307  USA
 
 import logging
-log = logging.getLogger("Thug")
 
 from .JSClass import JSClass
+
+log = logging.getLogger("Thug")
 
 
 class Screen(JSClass):

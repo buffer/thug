@@ -20,6 +20,7 @@ import sys
 import socket
 import requests
 import ssl
+import unittest
 
 try:
     import urllib.parse as urlparse
@@ -220,9 +221,6 @@ class HTTPSession(object):
         return url.lower() in ('about:blank', )
 
 
-import unittest
-
-
 class HTTPSessionTest(unittest.TestCase):
     def setUp(self):
         self.check_ip_url = "http://ifconfig.me/ip"
@@ -251,6 +249,7 @@ class HTTPSessionTest(unittest.TestCase):
         s = HTTPSession()
         r = s.fetch("http://www.google.com")
         self.assertTrue(r.ok)
+
 
 if __name__ == '__main__':
     unittest.main()

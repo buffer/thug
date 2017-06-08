@@ -88,7 +88,6 @@ class DFT(object):
     user_detection_events = ('mousemove', 'scroll', )
     on_user_detection_events = ['on' + e for e in user_detection_events]
 
-
     def __init__(self, window, **kwds):
         self.window            = window
         self.window.doc.DFT    = self
@@ -1258,7 +1257,7 @@ class DFT(object):
             handler = getattr(self, "handle_%s" % (str(name.lower()), ), None)
         except:  # pylint:disable=bare-except
             try:
-                handler = getattr(self, "handle_%s" % (name.encode('utf-8', 'replace'),  ), None)
+                handler = getattr(self, "handle_%s" % (name.encode('utf-8', 'replace'), ), None)
             except:  # pylint:disable=bare-except
                 pass
 

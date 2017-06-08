@@ -15,6 +15,7 @@ def AddFolder(self, arg):
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6530", None)
 
+
 def AddFile(self, arg):
     if len(arg) > 255:
         log.ThugLogging.log_exploit_event(self._window.url,

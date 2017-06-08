@@ -20,6 +20,7 @@ def deleteReport(self, arg):
 
     log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4031", None)
 
+
 def deleteNessusRC(self, arg):
     log.ThugLogging.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] deleteNessusRC(%s)' % (arg, ),
                                       'CVE-2007-4062')

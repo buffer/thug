@@ -18,6 +18,7 @@
 
 import zope.interface
 
+
 class IThugAPI(zope.interface.Interface):
     def version():
         """

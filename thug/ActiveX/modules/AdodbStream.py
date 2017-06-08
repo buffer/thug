@@ -5,6 +5,7 @@ from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
 
+
 @property
 def Size(self):
     fobject = getattr(self, 'fobject', None)

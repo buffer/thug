@@ -21,7 +21,7 @@ class HTMLImageElement(HTMLElement):
     # Removed in DOM Level 2
     # lowSrc        = attr_property("lowsrc")
     name            = attr_property("name")
-    #src            = attr_property("src")
+    # src           = attr_property("src")
     useMap          = attr_property("usemap")
     vspace          = attr_property("vspace", thug_long)
     width           = attr_property("width", thug_long)

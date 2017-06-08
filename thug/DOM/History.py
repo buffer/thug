@@ -18,10 +18,10 @@
 
 import logging
 
-log = logging.getLogger("Thug")
-
 from .JSClass import JSClass
 from .Alexa import Alexa
+
+log = logging.getLogger("Thug")
 
 
 class History(JSClass):

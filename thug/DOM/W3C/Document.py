@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 
 import logging
-
-log = logging.getLogger("Thug")
-
 import bs4 as BeautifulSoup
 
 from .Node import Node
@@ -19,6 +16,8 @@ from .EntityReference import EntityReference
 from .ProcessingInstruction import ProcessingInstruction
 from .Events.DocumentEvent import DocumentEvent
 from .Views.DocumentView import DocumentView
+
+log = logging.getLogger("Thug")
 
 
 class Document(Node, DocumentEvent, DocumentView):

@@ -6,7 +6,7 @@ log = logging.getLogger("Thug")
 
 
 ATTRIBUTES = {
-    'Normal'     : 0,      # Normal file. No attributes are set. 
+    'Normal'     : 0,      # Normal file. No attributes are set.
     'ReadOnly'   : 1,      # Read-only file. Attribute is read/write.
     'Hidden'     : 2,      # Hidden file. Attribute is read/write.
     'System'     : 4,      # System file. Attribute is read/write.
@@ -97,5 +97,5 @@ class File(object):
     def OpenAsTextStream(iomode = 'ForReading', _format = 0):
         log.ThugLogging.add_behavior_warn('[File ActiveX] OpenAsTextStream(%s, %s)' % (iomode, _format, ))
         stream = TextStream.TextStream()
-        stream._filename = self.Path # pylint:disable=undefined-variable
+        stream._filename = self.Path  # pylint:disable=undefined-variable
         return stream

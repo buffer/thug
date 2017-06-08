@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
 import logging
-
-log = logging.getLogger("Thug")
-
 import bs4 as BeautifulSoup
+
 from .Node import Node
 from .NodeList import NodeList
+
+log = logging.getLogger("Thug")
 
 
 class DocumentFragment(Node):

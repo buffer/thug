@@ -375,6 +375,7 @@ def allFiles(root, patterns = "*", single_level = False, yield_folders = False):
         if single_level:
             break
 
+
 if __name__ == "__main__":
     import argparse
 

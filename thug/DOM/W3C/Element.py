@@ -19,7 +19,7 @@ log = logging.getLogger("Thug")
 
 
 FF_STYLES = (
-                (27, 'cursor'   ),
+                (27, 'cursor'),
                 (19, 'font-size'),
             )
 

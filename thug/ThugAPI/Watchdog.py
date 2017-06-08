@@ -26,7 +26,7 @@ log = logging.getLogger("Thug")
 class Watchdog(object):
     def __init__(self, time, callback = None):
         self.time     = time
-        self.callback = callback 
+        self.callback = callback
 
     def __enter__(self):
         signal.signal(signal.SIGALRM, self.handler)

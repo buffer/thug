@@ -15,6 +15,7 @@ def hgs_startGame(self, arg):
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0647", None)
 
+
 def hgs_startNotify(self, arg):
     if len(arg) > 1000:
         log.ThugLogging.log_exploit_event(self._window.url,

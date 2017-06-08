@@ -19,6 +19,7 @@
 import logging
 log = logging.getLogger("Thug")
 
+
 class ThugVulnModules(dict):
     def __init__(self):
         self._acropdf_pdf               = '9.1.0'
@@ -110,7 +111,7 @@ class ThugVulnModules(dict):
     @property
     def javawebstart_isinstalled(self):
         javawebstart = self._javaplugin.split('.')
-        last         = javawebstart.pop() #pylint:disable=unused-variable
+        last         = javawebstart.pop()  # pylint:disable=unused-variable
         return '%s.%s' % ('.'.join(javawebstart), '0')
 
     def get_silverlight(self):

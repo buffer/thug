@@ -25,6 +25,7 @@ def setVariable(self, arg0, arg1):
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6262", None)
 
+
 def addTarget(self, arg0, arg1, arg2, arg3):
     if len(arg0) > 255 or len(arg1) > 255 or len(arg2) > 255 or len(arg3) > 255:
         log.ThugLogging.log_exploit_event(self._window.url,

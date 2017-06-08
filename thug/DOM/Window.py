@@ -55,14 +55,13 @@ from thug.AST.AST import AST
 from thug.Debugger import Shellcode
 from thug.Java.java import java
 
+import thug
+
 sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug")
 
-import thug
-
 
 class Window(JSClass):
-
     class Timer(object):
         def __init__(self, window, code, delay, repeat, lang = 'JavaScript'):
             self.window  = window
@@ -1024,7 +1023,7 @@ class Window(JSClass):
                     return None
 
             # Log response here
-            kwds = { 'referer' : self.url }
+            kwds = {'referer' : self.url}
             if 'set-cookie' in response.headers:
                 kwds['cookie'] = response.headers['set-cookie']
             if 'last-modified' in response.headers:
