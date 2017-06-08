@@ -419,7 +419,7 @@ class MongoDB(object):
 
         self.codes.insert(code)
 
-    def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
+    def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         if not self.enabled:
             return
 
@@ -430,17 +430,18 @@ class MongoDB(object):
             'analysis_id' : self.analysis_id,
             'description' : self.fix(description),
             'cve'         : self.fix(cve),
+            'snippet'     : self.fix(snippet),
             'method'      : self.fix(method),
             'timestamp'   : str(datetime.datetime.now())
         }
 
         self.behaviors.insert(behavior)
 
-    def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
+    def add_behavior_warn(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         if not self.enabled:
             return
 
-        self.add_behavior(description, cve, method)
+        self.add_behavior(description, cve, snippet, method)
 
     def log_certificate(self, url, certificate):
         if not self.enabled:

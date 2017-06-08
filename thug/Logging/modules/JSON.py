@@ -229,7 +229,7 @@ class JSON(object):
         if item not in self.data["classifiers"]:
             self.data["classifiers"].append(item)
 
-    def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
+    def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         if not self.json_enabled:
             return
 
@@ -238,14 +238,15 @@ class JSON(object):
 
         self.data["behavior"].append({"description" : self.fix(description),
                                       "cve"         : self.fix(cve),
+                                      "snippet"     : self.fix(snippet),
                                       "method"      : self.fix(method),
                                       "timestamp"   : str(datetime.datetime.now())})
 
-    def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
+    def add_behavior_warn(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         if not self.json_enabled:
             return
 
-        self.add_behavior(description, cve, method)
+        self.add_behavior(description, cve, snippet, method)
 
     def log_file(self, data, url = None, params = None):
         if not self.json_enabled:

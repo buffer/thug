@@ -178,7 +178,7 @@ class MAEC11(object):
         return maec.DiscoveryMethod(method  = method,
                                     tool_id = _tool_id if _tool_id else "maec:thug:tol:%d" % (next(self.id)))
 
-    def add_behavior(self, description = None, cve = None, method = "Dynamic Analysis"):
+    def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         if not self.maec11_enabled:
             return
 
@@ -214,11 +214,11 @@ class MAEC11(object):
 
         self.behaviors.add_Behavior(behavior)
 
-    def add_behavior_warn(self, description = None, cve = None, method = "Dynamic Analysis"):
+    def add_behavior_warn(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         if not self.maec11_enabled:
             return
 
-        self.add_behavior(description, cve, method)
+        self.add_behavior(description, cve, snippet, method)
 
     def _check_signature(self, signature):
         if not signature:
