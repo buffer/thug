@@ -22,11 +22,7 @@ import socket
 import hashlib
 import logging
 import json
-
-try:
-    import configparser as ConfigParser
-except ImportError:
-    import ConfigParser
+import six.moves.configparser as ConfigParser
 
 log = logging.getLogger("Thug")
 

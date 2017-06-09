@@ -22,16 +22,12 @@ from .LoggingModules import LoggingModules
 from thug.Analysis.virustotal.VirusTotal import VirusTotal
 from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
 
-try:
-    import configparser as ConfigParser
-except ImportError:
-    import ConfigParser
-
 import os
 import errno
 import copy
 import uuid
 import logging
+import six.moves.configparser as ConfigParser
 
 log = logging.getLogger("Thug")
 

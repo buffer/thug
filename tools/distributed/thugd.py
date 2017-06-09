@@ -11,15 +11,10 @@ import pika
 import sys
 import json
 import six
-
-try:
-    from configparser import ConfigParser
-except ImportError:
-    from ConfigParser import ConfigParser
-
 import subprocess
 import os
 import shutil
+import six.moves.configparser as ConfigParser
 
 
 class Thugd(object):
@@ -55,7 +50,7 @@ class Thugd(object):
         if configfile is None:
             return
 
-        conf = ConfigParser()
+        conf = ConfigParser.ConfigParser()
         conf.read(configfile)
         self.host   = conf.get("jobs", "host")
         self.queue  = conf.get("jobs", "queue")

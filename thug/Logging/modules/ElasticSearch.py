@@ -19,21 +19,17 @@
 
 import os
 import logging
-
-try:
-    import configparser as ConfigParser
-except ImportError:
-    import ConfigParser
-
-from .JSON import JSON
-
-log = logging.getLogger("Thug")
+import six.moves.configparser as ConfigParser
 
 try:
     from elasticsearch import Elasticsearch, RequestsHttpConnection
     ELASTICSEARCH_MODULE = True
 except ImportError:
     ELASTICSEARCH_MODULE = False
+
+from .JSON import JSON
+
+log = logging.getLogger("Thug")
 
 
 class ElasticSearch(JSON):

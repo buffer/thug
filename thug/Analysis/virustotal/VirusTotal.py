@@ -22,13 +22,9 @@ import json
 import requests
 import tempfile
 import logging
+import six.moves.configparser as ConfigParser
 
 log = logging.getLogger("Thug")
-
-try:
-    import configparser as ConfigParser
-except ImportError:
-    import ConfigParser
 
 
 class VirusTotal(object):

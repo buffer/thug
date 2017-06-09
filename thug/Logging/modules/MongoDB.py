@@ -19,22 +19,17 @@
 import os
 import datetime
 import logging
-from .compatibility import thug_unicode
-
-try:
-    import configparser as ConfigParser
-except ImportError:
-    import ConfigParser
-
-MONGO_MODULE = True
+import six.moves.configparser as ConfigParser
 
 try:
     import pymongo
     import gridfs
     from pymongo.errors import DuplicateKeyError
+    MONGO_MODULE = True
 except ImportError:
     MONGO_MODULE = False
 
+from .compatibility import thug_unicode
 from .ExploitGraph import ExploitGraph
 
 log = logging.getLogger("Thug")

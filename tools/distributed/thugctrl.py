@@ -10,11 +10,7 @@ import pika
 import json
 import datetime
 import six.moves.urllib.parse as urlparse
-
-try:
-    import configparser as ConfigParser
-except ImportError:
-    import ConfigParser
+import six.moves.configparser as ConfigParser
 
 
 class ThugCtrl(object):
@@ -41,7 +37,7 @@ class ThugCtrl(object):
         """ Read config from config file
         """
 
-        conf = ConfigParser()
+        conf = ConfigParser.ConfigParser()
         conf.read(self.configfile)
         self.host = conf.get("jobs", "host")
         self.queue = conf.get("jobs", "queue")
