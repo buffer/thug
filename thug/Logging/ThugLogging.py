@@ -90,8 +90,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         return methods
 
     def set_url(self, url):
-        self.url     = url
-        log.last_url = None
+        self.url = url
 
         for m in self.resolve_method('set_url'):
             m(url.encode('utf8'))

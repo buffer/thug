@@ -334,6 +334,8 @@ class ThugAPI(object):
                 dft.run()
 
     def run_local(self, url):
+        log.last_url = None
+
         log.ThugLogging.set_url(url)
         log.ThugOpts.local = True
 
@@ -373,6 +375,8 @@ class ThugAPI(object):
         self.__run(window)
 
     def run_remote(self, url):
+        log.last_url = None
+
         scheme = urlparse.urlparse(url).scheme
 
         if not scheme or not scheme.startswith('http'):
