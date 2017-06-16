@@ -761,7 +761,7 @@ class DFT(object):
         except:  # pylint:disable=bare-except
             pass
 
-        log.warning("[handle_external_javascript_text] Encoding failure (URL: {})".format(response.url))
+        log.warning("[handle_external_javascript_text] Encoding failure (URL: %s)", response.url)
         return False
 
     def handle_external_javascript(self, script):
