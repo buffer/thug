@@ -1267,7 +1267,7 @@ class DFT(object):
 
         doc    = w3c.parseString('')
         window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
-        # window = window.open(href)
+        window = window.open(href)
 
         if window:
             dft = DFT(window)
