@@ -30,9 +30,7 @@ Requirements
 * Rarfile
 * NetworkX (optional)
 * PyMongo (optional)
-* Androguard (optional)
 * Python-Ssdeep (optional)
-* Pika (optional)
 
 
 Installation
@@ -398,20 +396,6 @@ If not available as a package for your Linux distribution, the best way to insta
         # pip install pymongo  
 
 
-Androguard (optional)
-^^^^^^^^^^^^^^^^^^^^^
-
-Androguard is a tool useful for Android applications static analysis. Androguard homepage
-is located at https://github.com/androguard/androguard.
-
-If not available as a package for your Linux distribution, the best way to install Androguard
-is through pip
-
-.. code-block:: sh
-
-        # pip install androguard
-
-
 Python-Ssdeep (optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -423,20 +407,3 @@ is through pip.
 .. code-block:: sh
 
         # BUILD_LIB=1 pip install ssdeep
-
-
-Pika (optional)
-^^^^^^^^^^^^^^^
-
-Pika homepage is located at https://github.com/pika/pika/.
-
-Pika is a pure-Python implementation of the AMQP 0-9-1 protocol that tries to stay fairly 
-independent of the underlying network support library and it's needed just if you want to play
-with Thug distributed mode.
-
-If not available as a package for your Linux distribution, the best way to install pika is through 
-pip.
-
-.. code-block:: sh
-
-    # pip install pika
