@@ -85,7 +85,7 @@ def GetFile(self, filespec):
 
 def GetExtensionName(self, path):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] GetExtensionName("%s")' % (path, ))
-    name, ext = os.path.splitext(path)
+    ext = os.path.splitext(path)[1]
     return ext if ext else ""
 
 
