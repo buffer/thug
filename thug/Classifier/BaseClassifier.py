@@ -19,6 +19,7 @@
 import os
 import yara
 import logging
+import six.moves.urllib.parse as urlparse
 
 log = logging.getLogger("Thug")
 
@@ -83,6 +84,23 @@ class BaseClassifier(object):
         self.filters_namespace_id += 1
         self.filters = yara.compile(filepaths = self._filters)
 
-    @property
-    def result(self):
-        return self.matches
+    def discard_meta_domain_whitelist(self, url, values):
+        p_url  = urlparse.urlparse(url)
+        netloc = p_url.netloc.lower()
+
+        for value in values.split(','):
+            domain = value.lower().strip()
+
+            if domain and netloc.endswith(domain):
+                log.debug("[discard_meta_domain_whitelist] Whitelisted domain: {} (URL: {})".format(domain, url))
+                return True
+
+        return False
+
+    def discard_url_match(self, url, match):
+        for key, values in match.meta.items():
+            m = getattr(self, "discard_meta_{}".format(key), None)
+            if m and m(url, values):
+                return True
+
+        return False
