@@ -184,6 +184,8 @@ class Mapper(object):
 
         if "connections" in self.data:
             # Add edges
+            count = 1
+
             for con in self.data["connections"]:
                 if con["display"] is False:
                     continue
@@ -199,9 +201,9 @@ class Mapper(object):
                     destination = _d
 
                 self.graph.add_edge(source, destination)
-
                 edge = self.graph.get_edge(source, destination)
-                edge.attr['label'] = con['method']
+                edge.attr['label'] = "[{}] {}".format(count, con['method'])
+                count += 1
 
                 color = self.get_color(con)
                 if color:
