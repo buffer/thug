@@ -43,7 +43,7 @@ class HTMLImageElement(HTMLElement):
             onerror = getattr(self, 'onerror', None)
 
             if isinstance(onerror, PyV8.JSFunction):
-                with self.doc.window.context as ctx:
+                with self.doc.window.context as ctx: # pylint:disable=unused-variable
                     onerror.__call__()
 
     src = property(getSrc, setSrc)
