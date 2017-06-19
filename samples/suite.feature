@@ -53,7 +53,7 @@ Feature: Exploits
 			| 5264.html                                    | [CA BrightStor ActiveX] Overflow in AddColumn                                                                                                            |
 			| 5271.html                                    | [RegistryPro ActiveX] About called,[RegistryPro ActiveX] Deleting [HKEY_LOCAL_MACHINE/Software/key]                                                      |
 			| 5272.html                                    | [Universal HTTP File Upload ActiveX] Deleting C:/tmp.txt                                                                                                 |
-			| 55875.html                                   | [iframe redirection] http://www.groundhogtech.com/xmlrpc.php?rsd -> http://81.95.149.27/go.php?sid=1                                                     |
+			| 55875.html                                   | [iframe redirection] about:blank -> http://81.95.149.27/go.php?sid=1                                                                                     |
 			| ARCserve_AddColumn_BoF.html                  | [CA BrightStor ActiveX] Overflow in AddColumn                                                                                                            |
 			| AnswerWorks.htm                              | [AnswerWorks ActiveX] Overflow in GetHistory                                                                                                             |
 			| BaiduBar.htm                                 | [BaiduBar.dll ActiveX] DloadDS function trying to download http://ruder.cdut.net/attach/calc.cab                                                         |
