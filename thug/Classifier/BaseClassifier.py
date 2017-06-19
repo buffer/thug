@@ -92,7 +92,7 @@ class BaseClassifier(object):
             domain = value.lower().strip()
 
             if domain and netloc.endswith(domain):
-                log.debug("[discard_meta_domain_whitelist] Whitelisted domain: {} (URL: {})".format(domain, url))
+                log.debug("[discard_meta_domain_whitelist] Whitelisted domain: %s (URL: %s)", domain, url)
                 return True
 
         return False
