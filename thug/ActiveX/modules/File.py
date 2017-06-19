@@ -94,7 +94,7 @@ class File(object):
     def Delete(self, force = False):
         log.ThugLogging.add_behavior_warn('[File ActiveX] Delete(%s)' % (force, ))
 
-    def OpenAsTextStream(iomode = 'ForReading', _format = 0):
+    def OpenAsTextStream(self, iomode = 'ForReading', _format = 0):
         log.ThugLogging.add_behavior_warn('[File ActiveX] OpenAsTextStream(%s, %s)' % (iomode, _format, ))
         stream = TextStream.TextStream()
         stream._filename = self.Path  # pylint:disable=undefined-variable
