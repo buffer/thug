@@ -32,6 +32,8 @@ import six
 from .W3C import w3c
 from .W3C.HTML.HTMLCollection import HTMLCollection
 from .JSClass import JSClass
+from .JSClass import JSClassConstructor
+from .JSClass import JSClassPrototype
 from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
@@ -157,10 +159,10 @@ class Window(JSClass):
             raise AttributeError(key)
 
         if key == 'constructor':
-            return PyV8.JSClassConstructor(self.__class__)
+            return JSClassConstructor(self.__class__)
 
         if key == 'prototype':
-            return PyV8.JSClassPrototype(self.__class__)
+            return JSClassPrototype(self.__class__)
 
         prop = self.__dict__.setdefault('__properties__', {}).get(key, None)
 
