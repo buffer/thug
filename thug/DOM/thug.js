@@ -3,7 +3,7 @@
  * Javascript objects visibility
  */
 
-//this.eval     = window.eval;
+this.eval     = window.eval;
 this.unescape = window.unescape;
 window = this;
 
