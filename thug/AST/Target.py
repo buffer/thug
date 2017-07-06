@@ -23,7 +23,7 @@ TARGET = """
         //range: true,
 
         // attach line/column location information to each node
-        //loc: true,
+        loc: true,
 
         // create a top-level comments array containing all comments
         //comments: true,
@@ -33,7 +33,7 @@ TARGET = """
         //attachComment: true,
 
         // create a top-level tokens array containing all tokens
-        // tokens: true,
+        tokens: true,
 
         // try to continue parsing if an error is encountered, store errors in a
         // top-level errors array
