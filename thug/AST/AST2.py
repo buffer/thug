@@ -16,25 +16,57 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-
+import v8py
+import six
 import logging
-import traceback
+import unittest
 
-from Target import TARGET 
+from Target import TARGET
 
 log = logging.getLogger("Thug")
 
 
 class AST(object):
-    (AssignBreakPoint,
-     LoopBreakPoint) = range(0, 2)
+    # Breakpoints
+    ASSIGN_BREAKPOINT = 0x00
+    LOOP_BREAKPOINT   = 0x01
 
-    def __init__(self, context, script , window = None):
-        self.names           = set()
-        self.assignStatement = False
-        self.breakpoints     = set()
+    # Assignment perators
+    OP_ASSIGN         = '='
+    OP_ASSIGN_ADD     = '+='
+    OP_ASSIGN_SUB     = '-='
+    OP_ASSIGN_MUL     = '*='
+    OP_ASSIGN_DIV     = '/='
+    OP_ASSIGN_MOD     = '%='
+    OP_ASSIGN_SHL     = '<<='
+    OP_ASSIGN_SAR     = '>>='
+    OP_ASSIGN_SHR     = '>>>='
+    OP_ASSIGN_BIT_OR  = '|='
+    OP_ASSIGN_BIT_XOR = '^='
+    OP_ASSIGN_BIT_AND = '&='
+
+    ASSIGN_OPERATORS = (OP_ASSIGN,
+                        OP_ASSIGN_ADD,
+                        OP_ASSIGN_SUB,
+                        OP_ASSIGN_MUL,
+                        OP_ASSIGN_DIV,
+                        OP_ASSIGN_MOD,
+                        OP_ASSIGN_SHL,
+                        OP_ASSIGN_SAR,
+                        OP_ASSIGN_SHR,
+                        OP_ASSIGN_BIT_OR,
+                        OP_ASSIGN_BIT_XOR,
+                        OP_ASSIGN_BIT_AND,
+                        )
+
+    def __init__(self, script, window = None):
+        self.names           = list()
+        self.assignments     = list()
+        self.breakpoints     = list()
+        self.calls           = set()
+        self.shellcodes      = set()
         self.window          = window
-        self.context         = context
+        self.context         = v8py.Context()
 
         self.__init_esprima()
         self.__init_ast(script)
@@ -50,176 +82,205 @@ class AST(object):
         target   = TARGET % (script, )
         self.ast = self.context.eval(target)
 
-    def walk(self):
-        for item in self.ast.body:
-            print(item.type)
+        self.context.eval('delete esprima')
+
+    def walk(self, body = None, scope = None):
+        if body is None:
+            body = self.ast.body
+
+        for item in body:
+            self._walk(item, scope)
+
+    def _walk(self, item, scope):
+            # print("[WALK] {}".format(item.type))
             handler = getattr(self, "on{}".format(item.type), None)
             if handler:
-                handler(item)
+                handler(item, scope)
 
-    def _onExpressionStatement(self, stmt):
-        self.checkExitingLoop(stmt.expression.pos)
-        stmt.expression.visit(self)
-        if self.assignStatement:
-            if self.inBlock:
-                # FIXME
-                # AstCallRuntime has no 'pos' attribute
-                try:
-                    pos = stmt.expression.pos
-                except:  # pylint:disable=bare-except
-                    traceback.print_exc()
-                    return
-            else:
-                pos = stmt.expression.pos
+    def set_breakpoint(self, stmt, scope, _type):
+        bp = {
+            'type'  : _type,
+            'line'  : stmt.loc.end['line'],
+            'scope' : scope,
+        }
 
-            self.breakpoints.add((self.AssignBreakPoint, pos))
-            self.assignStatement = False
+        if bp not in self.breakpoints:
+            self.breakpoints.append(bp)
 
-    def onVariableDeclaration(self, item):
+    def onExpressionStatement(self, stmt, scope = None):
+        # print(stmt.expression.type)
+
+        handler = getattr(self, 'handle{}'.format(stmt.expression.type), None)
+        if handler:
+            handler(stmt, scope)
+
+    def handleAssignmentExpression(self, stmt, scope):
+        if stmt.expression.operator in self.ASSIGN_OPERATORS:
+            self._walk(stmt.expression.left, scope)
+            self._walk(stmt.expression.right, scope)
+            self.set_breakpoint(stmt, scope, self.ASSIGN_BREAKPOINT)
+
+    def checkCallExpression(self, stmt):
+        callee = stmt.expression.callee.name
+        line   = stmt.loc.end['line']
+
+        if (callee, line) in self.calls:
+            return True
+
+        self.calls.add((callee, line))
+        return False
+
+    def handleCallExpression(self, stmt, scope):
+        if self.checkCallExpression(stmt):
+            return
+
+        callee = stmt.expression.callee.name
+        arguments = set()
+
+        for p in stmt.expression.arguments:
+            # print(dir(p))
+            # print(p.type)
+            # if p.type in ('BinaryExpression', ):
+                # print(dir(p))
+                # print(p.left.raw)
+                # print(p.operator)
+                # print(p.right.raw)
+            if p.type in ('Identifier', ):
+                # print(p.name)
+                for e in self.assignments:
+                    # print(e)
+                    if e['scope'] in (scope, ) and e['name'] in (p.name, ):
+                        arguments.add(e['value'])
+            if p.type in ('Literal', ):
+                arguments.add(p['value'])
+
+        # print(arguments)
+
+        handler = getattr(self, 'handle_{}'.format(callee), None)
+        if handler:
+            handler(arguments)
+
+    def onVariableDeclaration(self, item, scope = None):
         for decl in item.declarations:
             if decl.type not in ('VariableDeclarator', ):
                 continue
 
-            try:
-                raw = decl.init.raw
-            except AttributeError:
-                # No variable initialization. No need to note it
-                continue
+            name = {
+                'name'  : decl.id.name,
+                'scope' : scope,
+            }
 
-            self.names.add(decl.id.name)
-            self.breakpoints.add((self.AssignBreakPoint, decl.loc.end['line']))
+            if name not in self.names:
+                self.names.append(name)
 
-    def onFunctionDeclaration(self, decl):
-        print(decl.body.body[0].type)
-        return
-        # f = decl.proxy
+            init_type = getattr(decl.init, 'type', None)
 
-        # if decl.scope.isGlobal:
-        #    getattr(self.window, f.name, None)
+            # If init_type is None, two possibilities exist for this variable
+            # declaration:
+            #   1. no initialization (no need to set a breakpoint)
+            #   2. literal assignment initialization
+            if init_type is None:
+                try:
+                    name['value'] = decl.init.raw
+                    if name not in self.assignments:
+                        self.assignments.append(name)
+                    self.set_breakpoint(decl, scope, self.ASSIGN_BREAKPOINT)
+                except AttributeError:
+                    pass
+            else:
+                # init_type is not None so some kind of initialization is actually
+                # taking place. Set a breakpoint (FIXME and do something else?)
+                self.set_breakpoint(decl, scope, self.ASSIGN_BREAKPOINT)
 
-        for d in decl.scope.declarations:
-            if not getattr(d, 'function', None):
-                continue
+    def onFunctionDeclaration(self, decl, scope = 'global'):
+        func_name = decl.id.name
+        # func_params = [param.name for param in decl.params]
+        # print func_params
+        self.walk(decl.body.body, scope = func_name)
 
-            d.function.visit(self)
+    def onIfStatement(self, stmt, scope):
+        body = getattr(stmt.alternate, 'body', None)
+        if body:
+            self.walk(body, scope)
 
-            # for stmt in d.function.body:
-            #    stmt.visit(self)
+        body = getattr(stmt.consequent, 'body', None)
+        if body:
+            self.walk(body, scope)
 
-    def _onAssignment(self, expr):
-        if not self.inLoop:
-            if expr.op in self.AssignOps:
-                self.assignStatement = True
+    def onForStatement(self, stmt, scope):
+        self.set_breakpoint(stmt, scope, self.LOOP_BREAKPOINT)
 
-        self.names.add(str(expr.target))
-        expr.target.visit(self)
-        expr.value.visit(self)
+    def onWhileStatement(self, stmt, scope):
+        self.set_breakpoint(stmt, scope, self.LOOP_BREAKPOINT)
 
-    def onIfStatement(self, stmt):
-        stmt.condition.visit(self)
+    def onDoWhileStatement(self, stmt, scope):
+        self.set_breakpoint(stmt, scope, self.LOOP_BREAKPOINT)
 
-        if stmt.hasThenStatement:
-            stmt.thenStatement.visit(self)
-        if stmt.hasElseStatement:
-            stmt.elseStatement.visit(self)
+    def onForInStatement(self, stmt, scope):
+        self.set_breakpoint(stmt, scope, self.LOOP_BREAKPOINT)
 
-    def enterLoop(self):
-        self.inLoop = True
+    def add_shellcode(self, sc):
+        if isinstance(sc, six.integer_types):
+            return
 
-    def exitLoop(self):
-        self.inLoop = False
-        self.exitingLoop += 1
+        if len(sc) > 32:
+            # log.ThugLogging.shellcodes.add(sc)
+            self.shellcodes.add(sc)
 
-    def _onForStatement(self, stmt):
-        self.checkExitingLoop(stmt.pos)
-        self.enterLoop()
+    def onLiteral(self, litr, scope = None):
+        self.add_shellcode(litr.value)
 
-        if stmt.init:
-            stmt.init.visit(self)
+    def onReturnStatement(self, stmt, scope):
+        value = getattr(stmt.argument, 'value', None)
+        if not value:
+            return
 
-        if stmt.nextStmt:
-            stmt.nextStmt.visit(self)
+        self.add_shellcode(value)
 
-        if stmt.condition:
-            stmt.condition.visit(self)
+    def handle_eval(self, args):
+        for arg in args:
+            s = str(arg)
 
-        if stmt.body:
-            stmt.body.visit(self)
-
-        self.exitLoop()
-
-    def _onWhileStatement(self, stmt):
-        self.checkExitingLoop(stmt.pos)
-        self.enterLoop()
-        stmt.condition.visit(self)
-        stmt.body.visit(self)
-        self.exitLoop()
-
-    def _onDoWhileStatement(self, stmt):
-        self.checkExitingLoop(stmt.pos)
-        self.enterLoop()
-        stmt.condition.visit(self)
-        stmt.body.visit(self)
-        self.exitLoop()
-
-    def _onForInStatement(self, stmt):
-        self.checkExitingLoop(stmt.pos)
-        self.enterLoop()
-        stmt.enumerable.visit(self)
-        stmt.body.visit(self)
-        self.exitLoop()
-
-    def _onCall(self, expr):
-        for arg in expr.args:
-            arg.visit(self)
-
-        handle = getattr(log.ASTHandler, "handle_%s" % (expr.expression, ), None)
-        if handle:
-            handle(expr.args)
-
-        expr.expression.visit(self)
-
-    def _onCallNew(self, expr):
-        handle = getattr(log.ASTHandler, "handle_%s" % (expr.expression, ), None)
-        if handle:
-            handle(expr.args)
-
-        for arg in expr.args:
-            arg.visit(self)
-
-    def _onCallRuntime(self, expr):
-        for arg in expr.args:
-            arg.visit(self)
-
-    def _onFunctionLiteral(self, litr):
-        for decl in litr.scope.declarations:
-            decl.visit(self)
-
-        for e in litr.body:
-            e.visit(self)
-
-    def _onLiteral(self, litr):
-        if len(str(litr)) > 256:
-            log.ThugLogging.shellcodes.add(str(litr).lstrip('"').rstrip('"'))
-
-    def _onReturnStatement(self, stmt):
-        stmt.expression.visit(self)
-
-    def _onCompareOperation(self, stmt):
-        stmt.left.visit(self)
-        stmt.right.visit(self)
-
-    def _onCountOperation(self, stmt):
-        stmt.expression.visit(self)
-
-
-import unittest
-import v8py
+            if len(s) > 64:
+                print("[AST] Eval argument length > 64")
 
 
 class TestAST(unittest.TestCase):
+    DEBUG = False
+
+    def debug_info(self, script, ast):
+        if not self.DEBUG:
+            return
+
+        print(script)
+        print(ast.names)
+        print(ast.breakpoints)
+
+    def testAssign(self):
+        # print("[testAssign]")
+
+        script  = """;
+            var number = 0;
+            number += 1;
+            number -= 1;
+            number *= 2;
+            number /= 3;
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+        for bp in ast.breakpoints:
+            bp_type = bp['type']
+            bp_line = bp['line']
+
+            if bp_type in (ast.ASSIGN_BREAKPOINT, ):
+                assert bp_line in (2, 3, 4, 5, 6, )
+
     def testVariableDeclaration(self):
-        context = v8py.Context()
+        # print("[testVariableDeclaration]")
 
         script  = """
             var uninitialized;
@@ -227,32 +288,195 @@ class TestAST(unittest.TestCase):
             var number = 1;
         """
 
-        ast = AST(context, script)
+        ast = AST(script)
         ast.walk()
 
-        assert 'uninitialized' not in ast.names
-        assert 'foo' in ast.names
-        assert 'number' in ast.names
+        self.debug_info(script, ast)
+
+        names = [p['name'] for p in ast.names]
+
+        assert 'uninitialized' in names
+        assert 'foo' in names
+        assert 'number' in names
 
         for bp in ast.breakpoints:
-            bp_type = bp[0]
-            bp_line  = bp[1]
+            bp_type = bp['type']
+            bp_line = bp['line']
 
-            if bp_type in (ast.AssignBreakPoint, ): 
+            if bp_type in (ast.ASSIGN_BREAKPOINT, ):
                 assert bp_line in (3, 4, )
 
     def testFunctionDeclaration(self):
-        context = v8py.Context()
+        # print("[testFunctionDeclaration]")
 
         script = """
             function foo(bar) {
                 var a;
-                a = 1;
+                a = "qwerty";
                 return a;
             }
         """
-        ast = AST(context, script)
+        ast = AST(script)
         ast.walk()
+
+        self.debug_info(script, ast)
+
+        assert {'name': 'a', 'scope': 'foo'} in ast.names
+        assert {'scope': 'foo', 'line': 4, 'type': ast.ASSIGN_BREAKPOINT} in ast.breakpoints
+
+    def testFunctionReturnLiteral(self):
+        # print("[testFunctionReturnLiteral]")
+
+        script = """
+            function test1() {
+                var test2 = 1;
+                return 'abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd';
+            }
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+        assert 'abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd' in ast.shellcodes
+
+    def testCall(self):
+        # print("[testCall]")
+
+        script = """
+            function callme(a) {
+                return a;
+            }
+
+            callme('foobar');
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+    def testCallEval1(self):
+        # print("[testCallEval1]")
+
+        script = """
+            var a = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+            eval(a);
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+    def testCallEval2(self):
+        # print("[testCallEval2]")
+
+        script = """
+            var a = "A" * 1024;
+            eval(a);
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+    def testCallEval3(self):
+        # print("[testCallEval3]")
+
+        script = """
+            eval("A" * 1024);
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+    def testForStatement(self):
+        # print("[testForStatement]")
+
+        script = """
+            var s;
+            var i = 0;
+
+            for (i = 0; i < 3; i++) {
+                 s += "a";
+            }
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+        for bp in ast.breakpoints:
+            bp_type = bp['type']
+            bp_line = bp['line']
+
+            if bp_type in (ast.LOOP_BREAKPOINT, ):
+                assert bp_line in (7, )
+            if bp_type in (ast.ASSIGN_BREAKPOINT, ):
+                assert bp_line in (3, )
+
+    def testWhileStatement(self):
+        # print("[testWhileStatement]")
+
+        script = """
+            var s;
+            var i = 3;
+
+            while (i > 0) {
+                s += "a";
+                i -= 1;
+            }
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+        for bp in ast.breakpoints:
+            bp_type = bp['type']
+            bp_line = bp['line']
+
+            if bp_type in (ast.LOOP_BREAKPOINT, ):
+                assert bp_line in (8, )
+            if bp_type in (ast.ASSIGN_BREAKPOINT, ):
+                assert bp_line in (3, )
+
+    def testIfStatement(self):
+        # print("[testWhileStatement]")
+
+        script = """
+            var s;
+            var i = 3;
+
+            if (i > 4) {
+                while (i > 0) {
+                    s += "a";
+                    i -= 1;
+                }
+            }
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+        for bp in ast.breakpoints:
+            bp_type = bp['type']
+            bp_line = bp['line']
+
+            if bp_type in (ast.LOOP_BREAKPOINT, ):
+                assert bp_line in (9, )
+            if bp_type in (ast.ASSIGN_BREAKPOINT, ):
+                assert bp_line in (3, )
+
 
 if __name__ == "__main__":
     unittest.main()
