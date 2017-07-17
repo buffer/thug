@@ -16,6 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import os
 import v8py
 import six
 import logging
@@ -73,7 +74,7 @@ class AST(object):
         self.walk()
 
     def __init_esprima(self):
-        with open('esprima.js', 'r') as fd:
+        with open(os.path.join(os.path.dirname(__file__), 'esprima.js'), 'r') as fd:
             esprima = fd.read()
 
         self.context.eval(esprima)
