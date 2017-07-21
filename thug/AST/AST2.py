@@ -16,13 +16,15 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+# Requirements: v8py, esprima-python
+
 import os
 import v8py
+import esprima
 import six
 import logging
+import json
 import unittest
-
-from Target import TARGET
 
 log = logging.getLogger("Thug")
 
@@ -32,7 +34,7 @@ class AST(object):
     ASSIGN_BREAKPOINT = 0x00
     LOOP_BREAKPOINT   = 0x01
 
-    # Assignment perators
+    # Assignment operators
     OP_ASSIGN         = '='
     OP_ASSIGN_ADD     = '+='
     OP_ASSIGN_SUB     = '-='
@@ -69,39 +71,34 @@ class AST(object):
         self.window          = window
         self.context         = v8py.Context()
 
-        self.__init_esprima()
         self.__init_ast(script)
         self.walk()
 
-    def __init_esprima(self):
-        with open(os.path.join(os.path.dirname(__file__), 'esprima.js'), 'r') as fd:
-            esprima = fd.read()
-
-        self.context.eval(esprima)
-
     def __init_ast(self, script):
-        target   = TARGET % (script, )
-        self.ast = self.context.eval(target)
+        self.ast = esprima.parse(script, {'loc'      : True,
+                                          # 'tokens' : True,
+                                          'tolerant' : True,
+                                          'comments' : True})
 
-        self.context.eval('delete esprima')
+        self.ast = esprima.toDict(self.ast)
 
     def walk(self, body = None, scope = None):
         if body is None:
-            body = self.ast.body
+            body = self.ast['body']
 
         for item in body:
             self._walk(item, scope)
 
     def _walk(self, item, scope):
-            # print("[WALK] {}".format(item.type))
-            handler = getattr(self, "on{}".format(item.type), None)
+            # print("[WALK] {}".format(item['type']))
+            handler = getattr(self, "on{}".format(item['type']), None)
             if handler:
                 handler(item, scope)
 
     def set_breakpoint(self, stmt, scope, _type):
         bp = {
             'type'  : _type,
-            'line'  : stmt.loc.end['line'],
+            'line'  : stmt['loc']['end']['line'],
             'scope' : scope,
         }
 
@@ -109,21 +106,29 @@ class AST(object):
             self.breakpoints.append(bp)
 
     def onExpressionStatement(self, stmt, scope = None):
-        # print(stmt.expression.type)
-
-        handler = getattr(self, 'handle{}'.format(stmt.expression.type), None)
+        handler = getattr(self, 'handle{}'.format(stmt['expression']['type']), None)
         if handler:
             handler(stmt, scope)
 
     def handleAssignmentExpression(self, stmt, scope):
-        if stmt.expression.operator in self.ASSIGN_OPERATORS:
-            self._walk(stmt.expression.left, scope)
-            self._walk(stmt.expression.right, scope)
+        if stmt['expression']['operator'] in self.ASSIGN_OPERATORS:
+
+            if 'name' in stmt['expression']['left']:
+                name = {
+                    'name'  : stmt['expression']['left']['name'],
+                    'scope' : scope
+                }
+
+                if name not in self.names:
+                    self.names.append(name)
+
+            self._walk(stmt['expression']['left'], scope)
+            self._walk(stmt['expression']['right'], scope)
             self.set_breakpoint(stmt, scope, self.ASSIGN_BREAKPOINT)
 
     def checkCallExpression(self, stmt):
-        callee = stmt.expression.callee.name
-        line   = stmt.loc.end['line']
+        callee = stmt['expression']['callee']['name']
+        line   = stmt['loc']['end']['line']
 
         if (callee, line) in self.calls:
             return True
@@ -135,78 +140,58 @@ class AST(object):
         if self.checkCallExpression(stmt):
             return
 
-        callee = stmt.expression.callee.name
+        callee = stmt['expression']['callee']['name']
         arguments = set()
 
-        for p in stmt.expression.arguments:
-            # print(dir(p))
-            # print(p.type)
-            # if p.type in ('BinaryExpression', ):
-                # print(dir(p))
-                # print(p.left.raw)
-                # print(p.operator)
-                # print(p.right.raw)
-            if p.type in ('Identifier', ):
-                # print(p.name)
-                for e in self.assignments:
-                    # print(e)
-                    if e['scope'] in (scope, ) and e['name'] in (p.name, ):
-                        arguments.add(e['value'])
-            if p.type in ('Literal', ):
-                arguments.add(p['value'])
-
-        # print(arguments)
+        if 'arguments' in stmt['expression']:
+            for p in stmt['expression']['arguments']:
+                if p['type'] in ('Identifier', ):
+                    for e in self.assignments:
+                        if e['scope'] in (scope, ) and e['name'] in (p['name'], ):
+                            arguments.add(e['value'])
+                if p['type'] in ('Literal', ):
+                    arguments.add(p['value'])
 
         handler = getattr(self, 'handle_{}'.format(callee), None)
         if handler:
             handler(arguments)
 
     def onVariableDeclaration(self, item, scope = None):
-        for decl in item.declarations:
-            if decl.type not in ('VariableDeclarator', ):
+        for decl in item['declarations']:
+            if decl['type'] not in ('VariableDeclarator', ):
                 continue
 
             name = {
-                'name'  : decl.id.name,
+                'name'  : decl['id']['name'],
                 'scope' : scope,
             }
 
             if name not in self.names:
                 self.names.append(name)
 
-            init_type = getattr(decl.init, 'type', None)
-
-            # If init_type is None, two possibilities exist for this variable
-            # declaration:
-            #   1. no initialization (no need to set a breakpoint)
-            #   2. literal assignment initialization
-            if init_type is None:
-                try:
-                    name['value'] = decl.init.raw
-                    if name not in self.assignments:
-                        self.assignments.append(name)
-                    self.set_breakpoint(decl, scope, self.ASSIGN_BREAKPOINT)
-                except AttributeError:
-                    pass
-            else:
-                # init_type is not None so some kind of initialization is actually
-                # taking place. Set a breakpoint (FIXME and do something else?)
+            if 'init' in decl:
                 self.set_breakpoint(decl, scope, self.ASSIGN_BREAKPOINT)
 
+                if 'raw' in decl['init']:
+                    name['value'] = decl['init']['raw']
+                    if name not in self.assignments:
+                        self.assignments.append(name)
+
     def onFunctionDeclaration(self, decl, scope = 'global'):
-        func_name = decl.id.name
-        # func_params = [param.name for param in decl.params]
-        # print func_params
-        self.walk(decl.body.body, scope = func_name)
+        func_name = decl['id']['name']
+        # func_params = [param.name for param in decl['params']]
+        self.walk(decl['body']['body'], scope = func_name)
 
     def onIfStatement(self, stmt, scope):
-        body = getattr(stmt.alternate, 'body', None)
-        if body:
-            self.walk(body, scope)
+        if 'alternate' in stmt:
+            body = stmt['alternate'].get('body', None)
+            if body:
+                self.walk(body, scope)
 
-        body = getattr(stmt.consequent, 'body', None)
-        if body:
-            self.walk(body, scope)
+        if 'consequent' in stmt:
+            body = stmt['consequent'].get('body', None)
+            if body:
+                self.walk(body, scope)
 
     def onForStatement(self, stmt, scope):
         self.set_breakpoint(stmt, scope, self.LOOP_BREAKPOINT)
@@ -229,10 +214,10 @@ class AST(object):
             self.shellcodes.add(sc)
 
     def onLiteral(self, litr, scope = None):
-        self.add_shellcode(litr.value)
+        self.add_shellcode(litr['value'])
 
     def onReturnStatement(self, stmt, scope):
-        value = getattr(stmt.argument, 'value', None)
+        value = stmt['argument'].get('value', None)
         if not value:
             return
 
@@ -247,7 +232,7 @@ class AST(object):
 
 
 class TestAST(unittest.TestCase):
-    DEBUG = False
+    DEBUG = True
 
     def debug_info(self, script, ast):
         if not self.DEBUG:
@@ -258,8 +243,6 @@ class TestAST(unittest.TestCase):
         print(ast.breakpoints)
 
     def testAssign(self):
-        # print("[testAssign]")
-
         script  = """;
             var number = 0;
             number += 1;
@@ -281,8 +264,6 @@ class TestAST(unittest.TestCase):
                 assert bp_line in (2, 3, 4, 5, 6, )
 
     def testVariableDeclaration(self):
-        # print("[testVariableDeclaration]")
-
         script  = """
             var uninitialized;
             var foo = "bar";
@@ -308,8 +289,6 @@ class TestAST(unittest.TestCase):
                 assert bp_line in (3, 4, )
 
     def testFunctionDeclaration(self):
-        # print("[testFunctionDeclaration]")
-
         script = """
             function foo(bar) {
                 var a;
@@ -326,8 +305,6 @@ class TestAST(unittest.TestCase):
         assert {'scope': 'foo', 'line': 4, 'type': ast.ASSIGN_BREAKPOINT} in ast.breakpoints
 
     def testFunctionReturnLiteral(self):
-        # print("[testFunctionReturnLiteral]")
-
         script = """
             function test1() {
                 var test2 = 1;
@@ -343,8 +320,6 @@ class TestAST(unittest.TestCase):
         assert 'abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd' in ast.shellcodes
 
     def testCall(self):
-        # print("[testCall]")
-
         script = """
             function callme(a) {
                 return a;
@@ -359,8 +334,6 @@ class TestAST(unittest.TestCase):
         self.debug_info(script, ast)
 
     def testCallEval1(self):
-        # print("[testCallEval1]")
-
         script = """
             var a = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
             eval(a);
@@ -372,8 +345,6 @@ class TestAST(unittest.TestCase):
         self.debug_info(script, ast)
 
     def testCallEval2(self):
-        # print("[testCallEval2]")
-
         script = """
             var a = "A" * 1024;
             eval(a);
@@ -385,8 +356,6 @@ class TestAST(unittest.TestCase):
         self.debug_info(script, ast)
 
     def testCallEval3(self):
-        # print("[testCallEval3]")
-
         script = """
             eval("A" * 1024);
         """
@@ -397,8 +366,6 @@ class TestAST(unittest.TestCase):
         self.debug_info(script, ast)
 
     def testForStatement(self):
-        # print("[testForStatement]")
-
         script = """
             var s;
             var i = 0;
@@ -423,8 +390,6 @@ class TestAST(unittest.TestCase):
                 assert bp_line in (3, )
 
     def testWhileStatement(self):
-        # print("[testWhileStatement]")
-
         script = """
             var s;
             var i = 3;
@@ -450,8 +415,6 @@ class TestAST(unittest.TestCase):
                 assert bp_line in (3, )
 
     def testIfStatement(self):
-        # print("[testWhileStatement]")
-
         script = """
             var s;
             var i = 3;
