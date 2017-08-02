@@ -16,6 +16,7 @@ def SetGeneral_ServerName(self, val):
                                           cve = 'CVE-2007-4474')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474", None)
+        log.DFT.check_shellcode(val)
 
 
 def SetGeneral_JunctionName(self, val):
@@ -28,6 +29,7 @@ def SetGeneral_JunctionName(self, val):
                                           cve = 'CVE-2007-4474')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474", None)
+        log.DFT.check_shellcode(val)
 
 
 def SetMail_MailDbPath(self, val):
@@ -40,6 +42,7 @@ def SetMail_MailDbPath(self, val):
                                           cve = 'CVE-2007-4474')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474", None)
+        log.DFT.check_shellcode(val)
 
 
 def InstallBrowserHelperDll(self):
