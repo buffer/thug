@@ -16,7 +16,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-# Requirements: v8py, esprima-python
 
 import os
 import v8py
@@ -126,21 +125,7 @@ class AST(object):
             self._walk(stmt['expression']['right'], scope)
             self.set_breakpoint(stmt, scope, self.ASSIGN_BREAKPOINT)
 
-    def checkCallExpression(self, stmt):
-        callee = stmt['expression']['callee']['name']
-        line   = stmt['loc']['end']['line']
-
-        if (callee, line) in self.calls:
-            return True
-
-        self.calls.add((callee, line))
-        return False
-
     def handleCallExpression(self, stmt, scope):
-        if self.checkCallExpression(stmt):
-            return
-
-        callee = stmt['expression']['callee']['name']
         arguments = set()
 
         if 'arguments' in stmt['expression']:
@@ -150,11 +135,8 @@ class AST(object):
                         if e['scope'] in (scope, ) and e['name'] in (p['name'], ):
                             arguments.add(e['value'])
                 if p['type'] in ('Literal', ):
+                    self.onLiteral(p, scope)
                     arguments.add(p['value'])
-
-        handler = getattr(self, 'handle_{}'.format(callee), None)
-        if handler:
-            handler(arguments)
 
     def onVariableDeclaration(self, item, scope = None):
         for decl in item['declarations']:
@@ -210,8 +192,10 @@ class AST(object):
             return
 
         if len(sc) > 32:
-            # log.ThugLogging.shellcodes.add(sc)
-            self.shellcodes.add(sc)
+            try:
+                log.ThugLogging.shellcodes.add(sc.encode('latin1'))
+            except:
+                self.shellcodes.add(sc)
 
     def onLiteral(self, litr, scope = None):
         self.add_shellcode(litr['value'])
@@ -222,13 +206,6 @@ class AST(object):
             return
 
         self.add_shellcode(value)
-
-    def handle_eval(self, args):
-        for arg in args:
-            s = str(arg)
-
-            if len(s) > 64:
-                print("[AST] Eval argument length > 64")
 
 
 class TestAST(unittest.TestCase):
