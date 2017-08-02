@@ -15,7 +15,7 @@ def Setserver(self, name):
                                           cve = "CVE-2007-4391")
 
     log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4391", None)
-
+    log.DFT.check_shellcode(name)
 
 def GetComponentVersion(self, arg):
     log.ThugLogging.log_exploit_event(self._window.url,
@@ -24,6 +24,7 @@ def GetComponentVersion(self, arg):
                                       cve = "CVE-2007-4391")
 
     log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4391", None)
+    log.DFT.check_shellcode(arg)
 
 
 def initialize(self):
