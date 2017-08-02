@@ -14,6 +14,7 @@ def fvcom(self, arg0):
                                           cve = 'CVE-2007-4515')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4515", None)
+        log.DFT.check_shellcode(arg0)
 
 
 def info(self, arg0):
@@ -24,3 +25,4 @@ def info(self, arg0):
                                           cve = 'CVE-2007-4515')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4515", None)
+        log.DFT.check_shellcode(arg0)
