@@ -14,6 +14,7 @@ def getVariable(self, arg):
                                           cve = "CVE-2007-6262")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6262", None)
+        log.DFT.check_shellcode(arg)
 
 
 def setVariable(self, arg0, arg1):
@@ -24,6 +25,8 @@ def setVariable(self, arg0, arg1):
                                           cve = "CVE-2007-6262")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6262", None)
+        log.DFT.check_shellcode(arg0)
+        log.DFT.check_shellcode(arg1)
 
 
 def addTarget(self, arg0, arg1, arg2, arg3):
@@ -34,3 +37,7 @@ def addTarget(self, arg0, arg1, arg2, arg3):
                                           cve = "CVE-2007-6262")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6262", None)
+        log.DFT.check_shellcode(arg0)
+        log.DFT.check_shellcode(arg1)
+        log.DFT.check_shellcode(arg2)
+        log.DFT.check_shellcode(arg3)
