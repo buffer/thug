@@ -104,8 +104,9 @@ class Shellcode(object):
                 log.ThugLogging.log_warning(traceback.format_exc())
                 return None
 
-            for name in (n for n in self.ast.names if n in self.ctxt.locals):
-                s = self.ctxt.locals[name]
+            names = [p['name'] for p in self.ast.names]
+            for name in names:
+                s = getattr(self.ctxt.locals, name, None)
 
                 if not s:
                     continue
@@ -113,7 +114,7 @@ class Shellcode(object):
                 if not isinstance(s, six.string_types):
                     continue
 
-                # log.debug("[Shellcode] Testing variable: %s", name)
+                log.warning("[Shellcode] Testing variable: %s", name)
                 self.emu.run(s)
 
                 if self.emu.emu_profile_output:

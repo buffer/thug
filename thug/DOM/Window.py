@@ -53,7 +53,7 @@ from .Map import Map
 from .MozConnection import mozConnection
 from .w3c_bindings import w3c_bindings
 from thug.ActiveX.ActiveX import _ActiveXObject
-from thug.AST.AST import AST
+from thug.AST.AST2 import AST
 from thug.Debugger import Shellcode
 from thug.Java.java import java
 
@@ -937,9 +937,10 @@ class Window(JSClass):
 
         with self.context as ctxt:
             try:
-                ast = AST(self, script)
+                ast = AST(script, self)
             except:  # pylint:disable=bare-except
-                # log.debug(traceback.format_exc())
+                import traceback
+                log.warn(traceback.format_exc())
                 return result
 
             if log.ThugOpts.Personality.isIE():
