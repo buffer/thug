@@ -13,6 +13,7 @@ def SetExtractIptc(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "FaceBook Photo Uploader ActiveX",
                                           "Overflow in ExtractIptc property")
+        log.DFT.check_shellcode(val)
 
 
 def SetExtractExif(self, val):
@@ -22,3 +23,4 @@ def SetExtractExif(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "FaceBook Photo Uploader ActiveX",
                                           "Overflow in ExtractExif property")
+        log.DFT.check_shellcode(val)
