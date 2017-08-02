@@ -33,3 +33,4 @@ def SetSeedQuery(self, arg):
                                           "AnswerWorks ActiveX",
                                           "SetSeedQuery",
                                           cve = 'CVE-2007-6387')
+        log.DFT.check_shellcode(arg)
