@@ -23,6 +23,7 @@ def GetSeedQuery(self, arg):
                                           "AnswerWorks ActiveX",
                                           "Overflow in GetSeedQuery",
                                           cve = 'CVE-2007-6387')
+        log.DFT.check_shellcode(arg)
 
 
 def SetSeedQuery(self, arg):
