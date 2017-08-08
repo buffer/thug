@@ -90,8 +90,12 @@ class BaseClassifier(object):
 
         for value in values.split(','):
             domain = value.lower().strip()
+            if not domain:
+                continue
 
-            if domain and netloc.endswith(domain):
+            prefix = "" if domain.startswith(".") else "."
+
+            if netloc.endswith("{}{}".format(prefix, domain)):
                 log.debug("[discard_meta_domain_whitelist] Whitelisted domain: %s (URL: %s)", domain, url)
                 return True
 
