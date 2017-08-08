@@ -18,7 +18,6 @@
 
 
 import os
-import v8py
 import esprima
 import six
 import logging
@@ -420,4 +419,8 @@ class TestAST(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    try:
+        import v8py
+        unittest.main()
+    except ImportError:
+        log.warning("v8py required to run the test suite but not installed")
