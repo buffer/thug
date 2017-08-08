@@ -208,7 +208,7 @@ class AST(object):
 
 
 class TestAST(unittest.TestCase):
-    DEBUG = True
+    DEBUG = False
 
     def debug_info(self, script, ast):
         if not self.DEBUG:
