@@ -67,7 +67,6 @@ class AST(object):
         self.calls           = set()
         self.shellcodes      = set()
         self.window          = window
-        self.context         = v8py.Context()
 
         self.__init_ast(script)
         self.walk()
@@ -419,8 +418,4 @@ class TestAST(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    try:
-        import v8py
-        unittest.main()
-    except ImportError:
-        log.warning("v8py required to run the test suite but not installed")
+    unittest.main()
