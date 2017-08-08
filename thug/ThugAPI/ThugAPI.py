@@ -26,6 +26,7 @@ from bs4 import BeautifulSoup
 from zope.interface import implementer
 from lxml.html import builder as E
 from lxml.html import tostring
+import cchardet
 
 import thug
 from thug.DOM.W3C import w3c
@@ -343,10 +344,11 @@ class ThugAPI(object):
 
         content   = open(url, 'r').read()
         extension = os.path.splitext(url)
+        encoding  = cchardet.detect(content)
 
         if len(extension) > 1 and extension[1].lower() in ('.js', '.jse', ):
             if not content.lstrip().startswith('<script'):
-                html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(content))))
+                html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(content.decode(encoding['encoding'])))))
             else:
                 soup = BeautifulSoup(content, "html.parser")
 
