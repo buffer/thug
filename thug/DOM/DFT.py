@@ -22,6 +22,7 @@ import string
 import base64
 import random
 import logging
+import cchardet
 import PyV8
 import bs4 as BeautifulSoup
 import six
@@ -223,6 +224,18 @@ class DFT(object):
             profile = profile[1:]
 
     def check_shellcode(self, shellcode):
+        if not shellcode:
+            return
+
+        enc = cchardet.detect(shellcode)
+        if enc['encoding']:
+            try:
+                shellcode = shellcode.decode(enc['encoding']).encode('latin1')
+            except:
+                pass
+        else:
+            shellcode = shellcode.encode('latin1')
+
         try:
             sc = self.build_shellcode(shellcode)
         except:  # pylint:disable=bare-except
@@ -232,12 +245,12 @@ class DFT(object):
         emu.run(sc)
 
         if emu.emu_profile_output:
-            try:
-                encoded_sc = shellcode.encode('unicode-escape')
-            except:  # pylint:disable=bare-except
-                encoded_sc = "Unable to encode shellcode"
+           # try:
+            ##    encoded_sc = shellcode.encode('unicode-escape')
+            # except:  # pylint:disable=bare-except
+            #    encoded_sc = "Unable to encode shellcode"
 
-            snippet = log.ThugLogging.add_shellcode_snippet(encoded_sc,
+            snippet = log.ThugLogging.add_shellcode_snippet(sc,
                                                             "Assembly",
                                                             "Shellcode",
                                                             method = "Static Analysis")

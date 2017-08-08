@@ -13,7 +13,7 @@ Feature: Exploits
 			| 33243-word.html                              | [Office OCX Exploit redirection] about:blank -> http://www.example.com/calc.exe                                                                          |
 			| 4042.html                                    | [Yahoo! Messenger 8.x Ywcvwr ActiveX] Server Console Overflow                                                                                            |
 			| 4043.html                                    | Yahoo! Messenger 8.x Ywcvwr ActiveX] Server Console Overflow                                                                                             |
-			| 4148.html                                    | [EnjoySAP ActiveX] PrepareToPostHTM overflow in arg0                                                                                                     |
+			| 4148.html                                    | [EnjoySAP ActiveX] PrepareToPostHTML overflow in arg                                                                                                     |
 			| 4149.html                                    | [EnjoySAP ActiveX] LaunchGUI overflow in arg0                                                                                                            |
 			| 4158.html                                    | [NeoTraceExplorer.NeoTraceLoader ActiveX] Overflow in arg0                                                                                               |
 			| 4230.html                                    | [Nessus Vunlnerability Scanner ScanCtrl ActiveX] deleteReport(../../../../../../../test.txt)                                                             |

@@ -14,3 +14,5 @@ def AddRouteEntry(self, arg0, arg1):
                                           cve = 'CVE-2007-5603')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5603", None)
+        log.DFT.check_shellcode(arg0)
+        log.DFT.check_shellcode(arg1)

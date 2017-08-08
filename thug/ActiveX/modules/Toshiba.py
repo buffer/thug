@@ -11,6 +11,7 @@ def SetPort(self, arg):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Toshiba Surveillance RecordSend Class ActiveX",
                                           "Overflow in SetPort")
+        log.DFT.check_shellcode(arg)
 
 
 def SetIpAddress(self, arg):
@@ -18,3 +19,4 @@ def SetIpAddress(self, arg):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Toshiba Surveillance RecordSend Class ActiveX",
                                           "Overflow in SetIpAddress")
+        log.DFT.check_shellcode(arg)

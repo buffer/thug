@@ -9,3 +9,4 @@ def ShockwaveVersion(self, arg):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Shockwave",
                                           "ShockwaveVersion Stack Overflow")
+        log.DFT.check_shellcode(arg)

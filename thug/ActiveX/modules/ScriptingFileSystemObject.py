@@ -24,10 +24,24 @@ def OpenTextFile(self, sFilePathAndName, ForWriting = True, flag = True):
                                              },
                                       forward = False)
 
+    if getattr(log, 'TextFiles', None) is None:
+            log.TextFiles = dict()
+
+    if sFilePathAndName in log.TextFiles:
+        return log.TextFiles[sFilePathAndName]
 
     stream = TextStream.TextStream()
     stream._filename = sFilePathAndName
+
+    if log.ThugOpts.local and sFilePathAndName in (log.ThugLogging.url, ):
+        with open(sFilePathAndName, 'r') as fd:
+            data = fd.read()
+
+        stream.Write(data)
+
+    log.TextFiles[sFilePathAndName] = stream
     return stream
+
 
 def Write(self, sFileContents):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] Write("%s")' % (sFileContents, ))
@@ -65,7 +79,13 @@ def GetTempName(self):
 
 def FileExists(self, filespec):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] FileExists("%s")' % (filespec, ))
+    if not filespec:
+        return True
+
     if filespec.lower() in win32_files:
+        return True
+
+    if getattr(log, "TextFiles", None) and filespec in log.TextFiles:
         return True
 
     return False
@@ -92,6 +112,9 @@ def GetExtensionName(self, path):
 def MoveFile(self, source, destination):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] MoveFile("%s", "%s")' % (source, destination))
 
+
+def CopyFile(self, source, destination, overwritefiles = False):
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] CopyFile("%s", "%s")' % (source, destination))
 
 def FolderExists(self, folder):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] FolderExists("%s")' % (folder, ))

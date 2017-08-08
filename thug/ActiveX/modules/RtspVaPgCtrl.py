@@ -13,3 +13,4 @@ def SetMP4Prefix(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "RTSP MPEG4 SP Control ActiveX",
                                           "Overflow in MP4Prefix property")
+        log.DFT.check_shellcode(val)

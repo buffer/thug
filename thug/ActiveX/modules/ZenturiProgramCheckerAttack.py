@@ -29,6 +29,7 @@ def DebugMsgLog(self, *arg):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "ZenturiProgramChecker ActiveX",
                                       "Attack in DebugMsgLog function")
+    log.DFT.check_shellcode(arg[0])
 
 
 def NavigateUrl(self, *arg):
@@ -36,3 +37,4 @@ def NavigateUrl(self, *arg):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "ZenturiProgramChecker ActiveX",
                                       "Attack in NavigateUrl function")
+    log.DFT.check_shellcode(arg[0])

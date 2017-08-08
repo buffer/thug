@@ -14,6 +14,7 @@ def Register(self, arg0, arg1):
                                           cve = "CVE-2007-5892")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5892", None)
+        log.DFT.check_shellcode(arg1)
 
 
 def LoadPage(self, arg0, arg1, arg2, arg3):
@@ -24,3 +25,4 @@ def LoadPage(self, arg0, arg1, arg2, arg3):
                                           cve = "CVE-2007-5892")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5892", None)
+        log.DFT.check_shellcode(arg0)

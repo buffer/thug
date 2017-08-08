@@ -14,6 +14,7 @@ def AddFolder(self, arg):
                                           cve = 'CVE-2007-6530')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6530", None)
+        log.DFT.check_shellcode(arg)
 
 
 def AddFile(self, arg):
@@ -24,3 +25,4 @@ def AddFile(self, arg):
                                           cve = 'CVE-2007-6530')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6530", None)
+        log.DFT.check_shellcode(arg)

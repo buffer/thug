@@ -14,6 +14,8 @@ def DoAutoUpdateRequest(self, arg0, arg1, arg2):
                                           cve = "CVE-2007-5601")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5601", None)
+        log.DFT.check_shellcode(arg0)
+        log.DFT.check_shellcode(arg1)
 
 
 def PlayerProperty(self, arg):
@@ -27,6 +29,7 @@ def PlayerProperty(self, arg):
                                           cve = "CVE-2007-5601")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5601", None)
+        log.DFT.check_shellcode(arg)
 
 
 def Import(self, arg):
@@ -37,6 +40,7 @@ def Import(self, arg):
                                           cve = "CVE-2007-5601")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5601", None)
+        log.DFT.check_shellcode(arg)
 
 
 def SetConsole(self, val):
@@ -49,3 +53,4 @@ def SetConsole(self, val):
                                           cve = "CVE-2007-5601")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5601", None)
+        log.DFT.check_shellcode(val)

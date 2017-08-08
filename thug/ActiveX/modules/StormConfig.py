@@ -14,3 +14,4 @@ def SetAttributeValue(self, arg0, arg1, arg2):
                                           cve = "CVE-2009-1807")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1807", None)
+        log.DFT.check_shellcode(arg0)

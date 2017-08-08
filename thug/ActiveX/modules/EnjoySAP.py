@@ -9,13 +9,15 @@ def LaunchGui(self, arg0, arg1, arg2):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "EnjoySAP ActiveX",
                                           "LaunchGUI overflow in arg0")
+        log.DFT.check_shellcode(arg0)
 
 
 def PrepareToPostHTML(self, arg):
     if len(arg) > 1000:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "EnjoySAP ActiveX",
-                                          "PrepareToPostHTM overflow in arg0")
+                                          "PrepareToPostHTML overflow in arg")
+        log.DFT.check_shellcode(arg)
 
 
 def Comp_Download(self, arg0, arg1):

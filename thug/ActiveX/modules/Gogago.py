@@ -11,3 +11,4 @@ def Download(self, arg):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Gogago YouTube Video Converter ActiveX",
                                           "Buffer Overflow")
+        log.DFT.check_shellcode(arg)
