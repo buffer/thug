@@ -93,6 +93,9 @@ def MoveFile(self, source, destination):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] MoveFile("%s", "%s")' % (source, destination))
 
 
+def CopyFile(self, source, destination, overwritefiles = False):
+    log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] CopyFile("%s", "%s")' % (source, destination))
+
 def FolderExists(self, folder):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] FolderExists("%s")' % (folder, ))
     return str(folder).lower() in win32_folders
