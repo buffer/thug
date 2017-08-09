@@ -252,7 +252,8 @@ class JSON(object):
         if not self.json_enabled:
             return
 
-        self.data["files"].append(data)
+        if data not in self.data["files"]:
+            self.data["files"].append(data)
 
     def export(self, basedir):
         if not self.json_enabled:
