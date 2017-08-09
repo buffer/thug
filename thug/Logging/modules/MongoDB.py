@@ -309,6 +309,14 @@ class MongoDB(object):
 
         r = dict(data)
 
+        result = self.samples.find_one({'analysis_id' : self.analysis_id,
+                                        'type'        : data['type'],
+                                        'md5'         : data['md5'],
+                                        'sha1'        : data['sha1']})
+
+        if result:
+            return
+
         r['sample_id'] = self.fs.put(data['data'])
         r.pop('data', None)
 
