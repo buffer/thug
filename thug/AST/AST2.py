@@ -17,11 +17,10 @@
 # MA  02111-1307  USA
 
 
-import os
-import esprima
 import six
 import logging
-import json
+import traceback
+import esprima
 import unittest
 
 log = logging.getLogger("Thug")
@@ -61,21 +60,27 @@ class AST(object):
                         )
 
     def __init__(self, script, window = None):
-        self.names           = list()
-        self.assignments     = list()
-        self.breakpoints     = list()
-        self.calls           = set()
-        self.shellcodes      = set()
-        self.window          = window
+        self.names       = list()
+        self.assignments = list()
+        self.breakpoints = list()
+        self.calls       = set()
+        self.shellcodes  = set()
+        self.window      = window
 
-        self.__init_ast(script)
+        try:
+            self.__init_ast(script)
+        except:
+            log.warning("[AST] Script parsing error (see trace below)")
+            log.warning(traceback.format_exc())
+            return
+
         self.walk()
 
     def __init_ast(self, script):
         self.ast = esprima.parse(script, {'loc'      : True,
-                                          # 'tokens' : True,
                                           'tolerant' : True,
-                                          'comments' : True})
+                                          'comments' : True
+                                          })
 
         self.ast = esprima.toDict(self.ast)
 
@@ -87,10 +92,10 @@ class AST(object):
             self._walk(item, scope)
 
     def _walk(self, item, scope):
-            # print("[WALK] {}".format(item['type']))
-            handler = getattr(self, "on{}".format(item['type']), None)
-            if handler:
-                handler(item, scope)
+        # print("[WALK] {}".format(item['type']))
+        handler = getattr(self, "on{}".format(item['type']), None)
+        if handler:
+            handler(item, scope)
 
     def set_breakpoint(self, stmt, scope, _type):
         bp = {
@@ -103,41 +108,61 @@ class AST(object):
             self.breakpoints.append(bp)
 
     def onExpressionStatement(self, stmt, scope = None):
+        if 'expression' not in stmt:
+            return
+
+        if 'type' not in stmt['expression']:
+            return
+
         handler = getattr(self, 'handle{}'.format(stmt['expression']['type']), None)
         if handler:
             handler(stmt, scope)
 
     def handleAssignmentExpression(self, stmt, scope):
-        if stmt['expression']['operator'] in self.ASSIGN_OPERATORS:
+        if 'expression' not in stmt:
+            return
 
-            if 'name' in stmt['expression']['left']:
-                name = {
-                    'name'  : stmt['expression']['left']['name'],
-                    'scope' : scope
-                }
+        if 'operator' not in stmt['expression']:
+            return
 
-                if name not in self.names:
-                    self.names.append(name)
+        if stmt['expression']['operator'] not in self.ASSIGN_OPERATORS:
+            return
 
-            self._walk(stmt['expression']['left'], scope)
-            self._walk(stmt['expression']['right'], scope)
-            self.set_breakpoint(stmt, scope, self.ASSIGN_BREAKPOINT)
+        if 'name' in stmt['expression']['left']:
+            name = {
+                'name'  : stmt['expression']['left']['name'],
+                'scope' : scope
+            }
+
+            if name not in self.names:
+                self.names.append(name)
+
+        self._walk(stmt['expression']['left'], scope)
+        self._walk(stmt['expression']['right'], scope)
+        self.set_breakpoint(stmt, scope, self.ASSIGN_BREAKPOINT)
 
     def handleCallExpression(self, stmt, scope):
-        arguments = set()
+        if 'expression' not in stmt:
+            return
 
-        if 'arguments' in stmt['expression']:
-            for p in stmt['expression']['arguments']:
-                if p['type'] in ('Identifier', ):
-                    for e in self.assignments:
-                        if e['scope'] in (scope, ) and e['name'] in (p['name'], ):
-                            arguments.add(e['value'])
-                if p['type'] in ('Literal', ):
-                    self.onLiteral(p, scope)
-                    arguments.add(p['value'])
+        if 'arguments' not in stmt['expression']:
+            return
+
+        for p in stmt['expression']['arguments']:
+            if 'type' not in p:
+                continue
+
+            if p['type'] in ('Literal', ):
+                self.onLiteral(p, scope)
 
     def onVariableDeclaration(self, item, scope = None):
+        if 'declarations' not in item:
+            return
+
         for decl in item['declarations']:
+            if 'type' not in decl:
+                continue
+
             if decl['type'] not in ('VariableDeclarator', ):
                 continue
 
@@ -158,8 +183,22 @@ class AST(object):
                         self.assignments.append(name)
 
     def onFunctionDeclaration(self, decl, scope = 'global'):
+        if 'id' not in decl:
+            return
+
+        if 'name' not in decl['id']:
+            return
+
         func_name = decl['id']['name']
+
         # func_params = [param.name for param in decl['params']]
+
+        if 'body' not in decl:
+            return
+
+        if 'body' not in decl['body']:
+            return
+
         self.walk(decl['body']['body'], scope = func_name)
 
     def onIfStatement(self, stmt, scope):
@@ -186,24 +225,35 @@ class AST(object):
         self.set_breakpoint(stmt, scope, self.LOOP_BREAKPOINT)
 
     def add_shellcode(self, sc):
-        if isinstance(sc, six.integer_types):
+        if not isinstance(sc, (six.string_types, six.text_type, six.binary_type)):
             return
 
-        if len(sc) > 32:
-            try:
-                log.ThugLogging.shellcodes.add(sc.encode('latin1'))
-            except:
-                self.shellcodes.add(sc)
+        if len(sc) < 32:
+            return
+
+        try:
+            log.ThugLogging.shellcodes.add(sc.encode('latin1'))
+        except:
+            self.shellcodes.add(sc)
 
     def onLiteral(self, litr, scope = None):
-        self.add_shellcode(litr['value'])
-
-    def onReturnStatement(self, stmt, scope):
-        value = stmt['argument'].get('value', None)
-        if not value:
+        if not litr:
             return
 
-        self.add_shellcode(value)
+        value = litr.get('value', None)
+        if value:
+            self.add_shellcode(value)
+
+    def onReturnStatement(self, stmt, scope):
+        if not stmt:
+            return
+
+        if 'argument' not in stmt:
+            return
+
+        value = stmt['argument'].get('value', None)
+        if value:
+            self.add_shellcode(value)
 
 
 class TestAST(unittest.TestCase):
