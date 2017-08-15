@@ -133,18 +133,11 @@ def getResponseHeader(self, header):
 
 
 def getAllResponseHeaders(self):
-    body = ""
+    output = ""
     for k, v in self.responseHeaders.items():
-        body += "%s: %s\r\n" % (k, v, )
+        output += "%s: %s\r\n" % (k, v, )
 
-    try:
-        self._window._navigator.fetch(self.bstrUrl,
-                                      method  = self.bstrMethod,
-                                      headers = self.requestHeaders,
-                                      body    = body)
-    except:  # pylint:disable=bare-except
-        pass
-
+    return output
 
 def overrideMimeType(self, mimetype):
     pass
