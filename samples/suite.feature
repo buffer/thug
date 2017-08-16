@@ -155,6 +155,7 @@ Feature: Exploits
 			| testClipboardData.html                       | Test ClipboardData                                                                                                                                       |
 			| testCloneNode.html                           | <div id="cloned"><q>Can you copy <em>everything</em> I say?</q></div>                                                                                    |
 			| testCloneNode2.html                          | <button align="left" id="myButton">Clone node</button>                                                                                                   |
+			| testCreateHTMLDocument.html                  | <html><head><title>New Document</title></head><body><p>This is a new paragraph.</p></body></html>                                                        |
 			| testCreateStyleSheet.html                    | style1.css" rel="stylesheet"></link><link href="style2.css" rel="stylesheet"></link><link href="style3.css" rel="stylesheet"></link><link href="style4   |
 			| testDocumentAll.html                         | <a href="http://www.google.com">Google</a>                                                                                                               |
 			| testDocumentWrite1.html                      | Foobar,Google</a><script>alert('foobar');</script><script language="VBScript">alert('Gnam');</script><script>alert('Aieeeeee');</script></body>          |
