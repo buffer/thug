@@ -68,21 +68,26 @@ class HTMLDocument(Document):
         else:
             self._compatible = DocumentCompatibleInfoCollection(self.doc, [])
 
+        if log.ThugOpts.Personality.browserMajorVersion > 8:
+            self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
+
         if log.ThugOpts.Personality.browserMajorVersion < 11:
             self.all = self._all
             self.createStyleSheet = self._createStyleSheet
 
     def __init_personality_Firefox(self):
-        pass
+        self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
 
     def __init_personality_Chrome(self):
         self.all = self._all
+        self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
 
     def __init_personality_Safari(self):
         self.all = self._all
+        self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
 
     def __init_personality_Opera(self):
-        pass
+        self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
 
     def __getattr__(self, attr):
         if attr in ('getBoxObjectFor', ) and not log.ThugOpts.Personality.isFirefox():

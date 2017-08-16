@@ -59,6 +59,8 @@ from thug.DOM.W3C.HTML import TAnimateColor
 
 import logging
 
+from lxml.html import builder as E
+from lxml.html import tostring
 import bs4 as BeautifulSoup
 from .Node import Node
 
@@ -169,3 +171,12 @@ class DOMImplementation(HTMLDocument.HTMLDocument):
             return DOMImplementation.TAGS[tag.name.lower()](doc, tag)
         else:
             return HTMLElement.HTMLElement(doc, tag)
+
+    def _createHTMLDocument(self, title = None):
+        body  = E.BODY()
+        title = E.TITLE(title) if title else ""
+        head  = E.HEAD(title)
+        html  = E.HTML(head, body)
+
+        soup = BeautifulSoup.BeautifulSoup(tostring(html, doctype = '<!doctype html>'), "lxml")
+        return DOMImplementation(soup)
