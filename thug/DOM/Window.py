@@ -793,17 +793,14 @@ class Window(JSClass):
 
         if log.ThugOpts.Personality.browserMajorVersion < 11:
             self.execScript = self._execScript
-
-        if log.ThugOpts.Personality.browserMajorVersion < 9:
             self.attachEvent = self._attachEvent
             self.detachEvent = self._detachEvent
-        else:
-            self.addEventListener    = self._addEventListener
-            self.removeEventListener = self._removeEventListener
 
         if log.ThugOpts.Personality.browserMajorVersion >= 8:
-            self.localStorage   = LocalStorage()
-            self.sessionStorage = SessionStorage()
+            self.addEventListener    = self._addEventListener
+            self.removeEventListener = self._removeEventListener
+            self.localStorage        = LocalStorage()
+            self.sessionStorage      = SessionStorage()
 
         self.doc.parentWindow = self._parent
 
