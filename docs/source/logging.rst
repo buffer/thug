@@ -521,6 +521,7 @@ locations
 
         { 
             "url"           : URL url
+            "content"       : Content
             "status"        : HTTP status code
             "content-type"  : Content Type
             "md5"           : MD5 checksum
