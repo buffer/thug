@@ -160,6 +160,19 @@ class JSON(object):
                                          "method"       : method,
                                          "flags"        : flags})
 
+    def get_content(self, data):
+        content = "NOT AVAILABLE"
+
+        if not log.ThugOpts.code_logging:
+            return content
+
+        try:
+            content = self.fix(data.get("content", "NOT AVAILABLE"))
+        except:
+            pass
+
+        return content
+
     def log_location(self, url, data, flags = None):
         """
         Log file information for a given url
@@ -183,6 +196,7 @@ class JSON(object):
             flags = dict()
 
         self.data["locations"].append({"url"          : self.fix(url),
+                                       "content"      : self.get_content(data),
                                        "status"       : data.get("status", None),
                                        "content-type" : data.get("ctype", None),
                                        "md5"          : data.get("md5", None),
