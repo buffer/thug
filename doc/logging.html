@@ -1,33 +1,32 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Logging &mdash; Thug 0.9.3 documentation</title>
-    
+    <title>Logging &#8212; Thug 0.9.4 documentation</title>
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.3',
+        VERSION:     '0.9.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.9.3 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="JS Hooks" href="jshooks.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -40,7 +39,7 @@
         <li class="right" >
           <a href="jshooks.html" title="JS Hooks"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.4 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -94,7 +93,7 @@ document.</p>
 <div class="section" id="mongodb-logging-mode">
 <h2>MongoDB logging mode<a class="headerlink" href="#mongodb-logging-mode" title="Permalink to this headline">¶</a></h2>
 <p>By default Thug attempts storing the result of its analyses in a MongoDB instance. Be
-aware that if you don&#8217;t install MongoDB and pymongo (the Python wrapper) or if the
+aware that if you don’t install MongoDB and pymongo (the Python wrapper) or if the
 MongoDB process is not running, Thug will just emit a warning message and then continue
 its analysis silently not storing the results. This could be exactly what you want but
 please consider that if you do not enable any other logging mode you will end up with
@@ -112,7 +111,7 @@ MongoDB on the same host you are supposed to run Thug you should not need changi
 anything in the default configuration.</p>
 <p>If you want Thug to store its results to a different MongoDB instance than that defined
 in your <em>/etc/thug/logging.conf</em> file, you can specify a different address at runtime, for
-example by using the <em>&#8211;mongodb-address</em> option from the command line. This can be especially
+example by using the <em>–mongodb-address</em> option from the command line. This can be especially
 useful when using the dockerized version of Thug, where storing results in Docker itself would
 mean to lose them as soon as the Docker instance is shut down.</p>
 <div class="section" id="collection-schema">
@@ -169,7 +168,7 @@ initial URL is stored for convenience.</p>
 <h4>connections<a class="headerlink" href="#connections" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>connections</em> is used to keep track of the redirections which could happen
 during the single analysis. The field <em>chain_id</em> is a counter which is incremented by one at
-every redirection and it&#8217;s meant to be used in order to rebuild the redirection chain in the
+every redirection and it’s meant to be used in order to rebuild the redirection chain in the
 right order while analyzing data.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>    : Analysis ID
@@ -391,7 +390,7 @@ you know exactly what you are doing.</p>
 downloaded during the analysis in an ElasticSearch instance. Deploying and configuring the
 instance is totally up to you and no images are provided for that.</p>
 <p>ElasticSearch logging mode is not enabled by default and you need to enable the option -G
-(&#8211;elasticsearch-logging). The ElasticSearch configuration is saved in in the <em>/etc/thug/logging.conf</em>
+(–elasticsearch-logging). The ElasticSearch configuration is saved in in the <em>/etc/thug/logging.conf</em>
 file. Be sure of defining the right URL for connecting to your instance. You may want to
 change the index name where data will be stored but this is not really necessary in the most
 common situations.</p>
@@ -407,7 +406,7 @@ index:      thug
 <p>The JSON logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in JSON format. The JSON logging mode was enabled by default
 before Thug 0.5.6 together with the File logging mode. If you are using Thug 0.5.7 (or later)
-you have to explicitely enable it through the option <em>-Z</em> (or <em>&#8211;json-logging</em>). Please consider
+you have to explicitely enable it through the option <em>-Z</em> (or <em>–json-logging</em>). Please consider
 that the JSON log is stored in the MongoDB instance (if available). See the <em>MongoDB logging
 mode</em> for details. If the File logging format is enabled too, the JSON log will be stored
 in a JSON file in the log directory too. The JSON format is shown below.</p>
@@ -492,6 +491,7 @@ list.</p>
 <h3>locations<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;url&quot;</span>           : URL url
+    <span class="s2">&quot;content&quot;</span>       : Content
     <span class="s2">&quot;status&quot;</span>        : HTTP status code
     <span class="s2">&quot;content-type&quot;</span>  : Content Type
     <span class="s2">&quot;md5&quot;</span>           : MD5 checksum
@@ -534,7 +534,7 @@ encoding and communicating high fidelity information about any type of malware b
 attributes such as behaviors, artifacts, and attack patterns. As a language, MAEC offers
 a grammar and vocabulary that provide a standard means of communicating information about
 malware attributes. MAEC is designed and maintaned by MITRE.</p>
-<p>Thug currently supports MAEC version 1.1 and you should enable the <em>-M</em> (or <em>&#8211;maec11-logging</em>)
+<p>Thug currently supports MAEC version 1.1 and you should enable the <em>-M</em> (or <em>–maec11-logging</em>)
 option in order to locally store the analysis results in such format.</p>
 <p>If the MAEC 1.1 logging mode is enabled, Thug will attempt to store analysis results in a
 MongoDB instance, if available.</p>
@@ -551,7 +551,7 @@ MAEC 1.1 format on the <em>thug.events</em> channel.</p>
 <p>The File logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in flat files. The File logging mode was enabled by default
 before Thug 0.5.6. If you are using Thug 0.5.7 (or later) you have to explicitely enable
-it through the option <em>-F</em> (or <em>&#8211;file-logging</em>). Please consider that all the information
+it through the option <em>-F</em> (or <em>–file-logging</em>). Please consider that all the information
 stored in flat files are stored in the MongoDB instance (if available). This option could
 be convenient in some situations but if you plan to analyze a huge number of URLs per day
 probably thinking about storing results and resources in a database is better than spread
@@ -625,14 +625,11 @@ are saved in the database instance as well.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -651,12 +648,12 @@ are saved in the database instance as well.</p>
         <li class="right" >
           <a href="jshooks.html" title="JS Hooks"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.4 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2011-2017, Angelo Dell&#39;Aera.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2011-2017, Angelo Dell&#39;Aera.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

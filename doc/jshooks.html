@@ -1,33 +1,32 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>JS Hooks &mdash; Thug 0.9.3 documentation</title>
-    
+    <title>JS Hooks &#8212; Thug 0.9.4 documentation</title>
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.3',
+        VERSION:     '0.9.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="static/jquery.js"></script>
     <script type="text/javascript" src="static/underscore.js"></script>
     <script type="text/javascript" src="static/doctools.js"></script>
-    <link rel="top" title="Thug 0.9.3 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Logging" href="logging.html" />
     <link rel="prev" title="Thug API" href="api.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -40,7 +39,7 @@
         <li class="right" >
           <a href="api.html" title="Thug API"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.4 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -61,9 +60,9 @@ you are done.</p>
 <p>If you need to execute more than one Javascript file, be aware that Thug can enforce the order of
 execution of such files. All you need to do is to sort the file names in alphabetical order and
 Thug will execute them in that order. A good practice I would like to suggest is to prefix each file
-name with a numerical prefix (and remember that the string &#8216;10&#8217; is lesser than &#8216;9&#8217; so use &#8216;09&#8217; instead
+name with a numerical prefix (and remember that the string ‘10’ is lesser than ‘9’ so use ‘09’ instead
 if you have to execute more than nine hooks).</p>
-<p>Let&#8217;s take a look at an example. We will make use of the following simple page and overwrite the
+<p>Let’s take a look at an example. We will make use of the following simple page and overwrite the
 eval method.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -77,12 +76,12 @@ eval method.</p>
 &lt;/html
 </pre></div>
 </div>
-<p>Let&#8217;s run Thug against it</p>
+<p>Let’s run Thug against it</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l test.html
 <span class="o">[</span><span class="m">2016</span>-10-14 <span class="m">10</span>:21:47<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: one
 </pre></div>
 </div>
-<p>Let&#8217;s now drop the file 1-hook.js in the folder <em>/etc/thug/hooks</em> and run Thug again</p>
+<p>Let’s now drop the file 1-hook.js in the folder <em>/etc/thug/hooks</em> and run Thug again</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ ls -lh /etc/thug/hooks/
 total <span class="m">4</span>.0K
 -rw-r--r-- <span class="m">1</span> root root <span class="m">35</span> Oct <span class="m">14</span> <span class="m">10</span>:22 <span class="m">1</span>-hook.js
@@ -96,7 +95,7 @@ total <span class="m">4</span>.0K
 <span class="o">[</span><span class="m">2016</span>-10-14 <span class="m">10</span>:22:58<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: two
 </pre></div>
 </div>
-<p>It&#8217;s easy to realize that the eval method was overwritten. Let&#8217;s now drop the file 2-hook.js in
+<p>It’s easy to realize that the eval method was overwritten. Let’s now drop the file 2-hook.js in
 the folder <em>/etc/thug/hooks</em> and run Thug again</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~$ ls -lh /etc/thug/hooks/
 total <span class="m">8</span>.0K
@@ -113,7 +112,7 @@ total <span class="m">8</span>.0K
 </pre></div>
 </div>
 <p>The two scripts are executed in the right order and the hook defined in 2-hook.js overwrites the
-one defined in 1-hook.js as expected. Let&#8217;s now drop the file 3-hook.js in the folder <em>/etc/thug/hooks</em>
+one defined in 1-hook.js as expected. Let’s now drop the file 3-hook.js in the folder <em>/etc/thug/hooks</em>
 and run Thug once again</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ ls -lh /etc/thug/hooks/
 total 12K
@@ -132,7 +131,7 @@ total 12K
 </div>
 <p>The three scripts are executed again in the right order and the hook defined in 3-hook.js
 overwrites the other ones as expected.</p>
-<p>Let&#8217;s try something more advanced now.</p>
+<p>Let’s try something more advanced now.</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">saved_eval</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nb">eval</span><span class="p">;</span>
 
 <span class="k">this</span><span class="p">.</span><span class="nb">eval</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -150,7 +149,7 @@ overwrites the other ones as expected.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Let&#8217;s take a look at what happens when we run Thug now. Please note that all the files we used in the previous examples
+<p>Let’s take a look at what happens when we run Thug now. Please note that all the files we used in the previous examples
 were removed and the folder <em>/etc/thug/hooks</em> contains just the previously shown file.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l test.html
 <span class="o">[</span><span class="m">2016</span>-10-16 <span class="m">21</span>:02:46<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Hook me Captain Hook!
@@ -159,7 +158,7 @@ were removed and the folder <em>/etc/thug/hooks</em> contains just the previousl
 <span class="o">[</span><span class="m">2016</span>-10-16 <span class="m">21</span>:02:46<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: two
 </pre></div>
 </div>
-<p>Seems like we actually hooked the eval method. It was not so hard in the end, isn&#8217;t it?</p>
+<p>Seems like we actually hooked the eval method. It was not so hard in the end, isn’t it?</p>
 <table class="docutils footnote" frame="void" id="f1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -184,14 +183,11 @@ with known vulnerabilities</td></tr>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -210,12 +206,12 @@ with known vulnerabilities</td></tr>
         <li class="right" >
           <a href="api.html" title="Thug API"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.4 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2011-2017, Angelo Dell&#39;Aera.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2011-2017, Angelo Dell&#39;Aera.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>
