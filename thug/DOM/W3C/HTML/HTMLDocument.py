@@ -68,7 +68,7 @@ class HTMLDocument(Document):
         else:
             self._compatible = DocumentCompatibleInfoCollection(self.doc, [])
 
-        if log.ThugOpts.Personality.browserMajorVersion > 8:
+        if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
 
         if log.ThugOpts.Personality.browserMajorVersion < 11:
