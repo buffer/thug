@@ -11,20 +11,62 @@ log = logging.getLogger("Thug")
 # Introduced in DOM Level 2
 class EventTarget(object):
     def __init__(self):
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
-            self.detachEvent = self._detachEvent
+        self.__init_personality()
 
-            def attachEvent(self, eventType, handler, prio = False):
-                return self._attachEvent(eventType, handler, prio)
+    def __init_personality(self):
+        if log.ThugOpts.Personality.isIE():
+            self.__init_personality_IE()
+            return
 
-            setattr(self.__class__, 'attachEvent', attachEvent)
-        else:
-            self.removeEventListener = self._removeEventListener
+        if log.ThugOpts.Personality.isFirefox():
+            self.__init_personality_Firefox()
+            return
 
-            def addEventListener(self, eventType, listener, capture = False):
-                return self._addEventListener(eventType, listener, capture)
+        if log.ThugOpts.Personality.isChrome():
+            self.__init_personality_Chrome()
+            return
 
-            setattr(self.__class__, 'addEventListener', addEventListener)
+        if log.ThugOpts.Personality.isSafari():
+            self.__init_personality_Safari()
+            return
+
+        if log.ThugOpts.Personality.isOpera():
+            self.__init_personality_Opera()
+
+    def __init_personality_IE(self):
+        if log.ThugOpts.Personality.browserMajorVersion < 11:
+            self.__init_proprietary_ie_event_methods()
+
+        if log.ThugOpts.Personality.browserMajorVersion >= 8:
+            self.__init_event_methods()
+
+    def __init_personality_Firefox(self):
+        self.__init_event_methods()
+
+    def __init_personality_Chrome(self):
+        self.__init_event_methods()
+
+    def __init_personality_Safari(self):
+        self.__init_event_methods()
+
+    def __init_personality_Opera(self):
+        self.__init_event_methods()
+
+    def __init_proprietary_ie_event_methods(self):
+        self.detachEvent = self._detachEvent
+
+        def attachEvent(self, eventType, handler, prio = False):
+            return self._attachEvent(eventType, handler, prio)
+
+        setattr(self.__class__, 'attachEvent', attachEvent)
+
+    def __init_event_methods(self):
+        self.removeEventListener = self._removeEventListener
+
+        def addEventListener(self, eventType, listener, capture = False):
+            return self._addEventListener(eventType, listener, capture)
+
+        setattr(self.__class__, 'addEventListener', addEventListener)
 
     def __insert_listener(self, eventType, listener, capture, prio):
         # A document element or other object may have more than one event
