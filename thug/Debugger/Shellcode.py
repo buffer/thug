@@ -114,7 +114,7 @@ class Shellcode(object):
                 if not isinstance(s, six.string_types):
                     continue
 
-                log.warning("[Shellcode] Testing variable: %s", name)
+                log.debug("[Shellcode] Testing variable: %s", name)
                 self.emu.run(s)
 
                 if self.emu.emu_profile_output:
