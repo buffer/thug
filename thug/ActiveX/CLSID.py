@@ -687,6 +687,7 @@ CLSID = [
                             'onload'                : None,
                             'onprogress'            : None,
                             'onreadystatechange'    : None,
+                            'onabort'               : None,
                             'withCredentials'       : False,
                           },
             'funcattrs' : {},
