@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from Node import Node
+from .Node import Node
 
 
 class EntityReference(Node):
