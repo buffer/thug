@@ -92,7 +92,12 @@ class AST(object):
             self._walk(item, scope)
 
     def _walk(self, item, scope):
-        # print("[WALK] {}".format(item['type']))
+        if not isinstance(item, dict):
+            return
+
+        if 'type' not in item:
+            return
+
         handler = getattr(self, "on{}".format(item['type']), None)
         if handler:
             handler(item, scope)
