@@ -43,7 +43,7 @@ class Personality(dict):
 
                 # Shell variables are case insensitive, will process them
                 # to make sure all keys in the dict are lowercase.
-                for k, v in self[name].pop('shellVariables', dict()).iteritems():
+                for k, v in self[name].pop('shellVariables', dict()).items():
                     if 'shellVariables' not in self[name]:
                         self[name]['shellVariables'] = dict()
 
@@ -51,7 +51,7 @@ class Personality(dict):
 
                 # Special folder names are case insensitive, will process them
                 # to make sure all keys in the dict are lowercase.
-                for k, v in self[name].pop('specialFolders', dict()).iteritems():
+                for k, v in self[name].pop('specialFolders', dict()).items():
                     if 'specialFolders' not in self[name]:
                         self[name]['specialFolders'] = dict()
 
