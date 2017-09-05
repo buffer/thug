@@ -14,7 +14,7 @@ pymongo==3.5.1
 ssdeep==3.2
 six==1.10.0
 pylibemu==0.5.8
-pefile==2017.8.1
+pefile==2017.9.3
 yara-python==3.6.3
 elasticsearch==5.4.0
 esprima==4.0.0.dev11
