@@ -25,6 +25,9 @@ import unittest
 import logging
 log = logging.getLogger("Thug")
 
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
 
 class HTTPSession(object):
     def __init__(self, proxy = None):
