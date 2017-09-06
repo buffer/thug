@@ -21,7 +21,7 @@ import sched
 import time
 import logging
 import PyV8
-# import traceback
+import traceback
 import urllib
 import bs4 as BeautifulSoup
 import numbers
@@ -938,7 +938,6 @@ class Window(JSClass):
             try:
                 ast = AST(script, self)
             except:  # pylint:disable=bare-except
-                import traceback
                 log.warn(traceback.format_exc())
                 return result
 
