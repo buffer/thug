@@ -24,11 +24,13 @@ import PyV8
 # import traceback
 import urllib
 import bs4 as BeautifulSoup
-import new
 import numbers
 import collections
 import datetime
 import six
+# import new
+import types
+
 from .W3C import w3c
 from .W3C.HTML.HTMLCollection import HTMLCollection
 from .JSClass import JSClass
@@ -194,8 +196,8 @@ class Window(JSClass):
                 _method = symbol.clone()
 
             if _method is None:
-                _method = new.instancemethod(symbol, self, Window)
-                # _method = symbol.__get__(self, Window)
+                # _method = new.instancemethod(symbol, self, Window)
+                _method = types.MethodType(symbol, Window)
 
             setattr(self, key, _method)
             context.locals[key] = _method
