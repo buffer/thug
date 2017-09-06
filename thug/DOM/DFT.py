@@ -394,6 +394,12 @@ class DFT(object):
                 if handler:
                     self.run_event_handler(handler, evtObject)
 
+                    if onevt in self.window_on_events:
+                        if (self.window, onevt[2:], handler) in self.dispatched_events:
+                            return
+
+                    self.dispatched_events.add((self.window, onevt[2:], handler))
+
                 count -= 1
 
     def handle_document_event(self, onevt):
