@@ -122,7 +122,7 @@ Synopsis:
 """
 
         for key, value in sorted(iter(log.ThugOpts.Personality.items()), key = lambda k_v: (k_v[1]['id'], k_v[0])):
-            msg += "\t%s\t\t\t%s\n" % (key, value['description'], )
+            msg += "\t\033[1m{:<22}\033[0m{}\n".format(key, value['description'])
 
         print(msg)
         sys.exit(0)
