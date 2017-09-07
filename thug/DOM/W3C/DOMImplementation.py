@@ -2,6 +2,7 @@
 
 from thug.DOM.W3C.HTML import HTMLAnchorElement
 from thug.DOM.W3C.HTML import HTMLAppletElement
+from thug.DOM.W3C.HTML import HTMLAudioElement
 from thug.DOM.W3C.HTML import HTMLBRElement
 from thug.DOM.W3C.HTML import HTMLBaseElement
 from thug.DOM.W3C.HTML import HTMLBaseFontElement
@@ -31,6 +32,7 @@ from thug.DOM.W3C.HTML import HTMLLabelElement
 from thug.DOM.W3C.HTML import HTMLLegendElement
 from thug.DOM.W3C.HTML import HTMLLinkElement
 from thug.DOM.W3C.HTML import HTMLMenuElement
+from thug.DOM.W3C.HTML import HTMLMediaElement
 from thug.DOM.W3C.HTML import HTMLMetaElement
 from thug.DOM.W3C.HTML import HTMLModElement
 from thug.DOM.W3C.HTML import HTMLOListElement
@@ -156,6 +158,8 @@ class DOMImplementation(HTMLDocument.HTMLDocument):
         "tr"            : HTMLTableRowElement.HTMLTableRowElement,
         "th"            : HTMLTableCellElement.HTMLTableCellElement,
         "td"            : HTMLTableCellElement.HTMLTableCellElement,
+        "media"         : HTMLMediaElement.HTMLMediaElement,
+        "audio"         : HTMLAudioElement.HTMLAudioElement,
     }
 
     @staticmethod
@@ -166,6 +170,9 @@ class DOMImplementation(HTMLDocument.HTMLDocument):
         if log.ThugOpts.Personality.isIE():
             if tag.name.lower() in ('t:animatecolor', ):
                 return TAnimateColor.TAnimateColor(doc, tag)
+
+            if tag.name.lower() in ('audio', ) and log.ThugOpts.Personality.browserMajorVersion < 9:
+                return HTMLElement.HTMLElement(doc, tag)
 
         if tag.name.lower() in DOMImplementation.TAGS:
             return DOMImplementation.TAGS[tag.name.lower()](doc, tag)
