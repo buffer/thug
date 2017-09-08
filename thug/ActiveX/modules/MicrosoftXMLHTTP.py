@@ -42,11 +42,6 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     self.varUser     = varUser
     self.varPassword = varPassword
     self.readyState  = 4
-
-    if self.onreadystatechange:
-        with self._window.context as ctx:  # pylint:disable=unused-variable
-            self.onreadystatechange.__call__()
-
     return 0
 
 
@@ -77,6 +72,7 @@ def send(self, varBody = None):
                                                  redirect_type = "Microsoft XMLHTTP Exploit")
     except:  # pylint:disable=bare-except
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
+        self.dispatchEvent("timeout")
 
     if response is None:
         return 0
@@ -86,6 +82,8 @@ def send(self, varBody = None):
     self.responseBody    = response.content
     self.responseText    = response.content
     self.readyState      = 4
+
+    self.dispatchEvent("readystatechange")
 
     contenttype = self.responseHeaders.get('content-type', None)
     if contenttype is None:
@@ -104,10 +102,6 @@ def send(self, varBody = None):
     handler = log.MIMEHandler.get_handler(contenttype)
     if handler:
         handler(self.bstrUrl, self.responseBody)
-
-    if self.onreadystatechange:
-        with self._window.context as ctx:  # pylint:disable=unused-variable
-            self.onreadystatechange.__call__()
 
     return 0
 
@@ -141,3 +135,28 @@ def getAllResponseHeaders(self):
 
 def overrideMimeType(self, mimetype):
     pass
+
+
+def addEventListener(self, _type, listener, useCapture = False):
+    if _type.lower() not in ('readystatechange', 'timeout'):
+        return
+
+    setattr(self, 'on%s' % (_type.lower(), ), listener)
+
+
+def removeEventListener(self, _type, listener, useCapture = False):
+    _listener = getattr(self, 'on%s' % (_type.lower(), ), None)
+    if _listener is None:
+        return
+
+    if _listener in (listener, ):
+        delattr(self, 'on%s' % (_type.lower(), ))
+
+
+def dispatchEvent(self, evt, pfResult = True):
+    listener = getattr(self, 'on%s' % (evt.lower(), ), None)
+    if listener is None:
+        return
+
+    with self._window.context as ctx:  # pylint:disable=unused-variable
+        listener.__call__()

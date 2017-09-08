@@ -700,6 +700,9 @@ CLSID = [
                             'getResponseHeader'     : MicrosoftXMLHTTP.getResponseHeader,
                             'getAllResponseHeaders' : MicrosoftXMLHTTP.getAllResponseHeaders,
                             'overrideMimeType'      : MicrosoftXMLHTTP.overrideMimeType,
+                            'addEventListener'      : MicrosoftXMLHTTP.addEventListener,
+                            'removeEventListener'   : MicrosoftXMLHTTP.removeEventListener,
+                            'dispatchEvent'         : MicrosoftXMLHTTP.dispatchEvent,
                           }
         },
 
