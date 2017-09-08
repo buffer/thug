@@ -189,4 +189,6 @@ Feature: Exploits
 			| testInsertAdjacentHTML2.html                 | <div id="two"><div id="six">six</div>two</div>                                                                                                           |
 			| testInsertAdjacentHTML3.html                 | <div id="three">three<div id="seven">seven</div></div>                                                                                                   |
 			| testInsertAdjacentHTML4.html                 | <div id="four">four</div><div id="eight">eight</div>                                                                                                     |
+			| testMicrosoftXMLHTTPEvent1.html              | [Window] Alert Text: Request completed                                                                                                                   |
+			| testMicrosoftXMLHTTPEvent2.html              | [Window] Alert Text: Request completed                                                                                                                   |
 		then run misc
