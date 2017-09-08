@@ -25,7 +25,7 @@ def OpenTextFile(self, sFilePathAndName, ForWriting = True, flag = True):
                                       forward = False)
 
     if getattr(log, 'TextFiles', None) is None:
-            log.TextFiles = dict()
+        log.TextFiles = dict()
 
     if sFilePathAndName in log.TextFiles:
         return log.TextFiles[sFilePathAndName]

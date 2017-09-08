@@ -245,7 +245,7 @@ class DFT(object):
         emu.run(sc)
 
         if emu.emu_profile_output:
-           # try:
+            # try:
             ##    encoded_sc = shellcode.encode('unicode-escape')
             # except:  # pylint:disable=bare-except
             #    encoded_sc = "Unable to encode shellcode"
