@@ -17,4 +17,4 @@ pylibemu==0.5.8
 pefile==2017.9.3
 yara-python==3.6.3
 elasticsearch==5.4.0
-esprima==4.0.0.dev11
+esprima==4.0.0.dev12
