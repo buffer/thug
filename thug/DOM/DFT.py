@@ -749,27 +749,20 @@ class DFT(object):
         self.handle_events(script._soup)
 
     def handle_external_javascript_text(self, s, response):
-        js = response.content
-
         # First attempt
-        # No specified encoding. This attempt succeeds most of the times.
-        try:
-            s.text = js
-            return True
-        except:  # pylint:disable=bare-except
-            pass
-
-        # Second attempt
         # Requests will automatically decode content from the server. Most
         # unicode charsets are seamlessly decoded. When you make a request,
         # Requests makes educated guesses about the encoding of the response
         # based on the HTTP headers.
-        if response.encoding:
+        try:
             s.text = response.text
             return True
+        except:  # pylint:disable=bare-except
+            pass
 
-        # Third (and last) attempt
-        # The encoding is (hopefully) detected through the Encoding class.
+        # Last attempt
+        # The encoding will be (hopefully) detected through the Encoding class.
+        js = response.content
         enc = log.Encoding.detect(js)
         if enc['encoding'] is None:
             return False
