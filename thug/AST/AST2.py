@@ -78,8 +78,7 @@ class AST(object):
 
     def __init_ast(self, script):
         self.ast = esprima.parse(script, {'loc'      : True,
-                                          'tolerant' : True,
-                                          'comments' : True
+                                          'tolerant' : True
                                           })
 
         self.ast = esprima.toDict(self.ast)
