@@ -993,7 +993,7 @@ class DFT(object):
             return
 
         tag = http_equiv.lower().replace('-', '_')
-        handler = getattr(self, 'handle_meta_%s' % (tag, ), None)
+        handler = getattr(self, 'handle_meta_%s' % (tag.encode('ascii', 'ignore'), ), None)
         if handler:
             handler(http_equiv, content)
 
