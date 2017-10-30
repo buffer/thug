@@ -266,6 +266,9 @@ class MIMEHandler(dict):
             except:  # pylint:disable=bare-except
                 continue
 
+            if filename.lower().endswith('.js'):
+                self.window.evalScript(data)
+
             sample = log.ThugLogging.log_file(data)
             if sample is None:
                 continue

@@ -368,4 +368,8 @@ class Navigator(JSClass):
         if redirect_type in (None, 'window open', 'iframe', 'http-redirect', 'meta', ):
             log.last_url = response.url
 
+        handler = log.MIMEHandler.get_handler(mtype)
+        if handler:
+            handler(response.url, response.content)
+
         return response
