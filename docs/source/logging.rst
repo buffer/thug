@@ -185,8 +185,8 @@ samples
 
 The collection *samples* is used to keep track of the downloaded samples (currently supported 
 types: PE, PDF, JAR and SWF). The sample itself is stored in a MongoDB GridFS and additional 
-metadata are saved like MD5 and SHA-1 checksums, sample type and imphash (if the sample type 
-is PE).
+metadata are saved like MD5, SHA-1 and SHA-256 checksums, sample type and imphash (if the sample
+type is PE).
 
 .. code-block:: sh
 
@@ -197,6 +197,7 @@ is PE).
             "type"          : Sample type
             "md5"           : MD5 checksum
             "sha1"          : SHA-1 checksum
+            "sha256"        : SHA-256 checksum
             "imphash"       : Imphash (if type is PE)
         }
 
