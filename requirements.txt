@@ -1,6 +1,6 @@
 beautifulsoup4==4.6.0
 html5lib==0.999999999
-lxml==4.1.0
+lxml==4.1.1
 cchardet==2.1.1
 requests==2.18.4
 PySocks==1.6.7
@@ -14,7 +14,7 @@ pymongo==3.5.1
 ssdeep==3.2
 six==1.11.0
 pylibemu==0.5.8
-pefile==2017.9.3
+pefile==2017.11.5
 yara-python==3.6.3
 elasticsearch==5.4.0
 esprima==4.0.0.dev12
