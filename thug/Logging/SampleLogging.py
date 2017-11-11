@@ -101,8 +101,9 @@ class SampleLogging(object):
         if p['type'] is None:
             return None
 
-        p['md5']  = hashlib.md5(data).hexdigest()
-        p['sha1'] = hashlib.sha1(data).hexdigest()
+        p['md5']    = hashlib.md5(data).hexdigest()
+        p['sha1']   = hashlib.sha1(data).hexdigest()
+        p['sha256'] = hashlib.sha256(data).hexdigest()
 
         if SSDEEP:
             p['ssdeep'] = ssdeep.hash(data)
