@@ -23,6 +23,7 @@ import tempfile
 import hashlib
 import zipfile
 import pefile
+import magic
 
 SSDEEP = True
 
@@ -39,7 +40,8 @@ class SampleLogging(object):
         self.types = ('PE',
                       'PDF',
                       'JAR',
-                      'SWF', )
+                      'SWF',
+                      'DOC', )
 
     def is_pe(self, data):
         try:
@@ -78,6 +80,17 @@ class SampleLogging(object):
 
     def is_swf(self, data):
         return data.startswith('CWS') or data.startswith('FWS')
+
+    def is_doc(self, data):
+        doc_mime_types = (
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        )
+
+        if magic.from_buffer(data, mime = True) in doc_mime_types:
+            return True
+
+        return False
 
     def get_sample_type(self, data):
         for t in self.types:
