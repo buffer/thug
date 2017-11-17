@@ -41,7 +41,8 @@ class SampleLogging(object):
                       'PDF',
                       'JAR',
                       'SWF',
-                      'DOC', )
+                      'DOC',
+                      'RTF', )
 
     def is_pe(self, data):
         try:
@@ -87,10 +88,14 @@ class SampleLogging(object):
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         )
 
-        if magic.from_buffer(data, mime = True) in doc_mime_types:
-            return True
+        return magic.from_buffer(data, mime = True) in doc_mime_types
 
-        return False
+    def is_rtf(self, data):
+        rtf_mime_types = (
+            'text/rtf',
+        )
+
+        return magic.from_buffer(data, mime = True) in rtf_mime_types
 
     def get_sample_type(self, data):
         for t in self.types:
