@@ -16,5 +16,5 @@ six==1.11.0
 pylibemu==0.5.8
 pefile==2017.11.5
 yara-python==3.6.3
-elasticsearch==5.5.1
+elasticsearch==6.0.0
 esprima==4.0.0.dev12
