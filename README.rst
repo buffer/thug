@@ -23,17 +23,6 @@ Documentation about Thug installation and usage can be found in the source
 tree or alternatively at https://buffer.github.com/thug/
 
 
-Support
--------
-
-* Mailing Lists
-	* Thug users         https://public.honeynet.org/mailman/listinfo/thug
-	* Thug development   https://public.honeynet.org/mailman/listinfo/thug-dev
-
-* IRC
-	* Freenode #thug-dev
-
-
 Contributions
 -------------
 
