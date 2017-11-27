@@ -93,6 +93,7 @@ class SampleLogging(object):
     def is_rtf(self, data):
         rtf_mime_types = (
             'text/rtf',
+            'application/rtf',
         )
 
         return magic.from_buffer(data, mime = True) in rtf_mime_types
