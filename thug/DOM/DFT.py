@@ -1084,6 +1084,9 @@ class DFT(object):
         if not src:
             return
 
+        if self._handle_data_uri(src):
+            return
+
         try:
             response = self.window._navigator.fetch(src, redirect_type = redirect_type)
         except:  # pylint:disable=bare-except
