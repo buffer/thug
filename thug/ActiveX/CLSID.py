@@ -323,7 +323,11 @@ CLSID = [
         {
             'id'        : ( 'D050D736-2D21-4723-AD58-5B541FFB6C11', ),
             'name'      : (),
-            'attrs'     : {},
+            'attrs'     : {
+                            'onload'                : None,
+                            'onmousemove'           : None,
+                            'onclick'               : None
+                          },
             'funcattrs' : {},
             'methods'   : {
                             'SetPassword'           : DivX.SetPassword,
