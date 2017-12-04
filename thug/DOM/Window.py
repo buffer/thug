@@ -994,7 +994,7 @@ class Window(JSClass):
         return getattr(element, 'style', None)
 
     def open(self, url = None, name = '_blank', specs = '', replace = False):
-        if url:
+        if url and url not in ('about:blank', ):
             try:
                 response = self._navigator.fetch(url, redirect_type = "window open")
             except:  # pylint:disable=bare-except
