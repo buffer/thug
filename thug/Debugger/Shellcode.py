@@ -62,7 +62,7 @@ class Shellcode(object):
             try:
                 self.window._navigator.fetch(p[1], redirect_type = "Found URLDownloadToFile")
                 log.ThugLogging.shellcode_urls.add(url)
-            except:  # pylint:disable=bare-except
+            except Exception:
                 pass
 
             profile = profile[1:]
@@ -83,7 +83,7 @@ class Shellcode(object):
             try:
                 self.window._navigator.fetch(url, redirect_type = "URL found")
                 log.ThugLogging.shellcode_urls.add(url)
-            except:  # pylint:disable=bare-except
+            except Exception:
                 pass
 
     def run(self):
@@ -97,10 +97,10 @@ class Shellcode(object):
                 try:
                     enc = log.Encoding.detect(self.script)
                     result = self.ctxt.eval(self.script.decode(enc['encoding']))
-                except:  # pylint:disable=bare-except
+                except Exception:
                     log.ThugLogging.log_warning(traceback.format_exc())
                     return None
-            except:  # pylint:disable=bare-except
+            except Exception:
                 log.ThugLogging.log_warning(traceback.format_exc())
                 return None
 
@@ -120,7 +120,7 @@ class Shellcode(object):
                 if self.emu.emu_profile_output:
                     try:
                         encoded_sc = s.encode('unicode-escape')
-                    except:  # pylint:disable=bare-except
+                    except Exception:
                         encoded_sc = "Unable to encode shellcode"
 
                     snippet = log.ThugLogging.add_shellcode_snippet(encoded_sc,
