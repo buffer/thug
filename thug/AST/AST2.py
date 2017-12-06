@@ -69,7 +69,7 @@ class AST(object):
 
         try:
             self.__init_ast(script)
-        except:
+        except Exception:
             log.warning("[AST] Script parsing error (see trace below)")
             log.warning(traceback.format_exc())
             return
@@ -237,7 +237,7 @@ class AST(object):
 
         try:
             log.ThugLogging.shellcodes.add(sc.encode('latin1'))
-        except:
+        except Exception:
             self.shellcodes.add(sc)
 
     def onLiteral(self, litr, scope = None):
