@@ -20,6 +20,7 @@
 from zope.interface import implementer
 from thug.Plugins.IPlugin import IPlugin
 
+
 @implementer(IPlugin)
 class Handler(object):
     def run(self, thug, log):
