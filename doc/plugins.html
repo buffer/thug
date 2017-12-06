@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Plugin Framework &#8212; Thug 0.9.10 documentation</title>
+    <title>Plugin Framework &#8212; Thug 0.9.11 documentation</title>
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.10',
+        VERSION:     '0.9.11',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="logging.html" title="Logging"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.10 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.11 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -63,19 +63,19 @@ the Thug installation process the (empty) directory <em>/etc/thug/plugins</em> i
 a look at the directory <em>thug/thug/Plugins/plugins</em> in the source tree</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/thug/Plugins/plugins $ ls -lhR
 .:
-total <span class="m">0</span>
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> <span class="m">09</span>:00 POST-TestPlugin-999
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> <span class="m">09</span>:00 PRE-TestPlugin-999
+total 0
+drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> 09:00 POST-TestPlugin-999
+drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> 09:00 PRE-TestPlugin-999
 
 ./POST-TestPlugin-999:
-total <span class="m">4</span>.0K
--rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">885</span> Oct <span class="m">12</span> <span class="m">09</span>:00 Handler.py
--rw-r--r-- <span class="m">1</span> buffer buffer   <span class="m">0</span> Oct <span class="m">12</span> <span class="m">09</span>:00 __init__.py
+total 4.0K
+-rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">885</span> Oct <span class="m">12</span> 09:00 Handler.py
+-rw-r--r-- <span class="m">1</span> buffer buffer   <span class="m">0</span> Oct <span class="m">12</span> 09:00 __init__.py
 
 ./PRE-TestPlugin-999:
-total <span class="m">4</span>.0K
--rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">885</span> Oct <span class="m">12</span> <span class="m">09</span>:00 Handler.py
--rw-r--r-- <span class="m">1</span> buffer buffer   <span class="m">0</span> Oct <span class="m">12</span> <span class="m">09</span>:00 __init__.py
+total 4.0K
+-rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">885</span> Oct <span class="m">12</span> 09:00 Handler.py
+-rw-r--r-- <span class="m">1</span> buffer buffer   <span class="m">0</span> Oct <span class="m">12</span> 09:00 __init__.py
 </pre></div>
 </div>
 <p>The directories <em>PRE-TestPlugin-999</em> and <em>POST-TestPlugin-999</em> contains the plugins we will be using for the next
@@ -116,38 +116,38 @@ they will executed after the high-priority ones in any case.</p>
 relative order of execution.</p>
 <p>Let’s take a look at how to use the Plugin Framework.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>/etc/thug/plugins $ ls -lh
-total <span class="m">0</span>
+total 0
 ~/thug/thug $ thug -l ../samples/exploits/22811_Elazar.html
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:46:21<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:46:21<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:46:21<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
+<span class="o">[</span>2016-10-12 09:46:21<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
+<span class="o">[</span>2016-10-12 09:46:21<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
+<span class="o">[</span>2016-10-12 09:46:21<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
 </pre></div>
 </div>
 <p>Let’s try again after copying one of the test plugin directories provided in the source tree</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/thug $ sudo cp -dpR Plugins/plugins/PRE-TestPlugin-999/ /etc/thug/plugins/
 ~/thug/thug $ ls -lh /etc/thug/plugins/
-total <span class="m">0</span>
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> <span class="m">09</span>:00 PRE-TestPlugin-999
+total 0
+drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> 09:00 PRE-TestPlugin-999
 ~/thug/thug $ thug -l ../samples/exploits/22811_Elazar.html
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:48:53<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: PRE_ANALYSIS Priority: <span class="m">999</span>
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:48:53<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:48:53<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:48:53<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
+<span class="o">[</span>2016-10-12 09:48:53<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: PRE_ANALYSIS Priority: 999
+<span class="o">[</span>2016-10-12 09:48:53<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
+<span class="o">[</span>2016-10-12 09:48:53<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
+<span class="o">[</span>2016-10-12 09:48:53<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
 </pre></div>
 </div>
 <p>As you can see, TestPlugin is executed in pre-analysis stage (priority 999) as expected.</p>
 <p>Let’s try again after copying the other test plugin directory provided in the source tree</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/thug $ sudo cp -dpR Plugins/plugins/POST-TestPlugin-999/ /etc/thug/plugins/
 ~/thug/thug $ ls -lh /etc/thug/plugins/
-total <span class="m">0</span>
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> <span class="m">09</span>:00 POST-TestPlugin-999
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">78</span> Oct <span class="m">12</span> <span class="m">09</span>:48 PRE-TestPlugin-999
+total 0
+drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> 09:00 POST-TestPlugin-999
+drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">78</span> Oct <span class="m">12</span> 09:48 PRE-TestPlugin-999
 ~/thug/thug $ thug -l ../samples/exploits/22811_Elazar.html
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:16<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: PRE_ANALYSIS Priority: <span class="m">999</span>
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:17<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:17<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:17<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:17<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: POST_ANALYSIS Priority: <span class="m">999</span>
+<span class="o">[</span>2016-10-12 09:53:16<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: PRE_ANALYSIS Priority: 999
+<span class="o">[</span>2016-10-12 09:53:17<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
+<span class="o">[</span>2016-10-12 09:53:17<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
+<span class="o">[</span>2016-10-12 09:53:17<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
+<span class="o">[</span>2016-10-12 09:53:17<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: POST_ANALYSIS Priority: 999
 </pre></div>
 </div>
 <p>Both plugins are executed now in pre and post-analysis stage with the correct priorities. So all you
@@ -183,19 +183,19 @@ parameters: the Thug class main instance and the Thug root logger.</p>
 <p>This plugin just logs the parameters but you can do whatever you want. Let’s try again the previous
 example enabling the debug option in order to see the debug messages</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/thug $ thug -l -d ../samples/exploits/22811_Elazar.html
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: PRE_ANALYSIS Priority: <span class="m">999</span>
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> &lt;thug.thug.Thug object at 0x7f69b0ca2050&gt;
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> &lt;logging.Logger object at 0x7f69aa85cdd0&gt;
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> Handling DOM Events: load,mousemove
+<span class="o">[</span>2016-10-12 10:02:13<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: PRE_ANALYSIS Priority: 999
+<span class="o">[</span>2016-10-12 10:02:13<span class="o">]</span> &lt;thug.thug.Thug object at 0x7f69b0ca2050&gt;
+<span class="o">[</span>2016-10-12 10:02:13<span class="o">]</span> &lt;logging.Logger object at 0x7f69aa85cdd0&gt;
+<span class="o">[</span>2016-10-12 10:02:13<span class="o">]</span> Handling DOM Events: load,mousemove
 
 <span class="o">[</span>..<span class="o">]</span>
 
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: POST_ANALYSIS Priority: <span class="m">999</span>
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> &lt;thug.thug.Thug object at 0x7f69b0ca2050&gt;
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> &lt;logging.Logger object at 0x7f69aa85cdd0&gt;
+<span class="o">[</span>2016-10-12 10:02:13<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
+<span class="o">[</span>2016-10-12 10:02:13<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
+<span class="o">[</span>2016-10-12 10:02:13<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
+<span class="o">[</span>2016-10-12 10:02:13<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: POST_ANALYSIS Priority: 999
+<span class="o">[</span>2016-10-12 10:02:13<span class="o">]</span> &lt;thug.thug.Thug object at 0x7f69b0ca2050&gt;
+<span class="o">[</span>2016-10-12 10:02:13<span class="o">]</span> &lt;logging.Logger object at 0x7f69aa85cdd0&gt;
 </pre></div>
 </div>
 <p>Do you want to pre-check if the URL domain is within a blacklist? Just do it with a pre-analysis plugin. Do
@@ -234,7 +234,7 @@ you want to extract and/or correlate information from the MAEC log files? Just d
         <li class="right" >
           <a href="logging.html" title="Logging"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.10 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.11 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
