@@ -23,5 +23,5 @@ def OpenWebFile(self, _file):
 
     try:
         self._window._navigator.fetch(_file, redirect_type = "Office OCX Exploit")
-    except:  # pylint:disable=bare-except
+    except Exception:
         log.ThugLogging.add_behavior_warn('[Office OCX ActiveX] Fetch failed')
