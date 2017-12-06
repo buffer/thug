@@ -70,7 +70,7 @@ def send(self, varBody = None):
                                                  headers       = self.requestHeaders,
                                                  body          = varBody,
                                                  redirect_type = "Microsoft XMLHTTP Exploit")
-    except:  # pylint:disable=bare-except
+    except Exception:
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
         self.dispatchEvent("timeout")
 
@@ -122,7 +122,7 @@ def getResponseHeader(self, header):
                                       method  = self.bstrMethod,
                                       headers = self.requestHeaders,
                                       body    = body)
-    except:  # pylint:disable=bare-except
+    except Exception:
         pass
 
 
@@ -132,6 +132,7 @@ def getAllResponseHeaders(self):
         output += "%s: %s\r\n" % (k, v, )
 
     return output
+
 
 def overrideMimeType(self, mimetype):
     pass
