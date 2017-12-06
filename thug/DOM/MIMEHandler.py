@@ -245,7 +245,7 @@ class MIMEHandler(dict):
             try:
                 if handler(url, content):
                     return True
-            except:  # pylint:disable=bare-except
+            except Exception:
                 pass
 
         return False
@@ -257,13 +257,13 @@ class MIMEHandler(dict):
 
         try:
             zipdata = zipfile.ZipFile(fp)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return False
 
         for filename in zipdata.namelist():
             try:
                 data = zipdata.read(filename)
-            except:  # pylint:disable=bare-except
+            except Exception:
                 continue
 
             if filename.lower().endswith('.js'):
@@ -275,7 +275,7 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except:  # pylint:disable=bare-except
+            except Exception:
                 continue
 
             unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
@@ -290,14 +290,14 @@ class MIMEHandler(dict):
 
         try:
             rardata = rarfile.RarFile(rfile)
-        except:  # pylint:disable=bare-except
+        except Exception:
             os.remove(rfile)
             return False
 
         for filename in rardata.namelist():
             try:
                 data = rardata.read(filename)
-            except:  # pylint:disable=bare-except
+            except Exception:
                 continue
 
             sample = log.ThugLogging.log_file(data)
@@ -306,7 +306,7 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except:  # pylint:disable=bare-except
+            except Exception:
                 continue
 
             unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
@@ -328,7 +328,7 @@ class MIMEHandler(dict):
 
         try:
             soup = BeautifulSoup.BeautifulSoup(data, "lxml")
-        except:  # pylint:disable=bare-except
+        except Exception:
             return
 
         jnlp = soup.find("jnlp")
@@ -349,7 +349,7 @@ class MIMEHandler(dict):
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
                 self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
-            except:  # pylint:disable=bare-except
+            except Exception:
                 pass
 
     def passthrough(self, url, data):
