@@ -35,7 +35,7 @@ class BaseLogging(object):
 
         try:
             section = config.options(module)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return True
 
         for option in section:
@@ -75,8 +75,8 @@ class BaseLogging(object):
 
         if os.path.exists(thug_csv):
             with open(thug_csv, 'r') as fd:
-                for l in fd.readlines():
-                    if l == csv_line:
+                for line in fd.readlines():
+                    if line == csv_line:
                         return
 
         with open(thug_csv, 'at+') as fd:
