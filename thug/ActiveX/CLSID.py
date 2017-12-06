@@ -825,10 +825,10 @@ CLSID = [
 
         # OfficeOCX
         {
-            'id'        : ( '97AF4A45-49BE-4485-9F55-91AB40F288F2', # Office
-                            '97AF4A45-49BE-4485-9F55-91AB40F22B92', # PowerPoint
-                            '97AF4A45-49BE-4485-9F55-91AB40F22BF2', # Word
-                            '18A295DA-088E-42D1-BE31-5028D7F9B965', # Excel
+            'id'        : ( '97AF4A45-49BE-4485-9F55-91AB40F288F2',  # Office
+                            '97AF4A45-49BE-4485-9F55-91AB40F22B92',  # PowerPoint
+                            '97AF4A45-49BE-4485-9F55-91AB40F22BF2',  # Word
+                            '18A295DA-088E-42D1-BE31-5028D7F9B965',  # Excel
                           ),
             'name'      : (),
             'attrs'     : {},
