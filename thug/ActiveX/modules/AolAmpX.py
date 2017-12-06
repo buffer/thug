@@ -16,6 +16,7 @@ def AppendFileToPlayList(self, arg):
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6250", None)
         log.DFT.check_shellcode(arg)
 
+
 def ConvertFile(self, *arg):
     # FIXME
     if len(arg[0]) > 512:
