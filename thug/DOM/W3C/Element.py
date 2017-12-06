@@ -81,7 +81,7 @@ class Element(Node, ElementCSSInlineStyle):
     def _querySelectorAll(self, selectors):
         try:
             s = self.tag.select(selectors)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -91,7 +91,7 @@ class Element(Node, ElementCSSInlineStyle):
 
         try:
             s = self.tag.select(selectors)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return None
 
         if s and s[0]:
@@ -230,7 +230,7 @@ class Element(Node, ElementCSSInlineStyle):
 
             try:
                 response = self.doc.window._navigator.fetch(value, redirect_type = "element workaround")
-            except:  # pylint:disable=bare-except
+            except Exception:
                 return
 
             if response is None:
