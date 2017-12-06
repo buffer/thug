@@ -121,7 +121,7 @@ class ThugLogging(BaseLogging, SampleLogging):
     def add_shellcode_snippet(self, snippet, language, relationship, method):
         tag = uuid.uuid4()
 
-        for m in self.resolve_method('add_code_snippet'):
+        for m in self.resolve_method('add_shellcode_snippet'):
             m(snippet, language, relationship, tag.hex, method)
 
         return tag.hex

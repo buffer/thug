@@ -20,6 +20,7 @@
 #           (developed for the iTES Project http://ites-project.org)
 
 import logging
+import base64
 import datetime
 import os
 import json
@@ -126,6 +127,16 @@ class JSON(object):
             return
 
         self.data["code"].append({"snippet"      : self.fix(snippet),
+                                  "language"     : self.fix(language),
+                                  "relationship" : self.fix(relationship),
+                                  "tag"          : self.fix(tag),
+                                  "method"       : self.fix(method)})
+
+    def add_shellcode_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
+        if not self.json_enabled:
+            return
+
+        self.data["code"].append({"snippet"      : base64.b64encode(snippet),
                                   "language"     : self.fix(language),
                                   "relationship" : self.fix(relationship),
                                   "tag"          : self.fix(tag),

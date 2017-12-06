@@ -18,6 +18,7 @@
 
 import os
 import datetime
+import base64
 import logging
 import six.moves.configparser as ConfigParser
 
@@ -414,6 +415,21 @@ class MongoDB(object):
         code = {
             'analysis_id'  : self.analysis_id,
             'snippet'      : self.fix(snippet),
+            'language'     : self.fix(language),
+            'relationship' : self.fix(relationship),
+            'tag'          : self.fix(tag),
+            'method'       : self.fix(method)
+        }
+
+        self.codes.insert(code)
+
+    def add_shellcode_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
+        if not self.enabled:
+            return
+
+        code = {
+            'analysis_id'  : self.analysis_id,
+            'snippet'      : base64.b64encode(snippet),
             'language'     : self.fix(language),
             'relationship' : self.fix(relationship),
             'tag'          : self.fix(tag),
