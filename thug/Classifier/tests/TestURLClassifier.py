@@ -35,5 +35,6 @@ class TestURLClassifier(unittest.TestCase):
         for t in tests['tests']:
             self.assertEqual(str(self.rules.match(data = t['url'])), t['output'])
 
+
 if __name__ == '__main__':
     unittest.main()
