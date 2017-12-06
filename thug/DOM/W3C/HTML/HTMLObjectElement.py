@@ -77,7 +77,7 @@ class HTMLObjectElement(HTMLElement):
 
             try:
                 register_object(self, value)
-            except:  # pylint:disable=bare-except
+            except Exception:
                 return
 
         self.tag[name] = value
