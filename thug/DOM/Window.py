@@ -79,7 +79,7 @@ class Window(JSClass):
             self.event = sched.enter(self.delay, 1, self.execute, ())
             try:
                 sched.run()
-            except:  # pylint:disable=bare-except
+            except Exception:
                 pass
 
         def stop(self):
@@ -184,7 +184,7 @@ class Window(JSClass):
         try:
             self._symbols.add(key)
             symbol = context.eval(key)
-        except:
+        except Exception:
             raise AttributeError(key)
         finally:
             self._symbols.discard(key)
@@ -917,7 +917,7 @@ class Window(JSClass):
 
             if log.ThugOpts.code_logging:
                 log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
-        except:  # pylint:disable=bare-except
+        except Exception:
             pass
 
         if tag:
@@ -925,7 +925,7 @@ class Window(JSClass):
         else:
             try:
                 body = self.doc.body
-            except:  # pylint:disable=bare-except
+            except Exception:
                 # This code is for when you are desperate :)
                 body = self.doc.getElementsByTagName('body')[0]
 
@@ -937,7 +937,7 @@ class Window(JSClass):
         with self.context as ctxt:
             try:
                 ast = AST(script, self)
-            except:  # pylint:disable=bare-except
+            except Exception:
                 log.warn(traceback.format_exc())
                 return result
 
@@ -997,7 +997,7 @@ class Window(JSClass):
         if url and url not in ('about:blank', ):
             try:
                 response = self._navigator.fetch(url, redirect_type = "window open")
-            except:  # pylint:disable=bare-except
+            except Exception:
                 # traceback.print_exc()
                 return None
 
@@ -1011,7 +1011,7 @@ class Window(JSClass):
 
             try:
                 log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else url, html)
-            except:  # pylint:disable=bare-except
+            except Exception:
                 pass
 
             if response.history:
