@@ -300,7 +300,7 @@ class Mapper(object):
         try:
             self.graph.layout(prog = 'dot')
             self.graph.draw(self.svgfile, format = 'svg')
-        except:  # pylint:disable=bare-except
+        except Exception:
             pass
 
     def activate(self, conto):
