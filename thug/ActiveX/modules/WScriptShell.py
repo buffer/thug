@@ -55,7 +55,7 @@ def _doRun(self, p, stage):
     try:
         pefile.PE(data = p, fast_load = True)
         return
-    except:  # pylint:disable=bare-except
+    except Exception:
         pass
 
     if log.ThugOpts.code_logging:
@@ -87,7 +87,7 @@ def _doRun(self, p, stage):
 
         try:
             response = self._window._navigator.fetch(url, redirect_type = "doRun")
-        except:  # pylint:disable=bare-except
+        except Exception:
             continue
 
         if response is None:
