@@ -23,10 +23,11 @@ import ssl
 import six.moves.urllib.parse as urlparse
 import unittest
 import logging
-log = logging.getLogger("Thug")
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+log = logging.getLogger("Thug")
 
 
 class HTTPSession(object):
@@ -52,7 +53,7 @@ class HTTPSession(object):
 
         try:
             self.__check_proxy_alive(url.hostname, url.port)
-        except:  # pylint:disable=bare-except
+        except Exception:
             log.critical("[CRITICAL] Proxy not available. Aborting the analysis!")
 
             if log.ThugOpts.raise_for_proxy:
