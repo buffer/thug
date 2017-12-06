@@ -102,7 +102,7 @@ class Document(Node, DocumentEvent, DocumentView):
     def _querySelectorAll(self, selectors):
         try:
             s = self.doc.select(selectors)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -112,7 +112,7 @@ class Document(Node, DocumentEvent, DocumentView):
 
         try:
             s = self.doc.select(selectors)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return None
 
         if s and s[0]:
