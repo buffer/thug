@@ -46,7 +46,7 @@ class HTMLMediaElement(HTMLElement):
 
         try:
             self.doc.window._navigator.fetch(src)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return
 
     src = property(get_src, set_src)
