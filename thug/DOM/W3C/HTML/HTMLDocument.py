@@ -299,7 +299,7 @@ class HTMLDocument(Document):
 
             try:
                 handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
-            except:  # pylint:disable=bare-except
+            except Exception:
                 handler = getattr(log.DFT, "handle_%s" % (name, ), None)
 
             if handler:
