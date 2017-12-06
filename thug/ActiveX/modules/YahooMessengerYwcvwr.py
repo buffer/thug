@@ -17,6 +17,7 @@ def Setserver(self, name):
     log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4391", None)
     log.DFT.check_shellcode(name)
 
+
 def GetComponentVersion(self, arg):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Yahoo! Messenger 8.x Ywcvwr ActiveX",
