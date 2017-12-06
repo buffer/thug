@@ -27,7 +27,7 @@ class Encoding(object):
     def detect(self, data, safe = False):
         try:
             return cchardet.detect(data)
-        except:
+        except Exception:
             if safe:
                 return None
 
