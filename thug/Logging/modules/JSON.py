@@ -106,7 +106,7 @@ class JSON(object):
         try:
             enc = log.Encoding.detect(data)
             return data.decode(enc['encoding']).replace("\n", "").strip()
-        except:  # pylint:disable=bare-except
+        except Exception:
             return thug_unicode(data).replace("\n", "").strip()
 
     def make_counter(self, p):
@@ -168,7 +168,7 @@ class JSON(object):
 
         try:
             content = self.fix(data.get("content", "NOT AVAILABLE"))
-        except:
+        except Exception:
             pass
 
         return content
