@@ -59,7 +59,7 @@ class DocumentFragment(Node):
     def _querySelectorAll(self, selectors):
         try:
             s = self.tag.select(selectors)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -69,7 +69,7 @@ class DocumentFragment(Node):
 
         try:
             s = self.tag.select(selectors)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return None
 
         if s and s[0]:
