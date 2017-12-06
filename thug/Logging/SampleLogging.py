@@ -47,7 +47,7 @@ class SampleLogging(object):
     def is_pe(self, data):
         try:
             pefile.PE(data = data, fast_load = True)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return False
 
         return True
@@ -55,7 +55,7 @@ class SampleLogging(object):
     def get_imphash(self, data):
         try:
             pe = pefile.PE(data = data)
-        except:  # pylint:disable=bare-except
+        except Exception:
             return None
 
         return pe.get_imphash()
@@ -73,7 +73,7 @@ class SampleLogging(object):
             if [t for t in z.namelist() if t.endswith('.class')]:
                 os.remove(jar)
                 return True
-        except:  # pylint:disable=bare-except
+        except Exception:
             pass
 
         os.remove(jar)
