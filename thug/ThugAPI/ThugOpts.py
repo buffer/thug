@@ -124,7 +124,10 @@ class ThugOpts(dict):
 
     def set_events(self, events):
         for e in events.split(","):
-            self._events.append(e.lower().strip())
+            evt = e.lower().strip()
+
+            if evt not in self._events:
+                self._events.append(evt)
 
     events = property(get_events, set_events)
 
