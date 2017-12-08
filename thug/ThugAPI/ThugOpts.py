@@ -78,6 +78,10 @@ class ThugOpts(dict):
     debug = property(get_debug, set_debug)
 
     def set_proxy(self, proxy):
+        if not proxy:
+            self._proxy = None
+            return
+
         p = urlparse.urlparse(proxy)
 
         if p.scheme.lower() not in self.proxy_schemes:
@@ -123,6 +127,10 @@ class ThugOpts(dict):
         return self._events
 
     def set_events(self, events):
+        if not events:
+            self._events = list()
+            return
+
         for e in events.split(","):
             evt = e.lower().strip()
 
