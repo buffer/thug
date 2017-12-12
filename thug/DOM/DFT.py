@@ -1109,7 +1109,7 @@ class DFT(object):
             src = _src
 
         doc    = w3c.parseString(response.content)
-        window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+        window = Window(response.url, doc, personality = log.ThugOpts.useragent)
         # window.open(src)
 
         frame_id = frame.get('id', None)
