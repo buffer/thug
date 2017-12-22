@@ -98,17 +98,22 @@ class JSON(object):
 
         return getattr(log.ThugVulnModules, module)
 
-    def fix(self, data):
+    def fix(self, data, drop_spaces = True):
         """
-        Fix encoding of data
+        Fix data encoding
 
         @data  data to encode properly
         """
+        if not data:
+            return ""
+
         try:
             enc = log.Encoding.detect(data)
-            return data.decode(enc['encoding']).replace("\n", "").strip()
+            enc_data = data.decode(enc['encoding'])
         except Exception:
-            return thug_unicode(data).replace("\n", "").strip()
+            enc_data = thug_unicode(data)
+
+        return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
 
     def make_counter(self, p):
         _id = p
@@ -126,7 +131,7 @@ class JSON(object):
         if not self.json_enabled:
             return
 
-        self.data["code"].append({"snippet"      : self.fix(snippet),
+        self.data["code"].append({"snippet"      : self.fix(snippet, drop_spaces = False),
                                   "language"     : self.fix(language),
                                   "relationship" : self.fix(relationship),
                                   "tag"          : self.fix(tag),
@@ -263,7 +268,7 @@ class JSON(object):
 
         self.data["behavior"].append({"description" : self.fix(description),
                                       "cve"         : self.fix(cve),
-                                      "snippet"     : self.fix(snippet),
+                                      "snippet"     : self.fix(snippet, drop_spaces = False),
                                       "method"      : self.fix(method),
                                       "timestamp"   : str(datetime.datetime.now())})
 

@@ -396,17 +396,22 @@ class MongoDB(object):
 
         self.graphs.insert(graph)
 
-    def fix(self, data):
+    def fix(self, data, drop_spaces = True):
         """
-        Fix encoding of data
+        Fix data encoding
 
         @data  data to encode properly
         """
+        if not data:
+            return ""
+
         try:
             enc = log.Encoding.detect(data)
-            return data.decode(enc['encoding']).replace("\n", "").strip()
+            enc_data = data.decode(enc['encoding'])
         except Exception:
-            return thug_unicode(data).replace("\n", "").strip()
+            enc_data = thug_unicode(data)
+
+        return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
 
     def add_code_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
         if not self.enabled:
@@ -414,7 +419,7 @@ class MongoDB(object):
 
         code = {
             'analysis_id'  : self.analysis_id,
-            'snippet'      : self.fix(snippet),
+            'snippet'      : self.fix(snippet, drop_spaces = False),
             'language'     : self.fix(language),
             'relationship' : self.fix(relationship),
             'tag'          : self.fix(tag),
@@ -449,7 +454,7 @@ class MongoDB(object):
             'analysis_id' : self.analysis_id,
             'description' : self.fix(description),
             'cve'         : self.fix(cve),
-            'snippet'     : self.fix(snippet),
+            'snippet'     : self.fix(snippet, drop_spaces = False),
             'method'      : self.fix(method),
             'timestamp'   : str(datetime.datetime.now())
         }
