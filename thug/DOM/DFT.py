@@ -25,6 +25,7 @@ import logging
 import cchardet
 import PyV8
 import bs4 as BeautifulSoup
+import re
 import six
 import six.moves.urllib.parse as urlparse
 from cssutils.parse import CSSParser
@@ -848,6 +849,14 @@ class DFT(object):
             log.ThugLogging.add_code_snippet(str(script), 'VBScript', 'Contained_Inside')
 
         log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, str(script))
+
+        try:
+            urls = re.findall("(?P<url>https?://[^\s'\"]+)", str(script))
+            for url in urls:
+                self.window._navigator.fetch(url, redirect_type = "VBS embedded URL")
+        except Exception:
+            pass
+
         log.warning("VBScript parsing not available")
 
     def handle_vbs(self, script):
