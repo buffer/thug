@@ -3,6 +3,8 @@
 import logging
 import six.moves.urllib.parse as urlparse
 import thug.DOM as DOM
+from lxml.html import builder as E
+from lxml.html import tostring
 
 log = logging.getLogger("Thug")
 
@@ -89,8 +91,25 @@ def send(self, varBody = None):
     if contenttype is None:
         return 0
 
+    if 'javascript' in contenttype:
+        html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(response.text))))
+
+        doc = DOM.W3C.w3c.parseString(html)
+        window = DOM.Window.Window(self.bstrUrl, doc, personality = log.ThugOpts.useragent)
+
+        dft = DOM.DFT.DFT(window)
+        dft.run()
+        return
+
     if 'text/html' in contenttype:
-        doc = DOM.W3C.w3c.parseString(self.responseBody)
+        tags = ('<html', '<body', '<head', '<script')
+
+        if not any(tag in response.text.lower() for tag in tags):
+            html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(response.text))))
+        else:
+            html = response.text
+
+        doc = DOM.W3C.w3c.parseString(html)
 
         window = DOM.Window.Window(self.bstrUrl, doc, personality = log.ThugOpts.useragent)
         # window.open(self.bstrUrl)
