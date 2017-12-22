@@ -14,9 +14,9 @@ def abort(self):
 
 def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword = None):  # pylint:disable=redefined-builtin
     # Internet Explorer ignores any \r\n or %0d%0a or whitespace appended to the domain name
-    parsedUrl = urlparse.urlparse(bstrUrl)
-    netloc = parsedUrl.netloc.strip("\r\n\t")
-    bstrUrl = urlparse.urlunparse((parsedUrl.scheme, netloc, parsedUrl.path, parsedUrl.params, parsedUrl.query, parsedUrl.fragment))
+    # parsedUrl = urlparse.urlparse(bstrUrl)
+    # netloc = parsedUrl.netloc.strip("\r\n\t")
+    # bstrUrl = urlparse.urlunparse((parsedUrl.scheme, netloc, parsedUrl.path, parsedUrl.params, parsedUrl.query, parsedUrl.fragment))
 
     msg = "[Microsoft XMLHTTP ActiveX] open('%s', '%s', %s" % (bstrMethod, bstrUrl, varAsync is True, )
     if varUser:
