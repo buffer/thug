@@ -79,8 +79,8 @@ def send(self, varBody = None):
 
     self.status          = response.status_code
     self.responseHeaders = response.headers
-    self.responseBody    = response.content
-    self.responseText    = response.content
+    self.responseBody    = response.text
+    self.responseText    = response.text
     self.readyState      = 4
 
     self.dispatchEvent("readystatechange")
