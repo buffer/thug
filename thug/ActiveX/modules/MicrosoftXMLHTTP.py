@@ -85,7 +85,17 @@ def send(self, varBody = None):
     self.responseText    = response.text
     self.readyState      = 4
 
-    self.dispatchEvent("readystatechange")
+    if getattr(log, 'XMLHTTP', None) is None:
+        log.XMLHTTP = dict()
+
+    last_bstrUrl    = log.XMLHTTP.get('last_bstrUrl', None)
+    last_bstrMethod = log.XMLHTTP.get('last_bstrMethod', None)
+
+    if last_bstrUrl in (self.bstrUrl, ) and last_bstrMethod in (self.bstrMethod, ):
+        return 0
+
+    log.XMLHTTP['last_bstrUrl']    = str(self.bstrUrl)
+    log.XMLHTTP['last_bstrMethod'] = str(self.bstrMethod)
 
     contenttype = self.responseHeaders.get('content-type', None)
     if contenttype is None:
