@@ -34,7 +34,7 @@ using Paypal (details at https://buffer.github.com/thug/).
 License information
 -------------------
 
-Copyright (C) 2011-2017 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
+Copyright (C) 2011-2018 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
 
 License: GNU General Public License, version 2
 
