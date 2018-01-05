@@ -1,1 +1,0 @@
-include "jsclassifier/plugindetect.yar"
