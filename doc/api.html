@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Thug API &#8212; Thug 0.9.13 documentation</title>
+    <title>Thug API &#8212; Thug 0.9.15 documentation</title>
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.13',
+        VERSION:     '0.9.15',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.13 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.15 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -61,8 +61,8 @@ advanced scenarios.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thug.ThugAPI</span> <span class="kn">import</span> <span class="n">ThugAPI</span>
 
 <span class="k">class</span> <span class="nc">TestAPI</span><span class="p">(</span><span class="n">ThugAPI</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">ThugAPI</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ThugAPI</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
         <span class="c1"># Set useragent to Internet Explorer 9.0 (Windows 7)</span>
@@ -93,7 +93,7 @@ advanced scenarios.</p>
         <span class="c1"># Log analysis results</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">log_event</span><span class="p">()</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">TestAPI</span><span class="p">()</span>
     <span class="n">t</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="s2">&quot;http://www.google.com&quot;</span><span class="p">)</span>
 </pre></div>
@@ -903,11 +903,11 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.13 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.15 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2011-2017, Angelo Dell&#39;Aera.
+        &#169; Copyright 2011-2018, Angelo Dell&#39;Aera.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>

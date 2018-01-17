@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>JS Hooks &#8212; Thug 0.9.13 documentation</title>
+    <title>JS Hooks &#8212; Thug 0.9.15 documentation</title>
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.13',
+        VERSION:     '0.9.15',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="api.html" title="Thug API"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.13 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.15 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -78,13 +78,13 @@ eval method.</p>
 </div>
 <p>Let’s run Thug against it</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l test.html
-<span class="o">[</span>2016-10-14 10:21:47<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: one
+<span class="o">[</span><span class="m">2016</span>-10-14 <span class="m">10</span>:21:47<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: one
 </pre></div>
 </div>
 <p>Let’s now drop the file 1-hook.js in the folder <em>/etc/thug/hooks</em> and run Thug again</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ ls -lh /etc/thug/hooks/
-total 4.0K
--rw-r--r-- <span class="m">1</span> root root <span class="m">35</span> Oct <span class="m">14</span> 10:22 1-hook.js
+total <span class="m">4</span>.0K
+-rw-r--r-- <span class="m">1</span> root root <span class="m">35</span> Oct <span class="m">14</span> <span class="m">10</span>:22 <span class="m">1</span>-hook.js
 
 ~ $ cat /etc/thug/hooks/1-hook.js
 <span class="k">function</span> eval<span class="o">(</span>arg<span class="o">)</span> <span class="o">{</span>
@@ -92,15 +92,15 @@ total 4.0K
 <span class="o">}</span>
 
 ~$ thug -l test.html
-<span class="o">[</span>2016-10-14 10:22:58<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: two
+<span class="o">[</span><span class="m">2016</span>-10-14 <span class="m">10</span>:22:58<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: two
 </pre></div>
 </div>
 <p>It’s easy to realize that the eval method was overwritten. Let’s now drop the file 2-hook.js in
 the folder <em>/etc/thug/hooks</em> and run Thug again</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~$ ls -lh /etc/thug/hooks/
-total 8.0K
--rw-r--r-- <span class="m">1</span> root root <span class="m">35</span> Oct <span class="m">14</span> 10:22 1-hook.js
--rw-r--r-- <span class="m">1</span> root root <span class="m">37</span> Oct <span class="m">14</span> 10:26 2-hook.js
+total <span class="m">8</span>.0K
+-rw-r--r-- <span class="m">1</span> root root <span class="m">35</span> Oct <span class="m">14</span> <span class="m">10</span>:22 <span class="m">1</span>-hook.js
+-rw-r--r-- <span class="m">1</span> root root <span class="m">37</span> Oct <span class="m">14</span> <span class="m">10</span>:26 <span class="m">2</span>-hook.js
 
 ~$ cat /etc/thug/hooks/2-hook.js
 <span class="k">function</span> eval<span class="o">(</span>arg<span class="o">)</span> <span class="o">{</span>
@@ -108,7 +108,7 @@ total 8.0K
 <span class="o">}</span>
 
 ~ $ thug -l test.html
-<span class="o">[</span>2016-10-14 10:26:45<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: three
+<span class="o">[</span><span class="m">2016</span>-10-14 <span class="m">10</span>:26:45<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: three
 </pre></div>
 </div>
 <p>The two scripts are executed in the right order and the hook defined in 2-hook.js overwrites the
@@ -116,9 +116,9 @@ one defined in 1-hook.js as expected. Let’s now drop the file 3-hook.js in the
 and run Thug once again</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ ls -lh /etc/thug/hooks/
 total 12K
--rw-r--r-- <span class="m">1</span> root root <span class="m">35</span> Oct <span class="m">14</span> 10:22 1-hook.js
--rw-r--r-- <span class="m">1</span> root root <span class="m">37</span> Oct <span class="m">14</span> 10:26 2-hook.js
--rw-r--r-- <span class="m">1</span> root root <span class="m">36</span> Oct <span class="m">14</span> 10:28 3-hook.js
+-rw-r--r-- <span class="m">1</span> root root <span class="m">35</span> Oct <span class="m">14</span> <span class="m">10</span>:22 <span class="m">1</span>-hook.js
+-rw-r--r-- <span class="m">1</span> root root <span class="m">37</span> Oct <span class="m">14</span> <span class="m">10</span>:26 <span class="m">2</span>-hook.js
+-rw-r--r-- <span class="m">1</span> root root <span class="m">36</span> Oct <span class="m">14</span> <span class="m">10</span>:28 <span class="m">3</span>-hook.js
 
 ~ $ cat /etc/thug/hooks/3-hook.js
 <span class="k">function</span> eval<span class="o">(</span>arg<span class="o">)</span> <span class="o">{</span>
@@ -126,7 +126,7 @@ total 12K
 <span class="o">}</span>
 
 ~ $ thug -l test.html
-<span class="o">[</span>2016-10-14 10:28:20<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: four
+<span class="o">[</span><span class="m">2016</span>-10-14 <span class="m">10</span>:28:20<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: four
 </pre></div>
 </div>
 <p>The three scripts are executed again in the right order and the hook defined in 3-hook.js
@@ -152,10 +152,10 @@ overwrites the other ones as expected.</p>
 <p>Let’s take a look at what happens when we run Thug now. Please note that all the files we used in the previous examples
 were removed and the folder <em>/etc/thug/hooks</em> contains just the previously shown file.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span>~ $ thug -l test.html
-<span class="o">[</span>2016-10-16 21:02:46<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Hook me Captain Hook!
-<span class="o">[</span>2016-10-16 21:02:46<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: The original <span class="k">return</span> value is: one
-<span class="o">[</span>2016-10-16 21:02:46<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Is it what you expected?
-<span class="o">[</span>2016-10-16 21:02:46<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: two
+<span class="o">[</span><span class="m">2016</span>-10-16 <span class="m">21</span>:02:46<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Hook me Captain Hook!
+<span class="o">[</span><span class="m">2016</span>-10-16 <span class="m">21</span>:02:46<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: The original <span class="k">return</span> value is: one
+<span class="o">[</span><span class="m">2016</span>-10-16 <span class="m">21</span>:02:46<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Is it what you expected?
+<span class="o">[</span><span class="m">2016</span>-10-16 <span class="m">21</span>:02:46<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: two
 </pre></div>
 </div>
 <p>Seems like we actually hooked the eval method. It was not so hard in the end, isn’t it?</p>
@@ -206,11 +206,11 @@ with known vulnerabilities</td></tr>
         <li class="right" >
           <a href="api.html" title="Thug API"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.13 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.15 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2011-2017, Angelo Dell&#39;Aera.
+        &#169; Copyright 2011-2018, Angelo Dell&#39;Aera.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>

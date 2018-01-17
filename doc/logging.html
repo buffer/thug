@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Logging &#8212; Thug 0.9.13 documentation</title>
+    <title>Logging &#8212; Thug 0.9.15 documentation</title>
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.13',
+        VERSION:     '0.9.15',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="jshooks.html" title="JS Hooks"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.13 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.15 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -72,14 +72,14 @@ of its analyses. The default logging.conf file is shown below.</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>hpfeeds<span class="o">]</span>
 enable:     False
 host:       hpfeeds.honeycloud.net
-port:       10000
+port:       <span class="m">10000</span>
 ident:      q6jyo@hp1
 secret:     edymvouqpfe1ivud
 
 <span class="o">[</span>mongodb<span class="o">]</span>
 enable:     True
 host:       localhost
-port:       27017
+port:       <span class="m">27017</span>
 
 <span class="o">[</span>elasticsearch<span class="o">]</span>
 enable:     True
@@ -103,7 +103,7 @@ parameters</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>mongodb<span class="o">]</span>
 enable:     True
 host:       localhost
-port:       27017
+port:       <span class="m">27017</span>
 </pre></div>
 </div>
 <p>The parameters should be quite intuitive to understand. By the way if you install
@@ -333,7 +333,7 @@ format. MAEC 1.1 logging mode should be enabled in order to have Thug saving dat
 this collection</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">{</span>
         <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-        <span class="s2">&quot;report&quot;</span>        : Analysis report <span class="o">(</span>MITRE MAEC 1.1 format - XML<span class="o">)</span>
+        <span class="s2">&quot;report&quot;</span>        : Analysis report <span class="o">(</span>MITRE MAEC <span class="m">1</span>.1 format - XML<span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -370,7 +370,7 @@ file</p>
 <div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>hpfeeds<span class="o">]</span>
 enable:     False
 host:       hpfeeds.honeycloud.net
-port:       10000
+port:       <span class="m">10000</span>
 ident:      q6jyo@hp1
 secret:     edymvouqpfe1ivud
 </pre></div>
@@ -563,44 +563,44 @@ will appear as shown below</p>
 ~/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 $ ls -lhR
 .:
 total 232K
--rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">1008</span> Jul  <span class="m">2</span> 19:15 502da89357ca5d7c85dc7a67f8977b21
--rw-r--r-- <span class="m">1</span> buffer buffer  81K Jul  <span class="m">2</span> 19:15 analysis.xml
-drwxr-xr-x <span class="m">6</span> buffer buffer  <span class="m">176</span> Jul  <span class="m">2</span> 19:15 application
--rwxr-xr-x <span class="m">1</span> buffer buffer  89K Jul  <span class="m">2</span> 19:15 d328b5a123bce1c0d20d763ad745303a
--rw-r--r-- <span class="m">1</span> buffer buffer  51K Jul  <span class="m">2</span> 19:15 Ryp.jar
-drwxr-xr-x <span class="m">3</span> buffer buffer   <span class="m">72</span> Jul  <span class="m">2</span> 19:15 text
+-rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">1008</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 502da89357ca5d7c85dc7a67f8977b21
+-rw-r--r-- <span class="m">1</span> buffer buffer  81K Jul  <span class="m">2</span> <span class="m">19</span>:15 analysis.xml
+drwxr-xr-x <span class="m">6</span> buffer buffer  <span class="m">176</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 application
+-rwxr-xr-x <span class="m">1</span> buffer buffer  89K Jul  <span class="m">2</span> <span class="m">19</span>:15 d328b5a123bce1c0d20d763ad745303a
+-rw-r--r-- <span class="m">1</span> buffer buffer  51K Jul  <span class="m">2</span> <span class="m">19</span>:15 Ryp.jar
+drwxr-xr-x <span class="m">3</span> buffer buffer   <span class="m">72</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 text
 
 ./application:
-total 0
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> 19:15 java-archive
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> 19:15 pdf
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> 19:15 x-msdownload
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> 19:15 x-shockwave-flash
+total <span class="m">0</span>
+drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 java-archive
+drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 pdf
+drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 x-msdownload
+drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 x-shockwave-flash
 
 ./application/java-archive:
 total 52K
--rw-r--r-- <span class="m">1</span> buffer buffer 51K Jul  <span class="m">2</span> 19:15 e3639fde6ddf7fd0182fff9757143ff2
+-rw-r--r-- <span class="m">1</span> buffer buffer 51K Jul  <span class="m">2</span> <span class="m">19</span>:15 e3639fde6ddf7fd0182fff9757143ff2
 
 ./application/pdf:
 total 16K
--rw-r--r-- <span class="m">1</span> buffer buffer 15K Jul  <span class="m">2</span> 19:15 3660fe0e4acd23ac13f3d043eebd2bbc
+-rw-r--r-- <span class="m">1</span> buffer buffer 15K Jul  <span class="m">2</span> <span class="m">19</span>:15 3660fe0e4acd23ac13f3d043eebd2bbc
 
 ./application/x-msdownload:
 total 92K
--rw-r--r-- <span class="m">1</span> buffer buffer 89K Jul  <span class="m">2</span> 19:15 d328b5a123bce1c0d20d763ad745303a
+-rw-r--r-- <span class="m">1</span> buffer buffer 89K Jul  <span class="m">2</span> <span class="m">19</span>:15 d328b5a123bce1c0d20d763ad745303a
 
 ./application/x-shockwave-flash:
-total 4.0K
--rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">1008</span> Jul  <span class="m">2</span> 19:15 502da89357ca5d7c85dc7a67f8977b21
+total <span class="m">4</span>.0K
+-rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">1008</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 502da89357ca5d7c85dc7a67f8977b21
 
 ./text:
-total 0
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">144</span> Jul  <span class="m">2</span> 19:15 html
+total <span class="m">0</span>
+drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">144</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 html
 
 ./text/html:
 total 72K
--rw-r--r-- <span class="m">1</span> buffer buffer 68K Jul  <span class="m">2</span> 19:15 95ee609e6e3b69c2d9e68f34ff4a4335
--rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">878</span> Jul  <span class="m">2</span> 19:15 d26b9b1a1f667004945d1d000cf4f19e
+-rw-r--r-- <span class="m">1</span> buffer buffer 68K Jul  <span class="m">2</span> <span class="m">19</span>:15 95ee609e6e3b69c2d9e68f34ff4a4335
+-rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">878</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 d26b9b1a1f667004945d1d000cf4f19e
 </pre></div>
 </div>
 <p>In this example the MAEC 1.1 logging mode is enabled and the file <em>analysis.xml</em> contains the
@@ -649,11 +649,11 @@ are saved in the database instance as well.</p>
         <li class="right" >
           <a href="jshooks.html" title="JS Hooks"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.13 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.15 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2011-2017, Angelo Dell&#39;Aera.
+        &#169; Copyright 2011-2018, Angelo Dell&#39;Aera.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
