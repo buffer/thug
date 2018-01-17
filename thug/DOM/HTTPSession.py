@@ -39,8 +39,7 @@ class HTTPSession(object):
         self.filecount = 0
 
     def __check_proxy_alive(self, hostname, port):
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((hostname, port))
+        s = socket.create_connection((hostname, port), 5.0)
         s.close()
 
     def __do_init_proxy(self, proxy):
