@@ -229,9 +229,6 @@ class ThugLogging(BaseLogging, SampleLogging):
             m(data)
 
     def log_redirect(self, response, window):
-        if not response:
-            return None
-
         if not response.history:
             if response.url:
                 log.URLClassifier.classify(response.url)
