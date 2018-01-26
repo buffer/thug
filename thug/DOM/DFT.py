@@ -1346,6 +1346,10 @@ class DFT(object):
             self.handle_applet(p)
 
         for child in soup.descendants:
+            parents = [p.name.lower() for p in child.parents]
+            if 'noscript' in parents:
+                continue
+
             self.set_event_handler_attributes(child)
             if not self.do_handle(child, soup):
                 continue
