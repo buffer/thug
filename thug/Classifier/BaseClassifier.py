@@ -27,6 +27,7 @@ log = logging.getLogger("Thug")
 class BaseClassifier(object):
     def __init__(self):
         self.matches = list()
+        self.custom_classifiers = dict()
         self.init_rules()
         self.init_filters()
 
@@ -108,3 +109,11 @@ class BaseClassifier(object):
                 return True
 
         return False
+
+    def add_customclassifier(self, method):
+        if not callable(method):
+            log.warn("Skipping non callable custom classifier %s", str(method))
+            return
+
+        method_name = method.im_func.func_name
+        self.custom_classifiers[method_name] = method.__get__(self)

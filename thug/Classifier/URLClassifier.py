@@ -49,6 +49,9 @@ class URLClassifier(BaseClassifier):
             tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("url", url, rule, tags)
 
+        for c in self.custom_classifiers:
+            self.custom_classifiers[c](url)
+
     def filter(self, url):
         ret = False
 

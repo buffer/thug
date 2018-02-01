@@ -44,6 +44,9 @@ class HTMLClassifier(BaseClassifier):
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("html", url, rule, tags)
 
+        for c in self.custom_classifiers:
+            self.custom_classifiers[c](url, html)
+
     def filter(self, url, html):
         ret = False
 

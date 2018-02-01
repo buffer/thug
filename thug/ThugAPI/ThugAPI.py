@@ -343,6 +343,15 @@ class ThugAPI(object):
     def add_samplefilter(self, f):
         log.SampleClassifier.add_filter(f)
 
+    def add_customclassifier(self, cls_type, method):
+        classifier_type = cls_type.lower().strip()
+
+        if classifier_type not in self.classifiers_map:
+            log.warn("Skipping unknown classifier type %s", cls_type)
+            return
+
+        self.classifiers_map[classifier_type].add_customclassifier(method)
+
     def log_event(self):
         log.ThugLogging.log_event()
 
