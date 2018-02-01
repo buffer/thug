@@ -61,23 +61,47 @@ log.setLevel(logging.WARN)
 @implementer(IThugAPI)
 class ThugAPI(object):
     def __init__(self, configuration_path = thug.__configuration_path__):
-        log.configuration_path  = configuration_path
-        log.personalities_path  = os.path.join(configuration_path, "personalities") if configuration_path else None
-        log.ThugOpts            = ThugOpts()
-        log.ThugVulnModules     = ThugVulnModules()
-        log.WebTracking         = WebTracking()
-        log.MIMEHandler         = MIMEHandler()
-        log.SchemeHandler       = SchemeHandler()
-        log.HTMLClassifier      = HTMLClassifier()
-        log.JSClassifier        = JSClassifier()
-        log.VBSClassifier       = VBSClassifier()
-        log.URLClassifier       = URLClassifier()
-        log.SampleClassifier    = SampleClassifier()
-        log.TextClassifier      = TextClassifier()
-        log.Encoding            = Encoding()
-        log.ASTHandler          = ASTHandler()
-        log.JSExtensions        = list()
-        log.Trace               = None
+        self.__init_conf(configuration_path)
+        self.__init_core()
+        self.__init_classifiers()
+        self.__init_extensions()
+        self.__init_trace()
+
+    def __init_conf(self, configuration_path):
+        log.configuration_path = configuration_path
+        log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
+
+    def __init_core(self):
+        log.ThugOpts        = ThugOpts()
+        log.ThugVulnModules = ThugVulnModules()
+        log.MIMEHandler     = MIMEHandler()
+        log.SchemeHandler   = SchemeHandler()
+        log.ASTHandler      = ASTHandler()
+        log.Encoding        = Encoding()
+        log.WebTracking     = WebTracking()
+
+    def __init_classifiers(self):
+        log.HTMLClassifier   = HTMLClassifier()
+        log.JSClassifier     = JSClassifier()
+        log.VBSClassifier    = VBSClassifier()
+        log.URLClassifier    = URLClassifier()
+        log.SampleClassifier = SampleClassifier()
+        log.TextClassifier   = TextClassifier()
+
+        self.classifiers_map = {
+            'html'   : log.HTMLClassifier,
+            'js'     : log.JSClassifier,
+            'vbs'    : log.VBSClassifier,
+            'url'    : log.URLClassifier,
+            'sample' : log.SampleClassifier,
+            'text'   : log.TextClassifier
+        }
+
+    def __init_extensions(self):
+        log.JSExtensions = list()
+
+    def __init_trace(self):
+        log.Trace = None
 
     def __call__(self):
         self.analyze()
