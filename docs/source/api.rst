@@ -785,6 +785,41 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def add_customclassifier(cls_type, method):
+            """
+            add_customclassifier
+
+            Add a custom classifier.
+
+            The parameter `cls_type' can assume the values
+
+                    html
+                    js
+                    vbs
+                    url
+                    text
+                    sample
+
+            and defines the custom classifier scope.
+
+            The parameter `method' is the method (not its name) to be additionaly invoked.
+            The method parameters depend on the `cls_type' value and are listed here for
+            convenience
+
+                    html    method(url, html)
+                    js      method(url, script)
+                    vbs     method(url, script)
+                    url     method(url)
+                    text    method(url, text)
+                    sample  method(sample, md5)
+
+            @param cls_type: Classifier type
+            @param cls_type: C{str}
+            @param method: Classifier method
+            @param method: method
+            @return: None
+            """
+
         def log_event():
             """
             log_event
