@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
+import logging
 import six
 import six.moves.urllib.parse as urlparse
-import logging
 
 from .Attr import Attr
 from .Node import Node
@@ -10,6 +10,7 @@ from .NodeList import NodeList
 from .NamedNodeMap import NamedNodeMap
 
 from .Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
+
 log = logging.getLogger("Thug")
 
 
@@ -28,6 +29,8 @@ class Element(Node, ElementCSSInlineStyle):
         self.tag       = tag
         self.tag._node = self
         Node.__init__(self, doc)
+        ElementCSSInlineStyle.__init__(self, doc, tag)
+
         self.__init_personality()
 
     def __init_personality(self):
