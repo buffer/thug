@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-from .Event import Event
-
 import logging
+
+from .Event import Event
 
 log = logging.getLogger("Thug")
 
