@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import six
 import logging
+import six
 import six.moves.urllib.parse as urlparse
 import bs4 as BeautifulSoup
 
