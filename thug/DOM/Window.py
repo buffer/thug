@@ -870,7 +870,7 @@ class Window(JSClass):
 
     def eval(self, script):
         if script is None:
-            return
+            return None
 
         if len(script) > 64:
             log.warning("[Window] Eval argument length > 64 (%d)", len(script))
