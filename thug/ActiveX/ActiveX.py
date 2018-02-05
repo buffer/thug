@@ -159,7 +159,7 @@ class _ActiveXObject(object):
             self.__dict__[name] = value
             return value
 
-        if name not in ('__watchpoints__'):
+        if name not in ('__watchpoints__', ):
             log.warning("Unknown ActiveX Object (%s) attribute: %s", self.cls, name)
 
         raise AttributeError
@@ -172,7 +172,7 @@ def register_object(s, clsid):
 
     if not clsid.startswith('clsid:'):
         log.warning("Unknown ActiveX object: %s", clsid)
-        return None
+        return
 
     clsid = clsid[6:].upper()
     if clsid.startswith('{') and clsid.endswith('}'):
