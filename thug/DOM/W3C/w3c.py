@@ -2,14 +2,15 @@
 
 import six
 import bs4 as BeautifulSoup
-from .DOMImplementation import DOMImplementation
 
 
 def getDOMImplementation(dom = None, **kwds):
+    from .DOMImplementation import DOMImplementation
     return DOMImplementation(dom if dom else BeautifulSoup.BeautifulSoup(), **kwds)
 
 
 def parseString(html, **kwds):
+    from .DOMImplementation import DOMImplementation
     return DOMImplementation(BeautifulSoup.BeautifulSoup(html, "html.parser"), **kwds)
 
 
