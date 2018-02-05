@@ -4,7 +4,6 @@ import logging
 import bs4 as BeautifulSoup
 
 from .Node import Node
-from .NodeList import NodeList
 
 log = logging.getLogger("Thug")
 
@@ -57,6 +56,8 @@ class DocumentFragment(Node):
         self.querySelector    = self._querySelector
 
     def _querySelectorAll(self, selectors):
+        from .NodeList import NodeList
+
         try:
             s = self.tag.select(selectors)
         except Exception:
