@@ -16,13 +16,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import logging
 import sys
 import socket
-import requests
 import ssl
-import six.moves.urllib.parse as urlparse
 import unittest
-import logging
+import six.moves.urllib.parse as urlparse
+import requests
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -175,7 +175,7 @@ class HTTPSession(object):
 
         if url.startswith("data:"):
             log.DFT._handle_data_uri(url)
-            return
+            return None
 
         fetcher = getattr(self.session, method.lower(), None)
         if fetcher is None:
