@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
+import logging
+
 from .Event import Event
 from .HTMLEvent import HTMLEvent
 from .MouseEvent import MouseEvent
 
-import logging
 log = logging.getLogger("Thug")
 
 
