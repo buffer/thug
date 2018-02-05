@@ -1,13 +1,15 @@
 # Microsoft XMLDOM
-from lxml import etree
 
+import logging
 import base64
 import binascii
+
+from lxml import etree
+
 from thug.DOM.W3C import w3c
 from thug.OS.Windows import security_sys
 # from DOM.W3C.NamedNodeMap import NamedNodeMap
 
-import logging
 log = logging.getLogger("Thug")
 
 
