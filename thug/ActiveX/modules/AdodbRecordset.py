@@ -1,5 +1,5 @@
-import six
 import collections
+import six
 
 from thug.DOM.JSClass import JSClass
 
