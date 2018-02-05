@@ -11,6 +11,8 @@ class TAnimateColor(HTMLElement):
     def __init__(self, doc, tag):
         self.doc = doc
         self.tag = tag
+        HTMLElement.__init__(self, doc, tag)
+
         self._values = ""
 
     def get_values(self):
