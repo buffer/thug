@@ -4,16 +4,6 @@ import logging
 import bs4 as BeautifulSoup
 
 from .Node import Node
-from .NodeList import NodeList
-from .DocumentFragment import DocumentFragment
-from .DocumentType import DocumentType
-from .Element import Element
-from .Comment import Comment
-from .Text import Text
-from .CDATASection import CDATASection
-from .Attr import Attr
-from .EntityReference import EntityReference
-from .ProcessingInstruction import ProcessingInstruction
 from .Events.DocumentEvent import DocumentEvent
 from .Views.DocumentView import DocumentView
 
@@ -100,6 +90,8 @@ class Document(Node, DocumentEvent, DocumentView):
         self.characterSet           = self._characterSet
 
     def _querySelectorAll(self, selectors):
+        from .NodeList import NodeList
+
         try:
             s = self.doc.select(selectors)
         except Exception:
@@ -143,10 +135,13 @@ class Document(Node, DocumentEvent, DocumentView):
 
     @property
     def childNodes(self):
+        from .NodeList import NodeList
         return NodeList(self.doc, self.doc.contents)
 
     @property
     def doctype(self):
+        from .DocumentType import DocumentType
+
         for tag in self.doc:
             if isinstance(tag, BeautifulSoup.Declaration) and tag.startswith("DOCTYPE"):
                 return DocumentType(self.doc, tag)
@@ -159,6 +154,7 @@ class Document(Node, DocumentEvent, DocumentView):
 
     @property
     def documentElement(self):
+        from .Element import Element
         return Element(self, self.doc.find('html'))
 
     onCreateElement = None
@@ -199,27 +195,36 @@ class Document(Node, DocumentEvent, DocumentView):
         return element
 
     def createDocumentFragment(self):
+        from .DocumentFragment import DocumentFragment
         return DocumentFragment(self)
 
     def createTextNode(self, data):
+        from .Text import Text
         return Text(self, BeautifulSoup.NavigableString(data))
 
     def createComment(self, data):
+        from .Comment import Comment
         return Comment(self, BeautifulSoup.Comment(data))
 
     def createCDATASection(self, data):
+        from .CDATASection import CDATASection
         return CDATASection(self, BeautifulSoup.CData(data))
 
     def createProcessingInstruction(self, target, data):
+        from .ProcessingInstruction import ProcessingInstruction
         return ProcessingInstruction(self, target, BeautifulSoup.ProcessingInstruction(data))
 
     def createAttribute(self, name):
+        from .Attr import Attr
         return Attr(self, None, name)
 
     def createEntityReference(self, name):
+        from .EntityReference import EntityReference
         return EntityReference(self, name)
 
     def getElementsByTagName(self, tagname):
+        from .NodeList import NodeList
+
         if log.ThugOpts.Personality.isIE() and tagname in ('*', ):
             s = [p for p in self.doc.find_all(text = False)]
             return NodeList(self.doc, s)
@@ -227,6 +232,7 @@ class Document(Node, DocumentEvent, DocumentView):
         return NodeList(self.doc, self.doc.find_all(tagname.lower()))
 
     def _getElementsByClassName(self, classname):
+        from .NodeList import NodeList
         return NodeList(self.doc, self.doc.find_all(class_ = classname))
 
     # Introduced in DOM Level 2
