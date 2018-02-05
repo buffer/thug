@@ -8,7 +8,6 @@ from thug.DOM.JSClass import JSClass
 from .abstractmethod import abstractmethod
 from .DOMException import DOMException
 from .Events.EventTarget import EventTarget
-from .NodeList import NodeList
 
 log = logging.getLogger("Thug")
 
@@ -107,6 +106,7 @@ class Node(JSClass, EventTarget):
 
     @property
     def childNodes(self):
+        from .NodeList import NodeList
         return NodeList(self.doc, [])
 
     @property
