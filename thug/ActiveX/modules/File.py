@@ -1,7 +1,8 @@
 
+import logging
+
 from thug.ActiveX.modules import TextStream
 
-import logging
 log = logging.getLogger("Thug")
 
 
@@ -55,7 +56,7 @@ class File(object):
 
             _shortPath.append(spfn)
 
-        return("\\\\".join(_shortPath))
+        return "\\\\".join(_shortPath)
 
     @property
     def ShortName(self):
@@ -66,8 +67,8 @@ class File(object):
         if len(sp) == 1:
             if len(name) <= 8:
                 return name
-            else:
-                return "{}~1".format(name[:6])
+
+            return "{}~1".format(name[:6])
 
         spfn = ".".join(sp[:-1])
         ext = sp[-1]
