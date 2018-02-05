@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
+import logging
+
 from .HTMLMediaElement import HTMLMediaElement
 
-import logging
 log = logging.getLogger("Thug")
 
 
