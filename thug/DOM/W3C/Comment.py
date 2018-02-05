@@ -16,7 +16,7 @@ class Comment(CharacterData):
     def getNodeValue(self):
         return self.data
 
-    def setNodeValue(self, data):
-        self.data = data
+    def setNodeValue(self, value):
+        self.data = value
 
     nodeValue = property(getNodeValue, setNodeValue)
