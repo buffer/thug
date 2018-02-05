@@ -3,9 +3,9 @@ import string
 import time
 import random
 import re
-import six
 import logging
 import hashlib
+import six
 import pefile
 import PyV8
 
