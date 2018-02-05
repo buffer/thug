@@ -20,16 +20,22 @@ import os
 import sched
 import time
 import logging
-import PyV8
 import traceback
 import urllib
-import bs4 as BeautifulSoup
 import numbers
 import collections
 import datetime
-import six
-# import new
 import types
+import six
+import PyV8
+import bs4 as BeautifulSoup
+# import new
+
+import thug
+from thug.ActiveX.ActiveX import _ActiveXObject
+from thug.AST.AST2 import AST
+from thug.Debugger import Shellcode
+from thug.Java.java import java
 
 from .W3C import w3c
 from .W3C.HTML.HTMLCollection import HTMLCollection
@@ -54,12 +60,6 @@ from .SessionStorage import SessionStorage
 from .Map import Map
 from .MozConnection import mozConnection
 from .w3c_bindings import w3c_bindings
-from thug.ActiveX.ActiveX import _ActiveXObject
-from thug.AST.AST2 import AST
-from thug.Debugger import Shellcode
-from thug.Java.java import java
-
-import thug
 
 sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug")
