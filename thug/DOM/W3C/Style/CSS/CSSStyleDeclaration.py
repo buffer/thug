@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import logging
+import six
+
 log = logging.getLogger("Thug")
 
 
@@ -37,7 +39,7 @@ class CSSStyleDeclaration(object):
         return len(self.props)
 
     def item(self, index):
-        if type(index) == str:
+        if isinstance(index, six.string_types):
             if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 7 and index in ('maxHeight', ):
                 raise AttributeError(index)
 
@@ -54,8 +56,8 @@ class CSSStyleDeclaration(object):
 
         if hasattr(object, name):
             return object.__getattribute__(self, name)
-        else:
-            return object.__getattribute__(self, 'props').get(name, '')
+
+        return object.__getattribute__(self, 'props').get(name, '')
 
     def __setattr__(self, name, value):
         if name == 'props':
