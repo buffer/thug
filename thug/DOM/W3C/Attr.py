@@ -44,7 +44,6 @@ class Attr(Node):
     @property
     def childNodes(self):
         from .NodeList import NodeList
-
         return NodeList(self.parent.doc, [])
 
     @property
