@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from .DOMException import DOMException
 from .Node import Node
+from .DOMException import DOMException
 
 
 class CharacterData(Node):
