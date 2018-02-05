@@ -108,7 +108,7 @@ class HTMLTableElement(HTMLElement):
                 index = 0
 
         # PLEASE REVIEW ME!
-        if not len(self.tBodies):
+        if not self.tBodies.length:
             tBody = HTMLTableSectionElement(self.doc, BeautifulSoup.Tag(self.doc, name = 'tbody'))
             self.tBodies.nodes.append(tBody)
             if self.tFoot is None:
