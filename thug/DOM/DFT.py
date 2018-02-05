@@ -484,6 +484,7 @@ class DFT(object):
             return
 
         if not getattr(elem, '_node', None):
+            from .W3C.DOMImplementation import DOMImplementation
             DOMImplementation.createHTMLElement(self.window.doc, elem)
 
         elem._node._attachEvent(evt, handler, True)
@@ -794,7 +795,7 @@ class DFT(object):
         if response.status_code == 404:
             return
 
-        if not len(response.content):
+        if not response.content:
             return
 
         if log.ThugOpts.code_logging:
