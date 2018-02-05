@@ -1,10 +1,11 @@
 # Microsoft XMLHTTP
 
 import logging
-import six.moves.urllib.parse as urlparse
-import thug.DOM as DOM
+# import six.moves.urllib.parse as urlparse
 from lxml.html import builder as E
 from lxml.html import tostring
+
+import thug.DOM as DOM
 
 log = logging.getLogger("Thug")
 
@@ -111,7 +112,7 @@ def send(self, varBody = None):
 
         dft = DOM.DFT.DFT(window)
         dft.run()
-        return
+        return 0
 
     if 'text/html' in contenttype:
         tags = ('<html', '<body', '<head', '<script')
@@ -128,7 +129,7 @@ def send(self, varBody = None):
 
         dft = DOM.DFT.DFT(window)
         dft.run()
-        return
+        return 0
 
     handler = log.MIMEHandler.get_handler(contenttype)
     if handler:
