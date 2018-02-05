@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from .HTMLCollection import HTMLCollection
 from thug.DOM.W3C.NodeList import NodeList
+from .HTMLCollection import HTMLCollection
 
 
 class HTMLAllCollection(HTMLCollection):
