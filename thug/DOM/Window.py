@@ -78,7 +78,7 @@ class Window(JSClass):
 
         def execute(self):
             if not self.running:
-                return
+                return None
 
             with self.window.context as ctx:
                 if isinstance(self.code, six.string_types):
@@ -87,7 +87,7 @@ class Window(JSClass):
                     return self.code()
                 else:
                     log.warning("Error while handling Window timer")
-                    return
+                    return None
 
             if self.repeat:
                 self.start()
