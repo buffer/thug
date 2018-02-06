@@ -29,7 +29,6 @@ import types
 import six
 import PyV8
 import bs4 as BeautifulSoup
-# import new
 
 import thug
 from thug.ActiveX.ActiveX import _ActiveXObject
@@ -46,19 +45,9 @@ from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
 from .History import History
-from .ClipboardData import ClipboardData
-from .External import External
-from .Sidebar import Sidebar
-from .Chrome import Chrome
-from .Opera import Opera
-from .Console import Console
-from .Components import Components
-from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
 from .LocalStorage import LocalStorage
 from .SessionStorage import SessionStorage
-from .Map import Map
-from .MozConnection import mozConnection
 from .w3c_bindings import w3c_bindings
 
 sched = sched.scheduler(time.time, time.sleep)
@@ -778,6 +767,9 @@ class Window(JSClass):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
+        from .ClipboardData import ClipboardData
+        from .External import External
+
         if not (log.ThugOpts.local and log.ThugOpts.attachment):
             self.document       = self._document
             self.XMLHttpRequest = self._XMLHttpRequest
@@ -807,6 +799,13 @@ class Window(JSClass):
         self.doc.parentWindow = self._parent
 
     def __init_personality_Firefox(self):
+        from .Components import Components
+        from .Console import Console
+        from .Crypto import Crypto
+        from .Map import Map
+        from .MozConnection import mozConnection
+        from .Sidebar import Sidebar
+
         self.document            = self._document
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
@@ -834,6 +833,10 @@ class Window(JSClass):
                 ctxt.eval("delete Array.isArray;")
 
     def __init_personality_Chrome(self):
+        from .Chrome import Chrome
+        from .Console import Console
+        from .External import External
+
         self.document            = self._document
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
@@ -847,6 +850,8 @@ class Window(JSClass):
         self.onmousewheel        = None
 
     def __init_personality_Safari(self):
+        from .Console import Console
+
         self.document            = self._document
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
@@ -858,6 +863,9 @@ class Window(JSClass):
         self.onmousewheel        = None
 
     def __init_personality_Opera(self):
+        from .Console import Console
+        from .Opera import Opera
+
         self.document            = self._document
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
@@ -998,7 +1006,6 @@ class Window(JSClass):
             try:
                 response = self._navigator.fetch(url, redirect_type = "window open")
             except Exception:
-                # traceback.print_exc()
                 return None
 
             if response is None:
