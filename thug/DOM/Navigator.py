@@ -26,7 +26,6 @@ from thug.Magic.Magic import Magic
 from .JSClass import JSClass
 from .MimeTypes import MimeTypes
 from .Plugins import Plugins
-from .UserProfile import UserProfile
 from .HTTPSessionException import AboutBlank
 from .HTTPSessionException import FetchForbidden
 from .HTTPSessionException import InvalidUrl
@@ -69,6 +68,8 @@ class Navigator(JSClass):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
+        from .UserProfile import UserProfile
+
         self.mimeTypes       = dict()
         self.plugins         = self._plugins
         self.taintEnabled    = self._taintEnabled
