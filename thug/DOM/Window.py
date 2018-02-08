@@ -32,7 +32,7 @@ import bs4 as BeautifulSoup
 
 import thug
 from thug.ActiveX.ActiveX import _ActiveXObject
-from thug.AST.AST2 import AST
+from thug.AST.AST3 import AST
 from thug.Debugger import Shellcode
 from thug.Java.java import java
 
