@@ -352,6 +352,10 @@ class ThugAPI(object):
 
         self.classifiers_map[classifier_type].add_customclassifier(method)
 
+    def reset_customclassifiers(self):
+        for c in self.classifiers_map.values():
+            c.reset_customclassifiers()
+
     def log_event(self):
         log.ThugLogging.log_event()
 
