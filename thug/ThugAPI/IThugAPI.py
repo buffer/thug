@@ -756,7 +756,7 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
-    def reset_customclassifiers()
+    def reset_customclassifiers():
         """
         reset_customclassifiers
 
