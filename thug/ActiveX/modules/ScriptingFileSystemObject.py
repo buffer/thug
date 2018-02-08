@@ -1,13 +1,14 @@
-from thug.ActiveX.modules import WScriptShell
-from thug.ActiveX.modules import TextStream
-from thug.ActiveX.modules import File
-from thug.OS.Windows import win32_files
-from thug.OS.Windows import win32_folders
 
 import os
 import string
 import random
 import logging
+
+from thug.ActiveX.modules import WScriptShell
+from thug.ActiveX.modules import TextStream
+from thug.ActiveX.modules import File
+from thug.OS.Windows import win32_files
+from thug.OS.Windows import win32_folders
 
 log = logging.getLogger("Thug")
 

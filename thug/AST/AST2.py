@@ -17,11 +17,11 @@
 # MA  02111-1307  USA
 
 
-import six
 import logging
 import traceback
-import esprima
 import unittest
+import six
+import esprima
 
 log = logging.getLogger("Thug")
 

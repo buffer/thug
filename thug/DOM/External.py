@@ -16,9 +16,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import logging
+
 from .JSClass import JSClass
 
-import logging
 log = logging.getLogger("Thug")
 
 
@@ -108,5 +109,5 @@ class External(JSClass):
     def _raiseEvent(self, eventName, eventObj):
         pass
 
-    def _ShowBrowserUI(dialogBoxType, null = None):
+    def _ShowBrowserUI(self, dialogBoxType, null = None):
         pass

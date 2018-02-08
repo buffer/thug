@@ -16,10 +16,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import logging
+
 from .Cookies import Cookies
 from .WebStorage import WebStorage
 
-import logging
 log = logging.getLogger("Thug")
 
 

@@ -20,11 +20,10 @@
 import os
 import logging
 import zipfile
-import rarfile
 import tempfile
-import bs4 as BeautifulSoup
-
+import rarfile
 from six import StringIO
+import bs4 as BeautifulSoup
 
 log = logging.getLogger("Thug")
 

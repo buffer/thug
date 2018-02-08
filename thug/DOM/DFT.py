@@ -17,25 +17,26 @@
 # MA  02111-1307  USA
 
 import os
-import pylibemu
+import re
 import string
 import base64
 import random
 import logging
-import cchardet
-import PyV8
-import bs4 as BeautifulSoup
-import re
+
 import six
 import six.moves.urllib.parse as urlparse
 from cssutils.parse import CSSParser
+import pylibemu
+import bs4 as BeautifulSoup
+import cchardet
+import PyV8
+
+from thug.ActiveX.ActiveX import _ActiveXObject
 
 from .W3C import w3c
-from .W3C.DOMImplementation import DOMImplementation
 from .W3C.Events.Event import Event
 from .W3C.Events.MouseEvent import MouseEvent
 from .W3C.Events.HTMLEvent import HTMLEvent
-from thug.ActiveX.ActiveX import _ActiveXObject
 
 log = logging.getLogger("Thug")
 
@@ -483,6 +484,7 @@ class DFT(object):
             return
 
         if not getattr(elem, '_node', None):
+            from .W3C.DOMImplementation import DOMImplementation
             DOMImplementation.createHTMLElement(self.window.doc, elem)
 
         elem._node._attachEvent(evt, handler, True)
@@ -793,7 +795,7 @@ class DFT(object):
         if response.status_code == 404:
             return
 
-        if not len(response.content):
+        if not response.content:
             return
 
         if log.ThugOpts.code_logging:
@@ -1010,7 +1012,7 @@ class DFT(object):
         # Internet Explorer < 8.0 doesn't support the X-UA-Compatible header
         # and the webpage doesn't specify a <!DOCTYPE> directive.
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion >= 8:
-            if http_equiv.lower() in ('x-ua-compatible'):
+            if http_equiv.lower() in ('x-ua-compatible', ):
                 self.window.doc.compatible = content
 
     def force_handle_meta_x_ua_compatible(self):

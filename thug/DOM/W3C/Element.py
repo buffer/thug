@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 
+import logging
 import six
 import six.moves.urllib.parse as urlparse
-import logging
 
-from .Attr import Attr
 from .Node import Node
-from .NodeList import NodeList
-from .NamedNodeMap import NamedNodeMap
-
 from .Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
+
 log = logging.getLogger("Thug")
 
 
@@ -28,6 +25,8 @@ class Element(Node, ElementCSSInlineStyle):
         self.tag       = tag
         self.tag._node = self
         Node.__init__(self, doc)
+        ElementCSSInlineStyle.__init__(self, doc, tag)
+
         self.__init_personality()
 
     def __init_personality(self):
@@ -79,6 +78,8 @@ class Element(Node, ElementCSSInlineStyle):
         self.getElementsByClassName = self._getElementsByClassName
 
     def _querySelectorAll(self, selectors):
+        from .NodeList import NodeList
+
         try:
             s = self.tag.select(selectors)
         except Exception:
@@ -128,6 +129,7 @@ class Element(Node, ElementCSSInlineStyle):
 
     @property
     def attributes(self):
+        from .NamedNodeMap import NamedNodeMap
         return NamedNodeMap(self)
 
     @property
@@ -136,6 +138,7 @@ class Element(Node, ElementCSSInlineStyle):
 
     @property
     def childNodes(self):
+        from .NodeList import NodeList
         # return Node.wrap(self.doc, NodeList(self.doc, self.tag.contents))
         return NodeList(self.doc, self.tag.contents)
 
@@ -251,6 +254,7 @@ class Element(Node, ElementCSSInlineStyle):
         del self.tag[name]
 
     def getAttributeNode(self, name):
+        from .Attr import Attr
         return Attr(self.doc, self, name) if self.tag.has_attr(name) else None
 
     def setAttributeNode(self, attr):
@@ -260,8 +264,10 @@ class Element(Node, ElementCSSInlineStyle):
         del self.tag[attr.name]
 
     def getElementsByTagName(self, tagname):
+        from .NodeList import NodeList
         return NodeList(self.doc, self.tag.find_all(tagname))
         # return self.doc.getElementsByTagName(tagname)
 
     def _getElementsByClassName(self, classname):
+        from .NodeList import NodeList
         return NodeList(self.doc, self.tag.find_all(class_ = classname))

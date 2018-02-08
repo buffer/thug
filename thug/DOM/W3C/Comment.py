@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from .Node import Node
 from .CharacterData import CharacterData
 
 
@@ -11,12 +10,13 @@ class Comment(CharacterData):
 
     @property
     def nodeType(self):
+        from .Node import Node
         return Node.COMMENT_NODE
 
     def getNodeValue(self):
         return self.data
 
-    def setNodeValue(self, data):
-        self.data = data
+    def setNodeValue(self, value):
+        self.data = value
 
     nodeValue = property(getNodeValue, setNodeValue)

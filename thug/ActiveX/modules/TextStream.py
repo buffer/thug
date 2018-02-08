@@ -88,8 +88,8 @@ class TextStream(object):
 
         self.stream.write(_str_string)
 
-    def WriteLine(self, string):
-        self.Write(str(string) + '\n')
+    def WriteLine(self, _string):
+        self.Write(str(_string) + '\n')
 
     def WriteBlankLines(self, lines):
         self.Write(lines * '\n')

@@ -15,8 +15,8 @@ class NodeList(JSClass):
         return self.item(int(key))
 
     def item(self, index):
-        from thug.DOM.W3C.DOMImplementation import DOMImplementation
-        return DOMImplementation.createHTMLElement(self.doc, self.nodes[index]) if 0 <= index and index < len(self.nodes) else None
+        from .DOMImplementation import DOMImplementation
+        return DOMImplementation.createHTMLElement(self.doc, self.nodes[index]) if index >= 0 and index < len(self.nodes) else None
 
     @property
     def length(self):

@@ -17,8 +17,8 @@
 # MA  02111-1307  USA
 
 import os
-import yara
 import logging
+import yara
 import six.moves.urllib.parse as urlparse
 
 log = logging.getLogger("Thug")
@@ -117,3 +117,6 @@ class BaseClassifier(object):
 
         method_name = method.im_func.func_name
         self.custom_classifiers[method_name] = method.__get__(self)
+
+    def reset_customclassifiers(self):
+        self.custom_classifiers = dict()

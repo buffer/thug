@@ -27,6 +27,7 @@ class HTMLObjectElement(HTMLElement):
             return self.__dict__[name]
 
         log.info("HTMLObjectElement attribute not found: %s", (name, ))
+        raise AttributeError
 
     # PLEASE REVIEW ME!
     def __setattr__(self, name, value):

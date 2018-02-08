@@ -30,7 +30,7 @@ class NamedNodeMap(JSClass):
 
     def item(self, index):
         names = list(self.parent.tag.attrMap.keys())
-        return self.parent.getAttributeNode(names[index]) if 0 <= index and index < len(names) else None
+        return self.parent.getAttributeNode(names[index]) if index >= 0 and index < len(names) else None
 
     @property
     def length(self):

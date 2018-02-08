@@ -19,9 +19,9 @@
 
 import os
 import json
-import requests
 import tempfile
 import logging
+import requests
 import six.moves.configparser as ConfigParser
 
 log = logging.getLogger("Thug")

@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 
 import copy
-import bs4 as BeautifulSoup
 import logging
+import bs4 as BeautifulSoup
 
+from thug.DOM.JSClass import JSClass
 from .abstractmethod import abstractmethod
 from .DOMException import DOMException
 from .Events.EventTarget import EventTarget
-from .NodeList import NodeList
-from thug.DOM.JSClass import JSClass
 
 log = logging.getLogger("Thug")
 
@@ -107,6 +106,7 @@ class Node(JSClass, EventTarget):
 
     @property
     def childNodes(self):
+        from .NodeList import NodeList
         return NodeList(self.doc, [])
 
     @property
@@ -401,11 +401,11 @@ class Node(JSClass, EventTarget):
         if obj is None:
             return None
 
-        if type(obj) == BeautifulSoup.CData:
+        if isinstance(obj, BeautifulSoup.CData):
             from .CDATASection import CDATASection
             return CDATASection(doc, obj)
 
-        if type(obj) == BeautifulSoup.NavigableString:
+        if isinstance(obj, BeautifulSoup.NavigableString):
             from .Text import Text
             return Text(doc, obj)
 

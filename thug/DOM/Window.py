@@ -20,16 +20,21 @@ import os
 import sched
 import time
 import logging
-import PyV8
 import traceback
 import urllib
-import bs4 as BeautifulSoup
 import numbers
 import collections
 import datetime
-import six
-# import new
 import types
+import six
+import PyV8
+import bs4 as BeautifulSoup
+
+import thug
+from thug.ActiveX.ActiveX import _ActiveXObject
+from thug.AST.AST2 import AST
+from thug.Debugger import Shellcode
+from thug.Java.java import java
 
 from .W3C import w3c
 from .W3C.HTML.HTMLCollection import HTMLCollection
@@ -40,26 +45,10 @@ from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
 from .History import History
-from .ClipboardData import ClipboardData
-from .External import External
-from .Sidebar import Sidebar
-from .Chrome import Chrome
-from .Opera import Opera
-from .Console import Console
-from .Components import Components
-from .Crypto import Crypto
 from .CCInterpreter import CCInterpreter
 from .LocalStorage import LocalStorage
 from .SessionStorage import SessionStorage
-from .Map import Map
-from .MozConnection import mozConnection
 from .w3c_bindings import w3c_bindings
-from thug.ActiveX.ActiveX import _ActiveXObject
-from thug.AST.AST2 import AST
-from thug.Debugger import Shellcode
-from thug.Java.java import java
-
-import thug
 
 sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug")
@@ -89,7 +78,7 @@ class Window(JSClass):
 
         def execute(self):
             if not self.running:
-                return
+                return None
 
             with self.window.context as ctx:
                 if isinstance(self.code, six.string_types):
@@ -98,7 +87,7 @@ class Window(JSClass):
                     return self.code()
                 else:
                     log.warning("Error while handling Window timer")
-                    return
+                    return None
 
             if self.repeat:
                 self.start()
@@ -778,6 +767,9 @@ class Window(JSClass):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
+        from .ClipboardData import ClipboardData
+        from .External import External
+
         if not (log.ThugOpts.local and log.ThugOpts.attachment):
             self.document       = self._document
             self.XMLHttpRequest = self._XMLHttpRequest
@@ -807,6 +799,13 @@ class Window(JSClass):
         self.doc.parentWindow = self._parent
 
     def __init_personality_Firefox(self):
+        from .Components import Components
+        from .Console import Console
+        from .Crypto import Crypto
+        from .Map import Map
+        from .MozConnection import mozConnection
+        from .Sidebar import Sidebar
+
         self.document            = self._document
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
@@ -834,6 +833,10 @@ class Window(JSClass):
                 ctxt.eval("delete Array.isArray;")
 
     def __init_personality_Chrome(self):
+        from .Chrome import Chrome
+        from .Console import Console
+        from .External import External
+
         self.document            = self._document
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
@@ -847,6 +850,8 @@ class Window(JSClass):
         self.onmousewheel        = None
 
     def __init_personality_Safari(self):
+        from .Console import Console
+
         self.document            = self._document
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
@@ -858,6 +863,9 @@ class Window(JSClass):
         self.onmousewheel        = None
 
     def __init_personality_Opera(self):
+        from .Console import Console
+        from .Opera import Opera
+
         self.document            = self._document
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
@@ -870,7 +878,7 @@ class Window(JSClass):
 
     def eval(self, script):
         if script is None:
-            return
+            return None
 
         if len(script) > 64:
             log.warning("[Window] Eval argument length > 64 (%d)", len(script))
@@ -998,7 +1006,6 @@ class Window(JSClass):
             try:
                 response = self._navigator.fetch(url, redirect_type = "window open")
             except Exception:
-                # traceback.print_exc()
                 return None
 
             if response is None:

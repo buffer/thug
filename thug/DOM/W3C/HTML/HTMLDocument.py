@@ -1,17 +1,11 @@
 #!/usr/bin/env python
 
-import six
 import logging
+import six
 import six.moves.urllib.parse as urlparse
 import bs4 as BeautifulSoup
 
 from thug.DOM.W3C.Document import Document
-from thug.DOM.W3C.DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
-from .HTMLCollection import HTMLCollection
-from .HTMLElement import HTMLElement
-from .HTMLBodyElement import HTMLBodyElement
-from .HTMLAllCollection import HTMLAllCollection
-from .HTMLDocumentCompatibleInfo import HTMLDocumentCompatibleInfo
 from .text_property import text_property
 from .xpath_property import xpath_property
 
@@ -63,6 +57,8 @@ class HTMLDocument(Document):
             self.__init_personality_Opera()
 
     def __init_personality_IE(self):
+        from thug.DOM.W3C.DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
+
         if log.ThugOpts.Personality.browserMajorVersion < 8:
             self._compatible = None
         else:
@@ -117,6 +113,8 @@ class HTMLDocument(Document):
 
     @property
     def body(self):
+        from .HTMLBodyElement import HTMLBodyElement
+
         tag = self.doc.find('body')
         return HTMLBodyElement(self.doc, tag if tag else self.doc)
 
@@ -137,12 +135,16 @@ class HTMLDocument(Document):
 
     @property
     def forms(self):
+        from .HTMLCollection import HTMLCollection
         from thug.DOM.W3C.DOMImplementation import DOMImplementation
+
         return HTMLCollection(self.doc, [DOMImplementation.createHTMLElement(self.doc, f) for f in self.doc.find_all('form')])
 
     @property
     def styleSheets(self):
+        from .HTMLCollection import HTMLCollection
         from thug.DOM.W3C.DOMImplementation import DOMImplementation
+
         return HTMLCollection(self.doc, [DOMImplementation.createHTMLElement(self.doc, f) for f in self.doc.find_all('style')])
 
     @property
@@ -171,6 +173,7 @@ class HTMLDocument(Document):
 
     @property
     def documentElement(self):
+        from .HTMLElement import HTMLElement
         return HTMLElement(self, self.doc.find('html'))
 
     # FIXME
@@ -186,6 +189,9 @@ class HTMLDocument(Document):
         return self._compatible
 
     def setCompatible(self, compatible):
+        from .HTMLDocumentCompatibleInfo import HTMLDocumentCompatibleInfo
+        from thug.DOM.W3C.DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
+
         _compatibles = list()
 
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion >= 8:
@@ -316,12 +322,15 @@ class HTMLDocument(Document):
     #    return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None
 
     def getElementsByName(self, elementName):
-        tags = self.doc.find_all(attrs = {'name': elementName})
+        from .HTMLCollection import HTMLCollection
 
+        tags = self.doc.find_all(attrs = {'name': elementName})
         return HTMLCollection(self.doc, tags)
 
     @property
     def _all(self):
+        from .HTMLAllCollection import HTMLAllCollection
+
         s = [p for p in self.doc.find_all(text = False)]
         return HTMLAllCollection(self.doc, s)
 

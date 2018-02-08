@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-from .DOMException import DOMException
-from .Node import Node
 from .CharacterData import CharacterData
+from .DOMException import DOMException
 
 
 class Text(CharacterData):
@@ -15,8 +14,8 @@ class Text(CharacterData):
     def getNodeValue(self):
         return str(self.data)
 
-    def setNodeValue(self, data):
-        self.data = data
+    def setNodeValue(self, value):
+        self.data = value
 
     nodeValue = property(getNodeValue, setNodeValue)
 
@@ -26,9 +25,9 @@ class Text(CharacterData):
 
     @property
     def nodeType(self):
+        from .Node import Node
         return Node.TEXT_NODE
 
     def replaceData(self, offset, count, arg):
         s = self.data[:offset] + arg + self.data[offset + count:]
         self.data = s
-        # raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)

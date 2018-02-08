@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
-import bs4 as BeautifulSoup
 import logging
-
 from six import StringIO
+import bs4 as BeautifulSoup
 
 from thug.DOM.W3C.DOMException import DOMException
 from thug.DOM.W3C.Element import Element

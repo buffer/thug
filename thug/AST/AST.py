@@ -17,8 +17,8 @@
 # MA  02111-1307  USA
 
 import logging
-import PyV8
 import traceback
+import PyV8
 
 log = logging.getLogger("Thug")
 
