@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Thug API &#8212; Thug 0.9.16 documentation</title>
+    <title>Thug API &#8212; Thug 0.9.17 documentation</title>
     <link rel="stylesheet" href="static/classic.css" type="text/css" />
     <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.9.16',
+        VERSION:     '0.9.17',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.16 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.17 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -822,6 +822,50 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+    <span class="k">def</span> <span class="nf">add_customclassifier</span><span class="p">(</span><span class="n">cls_type</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_customclassifier</span>
+
+<span class="sd">        Add a custom classifier.</span>
+
+<span class="sd">        The parameter `cls_type&#39; can assume the values</span>
+
+<span class="sd">                html</span>
+<span class="sd">                js</span>
+<span class="sd">                vbs</span>
+<span class="sd">                url</span>
+<span class="sd">                text</span>
+<span class="sd">                sample</span>
+
+<span class="sd">        and defines the custom classifier scope.</span>
+
+<span class="sd">        The parameter `method&#39; is the method (not its name) to be additionaly invoked.</span>
+<span class="sd">        The method parameters depend on the `cls_type&#39; value and are listed here for</span>
+<span class="sd">        convenience</span>
+
+<span class="sd">                html    method(url, html)</span>
+<span class="sd">                js      method(url, script)</span>
+<span class="sd">                vbs     method(url, script)</span>
+<span class="sd">                url     method(url)</span>
+<span class="sd">                text    method(url, text)</span>
+<span class="sd">                sample  method(sample, md5)</span>
+
+<span class="sd">        @param cls_type: Classifier type</span>
+<span class="sd">        @param cls_type: C{str}</span>
+<span class="sd">        @param method: Classifier method</span>
+<span class="sd">        @param method: method</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">reset_customclassifiers</span><span class="p">()</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        reset_customclassifiers</span>
+
+<span class="sd">        Reset all the custom classifiers</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">log_event</span><span class="p">():</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        log_event</span>
@@ -903,7 +947,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.16 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Thug 0.9.17 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
