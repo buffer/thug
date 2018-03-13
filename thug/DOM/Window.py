@@ -81,12 +81,23 @@ class Window(JSClass):
                 return None
 
             with self.window.context as ctx:
-                if isinstance(self.code, six.string_types):
-                    return ctx.eval(self.code)
-                elif isinstance(self.code, PyV8.JSFunction):
-                    return self.code()
-                else:
-                    log.warning("Error while handling Window timer")
+                try:
+                    if isinstance(self.code, six.string_types):
+                        return ctx.eval(self.code)
+
+                    if isinstance(self.code, PyV8.JSFunction):
+                        return self.code()
+
+                    log.warning("Error while handling timer callback")
+
+                    if log.ThugOpts.Personality.isIE():
+                        raise TypeError()
+
+                    return None
+                except Exception:
+                    if log.ThugOpts.Personality.isIE():
+                        raise TypeError()
+
                     return None
 
             if self.repeat:
@@ -658,6 +669,9 @@ class Window(JSClass):
 
         ID is the interval ID.
         """
+        if log.ThugOpts.Personality.isIE() and not f:
+            raise TypeError()
+
         if log.ThugOpts.delay:
             delay = min(delay, log.ThugOpts.delay)
 
@@ -684,6 +698,9 @@ class Window(JSClass):
 
         ID is the interval ID.
         """
+        if log.ThugOpts.Personality.isIE() and not f:
+            raise TypeError()
+
         if log.ThugOpts.delay:
             delay = min(delay, log.ThugOpts.delay)
 
