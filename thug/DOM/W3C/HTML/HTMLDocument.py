@@ -6,6 +6,7 @@ import six.moves.urllib.parse as urlparse
 import bs4 as BeautifulSoup
 
 from thug.DOM.W3C.Document import Document
+from thug.DOM.W3C.HTML.HTMLBodyElement import HTMLBodyElement
 from .text_property import text_property
 from .xpath_property import xpath_property
 
@@ -27,6 +28,7 @@ class HTMLDocument(Document):
         Document.__init__(self, doc)
 
         self._win           = win
+        self._body          = HTMLBodyElement(self.doc, self.doc.find('body'))
         self._referer       = referer
         self._lastModified  = lastModified
         self._cookie        = cookie
@@ -34,6 +36,7 @@ class HTMLDocument(Document):
         self._readyState    = "loading"
         self._domain        = urlparse.urlparse(self._win.url).hostname if self._win else ''
         self.current        = None
+
         self.__init_personality()
 
     def __init_personality(self):
@@ -113,10 +116,7 @@ class HTMLDocument(Document):
 
     @property
     def body(self):
-        from .HTMLBodyElement import HTMLBodyElement
-
-        tag = self.doc.find('body')
-        return HTMLBodyElement(self.doc, tag if tag else self.doc)
+        return self._body
 
     @property
     def tag(self):

@@ -8,7 +8,7 @@ from .attr_property import attr_property
 
 class HTMLBodyElement(HTMLElement):
     def __init__(self, doc, tag):
-        HTMLElement.__init__(self, doc, tag)
+        HTMLElement.__init__(self, doc, tag if tag else doc)
 
     background      = attr_property("background")
     bgColor         = attr_property("bgcolor")
@@ -26,10 +26,13 @@ class HTMLBodyElement(HTMLElement):
         return html
 
     def setInnerHTML(self, html):
-        self.tag.clear()
+        # self.tag.clear()
 
         for node in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
             self.tag.append(node)
+
+        # soup = BeautifulSoup.BeautifulSoup(html, "html.parser")
+        # self.tag.body.replace_with(soup)
 
     innerHTML = property(getInnerHTML, setInnerHTML)
 
