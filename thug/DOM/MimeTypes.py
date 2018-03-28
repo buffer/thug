@@ -47,28 +47,27 @@ class MimeTypes(dict):
                                                                       'description' : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ), }),
                                             'enabled'       : True})
 
-        if not log.ThugOpts.Personality.isIE():
-            if not log.ThugVulnModules.javaplugin_disabled:
-                self['application/x-java-applet'] = MimeType({
-                                                              'description'   : 'Java Applet',
-                                                              'suffixes'      : 'jar',
-                                                              'filename'      : 'npjp2.dll',
-                                                              'type'          : 'application/x-java-applet;jpi-version=%s' % (log.ThugVulnModules._javaplugin, ),
-                                                              'enabledPlugin' : Plugin({'name'        : 'Java %s' % (log.ThugVulnModules._javaplugin, ),
-                                                                                        'version'     : '%s' % (log.ThugVulnModules._javaplugin, ),
-                                                                                        'description' : 'Java'}),
-                                                              'enabled'       : True})
+        if not log.ThugVulnModules.javaplugin_disabled:
+            self['application/x-java-applet'] = MimeType({
+                                            'description'   : 'Java Applet',
+                                            'suffixes'      : 'jar',
+                                            'filename'      : 'npjp2.dll',
+                                            'type'          : 'application/x-java-applet;jpi-version=%s' % (log.ThugVulnModules._javaplugin, ),
+                                            'enabledPlugin' : Plugin({'name'        : 'Java %s' % (log.ThugVulnModules._javaplugin, ),
+                                                                      'version'     : '%s' % (log.ThugVulnModules._javaplugin, ),
+                                                                      'description' : 'Java'}),
+                                            'enabled'       : True})
 
         if log.ThugOpts.Personality.isWindows():
             self['application/x-ms-wmz'] = MimeType({
-                                                'description'   : 'Windows Media Player',
-                                                'suffixes'      : 'wmz',
-                                                'filename'      : 'npdsplay.dll',
-                                                'type'          : 'application/x-ms-wmz',
-                                                'enabledPlugin' : Plugin({'name'        : 'Windows Media Player 7',
-                                                                          'version'     : '7',
-                                                                          'description' : 'Windows Media Player 7', }),
-                                                'enabled'       : True})
+                                            'description'   : 'Windows Media Player',
+                                            'suffixes'      : 'wmz',
+                                            'filename'      : 'npdsplay.dll',
+                                            'type'          : 'application/x-ms-wmz',
+                                            'enabledPlugin' : Plugin({'name'        : 'Windows Media Player 7',
+                                                                      'version'     : '7',
+                                                                      'description' : 'Windows Media Player 7', }),
+                                            'enabled'       : True})
 
     def __getitem__(self, key):
         try:

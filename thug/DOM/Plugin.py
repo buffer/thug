@@ -17,33 +17,24 @@
 # MA  02111-1307  USA
 
 
-class Plugin(dict):
-    """A dictionary with attribute-style access. It maps attribute access to
-    the real dictionary.  """
+from .JSClass import JSClass
+
+
+class Plugin(JSClass):
     def __init__(self, init = None):
+        self._plugin = dict()
+
         if init is None:
-            init = dict()
+            return
 
-        dict.__init__(self, init)
-
-    def __getstate__(self):
-        return list(self.__dict__.items())
-
-    def __setstate__(self, items):
-        for key, val in items:
-            self.__dict__[key] = val
-
-    def __repr__(self):
-        return "%s(%s)" % (self.__class__.__name__, dict.__repr__(self))
+        for k, v in init.items():
+            self._plugin[k] = v
 
     def __setitem__(self, key, value):
-        return super(Plugin, self).__setitem__(key, value)
+        return self._plugin.__setitem__(key, value)
 
     def __getitem__(self, name):
-        return super(Plugin, self).__getitem__(name)
+        return self._plugin.__getitem__(name)
 
     def __delitem__(self, name):
-        return super(Plugin, self).__delitem__(name)
-
-    __getattr__ = __getitem__
-    __setattr__ = __setitem__
+        return self._plugin.__delitem__(name)

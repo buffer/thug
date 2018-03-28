@@ -70,7 +70,7 @@ class Navigator(JSClass):
     def __init_personality_IE(self):
         from .UserProfile import UserProfile
 
-        self.mimeTypes       = dict()
+        self.mimeTypes       = self._mimeTypes
         self.plugins         = self._plugins
         self.taintEnabled    = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
