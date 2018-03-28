@@ -51,6 +51,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
             self.tag.append(node)
 
     innerHTML = property(getInnerHTML, setInnerHTML)
+    outerHTML = property(getInnerHTML, setInnerHTML)
 
     # WARNING: NOT DEFINED IN W3C SPECS!
     def focus(self):
