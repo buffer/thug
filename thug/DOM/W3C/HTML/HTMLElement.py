@@ -45,48 +45,10 @@ class HTMLElement(Element, ElementCSSInlineStyle):
         return html.getvalue()
 
     def setInnerHTML(self, html):
-        self.tag.clear()
+        # self.tag.clear()
 
-        soup = BeautifulSoup.BeautifulSoup(html, "html5lib")
-
-        for node in list(soup.head.descendants):
+        for node in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
             self.tag.append(node)
-
-            name = getattr(node, 'name', None)
-            if name is None:
-                continue
-
-            handler = getattr(log.DFT, 'handle_%s' % (name, ), None)
-            if handler:
-                handler(node)
-
-        for node in list(soup.body.children):
-            self.tag.append(node)
-
-            name = getattr(node, 'name', None)
-            if name is None:
-                continue
-
-            handler = getattr(log.DFT, 'handle_%s' % (name, ), None)
-            if handler:
-                handler(node)
-
-        # soup.head.unwrap()
-        # soup.body.unwrap()
-        # soup.html.wrap(self.tag)
-        # self.tag.html.unwrap()
-
-        for node in self.tag.descendants:
-            name = getattr(node, 'name', None)
-            if not name:
-                continue
-
-            p = getattr(self.doc.window.doc.DFT, 'handle_%s' % (name, ), None)
-            if p is None:
-                p = getattr(log.DFT, 'handle_%s' % (name, ), None)
-
-            if p:
-                p(node)
 
     innerHTML = property(getInnerHTML, setInnerHTML)
 
