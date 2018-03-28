@@ -17,33 +17,24 @@
 # MA  02111-1307  USA
 
 
-class MimeType(dict):
-    """A dictionary with attribute-style access. It maps attribute access to
-    the real dictionary.  """
+from .JSClass import JSClass
+
+
+class MimeType(JSClass):
     def __init__(self, init = None):
+        self._mimetype = dict()
+
         if init is None:
-            init = dict()
+            return
 
-        dict.__init__(self, init)
-
-    def __getstate__(self):
-        return list(self.__dict__.items())
-
-    def __setstate__(self, items):
-        for key, val in items:
-            self.__dict__[key] = val
-
-    def __repr__(self):
-        return "%s(%s)" % (self.__class__.__name__, dict.__repr__(self))
+        for k, v in init.items():
+            self._mimetype[k] = v
 
     def __setitem__(self, key, value):
-        return super(MimeType, self).__setitem__(key, value)
+        return self._mimetype.__setitem__(key, value)
 
     def __getitem__(self, name):
-        return super(MimeType, self).__getitem__(name)
+        return self._mimetype.__getitem__(name)
 
     def __delitem__(self, name):
-        return super(MimeType, self).__delitem__(name)
-
-    __getattr__ = __getitem__
-    __setattr__ = __setitem__
+        return self._mimetype.__delitem__(name)
