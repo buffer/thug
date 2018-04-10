@@ -18,8 +18,8 @@
 
 import logging
 from collections import OrderedDict
+
 from .JSClass import JSClass
-from .W3C.Events.StorageEvent import StorageEvent
 
 log = logging.getLogger("Thug")
 
@@ -54,6 +54,8 @@ class Storage(OrderedDict, JSClass):
         self.setItem(key, value)
 
     def setItem(self, key, value):
+        from thug.DOM.W3C.Events.StorageEvent import StorageEvent
+
         oldvalue = self[key] if key in self else None
         super(Storage, self).__setitem__(key, value)
         log.WebTracking.inspect_storage_setitem(self, key, value)

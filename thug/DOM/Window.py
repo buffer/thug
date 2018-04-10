@@ -27,8 +27,8 @@ import collections
 import datetime
 import types
 import six
-import PyV8
 import bs4 as BeautifulSoup
+import PyV8
 
 import thug
 from thug.ActiveX.ActiveX import _ActiveXObject
@@ -36,8 +36,7 @@ from thug.AST.AST3 import AST
 from thug.Debugger import Shellcode
 from thug.Java.java import java
 
-from .W3C import w3c
-from .W3C.HTML.HTMLCollection import HTMLCollection
+from thug.DOM.W3C import w3c
 from .JSClass import JSClass
 from .JSClass import JSClassConstructor
 from .JSClass import JSClassPrototype
@@ -247,6 +246,8 @@ class Window(JSClass):
     @property
     def frames(self):
         """an array of all the frames (including iframes) in the current window"""
+        from thug.DOM.W3C.HTML.HTMLCollection import HTMLCollection
+
         for frame in self._findAll(['frame', 'iframe']):
             code = unicode(frame)
 

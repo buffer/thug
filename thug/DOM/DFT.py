@@ -33,10 +33,7 @@ import PyV8
 
 from thug.ActiveX.ActiveX import _ActiveXObject
 
-from .W3C import w3c
-from .W3C.Events.Event import Event
-from .W3C.Events.MouseEvent import MouseEvent
-from .W3C.Events.HTMLEvent import HTMLEvent
+from thug.DOM.W3C import w3c
 
 log = logging.getLogger("Thug")
 
@@ -341,6 +338,10 @@ class DFT(object):
         return script
 
     def get_evtObject(self, elem, evtType):
+        from thug.DOM.W3C.Events.Event import Event
+        from thug.DOM.W3C.Events.MouseEvent import MouseEvent
+        from thug.DOM.W3C.Events.HTMLEvent import HTMLEvent
+
         evtObject = None
 
         if evtType in MouseEvent.MouseEventTypes:

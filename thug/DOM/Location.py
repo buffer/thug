@@ -19,8 +19,9 @@
 import logging
 import six.moves.urllib.parse as urlparse
 
+from thug.DOM.W3C import w3c
+
 from .DFT import DFT
-from .W3C import w3c
 from .JSClass import JSClass
 
 log = logging.getLogger("Thug")
