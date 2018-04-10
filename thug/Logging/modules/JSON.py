@@ -25,10 +25,7 @@ import datetime
 import os
 import json
 
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+from six import StringIO
 
 from .Mapper import Mapper
 from .compatibility import thug_unicode

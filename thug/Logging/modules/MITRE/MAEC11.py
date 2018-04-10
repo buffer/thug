@@ -20,10 +20,7 @@ import os
 import logging
 import datetime
 
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+from six import StringIO
 
 from . import MAEC_v1_1 as maec
 
