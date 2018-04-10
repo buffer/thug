@@ -7,7 +7,8 @@ import bs4 as BeautifulSoup
 from thug.DOM.JSClass import JSClass
 from .abstractmethod import abstractmethod
 from .DOMException import DOMException
-from .Events.EventTarget import EventTarget
+
+from thug.DOM.W3C.Events.EventTarget import EventTarget
 
 log = logging.getLogger("Thug")
 

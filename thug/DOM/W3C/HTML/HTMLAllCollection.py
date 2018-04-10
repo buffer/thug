@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from thug.DOM.W3C.NodeList import NodeList
 from .HTMLCollection import HTMLCollection
 
 
@@ -9,5 +8,7 @@ class HTMLAllCollection(HTMLCollection):
         HTMLCollection.__init__(self, doc, nodes)
 
     def tags(self, name):
+        from thug.DOM.W3C.Core.NodeList import NodeList
+
         s = [p for p in self.doc.find_all(name.lower())]
         return NodeList(self.doc, s)

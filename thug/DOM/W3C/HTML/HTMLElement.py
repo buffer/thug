@@ -4,8 +4,8 @@ import logging
 from six import StringIO
 import bs4 as BeautifulSoup
 
-from thug.DOM.W3C.DOMException import DOMException
-from thug.DOM.W3C.Element import Element
+from thug.DOM.W3C.Core.DOMException import DOMException
+from thug.DOM.W3C.Core.Element import Element
 from thug.DOM.W3C.Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 from .attr_property import attr_property
 

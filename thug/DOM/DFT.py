@@ -485,7 +485,7 @@ class DFT(object):
             return
 
         if not getattr(elem, '_node', None):
-            from .W3C.DOMImplementation import DOMImplementation
+            from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
             DOMImplementation.createHTMLElement(self.window.doc, elem)
 
         elem._node._attachEvent(evt, handler, True)
