@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
+import logging
 import bs4 as BeautifulSoup
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+
+log = logging.getLogger("Thug")
 
 
 class HTMLBodyElement(HTMLElement):
@@ -26,10 +29,20 @@ class HTMLBodyElement(HTMLElement):
         return html
 
     def setInnerHTML(self, html):
-        # self.tag.clear()
+        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.doc.window.url, html)
+
+        self.tag.clear()
 
         for node in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
             self.tag.append(node)
+
+            name = getattr(node, 'name', None)
+            if name is None:
+                continue
+
+            handler = getattr(log.DFT, 'handle_%s' % (name, ), None)
+            if handler:
+                handler(node)
 
         # soup = BeautifulSoup.BeautifulSoup(html, "html.parser")
         # self.tag.body.replace_with(soup)
