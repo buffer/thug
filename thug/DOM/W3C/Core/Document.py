@@ -4,8 +4,8 @@ import logging
 import bs4 as BeautifulSoup
 
 from .Node import Node
-from .Events.DocumentEvent import DocumentEvent
-from .Views.DocumentView import DocumentView
+from thug.DOM.W3C.Events.DocumentEvent import DocumentEvent
+from thug.DOM.W3C.Views.DocumentView import DocumentView
 
 log = logging.getLogger("Thug")
 

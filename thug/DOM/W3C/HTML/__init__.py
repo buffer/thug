@@ -1,4 +1,5 @@
-__all__ = ['HTMLAnchorElement',
+__all__ = ['HTMLAllCollection',
+           'HTMLAnchorElement',
            'HTMLAppletElement',
            'HTMLAudioElement',
            'HTMLBRElement',
@@ -11,6 +12,7 @@ __all__ = ['HTMLAnchorElement',
            'HTMLDivElement',
            'HTMLDListElement',
            'HTMLDocument',
+           'HTMLDocumentCompatibleInfo',
            'HTMLElement',
            'HTMLFieldSetElement',
            'HTMLFontElement',
@@ -58,6 +60,7 @@ __all__ = ['HTMLAnchorElement',
            'TAnimateColor']
 
 
+from .HTMLAllCollection import HTMLAllCollection
 from .HTMLAnchorElement import HTMLAnchorElement
 from .HTMLAppletElement import HTMLAppletElement
 from .HTMLAudioElement import HTMLAudioElement
@@ -71,6 +74,7 @@ from .HTMLDListElement import HTMLDListElement
 from .HTMLDirectoryElement import HTMLDirectoryElement
 from .HTMLDivElement import HTMLDivElement
 from .HTMLDocument import HTMLDocument
+from .HTMLDocumentCompatibleInfo import HTMLDocumentCompatibleInfo
 from .HTMLElement import HTMLElement
 from .HTMLFieldSetElement import HTMLFieldSetElement
 from .HTMLFontElement import HTMLFontElement

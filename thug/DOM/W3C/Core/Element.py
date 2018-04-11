@@ -5,7 +5,7 @@ import six
 import six.moves.urllib.parse as urlparse
 
 from .Node import Node
-from .Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
+from thug.DOM.W3C.Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 
 log = logging.getLogger("Thug")
 
@@ -157,6 +157,14 @@ class Element(Node, ElementCSSInlineStyle):
     @property
     def previousSibling(self):
         return Node.wrap(self.doc, self.tag.previous_sibling)
+
+    @property
+    def clientWidth(self):
+        return 800
+
+    @property
+    def clientHeight(self):
+        return 600
 
     # Introduced in DOM Level 2
     def hasAttributes(self):

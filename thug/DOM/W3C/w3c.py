@@ -5,12 +5,12 @@ import bs4 as BeautifulSoup
 
 
 def getDOMImplementation(dom = None, **kwds):
-    from .DOMImplementation import DOMImplementation
-    return DOMImplementation(dom if dom else BeautifulSoup.BeautifulSoup(), **kwds)
+    from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
+    return DOMImplementation(dom if dom else BeautifulSoup.BeautifulSoup('', 'lxml'), **kwds)
 
 
 def parseString(html, **kwds):
-    from .DOMImplementation import DOMImplementation
+    from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
     return DOMImplementation(BeautifulSoup.BeautifulSoup(html, "html.parser"), **kwds)
 
 

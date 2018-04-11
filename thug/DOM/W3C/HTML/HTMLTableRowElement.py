@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import logging
-from thug.DOM.W3C.DOMException import DOMException
+from thug.DOM.W3C.Core.DOMException import DOMException
 from .HTMLElement import HTMLElement
 from .HTMLCollection import HTMLCollection
 from .HTMLTableCellElement import HTMLTableCellElement
