@@ -45,10 +45,20 @@ class HTMLElement(Element, ElementCSSInlineStyle):
         return html.getvalue()
 
     def setInnerHTML(self, html):
-        # self.tag.clear()
+        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.doc.window.url, html)
+
+        self.tag.clear()
 
         for node in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
             self.tag.append(node)
+
+            name = getattr(node, 'name', None)
+            if name is None:
+                continue
+
+            handler = getattr(log.DFT, 'handle_%s' % (name, ), None)
+            if handler:
+                handler(node)
 
     innerHTML = property(getInnerHTML, setInnerHTML)
     outerHTML = property(getInnerHTML, setInnerHTML)
