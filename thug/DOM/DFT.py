@@ -1349,6 +1349,9 @@ class DFT(object):
             self.handle_applet(p)
 
         for child in soup.descendants:
+            if child is None:
+                continue
+
             parents = [p.name.lower() for p in child.parents]
             if 'noscript' in parents:
                 continue
