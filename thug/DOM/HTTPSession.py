@@ -186,6 +186,7 @@ class HTTPSession(object):
             headers = dict()
 
         _headers = self.build_http_headers(window, personality, headers)
+        response = None
 
         try:
             response = fetcher(url,
