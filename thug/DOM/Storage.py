@@ -76,6 +76,8 @@ class Storage(OrderedDict, JSClass):
         self.removeItem(key)
 
     def removeItem(self, key):
+        from thug.DOM.W3C.Events.StorageEvent import StorageEvent
+
         oldvalue = self[key] if key in self else None
         super(Storage, self).__delitem__(key)
         log.WebTracking.inspect_storage_removeitem(self, key)
@@ -93,6 +95,8 @@ class Storage(OrderedDict, JSClass):
         log.DFT.handle_window_storage_event('onstorage', evtObject)
 
     def clear(self):
+        from thug.DOM.W3C.Events.StorageEvent import StorageEvent
+
         super(Storage, self).clear()
         self.__init__()
         log.WebTracking.inspect_storage_clear(self)
