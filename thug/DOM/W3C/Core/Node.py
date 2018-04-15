@@ -121,7 +121,7 @@ class Node(JSClass, EventTarget):
 
     @property
     def nextSibling(self):
-        return None
+        return Node.wrap(self.doc, self.tag.next_sibling)
 
     @property
     def previousSibling(self):
