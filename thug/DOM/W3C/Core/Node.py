@@ -373,7 +373,7 @@ class Node(JSClass, EventTarget):
 
     # Introduced in DOM Level 2
     def hasAttributes(self):
-        return False
+        return self.attributes.length > 0
 
     # Introduced in DOM Level 3
     def _compareDocumentPosition(self, node):
