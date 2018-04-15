@@ -22,6 +22,7 @@ import time
 import logging
 import traceback
 import urllib
+import base64
 import numbers
 import collections
 import datetime
@@ -1009,6 +1010,18 @@ class Window(JSClass):
                 i += 1
 
         return ''.join(sc)
+
+    def atob(self, s):
+        """
+        The atob method decodes a base-64 encoded string
+        """
+        return base64.b64decode(s)
+
+    def btoa(self, s):
+        """
+        The btoa method encodes a string in base-64
+        """
+        return base64.b64encode(s)
 
     def Image(self, width = 800, height = 600):
         return self.doc.createElement('img')
