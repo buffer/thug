@@ -631,32 +631,44 @@ class DFT(object):
             except Exception:
                 pass
 
-        if 'source' in params:
-            try:
-                self.window._navigator.fetch(params['source'],
-                                             headers = headers,
-                                             redirect_type = "params",
-                                             params = params)
-            except Exception:
-                pass
+        for p in ('source', 'data', 'archive' ):
+            handler = getattr(self, "do_handle_params_{}".format(p), None)
+            if handler:
+                handler(params, headers)
 
-        if 'archive' not in params and 'code' not in params:
-            return params
+        return params
 
-        if 'codebase' in params:
-            archive = urlparse.urljoin(params['codebase'], params['archive'])
-        else:
-            archive = params['archive']
-
+    def do_params_fetch(self, url, headers, params):
         try:
-            self.window._navigator.fetch(archive,
+            self.window._navigator.fetch(url,
                                          headers = headers,
                                          redirect_type = "params",
                                          params = params)
         except Exception:
             pass
 
-        return params
+    def do_handle_params_source(self, params, headers):
+        if 'source' not in params:
+            return
+
+        self.do_params_fetch(params['source'], headers, params)
+
+    def do_handle_params_data(self, params, headers):
+        if 'data' not in params:
+            return
+
+        self.do_params_fetch(params['data'], headers, params)
+
+    def do_handle_params_archive(self, params, headers):
+        if 'archive' not in params and 'codebase' not in params:
+            return
+
+        if 'codebase' in params:
+            archive = urlparse.urljoin(params['codebase'], params['archive'])
+        else:
+            archive = params['archive']
+
+        self.do_params_fetch(archive, headers, params)
 
     def handle_object(self, _object):
         log.warning(_object)
