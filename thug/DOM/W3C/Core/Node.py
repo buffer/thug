@@ -129,7 +129,7 @@ class Node(JSClass, EventTarget):
 
     @property
     def parentNode(self):
-        return None
+        return Node.wrap(self.doc, self.tag.parent) if self.tag.parent else None
 
     # Introduced in DOM Level 2
     @property
