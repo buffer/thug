@@ -109,7 +109,7 @@ class Node(JSClass, EventTarget):
     @property
     def childNodes(self):
         from .NodeList import NodeList
-        return NodeList(self.doc, [])
+        return NodeList(self.doc, self.tag.contents)
 
     @property
     def firstChild(self):
