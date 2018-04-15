@@ -103,7 +103,8 @@ class Node(JSClass, EventTarget):
 
     @property
     def attributes(self):
-        return None
+        from .NamedNodeMap import NamedNodeMap
+        return NamedNodeMap(self)
 
     @property
     def childNodes(self):
