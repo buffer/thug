@@ -113,7 +113,7 @@ class Node(JSClass, EventTarget):
 
     @property
     def firstChild(self):
-        return None
+        return Node.wrap(self.doc, self.tag.contents[0]) if len(self.tag) > 0 else None
 
     @property
     def lastChild(self):
