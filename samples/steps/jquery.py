@@ -4,12 +4,12 @@ from behave import *
 from behave.log_capture import capture
 
 THUG = os.path.dirname(os.path.abspath(__file__)).split("samples")[0]
-JQUERY = os.path.join(THUG, 'samples', 'jquery')
+JQUERY = os.path.join(THUG, 'samples', 'jQuery')
 sys.path.append(os.path.join(THUG, 'src'))
 
 from thug.ThugAPI.ThugAPI import ThugAPI
 
-class JQuery(ThugAPI):
+class jQuery(ThugAPI):
     def __init__(self, context):
         ThugAPI.__init__(self)
 
@@ -37,7 +37,7 @@ class JQuery(ThugAPI):
 @given('set of jquery')
 def step_impl(context):
     global jquery
-    jquery = JQuery(context)
+    jquery = jQuery(context)
 
 @capture
 @then('run jquery')
