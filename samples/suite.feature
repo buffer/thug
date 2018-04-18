@@ -192,3 +192,14 @@ Feature: Exploits
 			| testMicrosoftXMLHTTPEvent1.html              | [Window] Alert Text: Request completed                                                                                                                   |
 			| testMicrosoftXMLHTTPEvent2.html              | [Window] Alert Text: Request completed                                                                                                                   |
 		then run misc
+
+	Scenario: jquery
+		Given set of jquery
+			| test-jquery-1.html                           | [Window] Alert Text: Ready                                                                                                                               |
+			| test-jquery-2.html                           | <a class="foobar" href="http://www.google.com" id="myId">jQuery</a>                                                                                      |
+			| test-jquery-3.html                           | <div class="notMe">,<div class="myClass" foo="bar">div class="myClass"</div>,<span class="myClass" foo="bar">span class="myClass"</span>                 |
+			| test-jquery-4.html                           | <div foo="bar" id="notMe" name="whoa">Aieeee</div>                                                                                                       |
+			| test-jquery-5.html                           | <div class="myClass" foo="bar" name="whoa">Aieeee</div>                                                                                                  |
+			| test-jquery-6.html                           | <div class="myClass"><p>Just a modified p</p></div>,<div class="myClass"><foo>Just a foo</foo></div>                                                     |
+			| test-jquery-7.html                           | <h3>New text for the third h3</h3>                                                                                                                       |
+		then run jquery
