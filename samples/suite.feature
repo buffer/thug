@@ -202,4 +202,5 @@ Feature: Exploits
 			| test-jquery-5.html                           | <div class="myClass" foo="bar" name="whoa">Aieeee</div>                                                                                                  |
 			| test-jquery-6.html                           | <div class="myClass"><p>Just a modified p</p></div>,<div class="myClass"><foo>Just a foo</foo></div>                                                     |
 			| test-jquery-7.html                           | <h3>New text for the third h3</h3>                                                                                                                       |
+			| test-jquery-8.html                           | <h3>New text for the first h1</h3>,<h3>New text for the third h3</h3>                                                                                    |
 		then run jquery
