@@ -82,7 +82,7 @@ class VirusTotal(object):
         md5           = sample['md5']
         response      = self.get_report(md5)
         response_dict = response.json()
-        response_code = response_dict.get("response_code")
+        response_code = response_dict.get(u"response_code")
 
         if response.ok:
             if response_code == 1:
