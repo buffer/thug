@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="myClass"><p>Just a p</p></div>
+<div class="myClass"><a>Just a a</a></div>
+
+<script>
+var divs = $("div.myClass");
+divs.eq(0).html("<p>Just a modified p</p>");
+divs.eq(1).html("<foo>Just a foo</foo>");
+alert(document);
+</script>
+ 
+</body>
+</html>
