@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Demo</title>
+</head>
+<body>
+    <a id="myId" class="foobar" href="http://jquery.com/">jQuery</a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+	$(document).ready(function() { 
+		$(".foobar").attr({"href": "http://www.google.com"});
+	});
+
+	alert(document);
+    </script>
+</body>
+</html>
