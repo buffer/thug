@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="myClass">
+	<h3>First h3</h3>
+	<h3>Second h3</h3>
+	<h3>Third h3</h3>
+	<h3>Fourth h3</h3>
+</div>
+
+<script>
+$("div.myClass")
+    .find("h3")
+    .eq(2)
+    .html("New text for the third h3");
+
+alert(document);
+</script>
+ 
+</body>
+</html>
