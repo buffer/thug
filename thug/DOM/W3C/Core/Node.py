@@ -101,6 +101,15 @@ class Node(JSClass, EventTarget):
 
     nodeValue = property(getNodeValue, setNodeValue)
 
+    def getTextContent(self):
+        return self.tag.string
+
+    def setTextContent(self, value):
+        self.tag.string = value
+
+    # Introduced in DOM Level 3
+    textContent = property(getTextContent, setTextContent)
+
     @property
     def attributes(self):
         from .NamedNodeMap import NamedNodeMap
