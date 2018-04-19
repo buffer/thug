@@ -23,3 +23,8 @@ class Notation(Node):
     @property
     def nodeValue(self):
         return None
+
+    # Introduced in DOM Level 3
+    @property
+    def textContent(self):
+        return None
