@@ -62,3 +62,8 @@ class DocumentType(Node):
     @property
     def internalSubset(self):
         pass
+
+    # Introduced in DOM Level 3
+    @property
+    def textContent(self):
+        return None
