@@ -121,6 +121,11 @@ class Document(Node, DocumentEvent, DocumentView):
     def __repr__(self):
         return "<Document at 0x%08X>" % id(self)
 
+    # Introduced in DOM Level 3
+    @property
+    def textContent(self):
+        return None
+
     @property
     def nodeType(self):
         return Node.DOCUMENT_NODE
