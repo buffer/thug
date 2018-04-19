@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h2>Greetings</h2>
+<div class="container1">
+  <div class="inner1">Hello</div>
+  <div class="inner2">Goodbye</div>
+</div>
+
+<div class="container2"></div>
+
+<script>
+$("<p>Just a p</p>").appendTo(".inner1");
+$(".inner2").append("<p>Just another p</p>");
+
+var newElement1 = $("<p>Yet another p</p>");
+newElement1.insertBefore(".container1");
+
+var newElement2 = $("<p>No, not a p again</p>");
+newElement2.insertAfter(".container2");
+alert(document);
+</script>
+ 
+</body>
+</html>

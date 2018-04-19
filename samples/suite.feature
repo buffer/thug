@@ -203,4 +203,5 @@ Feature: Exploits
 			| test-jquery-6.html                           | <div class="myClass"><p>Just a modified p</p></div>,<div class="myClass"><foo>Just a foo</foo></div>                                                     |
 			| test-jquery-7.html                           | <h3>New text for the third h3</h3>                                                                                                                       |
 			| test-jquery-8.html                           | <h3>New text for the first h1</h3>,<h3>New text for the third h3</h3>                                                                                    |
+			| test-jquery-9.html                           | <p>Yet another p</p><div class="container1">,<div class="inner1">Hello<p>Just a p</p></div>,<div class="inner2">Goodbye<p>Just another p</p></div>       |
 		then run jquery
