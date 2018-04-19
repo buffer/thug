@@ -204,4 +204,5 @@ Feature: Exploits
 			| test-jquery-7.html                           | <h3>New text for the third h3</h3>                                                                                                                       |
 			| test-jquery-8.html                           | <h3>New text for the first h1</h3>,<h3>New text for the third h3</h3>                                                                                    |
 			| test-jquery-9.html                           | <p>Yet another p</p><div class="container1">,<div class="inner1">Hello<p>Just a p</p></div>,<div class="inner2">Goodbye<p>Just another p</p></div>       |
+			| test-jquery-10.html                          | <ul><li>list item</li></ul>                                                                                                                              |
 		then run jquery
