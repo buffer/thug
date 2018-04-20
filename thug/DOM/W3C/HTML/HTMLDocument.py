@@ -268,11 +268,15 @@ class HTMLDocument(Document):
         self.doc = BeautifulSoup.BeautifulSoup(html, "html5lib")
 
     def write(self, html):
+        if isinstance(html, six.integer_types):
+            html = str(html)
+
         log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.URL, html)
 
-        if self._html:
-            self._html.write(unicode(html))
-            return
+        if self._html is None:
+            self._html = list()
+
+        self._html.append(html)
 
         tag  = self.current
         body = self.doc.find('body')
@@ -282,23 +286,20 @@ class HTMLDocument(Document):
         else:
             parent = body if body and tag.parent.name in ('html', ) else tag.parent
 
-        if isinstance(html, six.integer_types):
-            html = unicode(html)
-
-        for t in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
-            if isinstance(t, six.string_types):
+        for tag in BeautifulSoup.BeautifulSoup("".join(self._html), "html.parser").contents:
+            if isinstance(tag, BeautifulSoup.NavigableString):
                 child = list(parent.children)[-1]
 
                 if isinstance(child, BeautifulSoup.NavigableString):
-                    child.string.replace_with(child.string + t)
+                    child.string.replace_with(child.string + tag)
                 if isinstance(child, BeautifulSoup.Tag):
-                    child.append(t)
+                    child.append(tag)
 
-            if isinstance(t, BeautifulSoup.Tag):
-                parent.insert(len(parent.contents), t)
+            if isinstance(tag, BeautifulSoup.Tag):
+                parent.insert(len(parent.contents), tag)
 
-            name = getattr(t, "name", None)
-            if name in ('script', None):
+            name = getattr(tag, "name", None)
+            if name is None:
                 continue
 
             try:
@@ -307,7 +308,7 @@ class HTMLDocument(Document):
                 handler = getattr(log.DFT, "handle_%s" % (name, ), None)
 
             if handler:
-                handler(t)
+                handler(tag)
 
     def writeln(self, text):
         self.write(text + "\n")
