@@ -291,7 +291,7 @@ class HTMLDocument(Document):
         else:
             parent = body if body and tag.parent.name in ('html', ) else tag.parent
 
-        for tag in BeautifulSoup.BeautifulSoup("".join(self._html), "html.parser").contents:
+        for tag in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
             if isinstance(tag, BeautifulSoup.NavigableString):
                 child = list(parent.children)[-1]
 
@@ -304,7 +304,20 @@ class HTMLDocument(Document):
                 parent.insert(len(parent.contents), tag)
 
             name = getattr(tag, "name", None)
-            if name is None:
+            if name in ("script", None):
+                continue
+
+            try:
+                handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
+            except Exception:
+                handler = getattr(log.DFT, "handle_%s" % (name, ), None)
+
+            if handler:
+                handler(tag)
+
+        for tag in BeautifulSoup.BeautifulSoup("".join(self._html), "html.parser").contents:
+            name = getattr(tag, "name", None)
+            if name in ("script", None):
                 continue
 
             try:
