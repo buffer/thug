@@ -12,7 +12,7 @@ class HTMLInputElement(HTMLElement):
         HTMLElement.__init__(self, doc, tag)
 
     # defaultValue    = attr_property("value")
-    value           = attr_property("value")
+    _value          = attr_property("value")
     defaultChecked  = attr_property("checked", bool)
 
     @property
@@ -34,15 +34,13 @@ class HTMLInputElement(HTMLElement):
     type            = attr_property("type", default = "text")
     useMap          = attr_property("usermap")
 
-    @abstractmethod
     def getValue(self):
-        pass
+        return self._value
 
-    @abstractmethod
     def setValue(self, value):
-        pass
+        self._value = value
 
-    # value = property(getValue, setValue)
+    value = property(getValue, setValue)
 
     def blur(self):
         pass
