@@ -262,8 +262,7 @@ class HTMLDocument(Document):
         if self._html is None:
             return
 
-        html = self._html.getvalue()
-        self._html.close()
+        html = "".join(self._html)
         self._html = None
 
         self.doc = BeautifulSoup.BeautifulSoup(html, "html5lib")
