@@ -254,9 +254,8 @@ class HTMLDocument(Document):
 
         return engine
 
-    def open(self, mimetype = 'text/html', replace = False):
-        self._html = six.StringIO()
-
+    def open(self, mimetype = 'text/html', historyPosition = "replace"):
+        self.doc = BeautifulSoup.BeautifulSoup("", "html5lib")
         return self
 
     def close(self):
