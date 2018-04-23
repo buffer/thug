@@ -150,9 +150,9 @@ class EventTarget(object):
     def do_dispatch(self, c, evtObject):
         try:
             self._do_dispatch(c, evtObject)
-        except Exception:
+        except Exception as e:
             eventType, listener, capture = c  # pylint:disable=unused-variable
-            log.warning("[WARNING] Error while dispatching %s event", eventType)
+            log.warning("[WARNING] Error while dispatching %s event (%s)", eventType, str(e))
 
     def _dispatchCaptureEvent(self, tag, evtType, evtObject):
         if tag.parent is None:
