@@ -103,6 +103,11 @@ class HTMLDocument(Document):
         if _attr:
             return _attr
 
+        _attr = self.getElementsByName(attr)
+        if _attr:
+            from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
+            return DOMImplementation.createHTMLElement(self.doc, _attr[0])
+
         log.info("[HTMLDocument] Undefined: %s", attr)
         raise AttributeError
 
@@ -254,27 +259,29 @@ class HTMLDocument(Document):
 
         return engine
 
-    def open(self, mimetype = 'text/html', replace = False):
-        self._html = six.StringIO()
-
+    def open(self, mimetype = 'text/html', historyPosition = "replace"):
+        self.doc = BeautifulSoup.BeautifulSoup("", "html5lib")
         return self
 
     def close(self):
         if self._html is None:
             return
 
-        html = self._html.getvalue()
-        self._html.close()
+        html = "".join(self._html)
         self._html = None
 
         self.doc = BeautifulSoup.BeautifulSoup(html, "html5lib")
 
     def write(self, html):
+        if isinstance(html, six.integer_types):
+            html = str(html)
+
         log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.URL, html)
 
-        if self._html:
-            self._html.write(unicode(html))
-            return
+        if self._html is None:
+            self._html = list()
+
+        self._html.append(html)
 
         tag  = self.current
         body = self.doc.find('body')
@@ -284,23 +291,20 @@ class HTMLDocument(Document):
         else:
             parent = body if body and tag.parent.name in ('html', ) else tag.parent
 
-        if isinstance(html, six.integer_types):
-            html = unicode(html)
-
-        for t in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
-            if isinstance(t, six.string_types):
+        for tag in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
+            if isinstance(tag, BeautifulSoup.NavigableString):
                 child = list(parent.children)[-1]
 
                 if isinstance(child, BeautifulSoup.NavigableString):
-                    child.string.replace_with(child.string + t)
+                    child.string.replace_with(child.string + tag)
                 if isinstance(child, BeautifulSoup.Tag):
-                    child.append(t)
+                    child.append(tag)
 
-            if isinstance(t, BeautifulSoup.Tag):
-                parent.insert(len(parent.contents), t)
+            if isinstance(tag, BeautifulSoup.Tag):
+                parent.insert(len(parent.contents), tag)
 
-            name = getattr(t, "name", None)
-            if name in ('script', None):
+            name = getattr(tag, "name", None)
+            if name in ("script", None):
                 continue
 
             try:
@@ -309,7 +313,20 @@ class HTMLDocument(Document):
                 handler = getattr(log.DFT, "handle_%s" % (name, ), None)
 
             if handler:
-                handler(t)
+                handler(tag)
+
+        for tag in BeautifulSoup.BeautifulSoup("".join(self._html), "html.parser").contents:
+            name = getattr(tag, "name", None)
+            if name in ("script", None):
+                continue
+
+            try:
+                handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
+            except Exception:
+                handler = getattr(log.DFT, "handle_%s" % (name, ), None)
+
+            if handler:
+                handler(tag)
 
     def writeln(self, text):
         self.write(text + "\n")

@@ -140,9 +140,9 @@ class EventTarget(object):
     def _do_dispatch(self, c, evtObject):
         eventType, listener, capture = c  # pylint:disable=unused-variable
 
-        with self.doc.window.context as ctx:  # pylint:disable=unused-variable
+        with log.DFT.context:
             if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
-                self.doc.window.event = evtObject
+                log.DFT.window.event = evtObject
                 listener()
             else:
                 listener(evtObject)
@@ -150,9 +150,9 @@ class EventTarget(object):
     def do_dispatch(self, c, evtObject):
         try:
             self._do_dispatch(c, evtObject)
-        except Exception:
+        except Exception as e:
             eventType, listener, capture = c  # pylint:disable=unused-variable
-            log.warning("[WARNING] Error while dispatching %s event", eventType)
+            log.warning("[WARNING] Error while dispatching %s event (%s)", eventType, str(e))
 
     def _dispatchCaptureEvent(self, tag, evtType, evtObject):
         if tag.parent is None:

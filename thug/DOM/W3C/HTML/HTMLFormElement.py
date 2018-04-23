@@ -12,6 +12,17 @@ class HTMLFormElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
 
+    def __getattr__(self, key):
+        for tag in self.tag.children:
+            if tag.name not in ('input', ):
+                continue
+
+            if 'name' in tag.attrs and tag.attrs['name'] in (key, ):
+                from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
+                return DOMImplementation.createHTMLElement(self.doc, tag)
+
+        raise AttributeError
+
     @property
     def elements(self):
         raise NotImplementedError()
