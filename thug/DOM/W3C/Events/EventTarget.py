@@ -96,6 +96,10 @@ class EventTarget(object):
     def _addEventListener(self, eventType, listener, capture = False, prio = False):
         log.debug('_addEventListener(%s, \n%r, \n%s)', eventType, listener, capture)
 
+        if eventType in ('click', ) and self.tag.name in ('a', ):
+            self.tag._node.click()
+            return
+
         if getattr(self.tag, '_listeners', None) is None:
             self.tag._listeners = list()
 
