@@ -140,9 +140,9 @@ class EventTarget(object):
     def _do_dispatch(self, c, evtObject):
         eventType, listener, capture = c  # pylint:disable=unused-variable
 
-        with self.doc.window.context as ctx:  # pylint:disable=unused-variable
+        with log.DFT.context:
             if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
-                self.doc.window.event = evtObject
+                log.DFT.window.event = evtObject
                 listener()
             else:
                 listener(evtObject)
