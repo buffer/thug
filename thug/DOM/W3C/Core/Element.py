@@ -168,6 +168,11 @@ class Element(Node, ElementCSSInlineStyle):
     def clientHeight(self):
         return 600
 
+    @property
+    def classList(self):
+        from .ClassList import ClassList
+        return ClassList(self.tag)
+
     # Introduced in DOM Level 2
     def hasAttributes(self):
         return self.attributes.length > 0
