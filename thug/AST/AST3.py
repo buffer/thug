@@ -143,11 +143,9 @@ class AST(object):
         try:
             self.__init_ast(script)
         except Exception:
-            log.warning("[AST] Script parsing error (see trace below)")
-            log.warning(traceback.format_exc())
-            return
-
-        # self.walk()
+            if log.ThugOpts.ast_debug:
+                log.warning("[AST] Script parsing error (see trace below)")
+                log.warning(traceback.format_exc())
 
     def __init_ast(self, script):
         self.ast = esprima.parse(script, {'loc'      : True,
