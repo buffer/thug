@@ -315,7 +315,11 @@ class HTMLDocument(Document):
             if handler:
                 handler(tag)
 
-        for tag in BeautifulSoup.BeautifulSoup("".join(self._html), "html.parser").contents:
+        _html = "".join(self._html)
+        if html == _html:
+            return
+
+        for tag in BeautifulSoup.BeautifulSoup(_html, "html.parser").contents:
             name = getattr(tag, "name", None)
             if name in ("script", None, ):
                 continue
