@@ -304,7 +304,7 @@ class HTMLDocument(Document):
                 parent.insert(len(parent.contents), tag)
 
             name = getattr(tag, "name", None)
-            if name in ("script", None):
+            if name in (None, ):
                 continue
 
             try:
@@ -317,7 +317,7 @@ class HTMLDocument(Document):
 
         for tag in BeautifulSoup.BeautifulSoup("".join(self._html), "html.parser").contents:
             name = getattr(tag, "name", None)
-            if name in ("script", None):
+            if name in ("script", None, ):
                 continue
 
             try:
