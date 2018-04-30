@@ -19,7 +19,7 @@ web browser in order to detect and emulate malicious contents.
 Documentation
 -------------
 
-Documentation about Thug installation and usage can be found [here] (http://thug-honeyclient.readthedocs.io/).
+Documentation about Thug installation and usage can be found [here](http://thug-honeyclient.readthedocs.io/).
 
 
 Contributions
