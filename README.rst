@@ -1,7 +1,7 @@
 Thug
 ====
 
-|travis badge| |landscape badge| |version badge|
+|travis badge| |landscape badge| |version badge| |docs badge|
 
 The number of client-side attacks has grown significantly in the past few years
 shifting focus on poorly protected vulnerable clients. Just as the most known
@@ -19,8 +19,7 @@ web browser in order to detect and emulate malicious contents.
 Documentation
 -------------
 
-Documentation about Thug installation and usage can be found in the source
-tree or alternatively at https://buffer.github.com/thug/
+Documentation about Thug installation and usage can be found [here] (http://thug-honeyclient.readthedocs.io/).
 
 
 Contributions
@@ -46,3 +45,5 @@ License: GNU General Public License, version 2
    :alt: Code Health
 .. |version badge| image:: https://img.shields.io/pypi/v/thug.svg
    :target: https://pypi.python.org/pypi/thug/
+.. |docs badge| image:: https://readthedocs.org/projects/thug-honeyclient/badge/?version=latest
+   :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
