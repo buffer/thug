@@ -22,6 +22,7 @@ class jQuery(ThugAPI):
 
         self.set_useragent(useragent)
         self.set_events('click')
+        self.disable_code_logging()
         self.disable_cert_logging()
         self.log_init(sample)
         self.run_local(sample)
