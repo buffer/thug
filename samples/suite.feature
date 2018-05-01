@@ -210,4 +210,5 @@ Feature: Exploits
 			| test-jquery-14.html                          | [Window] Alert Text: 1,[Window] Alert Text: child                                                                                                        |
 			| test-jquery-15.html                          | [Window] Alert Text: parent                                                                                                                              |
 			| test-jquery-16.html                          | [Window] Alert Text: child,[Window] Alert Text: parent,[Window] Alert Text: grandparent                                                                  |
+			| test-jquery-17.html                          | [Window] Alert Text: child,[Window] Alert Text: parent                                                                                                   |
 		then run jquery
