@@ -208,4 +208,5 @@ Feature: Exploits
 			| test-jquery-11.html                          | <div id="target"><td>Hello World</td></div>                                                                                                              |
 			| test-jquery-12.html                          | [Window] Alert Text: 2,[Window] Alert Text: <h1>Foo</h1>                                                                                                 |
 			| test-jquery-14.html                          | [Window] Alert Text: 1,[Window] Alert Text: child                                                                                                        |
+			| test-jquery-15.html                          | [Window] Alert Text: parent                                                                                                                              |
 		then run jquery
