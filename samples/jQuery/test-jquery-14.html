@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+
+<body>
+
+<div class="grandparent">
+    <div class="parent">
+        <div class="child" id="foobar">
+            <span class="subchild"></span>
+        </div>
+    </div>
+    <div class="surrogateParent1"></div>
+    <div class="surrogateParent2"></div>
+</div>
+
+<script>
+// returns [ div.child ]
+var p = $("span.subchild").parent();
+alert(p.length);
+alert(p.attr("class"));
+</script>
+ 
+</body>
+</html>
