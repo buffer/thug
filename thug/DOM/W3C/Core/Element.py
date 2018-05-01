@@ -203,15 +203,18 @@ class Element(Node, ElementCSSInlineStyle):
                 # 2   Returns the value as a string
                 # 4   Returns the value as an URL
 
+                # FIXME (flags 2 and 4 not implemented yet)
                 if not flags & 1:
                     name = name.lower()
 
             value = self.tag[name] if self.tag.has_attr(name) else None
+        else:
+            value = self.tag[name] if self.tag.has_attr(name) else ""
 
-            # FIXME (flags 2 and 4 not implemented yet)
-            return value
+        if isinstance(value, list):
+            value = " ".join(value)
 
-        return self.tag[name] if self.tag.has_attr(name) else ""
+        return value
 
     def setAttribute(self, name, value):
         if not isinstance(name, six.string_types):
