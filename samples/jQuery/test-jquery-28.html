@@ -1,0 +1,33 @@
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<div class="grandparent">
+    <div class="parent">
+        <div class="child">
+            <span class="subchild"></span>
+        </div>
+    </div>
+    <div class="surrogateParent1"></div>
+    <div class="surrogateParent2"></div>
+</div>
+
+<script>
+
+var p = $("div.surrogateParent2").prevAll().first();
+
+var i;
+for (i = 0; i < p.length; i++) {
+    var c = (p[i].getAttribute("class"));
+	if (!!c) {
+		alert(c);
+	}
+}
+
+</script>
+ 
+</body>
+</html>
