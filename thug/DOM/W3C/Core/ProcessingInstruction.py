@@ -4,9 +4,9 @@ from .Node import Node
 
 
 class ProcessingInstruction(Node):
-    def __init__(self, doc, target, data):
+    def __init__(self, doc, target, tag):
         self._target = target
-        self.data    = data
+        self.tag     = tag
         Node.__init__(self, doc)
 
     @property
@@ -22,7 +22,7 @@ class ProcessingInstruction(Node):
         return Node.PROCESSING_INSTRUCTION_NODE
 
     def getNodeValue(self):
-        return self.data
+        return self.tag
 
     def setNodeValue(self, value):
         self.data = value
