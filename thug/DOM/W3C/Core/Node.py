@@ -30,6 +30,7 @@ class Node(JSClass, EventTarget):
 
     def __init__(self, doc):
         self.doc = doc
+
         EventTarget.__init__(self)
         self.__init_personality()
 
