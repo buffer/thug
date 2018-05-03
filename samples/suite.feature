@@ -218,4 +218,5 @@ Feature: Exploits
 			| test-jquery-22.html                          | [Window] Alert Text: surrogateParent1                                                                                                                    |
 			| test-jquery-24.html                          | [Window] Alert Text: surrogateParent1,[Window] Alert Text: surrogateParent2                                                                              |
 			| test-jquery-25.html                          | [Window] Alert Text: surrogateParent1                                                                                                                    |
+			| test-jquery-26.html                          | [Window] Alert Text: surrogateParent2                                                                                                                    |
 		then run jquery
