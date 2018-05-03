@@ -220,4 +220,6 @@ Feature: Exploits
 			| test-jquery-25.html                          | [Window] Alert Text: surrogateParent1                                                                                                                    |
 			| test-jquery-26.html                          | [Window] Alert Text: surrogateParent2                                                                                                                    |
 			| test-jquery-27.html                          | [Window] Alert Text: parent,[Window] Alert Text: surrogateParent1                                                                                        |
+			| test-jquery-28.html                          | [Window] Alert Text: surrogateParent1                                                                                                                    |
+			| test-jquery-29.html                          | [Window] Alert Text: parent                                                                                                                              |
 		then run jquery
