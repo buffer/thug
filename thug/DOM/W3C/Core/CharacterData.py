@@ -5,15 +5,16 @@ from .DOMException import DOMException
 
 
 class CharacterData(Node):
-    def __init__(self, doc, data):
-        self._data = data
+    def __init__(self, doc, tag):
+        self.tag = tag
+        self.tag._node = self
         Node.__init__(self, doc)
 
     def __str__(self):
-        return str(self.data)
+        return str(self.tag)
 
     def getData(self):
-        return self._data
+        return self.tag
 
     def setData(self, data):
         raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
