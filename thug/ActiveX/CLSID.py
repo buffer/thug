@@ -548,7 +548,6 @@ CLSID = [
         },
 
         # InternetCleverSuite
-        # FIXME DOWNLOAD
         {
             'id'        : ( 'E8F92847-7C21-452B-91A5-49D93AA18F30', ),
             'name'      : (),
@@ -592,7 +591,6 @@ CLSID = [
         },
 
         # JetAudioDownloadFromMusicStore
-        # FIXME DOWNLOAD
         {
             'id'        : ( '8D1636FD-CA49-4B4E-90E4-0A20E03A15E8', ),
             'name'      : (),
@@ -615,7 +613,6 @@ CLSID = [
         },
 
         # MacrovisionFlexNet
-        # FIXME DOWNLOAD
         {
             'id'        : ( 'FCED4482-7CCB-4E6F-86C9-DCB22B52843C',
                             '85A4A99C-8C3D-499E-A386-E0743DFF8FB7',
@@ -776,7 +773,6 @@ CLSID = [
         },
 
         # NamoInstaller
-        # FIXME DOWNLOAD
         {
             'id'        : ( 'AF465549-1D22-4140-A273-386FA8877E0A',  ),
             'name'      : (),
@@ -1119,7 +1115,6 @@ CLSID = [
         },
 
         # SinaDLoader
-        # FIXME Download
         {
             'id'        : ( '78ABDC59-D8E7-44D3-9A76-9A0918C52B4A', ),
             'name'      : ( 'downloader.dloader.1', ),

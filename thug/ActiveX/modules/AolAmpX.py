@@ -18,7 +18,6 @@ def AppendFileToPlayList(self, arg):
 
 
 def ConvertFile(self, *arg):
-    # FIXME
     if len(arg[0]) > 512:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "AOL Radio AOLMediaPlaybackControl ActiveX",
