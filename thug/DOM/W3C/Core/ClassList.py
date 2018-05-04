@@ -11,10 +11,10 @@ class ClassList(JSClass):
         self._class_list = list()
 
         for t in tag.find_all():
-            if 'class' not in tag.attrs:
+            if 'class' not in t.attrs:
                 continue
 
-            c = tag.attrs['class']
+            c = t.attrs['class']
             if c in self._class_list:
                 continue
 
