@@ -58,13 +58,13 @@ class DictDiffer(object):
         return set(o for o in self.intersect if self.past_dict[o] == self.current_dict[o])
 
     def anychange(self):
-        if len(self.added()):
+        if not self.added():
             return True
 
-        if len(self.removed()):
+        if not self.removed():
             return True
 
-        if len(self.changed()):
+        if not self.changed():
             return True
 
         return False
