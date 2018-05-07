@@ -280,7 +280,7 @@ class DFT(object):
             if url.endswith("'") or url.endswith('"'):
                 url = url[:-1]
 
-            if len(url) == 0:
+            if not url:
                 continue
 
             i = 0
