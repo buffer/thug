@@ -33,7 +33,7 @@ class TextStream(object):
         sstream = self.stream.getvalue().split('\n')
         line    = sstream[self._currentLine]
 
-        if len(line[self._currentColumn:]) == 0:
+        if not line[self._currentColumn:]:
             return True
 
         return False
