@@ -5,6 +5,7 @@ import six
 import six.moves.urllib.parse as urlparse
 
 from .Node import Node
+from .DOMException import DOMException
 from thug.DOM.W3C.Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 
 log = logging.getLogger("Thug")
@@ -56,26 +57,49 @@ class Element(Node, ElementCSSInlineStyle):
 
         if log.ThugOpts.Personality.browserMajorVersion > 8:
             self.getElementsByClassName = self._getElementsByClassName
+            self.msMatchesSelector      = self._matches
 
     def __init_personality_Firefox(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
+        self.mozMatchesSelector     = self._matches
         self.getElementsByClassName = self._getElementsByClassName
+
+        if log.ThugOpts.Personality.browserMajorVersion > 33:
+            self.matches = self._matches
 
     def __init_personality_Chrome(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
+        self.webkitMatchesSelector  = self._matches
         self.getElementsByClassName = self._getElementsByClassName
+
+        if log.ThugOpts.Personality.browserMajorVersion > 33:
+            self.matches = self._matches
 
     def __init_personality_Safari(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
 
+        if log.ThugOpts.Personality.browserMajorVersion > 6:
+            self.matches = self._matches
+
+        if log.ThugOpts.Personality.browserMajorVersion > 4:
+            self.webkitMatchesSelector = self._matches
+
     def __init_personality_Opera(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
+
+        if log.ThugOpts.Personality.browserMajorVersion > 20:
+            self.matches = self._matches
+
+        if log.ThugOpts.Personality.browserMajorVersion > 14:
+            self.webkitMatchesSelector = self._matches
+        elif log.ThugOpts.Personality.browserMajorVersion > 10:
+            self.oMatchesSelector = self._matches
 
     def _querySelectorAll(self, selectors):
         from .NodeList import NodeList
@@ -99,6 +123,14 @@ class Element(Node, ElementCSSInlineStyle):
             return DOMImplementation.createHTMLElement(self, s[0])
 
         return None
+
+    def _matches(self, selector):
+        try:
+            s = self.tag.select(selectors)
+        except Exception:
+            raise DOMException(DOMException.SYNTAX_ERR)
+
+        return True if s else False
 
     def __str__(self):
         return str(self.tag)
