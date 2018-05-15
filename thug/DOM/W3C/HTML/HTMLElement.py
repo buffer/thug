@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import logging
+import random
 from six import StringIO
 import bs4 as BeautifulSoup
 
@@ -70,6 +71,14 @@ class HTMLElement(Element, ElementCSSInlineStyle):
     @property
     def sourceIndex(self):
         return None
+
+    @property
+    def offsetWidth(self):
+        return random.randint(10, 100)
+
+    @property
+    def offsetTop(self):
+        return random.randint(1, 10)
 
     def insertAdjacentHTML(self, position, text):
         if position not in ('beforebegin', 'afterbegin', 'beforeend', 'afterend', ):
