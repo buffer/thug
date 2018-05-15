@@ -198,8 +198,6 @@ class HTMLDocument(Document):
     def head(self):
         from .HTMLHeadElement import HTMLHeadElement
 
-        log.warning(self._head)
-
         if self._head:
             return self._head
 
@@ -209,7 +207,6 @@ class HTMLDocument(Document):
             tag  = BeautifulSoup.BeautifulSoup(tostring(head), "html.parser")
 
         self._head = HTMLHeadElement(self.doc, tag)
-        log.warning(self._head)
         return self._head
 
     def getCompatible(self):
