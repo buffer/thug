@@ -5,6 +5,9 @@ import six
 import six.moves.urllib.parse as urlparse
 import bs4 as BeautifulSoup
 
+from lxml.html import builder as E
+from lxml.html import tostring
+
 from thug.DOM.W3C.Core.Document import Document
 from .HTMLBodyElement import HTMLBodyElement
 from .text_property import text_property
@@ -33,6 +36,7 @@ class HTMLDocument(Document):
         self._lastModified  = lastModified
         self._cookie        = cookie
         self._html          = None
+        self._head          = None
         self._readyState    = "loading"
         self._domain        = urlparse.urlparse(self._win.url).hostname if self._win else ''
         self.current        = None
@@ -189,6 +193,24 @@ class HTMLDocument(Document):
     @property
     def compatMode(self):
         return "CSS1Compat"
+
+    @property
+    def head(self):
+        from .HTMLHeadElement import HTMLHeadElement
+
+        log.warning(self._head)
+
+        if self._head:
+            return self._head
+
+        tag = self.doc.find('head')
+        if not tag:
+            head = E.HEAD()
+            tag  = BeautifulSoup.BeautifulSoup(tostring(head), "html.parser")
+
+        self._head = HTMLHeadElement(self.doc, tag)
+        log.warning(self._head)
+        return self._head
 
     def getCompatible(self):
         return self._compatible
