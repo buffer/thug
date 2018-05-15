@@ -8,4 +8,4 @@ class HTMLDivElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
 
-    align           = attr_property("align")
+    align = attr_property("align")
