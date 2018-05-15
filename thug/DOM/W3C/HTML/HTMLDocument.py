@@ -136,6 +136,10 @@ class HTMLDocument(Document):
         return self
 
     @property
+    def parentNode(self):
+        return None
+
+    @property
     def referrer(self):
         if self._referer:
             return str(self._referer)
