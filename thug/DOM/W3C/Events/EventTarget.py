@@ -13,6 +13,7 @@ log = logging.getLogger("Thug")
 class EventTarget(object):
     def __init__(self):
         self.__init_personality()
+        self.tag._listeners = list()
 
     def __init_personality(self):
         if log.ThugOpts.Personality.isIE():

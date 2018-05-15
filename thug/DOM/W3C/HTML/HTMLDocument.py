@@ -93,6 +93,9 @@ class HTMLDocument(Document):
         self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
 
     def __getattr__(self, attr):
+        if attr in ('_listeners', ):
+            return self.tag._listeners
+
         if attr in ('getBoxObjectFor', ) and not log.ThugOpts.Personality.isFirefox():
             raise AttributeError
 
