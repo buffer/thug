@@ -13,13 +13,14 @@ class HTMLScriptElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
 
-    text            = text_property()
-    htmlFor         = None
-    event           = None
-    charset         = attr_property("charset", default = "")
-    defer           = attr_property("defer", bool)
-    _src            = attr_property("src", default = "")
-    type            = attr_property("type")
+    async   = attr_property("async", bool)
+    text    = text_property()
+    htmlFor = None
+    event   = None
+    charset = attr_property("charset", default = "")
+    defer   = attr_property("defer", bool)
+    _src    = attr_property("src", default = "")
+    type    = attr_property("type")
 
     def get_src(self):
         return self._src
