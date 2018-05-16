@@ -347,7 +347,7 @@ class ThugAPI(object):
         classifier_type = cls_type.lower().strip()
 
         if classifier_type not in self.classifiers_map:
-            log.warn("Skipping unknown classifier type %s", cls_type)
+            log.warning("Skipping unknown classifier type %s", cls_type)
             return
 
         self.classifiers_map[classifier_type].add_customclassifier(method)

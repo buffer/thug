@@ -965,7 +965,7 @@ class Window(JSClass):
             try:
                 ast = AST(script, self)
             except Exception:
-                log.warn(traceback.format_exc())
+                log.warning(traceback.format_exc())
                 return result
 
             if log.ThugOpts.Personality.isIE():
