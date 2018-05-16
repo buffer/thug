@@ -2,6 +2,7 @@
 
 import logging
 # import six.moves.urllib.parse as urlparse
+
 from lxml.html import builder as E
 from lxml.html import tostring
 
@@ -27,6 +28,7 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     if varPassword:
         msg = "%s, '%s'" % (msg, varPassword, )
     msg = "%s)" % (msg, )
+
     log.ThugLogging.add_behavior_warn(msg)
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Microsoft XMLHTTP ActiveX",
@@ -72,7 +74,7 @@ def send(self, varBody = None):
                                                  method        = self.bstrMethod,
                                                  headers       = self.requestHeaders,
                                                  body          = varBody,
-                                                 redirect_type = "Microsoft XMLHTTP Exploit")
+                                                 redirect_type = "Microsoft XMLHTTP")
     except Exception:
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
         self.dispatchEvent("timeout")
@@ -104,6 +106,8 @@ def send(self, varBody = None):
     if contenttype is None:
         return 0
 
+    self.dispatchEvent("load")
+
     if 'javascript' in contenttype:
         html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(response.text))))
 
@@ -123,10 +127,7 @@ def send(self, varBody = None):
             html = response.text
 
         doc = DOM.W3C.w3c.parseString(html)
-
         window = DOM.Window.Window(self.bstrUrl, doc, personality = log.ThugOpts.useragent)
-        # window.open(self.bstrUrl)
-
         dft = DOM.DFT.DFT(window)
         dft.run()
         return 0
@@ -171,9 +172,6 @@ def overrideMimeType(self, mimetype):
 
 
 def addEventListener(self, _type, listener, useCapture = False):
-    if _type.lower() not in ('readystatechange', 'timeout'):
-        return
-
     setattr(self, 'on%s' % (_type.lower(), ), listener)
 
 
@@ -191,5 +189,5 @@ def dispatchEvent(self, evt, pfResult = True):
     if listener is None:
         return
 
-    with self._window.context as ctx:  # pylint:disable=unused-variable
+    with self._window.context:
         listener.__call__()
