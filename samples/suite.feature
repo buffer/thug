@@ -223,4 +223,5 @@ Feature: Exploits
 			| test-jquery-28.html                          | [Window] Alert Text: surrogateParent1                                                                                                                    |
 			| test-jquery-29.html                          | [Window] Alert Text: parent                                                                                                                              |
 			| test-jquery-32.html                          | [Window] Alert Text: Inside the callback,__version__,__configuration_path__                                                                              |
+			| test-jquery-33.html                          | [Window] Alert Text: Done,[Window] Alert Text: The request is complete                                                                                   |
 		then run jquery

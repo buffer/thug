@@ -1,0 +1,27 @@
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<script>
+
+$.ajax({
+		url: "http://www.google.com",
+		type: "GET",
+		dataType : "html",
+	})
+	.done(function(html) {
+  		alert("Done");
+  	})
+  	.fail(function(xhr, status, errorThrown) {
+    	alert("Sorry, there was a problem!");
+  	})
+  	.always(function( xhr, status ) {
+    	alert("The request is complete!");
+  	});
+</script>
+ 
+</body>
+</html>
