@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import logging
+import random
 import six
 import six.moves.urllib.parse as urlparse
 
@@ -199,6 +200,14 @@ class Element(Node, ElementCSSInlineStyle):
     @property
     def clientHeight(self):
         return 600
+
+    @property
+    def scrollTop(self):
+        return random.randint(0, 100)
+
+    @property
+    def scrollHeight(self):
+        return random.randint(10, 100)
 
     @property
     def classList(self):
