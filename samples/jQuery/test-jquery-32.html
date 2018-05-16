@@ -1,0 +1,18 @@
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<script>
+
+$.get("https://raw.githubusercontent.com/buffer/thug/master/thug/__init__.py", function( response ) {
+	alert("Inside the callback");
+    alert(response);
+});
+
+</script>
+ 
+</body>
+</html>
