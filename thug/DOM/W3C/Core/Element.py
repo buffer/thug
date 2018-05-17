@@ -127,7 +127,7 @@ class Element(Node, ElementCSSInlineStyle):
 
     def _matches(self, selector):
         try:
-            s = self.tag.select(selectors)
+            s = self.tag.select(selector)
         except Exception:
             raise DOMException(DOMException.SYNTAX_ERR)
 
