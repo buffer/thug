@@ -114,7 +114,3 @@ class Location(JSClass):
     def replace(self, url):
         """Replaces the current document by loading another document at the specified URL."""
         self.href = url
-
-    def assign(self, url):
-        """Replaces the current document by loading another document at the specified URL."""
-        self.href = url
