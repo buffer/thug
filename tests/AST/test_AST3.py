@@ -211,4 +211,3 @@ class TestAST3(object):
                 assert bp_line in (9, )
             if bp_type in (ast.ASSIGN_BREAKPOINT, ):
                 assert bp_line in (3, )
-
