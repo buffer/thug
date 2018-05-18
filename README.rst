@@ -1,7 +1,7 @@
 Thug
 ====
 
-|travis badge| |landscape badge| |version badge| |docs badge|
+|version badge| |travis badge| |landscape badge| |codefactor badge| |docs badge|
 
 The number of client-side attacks has grown significantly in the past few years
 shifting focus on poorly protected vulnerable clients. Just as the most known
@@ -38,12 +38,14 @@ Copyright (C) 2011-2018 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
 License: GNU General Public License, version 2
 
 
+.. |version badge| image:: https://img.shields.io/pypi/v/thug.svg
+   :target: https://pypi.python.org/pypi/thug/
 .. |travis badge| image:: https://img.shields.io/travis/buffer/thug/master.svg
    :target: https://travis-ci.org/buffer/thug
 .. |landscape badge| image:: https://landscape.io/github/buffer/thug/master/landscape.png
    :target: https://landscape.io/github/buffer/thug/master
    :alt: Code Health
-.. |version badge| image:: https://img.shields.io/pypi/v/thug.svg
-   :target: https://pypi.python.org/pypi/thug/
+.. |codefactor badge| image:: https://www.codefactor.io/repository/github/buffer/thug/badge
+   :target: https://www.codefactor.io/repository/github/buffer/thug
 .. |docs badge| image:: https://readthedocs.org/projects/thug-honeyclient/badge/?version=latest
    :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
