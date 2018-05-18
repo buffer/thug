@@ -13,6 +13,7 @@ log = logging.getLogger("Thug")
 
 def abort(self):
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] abort")
+    self.dispatchEvent("abort")
     return 0
 
 
@@ -69,6 +70,8 @@ def send(self, varBody = None):
 
     response = None
 
+    self.dispatchEvent("loadstart")
+
     try:
         response = self._window._navigator.fetch(self.bstrUrl,
                                                  method        = self.bstrMethod,
@@ -78,6 +81,7 @@ def send(self, varBody = None):
     except Exception:
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
         self.dispatchEvent("timeout")
+        self.dispatchEvent("error")
 
     if response is None:
         return 0

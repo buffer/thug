@@ -687,6 +687,7 @@ CLSID = [
                             'timeout'               : 0,
                             'onerror'               : None,
                             'onload'                : None,
+                            'onloadstart'           : None,
                             'onprogress'            : None,
                             'onreadystatechange'    : None,
                             'onabort'               : None,
