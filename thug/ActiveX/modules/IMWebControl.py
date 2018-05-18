@@ -7,7 +7,7 @@ log = logging.getLogger("Thug")
 
 
 def ProcessRequestEx(self, arg):
-    if len(arg) == 0:
+    if not arg:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "iMesh IMWebControl ActiveX",
                                           "NULL value in ProcessRequestEx",
