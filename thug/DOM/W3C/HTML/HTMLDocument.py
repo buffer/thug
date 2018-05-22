@@ -381,6 +381,20 @@ class HTMLDocument(Document):
         s = [p for p in self.doc.find_all(text = False)]
         return HTMLAllCollection(self.doc, s)
 
+    @property
+    def scripts(self):
+        from .HTMLAllCollection import HTMLAllCollection
+
+        s = [p for p in self.current.find_all_previous('script')]
+        s.append(self.current)
+
+        return HTMLAllCollection(self.doc, s)
+
+    @property
+    def currentScript(self):
+        from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
+        return DOMImplementation.createHTMLElement(self.doc, self.current) if self.current else None
+
     def _createStyleSheet(self, URL = None, index = None):
         # Creates a styleSheet object and inserts it into the current document.
         # The createStyleSheet method is only supported by Internet Explorer.
