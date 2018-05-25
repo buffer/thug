@@ -27,7 +27,7 @@ log = logging.getLogger("Thug")
 
 class BaseLogging(object):
     def __init__(self):
-        pass
+        self.baseDir = None
 
     def check_module(self, module, config):
         if not getattr(log.ThugOpts, "%s_logging" % (module, ), True):
