@@ -1,0 +1,21 @@
+<html>
+<body>
+
+<script type='text/javascript'>
+var scripts = document.scripts;
+alert(scripts.length);
+alert(scripts[0]);
+
+if (scripts.length) {
+  alert("This page has scripts");
+}
+
+alert(document.currentScript.getAttribute('type'));
+</script>
+
+<script>
+alert("Just a useless script");
+</script>
+
+</body>
+</html>

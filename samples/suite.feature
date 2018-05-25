@@ -191,6 +191,7 @@ Feature: Exploits
 			| testInsertAdjacentHTML4.html                 | <div id="four">four</div><div id="eight">eight</div>                                                                                                     |
 			| testMicrosoftXMLHTTPEvent1.html              | [Window] Alert Text: Request completed                                                                                                                   |
 			| testMicrosoftXMLHTTPEvent2.html              | [Window] Alert Text: Request completed                                                                                                                   |
+			| testCurrentScript.html                       | [Window] Alert Text: This page has scripts,[Window] Alert Text: text/javascript,[Window] Alert Text: Just a useless script                               |
 		then run misc
 
 	Scenario: jquery
