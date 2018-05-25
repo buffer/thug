@@ -1,8 +1,5 @@
-import logging
-
 from thug.Logging.SampleLogging import SampleLogging
 
-log = logging.getLogger("Thug")
 sample_logging = SampleLogging()
 
 
@@ -42,13 +39,18 @@ class TestSampleLogging:
 
     def test_get_imphash(self):
         pe_path = "../test_files/hello.exe"
+        doc_path = "../test_files/doc.doc"
+
         imphash = sample_logging.get_imphash(open(pe_path).read())
         assert imphash in ('5ef204cfbc53779500a050c36dea14fc', )
 
+        imphash = sample_logging.get_imphash(open(doc_path).read())
+        assert not imphash
+
     def test_build_sample(self):
         pe_path = "../test_files/hello.exe"
-        data     = open(pe_path).read()
-        build = sample_logging.build_sample(data=data, url=pe_path, sampletype='PE')
+        data    = open(pe_path).read()
+        build   = sample_logging.build_sample(data=data, url=pe_path, sampletype='PE')
         assert build
 
         build = sample_logging.build_sample(data=data, url=pe_path)
