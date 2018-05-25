@@ -59,6 +59,3 @@ class TestSampleLogging:
 
         build = sample_logging.build_sample(data="not_valid")
         assert not build
-
-
-
