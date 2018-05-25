@@ -19,4 +19,3 @@ def test_elasticsearch():
 
 def test_hpfeeds():
     assert log_modules.LoggingModules['hpfeeds'] is log_modules.HPFeeds.HPFeeds
-
