@@ -1344,7 +1344,10 @@ class DFT(object):
         return False
 
     def run_htmlclassifier(self, soup):
-        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, str(soup))
+        try:
+            log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, str(soup))
+        except Exception:
+            pass
 
     def _run(self, soup = None):
         if soup is None:
