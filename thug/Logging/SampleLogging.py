@@ -29,7 +29,7 @@ SSDEEP = True
 
 try:
     import ssdeep
-except ImportError:
+except ImportError:  # pragma: no cover
     SSDEEP = False
 
 log = logging.getLogger("Thug")

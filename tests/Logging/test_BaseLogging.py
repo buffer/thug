@@ -2,6 +2,7 @@ import os
 import shutil
 import logging
 
+import pytest
 import six.moves.configparser as ConfigParser
 
 import thug
@@ -32,14 +33,27 @@ class TestBaseLogging:
         log_path = os.path.dirname(os.path.dirname(base_logging.baseDir))  # TODO: Make this neat
         assert os.path.isdir(base_logging.baseDir)
 
+        # Testing the self.baseDir variable
+        base_logging.set_basedir(url)
+
+        # Testing the thug_csv
+        base_logging.baseDir = ""
+        base_logging.set_basedir(url)
+        assert os.path.isdir(base_logging.baseDir)
+
+        base_logging.set_basedir("/path/to/example1")
         shutil.rmtree(log_path)
+        assert not os.path.isdir(base_logging.baseDir)
 
     def test_set_absbasedir(self):
         url = "../example"
         base_logging.set_absbasedir(url)
         assert os.path.isdir(url)
 
-        # Checking the try-except clause
+        with pytest.raises(OSError):
+            base_logging.set_absbasedir("/etc/perm-den")
+
+        # Testing the try-except clause
         base_logging.set_absbasedir(url)
         shutil.rmtree(url)
 
