@@ -11,6 +11,7 @@ thug.egg-info
 
 # Generated files
 *.pyc
+.coverage
 
 # Generated directories
 build
