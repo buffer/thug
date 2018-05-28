@@ -32,6 +32,9 @@ class TestBaseLogging:
         log_path = os.path.dirname(os.path.dirname(base_logging.baseDir))  # TODO: Make this neat
         assert os.path.isdir(base_logging.baseDir)
 
+        # Testing the self.baseDir variable
+        base_logging.set_basedir(url)
+
         shutil.rmtree(log_path)
 
     def test_set_absbasedir(self):
@@ -39,7 +42,7 @@ class TestBaseLogging:
         base_logging.set_absbasedir(url)
         assert os.path.isdir(url)
 
-        # Checking the try-except clause
+        # Testing the try-except clause
         base_logging.set_absbasedir(url)
         shutil.rmtree(url)
 
