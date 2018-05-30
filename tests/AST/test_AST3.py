@@ -274,7 +274,7 @@ class TestAST3(object):
             if bp_type in (ast.ASSIGN_BREAKPOINT, ):
                 assert bp_line in (3, )
 
-    def test__exception(self, caplog):
+    def test_exception(self, caplog):
         caplog.clear()
         script = """
             variable s;  //Intended syntax error
