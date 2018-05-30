@@ -1,4 +1,15 @@
+import os
+import logging
+
+import thug
 from thug.AST.AST3 import AST
+from thug.ThugAPI.ThugOpts import ThugOpts
+
+configuration_path     = thug.__configuration_path__
+log                    = logging.getLogger("Thug")
+log.configuration_path = configuration_path
+log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
+log.ThugOpts           = ThugOpts()
 
 
 class TestAST3(object):
@@ -160,6 +171,31 @@ class TestAST3(object):
             if bp_type in (ast.ASSIGN_BREAKPOINT, ):
                 assert bp_line in (3, )
 
+    def testForInStatement(self):
+        script = """
+            var person = {fname:"John", lname:"Doe", age:25};
+
+            var text;
+            var x;
+            for (x in person) {
+                text += person[x] + " ";
+            }
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+        for bp in ast.breakpoints:
+            bp_type = bp['type']
+            bp_line = bp['line']
+
+            if bp_type in (ast.LOOP_BREAKPOINT, ):
+                assert bp_line in (8, )
+            if bp_type in (ast.ASSIGN_BREAKPOINT, ):
+                assert bp_line in (2, )
+
     def testWhileStatement(self):
         script = """
             var s;
@@ -182,6 +218,32 @@ class TestAST3(object):
 
             if bp_type in (ast.LOOP_BREAKPOINT, ):
                 assert bp_line in (8, )
+            if bp_type in (ast.ASSIGN_BREAKPOINT, ):
+                assert bp_line in (3, )
+
+    def testDoWhileStatement(self):
+        script = """
+            var s;
+            var i = 3;
+
+            do {
+                s += "a";
+                i -= 1;
+            }
+            while (i > 0);
+        """
+
+        ast = AST(script)
+        ast.walk()
+
+        self.debug_info(script, ast)
+
+        for bp in ast.breakpoints:
+            bp_type = bp['type']
+            bp_line = bp['line']
+
+            if bp_type in (ast.LOOP_BREAKPOINT, ):
+                assert bp_line in (9, )
             if bp_type in (ast.ASSIGN_BREAKPOINT, ):
                 assert bp_line in (3, )
 
@@ -211,3 +273,13 @@ class TestAST3(object):
                 assert bp_line in (9, )
             if bp_type in (ast.ASSIGN_BREAKPOINT, ):
                 assert bp_line in (3, )
+
+    def test__exception(self, caplog):
+        caplog.clear()
+        script = """
+            variable s;  //Intended syntax error
+        """
+
+        log.ThugOpts.ast_debug = True
+        AST(script)
+        assert "[AST] Script parsing error" in caplog.text
