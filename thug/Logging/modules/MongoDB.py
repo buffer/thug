@@ -116,7 +116,6 @@ class MongoDB(object):
         self.certificates = db.certificates
         self.virustotal   = db.virustotal
         self.honeyagent   = db.honeyagent
-        self.peepdf       = db.peepdf
         self.exploits     = db.exploits
         self.classifiers  = db.classifiers
         self.codes        = db.codes
@@ -501,6 +500,3 @@ class MongoDB(object):
 
     def log_honeyagent(self, sample, report):
         self.log_analysis_module(self.honeyagent, sample, report)
-
-    def log_peepdf(self, sample, report):
-        self.log_analysis_module(self.peepdf, sample, report)
