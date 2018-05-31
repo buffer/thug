@@ -70,7 +70,6 @@ class MongoUtils(object):
                              db.certificates,
                              db.virustotal,
                              db.honeyagent,
-                             db.androguard,
                              db.peepdf,
                              db.exploits,
                              db.codes,
