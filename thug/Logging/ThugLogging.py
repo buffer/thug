@@ -286,13 +286,6 @@ class ThugLogging(BaseLogging, SampleLogging):
     def log_honeyagent(self, dirname, sample, report):
         self.log_analysis_module(dirname, sample, report, "honeyagent")
 
-    def log_androguard(self, dirname, sample, report):
-        self.__log_file(sample, sample.pop("raw", None))
-        self.log_analysis_module(dirname, sample, report, "androguard", "txt")
-
-    def log_peepdf(self, dirname, sample, report):
-        self.log_analysis_module(dirname, sample, report, "peepdf", "xml")
-
     def store_content(self, dirname, filename, content):
         """
         This method is meant to be used when a content (downloaded

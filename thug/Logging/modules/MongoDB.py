@@ -116,8 +116,6 @@ class MongoDB(object):
         self.certificates = db.certificates
         self.virustotal   = db.virustotal
         self.honeyagent   = db.honeyagent
-        self.androguard   = db.androguard
-        self.peepdf       = db.peepdf
         self.exploits     = db.exploits
         self.classifiers  = db.classifiers
         self.codes        = db.codes
