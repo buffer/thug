@@ -36,7 +36,7 @@ class TestThugLogging:
     def test_set_url(self):
         log.ThugOpts.maec11_logging = True
         thug_logging.set_url("https://www.example.com")
-        assert thug_logging.url
+        assert thug_logging.url in ("https://www.example.com", )
 
     def test_add_code_snippet(self):
         log.ThugOpts.code_logging = False
@@ -50,7 +50,8 @@ class TestThugLogging:
         assert tag_hex
 
     def test_add_shellcode_snippet(self):
-        pass
+        tag_hex = thug_logging.add_shellcode_snippet("sample", "Assembly", "Shellcode", "Static Analysis")
+        assert tag_hex
 
     def test_log_file(self):
         sample = thug_logging.log_file(data = "")
@@ -68,13 +69,16 @@ class TestThugLogging:
         assert 'Thug analysis logs saved' in caplog.text
 
     def test_log_connection(self):
-        pass
+        thug_logging.log_connection("referer", "url", "href")
 
     def test_log_location(self):
-        pass
+        thug_logging.log_location("https://example.com", None)
 
-    def test_log_exploit_event(self):
-        pass
+    def test_log_exploit_event(self, caplog):
+        caplog.clear()
+
+        thug_logging.log_exploit_event("https://www.example.com", "module", "sample-description")
+        assert "[module] sample-description" in caplog.text
 
     def test_log_classifier(self, caplog):
         caplog.clear()
@@ -89,11 +93,15 @@ class TestThugLogging:
         thug_logging.log_warning("sample-text")
         assert "sample-text" in caplog.text
 
-    def test_log_redirect(self):
+    def test_log_redirect(self, caplog):
         pass
 
-    def test_log_href_direct(self):
-        pass
+    def test_log_href_direct(self, caplog):
+        caplog.clear()
+
+        thug_logging.log_href_redirect("referer", "url")
+        assert "[HREF Redirection (document.location)]" in caplog.text
+        assert "Content-Location: referer --> Location: url" in caplog.text
 
     def test_log_certificate(self, caplog):
         caplog.clear()
