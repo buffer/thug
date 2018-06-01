@@ -500,9 +500,3 @@ class MongoDB(object):
 
     def log_honeyagent(self, sample, report):
         self.log_analysis_module(self.honeyagent, sample, report)
-
-    def log_androguard(self, sample, report):
-        self.log_analysis_module(self.androguard, sample, report)
-
-    def log_peepdf(self, sample, report):
-        self.log_analysis_module(self.peepdf, sample, report)

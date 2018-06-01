@@ -138,4 +138,3 @@ class TestThugLogging:
         log.ThugOpts.file_logging = False
         fname = thug_logging.store_content(os.getcwd(), "sample.csv", self.content)
         assert not fname
-
