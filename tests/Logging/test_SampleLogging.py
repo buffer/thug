@@ -6,12 +6,15 @@ sample_logging = SampleLogging()
 
 
 class TestSampleLogging:
-    pe_path  = os.path.join(os.getcwd(), "tests/test_files/sample.exe")
-    pdf_path = os.path.join(os.getcwd(), "tests/test_files/sample.pdf")
-    jar_path = os.path.join(os.getcwd(), "tests/test_files/sample.jar")
-    swf_path = os.path.join(os.getcwd(), "tests/test_files/sample.swf")
-    doc_path = os.path.join(os.getcwd(), "tests/test_files/sample.doc")
-    rtf_path = os.path.join(os.getcwd(), "tests/test_files/sample.rtf")
+    cwd_path     = os.path.dirname(os.path.realpath(__file__))
+    samples_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files")
+
+    pe_path  = os.path.join(samples_path, "sample.exe")
+    pdf_path = os.path.join(samples_path, "sample.pdf")
+    jar_path = os.path.join(samples_path, "sample.jar")
+    swf_path = os.path.join(samples_path, "sample.swf")
+    doc_path = os.path.join(samples_path, "sample.doc")
+    rtf_path = os.path.join(samples_path, "sample.rtf")
 
     def test_get_none(self):
         assert not sample_logging.get_sample_type("")
