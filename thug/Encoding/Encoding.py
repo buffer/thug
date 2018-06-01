@@ -21,9 +21,6 @@ import cchardet
 
 
 class Encoding(object):
-    def __init__(self):
-        pass
-
     def detect(self, data, safe = False):
         try:
             return cchardet.detect(data)
@@ -38,5 +35,4 @@ class Encoding(object):
         except Exception:
             if safe:
                 return None
-
             raise
