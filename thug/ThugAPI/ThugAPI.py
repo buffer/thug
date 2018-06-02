@@ -16,43 +16,45 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import sys
 import os
-import logging
+import sys
 import PyV8
+import logging
 import six.moves.urllib.parse as urlparse
 
-from bs4 import BeautifulSoup
-from zope.interface import implementer
-from lxml.html import builder as E
-from lxml.html import tostring
 import cchardet
+from bs4 import BeautifulSoup
+from lxml.html import tostring
+from lxml.html import builder as E
+from zope.interface import implementer
 
 import thug
 from thug.DOM.W3C import w3c
+from thug.DOM.DFT import DFT
 from thug.DOM.Window import Window
 from thug.DOM.HTTPSession import HTTPSession
-from thug.DOM.DFT import DFT
 from thug.DOM.MIMEHandler import MIMEHandler
 from thug.DOM.SchemeHandler import SchemeHandler
 from thug.WebTracking.WebTracking import WebTracking
+from thug.AST.ASTHandler import ASTHandler
 from thug.Encoding.Encoding import Encoding
 from thug.Logging.ThugLogging import ThugLogging
-from thug.AST.ASTHandler import ASTHandler
+
 
 from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
-from .ThugVulnModules import ThugVulnModules
-from .OpaqueFilter import OpaqueFilter
 from .Watchdog import Watchdog
+from .OpaqueFilter import OpaqueFilter
 from .abstractmethod import abstractmethod
+from .ThugVulnModules import ThugVulnModules
 
-from thug.Classifier.HTMLClassifier import HTMLClassifier
 from thug.Classifier.JSClassifier import JSClassifier
 from thug.Classifier.VBSClassifier import VBSClassifier
 from thug.Classifier.URLClassifier import URLClassifier
-from thug.Classifier.SampleClassifier import SampleClassifier
+from thug.Classifier.HTMLClassifier import HTMLClassifier
 from thug.Classifier.TextClassifier import TextClassifier
+from thug.Classifier.SampleClassifier import SampleClassifier
+
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)

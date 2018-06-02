@@ -19,9 +19,9 @@
 import os
 import sys
 import logging
+from thug.Plugins.IPlugin import IPlugin
 from zope.interface.verify import verifyObject
 from zope.interface.exceptions import BrokenImplementation
-from thug.Plugins.IPlugin import IPlugin
 
 log = logging.getLogger("Thug")
 
