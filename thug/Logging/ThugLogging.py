@@ -23,9 +23,9 @@ from thug.Analysis.virustotal.VirusTotal import VirusTotal
 from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
 
 import os
-import errno
 import copy
 import uuid
+import errno
 import logging
 import six.moves.configparser as ConfigParser
 

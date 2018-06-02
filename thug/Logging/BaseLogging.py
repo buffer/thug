@@ -19,8 +19,8 @@
 import os
 import errno
 import hashlib
-import datetime
 import logging
+import datetime
 
 log = logging.getLogger("Thug")
 

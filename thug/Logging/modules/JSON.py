@@ -19,11 +19,11 @@
 # Author:   Thorsten Sick <thorsten.sick@avira.com> from Avira
 #           (developed for the iTES Project http://ites-project.org)
 
-import logging
-import base64
-import datetime
 import os
 import json
+import base64
+import logging
+import datetime
 
 from six import StringIO
 

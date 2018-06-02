@@ -17,8 +17,8 @@
 # MA  02111-1307  USA
 
 import os
-import logging
 import yara
+import logging
 import six.moves.urllib.parse as urlparse
 
 log = logging.getLogger("Thug")
