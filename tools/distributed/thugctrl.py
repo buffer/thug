@@ -5,10 +5,10 @@ Send commands to Thug
 
 """
 
-import argparse
 import pika
 import json
 import datetime
+import argparse
 import six.moves.urllib.parse as urlparse
 import six.moves.configparser as ConfigParser
 

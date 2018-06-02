@@ -22,8 +22,8 @@ import getopt
 MONGO_MODULE = True
 
 try:
-    import pymongo
     import gridfs
+    import pymongo
     from bson.objectid import ObjectId
 except ImportError:
     MONGO_MODULE = False

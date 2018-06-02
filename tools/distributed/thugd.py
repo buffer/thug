@@ -6,14 +6,14 @@ By thorsten.sick@avira.com
 For the iTES project (www.ites-project.org)
 """
 
-import argparse
-import pika
-import sys
-import json
-import six
-import subprocess
 import os
+import sys
+import six
+import json
+import pika
 import shutil
+import argparse
+import subprocess
 import six.moves.configparser as ConfigParser
 
 
