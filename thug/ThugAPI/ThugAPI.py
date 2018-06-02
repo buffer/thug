@@ -40,7 +40,6 @@ from thug.AST.ASTHandler import ASTHandler
 from thug.Encoding.Encoding import Encoding
 from thug.Logging.ThugLogging import ThugLogging
 
-
 from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
 from .Watchdog import Watchdog
@@ -54,7 +53,6 @@ from thug.Classifier.URLClassifier import URLClassifier
 from thug.Classifier.HTMLClassifier import HTMLClassifier
 from thug.Classifier.TextClassifier import TextClassifier
 from thug.Classifier.SampleClassifier import SampleClassifier
-
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
