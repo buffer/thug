@@ -13,7 +13,7 @@ class TestEncoding:
 
     def test_unicode(self):
         result = encoding.detect(u'sample-content')
-        assert result['encoding'] in ('ASCII',)
+        assert result['encoding'] in ('ASCII', )
 
     def test_utf8_bom(self):
         result = encoding.detect(b'\xEF\xBB\xBF')
