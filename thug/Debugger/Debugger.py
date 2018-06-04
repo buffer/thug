@@ -17,9 +17,9 @@
 # MA  02111-1307  USA
 
 import os
-import logging
 import PyV8
 import thug
+import logging
 
 log = logging.getLogger("Thug")
 

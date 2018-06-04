@@ -17,11 +17,11 @@
 # MA  02111-1307  USA
 
 import os
+import json
 import struct
 import socket
 import hashlib
 import logging
-import json
 import six.moves.configparser as ConfigParser
 
 log = logging.getLogger("Thug")

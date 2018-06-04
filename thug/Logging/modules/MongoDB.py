@@ -17,9 +17,9 @@
 # MA  02111-1307  USA
 
 import os
-import datetime
 import base64
 import logging
+import datetime
 import six.moves.configparser as ConfigParser
 
 try:
