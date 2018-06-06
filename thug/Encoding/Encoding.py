@@ -32,7 +32,7 @@ class Encoding(object):
                 return cchardet.detect(str(data))
             except Exception:
                 raise
-        except Exception:
+        except Exception:  # pragma: no cover
             if safe:
                 return None
             raise
