@@ -268,7 +268,7 @@ class MIMEHandler(dict):
             if filename.lower().endswith('.js'):
                 self.window.evalScript(data)
 
-            sample = log.ThugLogging.log_file(data)
+            sample = log.ThugLogging.log_file(data, url)
             if sample is None:
                 continue
 
@@ -299,7 +299,7 @@ class MIMEHandler(dict):
             except Exception:
                 continue
 
-            sample = log.ThugLogging.log_file(data)
+            sample = log.ThugLogging.log_file(data, url)
             if sample is None:
                 continue
 
