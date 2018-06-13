@@ -1,7 +1,7 @@
 Thug
 ====
 
-|version badge| |travis badge| |landscape badge| |codefactor badge| |docs badge|
+|version badge| |travis badge| |landscape badge| |codefactor badge| |codecov badge| |docs badge|
 
 The number of client-side attacks has grown significantly in the past few years
 shifting focus on poorly protected vulnerable clients. Just as the most known
@@ -47,5 +47,7 @@ License: GNU General Public License, version 2
    :alt: Code Health
 .. |codefactor badge| image:: https://www.codefactor.io/repository/github/buffer/thug/badge
    :target: https://www.codefactor.io/repository/github/buffer/thug
+.. |codecov badge| image:: https://codecov.io/gh/buffer/thug/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/buffer/thug
 .. |docs badge| image:: https://readthedocs.org/projects/thug-honeyclient/badge/?version=latest
    :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
