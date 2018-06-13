@@ -1,9 +1,20 @@
 sudo: required
 language: python
 python:
-  - "pypy"
   - "2.7"
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install libboost-python-dev libboost-all-dev systemtap-sdt-dev libfuzzy-dev
 install:
-  - sudo python setup.py install
+  - sudo pip install pylibemu
+  - pip install tox
 script:
+  - echo "/opt/libemu/lib/" | sudo tee --append /etc/ld.so.conf.d/libemu.conf
+  - sudo ldconfig
+  - sudo mkdir -p /etc/thug/{rules,personalities,scripts}
+  - sudo cp -R thug/Classifier/rules/* /etc/thug/rules/
+  - sudo cp -R thug/DOM/personalities/* /etc/thug/personalities
+  - sudo cp -t /etc/thug/scripts thug/DOM/{thug.js,storage.js,date.js} thug/Debugger/d8.js
+  - sudo cp -t /etc/thug/ thug/Analysis/honeyagent/honeyagent.conf.sample thug/Analysis/virustotal/virustotal.conf.default thug/Logging/logging.conf.default
+  - tox
   - echo "Build done"
