@@ -2,7 +2,7 @@ beautifulsoup4==4.6.0
 html5lib==1.0.1
 lxml==4.2.1
 cchardet==2.1.1
-requests==2.19.0
+requests==2.19.1
 PySocks==1.6.8
 cssutils==1.0.2
 zope.interface==4.5.0
@@ -17,4 +17,4 @@ pylibemu==0.5.8
 pefile==2017.11.5
 yara-python==3.7.0
 elasticsearch==6.2.0
-esprima==4.0.0.dev12
+esprima==4.0.0
