@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 
-import ez_setup
-ez_setup.use_setuptools()
-
 import os
 import glob
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages # Always prefer setuptools over distutils
 
 os.environ['BUILD_LIB'] = '1'
 
@@ -30,7 +27,6 @@ url_filter_path    = os.path.join(rules_path, "urlfilter")
 sample_filter_path = os.path.join(rules_path, "samplefilter")
 text_filter_path   = os.path.join(rules_path, "textfilter")
 
-
 setup(
     name = "thug",
     version = thug.__version__,
@@ -48,7 +44,7 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Operating System :: POSIX :: Linux",
-        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
         "Topic :: Security",
     ],
     package_data = {
@@ -86,5 +82,10 @@ setup(
         "console_scripts": [
             "thug = thug.thug:main",
         ]
-    }
+    },
+    project_urls={
+        'Bug Reports': 'https://github.com/buffer/thug/issues',
+        'Funding': 'https://buffer.github.io/thug/',
+        'Source': 'https://github.com/buffer/thug/',
+    },
 )
