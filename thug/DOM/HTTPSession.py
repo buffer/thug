@@ -115,7 +115,11 @@ class HTTPSession(object):
             url = self._check_compatibility(url)
 
         url = self._normalize_protocol_relative_url(window, url)
-        url = urlparse.quote(url, safe = "%/:=&?~#+!$,;'@()*[]")
+
+        try:
+            url = urlparse.quote(url, safe = "%/:=&?~#+!$,;'@()*[]")
+        except KeyError:
+            pass
 
         _url = urlparse.urlparse(url)
 
