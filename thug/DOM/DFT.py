@@ -1208,7 +1208,15 @@ class DFT(object):
         opts = h[0][len("data:"):].split(";")
 
         if 'base64' in opts:
-            data = base64.b64decode(h[1])
+            try:
+                data = base64.b64decode(h[1])
+            except TypeError:
+                try:
+                    data = base64.b64decode(urllib.unquote(h[1]))
+                except Exception as e:
+                    log.warning("[WARNING] Error while handling data URI: {}".format(data))
+                    return False
+
             opts.remove('base64')
 
         if not opts:
