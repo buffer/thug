@@ -22,9 +22,6 @@ log = logging.getLogger("Thug")
 
 
 class System(object):
-    def __init__(self):
-        pass
-
     def getProperty(self, _property):
         if _property == "java.version":
             javaplugin = log.ThugVulnModules._javaplugin.split('.')
