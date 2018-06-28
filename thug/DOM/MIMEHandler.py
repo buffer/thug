@@ -55,7 +55,6 @@ class MIMEHandler(dict):
                  "application/exe",
                  "application/fractals",
                  "application/futuresplash",
-                 "application/hta",
                  "application/internet-property-stream",
                  "application/java-archive",
                  "application/javascript",
@@ -217,6 +216,7 @@ class MIMEHandler(dict):
         self.register_java_jnlp_handlers()
 
     def register_empty_handlers(self):
+        self['application/hta']          = None
         self['application/javascript']   = None
         self['application/x-javascript'] = None
         self['text/css']                 = None
