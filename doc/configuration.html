@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; Thug 0.9.25 documentation</title>
+  <title>Configuration &mdash; Thug 0.9.26 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,28 +24,21 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Thug 0.9.25 documentation" href="index.html"/>
-        <link rel="next" title="Usage" href="usage.html"/>
-        <link rel="prev" title="Docker" href="docker.html"/> 
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="Docker" href="docker.html" /> 
 
   
   <script src="static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -63,7 +58,7 @@
             
             
               <div class="version">
-                0.9.25
+                0.9.26
               </div>
             
           
@@ -84,7 +79,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build.html">Build and Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
@@ -109,34 +107,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Thug</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Thug</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Configuration</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Configuration</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="sources/configuration.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -176,7 +194,7 @@ Password: thug</p>
 <p>In order to configure Thug to submit applets for analysis to HoneyAgent
 rename the file <em>/etc/thug/honeyagent.conf.sample</em> in <em>/etc/thug/honeyagent.conf</em>
 and edit it like shown later.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>HoneyAgent<span class="o">]</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>HoneyAgent<span class="o">]</span>
 scanurl:                        http://192.168.56.101:8000
 </pre></div>
 </div>
@@ -189,14 +207,14 @@ server whose IP address is 192.168.56.101 (please verify your network
 configuration and modify it accordingly) listening on port 8000/tcp.</p>
 <p>In order to enable this service run this commands on the HoneyAgent
 machine</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>thug@honeyagent:~$ <span class="nb">cd</span> honeyagent/HoneyDaemon/
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>thug@honeyagent:~$ <span class="nb">cd</span> honeyagent/HoneyDaemon/
 thug@honeyagent:~/honeyagent/HoneyDaemon$ python daemon.py run.ini
 HoneyAgent daemon running on port <span class="m">8000</span>
 </pre></div>
 </div>
 <p>After the service is enabled and properly configured you should be
 able to automatically analyze applets like shown later.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>buffer@rigel ~ $ thug http://192.168.0.100:8080/1
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>buffer@rigel ~ $ thug http://192.168.0.100:8080/1
 <span class="o">[</span><span class="m">2014</span>-07-07 <span class="m">23</span>:50:53<span class="o">]</span> <span class="o">[</span>window open redirection<span class="o">]</span> about:blank -&gt; http://192.168.0.100:8080/1
 <span class="o">[</span><span class="m">2014</span>-07-07 <span class="m">23</span>:50:53<span class="o">]</span> <span class="o">[</span>HTTP Redirection <span class="o">(</span>Status: <span class="m">302</span><span class="o">)]</span> Content-Location: http://192.168.0.100:8080/1 --&gt; Location: http://192.168.0.100:8080/1/
 <span class="o">[</span><span class="m">2014</span>-07-07 <span class="m">23</span>:50:53<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://192.168.0.100:8080/1/ <span class="o">(</span>Status: <span class="m">200</span>, Referrer: None<span class="o">)</span>
@@ -247,7 +265,7 @@ of malware.</p>
 configuration file (many thanks to the VirusTotal team). To change the default
 VirusTotal key with your own, simply edit <em>/etc/thug/virustotal.conf</em>
 as follows:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>VirusTotal<span class="o">]</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>VirusTotal<span class="o">]</span>
 apikey:                         &lt;enter your API key here&gt;
 scanurl:                        https://www.virustotal.com/vtapi/v2/file/scan
 reporturl:                      https://www.virustotal.com/vtapi/v2/file/report
@@ -261,15 +279,16 @@ to each run may not be that simple.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="docker.html" class="btn btn-neutral" title="Docker" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="docker.html" class="btn btn-neutral" title="Docker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -282,7 +301,7 @@ to each run may not be that simple.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -300,10 +319,12 @@ to each run may not be that simple.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.25',
+            VERSION:'0.9.26',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="static/jquery.js"></script>
@@ -312,19 +333,13 @@ to each run may not be that simple.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

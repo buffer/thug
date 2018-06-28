@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plugin Framework &mdash; Thug 0.9.25 documentation</title>
+  <title>Plugin Framework &mdash; Thug 0.9.26 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,27 +24,20 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Thug 0.9.25 documentation" href="index.html"/>
-        <link rel="prev" title="Logging" href="logging.html"/> 
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Logging" href="logging.html" /> 
 
   
   <script src="static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -62,7 +57,7 @@
             
             
               <div class="version">
-                0.9.25
+                0.9.26
               </div>
             
           
@@ -83,7 +78,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build.html">Build and Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
@@ -104,34 +102,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Thug</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Thug</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Plugin Framework</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Plugin Framework</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="sources/plugins.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -142,7 +160,7 @@
 <p>The Thug Plugin Framework was introduced in version 0.3.0 and totally redesigned in version 0.8.1. If you ever thought
 about extending Thug with additional features but do not know how to do it you should really keep on reading.</p>
 <p>Let’s start by taking a look a the code. Taking a look at <em>thug/thug.py</em> we can read these lines of code</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">p</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">p</span><span class="p">:</span>
         <span class="n">ThugPlugins</span><span class="p">(</span><span class="n">PRE_ANALYSIS_PLUGINS</span><span class="p">,</span> <span class="bp">self</span><span class="p">)()</span>
         <span class="n">p</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">ThugPlugins</span><span class="p">(</span><span class="n">POST_ANALYSIS_PLUGINS</span><span class="p">,</span> <span class="bp">self</span><span class="p">)()</span>
@@ -154,7 +172,7 @@ external tools based on Thug API.</p>
 <p>Let’s take a look at how to use the Plugin Framework before diving deep into details of how to write a plugin. During
 the Thug installation process the (empty) directory <em>/etc/thug/plugins</em> is created automatically. Moreover, take
 a look at the directory <em>thug/thug/Plugins/plugins</em> in the source tree</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/thug/Plugins/plugins $ ls -lhR
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/thug/thug/Plugins/plugins $ ls -lhR
 .:
 total <span class="m">0</span>
 drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> <span class="m">09</span>:00 POST-TestPlugin-999
@@ -175,11 +193,11 @@ total <span class="m">4</span>.0K
 examples.</p>
 <p>Before moving on, some details about the plugin directory name convention. The Plugin Framework expects the directory
 names in the following format for high-priority plugins:</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>PHASE<span class="o">]</span>-<span class="o">[</span>PLUGIN NAME<span class="o">]</span>-<span class="o">[</span>PRIORITY<span class="o">]</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>PHASE<span class="o">]</span>-<span class="o">[</span>PLUGIN NAME<span class="o">]</span>-<span class="o">[</span>PRIORITY<span class="o">]</span>
 </pre></div>
 </div>
 <p>or the following one for low-priority plugins (more on that later)</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="o">[</span>PHASE<span class="o">]</span>-<span class="o">[</span>PLUGIN NAME<span class="o">]</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>PHASE<span class="o">]</span>-<span class="o">[</span>PLUGIN NAME<span class="o">]</span>
 </pre></div>
 </div>
 <p>where</p>
@@ -193,7 +211,7 @@ greater or equal than 1000 are reserved for low-priority plugins and a plugin wh
 automatically assigned a priority value in such range. The plugin priority is useful if you want to enforce a specific
 order of execution for your plugins. For instance, if plugin B requires plugin A to operate on data before performing
 its task all you need to do is to define the plugin directory names this way</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>PRE-PluginA-1
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>PRE-PluginA-1
 PRE-PluginB-2
 </pre></div>
 </div>
@@ -208,7 +226,7 @@ they will executed after the high-priority ones in any case.</p>
 <p>The suggested practice is to always assign a priority to each and every plugin in order to effectively control their
 relative order of execution.</p>
 <p>Let’s take a look at how to use the Plugin Framework.</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>/etc/thug/plugins $ ls -lh
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>/etc/thug/plugins $ ls -lh
 total <span class="m">0</span>
 ~/thug/thug $ thug -l ../samples/exploits/22811_Elazar.html
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:46:21<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
@@ -217,7 +235,7 @@ total <span class="m">0</span>
 </pre></div>
 </div>
 <p>Let’s try again after copying one of the test plugin directories provided in the source tree</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/thug $ sudo cp -dpR Plugins/plugins/PRE-TestPlugin-999/ /etc/thug/plugins/
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/thug/thug $ sudo cp -dpR Plugins/plugins/PRE-TestPlugin-999/ /etc/thug/plugins/
 ~/thug/thug $ ls -lh /etc/thug/plugins/
 total <span class="m">0</span>
 drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> <span class="m">09</span>:00 PRE-TestPlugin-999
@@ -230,7 +248,7 @@ drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct 
 </div>
 <p>As you can see, TestPlugin is executed in pre-analysis stage (priority 999) as expected.</p>
 <p>Let’s try again after copying the other test plugin directory provided in the source tree</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/thug $ sudo cp -dpR Plugins/plugins/POST-TestPlugin-999/ /etc/thug/plugins/
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/thug/thug $ sudo cp -dpR Plugins/plugins/POST-TestPlugin-999/ /etc/thug/plugins/
 ~/thug/thug $ ls -lh /etc/thug/plugins/
 total <span class="m">0</span>
 drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct <span class="m">12</span> <span class="m">09</span>:00 POST-TestPlugin-999
@@ -249,7 +267,7 @@ does not follow the convention, it will be just ignored!</p>
 <p>The last step is to understand the anatomy of a plugin.</p>
 <p>The plugin directory must contain a source file named <em>Handler.py</em> and this source file must define
 the class named <em>Handler</em> (entry point) which should be compliant with the following interface</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IPlugin</span><span class="p">(</span><span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Interface</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IPlugin</span><span class="p">(</span><span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Interface</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">thug</span><span class="p">,</span> <span class="n">log</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is called when the plugin is invoked</span>
@@ -263,7 +281,7 @@ the class named <em>Handler</em> (entry point) which should be compliant with th
 <p>If the interface is correctly implemented the <em>run</em> method is automatically called passing to it two
 parameters: the Thug class main instance and the Thug root logger.</p>
 <p>Let’s see a really simple example of plugin (TestPlugin)</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zope.interface</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zope.interface</span>
 <span class="kn">from</span> <span class="nn">.IPlugin</span> <span class="kn">import</span> <span class="n">IPlugin</span>
 
 <span class="nd">@implementer</span><span class="p">(</span><span class="n">IPlugin</span><span class="p">)</span>
@@ -275,7 +293,7 @@ parameters: the Thug class main instance and the Thug root logger.</p>
 </div>
 <p>This plugin just logs the parameters but you can do whatever you want. Let’s try again the previous
 example enabling the debug option in order to see the debug messages</p>
-<div class="highlight-sh"><div class="highlight"><pre><span></span>~/thug/thug $ thug -l -d ../samples/exploits/22811_Elazar.html
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/thug/thug $ thug -l -d ../samples/exploits/22811_Elazar.html
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: PRE_ANALYSIS Priority: <span class="m">999</span>
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> &lt;thug.thug.Thug object at 0x7f69b0ca2050&gt;
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> &lt;logging.Logger object at 0x7f69aa85cdd0&gt;
@@ -297,13 +315,14 @@ you want to extract and/or correlate information from the MAEC log files? Just d
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="logging.html" class="btn btn-neutral" title="Logging" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="logging.html" class="btn btn-neutral" title="Logging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -316,7 +335,7 @@ you want to extract and/or correlate information from the MAEC log files? Just d
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -334,10 +353,12 @@ you want to extract and/or correlate information from the MAEC log files? Just d
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.25',
+            VERSION:'0.9.26',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="static/jquery.js"></script>
@@ -346,19 +367,13 @@ you want to extract and/or correlate information from the MAEC log files? Just d
 
   
 
-  
-  
-    <script type="text/javascript" src="static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
