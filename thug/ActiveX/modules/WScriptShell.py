@@ -73,17 +73,21 @@ def _doRun(self, p, stage):
 
     while True:
         try:
-            index = p.index('"http')
+            index = p.index('http')
         except ValueError:
             break
 
-        p = p[index + 1:]
-        s = p.split('"')
+        p = p[index:]
+
+        s = p.split()
         if len(s) < 2:
             break
 
         url = s[0]
-        log.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Downloading from URL %s" % (stage, url))
+        if url.endswith(("'", '"')):
+            url = url[:-1]
+
+        log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Downloading from URL %s" % (stage, url))
 
         try:
             response = self._window._navigator.fetch(url, redirect_type = "doRun")
@@ -104,7 +108,7 @@ def _doRun(self, p, stage):
         sha256sum = sha256.hexdigest()
 
         log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Saving file %s" % (stage, md5sum, ))
-        p = '"'.join(s[1:])
+        p = " ".join(s[1:])
 
         data = {
                 'status'  : response.status_code,
