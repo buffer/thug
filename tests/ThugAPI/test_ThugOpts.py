@@ -1,7 +1,6 @@
 import os
 import pytest
 import logging
-import collections
 
 import thug
 from thug.ThugAPI.ThugOpts import ThugOpts
@@ -191,14 +190,14 @@ class TestThugOpts:
     def test_vt_query(self):
         assert not self.opts.vt_query
 
-        self.opts.vt_query
-        # assert self.opts.vt_query FIXME
+        self.opts.vt_query = True
+        assert self.opts.vt_query
 
     def test_vt_submit(self):
         assert not self.opts.vt_submit
 
-        self.opts.vt_submit
-        # assert self.opts.vt_submit FIXME
+        self.opts.vt_submit = True
+        assert self.opts.vt_submit
 
     def test_vt_runtime_apikey(self):
         assert self.opts.vt_runtime_apikey is None

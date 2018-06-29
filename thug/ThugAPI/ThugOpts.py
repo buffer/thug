@@ -270,16 +270,16 @@ class ThugOpts(dict):
     def get_vt_query(self):
         return self._vt_query
 
-    def set_vt_query(self):
-        self._vt_query = True
+    def set_vt_query(self, x):
+        self._vt_query = x
 
     vt_query = property(get_vt_query, set_vt_query)
 
     def get_vt_submit(self):
         return self._vt_submit
 
-    def set_vt_submit(self):
-        self._vt_submit = True
+    def set_vt_submit(self, x):
+        self._vt_submit = x
 
     vt_submit = property(get_vt_submit, set_vt_submit)
 
