@@ -40,7 +40,7 @@ class TestThugOpts:
     def test_error_proxy(self, caplog):
         caplog.clear()
 
-        with pytest.raises(SystemExit) as cm:
+        with pytest.raises(SystemExit):
             self.opts.proxy = 'ftp://www.example.com'
         assert '[ERROR] Invalid proxy scheme' in caplog.text
 
