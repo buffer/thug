@@ -106,14 +106,14 @@ class ThugAPI(object):
     def __call__(self):
         self.analyze()
 
-    def usage(self):
+    def usage(self):  # TODO: Future need?
         pass
 
     def version(self):
         print("Thug %s" % (thug.__version__, ))
         sys.exit(0)
 
-    def get_useragent(self):
+    def get_useragent(self):  # TODO: Figure out do we need this
         return log.ThugOpts.useragent
 
     def set_useragent(self, useragent):
