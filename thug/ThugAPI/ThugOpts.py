@@ -29,6 +29,7 @@ class ThugOpts(dict):
     proxy_schemes = ('http', 'socks4', 'socks5', )
 
     def __init__(self):
+        super(ThugOpts, self).__init__()
         self._verbose           = False
         self._debug             = False
         self._proxy             = None
@@ -270,16 +271,16 @@ class ThugOpts(dict):
     def get_vt_query(self):
         return self._vt_query
 
-    def set_vt_query(self):
-        self._vt_query = True
+    def set_vt_query(self, value):
+        self._vt_query = value
 
     vt_query = property(get_vt_query, set_vt_query)
 
     def get_vt_submit(self):
         return self._vt_submit
 
-    def set_vt_submit(self):
-        self._vt_submit = True
+    def set_vt_submit(self, value):
+        self._vt_submit = value
 
     vt_submit = property(get_vt_submit, set_vt_submit)
 

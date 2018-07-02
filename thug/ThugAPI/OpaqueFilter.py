@@ -20,8 +20,5 @@ import logging
 
 
 class OpaqueFilter(logging.Filter):
-    def __init__(self):
-        pass
-
     def filter(self, record):
         return False

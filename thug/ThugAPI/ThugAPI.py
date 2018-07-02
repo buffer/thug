@@ -290,10 +290,10 @@ class ThugAPI(object):
                 handler.addFilter(OpaqueFilter())
 
     def set_vt_query(self):
-        log.ThugOpts.set_vt_query()
+        log.ThugOpts.vt_query = True
 
     def set_vt_submit(self):
-        log.ThugOpts.set_vt_submit()
+        log.ThugOpts.vt_submit = True
 
     def get_vt_runtime_apikey(self):
         return log.ThugOpts.vt_runtime_apikey
