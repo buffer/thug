@@ -118,17 +118,47 @@ class TestThugAPI:
         self.thug_api.set_acropdf_pdf('1.0.0', )
         assert log.ThugVulnModules.acropdf_pdf in ('1.0.0',)
 
+    def test_disable_acropdf(self):
+        assert not log.ThugVulnModules.acropdf_disabled
+
+        self.thug_api.disable_acropdf()
+        assert log.ThugVulnModules.acropdf_disabled
+
     def test_shockwave_flash(self):
         assert log.ThugVulnModules.shockwave_flash in ('10.0.64.0', )
 
         self.thug_api.set_shockwave_flash('8.0', )
         assert log.ThugVulnModules.shockwave_flash in ('8.0',)
 
+    def test_disable_shockwave_flash(self):
+        assert not log.ThugVulnModules.shockwave_flash_disabled
+
+        self.thug_api.disable_shockwave_flash()
+        assert log.ThugVulnModules.shockwave_flash_disabled
+
     def test_javaplugin(self):
-        pass
+        assert log.ThugVulnModules.javaplugin in ('160_32', )
+
+        self.thug_api.set_javaplugin('1.0', )
+        assert log.ThugVulnModules.javaplugin in ('100_00',)
+
+    def test_disable_javaplugin(self):
+        assert not log.ThugVulnModules.javaplugin_disabled
+
+        self.thug_api.disable_javaplugin()
+        assert log.ThugVulnModules.javaplugin_disabled
 
     def test_silverlight(self):
-        pass
+        assert log.ThugVulnModules.silverlight in ('4.0.50826.0', )
+
+        self.thug_api.set_silverlight('1.0', )
+        assert log.ThugVulnModules.silverlight in ('1.0',)
+
+    def test_disable_silverlight(self):
+        assert not log.ThugVulnModules.silverlight_disabled
+
+        self.thug_api.disable_silverlight()
+        assert log.ThugVulnModules.silverlight_disabled
 
     def test_threshold(self):
         pass
