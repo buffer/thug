@@ -220,8 +220,6 @@ class TestThugAPI:
         assert not log.ThugOpts.cert_logging
 
     def test_log_init(self):
-        """        self.thug_api.log_init("awf")
-        """
         log.ThugOpts.file_logging = True
         url = "../thugapi-example"
         self.thug_api.log_init(url)
