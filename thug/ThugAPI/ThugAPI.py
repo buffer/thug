@@ -113,7 +113,7 @@ class ThugAPI(object):
         print("Thug %s" % (thug.__version__, ))
         sys.exit(0)
 
-    def get_useragent(self):  # TODO: Figure out do we need this
+    def get_useragent(self):
         return log.ThugOpts.useragent
 
     def set_useragent(self, useragent):

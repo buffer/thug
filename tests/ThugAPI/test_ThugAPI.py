@@ -1,3 +1,5 @@
+import os
+import shutil
 import logging
 import pytest
 
@@ -8,6 +10,7 @@ log = logging.getLogger("Thug")
 
 class TestThugAPI:
     thug_api = ThugAPI()
+    # thug_api()
 
     def test_version(self):
         with pytest.raises(SystemExit):
@@ -161,43 +164,118 @@ class TestThugAPI:
         assert log.ThugVulnModules.silverlight_disabled
 
     def test_threshold(self):
-        pass
+        assert self.thug_api.get_threshold() in (0, )
+
+        self.thug_api.set_threshold(5)
+        assert self.thug_api.get_threshold() in (5, )
 
     def test_extensive(self):
-        pass
+        assert not self.thug_api.get_extensive()
+
+        self.thug_api.set_extensive()
+        assert self.thug_api.get_extensive()
 
     def test_timeout(self):
-        pass
+        assert self.thug_api.get_timeout() in (600, )
+
+        self.thug_api.set_timeout(300)
+        assert self.thug_api.get_timeout() in (300, )
 
     def test_connect_timeout(self):
-        pass
+        assert self.thug_api.get_connect_timeout() in (10, )
+
+        self.thug_api.set_connect_timeout(20)
+        assert self.thug_api.get_connect_timeout() in (20, )
 
     def test_broken_url(self):
-        pass
+        assert not self.thug_api.get_broken_url()
+
+        self.thug_api.set_broken_url()
+        assert self.thug_api.get_broken_url()
 
     def test_web_tracking(self):
-        pass
+        assert not self.thug_api.get_web_tracking()
+
+        self.thug_api.set_web_tracking()
+        assert self.thug_api.get_web_tracking()
 
     def test_honeyagent(self):
-        pass
+        assert log.ThugOpts.honeyagent
+
+        self.thug_api.disable_honeyagent()
+        assert not log.ThugOpts.honeyagent
 
     def test_code_logging(self):
-        pass
+        self.thug_api.enable_code_logging()
+        assert log.ThugOpts.code_logging
+
+        self.thug_api.disable_code_logging()
+        assert not log.ThugOpts.code_logging
 
     def test_cert_logging(self):
+        self.thug_api.enable_cert_logging()
+        assert log.ThugOpts.cert_logging
+
+        self.thug_api.disable_cert_logging()
+        assert not log.ThugOpts.cert_logging
+
+    def test_log_init(self):
+        """        self.thug_api.log_init("awf")
+        """
+        log.ThugOpts.file_logging = True
+        url = "../thugapi-example"
+        self.thug_api.log_init(url)
+
+        base_dir = log.ThugLogging.baseDir
+        log_path = os.path.dirname(os.path.dirname(base_dir))  # TODO: Make this neat
+        assert os.path.isdir(base_dir)
+
+        shutil.rmtree(log_path)
+        assert not os.path.isdir(base_dir)
+
+    def test_log_dir(self):
+        url = "../log-dir-example"
+        self.thug_api.set_log_dir(url)
+        assert os.path.isdir(url)
+
+        shutil.rmtree(url)
+        assert not os.path.isdir(url)
+
+    def test_log_output(self):
+        file = "test-filehandler"
+        self.thug_api.set_log_output(file)
+        assert isinstance(log.handlers[0], logging.FileHandler)
+        assert os.path.isfile(file)
+
+        os.remove(file)
+        assert not os.path.isfile(file)
+
+    def test_log_quiet(self):
         pass
 
     def test_vt_query(self):
-        pass
+        assert not log.ThugOpts.vt_query
+
+        self.thug_api.set_vt_query()
+        assert log.ThugOpts.vt_query
 
     def test_vt_submit(self):
-        pass
+        assert not log.ThugOpts.vt_submit
+
+        self.thug_api.set_vt_submit()
+        assert log.ThugOpts.vt_submit
 
     def test_vt_runtime_apikey(self):
-        pass
+        assert self.thug_api.get_vt_runtime_apikey() is None
+
+        self.thug_api.set_vt_runtime_apikey('sample-key')
+        assert self.thug_api.get_vt_runtime_apikey() in ('sample-key', )
 
     def test_mongodb_address(self):
-        pass
+        assert self.thug_api.get_mongodb_address() is None
+
+        self.thug_api.set_mongodb_address('127.0.0.1:27017')
+        assert self.thug_api.get_mongodb_address() in ('127.0.0.1:27017', )
 
     def test_add_htmlclassifier(self):
         pass
@@ -234,3 +312,8 @@ class TestThugAPI:
 
     def test_add_samplefilter(self):
         pass
+
+    def test_run_local(self):
+        pass
+        # self.thug_api.run_local("https://www.example.com")
+
