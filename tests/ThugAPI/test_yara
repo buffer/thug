@@ -1,0 +1,1 @@
+rule dummy { condition: true }
