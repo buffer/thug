@@ -1212,9 +1212,9 @@ class DFT(object):
                 data = base64.b64decode(h[1])
             except TypeError:
                 try:
-                    data = base64.b64decode(urllib.unquote(h[1]))
-                except Exception as e:
-                    log.warning("[WARNING] Error while handling data URI: {}".format(data))
+                    data = base64.b64decode(urlparse.unquote(h[1]))
+                except Exception:
+                    log.warning("[WARNING] Error while handling data URI: %s", data)
                     return False
 
             opts.remove('base64')
