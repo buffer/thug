@@ -11,6 +11,6 @@ class SampleClass:
 
 def test_error():
     sample = SampleClass()
-    with pytest.raises(NotImplementedError) as exc:
+    with pytest.raises(NotImplementedError, message = "method sample_method is abstract"):
         sample.sample_method()
-    assert "method sample_method is abstract" in exc.value
+

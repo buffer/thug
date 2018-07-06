@@ -354,7 +354,7 @@ class TestThugAPI:
         # self.thug_api.run_local("https://www.example.com")
 
     def test_analyse(self):
-        with pytest.raises(NotImplementedError) as exc:
+        with pytest.raises(NotImplementedError, message="method analyze is abstract") as exc:
             self.thug_api.analyze()
-        assert "method analyze is abstract" in exc.value
+
 
