@@ -283,3 +283,6 @@ class TestAST3(object):
         log.ThugOpts.ast_debug = True
         AST(script)
         assert "[AST] Script parsing error" in caplog.text
+
+        log.ThugOpts.ast_debug = False
+

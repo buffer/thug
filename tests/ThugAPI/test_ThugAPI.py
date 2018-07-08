@@ -13,9 +13,12 @@ log = logging.getLogger("Thug")
 class TestThugAPI:
     thug_api = ThugAPI()
 
-    log_url   = "../log-dir-example"
-    log_file  = "test-filehandler"
-    yara_file = "test_yara"
+    cwd_path     = os.path.dirname(os.path.realpath(__file__))
+    samples_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files")
+
+    yara_file = os.path.join(samples_path, "test_yara")
+    log_url   = os.path.join(samples_path, "../log-dir-example")
+    log_file  = os.path.join(samples_path, "test-filehandler")
 
     def test_version(self):
         with pytest.raises(SystemExit):  # TODO: Needs assert statement by mocking print
