@@ -2,18 +2,20 @@ import os
 import shutil
 import logging
 
-import yara
 import pytest
 
 from thug.ThugAPI.ThugAPI import ThugAPI
+from thug.ThugAPI.OpaqueFilter import OpaqueFilter
 
 log = logging.getLogger("Thug")
 
 
 class TestThugAPI:
     thug_api = ThugAPI()
-    # thug_api()
-    url = "../log-dir-example"
+
+    log_url   = "../log-dir-example"
+    log_file  = "test-filehandler"
+    yara_file = "test_yara"
 
     def test_version(self):
         with pytest.raises(SystemExit):  # TODO: Needs assert statement by mocking print
@@ -61,11 +63,12 @@ class TestThugAPI:
         self.thug_api.set_maec11_logging()
         assert self.thug_api.get_maec11_logging()
 
-    def test_elasticsearch_logging(self):  # TODO: Check for logging.level?
+    def test_elasticsearch_logging(self):
         assert not self.thug_api.get_elasticsearch_logging()
 
         self.thug_api.set_elasticsearch_logging()
         assert self.thug_api.get_elasticsearch_logging()
+        assert logging.getLogger("elasticsearch").getEffectiveLevel() in (logging.ERROR, )
 
     def test_referer(self):
         assert self.thug_api.get_referer() in ('about:blank', )
@@ -91,17 +94,19 @@ class TestThugAPI:
         self.thug_api.set_no_fetch()
         assert log.ThugOpts.no_fetch
 
-    def test_verbose(self):  # TODO: Check for logging.level
+    def test_verbose(self):
         assert not log.ThugOpts.verbose
 
         self.thug_api.set_verbose()
         assert log.ThugOpts.verbose
+        assert log.getEffectiveLevel() in (logging.INFO, )
 
-    def test_debug(self):  # TODO: Check for logging.level
+    def test_debug(self):
         assert not log.ThugOpts.debug
 
         self.thug_api.set_debug()
         assert log.ThugOpts.debug
+        assert log.getEffectiveLevel() in (logging.DEBUG,)
 
     def test_ast_debug(self):
         assert not log.ThugOpts.ast_debug
@@ -235,24 +240,24 @@ class TestThugAPI:
         assert not os.path.isdir(base_dir)
 
     def test_log_dir(self):
-        self.url = "../log-dir-example"
-        self.thug_api.set_log_dir(self.url)
-        assert os.path.isdir(self.url)
+        self.thug_api.set_log_dir(self.log_url)
+        assert os.path.isdir(self.log_url)
 
-        shutil.rmtree(self.url)
-        assert not os.path.isdir(self.url)
+        shutil.rmtree(self.log_url)
+        assert not os.path.isdir(self.log_url)
 
     def test_log_output(self):
-        file = "test-filehandler"
-        self.thug_api.set_log_output(file)
+        self.thug_api.set_log_output(self.log_file)
         assert isinstance(log.handlers[0], logging.FileHandler)
-        assert os.path.isfile(file)
+        assert os.path.isfile(self.log_file)
 
-        os.remove(file)
-        assert not os.path.isfile(file)
+        os.remove(self.log_file)
+        assert not os.path.isfile(self.log_file)
 
     def test_log_quiet(self):
-        pass
+        self.thug_api.set_log_quiet()
+        handler = logging.getLogger().handlers[0]
+        assert isinstance(handler.filters[0], OpaqueFilter)
 
     def test_vt_query(self):
         assert not log.ThugOpts.vt_query
@@ -279,64 +284,64 @@ class TestThugAPI:
         assert self.thug_api.get_mongodb_address() in ('127.0.0.1:27017', )
 
     def test_add_htmlclassifier(self):
-        self.thug_api.add_htmlclassifier("test_yara")
+        self.thug_api.add_htmlclassifier(self.yara_file)
         rules = log.HTMLClassifier._rules
-        assert rules['namespace1'] in ("test_yara", )
+        assert rules['namespace1'] in (self.yara_file, )
 
     def test_add_urlclassifier(self):
-        self.thug_api.add_urlclassifier("test_yara")
+        self.thug_api.add_urlclassifier(self.yara_file)
         rules = log.URLClassifier._rules
-        assert rules['namespace1'] in ("test_yara", )
+        assert rules['namespace1'] in (self.yara_file, )
 
     def test_add_jsclassifier(self):
-        self.thug_api.add_jsclassifier("test_yara")
+        self.thug_api.add_jsclassifier(self.yara_file)
         rules = log.JSClassifier._rules
-        assert rules['namespace1'] in ("test_yara", )
+        assert rules['namespace1'] in (self.yara_file, )
 
     def test_add_vbsclassifier(self):
-        self.thug_api.add_vbsclassifier("test_yara")
+        self.thug_api.add_vbsclassifier(self.yara_file)
         rules = log.VBSClassifier._rules
-        assert rules['namespace1'] in ("test_yara", )
+        assert rules['namespace1'] in (self.yara_file, )
 
     def test_add_textclassifier(self):
-        self.thug_api.add_textclassifier("test_yara")
+        self.thug_api.add_textclassifier(self.yara_file)
         rules = log.TextClassifier._rules
-        assert rules['namespace1'] in ("test_yara", )
+        assert rules['namespace1'] in (self.yara_file, )
 
     def test_add_sampleclassifier(self):
-        self.thug_api.add_sampleclassifier("test_yara")
+        self.thug_api.add_sampleclassifier(self.yara_file)
         rules = log.SampleClassifier._rules
-        assert rules['namespace1'] in ("test_yara", )
+        assert rules['namespace1'] in (self.yara_file, )
 
     def test_add_htmlfilter(self):
-        self.thug_api.add_htmlfilter("test_yara")
+        self.thug_api.add_htmlfilter(self.yara_file)
         filters = log.HTMLClassifier._filters
-        assert filters['namespace1'] in ("test_yara", )
+        assert filters['namespace1'] in (self.yara_file, )
 
     def test_add_urlfilter(self):
-        self.thug_api.add_urlfilter("test_yara")
+        self.thug_api.add_urlfilter(self.yara_file)
         filters = log.URLClassifier._filters
-        assert filters['namespace1'] in ("test_yara", )
+        assert filters['namespace1'] in (self.yara_file, )
 
     def test_add_jsfilter(self):
-        self.thug_api.add_jsfilter("test_yara")
+        self.thug_api.add_jsfilter(self.yara_file)
         filters = log.JSClassifier._filters
-        assert filters['namespace1'] in ("test_yara", )
+        assert filters['namespace1'] in (self.yara_file, )
 
     def test_add_vbsfilter(self):
-        self.thug_api.add_vbsfilter("test_yara")
+        self.thug_api.add_vbsfilter(self.yara_file)
         filters = log.VBSClassifier._filters
-        assert filters['namespace1'] in ("test_yara", )
+        assert filters['namespace1'] in (self.yara_file, )
 
     def test_add_textfilter(self):
-        self.thug_api.add_textfilter("test_yara")
+        self.thug_api.add_textfilter(self.yara_file)
         filters = log.TextClassifier._filters
-        assert filters['namespace1'] in ("test_yara", )
+        assert filters['namespace1'] in (self.yara_file, )
 
     def test_add_samplefilter(self):
-        self.thug_api.add_samplefilter("test_yara")
+        self.thug_api.add_samplefilter(self.yara_file)
         filters = log.SampleClassifier._filters
-        assert filters['namespace1'] in ("test_yara", )
+        assert filters['namespace1'] in (self.yara_file, )
 
     def test_log_event(self, caplog):
         caplog.clear()
@@ -344,17 +349,14 @@ class TestThugAPI:
 
         self.thug_api.log_event()
         assert 'Thug analysis logs saved' in caplog.text
-        assert os.path.isdir(self.url)
+        assert os.path.isdir(self.log_url)
 
-        shutil.rmtree(self.url)
-        assert not os.path.isdir(self.url)
+        shutil.rmtree(self.log_url)
+        assert not os.path.isdir(self.log_url)
 
     def test_run_local(self):
         pass
-        # self.thug_api.run_local("https://www.example.com")
 
     def test_analyse(self):
-        with pytest.raises(NotImplementedError, message="method analyze is abstract") as exc:
+        with pytest.raises(NotImplementedError, message="method analyze is abstract"):
             self.thug_api.analyze()
-
-
