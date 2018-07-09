@@ -203,7 +203,7 @@ Synopsis:
             elif option[0] in ('-i', '--list-ua'):
                 self.list_ua()
 
-        self.set_raise_for_proxy(False)
+        self.set_raise_for_proxy(False)  # FIXME: A better way to handle this?
 
         for option in options:
             if option[0] in ('-u', '--useragent', ):

@@ -39,6 +39,8 @@ class TestThugLogging:
         thug_logging.set_url("https://www.example.com")
         assert thug_logging.url in ("https://www.example.com", )
 
+        log.ThugOpts.maec11_logging = False
+
     def test_add_code_snippet(self):
         log.ThugOpts.code_logging = False
         tag_hex = thug_logging.add_code_snippet(self.js, 'Javascript', 'Contained_Inside')
@@ -68,6 +70,8 @@ class TestThugLogging:
 
         thug_logging.log_event()
         assert 'Thug analysis logs saved' in caplog.text
+
+        log.ThugOpts.file_logging = False
 
     def test_log_connection(self):
         thug_logging.log_connection("referer", "url", "href")
@@ -115,20 +119,25 @@ class TestThugLogging:
         assert "[Certificate]\n %s" % (self.cert, ) in caplog.text
 
     def test_log_virustotal(self):
+        log.ThugOpts.file_logging = True
         path = "%s.json" % (self.sample['md5'],)
         thug_logging.log_virustotal(os.getcwd(), self.sample, self.content)
         assert self.content in open(path).read()
 
         os.remove(path)
+        log.ThugOpts.file_logging = False
 
     def test_log_honeyagent(self):
+        log.ThugOpts.file_logging = True
         path = "%s.json" % (self.sample['md5'], )
         thug_logging.log_honeyagent(os.getcwd(), self.sample, self.content)
         assert self.content in open(path).read()
 
         os.remove(path)
+        log.ThugOpts.file_logging = False
 
     def test_store_content(self):
+        log.ThugOpts.file_logging = True
         fname = thug_logging.store_content(os.getcwd(), "sample.csv", self.content)
         path = os.path.join(os.getcwd(), "sample.csv")
         assert fname == path

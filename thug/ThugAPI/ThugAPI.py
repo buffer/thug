@@ -106,9 +106,6 @@ class ThugAPI(object):
     def __call__(self):
         self.analyze()
 
-    def usage(self):
-        pass
-
     def version(self):
         print("Thug %s" % (thug.__version__, ))
         sys.exit(0)

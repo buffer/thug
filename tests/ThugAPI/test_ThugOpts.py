@@ -16,26 +16,29 @@ class TestThugOpts:
     opts = ThugOpts()
 
     def test_verbose(self):
-        assert not self.opts.verbose
-
         self.opts.verbose = True
         assert self.opts.verbose
 
-    def test_debug(self):
-        assert not self.opts.debug
+        self.opts.verbose = False
+        assert not self.opts.verbose
 
+    def test_debug(self):
         self.opts.debug = True
         assert self.opts.debug
 
-    def test_proxy(self):
-        assert self.opts.proxy is None
+        self.opts.debug = False
+        assert not self.opts.debug
 
+    def test_proxy(self):
         self.opts.proxy = ''
         assert self.opts.proxy is None
 
         self.opts.proxy = 'http://www.example.com'
         addr = self.opts.proxy
         assert addr in ('http://www.example.com', )
+
+        self.opts.proxy = None
+        assert self.opts.proxy is None
 
     def test_error_proxy(self, caplog):
         caplog.clear()
@@ -45,10 +48,11 @@ class TestThugOpts:
         assert '[ERROR] Invalid proxy scheme' in caplog.text
 
     def test_raise_for_proxy(self):
-        assert self.opts.raise_for_proxy
-
         self.opts.raise_for_proxy = False
         assert not self.opts.raise_for_proxy
+
+        self.opts.raise_for_proxy = True
+        assert self.opts.raise_for_proxy
 
     def test_useragent(self):
         assert self.opts.useragent in ('winxpie60', )
@@ -95,52 +99,60 @@ class TestThugOpts:
         assert '[WARNING] Ignoring invalid delay value' in caplog.text
 
     def test_attachment(self):
-        assert not self.opts.attachment
-
         self.opts.attachment = True
         assert self.opts.attachment
 
-    def test_file_logging(self):
-        assert not self.opts.file_logging
+        self.opts.attachment = False
+        assert not self.opts.attachment
 
+    def test_file_logging(self):
         self.opts.file_logging = True
         assert self.opts.file_logging
 
-    def test_json_logging(self):
-        assert not self.opts.json_logging
+        self.opts.file_logging = False
+        assert not self.opts.file_logging
 
+    def test_json_logging(self):
         self.opts.json_logging = True
         assert self.opts.json_logging
 
-    def test_maec11_logging(self):
-        assert not self.opts.maec11_logging
+        self.opts.json_logging = False
+        assert not self.opts.json_logging
 
+    def test_maec11_logging(self):
         self.opts.maec11_logging = True
         assert self.opts.maec11_logging
 
-    def test_elasticsearch_logging(self):
-        assert not self.opts.elasticsearch_logging
+        self.opts.maec11_logging = False
+        assert not self.opts.maec11_logging
 
+    def test_elasticsearch_logging(self):
         self.opts.elasticsearch_logging = True
         assert self.opts.elasticsearch_logging
 
-    def test_code_logging(self):
-        assert self.opts.code_logging
+        self.opts.elasticsearch_logging = False
+        assert not self.opts.elasticsearch_logging
 
+    def test_code_logging(self):
         self.opts.code_logging = False
         assert not self.opts.code_logging
 
-    def test_cert_logging(self):
-        assert self.opts.cert_logging
+        self.opts.code_logging = True
+        assert self.opts.code_logging
 
+    def test_cert_logging(self):
         self.opts.cert_logging = False
         assert not self.opts.cert_logging
 
-    def test_no_fetch(self):
-        assert not self.opts.no_fetch
+        self.opts.cert_logging = True
+        assert self.opts.cert_logging
 
+    def test_no_fetch(self):
         self.opts.no_fetch = True
         assert self.opts.no_fetch
+
+        self.opts.no_fetch = False
+        assert not self.opts.no_fetch
 
     def test_threshold(self):
         assert self.opts.threshold in (0, )
@@ -182,41 +194,47 @@ class TestThugOpts:
         assert '[WARNING] Ignoring invalid timeout value' in caplog.text
 
     def test_broken_url(self):
-        assert not self.opts.broken_url
-
         self.opts.broken_url = True
         assert self.opts.broken_url
 
-    def test_vt_query(self):
-        assert not self.opts.vt_query
+        self.opts.broken_url = False
+        assert not self.opts.broken_url
 
+    def test_vt_query(self):
         self.opts.vt_query = True
         assert self.opts.vt_query
 
-    def test_vt_submit(self):
-        assert not self.opts.vt_submit
+        self.opts.vt_query = False
+        assert not self.opts.vt_query
 
+    def test_vt_submit(self):
         self.opts.vt_submit = True
         assert self.opts.vt_submit
 
-    def test_vt_runtime_apikey(self):
-        assert self.opts.vt_runtime_apikey is None
+        self.opts.vt_submit = False
+        assert not self.opts.vt_submit
 
+    def test_vt_runtime_apikey(self):
         self.opts.vt_runtime_apikey = 'sample-key'
         key = self.opts.vt_runtime_apikey
         assert key in ('sample-key', )
 
-    def test_web_tracking(self):
-        assert not self.opts.web_tracking
+        self.opts.vt_runtime_apikey = None
+        assert self.opts.vt_runtime_apikey is None
 
+    def test_web_tracking(self):
         self.opts.web_tracking = True
         assert self.opts.web_tracking
 
-    def test_honeyagent(self):
-        assert self.opts.honeyagent
+        self.opts.web_tracking = False
+        assert not self.opts.web_tracking
 
+    def test_honeyagent(self):
         self.opts.honeyagent = False
         assert not self.opts.honeyagent
+
+        self.opts.honeyagent = True
+        assert self.opts.honeyagent
 
     def test_mongodb_address(self):
         assert self.opts.mongodb_address is None

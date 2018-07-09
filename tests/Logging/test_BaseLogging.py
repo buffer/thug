@@ -62,16 +62,18 @@ class TestBaseLogging:
         assert not os.path.isdir(url)
 
     def test_json_module(self):
-        assert not base_logging.check_module('json', config)
-
         log.ThugOpts.json_logging = True
         assert base_logging.check_module('json', config)
 
-    def test_maec11_module(self):
-        assert not base_logging.check_module('maec11', config)
+        log.ThugOpts.json_logging = False
+        assert not base_logging.check_module('json', config)
 
+    def test_maec11_module(self):
         log.ThugOpts.maec11_logging = True
         assert base_logging.check_module('maec11', config)
+
+        log.ThugOpts.maec11_logging = False
+        assert not base_logging.check_module('maec11', config)
 
     def test_mongodb_module(self):
         assert not base_logging.check_module('mongodb', config)
