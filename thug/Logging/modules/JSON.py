@@ -89,7 +89,7 @@ class JSON(object):
         return log.ThugOpts.json_logging or 'json' in log.ThugLogging.formats or self.provider
 
     def get_vuln_module(self, module):
-        disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)
+        disabled = getattr(log.ThugVulnModules, "{}_disabled".format(module), True)
         if disabled:
             return "disabled"
 
@@ -160,11 +160,11 @@ class JSON(object):
             flags = dict()
 
         if "exploit" in flags and flags["exploit"]:
-            self.add_behavior_warn("[Exploit]  %s -- %s --> %s" % (source,
+            self.add_behavior_warn("[Exploit]  {} -- {} --> {}".format(source,
                                                                    method,
                                                                    destination, ))
         else:
-            self.add_behavior_warn("%s -- %s --> %s" % (source,
+            self.add_behavior_warn("{} -- {} --> {}".format(source,
                                                         method,
                                                         destination,))
 
