@@ -112,12 +112,6 @@ class JSON(object):
 
         return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
 
-    def make_counter(self, p):
-        _id = p
-        while True:
-            yield _id
-            _id += 1
-
     def set_url(self, url):
         if not self.json_enabled:
             return
