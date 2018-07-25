@@ -251,9 +251,6 @@ class JSON(object):
             self.data["classifiers"].append(item)
 
     def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
-        if not self.json_enabled:
-            return
-
         if not cve and not description:
             return
 
