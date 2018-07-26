@@ -1,4 +1,8 @@
+import logging
+
 from thug.AST.AST2 import AST
+
+log = logging.getLogger("Thug")
 
 
 class TestAST2(object):
@@ -87,7 +91,7 @@ class TestAST2(object):
 
         self.debug_info(script, ast)
 
-        assert 'abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd' in ast.shellcodes
+        assert 'abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd' in log.ThugLogging.shellcodes
 
     def testCall(self):
         script = """

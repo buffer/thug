@@ -89,7 +89,7 @@ class JSON(object):
         return log.ThugOpts.json_logging or 'json' in log.ThugLogging.formats or self.provider
 
     def get_vuln_module(self, module):
-        disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)
+        disabled = getattr(log.ThugVulnModules, "{}_disabled".format(module), True)
         if disabled:
             return "disabled"
 
@@ -111,12 +111,6 @@ class JSON(object):
             enc_data = thug_unicode(data)
 
         return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
-
-    def make_counter(self, p):
-        _id = p
-        while True:
-            yield _id
-            _id += 1
 
     def set_url(self, url):
         if not self.json_enabled:
@@ -160,11 +154,11 @@ class JSON(object):
             flags = dict()
 
         if "exploit" in flags and flags["exploit"]:
-            self.add_behavior_warn("[Exploit]  %s -- %s --> %s" % (source,
+            self.add_behavior_warn("[Exploit]  {} -- {} --> {}".format(source,
                                                                    method,
                                                                    destination, ))
         else:
-            self.add_behavior_warn("%s -- %s --> %s" % (source,
+            self.add_behavior_warn("{} -- {} --> {}".format(source,
                                                         method,
                                                         destination,))
 
@@ -179,11 +173,7 @@ class JSON(object):
         if not log.ThugOpts.code_logging:
             return content
 
-        try:
-            content = self.fix(data.get("content", "NOT AVAILABLE"))
-        except Exception:
-            pass
-
+        content = self.fix(data.get("content", "NOT AVAILABLE"))
         return content
 
     def log_location(self, url, data, flags = None):
@@ -257,9 +247,6 @@ class JSON(object):
             self.data["classifiers"].append(item)
 
     def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
-        if not self.json_enabled:
-            return
-
         if not cve and not description:
             return
 
