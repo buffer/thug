@@ -143,7 +143,7 @@ class Mapper(object):
         return None
 
     def get_color(self, con):
-        if "method" in ["iframe"]:
+        if "method" in con["iframe"]:
             return "orange"
 
         return None
