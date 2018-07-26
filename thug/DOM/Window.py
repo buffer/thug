@@ -787,19 +787,21 @@ class Window(JSClass):
 
     def __init_personality_IE(self):
         from .ClipboardData import ClipboardData
+        from .Console import Console
         from .External import External
 
         if not (log.ThugOpts.local and log.ThugOpts.attachment):
             self.document       = self._document
             self.XMLHttpRequest = self._XMLHttpRequest
 
-        self.ActiveXObject     = self._do_ActiveXObject
-        self.CollectGarbage    = self._CollectGarbage
-        self.navigate          = self._navigate
-        self.clientInformation = self.navigator
-        self.clipboardData     = ClipboardData()
-        self.external          = External()
-
+        self.ActiveXObject            = self._do_ActiveXObject
+        self.DeferredListDataComplete = self._DeferredListDataComplete
+        self.CollectGarbage           = self._CollectGarbage
+        self.navigate                 = self._navigate
+        self.clientInformation        = self.navigator
+        self.clipboardData            = ClipboardData()
+        self.external                 = External()
+        self.console                  = Console()
         self.ScriptEngineMajorVersion = log.ThugOpts.Personality.ScriptEngineMajorVersion
         self.ScriptEngineMinorVersion = log.ThugOpts.Personality.ScriptEngineMinorVersion
         self.ScriptEngineBuildVersion = log.ThugOpts.Personality.ScriptEngineBuildVersion
@@ -975,6 +977,10 @@ class Window(JSClass):
             shellcode = Shellcode.Shellcode(self, ctxt, ast, script)
             result    = shellcode.run()
 
+        spPageContextInfo = getattr(self, '_spPageContextInfo', None)
+        if spPageContextInfo and 'isAnonymousGuestUser' in spPageContextInfo:
+            log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "SharePoint Anonymous Guest User", None)
+
         return result
 
     def unescape(self, s):
@@ -1028,6 +1034,22 @@ class Window(JSClass):
 
     def _XMLHttpRequest(self):
         return _ActiveXObject(self, 'microsoft.xmlhttp')
+
+    def _DeferredListDataComplete(self):
+        for name in self.context.locals.keys():
+            local = getattr(self.context.locals, name, None)
+            if not local:
+                continue
+
+            try:
+                rootFolder = getattr(local, 'rootFolder')
+            except Exception:
+                continue
+
+            try:
+                self._navigator.fetch(rootFolder, redirect_type = "Sharepoint")
+            except Exception:
+                log.warning(traceback.format_exc())
 
     def getComputedStyle(self, element, pseudoelt = None):
         return getattr(element, 'style', None)
