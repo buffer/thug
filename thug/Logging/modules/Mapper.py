@@ -58,16 +58,10 @@ class DictDiffer(object):
         return set(o for o in self.intersect if self.past_dict[o] == self.current_dict[o])
 
     def anychange(self):
-        if not self.added():
-            return True
+        if self.added() and self.removed() and self.changed():
+            return False
 
-        if not self.removed():
-            return True
-
-        if not self.changed():
-            return True
-
-        return False
+        return True
 
 
 class Mapper(object):
