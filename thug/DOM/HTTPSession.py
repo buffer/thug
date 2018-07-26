@@ -123,6 +123,18 @@ class HTTPSession(object):
 
         _url = urlparse.urlparse(url)
 
+        base_url = None
+        last_url = getattr(log, 'last_url', None)
+
+        for _base_url in (window.url, last_url):
+            if not _base_url:
+                continue
+
+            base_url = _base_url
+            p_base_url = urlparse.urlparse(base_url)
+            if p_base_url.scheme:
+                break
+
         # Check if a scheme handler is registered and calls the proper
         # handler in such case. This is how a real browser would handle
         # a specific scheme so if you want to add your own handler for
@@ -134,8 +146,8 @@ class HTTPSession(object):
             handler(window, url)
             return None
 
-        if not _url.netloc:
-            _url = urlparse.urljoin(window.url, url)
+        if not _url.netloc and base_url:
+            _url = urlparse.urljoin(base_url, url)
             log.warning("[Navigator URL Translation] %s --> %s", url, _url)
             return _url
 

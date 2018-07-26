@@ -359,10 +359,10 @@ class Navigator(JSClass):
         if response.history:
             location = response.headers.get('location', None)
             if location and redirect_type not in ("URL found", "JNLP", "iframe", ):
-                self._window.url = location
+                self._window.url = log.HTTPSession.normalize_url(self._window, location)
 
         if redirect_type in ("meta", ):
-            self._window.url = url
+            self._window.url = log.HTTPSession.normalize_url(self._window, url)
 
         log.ThugLogging.store_content(mime_base, data["md5"], response.content)
         log.ThugLogging.log_file(response.content, response.url, params)
