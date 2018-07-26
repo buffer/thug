@@ -99,7 +99,7 @@ class TestAST3(object):
 
         self.debug_info(script, ast)
 
-        assert 'abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd' in ast.shellcodes
+        assert 'abcdabcdabcdabcdabcdabcdabcdabcdabcdabcd' in log.ThugLogging.shellcodes
 
     def testCall(self):
         script = """
