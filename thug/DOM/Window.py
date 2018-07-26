@@ -1029,6 +1029,9 @@ class Window(JSClass):
         """
         return base64.b64encode(s)
 
+    def decodeURIComponent(self, s):
+        return urllib.unquote(s) if s else ""
+
     def Image(self, width = 800, height = 600):
         return self.doc.createElement('img')
 
