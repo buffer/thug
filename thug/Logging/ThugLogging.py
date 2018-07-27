@@ -21,6 +21,7 @@ from .SampleLogging import SampleLogging
 from .LoggingModules import LoggingModules
 from thug.Analysis.virustotal.VirusTotal import VirusTotal
 from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
+from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
 
 import os
 import copy
@@ -39,16 +40,17 @@ class ThugLogging(BaseLogging, SampleLogging):
         BaseLogging.__init__(self)
         SampleLogging.__init__(self)
 
-        self.thug_version   = thug_version
-        self.VirusTotal     = VirusTotal()
-        self.HoneyAgent     = HoneyAgent()
-        self.baseDir        = None
-        self.windows        = dict()
-        self.shellcodes     = set()
-        self.shellcode_urls = set()
-        self.methods_cache  = dict()
-        self.formats        = set()
-        self.url            = ""
+        self.thug_version    = thug_version
+        self.VirusTotal      = VirusTotal()
+        self.HoneyAgent      = HoneyAgent()
+        self.ContextAnalyzer = ContextAnalyzer()
+        self.baseDir         = None
+        self.windows         = dict()
+        self.shellcodes      = set()
+        self.shellcode_urls  = set()
+        self.methods_cache   = dict()
+        self.formats         = set()
+        self.url             = ""
 
         self.__init_config()
 

@@ -977,10 +977,7 @@ class Window(JSClass):
             shellcode = Shellcode.Shellcode(self, ctxt, ast, script)
             result    = shellcode.run()
 
-        spPageContextInfo = getattr(self, '_spPageContextInfo', None)
-        if spPageContextInfo and 'isAnonymousGuestUser' in spPageContextInfo:
-            log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "SharePoint Anonymous Guest User", None)
-
+        log.ThugLogging.ContextAnalyzer.analyze(self)
         return result
 
     def unescape(self, s):
