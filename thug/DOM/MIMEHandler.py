@@ -214,6 +214,7 @@ class MIMEHandler(dict):
         self.register_zip_handlers()
         self.register_rar_handlers()
         self.register_java_jnlp_handlers()
+        self.register_json_handlers()
 
     def register_empty_handlers(self):
         self['application/hta']          = None
@@ -238,6 +239,9 @@ class MIMEHandler(dict):
 
     def register_java_jnlp_handlers(self):
         self['application/x-java-jnlp-file'] = self.handle_java_jnlp
+
+    def register_json_handlers(self):
+        self['application/json'] = self.handle_json
 
     def handle_fallback(self, url, content):
         for handler in self.handlers:
@@ -351,6 +355,22 @@ class MIMEHandler(dict):
             except Exception:
                 pass
 
+    def handle_json(self, url, data):
+        headers = dict()
+        headers['Connection'] = 'keep-alive'
+
+        try:
+            content = json.loads(data)
+        except Exception:
+            return
+
+        for key in content.keys():
+            if key.lower() in ('@content.downloadurl', ):
+                try:
+                    self.window._navigator.fetch(content[key], headers = headers, redirect_type = "JSON")
+                except Exception:
+                    pass
+
     def passthrough(self, url, data):
         """
         The method passthrough is the default handler associated to
@@ -360,4 +380,4 @@ class MIMEHandler(dict):
         return True
 
     def get_handler(self, key):
-        return self[key]
+        return self[key.split(';')[0]]
