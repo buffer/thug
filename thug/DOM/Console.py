@@ -80,11 +80,11 @@ class Console(JSClass):
     def groupEnd(self):
         pass
 
-    # def info(self, *args):
-    #    pass
+    def info(self, *args):
+        pass
 
-    # def log(self, *args):
-    #    pass
+    def log(self, *args):
+        pass
 
     def time(self, timerName):
         pass
