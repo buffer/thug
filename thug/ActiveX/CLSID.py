@@ -574,6 +574,16 @@ CLSID = [
                           }
         },
 
+        # IniWallet
+        {
+            'id'        : (),
+            'name'      : ( 'iniwallet61.iniwallet61ctrl.1', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {},
+        },
+
+
         # InternetCleverSuite
         {
             'id'        : ( 'E8F92847-7C21-452B-91A5-49D93AA18F30', ),
