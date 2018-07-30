@@ -664,7 +664,6 @@ CLSID = [
                           }
         },
 
-
         # MicrosoftXMLHTTP
         {
             'id'        : (),

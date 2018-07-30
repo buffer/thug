@@ -38,7 +38,7 @@ class ContextAnalyzer(object):
         spPageContextInfo = getattr(window, '_spPageContextInfo', None)
         if spPageContextInfo and 'isAnonymousGuestUser' in spPageContextInfo:
             log.ThugLogging.log_classifier("sharepoint", log.ThugLogging.url, "SharePointAnonymousGuestUser", None)
-    
+
     def analyze(self, window):
         for m in self.checks:
             m(window)
