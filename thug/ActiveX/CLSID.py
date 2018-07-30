@@ -394,6 +394,15 @@ CLSID = [
                           }
         },
 
+        # DuZoneRPSSO
+        {
+            'id'        : (),
+            'name'      : ( 'duzonerpsso.duzonerpssoctrl.1', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {},
+        },
+
         # DVRHOSTWeb
         {
             'id'        : ( 'D64CF6D4-45DF-4D8F-9F14-E65FADF2777C', ),
