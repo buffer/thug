@@ -1,0 +1,50 @@
+{
+  "locations": [
+      {
+          "url"         : "https://www.example.com",
+          "content-type": "image/",
+          "flags"       : {"error": "sample-error"}
+      },
+      {
+          "url"         : "https://www.example1.com",
+          "content-type": "text/html",
+          "flags"       : {}
+      },
+      {
+          "url"         : "https://www.example2.com",
+          "content-type": "application/javascript",
+          "flags"       : {}
+      },
+      {
+          "url"         : "https://www.example3.com",
+          "content-type": "unknown",
+          "flags"       : {}
+      },
+      {
+          "url"         : "https://www.example.com",
+          "content-type": "image/",
+          "flags"       : {"error": "sample-error"}
+      }
+  ],
+
+  "connections": [
+    {
+        "source": "https://www.example.com",
+        "destination": "https://www.example2.com",
+        "method": "iframe",
+        "flags": []
+    },
+    {
+        "source": "https://www.example.com",
+        "destination": "https://www.example1.com",
+        "method": "link",
+        "flags": []
+    },
+    {
+        "source": "https://www.example.com",
+        "destination": "https://www.example2.com",
+        "method": "iframe",
+        "flags": []
+    }
+  ]
+}

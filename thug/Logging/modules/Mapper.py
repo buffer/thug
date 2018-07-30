@@ -58,10 +58,10 @@ class DictDiffer(object):
         return set(o for o in self.intersect if self.past_dict[o] == self.current_dict[o])
 
     def anychange(self):
-        if self.added() and self.removed() and self.changed():
-            return False
+        if self.added() or self.removed() or self.changed():
+            return True
 
-        return True
+        return False
 
 
 class Mapper(object):
@@ -143,7 +143,7 @@ class Mapper(object):
         return None
 
     def get_color(self, con):
-        if "method" in con["iframe"]:
+        if con["method"] in ("iframe", ):
             return "orange"
 
         return None
@@ -346,7 +346,7 @@ class Mapper(object):
         return res
 
 
-def allFiles(root, patterns = "*", single_level = False, yield_folders = False):
+def allFiles(root, patterns = "*", single_level = False, yield_folders = False):  # pragma: no cover
     """
         Walk files
     """
@@ -368,7 +368,7 @@ def allFiles(root, patterns = "*", single_level = False, yield_folders = False):
             break
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     import argparse
 
     parser = argparse.ArgumentParser(description = 'Receives jobs and starts Thug to process them')
