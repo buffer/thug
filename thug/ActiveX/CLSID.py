@@ -1141,6 +1141,15 @@ CLSID = [
                           }
         },
 
+        # SiClientAccess
+        {
+            'id'        : (),
+            'name'      : ( 'siclientaccess.siclientaccess.1', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {},
+        },
+
         # SilverLight
         {
             'id'        : (),
