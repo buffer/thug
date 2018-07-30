@@ -414,6 +414,15 @@ CLSID = [
                           }
         },
 
+        # EasyPayPlugin
+        {
+            'id'        : (),
+            'name'      : ( 'easypayplugin.epplugin.1', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {},
+        },
+
         # EnjoySAP
         {
             'id'        : ( '2137278D-EF5C-11D3-96CE-0004AC965257', ),
