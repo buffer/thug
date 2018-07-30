@@ -130,6 +130,15 @@ CLSID = [
                           }
         },
 
+        # AcubeFileCtrl
+        {
+            'id'        : (),
+            'name'      : ( 'acubefilectrl.acubefilectrlctrl.1', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {},
+        },
+
         # Adodb.Recordset
         {
             'id'        : (),
