@@ -40,9 +40,13 @@ class TestDictDiffer:
 
 
 class TestMapper:
-    mapper = Mapper("sample-mapper-dir", simplify=True)
+    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    json_path = os.path.join(cwd_path, os.pardir, os.pardir, os.pardir, "tests/test_files/Mapper")
 
-    data        = json.load(open("test_data.json", "r"))
+    data_file  = os.path.join(json_path, "test_data.json")
+    error_file = os.path.join(json_path, "test_error.json")
+
+    data        = json.load(open(data_file, "r"))
     image_loc   = data["locations"][0]
     markup_loc  = data["locations"][1]
     exec_loc    = data["locations"][2]
@@ -50,6 +54,8 @@ class TestMapper:
 
     iframe_con = data["connections"][0]
     link_con   = data["connections"][1]
+
+    mapper = Mapper("sample-mapper-dir", simplify=True)
 
     def test_get_shape(self):
         shape = self.mapper.get_shape(self.markup_loc)
@@ -87,12 +93,12 @@ class TestMapper:
         assert len(self.mapper.data["locations"]) in (1, )
 
     def test_add_file(self):
-        self.mapper.add_file("test_data.json")
+        self.mapper.add_file(self.data_file)
         assert len(self.mapper.data["locations"]) in (5, )
         assert len(self.mapper.data["connections"]) in (2, )
 
         # Testing for ValueError because of malformed JSON
-        self.mapper.add_file("test_error.json")
+        self.mapper.add_file(self.error_file)
         assert len(self.mapper.data["locations"]) in (5, )
         assert len(self.mapper.data["connections"]) in (2, )
 
