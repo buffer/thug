@@ -254,6 +254,8 @@ class MIMEHandler(dict):
         return False
 
     def handle_zip(self, url, content):
+        log.ThugLogging.log_file(content, url, sampletype = 'ZIP')
+
         fp = StringIO(content)
         if not zipfile.is_zipfile(fp):
             return False
