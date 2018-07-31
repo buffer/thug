@@ -272,7 +272,7 @@ class MIMEHandler(dict):
             if filename.lower().endswith('.js'):
                 self.window.evalScript(data)
 
-            sample = log.ThugLogging.log_file(data, url)
+            sample = log.ThugLogging.log_file(data, url, sampletype = 'ZIP')
             if sample is None:
                 continue
 
