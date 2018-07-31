@@ -4,7 +4,7 @@ python:
   - "2.7"
 before_install:
   - sudo apt-get update
-  - sudo apt-get install libboost-python-dev libboost-all-dev systemtap-sdt-dev libfuzzy-dev
+  - sudo apt-get install libboost-python-dev libboost-all-dev systemtap-sdt-dev libfuzzy-dev graphviz
 install:
   - sudo pip install pylibemu
   - pip install tox
