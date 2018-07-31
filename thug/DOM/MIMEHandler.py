@@ -289,6 +289,8 @@ class MIMEHandler(dict):
         return True
 
     def handle_rar(self, url, content):
+        log.ThugLogging.log_file(content, url, sampletype = 'RAR')
+
         fd, rfile = tempfile.mkstemp()
         with open(rfile, 'wb') as fd:
             fd.write(content)
@@ -305,7 +307,7 @@ class MIMEHandler(dict):
             except Exception:
                 continue
 
-            sample = log.ThugLogging.log_file(data, url)
+            sample = log.ThugLogging.log_file(data, url, sampletype = 'RAR')
             if sample is None:
                 continue
 
