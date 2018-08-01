@@ -259,7 +259,7 @@ class MIMEHandler(dict):
 
     def handle_zip(self, url, content):
         if len(content) < self.MIN_ZIP_FILE_SIZE:
-            return
+            return False
 
         fp = StringIO(content)
         if not zipfile.is_zipfile(fp):
@@ -300,7 +300,7 @@ class MIMEHandler(dict):
 
     def handle_rar(self, url, content):
         if len(content) < self.MIN_RAR_FILE_SIZE:
-            return
+            return False
 
         fd, rfile = tempfile.mkstemp()
         with open(rfile, 'wb') as fd:
