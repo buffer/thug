@@ -261,8 +261,6 @@ class MIMEHandler(dict):
         if len(content) < self.MIN_ZIP_FILE_SIZE:
             return
 
-        log.ThugLogging.log_file(content, url, sampletype = 'ZIP')
-
         fp = StringIO(content)
         if not zipfile.is_zipfile(fp):
             return False
@@ -271,6 +269,8 @@ class MIMEHandler(dict):
             zipdata = zipfile.ZipFile(fp)
         except Exception:
             return False
+
+        log.ThugLogging.log_file(content, url, sampletype = 'ZIP')
 
         for filename in zipdata.namelist():
             try:
@@ -302,8 +302,6 @@ class MIMEHandler(dict):
         if len(content) < self.MIN_RAR_FILE_SIZE:
             return
 
-        log.ThugLogging.log_file(content, url, sampletype = 'RAR')
-
         fd, rfile = tempfile.mkstemp()
         with open(rfile, 'wb') as fd:
             fd.write(content)
@@ -313,6 +311,8 @@ class MIMEHandler(dict):
         except Exception:
             os.remove(rfile)
             return False
+
+        log.ThugLogging.log_file(content, url, sampletype = 'RAR')
 
         for filename in rardata.namelist():
             try:
