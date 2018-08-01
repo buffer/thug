@@ -213,6 +213,9 @@ class HTTPSession(object):
         except requests.ConnectionError as e:
             log.ThugLogging.log_warning("[HTTPSession] {0}".format(e.message))
 
+        if not response.ok:
+            return None
+
         self.filecount += 1
 
         if log.ThugOpts.web_tracking:
