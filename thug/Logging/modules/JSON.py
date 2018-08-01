@@ -173,7 +173,11 @@ class JSON(object):
         if not log.ThugOpts.code_logging:
             return content
 
-        content = self.fix(data.get("content", "NOT AVAILABLE"))
+        try:
+            content = self.fix(data.get("content", "NOT AVAILABLE"))
+        except Exception:
+            pass
+
         return content
 
     def log_location(self, url, data, flags = None):
