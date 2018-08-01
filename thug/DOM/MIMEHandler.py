@@ -50,6 +50,10 @@ class MIMEHandler(dict):
         your own PDF analysis system really quickly by simply defining a new
         application/pdf Content-Type handler.
     """
+
+    MIN_ZIP_FILE_SIZE = 32
+    MIN_RAR_FILE_SIZE = 32
+
     mimetypes = ("application/download",
                  "application/envoy",
                  "application/exe",
@@ -254,6 +258,9 @@ class MIMEHandler(dict):
         return False
 
     def handle_zip(self, url, content):
+        if len(content) < self.MIN_ZIP_FILE_SIZE:
+            return
+
         log.ThugLogging.log_file(content, url, sampletype = 'ZIP')
 
         fp = StringIO(content)
@@ -271,10 +278,13 @@ class MIMEHandler(dict):
             except Exception:
                 continue
 
+            if not data:
+                continue
+
             if filename.lower().endswith('.js'):
                 self.window.evalScript(data)
 
-            sample = log.ThugLogging.log_file(data, url, sampletype = 'ZIP')
+            sample = log.ThugLogging.log_file(data, url)
             if sample is None:
                 continue
 
@@ -289,6 +299,9 @@ class MIMEHandler(dict):
         return True
 
     def handle_rar(self, url, content):
+        if len(content) < self.MIN_RAR_FILE_SIZE:
+            return
+
         log.ThugLogging.log_file(content, url, sampletype = 'RAR')
 
         fd, rfile = tempfile.mkstemp()
@@ -307,7 +320,10 @@ class MIMEHandler(dict):
             except Exception:
                 continue
 
-            sample = log.ThugLogging.log_file(data, url, sampletype = 'RAR')
+            if not data:
+                continue
+
+            sample = log.ThugLogging.log_file(data, url)
             if sample is None:
                 continue
 
