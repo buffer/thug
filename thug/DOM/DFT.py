@@ -660,7 +660,7 @@ class DFT(object):
         self.do_params_fetch(params['data'], headers, params)
 
     def do_handle_params_archive(self, params, headers):
-        if 'archive' not in params and 'codebase' not in params:
+        if 'archive' not in params:
             return
 
         if 'codebase' in params:
