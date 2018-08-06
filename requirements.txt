@@ -1,4 +1,4 @@
-beautifulsoup4==4.6.0
+beautifulsoup4==4.6.1
 html5lib==1.0.1
 lxml==4.2.3
 cchardet==2.1.1
