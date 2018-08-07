@@ -1,7 +1,7 @@
 Thug
 ====
 
-|version badge| |travis badge| |landscape badge| |codefactor badge| |codecov badge| |docs badge|
+|version badge| |travis badge| |landscape badge| |codefactor badge| |codecov badge|
 
 The number of client-side attacks has grown significantly in the past few years
 shifting focus on poorly protected vulnerable clients. Just as the most known
@@ -19,15 +19,42 @@ web browser in order to detect and emulate malicious contents.
 Documentation
 -------------
 
+|docs badge|
+
 Documentation about Thug installation and usage can be found at http://thug-honeyclient.readthedocs.io/.
 
 
 Contributions
 -------------
 
-Thug is open source and free to use for any purpose (even commercial ones). If
-you use and appreciate Thug, consider supporting the project with a donation
+Thug is open source and we welcome contributions in all forms. If you would like to work on a large contribution please
+discuss the same with the maintainers of the project.
+
+Thug is free to use for any purpose (even commercial ones). If you use and appreciate Thug, consider supporting the project with a donation
 using Paypal (details at https://buffer.github.com/thug/).
+
+
+Testing
+-------
+
+To run the full test suite using tox_, type this command:
+
+.. code-block:: bash
+
+    tox
+
+Since tox builds and installs the dependencies from scratch, we recommend using `pytest`_ for faster testing:
+
+.. code-block:: bash
+
+    pytest --cov thug
+
+To test individual test files or folders:
+
+.. code-block:: bash
+
+    cd tests/Java
+    pytest --cov thug.Java.lang test_lang.py
 
 
 License information
@@ -51,3 +78,5 @@ License: GNU General Public License, version 2
    :target: https://codecov.io/gh/buffer/thug
 .. |docs badge| image:: https://readthedocs.org/projects/thug-honeyclient/badge/?version=latest
    :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
+.. _tox: https://tox.readthedocs.io/
+.. _`pytest`: http://pytest.org/
