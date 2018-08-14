@@ -38,3 +38,36 @@ class TestMongoDB:
     def test_set_url(self):
         self.mongo.set_url("www.example.com")
         self.mongo.set_url("www.example.com")
+
+    def test_log_location(self):
+        self.mongo.log_location()
+
+    def test_log_connection(self):
+        self.mongo.log_location()
+
+    def test_log_exploit_event(self):
+        self.mongo.log_location()
+
+    def test_log_classifier(self):
+        self.mongo.log_location()
+
+    def test_log_file(self):
+        self.mongo.log_location()
+
+    def test_log_maec11(self):
+        self.mongo.log_location()
+
+    def test_log_json(self):
+        self.mongo.log_location()
+
+    def test_log_event(self):
+        self.mongo.log_location()
+
+    def test_log_certificate(self):
+        self.mongo.log_location()
+
+    def test_log_virustotal(self):
+        self.mongo.log_location()
+
+    def test_log_honeyagent(self):
+        self.mongo.log_location()

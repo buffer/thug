@@ -22,13 +22,9 @@ import logging
 import datetime
 import six.moves.configparser as ConfigParser
 
-try:
-    import pymongo
-    import gridfs
-    from pymongo.errors import DuplicateKeyError
-    MONGO_MODULE = True
-except ImportError:
-    MONGO_MODULE = False
+import pymongo
+import gridfs
+from pymongo.errors import DuplicateKeyError
 
 from .compatibility import thug_unicode
 from .ExploitGraph import ExploitGraph
@@ -41,21 +37,11 @@ class MongoDB(object):
         self.thug_version = thug_version
         self.enabled      = True
 
-        if not self.__check_mongo_module():
-            return
-
         if not self.__init_config():
             return
 
         self.__init_db()
         self.chain_id = self.make_counter(0)
-
-    def __check_mongo_module(self):
-        if not MONGO_MODULE:
-            log.info('[MongoDB] MongoDB instance not available')
-            self.enabled = False
-
-        return self.enabled
 
     def __init_config(self):
         self.opts = dict()
@@ -143,10 +129,6 @@ class MongoDB(object):
         return None
 
     def get_url(self, url):
-        entry = self.__get_url(url)
-        if entry:
-            return entry
-
         try:
             entry = self.urls.insert({'url' : url})
         except DuplicateKeyError:
