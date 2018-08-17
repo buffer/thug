@@ -126,7 +126,7 @@ class HTTPSession(object):
         base_url = None
         last_url = getattr(log, 'last_url', None)
 
-        for _base_url in (window.url, last_url):
+        for _base_url in (last_url, window.url, ):
             if not _base_url:
                 continue
 
