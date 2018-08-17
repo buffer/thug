@@ -1,4 +1,4 @@
-beautifulsoup4==4.6.1
+beautifulsoup4==4.6.3
 html5lib==1.0.1
 lxml==4.2.4
 cchardet==2.1.1
@@ -14,7 +14,7 @@ pymongo==3.7.1
 ssdeep==3.2
 six==1.11.0
 pylibemu==0.5.8
-pefile==2017.11.5
+pefile==2018.8.8
 yara-python==3.7.0
-elasticsearch==6.3.0
+elasticsearch==6.3.1
 esprima==4.0.0
