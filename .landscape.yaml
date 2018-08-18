@@ -15,7 +15,6 @@ ignore-paths:
   - thug/ThugAPI/__init__.py
   - thug/Plugins/IPlugin.py
   - thug/ActiveX/modules/MSXML2DOMDocument.py
-  - ez_setup.py
 
 pylint:
   disable:
