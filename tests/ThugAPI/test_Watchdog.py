@@ -40,4 +40,4 @@ class TestWatchDog:
         with Watchdog(1, callback=self.callback):
             time.sleep(1)
         assert os_kill.called
-        assert "The analysis took more than 1 seconds. Aborting!" in caplog.text
+        assert "The analysis took more than 1 second(s). Aborting!" in caplog.text
