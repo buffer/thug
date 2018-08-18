@@ -47,12 +47,9 @@ class MongoDB(object):
         self.opts = dict()
 
         if log.ThugOpts.mongodb_address:
-            try:
-                self.opts['host'] = log.ThugOpts.mongodb_address
-                self.opts['enable'] = 'True'
-                return True
-            except Exception:
-                log.warning("Invalid MongoDB address specified at runtime, using default values instead (if any)")
+            self.opts['host'] = log.ThugOpts.mongodb_address
+            self.opts['enable'] = 'True'
+            return True
 
         config = ConfigParser.ConfigParser()
 
@@ -76,13 +73,7 @@ class MongoDB(object):
         return self.enabled
 
     def __init_db(self):
-        # MongoDB Connection class is marked as deprecated (MongoDB >= 2.4).
-        # The following code tries to use the new MongoClient if available and
-        # reverts to the old Connection class if not. This code will hopefully
-        # disappear in the next future.
         client = getattr(pymongo, 'MongoClient', None)
-        if client is None:
-            client = getattr(pymongo, 'Connection', None)
 
         try:
             connection = client(self.opts['host'])
@@ -139,7 +130,6 @@ class MongoDB(object):
     def set_url(self, url):
         if not self.enabled:
             return
-
         self.graph  = ExploitGraph(url)
 
         self.url_id = self.get_url(url)
@@ -194,20 +184,20 @@ class MongoDB(object):
 
         content    = data.get("content", None)
         content_id = self.fs.put(content,
-            mtype  = data.get("mtype", None)
-        ) if content else None
+                                 mtype = data.get("mtype", None)
+                                 ) if content else None
 
         location = {
-            'analysis_id'   : self.analysis_id,
-            'url_id'        : self.get_url(url),
-            'status'        : data.get("status", None),
-            "content_id"    : content_id,
-            'content-type'  : data.get("ctype", None),
-            'md5'           : data.get("md5", None),
-            'sha256'        : data.get("sha256", None),
-            'flags'         : flags,
-            'size'          : data.get("fsize", None),
-            'mime-type'     : data.get("mtype", None)
+            'analysis_id' : self.analysis_id,
+            'url_id'      : self.get_url(url),
+            'status'      : data.get("status", None),
+            "content_id"  : content_id,
+            'content-type': data.get("ctype", None),
+            'md5'         : data.get("md5", None),
+            'sha256'      : data.get("sha256", None),
+            'flags'       : flags,
+            'size'        : data.get("fsize", None),
+            'mime-type'   : data.get("mtype", None)
         }
 
         self.locations.insert(location)
@@ -424,9 +414,6 @@ class MongoDB(object):
         self.codes.insert(code)
 
     def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
-        if not self.enabled:
-            return
-
         if not cve and not description:
             return
 
