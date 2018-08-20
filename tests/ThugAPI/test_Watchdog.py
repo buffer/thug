@@ -28,7 +28,7 @@ log.ThugLogging = ThugLogging(thug.__version__)
 @patch('os.kill')
 class TestWatchDog:
     def callback(self, signum, frame):
-        pass
+        log.warning("Signal no. is {}".format(signum))
 
     def test_watch(self, os_kill):
         with Watchdog(0, callback=self.callback):
@@ -39,5 +39,7 @@ class TestWatchDog:
         caplog.clear()
         with Watchdog(1, callback=self.callback):
             time.sleep(1)
+
         assert os_kill.called
         assert "The analysis took more than 1 second(s). Aborting!" in caplog.text
+        assert "Signal no. is 14" in caplog.text
