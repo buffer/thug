@@ -18,12 +18,13 @@
 
 
 import os
+import json
 import logging
 import zipfile
 import tempfile
-import rarfile
 from six import StringIO
 import bs4 as BeautifulSoup
+import rarfile
 
 log = logging.getLogger("Thug")
 
