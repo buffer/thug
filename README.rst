@@ -60,7 +60,7 @@ To test individual test files or folders:
 Support
 -------
 
-Thanks to JetBrains for free |PyCharm|_ licenses!
+Thanks to  |JetBrains|_  for free  |PyCharm|_  licenses!
 
 
 License information
@@ -84,7 +84,9 @@ License: GNU General Public License, version 2
    :target: https://codecov.io/gh/buffer/thug
 .. |docs badge| image:: https://readthedocs.org/projects/thug-honeyclient/badge/?version=latest
    :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
-.. |PyCharm| image:: /docs/images/pycharm/logo-text-136x25.png
+.. |JetBrains| image:: /docs/images/pycharm/jetbrains.svg
+.. _JetBrains: https://www.jetbrains.com/?from=thug
+.. |PyCharm| image:: /docs/images/pycharm/pycharm.png
 .. _PyCharm: https://www.jetbrains.com/?from=thug
 .. _tox: https://tox.readthedocs.io/
 .. _`pytest`: http://pytest.org/
