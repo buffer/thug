@@ -57,6 +57,12 @@ To test individual test files or folders:
     pytest --cov thug.Java.lang test_lang.py
 
 
+Support
+-------
+
+Thanks to JetBrains for free |PyCharm|_ licenses!
+
+
 License information
 -------------------
 
@@ -78,5 +84,7 @@ License: GNU General Public License, version 2
    :target: https://codecov.io/gh/buffer/thug
 .. |docs badge| image:: https://readthedocs.org/projects/thug-honeyclient/badge/?version=latest
    :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
+.. |PyCharm| image:: /docs/images/pycharm/logo-text.png
+.. _PyCharm: https://www.jetbrains.com/?from=thug
 .. _tox: https://tox.readthedocs.io/
 .. _`pytest`: http://pytest.org/
