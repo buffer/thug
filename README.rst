@@ -86,7 +86,7 @@ License: GNU General Public License, version 2
    :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
 .. |JetBrains| image:: /docs/images/pycharm/jetbrains.svg
 .. _JetBrains: https://www.jetbrains.com/?from=thug
-.. |PyCharm| image:: /docs/images/pycharm/pycharm.svg
+.. |PyCharm| image:: /docs/images/pycharm/pycharm.png
 .. _PyCharm: https://www.jetbrains.com/?from=thug
 .. _tox: https://tox.readthedocs.io/
 .. _`pytest`: http://pytest.org/
