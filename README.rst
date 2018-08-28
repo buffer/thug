@@ -84,11 +84,7 @@ License: GNU General Public License, version 2
    :target: https://codecov.io/gh/buffer/thug
 .. |docs badge| image:: https://readthedocs.org/projects/thug-honeyclient/badge/?version=latest
    :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
-.. |PyCharm| image:: /docs/images/pycharm/logo-text.png
-   :height: 100px
-   :width: 200 px
-   :scale: 50 %
-   :alt: PyCharm
+.. |PyCharm| image:: /docs/images/pycharm/logo-text-136x25.png
 .. _PyCharm: https://www.jetbrains.com/?from=thug
 .. _tox: https://tox.readthedocs.io/
 .. _`pytest`: http://pytest.org/
