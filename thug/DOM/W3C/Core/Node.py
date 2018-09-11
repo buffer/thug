@@ -179,6 +179,10 @@ class Node(JSClass, EventTarget):
 
         return -1
 
+    @property
+    def innerText(self):
+        return self.tag.string
+
     def is_readonly(self, node):
         return node.nodeType in (Node.DOCUMENT_TYPE_NODE,
                                  Node.NOTATION_NODE,
