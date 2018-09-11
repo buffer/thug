@@ -857,6 +857,9 @@ class DFT(object):
         self.check_shellcodes()
         self.check_anchors()
 
+    def handle_jscript(self, script):
+        self.handle_javascript(script)
+
     def handle_vbscript(self, script):
         log.info(script)
 
