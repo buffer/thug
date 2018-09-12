@@ -27,8 +27,11 @@ import os
 import copy
 import uuid
 import errno
+import hashlib
 import logging
 import six.moves.configparser as ConfigParser
+
+from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
 
@@ -255,6 +258,27 @@ class ThugLogging(BaseLogging, SampleLogging):
 
             log.URLClassifier.classify(h.url)
             log.HTTPSession.fetch_ssl_certificate(h.url)
+
+            ctype = h.headers.get('content-type', 'unknown')
+
+            md5 = hashlib.md5()
+            md5.update(h.content)
+            sha256 = hashlib.sha256()
+            sha256.update(h.content)
+
+            mtype = Magic(h.content).get_mime()
+
+            data = {
+                "content" : h.content,
+                "status"  : h.status_code,
+                "md5"     : md5.hexdigest(),
+                "sha256"  : sha256.hexdigest(),
+                "fsize"   : len(h.content),
+                "ctype"   : ctype,
+                "mtype"   : mtype
+            }
+
+            self.log_location(h.url, data)
 
         log.URLClassifier.classify(final)
         log.HTTPSession.fetch_ssl_certificate(final)
