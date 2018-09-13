@@ -4,6 +4,7 @@ cchardet==2.1.1
 cssutils==1.0.2
 elasticsearch==6.3.1
 esprima==4.0.1
+git+git://github.com/buffer/pyv8.git#egg=pyv8
 html5lib==1.0.1
 lxml==4.2.4
 networkx==2.1
