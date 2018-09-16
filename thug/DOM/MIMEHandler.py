@@ -377,13 +377,16 @@ class MIMEHandler(dict):
                 pass
 
     def handle_json(self, url, data):
-        headers = dict()
-        headers['Connection'] = 'keep-alive'
-
         try:
             content = json.loads(data)
         except Exception:
-            return
+            return False
+
+        if not isinstance(content, dict):
+            return False
+
+        headers = dict()
+        headers['Connection'] = 'keep-alive'
 
         for key in content.keys():
             if key.lower() in ('@content.downloadurl', ):
@@ -391,6 +394,8 @@ class MIMEHandler(dict):
                     self.window._navigator.fetch(content[key], headers = headers, redirect_type = "JSON")
                 except Exception:
                     pass
+
+        return True
 
     def passthrough(self, url, data):
         """
