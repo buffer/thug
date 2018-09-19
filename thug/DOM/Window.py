@@ -901,11 +901,10 @@ class Window(JSClass):
         if script is None:
             return None
 
-        if len(script) > 64:
-            log.warning("[Window] Eval argument length > 64 (%d)", len(script))
-
-        if log.ThugOpts.code_logging and len(script) > 4:
-            log.ThugLogging.add_code_snippet(script, 'Javascript', 'Dynamically_Evaluated', True)
+        log.ThugLogging.add_code_snippet(script,
+                                         language = 'Javascript',
+                                         relationship = 'eval argument',
+                                         check = True)
 
         return self.evalScript(script)
 
