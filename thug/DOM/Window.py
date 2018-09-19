@@ -931,6 +931,9 @@ class Window(JSClass):
                 for hook in sorted([h for h in os.listdir(hooks_folder) if h.endswith('.js')]):
                     ctxt.eval(open(os.path.join(hooks_folder, hook), 'r').read())
 
+                eval_js = os.path.join(thug.__configuration_path__, 'scripts', "eval.js")
+                ctxt.eval(open(eval_js, 'r').read() % (log.ThugLogging.last_script, ))
+
                 PyV8.JSEngine.collect()
 
         return self._context

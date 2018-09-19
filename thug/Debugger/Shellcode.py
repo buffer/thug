@@ -86,6 +86,24 @@ class Shellcode(object):
             except Exception:
                 pass
 
+    def dump_last_script(self):
+        script = getattr(self.ctxt.locals, log.ThugLogging.last_script, None)
+        if script is None:
+            return
+
+        try:
+            log.warning("[eval] argument:\n%s", script)
+        except Exception:
+            pass
+
+        log.ThugLogging.add_code_snippet(script,
+                                         language = 'Javascript',
+                                         relationship = 'eval argument',
+                                         check = True,
+                                         force = True)
+
+        delattr(self.ctxt.locals, log.ThugLogging.last_script)
+
     def run(self):
         with Debugger() as dbg:
             dbg._context = self.ctxt
@@ -98,11 +116,15 @@ class Shellcode(object):
                     enc = log.Encoding.detect(self.script)
                     result = self.ctxt.eval(self.script.decode(enc['encoding']))
                 except Exception:
+                    self.dump_last_script()
                     log.ThugLogging.log_warning(traceback.format_exc())
                     return None
             except Exception:
+                self.dump_last_script()
                 log.ThugLogging.log_warning(traceback.format_exc())
                 return None
+
+            self.dump_last_script()
 
             names = [p['name'] for p in self.ast.names]
             for name in names:

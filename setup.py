@@ -60,6 +60,7 @@ setup(
         (scripts_path               , ["thug/DOM/thug.js",
                                        "thug/DOM/storage.js",
                                        "thug/DOM/date.js",
+                                       "thug/DOM/eval.js",
                                        "thug/Debugger/d8.js"]),
         (plugins_path               , []),
         (hooks_path                 , []),

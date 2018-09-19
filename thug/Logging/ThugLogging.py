@@ -26,6 +26,8 @@ from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
 import os
 import copy
 import uuid
+import random
+import string
 import errno
 import hashlib
 import logging
@@ -53,6 +55,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.shellcode_urls  = set()
         self.methods_cache   = dict()
         self.formats         = set()
+        self.last_script     = ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randint(10, 32)))
         self.url             = ""
 
         self.__init_config()
@@ -109,8 +112,8 @@ class ThugLogging(BaseLogging, SampleLogging):
     def check_snippet(self, s):
         return len(s) < self.eval_min_length_logging
 
-    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis", check = False):
-        if not log.ThugOpts.code_logging:
+    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis", check = False, force = False):
+        if not log.ThugOpts.code_logging and not force:
             return
 
         if check and self.check_snippet(snippet):
