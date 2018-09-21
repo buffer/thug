@@ -671,6 +671,8 @@ class Window(JSClass):
 
         ID is the interval ID.
         """
+        log.ThugLogging.Features.increase_setinterval_count()
+
         if log.ThugOpts.Personality.isIE() and not f:
             raise TypeError()
 
@@ -700,6 +702,8 @@ class Window(JSClass):
 
         ID is the interval ID.
         """
+        log.ThugLogging.Features.increase_settimeout_count()
+
         if log.ThugOpts.Personality.isIE() and not f:
             raise TypeError()
 
