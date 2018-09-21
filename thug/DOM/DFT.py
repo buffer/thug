@@ -900,7 +900,19 @@ class DFT(object):
         self.handle_vbscript(script)
 
     def handle_noscript(self, script):
-        pass
+        log.ThugLogging.Features.increase_noscript_count()
+
+    def handle_html(self, html):
+        log.ThugLogging.Features.increase_html_count()
+
+    def handle_head(self, head):
+        log.ThugLogging.Features.increase_head_count()
+
+    def handle_title(self, title):
+        log.ThugLogging.Features.increase_title_count()
+
+    def handle_body(self, body):
+        log.ThugLogging.Features.increase_body_count()
 
     def handle_form(self, form):
         from .Window import Window
