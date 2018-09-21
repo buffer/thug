@@ -678,6 +678,7 @@ class DFT(object):
 
     def handle_object(self, _object):
         log.warning(_object)
+        log.ThugLogging.Features.increase_object_count()
 
         # self.check_attrs(_object)
         params = self.do_handle_params(_object)
