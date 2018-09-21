@@ -1187,6 +1187,7 @@ class DFT(object):
         dft.run()
 
     def handle_iframe(self, iframe):
+        log.ThugLogging.Features.increase_iframe_count()
         self.handle_frame(iframe, 'iframe')
 
     def handle_body(self, body):
