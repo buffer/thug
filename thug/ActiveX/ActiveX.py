@@ -126,6 +126,7 @@ class _ActiveXObject(object):
             raise TypeError()
 
         log.warning("ActiveXObject: %s", cls)
+        log.ThugLogging.Features.increase_activex_count()
 
         for method_name, method in obj['methods'].items():
             # _method = new.instancemethod(method, self, _ActiveXObject)

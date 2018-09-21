@@ -278,6 +278,9 @@ class JSON(object):
             return
 
         output = StringIO()
+
+        self.data['features'] = log.ThugLogging.Features.features
+
         json.dump(self.data, output, sort_keys = False, indent = 4)
         if log.ThugOpts.json_logging and log.ThugOpts.file_logging:
             logdir = os.path.join(basedir, "analysis", "json")

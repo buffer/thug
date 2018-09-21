@@ -48,6 +48,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.thug_version    = thug_version
         self.VirusTotal      = VirusTotal()
         self.HoneyAgent      = HoneyAgent()
+        self.Features        = Features()
         self.ContextAnalyzer = ContextAnalyzer()
         self.baseDir         = None
         self.windows         = dict()
