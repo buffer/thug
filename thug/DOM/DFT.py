@@ -605,6 +605,8 @@ class DFT(object):
             if key not in params:
                 continue
 
+            log.ThugLogging.Features.increase_url_count()
+
             try:
                 self.window._navigator.fetch(params[key],
                                              headers = headers,
@@ -619,6 +621,8 @@ class DFT(object):
 
             if key.lower() not in ('jnlp_href', ) and not value.startswith('http'):
                 continue
+
+            log.ThugLogging.Features.increase_url_count()
 
             try:
                 response = self.window._navigator.fetch(value,
@@ -639,6 +643,8 @@ class DFT(object):
         return params
 
     def do_params_fetch(self, url, headers, params):
+        log.ThugLogging.Features.increase_url_count()
+
         try:
             self.window._navigator.fetch(url,
                                          headers = headers,
@@ -682,6 +688,8 @@ class DFT(object):
         data     = _object.get('data', None)
 
         if codebase:
+            log.ThugLogging.Features.increase_url_count()
+
             try:
                 self.window._navigator.fetch(codebase,
                                              redirect_type = "object codebase",
@@ -690,6 +698,8 @@ class DFT(object):
                 pass
 
         if data and not data.startswith('data:'):
+            log.ThugLogging.Features.increase_url_count()
+
             try:
                 self.window._navigator.fetch(data,
                                              redirect_type = "object data",
@@ -871,6 +881,7 @@ class DFT(object):
         try:
             urls = re.findall("(?P<url>https?://[^\s'\"]+)", str(script))
             for url in urls:
+                log.ThugLogging.Features.increase_url_count()
                 self.window._navigator.fetch(url, redirect_type = "VBS embedded URL")
         except Exception:
             pass
@@ -894,6 +905,8 @@ class DFT(object):
         action = form.get('action', None)
         if action is None:
             return
+
+        log.ThugLogging.Features.increase_url_count()
 
         _action = log.HTTPSession.normalize_url(self.window, action)
         if _action is None:
@@ -952,10 +965,13 @@ class DFT(object):
 
     def handle_embed(self, embed):
         log.warning(embed)
+        log.ThugLogging.Features.increase_embed_count()
 
         src = embed.get('src', None)
         if src is None:
             return
+
+        log.ThugLogging.Features.increase_url_count()
 
         headers = dict()
 
@@ -983,6 +999,8 @@ class DFT(object):
         archive = applet.get('archive', None)
         if not archive:
             return
+
+        log.ThugLogging.Features.increase_url_count()
 
         headers = dict()
         headers['Connection']   = 'keep-alive'
@@ -1114,6 +1132,8 @@ class DFT(object):
         if self._handle_data_uri(src):
             return
 
+        log.ThugLogging.Features.increase_url_count()
+
         try:
             response = self.window._navigator.fetch(src, redirect_type = redirect_type)
         except Exception:
@@ -1160,6 +1180,8 @@ class DFT(object):
             url = p.value
             if url.startswith('url(') and len(url) > 4:
                 url = url.split('url(')[1].split(')')[0]
+
+            log.ThugLogging.Features.increase_url_count()
 
             try:
                 self.window._navigator.fetch(url, redirect_type = "font face")
@@ -1277,6 +1299,8 @@ class DFT(object):
         href = link.get('href', None)
         if not href:
             return
+
+        log.ThugLogging.Features.increase_url_count()
 
         if self._handle_data_uri(href):
             return
