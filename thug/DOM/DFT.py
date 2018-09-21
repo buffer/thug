@@ -805,7 +805,11 @@ class DFT(object):
     def handle_external_javascript(self, script):
         src = script.get('src', None)
         if src is None:
+            log.ThugLogging.Features.increase_inline_javascript_count()
             return
+
+        log.ThugLogging.Features.increase_url_count()
+        log.ThugLogging.Features.increase_external_javascript_count()
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = "script src")
@@ -872,6 +876,7 @@ class DFT(object):
 
     def handle_vbscript(self, script):
         log.info(script)
+        log.ThugLogging.Features.increase_vbscript_count()
 
         if log.ThugOpts.code_logging:
             log.ThugLogging.add_code_snippet(str(script), 'VBScript', 'Contained_Inside')

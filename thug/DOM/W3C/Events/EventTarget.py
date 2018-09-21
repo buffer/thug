@@ -122,6 +122,9 @@ class EventTarget(object):
 
     def _attachEvent(self, eventType, handler, prio = False):
         log.debug('_attachEvent(%s, \n%r)', eventType, handler)
+
+        log.ThugLogging.Features.increase_attachevent_count()
+
         if not eventType.startswith('on'):
             log.warning('[WARNING] attachEvent eventType: %s', eventType)
 
