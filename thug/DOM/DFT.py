@@ -1090,6 +1090,9 @@ class DFT(object):
         if 'url' not in content.lower():
             return
 
+        log.ThugLogging.Features.increase_meta_refresh_count()
+        log.ThugLogging.Features.increase_url_count()
+
         url = None
         data_uri = True if 'data:' in content else False
 
