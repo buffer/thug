@@ -86,23 +86,63 @@ class Shellcode(object):
             except Exception:
                 pass
 
-    def dump_last_script(self):
-        script = getattr(self.ctxt.locals, log.ThugLogging.last_script, None)
-        if script is None:
+    @property
+    def dump_url(self):
+        if log.ThugOpts.local:
+            return log.ThugLogging.url
+
+        url = getattr(log, 'last_url', None)
+        return url if url else self.window.url
+
+    def dump_eval(self):
+        name, saved = log.ThugLogging.eval_symbol
+
+        scripts = getattr(self.ctxt.locals, name, None)
+        if scripts is None:
             return
 
-        try:
-            log.warning("[eval] argument:\n%s", script)
-        except Exception:
-            pass
+        for script in scripts:
+            try:
+                log.warning("[eval] Deobfuscated argument: %s", script)
+            except Exception:
+                pass
 
-        log.ThugLogging.add_code_snippet(script,
-                                         language = 'Javascript',
-                                         relationship = 'eval argument',
-                                         check = True,
-                                         force = True)
+            log.JSClassifier.classify(self.dump_url, script)
+            log.ThugLogging.add_code_snippet(script,
+                                             language = 'Javascript',
+                                             relationship = 'eval argument',
+                                             check = True,
+                                             force = True)
 
-        delattr(self.ctxt.locals, log.ThugLogging.last_script)
+        delattr(self.ctxt.locals, name)
+        delattr(self.ctxt.locals, saved)
+
+    def dump_write(self):
+        name, saved = log.ThugLogging.write_symbol
+
+        htmls = getattr(self.ctxt.locals, name, None)
+        if htmls is None:
+            return
+
+        for html in htmls:
+            try:
+                log.warning("[document.write] Deobfuscated argument: %s", html)
+            except Exception:
+                pass
+
+            log.HTMLClassifier.classify(self.dump_url, html)
+            log.ThugLogging.add_code_snippet(html,
+                                             language = 'HTML',
+                                             relationship = 'document.write argument',
+                                             check = True,
+                                             force = True)
+
+        delattr(self.ctxt.locals, name)
+        delattr(self.ctxt.locals, saved)
+
+    def dump(self):
+        self.dump_eval()
+        self.dump_write()
 
     def run(self):
         with Debugger() as dbg:
@@ -116,15 +156,15 @@ class Shellcode(object):
                     enc = log.Encoding.detect(self.script)
                     result = self.ctxt.eval(self.script.decode(enc['encoding']))
                 except Exception:
-                    self.dump_last_script()
+                    self.dump()
                     log.ThugLogging.log_warning(traceback.format_exc())
                     return None
             except Exception:
-                self.dump_last_script()
+                self.dump()
                 log.ThugLogging.log_warning(traceback.format_exc())
                 return None
 
-            self.dump_last_script()
+            self.dump()
 
             names = [p['name'] for p in self.ast.names]
             for name in names:

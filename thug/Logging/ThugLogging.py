@@ -55,10 +55,17 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.shellcode_urls  = set()
         self.methods_cache   = dict()
         self.formats         = set()
-        self.last_script     = ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randint(10, 32)))
         self.url             = ""
 
+        self.__init_hook_symbols()
         self.__init_config()
+
+    def get_random_name(self):
+        return ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randint(10, 32)))
+
+    def __init_hook_symbols(self):
+        for name in ('eval', 'write', ):
+            setattr(self, '{}_symbol'.format(name), (self.get_random_name(), self.get_random_name(), ))
 
     def __init_config(self):
         self.modules = dict()

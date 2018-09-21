@@ -1,6 +1,6 @@
-var %(saved)s = eval;
+var %(saved)s = document.write;
 
-this.eval = function() {
+document.write = function() {
 	if (typeof %(name)s === "undefined") {
 		window.%(name)s = new Array();
 	}
