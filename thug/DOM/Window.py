@@ -671,6 +671,8 @@ class Window(JSClass):
 
         ID is the interval ID.
         """
+        log.ThugLogging.Features.increase_setinterval_count()
+
         if log.ThugOpts.Personality.isIE() and not f:
             raise TypeError()
 
@@ -700,6 +702,8 @@ class Window(JSClass):
 
         ID is the interval ID.
         """
+        log.ThugLogging.Features.increase_settimeout_count()
+
         if log.ThugOpts.Personality.isIE() and not f:
             raise TypeError()
 
@@ -726,6 +730,7 @@ class Window(JSClass):
         pass
 
     def _attachEvent(self, sEvent, fpNotify, useCapture = False):
+        log.ThugLogging.Features.increase_attachevent_count()
         setattr(self, sEvent.lower(), fpNotify)
 
     def _detachEvent(self, sEvent, fpNotify):
@@ -737,6 +742,7 @@ class Window(JSClass):
             delattr(self, sEvent.lower())
 
     def _addEventListener(self, _type, listener, useCapture = False):
+        log.ThugLogging.Features.increase_addeventlistener_count()
         setattr(self, 'on%s' % (_type.lower(), ), listener)
 
     def _removeEventListener(self, _type, listener, useCapture = False):

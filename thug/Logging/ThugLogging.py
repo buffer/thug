@@ -19,6 +19,7 @@
 from .BaseLogging import BaseLogging
 from .SampleLogging import SampleLogging
 from .LoggingModules import LoggingModules
+from .Features import Features
 from thug.Analysis.virustotal.VirusTotal import VirusTotal
 from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
 from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
@@ -48,6 +49,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.thug_version    = thug_version
         self.VirusTotal      = VirusTotal()
         self.HoneyAgent      = HoneyAgent()
+        self.Features        = Features()
         self.ContextAnalyzer = ContextAnalyzer()
         self.baseDir         = None
         self.windows         = dict()

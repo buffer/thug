@@ -102,6 +102,8 @@ class Shellcode(object):
             return
 
         for script in scripts:
+            log.ThugLogging.Features.increase_eval_count()
+
             try:
                 log.warning("[eval] Deobfuscated argument: %s", script)
             except Exception:

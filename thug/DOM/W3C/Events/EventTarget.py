@@ -97,6 +97,8 @@ class EventTarget(object):
     def _addEventListener(self, eventType, listener, capture = False, prio = False):
         log.debug('_addEventListener(%s, \n%r, \n%s)', eventType, listener, capture)
 
+        log.ThugLogging.Features.increase_addeventlistener_count()
+
         if getattr(self.tag, '_listeners', None) is None:
             self.tag._listeners = list()
 
@@ -120,6 +122,9 @@ class EventTarget(object):
 
     def _attachEvent(self, eventType, handler, prio = False):
         log.debug('_attachEvent(%s, \n%r)', eventType, handler)
+
+        log.ThugLogging.Features.increase_attachevent_count()
+
         if not eventType.startswith('on'):
             log.warning('[WARNING] attachEvent eventType: %s', eventType)
 
@@ -190,6 +195,9 @@ class EventTarget(object):
 
     def dispatchEvent(self, evtType):
         log.info('dispatchEvent(%s)', evtType)
+
+        log.ThugLogging.Features.increase_dispatchevent_count()
+
         evtObject = None
 
         if evtType in MouseEvent.MouseEventTypes:
