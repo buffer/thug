@@ -413,7 +413,11 @@ class ThugAPI(object):
     def run_remote(self, url):
         log.last_url = None
 
-        scheme = urlparse.urlparse(url).scheme
+        try:
+            scheme = urlparse.urlparse(url).scheme
+        except ValueError as e:
+            log.warning("[WARNING] Analysis not performed (%s)", e.message)
+            return
 
         if not scheme or not scheme.startswith('http'):
             url = 'http://%s' % (url, )

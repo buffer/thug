@@ -26,9 +26,14 @@ from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
 import os
 import copy
 import uuid
+import random
+import string
 import errno
+import hashlib
 import logging
 import six.moves.configparser as ConfigParser
+
+from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
 
@@ -52,7 +57,15 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.formats         = set()
         self.url             = ""
 
+        self.__init_hook_symbols()
         self.__init_config()
+
+    def get_random_name(self):
+        return ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randint(10, 32)))
+
+    def __init_hook_symbols(self):
+        for name in ('eval', 'write', ):
+            setattr(self, '{}_symbol'.format(name), (self.get_random_name(), self.get_random_name(), ))
 
     def __init_config(self):
         self.modules = dict()
@@ -106,8 +119,8 @@ class ThugLogging(BaseLogging, SampleLogging):
     def check_snippet(self, s):
         return len(s) < self.eval_min_length_logging
 
-    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis", check = False):
-        if not log.ThugOpts.code_logging:
+    def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis", check = False, force = False):
+        if not log.ThugOpts.code_logging and not force:
             return
 
         if check and self.check_snippet(snippet):
@@ -255,6 +268,27 @@ class ThugLogging(BaseLogging, SampleLogging):
 
             log.URLClassifier.classify(h.url)
             log.HTTPSession.fetch_ssl_certificate(h.url)
+
+            ctype = h.headers.get('content-type', 'unknown')
+
+            md5 = hashlib.md5()
+            md5.update(h.content)
+            sha256 = hashlib.sha256()
+            sha256.update(h.content)
+
+            mtype = Magic(h.content).get_mime()
+
+            data = {
+                "content" : h.content,
+                "status"  : h.status_code,
+                "md5"     : md5.hexdigest(),
+                "sha256"  : sha256.hexdigest(),
+                "fsize"   : len(h.content),
+                "ctype"   : ctype,
+                "mtype"   : mtype
+            }
+
+            self.log_location(h.url, data)
 
         log.URLClassifier.classify(final)
         log.HTTPSession.fetch_ssl_certificate(final)

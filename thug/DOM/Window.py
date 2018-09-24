@@ -901,11 +901,10 @@ class Window(JSClass):
         if script is None:
             return None
 
-        if len(script) > 64:
-            log.warning("[Window] Eval argument length > 64 (%d)", len(script))
-
-        if log.ThugOpts.code_logging and len(script) > 4:
-            log.ThugLogging.add_code_snippet(script, 'Javascript', 'Dynamically_Evaluated', True)
+        log.ThugLogging.add_code_snippet(script,
+                                         language = 'Javascript',
+                                         relationship = 'eval argument',
+                                         check = True)
 
         return self.evalScript(script)
 
@@ -930,6 +929,11 @@ class Window(JSClass):
                 hooks_folder = os.path.join(thug.__configuration_path__, 'hooks')
                 for hook in sorted([h for h in os.listdir(hooks_folder) if h.endswith('.js')]):
                     ctxt.eval(open(os.path.join(hooks_folder, hook), 'r').read())
+
+                for hook in ('eval', 'write'):
+                    js = os.path.join(thug.__configuration_path__, 'scripts', '{}.js'.format(hook))
+                    symbol = getattr(log.ThugLogging, '{}_symbol'.format(hook))
+                    ctxt.eval(open(js, 'r').read() % {'name': symbol[0], 'saved': symbol[1]})
 
                 PyV8.JSEngine.collect()
 

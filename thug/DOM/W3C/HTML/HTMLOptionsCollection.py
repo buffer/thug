@@ -12,7 +12,7 @@ class HTMLOptionsCollection(HTMLCollection):
     def getLength(self):
         return len(self.nodes)
 
-    def setLength(self):
+    def setLength(self, value):
         raise DOMException(DOMException.NOT_SUPPORTED_ERR)
 
     length = property(getLength, setLength)

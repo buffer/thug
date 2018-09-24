@@ -37,7 +37,7 @@ class Attr(Node):
         return self.getValue()
 
     def setNodeValue(self, value):
-        return self.setValue(value)
+        self.setValue(value)
 
     nodeValue = property(getNodeValue, setNodeValue)
 
