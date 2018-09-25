@@ -102,6 +102,9 @@ class Shellcode(object):
             return
 
         for script in scripts:
+            if not isinstance(script, six.string_types):
+                continue
+
             log.ThugLogging.Features.increase_eval_count()
 
             try:
@@ -127,6 +130,9 @@ class Shellcode(object):
             return
 
         for html in htmls:
+            if not isinstance(script, six.string_types):
+                continue
+
             try:
                 log.warning("[document.write] Deobfuscated argument: %s", html)
             except Exception:
