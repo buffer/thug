@@ -1191,9 +1191,6 @@ class DFT(object):
         log.ThugLogging.Features.increase_iframe_count()
         self.handle_frame(iframe, 'iframe')
 
-    def handle_body(self, body):
-        pass
-
     def do_handle_font_face_rule(self, rule):
         for p in rule.style:
             if p.name.lower() not in ('src', ):
