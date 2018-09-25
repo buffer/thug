@@ -159,6 +159,12 @@ class ThugAPI(object):
         log.ThugOpts.elasticsearch_logging = True
         logging.getLogger("elasticsearch").setLevel(logging.ERROR)
 
+    def get_features_logging(self):
+        return log.ThugOpts.features_logging
+
+    def set_features_logging(self):
+        log.ThugOpts.features_logging = True
+
     def get_referer(self):
         return log.ThugOpts.referer
 

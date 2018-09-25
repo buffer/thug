@@ -80,11 +80,17 @@ class Features(object):
         return url if url else log.DFT.window.url
 
     def increase(self, key):
+        if not log.ThugOpts.features_logging:
+            return
+
         url = self.features_url
         self.init_features(url)
         self.features[url][key] += 1
 
     def set(self, key, value):
+        if not log.ThugOpts.features_logging:
+            return
+
         url = self.features_url
         self.init_features(url)
         self.features[url][key] = value

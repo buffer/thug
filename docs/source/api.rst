@@ -210,6 +210,24 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def get_features_logging():
+            """
+            get_features_logging
+
+            Return True if features logging mode is enabled, False otherwise.
+
+            @return: boolean
+            """
+
+        def set_features_logging():
+            """
+            set_features_logging
+
+            Enable features logging mode
+
+            @return: None
+            """
+
         def get_referer():
             """
             get_referer

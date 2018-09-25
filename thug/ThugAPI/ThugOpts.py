@@ -52,6 +52,7 @@ class ThugOpts(dict):
         self._es_logging        = False
         self._code_logging      = True
         self._cert_logging      = True
+        self._features_logging  = False
         self._no_fetch          = False
         self._broken_url        = False
         self._vt_query          = False
@@ -209,6 +210,14 @@ class ThugOpts(dict):
         self._cert_logging = cert_logging
 
     cert_logging = property(get_cert_logging, set_cert_logging)
+
+    def get_features_logging(self):
+        return self._features_logging
+
+    def set_features_logging(self, features_logging):
+        self._features_logging = features_logging
+
+    features_logging = property(get_features_logging, set_features_logging)
 
     def get_no_fetch(self):
         return self._no_fetch
