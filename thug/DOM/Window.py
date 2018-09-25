@@ -1079,13 +1079,13 @@ class Window(JSClass):
 
             html = response.content
 
+            if response.history:
+                url = response.url
+
             try:
                 log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else url, html)
             except Exception:
                 pass
-
-            if response.history:
-                url = response.url
 
             content_type = response.headers.get('content-type' , None)
             if content_type:
