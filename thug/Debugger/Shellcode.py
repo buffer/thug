@@ -130,7 +130,7 @@ class Shellcode(object):
             return
 
         for html in htmls:
-            if not isinstance(script, six.string_types):
+            if not isinstance(html, six.string_types):
                 continue
 
             try:
