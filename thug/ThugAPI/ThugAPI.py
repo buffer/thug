@@ -165,6 +165,9 @@ class ThugAPI(object):
     def set_features_logging(self):
         log.ThugOpts.features_logging = True
 
+    def reset_features_logging(self):
+        log.ThugOpts.features_logging = False
+
     def get_referer(self):
         return log.ThugOpts.referer
 

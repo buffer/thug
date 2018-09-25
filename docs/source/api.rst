@@ -228,6 +228,15 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def reset_features_logging():
+            """
+            reset_features_logging
+
+            Reset features logging mode
+
+            @return: None
+            """
+
         def get_referer():
             """
             get_referer

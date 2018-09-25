@@ -183,6 +183,15 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def reset_features_logging():
+        """
+        reset_features_logging
+
+        Reset features logging mode
+
+        @return: None
+        """
+
     def get_elasticsearch_logging():
         """
         get_elasticsearch_logging
