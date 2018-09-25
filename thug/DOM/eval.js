@@ -6,5 +6,5 @@ this.eval = function() {
 	}
 
 	window.%(name)s.push(arguments[0]);
-	%(saved)s(arguments[0]);
+	return %(saved)s(arguments[0]);
 }
