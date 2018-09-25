@@ -416,7 +416,7 @@ class MongoDB(object):
     def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         if not self.enabled:
             return
-        
+
         if not cve and not description:
             return
 
