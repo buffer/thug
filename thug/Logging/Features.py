@@ -25,6 +25,7 @@ class Features(object):
     counters = (
         'activex_count',
         'addeventlistener_count',
+        'alert_count',
         'attachevent_count',
         'body_count',
         'characters_count',
