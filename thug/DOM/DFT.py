@@ -1243,6 +1243,7 @@ class DFT(object):
             return False
 
         log.URLClassifier.classify(uri)
+        log.ThugLogging.Features.increase_data_uri_count()
 
         h = uri.split(",")
         if len(h) < 2:
