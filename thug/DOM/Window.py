@@ -1051,9 +1051,8 @@ class Window(JSClass):
             if not local:
                 continue
 
-            try:
-                rootFolder = getattr(local, 'rootFolder')
-            except Exception:
+            rootFolder = getattr(local, 'rootFolder', None)
+            if not rootFolder:
                 continue
 
             try:
