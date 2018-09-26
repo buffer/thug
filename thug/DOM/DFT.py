@@ -806,11 +806,9 @@ class DFT(object):
     def handle_external_javascript(self, script):
         src = script.get('src', None)
         if src is None:
-            log.ThugLogging.Features.increase_inline_javascript_count()
             return
 
         log.ThugLogging.Features.increase_url_count()
-        log.ThugLogging.Features.increase_external_javascript_count()
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = "script src")
@@ -829,43 +827,49 @@ class DFT(object):
         if log.ThugOpts.code_logging:
             log.ThugLogging.add_code_snippet(response.content, 'Javascript', 'External')
 
+        self.increase_script_chars_count('javascript', 'external', response.text)
+
         s = self.window.doc.createElement('script')
 
         for attr in script.attrs:
             if attr.lower() not in ('src', ):
                 s.setAttribute(attr, script.get(attr))
 
-        # FIXME
-        # Checking `handle_external_javascript_text' return value is not
-        # really required
-        #
-        # The method `handle_external_javascript_text' is invoked to set
-        # the text property of the newly created script element s. If the
-        # operation succeeds, the script code is logged and executed by
-        # the code at DOM/W3C/HTML/text_property.py so no further processing
-        # is required here
-        if not self.handle_external_javascript_text(s, response):
-            return
+        self.handle_external_javascript_text(s, response)
 
-        # try:
-        #   body = self.window.doc.body
-        # except:  # pylint:disable=bare-except
-        #   body = self.window.doc.getElementsByTagName('body')[0]
+    def increase_javascript_count(self, provenance):
+        m = getattr(log.ThugLogging.Features, "increase_{}_javascript_count".format(provenance), None)
+        if m:
+            m()
 
-        # if body:
-        #   body.appendChild(s)
+    def increase_script_chars_count(self, type_, provenance, code):
+        m = getattr(log.ThugLogging.Features, "add_{}_{}_characters_count".format(provenance, type_), None)
+        if m:
+            m(len(code))
 
-        # self.window.evalScript(response.content, tag = script)
+        m = getattr(log.ThugLogging.Features, "add_{}_{}_whitespaces_count".format(provenance, type_), None)
+        if m:
+            m(len([a for a in code if a.isspace()]))
+
+    def get_javascript_provenance(self, script):
+        src = script.get('src', None)
+        return 'external' if src else 'inline'
 
     def handle_javascript(self, script):
         log.info(script)
 
+        provenance = self.get_javascript_provenance(script)
         self.handle_external_javascript(script)
+        self.increase_javascript_count(provenance)
+
         js = getattr(script, 'text', None)
 
         if js:
             if log.ThugOpts.code_logging:
                 log.ThugLogging.add_code_snippet(js, 'Javascript', 'Contained_Inside')
+
+            if provenance in ('inline', ):
+                self.increase_script_chars_count('javascript', provenance, js)
 
             self.window.evalScript(js, tag = script)
 
@@ -878,6 +882,8 @@ class DFT(object):
     def handle_vbscript(self, script):
         log.info(script)
         log.ThugLogging.Features.increase_vbscript_count()
+
+        self.increase_script_chars_count("vbscript", provenance, str(script))
 
         if log.ThugOpts.code_logging:
             log.ThugLogging.add_code_snippet(str(script), 'VBScript', 'Contained_Inside')

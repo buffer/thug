@@ -35,10 +35,14 @@ class Features(object):
         'embed_count',
         'eval_count',
         'external_javascript_count',
+        'external_javascript_characters_count',
+        'external_javascript_whitespaces_count',
         'head_count',
         'html_count',
         'iframe_count',
         'inline_javascript_count',
+        'inline_javascript_characters_count',
+        'inline_javascript_whitespaces_count',
         'meta_refresh_count',
         'noscript_count',
         'object_count',
@@ -47,6 +51,8 @@ class Features(object):
         'title_count',
         'url_count',
         'vbscript_count',
+        'vbscript_characters_count',
+        'vbscript_whitespaces_count',
         'whitespaces_count'
     )
 
