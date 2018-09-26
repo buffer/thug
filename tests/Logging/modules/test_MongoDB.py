@@ -80,19 +80,19 @@ class TestMongoDB:
         assert next(counter) in (3, )
 
     def test_get_url(self):
-        assert self.mongo.urls.count() in (0, )
+        assert self.mongo.urls.count_documents({}) in (0, )
 
         self.mongo.get_url(self.url)
-        assert self.mongo.urls.count() in (1, )
+        assert self.mongo.urls.count_documents({}) in (1, )
 
         # Testing for Duplicate entry
         self.mongo.get_url(self.url)
-        assert self.mongo.urls.count() in (1, )
+        assert self.mongo.urls.count_documents({}) in (1, )
 
     def test_set_url(self):
         self.mongo.enabled = False
         self.mongo.set_url(self.url)
-        assert self.mongo.analyses.count() in (0, )
+        assert self.mongo.analyses.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         log.ThugVulnModules.disable_acropdf()
@@ -100,25 +100,25 @@ class TestMongoDB:
         log.ThugVulnModules._acropdf_disabled = False  # TODO: Have enable_acropdf() function?
         analysis = self.mongo.analyses.find_one({"thug.plugins.acropdf": "disabled"})
         assert analysis
-        assert self.mongo.analyses.count() in (1, )
+        assert self.mongo.analyses.count_documents({}) in (1, )
 
     def test_log_location(self):
         self.mongo.enabled = False
         self.mongo.log_location(self.url, self.file_data)
-        assert self.mongo.locations.count() in (0, )
+        assert self.mongo.locations.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.log_location(self.url, self.file_data)
-        assert self.mongo.locations.count() in (1, )
+        assert self.mongo.locations.count_documents({}) in (1, )
 
     def test_log_connection(self):
         self.mongo.enabled = False
         self.mongo.log_connection(self.source, self.dest, self.con_method)
-        assert self.mongo.connections.count() in (0, )
+        assert self.mongo.connections.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.log_connection(self.source, self.dest, self.con_method)
-        assert self.mongo.connections.count() in (1, )
+        assert self.mongo.connections.count_documents({}) in (1, )
 
         nodes = self.mongo.graph.G.nodes
         assert self.source in nodes
@@ -127,74 +127,74 @@ class TestMongoDB:
     def test_log_exploit_event(self):
         self.mongo.enabled = False
         self.mongo.log_exploit_event(self.url, "ActiveX", self.desc, self.cve)
-        assert self.mongo.exploits.count() in (0, )
+        assert self.mongo.exploits.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.log_exploit_event(self.url, "ActiveX", self.desc, self.cve)
-        assert self.mongo.exploits.count() in (1, )
+        assert self.mongo.exploits.count_documents({}) in (1, )
 
     def test_log_classifier(self):
         self.mongo.enabled = False
         self.mongo.log_classifier("exploit", self.url, self.cve, self.tag)
-        assert self.mongo.classifiers.count() in (0, )
+        assert self.mongo.classifiers.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.log_classifier("exploit", self.url, self.cve, self.tag)
-        assert self.mongo.classifiers.count() in (1, )
+        assert self.mongo.classifiers.count_documents({}) in (1, )
 
     @patch('gridfs.grid_file.Collection', new=mongomock.collection.Collection)
     def test_log_file(self):
         self.mongo.enabled = False
         self.mongo.log_file(self.file_data)
-        assert self.mongo.samples.count() in (0, )
+        assert self.mongo.samples.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.log_file(self.file_data)
-        assert self.mongo.samples.count() in (1, )
+        assert self.mongo.samples.count_documents({}) in (1, )
 
         # Testing for duplicate entry
         self.mongo.log_file(self.file_data)
-        assert self.mongo.samples.count() in (1, )
+        assert self.mongo.samples.count_documents({}) in (1, )
 
     def test_log_maec11(self):
         self.mongo.enabled = False
         self.mongo.log_maec11(self.base_dir)
-        assert self.mongo.maec11.count() in (0, )
+        assert self.mongo.maec11.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.log_maec11(self.base_dir)
-        assert self.mongo.maec11.count() in (0, )
+        assert self.mongo.maec11.count_documents({}) in (0, )
 
         # Enabling maec11_logging
         log.ThugOpts.maec11_logging = True
         self.mongo.log_maec11(self.base_dir)
         log.ThugOpts.maec11_logging = False
-        assert self.mongo.maec11.count() in (0, )
+        assert self.mongo.maec11.count_documents({}) in (0, )
 
     def test_log_json(self):
         self.mongo.enabled = False
         self.mongo.log_json(self.base_dir)
-        assert self.mongo.json.count() in (0, )
+        assert self.mongo.json.count_documents({}) in (0, )
 
         # Setting self.mongo.enabled = True
         self.mongo.enabled = True
         self.mongo.log_json(self.base_dir)
-        assert self.mongo.json.count() in (0, )
+        assert self.mongo.json.count_documents({}) in (0, )
 
         # Enabling json_logging
         log.ThugOpts.json_logging = True
         self.mongo.log_json(self.base_dir)
         log.ThugOpts.json_logging = False
-        assert self.mongo.json.count() in (0, )
+        assert self.mongo.json.count_documents({}) in (0, )
 
     def test_log_event(self):
         self.mongo.enabled = False
         self.mongo.log_event(self.base_dir)
-        assert self.mongo.graphs.count() in (0, )
+        assert self.mongo.graphs.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.log_event(self.base_dir)
-        assert self.mongo.graphs.count() in (1, )
+        assert self.mongo.graphs.count_documents({}) in (1, )
 
     def test_fix(self):
         encoded_data = self.mongo.fix("")
@@ -209,54 +209,54 @@ class TestMongoDB:
     def test_add_code_snippet(self):
         self.mongo.enabled = False
         self.mongo.add_code_snippet(self.code_snippet, self.language, self.relationship, self.tag)
-        assert self.mongo.codes.count() in (0, )
+        assert self.mongo.codes.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.add_code_snippet(self.code_snippet, self.language, self.relationship, self.tag)
-        assert self.mongo.codes.count() in (1, )
+        assert self.mongo.codes.count_documents({}) in (1, )
 
     def test_add_shellcode_snippet(self):
         self.mongo.codes.delete_many({})
         self.mongo.enabled = False
         self.mongo.add_shellcode_snippet(self.code_snippet, self.language, self.relationship, self.tag)
-        assert self.mongo.codes.count() in (0, )
+        assert self.mongo.codes.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.add_shellcode_snippet(self.code_snippet, self.language, self.relationship, self.tag)
-        assert self.mongo.codes.count() in (1, )
+        assert self.mongo.codes.count_documents({}) in (1, )
 
     def test_add_behaviour_warn(self):
         self.mongo.enabled = False
         self.mongo.add_behavior_warn(self.desc, self.cve, self.code_snippet)
-        assert self.mongo.behaviors.count() in (0, )
+        assert self.mongo.behaviors.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.add_behavior_warn(self.desc, self.cve, self.code_snippet)
-        assert self.mongo.behaviors.count() in (1, )
+        assert self.mongo.behaviors.count_documents({}) in (1, )
 
         self.mongo.add_behavior_warn()
-        assert self.mongo.behaviors.count() in (1, )
+        assert self.mongo.behaviors.count_documents({}) in (1, )
 
     def test_log_certificate(self):
         self.mongo.enabled = False
         self.mongo.log_certificate(self.url, self.cert)
-        assert self.mongo.certificates.count() in (0, )
+        assert self.mongo.certificates.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.log_certificate(self.url, self.cert)
-        assert self.mongo.certificates.count() in (1, )
+        assert self.mongo.certificates.count_documents({}) in (1, )
 
     def test_log_virustotal(self):
         self.mongo.enabled = False
         self.mongo.log_virustotal(self.file_data, "sample-report")
-        assert self.mongo.virustotal.count() in (0, )
+        assert self.mongo.virustotal.count_documents({}) in (0, )
 
         self.mongo.enabled = True
         self.mongo.log_virustotal(self.file_data, "sample-report")
-        assert self.mongo.virustotal.count() in (1, )
+        assert self.mongo.virustotal.count_documents({}) in (1, )
 
     def test_log_honeyagent(self):
-        assert self.mongo.honeyagent.count() in (0, )
+        assert self.mongo.honeyagent.count_documents({}) in (0, )
 
         self.mongo.log_honeyagent(self.file_data, "sample-report")
-        assert self.mongo.honeyagent.count() in (1, )
+        assert self.mongo.honeyagent.count_documents({}) in (1, )
