@@ -23,29 +23,29 @@ log = logging.getLogger("Thug")
 
 class Features(object):
     counters = (
-        'html_count',
-        'head_count',
-        'title_count',
-        'body_count',
-        'iframe_count',
-        'inline_javascript_count',
-        'external_javascript_count',
-        'vbscript_count',
-        'noscript_count',
-        'eval_count',
-        'document_write_count',
-        'url_count',
-        'meta_refresh_count',
-        'embed_count',
-        'object_count',
         'activex_count',
-        'settimeout_count',
-        'setinterval_count',
         'addeventlistener_count',
         'attachevent_count',
+        'body_count',
+        'characters_count',
         'dispatchevent_count',
-        'characters',
-        'whitespaces'
+        'document_write_count',
+        'embed_count',
+        'eval_count',
+        'external_javascript_count',
+        'head_count',
+        'html_count',
+        'iframe_count',
+        'inline_javascript_count',
+        'meta_refresh_count',
+        'noscript_count',
+        'object_count',
+        'setinterval_count',
+        'settimeout_count',
+        'title_count',
+        'url_count',
+        'vbscript_count',
+        'whitespaces_count'
     )
 
     def __init__(self):
@@ -58,11 +58,11 @@ class Features(object):
             if counter in self.counters:
                 return lambda: self.increase(counter)
 
-        if key.startswith('set_'):
-            counter = key.split('set_')[1]
+        if key.startswith('add_'):
+            counter = key.split('add_')[1]
 
             if counter in self.counters:
-                return lambda value: self.set(counter, value)
+                return lambda value: self.add(counter, value)
 
         raise AttributeError
 
@@ -87,10 +87,10 @@ class Features(object):
         self.init_features(url)
         self.features[url][key] += 1
 
-    def set(self, key, value):
+    def add(self, key, value):
         if not log.ThugOpts.features_logging:
             return
 
         url = self.features_url
         self.init_features(url)
-        self.features[url][key] = value
+        self.features[url][key] += value

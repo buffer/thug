@@ -370,8 +370,8 @@ class Navigator(JSClass):
         if redirect_type in (None, 'window open', 'iframe', 'http-redirect', 'meta', ):
             log.last_url = response.url
 
-        log.ThugLogging.Features.set_characters(len(response.text))
-        log.ThugLogging.Features.set_whitespaces(len([a for a in response.text if a.isspace()]))
+        log.ThugLogging.Features.add_characters_count(len(response.text))
+        log.ThugLogging.Features.add_whitespaces_count(len([a for a in response.text if a.isspace()]))
 
         handler = log.MIMEHandler.get_handler(mtype)
         if handler:
