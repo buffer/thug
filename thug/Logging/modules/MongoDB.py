@@ -121,7 +121,7 @@ class MongoDB(object):
 
     def get_url(self, url):
         try:
-            entry = self.urls.insert({'url' : url})
+            entry = self.urls.insert_one({'url' : url}).inserted_id
         except DuplicateKeyError:
             entry = self.__get_url(url)
 
@@ -165,7 +165,7 @@ class MongoDB(object):
                             }
         }
 
-        self.analysis_id = self.analyses.insert(analysis)
+        self.analysis_id = self.analyses.insert_one(analysis).inserted_id
         log.warning('[MongoDB] Analysis ID: %s', str(self.analysis_id))
 
     def get_vuln_module(self, module):
@@ -200,7 +200,7 @@ class MongoDB(object):
             'mime-type'   : data.get("mtype", None)
         }
 
-        self.locations.insert(location)
+        self.locations.insert_one(location)
 
     def log_connection(self, source, destination, method, flags = None):
         if not self.enabled:
@@ -218,7 +218,7 @@ class MongoDB(object):
             'flags'          : flags
         }
 
-        self.connections.insert(connection)
+        self.connections.insert_one(connection)
         self.graph.add_connection(source, destination, method)
 
     def log_exploit_event(self, url, module, description, cve = None, data = None):
@@ -242,7 +242,7 @@ class MongoDB(object):
             'data'        : data
         }
 
-        self.exploits.insert(exploit)
+        self.exploits.insert_one(exploit)
 
     def log_classifier(self, classifier, url, rule, tags):
         """
@@ -264,7 +264,7 @@ class MongoDB(object):
             'tags'        : tags
         }
 
-        self.classifiers.insert(classification)
+        self.classifiers.insert_one(classification)
 
     def get_url_from_location(self, md5):
         result = self.locations.find_one({'analysis_id' : self.analysis_id,
@@ -300,7 +300,7 @@ class MongoDB(object):
         r['analysis_id'] = self.analysis_id
         r['url_id']      = url_id
 
-        self.samples.insert(r)
+        self.samples.insert_one(r)
 
     def log_maec11(self, basedir):
         if not self.enabled:
@@ -323,7 +323,7 @@ class MongoDB(object):
             'report'        : report
         }
 
-        self.maec11.insert(analysis)
+        self.maec11.insert_one(analysis)
 
     def log_json(self, basedir):
         if not self.enabled:
@@ -346,7 +346,7 @@ class MongoDB(object):
             'report'        : report
         }
 
-        self.json.insert(analysis)
+        self.json.insert_one(analysis)
 
     def log_event(self, basedir):
         if not self.enabled:
@@ -364,7 +364,7 @@ class MongoDB(object):
             'graph'         : G
         }
 
-        self.graphs.insert(graph)
+        self.graphs.insert_one(graph)
 
     def fix(self, data, drop_spaces = True):
         """
@@ -396,7 +396,7 @@ class MongoDB(object):
             'method'       : self.fix(method)
         }
 
-        self.codes.insert(code)
+        self.codes.insert_one(code)
 
     def add_shellcode_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
         if not self.enabled:
@@ -411,7 +411,7 @@ class MongoDB(object):
             'method'       : self.fix(method)
         }
 
-        self.codes.insert(code)
+        self.codes.insert_one(code)
 
     def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         if not self.enabled:
@@ -429,7 +429,7 @@ class MongoDB(object):
             'timestamp'   : str(datetime.datetime.now())
         }
 
-        self.behaviors.insert(behavior)
+        self.behaviors.insert_one(behavior)
 
     def add_behavior_warn(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         if not self.enabled:
@@ -447,7 +447,7 @@ class MongoDB(object):
             'certificate' : certificate
         }
 
-        self.certificates.insert(certificate)
+        self.certificates.insert_one(certificate)
 
     def log_analysis_module(self, collection, sample, report):
         if not self.enabled:
@@ -465,7 +465,7 @@ class MongoDB(object):
             'report'      : report
         }
 
-        collection.insert(r)
+        collection.insert_one(r)
 
     def log_virustotal(self, sample, report):
         self.log_analysis_module(self.virustotal, sample, report)
