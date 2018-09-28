@@ -105,7 +105,8 @@ class Shellcode(object):
             if not isinstance(script, six.string_types):
                 continue
 
-            log.ThugLogging.Features.increase_eval_count()
+            if log.ThugOpts.features_logging:
+                log.ThugLogging.Features.increase_eval_count()
 
             try:
                 log.warning("[eval] Deobfuscated argument: %s", script)

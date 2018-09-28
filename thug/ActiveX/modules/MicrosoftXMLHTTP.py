@@ -176,7 +176,8 @@ def overrideMimeType(self, mimetype):
 
 
 def addEventListener(self, _type, listener, useCapture = False):
-    log.ThugLogging.Features.increase_addeventlistener_count()
+    if log.ThugOpts.features_logging:
+        log.ThugLogging.Features.increase_addeventlistener_count()
 
     setattr(self, 'on%s' % (_type.lower(), ), listener)
 
@@ -191,7 +192,8 @@ def removeEventListener(self, _type, listener, useCapture = False):
 
 
 def dispatchEvent(self, evt, pfResult = True):
-    log.ThugLogging.Features.increase_dispatchevent_count()
+    if log.ThugOpts.features_logging:
+        log.ThugLogging.Features.increase_dispatchevent_count()
 
     listener = getattr(self, 'on%s' % (evt.lower(), ), None)
     if listener is None:

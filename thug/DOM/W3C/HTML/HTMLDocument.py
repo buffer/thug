@@ -299,7 +299,8 @@ class HTMLDocument(Document):
         self.doc = BeautifulSoup.BeautifulSoup(html, "html5lib")
 
     def write(self, html):
-        log.ThugLogging.Features.increase_document_write_count()
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_document_write_count()
 
         if isinstance(html, six.integer_types):
             html = str(html)
