@@ -39,11 +39,12 @@ setup(
     download_url = "https://github.com/buffer/thug/",
     platforms = ["Linux", ],
     classifiers = [
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Operating System :: POSIX :: Linux",
+        "Operating System :: MacOS :: MacOS X",
         "Programming Language :: Python :: 2.7",
         "Topic :: Security",
     ],
