@@ -194,7 +194,7 @@ class HTMLDocument(Document):
     @property
     def documentElement(self):
         from .HTMLElement import HTMLElement
-        return HTMLElement(self, self.doc.find('html'))
+        return HTMLElement(self, self.doc)
 
     # FIXME
     @property

@@ -160,7 +160,7 @@ class Document(Node, DocumentEvent, DocumentView):
     @property
     def documentElement(self):
         from .Element import Element
-        return Element(self, self.doc.find('html'))
+        return Element(self, self.doc)
 
     onCreateElement = None
 
