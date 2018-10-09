@@ -233,9 +233,13 @@ class Window(JSClass):
     def self(self):
         return self
 
-    @property
-    def top(self):
-        return self
+    def get_top(self):
+        return self._top
+
+    def set_top(self, top):
+        self._top = top
+
+    top = property(get_top, set_top)
 
     @property
     def _document(self):
