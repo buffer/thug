@@ -26,9 +26,10 @@ import logging
 import six
 import six.moves.urllib.parse as urlparse
 from cssutils.parse import CSSParser
-import pylibemu
 import bs4 as BeautifulSoup
 import cchardet
+
+import pylibemu
 import PyV8
 
 from thug.ActiveX.ActiveX import _ActiveXObject
