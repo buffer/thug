@@ -761,20 +761,32 @@ class DFT(object):
                 except Exception:
                     pass
 
-    def handle_script(self, script):
+    def get_script_handler(self, script):
         language = script.get('language', None)
         if language is None:
             language = script.get('type', None)
 
         if language is None:
-            _language = 'javascript'
-        else:
+            return getattr(self, "handle_javascript")
+
+        try:
             _language = language.lower().split('/')[-1]
+            return getattr(self, "handle_{}".format(_language), None)
+        except Exception:
+            pass
 
-        handler = getattr(self, "handle_{}".format(_language), None)
+        try:
+            _language = language.encode('ascii', 'ignore').lower().split('/')[-1]
+            return getattr(self, "handle_{}".format(_language), None)
+        except Exception:
+            pass
 
+        log.warning("[SCRIPT] Unhandled script type: %s", language)
+        return None
+
+    def handle_script(self, script):
+        handler = self.get_script_handler(script)
         if not handler:
-            log.warning("[SCRIPT] Unhandled script type: %s", language)
             return
 
         if log.ThugOpts.Personality.isIE():
