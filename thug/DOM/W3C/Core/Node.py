@@ -253,6 +253,9 @@ class Node(JSClass, EventTarget):
         return newChild
 
     def replaceChild(self, newChild, oldChild):
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_replacechild_count()
+
         # NO_MODIFICATION_ALLOWED_ERR: Raised if this node or the parent of
         # the new node is readonly.
         if self.is_readonly(self):
