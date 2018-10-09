@@ -41,6 +41,7 @@ class Features(object):
         'form_string_count',
         'frame_string_count',
         'head_count',
+        'hidden_count',
         'html_count',
         'iframe_count',
         'iframe_string_count',

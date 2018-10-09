@@ -1472,6 +1472,17 @@ class DFT(object):
 
         return False
 
+    def check_hidden_element(self, element):
+        if not log.ThugOpts.features_logging:
+            return
+
+        attrs = getattr(element, 'attrs', None)
+        if attrs is None:
+            return
+
+        if 'hidden' in attrs:
+            log.ThugLogging.Features.increase_hidden_count()
+
     def run_htmlclassifier(self, soup):
         try:
             log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, str(soup))
@@ -1486,15 +1497,19 @@ class DFT(object):
 
         # Dirty hack
         for p in soup.find_all('object'):
+            self.check_hidden_element(p)
             self.handle_object(p)
             self.run_htmlclassifier(soup)
 
         for p in soup.find_all('applet'):
+            self.check_hidden_element(p)
             self.handle_applet(p)
 
         for child in soup.descendants:
             if child is None:
                 continue
+
+            self.check_hidden_element(child)
 
             parents = [p.name.lower() for p in child.parents]
             if 'noscript' in parents:
