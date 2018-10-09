@@ -7,7 +7,9 @@ echo "Creating dev environment in ./venv..."
 python2 -m virtualenv venv
 . venv/bin/activate
 pip2 install -U pip setuptools
-pip2 install -r requirements.txt
+pip2 install git+git://github.com/buffer/pyv8.git#egg=pyv8
+pip2 install .
+pip2 install -r requirements-dev.txt
 
 echo ""
 echo "  [*] Created virtualenv environment in ./venv."

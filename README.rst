@@ -33,6 +33,37 @@ discuss the same with the maintainers of the project.
 Thug is free to use for any purpose (even commercial ones). If you use and appreciate Thug, consider supporting the project with a donation
 using Paypal (details at https://buffer.github.com/thug/).
 
+Development Setup
+-----------------
+
+To setup thug's development environment, follow the steps:
+
+.. code-block:: bash
+
+    git clone https://github.com/buffer/thug.git
+    cd thug
+    ./dev.sh
+
+
+The *dev* script will create a `virtualenv`_ environment in a directory called "venv"
+and install all mandatory and optional dependencies into it. Thug is installed as
+a permanent package and to compile all the changes, the package needs to be installed again by ``pip install .``
+
+If you want to install thug as an "editable", please replace the
+line11 in `dev.sh` by the following line and re-run ``dev.sh``
+
+    pip2 install -e .
+
+Installing thug as an "editable" will allow any changes to the source in the repository to be reflected
+live in the virtualenv.
+
+Make sure that you successfully installed thug by running these commands:
+
+.. code-block:: bash
+
+    . venv/bin/activate
+    thug --version
+
 
 Testing
 -------
@@ -88,5 +119,6 @@ License: GNU General Public License, version 2
 .. _JetBrains: https://www.jetbrains.com/?from=thug
 .. |PyCharm| image:: /docs/images/pycharm/pycharm.png
 .. _PyCharm: https://www.jetbrains.com/?from=thug
+.. _virtualenv: https://virtualenv.pypa.io/
 .. _tox: https://tox.readthedocs.io/
 .. _`pytest`: http://pytest.org/
