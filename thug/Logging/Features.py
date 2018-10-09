@@ -45,6 +45,7 @@ class Features(object):
         'external_javascript_whitespaces_count',
         'form_string_count',
         'frame_string_count',
+        'getcomputedstyle_count',
         'head_count',
         'hidden_count',
         'html_count',

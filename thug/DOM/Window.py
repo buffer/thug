@@ -1081,6 +1081,9 @@ class Window(JSClass):
                 log.warning(traceback.format_exc())
 
     def getComputedStyle(self, element, pseudoelt = None):
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_getcomputedstyle_count()
+
         return getattr(element, 'style', None)
 
     def open(self, url = None, name = '_blank', specs = '', replace = False):
