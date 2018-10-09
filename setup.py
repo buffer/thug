@@ -2,7 +2,7 @@
 
 import os
 import glob
-from setuptools import setup, find_packages # Always prefer setuptools over distutils
+from setuptools import setup, find_packages  # Always prefer setuptools over distutils
 
 os.environ['BUILD_LIB'] = '1'
 
@@ -28,17 +28,17 @@ sample_filter_path = os.path.join(rules_path, "samplefilter")
 text_filter_path   = os.path.join(rules_path, "textfilter")
 
 setup(
-    name = "thug",
-    version = thug.__version__,
-    author = "Angelo Dell'Aera",
-    author_email = "angelo.dellaera@honeynet.org",
-    description = "Low-interaction honeyclient Thug",
-    license = "GPLv2",
-    long_description = open("README.rst").read(),
-    url = "http://buffer.github.io/thug/",
-    download_url = "https://github.com/buffer/thug/",
-    platforms = ["Linux", ],
-    classifiers = [
+    name="thug",
+    version=thug.__version__,
+    author="Angelo Dell'Aera",
+    author_email="angelo.dellaera@honeynet.org",
+    description="Low-interaction honeyclient Thug",
+    license="GPLv2",
+    long_description=open("README.rst").read(),
+    url="http://buffer.github.io/thug/",
+    download_url="https://github.com/buffer/thug/",
+    platforms=["Linux", ],
+    classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Console",
         "Intended Audience :: Developers",
@@ -47,11 +47,11 @@ setup(
         "Programming Language :: Python :: 2.7",
         "Topic :: Security",
     ],
-    package_data = {
-           ""       : ["*.js"],
+    package_data={
+           "": ["*.js"],
            },
-    packages = find_packages(),
-    data_files = [
+    packages=find_packages(),
+    data_files=[
         (thug.__configuration_path__, ["thug/Analysis/honeyagent/honeyagent.conf.sample",
                                        "thug/Analysis/virustotal/virustotal.conf.default",
                                        "thug/Logging/logging.conf.default"]),
@@ -79,8 +79,41 @@ setup(
         (text_filter_path           , glob.glob("thug/Classifier/rules/textfilter/*.yar")),
 
     ],
-    install_requires = open("requirements.txt").read().splitlines(),
-    entry_points = {
+    install_requires=[
+        "PySocks==1.6.8",
+        "beautifulsoup4==4.6.3",
+        "cchardet==2.1.1",
+        "cssutils==1.0.2",
+        "elasticsearch==6.3.1",
+        "esprima==4.0.1",
+        "html5lib==1.0.1",
+        "lxml==4.2.5",
+        "networkx==2.2",
+        "pefile==2018.8.8",
+        "pygraphviz==1.5",
+        "pylibemu==0.5.8",
+        "pymongo==3.7.1",
+        "python-magic==0.4.15",
+        "rarfile==3.0",
+        "requests==2.19.1",
+        "six==1.11.0",
+        "ssdeep==3.2",
+        "yara-python==3.8.1",
+        "zope.interface==4.5.0",
+    ],
+    extras_require={
+        'dev': [
+            "codecov==2.0.15"
+            "git+git://github.com/buffer/pyv8.git#egg=pyv8"
+            "mock==2.0.0"
+            "mongomock>=3.12.0,<3.13.0"
+            "pytest==3.8.2"
+            "pytest-timeout==1.3.2"
+            "pytest-cov==2.6.0"
+            "tox==3.5.2"
+        ]
+    },
+    entry_points={
         "console_scripts": [
             "thug = thug.thug:main",
         ]
