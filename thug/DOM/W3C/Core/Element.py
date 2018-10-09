@@ -258,6 +258,9 @@ class Element(Node, ElementCSSInlineStyle):
         return value
 
     def setAttribute(self, name, value):
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_setattribute_count()
+
         if not isinstance(name, six.string_types):
             name = str(name)
 

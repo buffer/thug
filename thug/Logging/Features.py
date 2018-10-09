@@ -64,6 +64,7 @@ class Features(object):
         'removechild_count',
         'removeeventlistener_count',
         'replacechild_count',
+        'setattribute_count',
         'setinterval_count',
         'settimeout_count',
         'title_count',

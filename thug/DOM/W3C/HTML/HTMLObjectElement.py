@@ -72,6 +72,9 @@ class HTMLObjectElement(HTMLElement):
         return self.doc if self.doc else None
 
     def setAttribute(self, name, value):
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_setattribute_count()
+
         # ActiveX registration
         if name == 'classid':
             from thug.ActiveX.ActiveX import register_object
