@@ -26,6 +26,7 @@ class Features(object):
         'activex_count',
         'addeventlistener_count',
         'alert_count',
+        'appendchild_count',
         'attachevent_count',
         'body_count',
         'characters_count',
