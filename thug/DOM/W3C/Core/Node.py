@@ -196,6 +196,9 @@ class Node(JSClass, EventTarget):
                                  Node.COMMENT_NODE, )
 
     def insertBefore(self, newChild, refChild):
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_insertbefore_count()
+
         if not newChild:
             raise DOMException(DOMException.HIERARCHY_REQUEST_ERR)
 

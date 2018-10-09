@@ -55,6 +55,7 @@ class Features(object):
         'inline_vbscript_count',
         'inline_vbscript_characters_count',
         'inline_vbscript_whitespaces_count',
+        'insertbefore_count',
         'meta_refresh_count',
         'noscript_count',
         'object_count',
