@@ -746,6 +746,9 @@ class Window(JSClass):
         setattr(self, sEvent.lower(), fpNotify)
 
     def _detachEvent(self, sEvent, fpNotify):
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_detachevent_count()
+
         notify = getattr(self, sEvent.lower(), None)
         if notify is None:
             return

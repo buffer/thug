@@ -137,6 +137,10 @@ class EventTarget(object):
 
     def _detachEvent(self, eventType, handler):
         log.debug('_detachEvent(%s, \n%r)', eventType, handler)
+
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_detachevent_count()
+
         if not eventType.startswith('on'):
             log.warning('[WARNING] detachEvent eventType: %s', eventType)
 

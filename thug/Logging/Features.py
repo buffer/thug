@@ -30,6 +30,7 @@ class Features(object):
         'body_count',
         'characters_count',
         'data_uri_count',
+        'detachevent_count'
         'dispatchevent_count',
         'document_write_count',
         'embed_count',
