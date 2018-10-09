@@ -295,6 +295,9 @@ class Node(JSClass, EventTarget):
         return oldChild
 
     def removeChild(self, oldChild):
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_removechild_count()
+
         # NO_MODIFICATION_ALLOWED_ERR: Raised if this node is readonly
         if self.is_readonly(self):
             raise DOMException(DOMException.NO_MODIFICATION_ALLOWED)
