@@ -404,6 +404,9 @@ class Node(JSClass, EventTarget):
 
     # @abstractmethod
     def cloneNode(self, deep):
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_clonenode_count()
+
         # Returns a duplicate of this node
         cloned = copy.copy(self)
 
