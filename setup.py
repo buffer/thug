@@ -39,11 +39,12 @@ setup(
     download_url="https://github.com/buffer/thug/",
     platforms=["Linux", ],
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Operating System :: POSIX :: Linux",
+        "Operating System :: MacOS :: MacOS X",
         "Programming Language :: Python :: 2.7",
         "Topic :: Security",
     ],
@@ -103,13 +104,12 @@ setup(
     ],
     extras_require={
         'dev': [
-            "codecov==2.0.15"
-            "git+git://github.com/buffer/pyv8.git#egg=pyv8"
-            "mock==2.0.0"
-            "mongomock>=3.12.0,<3.13.0"
-            "pytest==3.8.2"
-            "pytest-timeout==1.3.2"
-            "pytest-cov==2.6.0"
+            "codecov==2.0.15",
+            "mock==2.0.0",
+            "mongomock>=3.12.0,<3.13.0",
+            "pytest==3.8.2",
+            "pytest-timeout==1.3.2",
+            "pytest-cov==2.6.0",
             "tox==3.5.2"
         ]
     },

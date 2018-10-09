@@ -4,7 +4,7 @@ set -x
 
 echo "Creating dev environment in ./venv..."
 
-python2 -m venv venv
+python2 -m virtualenv venv
 . venv/bin/activate
 pip2 install -U pip setuptools
 pip2 install -r requirements.txt
