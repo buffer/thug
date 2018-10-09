@@ -313,6 +313,9 @@ class Element(Node, ElementCSSInlineStyle):
                 handler(self.doc.window.url, response.content)
 
     def removeAttribute(self, name):
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_removeattribute_count()
+
         del self.tag[name]
 
     def getAttributeNode(self, name):

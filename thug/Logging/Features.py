@@ -61,6 +61,7 @@ class Features(object):
         'noscript_count',
         'object_count',
         'object_string_count',
+        'removeattribute_count',
         'removechild_count',
         'removeeventlistener_count',
         'replacechild_count',
