@@ -878,6 +878,18 @@ class DFT(object):
         if m:
             m(len([a for a in code if a.isspace()]))
 
+    def check_strings_in_script(self, code):
+        if not log.ThugOpts.features_logging:
+            return
+
+        for s in ('iframe', 'embed', 'object', 'frame', 'form'):
+            if s not in code:
+                continue
+
+            m = getattr(log.ThugLogging.Features, "increase_{}_string_count".format(s), None)
+            if m:
+                m()
+
     def get_javascript_provenance(self, script):
         src = script.get('src', None)
         return 'external' if src else 'inline'
@@ -898,6 +910,7 @@ class DFT(object):
             if provenance in ('inline', ):
                 self.increase_script_chars_count('javascript', provenance, js)
 
+            self.check_strings_in_script(js)
             self.window.evalScript(js, tag = script)
 
         self.check_shellcodes()
