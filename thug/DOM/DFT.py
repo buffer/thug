@@ -959,14 +959,15 @@ class DFT(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_body_count()
 
-    def handle_form(self, form):
+    def do_handle_form(self, form):
         from .Window import Window
 
         log.info(form)
 
         action = form.get('action', None)
-        if action is None:
-            return
+        if action in (None, 'self', ):
+            last_url = getattr(log, 'last_url', None)
+            action = last_url if last_url else self.window.url
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_url_count()
@@ -975,8 +976,8 @@ class DFT(object):
         if _action is None:
             return
 
-        if _action in self.forms:
-            return
+       #  if _action in self.forms:
+       #      return
 
         self.forms.append(_action)
         method = form.get('method', 'get')

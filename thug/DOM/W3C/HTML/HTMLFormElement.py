@@ -39,7 +39,7 @@ class HTMLFormElement(HTMLElement):
     target          = attr_property("target")
 
     def submit(self):
-        handler = getattr(log.DFT, 'handle_form', None)
+        handler = getattr(log.DFT, 'do_handle_form', None)
         if handler:
             handler(self.tag)
 
