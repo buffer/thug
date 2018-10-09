@@ -1388,8 +1388,12 @@ class DFT(object):
         clicked_anchors.sort(key = lambda anchor: anchor['_clicked'])
 
         for anchor in clicked_anchors:
-            href = anchor['href']
             del anchor['_clicked']
+
+            if 'href' not in anchor:
+                continue
+
+            href = anchor['href']
 
             if 'target' in anchor.attrs and not anchor.attrs['target'] in ('_self', ):
                 pid = os.fork()
