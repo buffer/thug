@@ -204,6 +204,10 @@ class Document(Node, DocumentEvent, DocumentView):
 
     def createDocumentFragment(self):
         from .DocumentFragment import DocumentFragment
+
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_createdocumentfragment_count()
+
         return DocumentFragment(self)
 
     def createTextNode(self, data):

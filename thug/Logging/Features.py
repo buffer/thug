@@ -31,6 +31,7 @@ class Features(object):
         'body_count',
         'characters_count',
         'clonenode_count',
+        'createdocumentfragment_count',
         'createelement_count',
         'data_uri_count',
         'detachevent_count'
