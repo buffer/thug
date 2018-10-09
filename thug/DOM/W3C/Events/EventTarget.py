@@ -116,6 +116,9 @@ class EventTarget(object):
     def _removeEventListener(self, eventType, listener, capture = False):
         log.debug('_removeEventListener(%s, \n%r, \n%s)', eventType, listener, capture)
 
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_removeeventlistener_count()
+
         try:
             self.tag._listeners.remove((eventType, listener, capture))
         except Exception:

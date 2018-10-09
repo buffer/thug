@@ -183,6 +183,9 @@ def addEventListener(self, _type, listener, useCapture = False):
 
 
 def removeEventListener(self, _type, listener, useCapture = False):
+    if log.ThugOpts.features_logging:
+        log.ThugLogging.Features.increase_removeeventlistener_count()
+
     _listener = getattr(self, 'on%s' % (_type.lower(), ), None)
     if _listener is None:
         return

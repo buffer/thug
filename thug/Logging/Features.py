@@ -55,6 +55,7 @@ class Features(object):
         'noscript_count',
         'object_count',
         'object_string_count',
+        'removeeventlistener_count',
         'setinterval_count',
         'settimeout_count',
         'title_count',
