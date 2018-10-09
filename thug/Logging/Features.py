@@ -29,6 +29,7 @@ class Features(object):
         'attachevent_count',
         'body_count',
         'characters_count',
+        'createelement_count',
         'data_uri_count',
         'detachevent_count'
         'dispatchevent_count',

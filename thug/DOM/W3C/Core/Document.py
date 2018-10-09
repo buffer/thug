@@ -187,6 +187,9 @@ class Document(Node, DocumentEvent, DocumentView):
     def createElement(self, tagname, tagvalue = None):
         from .DOMImplementation import DOMImplementation
 
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_createelement_count()
+
         # Internet Explorer 8 and below also support the syntax
         # document.createElement('<P>')
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
