@@ -976,10 +976,9 @@ class DFT(object):
         if _action is None:
             return
 
-       #  if _action in self.forms:
-       #      return
+        if _action not in self.forms:
+            self.forms.append(_action)
 
-        self.forms.append(_action)
         method = form.get('method', 'get')
 
         payload = None
