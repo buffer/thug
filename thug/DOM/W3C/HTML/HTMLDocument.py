@@ -144,6 +144,10 @@ class HTMLDocument(Document):
 
     @property
     def referrer(self):
+        last_url = getattr(log, 'last_url', None)
+        if last_url:
+            return last_url
+
         if self._referer:
             return str(self._referer)
 
