@@ -105,7 +105,7 @@ class Window(JSClass):
 
     def __init__(self, url, dom_or_doc, navigator = None, personality = 'winxpie60', name="",
                  target='_blank', parent = None, opener = None, replace = False, screen = None,
-                 width = 800, height = 600, left = 0, top = 0, **kwds):
+                 width = 800, height = 600, left = 0, top = None, **kwds):
 
         self.url = url
         self.doc = w3c.getDOMImplementation(dom_or_doc, **kwds) if isinstance(dom_or_doc, BeautifulSoup.BeautifulSoup) else dom_or_doc
@@ -138,7 +138,7 @@ class Window(JSClass):
         self.defaultStatus = ""
         self.status        = ""
         self._left         = left
-        self._top          = top
+        self._top          = top if top else self
         self.innerWidth    = width
         self.innerHeight   = height
         self.outerWidth    = width
