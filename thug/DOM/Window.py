@@ -784,10 +784,11 @@ class Window(JSClass):
         if log.ThugOpts.code_logging:
             log.ThugLogging.add_code_snippet(code, language, 'Contained_Inside')
 
-        if language in ("JScript", ):
+        if language.lower().startswith(('jscript', 'javascript')):
             self.eval(code)
-        else:
-            log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.url, code)
+
+        if language.lower().startswith('vbs'):
+            log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.url, code)
 
         return None
 
