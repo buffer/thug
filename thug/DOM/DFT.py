@@ -1258,6 +1258,7 @@ class DFT(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_iframe_count()
 
+        self.check_small_element(iframe, 'iframe')
         self.handle_frame(iframe, 'iframe')
 
     def do_handle_font_face_rule(self, rule):
