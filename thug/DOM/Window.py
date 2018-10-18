@@ -1089,7 +1089,8 @@ class Window(JSClass):
 
     def open(self, url = None, name = '_blank', specs = '', replace = False):
         if url and url not in ('about:blank', ):
-            log.last_url = url
+            if self.url not in ('about:blank', ):
+                log.last_url = url
 
             try:
                 response = self._navigator.fetch(url, redirect_type = "window open")
