@@ -686,6 +686,8 @@ class DFT(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_object_count()
 
+        self.check_small_element(_object, 'object')
+
         # self.check_attrs(_object)
         params = self.do_handle_params(_object)
 
