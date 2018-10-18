@@ -789,6 +789,9 @@ class DFT(object):
         if not handler:
             return
 
+        node = getattr(script, "_node", None)
+        self.window.doc._currentScript = node
+
         if log.ThugOpts.Personality.isIE():
             self._handle_script_for_event(script)
 

@@ -37,6 +37,7 @@ class HTMLDocument(Document):
         self._cookie        = cookie
         self._html          = None
         self._head          = None
+        self._currentScript = None
         self._readyState    = "loading"
         self._domain        = urlparse.urlparse(self._win.url).hostname if self._win else ''
         self.current        = None
@@ -401,8 +402,9 @@ class HTMLDocument(Document):
 
     @property
     def currentScript(self):
-        from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-        return DOMImplementation.createHTMLElement(self.doc, self.current) if self.current else None
+        # from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
+        # return DOMImplementation.createHTMLElement(self.doc, self.current) if self.current else None
+        return self._currentScript
 
     def _createStyleSheet(self, URL = None, index = None):
         # Creates a styleSheet object and inserts it into the current document.
