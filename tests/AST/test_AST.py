@@ -2,7 +2,7 @@ import os
 import logging
 
 import thug
-from thug.AST.AST3 import AST
+from thug.AST.AST import AST
 from thug.ThugAPI.ThugOpts import ThugOpts
 
 configuration_path     = thug.__configuration_path__
@@ -12,7 +12,7 @@ log.personalities_path = os.path.join(configuration_path, "personalities") if co
 log.ThugOpts           = ThugOpts()
 
 
-class TestAST3(object):
+class TestAST(object):
     DEBUG = True
 
     def debug_info(self, script, ast):

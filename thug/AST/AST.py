@@ -16,226 +16,187 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+
 import logging
 import traceback
-import PyV8
+import six
+import esprima
 
 log = logging.getLogger("Thug")
 
 
-class AST(object):
-    (AssignBreakPoint,
-     LoopBreakPoint) = range(0, 2)
+class ASTVisitor(esprima.NodeVisitor):
+    def __init__(self, ast):
+        self.ast    = ast
+        self._scope = list()
 
-    AssignOps = [PyV8.AST.Op.ASSIGN,
-                 PyV8.AST.Op.ASSIGN_ADD,
-                 PyV8.AST.Op.ASSIGN_BIT_AND,
-                 PyV8.AST.Op.ASSIGN_BIT_OR,
-                 PyV8.AST.Op.ASSIGN_BIT_XOR,
-                 PyV8.AST.Op.ASSIGN_DIV,
-                 PyV8.AST.Op.ASSIGN_MOD,
-                 PyV8.AST.Op.ASSIGN_MUL,
-                 PyV8.AST.Op.ASSIGN_SAR,
-                 PyV8.AST.Op.ASSIGN_SHL,
-                 PyV8.AST.Op.ASSIGN_SHR,
-                 PyV8.AST.Op.ASSIGN_SUB,
-                 PyV8.AST.Op.INIT_VAR]
+    @property
+    def scope(self):
+        return self._scope[-1] if self._scope else 'global'
 
-    def __init__(self, window, script):
-        self.names           = set()
-        self.inLoop          = False
-        self.inBlock         = True
-        self.exitingLoop     = 0
-        self.assignStatement = False
-        self.breakpoints     = set()
-        self.window          = window
+    def visit_FunctionDeclaration(self, node):
+        func_name = node.id.name
 
-        self.walk(script)
+        self._scope.append(func_name)
+        self.generic_visit(node)
+        self._scope.pop()
 
-    def checkExitingLoop(self, pos):
-        if self.exitingLoop > 0:
-            self.exitingLoop -= 1
-            self.breakpoints.add((self.LoopBreakPoint, pos))
-
-    def walk(self, script):
-        self.block_no = 1
-
-        try:
-            PyV8.JSEngine().compile(script).visit(self)
-        except UnicodeDecodeError:
-            enc = log.Encoding.detect(script, safe = True)
-            if enc is None:
-                return
-
-            PyV8.JSEngine().compile(script.decode(enc['encoding'])).visit(self)
-        except Exception:
-            pass
-
-    def onProgram(self, prog):
-        for decl in prog.scope.declarations:
-            decl.visit(self)
-
-        for stmt in prog.body:
-            stmt.visit(self)
-
-    def _enterBlock(self):
-        self.inBlock = True
-
-    def _exitBlock(self):
-        self.inBlock = False
-
-    def onBlock(self, block):
-        self._enterBlock()
-        for stmt in block.statements:
-            stmt.visit(self)
-
-        self._exitBlock()
-        self.block_no += 1
-
-    def onExpressionStatement(self, stmt):
-        self.checkExitingLoop(stmt.expression.pos)
-        stmt.expression.visit(self)
-        if self.assignStatement:
-            if self.inBlock:
-                # FIXME
-                # AstCallRuntime has no 'pos' attribute
-                try:
-                    pos = stmt.expression.pos
-                except Exception:
-                    traceback.print_exc()
-                    return
-            else:
-                pos = stmt.expression.pos
-
-            self.breakpoints.add((self.AssignBreakPoint, pos))
-            self.assignStatement = False
-
-    def onVariableDeclaration(self, decl):
-        var = decl.proxy
-
-        # if decl.scope.isGlobal:
-        #    getattr(self.window, var.name, None)
-
-        if decl.mode == PyV8.AST.VarMode.var:
-            self.names.add(var.name)
-
-    def onFunctionDeclaration(self, decl):
-        # f = decl.proxy
-
-        # if decl.scope.isGlobal:
-        #    getattr(self.window, f.name, None)
-
-        for d in decl.scope.declarations:
-            if not getattr(d, 'function', None):
+    def visit_VariableDeclaration(self, node):
+        for decl in node.declarations:
+            if decl.type not in ('VariableDeclarator', ):
                 continue
 
-            d.function.visit(self)
+            self.ast.set_name(self.scope, decl.id.name)
 
-            # for stmt in d.function.body:
-            #    stmt.visit(self)
+            init = getattr(decl, "init", None)
+            if init is None:
+                return
 
-    def onAssignment(self, expr):
-        if not self.inLoop:
-            if expr.op in self.AssignOps:
-                self.assignStatement = True
+            self.ast.set_assign_breakpoint(self.scope, decl)
 
-        self.names.add(str(expr.target))
-        expr.target.visit(self)
-        expr.value.visit(self)
+            raw = getattr(init, "raw", None)
+            if raw:
+                self.ast.set_assignment(self.scope, decl.id.name, raw)
 
-    def onIfStatement(self, stmt):
-        stmt.condition.visit(self)
+        self.generic_visit(node)
 
-        if stmt.hasThenStatement:
-            stmt.thenStatement.visit(self)
-        if stmt.hasElseStatement:
-            stmt.elseStatement.visit(self)
+    def visit_ForStatement(self, node):
+        self.ast.set_loop_breakpoint(self.scope, node)
 
-    def enterLoop(self):
-        self.inLoop = True
+    def visit_WhileStatement(self, node):
+        self.ast.set_loop_breakpoint(self.scope, node)
 
-    def exitLoop(self):
-        self.inLoop = False
-        self.exitingLoop += 1
+    def visit_DoWhileStatement(self, node):
+        self.ast.set_loop_breakpoint(self.scope, node)
 
-    def onForStatement(self, stmt):
-        self.checkExitingLoop(stmt.pos)
-        self.enterLoop()
+    def visit_ForInStatement(self, node):
+        self.ast.set_loop_breakpoint(self.scope, node)
 
-        if stmt.init:
-            stmt.init.visit(self)
+    def visit_ReturnStatement(self, node):
+        self.ast.add_shellcode(node.argument.value)
+        self.generic_visit(node)
 
-        if stmt.nextStmt:
-            stmt.nextStmt.visit(self)
+    def handle_CallExpression(self, node):
+        for p in node.expression.arguments:
+            if p.type in ('Literal', ):
+                self.ast.add_shellcode(p.value)
 
-        if stmt.condition:
-            stmt.condition.visit(self)
+    def handle_AssignmentExpression(self, node):
+        if node.expression.operator not in self.ast.ASSIGN_OPERATORS:
+            return
 
-        if stmt.body:
-            stmt.body.visit(self)
+        self.ast.set_name(self.scope, node.expression.left.name)
+        self.ast.set_assign_breakpoint(self.scope, node.expression)
 
-        self.exitLoop()
+    def visit_ExpressionStatement(self, node):
+        _type = node.expression.type
+        handler = getattr(self, 'handle_{}'.format(_type), None)
+        if handler:
+            handler(node)
 
-    def onWhileStatement(self, stmt):
-        self.checkExitingLoop(stmt.pos)
-        self.enterLoop()
-        stmt.condition.visit(self)
-        stmt.body.visit(self)
-        self.exitLoop()
+        self.generic_visit(node)
 
-    def onDoWhileStatement(self, stmt):
-        self.checkExitingLoop(stmt.pos)
-        self.enterLoop()
-        stmt.condition.visit(self)
-        stmt.body.visit(self)
-        self.exitLoop()
 
-    def onForInStatement(self, stmt):
-        self.checkExitingLoop(stmt.pos)
-        self.enterLoop()
-        stmt.enumerable.visit(self)
-        stmt.body.visit(self)
-        self.exitLoop()
+class AST(object):
+    # Breakpoints
+    ASSIGN_BREAKPOINT = 0x00
+    LOOP_BREAKPOINT   = 0x01
 
-    def onCall(self, expr):
-        for arg in expr.args:
-            arg.visit(self)
+    # Assignment operators
+    OP_ASSIGN         = '='
+    OP_ASSIGN_ADD     = '+='
+    OP_ASSIGN_SUB     = '-='
+    OP_ASSIGN_MUL     = '*='
+    OP_ASSIGN_DIV     = '/='
+    OP_ASSIGN_MOD     = '%='
+    OP_ASSIGN_SHL     = '<<='
+    OP_ASSIGN_SAR     = '>>='
+    OP_ASSIGN_SHR     = '>>>='
+    OP_ASSIGN_BIT_OR  = '|='
+    OP_ASSIGN_BIT_XOR = '^='
+    OP_ASSIGN_BIT_AND = '&='
 
-        handle = getattr(log.ASTHandler, "handle_%s" % (expr.expression, ), None)
-        if handle:
-            handle(expr.args)
+    ASSIGN_OPERATORS = (OP_ASSIGN,
+                        OP_ASSIGN_ADD,
+                        OP_ASSIGN_SUB,
+                        OP_ASSIGN_MUL,
+                        OP_ASSIGN_DIV,
+                        OP_ASSIGN_MOD,
+                        OP_ASSIGN_SHL,
+                        OP_ASSIGN_SAR,
+                        OP_ASSIGN_SHR,
+                        OP_ASSIGN_BIT_OR,
+                        OP_ASSIGN_BIT_XOR,
+                        OP_ASSIGN_BIT_AND,
+                        )
 
-        expr.expression.visit(self)
+    def __init__(self, script, window = None):
+        self.names       = list()
+        self.assignments = list()
+        self.breakpoints = list()
+        self.calls       = set()
+        self.shellcodes  = set()
+        self.visitor     = ASTVisitor(self)
+        self.window      = window
 
-    def onCallNew(self, expr):
-        handle = getattr(log.ASTHandler, "handle_%s" % (expr.expression, ), None)
-        if handle:
-            handle(expr.args)
+        try:
+            self.__init_ast(script)
+        except Exception:
+            if log.ThugOpts.ast_debug:
+                log.warning("[AST] Script parsing error (see trace below)")
+                log.warning(traceback.format_exc())
 
-        for arg in expr.args:
-            arg.visit(self)
+    def __init_ast(self, script):
+        self.ast = esprima.parse(script, {'loc'      : True,
+                                          'tolerant' : True
+                                          }, delegate = self.visitor)
 
-    def onCallRuntime(self, expr):
-        for arg in expr.args:
-            arg.visit(self)
+    def walk(self):
+        self.visitor.visit(self.ast)
 
-    def onFunctionLiteral(self, litr):
-        for decl in litr.scope.declarations:
-            decl.visit(self)
+    def set_breakpoint(self, scope, node, _type):
+        bp = {
+            'type'  : _type,
+            'line'  : node.loc.end.line,
+            'scope' : scope,
+        }
 
-        for e in litr.body:
-            e.visit(self)
+        if bp not in self.breakpoints:
+            self.breakpoints.append(bp)
 
-    def onLiteral(self, litr):
-        if len(str(litr)) > 256:
-            log.ThugLogging.shellcodes.add(str(litr).lstrip('"').rstrip('"'))
+    def set_assign_breakpoint(self, scope, node):
+        self.set_breakpoint(scope, node, self.ASSIGN_BREAKPOINT)
 
-    def onReturnStatement(self, stmt):
-        stmt.expression.visit(self)
+    def set_loop_breakpoint(self, scope, node):
+        self.set_breakpoint(scope, node, self.LOOP_BREAKPOINT)
 
-    def onCompareOperation(self, stmt):
-        stmt.left.visit(self)
-        stmt.right.visit(self)
+    def set_name(self, scope, name):
+        _name = {
+            'name'  : name,
+            'scope' : scope
+        }
 
-    def onCountOperation(self, stmt):
-        stmt.expression.visit(self)
+        if _name not in self.names:
+            self.names.append(_name)
+
+    def set_assignment(self, scope, name, value):
+        _assignment = {
+            'name'  : name,
+            'scope' : scope,
+            'value' : value
+        }
+
+        if _assignment not in self.assignments:
+            self.assignments.append(_assignment)
+
+    def add_shellcode(self, sc):
+        if not isinstance(sc, (six.string_types, six.text_type, six.binary_type)):
+            return
+
+        if len(sc) < 32:
+            return
+
+        try:
+            log.ThugLogging.shellcodes.add(sc.encode('latin1'))
+        except Exception:
+            self.shellcodes.add(sc)
