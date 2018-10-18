@@ -1486,6 +1486,39 @@ class DFT(object):
         if 'hidden' in attrs:
             log.ThugLogging.Features.increase_hidden_count()
 
+    def check_small_element(self, element, tagname):
+        if not log.ThugOpts.features_logging:
+            return
+
+        attrs = getattr(element, 'attrs', None)
+        if attrs is None:
+            return None
+
+        attrs_count = 0
+        element_area = 1
+
+        for key in ('width', 'height'):
+            if key not in attrs:
+                continue
+
+            try:
+                value = int(attrs[key].split('px')[0])
+            except Exception:
+                continue
+
+            if value <= 2:
+                m = getattr(log.ThugLogging.Features, 'increase_{}_small_{}_count'.format(tagname, key), None)
+                if m:
+                    m()
+
+            attrs_count += 1
+            element_area *= value
+
+        if attrs_count > 1 and element_area < 30:
+            m = getattr(log.ThugLogging.Features, 'increase_{}_small_area_count'.format(tagname), None)
+            if m:
+                m()
+
     def run_htmlclassifier(self, soup):
         try:
             log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, str(soup))
