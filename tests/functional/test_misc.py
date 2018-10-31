@@ -87,3 +87,46 @@ class TestMiscSamples(object):
         sample   = os.path.join(self.misc_path, "testCloneNode2.html")
         expected = ['<button align="left" id="myButton">Clone node</button>']
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testCreateHTMLDocument(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCreateHTMLDocument.html")
+        expected = ['<html><head><title>New Document</title></head><body><p>This is a new paragraph.</p></body></html>']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testCreateStyleSheet(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCreateStyleSheet.html")
+        expected = ['style1.css" rel="stylesheet"></link><link href="style2.css" rel="stylesheet"></link><link href="style3.css" rel="stylesheet"></link><link href="style4']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDocumentAll(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentAll.html")
+        expected = ['<a href="http://www.google.com">Google</a>']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDocumentWrite1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentWrite1.html")
+        expected = ['Foobar',
+                    "Google</a><script>alert('foobar');</script><script language=\"VBScript\">alert('Gnam');</script><script>alert('Aieeeeee');</script></body>"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testExternalSidebar(self, caplog):
+        sample   = os.path.join(self.misc_path, "testExternalSidebar.html")
+        expected = ['[Window] Alert Text: Internet Explorer >= 7.0 or Chrome']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testGetElementsByClassName(self, caplog):
+        sample   = os.path.join(self.misc_path, "testGetElementsByClassName.html")
+        expected = ['<div class="example">First</div>',
+                    '<div class="example">Hello World!</div>',
+                    '<div class="example">Second</div>']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testInnerHTML(self, caplog):
+        sample   = os.path.join(self.misc_path, "testInnerHTML.html")
+        expected = ['dude', 'Fred Flinstone']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testInsertBefore(self, caplog):
+        sample   = os.path.join(self.misc_path, "testInsertBefore.html")
+        expected = ["<div>Just a sample</div><div>I'm your reference!</div></body></html>"]
+        self.do_perform_test(caplog, sample, expected)
