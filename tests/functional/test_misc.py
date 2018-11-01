@@ -1,9 +1,5 @@
-import sys
 import os
-import json
-import tempfile
 import logging
-import pytest
 
 from thug.ThugAPI.ThugAPI import ThugAPI
 
@@ -32,12 +28,12 @@ class TestMiscSamples(object):
             for record in records:
                 if e in record:
                     matches += 1
-            
+
         assert matches >= len(expected)
 
     def test_plugindetect1(self, caplog):
         sample   = os.path.join(self.misc_path, "PluginDetect-0.7.6.html")
-        expected = ['AdobeReader version: 9.1.0.0', 
+        expected = ['AdobeReader version: 9.1.0.0',
                     'Flash version: 10.0.64.0']
 
         self.do_perform_test(caplog, sample, expected)
@@ -47,7 +43,7 @@ class TestMiscSamples(object):
         expected = ['AdobeReader version: 9,1,0,0',
                     'Flash version: 10,0,64,0',
                     'Java version: 1,6,0,32',
-                    'ActiveXObject: javawebstart.isinstalled.1.6.0.0', 
+                    'ActiveXObject: javawebstart.isinstalled.1.6.0.0',
                     'ActiveXObject: javaplugin.160_32']
 
         self.do_perform_test(caplog, sample, expected)
@@ -129,4 +125,171 @@ class TestMiscSamples(object):
     def test_testInsertBefore(self, caplog):
         sample   = os.path.join(self.misc_path, "testInsertBefore.html")
         expected = ["<div>Just a sample</div><div>I'm your reference!</div></body></html>"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocalStorage(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocalStorage.html")
+        expected = ["Alert Text: Fired",
+                    "Alert Text: bar",
+                    "Alert Text: south"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testPlugins(self, caplog):
+        sample   = os.path.join(self.misc_path, "testPlugins.html")
+        expected = ["Shockwave Flash 10.0.64.0",
+                    "Windows Media Player 7",
+                    "Adobe Acrobat"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation1.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: http://www.google.com"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation2.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: http://www.google.com"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation3.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: http://www.google.com"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation4.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: http://www.google.com"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation5(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation5.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: http://www.google.com"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation6(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation6.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: http://www.google.com"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMetaXUACompatibleEdge(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMetaXUACompatibleEdge.html")
+        expected = ["[Window] Alert Text: 9"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMetaXUACompatibleEmulateIE(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMetaXUACompatibleEmulateIE.html")
+        expected = ["[Window] Alert Text: 8"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMetaXUACompatibleIE(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMetaXUACompatibleIE.html")
+        expected = ["[Window] Alert Text: 9"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testNode(self, caplog):
+        sample   = os.path.join(self.misc_path, "testNode.html")
+        expected = ['<a href="/" id="thelink">test</a>',
+                    "thediv"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testNode2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testNode2.html")
+        expected = ['<a href="/bar.html" id="thelink">test</a>',
+                    "thediv2"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testQuerySelector(self, caplog):
+        sample   = os.path.join(self.misc_path, "testQuerySelector.html")
+        expected = ["Alert Text: Have a Good life.",
+                    "CoursesWeb.net"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testQuerySelector2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testQuerySelector2.html")
+        expected = ['<li class="aclass">CoursesWeb.net</li>',
+                    "<li>MarPlo.net</li>",
+                    '<li class="aclass">php.net</li>']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testScope(self, caplog):
+        sample   = os.path.join(self.misc_path, "testScope.html")
+        expected = ["foobar",
+                    "foo",
+                    "bar",
+                    "True",
+                    "3",
+                    "2012-10-07 11:13:00",
+                    "3.14159265359",
+                    "/foo/i"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testSessionStorage(self, caplog):
+        sample   = os.path.join(self.misc_path, "testSessionStorage.html")
+        expected = ["key1",
+                    "key2",
+                    "value1",
+                    "value3"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testSetInterval(self, caplog):
+        sample   = os.path.join(self.misc_path, "testSetInterval.html")
+        expected = ["[Window] Alert Text: Hello"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testText(self, caplog):
+        sample   = os.path.join(self.misc_path, "testText.html")
+        expected = ['<p id="p1">First line of paragraph.<br/> Some text added dynamically. </p>']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testWindowOnload(self, caplog):
+        sample   = os.path.join(self.misc_path, "testWindowOnload.html")
+        expected = ["[Window] Alert Text: Fired"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_test_click(self, caplog):
+        sample   = os.path.join(self.misc_path, "test_click.html")
+        expected = ["[window open redirection] about:blank -> https://www.google.com"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testInsertAdjacentHTML1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testInsertAdjacentHTML1.html")
+        expected = ['<div id="five">five</div><div id="one">one</div>']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testInsertAdjacentHTML2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testInsertAdjacentHTML2.html")
+        expected = ['<div id="two"><div id="six">six</div>two</div>']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testInsertAdjacentHTML3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testInsertAdjacentHTML3.html")
+        expected = ['<div id="three">three<div id="seven">seven</div></div>']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testInsertAdjacentHTML4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testInsertAdjacentHTML4.html")
+        expected = ['<div id="four">four</div><div id="eight">eight</div>']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLHTTPEvent1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent1.html")
+        expected = ["[Window] Alert Text: Request completed"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLHTTPEvent2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent2.html")
+        expected = ["[Window] Alert Text: Request completed"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testCurrentScript(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCurrentScript.html")
+        expected = ["[Window] Alert Text: This page has scripts",
+                    "[Window] Alert Text: text/javascript",
+                    "[Window] Alert Text: Just a useless script"]
         self.do_perform_test(caplog, sample, expected)
