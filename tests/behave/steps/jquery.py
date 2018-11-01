@@ -3,8 +3,8 @@ import os
 from behave import *
 from behave.log_capture import capture
 
-THUG = os.path.dirname(os.path.abspath(__file__)).split("samples")[0]
-JQUERY = os.path.join(THUG, 'samples', 'jQuery')
+THUG = os.path.dirname(os.path.abspath(__file__)).split("thug")[0]
+JQUERY = os.path.join(THUG, 'thug', 'samples', 'jQuery')
 sys.path.append(os.path.join(THUG, 'src'))
 
 from thug.ThugAPI.ThugAPI import ThugAPI
