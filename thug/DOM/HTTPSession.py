@@ -211,7 +211,7 @@ class HTTPSession(object):
                                data    = body,
                                verify  = False)
         except requests.ConnectionError as e:
-            log.ThugLogging.log_warning("[HTTPSession] {0}".format(e.message))
+            log.ThugLogging.log_warning("[HTTPSession] {0}".format(str(e)))
 
         if not response.ok:
             return None
