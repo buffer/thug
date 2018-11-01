@@ -960,6 +960,9 @@ class Window(JSClass):
 
                 for hook in ('eval', 'write'):
                     js = os.path.join(thug.__configuration_path__, 'scripts', '{}.js'.format(hook))
+                    if not os.path.exists(js):
+                        continue
+
                     symbol = getattr(log.ThugLogging, '{}_symbol'.format(hook))
                     ctxt.eval(open(js, 'r').read() % {'name': symbol[0], 'saved': symbol[1]})
 
