@@ -954,7 +954,8 @@ class Window(JSClass):
                         ctxt.eval(open(date_js, 'r').read())
 
                 hooks_folder = os.path.join(thug.__configuration_path__, 'hooks')
-                for hook in sorted([h for h in os.listdir(hooks_folder) if h.endswith('.js')]):
+                hooks = os.listdir(hooks_folder) if os.path.exists(hooks_folder) else list()
+                for hook in sorted([h for h in hooks if h.endswith('.js')]):
                     ctxt.eval(open(os.path.join(hooks_folder, hook), 'r').read())
 
                 for hook in ('eval', 'write'):
