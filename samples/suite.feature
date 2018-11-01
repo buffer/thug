@@ -176,7 +176,6 @@ Feature: Exploits
 			| testMetaXUACompatibleIE.html                 | [Window] Alert Text: 9                                                                                                                                   |
 			| testNode.html                                | <a href="/" id="thelink">test</a>,thediv                                                                                                                 |
 			| testNode2.html                               | <a href="/bar.html" id="thelink">test</a>,thediv2                                                                                                        |
-			| testPlugins.html                             | Shockwave Flash 10.0.64.0,Windows Media Player 7                                                                                                         |
 			| testQuerySelector.html                       | Alert Text: Have a Good life.,CoursesWeb.net                                                                                                             |
 			| testQuerySelector2.html                      | <li class="aclass">CoursesWeb.net</li>,<li>MarPlo.net</li>,<li class="aclass">php.net</li>                                                               |
 			| testScope.html                               | foobar,foo,bar,True,3,2012-10-07 11:13:00,3.14159265359,/foo/i                                                                                           |
