@@ -6,7 +6,7 @@ from thug.ThugAPI.ThugAPI import ThugAPI
 log = logging.getLogger("Thug")
 
 
-class TestMiscSamples(object):
+class TestMiscSamplesChrome(object):
     thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
     misc_path = os.path.join(thug_path, "thug", "samples/misc")
 
@@ -127,42 +127,6 @@ class TestMiscSamples(object):
         expected = ["Shockwave Flash 10.0.64.0",
                     "Windows Media Player 7",
                     "Adobe Acrobat"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation1(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation1.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: http://www.google.com"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation2(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation2.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: http://www.google.com"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation3(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation3.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: http://www.google.com"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation4(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation4.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: http://www.google.com"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation5(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation5.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: http://www.google.com"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation6(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation6.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: http://www.google.com"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testNode(self, caplog):
