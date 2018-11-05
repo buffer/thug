@@ -7,7 +7,10 @@ log = logging.getLogger("Thug")
 
 
 class TestWebTracking(object):
-    def do_perform_test(self, caplog, url, expected):
+    thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
+    misc_path = os.path.join(thug_path, "thug", "samples/misc")
+
+    def do_perform_test(self, caplog, url, expected, type_ = "remote"):
         thug = ThugAPI()
 
         thug.set_useragent('win7ie90')
@@ -16,7 +19,9 @@ class TestWebTracking(object):
         thug.disable_cert_logging()
 
         thug.log_init(url)
-        thug.run_remote(url)
+
+        m = getattr(thug, "run_{}".format(type_))
+        m(url)
 
         records = [r.message for r in caplog.records]
 
@@ -28,6 +33,17 @@ class TestWebTracking(object):
                     matches += 1
 
         assert matches >= len(expected)
+
+    def test_sessionstorage(self, caplog):
+        expected = ['[TRACKING] [[object Storage] setItem] key1 = value1',
+                    '[TRACKING] [[object Storage] setItem] key2 = value2',
+                    '[TRACKING] [[object Storage] setItem] key2 = value3',
+                    '[TRACKING] [[object Storage] clear]',
+                    '[TRACKING] [[object Storage] setItem] key123 = value123',
+                    '[TRACKING] [[object Storage] removeItem] key123']
+
+        sample = os.path.join(self.misc_path, "testSessionStorage.html")
+        self.do_perform_test(caplog, sample, expected, "local")
 
     def test_google(self, caplog):
         expected = ['Domain starting with initial dot: .google.com']
