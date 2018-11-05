@@ -108,6 +108,9 @@ class Features(object):
 
     @property
     def features_url(self):
+        if log.ThugOpts.local:
+            return log.ThugLogging.url
+
         url = getattr(log, 'last_url', None)
         return url if url else log.DFT.window.url
 
