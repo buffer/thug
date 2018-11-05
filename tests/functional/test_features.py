@@ -23,7 +23,12 @@ class TestFeatures(object):
         thug.set_useragent('win7ie90')
         thug.set_verbose()
         thug.set_json_logging()
+
+        thug.reset_features_logging()
+        assert thug.get_features_logging() == False
+
         thug.set_features_logging()
+        assert thug.get_features_logging() == True
 
         thug.log_init(sample)
         thug.run_local(sample)
