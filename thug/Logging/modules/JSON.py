@@ -279,6 +279,9 @@ class JSON(object):
 
         output = StringIO()
 
+        if log.ThugOpts.features_logging and (log.ThugOpts.verbose or log.ThugOpts.debug):
+            log.warning(log.ThugLogging.Features.features)
+
         self.data['features'] = log.ThugLogging.Features.features
 
         json.dump(self.data, output, sort_keys = False, indent = 4)
