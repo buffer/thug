@@ -260,6 +260,9 @@ class ThugLogging(BaseLogging, SampleLogging):
                 final = h.url
 
         for h in response.history:
+            if 'Set-Cookie' in h.headers:
+                log.CookieClassifier.classify(h.url, h.headers['Set-Cookie'])
+
             location = h.headers.get('location', None)
 
             self.add_behavior_warn("[HTTP Redirection (Status: %s)] Content-Location: %s --> Location: %s" % (h.status_code,

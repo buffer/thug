@@ -671,6 +671,17 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def add_cookieclassifier(rule):
+        """
+        add_cookieclassifier
+
+        Add an additional Cookie classifier rule file
+
+        @param rule: Cookie classifier rule file
+        @type rule: C{str}
+        @return: None
+        """
+
     def add_sampleclassifier(rule):
         """
         add_sampleclassifier
@@ -733,6 +744,17 @@ class IThugAPI(zope.interface.Interface):
         Add an additional Text filter file
 
         @param filter: Text filter file
+        @type filter: C{str}
+        @return: None
+        """
+
+    def add_cookiefilter(filter):
+        """
+        add_cookiefilter
+
+        Add an additional Cookie filter file
+
+        @param filter: Cookie filter file
         @type filter: C{str}
         @return: None
         """

@@ -52,6 +52,7 @@ from thug.Classifier.VBSClassifier import VBSClassifier
 from thug.Classifier.URLClassifier import URLClassifier
 from thug.Classifier.HTMLClassifier import HTMLClassifier
 from thug.Classifier.TextClassifier import TextClassifier
+from thug.Classifier.CookieClassifier import CookieClassifier
 from thug.Classifier.SampleClassifier import SampleClassifier
 
 log = logging.getLogger("Thug")
@@ -87,6 +88,7 @@ class ThugAPI(object):
         log.URLClassifier    = URLClassifier()
         log.SampleClassifier = SampleClassifier()
         log.TextClassifier   = TextClassifier()
+        log.CookieClassifier = CookieClassifier()
 
         self.classifiers_map = {
             'html'   : log.HTMLClassifier,
@@ -94,6 +96,7 @@ class ThugAPI(object):
             'vbs'    : log.VBSClassifier,
             'url'    : log.URLClassifier,
             'sample' : log.SampleClassifier,
+            'cookie' : log.CookieClassifier,
             'text'   : log.TextClassifier
         }
 
@@ -328,6 +331,9 @@ class ThugAPI(object):
     def add_textclassifier(self, rule):
         log.TextClassifier.add_rule(rule)
 
+    def add_cookieclassifier(self, rule):
+        log.CookieClassifier.add_rule(rule)
+
     def add_sampleclassifier(self, rule):
         log.SampleClassifier.add_rule(rule)
 
@@ -345,6 +351,9 @@ class ThugAPI(object):
 
     def add_textfilter(self, f):
         log.TextClassifier.add_filter(f)
+
+    def add_cookiefilter(self, f):
+        log.CookieClassifier.add_filter(f)
 
     def add_samplefilter(self, f):
         log.SampleClassifier.add_filter(f)
