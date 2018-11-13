@@ -422,6 +422,8 @@ class ThugAPI(object):
     def run_remote(self, url):
         log.last_url = None
 
+        log.ThugOpts.local = False
+
         try:
             scheme = urlparse.urlparse(url).scheme
         except ValueError as e:
