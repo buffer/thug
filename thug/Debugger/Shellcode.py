@@ -88,7 +88,7 @@ class Shellcode(object):
                 response = self.window._navigator.fetch(url, redirect_type = "URL found")
                 log.ThugLogging.shellcode_urls.add(url)
             except Exception:
-                pass
+                return
 
             if response is None:
                 return
