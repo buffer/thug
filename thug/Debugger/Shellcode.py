@@ -68,6 +68,10 @@ class Shellcode(object):
             profile = profile[1:]
 
     def search_url(self, sc):
+        from thug.DOM.W3C import w3c
+        from thug.DOM.Window import Window
+        from thug.DOM.DFT import DFT
+
         offset = sc.find('http')
 
         if offset > 0:
@@ -81,17 +85,29 @@ class Shellcode(object):
             log.info('[Shellcode Analysis] URL Detected: %s', url)
 
             try:
-                self.window._navigator.fetch(url, redirect_type = "URL found")
+                response = self.window._navigator.fetch(url, redirect_type = "URL found")
                 log.ThugLogging.shellcode_urls.add(url)
             except Exception:
                 pass
+
+            if response is None:
+                return
+
+            if not response.ok:
+                return
+
+            doc    = w3c.parseString(response.content)
+            window = Window(url, doc, personality = log.ThugOpts.useragent)
+
+            dft = DFT(window)
+            dft.run()
 
     @property
     def dump_url(self):
         if log.ThugOpts.local:
             return log.ThugLogging.url
 
-        url = getattr(log, 'last_url', None)
+        url = getattr(log, 'last_url_fetched', None)
         return url if url else self.window.url
 
     def dump_eval(self):

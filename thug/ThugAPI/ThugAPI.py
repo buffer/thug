@@ -388,6 +388,7 @@ class ThugAPI(object):
 
     def run_local(self, url):
         log.last_url = None
+        log.last_url_fetched = None
 
         log.ThugLogging.set_url(url)
         log.ThugOpts.local = True
@@ -430,6 +431,7 @@ class ThugAPI(object):
 
     def run_remote(self, url):
         log.last_url = None
+        log.last_url_fetched = None
 
         log.ThugOpts.local = False
 

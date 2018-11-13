@@ -345,7 +345,7 @@ class Window(JSClass):
 
         text is a string of the text you want displayed in the alert dialog.
         """
-        log.TextClassifier.classify(self.url, str(text))
+        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, str(text))
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_alert_count()
@@ -788,7 +788,7 @@ class Window(JSClass):
             self.eval(code)
 
         if language.lower().startswith('vbs'):
-            log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.url, code)
+            log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, code)
 
         return None
 
@@ -977,7 +977,7 @@ class Window(JSClass):
         result = 0
 
         try:
-            log.JSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.url, script)
+            log.JSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, script)
 
             if log.ThugOpts.code_logging:
                 log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')

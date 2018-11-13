@@ -266,6 +266,8 @@ class DFT(object):
         emu.free()
 
     def check_url(self, sc, shellcode):
+        from .Window import Window
+
         schemes = []
         for scheme in ('http://', 'https://'):
             if scheme in sc:
@@ -311,10 +313,22 @@ class DFT(object):
                 return
 
             try:
-                self.window._navigator.fetch(url, redirect_type = "URL found")
+                response = self.window._navigator.fetch(url, redirect_type = "URL found")
                 log.ThugLogging.shellcode_urls.add(url)
             except Exception:
                 pass
+
+            if response is None:
+                return
+
+            if not response.ok:
+                return
+
+            doc    = w3c.parseString(response.content)
+            window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+
+            dft = DFT(window)
+            dft.run()
 
     def check_shellcodes(self):
         while True:
@@ -936,7 +950,7 @@ class DFT(object):
         if log.ThugOpts.code_logging:
             log.ThugLogging.add_code_snippet(text, 'VBScript', 'Contained_Inside')
 
-        log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, text)
+        log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, text)
 
         try:
             urls = re.findall("(?P<url>https?://[^\s'\"]+)", text)
@@ -998,7 +1012,6 @@ class DFT(object):
             self.forms.append(_action)
 
         method = form.get('method', 'get')
-
         payload = None
 
         for child in form.find_all():

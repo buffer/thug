@@ -18,9 +18,14 @@ def text_property(readonly = False):
         #
         # self.tag.string = self.tag.contents[0]
         self.tag.string = text
+
         if self.tagName.lower() in ('script', ):
             if log.ThugOpts.code_logging:
                 log.ThugLogging.add_code_snippet(text, 'Javascript', 'Contained_Inside')
+
+            script_type = self.tag.attrs.get('type', None)
+            if 'vbscript' in script_type.lower():
+                log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, text)
 
             self.doc.window.evalScript(text, self.tag.string)
 
