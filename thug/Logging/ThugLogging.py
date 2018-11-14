@@ -247,6 +247,9 @@ class ThugLogging(BaseLogging, SampleLogging):
 
     def log_redirect(self, response, window):
         if not response.history:
+            if 'Set-Cookie' in response.headers:
+                log.CookieClassifier.classify(response.url, response.headers['Set-Cookie'])
+
             if response.url:
                 log.URLClassifier.classify(response.url)
                 log.HTTPSession.fetch_ssl_certificate(response.url)
