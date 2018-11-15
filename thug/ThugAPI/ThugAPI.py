@@ -424,6 +424,10 @@ class ThugAPI(object):
         else:
             html = content
 
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.add_characters_count(len(html))
+            log.ThugLogging.Features.add_whitespaces_count(len([a for a in html if a.isspace()]))
+
         doc    = w3c.parseString(html)
         window = Window('about:blank', doc, personality = log.ThugOpts.useragent)
         window.open()
