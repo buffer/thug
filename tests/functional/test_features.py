@@ -53,14 +53,18 @@ class TestFeatures(object):
                 for key in features:
                     assert features[key] == self.expected[url][key]
 
-    def test_test_1(self, caplog):
+    def test_test1(self, caplog):
         sample = os.path.join(self.features_path, "test1.html")
         self.do_perform_test(caplog, sample)
 
-    def test_test_2(self, caplog):
+    def test_test2(self, caplog):
         sample = os.path.join(self.features_path, "test2.html")
         self.do_perform_test(caplog, sample)
 
-    def test_test_3(self, caplog):
+    def test_test3(self, caplog):
         sample = os.path.join(self.features_path, "test3.html")
+        self.do_perform_test(caplog, sample)
+
+    def test_test4(self, caplog):
+        sample = os.path.join(self.features_path, "test4.html")
         self.do_perform_test(caplog, sample)
