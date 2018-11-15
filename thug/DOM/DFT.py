@@ -902,12 +902,14 @@ class DFT(object):
             return
 
         for s in ('iframe', 'embed', 'object', 'frame', 'form'):
-            if s not in code:
+            count = code.count(s)
+
+            if not count:
                 continue
 
-            m = getattr(log.ThugLogging.Features, "increase_{}_string_count".format(s), None)
+            m = getattr(log.ThugLogging.Features, "add_{}_string_count".format(s), None)
             if m:
-                m()
+                m(count)
 
     def get_javascript_provenance(self, script):
         src = script.get('src', None)
