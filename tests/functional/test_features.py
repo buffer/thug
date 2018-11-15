@@ -68,3 +68,7 @@ class TestFeatures(object):
     def test_test4(self, caplog):
         sample = os.path.join(self.features_path, "test4.html")
         self.do_perform_test(caplog, sample)
+
+    def test_test5(self, caplog):
+        sample = os.path.join(self.features_path, "test5.html")
+        self.do_perform_test(caplog, sample)
