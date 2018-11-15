@@ -11,7 +11,7 @@ class TestFeatures(object):
     thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
     features_path = os.path.join(thug_path, "thug", "samples/features")
     expected_path = os.path.join(thug_path, "thug/tests/functional/features.json")
-    
+
     with open(expected_path) as fd:
         expected = json.load(fd)
 
@@ -25,10 +25,10 @@ class TestFeatures(object):
         thug.set_json_logging()
 
         thug.reset_features_logging()
-        assert thug.get_features_logging() == False
+        assert thug.get_features_logging() is False
 
         thug.set_features_logging()
-        assert thug.get_features_logging() == True
+        assert thug.get_features_logging() is True
 
         thug.log_init(sample)
         thug.run_local(sample)
@@ -55,4 +55,8 @@ class TestFeatures(object):
 
     def test_test_1(self, caplog):
         sample = os.path.join(self.features_path, "test1.html")
+        self.do_perform_test(caplog, sample)
+
+    def test_test_2(self, caplog):
+        sample = os.path.join(self.features_path, "test2.html")
         self.do_perform_test(caplog, sample)
