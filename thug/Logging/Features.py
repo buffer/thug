@@ -34,7 +34,7 @@ class Features(object):
         'createdocumentfragment_count',
         'createelement_count',
         'data_uri_count',
-        'detachevent_count'
+        'detachevent_count',
         'dispatchevent_count',
         'document_write_count',
         'embed_count',
