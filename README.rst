@@ -27,34 +27,26 @@ Documentation about Thug installation and usage can be found at http://thug-hone
 Contributions
 -------------
 
-Thug is open source and we welcome contributions in all forms. If you would like to work on a large contribution please
-discuss the same with the maintainers of the project.
+Thug is open source and we welcome contributions in all forms!
 
-Thug is free to use for any purpose (even commercial ones). If you use and appreciate Thug, consider supporting the project with a donation
-using Paypal (details at https://buffer.github.com/thug/).
+Thug is free to use for any purpose (even commercial ones). If you use and appreciate Thug, please consider
+supporting the project with a donation using Paypal (details at https://buffer.github.io/thug/).
 
 
 Testing
 -------
 
-To run the full test suite using tox_, type this command:
+To run the full test suite using tox_, run the command:
 
 .. code-block:: bash
 
     tox
 
-Since tox builds and installs the dependencies from scratch, we recommend using `pytest`_ for faster testing:
+Since tox builds and installs dependencies from scratch, using `pytest`_ for faster testing is recommended:
 
 .. code-block:: bash
 
     pytest --cov thug
-
-To test individual test files or folders:
-
-.. code-block:: bash
-
-    cd tests/Java
-    pytest --cov thug.Java.lang test_lang.py
 
 
 Support
