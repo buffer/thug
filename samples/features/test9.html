@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script language="javascript">
+function testAppendChild(){
+	var newElem = document.createElement("div");
+	newElem.innerHTML = "Just a sample";
+ 
+	var bodyElem = document.getElementById("foobar");
+	bodyElem.appendChild(newElem);
+
+	var dontCare = document.createElement("div");
+	dontCare.innerHTML = "Don't care about me";
+	bodyElem.appendChild(dontCare);
+     
+	bodyElem.appendChild(newElem);
+	var divs = document.getElementsByTagName("div");
+	alert(divs[0]);
+	alert(divs[1]);
+}
+
+testAppendChild();
+</script>
+</head>
+<body id="foobar">
+</body>
+</html>
