@@ -1,0 +1,15 @@
+<html>
+	<body>
+	<script type="text/javascript">
+		var s = document.getElementById("hello");
+		s.addEventListener('load', add, false);
+
+		function add() {
+			alert("add");
+			alert(s);
+			s.removeEventListener('load', add, false);
+		}
+	</script>
+	<p id="hello">Hello World!</p>
+	</body>
+</html>
