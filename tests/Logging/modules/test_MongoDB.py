@@ -69,7 +69,7 @@ class TestMongoDB:
 
     def test_init(self):
         """
-            Testing for conf file 'logging.conf.default'
+            Testing for conf file 'thug.conf'
         """
         mongo = MongoDB(thug.__version__)
         assert not mongo.enabled

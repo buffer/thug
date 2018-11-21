@@ -640,7 +640,7 @@ Thug API interface definition is reported below for convenience.
             set_vt_runtime_apikey
 
             Set the key to be used when interacting with VirusTotal APIs, overriding
-            any static value defined in virustotal.conf
+            any static value defined in thug.conf
 
             @return: None
             """
@@ -650,7 +650,7 @@ Thug API interface definition is reported below for convenience.
             get_mongodb_instance
 
             Get the address ("host:port") of the MongoDB instance specified at runtime
-            (not the one from the logging.conf file)
+            (not the one from the thug.conf file)
             """
 
         def set_mongodb_instance():

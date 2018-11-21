@@ -8,12 +8,9 @@ in order to store the result of the analysis in different formats if needed. By 
 Thug attempts storing analysis logs in a MongoDB instance (see later for a detailed
 explanation of the MongoDB collection schema).
 
-**BEWARE**: if a MongoDB instance is not available and no other logging mode is selected
-Thug will not store any analysis log.
-
 The available logging modes are:
 
-* MongoDB logging mode (enabled by default)
+* MongoDB logging mode
 * ElasticSearch
 * JSON logging mode
 * MAEC 1.1 logging mode
@@ -23,18 +20,18 @@ The available logging modes are:
 Logging configuration
 =====================
 
-The configuration file */etc/thug/logging.conf* defines the way Thug uses to log the results 
-of its analyses. The default logging.conf file is shown below. 
+The configuration file */etc/thug/thug.conf* defines the way Thug uses to log the results
+of its analyses. The default logging configuration is shown below.
 
 .. code-block:: sh
 
     [mongodb]
-    enable:     True
+    enable:     false
     host:       localhost
     port:       27017
 
     [elasticsearch]
-    enable:     True
+    enable:     false
     url:        http://192.168.56.101:9200
     index:      thug
 
@@ -52,7 +49,7 @@ its analysis silently not storing the results. This could be exactly what you wa
 please consider that if you do not enable any other logging mode you will end up with 
 no logs at all so bear it in mind.
 
-The configuration file */etc/thug/logging.conf* defines the MongoDB instance configuration
+The configuration file */etc/thug/thug.conf* defines the MongoDB instance configuration
 parameters
 
 .. code-block:: sh
@@ -67,7 +64,7 @@ MongoDB on the same host you are supposed to run Thug you should not need changi
 anything in the default configuration.
 
 If you want Thug to store its results to a different MongoDB instance than that defined
-in your */etc/thug/logging.conf* file, you can specify a different address at runtime, for
+in your */etc/thug/thug.conf* file, you can specify a different address at runtime, for
 example by using the *--mongodb-address* option from the command line. This can be especially
 useful when using the dockerized version of Thug, where storing results in Docker itself would
 mean to lose them as soon as the Docker instance is shut down.
@@ -351,7 +348,7 @@ downloaded during the analysis in an ElasticSearch instance. Deploying and confi
 instance is totally up to you and no images are provided for that. 
 
 ElasticSearch logging mode is not enabled by default and you need to enable the option -G 
-(--elasticsearch-logging). The ElasticSearch configuration is saved in in the */etc/thug/logging.conf* 
+(--elasticsearch-logging). The ElasticSearch configuration is saved in the */etc/thug/thug.conf*
 file. Be sure of defining the right URL for connecting to your instance. You may want to
 change the index name where data will be stored but this is not really necessary in the most 
 common situations.
