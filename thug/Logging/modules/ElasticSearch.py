@@ -36,40 +36,35 @@ class ElasticSearch(JSON):
     def __init__(self, thug_version):
         JSON.__init__(self, thug_version, provider = True)
 
-        self.enabled = True
+        self.enabled = False
 
         if not ELASTICSEARCH_MODULE:
-            self.enabled = False
             return
 
         if not log.ThugOpts.elasticsearch_logging:
-            self.enabled = False
             return
 
         if not self.__init_elasticsearch():
-            self.enabled = False
             return
+
+        self.enabled = True
 
     def __init_config(self):
         self.opts = dict()
 
-        config = ConfigParser.ConfigParser()
-
-        conf_file = os.path.join(log.configuration_path, 'logging.conf')
-
-        if not os.path.exists(conf_file):
-            conf_file = os.path.join(log.configuration_path, 'logging.conf.default')
-
+        conf_file = os.path.join(log.configuration_path, 'thug.conf')
         if not os.path.exists(conf_file):
             return False
 
+        config = ConfigParser.ConfigParser()
         config.read(conf_file)
 
-        for option in config.options('elasticsearch'):
-            self.opts[option] = config.get('elasticsearch', option)
-
-        if self.opts['enable'].lower() in ('false', ):
+        self.opts['enable'] = config.getboolean('elasticsearch', 'enable')
+        if not self.opts['enable']:
             return False
+
+        self.opts['url'] = config.get('elasticsearch', 'url')
+        self.opts['index'] = config.get('elasticsearch', 'index')
 
         return True
 
