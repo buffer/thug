@@ -35,18 +35,20 @@ class HoneyAgent(object):
         self.__init_config()
 
     def __init_config(self):
-        config = ConfigParser.ConfigParser()
-
-        conf_file = os.path.join(log.configuration_path, 'honeyagent.conf')
-
+        conf_file = os.path.join(log.configuration_path, 'thug.conf')
         if not os.path.isfile(conf_file):
             self.enabled = False
             return
 
+        config = ConfigParser.ConfigParser()
         config.read(conf_file)
 
-        for option in config.options('HoneyAgent'):
-            self.opts[option] = config.get('HoneyAgent', option)
+        self.opts['enable'] = config.getboolean('honeyagent', 'enable')
+        if not self.opts['enable']:
+            self.enabled = False
+            return
+
+        self.opts['scanurl'] = config.get('honeyagent', 'scanurl')
 
     def save_report(self, response, basedir, sample):
         log_dir  = os.path.join(basedir, 'analysis', 'honeyagent')
