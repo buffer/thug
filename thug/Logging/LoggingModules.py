@@ -18,7 +18,6 @@
 
 from .modules import JSON
 from .modules import MITRE
-from .modules import HPFeeds
 from .modules import MongoDB
 from .modules import ElasticSearch
 
@@ -27,5 +26,4 @@ LoggingModules = {
     'json'          : JSON.JSON,
     'mongodb'       : MongoDB.MongoDB,
     'elasticsearch' : ElasticSearch.ElasticSearch,
-    'hpfeeds'       : HPFeeds.HPFeeds
 }

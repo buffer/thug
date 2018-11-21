@@ -13,6 +13,3 @@ class TestLoggingModules:
 
     def test_elasticsearch(self):
         assert log_modules.LoggingModules['elasticsearch'] is log_modules.ElasticSearch.ElasticSearch
-
-    def test_hpfeeds(self):
-        assert log_modules.LoggingModules['hpfeeds'] is log_modules.HPFeeds.HPFeeds

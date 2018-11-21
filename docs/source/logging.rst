@@ -14,7 +14,6 @@ Thug will not store any analysis log.
 The available logging modes are:
 
 * MongoDB logging mode (enabled by default)
-* HPFeeds logging mode (enabled by default)
 * ElasticSearch
 * JSON logging mode
 * MAEC 1.1 logging mode
@@ -28,13 +27,6 @@ The configuration file */etc/thug/logging.conf* defines the way Thug uses to log
 of its analyses. The default logging.conf file is shown below. 
 
 .. code-block:: sh
-
-    [hpfeeds]
-    enable:     False
-    host:       hpfeeds.honeycloud.net
-    port:       10000
-    ident:      q6jyo@hp1
-    secret:     edymvouqpfe1ivud
 
     [mongodb]
     enable:     True
@@ -351,48 +343,6 @@ this collection
     }
 
 
-HPFeeds logging mode
-====================
-
-HPFeeds is the Honeynet Project central logging feature.
-
-HPFeeds is a lightweight authenticated publish-subscribe protocol that supports arbitrary 
-binary payloads. HPFeeds was designed as a simple wire-format so that everyone is able to 
-subscribe to the feeds with his favorite language in almost no time.
-
-Different feeds are separated by channels and support arbitrary binary payloads. This means 
-that the channel users have to decide about the structure of data. This could for example 
-be done by choosing a serialization format.
-
-Access to channels is given to so-called Authkeys which essentially are pairs of an identifier 
-and a secret. The secret is sent to the server by hashing it together with a per-connection 
-nonce. This way no eavesdroppers can obtain valid credentials. Optionally the protocol can 
-be run on top of SSL/TLS, of course.
-
-HPFeeds logging mode is disabled by default and its configuration is saved in the */etc/thug/logging.conf* 
-file
-
-.. code-block:: sh
-
-    [hpfeeds]
-    enable:     False
-    host:       hpfeeds.honeycloud.net
-    port:       10000
-    ident:      q6jyo@hp1
-    secret:     edymvouqpfe1ivud
-
-If you want to report your events and samples, you can turn on HPFeeds by modifying 
-the *enable* parameter to *True*. Do not change the other configuration parameters unless 
-you know exactly what you are doing. 
-
-Currently Thug shares data in two channels:
-
-- thug.events channel (URL analysis results published in MAEC 1.1 format)
-- thug.files channel (downloaded samples)
-
-If you are interested in the data collected by Thug instances, please contact me.
-
-
 ElasticSearch logging module
 ============================
 
@@ -577,10 +527,6 @@ MongoDB instance, if available.
 If the MAEC 1.1 logging mode and the File logging mode are enabled, Thug will attempt to 
 store analysis results in a MongoDB instance, if available, and in a XML file in the log
 directory.
-
-Please note that not enabling MAEC 1.1 logging mode does not affect HPFeeds logging mode 
-proper operations so even if this mode is not enabled analysis results will be published in 
-MAEC 1.1 format on the *thug.events* channel.
 
 Further documentation about the MAEC 1.1 language can be found at http://maec.mitre.org/language/version1.1/
 
