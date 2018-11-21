@@ -35,22 +35,17 @@ class VirusTotal(object):
         self.__init_config()
 
     def __init_config(self):
-        config = ConfigParser.ConfigParser()
-
-        conf_file = os.path.join(log.configuration_path, 'virustotal.conf')
-
+        conf_file = os.path.join(log.configuration_path, 'thug.conf')
         if not os.path.exists(conf_file):
-            conf_file = os.path.join(log.configuration_path, 'virustotal.conf.default')
-
-        if not os.path.isfile(conf_file):
             log.warning("[WARNING] VirusTotal disabled (no configuration file found)")
             self.enabled = False
             return
 
+        config = ConfigParser.ConfigParser()
         config.read(conf_file)
 
-        for option in config.options('VirusTotal'):
-            self.opts[option] = config.get('VirusTotal', option)
+        for option in config.options('virustotal'):
+            self.opts[option] = config.get('virustotal', option)
 
         runtime_apikey = log.ThugOpts.get_vt_runtime_apikey()
         if runtime_apikey:
