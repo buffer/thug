@@ -42,8 +42,8 @@ class BaseLogging(object):
             if option not in ('enable', ):
                 continue
 
-            enable = config.get(module, option)
-            if enable.lower() in ('false', ):
+            enable = config.getboolean(module, option)
+            if not enable:
                 return False
 
         return True

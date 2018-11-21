@@ -71,17 +71,13 @@ class ThugLogging(BaseLogging, SampleLogging):
 
     def __init_config(self):
         self.modules = dict()
-        config       = ConfigParser.ConfigParser()
 
-        conf_file = os.path.join(log.configuration_path, 'logging.conf')
-
-        if not os.path.exists(conf_file):
-            conf_file = os.path.join(log.configuration_path, 'logging.conf.default')
-
+        conf_file = os.path.join(log.configuration_path, 'thug.conf')
         if not os.path.exists(conf_file):
             log.warning("[CRITICAL] Logging subsystem not initialized (configuration file not found)")
             return
 
+        config = ConfigParser.ConfigParser()
         config.read(conf_file)
 
         for name, module in LoggingModules.items():

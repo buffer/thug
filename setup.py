@@ -56,9 +56,7 @@ setup(
            },
     packages = find_packages(),
     data_files = [
-        (thug.__configuration_path__, ["thug/Analysis/honeyagent/honeyagent.conf.sample",
-                                       "thug/Analysis/virustotal/virustotal.conf.default",
-                                       "thug/Logging/logging.conf.default"]),
+        (thug.__configuration_path__, ["conf/thug.conf", ]),
         (personalities_path         , glob.glob("thug/DOM/personalities/*.json")),
         (rules_path                 , glob.glob("thug/Classifier/rules/*.yar")),
         (scripts_path               , ["thug/DOM/thug.js",
