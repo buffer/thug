@@ -11,7 +11,7 @@ from thug.ThugAPI.ThugOpts import ThugOpts
 
 configuration_path = thug.__configuration_path__
 config             = ConfigParser.ConfigParser()
-conf_file          = os.path.join(configuration_path, 'logging.conf.default')
+conf_file          = os.path.join(configuration_path, 'thug.conf')
 config.read(conf_file)
 
 log                    = logging.getLogger("Thug")
