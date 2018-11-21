@@ -48,29 +48,24 @@ class MongoDB(object):
 
         if log.ThugOpts.mongodb_address:
             self.opts['host'] = log.ThugOpts.mongodb_address
-            self.opts['enable'] = 'True'
+            self.opts['enable'] = True
             return True
 
-        config = ConfigParser.ConfigParser()
-
-        conf_file = os.path.join(log.configuration_path, 'logging.conf')
-
-        if not os.path.exists(conf_file):
-            conf_file = os.path.join(log.configuration_path, 'logging.conf.default')
-
+        conf_file = os.path.join(log.configuration_path, 'thug.conf')
         if not os.path.exists(conf_file):
             self.enabled = False
             return False
 
+        config = ConfigParser.ConfigParser()
         config.read(conf_file)
 
-        for option in config.options('mongodb'):
-            self.opts[option] = config.get('mongodb', option)
-
-        if self.opts['enable'].lower() in ('false', ):
+        self.opts['enable'] = config.getboolean('mongodb', 'enable')
+        if not self.opts['enable']:
             self.enabled = False
+            return False
 
-        return self.enabled
+        self.opts['host'] = config.get('mongodb', 'host')
+        return True
 
     def __init_db(self):
         client = getattr(pymongo, 'MongoClient', None)
