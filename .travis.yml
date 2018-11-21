@@ -15,6 +15,6 @@ script:
   - sudo cp -R thug/Classifier/rules/* /etc/thug/rules/
   - sudo cp -R thug/DOM/personalities/* /etc/thug/personalities
   - sudo cp -t /etc/thug/scripts thug/DOM/{thug.js,storage.js,date.js} thug/Debugger/d8.js
-  - sudo cp -t /etc/thug/ thug/Analysis/honeyagent/honeyagent.conf.sample thug/Analysis/virustotal/virustotal.conf.default thug/Logging/logging.conf.default
+  - sudo cp -t /etc/thug/ conf/thug.conf
   - tox
   - echo "Build done"
