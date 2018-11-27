@@ -31,9 +31,6 @@ class DocumentFragment(Node):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_personality_IE(self):
         if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.querySelectorAll = self._querySelectorAll
@@ -48,10 +45,6 @@ class DocumentFragment(Node):
         self.querySelector    = self._querySelector
 
     def __init_personality_Safari(self):
-        self.querySelectorAll = self._querySelectorAll
-        self.querySelector    = self._querySelector
-
-    def __init_personality_Opera(self):
         self.querySelectorAll = self._querySelectorAll
         self.querySelector    = self._querySelector
 

@@ -99,9 +99,6 @@ class Personality(dict):
     def isSafari(self):
         return self[log.ThugOpts.useragent]['browserTag'].startswith('safari')
 
-    def isOpera(self):
-        return self[log.ThugOpts.useragent]['browserTag'].startswith('opera')
-
     def ScriptEngineMajorVersion(self):
         return self[log.ThugOpts.useragent]['ScriptEngineMajorVersion']
 

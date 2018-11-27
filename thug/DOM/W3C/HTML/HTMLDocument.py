@@ -61,9 +61,6 @@ class HTMLDocument(Document):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_personality_IE(self):
         from thug.DOM.W3C.Core.DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
 
@@ -88,9 +85,6 @@ class HTMLDocument(Document):
 
     def __init_personality_Safari(self):
         self.all = self._all
-        self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
-
-    def __init_personality_Opera(self):
         self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
 
     def __getattr__(self, attr):

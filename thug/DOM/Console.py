@@ -44,9 +44,6 @@ class Console(JSClass):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_personality_IE(self):
         pass
 
@@ -57,9 +54,6 @@ class Console(JSClass):
         pass
 
     def __init_personality_Safari(self):
-        pass
-
-    def __init_personality_Opera(self):
         pass
 
     def debug(self, *args):

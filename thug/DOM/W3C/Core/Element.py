@@ -48,9 +48,6 @@ class Element(Node, ElementCSSInlineStyle):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_personality_IE(self):
         if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.querySelectorAll = self._querySelectorAll
@@ -88,19 +85,6 @@ class Element(Node, ElementCSSInlineStyle):
 
         if log.ThugOpts.Personality.browserMajorVersion > 4:
             self.webkitMatchesSelector = self._matches
-
-    def __init_personality_Opera(self):
-        self.querySelectorAll       = self._querySelectorAll
-        self.querySelector          = self._querySelector
-        self.getElementsByClassName = self._getElementsByClassName
-
-        if log.ThugOpts.Personality.browserMajorVersion > 20:
-            self.matches = self._matches
-
-        if log.ThugOpts.Personality.browserMajorVersion > 14:
-            self.webkitMatchesSelector = self._matches
-        elif log.ThugOpts.Personality.browserMajorVersion > 10:
-            self.oMatchesSelector = self._matches
 
     def _querySelectorAll(self, selectors):
         from .NodeList import NodeList

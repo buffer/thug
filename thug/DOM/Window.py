@@ -809,9 +809,6 @@ class Window(JSClass):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_personality_IE(self):
         from .ClipboardData import ClipboardData
         from .Console import Console
@@ -909,20 +906,6 @@ class Window(JSClass):
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
         self.onmousewheel        = None
-
-    def __init_personality_Opera(self):
-        from .Console import Console
-        from .Opera import Opera
-
-        self.document            = self._document
-        self.XMLHttpRequest      = self._XMLHttpRequest
-        self.addEventListener    = self._addEventListener
-        self.removeEventListener = self._removeEventListener
-        self.opera               = Opera()
-        self.doc.parentWindow    = self._parent
-        self.console             = Console()
-        self.localStorage        = LocalStorage()
-        self.sessionStorage      = SessionStorage()
 
     def eval(self, script):
         if script is None:

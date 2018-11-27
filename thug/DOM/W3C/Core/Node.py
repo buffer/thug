@@ -60,9 +60,6 @@ class Node(JSClass, EventTarget):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_personality_IE(self):
         self.applyElement = self._applyElement
 
@@ -77,9 +74,6 @@ class Node(JSClass, EventTarget):
         self.compareDocumentPosition = self._compareDocumentPosition
 
     def __init_personality_Safari(self):
-        self.compareDocumentPosition = self._compareDocumentPosition
-
-    def __init_personality_Opera(self):
         self.compareDocumentPosition = self._compareDocumentPosition
 
     @property

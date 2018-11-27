@@ -51,9 +51,6 @@ class History(JSClass):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_personality_IE(self):
         pass
 
@@ -67,10 +64,6 @@ class History(JSClass):
 
     def __init_personality_Safari(self):
         pass
-
-    def __init_personality_Opera(self):
-        self.current        = self._current
-        self.navigationMode = property(self._get_navigationMode, self._set_navigationMode)
 
     @property
     def window(self):

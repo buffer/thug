@@ -50,9 +50,6 @@ class Screen(JSClass):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_personality_IE(self):
         self.bufferDepth          = property(self._get_bufferDepth, self._set_bufferDepth)
         self.deviceXDPI           = self._deviceXDPI
@@ -84,9 +81,6 @@ class Screen(JSClass):
     def __init_personality_Safari(self):
         self.availLeft  = self._availLeft
         self.availTop   = self._availTop
-        self.pixelDepth = self._pixelDepth
-
-    def __init_personality_Opera(self):
         self.pixelDepth = self._pixelDepth
 
     @property

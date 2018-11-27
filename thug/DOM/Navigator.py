@@ -64,9 +64,6 @@ class Navigator(JSClass):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_personality_IE(self):
         from .UserProfile import UserProfile
 
@@ -115,15 +112,6 @@ class Navigator(JSClass):
         self.vendor     = self._vendor
         self.vendorSub  = self._vendorSub
         self.language   = self._language
-
-    def __init_personality_Opera(self):
-        self.mimeTypes       = self._mimeTypes
-        self.plugins         = self._plugins
-        self.taintEnabled    = self._taintEnabled
-        self.appMinorVersion = self._appMinorVersion
-        self.browserLanguage = self._browserLanguage
-        self.language        = self._language
-        self.userLanguage    = self._userLanguage
 
     @property
     def window(self):

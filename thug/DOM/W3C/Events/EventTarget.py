@@ -32,9 +32,6 @@ class EventTarget(object):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_personality_IE(self):
         if log.ThugOpts.Personality.browserMajorVersion < 11:
             self.__init_proprietary_ie_event_methods()
@@ -49,9 +46,6 @@ class EventTarget(object):
         self.__init_event_methods()
 
     def __init_personality_Safari(self):
-        self.__init_event_methods()
-
-    def __init_personality_Opera(self):
         self.__init_event_methods()
 
     def __init_proprietary_ie_event_methods(self):

@@ -36,9 +36,6 @@ class Document(Node, DocumentEvent, DocumentView):
             self.__init_personality_Safari()
             return
 
-        if log.ThugOpts.Personality.isOpera():
-            self.__init_personality_Opera()
-
     def __init_characterSet(self):
         self._character_set = ""
         for meta in self.doc.find_all("meta"):
@@ -82,12 +79,6 @@ class Document(Node, DocumentEvent, DocumentView):
         self.getElementsByClassName = self._getElementsByClassName
         self.characterSet           = self._characterSet
         self.inputEncoding          = self._inputEncoding
-
-    def __init_personality_Opera(self):
-        self.querySelectorAll       = self._querySelectorAll
-        self.querySelector          = self._querySelector
-        self.getElementsByClassName = self._getElementsByClassName
-        self.characterSet           = self._characterSet
 
     def _querySelectorAll(self, selectors):
         from .NodeList import NodeList
