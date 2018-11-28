@@ -29,7 +29,7 @@ class HTMLBodyElement(HTMLElement):
         return html
 
     def setInnerHTML(self, html):
-        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.doc.window.url, html)
+        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, html)
 
         self.tag.clear()
 
