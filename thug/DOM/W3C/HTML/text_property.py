@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-# import bs4 as BeautifulSoup
-
 import logging
+
 log = logging.getLogger("Thug")
 
 
