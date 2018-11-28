@@ -295,6 +295,9 @@ class DFT(object):
 
             url = url[:i]
 
+            if url in log.ThugLogging.retrieved_urls:
+                return
+
             try:
                 encoded_sc = shellcode.encode('unicode-escape')
             except Exception:

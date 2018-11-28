@@ -216,6 +216,8 @@ class HTTPSession(object):
         if not response.ok:
             return None
 
+        log.ThugLogging.retrieved_urls.add(url)
+
         self.filecount += 1
 
         if log.ThugOpts.web_tracking:

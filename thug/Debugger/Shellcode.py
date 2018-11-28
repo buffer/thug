@@ -82,6 +82,9 @@ class Shellcode(object):
             if url in log.ThugLogging.shellcode_urls:
                 return
 
+            if url in log.ThugLogging.retrieved_urls:
+                return
+
             log.info('[Shellcode Analysis] URL Detected: %s', url)
 
             try:

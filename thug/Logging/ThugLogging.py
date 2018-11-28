@@ -55,6 +55,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.windows         = dict()
         self.shellcodes      = set()
         self.shellcode_urls  = set()
+        self.retrieved_urls  = set()
         self.methods_cache   = dict()
         self.formats         = set()
         self.url             = ""
