@@ -148,8 +148,6 @@ class Window(JSClass):
 
         self._symbols      = set()
         self._methods      = tuple()
-        self._frames       = set()
-        self._inner_frames = set()
 
         log.MIMEHandler.window = self
 
@@ -253,16 +251,18 @@ class Window(JSClass):
         """an array of all the frames (including iframes) in the current window"""
         from thug.DOM.W3C.HTML.HTMLCollection import HTMLCollection
 
+        frames = set()
         for frame in self._findAll(['frame', 'iframe']):
-            code = unicode(frame)
+            # self.doc.DFT.set_event_handler_attributes(frame)
+            # self.doc.DFT.handle_iframe(frame)
 
-            if code in self._inner_frames:
-                continue
+            if not getattr(frame, '_node', None):
+                from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
+                DOMImplementation.createHTMLElement(self.window.doc, frame)
 
-            self._inner_frames.add(code)
-            self._frames.add(Window(self.url, w3c.parseString(code), personality = log.ThugOpts.useragent))
+            frames.add(frame._node)
 
-        return HTMLCollection(self.doc, list(self._frames))
+        return HTMLCollection(self.doc, list(frames))
 
     @property
     def length(self):
