@@ -294,6 +294,11 @@ class TestMiscSamplesIE(object):
                     "[Window] Alert Text: Just a useless script"]
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testFormSubmit(self, caplog):
+        sample   = os.path.join(self.misc_path, "testFormSubmit.html")
+        expected = ["[form redirection] about:blank -> http://www.google.com"]
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testCCInterpreter(self, caplog):
         sample   = os.path.join(self.misc_path, "testCCInterpreter.html")
         expected = ['JavaScript version: 9',

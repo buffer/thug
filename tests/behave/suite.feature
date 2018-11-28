@@ -191,6 +191,7 @@ Feature: Exploits
 			| testMicrosoftXMLHTTPEvent1.html              | [Window] Alert Text: Request completed                                                                                                                   |
 			| testMicrosoftXMLHTTPEvent2.html              | [Window] Alert Text: Request completed                                                                                                                   |
 			| testCurrentScript.html                       | [Window] Alert Text: This page has scripts,[Window] Alert Text: text/javascript,[Window] Alert Text: Just a useless script                               |
+			| testFormSubmit.html                          | [form redirection] about:blank -> http://www.google.com                                                                                                  |
 		then run misc
 
 	Scenario: jquery
