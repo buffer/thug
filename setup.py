@@ -28,17 +28,17 @@ sample_filter_path = os.path.join(rules_path, "samplefilter")
 text_filter_path   = os.path.join(rules_path, "textfilter")
 
 setup(
-    name="thug",
-    version=thug.__version__,
-    author="Angelo Dell'Aera",
-    author_email="angelo.dellaera@honeynet.org",
-    description="Low-interaction honeyclient Thug",
-    license="GPLv2",
-    long_description=open("README.rst").read(),
-    url="http://buffer.github.io/thug/",
-    download_url="https://github.com/buffer/thug/",
-    platforms=["Linux", ],
-    classifiers=[
+    name = "thug",
+    version = thug.__version__,
+    author = "Angelo Dell'Aera",
+    author_email = "angelo.dellaera@honeynet.org",
+    description = "Low-interaction honeyclient Thug",
+    license = "GPLv2",
+    long_description = open("README.rst").read(),
+    url = "http://buffer.github.io/thug/",
+    download_url = "https://github.com/buffer/thug/",
+    platforms = ["Linux", ],
+    classifiers = [
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Intended Audience :: Developers",
@@ -48,11 +48,11 @@ setup(
         "Programming Language :: Python :: 2.7",
         "Topic :: Security",
     ],
-    package_data={
-           "": ["*.js"],
+    package_data = {
+           ""       : ["*.js"],
            },
-    packages=find_packages(),
-    data_files=[
+    packages = find_packages(),
+    data_files = [
         (thug.__configuration_path__, ["thug/Analysis/honeyagent/honeyagent.conf.sample",
                                        "thug/Analysis/virustotal/virustotal.conf.default",
                                        "thug/Logging/logging.conf.default"]),
@@ -81,12 +81,12 @@ setup(
 
     ],
     install_requires = open("requirements.txt").read().splitlines(),
-    entry_points={
+    entry_points = {
         "console_scripts": [
             "thug = thug.thug:main",
         ]
     },
-    project_urls={
+    project_urls = {
         'Bug Reports': 'https://github.com/buffer/thug/issues',
         'Funding': 'https://buffer.github.io/thug/',
         'Source': 'https://github.com/buffer/thug/',

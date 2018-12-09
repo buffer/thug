@@ -42,7 +42,7 @@ To setup thug's development environment, follow the steps:
 
     git clone https://github.com/buffer/thug.git
     cd thug
-    ./dev.sh
+    ./dev/dev.sh
 
 
 The *dev* script will create a `virtualenv`_ environment in a directory called "venv"
