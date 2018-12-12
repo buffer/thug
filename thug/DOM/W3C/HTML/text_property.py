@@ -24,7 +24,7 @@ def text_property(readonly = False):
 
             script_type = self.tag.attrs.get('type', None)
             if script_type and 'vbscript' in script_type.lower():
-                log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, text)
+                log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, text)
 
             self.doc.window.evalScript(text, self.tag.string)
 
