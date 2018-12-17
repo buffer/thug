@@ -65,6 +65,7 @@ class ThugAPI(object):
         self.__init_conf(configuration_path)
         self.__init_core()
         self.__init_classifiers()
+        self.__init_pyhooks()
         self.__init_extensions()
         self.__init_trace()
 
@@ -99,6 +100,9 @@ class ThugAPI(object):
             'cookie' : log.CookieClassifier,
             'text'   : log.TextClassifier
         }
+
+    def __init_pyhooks(self):
+        log.PyHooks = dict()
 
     def __init_extensions(self):
         log.JSExtensions = list()
@@ -370,6 +374,12 @@ class ThugAPI(object):
     def reset_customclassifiers(self):
         for c in self.classifiers_map.values():
             c.reset_customclassifiers()
+
+    def register_pyhook(self, module, method, hook):
+        if module not in log.PyHooks:
+            log.PyHooks[module] = dict()
+
+        log.PyHooks[module][method] = hook
 
     def log_event(self):
         log.ThugLogging.log_event()

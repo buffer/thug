@@ -21,6 +21,7 @@ import re
 import string
 import base64
 import random
+import types
 import logging
 
 import six
@@ -94,6 +95,7 @@ class DFT(object):
         self._context          = None
         log.DFT                = self
         self._init_events()
+        self._init_pyhooks()
 
         PyV8.JSEngine.setStackLimit(10 * 1024 * 1024)
 
@@ -108,6 +110,17 @@ class DFT(object):
 
         self.handled_on_events = ['on' + e for e in self.handled_events]
         self.dispatched_events = set()
+
+    def _init_pyhooks(self):
+        hooks = log.PyHooks.get('DFT', None)
+        if hooks is None:
+            return
+
+        for label, hook in hooks.items():
+            name   = "{}_hook".format(label)
+            _hook  = hook.im_func if hook.im_self else hook
+            method = types.MethodType(_hook, self, DFT)
+            setattr(self, name, method)
 
     def __enter__(self):
         return self
