@@ -615,6 +615,10 @@ class DFT(object):
         if not params:
             return params
 
+        hook = getattr(self, "do_handle_params_hook", None)
+        if hook:
+            hook(params)
+
         headers = dict()
         headers['Connection'] = 'keep-alive'
 
