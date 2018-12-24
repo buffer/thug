@@ -187,7 +187,7 @@ class Window(JSClass):
         finally:
             self._symbols.discard(key)
 
-        if log.JSEngine.isJSFunction(symbol, log.JSEngine.JSFunction):
+        if log.JSEngine.isJSFunction(symbol):
             _method = None
 
             if symbol in self._methods:

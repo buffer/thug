@@ -23,12 +23,13 @@ import six.moves.configparser as ConfigParser
 
 try:
     import PyV8
-    PYV8_MODULE = True
+    V8_MODULE = True
 except ImportError:
-    PYV8_MODULE = False
+    V8_MODULE = False
 
 try:
     import pyduktape2
+    DUKTAPE_MODULE = True
 
     # FIXME
     class _DuktapeContext(pyduktape2.DuktapeContext):
@@ -43,11 +44,8 @@ try:
 
         def eval(self, js):
             return self.eval_js(js)
-
-
-    PYDUKTAPE_MODULE = True
 except ImportError:
-    PYDUKTAPE_MODULE = False
+    DUKTAPE_MODULE = False
 
 import thug
 from thug.Debugger.V8Debugger import V8Debugger
@@ -71,7 +69,7 @@ class JSEngine(object):
         self.engine = config.get('jsengine', 'engine')
 
     def init_v8_context(self, window):
-        if not PYV8_MODULE:
+        if not V8_MODULE:
             log.critical("PyV8 not installed. Please review Thug dependencies and configuration")
             sys.exit(1)
 
