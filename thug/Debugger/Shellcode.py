@@ -20,7 +20,6 @@ import six
 import logging
 import pylibemu
 import traceback
-from .Debugger import Debugger
 
 log = logging.getLogger("Thug")
 
@@ -173,7 +172,7 @@ class Shellcode(object):
         self.dump_write()
 
     def run(self):
-        with Debugger() as dbg:
+        with log.JSEngine.JSDebugger() as dbg:
             dbg._context = self.ctxt
             # dbg.debugBreak()
 

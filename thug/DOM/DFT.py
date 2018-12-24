@@ -31,7 +31,6 @@ import bs4 as BeautifulSoup
 import cchardet
 
 import pylibemu
-import PyV8
 
 from thug.ActiveX.ActiveX import _ActiveXObject
 
@@ -97,7 +96,7 @@ class DFT(object):
         self._init_events()
         self._init_pyhooks()
 
-        PyV8.JSEngine.setStackLimit(10 * 1024 * 1024)
+        # PyV8.JSEngine.setStackLimit(10 * 1024 * 1024)
 
     def _init_events(self):
         self.listeners = list()
@@ -499,8 +498,8 @@ class DFT(object):
 
         if isinstance(h, six.string_types):
             handler = self.build_event_handler(self.context, h)
-            # PyV8.JSEngine.collect()
-        elif isinstance(h, PyV8.JSFunction):
+            # log.JSEngine.collect()
+        elif isinstance(h, log.JSEngine.JSFunction):
             handler = h
         else:
             try:

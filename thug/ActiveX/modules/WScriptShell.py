@@ -7,7 +7,6 @@ import logging
 import hashlib
 import six
 import pefile
-import PyV8
 
 from thug.Magic.Magic import Magic
 from thug.OS.Windows import win32_registry
@@ -191,7 +190,7 @@ def Sleep(self, intTime):
 
 def Quit(self, code):
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Quit(%s)" % code)
-    PyV8.JSEngine.terminateAllThreads()
+    log.JSEngine.terminateAllThreads()
 
 
 def Echo(self, text):

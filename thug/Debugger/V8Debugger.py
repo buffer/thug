@@ -17,14 +17,15 @@
 # MA  02111-1307  USA
 
 import os
-import PyV8
 import thug
 import logging
+
+import PyV8
 
 log = logging.getLogger("Thug")
 
 
-class Debugger(PyV8.JSDebugger):
+class V8Debugger(PyV8.JSDebugger):
     def __init__(self):
         PyV8.JSDebugger.__init__(self)
         # self.evalContext = PyV8.JSContext()

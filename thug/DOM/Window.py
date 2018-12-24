@@ -29,7 +29,6 @@ import datetime
 import types
 import six
 import bs4 as BeautifulSoup
-import PyV8
 
 import thug
 from thug.ActiveX.ActiveX import _ActiveXObject
@@ -41,6 +40,7 @@ from thug.DOM.W3C import w3c
 from .JSClass import JSClass
 from .JSClass import JSClassConstructor
 from .JSClass import JSClassPrototype
+from .JSEngine import JSEngine
 from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
@@ -85,7 +85,7 @@ class Window(JSClass):
                     if isinstance(self.code, six.string_types):
                         return ctx.eval(self.code)
 
-                    if isinstance(self.code, PyV8.JSFunction):
+                    if isinstance(self.code, log.JSEngine.JSFunction):
                         return self.code()
 
                     log.warning("Error while handling timer callback")
@@ -187,7 +187,7 @@ class Window(JSClass):
         finally:
             self._symbols.discard(key)
 
-        if isinstance(symbol, PyV8.JSFunction):
+        if isinstance(symbol, log.JSEngine.JSFunction):
             _method = None
 
             if symbol in self._methods:
@@ -205,7 +205,7 @@ class Window(JSClass):
                                bool,
                                numbers.Number,
                                datetime.datetime,
-                               PyV8.JSObject)):
+                               log.JSEngine.JSObject)):
             setattr(self, key, symbol)
             context.locals[key] = symbol
             return symbol
@@ -922,34 +922,8 @@ class Window(JSClass):
     def context(self):
         # if not hasattr(self, '_context'):
         if '_context' not in self.__dict__:
-            self._context = PyV8.JSContext(self, extensions = log.JSExtensions)
-            with self._context as ctxt:
-                thug_js = os.path.join(thug.__configuration_path__, 'scripts', "thug.js")
-                ctxt.eval(open(thug_js, 'r').read())
-
-                if log.ThugOpts.Personality.isIE():
-                    if log.ThugOpts.Personality.browserMajorVersion < 8:
-                        storage_js = os.path.join(thug.__configuration_path__, 'scripts', "storage.js")
-                        ctxt.eval(open(storage_js, 'r').read())
-
-                    if log.ThugOpts.Personality.browserMajorVersion < 9:
-                        date_js = os.path.join(thug.__configuration_path__, 'scripts', "date.js")
-                        ctxt.eval(open(date_js, 'r').read())
-
-                hooks_folder = os.path.join(thug.__configuration_path__, 'hooks')
-                hooks = os.listdir(hooks_folder) if os.path.exists(hooks_folder) else list()
-                for hook in sorted([h for h in hooks if h.endswith('.js')]):
-                    ctxt.eval(open(os.path.join(hooks_folder, hook), 'r').read())
-
-                for hook in ('eval', 'write'):
-                    js = os.path.join(thug.__configuration_path__, 'scripts', '{}.js'.format(hook))
-                    if not os.path.exists(js):
-                        continue
-
-                    symbol = getattr(log.ThugLogging, '{}_symbol'.format(hook))
-                    ctxt.eval(open(js, 'r').read() % {'name': symbol[0], 'saved': symbol[1]})
-
-                PyV8.JSEngine.collect()
+            log.JSEngine = JSEngine(self)
+            self._context = log.JSEngine.context
 
         return self._context
 
