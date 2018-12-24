@@ -18,6 +18,8 @@
 
 import os
 import logging
+import six.moves.configparser as ConfigParser
+
 import PyV8
 
 import thug
@@ -28,12 +30,17 @@ log = logging.getLogger("Thug")
 
 
 class JSEngine(object):
-    engine = "v8"
-
     def __init__(self, window = None):
+        self.init_engine()
         self.init_context(window)
         self.init_scripts()
         self.init_symbols()
+
+    def init_engine(self):
+        conf_file = os.path.join(log.configuration_path, 'thug.conf')
+        config = ConfigParser.ConfigParser()
+        config.read(conf_file)
+        self.engine = config.get('jsengine', 'engine')
 
     def init_v8_context(self, window):
         self._context = PyV8.JSContext(window, extensions = log.JSExtensions)
