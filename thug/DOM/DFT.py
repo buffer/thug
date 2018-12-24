@@ -96,8 +96,6 @@ class DFT(object):
         self._init_events()
         self._init_pyhooks()
 
-        # PyV8.JSEngine.setStackLimit(10 * 1024 * 1024)
-
     def _init_events(self):
         self.listeners = list()
 
