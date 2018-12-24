@@ -51,21 +51,21 @@ class JSEngine(object):
         if m:
             m(window)
 
-    def init_v8_scripts_thug(self, ctxt):
+    def init_scripts_thug(self, ctxt):
         thug_js = os.path.join(thug.__configuration_path__, 'scripts', "thug.js")
         ctxt.eval(open(thug_js, 'r').read())
 
-    def init_v8_scripts_storage(self, ctxt):
+    def init_scripts_storage(self, ctxt):
         if log.ThugOpts.Personality.browserMajorVersion < 8:
             storage_js = os.path.join(thug.__configuration_path__, 'scripts', "storage.js")
             ctxt.eval(open(storage_js, 'r').read())
 
-    def init_v8_scripts_date(self, ctxt):
+    def init_scripts_date(self, ctxt):
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             date_js = os.path.join(thug.__configuration_path__, 'scripts', "date.js")
             ctxt.eval(open(date_js, 'r').read())
 
-    def init_v8_hooks(self, ctxt):
+    def init_hooks(self, ctxt):
         hooks_folder = os.path.join(thug.__configuration_path__, 'hooks')
         hooks = os.listdir(hooks_folder) if os.path.exists(hooks_folder) else list()
         for hook in sorted([h for h in hooks if h.endswith('.js')]):
@@ -79,21 +79,20 @@ class JSEngine(object):
             symbol = getattr(log.ThugLogging, '{}_symbol'.format(hook))
             ctxt.eval(open(js, 'r').read() % {'name': symbol[0], 'saved': symbol[1]})
 
-    def init_v8_scripts(self):
+    def init_scripts(self):
         with self._context as ctxt:
-            self.init_v8_scripts_thug(ctxt)
+            self.init_scripts_thug(ctxt)
 
             if log.ThugOpts.Personality.isIE():
-                self.init_v8_scripts_storage(ctxt)
-                self.init_v8_scripts_date(ctxt)
+                self.init_scripts_storage(ctxt)
+                self.init_scripts_date(ctxt)
 
-            self.init_v8_hooks(ctxt)
+            self.init_hooks(ctxt)
+            self.post_init_scripts()
+
+    def post_init_scripts(self):
+        if self.engine in ("v8", ):
             PyV8.JSEngine.collect()
-
-    def init_scripts(self):
-        m = getattr(self, "init_{}_scripts".format(self.engine), None)
-        if m:
-            m()
 
     def init_v8_symbols(self):
         self.JSDebugger = V8Debugger
