@@ -115,6 +115,10 @@ class Shellcode(object):
     def dump_eval(self):
         name, saved = log.ThugLogging.eval_symbol
 
+        # FIXME
+        if not getattr(self.ctxt, "locals", None):
+            return
+
         scripts = getattr(self.ctxt.locals, name, None)
         if scripts is None:
             return
@@ -143,6 +147,10 @@ class Shellcode(object):
 
     def dump_write(self):
         name, saved = log.ThugLogging.write_symbol
+
+        # FIXME
+        if not getattr(self.ctxt, "locals", None):
+            return
 
         htmls = getattr(self.ctxt.locals, name, None)
         if htmls is None:
@@ -195,6 +203,10 @@ class Shellcode(object):
 
             names = [p['name'] for p in self.ast.names]
             for name in names:
+                # FIXME
+                if not getattr(self.ctxt, "locals", None):
+                    continue
+
                 s = getattr(self.ctxt.locals, name, None)
 
                 if not s:
