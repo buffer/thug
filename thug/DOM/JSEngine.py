@@ -167,7 +167,7 @@ class JSEngine(object):
 
     def isJSFunction(self, symbol):
         m = getattr(self, "is_{}_jsfunction".format(self.engine), None)
-        if m():
+        if m:
             return m(symbol)
 
         return False
@@ -180,7 +180,7 @@ class JSEngine(object):
 
     def isJSObject(self, symbol):
         m = getattr(self, "is_{}_jsfunction".format(self.engine), None)
-        if m():
+        if m:
             return m(symbol)
 
         return False
