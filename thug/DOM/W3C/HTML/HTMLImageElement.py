@@ -44,7 +44,7 @@ class HTMLImageElement(HTMLElement):
         if value.lower().startswith('res://'):
             onerror = getattr(self, 'onerror', None)
 
-            if isinstance(onerror, log.JSEngine.JSFunction):
+            if log.JSEngine.isJSFunction(onerror):
                 with self.doc.window.context as ctx:  # pylint:disable=unused-variable
                     onerror.__call__()
 

@@ -497,7 +497,7 @@ class DFT(object):
         if isinstance(h, six.string_types):
             handler = self.build_event_handler(self.context, h)
             # log.JSEngine.collect()
-        elif isinstance(h, log.JSEngine.JSFunction):
+        elif log.JSEngine.isJSFunction(h):
             handler = h
         else:
             try:

@@ -85,7 +85,7 @@ class Window(JSClass):
                     if isinstance(self.code, six.string_types):
                         return ctx.eval(self.code)
 
-                    if isinstance(self.code, log.JSEngine.JSFunction):
+                    if log.JSEngine.isJSFunction(self.code):
                         return self.code()
 
                     log.warning("Error while handling timer callback")
@@ -187,7 +187,7 @@ class Window(JSClass):
         finally:
             self._symbols.discard(key)
 
-        if isinstance(symbol, log.JSEngine.JSFunction):
+        if log.JSEngine.isJSFunction(symbol, log.JSEngine.JSFunction):
             _method = None
 
             if symbol in self._methods:
@@ -204,8 +204,12 @@ class Window(JSClass):
         if isinstance(symbol, (six.string_types,
                                bool,
                                numbers.Number,
-                               datetime.datetime,
-                               log.JSEngine.JSObject)):
+                               datetime.datetime)):
+            setattr(self, key, symbol)
+            context.locals[key] = symbol
+            return symbol
+
+        if log.JSEngine.isJSObject(symbol):
             setattr(self, key, symbol)
             context.locals[key] = symbol
             return symbol
