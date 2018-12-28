@@ -311,6 +311,11 @@ class TestThugAPI:
         rules = log.TextClassifier._rules
         assert rules['namespace1'] in (self.yara_file, )
 
+    def test_add_cookieclassifier(self):
+        self.thug_api.add_cookieclassifier(self.yara_file)
+        rules = log.CookieClassifier._rules
+        assert rules['namespace1'] in (self.yara_file, )
+
     def test_add_sampleclassifier(self):
         self.thug_api.add_sampleclassifier(self.yara_file)
         rules = log.SampleClassifier._rules
@@ -339,6 +344,11 @@ class TestThugAPI:
     def test_add_textfilter(self):
         self.thug_api.add_textfilter(self.yara_file)
         filters = log.TextClassifier._filters
+        assert filters['namespace1'] in (self.yara_file, )
+
+    def test_add_cookiefilter(self):
+        self.thug_api.add_cookiefilter(self.yara_file)
+        filters = log.CookieClassifier._filters
         assert filters['namespace1'] in (self.yara_file, )
 
     def test_add_samplefilter(self):
