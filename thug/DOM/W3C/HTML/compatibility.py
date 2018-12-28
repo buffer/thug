@@ -2,9 +2,5 @@
 
 import sys
 
-if sys.version_info.major >= 3:
-    thug_long = int
-    thug_maxint = sys.maxsize
-else:
-    thug_long = long
-    thug_maxint = sys.maxint
+thug_long = int if sys.version_info.major >= 3 else long
+thug_maxint = sys.maxsize if sys.version_info.major >= 3 else sys.maxint
