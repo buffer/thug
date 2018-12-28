@@ -48,6 +48,7 @@ class CCInterpreter(object):
             if log.ThugOpts.Personality.platform in ('Win32', ):
                 script = script.replace('@_win32', 'true')
                 script = script.replace('@_mac', 'false')
+
             if log.ThugOpts.Personality.platform in ('MacIntel', ):
                 script = script.replace('@_win32', 'false')
                 script = script.replace('@_mac', 'true')

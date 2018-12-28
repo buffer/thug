@@ -57,16 +57,19 @@ log = logging.getLogger("Thug")
 
 class JSEngine(object):
     def __init__(self, window = None):
+        self.init_config()
         self.init_engine()
         self.init_context(window)
         self.init_scripts()
         self.init_symbols()
 
-    def init_engine(self):
+    def init_config(self):
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
-        config = ConfigParser.ConfigParser()
-        config.read(conf_file)
-        self.engine = config.get('jsengine', 'engine')
+        self.config = ConfigParser.ConfigParser()
+        self.config.read(conf_file)
+
+    def init_engine(self):
+        self.engine = self.config.get('jsengine', 'engine')
 
     def init_v8_context(self, window):
         if not V8_MODULE:
@@ -107,6 +110,7 @@ class JSEngine(object):
     def init_hooks(self, ctxt):
         hooks_folder = os.path.join(thug.__configuration_path__, 'hooks')
         hooks = os.listdir(hooks_folder) if os.path.exists(hooks_folder) else list()
+
         for hook in sorted([h for h in hooks if h.endswith('.js')]):
             ctxt.eval(open(os.path.join(hooks_folder, hook), 'r').read())
 
