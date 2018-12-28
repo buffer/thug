@@ -1,4 +1,4 @@
-rule test2
+rule js_signature_2
 {
   strings:
     $js1 = "document.createProcessingInstruction(document, 'foo')"

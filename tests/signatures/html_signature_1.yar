@@ -1,4 +1,4 @@
-rule test1
+rule html_signature_1
 {
   strings:
     $html1 = "strVar"
