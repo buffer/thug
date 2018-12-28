@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
-import PyV8
+import logging
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 from .compatibility import thug_long
+
+log = logging.getLogger("Thug")
 
 
 class HTMLImageElement(HTMLElement):
@@ -42,7 +44,7 @@ class HTMLImageElement(HTMLElement):
         if value.lower().startswith('res://'):
             onerror = getattr(self, 'onerror', None)
 
-            if isinstance(onerror, PyV8.JSFunction):
+            if log.JSEngine.isJSFunction(onerror):
                 with self.doc.window.context as ctx:  # pylint:disable=unused-variable
                     onerror.__call__()
 

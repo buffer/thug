@@ -18,7 +18,6 @@
 
 import os
 import sys
-import PyV8
 import logging
 import six.moves.urllib.parse as urlparse
 
@@ -43,6 +42,7 @@ from thug.Logging.ThugLogging import ThugLogging
 from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
 from .Watchdog import Watchdog
+from .JSLocker import JSLocker
 from .OpaqueFilter import OpaqueFilter
 from .abstractmethod import abstractmethod
 from .ThugVulnModules import ThugVulnModules
@@ -63,6 +63,7 @@ log.setLevel(logging.WARN)
 class ThugAPI(object):
     def __init__(self, configuration_path = thug.__configuration_path__):
         self.__init_conf(configuration_path)
+        self.__init_jslocker()
         self.__init_core()
         self.__init_classifiers()
         self.__init_pyhooks()
@@ -72,6 +73,9 @@ class ThugAPI(object):
     def __init_conf(self, configuration_path):
         log.configuration_path = configuration_path
         log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
+
+    def __init_jslocker(self):
+        self.JSLocker = JSLocker().jslocker
 
     def __init_core(self):
         log.ThugOpts        = ThugOpts()
@@ -391,7 +395,7 @@ class ThugAPI(object):
         if log.Trace:
             sys.settrace(log.Trace)
 
-        with PyV8.JSLocker():
+        with self.JSLocker():
             with Watchdog(log.ThugOpts.timeout, callback = self.watchdog_cb):
                 dft = DFT(window)
                 dft.run()
