@@ -35,7 +35,7 @@ supporting the project with a donation using Paypal (details at https://buffer.g
 Development Setup
 -----------------
 
-To setup thug's development environment, follow the steps:
+To setup a development environment, follow the steps:
 
 .. code-block:: bash
 
@@ -45,18 +45,19 @@ To setup thug's development environment, follow the steps:
 
 
 The *dev* script will create a `virtualenv`_ environment in a directory called "venv"
-and install all mandatory and optional dependencies into it. Thug is installed as
-a permanent package and to compile all the changes, the package needs to be installed again by ``pip install .``
+and install all the mandatory and optional dependencies into it. Thug is installed as
+a permanent package and the package needs to be installed again executing ``pip install .``
+in order to compile all the changes.
 
-If you want to install thug as an "editable", please replace the
-line11 in `dev.sh` by the following line and re-run ``dev.sh``
+If you want to install Thug as an "editable", please replace line 11 in `dev.sh` by the
+following line and re-run ``dev.sh``
 
     pip2 install -e .
 
-Installing thug as an "editable" will allow any changes to the source in the repository to be reflected
-live in the virtualenv.
+Installing Thug as an "editable" allows changes to the source in the repository to be reflected
+in the virtualenv.
 
-Make sure that you successfully installed thug by running these commands:
+Make sure that you successfully installed Thug by running the following commands:
 
 .. code-block:: bash
 
