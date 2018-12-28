@@ -24,6 +24,7 @@ class TestClassifiers(object):
         thug.add_urlclassifier(os.path.join(self.signatures_path, "url_signature_3.yar"))
         thug.add_urlfilter(os.path.join(self.signatures_path, "url_filter_4.yar"))
         thug.add_textclassifier(os.path.join(self.signatures_path, "text_signature_5.yar"))
+        thug.add_vbsclassifier(os.path.join(self.signatures_path, "vbs_signature_6.yar"))
 
         thug.run_local(sample)
 
@@ -68,5 +69,12 @@ class TestClassifiers(object):
         sample   = os.path.join(self.classifiers_path, "test5.html")
         expected = ['[TEXT Classifier]',
                     'thug/samples/classifiers/test5.html (Rule: text_signature_5, Classification: )']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_vbs_signature_6(self, caplog):
+        sample   = os.path.join(self.classifiers_path, "test6.html")
+        expected = ['[VBS Classifier]',
+                    'thug/samples/classifiers/test6.html (Rule: vbs_signature_6, Classification: )']
 
         self.do_perform_test(caplog, sample, expected)
