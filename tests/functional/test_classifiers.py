@@ -23,6 +23,7 @@ class TestClassifiers(object):
         thug.add_jsclassifier(os.path.join(self.signatures_path, "js_signature_2.yar"))
         thug.add_urlclassifier(os.path.join(self.signatures_path, "url_signature_3.yar"))
         thug.add_urlfilter(os.path.join(self.signatures_path, "url_filter_4.yar"))
+        thug.add_textclassifier(os.path.join(self.signatures_path, "text_signature_5.yar"))
 
         thug.run_local(sample)
 
@@ -60,5 +61,12 @@ class TestClassifiers(object):
     def test_url_filter_4(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test4.html")
         expected = ['[URLFILTER Classifier] URL: http://www.google.com (Rule: url_filter_4, Classification: )']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_text_signature_5(self, caplog):
+        sample   = os.path.join(self.classifiers_path, "test5.html")
+        expected = ['[TEXT Classifier]',
+                    'thug/samples/classifiers/test5.html (Rule: text_signature_5, Classification: )']
 
         self.do_perform_test(caplog, sample, expected)
