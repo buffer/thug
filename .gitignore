@@ -8,6 +8,7 @@
 logs
 thug.egg-info
 .pytest_cache
+venv/*
 
 # Generated files
 *.pyc

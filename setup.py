@@ -2,7 +2,7 @@
 
 import os
 import glob
-from setuptools import setup, find_packages # Always prefer setuptools over distutils
+from setuptools import setup, find_packages  # Always prefer setuptools over distutils
 
 os.environ['BUILD_LIB'] = '1'
 
@@ -88,7 +88,7 @@ setup(
             "thug = thug.thug:main",
         ]
     },
-    project_urls={
+    project_urls = {
         'Bug Reports': 'https://github.com/buffer/thug/issues',
         'Funding': 'https://buffer.github.io/thug/',
         'Source': 'https://github.com/buffer/thug/',
