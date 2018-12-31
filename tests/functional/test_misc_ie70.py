@@ -269,7 +269,8 @@ class TestMiscSamplesIE(object):
                     'New nodeValue (delete 3): Hello',
                     'New nodeValue (append): Hello Test',
                     'Index error (insert 1)',
-                    'New nodeValue (insert 2): Hello New Test']
+                    'New nodeValue (insert 2): Hello New Test',
+                    'New nodeValue (reset): Reset']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -287,6 +288,7 @@ class TestMiscSamplesIE(object):
                     'New nodeValue (delete 3): <!--H',
                     'New nodeValue (append): <!--H Test',
                     'Index error (insert 1)',
-                    'New nodeValue (insert 2): <!--H New Test']
+                    'New nodeValue (insert 2): <!--H New Test',
+                    'New nodeValue (reset): Reset']
 
         self.do_perform_test(caplog, sample, expected)
