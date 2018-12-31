@@ -292,3 +292,9 @@ class TestMiscSamplesIE(object):
                     'New nodeValue (reset): Reset']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testDOMImplementation(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDOMImplementation.html")
+        expected = ["hasFeature('core'): true", ]
+
+        self.do_perform_test(caplog, sample, expected)

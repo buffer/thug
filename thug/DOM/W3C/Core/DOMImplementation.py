@@ -35,6 +35,7 @@ class DOMImplementation(HTML.HTMLDocument):
     def hasFeature(feature, version):
         if version == "":
             version = None
+
         return (feature.lower(), version) in DOMImplementation.features
 
     TAGS = {
