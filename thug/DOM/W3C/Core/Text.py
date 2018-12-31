@@ -5,6 +5,10 @@ from .DOMException import DOMException
 
 
 class Text(CharacterData):
+    def __init__(self, doc, tag):
+        self.data = tag
+        CharacterData.__init__(self, doc, tag)
+
     def __repr__(self):
         return "<Text '%s' at 0x%08X>" % (self.tag, id(self))
 
@@ -27,7 +31,3 @@ class Text(CharacterData):
     def nodeType(self):
         from .Node import Node
         return Node.TEXT_NODE
-
-    def replaceData(self, offset, count, arg):
-        s = self.data[:offset] + arg + self.data[offset + count:]
-        self.data = s
