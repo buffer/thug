@@ -1,0 +1,41 @@
+<html>
+<body>
+<script>
+	var t = document.createTextNode("Hello World");
+
+	alert("nodeName: " + t.nodeName);
+	alert("nodeType: " + t.nodeType);
+	alert("Object: " + t);
+	alert("nodeValue: " + t.nodeValue);
+	alert("Length: " + t.length);
+	alert("Substring(2,5): " + t.substringData(2, 5));
+
+	t.replaceData(5, 1, "A");
+	alert("New nodeValue (replace): " + t.nodeValue);
+
+	t.deleteData(5, 1);
+	alert("New nodeValue (delete 1): " + t.nodeValue);
+
+	try {
+		t.deleteData(100, 1);
+	} catch(err) {
+		alert("Index error (delete 2)");
+	}
+
+	t.deleteData(5, 20);
+	alert("New nodeValue (delete 3): " + t.nodeValue);
+
+	t.appendData(" Test");
+	alert("New nodeValue (append): " + t.nodeValue);
+
+	try {
+		t.insertData(100, "Done");
+	} catch(err) {
+		alert("Index error (insert 1)");
+	}
+
+	t.insertData(5, " New");
+	alert("New nodeValue (insert 2): " + t.nodeValue);
+</script>
+</body>
+</html>

@@ -254,3 +254,21 @@ class TestMiscSamplesIE(object):
         expected = ['JavaScript version: 5.7',
                     'Running on the 32-bit version of Windows']
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testTextNode(self, caplog):
+        sample   = os.path.join(self.misc_path, "testTextNode.html")
+        expected = ['nodeName: #text',
+                    'nodeType: 3',
+                    'Object: [object Text]',
+                    'nodeValue: Hello World',
+                    'Length: 11',
+                    'Substring(2,5): llo W',
+                    'New nodeValue (replace): HelloAWorld',
+                    'New nodeValue (delete 1): HelloWorld',
+                    'Index error (delete 2)',
+                    'New nodeValue (delete 3): Hello',
+                    'New nodeValue (append): Hello Test',
+                    'Index error (insert 1)',
+                    'New nodeValue (insert 2): Hello New Test']
+
+        self.do_perform_test(caplog, sample, expected)
