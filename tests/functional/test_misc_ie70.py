@@ -272,3 +272,21 @@ class TestMiscSamplesIE(object):
                     'New nodeValue (insert 2): Hello New Test']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testCommentNode(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCommentNode.html")
+        expected = ['nodeName: #comment',
+                    'nodeType: 8',
+                    'Object: [object Comment]',
+                    'nodeValue: <!--Hello World-->',
+                    'Length: 18',
+                    'Substring(2,5): --Hel',
+                    'New nodeValue (replace): <!--HAllo World-->',
+                    'New nodeValue (delete 1): <!--Hllo World-->',
+                    'Index error (delete 2)',
+                    'New nodeValue (delete 3): <!--H',
+                    'New nodeValue (append): <!--H Test',
+                    'Index error (insert 1)',
+                    'New nodeValue (insert 2): <!--H New Test']
+
+        self.do_perform_test(caplog, sample, expected)
