@@ -208,3 +208,47 @@ class TestMiscSamplesFirefox(object):
                     "[Window] Alert Text: text/javascript",
                     "[Window] Alert Text: Just a useless script"]
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testTextNode(self, caplog):
+        sample   = os.path.join(self.misc_path, "testTextNode.html")
+        expected = ['nodeName: #text',
+                    'nodeType: 3',
+                    'Object: [object Text]',
+                    'nodeValue: Hello World',
+                    'Length: 11',
+                    'Substring(2,5): llo W',
+                    'New nodeValue (replace): HelloAWorld',
+                    'New nodeValue (delete 1): HelloWorld',
+                    'Index error (delete 2)',
+                    'New nodeValue (delete 3): Hello',
+                    'New nodeValue (append): Hello Test',
+                    'Index error (insert 1)',
+                    'New nodeValue (insert 2): Hello New Test',
+                    'New nodeValue (reset): Reset']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testCommentNode(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCommentNode.html")
+        expected = ['nodeName: #comment',
+                    'nodeType: 8',
+                    'Object: [object Comment]',
+                    'nodeValue: <!--Hello World-->',
+                    'Length: 18',
+                    'Substring(2,5): --Hel',
+                    'New nodeValue (replace): <!--HAllo World-->',
+                    'New nodeValue (delete 1): <!--Hllo World-->',
+                    'Index error (delete 2)',
+                    'New nodeValue (delete 3): <!--H',
+                    'New nodeValue (append): <!--H Test',
+                    'Index error (insert 1)',
+                    'New nodeValue (insert 2): <!--H New Test',
+                    'New nodeValue (reset): Reset']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDOMImplementation(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDOMImplementation.html")
+        expected = ["hasFeature('core'): true", ]
+
+        self.do_perform_test(caplog, sample, expected)
