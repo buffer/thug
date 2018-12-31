@@ -2,7 +2,7 @@
 
 import os
 import glob
-from setuptools import setup, find_packages  # Always prefer setuptools over distutils
+from setuptools import setup, find_packages
 
 os.environ['BUILD_LIB'] = '1'
 
