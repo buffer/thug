@@ -4,6 +4,10 @@ from .CharacterData import CharacterData
 
 
 class Comment(CharacterData):
+    def __init__(self, doc, tag):
+        self._data = unicode(tag)
+        CharacterData.__init__(self, doc, tag)
+
     @property
     def nodeName(self):
         return "#comment"
