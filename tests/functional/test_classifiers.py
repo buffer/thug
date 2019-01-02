@@ -11,6 +11,9 @@ class TestClassifiers(object):
     classifiers_path = os.path.join(thug_path, "thug", "samples/classifiers")
     signatures_path  = os.path.join(thug_path, "thug", "tests/signatures")
 
+    def catchall(self, url, *args):
+        log.warning("[CATCHALL Custom Classifier] URL: %s", url)
+
     def do_perform_test(self, caplog, sample, expected):
         thug = ThugAPI()
 
@@ -19,6 +22,17 @@ class TestClassifiers(object):
         thug.disable_cert_logging()
 
         thug.log_init(sample)
+
+        thug.reset_customclassifiers()
+        thug.add_customclassifier('url', self.catchall)
+        thug.reset_customclassifiers()
+        thug.add_customclassifier('html', self.catchall)
+        thug.add_customclassifier('url', self.catchall)
+        thug.add_customclassifier('js', self.catchall)
+        thug.add_customclassifier('vbs', self.catchall)
+        thug.add_customclassifier('sample', self.catchall)
+        thug.add_customclassifier('cookie', self.catchall)
+        thug.add_customclassifier('text', self.catchall)
 
         thug.add_htmlclassifier(os.path.join(self.signatures_path, "html_signature_1.yar"))
         thug.add_jsclassifier(os.path.join(self.signatures_path, "js_signature_2.yar"))
@@ -57,13 +71,15 @@ class TestClassifiers(object):
 
     def test_url_classifier_3(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test3.html")
-        expected = ['[URL Classifier] URL: http://www.antifork.org (Rule: url_signature_3, Classification: )']
+        expected = ['[URL Classifier] URL: http://www.antifork.org (Rule: url_signature_3, Classification: )',
+                    '[CATCHALL Custom Classifier] URL: http://www.antifork.org']
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_url_filter_4(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test4.html")
-        expected = ['[URLFILTER Classifier] URL: http://www.google.com (Rule: url_filter_4, Classification: )']
+        expected = ['[URLFILTER Classifier] URL: http://www.google.com (Rule: url_filter_4, Classification: )',
+                    '[CATCHALL Custom Classifier] URL: http://www.google.com']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -83,6 +99,7 @@ class TestClassifiers(object):
 
     def test_url_classifier_7(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test7.html")
-        expected = ['[discard_meta_domain_whitelist] Whitelisted domain: honeynet.org']
+        expected = ['[discard_meta_domain_whitelist] Whitelisted domain: honeynet.org',
+                    '[CATCHALL Custom Classifier] URL: http://www.honeynet.org']
 
         self.do_perform_test(caplog, sample, expected)
