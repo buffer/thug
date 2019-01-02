@@ -84,13 +84,15 @@ Since tox builds and installs dependencies from scratch, using `pytest`_ for fas
 Support
 -------
 
+|donate badge|
+
 Thanks to |JetBrains|_ for free |PyCharm|_ licenses!
 
 
 License information
 -------------------
 
-Copyright (C) 2011-2018 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
+Copyright (C) 2011-2019 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
 
 License: GNU General Public License, version 2
 
@@ -108,6 +110,8 @@ License: GNU General Public License, version 2
    :target: https://codecov.io/gh/buffer/thug
 .. |docs badge| image:: https://readthedocs.org/projects/thug-honeyclient/badge/?version=latest
    :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
+.. |donate badge| image:: https://img.shields.io/badge/Donate-PayPal-green.svg
+   :target: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XTDF8AHJ28CXY
 .. |JetBrains| image:: /docs/images/pycharm/jetbrains.svg
 .. _JetBrains: https://www.jetbrains.com/?from=thug
 .. |PyCharm| image:: /docs/images/pycharm/pycharm.png
