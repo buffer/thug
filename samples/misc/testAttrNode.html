@@ -1,0 +1,22 @@
+<html>
+<body>
+<script>
+	var t = document.createAttribute("test");
+	t.nodeValue = "foo";
+
+	alert("Object: " + t);
+	alert("nodeName: " + t.nodeName);
+	alert("nodeType: " + t.nodeType);
+	alert("nodeValue: " + t.nodeValue);
+	alert("Length: " + t.length);
+
+	t.nodeValue = "test2"
+	alert("New nodeValue: " + t.nodeValue);
+	alert("Parent: " + t.parentNode);
+	alert("Owner: " + t.ownerElement);
+	alert("Name: " + t.name);
+	alert("Specified: " + t.specified);
+	alert("childNodes length: " + t.childNodes.length);
+</script>
+</body>
+</html>

@@ -254,3 +254,19 @@ class TestMiscSamplesChrome(object):
         expected = ["hasFeature('core'): true", ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testAttrNode(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAttrNode.html")
+        expected = ['Object: [object Attr]',
+                    'nodeName: test',
+                    'nodeType: 2',
+                    'nodeValue: foo',
+                    'Length: undefined',
+                    'New nodeValue: test2',
+                    'Parent: null',
+                    'Owner: null',
+                    'Name: test',
+                    'Specified: true',
+                    'childNodes length: 0']
+
+        self.do_perform_test(caplog, sample, expected)
