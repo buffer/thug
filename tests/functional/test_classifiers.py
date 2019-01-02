@@ -15,6 +15,7 @@ class TestClassifiers(object):
         thug = ThugAPI()
 
         thug.set_useragent('winxpie70')
+        thug.set_debug()
         thug.disable_cert_logging()
 
         thug.log_init(sample)
@@ -25,6 +26,7 @@ class TestClassifiers(object):
         thug.add_urlfilter(os.path.join(self.signatures_path, "url_filter_4.yar"))
         thug.add_textclassifier(os.path.join(self.signatures_path, "text_signature_5.yar"))
         thug.add_vbsclassifier(os.path.join(self.signatures_path, "vbs_signature_6.yar"))
+        thug.add_urlclassifier(os.path.join(self.signatures_path, "url_signature_7.yar"))
 
         thug.run_local(sample)
 
@@ -76,5 +78,11 @@ class TestClassifiers(object):
         sample   = os.path.join(self.classifiers_path, "test6.html")
         expected = ['[VBS Classifier]',
                     'thug/samples/classifiers/test6.html (Rule: vbs_signature_6, Classification: )']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_url_classifier_7(self, caplog):
+        sample   = os.path.join(self.classifiers_path, "test7.html")
+        expected = ['[discard_meta_domain_whitelist] Whitelisted domain: honeynet.org']
 
         self.do_perform_test(caplog, sample, expected)
