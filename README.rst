@@ -27,10 +27,12 @@ Documentation about Thug installation and usage can be found at http://thug-hone
 Contributions
 -------------
 
+|donate badge|
+
 Thug is open source and we welcome contributions in all forms!
 
 Thug is free to use for any purpose (even commercial ones). If you use and appreciate Thug, please consider
-supporting the project with a donation using Paypal (details at https://buffer.github.io/thug/).
+supporting the project with a donation using Paypal.
 
 Development Setup
 -----------------
@@ -83,8 +85,6 @@ Since tox builds and installs dependencies from scratch, using `pytest`_ for fas
 
 Support
 -------
-
-|donate badge|
 
 Thanks to |JetBrains|_ for free |PyCharm|_ licenses!
 
