@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Thug API &mdash; Thug 0.9.26 documentation</title>
+  <title>Thug API &mdash; Thug 0.9.39 documentation</title>
   
 
-  
-  
   
   
 
@@ -24,21 +22,28 @@
 
   
 
-  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="JS Hooks" href="jshooks.html" />
-    <link rel="prev" title="Usage" href="usage.html" /> 
+  
+  
+    <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Thug 0.9.39 documentation" href="index.html"/>
+        <link rel="next" title="JS Hooks" href="jshooks.html"/>
+        <link rel="prev" title="Usage" href="usage.html"/> 
 
   
   <script src="static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -58,7 +63,7 @@
             
             
               <div class="version">
-                0.9.26
+                0.9.39
               </div>
             
           
@@ -79,10 +84,7 @@
           
             
             
-              
-            
-            
-              <ul class="current">
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build.html">Build and Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
@@ -103,54 +105,34 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Thug</a>
-        
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Thug</a>
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li>Thug API</li>
-    
-    
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Thug API</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="sources/api.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -351,6 +333,33 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        set_maec11_logging</span>
 
 <span class="sd">        Enable MAEC 1.1 logging mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_features_logging</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get_features_logging</span>
+
+<span class="sd">        Return True if features logging mode is enabled, False otherwise.</span>
+
+<span class="sd">        @return: boolean</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">set_features_logging</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        set_features_logging</span>
+
+<span class="sd">        Enable features logging mode</span>
+
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">reset_features_logging</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        reset_features_logging</span>
+
+<span class="sd">        Reset features logging mode</span>
 
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -758,7 +767,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        set_vt_runtime_apikey</span>
 
 <span class="sd">        Set the key to be used when interacting with VirusTotal APIs, overriding</span>
-<span class="sd">        any static value defined in virustotal.conf</span>
+<span class="sd">        any static value defined in thug.conf</span>
 
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -768,7 +777,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        get_mongodb_instance</span>
 
 <span class="sd">        Get the address (&quot;host:port&quot;) of the MongoDB instance specified at runtime</span>
-<span class="sd">        (not the one from the logging.conf file)</span>
+<span class="sd">        (not the one from the thug.conf file)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">set_mongodb_instance</span><span class="p">():</span>
@@ -864,6 +873,17 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+    <span class="k">def</span> <span class="nf">add_cookieclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_cookieclassifier</span>
+
+<span class="sd">        Add an additional Cookie classifier rule file</span>
+
+<span class="sd">        @param rule: Cookie classifier rule file</span>
+<span class="sd">        @type rule: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">add_urlfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        add_urlfilter</span>
@@ -926,6 +946,17 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        Add an additional Text filter file</span>
 
 <span class="sd">        @param filter: Text filter file</span>
+<span class="sd">        @type filter: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">add_cookiefilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_cookiefilter</span>
+
+<span class="sd">        Add an additional Cookie filter file</span>
+
+<span class="sd">        @param filter: Cookie filter file</span>
 <span class="sd">        @type filter: C{str}</span>
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1019,16 +1050,15 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 
 
            </div>
-           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="jshooks.html" class="btn btn-neutral float-right" title="JS Hooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="jshooks.html" class="btn btn-neutral float-right" title="JS Hooks" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="usage.html" class="btn btn-neutral" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="usage.html" class="btn btn-neutral" title="Usage" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1041,7 +1071,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1059,12 +1089,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.26',
-            LANGUAGE:'None',
+            VERSION:'0.9.39',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="static/jquery.js"></script>
@@ -1073,13 +1101,19 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 
   
 
-  <script type="text/javascript" src="static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

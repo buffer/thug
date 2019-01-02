@@ -45,18 +45,17 @@ Login   : thug
 Password: thug
 
 In order to configure Thug to submit applets for analysis to HoneyAgent
-rename the file */etc/thug/honeyagent.conf.sample* in */etc/thug/honeyagent.conf*
-and edit it like shown later. 
+edit the configuration file */etc/thug/thug.conf* as shown later.
 
 .. code-block:: sh
 
-    [HoneyAgent]
+    [honeyagent]
     scanurl:                        http://192.168.56.101:8000
 
-Please note that if the file *honeyagent.conf* does not exists Thug will
+Please note that if the file *thug.conf* does not exists Thug will
 assume you do not want to submit applets to HoneyAgent. Alternatively 
 you can disable the HoneyAgent support through command line even if the
-the *honeyagent.conf* file exists (option -N or --no-honeyagent).
+the *thug.conf* file exists (option -N or --no-honeyagent).
 
 This configuration instructs Thug to send the applet to analyze to the
 server whose IP address is 192.168.56.101 (please verify your network 
@@ -127,12 +126,12 @@ of malware.
 
 Thug supports VirusTotal and a default API key is now included in the default
 configuration file (many thanks to the VirusTotal team). To change the default 
-VirusTotal key with your own, simply edit */etc/thug/virustotal.conf* 
-as follows:
+VirusTotal key with your own, simply edit */etc/thug/thug.conf* as shown
+later.
 
 .. code-block:: sh
 
-    [VirusTotal]
+    [virustotal]
     apikey:                         <enter your API key here>
     scanurl:                        https://www.virustotal.com/vtapi/v2/file/scan
     reporturl:                      https://www.virustotal.com/vtapi/v2/file/report
