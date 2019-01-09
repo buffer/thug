@@ -274,7 +274,7 @@ class Node(JSClass, EventTarget):
             raise DOMException(DOMException.NOT_FOUND_ERR)
 
         if self.is_text(newChild):
-            self.tag.contents[index] = newChild.data.output_ready(formatter = lambda x: x)
+            self.tag.contents[index].replace_with(newChild.data.output_ready(formatter = lambda x: x))
             return oldChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
@@ -283,7 +283,7 @@ class Node(JSClass, EventTarget):
 
             for p in newChild.tag.find_all_next():
                 if node is None:
-                    self.tag.contents[index] = p
+                    self.tag.contents[index].replace_with(p)
                 else:
                     node.append(p)
 
@@ -291,7 +291,7 @@ class Node(JSClass, EventTarget):
 
             return oldChild
 
-        self.tag.contents[index] = newChild.tag
+        self.tag.contents[index].replace_with(newChild.tag)
         return oldChild
 
     def removeChild(self, oldChild):
