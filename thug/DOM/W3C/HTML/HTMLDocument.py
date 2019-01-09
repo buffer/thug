@@ -167,10 +167,16 @@ class HTMLDocument(Document):
         return self._lastModified
 
     def getCookie(self):
-        return self._cookie
+        if not log.HTTPSession or not log.HTTPSession.cookies:
+            return self._cookie
+
+        items = ["{}={}".format(n, v) for n, v in log.HTTPSession.cookies.items()]
+        return "; ".join(items)
 
     def setCookie(self, value):
-        self._cookie = value
+        item = value.split()[0]
+        k, v = item.split('=')
+        log.HTTPSession.set_cookies(k, v)
 
     cookie = property(getCookie, setCookie)
 

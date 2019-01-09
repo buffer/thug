@@ -243,6 +243,14 @@ class HTTPSession(object):
     def about_blank(self, url):
         return url.lower() in ('about:blank', )
 
+    def get_cookies(self):
+        return self.session.cookies
+
+    def set_cookies(self, name, value):
+        self.session.cookies.set(name, value)
+
+    cookies = property(get_cookies, set_cookies)
+
 
 class HTTPSessionTest(unittest.TestCase):
     def setUp(self):
