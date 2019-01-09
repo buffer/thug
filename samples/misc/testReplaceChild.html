@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<div id="foobar">
+    <div>Old child</div>
+</div>
+
+<script language="javascript">
+
+function testReplaceChild(){
+	var divElem = document.getElementById("foobar");
+
+	var newElem = document.createElement("div");
+	newElem.innerHTML = "New child";
+ 
+	var divs = divElem.getElementsByTagName("div");
+	divElem.replaceChild(newElem, divs[0]);
+
+	var divs = divElem.getElementsByTagName("div");
+	alert(divs[0].innerHTML);
+}
+
+testReplaceChild();
+</script>
+
+</body>
+</html>

@@ -364,3 +364,9 @@ class TestMiscSamplesIE(object):
                     'childNodes length: 0']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testReplaceChild(self, caplog):
+        sample   = os.path.join(self.misc_path, "testReplaceChild.html")
+        expected = ["Alert Text: New child", ]
+
+        self.do_perform_test(caplog, sample, expected)
