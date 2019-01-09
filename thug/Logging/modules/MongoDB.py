@@ -91,6 +91,7 @@ class MongoDB(object):
         self.exploits     = db.exploits
         self.classifiers  = db.classifiers
         self.codes        = db.codes
+        self.cookies      = db.cookies
         self.maec11       = db.maec11
         self.json         = db.json
         dbfs              = connection.thugfs
@@ -260,6 +261,38 @@ class MongoDB(object):
         }
 
         self.classifiers.insert_one(classification)
+
+    def log_cookies(self):
+        attrs = ('comment',
+                 'comment_url',
+                 'discard',
+                 'domain',
+                 'domain_initial_dot',
+                 'domain_specified',
+                 'expires',
+                 'name',
+                 'path',
+                 'path_specified',
+                 'port',
+                 'port_specified',
+                 'rfc2109',
+                 'secure',
+                 'value',
+                 'version')
+
+        for cookie in log.HTTPSession.cookies:
+            item = {
+                'analysis_id' : self.analysis_id,
+            }
+
+            for attr in attrs:
+                value = getattr(cookie, attr, None)
+                if value is None:
+                    continue
+
+                item[attr] = value
+
+            self.cookies.insert_one(item)
 
     def get_url_from_location(self, md5):
         result = self.locations.find_one({'analysis_id' : self.analysis_id,
