@@ -242,7 +242,13 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_warning'):
             m(data)
 
+    def log_cookies(self):
+        for m in self.resolve_method('log_cookies'):
+            m()
+
     def log_redirect(self, response, window):
+        self.log_cookies()
+
         if not response.history:
             if 'Set-Cookie' in response.headers:
                 log.CookieClassifier.classify(response.url, response.headers['Set-Cookie'])
