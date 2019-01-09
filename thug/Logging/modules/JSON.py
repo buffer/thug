@@ -77,6 +77,7 @@ class JSON(object):
                                         },
                         "behavior"    : [],
                         "code"        : [],
+                        "cookies"     : [],
                         "files"       : [],
                         "connections" : [],
                         "locations"   : [],
@@ -249,6 +250,37 @@ class JSON(object):
 
         if item not in self.data["classifiers"]:
             self.data["classifiers"].append(item)
+
+    def log_cookies(self):
+        attrs = ('comment',
+                 'comment_url',
+                 'discard',
+                 'domain',
+                 'domain_initial_dot',
+                 'domain_specified',
+                 'expires',
+                 'name',
+                 'path',
+                 'path_specified',
+                 'port',
+                 'port_specified',
+                 'rfc2109',
+                 'secure',
+                 'value',
+                 'version')
+
+        for cookie in log.HTTPSession.cookies:
+            item = dict()
+
+            for attr in attrs:
+                value = getattr(cookie, attr, None)
+                if value is None:
+                    continue
+
+                item[attr] = value
+
+            if item not in self.data["cookies"]:
+                self.data["cookies"].append(item)
 
     def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         if not cve and not description:
