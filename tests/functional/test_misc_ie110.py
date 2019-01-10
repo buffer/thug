@@ -357,3 +357,9 @@ class TestMiscSamplesIE(object):
         expected = ["<div><p>Test</p></div>", ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testDocumentFragment2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentFragment2.html")
+        expected = ["<div id=\"foobar\"><b>This is B</b></div>", ]
+
+        self.do_perform_test(caplog, sample, expected)
