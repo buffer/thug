@@ -294,3 +294,9 @@ class TestMiscSamplesChrome(object):
         expected = ["<div id=\"foobar\"><b>This is B</b></div>", ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testDocumentFragment3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentFragment3.html")
+        expected = ["Alert Text: <div id=\"foo:bar\"></div>", ]
+
+        self.do_perform_test(caplog, sample, expected)

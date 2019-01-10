@@ -1,0 +1,13 @@
+<html>
+<body>
+<script>
+	var div1 = document.createElement("div");
+	div1.setAttribute('id', 'foo:bar');
+
+	var fragment = document.createDocumentFragment();
+	fragment.appendChild(div1);
+
+	alert(fragment.querySelector('#foo\\:bar'));
+</script>
+</body>
+</html>
