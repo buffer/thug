@@ -186,8 +186,7 @@ class Node(JSClass, EventTarget):
     def is_text(self, node):
         return node.nodeType in (Node.TEXT_NODE,
                                  Node.PROCESSING_INSTRUCTION_NODE,
-                                 Node.CDATA_SECTION_NODE,
-                                 Node.COMMENT_NODE, )
+                                 Node.CDATA_SECTION_NODE, )
 
     def insertBefore(self, newChild, refChild):
         if log.ThugOpts.features_logging:
@@ -230,6 +229,10 @@ class Node(JSClass, EventTarget):
 
         if self.is_text(newChild):
             self.tag.insert(index, newChild.data.output_ready(formatter = lambda x: x))
+            return newChild
+
+        if newChild.nodeType in (Node.COMMENT_NODE, ):
+            self.tag.insert(index, newChild.data)
             return newChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
@@ -275,6 +278,10 @@ class Node(JSClass, EventTarget):
 
         if self.is_text(newChild):
             self.tag.contents[index].replace_with(newChild.data.output_ready(formatter = lambda x: x))
+            return oldChild
+
+        if newChild.nodeType in (Node.COMMENT_NODE, ):
+            self.tag.contents[index].replace_with(newChild.data)
             return oldChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
@@ -356,6 +363,10 @@ class Node(JSClass, EventTarget):
 
         if self.is_text(newChild):
             self.tag.append(newChild.data.output_ready(formatter = lambda x: x))
+            return newChild
+
+        if newChild.nodeType in (Node.COMMENT_NODE, ):
+            self.tag.append(newChild.data)
             return newChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
