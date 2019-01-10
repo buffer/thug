@@ -280,3 +280,9 @@ class TestMiscSamplesFirefox(object):
         expected = ["Alert Text: favorite_food=tripe; name=oeschger", ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testDocumentFragment1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentFragment1.html")
+        expected = ["<div><p>Test</p></div>", ]
+
+        self.do_perform_test(caplog, sample, expected)
