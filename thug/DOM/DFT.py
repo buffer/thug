@@ -1307,6 +1307,9 @@ class DFT(object):
             if log.ThugOpts.features_logging:
                 log.ThugLogging.Features.increase_url_count()
 
+            if self._handle_data_uri(url):
+                continue
+
             try:
                 self.window._navigator.fetch(url, redirect_type = "font face")
             except Exception:
