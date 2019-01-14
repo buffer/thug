@@ -109,7 +109,7 @@ class ClassList(JSClass):
         if index < 0 or index > len(self._class_list) - 1:
             return None
 
-        return self._class_list[index - 1]
+        return self._class_list[index]
 
     def __toggle(self, c, force = None):
         if force is False or c in self._class_list:
