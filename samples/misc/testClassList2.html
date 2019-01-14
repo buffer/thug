@@ -1,0 +1,31 @@
+<html>
+<body>
+<script>
+	const div = document.createElement('div');
+	div.className = 'foo';
+
+	alert("[Initial value] " + div.outerHTML);
+
+	div.classList.remove("foo");
+	div.classList.add("anotherclass");
+
+	alert("[After remove and add] " + div.outerHTML);
+	alert("[Item] " + div.classList.item(0));
+
+	var i = 8;
+
+	div.classList.toggle("visible", i < 10 );
+
+	alert("[Toggle visible] " + div.classList.contains("visible"));
+
+	div.classList.add("foo", "bar", "baz");
+	alert("[After multiple adds] " + div.outerHTML);
+
+	div.classList.remove("foo", "bar", "baz");
+	alert("[After multiple removes] " + div.outerHTML);
+
+	div.classList.replace("anotherclass", "justanotherclass");
+	alert("[After replace] " + div.outerHTML);
+</script>
+</body>
+</html>
