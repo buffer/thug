@@ -61,8 +61,11 @@ class HTMLElement(Element, ElementCSSInlineStyle):
             if handler:
                 handler(node)
 
+    def getOuterHTML(self):
+        return str(self.tag)
+
     innerHTML = property(getInnerHTML, setInnerHTML)
-    outerHTML = property(getInnerHTML, setInnerHTML)
+    outerHTML = property(getOuterHTML, setInnerHTML)
 
     # WARNING: NOT DEFINED IN W3C SPECS!
     def focus(self):
