@@ -389,3 +389,12 @@ class TestMiscSamplesIE(object):
         expected = ["Alert Text: <div id=\"foo:bar\"></div>", ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testClassList1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testClassList1.html")
+        expected = ['[Initial value] <div class="foo"></div>',
+                    '[After remove and add] <div class="anotherclass"></div>',
+                    '[Item] anotherclass',
+                    '[Toggle visible] true']
+
+        self.do_perform_test(caplog, sample, expected)

@@ -1,0 +1,20 @@
+<html>
+<body>
+<script>
+	const div = document.createElement('div');
+	div.className = 'foo';
+
+	alert("[Initial value] " + div.outerHTML);
+
+	div.classList.remove("foo");
+	div.classList.add("anotherclass");
+
+	alert("[After remove and add] " + div.outerHTML);
+	alert("[Item] " + div.classList.item(0));
+
+	div.classList.toggle("visible");
+
+	alert("[Toggle visible] " + div.classList.contains("visible"));
+</script>
+</body>
+</html>
