@@ -1,0 +1,14 @@
+<html>
+<body>
+<script>
+	const div = document.createElement('div');
+
+	div.classList.remove("foo");
+	div.classList.add("anotherclass");
+	div.classList.add("anotherclass");
+	div.classList.remove("bar");
+
+	alert("[After remove and add] " + div.outerHTML);
+</script>
+</body>
+</html>
