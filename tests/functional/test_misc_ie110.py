@@ -375,6 +375,14 @@ class TestMiscSamplesIE(object):
         expected = ['[Initial value] <div class="foo"></div>',
                     '[After remove and add] <div class="anotherclass"></div>',
                     '[Item] anotherclass',
-                    '[Toggle visible] true']
+                    '[Empty item] null',
+                    '[Toggle visible] true',
+                    '[After toggle] <div class="anotherclass"></div>']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testClassList4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testClassList4.html")
+        expected = ['[After remove and add] <div class="anotherclass"></div>', ]
 
         self.do_perform_test(caplog, sample, expected)

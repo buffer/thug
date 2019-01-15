@@ -316,9 +316,17 @@ class TestMiscSamplesChrome(object):
         expected = ['[Initial value] <div class="foo"></div>',
                     '[After remove and add] <div class="anotherclass"></div>',
                     '[Item] anotherclass',
+                    '[Empty item] null',
                     '[Toggle visible] true',
                     '[After multiple adds] <div class="anotherclass visible foo bar baz"></div>',
                     '[After multiple removes] <div class="anotherclass visible"></div>',
-                    '[After replace] <div class="visible justanotherclass"></div>']
+                    '[After replace] <div class="visible justanotherclass"></div>',
+                    '[After toggle] <div class="justanotherclass"></div>']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testClassList4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testClassList4.html")
+        expected = ['[After remove and add] <div class="anotherclass"></div>', ]
 
         self.do_perform_test(caplog, sample, expected)
