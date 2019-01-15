@@ -138,11 +138,16 @@ class Document(Node, DocumentEvent, DocumentView):
     def doctype(self):
         from .DocumentType import DocumentType
 
-        for tag in self.doc:
-            if isinstance(tag, BeautifulSoup.Declaration) and tag.startswith("DOCTYPE"):
-                return DocumentType(self.doc, tag)
+        _doctype = getattr(self, '_doctype', None)
+        if _doctype:
+            return _doctype
 
-        return None
+        tags = [t for t in self.doc if isinstance(t, BeautifulSoup.Doctype)]
+        if not tags:
+            return None
+
+        self._doctype = DocumentType(self.doc, tags[0])
+        return self._doctype
 
     @property
     def implementation(self):

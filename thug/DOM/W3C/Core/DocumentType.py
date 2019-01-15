@@ -6,25 +6,20 @@ from .Node import Node
 
 
 class DocumentType(Node):
-    RE_DOCTYPE = re.compile("^DOCTYPE (\w+)", re.M + re.S)
+    RE_DOCTYPE = re.compile("^(\w+)", re.M + re.S)
 
     def __init__(self, doc, tag):
         self.tag = tag
         Node.__init__(self, doc)
-        self.parse(tag)
-
-    def parse(self, text):
-        m = self.RE_DOCTYPE.match(text)
-
-        self._name = m.group(1) if m else ""
 
     @property
     def name(self):
-        return self._name
+        m = self.RE_DOCTYPE.match(self.tag)
+        return m.group(1) if m else ""
 
     @property
     def nodeName(self):
-        return self._name
+        return self.name
 
     @property
     def nodeType(self):
@@ -45,18 +40,17 @@ class DocumentType(Node):
     # Modified in DOM Level 2
     @property
     def ownerDocument(self):
-        # FIXME
-        return None
+        return self.doc
 
     # Introduced in DOM Level 2
     @property
     def publicId(self):
-        pass
+        return " "
 
     # Introduced in DOM Level 2
     @property
     def systemId(self):
-        pass
+        return " "
 
     # Introduced in DOM Level 2
     @property
