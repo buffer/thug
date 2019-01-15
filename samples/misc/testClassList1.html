@@ -11,10 +11,14 @@
 
 	alert("[After remove and add] " + div.outerHTML);
 	alert("[Item] " + div.classList.item(0));
+	alert("[Empty item] " + div.classList.item(1));
 
 	div.classList.toggle("visible");
 
 	alert("[Toggle visible] " + div.classList.contains("visible"));
+
+	div.classList.toggle("visible");
+	alert("[After toggle] " + div.outerHTML);
 </script>
 </body>
 </html>
