@@ -319,3 +319,16 @@ class TestMiscSamplesChrome(object):
         expected = ['[After remove and add] <div class="anotherclass"></div>', ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testDocumentType(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentType.html")
+        expected = ['Doctype: [object DocumentType]',
+                    'Doctype name: html',
+                    'Doctype nodeName: html',
+                    'Doctype nodeType: 10',
+                    'Doctype nodeValue: null',
+                    'Doctype publicId: ',
+                    'Doctype systemId: ',
+                    'Doctype textContent: null']
+
+        self.do_perform_test(caplog, sample, expected)
