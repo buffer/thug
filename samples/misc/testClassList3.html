@@ -11,6 +11,7 @@
 
 	alert("[After remove and add] " + div.outerHTML);
 	alert("[Item] " + div.classList.item(0));
+	alert("[Empty item] " + div.classList.item(1));
 
 	var i = 8;
 
@@ -23,6 +24,9 @@
 
 	div.classList.remove("foo", "bar", "baz");
 	alert("[After multiple removes] " + div.outerHTML);
+
+	div.classList.toggle("visible");
+	alert("[After toggle] " + div.outerHTML);
 </script>
 </body>
 </html>
