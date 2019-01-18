@@ -16,7 +16,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import os
 import sched
 import time
 import logging
@@ -30,7 +29,6 @@ import types
 import six
 import bs4 as BeautifulSoup
 
-import thug
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.AST.AST import AST
 from thug.Debugger import Shellcode

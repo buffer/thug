@@ -17,8 +17,8 @@
 # MA  02111-1307  USA
 
 import unittest
-import yara
 import json
+import yara
 
 
 class TestURLClassifier(unittest.TestCase):
