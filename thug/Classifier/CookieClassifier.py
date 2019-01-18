@@ -45,7 +45,7 @@ class CookieClassifier(BaseClassifier):
             log.ThugLogging.log_classifier("cookie", url, rule, tags)
 
         for c in self.custom_classifiers:
-            self.custom_classifiers[c](url, text)
+            self.custom_classifiers[c](url, cookie)
 
     def filter(self, url, cookie):
         ret = False
