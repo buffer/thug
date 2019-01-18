@@ -283,7 +283,7 @@ class MIMEHandler(dict):
                 continue
 
             if filename.lower().endswith('.js'):
-                self.window.evalScript(data)
+                log.DFT.window.evalScript(data)
 
             sample = log.ThugLogging.log_file(data, url)
             if sample is None:
@@ -372,7 +372,7 @@ class MIMEHandler(dict):
         for jar in jars:
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
-                self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
+                log.DFT.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
             except Exception:
                 pass
 
@@ -391,7 +391,7 @@ class MIMEHandler(dict):
         for key in content.keys():
             if key.lower() in ('@content.downloadurl', ):
                 try:
-                    self.window._navigator.fetch(content[key], headers = headers, redirect_type = "JSON")
+                    log.DFT.window._navigator.fetch(content[key], headers = headers, redirect_type = "JSON")
                 except Exception:
                     pass
 
