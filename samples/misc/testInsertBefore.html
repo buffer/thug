@@ -9,13 +9,49 @@ function testAppendChild(){
 	bodyElem.appendChild(refElem);
 	alert(document);
      
-    var newElem = document.createElement("div");
-    newElem.innerHTML = "Just a sample";
-    bodyElem.insertBefore(newElem, refElem);
-    alert(document);
+	var newElem = document.createElement("div");
+	newElem.innerHTML = "Just a sample";
+	bodyElem.insertBefore(newElem, refElem);
+	alert(document);
 
 	bodyElem.insertBefore(newElem, refElem);
 	alert(document);
+
+	try {
+		bodyElem.insertBefore(null, refElem);
+	} catch(err) {
+		alert("[ERROR] Attempting to insert null element");
+	}
+
+    try {
+        bodyElem.insertBefore('randomstring', refElem);
+    } catch(err) {
+        alert("[ERROR] Attempting to insert an invalid element");
+    }
+
+	var fooElem = document.createElement("div");
+	fooElem.innerHTML = "Foo";
+	bodyElem.insertBefore(fooElem, null);
+	alert(document);
+
+	try {
+        bodyElem.insertBefore(fooElem, 'randomstring');
+	} catch(err) {
+		alert("[ERROR] Attempting to insert using an invalid reference element");
+	}
+
+	var textElem = document.createTextNode("Hello World");
+	bodyElem.insertBefore(fooElem, textElem);
+	alert(document);
+
+	var commentElem = document.createComment("Just a comment");
+	try {
+		bodyElem.insertBefore(commentElem, commentElem);
+	} catch(e) {
+		alert("[ERROR] Attempting to insert a text node using an invalid reference element");
+	}
+
+    bodyElem.insertBefore(commentElem, refElem);
 }
 
 testAppendChild();

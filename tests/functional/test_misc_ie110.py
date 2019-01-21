@@ -114,7 +114,12 @@ class TestMiscSamplesIE(object):
 
     def test_testInsertBefore(self, caplog):
         sample   = os.path.join(self.misc_path, "testInsertBefore.html")
-        expected = ["<div>Just a sample</div><div>I'm your reference!</div></body></html>"]
+        expected = ["<div>Just a sample</div><div>I'm your reference!</div></body></html>",
+                    "[ERROR] Attempting to insert null element",
+                    "[ERROR] Attempting to insert an invalid element",
+                    "[ERROR] Attempting to insert using an invalid reference element",
+                    "[ERROR] Attempting to insert a text node using an invalid reference element"]
+
         self.do_perform_test(caplog, sample, expected)
 
     def test_testLocalStorage(self, caplog):
