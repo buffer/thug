@@ -206,10 +206,6 @@ class Node(JSClass, EventTarget):
         if not isinstance(refChild, Node):
             raise DOMException(DOMException.HIERARCHY_REQUEST_ERR)
 
-        # index = self.findChild(refChild)
-        # if index < 0 and not self.is_text(refChild):
-        #    raise DOMException(DOMException.NOT_FOUND_ERR)
-
         # If the newChild is already in the tree, it is first removed
         if getattr(newChild, 'tag', None) and newChild.tag in self.tag.contents:
             newChildHash = hash(newChild.tag._node)
@@ -221,8 +217,6 @@ class Node(JSClass, EventTarget):
                 if newChildHash == hash(p._node):
                     p.extract()
 
-            # self.tag.contents.remove(newChild.tag)
-
         index = self.findChild(refChild)
         if index < 0 and not self.is_text(refChild):
             raise DOMException(DOMException.NOT_FOUND_ERR)
@@ -232,7 +226,7 @@ class Node(JSClass, EventTarget):
             return newChild
 
         if newChild.nodeType in (Node.COMMENT_NODE, ):
-            self.tag.insert(index, newChild.data)
+            # self.tag.insert(index, newChild.data)
             return newChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
