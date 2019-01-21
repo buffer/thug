@@ -14,11 +14,11 @@ sys.path.append(ThugPlugins.PLUGINS_PATH)
 
 
 class TestThugPlugin():
-    def test_get_plugion_low_prio(self):
+    def test_get_plugin_low_prio(self):
         plugin_info = ['TestPlugin', 'example']
         assert PLUGINS.get_plugin_prio(plugin_info) == 1000
 
-    def test_get_plugion_high_prio(self):
+    def test_get_plugin_high_prio(self):
         plugin_info = ['POST', 'TestPlugin', '999']
         assert PLUGINS.get_plugin_prio(plugin_info) == 999
 
