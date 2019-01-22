@@ -1,29 +1,48 @@
 <html>
-<body>
+<body id="foobar">
 <script language="javascript">
-function testAppendChild(){
+
+function testRemoveChild(){
 	var newElem = document.createElement("div");
 	newElem.innerHTML = "Just a sample";
  
 	var bodyElem = document.getElementById("foobar");
-
 	bodyElem.appendChild(newElem);
-	alert(document);
 
 	var dontCare = document.createElement("div");
 	dontCare.innerHTML = "Don't care about me";
 	bodyElem.appendChild(dontCare);
-	alert(document);
-     
-	bodyElem.appendChild(newElem);
-	alert(document);
-
 	bodyElem.removeChild(newElem);
-	alert(document);
+	alert(document.body.innerHTML);
+
+	try {
+		bodyElem.removeChild(null);
+	} catch(err) {
+		alert("[ERROR] Attempting to remove null element");
+	}
+
+	try {
+		bodyElem.removeChild('randomstring');
+	} catch(err) {
+		alert("[ERROR] Attempting to remove an invalid element");
+	}
+
+	var fragmentElem = document.createDocumentFragment();
+    try {
+        bodyElem.removeChild(fragmentElem);
+    } catch(err) {
+        alert("[ERROR] Attempting to remove a read-only element");
+    }
+
+	var divElem = document.createElement("div");
+	try {
+		bodyElem.removeChild(divElem);
+	} catch(e) {
+		alert("[ERROR] Attempting to remove an element not in the tree");
+	}
 }
 
-testAppendChild();
+testRemoveChild();
 </script>
-<body id="foobar">
 </body>
 </html>

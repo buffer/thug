@@ -424,3 +424,13 @@ class TestMiscSamplesIE(object):
                     'Doctype textContent: null']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testRemoveChild(self, caplog):
+        sample   = os.path.join(self.misc_path, "testRemoveChild.html")
+        expected = ['<div>Don\'t care about me</div>',
+                    '[ERROR] Attempting to remove null element',
+                    '[ERROR] Attempting to remove an invalid element',
+                    '[ERROR] Attempting to remove a read-only element',
+                    '[ERROR] Attempting to remove an element not in the tree']
+
+        self.do_perform_test(caplog, sample, expected)
