@@ -23,11 +23,11 @@ function testAppendChild(){
 		alert("[ERROR] Attempting to insert null element");
 	}
 
-    try {
-        bodyElem.insertBefore('randomstring', refElem);
-    } catch(err) {
-        alert("[ERROR] Attempting to insert an invalid element");
-    }
+	try {
+		bodyElem.insertBefore('randomstring', refElem);
+	} catch(err) {
+		alert("[ERROR] Attempting to insert an invalid element");
+	}
 
 	var fooElem = document.createElement("div");
 	fooElem.innerHTML = "Foo";
