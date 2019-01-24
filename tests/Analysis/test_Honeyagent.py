@@ -45,7 +45,7 @@ class mock_log():
 class TestHoneyAgent:
     cwd_path = os.path.dirname(os.path.realpath(__file__))
     samples_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files")
-    
+
     # Mock requests POST method
     @patch('requests.post')
     def test_analyze(self, mocked_post):
@@ -64,12 +64,16 @@ class TestHoneyAgent:
                                                      [{"rule": "LocalFileAccess"}]}}}
 
         mocked_post.return_value = Mock(json=json_data)
+
+        _log = HoneyAgent.log
         HoneyAgent.log = mock_log()
 
         HAGENT.enabled = True
         HAGENT.opts = {'enable': True, 'scanurl': 'http://test.com'}
 
-        HAGENT.analyze(data, sample, sel.samples_path, None)
+        HAGENT.analyze(data, sample, self.samples_path, None)
 
         mock_data = [dat[1:]for dat in HoneyAgent.log.data]
         assert mock_data == expected
+
+        HoneyAgent.log = _log
