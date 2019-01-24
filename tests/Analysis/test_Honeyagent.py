@@ -12,13 +12,13 @@ configuration_path = thug.__configuration_path__
 
 log = logging.getLogger("Thug")
 log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
+
 log.ThugOpts = ThugOpts()
 
 log.configuration_path = configuration_path
 log.ThugLogging = ThugLogging(thug.__version__)
 
 HAGENT = HoneyAgent.HoneyAgent()
-FILE = "thug/tests/test_files/sample.jar"
 
 
 class mock_cls:
@@ -43,7 +43,9 @@ class mock_log():
 
 
 class TestHoneyAgent:
-
+    cwd_path = os.path.dirname(os.path.realpath(__file__))
+    samples_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files")
+    
     # Mock requests POST method
     @patch('requests.post')
     def test_analyze(self, mocked_post):
@@ -51,10 +53,10 @@ class TestHoneyAgent:
                     ('d4be8fbeb3a219ec8c6c26ffe4033a16', 'file'),
                     ('d4be8fbeb3a219ec8c6c26ffe4033a16', 'heuristics', 'LocalFileAccess')]
 
-        basedir = "thug/tests/test_files"
         sample = {'type': 'JAR', 'md5': 'd4be8fbeb3a219ec8c6c26ffe4033a16'}
 
-        with open(FILE, 'rb') as f:
+        jar_path = os.path.join(self.samples_path, "sample.jar")
+        with open(jar_path, 'rb') as f:
             data = f.read()
 
         json_data = lambda: {"result": {"files": {"file": "test"},
@@ -67,7 +69,7 @@ class TestHoneyAgent:
         HAGENT.enabled = True
         HAGENT.opts = {'enable': True, 'scanurl': 'http://test.com'}
 
-        HAGENT.analyze(data, sample, basedir, None)
+        HAGENT.analyze(data, sample, sel.samples_path, None)
 
         mock_data = [dat[1:]for dat in HoneyAgent.log.data]
         assert mock_data == expected
