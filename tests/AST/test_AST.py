@@ -4,12 +4,14 @@ import logging
 import thug
 from thug.AST.AST import AST
 from thug.ThugAPI.ThugOpts import ThugOpts
+from thug.Logging.ThugLogging import ThugLogging
 
 configuration_path     = thug.__configuration_path__
 log                    = logging.getLogger("Thug")
 log.configuration_path = configuration_path
 log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
 log.ThugOpts           = ThugOpts()
+log.ThugLogging        = ThugLogging(thug.__version__)
 
 
 class TestAST(object):
