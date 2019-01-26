@@ -19,6 +19,7 @@
 import os
 import logging
 import yara
+import six
 import six.moves.urllib.parse as urlparse
 
 log = logging.getLogger("Thug")
@@ -115,7 +116,8 @@ class BaseClassifier(object):
             log.warning("Skipping non callable custom classifier %s", str(method))
             return
 
-        method_name = method.im_func.func_name
+        # method_name = method.im_func.func_name
+        method_name = six.get_function_code(method).co_name
         self.custom_classifiers[method_name] = method.__get__(self)
 
     def reset_customclassifiers(self):
