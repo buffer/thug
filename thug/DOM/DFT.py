@@ -115,7 +115,8 @@ class DFT(object):
 
         for label, hook in hooks.items():
             name   = "{}_hook".format(label)
-            _hook  = hook.im_func if hook.im_self else hook
+            # _hook  = hook.im_func if hook.im_self else hook
+            _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
             method = types.MethodType(_hook, self, DFT)
             setattr(self, name, method)
 
