@@ -20,7 +20,7 @@ import sched
 import time
 import logging
 import traceback
-import urllib
+#import urllib
 import base64
 import numbers
 import collections
@@ -47,6 +47,8 @@ from .CCInterpreter import CCInterpreter
 from .LocalStorage import LocalStorage
 from .SessionStorage import SessionStorage
 from .w3c_bindings import w3c_bindings
+
+import six.moves.urllib_parse as urllib
 
 sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug")
