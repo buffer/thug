@@ -278,7 +278,11 @@ class TestMiscSamplesChrome(object):
 
     def test_testReplaceChild(self, caplog):
         sample   = os.path.join(self.misc_path, "testReplaceChild.html")
-        expected = ["Alert Text: New child", ]
+        expected = ['[ERROR] Attempting to replace with a null element',
+                    '[ERROR] Attempting to replace a null element',
+                    '[ERROR] Attempting to replace with an invalid element',
+                    '[ERROR] Attempting to replace an invalid element',
+                    'Alert Text: New child', ]
 
         self.do_perform_test(caplog, sample, expected)
 
