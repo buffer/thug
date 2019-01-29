@@ -86,7 +86,10 @@ class TestMiscSamplesIE(object):
 
     def test_testCreateHTMLDocument(self, caplog):
         sample   = os.path.join(self.misc_path, "testCreateHTMLDocument.html")
-        expected = ['<html><head><title>New Document</title></head><body><p>This is a new paragraph.</p></body></html>']
+        expected = ['[object HTMLDocument]',
+                    '[object HTMLBodyElement]',
+                    '<p>This is a new paragraph.</p>']
+
         self.do_perform_test(caplog, sample, expected)
 
     def test_testDocumentWrite1(self, caplog):
