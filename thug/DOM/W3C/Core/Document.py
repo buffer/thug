@@ -103,15 +103,6 @@ class Document(Node, DocumentEvent, DocumentView):
 
         return None
 
-    def __str__(self):
-        return str(self.doc)
-
-    def __unicode__(self):
-        return unicode(self.doc)
-
-    def __repr__(self):
-        return "<Document at 0x%08X>" % id(self)
-
     # Introduced in DOM Level 3
     @property
     def textContent(self):
