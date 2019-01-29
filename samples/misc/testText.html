@@ -9,6 +9,8 @@ function addTextNode()
 	var newtext = document.createTextNode(" Some text added dynamically. ");
 	var para = document.getElementById("p1");
 	para.appendChild(newtext);
+	alert(document.body.innerHTML);
+	alert(document);
 	alert(document.body);
 }
 
@@ -24,4 +26,3 @@ function addTextNode()
 
 </body>
 </html>
-

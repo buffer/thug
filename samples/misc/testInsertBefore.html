@@ -7,15 +7,15 @@ function testAppendChild(){
 
 	var bodyElem = document.body;
 	bodyElem.appendChild(refElem);
-	alert(document);
+	alert(document.body.innerHTML);
      
 	var newElem = document.createElement("div");
 	newElem.innerHTML = "Just a sample";
 	bodyElem.insertBefore(newElem, refElem);
-	alert(document);
+	alert(document.body.innerHTML);
 
 	bodyElem.insertBefore(newElem, refElem);
-	alert(document);
+	alert(document.body.innerHTML);
 
 	try {
 		bodyElem.insertBefore(null, refElem);
@@ -32,7 +32,7 @@ function testAppendChild(){
 	var fooElem = document.createElement("div");
 	fooElem.innerHTML = "Foo";
 	bodyElem.insertBefore(fooElem, null);
-	alert(document);
+	alert(document.body.innerHTML);
 
 	try {
         bodyElem.insertBefore(fooElem, 'randomstring');
@@ -42,7 +42,7 @@ function testAppendChild(){
 
 	var textElem = document.createTextNode("Hello World");
 	bodyElem.insertBefore(fooElem, textElem);
-	alert(document);
+	alert(document.body.innerHTML);
 
 	var commentElem = document.createComment("Just a comment");
 	try {
