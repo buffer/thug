@@ -7,15 +7,12 @@ function testAppendChild(){
 
 	var bodyElem = document.body;
 	bodyElem.appendChild(refElem);
-	alert(document);
      
     var newElem = document.createElement("div");
     newElem.innerHTML = "Just a sample";
     bodyElem.insertBefore(newElem, refElem);
-    alert(document);
 
 	bodyElem.insertBefore(newElem, refElem);
-	alert(document);
 }
 
 testAppendChild();
