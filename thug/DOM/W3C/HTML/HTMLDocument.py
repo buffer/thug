@@ -27,6 +27,9 @@ class HTMLDocument(Document):
     anchors     = xpath_property("//a[@name]", readonly = True)
     innerHTML   = text_property()
 
+    def __str__(self):
+        return "[object HTMLDocument]"
+
     def __init__(self, doc, win = None, referer = None, lastModified = None, cookie = ''):
         Document.__init__(self, doc)
 
