@@ -86,7 +86,11 @@ class TestMiscSamplesIE(object):
 
     def test_testCreateStyleSheet(self, caplog):
         sample   = os.path.join(self.misc_path, "testCreateStyleSheet.html")
-        expected = ['style1.css" rel="stylesheet"></link><link href="style2.css" rel="stylesheet"></link><link href="style3.css" rel="stylesheet"></link><link href="style4']
+        expected = ['[Window] Alert Text: <link href="style1.css" rel="stylesheet"></link>',
+                    '[Window] Alert Text: <link href="style2.css" rel="stylesheet"></link>',
+                    '[Window] Alert Text: <link href="style3.css" rel="stylesheet"></link>',
+                    '[Window] Alert Text: <link href="style4.css" rel="stylesheet"></link>']
+
         self.do_perform_test(caplog, sample, expected)
 
     def test_testDocumentAll(self, caplog):
