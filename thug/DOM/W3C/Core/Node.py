@@ -418,8 +418,8 @@ class Node(JSClass, EventTarget):
         if cloned.nodeType in (Node.ELEMENT_NODE, ) and deep is False:
             cloned.tag.string = ''
 
-        # return cloned
-        return self.wrap(self.doc, cloned.tag)
+        return cloned
+        # return self.wrap(self.doc, cloned.tag)
 
     @staticmethod
     def wrap(doc, obj):
