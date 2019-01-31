@@ -15,8 +15,8 @@ function testAppendChild(){
      
 	bodyElem.appendChild(newElem);
 	var divs = document.getElementsByTagName("div");
-	alert(divs[0]);
-	alert(divs[1]);
+	alert(divs[0].innerHTML);
+	alert(divs[1].innerHTML);
 }
 
 testAppendChild();

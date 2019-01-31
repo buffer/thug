@@ -61,8 +61,8 @@ class TestMiscSamplesFirefox(object):
 
     def test_testAppendChild(self, caplog):
         sample   = os.path.join(self.misc_path, "testAppendChild.html")
-        expected = ["<div>Don't care about me</div>",
-                    '<div>Just a sample</div>']
+        expected = ["Don't care about me",
+                    'Just a sample']
         self.do_perform_test(caplog, sample, expected)
 
     def test_testCloneNode(self, caplog):
@@ -72,7 +72,12 @@ class TestMiscSamplesFirefox(object):
 
     def test_testCloneNode2(self, caplog):
         sample   = os.path.join(self.misc_path, "testCloneNode2.html")
-        expected = ['<button align="left" id="myButton">Clone node</button>']
+        expected = ['[Window] Alert Text: [object HTMLButtonElement]',
+                    '[Window] Alert Text: Clone node',
+                    '[Window] Alert Text: None',
+                    '[Window] Alert Text: [object Attr]',
+                    '[Window] Alert Text: True']
+
         self.do_perform_test(caplog, sample, expected)
 
     def test_testCreateHTMLDocument(self, caplog):
@@ -96,9 +101,9 @@ class TestMiscSamplesFirefox(object):
 
     def test_testGetElementsByClassName(self, caplog):
         sample   = os.path.join(self.misc_path, "testGetElementsByClassName.html")
-        expected = ['<div class="example">First</div>',
-                    '<div class="example">Hello World!</div>',
-                    '<div class="example">Second</div>']
+        expected = ['First',
+                    'Hello World!',
+                    'Second']
         self.do_perform_test(caplog, sample, expected)
 
     def test_testInnerHTML(self, caplog):
@@ -132,13 +137,13 @@ class TestMiscSamplesFirefox(object):
 
     def test_testNode(self, caplog):
         sample   = os.path.join(self.misc_path, "testNode.html")
-        expected = ['<a href="/" id="thelink">test</a>',
+        expected = ["thelink",
                     "thediv"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testNode2(self, caplog):
         sample   = os.path.join(self.misc_path, "testNode2.html")
-        expected = ['<a href="/bar.html" id="thelink">test</a>',
+        expected = ["thelink",
                     "thediv2"]
         self.do_perform_test(caplog, sample, expected)
 
@@ -150,9 +155,9 @@ class TestMiscSamplesFirefox(object):
 
     def test_testQuerySelector2(self, caplog):
         sample   = os.path.join(self.misc_path, "testQuerySelector2.html")
-        expected = ['<li class="aclass">CoursesWeb.net</li>',
-                    "<li>MarPlo.net</li>",
-                    '<li class="aclass">php.net</li>']
+        expected = ['CoursesWeb.net',
+                    "MarPlo.net",
+                    'php.net']
         self.do_perform_test(caplog, sample, expected)
 
     def test_testScope(self, caplog):
@@ -307,7 +312,7 @@ class TestMiscSamplesFirefox(object):
 
     def test_testDocumentFragment3(self, caplog):
         sample   = os.path.join(self.misc_path, "testDocumentFragment3.html")
-        expected = ["Alert Text: <div id=\"foo:bar\"></div>", ]
+        expected = ["foo:bar", ]
 
         self.do_perform_test(caplog, sample, expected)
 

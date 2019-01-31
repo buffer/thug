@@ -8,10 +8,10 @@
 <script>
 function run() {
     var x = document.getElementsByClassName("example");
-    alert(x[0]);
+    alert(x[0].innerHTML);
     x[0].innerHTML = "Hello World!";
-    alert(x[0]);
-    alert(x[1]);
+    alert(x[0].innerHTML);
+    alert(x[1].innerHTML);
 }
 
 run();
