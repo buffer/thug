@@ -106,7 +106,7 @@ class TestJQuerySamples(object):
     def test_jquery_12(self, caplog):
         sample   = os.path.join(self.jquery_path, "test-jquery-12.html")
         expected = ["[Window] Alert Text: 2",
-                    "[Window] Alert Text: <h1>Foo</h1>"]
+                    "[Window] Alert Text: Foo"]
 
         self.do_perform_test(caplog, sample, expected)
 
