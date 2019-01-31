@@ -34,9 +34,6 @@ class Node(JSClass, EventTarget):
         EventTarget.__init__(self)
         self.__init_personality()
 
-    def __repr__(self):
-        return "<Node %s at 0x%08X>" % (self.nodeName, id(self))
-
     def __eq__(self, other):
         return hasattr(other, "doc") and self.doc == other.doc
 

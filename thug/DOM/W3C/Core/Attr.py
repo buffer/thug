@@ -18,9 +18,6 @@ class Attr(Node):
         self._specified = False
         self._value     = self.getValue()
 
-    def __repr__(self):
-        return "<Attr object %s%s at 0x%08X>" % ("%s." % self.parent.tagName if self.parent else "", self.attr, id(self))
-
     def __eq__(self, other):
         return hasattr(other, "parent") and self.parent == other.parent and \
                hasattr(other, "attr") and self.attr == other.attr

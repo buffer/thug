@@ -117,15 +117,6 @@ class Element(Node, ElementCSSInlineStyle):
 
         return True if s else False
 
-    def __str__(self):
-        return str(self.tag)
-
-    def __unicode__(self):
-        return unicode(self.tag)
-
-    def __repr__(self):
-        return "<Element %s at 0x%08X>" % (self.tag.name, id(self))
-
     def __eq__(self, other):
         return Node.__eq__(self, other) and hasattr(other, "tag") and self.tag == other.tag
 

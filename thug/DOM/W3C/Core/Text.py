@@ -9,9 +9,6 @@ class Text(CharacterData):
         self.data = tag
         CharacterData.__init__(self, doc, tag)
 
-    def __repr__(self):
-        return "<Text '%s' at 0x%08X>" % (self.tag, id(self))
-
     def splitText(self, offset):
         raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
 
