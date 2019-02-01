@@ -151,13 +151,8 @@ class Node(JSClass, EventTarget):
     @property
     def ownerDocument(self):
         return log.DFT.window.doc
-        # return self.doc
 
     def findChild(self, child):
-        # try:
-        #    return self.tag.contents.index(child.tag)
-        # except:
-        #    return -1
         if getattr(child, 'tag', None) and child.tag in self.tag.contents:
             childHash = hash(child.tag._node)
 
@@ -223,11 +218,9 @@ class Node(JSClass, EventTarget):
             return newChild
 
         if newChild.nodeType in (Node.COMMENT_NODE, ):
-            # self.tag.insert(index, newChild.data)
             return newChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
-            # self.tag.insert(index, newChild.tag.findChild())
             node = None
 
             for p in newChild.tag.find_all_next():
@@ -319,7 +312,6 @@ class Node(JSClass, EventTarget):
 
                 if oldChildHash == hash(p._node):
                     p.extract()
-            # self.tag.contents.remove(oldChild.tag)
 
         return oldChild
 
@@ -350,7 +342,6 @@ class Node(JSClass, EventTarget):
 
                 if newChildHash == hash(p._node):
                     p.extract()
-            # self.tag.contents.remove(newChild.tag)
 
         if self.is_text(newChild):
             self.tag.append(newChild.data.output_ready(formatter = lambda x: x))
@@ -361,7 +352,6 @@ class Node(JSClass, EventTarget):
             return newChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
-            # self.tag.append(newChild.tag.findChild())
             node = self.tag
             for p in newChild.tag.find_all_next():
                 node.append(p)
@@ -419,7 +409,6 @@ class Node(JSClass, EventTarget):
             cloned.tag.string = ''
 
         return cloned
-        # return self.wrap(self.doc, cloned.tag)
 
     @staticmethod
     def wrap(doc, obj):
