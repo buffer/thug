@@ -10,9 +10,6 @@ class CharacterData(Node):
         self.tag._node = self
         Node.__init__(self, doc)
 
-    def __str__(self):
-        return self._data
-
     def getData(self):
         return self._data
 
