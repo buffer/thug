@@ -18,7 +18,6 @@ class TestClassifiers(object):
         thug = ThugAPI()
 
         thug.set_useragent('winxpie70')
-        thug.set_debug()
         thug.disable_cert_logging()
 
         thug.log_init(sample)
