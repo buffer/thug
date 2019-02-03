@@ -369,6 +369,10 @@ class TestMiscSamplesChrome(object):
                     'Third test: id->p1',
                     'Fourth test: id->p1',
                     'Fifth test failed',
-                    'hasAttributes (after removal): false']
+                    'Not existing: null',
+                    'hasAttributes (after removal): false',
+                    'Sixth test: foo->bar',
+                    'Seventh test: foo->bar2',
+                    'Final attributes length: 1']
 
         self.do_perform_test(caplog, sample, expected)
