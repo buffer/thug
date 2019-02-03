@@ -27,7 +27,15 @@ class NamedNodeMap(JSClass):
         return attr
 
     def setNamedItem(self, attr):
+        oldvalue = self.tag.attrs.get(attr.name, None)
         self.tag.attrs[attr.name] = attr.value
+
+        if oldvalue is None:
+            return None
+
+        oldattr = Attr(self.doc, None, attr.name)
+        oldattr.value = oldvalue
+        return oldattr
 
     def removeNamedItem(self, name):
         if name in self.tag.attrs:
