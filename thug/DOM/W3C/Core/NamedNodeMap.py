@@ -1,37 +1,46 @@
 #!/usr/bin/env python
 
+from .Attr import Attr
 from thug.DOM.JSClass import JSClass
 
 
 class NamedNodeMap(JSClass):
-    def __init__(self, parent):
-        self.parent = parent
+    def __init__(self, doc, tag):
+        self.doc = doc
+        self.tag = tag
+
+    def __len__(self):
+        return self.length
+
+    def __getattr__(self, key):
+        return self.getNamedItem(key)
+
+    def __getitem__(self, key):
+        return self.item(int(key))
 
     def getNamedItem(self, name):
-        return self.parent.getAttributeNode(name)
+        if name not in self.tag.attrs:
+            return None
 
-    def __getattr__(self, name):
-        return self.getNamedItem(name)
+        attr = Attr(self.doc, None, name)
+        attr.nodeValue = self.tag.attrs[name]
+        return attr
 
     def setNamedItem(self, attr):
-        oldattr = self.parent.getAttributeNode(attr.name)
-
-        attr.parent = self.parent
-
-        self.parent.tag[attr.name] = attr.value
-
-        if oldattr:
-            oldattr.parent = None
-
-        return oldattr
+        self.tag.attrs[attr.name] = attr.value
 
     def removeNamedItem(self, name):
-        self.parent.removeAttribute(name)
+        if name in self.tag.attrs:
+            del self.tag.attrs[name]
 
     def item(self, index):
-        names = list(self.parent.tag.attrMap.keys())
-        return self.parent.getAttributeNode(names[index]) if index >= 0 and index < len(names) else None
+        names = [name for name in self.tag.attrs]
+
+        if index < 0 or index >= len(names):
+            return None
+
+        return self.getNamedItem(names[index])
 
     @property
     def length(self):
-        return len(self.parent.tag._getAttrMap())
+        return len(self.tag.attrs)

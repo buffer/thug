@@ -140,7 +140,7 @@ class Element(Node, ElementCSSInlineStyle):
     @property
     def attributes(self):
         from .NamedNodeMap import NamedNodeMap
-        return NamedNodeMap(self)
+        return NamedNodeMap(self.doc, self.tag)
 
     @property
     def parentNode(self):
