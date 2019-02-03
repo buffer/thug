@@ -426,3 +426,16 @@ class TestMiscSamplesIE(object):
                     '[ERROR] Attempting to remove an element not in the tree']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testNamedNodeMap(self, caplog):
+        sample   = os.path.join(self.misc_path, "testNamedNodeMap.html")
+        expected = ['hasAttributes (before removal): true',
+                    'hasAttribute(\'id\'): true',
+                    'First test: id->p1',
+                    'Second test: id->p1',
+                    'Third test: id->p1',
+                    'Fourth test: id->p1',
+                    'Fifth test failed',
+                    'hasAttributes (after removal): false']
+
+        self.do_perform_test(caplog, sample, expected)
