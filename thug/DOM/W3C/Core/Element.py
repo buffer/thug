@@ -138,11 +138,6 @@ class Element(Node, ElementCSSInlineStyle):
         return None
 
     @property
-    def attributes(self):
-        from .NamedNodeMap import NamedNodeMap
-        return NamedNodeMap(self.doc, self.tag)
-
-    @property
     def parentNode(self):
         return Node.wrap(self.doc, self.tag.parent) if self.tag.parent else None
 
