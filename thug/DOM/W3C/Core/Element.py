@@ -190,10 +190,6 @@ class Element(Node, ElementCSSInlineStyle):
         return ClassList(self.tag)
 
     # Introduced in DOM Level 2
-    def hasAttributes(self):
-        return self.attributes.length > 0
-
-    # Introduced in DOM Level 2
     def hasAttribute(self, name):
         return self.tag.has_attr(name)
 
