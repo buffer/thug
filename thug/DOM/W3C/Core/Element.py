@@ -189,6 +189,11 @@ class Element(Node, ElementCSSInlineStyle):
         from .ClassList import ClassList
         return ClassList(self.tag)
 
+    @property
+    def attributes(self):
+        from .NamedNodeMap import NamedNodeMap
+        return NamedNodeMap(self.doc, self.tag)
+
     # Introduced in DOM Level 2
     def hasAttribute(self, name):
         return self.tag.has_attr(name)
