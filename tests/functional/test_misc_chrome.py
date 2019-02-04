@@ -401,3 +401,13 @@ class TestMiscSamplesChrome(object):
                     'nodeValue: null']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_getElementsByTagName(self, caplog):
+        sample   = os.path.join(self.misc_path, "testGetElementsByTagName.html")
+        expected = ['[object HTMLHtmlElement]',
+                    '[object HTMLHeadElement]',
+                    '[object HTMLBodyElement]',
+                    '[object HTMLParagraphElement]',
+                    '[object HTMLScriptElement]']
+
+        self.do_perform_test(caplog, sample, expected)
