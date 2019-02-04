@@ -220,7 +220,7 @@ class Document(Node, DocumentEvent, DocumentView):
     def getElementsByTagName(self, tagname):
         from .NodeList import NodeList
 
-        if log.ThugOpts.Personality.isIE() and tagname in ('*', ):
+        if tagname in ('*', ):
             s = [p for p in self.doc.find_all(text = False)]
             return NodeList(self.doc, s)
 
