@@ -375,3 +375,13 @@ class TestMiscSamplesFirefox(object):
                     'Final attributes length: 1']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testEntityReference(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEntityReference.html")
+        expected = ['node: [object EntityReference]',
+                    'name: &',
+                    'nodeName: &',
+                    'nodeType: 5',
+                    'nodeValue: null']
+
+        self.do_perform_test(caplog, sample, expected)
