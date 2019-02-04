@@ -151,8 +151,6 @@ class Document(Node, DocumentEvent, DocumentView):
         html = self.doc.find('html')
         return Element(self, html if html else self.doc)
 
-    onCreateElement = None
-
     def getCharacterSet(self):
         return self._character_set
 
@@ -185,11 +183,7 @@ class Document(Node, DocumentEvent, DocumentView):
             if tagname.startswith('<') and '>' in tagname:
                 tagname = tagname[1:].split('>')[0]
 
-        element = DOMImplementation.createHTMLElement(self, BeautifulSoup.Tag(parser = self.doc, name = tagname))
-        if self.onCreateElement:
-            self.onCreateElement(element)  # pylint:disable=not-callable
-
-        return element
+        return DOMImplementation.createHTMLElement(self, BeautifulSoup.Tag(parser = self.doc, name = tagname))
 
     def createDocumentFragment(self):
         from .DocumentFragment import DocumentFragment
