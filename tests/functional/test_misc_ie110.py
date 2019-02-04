@@ -65,8 +65,13 @@ class TestMiscSamplesIE(object):
 
     def test_testAppendChild(self, caplog):
         sample   = os.path.join(self.misc_path, "testAppendChild.html")
-        expected = ["Don't care about me",
-                    'Just a sample']
+        expected = ['Don\'t care about me',
+                    'Just a sample',
+                    'Attempt to append a null element failed',
+                    'Attempt to append an invalid element failed',
+                    'Attempt to append a text element failed',
+                    'Attempt to append a read-only element failed']
+
         self.do_perform_test(caplog, sample, expected)
 
     def test_testClipboardData(self, caplog):

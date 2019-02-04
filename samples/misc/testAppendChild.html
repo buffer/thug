@@ -1,27 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
+<body id="foobar">
 <script language="javascript">
-function testAppendChild(){
-	var newElem = document.createElement("div");
-	newElem.innerHTML = "Just a sample";
+	function testAppendChild(){
+		var newElem = document.createElement("div");
+		newElem.innerHTML = "Just a sample";
  
-	var bodyElem = document.getElementById("foobar");
-	bodyElem.appendChild(newElem);
+		var bodyElem = document.getElementById("foobar");
+		bodyElem.appendChild(newElem);
 
-	var dontCare = document.createElement("div");
-	dontCare.innerHTML = "Don't care about me";
-	bodyElem.appendChild(dontCare);
+		var dontCare = document.createElement("div");
+		dontCare.innerHTML = "Don't care about me";
+		bodyElem.appendChild(dontCare);
      
-	bodyElem.appendChild(newElem);
-	var divs = document.getElementsByTagName("div");
-	alert(divs[0].innerHTML);
-	alert(divs[1].innerHTML);
+		bodyElem.appendChild(newElem);
+		var divs = document.getElementsByTagName("div");
+
+		alert(divs[0].innerHTML);
+		alert(divs[1].innerHTML);
+
+		try {
+			bodyElem.appendChild(null);
+		} catch(e) {
+			alert("Attempt to append a null element failed");
+		}
+
+		try {
+			bodyElem.appendChild('randomstring');
+		} catch(e) {
+			alert("Attempt to append an invalid element failed");
+		}
+
+		var t = document.createTextNode("Hello World");
+		try {
+			t.appendChild(newElem);
+		} catch(e) {
+			alert("Attempt to append a text element failed");
+		}
+
+		var t = document.createEntityReference("amp");
+		try {
+			t.appendChild(newElem);
+		} catch(e) {
+			alert("Attempt to append a read-only element failed");
+		}
 }
 
 testAppendChild();
 </script>
-</head>
-<body id="foobar">
 </body>
+</head>
 </html>
