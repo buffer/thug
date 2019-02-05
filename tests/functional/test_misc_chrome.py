@@ -411,3 +411,19 @@ class TestMiscSamplesChrome(object):
                     '[object HTMLScriptElement]']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_getElementsByTagName(self, caplog):
+        sample   = os.path.join(self.misc_path, "testGetElementsByTagName.html")
+        expected = ['[object HTMLHtmlElement]',
+                    '[object HTMLHeadElement]',
+                    '[object HTMLBodyElement]',
+                    '[object HTMLParagraphElement]',
+                    '[object HTMLScriptElement]']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDocumentElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentElement.html")
+        expected = ['<a href="http://www.google.com">Google</a>']
+
+        self.do_perform_test(caplog, sample, expected)

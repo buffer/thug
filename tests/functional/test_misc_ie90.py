@@ -16,6 +16,7 @@ class TestMiscSamplesIE(object):
         thug.set_useragent('win7ie90')
         thug.set_events('click,storage')
         thug.disable_cert_logging()
+        thug.set_features_logging()
 
         thug.log_init(sample)
         thug.run_local(sample)
@@ -495,5 +496,11 @@ class TestMiscSamplesIE(object):
                     '[object HTMLBodyElement]',
                     '[object HTMLParagraphElement]',
                     '[object HTMLScriptElement]']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDocumentElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentElement.html")
+        expected = ['<a href="http://www.google.com">Google</a>']
 
         self.do_perform_test(caplog, sample, expected)
