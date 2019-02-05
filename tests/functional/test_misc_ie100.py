@@ -452,7 +452,8 @@ class TestMiscSamplesIE(object):
                     '[ERROR] Attempting to remove null element',
                     '[ERROR] Attempting to remove an invalid element',
                     '[ERROR] Attempting to remove a read-only element',
-                    '[ERROR] Attempting to remove an element not in the tree']
+                    '[ERROR] Attempting to remove an element not in the tree',
+                    '[ERROR] Attempting to remove from a read-only element']
 
         self.do_perform_test(caplog, sample, expected)
 

@@ -40,6 +40,13 @@ function testRemoveChild(){
 	} catch(e) {
 		alert("[ERROR] Attempting to remove an element not in the tree");
 	}
+
+	var t = document.createEntityReference("amp");
+	try {
+		t.removeChild(newElem);
+	} catch(e) {
+		alert("[ERROR] Attempting to remove from a read-only element");
+	}
 }
 
 testRemoveChild();
