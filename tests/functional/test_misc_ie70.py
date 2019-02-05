@@ -438,3 +438,9 @@ class TestMiscSamplesIE(object):
                     '[object HTMLScriptElement]']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_createElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCreateElement.html")
+        expected = ['[object HTMLParagraphElement]']
+
+        self.do_perform_test(caplog, sample, expected)
