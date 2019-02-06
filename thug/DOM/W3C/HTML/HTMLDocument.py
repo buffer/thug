@@ -195,6 +195,13 @@ class HTMLDocument(Document):
     def URL(self):
         return self._win.url if self._win else ''
 
+    @property
+    def documentElement(self):
+        from .HTMLElement import HTMLElement
+
+        html = self.doc.find('html')
+        return HTMLElement(self, html if html else self.doc)
+
     # FIXME
     @property
     def readyState(self):

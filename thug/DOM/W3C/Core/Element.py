@@ -219,9 +219,7 @@ class Element(Node, ElementCSSInlineStyle):
                 if not flags & 1:
                     name = name.lower()
 
-            value = self.tag[name] if self.tag.has_attr(name) else None
-        else:
-            value = self.tag[name] if self.tag.has_attr(name) else ""
+        value = self.tag.attrs[name] if name in self.tag.attrs else None
 
         if isinstance(value, list):
             value = " ".join(value)
@@ -229,6 +227,10 @@ class Element(Node, ElementCSSInlineStyle):
         return value
 
     def setAttribute(self, name, value):
+        from thug.DOM.W3C import w3c
+        from thug.DOM.Window import Window
+        from thug.DOM.DFT import DFT
+
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_setattribute_count()
 
@@ -245,16 +247,16 @@ class Element(Node, ElementCSSInlineStyle):
 
                 for css in [p for p in FF_STYLES if log.ThugOpts.Personality.browserMajorVersion >= p[0]]:
                     if css[1] in value:
-                        self.tag[name] = _value
+                        self.tag.attrs[name] = _value
                 return
 
             if name in ('type', ):
                 for _input in [p for p in FF_INPUTS if log.ThugOpts.Personality.browserMajorVersion > p[0]]:
                     if _input[1] in value:
-                        self.tag[name] = value
+                        self.tag.attrs[name] = value
                 return
 
-        self.tag[name] = value
+        self.tag.attrs[name] = value
 
         if name.lower() in ('src', 'archive'):
             s = urlparse.urlsplit(value)
@@ -269,10 +271,7 @@ class Element(Node, ElementCSSInlineStyle):
             except Exception:
                 return
 
-            if response is None:
-                return
-
-            if response.status_code == 404:
+            if response is None or not response.ok:
                 return
 
             ctype = response.headers.get('content-type', None)
@@ -282,22 +281,31 @@ class Element(Node, ElementCSSInlineStyle):
             handler = log.MIMEHandler.get_handler(ctype)
             if handler:
                 handler(self.doc.window.url, response.content)
+                return
+
+            if ctype.startswith(('text/html', )):
+                doc = w3c.parseString(response.content)
+                window = Window(response.url, doc, personality = log.ThugOpts.useragent)
+                dft = DFT(window)
+                dft.run()
 
     def removeAttribute(self, name):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_removeattribute_count()
 
-        del self.tag[name]
+        if name in self.tag.attrs:
+            del self.tag.attrs[name]
 
     def getAttributeNode(self, name):
         from .Attr import Attr
-        return Attr(self.doc, self, name) if self.tag.has_attr(name) else None
+        return Attr(self.doc, self, name) if name in self.tag.attrs else None
 
     def setAttributeNode(self, attr):
-        self.tag[attr.name] = attr.value
+        self.tag.attrs[attr.name] = attr.value
 
     def removeAttributeNode(self, attr):
-        del self.tag[attr.name]
+        if attr.name in self.tag.attrs:
+            del self.tag.attrs[attr.name]
 
     def getElementsByTagName(self, tagname):
         from .NodeList import NodeList
