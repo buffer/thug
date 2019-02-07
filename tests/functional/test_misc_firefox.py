@@ -434,3 +434,13 @@ class TestMiscSamplesFirefox(object):
     def test_testSetAttribute4(self, caplog):
         sample   = os.path.join(self.misc_path, "testSetAttribute4.html")
         expected = ['<input id="foo" type="range"/>']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testCDATASection(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCDATASection.html")
+        expected = ['nodeName: #cdata-section',
+                    'nodeType: 4',
+                    '<xml>&lt;![CDATA[Some &lt;CDATA&gt; data &amp; then some]]&gt;</xml>']
+
+        self.do_perform_test(caplog, sample, expected)
