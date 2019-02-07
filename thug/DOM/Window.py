@@ -817,6 +817,7 @@ class Window(JSClass):
         from .ClipboardData import ClipboardData
         from .Console import Console
         from .External import External
+        from thug.DOM.W3C.DOMParser import DOMParser
 
         if not (log.ThugOpts.local and log.ThugOpts.attachment):
             self.document       = self._document
@@ -840,6 +841,7 @@ class Window(JSClass):
             self.detachEvent = self._detachEvent
 
         if log.ThugOpts.Personality.browserMajorVersion >= 8:
+            self.DOMParser           = DOMParser
             self.addEventListener    = self._addEventListener
             self.removeEventListener = self._removeEventListener
             self.localStorage        = LocalStorage()
@@ -854,8 +856,10 @@ class Window(JSClass):
         from .Map import Map
         from .MozConnection import mozConnection
         from .Sidebar import Sidebar
+        from thug.DOM.W3C.DOMParser import DOMParser
 
         self.document            = self._document
+        self.DOMParser           = DOMParser
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
@@ -885,8 +889,10 @@ class Window(JSClass):
         from .Chrome import Chrome
         from .Console import Console
         from .External import External
+        from thug.DOM.W3C.DOMParser import DOMParser
 
         self.document            = self._document
+        self.DOMParser           = DOMParser
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
@@ -900,8 +906,10 @@ class Window(JSClass):
 
     def __init_personality_Safari(self):
         from .Console import Console
+        from thug.DOM.W3C.DOMParser import DOMParser
 
         self.document            = self._document
+        self.DOMParser           = DOMParser
         self.XMLHttpRequest      = self._XMLHttpRequest
         self.addEventListener    = self._addEventListener
         self.removeEventListener = self._removeEventListener
