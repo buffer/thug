@@ -85,11 +85,11 @@ class Node(JSClass, EventTarget):
 
     @abstractmethod
     def getNodeValue(self):
-        return None
+        pass
 
     @abstractmethod
     def setNodeValue(self, value):
-        raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
+        pass
 
     nodeValue = property(getNodeValue, setNodeValue)
 
@@ -205,7 +205,7 @@ class Node(JSClass, EventTarget):
                 if getattr(p, '_node', None) is None:
                     continue
 
-                if newChildHash == hash(p._node):
+                if newChildHash in (hash(p._node), ):
                     p.extract()
 
         index = self.findChild(refChild)

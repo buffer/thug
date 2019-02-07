@@ -126,11 +126,6 @@ class Element(Node, ElementCSSInlineStyle):
 
     @property
     def nodeName(self):
-        # if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion == 10:
-        #    return self.tagName.upper()
-
-        # return self.tagName.lower()
-
         return self.tagName
 
     @property
@@ -310,7 +305,6 @@ class Element(Node, ElementCSSInlineStyle):
     def getElementsByTagName(self, tagname):
         from .NodeList import NodeList
         return NodeList(self.doc, self.tag.find_all(tagname))
-        # return self.doc.getElementsByTagName(tagname)
 
     def _getElementsByClassName(self, classname):
         from .NodeList import NodeList
