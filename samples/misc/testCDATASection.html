@@ -1,0 +1,14 @@
+<html>
+<body>
+<script>
+	var d = new DOMParser().parseFromString('<xml></xml>', 'application/xml')
+	var cdata = d.createCDATASection('Some <CDATA> data & then some');
+
+	alert("nodeName: " + cdata.nodeName);
+	alert("nodeType: " + cdata.nodeType);
+
+	d.getElementsByTagName('xml')[0].appendChild(cdata);
+	alert(d.body.innerHTML);
+</script>
+</body>
+</html>
