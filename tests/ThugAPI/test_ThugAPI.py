@@ -371,5 +371,5 @@ class TestThugAPI:
         pass
 
     def test_analyse(self):
-        with pytest.raises(NotImplementedError, message="method analyze is abstract"):
+        with pytest.raises(NotImplementedError):
             self.thug_api.analyze()
