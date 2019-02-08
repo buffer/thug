@@ -12,28 +12,30 @@ class HTMLCollection(JSClass):
         return self.length
 
     def __getitem__(self, key):
-        try:
-            return self.item(int(key))
-        except TypeError:
-            return self.namedItem(str(key))
+        return self.item(int(key))
+
+    def __getattr__(self, key):
+        return self.namedItem(key)
 
     @property
     def length(self):
         return len(self.nodes)
 
     def item(self, index):
-        # from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
+        if index < 0 or index >= self.length:
+            return None
 
-        node = self.nodes[index]
-
-        return node
-        # return DOMImplementation.createHTMLElement(self.doc, node) if node else None
+        return self.nodes[index]
 
     def namedItem(self, name):
         from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
 
         for node in self.nodes:
-            if node.nodeName == name:
-                return DOMImplementation.createHTMLElement(self.doc, node) if node else None
+            if 'id' in node.attrs and node.attrs['id'] in (name, ):
+                return DOMImplementation.createHTMLElement(self.doc, node)
+
+        for node in self.nodes:
+            if 'name' in node.attrs and node.attrs['name'] in (name, ):
+                return DOMImplementation.createHTMLElement(self.doc, node)
 
         return None
