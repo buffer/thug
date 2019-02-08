@@ -483,13 +483,6 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testSetAttribute2(self, caplog):
-        sample   = os.path.join(self.misc_path, "testSetAttribute2.html")
-        expected = ['[element workaround redirection] about:blank -> https://www.antifork.org/notexists.html',
-                    '[element workaround redirection] about:blank -> https://www.antifork.org']
-
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testSetAttribute3(self, caplog):
         sample   = os.path.join(self.misc_path, "testSetAttribute3.html")
         expected = ['Alert Text: foo',
