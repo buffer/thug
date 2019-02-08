@@ -439,3 +439,10 @@ class TestMiscSamplesChrome(object):
                     '<xml>&lt;![CDATA[Some &lt;CDATA&gt; data &amp; then some]]&gt;</xml>']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLCollection(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLCollection.html")
+        expected = ['<div id="odiv1">Page one</div>',
+                    '<div name="odiv2">Page two</div>']
+
+        self.do_perform_test(caplog, sample, expected)

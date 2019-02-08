@@ -467,3 +467,10 @@ class TestMiscSamplesIE(object):
                     'Alert Text: foobar']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLCollection(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLCollection.html")
+        expected = ['<div id="odiv1">Page one</div>',
+                    '<div name="odiv2">Page two</div>']
+
+        self.do_perform_test(caplog, sample, expected)
