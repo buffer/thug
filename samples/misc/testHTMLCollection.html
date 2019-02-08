@@ -1,0 +1,21 @@
+<html>
+<body>
+<div id="odiv1">This text will change.</div>
+<div name="odiv2">This text will change.</div>
+
+<script>
+	var d1 = document.all.namedItem('odiv1');
+	d1.innerHTML = "Page one";
+
+	var d2 = document.all.namedItem('odiv2');
+	d2.innerHTML = "Page two";
+
+	var d3 = document.all.namedItem('odiv3');
+	if (d3 != null) {
+		d2.innerHTML = "Page three";
+	}
+
+	alert(document.body.innerHTML);
+</script>
+</body>
+</html>
