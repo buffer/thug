@@ -467,3 +467,79 @@ class TestMiscSamplesIE(object):
                     'Alert Text: foobar']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLCollection(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLCollection.html")
+        expected = ['<div id="odiv1">Page one</div>',
+                    '<div name="odiv2">Page two</div>']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDOMImplementation2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDOMImplementation2.html")
+        expected = ['Element #1: [object HTMLHeadElement]',
+                    'Element #2: [object HTMLLinkElement]',
+                    'Element #3: [object HTMLTitleElement]',
+                    'Element #4: [object HTMLMetaElement]',
+                    'Element #5: [object HTMLBaseElement]',
+                    'Element #6: [object HTMLIsIndexElement]',
+                    'Element #7: [object HTMLStyleElement]',
+                    'Element #8: [object HTMLFormElement]',
+                    'Element #9: [object HTMLSelectElement]',
+                    'Element #10: [object HTMLOptGroupElement]',
+                    'Element #11: [object HTMLOptionElement]',
+                    'Element #12: [object HTMLInputElement]',
+                    'Element #13: [object HTMLTextAreaElement]',
+                    'Element #14: [object HTMLButtonElement]',
+                    'Element #15: [object HTMLLabelElement]',
+                    'Element #16: [object HTMLFieldSetElement]',
+                    'Element #17: [object HTMLLegendElement]',
+                    'Element #18: [object HTMLUListElement]',
+                    'Element #19: [object HTMLOListElement]',
+                    'Element #20: [object HTMLDListElement]',
+                    'Element #21: [object HTMLDirectoryElement]',
+                    'Element #22: [object HTMLMenuElement]',
+                    'Element #23: [object HTMLLIElement]',
+                    'Element #24: [object HTMLDivElement]',
+                    'Element #25: [object HTMLParagraphElement]',
+                    'Element #26: [object HTMLHeadingElement]',
+                    'Element #27: [object HTMLHeadingElement]',
+                    'Element #28: [object HTMLHeadingElement]',
+                    'Element #29: [object HTMLHeadingElement]',
+                    'Element #30: [object HTMLHeadingElement]',
+                    'Element #31: [object HTMLHeadingElement]',
+                    'Element #32: [object HTMLQuoteElement]',
+                    'Element #33: [object HTMLQuoteElement]',
+                    'Element #34: [object HTMLSpanElement]',
+                    'Element #35: [object HTMLPreElement]',
+                    'Element #36: [object HTMLBRElement]',
+                    'Element #37: [object HTMLBaseFontElement]',
+                    'Element #38: [object HTMLFontElement]',
+                    'Element #39: [object HTMLHRElement]',
+                    'Element #40: [object HTMLModElement]',
+                    'Element #41: [object HTMLModElement]',
+                    'Element #42: [object HTMLAnchorElement]',
+                    'Element #43: [object HTMLObjectElement]',
+                    'Element #44: [object HTMLParamElement]',
+                    'Element #45: [object HTMLImageElement]',
+                    'Element #46: [object HTMLAppletElement]',
+                    'Element #47: [object HTMLScriptElement]',
+                    'Element #48: [object HTMLFrameSetElement]',
+                    'Element #49: [object HTMLFrameElement]',
+                    'Element #50: [object HTMLIFrameElement]',
+                    'Element #51: [object HTMLTableElement]',
+                    'Element #52: [object HTMLTableCaptionElement]',
+                    'Element #53: [object HTMLTableColElement]',
+                    'Element #54: [object HTMLTableColElement]',
+                    'Element #55: [object HTMLTableSectionElement]',
+                    'Element #56: [object HTMLTableSectionElement]',
+                    'Element #57: [object HTMLTableSectionElement]',
+                    'Element #58: [object HTMLTableRowElement]',
+                    'Element #59: [object HTMLTableCellElement]',
+                    'Element #60: [object HTMLTableCellElement]',
+                    'Element #61: [object HTMLMediaElement]',
+                    'Element #62: [object HTMLElement]',
+                    'Element #63: [object HTMLHtmlElement]',
+                    'Element #64: [object HTMLBodyElement]']
+
+        self.do_perform_test(caplog, sample, expected)
