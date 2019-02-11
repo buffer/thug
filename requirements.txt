@@ -5,7 +5,7 @@ cssutils==1.0.2
 elasticsearch==6.3.1
 esprima==4.0.1
 html5lib==1.0.1
-lxml==4.3.0
+lxml==4.3.1
 networkx==2.2
 pefile==2018.8.8
 pygraphviz==1.5
