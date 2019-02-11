@@ -364,14 +364,14 @@ class Node(JSClass, EventTarget):
     def hasChildNodes(self):
         return len(self.tag.contents) > 0
 
-    def _applyElement(self, element, where = 'inside'):
+    def _applyElement(self, element, where = 'outside'):
         where = where.lower()
 
         if where in ('inside', ):
             self.appendChild(element)
 
         if where in ('outside', ):
-            self.insertBefore(element, self)
+            self.tag.wrap(element.tag)
 
     # Modified in DOM Level 2
     def normalize(self):
