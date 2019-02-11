@@ -499,3 +499,10 @@ class TestMiscSamplesIE(object):
                     '<xml>&lt;![CDATA[Some &lt;CDATA&gt; data &amp; then some]]&gt;</xml>']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testApplyElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testApplyElement.html")
+        expected = ['<div id="outer"><div id="test"><div>Just a sample</div></div></div>',
+                    '<div id="outer"><div>Just a div<div id="test"><div>Just a sample</div></div></div></div>']
+
+        self.do_perform_test(caplog, sample, expected)

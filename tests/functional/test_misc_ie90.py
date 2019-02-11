@@ -612,3 +612,10 @@ class TestMiscSamplesIE(object):
                     'Element #64: [object HTMLBodyElement]']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testApplyElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testApplyElement.html")
+        expected = ['<div id="outer"><div id="test"><div>Just a sample</div></div></div>',
+                    '<div id="outer"><div>Just a div<div id="test"><div>Just a sample</div></div></div></div>']
+
+        self.do_perform_test(caplog, sample, expected)
