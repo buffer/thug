@@ -183,8 +183,12 @@ class HTTPSession(object):
             return
 
         port = _url.port if _url.port else 443
-        certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_SSLv23)
-        log.ThugLogging.log_certificate(url, certificate)
+
+        try:
+            certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_SSLv23)
+            log.ThugLogging.log_certificate(url, certificate)
+        except Exception as e:
+            log.warning("[SSL ERROR] %s", str(e))
 
     def fetch(self, url, method = "GET", window = None, personality = None, headers = None, body = None):
         if log.URLClassifier.filter(url):
