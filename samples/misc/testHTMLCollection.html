@@ -7,7 +7,7 @@
 	var d1 = document.all.namedItem('odiv1');
 	d1.innerHTML = "Page one";
 
-	var d2 = document.all.namedItem('odiv2');
+	var d2 = document.all['odiv2'];
 	d2.innerHTML = "Page two";
 
 	var d3 = document.all.namedItem('odiv3');
@@ -15,6 +15,7 @@
 		d2.innerHTML = "Page three";
 	}
 
+	alert(document.all.item(1000));
 	alert(document.body.innerHTML);
 </script>
 </body>
