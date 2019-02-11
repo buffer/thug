@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body id="foobar">
+
+<script language="javascript">
+
+	function testApplyElement() {
+		var newElem = document.createElement("div");
+		newElem.innerHTML = "Just a sample";
+ 
+		var divElem = document.getElementById("test");
+		divElem.applyElement(newElem, 'inside');
+
+		alert(document.body.innerHTML);
+
+		var dontCare = document.createElement("div");
+		dontCare.innerHTML = "Just a div";
+
+		divElem.applyElement(dontCare, 'outside');
+    	alert(document.body.innerHTML);
+	}
+
+	testApplyElement();
+
+</script>
+
+<div id="outer"><div id="test"></div></div>
+
+</body>
+</html>
