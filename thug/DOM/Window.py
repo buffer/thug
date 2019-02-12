@@ -171,11 +171,15 @@ class Window(JSClass):
 
         if log.ThugOpts.Personality.isIE() and key.lower() in ('wscript', 'wsh', ):
             # Prevent _ActiveXObject loops
-            super(Window, self).__setattr__("WScript", None)
-            WScript = _ActiveXObject(self, "WScript.Shell")
-            super(Window, self).__setattr__(key, WScript)
-            super(Window, self).__setattr__("WScript", WScript)
-            return WScript
+            # super(Window, self).__setattr__("WScript", None)
+            # WScript = _ActiveXObject(self, "WScript.Shell")
+            # super(Window, self).__setattr__(key, WScript)
+            # super(Window, self).__setattr__("WScript", WScript)
+            return self.WScript
+
+        if log.ThugOpts.Personality.isIE():
+            if key in self.WScript.__dict__ and callable(self.WScript.__dict__[key]):
+                return self.WScript.__dict__[key]
 
         context = self.__class__.__dict__['context'].__get__(self, Window)
 
@@ -826,6 +830,7 @@ class Window(JSClass):
         self.ActiveXObject            = self._do_ActiveXObject
         self.DeferredListDataComplete = self._DeferredListDataComplete
         self.CollectGarbage           = self._CollectGarbage
+        self.WScript                  = _ActiveXObject(self, "WScript.Shell")
         self.navigate                 = self._navigate
         self.clientInformation        = self.navigator
         self.clipboardData            = ClipboardData()
