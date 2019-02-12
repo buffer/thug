@@ -44,6 +44,13 @@ function testReplaceChild(){
 
 	var divs = divElem.getElementsByTagName("div");
 	alert(divs[0].innerHTML);
+
+	var t = document.createEntityReference("amp");
+	try {
+		t.replaceChild(newElem, newElem);
+	} catch(e) {
+		alert("[ERROR] Attempting to replace on a read-only element failed");
+	}
 }
 
 testReplaceChild();

@@ -394,6 +394,7 @@ class TestMiscSamplesIE(object):
                     '[ERROR] Attempting to replace a null element',
                     '[ERROR] Attempting to replace with an invalid element',
                     '[ERROR] Attempting to replace an invalid element',
+                    '[ERROR] Attempting to replace on a read-only element failed',
                     'Alert Text: New child', ]
 
         self.do_perform_test(caplog, sample, expected)
