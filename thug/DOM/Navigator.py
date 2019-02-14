@@ -364,7 +364,7 @@ class Navigator(JSClass):
             log.ThugLogging.Features.add_characters_count(len(response.text))
             log.ThugLogging.Features.add_whitespaces_count(len([a for a in response.text if a.isspace()]))
 
-        handler = log.MIMEHandler.get_handler(mtype)
+        handler = log.MIMEHandler.get_handler(ctype)
         if handler:
             handler(response.url, response.content)
 
