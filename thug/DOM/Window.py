@@ -823,6 +823,8 @@ class Window(JSClass):
         from .External import External
         from thug.DOM.W3C.DOMParser import DOMParser
 
+        log.ThugOpts.activex_ready = False
+
         if not (log.ThugOpts.local and log.ThugOpts.attachment):
             self.document       = self._document
             self.XMLHttpRequest = self._XMLHttpRequest
@@ -853,6 +855,8 @@ class Window(JSClass):
             self.sessionStorage      = SessionStorage()
 
         self.doc.parentWindow = self._parent
+
+        log.ThugOpts.activex_ready = True
 
     def __init_personality_Firefox(self):
         from .Components import Components

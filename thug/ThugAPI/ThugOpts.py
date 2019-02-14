@@ -61,6 +61,7 @@ class ThugOpts(dict):
         self._mongodb_address   = None
         self._web_tracking      = False
         self._honeyagent        = True
+        self.activex_ready      = True
         self.Personality        = Personality()
 
     def set_verbose(self, verbose):
