@@ -254,37 +254,3 @@ class HTTPSession(object):
         self.session.cookies.set(name, value)
 
     cookies = property(get_cookies, set_cookies)
-
-
-class HTTPSessionTest(unittest.TestCase):
-    def setUp(self):
-        self.check_ip_url = "http://ifconfig.me/ip"
-
-    def testHTTPSession(self):
-        s = HTTPSession()
-        r = s.session.get("http://www.google.com")
-        self.assertTrue(r.ok)
-
-    def testHTTPSessionSOCKS(self):
-        stor = HTTPSession()
-        rtor = stor.session.get("https://www.dan.me.uk/torlist/")
-        tor_exit_nodes = rtor.text.split("\n")
-
-        s = HTTPSession(proxy = "socks5://127.0.0.1:9050")
-        r = s.session.get(self.check_ip_url)
-        ipaddress = r.text.replace("\n", "")
-        self.assertIn(ipaddress, tor_exit_nodes)
-
-    def testHTTPSessionNotSupportedMethod(self):
-        s = HTTPSession()
-        r = s.fetch("http://www.google.com", method = "NOTSUPPORTED")
-        self.assertEqual(r, None)
-
-    def testHTTPSessionGET(self):
-        s = HTTPSession()
-        r = s.fetch("http://www.google.com")
-        self.assertTrue(r.ok)
-
-
-if __name__ == '__main__':
-    unittest.main()
