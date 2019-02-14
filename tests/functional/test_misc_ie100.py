@@ -538,3 +538,13 @@ class TestMiscSamplesIE(object):
                     '<div id="outer"><div>Just a div<div id="test"><div>Just a sample</div></div></div></div>']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testProcessingInstruction(self, caplog):
+        sample   = os.path.join(self.misc_path, "testProcessingInstruction.html")
+        expected = ['[object ProcessingInstruction]',
+                    'nodeName: xml-stylesheet',
+                    'nodeType: 7',
+                    'nodeValue: href="mycss.css" type="text/css"',
+                    'target: xml-stylesheet']
+
+        self.do_perform_test(caplog, sample, expected)
