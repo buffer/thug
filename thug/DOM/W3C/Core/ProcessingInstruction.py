@@ -23,10 +23,6 @@ class ProcessingInstruction(Node):
     def nodeType(self):
         return Node.PROCESSING_INSTRUCTION_NODE
 
-    def getNodeValue(self):
+    @property
+    def nodeValue(self):
         return self.data
-
-    def setNodeValue(self, value):
-        self.data = value
-
-    nodeValue = property(getNodeValue, setNodeValue)
