@@ -268,7 +268,8 @@ class MIMEHandler(dict):
 
         try:
             zipdata = zipfile.ZipFile(fp)
-        except Exception:
+        except Exception as e:
+            log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
             return False
 
         log.ThugLogging.log_file(content, url, sampletype = 'ZIP')
@@ -276,14 +277,20 @@ class MIMEHandler(dict):
         for filename in zipdata.namelist():
             try:
                 data = zipdata.read(filename)
-            except Exception:
+            except Exception as e:
+                log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
                 continue
 
             if not data:
                 continue
 
             if filename.lower().endswith('.js'):
-                log.DFT.window.evalScript(data)
+                window = getattr(self, 'window', None)
+                if window:
+                    try:
+                        window.evalScript(data)
+                    except Exception as e:
+                        log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
 
             sample = log.ThugLogging.log_file(data, url)
             if sample is None:
@@ -291,7 +298,8 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except Exception:
+            except Exception as e:
+                log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
                 continue
 
             unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
@@ -309,7 +317,8 @@ class MIMEHandler(dict):
 
         try:
             rardata = rarfile.RarFile(rfile)
-        except Exception:
+        except Exception as e:
+            log.warning("[MIMEHANDLER (RAR)][ERROR] %s", str(e))
             os.remove(rfile)
             return False
 
@@ -318,7 +327,8 @@ class MIMEHandler(dict):
         for filename in rardata.namelist():
             try:
                 data = rardata.read(filename)
-            except Exception:
+            except Exception as e:
+                log.warning("[MIMEHANDLER (RAR)][ERROR] %s", str(e))
                 continue
 
             if not data:
@@ -330,7 +340,8 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except Exception:
+            except Exception as e:
+                log.warning("[MIMEHANDLER (RAR)][ERROR] %s", str(e))
                 continue
 
             unzipped = os.path.join(log.ThugLogging.baseDir, 'unzipped')
