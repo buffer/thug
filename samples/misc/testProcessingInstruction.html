@@ -1,0 +1,16 @@
+<html>
+<body>
+
+<script type="text/javascript">;
+
+	var doc = new DOMParser().parseFromString('<foo />', 'application/xml');
+	var pi = doc.createProcessingInstruction('xml-stylesheet', 'href="mycss.css" type="text/css"');
+	alert(pi);
+	alert('nodeName: ' + pi.nodeName);
+	alert('nodeType: ' + pi.nodeType);
+	alert("nodeValue: " + pi.nodeValue);
+	alert('target: ' + pi.target);
+</script>
+
+</body>
+</html>
