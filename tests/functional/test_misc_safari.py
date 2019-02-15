@@ -419,8 +419,8 @@ class TestMiscSamplesChrome(object):
 
     def test_testSetAttribute2(self, caplog):
         sample   = os.path.join(self.misc_path, "testSetAttribute2.html")
-        expected = ['[element workaround redirection] about:blank -> https://www.antifork.org/notexists.html',
-                    '[element workaround redirection] about:blank -> https://www.antifork.org']
+        expected = ['[element workaround redirection] about:blank -> https://www.honeynet.org/notexists.html',
+                    '[element workaround redirection] about:blank -> https://www.honeynet.org']
 
         self.do_perform_test(caplog, sample, expected)
 

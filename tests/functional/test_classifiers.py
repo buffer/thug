@@ -18,6 +18,7 @@ class TestClassifiers(object):
         thug = ThugAPI()
 
         thug.set_useragent('winxpie70')
+        thug.set_threshold(2)
         thug.disable_cert_logging()
 
         thug.log_init(sample)
@@ -70,8 +71,8 @@ class TestClassifiers(object):
 
     def test_url_classifier_3(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test3.html")
-        expected = ['[URL Classifier] URL: http://www.antifork.org (Rule: url_signature_3, Classification: )',
-                    '[CATCHALL Custom Classifier] URL: http://www.antifork.org']
+        expected = ['[URL Classifier] URL: https://github.com/buffer/thug/ (Rule: url_signature_3, Classification: )',
+                    '[CATCHALL Custom Classifier] URL: https://github.com/buffer/thug/']
 
         self.do_perform_test(caplog, sample, expected)
 
