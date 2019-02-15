@@ -5,7 +5,7 @@ from .CharacterData import CharacterData
 
 class Comment(CharacterData):
     def __init__(self, doc, tag):
-        self._data = unicode(tag)
+        self.setNodeValue(tag)
         CharacterData.__init__(self, doc, tag)
 
     @property
@@ -18,9 +18,9 @@ class Comment(CharacterData):
         return Node.COMMENT_NODE
 
     def getNodeValue(self):
-        return self.data
+        return str(self.data)
 
     def setNodeValue(self, value):
-        self.data = value
+        self._data = value
 
     nodeValue = property(getNodeValue, setNodeValue)
