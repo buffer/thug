@@ -294,7 +294,8 @@ class TestMiscSamplesFirefox(object):
                     '[ERROR] Attempting to replace with an invalid element',
                     '[ERROR] Attempting to replace an invalid element',
                     '[ERROR] Attempting to replace on a read-only element failed',
-                    'Alert Text: New child', ]
+                    'Alert Text: New child',
+                    '<div id="foobar"><!--Just a comment--></div>']
 
         self.do_perform_test(caplog, sample, expected)
 

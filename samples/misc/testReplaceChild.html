@@ -3,9 +3,7 @@
 <head></head>
 <body>
 
-<div id="foobar">
-    <div>Old child</div>
-</div>
+<div id="foobar"><div>Old child</div></div>
 
 <script language="javascript">
 
@@ -51,6 +49,10 @@ function testReplaceChild(){
 	} catch(e) {
 		alert("[ERROR] Attempting to replace on a read-only element failed");
 	}
+
+	var commentElem = document.createComment("Just a comment");
+	divElem.replaceChild(commentElem, newElem);
+	alert(document.body.innerHTML);
 }
 
 testReplaceChild();
