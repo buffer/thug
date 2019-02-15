@@ -99,7 +99,7 @@ class TestClassifiers(object):
 
     def test_url_classifier_7(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test7.html")
-        expected = ['[discard_meta_domain_whitelist] Whitelisted domain: honeynet.org',
-                    '[CATCHALL Custom Classifier] URL: http://www.honeynet.org']
+        expected = ['[discard_meta_domain_whitelist] Whitelisted domain: buffer.github.io',
+                    '[CATCHALL Custom Classifier] URL: https://buffer.github.io/thug/']
 
         self.do_perform_test(caplog, sample, expected)
