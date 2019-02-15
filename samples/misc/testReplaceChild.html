@@ -9,6 +9,7 @@
 
 function testReplaceChild(){
 	var divElem = document.getElementById("foobar");
+	alert("innerText: " + divElem.innerText);
 
 	try {
 		divElem.replaceChild(null, divs[0]);
