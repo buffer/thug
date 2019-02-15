@@ -25,7 +25,7 @@ thug_logging = ThugLogging(thug.__version__)
 class TestThugLogging:
     js       = "var i = 0;"
     cert     = "sample-certificate"
-    content  = "sample, content"
+    content  = b"sample, content"
     cwd_path = os.path.dirname(os.path.realpath(__file__))
     jar_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files/sample.jar")
     sample   = {'sha1': 'b13d13733c4c9406fd0e01485bc4a34170b7d326',
@@ -60,7 +60,7 @@ class TestThugLogging:
         sample = thug_logging.log_file(data = "")
         assert not sample
 
-        data = open(self.jar_path).read()
+        data = open(self.jar_path, 'rb').read()
         sample = thug_logging.log_file(data = data, url = self.jar_path, sampletype = 'JAR')
         assert sample['sha1'] in ('b13d13733c4c9406fd0e01485bc4a34170b7d326', )
 
@@ -122,7 +122,7 @@ class TestThugLogging:
         log.ThugOpts.file_logging = True
         path = "%s.json" % (self.sample['md5'],)
         thug_logging.log_virustotal(os.getcwd(), self.sample, self.content)
-        assert self.content in open(path).read()
+        assert self.content in open(path, 'rb').read()
 
         os.remove(path)
         log.ThugOpts.file_logging = False
@@ -131,7 +131,7 @@ class TestThugLogging:
         log.ThugOpts.file_logging = True
         path = "%s.json" % (self.sample['md5'], )
         thug_logging.log_honeyagent(os.getcwd(), self.sample, self.content)
-        assert self.content in open(path).read()
+        assert self.content in open(path, 'rb').read()
 
         os.remove(path)
         log.ThugOpts.file_logging = False
@@ -141,7 +141,7 @@ class TestThugLogging:
         fname = thug_logging.store_content(os.getcwd(), "sample.csv", self.content)
         path = os.path.join(os.getcwd(), "sample.csv")
         assert fname == path
-        assert self.content in open(path).read()
+        assert self.content in open(path, 'rb').read()
 
         os.remove(path)
 
