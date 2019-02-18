@@ -133,32 +133,6 @@ class Element(Node, ElementCSSInlineStyle):
         return None
 
     @property
-    def parentNode(self):
-        return Node.wrap(self.doc, self.tag.parent) if self.tag.parent else None
-
-    @property
-    def childNodes(self):
-        from .NodeList import NodeList
-        # return Node.wrap(self.doc, NodeList(self.doc, self.tag.contents))
-        return NodeList(self.doc, self.tag.contents)
-
-    @property
-    def firstChild(self):
-        return Node.wrap(self.doc, self.tag.contents[0]) if len(self.tag) > 0 else None
-
-    @property
-    def lastChild(self):
-        return Node.wrap(self.doc, self.tag.contents[-1]) if len(self.tag) > 0 else None
-
-    @property
-    def nextSibling(self):
-        return Node.wrap(self.doc, self.tag.next_sibling)
-
-    @property
-    def previousSibling(self):
-        return Node.wrap(self.doc, self.tag.previous_sibling)
-
-    @property
     def clientWidth(self):
         return 800
 
