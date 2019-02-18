@@ -360,7 +360,9 @@ class TestMiscSamplesIE(object):
 
     def test_testReplaceChild(self, caplog):
         sample   = os.path.join(self.misc_path, "testReplaceChild.html")
-        expected = ['[innerText: Old child',
+        expected = ['firstChild: Old child',
+                    'lastChild: Old child',
+                    '[innerText: Old child',
                     'ERROR] Attempting to replace with a null element',
                     '[ERROR] Attempting to replace a null element',
                     '[ERROR] Attempting to replace with an invalid element',

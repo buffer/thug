@@ -9,7 +9,12 @@
 
 function testReplaceChild(){
 	var divElem = document.getElementById("foobar");
+
+	alert("firstChild: " + divElem.firstChild.innerHTML);
+	alert("lastChild: " + divElem.lastChild.innerHTML);
 	alert("innerText: " + divElem.innerText);
+	alert("prefix: " + divElem.prefix);
+	alert(divElem.attributes['id'].name);
 
 	try {
 		divElem.replaceChild(null, divs[0]);
@@ -27,32 +32,38 @@ function testReplaceChild(){
 		alert("[ERROR] Attempting to replace a null element");
 	}
 
-    try {
-        divElem.replaceChild('randomstring', divs[0]);
-    } catch(err) {
-        alert("[ERROR] Attempting to replace with an invalid element");
-    }
+	try {
+		divElem.replaceChild('randomstring', divs[0]);
+	} catch(err) {
+		alert("[ERROR] Attempting to replace with an invalid element");
+	}
 
-    try {
-        divElem.replaceChild(newElem, 'randomstring');
-    } catch(err) {
-        alert("[ERROR] Attempting to replace an invalid element");
-    }
+	try {
+		divElem.replaceChild(newElem, 'randomstring');
+	} catch(err) {
+		alert("[ERROR] Attempting to replace an invalid element");
+	}
 
 	divElem.replaceChild(newElem, divs[0]);
 
 	var divs = divElem.getElementsByTagName("div");
 	alert(divs[0].innerHTML);
 
-	var t = document.createEntityReference("amp");
 	try {
-		t.replaceChild(newElem, newElem);
-	} catch(e) {
-		alert("[ERROR] Attempting to replace on a read-only element failed");
-	}
+		var t = document.createEntityReference("amp");
+		try {
+			t.replaceChild(newElem, newElem);
+		} catch(e) {
+			alert("[ERROR] Attempting to replace on a read-only element failed");
+		}
+	} catch(e) {}
 
 	var commentElem = document.createComment("Just a comment");
 	divElem.replaceChild(commentElem, newElem);
+	alert(document.body.innerHTML);
+
+	var textElem = document.createTextNode("Hello World");
+	divElem.replaceChild(textElem, commentElem);
 	alert(document.body.innerHTML);
 }
 
