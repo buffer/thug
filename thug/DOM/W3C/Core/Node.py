@@ -411,7 +411,7 @@ class Node(JSClass, EventTarget):
 
     @staticmethod
     def wrap(doc, obj):
-        from .DOMImplementation import DOMImplementation
+        from .Element import Element
 
         if obj is None:
             return None
@@ -424,4 +424,4 @@ class Node(JSClass, EventTarget):
             from .Text import Text
             return Text(doc, obj)
 
-        return DOMImplementation.createHTMLElement(doc, obj)
+        return Element(doc, obj)
