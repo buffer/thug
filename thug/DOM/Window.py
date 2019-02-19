@@ -440,6 +440,7 @@ class Window(JSClass):
 
         result is a boolean value indicating whether OK or Cancel was selected.
         """
+        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, str(text))
         return True
 
     def dump(self, text):
@@ -453,6 +454,7 @@ class Window(JSClass):
 
         text is a string.
         """
+        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, str(text))
         self.alert(text)
 
     def focus(self):
