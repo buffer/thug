@@ -486,3 +486,19 @@ class TestMiscSamplesIE(object):
                     '<div id="outer"><div>Just a div<div id="test"><div>Just a sample</div></div></div></div>']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testWindow(self, caplog):
+        sample   = os.path.join(self.misc_path, "testWindow.html")
+        expected = ['window: [object Window]',
+                    'self: [object Window]',
+                    'top: [object Window]',
+                    'length: 0',
+                    'history: [object History]',
+                    'pageXOffset: 0',
+                    'pageYOffset: 0',
+                    'screen: [object Screen]',
+                    'screenLeft: 0',
+                    'screenX: 0',
+                    'confirm: true']
+
+        self.do_perform_test(caplog, sample, expected)
