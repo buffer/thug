@@ -26,6 +26,7 @@ import numbers
 import collections
 import datetime
 import types
+import random
 import six
 import bs4 as BeautifulSoup
 
@@ -139,6 +140,7 @@ class Window(JSClass):
         self.status        = ""
         self._left         = left
         self._top          = top if top else self
+        self._screen_top   = random.randint(0, 30)
         self.innerWidth    = width
         self.innerHeight   = height
         self.outerWidth    = width
@@ -323,7 +325,7 @@ class Window(JSClass):
 
     @property
     def screenTop(self):
-        return self._top
+        return self._screen_top
 
     @property
     def screenX(self):
@@ -331,7 +333,7 @@ class Window(JSClass):
 
     @property
     def screenY(self):
-        return self._top
+        return self._screen_top
 
     def _do_ActiveXObject(self, cls, typename = 'name'):
         return _ActiveXObject(self, cls, typename)
