@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script type="text/javascript">
+    alert("window: " + window);
+	alert("self: " + window.self);
+	alert("top: " + window.top);
+	alert("length: " + window.length);
+	alert("history: " + window.history);
+	alert("pageXOffset: " + window.pageXOffset);
+	alert("pageYOffset: " + window.pageYOffset);
+	alert("screen: " + window.screen);
+	alert("screenLeft: " + window.screenLeft);
+	alert("screenTop: " + window.screenTop);
+	alert("screenX: " + window.screenX);
+	alert("screenY: " + window.screenY);
+	alert("confirm: " + window.confirm("Test"));
+	window.blur();
+	window.focus();
+	window.moveBy(10, 10);
+	window.moveTo(0, 0);
+	window.resizeBy(10, 10);
+	window.resizeTo(10, 10);
+	window.scroll(2, 4);
+	window.scrollBy(8, 10);
+
+	try {
+		window.scrollByLines(3);
+	} catch(e) {}
+
+	try {
+		window.scrollByPages(1);
+	} catch(e) {}
+
+	try {
+		window.scrollTo(8, 10);
+	} catch(e) {}
+
+	</script>
+</body>
+</html
