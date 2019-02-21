@@ -16,7 +16,7 @@ class TestMiscSamplesIE(object):
         thug.set_useragent('winxpie60')
         thug.set_events('click')
         thug.disable_cert_logging()
-
+        thug.set_features_logging()
         thug.log_init(sample)
         thug.run_local(sample)
 

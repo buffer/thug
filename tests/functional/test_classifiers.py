@@ -20,7 +20,7 @@ class TestClassifiers(object):
         thug.set_useragent('winxpie70')
         thug.set_threshold(2)
         thug.disable_cert_logging()
-
+        thug.set_features_logging()
         thug.log_init(sample)
 
         thug.reset_customclassifiers()

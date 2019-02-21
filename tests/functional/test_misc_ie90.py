@@ -17,7 +17,6 @@ class TestMiscSamplesIE(object):
         thug.set_events('click,storage')
         thug.disable_cert_logging()
         thug.set_features_logging()
-
         thug.log_init(sample)
         thug.run_local(sample)
 
