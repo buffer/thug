@@ -275,6 +275,8 @@ class MIMEHandler(dict):
         log.ThugLogging.log_file(content, url, sampletype = 'ZIP')
 
         for filename in zipdata.namelist():
+            sample = None
+
             try:
                 data = zipdata.read(filename)
             except Exception as e:
@@ -286,13 +288,19 @@ class MIMEHandler(dict):
 
             if filename.lower().endswith('.js'):
                 window = getattr(self, 'window', None)
+
                 if window:
                     try:
-                        window.evalScript(data)
+                        with window.context as ctxt:
+                            ctxt.eval(data)
                     except Exception as e:
                         log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
 
-            sample = log.ThugLogging.log_file(data, url)
+                sample = log.ThugLogging.log_file(data, url, sampletype = 'JS')
+
+            if sample is None:
+                sample = log.ThugLogging.log_file(data, url)
+
             if sample is None:
                 continue
 
