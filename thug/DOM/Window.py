@@ -1102,7 +1102,12 @@ class Window(JSClass):
             content_type = response.headers.get('content-type' , None)
             if content_type:
                 handler = log.MIMEHandler.get_handler(content_type)
-                if handler and handler(url, html):
+
+                # No need to invoke the MIME handler here because Navigator
+                # fetch method has already taken care of it. Here we have
+                # just to check if a MIME handler exists and stop further
+                # processing if it does.
+                if handler:
                     return None
 
             # Log response here
