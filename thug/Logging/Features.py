@@ -98,6 +98,9 @@ class Features(object):
 
         raise AttributeError
 
+    def clear(self):
+        self.features = dict()
+
     def init_features(self, url):
         if url in self.features:
             return

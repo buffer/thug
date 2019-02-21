@@ -103,7 +103,12 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.methods_cache[name] = methods
         return methods
 
+    def clear(self):
+        self.Features.clear()
+
     def set_url(self, url):
+        self.clear()
+
         self.url = url
 
         for m in self.resolve_method('set_url'):
