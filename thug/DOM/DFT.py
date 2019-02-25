@@ -1086,6 +1086,9 @@ class DFT(object):
 
         src = embed.get('src', None)
         if src is None:
+            src = embed.get('data', None)
+
+        if src is None:
             return
 
         if log.ThugOpts.features_logging:
