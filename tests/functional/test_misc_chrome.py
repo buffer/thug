@@ -496,3 +496,9 @@ class TestMiscSamplesChrome(object):
                     'confirm: true']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testObject1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testObject1.html")
+        expected = ['[object data redirection] about:blank -> https://github.com/buffer/thug/raw/master/tests/test_files/sample.swf']
+
+        self.do_perform_test(caplog, sample, expected)
