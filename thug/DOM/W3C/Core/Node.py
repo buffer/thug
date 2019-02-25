@@ -269,7 +269,6 @@ class Node(JSClass, EventTarget):
             return oldChild
 
         if newChild.nodeType in (Node.DOCUMENT_FRAGMENT_NODE, ):
-            # self.tag.contents[index] = newChild.tag.findChild()
             node = None
 
             for p in newChild.tag.find_all_next():
