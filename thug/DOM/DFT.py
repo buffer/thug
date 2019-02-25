@@ -1101,7 +1101,7 @@ class DFT(object):
             if 'java' in headers['Content-Type'] and log.ThugOpts.Personality.javaUserAgent:
                 headers['User-Agent'] = self.javaUserAgent
 
-            if 'shockwave-flash' in headers['Content-Type']:
+            if 'flash' in headers['Content-Type']:
                 headers['x-flash-version']  = self.shockwaveFlash
 
         try:
