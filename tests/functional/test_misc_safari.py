@@ -489,3 +489,15 @@ class TestMiscSamplesChrome(object):
         expected = ['<div id="foobar"><div id="test"></div></div>']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testNavigator(self, caplog):
+        sample   = os.path.join(self.misc_path, "testNavigator.html")
+        expected = ['window: [object Window]',
+                    'appCodeName: Mozilla',
+                    'appName: Netscape',
+                    'appVersion: 5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22',
+                    'cookieEnabled: true',
+                    'onLine: true',
+                    'platform: MacIntel']
+
+        self.do_perform_test(caplog, sample, expected)

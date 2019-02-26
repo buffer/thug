@@ -487,3 +487,15 @@ class TestMiscSamplesFirefox(object):
         expected = ['<div id="foobar"><div id="test"></div></div>']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testNavigator(self, caplog):
+        sample   = os.path.join(self.misc_path, "testNavigator.html")
+        expected = ['window: [object Window]',
+                    'appCodeName: Mozilla',
+                    'appName: Netscape',
+                    'appVersion: 5.0 (X11)',
+                    'cookieEnabled: true',
+                    'onLine: true',
+                    'platform: Linux x86_64']
+
+        self.do_perform_test(caplog, sample, expected)

@@ -583,3 +583,15 @@ class TestMiscSamplesIE(object):
         expected = ['<div id="foobar"><div id="test"></div></div>']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testNavigator(self, caplog):
+        sample   = os.path.join(self.misc_path, "testNavigator.html")
+        expected = ['window: [object Window]',
+                    'appCodeName: Mozilla',
+                    'appName: Microsoft Internet Explorer',
+                    'appVersion: 4.0 (Windows;  MSIE 6.0;  Windows NT 5.1;  SV1; .NET CLR 2.0.50727)',
+                    'cookieEnabled: true',
+                    'onLine: true',
+                    'platform: Win32']
+
+        self.do_perform_test(caplog, sample, expected)
