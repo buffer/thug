@@ -1,0 +1,36 @@
+<html>
+<body>
+<script>
+	var WshShell = new ActiveXObject("WScript.shell");
+	
+	alert("valueOf: " + WshShell.valueOf());
+	alert("toString: " + WshShell.toString());
+	
+	WshShell.Sleep(1);
+
+	var System = WshShell.Environment("System");
+	alert(WshShell.ExpandEnvironmentStrings("Windows is installed in %WinDir%"));
+	alert(WshShell.ExpandEnvironmentStrings("Username: %USERNAME%"));
+	alert(WshShell.ExpandEnvironmentStrings("Computer name: %COMPUTERNAME%"));
+	alert(WshShell.ExpandEnvironmentStrings("OS: %OS%"));
+	alert(WshShell.ExpandEnvironmentStrings("CommonProgramFiles: %CommonProgramFiles%"));
+
+	WshShell.Echo("Echo test");
+
+	alert(WshShell.SpecialFolders("AllUsersDesktop"));
+	alert(WshShell.SpecialFolders("AllUsersStartMenu"));
+
+	WshShell.RegRead("HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Systemroot")
+
+	WshShell.RegWrite("HKCU\\MyNewKey\\", 1 ,"REG_DWORD");
+	WshShell.RegRead("HKCU\\MyNewKey\\");
+
+	WshShell.RegRead("HKLM\\Not Existing\\");
+
+	var programfiles_path = WshShell.ExpandEnvironmentStrings("%PROGRAMFILES%")
+	var notepad_lnk = WshShell.CreateShortcut(programfiles_path + "\\notepad.lnk")
+	notepad_lnk.TargetPath = 'notepad.exe';
+	notepad_lnk.save();
+</script>
+</body>
+</html>
