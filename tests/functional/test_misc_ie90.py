@@ -673,3 +673,36 @@ class TestMiscSamplesIE(object):
                     'platform: Win32']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testWScriptShell(self, caplog):
+        sample   = os.path.join(self.misc_path, "testWScriptShell.html")
+        expected = ['ActiveXObject: wscript.shell',
+                    'valueOf: Windows Script Host',
+                    'toString: Windows Script Host',
+                    '[WScript.Shell ActiveX] Sleep(1)',
+                    '[WScript.Shell ActiveX] Environment("System")',
+                    '[WScript.Shell ActiveX] Expanding environment string "Windows is installed in %WinDir%"',
+                    '[WScript.Shell ActiveX] Expanded environment string to "Windows is installed in C:\\Windows"',
+                    '[WScript.Shell ActiveX] Expanding environment string "Username: %USERNAME%"',
+                    '[WScript.Shell ActiveX] Expanding environment string "Computer name: %COMPUTERNAME%"',
+                    '[WScript.Shell ActiveX] Expanding environment string "OS: %OS%"',
+                    '[WScript.Shell ActiveX] Expanded environment string to "OS: WINDOWS_NT"',
+                    '[WScript.Shell ActiveX] Expanding environment string "CommonProgramFiles: %CommonProgramFiles%"',
+                    '[WScript.Shell ActiveX] Expanded environment string to "CommonProgramFiles: C:\\Program Files\\Common Files"',
+                    '[WScript.Shell ActiveX] Echo(Echo test)',
+                    '[WScript.Shell ActiveX] Received call to SpecialFolders property "AllUsersDesktop"',
+                    '[WScript.Shell ActiveX] Expanding environment string "%PUBLIC%\\Desktop"',
+                    '[WScript.Shell ActiveX] Expanded environment string to "C:\\Users\\Public\\Desktop"',
+                    '[WScript.Shell ActiveX] Received call to SpecialFolders property "AllUsersStartMenu"',
+                    '[WScript.Shell ActiveX] Expanding environment string "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu"',
+                    '[WScript.Shell ActiveX] Expanded environment string to "C:\\ProgramData\\Microsoft\\Windows\\Start Menu"',
+                    '[WScript.Shell ActiveX] RegRead("HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Systemroot") = "C:\\Windows"',
+                    '[WScript.Shell ActiveX] RegWrite("HKCU\\MyNewKey\\", "1", "REG_DWORD")',
+                    '[WScript.Shell ActiveX] RegRead("HKCU\\MyNewKey\\") = "1"',
+                    '[WScript.Shell ActiveX] RegRead("HKLM\\Not Existing\\") = NOT FOUND',
+                    '[WScript.Shell ActiveX] CreateShortcut "C:\\Program Files\\notepad.lnk"',
+                    '[WScript.Shell ActiveX] CreateObject (wscript.shortcut)',
+                    'ActiveXObject: wscript.shortcut',
+                    '[WScript.Shortcut ActiveX] Saving link object \'C:\\Program Files\\notepad.lnk\' with target \'notepad.exe\'']
+
+        self.do_perform_test(caplog, sample, expected)
