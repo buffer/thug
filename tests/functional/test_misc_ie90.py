@@ -700,6 +700,7 @@ class TestMiscSamplesIE(object):
                     '[WScript.Shell ActiveX] RegWrite("HKCU\\MyNewKey\\", "1", "REG_DWORD")',
                     '[WScript.Shell ActiveX] RegRead("HKCU\\MyNewKey\\") = "1"',
                     '[WScript.Shell ActiveX] RegRead("HKLM\\Not Existing\\") = NOT FOUND',
+                    '[WScript.Shell ActiveX] RegRead("HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\ProgramFilesDir") = "C:\\Program Files"',
                     '[WScript.Shell ActiveX] CreateShortcut "C:\\Program Files\\notepad.lnk"',
                     '[WScript.Shell ActiveX] CreateObject (wscript.shortcut)',
                     'ActiveXObject: wscript.shortcut',
