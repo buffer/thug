@@ -31,6 +31,8 @@
 	var notepad_lnk = WshShell.CreateShortcut(programfiles_path + "\\notepad.lnk")
 	notepad_lnk.TargetPath = 'notepad.exe';
 	notepad_lnk.save();
+
+	WshShell.Quit(1)
 </script>
 </body>
 </html>

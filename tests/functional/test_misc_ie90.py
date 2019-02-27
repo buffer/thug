@@ -703,6 +703,7 @@ class TestMiscSamplesIE(object):
                     '[WScript.Shell ActiveX] CreateShortcut "C:\\Program Files\\notepad.lnk"',
                     '[WScript.Shell ActiveX] CreateObject (wscript.shortcut)',
                     'ActiveXObject: wscript.shortcut',
-                    '[WScript.Shortcut ActiveX] Saving link object \'C:\\Program Files\\notepad.lnk\' with target \'notepad.exe\'']
+                    '[WScript.Shortcut ActiveX] Saving link object \'C:\\Program Files\\notepad.lnk\' with target \'notepad.exe\'',
+                    '[WScript.Shell ActiveX] Quit(1)']
 
         self.do_perform_test(caplog, sample, expected)
