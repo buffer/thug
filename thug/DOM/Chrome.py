@@ -26,6 +26,3 @@ class Chrome(JSClass):
 
     def __str__(self):
         return "[object Object]"
-
-    def __unicode__(self):
-        return "[object Object]"
