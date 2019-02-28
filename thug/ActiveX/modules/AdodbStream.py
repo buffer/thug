@@ -5,12 +5,10 @@ from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
 
+
 def getSize(self):
     fobject = getattr(self, 'fobject', None)
-    if fobject is None:
-        return 0
-
-    content = self.fobject.getvalue()
+    content = self.fobject.getvalue() if fobject else str()
     return len(content)
 
 
