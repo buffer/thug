@@ -708,3 +708,22 @@ class TestMiscSamplesIE(object):
                     '[WScript.Shell ActiveX] Quit(1)']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testAdodbStream(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAdodbStream.html")
+        expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Adodb.Stream)',
+                    '[Window] Alert Text: Stream content: Test',
+                    '[Window] Alert Text: Stream content (first 2 chars): Te',
+                    '[Window] Alert Text: Stream size: 4',
+                    '[Adodb.Stream ActiveX] SaveToFile(test.txt, 2)',
+                    '[Adodb.Stream ActiveX] LoadFromFile(test1234.txt)',
+                    '[Window] Alert Text: Attempting to load from a not existing file',
+                    '[Adodb.Stream ActiveX] LoadFromFile(test.txt)',
+                    '[Window] Alert Text: ReadText: Test',
+                    '[Window] Alert Text: ReadText(3): Tes',
+                    '[Window] Alert Text: ReadText(10): Test',
+                    '[Adodb.Stream ActiveX] Changed position in fileobject to: (2)',
+                    '[Window] Alert Text: stTest2',
+                    '[Adodb.Stream ActiveX] Close']
+
+        self.do_perform_test(caplog, sample, expected)
