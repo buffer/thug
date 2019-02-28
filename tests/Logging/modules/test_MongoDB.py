@@ -156,21 +156,6 @@ class TestMongoDB:
         self.mongo.log_file(self.file_data)
         assert self.mongo.samples.count_documents({}) in (1, )
 
-    def test_log_maec11(self):
-        self.mongo.enabled = False
-        self.mongo.log_maec11(self.base_dir)
-        assert self.mongo.maec11.count_documents({}) in (0, )
-
-        self.mongo.enabled = True
-        self.mongo.log_maec11(self.base_dir)
-        assert self.mongo.maec11.count_documents({}) in (0, )
-
-        # Enabling maec11_logging
-        log.ThugOpts.maec11_logging = True
-        self.mongo.log_maec11(self.base_dir)
-        log.ThugOpts.maec11_logging = False
-        assert self.mongo.maec11.count_documents({}) in (0, )
-
     def test_log_json(self):
         self.mongo.enabled = False
         self.mongo.log_json(self.base_dir)

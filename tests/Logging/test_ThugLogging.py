@@ -35,11 +35,8 @@ class TestThugLogging:
                 'md5': 'd4be8fbeb3a219ec8c6c26ffe4033a16'}
 
     def test_set_url(self):
-        log.ThugOpts.maec11_logging = True
         thug_logging.set_url("https://www.example.com")
         assert thug_logging.url in ("https://www.example.com", )
-
-        log.ThugOpts.maec11_logging = False
 
     def test_add_code_snippet(self):
         log.ThugOpts.code_logging = False

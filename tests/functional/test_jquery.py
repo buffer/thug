@@ -17,7 +17,6 @@ class TestJQuerySamples(object):
         thug.set_events('click,storage')
         thug.disable_cert_logging()
         thug.set_file_logging()
-        thug.set_maec11_logging()
         thug.set_json_logging()
         thug.set_features_logging()
         thug.log_init(sample)

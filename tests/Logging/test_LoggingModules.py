@@ -2,9 +2,6 @@ import thug.Logging.LoggingModules as log_modules
 
 
 class TestLoggingModules:
-    def test_maec(self):
-        assert log_modules.LoggingModules['maec11'] is log_modules.MITRE.MAEC11
-
     def test_json(self):
         assert log_modules.LoggingModules['json'] is log_modules.JSON.JSON
 

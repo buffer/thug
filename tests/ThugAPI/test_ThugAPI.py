@@ -60,12 +60,6 @@ class TestThugAPI:
         self.thug_api.set_json_logging()
         assert self.thug_api.get_json_logging()
 
-    def test_maec_logging(self):
-        assert not self.thug_api.get_maec11_logging()
-
-        self.thug_api.set_maec11_logging()
-        assert self.thug_api.get_maec11_logging()
-
     def test_elasticsearch_logging(self):
         assert not self.thug_api.get_elasticsearch_logging()
 

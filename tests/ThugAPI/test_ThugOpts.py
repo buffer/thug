@@ -119,13 +119,6 @@ class TestThugOpts:
         self.opts.json_logging = False
         assert not self.opts.json_logging
 
-    def test_maec11_logging(self):
-        self.opts.maec11_logging = True
-        assert self.opts.maec11_logging
-
-        self.opts.maec11_logging = False
-        assert not self.opts.maec11_logging
-
     def test_elasticsearch_logging(self):
         self.opts.elasticsearch_logging = True
         assert self.opts.elasticsearch_logging
