@@ -1,0 +1,49 @@
+<html>
+<body>
+<script>
+	var obj = document.createElement("object");
+	obj.setAttribute("classid", "clsid:BD96C556-65A3-11D0-983A-00C04FC29E36");
+
+	var F = obj.CreateObject("Scripting.FileSystemObject", "");
+	alert('GetSpecialFolder("0"): ' + F.GetSpecialFolder(0));
+	alert('GetSpecialFolder("1"): ' + F.GetSpecialFolder(1));
+	alert('GetSpecialFolder("2"): ' + F.GetSpecialFolder(2));
+
+	var fname = F.BuildPath(F.GetSpecialFolder(0), F.GetTempName());
+	
+	var stream = F.OpenTextFile("C:\\Windows\\System32\\test.txt");
+
+	var result = F.FolderExists("C:\\Windows\\System32");
+	alert("FolderExists('C:\\Windows\\System32'): " + result);
+
+	result = F.FileExists('');
+	alert("FileExists(''): " + result);
+	
+	result = F.FileExists("C:\\Windows\\System32\\drivers\\etc\\hosts");
+	alert("FileExists('C:\\Windows\\System32\\drivers\\etc\\hosts'): " + result);
+
+	result = F.FileExists("C:\\Windows\\System32\\test.txt");
+	alert("FileExists('C:\\Windows\\System32\\test.txt'): " + result);
+
+	var stream2 = F.OpenTextFile("C:\\Windows\\System32\\test.txt");
+	var ext2    = F.GetExtensionName("C:\\Windows\\System32\\test.txt");
+
+	alert('GetExtensionName("C:\\Windows\\System32\\test.txt"): ' + ext2);
+
+	F.CopyFile("C:\\Windows\\System32\\test.txt", "C:\\Windows\\System32\\test2.txt");
+
+	result = F.FileExists("C:\\Windows\\System32\\test.txt");
+	alert("FileExists('C:\\Windows\\System32\\test.txt'): " + result);
+
+	result = F.FileExists("C:\\Windows\\System32\\test2.txt");
+	alert("[After CopyFile] FileExists('C:\\Windows\\System32\\test2.txt'): " + result);
+
+	F.MoveFile("C:\\Windows\\System32\\test2.txt", "C:\\Windows\\System32\\test3.txt");
+	result = F.FileExists("C:\\Windows\\System32\\test2.txt");
+	alert("[After MoveFile] FileExists('C:\\Windows\\System32\\test2.txt'): " + result);
+
+	result = F.FileExists("C:\\Windows\\System32\\test3.txt");
+	alert("[After MoveFile] FileExists('C:\\Windows\\System32\\test3.txt'): " + result);
+</script>
+</body>
+</html>
