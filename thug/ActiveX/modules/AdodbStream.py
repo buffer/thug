@@ -24,10 +24,7 @@ def Read(self, length = -1):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Read")
 
     fobject = getattr(self, 'fobject', None)
-    if fobject is None:
-        return None
-
-    content = self.fobject.getvalue()
+    content = self.fobject.getvalue() if fobject else str()
 
     if length > 0:
         length = min(length, len(content))
