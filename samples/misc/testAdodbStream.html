@@ -1,0 +1,38 @@
+<html> 
+<body>
+<script> 
+	var obj = document.createElement("object");
+	obj.setAttribute("classid", "clsid:BD96C556-65A3-11D0-983A-00C04FC29E36");
+
+	var S = obj.CreateObject("Adodb.Stream", ""); 
+	S.type = 1; 
+
+	S.Read();
+	S.open();
+	S.Write("Test");
+	
+	alert("Stream content: " + S.Read());
+	alert("Stream content (first 2 chars): " + S.Read(2));
+	alert("Stream size: " + S.Size);
+	
+	S.SaveToFile("test.txt", 2); 
+
+	try {
+		S.LoadFromFile("test1234.txt");
+	} catch(e) {
+		alert("Attempting to load from a not existing file");
+	}
+
+	S.LoadFromFile("test.txt");
+	alert("ReadText: " + S.ReadText());
+	alert("ReadText(3): " + S.ReadText(3));
+	alert("ReadText(10): " + S.ReadText(10));
+
+	S.WriteText("Test2");
+
+	S.setPosition(2);
+	alert(S.Read());
+	S.Close();
+</script> 
+</body>
+</html> 
