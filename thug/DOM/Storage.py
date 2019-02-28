@@ -31,9 +31,6 @@ class Storage(OrderedDict, JSClass):
     def __str__(self):
         return "[object Storage]"
 
-    def __unicode__(self):
-        return "[object Storage]"
-
     @property
     def length(self):
         return len(self)
@@ -42,7 +39,7 @@ class Storage(OrderedDict, JSClass):
         if index > self.length:
             return None
 
-        return self.keys()[index - 1]
+        return list(self.keys())[index - 1]
 
     def getItem(self, key):
         try:
