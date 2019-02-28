@@ -611,3 +611,21 @@ class TestMiscSamplesIE(object):
                     '[Adodb.Stream ActiveX] Close']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testScriptingFileSystemObject(self, caplog):
+        sample   = os.path.join(self.misc_path, "testScriptingFileSystemObject.html")
+        expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Scripting.FileSystemObject)',
+                    '[Script.FileSystemObject ActiveX] Returning C:\\WINDOWS for GetSpecialFolder("0")',
+                    '[Script.FileSystemObject ActiveX] Returning C:\\WINDOWS\\system32 for GetSpecialFolder("1")',
+                    '[WScript.Shell ActiveX] Expanding environment string "%TEMP%"',
+                    '[Window] Alert Text: FolderExists(\'C:\\Windows\\System32\'): true',
+                    '[Window] Alert Text: FileExists(\'\'): true',
+                    '[Window] Alert Text: FileExists(\'C:\\Windows\\System32\\drivers\\etc\\hosts\'): true',
+                    '[Window] Alert Text: FileExists(\'C:\\Windows\\System32\\test.txt\'): true',
+                    '[Window] Alert Text: GetExtensionName("C:\\Windows\\System32\\test.txt"): .txt',
+                    '[Window] Alert Text: FileExists(\'C:\\Windows\\System32\\test.txt\'): true',
+                    '[Window] Alert Text: [After CopyFile] FileExists(\'C:\\Windows\\System32\\test2.txt\'): true',
+                    '[Window] Alert Text: [After MoveFile] FileExists(\'C:\\Windows\\System32\\test2.txt\'): false',
+                    '[Window] Alert Text: [After MoveFile] FileExists(\'C:\\Windows\\System32\\test3.txt\'): true']
+
+        self.do_perform_test(caplog, sample, expected)
