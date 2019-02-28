@@ -72,7 +72,6 @@ class MongoUtils(object):
                              db.honeyagent,
                              db.exploits,
                              db.codes,
-                             db.maec11,
                              db.json)
 
     def list_analyses(self):

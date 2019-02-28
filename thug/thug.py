@@ -102,7 +102,6 @@ Synopsis:
         Logging:
         -F, --file-logging      \tEnable file logging mode (default: disabled)
         -Z, --json-logging      \tEnable JSON logging mode (default: disabled)
-        -M, --maec11-logging    \tEnable MAEC11 logging mode (default: disabled)
         -W, --features-logging  \tEnable features logging mode (default: disabled)
         -G, --elasticsearch-logging\tEnable ElasticSearch logging mode (default: disabled)
         -D, --mongodb-address=  \tSpecify address and port of the MongoDB instance (format: host:port)
@@ -135,7 +134,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:myszklxvdqagA:PS:RJ:KL:Nt:jO:T:cFZMWGYUD:b:',
+                                          'hViu:e:w:n:o:r:p:myszklxvdqagA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -187,7 +186,6 @@ Synopsis:
                 'cookiefilter=',
                 'file-logging',
                 'json-logging',
-                'maec11-logging',
                 'features-logging',
                 'elasticsearch-logging',
                 'no-code-logging',
@@ -319,8 +317,6 @@ Synopsis:
                 self.set_file_logging()
             elif option[0] in ('-Z', '--json-logging', ):
                 self.set_json_logging()
-            elif option[0] in ('-M', '--maec11-logging', ):
-                self.set_maec11_logging()
             elif option[0] in ('-W', '--features-logging', ):
                 self.set_features_logging()
             elif option[0] in ('-G', '--elasticsearch-logging', ):

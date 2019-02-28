@@ -157,12 +157,6 @@ class ThugAPI(object):
     def set_json_logging(self):
         log.ThugOpts.json_logging = True
 
-    def get_maec11_logging(self):
-        return log.ThugOpts.maec11_logging
-
-    def set_maec11_logging(self):
-        log.ThugOpts.maec11_logging = True
-
     def get_elasticsearch_logging(self):
         return log.ThugOpts.elasticsearch_logging
 

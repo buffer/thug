@@ -92,7 +92,6 @@ class MongoDB(object):
         self.classifiers  = db.classifiers
         self.codes        = db.codes
         self.cookies      = db.cookies
-        self.maec11       = db.maec11
         self.json         = db.json
         dbfs              = connection.thugfs
         self.fs           = gridfs.GridFS(dbfs)
@@ -330,29 +329,6 @@ class MongoDB(object):
 
         self.samples.insert_one(r)
 
-    def log_maec11(self, basedir):
-        if not self.enabled:
-            return
-
-        if not log.ThugOpts.maec11_logging:
-            return
-
-        p = log.ThugLogging.modules.get('maec11', None)
-        if p is None:
-            return
-
-        m = getattr(p, 'get_maec11_data', None)
-        if m is None:
-            return
-
-        report = m(basedir)
-        analysis = {
-            'analysis_id'   : self.analysis_id,
-            'report'        : report
-        }
-
-        self.maec11.insert_one(analysis)
-
     def log_json(self, basedir):
         if not self.enabled:
             return
@@ -380,7 +356,6 @@ class MongoDB(object):
         if not self.enabled:
             return
 
-        self.log_maec11(basedir)
         self.log_json(basedir)
 
         G = self.graph.draw()

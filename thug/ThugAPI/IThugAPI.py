@@ -147,24 +147,6 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
-    def get_maec11_logging():
-        """
-        get_maec11_logging
-
-        Return True if MAEC 1.1 logging mode is enabled, False otherwise.
-
-        @return: boolean
-        """
-
-    def set_maec11_logging():
-        """
-        set_maec11_logging
-
-        Enable MAEC 1.1 logging mode
-
-        @return: None
-        """
-
     def get_features_logging():
         """
         get_features_logging

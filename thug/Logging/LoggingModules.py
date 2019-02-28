@@ -17,12 +17,10 @@
 # MA  02111-1307  USA
 
 from .modules import JSON
-from .modules import MITRE
 from .modules import MongoDB
 from .modules import ElasticSearch
 
 LoggingModules = {
-    'maec11'        : MITRE.MAEC11,
     'json'          : JSON.JSON,
     'mongodb'       : MongoDB.MongoDB,
     'elasticsearch' : ElasticSearch.ElasticSearch,

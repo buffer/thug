@@ -48,7 +48,6 @@ class ThugOpts(dict):
         self._attachment        = False
         self._file_logging      = False
         self._json_logging      = False
-        self._maec11_logging    = False
         self._es_logging        = False
         self._code_logging      = True
         self._cert_logging      = True
@@ -179,14 +178,6 @@ class ThugOpts(dict):
         self._json_logging = json_logging
 
     json_logging = property(get_json_logging, set_json_logging)
-
-    def get_maec11_logging(self):
-        return self._maec11_logging
-
-    def set_maec11_logging(self, maec11_logging):
-        self._maec11_logging = maec11_logging
-
-    maec11_logging = property(get_maec11_logging, set_maec11_logging)
 
     def get_es_logging(self):
         return self._es_logging
