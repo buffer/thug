@@ -13,7 +13,6 @@ The available logging modes are:
 * MongoDB logging mode
 * ElasticSearch
 * JSON logging mode
-* MAEC 1.1 logging mode
 * File logging mode
 
 
@@ -311,20 +310,6 @@ reports. The Sample ObjectID references the *samples* collection.
             "report"        : HoneyAgent report (JSON)
         }
 
-maec11
-^^^^^^
-
-The collection *maec11* is used to store the Thug analysis reports in MITRE MAEC 1.1
-format. MAEC 1.1 logging mode should be enabled in order to have Thug saving data in
-this collection
-
-.. code-block:: sh
-
-    {
-            "analysis_id"   : Analysis ID
-            "report"        : Analysis report (MITRE MAEC 1.1 format - XML)
-    }
-
 json
 ^^^^
 
@@ -506,28 +491,6 @@ classifiers
         }
 
 
-MAEC 1.1 logging mode
-=====================
-
-Malware Attribute Enumeration and Characterization (MAEC) is a structured language for 
-encoding and communicating high fidelity information about any type of malware based upon 
-attributes such as behaviors, artifacts, and attack patterns. As a language, MAEC offers 
-a grammar and vocabulary that provide a standard means of communicating information about 
-malware attributes. MAEC is designed and maintaned by MITRE. 
-
-Thug currently supports MAEC version 1.1 and you should enable the *-M* (or *--maec11-logging*) 
-option in order to locally store the analysis results in such format. 
-
-If the MAEC 1.1 logging mode is enabled, Thug will attempt to store analysis results in a 
-MongoDB instance, if available. 
-
-If the MAEC 1.1 logging mode and the File logging mode are enabled, Thug will attempt to 
-store analysis results in a MongoDB instance, if available, and in a XML file in the log
-directory.
-
-Further documentation about the MAEC 1.1 language can be found at http://maec.mitre.org/language/version1.1/
-
-
 File logging mode
 =================
 
@@ -590,7 +553,7 @@ will appear as shown below
  
 
 In this example the MAEC 1.1 logging mode is enabled and the file *analysis.xml* contains the
-URL analysis results saved in MAEC 1.1 format. Please note that all the resources downloaded 
-during the URL analysis are saved in the log directory based on their Content-Type for 
-convenience. Moreover if MongoDB is installed the information you can see in this directory 
-are saved in the database instance as well.
+URL analysis results saved in MAEC 1.1 format (MAEC 1.1 logging is no longer supported). Please 
+notice that all the resources downloaded during the URL analysis are saved in the log directory
+based on their Content-Type for convenience. Moreover if MongoDB is installed the information
+you can see in this directory are saved in the database instance as well.
