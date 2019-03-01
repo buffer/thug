@@ -7,7 +7,15 @@
   <option value="audi" id="audi">Audi</option>
 </select>
 <script>
-	var s = document.getElementById("mySelect"); 
+	var s = document.getElementById("mySelect");
+	alert("select type: " + s.type);
+	alert("select length: " + s.length);
+
+	s.blur();
+	s.focus();
+
+	alert(s.form);
+
 	alert("length: " + s.options.length);
 
 	try {
@@ -20,6 +28,32 @@
 	alert("namedItem('audi'): " + s.options.namedItem("audi").text);
 	alert("namedItem('mercedes').value: " + s.options.namedItem("mercedes").value);
 	alert(s.options.namedItem("foo"));
+
+	s.remove(0);
+	alert("[After remove] item(0): " + s.options.item(0).text);
+
+	var element = document.createElement("option");
+	element.value = "foobar";
+
+	s.add(element, null);
+	alert("[After first add] length: " + s.options.length);
+	alert("[After first add] item(3): " + s.options.item(3).value);
+
+	var element2 = document.createElement("option");
+	element2.value = "test1234";
+
+	s.add(element2, element);
+	alert("[After second add] length: " + s.options.length);
+	alert("[After second add] item(3): " + s.options.item(3).value);
+
+	var element3 = document.createElement("option");
+	element3.value = "out";
+
+	try {
+		s.add(element2, element3);
+	} catch(e) {
+		alert("Not found error");
+	}
 </script>
 </body>
 </html>

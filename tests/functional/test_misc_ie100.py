@@ -635,6 +635,12 @@ class TestMiscSamplesIE(object):
         expected = ['length: 4',
                     'item(0): Volvo',
                     'namedItem(\'audi\'): Audi',
-                    'namedItem(\'mercedes\').value: mercedes']
+                    'namedItem(\'mercedes\').value: mercedes',
+                    '[After remove] item(0): Saab',
+                    '[After first add] length: 4',
+                    '[After first add] item(3): foobar',
+                    '[After second add] length: 5',
+                    '[After second add] item(3): test1234',
+                    'Not found error']
 
         self.do_perform_test(caplog, sample, expected)
