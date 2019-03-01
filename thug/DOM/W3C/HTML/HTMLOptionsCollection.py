@@ -16,3 +16,11 @@ class HTMLOptionsCollection(HTMLCollection):
         raise DOMException(DOMException.NOT_SUPPORTED_ERR)
 
     length = property(getLength, setLength)
+
+    def namedItem(self, name):
+        for key in ('id', 'name', ):
+            for node in self.nodes:
+                if key in node.tag.attrs and node.tag.attrs[key] in (name, ):
+                    return node
+
+        return None

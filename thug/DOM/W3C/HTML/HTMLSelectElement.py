@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 from .HTMLElement import HTMLElement
+from .HTMLOptionElement import HTMLOptionElement
+from .HTMLOptionsCollection import HTMLOptionsCollection
 from .attr_property import attr_property
 from .compatibility import thug_long
 
@@ -26,7 +28,8 @@ class HTMLSelectElement(HTMLElement):
 
     @property
     def options(self):
-        raise NotImplementedError()
+        opts = [HTMLOptionElement(self.doc, t) for t in self.tag.find_all("option")]
+        return HTMLOptionsCollection(self.doc, opts)
 
     disabled        = attr_property("disabled", bool)
     multiple        = attr_property("multiple", bool)

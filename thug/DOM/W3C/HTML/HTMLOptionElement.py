@@ -12,12 +12,15 @@ class HTMLOptionElement(HTMLElement):
 
     @property
     def form(self):
-        raise NotImplementedError()
+        return None
 
     defaultSelected = attr_property("selected", bool)
-    text            = text_property(readonly = True)
     index           = attr_property("index", thug_long, readonly = True)
     disabled        = attr_property("disabled", bool)
     label           = attr_property("label")
     selected        = False
     value           = attr_property("value")
+
+    @property
+    def text(self):
+        return str(self.tag.string) if self.tag.string else ""
