@@ -499,3 +499,12 @@ class TestMiscSamplesFirefox(object):
                     'platform: Linux x86_64']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLOptionsCollection(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLOptionsCollection.html")
+        expected = ['length: 4',
+                    'item(0): Volvo',
+                    'namedItem(\'audi\'): Audi',
+                    'namedItem(\'mercedes\').value: mercedes']
+
+        self.do_perform_test(caplog, sample, expected)
