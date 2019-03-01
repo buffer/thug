@@ -6,45 +6,61 @@ from .HTMLOptionsCollection import HTMLOptionsCollection
 from .attr_property import attr_property
 from .compatibility import thug_long
 
+from thug.DOM.W3C.Core.DOMException import DOMException
+
 
 class HTMLSelectElement(HTMLElement):
+    selectedIndex = 0
+    value         = None
+    disabled      = attr_property("disabled", bool)
+    multiple      = attr_property("multiple", bool)
+    name          = attr_property("name")
+    size          = attr_property("size", thug_long)
+    tabIndex      = attr_property("tabindex", thug_long)
+
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
+        self._options = [HTMLOptionElement(self.doc, t) for t in self.tag.find_all("option")]
 
     @property
     def type(self):
-        raise NotImplementedError()
-
-    selectedIndex = 0
-    value         = None
+        return "select-multiple" if self.multiple else "select-one"
 
     @property
     def length(self):
-        raise NotImplementedError()
+        return len(self.options)
 
     @property
     def form(self):
-        raise NotImplementedError()
+        return None
 
     @property
     def options(self):
-        opts = [HTMLOptionElement(self.doc, t) for t in self.tag.find_all("option")]
-        return HTMLOptionsCollection(self.doc, opts)
-
-    disabled        = attr_property("disabled", bool)
-    multiple        = attr_property("multiple", bool)
-    name            = attr_property("name")
-    size            = attr_property("size", thug_long)
-    tabIndex        = attr_property("tabindex", thug_long)
+        return HTMLOptionsCollection(self.doc, self._options)
 
     def add(self, element, before):
-        raise NotImplementedError()
+        if not before:
+            self._options.append(element)
+            return
+
+        index = None
+        for opt in self._options:
+            if before.value in (opt.value, ):
+                index = self._options.index(opt)
+
+        if index is None:
+            raise DOMException(DOMException.NOT_FOUND_ERR)
+
+        self._options.insert(index, element)
 
     def remove(self, index):
-        raise NotImplementedError()
+        if index > len(self._options):
+            return
+
+        del self._options[index]
 
     def blur(self):
-        raise NotImplementedError()
+        pass
 
     def focus(self):
-        raise NotImplementedError()
+        pass

@@ -14,6 +14,9 @@ class HTMLCollection(JSClass):
     def __getitem__(self, key):
         return self.item(int(key))
 
+    def __delitem__(self, key):
+        self.nodes.__delitem__(key)
+
     def __getattr__(self, key):
         return self.namedItem(key)
 
