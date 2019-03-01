@@ -1,0 +1,25 @@
+<html>
+<body>
+<select id="mySelect">
+  <option value="volvo" id="volvo">Volvo</option>
+  <option value="saab" id="saab">Saab</option>
+  <option value="mercedes" id="mercedes">Mercedes</option>
+  <option value="audi" id="audi">Audi</option>
+</select>
+<script>
+	var s = document.getElementById("mySelect"); 
+	alert("length: " + s.options.length);
+
+	try {
+		s.options.length = 5;
+	} catch(e) {
+		alert("Changing length is not permitted");
+	}
+
+	alert("item(0): " + s.options.item(0).text);
+	alert("namedItem('audi'): " + s.options.namedItem("audi").text);
+	alert("namedItem('mercedes').value: " + s.options.namedItem("mercedes").value);
+	alert(s.options.namedItem("foo"));
+</script>
+</body>
+</html>
