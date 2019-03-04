@@ -7,19 +7,6 @@ log = logging.getLogger("Thug")
 
 def ShellExecute(self, sFile, vArguments = "", vDirectory = "", vOperation = "open", vShow = 1):
     cmdLine = "{} {}".format(sFile, vArguments)
-
-    # Attempt to extract some URLs from the command line
-    # urls = set()
-
-    # if 'http' in cmdLine:
-    #    for sep in ("'", '"'):
-    #        offset = cmdLine.find("{}http".format(sep))
-    #        if offset < 0:
-    #            continue
-    #
-    #        url = cmdLine[offset + 1:].split("'")
-    #        urls.add(url[0])
-
     urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+',
                       cmdLine.replace("'", '"'))
 
