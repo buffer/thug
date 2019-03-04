@@ -6,7 +6,6 @@ import random
 import errno
 import logging
 
-from six import StringIO
 from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
@@ -14,7 +13,7 @@ log = logging.getLogger("Thug")
 
 class TextStream(object):
     def __init__(self):
-        self.stream = StringIO()
+        self.stream         = list()
         self._Line          = 1
         self._Column        = 1
         self._currentLine   = 1
@@ -30,36 +29,39 @@ class TextStream(object):
 
     @property
     def AtEndOfLine(self):
-        sstream = self.stream.getvalue().split('\n')
-        line    = sstream[self._currentLine]
-
-        if not line[self._currentColumn:]:
-            return True
-
-        return False
+        line = self.stream[self._currentLine - 1]
+        return self._currentColumn >= len(line)
 
     @property
     def AtEndOfStream(self):
-        if self._currentLine == self._Line and self._currentColumn == self._Column:
+        if self._currentLine in (self._Line, ) and self._currentColumn in (self._Column - 1, ):
             return True
 
         return False
 
     def Read(self, characters):
         consume = characters
-        sstream = self.stream.getvalue().split('\n')
 
         result = ""
 
         while consume > 0:
-            line   = sstream[self._currentLine]
-            eline  = line[self._currentColumn:]
+            if self._currentLine > self._Line:
+                break
+
+            if self._currentLine == self._Line and self._currentColumn > self._Column:
+                break
+
+            line   = self.stream[self._currentLine - 1]
+            eline  = line[self._currentColumn - 1:]
             length = min(len(eline), consume)
 
             result  += eline[:length]
             consume -= length
 
             if consume > 0:
+                result  += '\n'
+                consume -= 1
+
                 self._currentLine  += 1
                 self._currentColumn = 1
             else:
@@ -68,52 +70,74 @@ class TextStream(object):
         return result
 
     def ReadLine(self):
-        sstream = self.stream.getvalue().split('\n')
-        result  = sstream[self._currentLine]
+        if self._currentLine > self._Line:
+            return ""
+
+        result = self.stream[self._currentLine - 1]
         self._currentLine += 1
+        self._currentColumn = 1
         return result
 
     def ReadAll(self):
-        return self.stream.getvalue()
+        result = '\n'.join(self.stream)
+
+        self._currentLine   = len(self.stream)
+        self._currentColumn = len(self.stream[self._currentLine - 1])
+
+        return result
 
     def Write(self, _string):
         _str_string = str(_string)
-        sstring     = _str_string.split('\n')
+        if not _str_string:
+            return
 
-        if len(sstring) > 1:
-            self._Line  += len(sstring)
-            self._Column = len(sstring[-1]) + 1
-        else:
-            self._Column += len(_str_string)
+        sstring = _str_string.split('\n')
 
-        self.stream.write(_str_string)
+        if len(self.stream) == self._Line - 1:
+            self.stream.append(str())
+
+        self.stream[self._Line - 1] += sstring[0]
+        self._Column += len(sstring[0])
+
+        lines_no = len(sstring)
+        if lines_no == 1:
+            return
+
+        for i in range(1, lines_no):
+            self._Line += 1
+            self.stream.append(str())
+            self.stream[self._Line - 1] = sstring[i]
+            self._Column += len(sstring[i])
 
     def WriteLine(self, _string):
         self.Write(str(_string) + '\n')
+        self._Column = 1
 
     def WriteBlankLines(self, lines):
         self.Write(lines * '\n')
+        self._Column = 1
 
     def Skip(self, characters):
-        skip    = characters
-        sstream = self.stream.getvalue().split('\n')
+        skip = characters
 
         while skip > 0:
-            line  = sstream[self._currentLine]
-            eline = line[self._currentColumn:]
+            line  = self.stream[self._currentLine - 1]
+            eline = line[self._currentColumn - 1:]
 
-            if skip > len(eline):
+            if skip > len(eline) + 1:
                 self._currentLine  += 1
                 self._currentColumn = 1
-                skip -= len(eline)
             else:
                 self._currentColumn += skip
 
+            skip -= len(eline) + 1
+
     def SkipLine(self):
         self._currentLine += 1
+        self._currentColumn = 1
 
     def Close(self):
-        content = self.stream.getvalue()
+        content = '\n'.join(self.stream)
         log.info(content)
 
         data = {
