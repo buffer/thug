@@ -760,3 +760,32 @@ class TestMiscSamplesIE(object):
                     'Not found error']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testTextStream(self, caplog):
+        sample   = os.path.join(self.misc_path, "testTextStream.html")
+        expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Scripting.FileSystemObject)',
+                    '[Script.FileSystemObject ActiveX] CreateTextFile("test.txt", "False", "False")',
+                    '[After first write] ReadAll: foobar',
+                    '[After first write] Line: 1',
+                    '[After first write] Column: 7',
+                    '[After first write] AtEndOfLine: true',
+                    '[After first write] AtEndOfStream: true',
+                    '[After second write] Line: 2',
+                    '[After second write] Column: 1',
+                    '[After second write] AtEndOfLine: false',
+                    '[After second write] AtEndOfStream: false',
+                    '[After third write] Line: 5',
+                    '[After third write] Column: 16',
+                    '[After third write] AtEndOfLine: false',
+                    '[After third write] AtEndOfStream: false',
+                    '[After fourth write] Line: 6',
+                    '[After fourth write] Column: 1',
+                    '[After fourth write] AtEndOfLine: false',
+                    '[After fourth write] AtEndOfStream: false',
+                    '[After fourth write] First char: s',
+                    '[After fourth write] Second char: o',
+                    '[After fourth write] Third char: m',
+                    '[After fourth write] Line: some other textnext line',
+                    '[After skip] Read(5): ttest']
+
+        self.do_perform_test(caplog, sample, expected)
