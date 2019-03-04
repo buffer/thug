@@ -1,0 +1,57 @@
+<html>
+<body>
+<script>
+	var obj = document.createElement("object");
+	obj.setAttribute("classid", "clsid:BD96C556-65A3-11D0-983A-00C04FC29E36");
+
+	var F = obj.CreateObject("Scripting.FileSystemObject", "");
+	var stream = F.CreateTextFile("test.txt");
+	
+	stream.Write("foobar");
+	alert("[After first write] ReadAll: " + stream.ReadAll());
+	alert("[After first write] Line: " + stream.Line);
+	alert("[After first write] Column: " + stream.Column);
+	alert("[After first write] AtEndOfLine: " + stream.AtEndOfLine);
+	alert("[After first write] AtEndOfStream: " + stream.AtEndOfStream);
+
+	stream.WriteLine("test");
+	alert("[After second write] Line: " + stream.Line);
+	alert("[After second write] Column: " + stream.Column);
+	alert("[After second write] AtEndOfLine: " + stream.AtEndOfLine);
+	alert("[After second write] AtEndOfStream: " + stream.AtEndOfStream);
+
+	stream.WriteBlankLines(3);
+	stream.Write("some other text")
+	alert("[After third write] Line: " + stream.Line);
+	alert("[After third write] Column: " + stream.Column);
+	alert("[After third write] AtEndOfLine: " + stream.AtEndOfLine);
+	alert("[After third write] AtEndOfStream: " + stream.AtEndOfStream);
+
+	stream.ReadLine();
+	stream.SkipLine();
+	stream.ReadLine();
+	stream.ReadLine();
+	
+	stream.WriteLine("next line");
+	alert("[After fourth write] Line: " + stream.Line);
+	alert("[After fourth write] Column: " + stream.Column);
+	alert("[After fourth write] AtEndOfLine: " + stream.AtEndOfLine);
+	alert("[After fourth write] AtEndOfStream: " + stream.AtEndOfStream);
+	alert("[After fourth write] First char: " + stream.Read(1));
+	alert("[After fourth write] Second char: " + stream.Read(1));
+	alert("[After fourth write] Third char: " + stream.Read(1));
+	alert("[After fourth write] Line: " + stream.ReadLine());
+
+	stream.Write('testtest');
+	stream.Skip(3);
+
+	alert("[After skip] Read(5): " + stream.Read(5));
+	stream.ReadLine();
+	stream.ReadLine();
+	stream.ReadLine();
+	stream.ReadLine();
+	stream.Read(1000);
+	stream.Close();
+</script>
+</body>
+</html>
