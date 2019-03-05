@@ -536,3 +536,11 @@ class TestMiscSamplesFirefox(object):
                     'c.port: ']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testTextArea(self, caplog):
+        sample   = os.path.join(self.misc_path, "testTextArea.html")
+        expected = ['type: textarea',
+                    'cols: 100',
+                    'rows: 25']
+
+        self.do_perform_test(caplog, sample, expected)
