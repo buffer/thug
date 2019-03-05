@@ -28,7 +28,14 @@
 	alert("row: " + table.rows[0]);
 	alert("tBodies: " + table.tBodies);
 
+	try {
+		table.deleteRow(100);
+	} catch(e) {
+		alert("row.deleteRow(100) failed");
+	}
+
 	var cell = row.insertCell();
+	var cell2 = row.insertCell(0);
 
 	alert(cell.cellIndex);
 	alert("cell: " + cell);
@@ -58,7 +65,15 @@
 
 	var row = tbody.insertRow();
 	tbody.deleteRow(0);
-	
+
+	var row2 = tbody.insertRow(0);
+
+	try {
+		tbody.deleteRow(50);
+	} catch(e) {
+		alert("tbody.deleteRow(50) failed");
+	}
+
 	table.appendChild(tbody);
 	alert("tBodies: " + table.tBodies);
 
