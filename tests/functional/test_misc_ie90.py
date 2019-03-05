@@ -833,3 +833,13 @@ class TestMiscSamplesIE(object):
                     'rows: 25']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLDocument(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLDocument.html")
+        expected = ['disabled: false',
+                    'head: [object HTMLHeadElement]',
+                    'referrer: ',
+                    'URL: about:blank',
+                    'Alert Text: Hello, world']
+
+        self.do_perform_test(caplog, sample, expected)
