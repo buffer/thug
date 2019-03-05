@@ -535,3 +535,20 @@ class TestMiscSamplesChrome(object):
                     'Not found error']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLAnchorElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLAnchorElement.html")
+        expected = ['a.protocol: https:',
+                    'a.host: www.example.com:1234',
+                    'a.hostname: www.example.com',
+                    'a.port: 1234',
+                    'b.protocol: :',
+                    'b.host: ',
+                    'b.hostname: ',
+                    'b.port: ',
+                    'c.protocol: https:',
+                    'c.host: www.example.com',
+                    'c.hostname: www.example.com',
+                    'c.port: ']
+
+        self.do_perform_test(caplog, sample, expected)
