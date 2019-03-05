@@ -33,22 +33,31 @@ class HTMLAnchorElement(HTMLElement):
     @property
     def protocol(self):
         if not self.href:
-            return ""
+            return ":"
 
         o = urlparse.urlparse(self.href)
-        return ":{}".format(o.scheme) if o.scheme else ""
+        return "{}:".format(o.scheme) if o.scheme else ":"
 
     @property
     def host(self):
-        o = urlparse(self.href)
+        if not self.href:
+            return ""
+
+        o = urlparse.urlparse(self.href)
         return o.netloc if o.netloc else ""
 
     @property
     def hostname(self):
+        if not self.href:
+            return ""
+
         return self.host.split(":")[0]
 
     @property
     def port(self):
+        if not self.host:
+            return ""
+
         if ":" not in self.host:
             return ""
 
