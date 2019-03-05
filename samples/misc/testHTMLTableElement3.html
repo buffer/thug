@@ -1,0 +1,68 @@
+<html>
+<body>
+<script>
+	var table = document.createElement("table");
+	table.createTHead();
+	table.createTHead();
+	table.deleteTHead();
+	table.createTHead();
+	alert("tHead: " + table.tHead);
+
+	table.createTFoot();
+	table.createTFoot();
+	table.deleteTFoot();
+	table.createTFoot();
+	alert("tFoot: " + table.tFoot);
+
+	table.createCaption();
+	table.createCaption();
+	table.deleteCaption();
+	table.createCaption();
+	alert("caption: " + table.caption);
+
+	var row = table.insertRow(0);
+	table.deleteRow(0);
+
+	var row = table.insertRow();
+	alert("row: " + row);
+	alert("row: " + table.rows[0]);
+	alert("tBodies: " + table.tBodies);
+
+	var cell = row.insertCell();
+
+	alert(cell.cellIndex);
+	alert("cell: " + cell);
+
+	cell.innerHTML = "New cell 1";
+
+	alert("cell.innerHTML: " + cell.innerHTML);
+
+	try {
+		row.deleteCell(10);
+	} catch(e) {
+		alert("row.deleteCell(10) failed");
+	}
+
+	alert(row.cells);
+
+	try {
+		row.deleteCell(20);
+	} catch(e) {
+		alert("row.deleteCell(20) failed");
+	}
+	
+	row.deleteCell(0);
+	alert(table.rows[0])
+
+	var tbody = document.createElement('tbody');
+
+	var row = tbody.insertRow();
+	tbody.deleteRow(0);
+	
+	table.appendChild(tbody);
+	alert("tBodies: " + table.tBodies);
+
+	table.removeChild(tbody);
+</script>
+<body>
+<html>
