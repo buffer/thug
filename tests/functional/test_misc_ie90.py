@@ -811,3 +811,17 @@ class TestMiscSamplesIE(object):
                     'c.port: ']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLTableElement3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLTableElement3.html")
+        expected = ['tHead: [object HTMLTableSectionElement]',
+                    'tFoot: [object HTMLTableSectionElement]',
+                    'caption: [object HTMLTableCaptionElement]',
+                    'row: [object HTMLTableRowElement]',
+                    'tBodies: [object HTMLCollection]',
+                    'cell: [object HTMLTableCellElement]',
+                    'cell.innerHTML: New cell 1',
+                    'row.deleteCell(10) failed',
+                    'row.deleteCell(20) failed']
+
+        self.do_perform_test(caplog, sample, expected)
