@@ -1,0 +1,18 @@
+<html>
+<body>
+<style>
+	h1 {color:red;}
+	p {color:blue;}
+</style>
+<script>
+	alert("disabled: " + document.styleSheets[0].disabled);
+	alert("head: " + document.head);
+	alert("head: " + document.head);
+	alert("referrer: " + document.referrer);
+	alert("URL: " + document.URL);
+	document.open();
+	document.write("<script>alert('Hello, world')<\/script>");
+	document.close();
+</script>
+</body>
+</html>
