@@ -1,0 +1,28 @@
+<html>
+<body>
+<script>
+	var a = document.createElement('a');
+	a.href = 'https://www.example.com:1234';
+	alert("a.protocol: " + a.protocol);
+	alert("a.host: " + a.host);
+	alert("a.hostname: " + a.hostname);
+	alert("a.port: " + a.port);
+
+	a.blur();
+	a.focus()
+
+	var b = document.createElement('a');
+	alert("b.protocol: " + b.protocol);
+	alert("b.host: " + b.host);
+	alert("b.hostname: " + b.hostname);
+	alert("b.port: " + b.port);
+
+    var c = document.createElement('a');
+    c.href = 'https://www.example.com';
+    alert("c.protocol: " + c.protocol);
+    alert("c.host: " + c.host);
+    alert("c.hostname: " + c.hostname);
+    alert("c.port: " + c.port);
+</script>
+</body>
+</html>
