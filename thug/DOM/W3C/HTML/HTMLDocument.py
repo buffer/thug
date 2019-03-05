@@ -374,13 +374,6 @@ class HTMLDocument(Document):
     def writeln(self, text):
         self.write(text + "\n")
 
-    # DOM Level 2 moves getElementbyId in Document object inherited by
-    # HTMLDocument
-    #
-    # def getElementById(self, elementId):
-    #    tag = self.doc.find(id = elementId)
-    #    return DOMImplementation.createHTMLElement(self.doc, tag) if tag else None
-
     def getElementsByName(self, elementName):
         from .HTMLCollection import HTMLCollection
 
