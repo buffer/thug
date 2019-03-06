@@ -33,17 +33,21 @@
   }
 
   function Reset() {
-  	var f = document.getElementById("formA");
+	var f = document.forms["formA"];
 	f.reset();
   }
+
+getFormInfo();
+setFormInfo();
+Reset();
 
 </script>
 </head>
 <body>
 <form id="formA" action="/cgi-bin/test" method="POST">
-  <input type="button" value="info" onclick="getFormInfo();">
-  <input type="button" value="set" onclick="setFormInfo();">
-  <input type="reset" value="reset" onclick="Reset()">
+  <input type="button" value="info"">
+  <input type="button" value="set">
+  <input type="reset" value="reset">
   <br>
   <textarea id="tex" style="height:15em; width:20em">
 </form>
