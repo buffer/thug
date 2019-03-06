@@ -1,0 +1,51 @@
+</html>
+<head>
+<title>Form example</title>
+<script type="text/javascript">
+  alert(document.forms[0]);
+  alert(document.forms['formA']);
+
+  function getFormInfo() {
+    var info;
+	var f = document.getElementById("formA");
+
+    info = "f.elements: " + f.elements + "\n"
+         + "f.length: " + f.length + "\n"
+         + "f.name: " + f.elements + "\n"
+         + "f.acceptCharset: " + f.acceptCharset + "\n"
+         + "f.action: " + f.action + "\n"
+         + "f.enctype: " + f.enctype + "\n"
+         + "f.encoding: " + f.encoding + "\n"
+         + "f.method: " + f.method + "\n"
+         + "f.target: " + f.target;
+	
+	alert(info);
+  }
+
+  function setFormInfo() {
+	var f = document.getElementById("formA");
+
+    f.method = "GET";
+    f.action = "http://www.example.com/cgi-bin/foo.cgi";
+    f.name   = "totally_new";
+
+	f.submit();
+  }
+
+  function Reset() {
+  	var f = document.getElementById("formA");
+	f.reset();
+  }
+
+</script>
+</head>
+<body>
+<form id="formA" action="/cgi-bin/test" method="POST">
+  <input type="button" value="info" onclick="getFormInfo();">
+  <input type="button" value="set" onclick="setFormInfo();">
+  <input type="reset" value="reset" onclick="Reset()">
+  <br>
+  <textarea id="tex" style="height:15em; width:20em">
+</form>
+</body>
+</html>
