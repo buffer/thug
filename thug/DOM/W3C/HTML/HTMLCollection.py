@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import bs4
+
 from thug.DOM.JSClass import JSClass
 
 
@@ -25,8 +27,13 @@ class HTMLCollection(JSClass):
         return len(self.nodes)
 
     def item(self, index):
+        from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
+
         if index < 0 or index >= self.length:
             return None
+
+        if isinstance(self.nodes[index], bs4.element.Tag):
+            return DOMImplementation.createHTMLElement(self.doc, self.nodes[index])
 
         return self.nodes[index]
 
