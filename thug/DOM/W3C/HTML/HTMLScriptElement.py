@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
+import logging
+
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 from .text_property import text_property
-
-import logging
 
 log = logging.getLogger("Thug")
 
