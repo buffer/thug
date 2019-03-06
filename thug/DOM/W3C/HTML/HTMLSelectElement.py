@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
+from thug.DOM.W3C.Core.DOMException import DOMException
+
 from .HTMLElement import HTMLElement
-from .HTMLOptionElement import HTMLOptionElement
 from .HTMLOptionsCollection import HTMLOptionsCollection
 from .attr_property import attr_property
 from .compatibility import thug_long
-
-from thug.DOM.W3C.Core.DOMException import DOMException
 
 
 class HTMLSelectElement(HTMLElement):
@@ -20,7 +19,7 @@ class HTMLSelectElement(HTMLElement):
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-        self._options = [HTMLOptionElement(self.doc, t) for t in self.tag.find_all("option")]
+        self._options = [t for t in self.tag.find_all("option")]
 
     @property
     def type(self):
