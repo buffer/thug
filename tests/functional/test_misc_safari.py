@@ -570,3 +570,18 @@ class TestMiscSamplesChrome(object):
                     'Alert Text: Hello, world']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLFormElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLFormElement.html")
+        expected = ['[object HTMLFormElement]',
+                    'f.elements: [object HTMLFormControlsCollection]',
+                    'f.length: 4',
+                    'f.name: [object HTMLFormControlsCollection]',
+                    'f.acceptCharset: ',
+                    'f.action: /cgi-bin/test',
+                    'f.enctype: application/x-www-form-urlencoded',
+                    'f.encoding: application/x-www-form-urlencoded',
+                    'f.method: POST',
+                    'f.target: ']
+
+        self.do_perform_test(caplog, sample, expected)
