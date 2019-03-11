@@ -101,7 +101,7 @@ License: GNU General Public License, version 2
    :target: https://pypi.python.org/pypi/thug/
 .. |travis badge| image:: https://img.shields.io/travis/buffer/thug/master.svg
    :target: https://travis-ci.org/buffer/thug
-.. |landscape badge| image:: https://landscape.io/github/buffer/thug/master/landscape.png
+.. |landscape badge| image:: https://landscape.io/github/buffer/thug/master/landscape.svg
    :target: https://landscape.io/github/buffer/thug/master
    :alt: Code Health
 .. |codefactor badge| image:: https://www.codefactor.io/repository/github/buffer/thug/badge
