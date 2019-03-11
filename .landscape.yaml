@@ -2,15 +2,10 @@ strictness: medium
 autodetect: yes
 
 ignore-paths:
-  - thug/Analysis/peepdf/
-  - thug/Logging/modules/MITRE/__init__.py
-  - thug/Logging/modules/MITRE/MAEC_v1_1.py
-  - thug/Logging/modules/MITRE/MAEC_v4_0.py
   - utils/
   - tools/
-  - hpfeeds/
-  - samples/steps/exploits.py
-  - samples/steps/misc.py
+  - samples/
+  - tests/
   - thug/ThugAPI/IThugAPI.py
   - thug/ThugAPI/__init__.py
   - thug/Plugins/IPlugin.py
@@ -26,6 +21,7 @@ pylint:
     - protected-access
     - unnecessary-lambda
     - line-too-long
+    - cyclic-import
 
 pyflakes:
   disable:
