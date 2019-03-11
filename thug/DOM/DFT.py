@@ -26,7 +26,6 @@ import logging
 
 import six
 import six.moves.urllib.parse as urlparse
-import six.moves.urllib_parse as urllib
 from cssutils.parse import CSSParser
 import bs4 as BeautifulSoup
 import cchardet
