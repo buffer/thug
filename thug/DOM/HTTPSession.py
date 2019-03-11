@@ -20,7 +20,6 @@ import logging
 import sys
 import socket
 import ssl
-import unittest
 import six.moves.urllib.parse as urlparse
 import requests
 
