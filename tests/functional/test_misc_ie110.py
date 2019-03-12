@@ -711,3 +711,24 @@ class TestMiscSamplesIE(object):
                     'f.target: ']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testFile(self, caplog):
+        sample   = os.path.join(self.misc_path, "testFile.html")
+        expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Scripting.FileSystemObject)',
+                    '[Script.FileSystemObject ActiveX] GetFile("D:\\ Program Files\\ Common Files\\test.txt")',
+                    '[File ActiveX] Path = D:\\ Program Files\\ Common Files\\test.txt, Attributes = 32',
+                    'Drive (test.txt): D:',
+                    'ShortPath (test.txt): D:\\\\ Progr~1\\\\ Commo~1\\\\test.txt',
+                    'ShortName (test.txt): test.txt',
+                    'Attributes: 1',
+                    '[Script.FileSystemObject ActiveX] GetFile("test2.txt")',
+                    '[File ActiveX] Path = test2.txt, Attributes = 32',
+                    'Drive (test2.txt): C:',
+                    'ShortPath (test2.txt): test2.txt',
+                    'ShortName (test2.txt): test2.txt',
+                    'Copy(test3.txt, True)',
+                    'Move(test4.txt)',
+                    'Delete(False)',
+                    'OpenAsTextStream(ForReading, 0)']
+
+        self.do_perform_test(caplog, sample, expected)
