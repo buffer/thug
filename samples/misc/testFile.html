@@ -1,0 +1,29 @@
+<html>
+<body>
+<script>
+	var obj = document.createElement("object");
+	obj.setAttribute("classid", "clsid:BD96C556-65A3-11D0-983A-00C04FC29E36");
+
+	var S = obj.CreateObject("Scripting.FileSystemObject", "");
+	var D = S.GetFile("D:\\ Program Files\\ Common Files\\test.txt");
+	
+	alert("Drive (test.txt): " + D.Drive);
+	alert("ShortPath (test.txt): " + D.ShortPath);
+	alert("ShortName (test.txt): " + D.ShortName);
+
+	D.setAttributes('ReadOnly');
+	alert("Attributes: " + D.getAttributes());
+
+	var C = S.GetFile("test2.txt");
+	alert("Drive (test2.txt): " + C.Drive);
+	alert("ShortPath (test2.txt): " + C.ShortPath);
+	alert("ShortName (test2.txt): " + C.ShortName);
+
+	C.Copy('test3.txt');
+	C.Move('test4.txt');
+	C.Delete()
+
+	D.OpenAsTextStream();
+</script>
+</body>
+</html>
