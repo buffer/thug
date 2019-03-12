@@ -32,7 +32,7 @@ class File(object):
         if key.lower() in ('volume', 'directory', 'alias', 'compressed', ):
             return
 
-        self._attributes = ATTRIBUTES[key]
+        self._Attributes = ATTRIBUTES[key]
 
     Attributes = property(getAttributes, setAttributes)
 
