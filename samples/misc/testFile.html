@@ -14,6 +14,8 @@
 	D.setAttributes('ReadOnly');
 	alert("Attributes: " + D.getAttributes());
 
+	D.setAttributes('Compressed');
+
 	var C = S.GetFile("test2.txt");
 	alert("Drive (test2.txt): " + C.Drive);
 	alert("ShortPath (test2.txt): " + C.ShortPath);
@@ -24,6 +26,18 @@
 	C.Delete()
 
 	D.OpenAsTextStream();
+
+	var P = S.GetFile("quitelongfilename.foo.bar.txt");
+	alert("ShortPath (quitelongfilename.foo.bar.txt): " + P.ShortPath);
+	alert("ShortName (quitelongfilename.foo.bar.txt): " + P.ShortName);
+
+	var Q = S.GetFile("short");
+	alert("ShortPath (short): " + Q.ShortPath);
+	alert("ShortName (short): " + Q.ShortName);
+
+	var R = S.GetFile("quitelongfilename");
+	alert("ShortPath (quitelongfilename): " + R.ShortPath);
+	alert("ShortName (quitelongfilename): " + R.ShortName);
 </script>
 </body>
 </html>
