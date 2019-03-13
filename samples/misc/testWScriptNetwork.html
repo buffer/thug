@@ -1,0 +1,18 @@
+<html>
+<body>
+<script>
+	var WshNetwork = new ActiveXObject("WScript.Network");
+	
+	var printers = WshNetwork.EnumPrinterConnections();
+	alert(printers);
+	alert(printers.Item(0));
+	alert(printers["length"]);
+	alert(printers["foobar"]);
+
+	alert(WshNetwork.EnumNetworkDrives());
+	alert(WshNetwork.UserDomain);
+	alert(WshNetwork.UserName);
+	alert(WshNetwork.ComputerName);
+</script>
+</body>
+</html>
