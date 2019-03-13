@@ -732,3 +732,13 @@ class TestMiscSamplesIE(object):
                     'OpenAsTextStream(ForReading, 0)']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testWScriptNetwork(self, caplog):
+        sample   = os.path.join(self.misc_path, "testWScriptNetwork.html")
+        expected = ['[WScript.Network ActiveX] Got request to PrinterConnections',
+                    '[WScript.Network ActiveX] Got request to EnumNetworkDrives',
+                    '[WScript.Shell ActiveX] Expanding environment string "%USERDOMAIN%"',
+                    '[WScript.Shell ActiveX] Expanding environment string "%USERNAME%"',
+                    '[WScript.Shell ActiveX] Expanding environment string "%COMPUTERNAME%"']
+
+        self.do_perform_test(caplog, sample, expected)
