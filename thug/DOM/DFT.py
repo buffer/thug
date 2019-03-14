@@ -873,13 +873,7 @@ class DFT(object):
         except Exception:
             return
 
-        if response is None:
-            return
-
-        if response.status_code == 404:
-            return
-
-        if not response.content:
+        if response is None or response.status_code in (404, ) or not response.content:
             return
 
         if log.ThugOpts.code_logging:
@@ -1056,10 +1050,7 @@ class DFT(object):
         except Exception:
             return
 
-        if response is None:
-            return
-
-        if response.status_code == 404:
+        if response is None or response.status_code in (404, ):
             return
 
         ctype = response.headers.get('content-type', None)
@@ -1227,10 +1218,7 @@ class DFT(object):
         except Exception:
             return
 
-        if response is None:
-            return
-
-        if response.status_code == 404:
+        if response is None or response.status_code in (404, ):
             return
 
         if url in self.meta:
@@ -1264,10 +1252,7 @@ class DFT(object):
         except Exception:
             return
 
-        if response is None:
-            return
-
-        if response.status_code == 404:
+        if response is None or response.status_code in (404, ):
             return
 
         ctype = response.headers.get('content-type', None)
@@ -1416,10 +1401,7 @@ class DFT(object):
             except Exception:
                 return
 
-            if response is None:
-                return
-
-            if response.status_code == 404:
+            if response is None or response.status_code in (404, ):
                 return
 
         self.anchors.append(anchor)
@@ -1442,10 +1424,7 @@ class DFT(object):
         except Exception:
             return
 
-        if response is None:
-            return
-
-        if response.status_code == 404:
+        if response is None or response.status_code in (404, ):
             return
 
     def check_anchors(self):
