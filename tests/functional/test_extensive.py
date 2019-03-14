@@ -57,3 +57,21 @@ class TestExtensive(object):
         expected = ["Hello world", ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_Anchor5(self, caplog):
+        sample   = os.path.join(self.jquery_path, "testAnchor5.html")
+        expected = ["testAnchor5 success", ]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_Anchor6(self, caplog):
+        sample   = os.path.join(self.jquery_path, "testAnchor6.html")
+        expected = ["testAnchor5 success", ]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_Anchor7(self, caplog):
+        sample   = os.path.join(self.jquery_path, "testAnchor7.html")
+        expected = ["[MIMEHandler] Unknown MIME Type: application/font-woff2", ]
+
+        self.do_perform_test(caplog, sample, expected)
