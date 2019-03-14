@@ -575,3 +575,9 @@ class TestMiscSamplesFirefox(object):
         expected = ['[applet redirection]']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testFrame(self, caplog):
+        sample   = os.path.join(self.misc_path, "testFrame.html")
+        expected = ['[frame redirection]']
+
+        self.do_perform_test(caplog, sample, expected)
