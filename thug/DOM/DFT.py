@@ -1240,7 +1240,6 @@ class DFT(object):
 
         doc    = w3c.parseString(response.content)
         window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
-        # window.open(url)
 
         dft = DFT(window)
         dft.run()
@@ -1283,7 +1282,6 @@ class DFT(object):
 
         doc    = w3c.parseString(response.content)
         window = Window(response.url, doc, personality = log.ThugOpts.useragent)
-        # window.open(src)
 
         frame_id = frame.get('id', None)
         if frame_id:
@@ -1378,7 +1376,7 @@ class DFT(object):
 
             opts.remove('base64')
 
-        if not opts:
+        if not opts[0]:
             opts = ["text/plain", "charset=US-ASCII"]
 
         mimetype = opts[0]
@@ -1388,7 +1386,6 @@ class DFT(object):
 
             doc    = w3c.parseString(data)
             window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
-            # window.open(uri)
 
             dft = DFT(window)
             dft.run()
