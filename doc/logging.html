@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Logging &mdash; Thug 0.9.42 documentation</title>
+  <title>Logging &mdash; Thug 0.9.44 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Thug 0.9.42 documentation" href="index.html"/>
+    <link rel="top" title="Thug 0.9.44 documentation" href="index.html"/>
         <link rel="next" title="Plugin Framework" href="plugins.html"/>
         <link rel="prev" title="JS Hooks" href="jshooks.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.9.42
+                0.9.44
               </div>
             
           
@@ -115,7 +115,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#graphs">graphs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#virustotal">virustotal</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#honeyagent">honeyagent</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#maec11">maec11</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#json">json</a></li>
 </ul>
 </li>
@@ -132,7 +131,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#id7">classifiers</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#maec-1-1-logging-mode">MAEC 1.1 logging mode</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#file-logging-mode">File logging mode</a></li>
 </ul>
 </li>
@@ -211,7 +209,6 @@ explanation of the MongoDB collection schema).</p>
 <li>MongoDB logging mode</li>
 <li>ElasticSearch</li>
 <li>JSON logging mode</li>
-<li>MAEC 1.1 logging mode</li>
 <li>File logging mode</li>
 </ul>
 <div class="section" id="logging-configuration">
@@ -468,18 +465,6 @@ reports. The Sample ObjectID references the <em>samples</em> collection.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="maec11">
-<h4>maec11<a class="headerlink" href="#maec11" title="Permalink to this headline">¶</a></h4>
-<p>The collection <em>maec11</em> is used to store the Thug analysis reports in MITRE MAEC 1.1
-format. MAEC 1.1 logging mode should be enabled in order to have Thug saving data in
-this collection</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-        <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-        <span class="s2">&quot;report&quot;</span>        : Analysis report <span class="o">(</span>MITRE MAEC <span class="m">1</span>.1 format - XML<span class="o">)</span>
-<span class="o">}</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="json">
 <h4>json<a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h4>
 <p>The collection <em>json</em> is used to store the Thug analysis reports in JSON format.
@@ -637,22 +622,6 @@ list.</p>
 </div>
 </div>
 </div>
-<div class="section" id="maec-1-1-logging-mode">
-<h2>MAEC 1.1 logging mode<a class="headerlink" href="#maec-1-1-logging-mode" title="Permalink to this headline">¶</a></h2>
-<p>Malware Attribute Enumeration and Characterization (MAEC) is a structured language for
-encoding and communicating high fidelity information about any type of malware based upon
-attributes such as behaviors, artifacts, and attack patterns. As a language, MAEC offers
-a grammar and vocabulary that provide a standard means of communicating information about
-malware attributes. MAEC is designed and maintaned by MITRE.</p>
-<p>Thug currently supports MAEC version 1.1 and you should enable the <em>-M</em> (or <em>–maec11-logging</em>)
-option in order to locally store the analysis results in such format.</p>
-<p>If the MAEC 1.1 logging mode is enabled, Thug will attempt to store analysis results in a
-MongoDB instance, if available.</p>
-<p>If the MAEC 1.1 logging mode and the File logging mode are enabled, Thug will attempt to
-store analysis results in a MongoDB instance, if available, and in a XML file in the log
-directory.</p>
-<p>Further documentation about the MAEC 1.1 language can be found at <a class="reference external" href="http://maec.mitre.org/language/version1.1/">http://maec.mitre.org/language/version1.1/</a></p>
-</div>
 <div class="section" id="file-logging-mode">
 <h2>File logging mode<a class="headerlink" href="#file-logging-mode" title="Permalink to this headline">¶</a></h2>
 <p>The File logging mode allows to store both the analysis results and each resource
@@ -710,10 +679,10 @@ total 72K
 </pre></div>
 </div>
 <p>In this example the MAEC 1.1 logging mode is enabled and the file <em>analysis.xml</em> contains the
-URL analysis results saved in MAEC 1.1 format. Please note that all the resources downloaded
-during the URL analysis are saved in the log directory based on their Content-Type for
-convenience. Moreover if MongoDB is installed the information you can see in this directory
-are saved in the database instance as well.</p>
+URL analysis results saved in MAEC 1.1 format (MAEC 1.1 logging is no longer supported). Please
+notice that all the resources downloaded during the URL analysis are saved in the log directory
+based on their Content-Type for convenience. Moreover if MongoDB is installed the information
+you can see in this directory are saved in the database instance as well.</p>
 </div>
 </div>
 
@@ -761,7 +730,7 @@ are saved in the database instance as well.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.42',
+            VERSION:'0.9.44',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

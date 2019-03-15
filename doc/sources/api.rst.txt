@@ -35,9 +35,6 @@ advanced scenarios.
             # Enable JSON logging mode (requires file logging mode enabled)
             self.set_json_logging()
 
-            # Enable MAEC 1.1 logging mode (requires file logging mode enabled)
-            self.set_maec11_logging()
-
             # [IMPORTANT] The following three steps should be implemented (in the exact
             # order of this example) almost in every situation when you are going to
             # analyze a remote site.
@@ -188,24 +185,6 @@ Thug API interface definition is reported below for convenience.
             set_JSON_logging
 
             Enable JSON logging mode
-
-            @return: None
-            """
-
-        def get_maec11_logging():
-            """
-            get_maec11_logging
-
-            Return True if MAEC 1.1 logging mode is enabled, False otherwise.
-
-            @return: boolean
-            """
-
-        def set_maec11_logging():
-            """
-            set_maec11_logging
-
-            Enable MAEC 1.1 logging mode
 
             @return: None
             """

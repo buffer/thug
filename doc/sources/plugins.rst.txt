@@ -189,4 +189,4 @@ example enabling the debug option in order to see the debug messages
 
 
 Do you want to pre-check if the URL domain is within a blacklist? Just do it with a pre-analysis plugin. Do 
-you want to extract and/or correlate information from the MAEC log files? Just do it with a post-analysis plugin.
+you want to extract and/or correlate information from the log files? Just do it with a post-analysis plugin.

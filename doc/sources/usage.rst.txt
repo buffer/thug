@@ -77,7 +77,6 @@ Let's start our Thug tour by taking a look at the options it provides.
         Logging:
         -F, --file-logging              Enable file logging mode (default: disabled)
         -Z, --json-logging              Enable JSON logging mode (default: disabled)
-        -M, --maec11-logging            Enable MAEC11 logging mode (default: disabled)
         -G, --elasticsearch-logging     Enable ElasticSearch logging mode (default: disabled)
         -D, --mongodb-address=          Specify address and port of the MongoDB instance (format: host:port)
         -Y, --no-code-logging           Disable code logging
@@ -266,7 +265,9 @@ Let's take a look at the directory which contains the logs for this session
 
 If the MAEC 1.1 logging mode is enabled, the file *analysis.xml* contains the URL analysis
 results saved in MAEC 1.1 format (please refer to http://maec.mitre.org for additional details).
-Please note that all the files downloaded during the URL analysis are saved in this directory
+MAEC 1.1 logging is no longer supported from Thug 0.9.44 onwards.
+
+Please notice that all the files downloaded during the URL analysis are saved in this directory
 based on their Content-Type for convenience (if the File logging mode is enabled).
 
 Moreover if MongoDB is installed the information you can see in this directory are saved in the 

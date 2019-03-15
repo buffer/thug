@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage &mdash; Thug 0.9.42 documentation</title>
+  <title>Usage &mdash; Thug 0.9.44 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Thug 0.9.42 documentation" href="index.html"/>
+    <link rel="top" title="Thug 0.9.44 documentation" href="index.html"/>
         <link rel="next" title="Thug API" href="api.html"/>
         <link rel="prev" title="Configuration" href="configuration.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.9.42
+                0.9.44
               </div>
             
           
@@ -244,7 +244,6 @@ Options:
     Logging:
     -F, --file-logging              Enable file logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
     -Z, --json-logging              Enable JSON logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
-    -M, --maec11-logging            Enable MAEC11 logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
     -G, --elasticsearch-logging     Enable ElasticSearch logging mode <span class="o">(</span>default: disabled<span class="o">)</span>
     -D, --mongodb-address<span class="o">=</span>          Specify address and port of the MongoDB instance <span class="o">(</span>format: host:port<span class="o">)</span>
     -Y, --no-code-logging           Disable code logging
@@ -494,7 +493,8 @@ total 72K
 </div>
 <p>If the MAEC 1.1 logging mode is enabled, the file <em>analysis.xml</em> contains the URL analysis
 results saved in MAEC 1.1 format (please refer to <a class="reference external" href="http://maec.mitre.org">http://maec.mitre.org</a> for additional details).
-Please note that all the files downloaded during the URL analysis are saved in this directory
+MAEC 1.1 logging is no longer supported from Thug 0.9.44 onwards.</p>
+<p>Please notice that all the files downloaded during the URL analysis are saved in this directory
 based on their Content-Type for convenience (if the File logging mode is enabled).</p>
 <p>Moreover if MongoDB is installed the information you can see in this directory are saved in the
 database instance too. Let’s take a deeper look using pymongo (you can get the same result by
@@ -1089,7 +1089,7 @@ option. Simply running Thug this way (please note the interval is expressed in m
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.42',
+            VERSION:'0.9.44',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
