@@ -125,7 +125,8 @@ class MongoDB(object):
     def set_url(self, url):
         if not self.enabled:
             return
-        self.graph  = ExploitGraph(url)
+
+        self.graph = ExploitGraph(url)
 
         self.url_id = self.get_url(url)
         if self.url_id is None:
