@@ -1,5 +1,9 @@
 <html>
 <body>
-<object width="400" height="400" data="https://github.com/buffer/thug/raw/master/tests/test_files/sample.swf" type="application/vnd.adobe.flash-movie"></object>
+	<object id="object1" width="400" height="400" data="https://github.com/buffer/thug/raw/master/tests/test_files/sample.swf" type="application/vnd.adobe.flash-movie"></object>
 </body>
+<script>
+	var obj = document.getElementById('object1');
+	alert(obj.object.contentDocument.getElementById('object1').width);
+</script>
 </html>
