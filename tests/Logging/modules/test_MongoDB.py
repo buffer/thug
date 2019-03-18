@@ -28,7 +28,7 @@ log.Encoding           = Encoding()
 class TestMongoDB:
     cve  = "CVE-XXXX"
     url  = "www.example.com"
-    data = "sample-data"
+    data = b"sample-data"
     desc = "sample-desc"
     cert = "sample-cert"
 
@@ -40,7 +40,7 @@ class TestMongoDB:
                  'md5': 'd4be8fbeb3a219ec8c6c26ffe4033a16'}
 
     base_dir       = "path/to/sample/basedir"
-    code_snippet   = "var i = 12;"
+    code_snippet   = b"var i = 12;"
     base64_snippet = "dmFyIGkgPSAxMjs="
     language       = "Javascript"
     relationship   = "Contained_Inside"
