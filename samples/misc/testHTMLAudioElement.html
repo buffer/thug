@@ -1,0 +1,37 @@
+<html>
+<body>
+<script>
+	alert(document.nodeName);
+	alert(document.nodeValue);
+	
+	var d = document.createElement('audio');
+	d.src = "https://buffer.github.io/thug/";
+	
+	alert(d);
+	alert("src: " + d.src) 
+	alert("controller: " + d.controller);
+	alert("crossOrigin: " + d.crossOrigin);
+	alert("currentSrc: " + d.currentSrc);
+	alert("initialTime: " + d.initialTime);
+	alert("currentTime: " + d.currentTime);
+	alert("muted: " + d.muted);
+	alert("defaultMuted: " + d.defaultMuted);
+	alert("readyState: " + d.readyState);
+	alert("srcObject: " + d.srcObject);
+	alert("playbackRate: " + d.playbackRate);
+	alert("defaultPlaybackRate: " + d.defaultPlaybackRate);
+	alert("disableRemotePlayback: " + d.disableRemotePlayback);
+	alert("duration: " + d.duration);
+	alert("ended: " + d.ended);
+	alert("error: " + d.error);
+	alert("mediaKeys: " + d.mediaKeys);
+	alert("networkState: " + d.networkState);
+	alert("sinkId: " + d.sinkId);
+	
+	d.load();
+	d.play();
+	d.pause();
+	alert("paused: " + d.paused);
+</script>
+</body>
+</html>
