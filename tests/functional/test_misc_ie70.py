@@ -741,3 +741,11 @@ class TestMiscSamplesIE(object):
                     'height: 4']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLImageElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLImageElement.html")
+        expected = ['src (before changes): test.jpg',
+                    'src (after first change): test2.jpg',
+                    'onerror handler fired']
+
+        self.do_perform_test(caplog, sample, expected)
