@@ -47,7 +47,4 @@ class HTMLBodyElement(HTMLElement):
             if handler:
                 handler(node)
 
-        # soup = BeautifulSoup.BeautifulSoup(html, "html.parser")
-        # self.tag.body.replace_with(soup)
-
     innerHTML = property(getInnerHTML, setInnerHTML)
