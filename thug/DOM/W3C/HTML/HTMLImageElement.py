@@ -10,36 +10,33 @@ log = logging.getLogger("Thug")
 
 
 class HTMLImageElement(HTMLElement):
+    align    = attr_property("align")
+    alt      = attr_property("alt")
+    border   = attr_property("border")
+    height   = attr_property("height", thug_long)
+    hspace   = attr_property("hspace", thug_long)
+    isMap    = attr_property("ismap", bool)
+    longDesc = attr_property("longdesc")
+    name     = attr_property("name")
+    useMap   = attr_property("usemap")
+    vspace   = attr_property("vspace", thug_long)
+    width    = attr_property("width", thug_long)
+
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-
-    align           = attr_property("align")
-    alt             = attr_property("alt")
-    border          = attr_property("border")
-    height          = attr_property("height", thug_long)
-    hspace          = attr_property("hspace", thug_long)
-    isMap           = attr_property("ismap", bool)
-    longDesc        = attr_property("longdesc")
-    # Removed in DOM Level 2
-    # lowSrc        = attr_property("lowsrc")
-    name            = attr_property("name")
-    # src           = attr_property("src")
-    useMap          = attr_property("usemap")
-    vspace          = attr_property("vspace", thug_long)
-    width           = attr_property("width", thug_long)
 
     @property
     def complete(self):
         return True
 
     def getSrc(self):
-        if 'src' in self.tag:
-            return str(self.tag['src'])
+        if 'src' in self.tag.attrs:
+            return str(self.tag.attrs['src'])
 
         return None
 
     def setSrc(self, value):
-        self.tag['src'] = str(value)
+        self.tag.attrs['src'] = str(value)
 
         if value.lower().startswith('res://'):
             onerror = getattr(self, 'onerror', None)
