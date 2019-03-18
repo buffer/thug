@@ -913,3 +913,29 @@ class TestMiscSamplesIE(object):
         expected = ['[frame redirection]']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLAudioElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLAudioElement.html")
+        expected = ['[object HTMLAudioElement]',
+                    'src: https://buffer.github.io/thug/',
+                    'controller: null',
+                    'crossOrigin: null',
+                    'currentSrc: https://buffer.github.io/thug/',
+                    'initialTime: 0',
+                    'currentTime: 0',
+                    'muted: false',
+                    'defaultMuted: false',
+                    'readyState: 4',
+                    'srcObject: null',
+                    'playbackRate: 1',
+                    'defaultPlaybackRate: 1',
+                    'disableRemotePlayback: false',
+                    'duration: 0',
+                    'ended: false',
+                    'error: null',
+                    'mediaKeys: null',
+                    'networkState: 1',
+                    'sinkId:',
+                    'paused: true']
+
+        self.do_perform_test(caplog, sample, expected)
