@@ -37,6 +37,12 @@
 	f.reset();
   }
 
+  var reset0 = document.forms['formA'].reset0;
+  reset0.blur();
+  reset0.focus();
+  reset0.select();
+  reset0.click();
+
 getFormInfo();
 setFormInfo();
 Reset();
@@ -47,7 +53,7 @@ Reset();
 <form id="formA" action="/cgi-bin/test" method="POST">
   <input type="button" value="info"">
   <input type="button" value="set">
-  <input type="reset" value="reset">
+  <input type="reset" name="reset0" value="reset">
   <br>
   <textarea id="tex" style="height:15em; width:20em">
 </form>
