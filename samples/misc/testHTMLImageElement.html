@@ -1,0 +1,22 @@
+<html>
+<body>
+	<img id="test" src="test.jpg" alt="Test">
+
+	<script>
+		function handler() {
+			alert('onerror handler fired');
+		}
+
+		var image = document.getElementById("test");
+		alert("src (before changes): " + image.src);
+
+		image.src = "test2.jpg";
+		alert("src (after first change): " + image.src);
+
+		alert(image.complete);
+
+		image.onerror = handler
+		image.src = "res://foobar";
+	</script>
+</body>
+</html>
