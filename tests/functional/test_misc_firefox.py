@@ -578,6 +578,8 @@ class TestMiscSamplesFirefox(object):
 
     def test_testFrame(self, caplog):
         sample   = os.path.join(self.misc_path, "testFrame.html")
-        expected = ['[frame redirection]']
+        expected = ['[frame redirection]',
+                    'Alert Text: https://buffer.github.io/thug/',
+                    'Alert Text: data:text/html,<script>alert(\'Hello world\');</script>']
 
         self.do_perform_test(caplog, sample, expected)
