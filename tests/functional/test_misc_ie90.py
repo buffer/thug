@@ -977,3 +977,9 @@ class TestMiscSamplesIE(object):
         expected = ['New title: Foobar']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLMetaElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLMetaElement.html")
+        expected = ['utf-8', ]
+
+        self.do_perform_test(caplog, sample, expected)
