@@ -11,21 +11,13 @@ from lxml.html import tostring
 from thug.DOM.W3C.Core.Document import Document
 from .HTMLBodyElement import HTMLBodyElement
 from .text_property import text_property
-from .xpath_property import xpath_property
 
 
 log = logging.getLogger("Thug")
 
 
 class HTMLDocument(Document):
-    title       = xpath_property("/html/head/title/text()")
-    # body        = xpath_property("/html/body[1]", readonly = True)
-    images      = xpath_property("//img", readonly = True)
-    applets     = xpath_property("//applet", readonly = True)
-    # forms       = xpath_property("//form", readonly = True)
-    links       = xpath_property("//a[@href]", readonly = True)
-    anchors     = xpath_property("//a[@name]", readonly = True)
-    innerHTML   = text_property()
+    innerHTML = text_property()
 
     def __str__(self):
         return "[object HTMLDocument]"
@@ -152,14 +144,64 @@ class HTMLDocument(Document):
         return ""
 
     @property
+    def anchors(self):
+        from .HTMLCollection import HTMLCollection
+
+        nodes = [f for f in self.doc.find_all('a') if 'name' in f.attrs and f.attrs['name']]
+        return HTMLCollection(self.doc, nodes)
+
+    @property
+    def applets(self):
+        from .HTMLCollection import HTMLCollection
+
+        applets = [f for f in self.doc.find_all('applet')]
+        objects = [f for f in self.doc.find_all('object') if 'type' in f.attrs and 'applet' in f.attrs['type']]
+        return HTMLCollection(self.doc, applets + objects)
+
+    @property
     def forms(self):
         from .HTMLCollection import HTMLCollection
-        return HTMLCollection(self.doc, [f for f in self.doc.find_all('form')])
+
+        nodes = [f for f in self.doc.find_all('form')]
+        return HTMLCollection(self.doc, nodes)
+
+    @property
+    def images(self):
+        from .HTMLCollection import HTMLCollection
+
+        nodes = [f for f in self.doc.find_all('img')]
+        return HTMLCollection(self.doc, nodes)
+
+    @property
+    def links(self):
+        from .HTMLCollection import HTMLCollection
+
+        nodes = [f for f in self.doc.find_all(['a', 'area']) if 'href' in f.attrs and f.attrs['href']]
+        return HTMLCollection(self.doc, nodes)
 
     @property
     def styleSheets(self):
         from .HTMLCollection import HTMLCollection
-        return HTMLCollection(self.doc, [f for f in self.doc.find_all('style')])
+
+        nodes = [f for f in self.doc.find_all('style')]
+        return HTMLCollection(self.doc, nodes)
+
+    def getTitle(self):
+        title = self.head.tag.find('title')
+        return str(title.string) if title else ""
+
+    def setTitle(self, value):
+        title = self.head.tag.find('title')
+
+        if title:
+            title.string = value
+            return
+
+        title = E.TITLE(value)
+        tag   = BeautifulSoup.BeautifulSoup(tostring(title), "html.parser")
+        self.head.tag.append(tag)
+
+    title = property(getTitle, setTitle)
 
     @property
     def lastModified(self):
