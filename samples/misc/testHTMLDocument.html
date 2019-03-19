@@ -1,15 +1,53 @@
 <html>
+<head>
+	<meta http-equiv=”Content-Type” content=”text/html; charset=iso-8859-1″>
+	<title>Test</title>
+</head>
+
 <body>
 <style>
 	h1 {color:red;}
 	p {color:blue;}
 </style>
+
+<a name="foobar">
+<a href="https://github.com/buffer/thug/">
+
+<img src="test.jpg" height="42" width="42">
+
+<applet code="HelloWorld.class" codebase="/external/examples/common/java/" style="width:200px; height:50px;"></applet>
+<object type="application/x-java-applet" code="HelloWorld.class" style="width:200px; height:50px;">
+    <param name="codebase" value="/external/examples/common/java/" />
+</object>
+
 <script>
+	alert("document.title: " + document.title);
+
+	document.title = "Foobar";
+	alert("document.title: " + document.title);
+
+	alert("anchors: " + document.anchors);
+	alert("anchors length: " + document.anchors.length);
+	alert("anchors[0].name: " + document.anchors[0].name);
+
+	alert("applets: " + document.applets);
+	alert("applets length: " + document.applets.length);
+	alert("applets[0].code: " + document.applets[0].code);
+
+	alert("links: " + document.links);
+	alert("links length: " + document.links.length);
+	alert("links[0].href: " + document.links[0].href);
+
+	alert("images: " + document.images);
+	alert("images length: " + document.images.length);
+	alert("images[0].href: " + document.images[0].src);
+
 	alert("disabled: " + document.styleSheets[0].disabled);
 	alert("head: " + document.head);
 	alert("head: " + document.head);
 	alert("referrer: " + document.referrer);
 	alert("URL: " + document.URL);
+
 	document.open();
 	document.write("<script>alert('Hello, world')<\/script>");
 	document.close();
