@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script type="text/javascript">
+    alert("window: " + window);
+	alert("screen: " + window.screen);
+	alert("availHeight: " + window.screen.availHeight);
+	alert("availWidth: " + window.screen.availWidth);
+	alert("colorDepth: " + window.screen.colorDepth);
+	alert("width: " + window.screen.width);
+	
+	window.screen.bufferDepth = 24;
+	alert("bufferDepth: " + window.screen.bufferDepth);
+
+	try {
+		window.screen.bufferDepth = "foo";
+	} catch(e) {}
+	</script>
+</body>
+</html>
