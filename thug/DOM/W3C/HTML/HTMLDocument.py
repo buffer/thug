@@ -221,13 +221,9 @@ class HTMLDocument(Document):
 
     cookie = property(getCookie, setCookie)
 
-    def getDomain(self):
+    @property
+    def domain(self):
         return self._domain
-
-    def setDomain(self, value):
-        self._domain = value
-
-    domain = property(getDomain, setDomain)
 
     @property
     def URL(self):
