@@ -983,3 +983,15 @@ class TestMiscSamplesIE(object):
         expected = ['utf-8', ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testScreen(self, caplog):
+        sample   = os.path.join(self.misc_path, "testScreen.html")
+        expected = ['window: [object Window]',
+                    'screen: [object Screen]',
+                    'availHeight: 600',
+                    'availWidth: 800',
+                    'colorDepth: 32',
+                    'width: 800',
+                    'bufferDepth: 24']
+
+        self.do_perform_test(caplog, sample, expected)
