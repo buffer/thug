@@ -836,7 +836,21 @@ class TestMiscSamplesIE(object):
 
     def test_testHTMLDocument(self, caplog):
         sample   = os.path.join(self.misc_path, "testHTMLDocument.html")
-        expected = ['disabled: false',
+        expected = ['document.title: Test',
+                    'document.title: Foobar',
+                    'anchors: [object HTMLCollection]',
+                    'anchors length: 1',
+                    'anchors[0].name: foobar',
+                    'applets: [object HTMLCollection]',
+                    'applets length: 2',
+                    'applets[0].code: HelloWorld.class',
+                    'links: [object HTMLCollection]',
+                    'links length: 1',
+                    'links[0].href: https://github.com/buffer/thug/',
+                    'images: [object HTMLCollection]',
+                    'images length: 1',
+                    'images[0].href: test.jpg',
+                    'disabled: false',
                     'head: [object HTMLHeadElement]',
                     'referrer: ',
                     'URL: about:blank',
