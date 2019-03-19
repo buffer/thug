@@ -629,3 +629,9 @@ class TestMiscSamplesChrome(object):
                     'onerror handler fired']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testTitle(self, caplog):
+        sample   = os.path.join(self.misc_path, "testTitle.html")
+        expected = ['New title: Foobar']
+
+        self.do_perform_test(caplog, sample, expected)
