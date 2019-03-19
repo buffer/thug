@@ -1,0 +1,17 @@
+<html>
+<body>
+
+<meta id="meta0" http-equiv="X-UA-Compatible" content="IE=7,9,10;FF=3;OtherUA=4" charset="utf-8"/>
+
+<script>
+	var e = document.getElementById('meta0');
+	alert(e.charset);
+
+	try {
+		alert(e.foobar);
+	} catch(e) {
+		alert("Foobar doe not exists");
+	}
+</script>
+</body>
+</html>
