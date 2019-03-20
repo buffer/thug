@@ -826,3 +826,10 @@ class TestMiscSamplesIE(object):
         expected = ['New title: Foobar']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_UserProfile(self, caplog):
+        sample   = os.path.join(self.misc_path, "testUserProfile.html")
+        expected = ['Test 1',
+                    'Test 2']
+
+        self.do_perform_test(caplog, sample, expected)
