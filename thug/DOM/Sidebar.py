@@ -40,7 +40,7 @@ class Sidebar(JSClass):
         self._favorites.add((title, URL, customizeURL))
 
     def addSearchEngine(self, engineURL, iconURL, message, suggestedCategory):
-        self._enginess.add((engineURL, iconURL, message, suggestedCategory))
+        self._engines.add((engineURL, iconURL, message, suggestedCategory))
 
     def AddSearchProvider(self, URL):
         self._providers.add(URL)
