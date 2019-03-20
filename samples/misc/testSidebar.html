@@ -1,0 +1,16 @@
+<html>
+<head>
+	<script type="text/javascript">
+    	window.sidebar.addPanel('Google', 'http://www.google.com', '');
+		window.sidebar.addPersistentPanel('Google', 'http://www.google.com', '');
+		window.sidebar.addMicrosummaryGenerator('http://www.google.com');
+		window.sidebar.AddSearchProvider('http://www.google.com');
+		window.sidebar.addSearchEngine('http://www.google.com', 'http://www.google.com', 'Google', 'Search');
+
+		alert("Google: " + window.sidebar.IsSearchProviderInstalled('http://www.google.com'));
+		alert("Amazon: " + window.sidebar.IsSearchProviderInstalled('http://www.amazon.com'));
+   </script>
+</head>
+<body>
+</body>
+</html>
