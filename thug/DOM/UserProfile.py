@@ -57,7 +57,7 @@ class UserProfile(JSClass):
     def addReadRequest(self, vCardName, reserved = None):
         for schema in self.vCardSchemas:
             if schema.lower() == vCardName.lower():
-                self.queue.append(vCardName)
+                self._queue.append(vCardName)
                 return True
 
         return False
