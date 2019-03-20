@@ -22,7 +22,7 @@ import json
 import logging
 import zipfile
 import tempfile
-from six import StringIO
+from six import BytesIO
 import bs4 as BeautifulSoup
 import rarfile
 
@@ -262,7 +262,7 @@ class MIMEHandler(dict):
         if len(content) < self.MIN_ZIP_FILE_SIZE:
             return False
 
-        fp = StringIO(content)
+        fp = BytesIO(content)
         if not zipfile.is_zipfile(fp):
             return False
 
