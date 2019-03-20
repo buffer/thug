@@ -5,7 +5,7 @@ from .attr_property import attr_property
 
 
 class HTMLHeadingElement(HTMLElement):
+    align = attr_property("align")
+
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-
-    align           = attr_property("align")

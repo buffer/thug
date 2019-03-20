@@ -7,6 +7,15 @@ from .compatibility import thug_long
 
 
 class HTMLTextAreaElement(HTMLElement):
+    accessKey = attr_property("accesskey")
+    cols      = attr_property("cols", thug_long)
+    disabled  = attr_property("disabled", bool)
+    name      = attr_property("name")
+    readOnly  = attr_property("readonly", bool)
+    rows      = attr_property("rows", thug_long)
+    tabIndex  = attr_property("tabindex", thug_long)
+    value     = text_property()
+
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
 
@@ -15,15 +24,6 @@ class HTMLTextAreaElement(HTMLElement):
     @property
     def form(self):
         pass
-
-    accessKey       = attr_property("accesskey")
-    cols            = attr_property("cols", thug_long)
-    disabled        = attr_property("disabled", bool)
-    name            = attr_property("name")
-    readOnly        = attr_property("readonly", bool)
-    rows            = attr_property("rows", thug_long)
-    tabIndex        = attr_property("tabindex", thug_long)
-    value           = text_property()
 
     @property
     def type(self):

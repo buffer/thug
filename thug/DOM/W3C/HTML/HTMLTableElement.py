@@ -16,6 +16,16 @@ log = logging.getLogger("Thug")
 
 
 class HTMLTableElement(HTMLElement):
+    align       = attr_property("align")
+    bgColor     = attr_property("bgcolor")
+    border      = attr_property("border")
+    cellPadding = attr_property("cellpadding")
+    cellSpacing = attr_property("cellspacing")
+    frame       = attr_property("frame")
+    rules       = attr_property("rules")
+    summary     = attr_property("summary")
+    width       = attr_property("width")
+
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
         self._caption = None
@@ -43,16 +53,6 @@ class HTMLTableElement(HTMLElement):
     @property
     def tBodies(self):
         return self._tBodies
-
-    align           = attr_property("align")
-    bgColor         = attr_property("bgcolor")
-    border          = attr_property("border")
-    cellPadding     = attr_property("cellpadding")
-    cellSpacing     = attr_property("cellspacing")
-    frame           = attr_property("frame")
-    rules           = attr_property("rules")
-    summary         = attr_property("summary")
-    width           = attr_property("width")
 
     def createTHead(self):
         if self._tHead:

@@ -10,20 +10,20 @@ log = logging.getLogger("Thug")
 
 
 class HTMLIFrameElement(HTMLElement):
+    align        = attr_property("align")
+    frameBorder  = attr_property("frameborder")
+    height       = attr_property("height")
+    longDesc     = attr_property("longdesc")
+    marginHeight = attr_property("marginheight")
+    marginWidth  = attr_property("marginwidth")
+    name         = attr_property("name")
+    scrolling    = attr_property("scrolling")
+    src          = attr_property("src")
+    width        = attr_property("width")
+
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
         self.document = W3C.w3c.getDOMImplementation()
-
-    align           = attr_property("align")
-    frameBorder     = attr_property("frameborder")
-    height          = attr_property("height")
-    longDesc        = attr_property("longdesc")
-    marginHeight    = attr_property("marginheight")
-    marginWidth     = attr_property("marginwidth")
-    name            = attr_property("name")
-    scrolling       = attr_property("scrolling")
-    src             = attr_property("src")
-    width           = attr_property("width")
 
     # Introduced in DOM Level 2
     @property

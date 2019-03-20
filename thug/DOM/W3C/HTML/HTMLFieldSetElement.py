@@ -5,10 +5,10 @@ from .attr_property import attr_property
 
 
 class HTMLFieldSetElement(HTMLElement):
+    disabled = attr_property("disabled", bool)
+
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-
-    disabled = attr_property("disabled", bool)
 
     @property
     def form(self):

@@ -12,14 +12,14 @@ log = logging.getLogger("Thug")
 
 
 class HTMLTableSectionElement(HTMLElement):
+    align  = attr_property("align")
+    ch     = attr_property("char")
+    chOff  = attr_property("charoff")
+    vAlign = attr_property("valign")
+
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
         self._rows = HTMLCollection(doc, list())
-
-    align           = attr_property("align")
-    ch              = attr_property("char")
-    chOff           = attr_property("charoff")
-    vAlign          = attr_property("valign")
 
     @property
     def rows(self):

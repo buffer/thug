@@ -14,11 +14,11 @@ log = logging.getLogger("Thug")
 
 
 class HTMLElement(Element, ElementCSSInlineStyle):
-    id              = attr_property("id")
-    title           = attr_property("title")
-    lang            = attr_property("lang")
-    dir             = attr_property("dir")
-    className       = attr_property("class", default = "")
+    id        = attr_property("id")
+    title     = attr_property("title")
+    lang      = attr_property("lang")
+    dir       = attr_property("dir")
+    className = attr_property("class", default = "")
 
     def __init__(self, doc, tag):
         Element.__init__(self, doc, tag)

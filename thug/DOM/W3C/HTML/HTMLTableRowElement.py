@@ -11,6 +11,12 @@ log = logging.getLogger("Thug")
 
 
 class HTMLTableRowElement(HTMLElement):
+    align   = attr_property("align")
+    bgColor = attr_property("bgcolor")
+    ch      = attr_property("char")
+    chOff   = attr_property("charoff")
+    vAlign  = attr_property("valign")
+
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
         self._cells = HTMLCollection(doc, list())
@@ -29,12 +35,6 @@ class HTMLTableRowElement(HTMLElement):
     @property
     def cells(self):
         return self._cells
-
-    align           = attr_property("align")
-    bgColor         = attr_property("bgcolor")
-    ch              = attr_property("char")
-    chOff           = attr_property("charoff")
-    vAlign          = attr_property("valign")
 
     # Modified in DOM Level 2
     def insertCell(self, index = None):

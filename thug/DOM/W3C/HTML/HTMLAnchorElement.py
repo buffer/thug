@@ -14,9 +14,6 @@ log = logging.getLogger("Thug")
 
 
 class HTMLAnchorElement(HTMLElement):
-    def __init__(self, doc, tag):
-        HTMLElement.__init__(self, doc, tag)
-
     accessKey = attr_property("accesskey")
     charset   = attr_property("charset", default = "")
     coords    = attr_property("coords")
@@ -29,6 +26,9 @@ class HTMLAnchorElement(HTMLElement):
     tabIndex  = attr_property("tabindex", thug_long)
     target    = attr_property("target")
     type      = attr_property("type")
+
+    def __init__(self, doc, tag):
+        HTMLElement.__init__(self, doc, tag)
 
     @property
     def protocol(self):
