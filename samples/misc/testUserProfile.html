@@ -2,11 +2,17 @@
 <html>
 <head>
     <script type="text/javascript">
-        window.navigator.userProfile.setAttribute('vCard.Notes', 'Test 1');
-	window.navigator.userProfile.setAttribute('vcard.home.state', 'Test 2', 0);
+	alert(window.navigator.userProfile.getAttribute('Not.Existing'));
 	alert(window.navigator.userProfile.getAttribute('vCard.Notes'));
-	alert(window.clientInformation.userProfile.getAttribute('vCard.Home.State'));
+
+	window.navigator.userProfile.setAttribute('Not.Existing', 'Test 1');
+	window.navigator.userProfile.setAttribute('vCard.Notes', 'Test 1');
+	window.navigator.userProfile.setAttribute('vcard.home.state', 'Test 2', 0);
+
+	alert(window.navigator.userProfile.getAttribute('vCard.Notes'));
+	alert(window.navigator.userProfile.getAttribute('vCard.Home.State'));
 	
+	window.navigator.userProfile.addReadRequest('Not.Existing');
 	window.navigator.userProfile.addReadRequest('vCard.Home.State');
 	window.navigator.userProfile.doReadRequest(1);
 	window.navigator.userProfile.clearRequest();
