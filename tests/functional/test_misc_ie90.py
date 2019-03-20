@@ -983,3 +983,9 @@ class TestMiscSamplesIE(object):
                     'bufferDepth: 24']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testAcroPDF(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAcroPDF.html")
+        expected = ['$version: 9.1.0', ]
+
+        self.do_perform_test(caplog, sample, expected)
