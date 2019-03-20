@@ -757,18 +757,6 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testVsaIDEDTE(self, caplog):
-        sample   = os.path.join(self.misc_path, "testVsaIDEDTE.html")
-        expected = ['[VsaIDE.DTE ActiveX] CreateObject (WScript.Network)']
-
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testVsmIDEDTE(self, caplog):
-        sample   = os.path.join(self.misc_path, "testVsmIDEDTE.html")
-        expected = ['[VsmIDE.DTE ActiveX] CreateObject (WScript.Network)']
-
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testApplet(self, caplog):
         sample   = os.path.join(self.misc_path, "testApplet.html")
         expected = ['[applet redirection]']
