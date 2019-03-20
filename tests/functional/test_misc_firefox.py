@@ -619,3 +619,10 @@ class TestMiscSamplesFirefox(object):
         expected = ['New title: Foobar']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testSidebar(self, caplog):
+        sample   = os.path.join(self.misc_path, "testSidebar.html")
+        expected = ['Google: 1',
+                    'Amazon: 0']
+
+        self.do_perform_test(caplog, sample, expected)
