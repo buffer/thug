@@ -7,7 +7,7 @@ log = logging.getLogger("Thug")
 
 
 def DoAutoUpdateRequest(self, arg0, arg1, arg2):
-    if len(arg0) > 1000 or len(arg1) > 1000:
+    if len(arg0) >= 32 or len(arg1) >= 32:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "RealMedia RealPlayer Ierpplug.DLL ActiveX",
                                           "Overflow in DoAutoUpdateRequest",
