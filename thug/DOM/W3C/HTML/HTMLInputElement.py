@@ -2,6 +2,7 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .form_property import form_property
 from .compatibility import thug_long
 from .compatibility import thug_maxint
 
@@ -14,6 +15,7 @@ class HTMLInputElement(HTMLElement):
     checked        = attr_property("checked", bool)
     defaultChecked = attr_property("checked", bool)
     disabled       = attr_property("disabled", bool)
+    form           = form_property()
     maxLength      = attr_property("maxlength", thug_long, default = thug_maxint)
     name           = attr_property("name")
     readOnly       = attr_property("readonly", bool)
@@ -26,10 +28,6 @@ class HTMLInputElement(HTMLElement):
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-
-    @property
-    def form(self):
-        raise NotImplementedError()
 
     def getValue(self):
         return self._value
