@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import six
-
 
 def form_property(default = None):
     def getter(self):
