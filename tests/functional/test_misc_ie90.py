@@ -989,3 +989,17 @@ class TestMiscSamplesIE(object):
         expected = ['$version: 9.1.0', ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testCSSStyleDeclaration(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCSSStyleDeclaration.html")
+        expected = ['style: [object CSSStyleDeclaration]',
+                    'length: 1',
+                    'cssText: color: blue;',
+                    'color: blue',
+                    'item(0): color',
+                    'item(100):',
+                    'getPropertyValue(\'color\'): blue',
+                    'length (after removeProperty): 0',
+                    'cssText: foo: bar;']
+
+        self.do_perform_test(caplog, sample, expected)
