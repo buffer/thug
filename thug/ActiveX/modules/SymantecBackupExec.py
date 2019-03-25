@@ -38,7 +38,7 @@ def Set_MonthText0(self, val):
     if len(val) > 255:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Symantec BackupExec ActiveX",
-                                          "Overflow in property _MonthText6",
+                                          "Overflow in property _MonthText0",
                                           cve = 'CVE-2007-6016')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016", None)
