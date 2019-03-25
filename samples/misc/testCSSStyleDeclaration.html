@@ -1,0 +1,21 @@
+<html>
+<body>
+	<img id="test" src="test.jpg" style="color:blue;" alt="Test">
+
+	<script>
+		var image = document.getElementById("test");
+		alert("style: " + image.style);
+		alert("length: " + image.style.length);
+		alert("cssText: " + image.style.cssText);
+		alert("color: " + image.style.color);
+		alert("item(0): " + image.style.item(0));
+		alert("item(100): " + image.style.item(100));
+		alert("getPropertyValue('color'): " + image.style.getPropertyValue('color'));
+		alert(image.style.removeProperty('foobar'));
+		alert(image.style.removeProperty('color'));
+		alert("length (after removeProperty): " + image.style.length);
+		image.style.foo = "bar";
+		alert("cssText: " + image.style.cssText);
+	</script>
+</body>
+</html>
