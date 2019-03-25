@@ -3,12 +3,13 @@
 import logging
 import six
 
+from thug.DOM.JSClass import JSClass
+
 log = logging.getLogger("Thug")
 
 
-class CSSStyleDeclaration(object):
+class CSSStyleDeclaration(JSClass):
     def __init__(self, style):
-        # self.props = dict([prop.strip().split(': ') for prop in style.split(';') if prop])
         self.props = dict()
 
         for prop in [p for p in style.split(';') if p]:
@@ -21,46 +22,33 @@ class CSSStyleDeclaration(object):
 
     @property
     def cssText(self):
-        return '; '.join(["%s: %s" % (k, v) for k, v in self.props.items()])
+        css_text = '; '.join(["%s: %s" % (k, v) for k, v in self.props.items()])
+        return css_text + ';' if css_text else ''
 
     def getPropertyValue(self, name):
         return self.props.get(name, '')
 
     def removeProperty(self, name):
-        v = self.props.get(name, '')
-
-        if v:
-            del self.props[name]
-
-        return v
+        return self.props.pop(name, '')
 
     @property
     def length(self):
         return len(self.props)
 
     def item(self, index):
-        if isinstance(index, six.string_types):
-            if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 7 and index in ('maxHeight', ):
-                raise AttributeError(index)
-
-            return self.props.get(index, '')
-
         if index < 0 or index >= len(self.props):
             return ''
 
-        return self.props[self.props.keys()[index]]
+        return self.props.keys()[index]
 
     def __getattr__(self, name):
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 7 and name in ('maxHeight', ):
             raise AttributeError(name)
 
-        if hasattr(object, name):
-            return object.__getattribute__(self, name)
-
-        return object.__getattribute__(self, 'props').get(name, '')
+        return self.getPropertyValue(name)
 
     def __setattr__(self, name, value):
-        if name == 'props':
-            object.__setattr__(self, name, value)
+        if name in ('props', ):
+            super(JSClass, self).__setattr__(name, value)
         else:
-            object.__getattribute__(self, 'props')[name] = value
+            self.props[name] = value
