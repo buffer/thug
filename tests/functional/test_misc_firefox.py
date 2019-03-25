@@ -640,3 +640,10 @@ class TestMiscSamplesFirefox(object):
                     'cssText: foo: bar;']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testFormProperty(self, caplog):
+        sample   = os.path.join(self.misc_path, "testFormProperty.html")
+        expected = ['[object HTMLFormElement]',
+                    'formA']
+
+        self.do_perform_test(caplog, sample, expected)
