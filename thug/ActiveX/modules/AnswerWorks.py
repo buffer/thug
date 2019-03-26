@@ -31,6 +31,6 @@ def SetSeedQuery(self, arg):
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6387", None)
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "AnswerWorks ActiveX",
-                                          "SetSeedQuery",
+                                          "Overflow in SetSeedQuery",
                                           cve = 'CVE-2007-6387')
         log.DFT.check_shellcode(arg)
