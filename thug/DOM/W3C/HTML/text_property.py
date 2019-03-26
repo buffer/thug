@@ -10,12 +10,6 @@ def text_property(readonly = False):
         return str(self.tag.string) if self.tag.string else ""
 
     def setter(self, text):
-        # if self.tag.string:
-        #    self.tag.contents[0] = BeautifulSoup.NavigableString(text)
-        # else:
-        #    self.tag.append(text)
-        #
-        # self.tag.string = self.tag.contents[0]
         self.tag.string = text
 
         if self.tagName.lower() in ('script', ):
