@@ -16,6 +16,12 @@
 		alert("length (after removeProperty): " + image.style.length);
 		image.style.foo = "bar";
 		alert("cssText: " + image.style.cssText);
+
+		try {
+			alert(image.style.maxHeight);
+		} catch(e) {
+			alert("Error");
+		}
 	</script>
 </body>
 </html>
