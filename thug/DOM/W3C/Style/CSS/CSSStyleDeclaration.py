@@ -35,7 +35,7 @@ class CSSStyleDeclaration(JSClass):
         if index < 0 or index >= len(self.props):
             return ''
 
-        return self.props.keys()[index]
+        return list(self.props.keys())[index]
 
     def __getattr__(self, name):
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 7 and name in ('maxHeight', ):
