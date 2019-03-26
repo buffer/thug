@@ -16,10 +16,6 @@ class CSSStyleDeclaration(JSClass):
             k, v = prop.strip().split(':')
             self.props[k.strip()] = v.strip()
 
-        for k, v in self.props.items():
-            if v and v[0] == v[-1] and v[0] in ['"', "'"]:
-                self.props[k] = v[1:-1]
-
     @property
     def cssText(self):
         css_text = '; '.join(["%s: %s" % (k, v) for k, v in self.props.items()])
