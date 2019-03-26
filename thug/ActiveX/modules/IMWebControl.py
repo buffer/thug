@@ -17,7 +17,7 @@ def ProcessRequestEx(self, arg):
 
 
 def SetHandler(self, arg):
-    if str([arg]) == '218959117':
+    if str(arg) == '218959117':
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "iMesh IMWebControl ActiveX",
                                           "Overflow in SetHandler",
