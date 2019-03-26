@@ -11,7 +11,7 @@ def Initialize(self, *args):
 
 
 def CreateJob(self, name, arg, job_id):
-    log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] CreateObject("%s", "%s", "%s")' % (name, arg, job_id, ))
+    log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] CreateJob("%s", "%s", "%s")' % (name, arg, job_id, ))
     return self
 
 
