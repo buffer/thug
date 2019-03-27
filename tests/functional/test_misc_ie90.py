@@ -1017,3 +1017,17 @@ class TestMiscSamplesIE(object):
                     'http://192.168.1.100/putty.exe']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testFontFaceRule1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testFontFaceRule1.html")
+        expected = ['[font face redirection]',
+                    'http://192.168.1.100/putty.exe']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testFontFaceRule2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testFontFaceRule2.html")
+        expected = ['[font face redirection]',
+                    'https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf']
+
+        self.do_perform_test(caplog, sample, expected)
