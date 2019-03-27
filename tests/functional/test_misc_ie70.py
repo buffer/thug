@@ -778,3 +778,10 @@ class TestMiscSamplesIE(object):
                     'formA']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testVBScript(self, caplog):
+        sample   = os.path.join(self.misc_path, "testVBScript.html")
+        expected = ['[VBS embedded URL redirection]',
+                    'http://192.168.1.100/putty.exe']
+
+        self.do_perform_test(caplog, sample, expected)
