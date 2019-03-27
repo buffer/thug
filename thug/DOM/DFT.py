@@ -1343,7 +1343,7 @@ class DFT(object):
             log.ThugLogging.Features.increase_data_uri_count()
 
         h = uri.split(",")
-        if len(h) < 2:
+        if len(h) < 2 or not h[1]:
             return False
 
         data = h[1]
@@ -1361,7 +1361,7 @@ class DFT(object):
 
             opts.remove('base64')
 
-        if not opts[0]:
+        if not opts or not opts[0]:
             opts = ["text/plain", "charset=US-ASCII"]
 
         mimetype = opts[0]
