@@ -866,3 +866,10 @@ class TestMiscSamplesIE(object):
                     'https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testSilverLight(self, caplog):
+        sample   = os.path.join(self.misc_path, "testSilverLight.html")
+        expected = ['[SilverLight] isVersionSupported(\'4.0\')',
+                    'Version 4.0 supported: true']
+
+        self.do_perform_test(caplog, sample, expected)
