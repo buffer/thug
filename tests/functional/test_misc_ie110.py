@@ -841,3 +841,12 @@ class TestMiscSamplesIE(object):
                     'Version 4.0 supported: true']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHistory(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHistory.html")
+        expected = ['history: [object History]',
+                    'window: [object Window]',
+                    'navigationMode (before change): automatic',
+                    'navigationMode (after change): fast']
+
+        self.do_perform_test(caplog, sample, expected)

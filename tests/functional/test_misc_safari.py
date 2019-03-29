@@ -670,3 +670,12 @@ class TestMiscSamplesChrome(object):
                     'https://mdn.mozillademos.org/files/2468/VeraSeBd.ttf']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHistory(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHistory.html")
+        expected = ['history: [object History]',
+                    'window: [object Window]',
+                    'navigationMode (before change): automatic',
+                    'navigationMode (after change): fast']
+
+        self.do_perform_test(caplog, sample, expected)
