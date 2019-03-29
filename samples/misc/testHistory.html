@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script type="text/javascript">
+	alert("history: " + window.history);
+	alert("window: " + window.history.window);
+	alert("length: " + window.history.length);
+	alert("navigationMode (before change): " + window.history.navigationMode);
+	window.history.navigationMode = "fast";
+	alert("navigationMode (after change): " + window.history.navigationMode);
+
+	if (typeof(window.history.previous) != 'undefined') {
+		alert("previous: " + window.history.previous);
+	}
+
+	window.history.back();
+
+    if (typeof(window.history.next) != 'undefined') {
+        alert("next: " + window.history.next);
+    }
+	window.forward();
+	</script>
+</body>
+</html
