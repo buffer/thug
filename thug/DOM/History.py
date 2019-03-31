@@ -79,7 +79,7 @@ class History(JSClass):
 
     @property
     def _next(self):
-        return self.urls[self.pos + 1] if self.length >= self.pos else None
+        return self.urls[self.pos] if self.length > self.pos else None
 
     @property
     def _previous(self):
