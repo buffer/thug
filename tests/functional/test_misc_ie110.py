@@ -15,6 +15,7 @@ class TestMiscSamplesIE(object):
 
         thug.set_useragent('win10ie110')
         thug.set_events('click,storage')
+        thug.set_connect_timeout(3)
         thug.disable_cert_logging()
         thug.set_features_logging()
         thug.log_init(sample)
