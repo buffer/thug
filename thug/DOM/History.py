@@ -75,15 +75,15 @@ class History(JSClass):
 
     @property
     def _current(self):
-        return self.urls[self.pos] if self.length > self.pos else None
+        return self.urls[self.pos] if self.length > self.pos and self.pos > 0 else None
 
     @property
     def _next(self):
-        return self.urls[self.pos] if self.length > self.pos else None
+        return self.urls[self.pos + 1] if self.length > self.pos + 1 and self.pos > 0 else None
 
     @property
     def _previous(self):
-        return self.urls[self.pos - 1] if self.length > self.pos and self.pos > 0 else None
+        return self.urls[self.pos - 1] if self.length > self.pos - 1 and self.pos > 0 else None
 
     def _get_navigationMode(self):
         return self._navigationMode
