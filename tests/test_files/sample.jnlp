@@ -1,0 +1,19 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="https://github.com/buffer/thug/raw/master/tests/test_files/sample.jnlp">
+  <information>
+    <title>Applet Test JNLP</title>
+    <vendor>LMsgSjfC</vendor>
+    <description>INURKJtu</description>
+    <offline-allowed/>
+  </information>
+
+  <resources>
+    <j2se version="1.7+" href="http://java.sun.com/products/autodl/j2se" />
+    <jar href="https://github.com/buffer/thug/raw/master/tests/test_files/sample.jar" main="true" />
+  </resources>
+  <applet-desc name="CVLtiMcV" main-class="okfAIxk" width="1" height="1">
+    <param name="__applet_ssv_validated" value="true"></param>
+  </applet-desc>
+  <update check="background"/>
+</jnlp>
