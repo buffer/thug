@@ -2,13 +2,17 @@
 <body>
 	<object id="object1" width="400" height="400" data="https://github.com/buffer/thug/raw/master/tests/test_files/sample.swf" type="application/vnd.adobe.flash-movie"></object>
 	<object id="object2"></object>
+	<object id="object3"></object>
 </body>
 <script>
 	var obj = document.getElementById('object1');
 	alert(obj.object.contentDocument.getElementById('object1').width);
 
 	var obj = document.getElementById('object2');
-	obj.classid = "clsid:F0E42D60-368C-11D0-AD81-00A0C90DC8D9";
+	obj.classid = "clsid:{F0E42D60-368C-11D0-AD81-00A0C90DC8D9}";
 	alert(obj.classid);
+
+	var obj = document.getElementById('object3');
+	obj.classid = "FOOBAR";
 </script>
 </html>
