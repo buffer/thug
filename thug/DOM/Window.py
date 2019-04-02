@@ -1031,11 +1031,11 @@ class Window(JSClass):
 
         return ''.join(sc)
 
-    def atob(self, s):
-        """
-        The atob method decodes a base-64 encoded string
-        """
-        return base64.b64decode(s)
+    # def atob(self, s):
+    #    """
+    #    The atob method decodes a base-64 encoded string
+    #    """
+    #    return base64.b64decode(s)
 
     def btoa(self, s):
         """
