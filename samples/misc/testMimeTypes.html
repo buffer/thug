@@ -17,7 +17,13 @@
 
             var info = document.getElementById ("info");
             info.innerHTML = message;
-	    alert(message);
+            alert(message);
+
+            var a = mimes[1000];
+            a.type = 'bar';
+            delete(a.type);
+
+            var b = mimes['foobar'];
         }
 
 	GetMimeTypes();
