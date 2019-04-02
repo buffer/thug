@@ -238,3 +238,8 @@ def RegRead(self, registry):
 def RegWrite(self, registry, value, strType = "REG_SZ"):
     log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegWrite("{}", "{}", "{}")'.format(registry, value, strType))
     win32_registry[registry.lower()] = value
+
+
+def Popup(self, title = "", timeout = 0, message = "", _type = 0):
+    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Popup("{}", "{}", "{}")'.format(title, message, _type))
+    return 0

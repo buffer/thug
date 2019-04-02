@@ -1464,6 +1464,7 @@ CLSID = [
                             'CreateShortcut'            : WScriptShell.CreateShortcut,
                             'RegRead'                   : WScriptShell.RegRead,
                             'RegWrite'                  : WScriptShell.RegWrite,
+                            'Popup'                     : WScriptShell.Popup
                           }
         },
 
