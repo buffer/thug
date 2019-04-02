@@ -830,9 +830,10 @@ class Window(JSClass):
         log.ThugOpts.activex_ready = False
 
         if not (log.ThugOpts.local and log.ThugOpts.attachment):
-            self.document       = self._document
+            # self.document       = self._document
             self.XMLHttpRequest = self._XMLHttpRequest
 
+        self.document                 = self._document
         self.ActiveXObject            = self._do_ActiveXObject
         self.DeferredListDataComplete = self._DeferredListDataComplete
         self.CollectGarbage           = self._CollectGarbage
