@@ -851,3 +851,10 @@ class TestMiscSamplesIE(object):
                     'navigationMode (after change): fast']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testMSXML2Document(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMSXML2Document.html")
+        expected = ['[MSXML2.DOMDocument] Microsoft XML Core Services MSXML Uninitialized Memory Corruption',
+                    'CVE-2012-1889']
+
+        self.do_perform_test(caplog, sample, expected)
