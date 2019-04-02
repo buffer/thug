@@ -215,6 +215,8 @@ def register_object(s, clsid):
         log.warning("Unknown ActiveX object: %s", clsid)
         raise TypeError()
 
+    log.warning("ActiveXObject: %s", clsid)
+
     for method_name, method in obj['methods'].items():
         # _method = new.instancemethod(method, s, s.__class__)
         _method = method.__get__(s, s.__class__)
