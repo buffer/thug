@@ -13,6 +13,7 @@
 		alert("previous: " + window.history.previous);
 	}
 
+	window.history.pushState(null, 'Title', 'http://www.example.com');
 	window.history.back();
 
 	if (typeof(window.history.next) != 'undefined') {
