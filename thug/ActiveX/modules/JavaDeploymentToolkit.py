@@ -32,11 +32,11 @@ def launch(self, arg):
 
 def launchApp(self, pJNLP, pEmbedded = None, pVmArgs = None):
     cve_2013_2416 = False
-    if len(pJNLP) > 256:
+    if len(pJNLP) > 32:
         cve_2013_2416 = True
         log.DFT.check_shellcode(pJNLP)
 
-    if pEmbedded and len(pEmbedded):
+    if pEmbedded:
         cve_2013_2416 = True
         log.DFT.check_shellcode(pEmbedded)
 
