@@ -51,7 +51,7 @@ class TestAdobeReader(object):
 
         self.do_perform_test(caplog, sample, '10.1.0.0', expected)
 
-    def test_shockwave5(self, caplog):
+    def test_adobe3(self, caplog):
         sample   = os.path.join(self.misc_path, "PluginDetect-0.7.6.html")
         expected = ['Flash version: 10.0.64.0', ]
 
