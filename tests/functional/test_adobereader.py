@@ -6,7 +6,7 @@ from thug.ThugAPI.ThugAPI import ThugAPI
 log = logging.getLogger("Thug")
 
 
-class TestShockwave(object):
+class TestAdobeReader(object):
     thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
     misc_path = os.path.join(thug_path, "thug", "samples/misc")
 
