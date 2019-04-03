@@ -94,6 +94,10 @@ class History(JSClass):
 
     navigationMode = property(_get_navigationMode, _set_navigationMode)
 
+    def pushState(self, state, title, URL):
+        # self._window.url = URL
+        pass
+
     def back(self):
         """Loads the previous URL in the history list"""
         return self.go(-1)
