@@ -1,0 +1,26 @@
+<html>
+<body>
+<script>
+	var obj = new ActiveXObject("Microsoft.XMLDOM");
+
+	obj.loadXML("<root><child/></root>");
+
+	var node = obj.createElement("TEST")
+
+	node.nodeTypedValue = "foobar1";
+
+	node.dataType = "invalid";
+	node.dataType = "foobar2";
+
+	node.dataType = "bin.base64";
+	node.nodeTypedValue = "foobar3";
+	alert(node.dataType);
+	alert("foobar3: " + node.nodeTypedValue);
+
+	node.dataType = "bin.hex";
+	node.nodeTypedValue = "foobar4";
+	alert(node.dataType);
+	alert("foobar4: " + node.nodeTypedValue);
+</script>
+</body>
+</html>
