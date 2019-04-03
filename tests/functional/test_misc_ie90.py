@@ -1055,3 +1055,13 @@ class TestMiscSamplesIE(object):
                     'CVE-2012-1889']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLDOM(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLDOM.html")
+        expected = ['[Microsoft XMLDOM ActiveX] Creating element TEST',
+                    'bin.base64',
+                    'foobar3: foobar3',
+                    'bin.hex',
+                    'foobar4: foobar4']
+
+        self.do_perform_test(caplog, sample, expected)
