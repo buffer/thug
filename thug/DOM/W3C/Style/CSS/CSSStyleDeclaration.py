@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import logging
-import six
 
 from thug.DOM.JSClass import JSClass
 
