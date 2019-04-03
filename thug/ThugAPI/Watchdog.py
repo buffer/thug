@@ -17,6 +17,7 @@
 # MA  02111-1307  USA
 
 import os
+import sys
 import signal
 import logging
 
@@ -41,4 +42,12 @@ class Watchdog(object):
             self.callback(signum, frame)
 
         log.ThugLogging.log_event()
-        os.kill(os.getpid(), signal.SIGTERM)
+
+        pid = os.getpid()
+
+        # If Thug is running in a Docker container it is assigned PID 1
+        # and Docker apparently ignores SIGTERM signals to PID 1
+        if pid in (1, ):
+            sys.exit(1)
+        else:
+            os.kill(pid, signal.SIGTERM)
