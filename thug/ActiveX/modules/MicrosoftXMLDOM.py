@@ -19,9 +19,9 @@ class Node(object):
 
     def getNodeTypedValue(self):
         try:
-            if self._dataType == 'bin.base64':
+            if self._dataType in ('bin.base64', ):
                 return base64.b64decode(self.text)
-            elif self._dataType == 'bin.hex':
+            elif self._dataType in ('bin.hex', ):
                 return binascii.unhexlify(self.text)
         except Exception:
             pass
@@ -29,14 +29,11 @@ class Node(object):
         return self.text
 
     def setNodeTypedValue(self, value):
-        try:
-            if self.dataType == 'bin.base64':
-                self.text = base64.b64encode(value)
-            elif self.dataType == 'bin.hex':
-                self.text = binascii.hexlify(value)
-            else:
-                self.text = value
-        except Exception:
+        if self.dataType in ('bin.base64', ):
+            self.text = base64.b64encode(value)
+        elif self.dataType in ('bin.hex', ):
+            self.text = binascii.hexlify(value)
+        else:
             self.text = value
 
     nodeTypedValue = property(getNodeTypedValue, setNodeTypedValue)
