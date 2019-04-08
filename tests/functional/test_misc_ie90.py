@@ -1065,3 +1065,13 @@ class TestMiscSamplesIE(object):
                     'foobar4: foobar4']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLDocumentCompatibleInfo(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLDocumentCompatibleInfo.html")
+        expected = ['This document is in IE 8 mode',
+                    'compatMode = CSS1Compat',
+                    'document.compatible.length = 1',
+                    'userAgent = IE',
+                    'version = 8']
+
+        self.do_perform_test(caplog, sample, expected)
