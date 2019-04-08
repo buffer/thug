@@ -5,7 +5,6 @@ __all__ = ['Attr',
            'DOMException',
            'DOMImplementation',
            'Document',
-           'DocumentCompatibleInfoCollection',
            'DocumentFragment',
            'DocumentType',
            'Element',
@@ -26,7 +25,6 @@ from .Comment import Comment
 from .DOMException import DOMException
 from .DOMImplementation import DOMImplementation
 from .Document import Document
-from .DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
 from .DocumentFragment import DocumentFragment
 from .DocumentType import DocumentType
 from .Element import Element

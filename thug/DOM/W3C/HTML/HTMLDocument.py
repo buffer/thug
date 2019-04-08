@@ -57,12 +57,12 @@ class HTMLDocument(Document):
             return
 
     def __init_personality_IE(self):
-        from thug.DOM.W3C.Core.DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
+        from .HTMLDocumentCompatibleInfoCollection import HTMLDocumentCompatibleInfoCollection
 
         if log.ThugOpts.Personality.browserMajorVersion < 8:
             self._compatible = None
         else:
-            self._compatible = DocumentCompatibleInfoCollection(self.doc, [])
+            self._compatible = HTMLDocumentCompatibleInfoCollection(self.doc, [])
 
         if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
@@ -265,7 +265,7 @@ class HTMLDocument(Document):
 
     def setCompatible(self, compatible):
         from .HTMLDocumentCompatibleInfo import HTMLDocumentCompatibleInfo
-        from thug.DOM.W3C.Core.DocumentCompatibleInfoCollection import DocumentCompatibleInfoCollection
+        from .HTMLDocumentCompatibleInfoCollection import HTMLDocumentCompatibleInfoCollection
 
         _compatibles = list()
 
@@ -282,7 +282,7 @@ class HTMLDocument(Document):
                     p = HTMLDocumentCompatibleInfo(useragent, v)
                     _compatibles.append(p)
 
-            self._compatible = DocumentCompatibleInfoCollection(self.doc, _compatibles)
+            self._compatible = HTMLDocumentCompatibleInfoCollection(self.doc, _compatibles)
 
     compatible = property(getCompatible, setCompatible)
 

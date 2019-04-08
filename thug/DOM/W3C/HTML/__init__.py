@@ -13,6 +13,7 @@ __all__ = ['HTMLAllCollection',
            'HTMLDListElement',
            'HTMLDocument',
            'HTMLDocumentCompatibleInfo',
+           'HTMLDocumentCompatibleInfoCollection',
            'HTMLElement',
            'HTMLFieldSetElement',
            'HTMLFontElement',
@@ -75,6 +76,7 @@ from .HTMLDirectoryElement import HTMLDirectoryElement
 from .HTMLDivElement import HTMLDivElement
 from .HTMLDocument import HTMLDocument
 from .HTMLDocumentCompatibleInfo import HTMLDocumentCompatibleInfo
+from .HTMLDocumentCompatibleInfoCollection import HTMLDocumentCompatibleInfoCollection
 from .HTMLElement import HTMLElement
 from .HTMLFieldSetElement import HTMLFieldSetElement
 from .HTMLFontElement import HTMLFontElement
