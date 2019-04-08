@@ -1,0 +1,19 @@
+<html> 
+    <head> 
+    <meta http-equiv="X-UA-Compatible" content="IE=8"> 
+    </head> 
+    <body> 
+        <script type="text/javascript"> 
+         
+        alert("This document is in IE " + document.documentMode + " mode"); 
+        alert("compatMode = " + document.compatMode); 
+        alert("document.compatible.length = " + document.compatible.length); 
+
+        for(i = 0; i < document.compatible.length; i++){ 
+           alert("userAgent = " + document.compatible(i).userAgent); 
+           alert("version = " + document.compatible(i).version); 
+        } 
+ 
+        </script> 
+    </body> 
+</html>
