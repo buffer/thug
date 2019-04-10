@@ -352,20 +352,6 @@ class DFT(object):
             except KeyError:
                 break
 
-    def check_attrs(self, p):
-        for value in p.attrs.values():
-            self.check_shellcode(value)
-
-    def shift(self, script, s):
-        if script.lower().startswith(s):
-            return script[len(s):].lstrip()
-        return script
-
-    def fix(self, script):
-        script = self.shift(script, 'javascript:')
-        script = self.shift(script, 'return')
-        return script
-
     def get_evtObject(self, elem, evtType):
         from thug.DOM.W3C.Events.Event import Event
         from thug.DOM.W3C.Events.MouseEvent import MouseEvent
@@ -727,7 +713,6 @@ class DFT(object):
 
         self.check_small_element(_object, 'object')
 
-        # self.check_attrs(_object)
         params = self.do_handle_params(_object)
 
         classid  = _object.get('classid', None)
