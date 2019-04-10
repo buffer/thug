@@ -464,7 +464,7 @@ class DFT(object):
                 self.run_event_handler(listener, evtObject)
                 count -= 1
 
-    def build_event_handler(self, ctx, h):
+    def _build_event_handler(self, ctx, h):
         # When an event handler is registered by setting an HTML attribute
         # the browser converts the string of JavaScript code into a function.
         # Browsers other than IE construct a function with a single argument
@@ -476,6 +476,13 @@ class DFT(object):
             return ctx.eval("(function() { with(document) { with(this.form || {}) { with(this) { event = window.event; %s } } } }) " % (h, ))
 
         return ctx.eval("(function(event) { with(document) { with(this.form || {}) { with(this) { %s } } } }) " % (h, ))
+
+    def build_event_handler(self, ctx, h):
+        try:
+            return self._build_event_handler(ctx, h)
+        except SyntaxError as e:
+            log.info("[SYNTAX ERROR][build_event_handler] %s", str(e))
+            return None
 
     def set_event_handler_attributes(self, elem):
         try:
