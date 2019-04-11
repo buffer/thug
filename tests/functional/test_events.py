@@ -244,3 +244,9 @@ class TestEvents(object):
                     'First click']
 
         self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
+
+    def test_testEvent17(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEvent17.html")
+        expected = ['clicked', ]
+
+        self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
