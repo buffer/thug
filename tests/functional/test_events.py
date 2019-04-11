@@ -171,6 +171,21 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def testMutationEvent(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMutationEvent.html")
+        expected = ['[object MutationEvent]',
+                    'type: DOMAttrModified',
+                    'target: null',
+                    'bubbles: true',
+                    'cancelable: true',
+                    'relatedNode: [object Attr]',
+                    'prevValue: null',
+                    'newValue: foobar',
+                    'attrName: value',
+                    'attrChange: 1']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testEvent2(self, caplog):
         sample   = os.path.join(self.misc_path, "testEvent2.html")
         expected = ['1. Div capture ran',
