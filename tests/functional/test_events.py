@@ -186,6 +186,12 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testEventException(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEventException.html")
+        expected = ['Error', ]
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testEvent1(self, caplog):
         sample   = os.path.join(self.misc_path, "testEvent1.html")
         expected = ['add',
@@ -237,4 +243,4 @@ class TestEvents(object):
         expected = ['You should see me two times',
                     'First click']
 
-        self.do_perform_test(caplog, sample, expected, events = 'click')
+        self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
