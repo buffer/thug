@@ -10,7 +10,7 @@ class TestEvents(object):
     thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
     misc_path = os.path.join(thug_path, "thug", "samples/Events")
 
-    def do_perform_test(self, caplog, sample, expected, events = 'click,storage', useragent = 'win7ie90'):
+    def do_perform_test(self, caplog, sample, expected, events = '', useragent = 'win7ie90'):
         thug = ThugAPI()
 
         thug.set_useragent(useragent)
@@ -155,6 +155,21 @@ class TestEvents(object):
                     'defaultPrevented: false']
 
         self.do_perform_test(caplog, sample, expected, useragent = 'linuxfirefox40')
+
+    def testStorageEvent(self, caplog):
+        sample   = os.path.join(self.misc_path, "testStorageEvent.html")
+        expected = ['[object StorageEvent]',
+                    'type: storage',
+                    'target: null',
+                    'bubbles: false',
+                    'cancelable: false',
+                    'key: key',
+                    'oldValue: oldValue',
+                    'newValue: newValue',
+                    'url: http://www.example.com',
+                    'storageArea: [object SessionStorage]']
+
+        self.do_perform_test(caplog, sample, expected)
 
     def test_testEvent2(self, caplog):
         sample   = os.path.join(self.misc_path, "testEvent2.html")
