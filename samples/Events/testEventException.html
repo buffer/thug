@@ -1,0 +1,21 @@
+<html>
+<body>
+<div id="thediv"><a href="/" id="thelink">test</a></div>
+<script>
+
+var oDiv = document.getElementById('thediv');
+
+oDiv.addEventListener('click',function (e) {
+  alert('Fired');
+}, true);
+
+var clickEvent = document.createEvent("MouseEvents");
+
+try {
+	oDiv.dispatchEvent(clickEvent);
+} catch(e) {
+	alert(e)
+}
+</script>
+</body>
+</html>
