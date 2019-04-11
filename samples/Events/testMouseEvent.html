@@ -23,6 +23,24 @@
 		alert("detail: " + p.detail);
 		alert("view: " + p.view);
 		alert("defaultPrevented: " + p.defaultPrevented);
+
+		try {
+			alert(p.returnValue);
+			p.returnValue = false;
+		} catch(e) {}
+
+		try {
+			alert(p.cancelBubble);
+			p.cancelBubble = false;
+		} catch(e) {}
+
+		try {
+			p.stopPropagation();
+		} catch(e) {}
+
+		try {
+			p.preventDefault();
+		} catch(e) {}
 	</script>
 	</body>
 </html>
