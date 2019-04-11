@@ -186,6 +186,13 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testEvent1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEvent1.html")
+        expected = ['add',
+                    '[object HTMLParagraphElement]']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testEvent2(self, caplog):
         sample   = os.path.join(self.misc_path, "testEvent2.html")
         expected = ['1. Div capture ran',
@@ -195,3 +202,39 @@ class TestEvents(object):
                     '3. Div bubble ran']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testEvent4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEvent4.html")
+        expected = ['add',
+                    '[object HTMLParagraphElement]']
+
+        self.do_perform_test(caplog, sample, expected, useragent = 'winxpie60')
+
+    def test_testEvent7(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEvent7.html")
+        expected = ['foobar', ]
+
+        self.do_perform_test(caplog, sample, expected, events = 'click')
+
+    def test_testEvent8(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEvent8.html")
+        expected = ['Clicked',
+                    'foobar', ]
+
+        self.do_perform_test(caplog, sample, expected, events = 'click')
+
+    def test_testEvent11(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEvent11.html")
+        expected = ['[object Event]',
+                    '[object Window]',
+                    'clicked',
+                    'clicked 2']
+
+        self.do_perform_test(caplog, sample, expected, events = 'click')
+
+    def test_testEvent12(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEvent12.html")
+        expected = ['You should see me two times',
+                    'First click']
+
+        self.do_perform_test(caplog, sample, expected, events = 'click')
