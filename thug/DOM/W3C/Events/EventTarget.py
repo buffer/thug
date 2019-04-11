@@ -3,6 +3,7 @@
 import logging
 
 from .Event import Event
+from .EventException import EventException
 #from .HTMLEvent import HTMLEvent
 #from .MouseEvent import MouseEvent
 
@@ -200,6 +201,10 @@ class EventTarget(object):
 
     def dispatchEvent(self, evtObject):
         evtType = evtObject.type
+
+        if not evtType:
+            raise EventException(EventException.UNSPECIFIED_EVENT_TYPE_ERR)
+
         log.info('dispatchEvent(%s)', evtType)
 
         if log.ThugOpts.features_logging:
