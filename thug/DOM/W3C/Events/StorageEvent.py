@@ -1,34 +1,46 @@
 #!/usr/bin/env python
 
-import logging
-
 from .Event import Event
-
-log = logging.getLogger("Thug")
 
 
 # Introduced in DOM Level 2
 class StorageEvent(Event):
-    StorageEventTypes = ('storage', )
+    EventTypes = ('storage', )
 
-    def __init__(self, eventTypeArg, target):
-        Event.__init__(self, target)
+    def __init__(self):
+        Event.__init__(self)
+        self._key         = None
+        self._oldValue    = None
+        self._newValue    = None
+        self._url         = None
+        self._storageArea = None
 
-    def initStorageEvent(self,
-                         eventTypeArg,
-                         canBubbleArg,
-                         cancelableArg,
-                         keyArg,
-                         oldValueArg,
-                         newValueArg,
-                         urlArg,
-                         storageAreaArg):
-        self._type       = eventTypeArg
-        self.typeArg     = eventTypeArg
-        self._canBubble  = canBubbleArg
-        self._cancelable = cancelableArg
-        self.key         = keyArg
-        self.oldValue    = oldValueArg
-        self.newValue    = newValueArg
-        self.url         = urlArg
-        self.storageArea = storageAreaArg
+    @property
+    def key(self):
+        return self._key
+
+    @property
+    def oldValue(self):
+        return self._oldValue
+
+    @property
+    def newValue(self):
+        return self._newValue
+
+    @property
+    def url(self):
+        return self._url
+
+    @property
+    def storageArea(self):
+        return self._storageArea
+
+    def initStorageEvent(self, eventTypeArg, canBubbleArg, cancelableArg, keyArg, oldValueArg,
+                         newValueArg, urlArg, storageAreaArg):
+
+        self.initEvent(eventTypeArg, canBubbleArg, cancelableArg)
+        self._key         = keyArg
+        self._oldValue    = oldValueArg
+        self._newValue    = newValueArg
+        self._url         = urlArg
+        self._storageArea = storageAreaArg
