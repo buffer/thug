@@ -3,8 +3,8 @@
 import logging
 
 from .Event import Event
-from .HTMLEvent import HTMLEvent
-from .MouseEvent import MouseEvent
+#from .HTMLEvent import HTMLEvent
+#from .MouseEvent import MouseEvent
 
 log = logging.getLogger("Thug")
 
@@ -144,14 +144,16 @@ class EventTarget(object):
         _listeners         = [(eventType, listener, capture) for (eventType, listener, capture) in tag._listeners if eventType == evtType]
         capture_listeners  = [(eventType, listener, capture) for (eventType, listener, capture) in _listeners if capture is True]
         bubbling_listeners = [(eventType, listener, capture) for (eventType, listener, capture) in _listeners if capture is False]
+
         return capture_listeners, bubbling_listeners
 
     def _do_dispatch(self, c, evtObject):
         eventType, listener, capture = c  # pylint:disable=unused-variable
 
-        with log.DFT.context:
+        self.doc.window.event = evtObject
+
+        with self.doc.window.context:
             if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
-                log.DFT.window.event = evtObject
                 listener()
             else:
                 listener(evtObject)
@@ -196,19 +198,20 @@ class EventTarget(object):
                 evtObject.currentTarget = node._node
                 self.do_dispatch(c, evtObject)
 
-    def dispatchEvent(self, evtType):
+    def dispatchEvent(self, evtObject):
+        evtType = evtObject.type
         log.info('dispatchEvent(%s)', evtType)
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_dispatchevent_count()
 
-        evtObject = None
+        # evtObject = None
 
-        if evtType in MouseEvent.MouseEventTypes:
-            evtObject = MouseEvent(evtType, self)
+        # if evtType in MouseEvent.EventTypes:
+        #    evtObject = MouseEvent(evtType, self)
 
-        if evtType in HTMLEvent.HTMLEventTypes:
-            evtObject = HTMLEvent(evtType, self)
+        # if evtType in HTMLEvent.EventTypes:
+        #    evtObject = HTMLEvent(evtType, self)
 
         # print evtObject
         capture_listeners, bubbling_listeners = self._get_listeners(self.tag, evtType)
@@ -217,6 +220,7 @@ class EventTarget(object):
             evtObject.eventPhase = Event.CAPTURING_PHASE
             self._dispatchCaptureEvent(self.tag, evtType, evtObject)
 
+        evtObject._target       = self
         evtObject.eventPhase    = Event.AT_TARGET
         evtObject.currentTarget = self
 
