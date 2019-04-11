@@ -1,0 +1,21 @@
+<html>
+	<body>
+	<script>
+	var eventTypes = ["HTMLEvent",
+					  "MouseEvent",
+					  "MutationEvent",
+					  "StorageEvent",
+					  "UIEvent",
+					  "UnkownEvent"]
+
+	eventTypes.forEach(instantiate);
+
+	function instantiate(value, index, array) {
+		try {
+			var p = document.createEvent(value);
+			alert(p);
+		} catch(e) {}
+	}
+	</script>
+	</body>
+</html>
