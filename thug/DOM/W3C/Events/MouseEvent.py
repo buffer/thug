@@ -65,10 +65,6 @@ class MouseEvent(UIEvent):
     def shiftKey(self):
         return self._shiftKey
 
-    @property
-    def detail(self):
-        return self._detail
-
     def initMouseEvent(self, typeArg, canBubbleArg, cancelableArg, viewArg = None, detailArg = 0,
                     screenXArg = 0, screenYArg = 0, clientXArg = 0, clientYArg = 0, ctrlKeyArg = False,
                     altKeyArg = False, shiftKeyArg = False, metaKeyArg = False, buttonArg = 0, relatedTargetArg = None):
