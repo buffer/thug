@@ -4,8 +4,6 @@ import logging
 
 from .Event import Event
 from .EventException import EventException
-#from .HTMLEvent import HTMLEvent
-#from .MouseEvent import MouseEvent
 
 log = logging.getLogger("Thug")
 
@@ -210,15 +208,6 @@ class EventTarget(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_dispatchevent_count()
 
-        # evtObject = None
-
-        # if evtType in MouseEvent.EventTypes:
-        #    evtObject = MouseEvent(evtType, self)
-
-        # if evtType in HTMLEvent.EventTypes:
-        #    evtObject = HTMLEvent(evtType, self)
-
-        # print evtObject
         capture_listeners, bubbling_listeners = self._get_listeners(self.tag, evtType)
 
         if capture_listeners:
