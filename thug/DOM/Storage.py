@@ -57,7 +57,7 @@ class Storage(OrderedDict, JSClass):
         super(Storage, self).__setitem__(key, value)
         log.WebTracking.inspect_storage_setitem(self, key, value)
 
-        evtObject = StorageEvent('storage', log.DFT.window)
+        evtObject = StorageEvent()
         evtObject.initStorageEvent('storage',
                                    False,
                                    False,
@@ -79,7 +79,7 @@ class Storage(OrderedDict, JSClass):
         super(Storage, self).__delitem__(key)
         log.WebTracking.inspect_storage_removeitem(self, key)
 
-        evtObject = StorageEvent('storage', log.DFT.window)
+        evtObject = StorageEvent()
         evtObject.initStorageEvent('storage',
                                    False,
                                    False,
@@ -98,7 +98,7 @@ class Storage(OrderedDict, JSClass):
         self.__init__()
         log.WebTracking.inspect_storage_clear(self)
 
-        evtObject = StorageEvent('storage', log.DFT.window)
+        evtObject = StorageEvent()
         evtObject.initStorageEvent('storage',
                                    False,
                                    False,
