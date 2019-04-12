@@ -17,6 +17,3 @@ class HTMLButtonElement(HTMLElement):
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-
-    def onclick(self):
-        pass
