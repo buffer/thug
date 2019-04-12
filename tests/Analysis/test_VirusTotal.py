@@ -53,18 +53,6 @@ class TestVirusTotal(object):
 
         self.do_perform_test(caplog, expected)
 
-    def test_not_empty_apikey(self, caplog):
-        log.configuration_path = "/etc/thug"
-        log.personalities_path = "/etc/thug/personalities"
-        log.ThugOpts.vt_runtime_apikey = "1234"
-
-        vt = VirusTotal()
-
-        assert vt.enabled == True
-
-        data, sample = self.build_sample()
-        vt.submit(data, sample)
-
     def test_submit(self, caplog):
         log.configuration_path = "/etc/thug"
         log.personalities_path = "/etc/thug/personalities"
