@@ -1,0 +1,46 @@
+<html>
+	<body>
+	<script>
+		var p = document.createEvent("MouseEvent");
+		p.initMouseEvent("click", false, false, window)
+		
+		alert(p);
+		alert("type: " + p.type);
+		alert("target: " + p.target);
+		alert("bubbles: " + p.bubbles);
+		alert("cancelable: " + p.cancelable);
+		alert("timeStamp: " + p.timeStamp);
+		alert("screenX: " + p.screenX);
+		alert("screenY: " + p.screenY);
+		alert("clientX: " + p.clientX);
+		alert("clientY: " + p.clientY);
+		alert("ctlrKey: " + p.ctrlKey);
+		alert("altKey: " + p.altKey);
+		alert("shiftKey: " + p.shiftKey);
+		alert("metaKey: " + p.metaKey);
+		alert("button: " + p.button);
+		alert("relatedTarget: " + p.relatedTarget);
+		alert("detail: " + p.detail);
+		alert("view: " + p.view);
+		alert("defaultPrevented: " + p.defaultPrevented);
+
+		try {
+			alert(p.returnValue);
+			p.returnValue = false;
+		} catch(e) {}
+
+		try {
+			alert(p.cancelBubble);
+			p.cancelBubble = false;
+		} catch(e) {}
+
+		try {
+			p.stopPropagation();
+		} catch(e) {}
+
+		try {
+			p.preventDefault();
+		} catch(e) {}
+	</script>
+	</body>
+</html>

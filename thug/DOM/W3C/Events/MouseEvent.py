@@ -1,23 +1,29 @@
 #!/usr/bin/env python
 
-import logging
 from .UIEvent import UIEvent
-
-log = logging.getLogger("Thug")
 
 
 # Introduced in DOM Level 2
 class MouseEvent(UIEvent):
-    MouseEventTypes = ('click', 'mousedown', 'mouseup', 'mouseover', 'mousemove', 'mouseout')
+    EventTypes = ('click',
+                  'mousedown',
+                  'mouseup',
+                  'mouseover',
+                  'mousemove',
+                  'mouseout')
 
-    def __init__(self, typeArg, target):
-        UIEvent.__init__(self, typeArg, target)
-        canBubbleArg  = typeArg in ('click', 'mousedown', 'mouseup', 'mouseover', 'mousemove', 'mouseout')
-        cancelableArg = typeArg in ('click', 'mousedown', 'mouseup', 'mouseover', 'mouseout')
-        self.initMouseEvent(typeArg          = typeArg,
-                            canBubbleArg     = canBubbleArg,
-                            cancelableArg    = cancelableArg,
-                            relatedTargetArg = target)
+    def __init__(self):
+        UIEvent.__init__(self)
+        self._screenX       = None
+        self._screenY       = None
+        self._clientX       = None
+        self._clientY       = None
+        self._ctrlKey       = None
+        self._altKey        = None
+        self._shiftKey      = None
+        self._metaKey       = None
+        self._button        = None
+        self._relatedTarget = None
 
     @property
     def altKey(self):
@@ -59,31 +65,11 @@ class MouseEvent(UIEvent):
     def shiftKey(self):
         return self._shiftKey
 
-    @property
-    def detail(self):
-        return self._detail
+    def initMouseEvent(self, typeArg, canBubbleArg, cancelableArg, viewArg = None, detailArg = 0,
+                    screenXArg = 0, screenYArg = 0, clientXArg = 0, clientYArg = 0, ctrlKeyArg = False,
+                    altKeyArg = False, shiftKeyArg = False, metaKeyArg = False, buttonArg = 0, relatedTargetArg = None):
 
-    def initMouseEvent(self,
-                       typeArg,
-                       canBubbleArg,
-                       cancelableArg,
-                       viewArg            = None,
-                       detailArg          = 1,
-                       screenXArg         = 0,
-                       screenYArg         = 0,
-                       clientXArg         = 0,
-                       clientYArg         = 0,
-                       ctrlKeyArg         = False,
-                       altKeyArg          = False,
-                       shiftKeyArg        = False,
-                       metaKeyArg         = False,
-                       buttonArg          = 1,
-                       relatedTargetArg   = None):
-        log.debug('initMouseEvent(%s, %s, %s, %s, %s)', typeArg,
-                                                        canBubbleArg,
-                                                        cancelableArg,
-                                                        viewArg,
-                                                        detailArg)
+        self.initUIEvent(typeArg, canBubbleArg, cancelableArg, viewArg, detailArg)
 
         self._screenX       = screenXArg
         self._screenY       = screenYArg
@@ -95,4 +81,3 @@ class MouseEvent(UIEvent):
         self._metaKey       = metaKeyArg
         self._button        = buttonArg
         self._relatedTarget = relatedTargetArg
-        self.initUIEvent(typeArg, canBubbleArg, cancelableArg, viewArg, detailArg)

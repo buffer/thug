@@ -26,7 +26,12 @@ oLink.addEventListener('click',function (e) {
   alert('2. Link bubble ran (second listener)');
 }, false);
 
-oLink.dispatchEvent('click');
+var clickEvent = document.createEvent("MouseEvents");
+
+alert(clickEvent);
+clickEvent.initMouseEvent("click", true, true);
+
+oLink.dispatchEvent(clickEvent);
 </script>
 </body>
 </html>

@@ -1,0 +1,24 @@
+<html>
+	<head>
+	<script type="text/javascript">
+		var input = document.getElementById("myInput");
+		var attr = input.getAttributeNode("value");
+		var p = document.createEvent('MutationEvent');
+		p.initMutationEvent("DOMAttrModified", true, true, attr, null, input.value, "value", p.MODIFICATION);
+
+		alert(p);
+		alert("type: " + p.type);
+		alert("target: " + p.target);
+		alert("bubbles: " + p.bubbles);
+		alert("cancelable: " + p.cancelable);
+		alert("timeStamp: " + p.timeStamp);
+		alert("relatedNode: " + p.relatedNode);
+		alert("prevValue: " + p.prevValue);
+		alert("newValue: " + p.newValue);
+		alert("attrName: " + p.attrName);
+		alert("attrChange: " + p.attrChange);
+    </script>
+	<body>
+    	<input id="myInput" value="foobar" />
+	</body>
+</html>

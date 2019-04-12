@@ -1,0 +1,27 @@
+<html>
+	<body>
+	<script>
+		var p = document.createEvent("StorageEvent");
+		p.initStorageEvent('storage',
+						   false,
+						   false,
+						   'key',
+						   'oldValue',
+						   'newValue', 
+        				   'http://www.example.com',
+						   window.sessionStorage)
+
+		alert(p);
+		alert("type: " + p.type);
+		alert("target: " + p.target);
+		alert("bubbles: " + p.bubbles);
+		alert("cancelable: " + p.cancelable);
+		alert("timeStamp: " + p.timeStamp);
+		alert("key: " + p.key);
+		alert("oldValue: " + p.oldValue);
+		alert("newValue: " + p.newValue);
+		alert("url: " + p.url);
+		alert("storageArea: " + p.storageArea);
+	</script>
+	</body>
+</html>

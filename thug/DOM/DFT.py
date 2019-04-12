@@ -359,21 +359,24 @@ class DFT(object):
 
         evtObject = None
 
-        if evtType in MouseEvent.MouseEventTypes:
-            evtObject = MouseEvent(evtType, elem)
+        if evtType in MouseEvent.EventTypes:
+            evtObject = MouseEvent()
 
-        if evtType in HTMLEvent.HTMLEventTypes:
-            evtObject = HTMLEvent(evtType, elem)
+        if evtType in HTMLEvent.EventTypes:
+            evtObject = HTMLEvent()
 
         if evtObject is None:
             return None
 
+        evtObject._target = elem
         evtObject.eventPhase = Event.AT_TARGET
         evtObject.currentTarget = elem
         return evtObject
 
     # Events handling
     def handle_element_event(self, evt):
+        from thug.DOM.W3C.Events.Event import Event
+
         for (elem, eventType, listener, capture) in self.listeners:  # pylint:disable=unused-variable
             if getattr(elem, 'name', None) is None:
                 continue
@@ -381,11 +384,14 @@ class DFT(object):
             if elem.name in ('body', ):
                 continue
 
+            evtObject = Event()
+            evtObject._type = eventType
+
             if eventType in (evt, ):
                 if (elem._node, evt) in self.dispatched_events:
                     continue
 
-                elem._node.dispatchEvent(evt)
+                elem._node.dispatchEvent(evtObject)
                 self.dispatched_events.add((elem._node, evt))
 
     def handle_window_storage_event(self, onevt, evtObject):

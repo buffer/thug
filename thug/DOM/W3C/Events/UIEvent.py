@@ -1,21 +1,16 @@
 #!/usr/bin/env python
 
-import logging
-
 from .Event import Event
-
-log = logging.getLogger("Thug")
 
 
 # Introduced in DOM Level 2
 class UIEvent(Event):
-    UIEventTypes = ('DOMFocusIn', 'DOMFocusOut', 'DOMActivate')
+    EventTypes = ('DOMFocusIn', 'DOMFocusOut', 'DOMActivate')
 
-    def __init__(self, typeArg, target):
-        Event.__init__(self, target)
-        canBubbleArg  = typeArg in ('DOMFocusIn', 'DOMFocusOut', 'DOMActivate')
-        cancelableArg = typeArg in ('DOMActivate', )
-        self.initUIEvent(typeArg, canBubbleArg, cancelableArg)
+    def __init__(self):
+        Event.__init__(self)
+        self._view   = None
+        self._detail = 0
 
     @property
     def view(self):
@@ -25,13 +20,8 @@ class UIEvent(Event):
     def detail(self):
         return self._detail
 
-    def initUIEvent(self, typeArg, canBubbleArg, cancelableArg, viewArg = None, detailArg = 0):
-        log.debug('initUIEvent(%s, %s, %s, %s, %s)', typeArg,
-                                                     canBubbleArg,
-                                                     cancelableArg,
-                                                     viewArg,
-                                                     detailArg)
+    def initUIEvent(self, eventTypeArg, canBubbleArg, cancelableArg, viewArg = None, detailArg = 0):
+        self.initEvent(eventTypeArg, canBubbleArg, cancelableArg)
 
-        self.initEvent(typeArg, canBubbleArg, cancelableArg)
-        self._view   = viewArg
-        self._detail = detailArg
+        self._view       = viewArg
+        self._detail     = detailArg

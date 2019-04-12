@@ -9,32 +9,49 @@ class MutationEvent(Event):
     ADDITION     = 2  # The Attr was modified in place
     REMOVAL      = 3  # The Attr was just removed
 
+    EventTypes = ('DOMSubtreeModified',
+                  'DOMNodeInserted',
+                  'DOMNodeRemoved',
+                  'DOMNodeRemovedFromDocument',
+                  'DOMNodeInsertedIntoDocument',
+                  'DOMAttrModified',
+                  'DOMCharacterDataModified')
+
+    def __init__(self):
+        Event.__init__(self)
+        self._relatedNode = None
+        self._prevValue   = None
+        self._newValue    = None
+        self._attrName    = None
+        self._attrChange  = None
+
     @property
     def relatedNode(self):
-        return None
+        return self._relatedNode
 
     @property
     def prevValue(self):
-        return None
+        return self._prevValue
 
     @property
     def newValue(self):
-        return None
+        return self._newValue
 
     @property
     def attrName(self):
-        return None
+        return self._attrName
 
     @property
     def attrChange(self):
-        return None
+        return self._attrChange
 
-    def initMutationEvent(self, typeArg,
-                                canBubbleArg,
-                                cancelableArg,
-                                relatedNodeArg,
-                                prevValueArg,
-                                newValueArg,
-                                attrNameArg,
-                                attrChangeArg):
-        pass
+    def initMutationEvent(self, eventTypeArg, canBubbleArg, cancelableArg, relatedNodeArg,
+                        prevValueArg, newValueArg, attrNameArg, attrChangeArg):
+
+        self.initEvent(eventTypeArg, canBubbleArg, cancelableArg)
+
+        self._relatedNode = relatedNodeArg
+        self._prevValue   = prevValueArg
+        self._newValue    = newValueArg
+        self._attrName    = attrNameArg
+        self._attrChange  = attrChangeArg
