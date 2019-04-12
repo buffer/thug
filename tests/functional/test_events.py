@@ -8,7 +8,7 @@ log = logging.getLogger("Thug")
 
 class TestEvents(object):
     thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    misc_path = os.path.join(thug_path, "thug", "samples/Events")
+    event_path = os.path.join(thug_path, "thug", "samples/Events")
 
     def do_perform_test(self, caplog, sample, expected, events = '', useragent = 'win7ie90'):
         thug = ThugAPI()
@@ -32,7 +32,7 @@ class TestEvents(object):
         assert matches >= len(expected)
 
     def test_testDocumentEvent(self, caplog):
-        sample   = os.path.join(self.misc_path, "testDocumentEvent.html")
+        sample   = os.path.join(self.event_path, "testDocumentEvent.html")
         expected = ['[object HTMLEvent]',
                     '[object MouseEvent]',
                     '[object MutationEvent]',
@@ -42,7 +42,7 @@ class TestEvents(object):
         self.do_perform_test(caplog, sample, expected)
 
     def testMouseEvent_IE60(self, caplog):
-        sample   = os.path.join(self.misc_path, "testMouseEvent.html")
+        sample   = os.path.join(self.event_path, "testMouseEvent.html")
         expected = ['[object MouseEvent]',
                     'type: click',
                     'target: null',
@@ -65,7 +65,7 @@ class TestEvents(object):
         self.do_perform_test(caplog, sample, expected, useragent = 'winxpie60')
 
     def testMouseEvent_IE90(self, caplog):
-        sample   = os.path.join(self.misc_path, "testMouseEvent.html")
+        sample   = os.path.join(self.event_path, "testMouseEvent.html")
         expected = ['[object MouseEvent]',
                     'type: click',
                     'target: null',
@@ -88,7 +88,7 @@ class TestEvents(object):
         self.do_perform_test(caplog, sample, expected, useragent = 'win7ie90')
 
     def testMouseEvent_Chrome(self, caplog):
-        sample   = os.path.join(self.misc_path, "testMouseEvent.html")
+        sample   = os.path.join(self.event_path, "testMouseEvent.html")
         expected = ['[object MouseEvent]',
                     'type: click',
                     'target: null',
@@ -111,7 +111,7 @@ class TestEvents(object):
         self.do_perform_test(caplog, sample, expected, useragent = 'win7chrome49')
 
     def testMouseEvent_Safari(self, caplog):
-        sample   = os.path.join(self.misc_path, "testMouseEvent.html")
+        sample   = os.path.join(self.event_path, "testMouseEvent.html")
         expected = ['[object MouseEvent]',
                     'type: click',
                     'target: null',
@@ -134,7 +134,7 @@ class TestEvents(object):
         self.do_perform_test(caplog, sample, expected, useragent = 'win7safari5')
 
     def testMouseEvent_Firefox(self, caplog):
-        sample   = os.path.join(self.misc_path, "testMouseEvent.html")
+        sample   = os.path.join(self.event_path, "testMouseEvent.html")
         expected = ['[object MouseEvent]',
                     'type: click',
                     'target: null',
@@ -157,7 +157,7 @@ class TestEvents(object):
         self.do_perform_test(caplog, sample, expected, useragent = 'linuxfirefox40')
 
     def testStorageEvent(self, caplog):
-        sample   = os.path.join(self.misc_path, "testStorageEvent.html")
+        sample   = os.path.join(self.event_path, "testStorageEvent.html")
         expected = ['[object StorageEvent]',
                     'type: storage',
                     'target: null',
@@ -172,7 +172,7 @@ class TestEvents(object):
         self.do_perform_test(caplog, sample, expected)
 
     def testMutationEvent(self, caplog):
-        sample   = os.path.join(self.misc_path, "testMutationEvent.html")
+        sample   = os.path.join(self.event_path, "testMutationEvent.html")
         expected = ['[object MutationEvent]',
                     'type: DOMAttrModified',
                     'target: null',
@@ -187,20 +187,26 @@ class TestEvents(object):
         self.do_perform_test(caplog, sample, expected)
 
     def test_testEventException(self, caplog):
-        sample   = os.path.join(self.misc_path, "testEventException.html")
+        sample   = os.path.join(self.event_path, "testEventException.html")
         expected = ['Error', ]
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testMouseMove(self, caplog):
+        sample   = os.path.join(self.event_path, "testMouseMove.html")
+        expected = ['mousemove event detected', ]
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testEvent1(self, caplog):
-        sample   = os.path.join(self.misc_path, "testEvent1.html")
+        sample   = os.path.join(self.event_path, "testEvent1.html")
         expected = ['add',
                     '[object HTMLParagraphElement]']
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_testEvent2(self, caplog):
-        sample   = os.path.join(self.misc_path, "testEvent2.html")
+        sample   = os.path.join(self.event_path, "testEvent2.html")
         expected = ['1. Div capture ran',
                     'Link capture ran - browser does not follow the specification',
                     '2. Link bubble ran (first listener)',
@@ -210,27 +216,27 @@ class TestEvents(object):
         self.do_perform_test(caplog, sample, expected)
 
     def test_testEvent4(self, caplog):
-        sample   = os.path.join(self.misc_path, "testEvent4.html")
+        sample   = os.path.join(self.event_path, "testEvent4.html")
         expected = ['add',
                     '[object HTMLParagraphElement]']
 
         self.do_perform_test(caplog, sample, expected, useragent = 'winxpie60')
 
     def test_testEvent7(self, caplog):
-        sample   = os.path.join(self.misc_path, "testEvent7.html")
+        sample   = os.path.join(self.event_path, "testEvent7.html")
         expected = ['foobar', ]
 
         self.do_perform_test(caplog, sample, expected, events = 'click')
 
     def test_testEvent8(self, caplog):
-        sample   = os.path.join(self.misc_path, "testEvent8.html")
+        sample   = os.path.join(self.event_path, "testEvent8.html")
         expected = ['Clicked',
                     'foobar', ]
 
         self.do_perform_test(caplog, sample, expected, events = 'click')
 
     def test_testEvent11(self, caplog):
-        sample   = os.path.join(self.misc_path, "testEvent11.html")
+        sample   = os.path.join(self.event_path, "testEvent11.html")
         expected = ['[object Event]',
                     '[object Window]',
                     'clicked',
@@ -239,14 +245,14 @@ class TestEvents(object):
         self.do_perform_test(caplog, sample, expected, events = 'click')
 
     def test_testEvent12(self, caplog):
-        sample   = os.path.join(self.misc_path, "testEvent12.html")
+        sample   = os.path.join(self.event_path, "testEvent12.html")
         expected = ['You should see me two times',
                     'First click']
 
         self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
 
     def test_testEvent17(self, caplog):
-        sample   = os.path.join(self.misc_path, "testEvent17.html")
+        sample   = os.path.join(self.event_path, "testEvent17.html")
         expected = ['clicked', ]
 
         self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
