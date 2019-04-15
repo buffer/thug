@@ -654,9 +654,6 @@ class Window(JSClass):
         """
         pass
 
-    def setCursor(self, s):
-        pass
-
     def setInterval(self, f, delay, lang = 'JavaScript'):
         """
         Set a delay for a specific function.
