@@ -25,32 +25,30 @@ Let's start our Thug tour by taking a look at the options it provides.
     Options:
         -h, --help                      Display this help information
         -V, --version                   Display Thug version
-        -i, --list-ua                   Display available user agents
-        -u, --useragent=                Select a user agent (use option -b for values, default: winxpie60)
+        -u, --useragent=                Select a user agent (see below for values, default: winxpie60)
         -e, --events=                   Enable comma-separated specified DOM events handling
         -w, --delay=                    Set a maximum setTimeout/setInterval delay value (in milliseconds)
         -n, --logdir=                   Set the log output directory
         -o, --output=                   Log to a specified file
         -r, --referer                   Specify a referer
         -p, --proxy=                    Specify a proxy (see below for format and supported schemes)
-        -m, --attachment                Set the attachment mode
         -l, --local                     Analyze a locally saved page
         -x, --local-nofetch             Analyze a locally saved page and prevent remote content fetching
         -v, --verbose                   Enable verbose mode
         -d, --debug                     Enable debug mode
         -q, --quiet                     Disable console logging
+        -m, --no-cache                  Disable local web cache
         -a, --ast-debug                 Enable AST debug mode (requires debug mode)
         -g, --http-debug                Enable HTTP debug mode
         -t, --threshold                 Maximum pages to fetch
-        -j, --extensive                 Extensive fetch of linked pages
-        -O, --connect-timeout           Set the connect timeout (in seconds, default: 10 seconds)
-        -T, --timeout=                  Set the analysis timeout (in seconds, default: 600 seconds)
-        -c, --broken-url                Set the broken URL mode
+        -E, --extensive                 Extensive fetch of linked pages
+        -T, --timeout=                  Set the analysis timeout (in seconds)
+        -B, --broken-url                Set the broken URL mode
         -y, --vtquery                   Query VirusTotal for samples analysis
         -s, --vtsubmit                  Submit samples to VirusTotal
         -b, --vt-apikey=                VirusTotal API key to be used at runtime
         -z, --web-tracking              Enable web client tracking inspection
-        -k, --no-honeyagent             Disable HoneyAgent support
+        -N, --no-honeyagent             Disable HoneyAgent support
 
         Plugins:
         -A, --adobepdf=                 Specify the Adobe Acrobat Reader version (default: 9.1.0)
@@ -59,85 +57,63 @@ Let's start our Thug tour by taking a look at the options it provides.
         -R, --no-shockwave              Disable Shockwave Flash plugin
         -J, --javaplugin=               Specify the JavaPlugin version (default: 1.6.0.32)
         -K, --no-javaplugin             Disable Java plugin
-        -L, --silverlight               Specify SilverLight version (default: 4.0.50826.0)
-        -N, --no-silverlight            Disable SilverLight plugin
 
         Classifiers:
-        --htmlclassifier=               Specify a list of additional (comma separated) HTML classifier rule files
-        --urlclassifier=                Specify a list of additional (comma separated) URL classifier rule files
-        --jsclassifier=                 Specify a list of additional (comma separated) JS classifier rule files
-        --vbsclassifier=                Specify a list of additional (comma separated) VBS classifier rule files
-        --sampleclassifier=             Specify a list of additional (comma separated) sample classifier rule files
-        --htmlfilter=                   Specify a list of additional (comma separated) HTML filter files
-        --urlfilter=                    Specify a list of additional (comma separated) URL filter files
-        --jsfilter=                     Specify a list of additional (comma separated) JS filter files
-        --vbsfilter=                    Specify a list of additional (comma separated) VBS filter files
-        --samplefilter=                 Specify a list of additional (comma separated) sample filter files
+        -Q, --urlclassifier             Specify a list of additional (comma separated) URL classifier rule files
+        -W, --jsclassifier              Specify a list of additional (comma separated) JS classifier rule files
+        -C, --sampleclassifier          Specify a list of additional (comma separated) sample classifier rule files
 
         Logging:
         -F, --file-logging              Enable file logging mode (default: disabled)
         -Z, --json-logging              Enable JSON logging mode (default: disabled)
+        -M, --maec11-logging            Enable MAEC11 logging mode (default: disabled)
         -G, --elasticsearch-logging     Enable ElasticSearch logging mode (default: disabled)
         -D, --mongodb-address=          Specify address and port of the MongoDB instance (format: host:port)
-        -Y, --no-code-logging           Disable code logging
-        -U, --no-cert-logging           Disable SSL/TLS certificate logging
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
 
-
-Before diving deep into details let's take a look at the available personalities
-
-.. code-block:: sh
-
-    $ thug --list-ua
-
-    Synopsis:
-        Thug: Pure Python honeyclient implementation
-
     Available User-Agents:
-		winxpie60             Internet Explorer 6.0     (Windows XP)
-		winxpie61             Internet Explorer 6.1     (Windows XP)
-		winxpie70             Internet Explorer 7.0     (Windows XP)
-		winxpie80             Internet Explorer 8.0     (Windows XP)
-		winxpchrome20         Chrome 20.0.1132.47       (Windows XP)
-		winxpfirefox12        Firefox 12.0              (Windows XP)
-		winxpsafari5          Safari 5.1.7              (Windows XP)
-		win2kie60             Internet Explorer 6.0     (Windows 2000)
-		win2kie80             Internet Explorer 8.0     (Windows 2000)
-		win7ie80              Internet Explorer 8.0     (Windows 7)
-		win7ie90              Internet Explorer 9.0     (Windows 7)
-		win7ie100             Internet Explorer 10.0    (Windows 7)
-		win7chrome20          Chrome 20.0.1132.47       (Windows 7)
-		win7chrome40          Chrome 40.0.2214.91       (Windows 7)
-		win7chrome45          Chrome 45.0.2454.85       (Windows 7)
-		win7chrome49          Chrome 49.0.2623.87       (Windows 7)
-		win7firefox3          Firefox 3.6.13            (Windows 7)
-		win7safari5           Safari 5.1.7              (Windows 7)
-		win10ie110            Internet Explorer 11.0    (Windows 10)
-		osx10chrome19         Chrome 19.0.1084.54       (MacOS X 10.7.4)
-		osx10safari5          Safari 5.1.1              (MacOS X 10.7.2)
-		linuxchrome26         Chrome 26.0.1410.19       (Linux)
-		linuxchrome30         Chrome 30.0.1599.15       (Linux)
-		linuxchrome44         Chrome 44.0.2403.89       (Linux)
-		linuxchrome54         Chrome 54.0.2840.100      (Linux)
-		linuxfirefox19        Firefox 19.0              (Linux)
-		linuxfirefox40        Firefox 40.0              (Linux)
-		galaxy2chrome18       Chrome 18.0.1025.166      (Samsung Galaxy S II, Android 4.0.3)
-		galaxy2chrome25       Chrome 25.0.1364.123      (Samsung Galaxy S II, Android 4.0.3)
-		galaxy2chrome29       Chrome 29.0.1547.59       (Samsung Galaxy S II, Android 4.1.2)
-		nexuschrome18         Chrome 18.0.1025.133      (Google Nexus, Android 4.0.4)
-		ipadchrome33          Chrome 33.0.1750.21       (iPad, iOS 7.1)
-		ipadchrome35          Chrome 35.0.1916.41       (iPad, iOS 7.1.1)
-		ipadchrome37          Chrome 37.0.2062.52       (iPad, iOS 7.1.2)
-		ipadchrome38          Chrome 38.0.2125.59       (iPad, iOS 8.0.2)
-		ipadchrome39          Chrome 39.0.2171.45       (iPad, iOS 8.1.1)
-		ipadchrome45          Chrome 45.0.2454.68       (iPad, iOS 8.4.1)
-		ipadchrome46          Chrome 46.0.2490.73       (iPad, iOS 9.0.2)
-		ipadchrome47          Chrome 47.0.2526.70       (iPad, iOS 9.1)
-		ipadsafari7           Safari 7.0                (iPad, iOS 7.0.4)
-		ipadsafari8           Safari 8.0                (iPad, iOS 8.0.2)
-		ipadsafari9           Safari 9.0                (iPad, iOS 9.1)
+        winxpie60                       Internet Explorer 6.0   (Windows XP)
+        winxpie61                       Internet Explorer 6.1   (Windows XP)
+        winxpie70                       Internet Explorer 7.0   (Windows XP)
+        winxpie80                       Internet Explorer 8.0   (Windows XP)
+        winxpchrome20                   Chrome 20.0.1132.47     (Windows XP)
+        winxpfirefox12                  Firefox 12.0            (Windows XP)
+        winxpsafari5                    Safari 5.1.7            (Windows XP)
+        win2kie60                       Internet Explorer 6.0   (Windows 2000)
+        win2kie80                       Internet Explorer 8.0   (Windows 2000)
+        win7ie80                        Internet Explorer 8.0   (Windows 7)
+        win7ie90                        Internet Explorer 9.0   (Windows 7)
+        win7chrome20                    Chrome 20.0.1132.47     (Windows 7)
+        win7chrome40                    Chrome 40.0.2214.91     (Windows 7)
+        win7chrome45                    Chrome 45.0.2454.85     (Windows 7)
+        win7firefox3                    Firefox 3.6.13          (Windows 7)
+        win7safari5                     Safari 5.1.7            (Windows 7)
+        win10edge20                     Microsoft Edge 20.10240 (Windows 10)
+        win10ie110                      Internet Explorer 11.0  (Windows 10)
+        osx10chrome19                   Chrome 19.0.1084.54     (MacOS X 10.7.4)
+        osx10safari5                    Safari 5.1.1            (MacOS X 10.7.2)
+        linuxchrome26                   Chrome 26.0.1410.19     (Linux)
+        linuxchrome30                   Chrome 30.0.1599.15     (Linux)
+        linuxchrome44                   Chrome 44.0.2403.89     (Linux)
+        linuxfirefox19                  Firefox 19.0            (Linux)
+        linuxfirefox40                  Firefox 40.0            (Linux)
+        galaxy2chrome18                 Chrome 18.0.1025.166    (Samsung Galaxy S II, Android 4.0.3)
+        galaxy2chrome25                 Chrome 25.0.1364.123    (Samsung Galaxy S II, Android 4.0.3)
+        galaxy2chrome29                 Chrome 29.0.1547.59     (Samsung Galaxy S II, Android 4.1.2)
+        nexuschrome18                   Chrome 18.0.1025.133    (Google Nexus, Android 4.0.4)
+        ipadchrome33                    Chrome 33.0.1750.21     (iPad, iOS 7.1)
+        ipadchrome35                    Chrome 35.0.1916.41     (iPad, iOS 7.1.1)
+        ipadchrome37                    Chrome 37.0.2062.52     (iPad, iOS 7.1.2)
+        ipadchrome38                    Chrome 38.0.2125.59     (iPad, iOS 8.0.2)
+        ipadchrome39                    Chrome 39.0.2171.45     (iPad, iOS 8.1.1)
+        ipadchrome45                    Chrome 45.0.2454.68     (iPad, iOS 8.4.1)
+        ipadchrome46                    Chrome 46.0.2490.73     (iPad, iOS 9.0.2)
+        ipadchrome47                    Chrome 47.0.2526.70     (iPad, iOS 9.1)
+        ipadsafari7                     Safari 7.0              (iPad, iOS 7.0.4)
+        ipadsafari8                     Safari 8.0              (iPad, iOS 8.0.2)
+        ipadsafari9                     Safari 9.0              (iPad, iOS 9.1)
 
 Let's start with a first basic real-world example: a Blackhole exploit kit.  
 
