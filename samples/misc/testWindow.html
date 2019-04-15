@@ -37,6 +37,23 @@
 		window.scrollTo(8, 10);
 	} catch(e) {}
 
+	alert("constructor: " + window.constructor);
+	alert("prototype: " + window.prototype);
+
+	try {
+		alert(window.__members__);
+	} catch(e) {}
+
+	window.close()
+	alert("closed: " + window.closed);
+
+	window.top = window;
+	alert("top: " + window.top);
+	alert("opener: " + window.opener);
+
+	window.dump("Test");
+	window.GetAttention();
+	window.home();
 	</script>
 </body>
 </html
