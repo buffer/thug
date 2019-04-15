@@ -46,7 +46,7 @@ class TestVirusTotal(object):
 
         vt = VirusTotal()
 
-        assert vt.enabled == False
+        assert vt.enabled is False
 
         data, sample = self.build_sample()
         vt.analyze(data, sample, '/tmp')
@@ -59,7 +59,7 @@ class TestVirusTotal(object):
 
         vt = VirusTotal()
 
-        assert vt.enabled == True
+        assert vt.enabled is True
 
         data, sample = self.build_sample()
         vt.submit(data, sample)
