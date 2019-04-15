@@ -1075,3 +1075,9 @@ class TestMiscSamplesIE(object):
                     'version = 8']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testEmbed(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEmbed.html")
+        expected = ['[embed redirection]', ]
+
+        self.do_perform_test(caplog, sample, expected)
