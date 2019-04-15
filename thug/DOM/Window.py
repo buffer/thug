@@ -20,7 +20,6 @@ import sched
 import time
 import logging
 import traceback
-#import urllib
 import base64
 import numbers
 import collections
@@ -29,6 +28,7 @@ import types
 import random
 import six
 import bs4 as BeautifulSoup
+import six.moves.urllib_parse as urllib
 
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.AST.AST import AST
@@ -48,8 +48,6 @@ from .CCInterpreter import CCInterpreter
 from .LocalStorage import LocalStorage
 from .SessionStorage import SessionStorage
 from .w3c_bindings import w3c_bindings
-
-import six.moves.urllib_parse as urllib
 
 sched = sched.scheduler(time.time, time.sleep)
 log = logging.getLogger("Thug")
@@ -172,11 +170,6 @@ class Window(JSClass):
             return prop[0]()
 
         if log.ThugOpts.Personality.isIE() and key.lower() in ('wscript', 'wsh', ):
-            # Prevent _ActiveXObject loops
-            # super(Window, self).__setattr__("WScript", None)
-            # WScript = _ActiveXObject(self, "WScript.Shell")
-            # super(Window, self).__setattr__(key, WScript)
-            # super(Window, self).__setattr__("WScript", WScript)
             return self.WScript
 
         if log.ThugOpts.Personality.isIE():
@@ -200,7 +193,6 @@ class Window(JSClass):
                 _method = symbol.clone()
 
             if _method is None:
-                # _method = new.instancemethod(symbol, self, Window)
                 _method = types.MethodType(symbol, Window)
 
             setattr(self, key, _method)
@@ -263,9 +255,6 @@ class Window(JSClass):
 
         frames = set()
         for frame in self._findAll(['frame', 'iframe']):
-            # self.doc.DFT.set_event_handler_attributes(frame)
-            # self.doc.DFT.handle_iframe(frame)
-
             if not getattr(frame, '_node', None):
                 from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
                 DOMImplementation.createHTMLElement(self.window.doc, frame)
@@ -337,12 +326,6 @@ class Window(JSClass):
 
     def _do_ActiveXObject(self, cls, typename = 'name'):
         return _ActiveXObject(self, cls, typename)
-
-    # Window object methods
-    #
-    # escape        Encodes a string.
-    # sizeToContent Sizes the window according to its content.
-    # unescape      Unencodes a value that has been encoded in hexadecimal (e.g., a cookie).
 
     def alert(self, text):
         """
@@ -830,7 +813,6 @@ class Window(JSClass):
         log.ThugOpts.activex_ready = False
 
         if not (log.ThugOpts.local and log.ThugOpts.attachment):
-            # self.document       = self._document
             self.XMLHttpRequest = self._XMLHttpRequest
 
         self.document                 = self._document
