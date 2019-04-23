@@ -42,6 +42,8 @@ class SampleClassifier(BaseClassifier):
         for match in self.rules.match(data = sample):
             self.matches.append((sample, match))
 
+            self.handle_match_etags(match)
+
             rule = match.rule
             tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("sample", md5, rule, tags)

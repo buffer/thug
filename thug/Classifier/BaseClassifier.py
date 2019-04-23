@@ -122,3 +122,13 @@ class BaseClassifier(object):
 
     def reset_customclassifiers(self):
         self.custom_classifiers = dict()
+
+    def handle_match_etags(self, match):
+        etags = match.meta.get('etags', None)
+        if etags is None:
+            return
+
+        _etags = [t.strip() for t in etags.split(',')]
+        for s in match.strings:
+            if s[1] in _etags and s[2] not in match.tags:
+                match.tags.append(s[2])

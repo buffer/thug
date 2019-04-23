@@ -40,6 +40,8 @@ class CookieClassifier(BaseClassifier):
             if self.discard_url_match(url, match):
                 continue
 
+            self.handle_match_etags(match)
+
             rule = match.rule
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("cookie", url, rule, tags)
