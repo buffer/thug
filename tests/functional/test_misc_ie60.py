@@ -137,42 +137,6 @@ class TestMiscSamplesIE(object):
                     "Adobe Acrobat"]
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testLocation1(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation1.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation2(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation2.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation3(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation3.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation4(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation4.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation5(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation5.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testLocation6(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocation6.html")
-        expected = ["[HREF Redirection (document.location)]",
-                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testMetaXUACompatibleEdge(self, caplog):
         sample   = os.path.join(self.misc_path, "testMetaXUACompatibleEdge.html")
         expected = ["[Window] Alert Text: 7"]
