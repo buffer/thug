@@ -939,7 +939,7 @@ class Window(JSClass):
         result = 0
 
         try:
-            log.JSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, script)
+            log.JSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, script)
 
             if log.ThugOpts.code_logging:
                 log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
