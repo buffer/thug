@@ -332,6 +332,14 @@ class TestMiscSamplesIE(object):
                     "[Microsoft XMLHTTP ActiveX] send('TEST')"]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLHTTPEvent5(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent5.html")
+        expected = ["[Window] Alert Text: Request completed",
+                    "[JNLP Detected]"]
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testCurrentScript(self, caplog):
         sample   = os.path.join(self.misc_path, "testCurrentScript.html")
         expected = ["[Window] Alert Text: This page has scripts",
