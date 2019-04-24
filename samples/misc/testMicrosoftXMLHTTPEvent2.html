@@ -13,9 +13,11 @@ function handler()
 
 var oReq = XMLHttpRequest();
 if (oReq != null) {
+    oReq.overrideMimeType("text/plain");
     oReq.open("GET", "https://buffer.github.io/thug/", true);
-	oReq.addEventListener("readystatechange", handler);
+    oReq.addEventListener("readystatechange", handler);
     oReq.send();
+    oReq.removeEventListener("readystatechange", handler);
 }
 
 </script>
