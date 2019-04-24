@@ -106,7 +106,11 @@ def send(self, varBody = None):
     log.XMLHTTP['last_bstrUrl']    = str(self.bstrUrl)
     log.XMLHTTP['last_bstrMethod'] = str(self.bstrMethod)
 
-    contenttype = self.responseHeaders.get('content-type', None)
+    if self.mimeType:
+        contenttype = self.mimeType
+    else:
+        contenttype = self.responseHeaders.get('content-type', None)
+
     if contenttype is None:
         return 0
 
@@ -162,7 +166,7 @@ def getAllResponseHeaders(self):
 
 
 def overrideMimeType(self, mimetype):
-    pass
+    self.mimeType = mimetype
 
 
 def addEventListener(self, _type, listener, useCapture = False):
