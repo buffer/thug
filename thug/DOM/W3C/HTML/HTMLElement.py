@@ -41,7 +41,7 @@ class HTMLElement(Element, ElementCSSInlineStyle):
         html = StringIO()
 
         for tag in self.tag.contents:
-            html.write(unicode(tag))
+            html.write(str(tag))
 
         return html.getvalue()
 
