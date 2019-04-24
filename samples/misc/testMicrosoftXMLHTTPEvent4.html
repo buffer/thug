@@ -1,0 +1,14 @@
+<html>
+<body>
+<script>
+
+var oReq = XMLHttpRequest();
+
+if (oReq != null) {
+    oReq.open("POST", "http://192.168.1.100", true, "foo", "bar");
+    oReq.send("TEST");
+}
+
+</script>
+</body>
+</html>
