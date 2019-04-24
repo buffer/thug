@@ -3,6 +3,8 @@
 import logging
 import bs4 as BeautifulSoup
 
+from six import StringIO
+
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 
@@ -24,12 +26,12 @@ class HTMLBodyElement(HTMLElement):
         return "[object HTMLBodyElement]"
 
     def getInnerHTML(self):
-        html = unicode()
+        html = StringIO()
 
         for tag in self.tag.contents:
-            html += unicode(tag)
+            html.write(str(tag))
 
-        return html
+        return html.getvalue()
 
     def setInnerHTML(self, html):
         log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, html)
