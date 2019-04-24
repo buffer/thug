@@ -102,6 +102,7 @@ from .modules import VsaIDEDTE
 from .modules import VsmIDEDTE
 from .modules import WebViewFolderIcon
 from .modules import WindowsMediaPlayer
+from .modules import WinNTSystemInfo
 from .modules import WinZip
 from .modules import WMEncProfileManager
 from .modules import WMP
@@ -1408,6 +1409,20 @@ CLSID = [
             'methods'   : {
                             'Play'  : WindowsMediaPlayer.Play,
                           },
+        },
+
+        # WinNTSystemInfo
+        {
+            'id'        : ( '', ),
+            'name'      : ( 'winntsysteminfo'),
+            'attrs' : {
+                            'ComputerName'  : WinNTSystemInfo.ComputerName,
+                            'DomainName'    : WinNTSystemInfo.DomainName,
+                            'PDC'           : WinNTSystemInfo.PDC,
+                            'UserName'      : WinNTSystemInfo.UserName,
+                          },
+            'funcattrs' : {},
+            'methods'   : {},
         },
 
         # WinZip
