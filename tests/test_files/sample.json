@@ -1,0 +1,24 @@
+{
+  "@content.downloadUrl":"https://192.168.0.100/putty.exe",
+  "createdDateTime": "2016-09-16T03:37:04.72Z",
+  "cTag": "aYzpENDY0OEYwNkM5MUQ5RDNEITU0OTI3LjI1Ng",
+  "eTag": "aRDQ2NDhGMDZDOTFEOUQzRCE1NDkyNy4w",
+  "id":"D4648F06C91D9D3D!54927",
+  "lastModifiedBy": {
+    "user": {
+      "displayName": "Foo Bar",
+      "id": "d4648f06c91d9d3d"
+    }
+  },
+  "name":"test.jpg",
+  "size":35212,
+  "image":{
+    "height":398,
+    "width":273
+  },
+  "file": {
+    "hashes":{
+      "sha1Hash":"wmgPQ6jrSeMX7JP1XmstQEGM2fc="
+    }
+  }
+}
