@@ -315,6 +315,17 @@ class TestMiscSamplesIE(object):
         expected = ["[Window] Alert Text: Request completed"]
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testMicrosoftXMLHTTPEvent3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent3.html")
+        expected = ["LoadLibraryA",
+                    "URLDownloadToFile",
+                    "http://www.360.cn.sxxsnp2.cn/d5.css",
+                    "WinExec",
+                    "U.exe",
+                    "ExitProcess"]
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testCurrentScript(self, caplog):
         sample   = os.path.join(self.misc_path, "testCurrentScript.html")
         expected = ["[Window] Alert Text: This page has scripts",
