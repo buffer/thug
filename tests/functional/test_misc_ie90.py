@@ -326,6 +326,12 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testMicrosoftXMLHTTPEvent4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent4.html")
+        expected = ["[Microsoft XMLHTTP ActiveX] open('POST', 'http://192.168.1.100', True, 'foo', 'bar')",
+                    "[Microsoft XMLHTTP ActiveX] send('TEST')"]
+
+        self.do_perform_test(caplog, sample, expected)
     def test_testCurrentScript(self, caplog):
         sample   = os.path.join(self.misc_path, "testCurrentScript.html")
         expected = ["[Window] Alert Text: This page has scripts",
