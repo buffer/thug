@@ -150,17 +150,7 @@ def setRequestHeader(self, bstrHeader, bstrValue):
 
 
 def getResponseHeader(self, header):
-    body = ""
-    if header in self.responseHeaders:
-        body = self.responseHeaders[header]
-
-    try:
-        self._window._navigator.fetch(self.bstrUrl,
-                                      method  = self.bstrMethod,
-                                      headers = self.requestHeaders,
-                                      body    = body)
-    except Exception:
-        pass
+    return self.responseHeaders.get(header, None)
 
 
 def getAllResponseHeaders(self):
