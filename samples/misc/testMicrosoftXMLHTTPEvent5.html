@@ -1,0 +1,24 @@
+<html>
+<body>
+<script>
+
+function handler()
+{
+    if (oReq.readyState == 4 /* complete */) {
+        if (oReq.status == 200) {
+            alert("Request completed");
+        }
+    }
+}
+
+var oReq = XMLHttpRequest();
+if (oReq != null) {
+	oReq.overrideMimeType("application/x-java-jnlp-file");
+	oReq.addEventListener("readystatechange", handler);
+    oReq.open("GET", "https://raw.githubusercontent.com/buffer/thug/master/tests/test_files/sample.jnlp", true);
+	oReq.send();
+}
+
+</script>
+</body>
+</html>
