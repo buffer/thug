@@ -84,6 +84,7 @@ __all__ = [
             'VsmIDEDTE',
             'WebViewFolderIcon',
             'WindowsMediaPlayer',
+            'WinNTSystemInfo',
             'WinZip',
             'WMEncProfileManager',
             'WScriptShell',
