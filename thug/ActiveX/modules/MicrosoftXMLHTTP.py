@@ -90,7 +90,7 @@ def send(self, varBody = None):
 
     self.status          = response.status_code
     self.responseHeaders = response.headers
-    self.responseBody    = response.text
+    self.responseBody    = response.content
     self.responseText    = response.text
     self.readyState      = 4
 
