@@ -6,8 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-@property
-def ComputerName():
+def GetComputerName(self):
     log.ThugLogging.add_behavior_warn("[WinNTSystemInfo ActiveX] Getting ComputerName")
 
     nlen = random.randint(6, 10)
@@ -18,8 +17,7 @@ def ComputerName():
     return computerName
 
 
-@property
-def DomainName():
+def GetDomainName(self):
     log.ThugLogging.add_behavior_warn("[WinNTSystemInfo ActiveX] Getting DomainName")
 
     nlen = random.randint(6, 10)
@@ -30,8 +28,7 @@ def DomainName():
     return domainName
 
 
-@property
-def PDC():
+def GetPDC(self):
     log.ThugLogging.add_behavior_warn("[WinNTSystemInfo ActiveX] Getting PDC (Primary Domain Controller)")
 
     nlen = random.randint(6, 10)
@@ -42,8 +39,7 @@ def PDC():
     return pdc
 
 
-@property
-def UserName():
+def GetUserName(self):
     log.ThugLogging.add_behavior_warn("[WinNTSystemInfo ActiveX] Getting UserName")
 
     nlen = random.randint(6, 10)

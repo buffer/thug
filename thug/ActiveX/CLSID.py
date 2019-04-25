@@ -1415,14 +1415,19 @@ CLSID = [
         {
             'id'        : ( '', ),
             'name'      : ( 'winntsysteminfo'),
-            'attrs' : {
-                            'ComputerName'  : WinNTSystemInfo.ComputerName,
-                            'DomainName'    : WinNTSystemInfo.DomainName,
-                            'PDC'           : WinNTSystemInfo.PDC,
-                            'UserName'      : WinNTSystemInfo.UserName,
+            'attrs'     : {},
+            'funcattrs' : {
+                            'ComputerName'  : WinNTSystemInfo.GetComputerName,
+                            'DomainName'    : WinNTSystemInfo.GetDomainName,
+                            'PDC'           : WinNTSystemInfo.GetPDC,
+                            'UserName'      : WinNTSystemInfo.GetUserName,
                           },
-            'funcattrs' : {},
-            'methods'   : {},
+            'methods'   : {
+                            'GetComputerName'  : WinNTSystemInfo.GetComputerName,
+                            'GetDomainName'    : WinNTSystemInfo.GetDomainName,
+                            'GetPDC'           : WinNTSystemInfo.GetPDC,
+                            'GetUserName'      : WinNTSystemInfo.GetUserName,
+                          },
         },
 
         # WinZip
