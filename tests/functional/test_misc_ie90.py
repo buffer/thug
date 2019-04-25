@@ -1113,3 +1113,13 @@ class TestMiscSamplesIE(object):
         expected = ['[embed redirection]', ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testWinNTSystemInfo(self, caplog):
+        sample   = os.path.join(self.misc_path, "testWinNTSystemInfo.html")
+        expected = ['[WScript.Shell ActiveX] CreateObject (WinNTSystemInfo)',
+                    '[WinNTSystemInfo ActiveX] Getting ComputerName',
+                    '[WinNTSystemInfo ActiveX] Getting DomainName',
+                    '[WinNTSystemInfo ActiveX] Getting PDC (Primary Domain Controller)',
+                    '[WinNTSystemInfo ActiveX] Getting UserName']
+
+        self.do_perform_test(caplog, sample, expected)
