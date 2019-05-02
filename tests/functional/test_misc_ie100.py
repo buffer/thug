@@ -265,19 +265,9 @@ class TestMiscSamplesIE(object):
         expected = ['<div id="four">four</div><div id="eight">eight</div>']
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testMicrosoftXMLHTTPEvent1(self, caplog):
-        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent1.html")
-        expected = ["[Window] Alert Text: Request completed"]
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testInsertAdjacentHTML5(self, caplog):
         sample   = os.path.join(self.misc_path, "testInsertAdjacentHTML5.html")
         expected = ['insertAdjacentHTML does not support notcorrect operation']
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testMicrosoftXMLHTTPEvent2(self, caplog):
-        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent2.html")
-        expected = ["[Window] Alert Text: Request completed"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testCurrentScript(self, caplog):
