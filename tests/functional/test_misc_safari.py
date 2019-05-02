@@ -6,7 +6,7 @@ from thug.ThugAPI.ThugAPI import ThugAPI
 log = logging.getLogger("Thug")
 
 
-class TestMiscSamplesChrome(object):
+class TestMiscSamplesSafari(object):
     thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
     misc_path = os.path.join(thug_path, "thug", "samples/misc")
 
@@ -15,7 +15,7 @@ class TestMiscSamplesChrome(object):
 
         thug.set_useragent('osx10safari5')
         thug.set_events('click,storage')
-        thug.set_connect_timeout(3)
+        thug.set_connect_timeout(2)
         thug.disable_cert_logging()
         thug.set_features_logging()
         thug.log_init(sample)
