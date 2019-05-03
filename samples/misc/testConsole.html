@@ -1,0 +1,33 @@
+<html>
+<body>
+<script>
+	alert(console);
+	console.assert(false, "Test assert");
+	
+	if (typeof(console.clear) != 'undefined') {
+		console.clear();
+	}
+
+	console.count();
+	console.count('foobar');
+	console.count('foobar');
+
+	console.error('Test error');
+
+	console.log("Hello world!");
+	console.group();
+	console.log("Hello again, this time inside a group!");
+	console.groupEnd();
+	console.groupCollapsed();
+
+	console.info("Hello again");
+	console.warn("Hello again");
+
+	console.time();
+	console.trace();
+	console.timeEnd();
+
+	console.debug();
+</script>
+</body>
+</html>
