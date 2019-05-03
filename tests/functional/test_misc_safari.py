@@ -680,3 +680,21 @@ class TestMiscSamplesSafari(object):
                     'navigationMode (after change): fast']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testConsole(self, caplog):
+        sample   = os.path.join(self.misc_path, "testConsole.html")
+        expected = ['[object Console]',
+                    '[Console] assert(True, \'Test assert\')',
+                    '[Console] count() = 1',
+                    '[Console] count(\'foobar\') = 1',
+                    '[Console] count(\'foobar\') = 2',
+                    '[Console] error(\'Test error\')',
+                    '[Console] log(\'Hello world!\')',
+                    '[Console] group()',
+                    '[Console] log(\'Hello again, this time inside a group!\')',
+                    '[Console] groupEnd()',
+                    '[Console] groupCollapsed()',
+                    '[Console] info(\'Hello again\')',
+                    '[Console] warn(\'Hello again\')']
+
+        self.do_perform_test(caplog, sample, expected)
