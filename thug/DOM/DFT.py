@@ -21,7 +21,7 @@ import re
 import string
 import base64
 import random
-import types
+# import types
 import logging
 
 import six
@@ -117,7 +117,8 @@ class DFT(object):
             name   = "{}_hook".format(label)
             # _hook  = hook.im_func if hook.im_self else hook
             _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
-            method = types.MethodType(_hook, self, DFT)
+            # method = types.MethodType(_hook, self, DFT)
+            method = six.create_bound_method(_hook, DFT)
             setattr(self, name, method)
 
     def __enter__(self):
