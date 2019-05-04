@@ -24,7 +24,7 @@ import base64
 import numbers
 import collections
 import datetime
-import types
+# import types
 import random
 import six
 import bs4 as BeautifulSoup
@@ -193,7 +193,8 @@ class Window(JSClass):
                 _method = symbol.clone()
 
             if _method is None:
-                _method = types.MethodType(symbol, Window)
+                # _method = types.MethodType(symbol, Window)
+                _method = six.create_bound_method(symbol, Window)
 
             setattr(self, key, _method)
             context.locals[key] = _method
