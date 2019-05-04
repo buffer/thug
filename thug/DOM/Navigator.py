@@ -360,12 +360,12 @@ class Navigator(JSClass):
 
         log.last_url_fetched = response.url
 
-        if log.ThugOpts.features_logging:
-            log.ThugLogging.Features.add_characters_count(len(response.text))
-            log.ThugLogging.Features.add_whitespaces_count(len([a for a in response.text if a.isspace()]))
-
         handler = log.MIMEHandler.get_handler(ctype)
         if handler:
             handler(response.url, response.content)
+        else:
+            if log.ThugOpts.features_logging:
+                log.ThugLogging.Features.add_characters_count(len(response.text))
+                log.ThugLogging.Features.add_whitespaces_count(len([a for a in response.text if a.isspace()]))
 
         return response
