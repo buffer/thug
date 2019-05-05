@@ -20,6 +20,7 @@ class TestPyHooks(object):
 
         thug.set_useragent('win7ie90')
         thug.set_features_logging()
+        thug.set_connect_timeout(1)
         thug.log_init(url)
         thug.register_pyhook("DFT", "do_handle_params", self.do_handle_params_hook)
 
