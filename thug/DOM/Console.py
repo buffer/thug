@@ -140,7 +140,7 @@ class Console(JSClass):
             log.warning("[Console] count() = %s", self._counter)
             return
 
-        if not label in self._label_counter:
+        if label not in self._label_counter:
             self._label_counter[label] = 0
 
         self._label_counter[label] += 1
