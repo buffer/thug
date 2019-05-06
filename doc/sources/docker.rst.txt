@@ -43,20 +43,13 @@ Download the latest stable container
 
 .. code-block:: sh
 
-    $ docker pull honeynet/thug
-
-Alternately if you feel brave enough to test the really last commits you should download 
-the latest automated build container
-
-.. code-block:: sh
-
     $ docker pull buffer/thug
 
 Then mount your host ~/logs dir and enable it to keep the logs on the host
 
 .. code-block:: sh
 
-    $ docker run -it -v ~/logs:/logs honeynet/thug
+    $ docker run -it -v ~/logs:/logs buffer/thug
 
 Test the dockerized Thug inside the container analyzing 20 random samples
 

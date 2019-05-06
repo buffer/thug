@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Docker &mdash; Thug 0.9.46 documentation</title>
+  <title>Docker &mdash; Thug 0.9.48 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Thug 0.9.46 documentation" href="index.html"/>
+    <link rel="top" title="Thug 0.9.48 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="configuration.html"/>
         <link rel="prev" title="Build and Install" href="build.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.9.46
+                0.9.48
               </div>
             
           
@@ -195,16 +195,11 @@ $ sudo apt-get install docker.io
 dockerized Thug from the Honeynet Project’s Docker repository at <a class="reference external" href="https://registry.hub.docker.com/u/honeynet/thug/">https://registry.hub.docker.com/u/honeynet/thug/</a></p>
 <p>Thug will be installed in the directory <em>/opt/thug</em>. To run it just execute <em>python /opt/thug/src/thug.py [options] URL</em>.</p>
 <p>Download the latest stable container</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ docker pull honeynet/thug
-</pre></div>
-</div>
-<p>Alternately if you feel brave enough to test the really last commits you should download
-the latest automated build container</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ docker pull buffer/thug
 </pre></div>
 </div>
 <p>Then mount your host ~/logs dir and enable it to keep the logs on the host</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ docker run -it -v ~/logs:/logs honeynet/thug
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ docker run -it -v ~/logs:/logs buffer/thug
 </pre></div>
 </div>
 <p>Test the dockerized Thug inside the container analyzing 20 random samples</p>
@@ -259,7 +254,7 @@ the latest automated build container</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.46',
+            VERSION:'0.9.48',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
