@@ -131,7 +131,7 @@ class Shellcode(object):
                 log.ThugLogging.Features.increase_eval_count()
 
             try:
-                log.warning("[eval] Deobfuscated argument: %s", script)
+                log.ThugLogging.add_behavior_warn("[eval] Deobfuscated argument: {}".format(script))
             except Exception:
                 pass
 
@@ -161,7 +161,7 @@ class Shellcode(object):
                 continue
 
             try:
-                log.warning("[document.write] Deobfuscated argument: %s", html)
+                log.ThugLogging.add_behavior_warn("[document.write] Deobfuscated argument: {}".format(html))
             except Exception:
                 pass
 
