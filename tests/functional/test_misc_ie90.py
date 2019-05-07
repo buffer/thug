@@ -1128,3 +1128,10 @@ class TestMiscSamplesIE(object):
                     '[WinNTSystemInfo ActiveX] Getting UserName']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testDump(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDump.html")
+        expected = ['[eval] Deobfuscated argument: eval',
+                    '[document.write] Deobfuscated argument: FOOBAR']
+
+        self.do_perform_test(caplog, sample, expected)
