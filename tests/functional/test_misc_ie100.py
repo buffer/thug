@@ -813,15 +813,6 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testHistory(self, caplog):
-        sample   = os.path.join(self.misc_path, "testHistory.html")
-        expected = ['history: [object History]',
-                    'window: [object Window]',
-                    'navigationMode (before change): automatic',
-                    'navigationMode (after change): fast']
-
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testMSXML2Document(self, caplog):
         sample   = os.path.join(self.misc_path, "testMSXML2Document.html")
         expected = ['[MSXML2.DOMDocument] Microsoft XML Core Services MSXML Uninitialized Memory Corruption',
