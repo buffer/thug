@@ -750,22 +750,6 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testFrame(self, caplog):
-        sample   = os.path.join(self.misc_path, "testFrame.html")
-        expected = ['[frame redirection]',
-                    'Alert Text: https://buffer.github.io/thug/',
-                    'Alert Text: data:text/html,<script>alert(\'Hello world\');</script>']
-
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testIFrame(self, caplog):
-        sample   = os.path.join(self.misc_path, "testIFrame.html")
-        expected = ['[iframe redirection]',
-                    'width: 3',
-                    'height: 4']
-
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testHTMLImageElement(self, caplog):
         sample   = os.path.join(self.misc_path, "testHTMLImageElement.html")
         expected = ['src (before changes): test.jpg',
