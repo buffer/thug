@@ -1134,7 +1134,7 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def _disabled_test_testDump(self, caplog):
+    def test_testDump(self, caplog):
         sample   = os.path.join(self.misc_path, "testDump.html")
         expected = ['[eval] Deobfuscated argument: eval',
                     '[document.write] Deobfuscated argument: FOOBAR']
