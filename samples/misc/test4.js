@@ -1,1 +1,1 @@
-alert("Test");
+<script>alert("Test");</script>
