@@ -73,7 +73,9 @@ class ASTVisitor(esprima.NodeVisitor):
         self.ast.set_loop_breakpoint(self.scope, node)
 
     def visit_ReturnStatement(self, node):
-        self.ast.add_shellcode(node.argument.value)
+        if node.argument:
+            self.ast.add_shellcode(node.argument.value)
+
         self.generic_visit(node)
 
     def handle_CallExpression(self, node):
@@ -150,6 +152,8 @@ class AST(object):
         self.ast = esprima.parse(script, {'loc'      : True,
                                           'tolerant' : True
                                           }, delegate = self.visitor)
+
+    def walk(self):
         self.visitor.visit(self.ast)
 
     def set_breakpoint(self, scope, node, _type):

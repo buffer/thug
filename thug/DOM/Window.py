@@ -964,6 +964,7 @@ class Window(JSClass):
         with self.context as ctxt:
             try:
                 ast = AST(script, self)
+                ast.walk()
             except Exception:
                 log.warning(traceback.format_exc())
                 return result
