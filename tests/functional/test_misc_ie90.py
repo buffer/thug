@@ -64,6 +64,11 @@ class TestMiscSamplesIE(object):
         expected = ['[Window] Alert Text: foo']
         self.do_perform_test(caplog, sample, expected)
 
+    def test_test4(self, caplog):
+        sample   = os.path.join(self.misc_path, "test4.js")
+        expected = ['[Window] Alert Text: Test']
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testAppendChild(self, caplog):
         sample   = os.path.join(self.misc_path, "testAppendChild.html")
         expected = ['Don\'t care about me',
