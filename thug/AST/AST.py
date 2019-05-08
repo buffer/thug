@@ -150,8 +150,6 @@ class AST(object):
         self.ast = esprima.parse(script, {'loc'      : True,
                                           'tolerant' : True
                                           }, delegate = self.visitor)
-
-    def walk(self):
         self.visitor.visit(self.ast)
 
     def set_breakpoint(self, scope, node, _type):
@@ -171,6 +169,9 @@ class AST(object):
         self.set_breakpoint(scope, node, self.LOOP_BREAKPOINT)
 
     def set_name(self, scope, name):
+        if name is None:
+            return
+
         _name = {
             'name'  : name,
             'scope' : scope
