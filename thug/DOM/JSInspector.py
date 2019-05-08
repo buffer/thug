@@ -16,8 +16,9 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import six
 import logging
+
+import six
 
 log = logging.getLogger("Thug")
 
@@ -102,6 +103,8 @@ class JSInspector(object):
         self.dump_write()
 
     def run(self):
+        result = None
+
         try:
             result = self.ctxt.eval(self.script)
         except (UnicodeDecodeError, TypeError):
@@ -109,13 +112,9 @@ class JSInspector(object):
                 enc = log.Encoding.detect(self.script)
                 result = self.ctxt.eval(self.script.decode(enc['encoding']))
             except Exception as e:
-                self.dump()
                 log.ThugLogging.log_warning("[JSInspector] Error: %s", str(e))
-                return None
         except Exception:
-            self.dump()
             log.ThugLogging.log_warning("[JSInspector] Error: %s", str(e))
-            return None
 
         self.dump()
         return result
