@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Debugger.py
+# JSInspector.py
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -18,12 +18,11 @@
 
 import six
 import logging
-import traceback
 
 log = logging.getLogger("Thug")
 
 
-class Debugger(object):
+class JSInspector(object):
     def __init__(self, window, ctxt, script):
         self.window  = window
         self.script  = script
@@ -103,25 +102,20 @@ class Debugger(object):
         self.dump_write()
 
     def run(self):
-        with log.JSEngine.JSDebugger() as dbg:
-            dbg._context = self.ctxt
-            # dbg.debugBreak()
-
+        try:
+            result = self.ctxt.eval(self.script)
+        except (UnicodeDecodeError, TypeError):
             try:
-                result = self.ctxt.eval(self.script)
-            except (UnicodeDecodeError, TypeError):
-                try:
-                    enc = log.Encoding.detect(self.script)
-                    result = self.ctxt.eval(self.script.decode(enc['encoding']))
-                except Exception:
-                    self.dump()
-                    log.ThugLogging.log_warning(traceback.format_exc())
-                    return None
-            except Exception:
+                enc = log.Encoding.detect(self.script)
+                result = self.ctxt.eval(self.script.decode(enc['encoding']))
+            except Exception as e:
                 self.dump()
-                log.ThugLogging.log_warning(traceback.format_exc())
+                log.ThugLogging.log_warning("[JSInspector] Error: %s", str(e))
                 return None
-
+        except Exception:
             self.dump()
+            log.ThugLogging.log_warning("[JSInspector] Error: %s", str(e))
+            return None
 
+        self.dump()
         return result
