@@ -33,6 +33,7 @@ import six.moves.urllib_parse as urllib
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.AST.AST import AST
 from thug.Debugger import Shellcode
+from thug.Debugger import Debugger
 from thug.Java.java import java
 
 from thug.DOM.W3C import w3c
@@ -962,19 +963,21 @@ class Window(JSClass):
                 self.doc.current = self.doc.doc.contents[-1]
 
         with self.context as ctxt:
-            try:
-                ast = AST(script, self)
-                ast.walk()
-            except Exception:
-                log.warning(traceback.format_exc())
-                return result
+            # try:
+            #    ast = AST(script, self)
+            #    ast.walk()
+            # except Exception:
+            #    log.warning(traceback.format_exc())
+            #    return result
 
             if log.ThugOpts.Personality.isIE():
                 cc = CCInterpreter()
                 script = cc.run(script)
 
-            shellcode = Shellcode.Shellcode(self, ctxt, ast, script)
-            result    = shellcode.run()
+            # shellcode = Shellcode.Shellcode(self, ctxt, ast, script)
+            # result    = shellcode.run()
+            debugger = Debugger.Debugger(self, ctxt, script)
+            result = debugger.run()
 
         log.ThugLogging.ContextAnalyzer.analyze(self)
         return result
