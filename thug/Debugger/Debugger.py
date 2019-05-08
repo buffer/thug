@@ -28,7 +28,6 @@ class Debugger(object):
         self.window  = window
         self.script  = script
         self.ctxt    = ctxt
-        self.offsets = set()
 
     @property
     def dump_url(self):
@@ -44,7 +43,10 @@ class Debugger(object):
         if not getattr(self.ctxt, "locals", None):
             return
 
-        scripts = getattr(self.ctxt.locals, name, list())
+        scripts = getattr(self.ctxt.locals, name, None)
+        if scripts is None:
+            return
+
         for script in scripts:
             if not isinstance(script, six.string_types):
                 continue
@@ -73,7 +75,10 @@ class Debugger(object):
         if not getattr(self.ctxt, "locals", None):
             return
 
-        htmls = getattr(self.ctxt.locals, name, list())
+        htmls = getattr(self.ctxt.locals, name, None)
+        if htmls is None:
+            return
+
         for html in htmls:
             if not isinstance(html, six.string_types):
                 continue
