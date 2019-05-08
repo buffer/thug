@@ -1,3 +1,5 @@
 comment: off
 ignore:
   - "thug/thug.py"
+  - "thug/AST/AST.py"
+  - "thug/Debugger/Shellcode.py"
