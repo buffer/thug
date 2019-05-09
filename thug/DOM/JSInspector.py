@@ -112,9 +112,9 @@ class JSInspector(object):
                 enc = log.Encoding.detect(self.script)
                 result = self.ctxt.eval(self.script.decode(enc['encoding']))
             except Exception as e:
-                log.ThugLogging.log_warning("[JSInspector] Error: %s", str(e))
+                log.warning("[JSInspector] Error: %s", str(e))
         except Exception:
-            log.ThugLogging.log_warning("[JSInspector] Error: %s", str(e))
+            log.warning("[JSInspector] Error: %s", str(e))
 
         self.dump()
         return result
