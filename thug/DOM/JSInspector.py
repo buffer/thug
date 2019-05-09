@@ -56,8 +56,8 @@ class JSInspector(object):
 
             try:
                 log.ThugLogging.add_behavior_warn("[eval] Deobfuscated argument: {}".format(script))
-            except Exception:
-                pass
+            except Exception as e:
+                log.warning("[JSInspector] dump_eval warning: %s", str(e))
 
             log.JSClassifier.classify(self.dump_url, script)
             log.ThugLogging.add_code_snippet(script,
@@ -85,8 +85,8 @@ class JSInspector(object):
 
             try:
                 log.ThugLogging.add_behavior_warn("[document.write] Deobfuscated argument: {}".format(html))
-            except Exception:
-                pass
+            except Exception as e:
+                log.warning("[JSInspector] dump_write warning: %s", str(e))
 
             log.HTMLClassifier.classify(self.dump_url, html)
             log.ThugLogging.add_code_snippet(html,

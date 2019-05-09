@@ -68,8 +68,8 @@ class Window(JSClass):
             self.event = sched.enter(self.delay, 1, self.execute, ())
             try:
                 sched.run()
-            except Exception:
-                pass
+            except Exception as e:
+                log.warning("[Timer] Scheduler error: %s", str(e))
 
         def stop(self):
             self.running = False
@@ -945,8 +945,8 @@ class Window(JSClass):
 
             if log.ThugOpts.code_logging:
                 log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
-        except Exception:
-            pass
+        except Exception as e:
+            log.warning("[Window] JSClassifier error: %s", str(e))
 
         if tag:
             self.doc.current = tag
@@ -1081,8 +1081,8 @@ class Window(JSClass):
 
             try:
                 log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else url, html)
-            except Exception:
-                pass
+            except Exception as e:
+                log.warning("[Window] HTMLClassifier error: %s", str(e))
 
             content_type = response.headers.get('content-type' , None)
             if content_type:
