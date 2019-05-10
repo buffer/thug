@@ -31,8 +31,8 @@ import bs4 as BeautifulSoup
 import six.moves.urllib_parse as urllib
 
 from thug.ActiveX.ActiveX import _ActiveXObject
-from thug.AST.AST import AST
-from thug.Debugger import Shellcode
+# from thug.AST.AST import AST
+# from thug.Debugger import Shellcode
 from thug.Java.java import java
 
 from thug.DOM.W3C import w3c
@@ -40,6 +40,7 @@ from .JSClass import JSClass
 from .JSClass import JSClassConstructor
 from .JSClass import JSClassPrototype
 from .JSEngine import JSEngine
+from .JSInspector import JSInspector
 from .Navigator import Navigator
 from .Location import Location
 from .Screen import Screen
@@ -67,8 +68,8 @@ class Window(JSClass):
             self.event = sched.enter(self.delay, 1, self.execute, ())
             try:
                 sched.run()
-            except Exception:
-                pass
+            except Exception as e:
+                log.warning("[Timer] Scheduler error: %s", str(e))
 
         def stop(self):
             self.running = False
@@ -944,8 +945,8 @@ class Window(JSClass):
 
             if log.ThugOpts.code_logging:
                 log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
-        except Exception:
-            pass
+        except Exception as e:
+            log.warning("[Window] JSClassifier error: %s", str(e))
 
         if tag:
             self.doc.current = tag
@@ -962,19 +963,21 @@ class Window(JSClass):
                 self.doc.current = self.doc.doc.contents[-1]
 
         with self.context as ctxt:
-            try:
-                ast = AST(script, self)
-                ast.walk()
-            except Exception:
-                log.warning(traceback.format_exc())
-                return result
+            # try:
+            #    ast = AST(script, self)
+            #    ast.walk()
+            # except Exception:
+            #    log.warning(traceback.format_exc())
+            #    return result
 
             if log.ThugOpts.Personality.isIE():
                 cc = CCInterpreter()
                 script = cc.run(script)
 
-            shellcode = Shellcode.Shellcode(self, ctxt, ast, script)
-            result    = shellcode.run()
+            # shellcode = Shellcode.Shellcode(self, ctxt, ast, script)
+            # result    = shellcode.run()
+            inspector = JSInspector(self, ctxt, script)
+            result = inspector.run()
 
         log.ThugLogging.ContextAnalyzer.analyze(self)
         return result
@@ -1078,8 +1081,8 @@ class Window(JSClass):
 
             try:
                 log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else url, html)
-            except Exception:
-                pass
+            except Exception as e:
+                log.warning("[Window] HTMLClassifier error: %s", str(e))
 
             content_type = response.headers.get('content-type' , None)
             if content_type:
