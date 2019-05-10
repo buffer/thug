@@ -21,14 +21,19 @@ class TestClassifiers:
         thug.add_htmlfilter(os.path.join(self.signatures_path, "html_filter_2.yar"))
         thug.add_jsfilter(os.path.join(self.signatures_path, "js_signature_2.yar"))
         thug.add_vbsfilter(os.path.join(self.signatures_path, "vbs_signature_6.yar"))
+        thug.add_textclassifier(os.path.join(self.signatures_path, "text_signature_5.yar"))
+        thug.add_textfilter(os.path.join(self.signatures_path, "text_signature_5.yar"))
 
         with open(os.path.join(self.samples_path, sample), 'r') as fd:
             html = fd.read()
 
         log.HTMLClassifier.classify(os.path.basename(sample), html)
+        log.TextClassifier.classify(os.path.basename(sample), html)
+
         log.HTMLClassifier.filter(os.path.basename(sample), html)
         log.JSClassifier.filter(os.path.basename(sample), html)
         log.VBSClassifier.filter(os.path.basename(sample), html)
+        log.TextClassifier.filter(os.path.basename(sample), html)
 
         records = [r.message for r in caplog.records]
 
@@ -56,6 +61,18 @@ class TestClassifiers:
     def test_js_filter_2(self, caplog):
         sample   = os.path.join(self.samples_path, "test2.html")
         expected = ['[JSFILTER Classifier] URL: test2.html (Rule: js_signature_2, Classification: )']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_text_classifier_5(self, caplog):
+        sample   = os.path.join(self.samples_path, "test5.html")
+        expected = ['[TEXT Classifier] URL: test5.html (Rule: text_signature_5, Classification: )']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_text_filter_5(self, caplog):
+        sample   = os.path.join(self.samples_path, "test5.html")
+        expected = ['[TEXTFILTER Classifier] URL: test5.html (Rule: text_signature_5, Classification: )']
 
         self.do_perform_test(caplog, sample, expected)
 
