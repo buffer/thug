@@ -283,72 +283,156 @@ class TestThugAPI:
     def test_add_htmlclassifier(self):
         self.thug_api.add_htmlclassifier(self.yara_file)
         rules = log.HTMLClassifier._rules
-        assert rules['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in rules:
+            if self.yara_file in rules[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_urlclassifier(self):
         self.thug_api.add_urlclassifier(self.yara_file)
         rules = log.URLClassifier._rules
-        assert rules['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in rules:
+            if self.yara_file in rules[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_jsclassifier(self):
         self.thug_api.add_jsclassifier(self.yara_file)
         rules = log.JSClassifier._rules
-        assert rules['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in rules:
+            if self.yara_file in rules[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_vbsclassifier(self):
         self.thug_api.add_vbsclassifier(self.yara_file)
         rules = log.VBSClassifier._rules
-        assert rules['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in rules:
+            if self.yara_file in rules[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_textclassifier(self):
         self.thug_api.add_textclassifier(self.yara_file)
         rules = log.TextClassifier._rules
-        assert rules['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in rules:
+            if self.yara_file in rules[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_cookieclassifier(self):
         self.thug_api.add_cookieclassifier(self.yara_file)
         rules = log.CookieClassifier._rules
-        assert rules['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in rules:
+            if self.yara_file in rules[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_sampleclassifier(self):
         self.thug_api.add_sampleclassifier(self.yara_file)
         rules = log.SampleClassifier._rules
-        assert rules['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in rules:
+            if self.yara_file in rules[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_htmlfilter(self):
         self.thug_api.add_htmlfilter(self.yara_file)
         filters = log.HTMLClassifier._filters
-        assert filters['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in filters:
+            if self.yara_file in filters[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_urlfilter(self):
         self.thug_api.add_urlfilter(self.yara_file)
         filters = log.URLClassifier._filters
-        assert filters['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in filters:
+            if self.yara_file in filters[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_jsfilter(self):
         self.thug_api.add_jsfilter(self.yara_file)
         filters = log.JSClassifier._filters
-        assert filters['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in filters:
+            if self.yara_file in filters[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_vbsfilter(self):
         self.thug_api.add_vbsfilter(self.yara_file)
         filters = log.VBSClassifier._filters
-        assert filters['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in filters:
+            if self.yara_file in filters[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_textfilter(self):
         self.thug_api.add_textfilter(self.yara_file)
         filters = log.TextClassifier._filters
-        assert filters['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in filters:
+            if self.yara_file in filters[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_cookiefilter(self):
         self.thug_api.add_cookiefilter(self.yara_file)
         filters = log.CookieClassifier._filters
-        assert filters['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in filters:
+            if self.yara_file in filters[ns]:
+                match = True
+
+        assert match is True
 
     def test_add_samplefilter(self):
         self.thug_api.add_samplefilter(self.yara_file)
         filters = log.SampleClassifier._filters
-        assert filters['namespace1'] in (self.yara_file, )
+
+        match = False
+        for ns in filters:
+            if self.yara_file in filters[ns]:
+                match = True
+
+        assert match is True
 
     def test_log_event(self, caplog):
         caplog.clear()
