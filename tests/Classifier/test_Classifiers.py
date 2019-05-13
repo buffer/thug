@@ -15,6 +15,9 @@ class TestClassifiers:
     test_files_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files")
     signatures_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/signatures")
 
+    def sample_passthrough(self, sample, md5):
+        pass
+
     def do_perform_test(self, caplog, sample, expected):
         thug = ThugAPI()
         thug.log_init(sample)
@@ -30,6 +33,12 @@ class TestClassifiers:
         thug.add_textfilter(os.path.join(self.signatures_path, "text_signature_5.yar"))
         thug.add_cookiefilter(os.path.join(self.signatures_path, "cookie_filter_9.yar"))
         thug.add_samplefilter(os.path.join(self.signatures_path, "sample_filter_11.yar"))
+
+        thug.add_htmlclassifier(os.path.join(self.signatures_path, "not_existing.yar"))
+        thug.add_htmlfilter(os.path.join(self.signatures_path, "not_existing.yar"))
+        thug.add_customclassifier('wrong_type', 'wrong_method')
+        thug.add_customclassifier('url', 'wrong_method')
+        thug.add_customclassifier('sample', self.sample_passthrough)
 
         with open(os.path.join(self.samples_path, sample), 'r') as fd:
             data = fd.read()
