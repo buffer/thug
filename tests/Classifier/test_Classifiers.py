@@ -40,7 +40,7 @@ class TestClassifiers:
         thug.add_customclassifier('url', 'wrong_method')
         thug.add_customclassifier('sample', self.sample_passthrough)
 
-        with open(os.path.join(self.samples_path, sample), 'r') as fd:
+        with open(os.path.join(self.samples_path, sample), 'rb') as fd:
             data = fd.read()
 
         log.HTMLClassifier.classify(os.path.basename(sample), data)
