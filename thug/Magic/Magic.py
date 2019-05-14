@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Encoding.py
+# Magic.py
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as
@@ -27,7 +27,7 @@ class Magic(object):
         try:
             # This works with python-magic >= 0.4.6 from pypi
             mtype = magic.from_buffer(self.data, mime = True)
-        except Exception:
+        except Exception: # pragma: no cover
             try:
                 # Ubuntu workaround
                 # This works with python-magic >= 5.22 from Ubuntu (apt)
