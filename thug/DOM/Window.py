@@ -915,7 +915,7 @@ class Window(JSClass):
         self.onmousewheel        = None
 
     def eval(self, script):
-        if script is None:
+        if not script:
             return None
 
         log.ThugLogging.add_code_snippet(script,
