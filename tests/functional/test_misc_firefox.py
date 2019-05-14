@@ -10,12 +10,13 @@ class TestMiscSamplesFirefox(object):
     thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
     misc_path = os.path.join(thug_path, "thug", "samples/misc")
 
-    def do_perform_test(self, caplog, sample, expected):
+    def do_perform_test(self, caplog, sample, expected, useragent = 'linuxfirefox40'):
         thug = ThugAPI()
 
-        thug.set_useragent('linuxfirefox40')
+        thug.set_useragent(useragent)
         thug.set_events('click,storage')
         thug.set_connect_timeout(2)
+        thug.set_delay(500)
         thug.disable_cert_logging()
         thug.set_features_logging()
         thug.log_init(sample)
@@ -59,6 +60,11 @@ class TestMiscSamplesFirefox(object):
         sample   = os.path.join(self.misc_path, "test3.html")
         expected = ['[Window] Alert Text: foo']
         self.do_perform_test(caplog, sample, expected)
+
+    def test_test5(self, caplog):
+        sample   = os.path.join(self.misc_path, "test5.html")
+        expected = []
+        self.do_perform_test(caplog, sample, expected, 'win7firefox3')
 
     def test_testAppendChild(self, caplog):
         sample   = os.path.join(self.misc_path, "testAppendChild.html")
