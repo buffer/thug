@@ -113,7 +113,7 @@ class JSInspector(object):
                 result = self.ctxt.eval(self.script.decode(enc['encoding']))
             except Exception as e:
                 log.warning("[JSInspector] Error: %s", str(e))
-        except Exception:
+        except Exception as e:
             log.warning("[JSInspector] Error: %s", str(e))
 
         self.dump()
