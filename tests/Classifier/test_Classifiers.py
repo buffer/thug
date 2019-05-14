@@ -70,7 +70,7 @@ class TestClassifiers:
 
     def test_html_classifier_1(self, caplog):
         sample   = os.path.join(self.samples_path, "test1.html")
-        expected = ['[HTML Classifier] URL: test1.html (Rule: html_signature_1, Classification: )']
+        expected = ['[HTML Classifier] URL: test1.html (Rule: html_signature_1, Classification: strVar)']
 
         self.do_perform_test(caplog, sample, expected)
 
