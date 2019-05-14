@@ -1140,3 +1140,10 @@ class TestMiscSamplesIE(object):
                     '[document.write] Deobfuscated argument: FOOBAR']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testTimers(self, caplog):
+        sample   = os.path.join(self.misc_path, "testTimers.html")
+        expected = ['setTimeout null expression',
+                    'setInterval null expression']
+
+        self.do_perform_test(caplog, sample, expected)
