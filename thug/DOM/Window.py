@@ -1068,10 +1068,7 @@ class Window(JSClass):
             except Exception:
                 return None
 
-            if response is None:
-                return None
-
-            if response.status_code == 404:
+            if response is None or not response.ok:
                 return None
 
             html = response.content
