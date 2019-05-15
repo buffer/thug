@@ -37,13 +37,13 @@ class BaseClassifier(object):
         self.rules_namespace_id = 1
 
         p = getattr(self, 'default_rule_file', None)
-        if p is None:
+        if p is None: # pragma: no cover
             log.warning("[%s] Skipping not existing default classification rule file", self.classifier)
             return
 
         r = os.path.join(log.configuration_path, p)
 
-        if not os.path.exists(r):
+        if not os.path.exists(r): # pragma: no cover
             log.warning("[%s] Skipping not existing default classification rule file", self.classifier)
             return
 
@@ -55,13 +55,13 @@ class BaseClassifier(object):
         self.filters_namespace_id = 1
 
         p = getattr(self, 'default_filter_file', None)
-        if p is None:
+        if p is None: # pragma: no cover
             log.warning("[%s] Skipping not existing default filter file", self.classifier)
             return
 
         r = os.path.join(log.configuration_path, p)
 
-        if not os.path.exists(r):
+        if not os.path.exists(r): # pragma: no cover
             log.warning("[%s] Skipping not existing default filter file", self.classifier)
             return
 
