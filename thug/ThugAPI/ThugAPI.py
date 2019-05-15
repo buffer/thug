@@ -382,7 +382,7 @@ class ThugAPI(object):
     def log_event(self):
         log.ThugLogging.log_event()
 
-    def watchdog_cb(self, signum, frame):
+    def watchdog_cb(self, signum, frame): # pragma: no cover
         pass
 
     def __run(self, window):
@@ -467,5 +467,5 @@ class ThugAPI(object):
             self.__run(window)
 
     @abstractmethod
-    def analyze(self):
+    def analyze(self): # pragma: no cover
         pass
