@@ -52,7 +52,7 @@ class MongoDB(object):
             return True
 
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
-        if not os.path.exists(conf_file):
+        if not os.path.exists(conf_file): # pragma: no cover
             self.enabled = False
             return False
 

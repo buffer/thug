@@ -74,7 +74,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.modules = dict()
 
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
-        if not os.path.exists(conf_file):
+        if not os.path.exists(conf_file): # pragma: no cover
             log.warning("[CRITICAL] Logging subsystem not initialized (configuration file not found)")
             return
 
