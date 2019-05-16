@@ -724,6 +724,14 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testObject5(self, caplog):
+        sample   = os.path.join(self.misc_path, "testObject5.html")
+        expected = ['[params redirection] about:blank -> http://192.168.1.100/data',
+                    '[params redirection] about:blank -> http://192.168.1.100/source',
+                    '[params redirection] about:blank -> http://192.168.1.100/archive']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testReplaceChild2(self, caplog):
         sample   = os.path.join(self.misc_path, "testReplaceChild2.html")
         expected = ['<div id="foobar"><div id="test"></div></div>']
