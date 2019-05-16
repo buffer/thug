@@ -1,0 +1,21 @@
+<html>
+<body>
+
+<script language="JScript" for=Player event=playStateChange(NewState)>
+	// Test for the player current state, display a message for each.
+	switch (NewState){
+    	case 1:
+        	alert("Stopped");
+        	break;
+    	case 2:
+			alert("Paused");
+        	break;
+    	case 3:
+        	alert("Playing");
+        	break;
+    	default:
+        	alert("Undefined state");
+}
+</script>
+</body>
+</html>
