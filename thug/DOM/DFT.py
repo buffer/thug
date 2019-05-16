@@ -470,7 +470,7 @@ class DFT(object):
     def build_event_handler(self, ctx, h):
         try:
             return self._build_event_handler(ctx, h)
-        except SyntaxError as e:
+        except SyntaxError as e: # pragma: no cover
             log.info("[SYNTAX ERROR][build_event_handler] %s", str(e))
             return None
 
@@ -564,7 +564,7 @@ class DFT(object):
     def _handle_jnlp(self, data, headers, params):
         try:
             soup = BeautifulSoup.BeautifulSoup(data, "lxml")
-        except Exception:
+        except Exception: # pragma: no cover
             return
 
         jnlp = soup.find("jnlp")
@@ -735,7 +735,7 @@ class DFT(object):
                 self.window._navigator.fetch(codebase,
                                              redirect_type = "object codebase",
                                              params = params)
-            except Exception:
+            except Exception: # pragma: no cover
                 pass
 
         if data and not data.startswith('data:'):
