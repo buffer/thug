@@ -82,9 +82,13 @@ def _doRun(self, p, stage):
         if len(s) < 2:
             break
 
+        p = p[1:]
         url = s[0]
         if url.endswith(("'", '"')):
             url = url[:-1]
+
+        url = url.split('"')[0]
+        url = url.split("'")[0]
 
         log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Downloading from URL %s" % (stage, url))
 
@@ -93,10 +97,7 @@ def _doRun(self, p, stage):
         except Exception:
             continue
 
-        if response is None:
-            continue
-
-        if response.status_code == 404:
+        if response is None or not response.ok:
             continue
 
         md5 = hashlib.md5()
