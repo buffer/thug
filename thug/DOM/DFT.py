@@ -333,10 +333,7 @@ class DFT(object):
             except Exception:
                 return
 
-            if response is None:
-                return
-
-            if not response.ok:
+            if response is None or not response.ok:
                 return
 
             doc    = w3c.parseString(response.content)
