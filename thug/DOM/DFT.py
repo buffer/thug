@@ -604,6 +604,9 @@ class DFT(object):
                 if all(p in child.attrs for p in ('name', 'value', )):
                     params[child.attrs['name'].lower()] = child.attrs['value']
 
+                    if 'type' in child.attrs:
+                        params['type'] = child.attrs['type']
+
             if name.lower() in ('embed', ):
                 self.handle_embed(child)
 
