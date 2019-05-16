@@ -778,10 +778,8 @@ class DFT(object):
             return
 
         params = self._get_script_for_event_params(attr_event)
-        if not params:
-            return
 
-        if 'playstatechange' in attr_event.lower():
+        if 'playstatechange' in attr_event.lower() and params:
             with self.context as ctx:
                 newState = params.pop()
                 ctx.eval("%s = 0;" % (newState.strip(), ))
