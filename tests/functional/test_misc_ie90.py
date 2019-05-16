@@ -1175,3 +1175,9 @@ class TestMiscSamplesIE(object):
                     'setInterval null expression']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testPlayStateChange(self, caplog):
+        sample   = os.path.join(self.misc_path, "testPlayStateChange.html")
+        expected = ['Undefined state']
+
+        self.do_perform_test(caplog, sample, expected)
