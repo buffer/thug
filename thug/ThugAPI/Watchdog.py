@@ -47,7 +47,7 @@ class Watchdog(object):
 
         # If Thug is running in a Docker container it is assigned PID 1
         # and Docker apparently ignores SIGTERM signals to PID 1
-        if pid in (1, ):
+        if pid in (1, ): # pragma: no cover
             sys.exit(1)
         else:
             os.kill(pid, signal.SIGTERM)
