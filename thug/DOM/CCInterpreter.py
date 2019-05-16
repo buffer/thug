@@ -49,7 +49,7 @@ class CCInterpreter(object):
                 script = script.replace('@_win32', 'true')
                 script = script.replace('@_mac', 'false')
 
-            if log.ThugOpts.Personality.platform in ('MacIntel', ):
+            if log.ThugOpts.Personality.platform in ('MacIntel', ): # pragma: no cover
                 script = script.replace('@_win32', 'false')
                 script = script.replace('@_mac', 'true')
 

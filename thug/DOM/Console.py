@@ -89,7 +89,7 @@ class Console(JSClass):
         if log.ThugOpts.Personality.browserMajorVersion > 29:
             self.count = self._count
 
-        if log.ThugOpts.Personality.browserMajorVersion > 47:
+        if log.ThugOpts.Personality.browserMajorVersion > 47: # pragma: no cover
             self.clear = self._clear
 
     def __init_personality_Chrome(self):
