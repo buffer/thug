@@ -36,7 +36,7 @@ class HoneyAgent(object):
 
     def __init_config(self):
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
-        if not os.path.isfile(conf_file):
+        if not os.path.isfile(conf_file): # pragma: no cover
             self.enabled = False
             return
 
@@ -107,7 +107,7 @@ class HoneyAgent(object):
         if not self.enabled:
             return
 
-        if not log.ThugOpts.honeyagent:
+        if not log.ThugOpts.honeyagent: # pragma: no cover
             return
 
         if params is None:
