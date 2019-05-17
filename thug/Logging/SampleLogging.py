@@ -17,13 +17,13 @@
 # MA  02111-1307  USA
 
 import os
-import magic
-import pefile
 import base64
 import logging
 import hashlib
 import zipfile
 import tempfile
+import pefile
+import magic
 
 SSDEEP = True
 

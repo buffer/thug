@@ -16,14 +16,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-from .BaseLogging import BaseLogging
-from .SampleLogging import SampleLogging
-from .LoggingModules import LoggingModules
-from .Features import Features
-from thug.Analysis.virustotal.VirusTotal import VirusTotal
-from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
-from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
-
 import os
 import copy
 import uuid
@@ -34,7 +26,15 @@ import hashlib
 import logging
 import six.moves.configparser as ConfigParser
 
+from thug.Analysis.virustotal.VirusTotal import VirusTotal
+from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
+from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
 from thug.Magic.Magic import Magic
+
+from .BaseLogging import BaseLogging
+from .SampleLogging import SampleLogging
+from .LoggingModules import LoggingModules
+from .Features import Features
 
 log = logging.getLogger("Thug")
 
