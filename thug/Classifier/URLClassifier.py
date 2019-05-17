@@ -42,7 +42,7 @@ class URLClassifier(BaseClassifier):
         for match in self.rules.match(data = url):
             self.matches.append((url, match))
 
-            if self.discard_url_match(url, match):
+            if self.discard_url_match(url, match): # pragma: no cover
                 continue
 
             self.handle_match_etags(match)
