@@ -13,4 +13,5 @@ class TestPlugin(object):
         del plugin['test1']
         del plugin.test2
 
+        assert plugin['test3'] is None
         del plugin['test3']
