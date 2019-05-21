@@ -28,7 +28,7 @@ class Personality(dict):
     def __init__(self):
         personalities = log.personalities_path
 
-        if personalities is None:
+        if personalities is None: # pragma: no cover
             log.warning("[CRITICAL] Thug personalities not found! Exiting")
             sys.exit(0)
 
