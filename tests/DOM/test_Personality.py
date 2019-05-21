@@ -26,13 +26,13 @@ class TestPersonality(object):
         assert 'Mozilla/4.0 (Windows XP 5.1) Java' in personality.javaUserAgent
         assert '6.0' in personality.browserVersion
         assert 'Win32' in personality.platform
-        assert personality.browserMajorVersion is 6
+        assert personality.browserMajorVersion == 6
         assert '5.6' in personality.cc_on['_jscript_version']
         assert personality.isIE() is True
         assert personality.isEdge() is False
         assert personality.isWindows() is True
         assert personality.isChrome() is False
         assert personality.isSafari() is False
-        assert personality.ScriptEngineMajorVersion() is 5
-        assert personality.ScriptEngineMinorVersion() is 6
+        assert personality.ScriptEngineMajorVersion() == 5
+        assert personality.ScriptEngineMinorVersion() == 6
         assert personality.ScriptEngineBuildVersion()
