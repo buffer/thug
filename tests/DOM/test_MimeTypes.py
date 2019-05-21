@@ -22,3 +22,4 @@ class TestMimeTypes(object):
 
         assert mimetypes[100]['description'] is None
         assert mimetypes['application/x-ms-wmz']['description'] in ('Windows Media Player', )
+        assert mimetypes.namedItem('application/x-ms-wmz')['description'] in ('Windows Media Player', )
