@@ -63,7 +63,7 @@ class Personality(dict):
 
     @property
     def javaUserAgent(self):
-        return self[log.ThugOpts.useragent]['javaUserAgent'] % (log.ThugVulnModules.javaplugin, )
+        return self[log.ThugOpts.useragent]['javaUserAgent']
 
     @property
     def browserVersion(self):
