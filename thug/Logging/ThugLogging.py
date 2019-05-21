@@ -125,10 +125,10 @@ class ThugLogging(BaseLogging, SampleLogging):
 
     def add_code_snippet(self, snippet, language, relationship, method = "Dynamic Analysis", check = False, force = False):
         if not log.ThugOpts.code_logging and not force:
-            return
+            return None
 
         if check and self.check_snippet(snippet):
-            return
+            return None
 
         tag = uuid.uuid4()
 
@@ -349,7 +349,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         @content    The content to be stored
         """
         if not log.ThugOpts.file_logging:
-            return
+            return None
 
         try:
             os.makedirs(dirname)
