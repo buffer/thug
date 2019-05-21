@@ -31,10 +31,13 @@ class MimeType(JSClass):
             self._mimetype[k] = v
 
     def __setitem__(self, key, value):
-        return self._mimetype.__setitem__(key, value)
+        self._mimetype[key] = value
 
     def __getitem__(self, name):
-        return self._mimetype.__getitem__(name)
+        return self._mimetype.get(name, None)
 
     def __delitem__(self, name):
-        return self._mimetype.__delitem__(name)
+        if name not in self._mimetype:
+            return
+
+        del self._mimetype[name]
