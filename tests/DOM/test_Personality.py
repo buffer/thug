@@ -15,24 +15,24 @@ log.personalities_path = os.path.join(configuration_path, "personalities") if co
 log.ThugVulnModules = ThugVulnModules()
 log.ThugOpts = ThugOpts()
 
-log.ThugOpts.useragent = 'win7ie90'
+log.ThugOpts.useragent = 'winxpie60'
 
 
 class TestPersonality(object):
     def test_personality(self):
         personality = Personality()
 
-        assert 'MSIE 9.0; Windows NT 6.1' in personality.userAgent
-        assert 'Mozilla/5.0 (Windows 7 6.1) Java/160_32' in personality.javaUserAgent
-        assert '9.0' in personality.browserVersion
+        assert 'Windows NT 5.1' in personality.userAgent
+        assert 'Mozilla/4.0 (Windows XP 5.1) Java' in personality.javaUserAgent
+        assert '6.0' in personality.browserVersion
         assert 'Win32' in personality.platform
-        assert personality.browserMajorVersion is 9
-        assert '9' in personality.cc_on['_jscript_version']
+        assert personality.browserMajorVersion is 6
+        assert '5.6' in personality.cc_on['_jscript_version']
         assert personality.isIE() is True
         assert personality.isEdge() is False
         assert personality.isWindows() is True
         assert personality.isChrome() is False
         assert personality.isSafari() is False
-        assert personality.ScriptEngineMajorVersion() is 9
-        assert personality.ScriptEngineMinorVersion() is 0
-        assert personality.ScriptEngineBuildVersion() == 16443
+        assert personality.ScriptEngineMajorVersion() is 5
+        assert personality.ScriptEngineMinorVersion() is 6
+        assert personality.ScriptEngineBuildVersion()
