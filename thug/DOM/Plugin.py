@@ -31,10 +31,16 @@ class Plugin(JSClass):
             self._plugin[k] = v
 
     def __setitem__(self, key, value):
-        return self._plugin.__setitem__(key, value)
+        self._plugin[key] = value
 
     def __getitem__(self, name):
-        return self._plugin.__getitem__(name)
+        if name not in self._plugin:
+            return None
+
+        return self._plugin[name]
 
     def __delitem__(self, name):
-        return self._plugin.__delitem__(name)
+        if name not in self._plugin:
+            return
+
+        del self._plugin[name]
