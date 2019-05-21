@@ -3,11 +3,14 @@ from thug.DOM.MimeType import MimeType
 class TestMimeType(object):
     def test_items(self):
         mimetype = MimeType()
-        
-        mimetype.foo = 'bar'
-        assert mimetype.foo in ('bar', )
 
-        mimetype.foo = 'foo'
-        assert mimetype.foo in ('foo', )
+        mimetype['test1'] = 'value1'
+        assert mimetype['test1'] in ('value1', )
 
-        del mimetype.foo
+        mimetype.test2 = 'value2'
+        assert mimetype.test2 in ('value2', )
+
+        del mimetype['test1']
+        del mimetype.test2
+
+        del mimetype['test3']
