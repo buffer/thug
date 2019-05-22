@@ -37,5 +37,5 @@ class SchemeHandler(object):
 
         try:
             log.URLClassifier.classify(url)
-        except Exception:
+        except Exception: # pragma: no cover
             pass
