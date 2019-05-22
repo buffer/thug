@@ -505,12 +505,12 @@ class TestMiscSamplesFirefox(object):
         expected = ['window: [object Window]',
                     'appCodeName: Mozilla',
                     'appName: Netscape',
-                    'appVersion: 5.0 (X11)',
+                    'appVersion: 5.0 (Windows)',
                     'cookieEnabled: true',
                     'onLine: true',
-                    'platform: Linux x86_64']
+                    'platform: Win32']
 
-        self.do_perform_test(caplog, sample, expected)
+        self.do_perform_test(caplog, sample, expected, 'win7firefox3')
 
     def test_testHTMLOptionsCollection(self, caplog):
         sample   = os.path.join(self.misc_path, "testHTMLOptionsCollection.html")
