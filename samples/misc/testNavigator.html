@@ -10,6 +10,32 @@
 	alert("onLine: " + navigator.onLine);
 	alert("platform: " + navigator.platform);
 	alert("securityPolicy: " + navigator.securityPolicy);
+
+	if (typeof(navigator.mozIsLocallyAvailable) != 'undefined') {
+		var available = navigator.mozIsLocallyAvailable("my-image-file.png", true);
+	}
+
+	if (typeof(navigator.registerContentHandler) != 'undefined') {
+		navigator.registerContentHandler(
+		"application/vnd.mozilla.maybe.feed",
+		"http://www.example.tld/?foo=%s",
+		"My Feed Reader");
+	}
+
+	if (typeof(navigator.registerProcotolHandler) != 'undefined') {
+		navigator.registerProtocolHandler(
+		"web+burger",
+		"https://burgers.example.com/?burger=%s",
+		"Burger handler");
+	}
+
+	if (navigator.preference) {
+		var homePage = navigator.preference ('browser.startup.homepage');
+	}
+
+	if (navigator.taintEnabled) {
+		var taint = navigator.taintEnabled();
+	}
 </script>
 </body>
 </html>
