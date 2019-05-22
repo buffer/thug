@@ -535,11 +535,12 @@ class Window(JSClass):
         """
         pass
 
-    def prompt(self, text):
+    def prompt(self, text, defaultText = None):
         """
         Returns the text entered by the user in a prompt dialog.
         """
-        return text
+        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, str(text))
+        return defaultText if defaultText else ""
 
     def releaseEvents(self, eventType):
         """
