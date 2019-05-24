@@ -1188,3 +1188,9 @@ class TestMiscSamplesIE(object):
                     'Decoded String: Hello World']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testExternal(self, caplog):
+        sample   = os.path.join(self.misc_path, "testExternal.html")
+        expected = []
+
+        self.do_perform_test(caplog, sample, expected)
