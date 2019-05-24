@@ -1,0 +1,57 @@
+<html>
+<body>
+<script>
+	if (window.external.AddChannel) {
+		window.external.AddChannel("http://domain/folder/file.cdf");
+	}
+
+	if (window.external.AddDesktopComponent) {
+		window.external.AddDesktopComponent(
+   			"http://www.microsoft.com",
+   			"website",
+   			100,
+			100,
+			200,
+			200);
+	}
+	
+	function fnSaveForm(){
+   		window.external.AutoCompleteSaveForm(oForm);
+   		oForm.AutoCompleteTest.value="";
+   		oForm.AutoCompleteIgnore.value="";
+	}
+
+	if (window.external.NavigateAndFind) {
+   		window.external.NavigateAndFind(
+       		"http://www.domain.ext/path/file.htm",
+       		"foo",
+			"");
+	}
+
+	if (window.external.IsSearchProviderInstalled) {
+		window.external.IsSearchProviderInstalled('http://www.example.com');
+	}
+
+	if (window.external.raiseEvent) {
+		window.external.raiseEvent("click", null);
+	}
+
+	if (window.external.ShowBrowserUI) {
+		window.external.ShowBrowserUI('LanguageDialog', null);
+	}
+
+	window.external.bubbleEvent();
+
+	try {
+		window.external.AutoScan ("foobar", "", "_blank");
+	} catch (e) {}
+</script>
+
+<form name="oForm">
+	<input type="text" name="AutoCompleteTest">
+	<input type="text" name="AutoCompleteIgnore" autocomplete="off">
+</form>
+
+<input type=button value="Save Value" onclick="fnSaveForm()">
+</body>
+</html>
