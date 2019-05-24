@@ -12,6 +12,7 @@ from thug.Logging.modules.MongoDB import MongoDB
 from thug.ThugAPI.ThugVulnModules import ThugVulnModules
 from thug.Logging.ThugLogging import ThugLogging
 from thug.Encoding.Encoding import Encoding
+from thug.DOM.HTTPSession import HTTPSession
 
 configuration_path = thug.__configuration_path__
 
@@ -23,6 +24,7 @@ log.configuration_path = configuration_path
 log.ThugLogging        = ThugLogging(thug.__version__)
 log.ThugVulnModules    = ThugVulnModules()
 log.Encoding           = Encoding()
+log.HTTPSession        = HTTPSession()
 
 
 class TestMongoDB:
@@ -244,4 +246,11 @@ class TestMongoDB:
         assert self.mongo.honeyagent.count_documents({}) in (0, )
 
         self.mongo.log_honeyagent(self.file_data, "sample-report")
+        assert self.mongo.honeyagent.count_documents({}) in (1, )
+
+    def test_log_cookies(self):
+        assert self.mongo.cookies.count_documents({}) in (0, )
+
+        log.HTTPSession.cookies.set('domain', 'test.com')
+        self.mongo.log_cookies()
         assert self.mongo.honeyagent.count_documents({}) in (1, )
