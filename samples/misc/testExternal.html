@@ -16,6 +16,7 @@
 	}
 	
 	function fnSaveForm(){
+		var oForm = document.getElementById("oForm");
    		window.external.AutoCompleteSaveForm(oForm);
    		oForm.AutoCompleteTest.value="";
    		oForm.AutoCompleteIgnore.value="";
@@ -47,7 +48,7 @@
 	} catch (e) {}
 </script>
 
-<form name="oForm">
+<form id="oForm">
 	<input type="text" name="AutoCompleteTest">
 	<input type="text" name="AutoCompleteIgnore" autocomplete="off">
 </form>
