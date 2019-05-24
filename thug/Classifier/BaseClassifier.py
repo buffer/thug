@@ -98,7 +98,7 @@ class BaseClassifier(object):
             prefix = "" if domain.startswith(".") else "."
 
             if netloc.endswith("{}{}".format(prefix, domain)):
-                log.debug("[discard_meta_domain_whitelist] Whitelisted domain: %s (URL: %s)", domain, url)
+                log.warning("[discard_meta_domain_whitelist] Whitelisted domain: %s (URL: %s)", domain, url)
                 return True
 
         return False
