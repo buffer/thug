@@ -48,10 +48,10 @@ class VirusTotal(object):
             self.opts[option] = config.get('virustotal', option)
 
         runtime_apikey = log.ThugOpts.get_vt_runtime_apikey()
-        if runtime_apikey:
+        if runtime_apikey: # pragma: no cover
             self.opts['apikey'] = runtime_apikey
 
-        if not self.opts.get('apikey', None):
+        if not self.opts.get('apikey', None): # pragma: no cover
             self.enabled = False
 
     def save_report(self, response_dict, basedir, sample):
@@ -80,13 +80,13 @@ class VirusTotal(object):
         response_code = response_dict.get(u"response_code")
 
         if response.ok:
+            log.warning("[VirusTotal] %s", response_dict['verbose_msg'])
+
             if response_code == 1:
                 self.save_report(response_dict, basedir, sample)
                 return True
 
-            log.warning("[VirusTotal] %s", response_dict['verbose_msg'])
-
-        return False
+        return False # pragma: no cover
 
     def submit(self, data, sample):
         md5   = sample['md5']
@@ -108,11 +108,11 @@ class VirusTotal(object):
         if not self.enabled:
             return
 
-        if not self.opts['apikey']:
+        if not self.opts['apikey']: # pragma: no cover
             return
 
         if sample.get('md5', None) and log.ThugOpts.vt_query and self.query(sample, basedir):
             return
 
-        if log.ThugOpts.vt_submit:
+        if log.ThugOpts.vt_submit: # pragma: no cover
             self.submit(data, sample)
