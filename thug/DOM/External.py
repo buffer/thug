@@ -95,10 +95,7 @@ class External(JSClass):
         pass
 
     def _IsSearchProviderInstalled(self, URL):
-        if URL in self._providers:
-            return 1  # A matching search provider is installed, but it is not the default.
-
-        return 0    # No installed search provider was found with the specified prefix
+        return 1 if URL in self._providers else 0
 
     def _IsSubscribed(self, URL):
         return False
