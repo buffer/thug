@@ -48,7 +48,7 @@ class HoneyAgent(object):
             self.enabled = False
             return
 
-        self.opts['scanurl'] = config.get('honeyagent', 'scanurl')
+        self.opts['scanurl'] = config.get('honeyagent', 'scanurl') # pragma: no cover
 
     def save_report(self, response, basedir, sample):
         log_dir  = os.path.join(basedir, 'analysis', 'honeyagent')
@@ -58,11 +58,11 @@ class HoneyAgent(object):
         data = response.json()
 
         result = data.get("result", None)
-        if result is None:
+        if result is None: # pragma: no cover
             return None
 
         files = result.get("files", None)
-        if files is None:
+        if files is None: # pragma: no cover
             return result
 
         md5 = sample['md5']
@@ -78,7 +78,7 @@ class HoneyAgent(object):
 
     def dump_yara_analysis(self, result, sample):
         yara = result.get("yara", None)
-        if yara is None:
+        if yara is None: # pragma: no cover
             return
 
         md5 = sample['md5']
