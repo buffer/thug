@@ -14,6 +14,30 @@ class TestClassifiers(object):
     def catchall(self, url, *args):
         log.warning("[CATCHALL Custom Classifier] URL: %s", url)
 
+    def do_perform_remote_test(self, caplog, url, expected):
+        thug = ThugAPI()
+
+        thug.set_useragent('win7ie90')
+        thug.set_threshold(2)
+        thug.disable_cert_logging()
+        thug.set_features_logging()
+        thug.log_init(url)
+
+        thug.add_htmlclassifier(os.path.join(self.signatures_path, "html_signature_12.yar"))
+
+        thug.run_remote(url)
+
+        records = [r.message for r in caplog.records]
+
+        matches = 0
+
+        for e in expected:
+            for record in records:
+                if e in record:
+                    matches += 1
+
+        assert matches >= len(expected)
+
     def do_perform_test(self, caplog, sample, expected):
         thug = ThugAPI()
 
@@ -103,3 +127,8 @@ class TestClassifiers(object):
                     '[CATCHALL Custom Classifier] URL: https://buffer.github.io/thug/']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_html_classifier_12(self, caplog):
+        expected = ['[discard_meta_domain_whitelist] Whitelisted domain: antifork.org']
+
+        self.do_perform_remote_test(caplog, 'buffer.antifork.org', expected)
