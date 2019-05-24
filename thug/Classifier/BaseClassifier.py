@@ -92,7 +92,7 @@ class BaseClassifier(object):
 
         for value in values.split(','):
             domain = value.lower().strip()
-            if not domain:
+            if not domain: # pragma: no cover
                 continue
 
             prefix = "" if domain.startswith(".") else "."
