@@ -1113,11 +1113,11 @@ class Window(JSClass):
                 if spec[0] in ['width', 'height', 'left', 'top']:
                     kwds[spec[0]] = int(spec[1])
 
-            if name in ['_blank', '_parent', '_self', '_top']:
-                kwds['target'] = name
-                name = ''
-            else:
-                kwds['target'] = '_blank'
+        if name in ['_blank', '_parent', '_self', '_top']:
+            kwds['target'] = name
+            name = ''
+        else:
+            kwds['target'] = '_blank'
 
         return Window(url, dom, navigator = None, personality = self._personality,
                         name = name, parent = self, opener = self, replace = replace, **kwds)
