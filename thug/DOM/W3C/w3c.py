@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import six
+# import six
 import bs4
 
 
