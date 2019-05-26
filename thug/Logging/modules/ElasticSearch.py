@@ -22,9 +22,9 @@ import logging
 import six.moves.configparser as ConfigParser
 
 try:
-    from elasticsearch import Elasticsearch, RequestsHttpConnection
+    import elasticsearch
     ELASTICSEARCH_MODULE = True
-except ImportError:
+except ImportError:  # pragma: no cover
     ELASTICSEARCH_MODULE = False
 
 from .JSON import JSON
@@ -38,7 +38,7 @@ class ElasticSearch(JSON):
 
         self.enabled = False
 
-        if not ELASTICSEARCH_MODULE:
+        if not ELASTICSEARCH_MODULE:  # pragma: no cover
             return
 
         if not log.ThugOpts.elasticsearch_logging:
@@ -72,8 +72,7 @@ class ElasticSearch(JSON):
         if not self.__init_config():
             return False
 
-        self.es = Elasticsearch(self.opts['url'], connection_class = RequestsHttpConnection)
-
+        self.es = elasticsearch.Elasticsearch(self.opts['url'], connection_class = elasticsearch.RequestsHttpConnection)
         if not self.es.ping():
             log.warning("[WARNING] ElasticSearch instance not properly initialized")
             return False
