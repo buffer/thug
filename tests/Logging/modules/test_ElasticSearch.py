@@ -15,7 +15,7 @@ log = logging.getLogger("Thug")
 cwd_path = os.path.dirname(os.path.realpath(__file__))
 configuration_path = os.path.join(cwd_path, os.pardir, os.pardir, "test_files")
 
-log.configuration_path = configuration_path
+log.configuration_path = thug.__configuration_path__
 log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
 
 log.ThugVulnModules = ThugVulnModules()
@@ -32,6 +32,7 @@ class TestElasticSearch:
     @elasticmock
     def test_export(self):
         log.ThugOpts.elasticsearch_logging = True
+        log.configuration_path = configuration_path
         assert log.ThugOpts.elasticsearch_logging
 
         with patch('elasticmock.FakeElasticsearch.indices', create=True):
@@ -43,6 +44,7 @@ class TestElasticSearch:
         assert enabled
 
         log.ThugOpts.elasticsearch_logging = False
+        log.configuration_path = thug.__configuration_path__
         assert not log.ThugOpts.elasticsearch_logging
 
     def test_disable_opt(self):
@@ -56,6 +58,7 @@ class TestElasticSearch:
     @patch('six.moves.configparser.ConfigParser.getboolean', return_value = False)
     def test_disable_conf(self, mocked_parser):
         log.ThugOpts.elasticsearch_logging = True
+        log.configuration_path = configuration_path
         assert log.ThugOpts.elasticsearch_logging
 
         elastic_search = ElasticSearch(thug.__version__)
@@ -63,18 +66,22 @@ class TestElasticSearch:
         assert not enabled
 
         log.ThugOpts.elasticsearch_logging = False
+        log.configuration_path = thug.__configuration_path__
         assert not log.ThugOpts.elasticsearch_logging
 
     @patch('elasticsearch.Elasticsearch')
     def test_ping_error(self, mocked_es, caplog):
+        caplog.clear()
         ping_mock = mocked_es.return_value.ping
         ping_mock.return_value = False
 
         log.ThugOpts.elasticsearch_logging = True
+        log.configuration_path = configuration_path
 
         elastic_search = ElasticSearch(thug.__version__)
         enabled = elastic_search.enabled
         log.ThugOpts.elasticsearch_logging = False
+        log.configuration_path = thug.__configuration_path__
 
         assert not enabled
         assert "[WARNING] ElasticSearch instance not properly initialized" in caplog.text
@@ -90,6 +97,6 @@ class TestElasticSearch:
 
         assert not enabled
 
-        log.configuration_path = configuration_path
         log.ThugOpts.elasticsearch_logging = False
+        log.configuration_path = thug.__configuration_path__
         assert not log.ThugOpts.elasticsearch_logging
