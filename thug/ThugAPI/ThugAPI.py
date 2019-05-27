@@ -114,7 +114,7 @@ class ThugAPI(object):
     def __init_trace(self):
         log.Trace = None
 
-    def __call__(self):
+    def __call__(self): # pragma: no cover
         self.analyze()
 
     def version(self):
@@ -386,7 +386,7 @@ class ThugAPI(object):
         pass
 
     def __run(self, window):
-        if log.Trace:
+        if log.Trace: # pragma: no cover
             sys.settrace(log.Trace)
 
         with self.JSLocker():
@@ -449,7 +449,7 @@ class ThugAPI(object):
 
         try:
             scheme = urlparse.urlparse(url).scheme
-        except ValueError as e:
+        except ValueError as e: # pragma: no cover
             log.warning("[WARNING] Analysis not performed (%s)", e.message)
             return
 
