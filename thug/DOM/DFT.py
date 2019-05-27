@@ -90,7 +90,6 @@ class DFT(object):
         self.window.doc.DFT    = self
         self.anchors           = list()
         self.forms             = kwds['forms'] if 'forms' in kwds else list()
-        self.meta              = dict()
         self._context          = None
         log.DFT                = self
         self._init_events()
@@ -1200,7 +1199,7 @@ class DFT(object):
         if url.startswith("'") and url.endswith("'"):
             url = url[1:-1]
 
-        if url in self.meta and self.meta[url] >= 3:
+        if url in log.meta and log.meta[url] >= 3:
             return
 
         if data_uri:
@@ -1215,10 +1214,10 @@ class DFT(object):
         if response is None or response.status_code in (404, ):
             return
 
-        if url in self.meta:
-            self.meta[url] += 1
+        if url in log.meta:
+            log.meta[url] += 1
         else:
-            self.meta[url] = 1
+            log.meta[url] = 1
 
         doc    = w3c.parseString(response.content)
         window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
