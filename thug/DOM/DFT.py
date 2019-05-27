@@ -1199,7 +1199,7 @@ class DFT(object):
         if url.startswith("'") and url.endswith("'"):
             url = url[1:-1]
 
-        if url in log.meta and log.meta[url] >= 3:
+        if url in log.ThugLogging.meta and log.ThugLogging.meta[url] >= 3:
             return
 
         if data_uri:
@@ -1214,10 +1214,10 @@ class DFT(object):
         if response is None or response.status_code in (404, ):
             return
 
-        if url in log.meta:
-            log.meta[url] += 1
+        if url in log.ThugLogging.meta:
+            log.ThugLogging.meta[url] += 1
         else:
-            log.meta[url] = 1
+            log.ThugLogging.meta[url] = 1
 
         doc    = w3c.parseString(response.content)
         window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
