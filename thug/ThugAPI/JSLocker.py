@@ -23,7 +23,7 @@ import six.moves.configparser as ConfigParser
 log = logging.getLogger("Thug")
 
 
-class DummyJSLocker(object):
+class DummyJSLocker(object): # pragma: no cover
     def __init__(self, dummy = None):
         self.dummy = dummy
 
@@ -42,7 +42,7 @@ class JSLocker(object):
         import PyV8
         self._jslocker = PyV8.JSLocker
 
-    def init_dummy_jslocker(self):
+    def init_dummy_jslocker(self): # pragma: no cover
         self._jslocker = DummyJSLocker
 
     def init_jslocker(self):
