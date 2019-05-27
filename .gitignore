@@ -7,6 +7,7 @@
 
 logs
 thug.egg-info
+tests/log-dir-example
 .pytest_cache
 venv/*
 
