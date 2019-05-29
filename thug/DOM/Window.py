@@ -916,7 +916,7 @@ class Window(JSClass):
         self.onmousewheel        = None
 
     def eval(self, script):
-        if not script:
+        if not script: # pragma: no cover
             return None
 
         log.ThugLogging.add_code_snippet(script,
@@ -1038,7 +1038,7 @@ class Window(JSClass):
     def _XMLHttpRequest(self):
         return _ActiveXObject(self, 'microsoft.xmlhttp')
 
-    def _DeferredListDataComplete(self):
+    def _DeferredListDataComplete(self): # pragma: no cover
         for name in self.context.locals.keys():
             local = getattr(self.context.locals, name, None)
             if not local:
