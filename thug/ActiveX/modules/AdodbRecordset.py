@@ -13,7 +13,7 @@ class Fields(JSClass):
         return len(self.items)
 
     def item(self, key):
-        if key in six.string_types:
+        if isinstance(key, six.string_types):
             return getattr(self.items, key, None)
 
         try:
