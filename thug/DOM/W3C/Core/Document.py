@@ -85,7 +85,7 @@ class Document(Node, DocumentEvent, DocumentView):
 
         try:
             s = self.doc.select(selectors)
-        except Exception:
+        except Exception: # pragma: no cover
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -95,13 +95,10 @@ class Document(Node, DocumentEvent, DocumentView):
 
         try:
             s = self.doc.select(selectors)
-        except Exception:
+        except Exception: # pragma: no cover
             return None
 
-        if s and s[0]:
-            return DOMImplementation.createHTMLElement(self, s[0])
-
-        return None
+        return DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
 
     # Introduced in DOM Level 3
     @property
