@@ -58,7 +58,7 @@ class Attr(Node):
 
     @property
     def ownerDocument(self):
-        return self.parent.doc
+        return self.doc
 
     @property
     def name(self):
