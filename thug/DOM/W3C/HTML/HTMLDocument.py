@@ -236,7 +236,6 @@ class HTMLDocument(Document):
         html = self.doc.find('html')
         return HTMLElement(self, html if html else self.doc)
 
-    # FIXME
     @property
     def readyState(self):
         return self._readyState
