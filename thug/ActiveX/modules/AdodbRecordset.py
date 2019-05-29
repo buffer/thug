@@ -18,7 +18,7 @@ class Fields(JSClass):
 
         try:
             index = int(key)
-        except ValueError:
+        except ValueError: # pragma: no cover
             return None
 
         if index < 0 or index > self.count - 1:
