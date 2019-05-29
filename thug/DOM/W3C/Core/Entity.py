@@ -3,22 +3,22 @@
 from .Node import Node
 
 
-class Entity(Node):
+class Entity(Node): # pragma: no cover
     @property
     def publicId(self):
-        pass
+        return None
 
     @property
     def systemId(self):
-        pass
+        return None
 
     @property
     def notationName(self):
-        pass
+        return None
 
     @property
     def nodeName(self):
-        pass
+        return None
 
     @property
     def nodeType(self):
