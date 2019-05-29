@@ -12,20 +12,16 @@ class Fields(JSClass):
     def count(self):
         return len(self.items)
 
-    def Item(self, key):
+    def item(self, key):
         if key in six.string_types:
-            item = getattr(self.items, key, None)
-            if item:
-                return item
+            return getattr(self.items, key, None)
 
         try:
             index = int(key)
         except ValueError:
-            raise
+            return None
 
-        try:
-            item = self.items[index]
-        except KeyError:
-            raise
+        if index < 0 or index > self.count - 1:
+            return None
 
-        return item
+        return self.items[index] # pragma: no cover
