@@ -30,6 +30,10 @@
 	var p = d.getAttributeNode("id");
 	alert(p.ownerElement);
 	alert(p.value);
+
+	p.setValue("foo");
+	alert(p.value);
+	alert(p.specified);
 </script>
 </body>
 </html>
