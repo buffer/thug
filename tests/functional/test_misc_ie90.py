@@ -1194,3 +1194,9 @@ class TestMiscSamplesIE(object):
         expected = []
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testAdodbRecordset(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAdodbRecordset.html")
+        expected = ['ActiveXObject: adodb.recordset']
+
+        self.do_perform_test(caplog, sample, expected)
