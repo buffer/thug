@@ -3,14 +3,14 @@
 from .Node import Node
 
 
-class Notation(Node):
+class Notation(Node): # pragma: no cover
     @property
     def publicId(self):
-        pass
+        return None
 
     @property
     def systemId(self):
-        pass
+        return None
 
     @property
     def nodeName(self):
