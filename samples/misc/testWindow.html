@@ -60,9 +60,21 @@
 		window.navigate('about:blank');
 	}
 
+	if (window.execScript) {
+		window.execScript("On error resume next:\n a = IsObject(CreateObject('ShockwaveFlash.ShockwaveFlash.10'))", "VBScript");
+	}
+
+	window.getSelection();
+
+	window.top = window.top;
+
+	window.captureEvents("onmouseover");
+	window.releaseEvents("onmouseover");
+
 	window.prompt("Please enter your name: ", "John");
 	window.stop();
 	window.open("https://buffer.antifork.org", "Test", "width=200,height=100");
 	</script>
+	<script></script>
 </body>
 </html
