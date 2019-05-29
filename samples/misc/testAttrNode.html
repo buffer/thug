@@ -1,5 +1,8 @@
 <html>
 <body>
+
+<div id="top" />
+
 <script>
 	var t = document.createAttribute("test");
 	t.nodeValue = "foo";
@@ -17,6 +20,16 @@
 	alert("Name: " + t.name);
 	alert("Specified: " + t.specified);
 	alert("childNodes length: " + t.childNodes.length);
+
+	alert(t == t);
+
+	alert(t.ownerElement);
+	alert(t.ownerDocument);
+
+	var d = document.getElementById("top");
+	var p = d.getAttributeNode("id");
+	alert(p.ownerElement);
+	alert(p.value);
 </script>
 </body>
 </html>
