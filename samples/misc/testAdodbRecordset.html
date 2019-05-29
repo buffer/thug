@@ -1,0 +1,14 @@
+<html>
+<body>
+<script>
+	var obj = document.createElement("object");
+	obj.setAttribute("classid", "clsid:BD96C556-65A3-11D0-983A-00C04FC29E36");
+
+	var S = obj.CreateObject("Adodb.Recordset", "");
+	alert(S.Fields.count);
+
+	alert(S.Fields.item('foo'));
+	alert(S.Fields.item(0));
+</script>
+</body>
+</html>
