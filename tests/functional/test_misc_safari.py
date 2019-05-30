@@ -10,10 +10,10 @@ class TestMiscSamplesSafari(object):
     thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
     misc_path = os.path.join(thug_path, "thug", "samples/misc")
 
-    def do_perform_test(self, caplog, sample, expected):
+    def do_perform_test(self, caplog, sample, expected, useragent = 'osx10safari5'):
         thug = ThugAPI()
 
-        thug.set_useragent('osx10safari5')
+        thug.set_useragent(useragent)
         thug.set_events('click,storage')
         thug.set_connect_timeout(2)
         thug.disable_cert_logging()
@@ -50,7 +50,7 @@ class TestMiscSamplesSafari(object):
     def test_test1(self, caplog):
         sample   = os.path.join(self.misc_path, "test1.html")
         expected = ['[Window] Alert Text: one']
-        self.do_perform_test(caplog, sample, expected)
+        self.do_perform_test(caplog, sample, expected, useragent = 'ipadsafari9')
 
     def test_test2(self, caplog):
         sample   = os.path.join(self.misc_path, "test2.html")
