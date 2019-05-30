@@ -101,13 +101,10 @@ class Element(Node, ElementCSSInlineStyle):
 
         try:
             s = self.tag.select(selectors)
-        except Exception:
+        except Exception: # pragma: no cover
             return None
 
-        if s and s[0]:
-            return DOMImplementation.createHTMLElement(self, s[0])
-
-        return None
+        return DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
 
     def _matches(self, selector):
         try:
