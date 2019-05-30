@@ -75,20 +75,20 @@ class Node(JSClass, EventTarget):
 
     @property
     @abstractmethod
-    def nodeType(self):
+    def nodeType(self): # pragma: no cover
         pass
 
     @property
     @abstractmethod
-    def nodeName(self):
+    def nodeName(self): # pragma: no cover
         pass
 
     @abstractmethod
-    def getNodeValue(self):
+    def getNodeValue(self): # pragma: no cover
         pass
 
     @abstractmethod
-    def setNodeValue(self, value):
+    def setNodeValue(self, value): # pragma: no cover
         pass
 
     nodeValue = property(getNodeValue, setNodeValue)
