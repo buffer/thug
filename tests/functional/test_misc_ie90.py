@@ -1200,3 +1200,9 @@ class TestMiscSamplesIE(object):
         expected = ['ActiveXObject: adodb.recordset']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testIsSupported(self, caplog):
+        sample   = os.path.join(self.misc_path, "testIsSupported.html")
+        expected = ['isSupported: true']
+
+        self.do_perform_test(caplog, sample, expected)
