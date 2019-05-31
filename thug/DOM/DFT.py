@@ -771,7 +771,7 @@ class DFT(object):
             params = params[1].split(')')[0]
             return [p for p in params.split(',') if p]
 
-        return [params, ]
+        return list()
 
     def _handle_script_for_event(self, script):
         attr_for   = script.get("for", None)
