@@ -143,7 +143,7 @@ class Document(Node, DocumentEvent, DocumentView):
 
     @property
     def documentElement(self): # pragma: no cover
-        from thug.DOM.W3C.HTML.HTMLHtmlElement as HTMLHtmlElement
+        from thug.DOM.W3C.HTML.HTMLHtmlElement import HTMLHtmlElement
 
         html = self.doc.find('html')
         return HTMLHtmlElement(self, html if html else self.doc)
