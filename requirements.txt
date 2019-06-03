@@ -2,8 +2,8 @@ PySocks==1.7.0
 beautifulsoup4==4.7.1
 cchardet==2.1.4
 cssutils==1.0.2
-elasticsearch==7.0.1
-esprima==4.0.1
+elasticsearch==7.0.2
+# esprima==4.0.1
 html5lib==1.0.1
 lxml==4.3.3
 networkx==2.2
