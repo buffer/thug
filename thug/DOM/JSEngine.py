@@ -48,8 +48,8 @@ except ImportError:
     DUKTAPE_MODULE = False
 
 import thug
-from thug.Debugger.V8Debugger import V8Debugger
-from thug.Debugger.DuktapeDebugger import DuktapeDebugger
+# from thug.Debugger.V8Debugger import V8Debugger
+# from thug.Debugger.DuktapeDebugger import DuktapeDebugger
 
 log = logging.getLogger("Thug")
 
@@ -138,7 +138,7 @@ class JSEngine(object):
             PyV8.JSEngine.collect()
 
     def init_v8_symbols(self):
-        self.JSDebugger = V8Debugger
+        # self.JSDebugger = V8Debugger
         self.collect = PyV8.JSEngine.collect
         self.terminateAllThreads = PyV8.JSEngine.terminateAllThreads
         self.setStackLimit = PyV8.JSEngine.setStackLimit
@@ -147,7 +147,7 @@ class JSEngine(object):
         pass
 
     def init_duktape_symbols(self): # pragma: no cover
-        self.JSDebugger = DuktapeDebugger
+        # self.JSDebugger = DuktapeDebugger
         self.collect = self.passthrough
         self.terminateAllThreads = self.passthrough
         self.setStackLimit = self.passthrough
