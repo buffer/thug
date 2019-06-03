@@ -160,7 +160,7 @@ class TextStream(object):
 
         try:
             os.makedirs(log_dir)
-        except OSError as e:
+        except OSError as e: # pragma: no cover
             if e.errno == errno.EEXIST:
                 pass
             else:
