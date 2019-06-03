@@ -231,10 +231,10 @@ class HTMLDocument(Document):
 
     @property
     def documentElement(self):
-        from .HTMLElement import HTMLElement
+        from .HTMLHtmlElement import HTMLHtmlElement
 
         html = self.doc.find('html')
-        return HTMLElement(self, html if html else self.doc)
+        return HTMLHtmlElement(self, html if html else self.doc)
 
     @property
     def readyState(self):

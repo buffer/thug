@@ -142,11 +142,11 @@ class Document(Node, DocumentEvent, DocumentView):
         return self
 
     @property
-    def documentElement(self):
-        from .Element import Element
+    def documentElement(self): # pragma: no cover
+        from thug.DOM.W3C.HTML.HTMLHtmlElement as HTMLHtmlElement
 
         html = self.doc.find('html')
-        return Element(self, html if html else self.doc)
+        return HTMLHtmlElement(self, html if html else self.doc)
 
     def getCharacterSet(self):
         return self._character_set
