@@ -1137,7 +1137,7 @@ class DFT(object):
 
         self.handle_meta_http_equiv(meta)
 
-    def handle_meta_http_equiv(self, meta):
+    def handle_meta_http_equiv(self, meta, content = None):
         http_equiv = meta.get('http-equiv', None)
         if http_equiv is None:
             return
