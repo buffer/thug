@@ -40,7 +40,7 @@ class JSInspector(object):
     def dump_eval(self):
         name, saved = log.ThugLogging.eval_symbol
 
-        if not getattr(self.ctxt, "locals", None):
+        if not getattr(self.ctxt, "locals", None): # pragma: no cover
             return
 
         scripts = getattr(self.ctxt.locals, name, None)
@@ -56,7 +56,7 @@ class JSInspector(object):
 
             try:
                 log.ThugLogging.add_behavior_warn("[eval] Deobfuscated argument: {}".format(script))
-            except Exception as e:
+            except Exception as e: # pragma: no cover
                 log.warning("[JSInspector] dump_eval warning: %s", str(e))
 
             log.JSClassifier.classify(self.dump_url, script)
@@ -72,7 +72,7 @@ class JSInspector(object):
     def dump_write(self):
         name, saved = log.ThugLogging.write_symbol
 
-        if not getattr(self.ctxt, "locals", None):
+        if not getattr(self.ctxt, "locals", None): # pragma: no cover
             return
 
         htmls = getattr(self.ctxt.locals, name, None)
@@ -85,7 +85,7 @@ class JSInspector(object):
 
             try:
                 log.ThugLogging.add_behavior_warn("[document.write] Deobfuscated argument: {}".format(html))
-            except Exception as e:
+            except Exception as e: # pragma: no cover
                 log.warning("[JSInspector] dump_write warning: %s", str(e))
 
             log.HTMLClassifier.classify(self.dump_url, html)
