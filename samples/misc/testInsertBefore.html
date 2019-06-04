@@ -41,7 +41,7 @@ function testAppendChild(){
 	}
 
 	var textElem = document.createTextNode("Hello World");
-	bodyElem.insertBefore(fooElem, textElem);
+	bodyElem.insertBefore(textElem, fooElem);
 	alert(document.body.innerHTML);
 
 	var commentElem = document.createComment("Just a comment");
