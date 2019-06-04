@@ -474,6 +474,19 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testDocumentFragment4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentFragment4.html")
+        expected = ['<div><p>Test2</p></div><div><p>Test</p></div><div id="test1"><p>Test 1</p></div>', ]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDocumentFragment5(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentFragment5.html")
+        expected = ['Trying to replace a node not in the tree',
+                    '<div><p>Test2</p></div><div><p>Test</p></div>']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testClassList1(self, caplog):
         sample   = os.path.join(self.misc_path, "testClassList1.html")
         expected = ['[Initial value] <div class="foo"></div>',
