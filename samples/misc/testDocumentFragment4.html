@@ -1,0 +1,29 @@
+<html>
+<body>
+<div id="test1"><p>Test 1</p></div>
+<script>
+	var bodyElem = document.body;
+
+	div1 = document.getElementById("test1");
+
+	div2 = document.createElement('div')
+	p2   = document.createElement('p');
+	p2.innerHTML = "Test2";
+	div2.appendChild(p2);
+
+	bodyElem.insertBefore(div2, div1);
+
+	fragment = document.createDocumentFragment();
+
+	div = document.createElement('div')
+	p   = document.createElement('p');
+
+	p.innerHTML = "Test";
+	div.appendChild(p);
+
+	fragment.appendChild(div);
+	bodyElem.insertBefore(fragment, div1)
+	alert(document.body.innerHTML);
+</script>
+</body>
+<html>
