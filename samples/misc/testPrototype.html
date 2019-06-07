@@ -1,0 +1,57 @@
+<html>
+<body>
+<script>
+    function object1() {}
+    
+	function object2() {}
+
+	function get_var1() {
+		alert("Greetings from get_var1");
+	}
+
+	function set_var2() {
+		alert("Greetings from set_var2");
+	}
+
+	function set_var3() {
+		alert("Greetings from set_var3");
+	}
+
+	alert("window.constructor: " + window.constructor);
+
+	alert("window.prototype.__proto__: " + window.prototype.__proto__);
+	alert("window.prototype.constructor: " + window.prototype.constructor);
+	alert("window.prototype.name: " + window.prototype.name);
+
+	alert("window.toLocaleString(): " + window.toLocaleString());
+
+	window.__defineGetter__('var1', get_var1);
+	alert(window.__lookupGetter__('var1'));
+	alert(window.var1);
+
+	window.__defineSetter__('var2', set_var2);
+	window.var2 = "test2";
+	alert(window.hasOwnProperty('var2'));
+	alert(window.__lookupSetter__('var2'));
+
+	window.watch("var3", set_var3);
+	window.var3 = "foo";
+	window.unwatch("var3");
+
+	var o = {
+		set value(val) {
+			this.anotherValue = val; 
+		} 
+	};
+	o.value = 5;
+	alert("o.anotherValue = " + o.anotherValue);
+
+	alert(Object.keys(window));
+
+	object1.prototype = Object.create(object2.prototype);
+	const object3 = new object1();
+	alert("isPrototypeOf (test 1): " + object1.prototype.isPrototypeOf(object3));
+	alert("isPrototypeOf (test 2): " + object2.prototype.isPrototypeOf(object3));
+</script>
+</body>
+</html>
