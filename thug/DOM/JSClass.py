@@ -26,7 +26,7 @@ class JSClass(object):
         if prop and isinstance(prop[0], collections.Callable):
             return prop[0]()
 
-        method = self.__dict__.setdefault('__methods__', {}).get(name, None)
+        method = self.__methods__.get(name, None)
         if method and isinstance(method, collections.Callable):
             return method
 
