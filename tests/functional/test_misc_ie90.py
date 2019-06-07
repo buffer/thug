@@ -10,7 +10,7 @@ class TestMiscSamplesIE(object):
     thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
     misc_path = os.path.join(thug_path, "thug", "samples/misc")
 
-    def do_perform_test(self, caplog, sample, expected):
+    def do_perform_test(self, caplog, sample, expected, nofetch = False):
         thug = ThugAPI()
 
         thug.set_useragent('win7ie90')
@@ -18,6 +18,10 @@ class TestMiscSamplesIE(object):
         thug.set_connect_timeout(2)
         thug.disable_cert_logging()
         thug.set_features_logging()
+
+        if nofetch:
+            thug.set_no_fetch()
+
         thug.log_init(sample)
         thug.run_local(sample)
 
@@ -174,6 +178,11 @@ class TestMiscSamplesIE(object):
         expected = ["[HREF Redirection (document.location)]",
                     "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation1_nofetch(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation1.html")
+        expected = ["Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
+        self.do_perform_test(caplog, sample, expected, nofetch = True)
 
     def test_testLocation2(self, caplog):
         sample   = os.path.join(self.misc_path, "testLocation2.html")
