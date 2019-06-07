@@ -1223,8 +1223,17 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testIsSupported(self, caplog):
-        sample   = os.path.join(self.misc_path, "testIsSupported.html")
-        expected = ['isSupported: true']
+    def test_testPrototype(self, caplog):
+        sample   = os.path.join(self.misc_path, "testPrototype.html")
+        expected = ['window.constructor: function Window()',
+                    'window.prototype.__proto__: [object Object]',
+                    'window.prototype.constructor: function Window()',
+                    'window.prototype.name: Window',
+                    'window.toLocaleString(): [object Window]',
+                    'Greetings from get_var1',
+                    'Greetings from set_var2',
+                    'o.anotherValue = 5',
+                    'isPrototypeOf (test 1): true',
+                    'isPrototypeOf (test 2): true']
 
         self.do_perform_test(caplog, sample, expected)
