@@ -18,10 +18,12 @@
 	}
 
 	alert("window.constructor: " + window.constructor);
+	alert(window.hasOwnProperty('constructor'));
 
 	alert("window.prototype.__proto__: " + window.prototype.__proto__);
 	alert("window.prototype.constructor: " + window.prototype.constructor);
 	alert("window.prototype.name: " + window.prototype.name);
+	alert(window.hasOwnProperty('prototype'));
 
 	alert("window.toLocaleString(): " + window.toLocaleString());
 
