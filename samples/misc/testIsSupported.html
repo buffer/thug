@@ -1,8 +1,12 @@
 <html>
 <body>
+<div id="test"></div>
 <script>
 	var s = document.body.isSupported("Core", "2.0");
 	alert("isSupported: " + s);
+
+	var d = document.getElementById("test");
+	alert("isSupported: " + d.isSupported("Core", "2.0"));
 </script>
 </body>
 </html>
