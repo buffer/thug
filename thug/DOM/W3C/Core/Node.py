@@ -243,12 +243,12 @@ class Node(JSClass, EventTarget):
         # NO_MODIFICATION_ALLOWED_ERR: Raised if this node or the parent of
         # the new node is readonly.
         if self.is_readonly(self):
-            raise DOMException(DOMException.NO_MODIFICATION_ALLOWED)
+            raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
 
         parent = getattr(newChild, 'parentNode', None)
         if parent:
-            if self.is_readonly(parent):
-                raise DOMException(DOMException.NO_MODIFICATION_ALLOWED)
+            if self.is_readonly(parent): # pragma: no cover
+                raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
 
         if not newChild or not oldChild:
             raise DOMException(DOMException.HIERARCHY_REQUEST_ERR)
@@ -290,7 +290,7 @@ class Node(JSClass, EventTarget):
 
         # NO_MODIFICATION_ALLOWED_ERR: Raised if this node is readonly
         if self.is_readonly(self):
-            raise DOMException(DOMException.NO_MODIFICATION_ALLOWED)
+            raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
 
         if not oldChild:
             raise DOMException(DOMException.NOT_FOUND_ERR)
@@ -320,7 +320,7 @@ class Node(JSClass, EventTarget):
 
         # NO_MODIFICATION_ALLOWED_ERR: Raised if this node is readonly
         if self.is_readonly(self):
-            raise DOMException(DOMException.NO_MODIFICATION_ALLOWED)
+            raise DOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR)
 
         if self.is_text(self):
             raise DOMException(DOMException.HIERARCHY_REQUEST_ERR)
@@ -378,7 +378,7 @@ class Node(JSClass, EventTarget):
         pass
 
     # Introduced in DOM Level 2
-    def isSupported(self, feature, version):
+    def isSupported(self, feature, version): # pragma: no cover
         from .DOMImplementation import DOMImplementation
         return DOMImplementation.hasFeature(feature, version)
 
@@ -420,7 +420,7 @@ class Node(JSClass, EventTarget):
             from .CDATASection import CDATASection
             return CDATASection(doc, obj)
 
-        if isinstance(obj, BeautifulSoup.NavigableString):
+        if isinstance(obj, BeautifulSoup.NavigableString): # pragma: no cover
             from .Text import Text
             return Text(doc, obj)
 
