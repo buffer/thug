@@ -416,11 +416,11 @@ class Node(JSClass, EventTarget):
         if obj is None:
             return None
 
-        if isinstance(obj, BeautifulSoup.CData):
+        if isinstance(obj, BeautifulSoup.CData): # pragma: no cover
             from .CDATASection import CDATASection
             return CDATASection(doc, obj)
 
-        if isinstance(obj, BeautifulSoup.NavigableString): # pragma: no cover
+        if isinstance(obj, BeautifulSoup.NavigableString):
             from .Text import Text
             return Text(doc, obj)
 
