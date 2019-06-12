@@ -47,7 +47,7 @@ class HTMLMediaElement(HTMLElement):
 
         try:
             self.doc.window._navigator.fetch(src)
-        except Exception:
+        except Exception: # pragma: no cover
             return
 
     src = property(get_src, set_src)

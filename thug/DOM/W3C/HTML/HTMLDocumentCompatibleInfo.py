@@ -19,7 +19,7 @@ class HTMLDocumentCompatibleInfo(object):
     def getUserAgent(self):
         return self._userAgent
 
-    def setUserAgent(self, useragent):
+    def setUserAgent(self, useragent): # pragma: no cover
         self._userAgent = useragent
 
     userAgent = property(getUserAgent, setUserAgent)
@@ -27,7 +27,7 @@ class HTMLDocumentCompatibleInfo(object):
     def getVersion(self):
         return self._version
 
-    def setVersion(self, version):
+    def setVersion(self, version): # pragma: no cover
         self._version = version
 
     version = property(getVersion, setVersion)
