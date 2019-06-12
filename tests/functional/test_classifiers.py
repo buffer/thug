@@ -128,6 +128,13 @@ class TestClassifiers(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_vbs_signature_8(self, caplog):
+        sample   = os.path.join(self.classifiers_path, "test8.html")
+        expected = ['[VBS Classifier]',
+                    'thug/samples/classifiers/test8.html (Rule: vbs_signature_6, Classification: )']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_html_classifier_12(self, caplog):
         expected = ['[discard_meta_domain_whitelist] Whitelisted domain: antifork.org']
 
