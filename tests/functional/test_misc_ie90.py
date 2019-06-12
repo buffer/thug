@@ -1237,3 +1237,15 @@ class TestMiscSamplesIE(object):
                     'isPrototypeOf (test 2): true']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLBodyElement1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLBodyElement1.html")
+        expected = ['It works']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLBodyElement2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLBodyElement2.html")
+        expected = []
+
+        self.do_perform_test(caplog, sample, expected)
