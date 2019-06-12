@@ -380,7 +380,7 @@ class HTMLDocument(Document):
 
             try:
                 handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
-            except Exception:
+            except Exception: # pragma: no cover
                 handler = getattr(log.DFT, "handle_%s" % (name, ), None)
 
             if handler:
@@ -397,7 +397,7 @@ class HTMLDocument(Document):
 
             try:
                 handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
-            except Exception:
+            except Exception: # pragma: no cover
                 handler = getattr(log.DFT, "handle_%s" % (name, ), None)
 
             if handler:
