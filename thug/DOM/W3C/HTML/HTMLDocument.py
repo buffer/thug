@@ -272,7 +272,7 @@ class HTMLDocument(Document):
             for s in compatible.split(';'):
                 try:
                     (useragent, version) = s.split('=')
-                except ValueError:
+                except ValueError: # pragma: no cover
                     # Ignore the http-equiv X-UA-Compatible content if its
                     # format is not correct
                     return
@@ -287,8 +287,7 @@ class HTMLDocument(Document):
 
     @property
     def documentMode(self):
-        # version = log.ThugOpts.Personality.browserVersion
-        major   = log.ThugOpts.Personality.browserMajorVersion
+        major = log.ThugOpts.Personality.browserMajorVersion
 
         if major < 8:
             return 7 if self.compatMode in ("CSS1Compat", ) else 5
@@ -314,10 +313,10 @@ class HTMLDocument(Document):
 
             try:
                 mode_version = int(mode_version)
-            except ValueError:
+            except ValueError: # pragma: no cover
                 continue
 
-            if mode_version not in (5, 7, 8, 9, 10):
+            if mode_version not in (5, 7, 8, 9, 10): # pragma: no cover
                 continue
 
             if mode_version <= major and mode_version >= engine:
