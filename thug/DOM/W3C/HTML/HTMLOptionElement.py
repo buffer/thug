@@ -2,13 +2,12 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
-from .compatibility import thug_long
 from .form_property import form_property
 
 
 class HTMLOptionElement(HTMLElement):
     defaultSelected = attr_property("selected", bool)
-    index           = attr_property("index", thug_long, readonly = True)
+    index           = attr_property("index", int, readonly = True)
     disabled        = attr_property("disabled", bool)
     form            = form_property()
     label           = attr_property("label")

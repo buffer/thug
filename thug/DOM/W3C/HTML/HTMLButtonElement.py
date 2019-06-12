@@ -3,7 +3,6 @@
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 from .form_property import form_property
-from .compatibility import thug_long
 
 
 class HTMLButtonElement(HTMLElement):
@@ -11,7 +10,7 @@ class HTMLButtonElement(HTMLElement):
     disabled  = attr_property("disabled", bool)
     form      = form_property()
     name      = attr_property("name")
-    tabIndex  = attr_property("tabindex", thug_long)
+    tabIndex  = attr_property("tabindex", int)
     type      = attr_property("type")
     value     = attr_property("value")
 

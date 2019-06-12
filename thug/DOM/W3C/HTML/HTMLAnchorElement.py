@@ -8,7 +8,6 @@ import six.moves.urllib.parse as urlparse
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
-from .compatibility import thug_long
 
 log = logging.getLogger("Thug")
 
@@ -23,7 +22,7 @@ class HTMLAnchorElement(HTMLElement):
     rel       = attr_property("rel")
     rev       = attr_property("rev")
     shape     = attr_property("shape")
-    tabIndex  = attr_property("tabindex", thug_long)
+    tabIndex  = attr_property("tabindex", int)
     target    = attr_property("target")
     type      = attr_property("type")
 

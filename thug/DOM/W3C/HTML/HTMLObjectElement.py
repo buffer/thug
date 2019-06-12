@@ -4,7 +4,6 @@ import logging
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
-from .compatibility import thug_long
 from .form_property import form_property
 
 log = logging.getLogger("Thug")
@@ -22,13 +21,13 @@ class HTMLObjectElement(HTMLElement):
     declare  = attr_property("declare", bool)
     form     = form_property()
     height   = attr_property("height")
-    hspace   = attr_property("hspace", thug_long)
+    hspace   = attr_property("hspace", int)
     name     = attr_property("name")
     standBy  = attr_property("standby")
-    tabIndex = attr_property("tabindex", thug_long, default = 0)
+    tabIndex = attr_property("tabindex", int, default = 0)
     type     = attr_property("type")
     useMap   = attr_property("usemap")
-    vspace   = attr_property("vspace", thug_long)
+    vspace   = attr_property("vspace", int)
     width    = attr_property("width")
 
     def __init__(self, doc, tag):

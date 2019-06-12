@@ -5,7 +5,6 @@ from thug.DOM.W3C.Core.DOMException import DOMException
 from .HTMLElement import HTMLElement
 from .HTMLOptionsCollection import HTMLOptionsCollection
 from .attr_property import attr_property
-from .compatibility import thug_long
 
 
 class HTMLSelectElement(HTMLElement):
@@ -14,8 +13,8 @@ class HTMLSelectElement(HTMLElement):
     disabled      = attr_property("disabled", bool)
     multiple      = attr_property("multiple", bool)
     name          = attr_property("name")
-    size          = attr_property("size", thug_long)
-    tabIndex      = attr_property("tabindex", thug_long)
+    size          = attr_property("size", int)
+    tabIndex      = attr_property("tabindex", int)
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)

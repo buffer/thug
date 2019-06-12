@@ -4,7 +4,6 @@ import logging
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
-from .compatibility import thug_long
 
 log = logging.getLogger("Thug")
 
@@ -13,14 +12,14 @@ class HTMLImageElement(HTMLElement):
     align    = attr_property("align")
     alt      = attr_property("alt")
     border   = attr_property("border")
-    height   = attr_property("height", thug_long)
-    hspace   = attr_property("hspace", thug_long)
+    height   = attr_property("height", int)
+    hspace   = attr_property("hspace", int)
     isMap    = attr_property("ismap", bool)
     longDesc = attr_property("longdesc")
     name     = attr_property("name")
     useMap   = attr_property("usemap")
-    vspace   = attr_property("vspace", thug_long)
-    width    = attr_property("width", thug_long)
+    vspace   = attr_property("vspace", int)
+    width    = attr_property("width", int)
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
