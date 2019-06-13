@@ -77,7 +77,7 @@ class HTMLObjectElement(HTMLElement):
 
             try:
                 register_object(self, value)
-            except Exception:
+            except TypeError:
                 return
 
         self.tag[name] = value
