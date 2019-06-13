@@ -196,16 +196,6 @@ def register_object(s, clsid):
         log.warning("Unknown ActiveX Object: %s", clsid)
         raise TypeError()
 
-    # JavaPlugin
-    if clsid.lower().startswith('javaplugin') and log.ThugVulnModules.javaplugin_disabled:
-        log.warning("Unknown ActiveX Object: %s", clsid)
-        raise TypeError()
-
-    # JavaWebStart
-    if clsid.lower().startswith('javawebstart.isinstalled') and log.ThugVulnModules.javaplugin_disabled:
-        log.warning("Unknown ActiveX Object: %s", clsid)
-        raise TypeError()
-
     for c in CLSID:
         if clsid in c['id']:
             obj = c
