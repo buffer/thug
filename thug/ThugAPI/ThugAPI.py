@@ -42,11 +42,11 @@ from thug.Logging.ThugLogging import ThugLogging
 from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
 from .Watchdog import Watchdog
-# from .JSLocker import JSLocker
 from .OpaqueFilter import OpaqueFilter
 from .abstractmethod import abstractmethod
 from .ThugVulnModules import ThugVulnModules
 
+from thug.DOM.JSLocker import JSLocker
 from thug.Classifier.JSClassifier import JSClassifier
 from thug.Classifier.VBSClassifier import VBSClassifier
 from thug.Classifier.URLClassifier import URLClassifier
@@ -63,7 +63,7 @@ log.setLevel(logging.WARN)
 class ThugAPI(object):
     def __init__(self, configuration_path = thug.__configuration_path__):
         self.__init_conf(configuration_path)
-        # self.__init_jslocker()
+        self.__init_jslocker()
         self.__init_core()
         self.__init_classifiers()
         self.__init_pyhooks()
@@ -74,8 +74,8 @@ class ThugAPI(object):
         log.configuration_path = configuration_path
         log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
 
-    # def __init_jslocker(self):
-    #    self.JSLocker = JSLocker().jslocker
+    def __init_jslocker(self):
+        self.JSLocker = JSLocker().jslocker
 
     def __init_core(self):
         log.ThugOpts        = ThugOpts()
@@ -389,7 +389,7 @@ class ThugAPI(object):
         if log.Trace: # pragma: no cover
             sys.settrace(log.Trace)
 
-        with log.JSEngine.JSLocker():
+        with self.JSLocker():
             with Watchdog(log.ThugOpts.timeout, callback = self.watchdog_cb):
                 dft = DFT(window)
                 dft.run()
