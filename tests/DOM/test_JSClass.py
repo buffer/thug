@@ -9,7 +9,7 @@ class JSClassTest(JSClass):
 class TestJSClass(object):
     def getter(self):
         return "foobar"
-                        
+
     def test_jsclass_1(self):
         test1 = JSClassTest("test1")
 
