@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import bs4 as BeautifulSoup
+import bs4
 
 
 class DOMParser(object):
@@ -8,4 +8,4 @@ class DOMParser(object):
         from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
 
         parser = "lxml" if 'xml' in type_ else "html.parser"
-        return DOMImplementation(BeautifulSoup.BeautifulSoup(s, parser))
+        return DOMImplementation(bs4.BeautifulSoup(s, parser))

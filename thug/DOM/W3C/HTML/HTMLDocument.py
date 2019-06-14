@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 
 import logging
+import bs4
 import six
 import six.moves.urllib.parse as urlparse
-import bs4 as BeautifulSoup
-
 from lxml.html import builder as E
 from lxml.html import tostring
 
@@ -198,7 +197,7 @@ class HTMLDocument(Document):
             return
 
         title = E.TITLE(value)
-        tag   = BeautifulSoup.BeautifulSoup(tostring(title), "html.parser")
+        tag   = bs4.BeautifulSoup(tostring(title), "html.parser")
         self.head.tag.append(tag)
 
     title = property(getTitle, setTitle)
@@ -254,7 +253,7 @@ class HTMLDocument(Document):
         tag = self.doc.find('head')
         if not tag:
             head = E.HEAD()
-            tag  = BeautifulSoup.BeautifulSoup(tostring(head), "html.parser")
+            tag  = bs4.BeautifulSoup(tostring(head), "html.parser")
 
         self._head = HTMLHeadElement(self.doc, tag)
         return self._head
@@ -328,7 +327,7 @@ class HTMLDocument(Document):
         return engine
 
     def open(self, mimetype = 'text/html', historyPosition = "replace"):
-        self.doc = BeautifulSoup.BeautifulSoup("", "html5lib")
+        self.doc = bs4.BeautifulSoup("", "html5lib")
         return self
 
     def close(self):
@@ -338,7 +337,7 @@ class HTMLDocument(Document):
         html = "".join(self._html)
         self._html = None
 
-        self.doc = BeautifulSoup.BeautifulSoup(html, "html5lib")
+        self.doc = bs4.BeautifulSoup(html, "html5lib")
 
     def write(self, html):
         if log.ThugOpts.features_logging:
@@ -362,16 +361,16 @@ class HTMLDocument(Document):
         else:
             parent = body if body and tag.parent.name in ('html', ) else tag.parent
 
-        for tag in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
-            if isinstance(tag, BeautifulSoup.NavigableString):
+        for tag in bs4.BeautifulSoup(html, "html.parser").contents:
+            if isinstance(tag, bs4.NavigableString):
                 child = list(parent.children)[-1]
 
-                if isinstance(child, BeautifulSoup.NavigableString):
+                if isinstance(child, bs4.NavigableString):
                     child.string.replace_with(child.string + tag)
-                if isinstance(child, BeautifulSoup.Tag):
+                if isinstance(child, bs4.Tag):
                     child.append(tag)
 
-            if isinstance(tag, BeautifulSoup.Tag):
+            if isinstance(tag, bs4.Tag):
                 parent.insert(len(parent.contents), tag)
 
             name = getattr(tag, "name", None)
@@ -390,7 +389,7 @@ class HTMLDocument(Document):
         if html == _html:
             return
 
-        for tag in BeautifulSoup.BeautifulSoup(_html, "html.parser").contents:
+        for tag in bs4.BeautifulSoup(_html, "html.parser").contents:
             name = getattr(tag, "name", None)
             if name in ("script", None, ):
                 continue

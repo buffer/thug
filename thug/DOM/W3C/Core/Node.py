@@ -2,7 +2,7 @@
 
 import copy
 import logging
-import bs4 as BeautifulSoup
+import bs4
 
 from thug.DOM.JSClass import JSClass
 from .abstractmethod import abstractmethod
@@ -416,11 +416,11 @@ class Node(JSClass, EventTarget):
         if obj is None:
             return None
 
-        if isinstance(obj, BeautifulSoup.CData): # pragma: no cover
+        if isinstance(obj, bs4.CData): # pragma: no cover
             from .CDATASection import CDATASection
             return CDATASection(doc, obj)
 
-        if isinstance(obj, BeautifulSoup.NavigableString):
+        if isinstance(obj, bs4.NavigableString):
             from .Text import Text
             return Text(doc, obj)
 

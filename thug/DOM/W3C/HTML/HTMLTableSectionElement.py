@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 import logging
-import bs4 as BeautifulSoup
+import bs4
+
 from thug.DOM.W3C.Core.DOMException import DOMException
 from .HTMLElement import HTMLElement
 from .HTMLCollection import HTMLCollection
@@ -39,7 +40,7 @@ class HTMLTableSectionElement(HTMLElement):
             if log.ThugOpts.Personality.isChrome() or log.ThugOpts.Personality.isSafari():
                 index = 0
 
-        row = HTMLTableRowElement(self.doc, BeautifulSoup.Tag(self.doc, name = 'tr'))
+        row = HTMLTableRowElement(self.doc, bs4.Tag(self.doc, name = 'tr'))
 
         if index in (-1, len(self._rows), ):
             self.rows.nodes.append(row)

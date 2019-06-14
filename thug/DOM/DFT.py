@@ -24,16 +24,14 @@ import random
 # import types
 import logging
 
+import bs4
 import six
 import six.moves.urllib.parse as urlparse
-from cssutils.parse import CSSParser
-import bs4 as BeautifulSoup
 import cchardet
-
 import pylibemu
+from cssutils.parse import CSSParser
 
 from thug.ActiveX.ActiveX import _ActiveXObject
-
 from thug.DOM.W3C import w3c
 
 log = logging.getLogger("Thug")
@@ -562,7 +560,7 @@ class DFT(object):
 
     def _handle_jnlp(self, data, headers, params):
         try:
-            soup = BeautifulSoup.BeautifulSoup(data, "lxml")
+            soup = bs4.BeautifulSoup(data, "lxml")
         except Exception: # pragma: no cover
             return
 

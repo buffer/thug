@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import bs4 as BeautifulSoup
+import bs4
 
 from .Node import Node
 
@@ -12,7 +12,7 @@ class Attr(Node):
         self.doc    = doc
         self.parent = parent
         self.attr   = attr
-        self.tag    = BeautifulSoup.Tag(parser = self.doc, name = 'attr')
+        self.tag    = bs4.Tag(parser = self.doc, name = 'attr')
         Node.__init__(self, doc)
 
         self._specified = False

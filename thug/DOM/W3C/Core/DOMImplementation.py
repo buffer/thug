@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 import logging
+import bs4
 
 from lxml.html import builder as E
 from lxml.html import tostring
-import bs4 as BeautifulSoup
 
 import thug.DOM.W3C.HTML as HTML
 
@@ -109,7 +109,7 @@ class DOMImplementation(HTML.HTMLDocument):
     def createHTMLElement(doc, tag):
         from .Node import Node
 
-        if isinstance(tag, BeautifulSoup.NavigableString):
+        if isinstance(tag, bs4.NavigableString):
             return Node.wrap(doc, tag)
 
         if log.ThugOpts.Personality.isIE():
@@ -130,5 +130,5 @@ class DOMImplementation(HTML.HTMLDocument):
         head  = E.HEAD(title)
         html  = E.HTML(head, body)
 
-        soup = BeautifulSoup.BeautifulSoup(tostring(html, doctype = '<!doctype html>'), "lxml")
+        soup = bs4.BeautifulSoup(tostring(html, doctype = '<!doctype html>'), "lxml")
         return DOMImplementation(soup)

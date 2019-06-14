@@ -22,9 +22,9 @@ import json
 import logging
 import zipfile
 import tempfile
-from six import BytesIO
-import bs4 as BeautifulSoup
+import bs4
 import rarfile
+from six import BytesIO
 
 log = logging.getLogger("Thug")
 
@@ -370,7 +370,7 @@ class MIMEHandler(dict):
         headers['Connection'] = 'keep-alive'
 
         try:
-            soup = BeautifulSoup.BeautifulSoup(data, "lxml")
+            soup = bs4.BeautifulSoup(data, "lxml")
         except Exception:
             return
 

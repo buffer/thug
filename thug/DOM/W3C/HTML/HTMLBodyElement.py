@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import logging
-import bs4 as BeautifulSoup
+import bs4
 
 from six import StringIO
 
@@ -38,7 +38,7 @@ class HTMLBodyElement(HTMLElement):
 
         self.tag.clear()
 
-        for node in BeautifulSoup.BeautifulSoup(html, "html.parser").contents:
+        for node in bs4.BeautifulSoup(html, "html.parser").contents:
             self.tag.append(node)
 
             name = getattr(node, 'name', None)

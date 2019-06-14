@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-import bs4 as BeautifulSoup
+import bs4
 
 from .Node import Node
 
 
 class EntityReference(Node):
     def __init__(self, doc, name):
-        self.tag = BeautifulSoup.BeautifulSoup("&{};".format(name), "lxml")
+        self.tag = bs4.BeautifulSoup("&{};".format(name), "lxml")
         Node.__init__(self, doc)
 
     @property

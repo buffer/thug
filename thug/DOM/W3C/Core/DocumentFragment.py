@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import logging
-import bs4 as BeautifulSoup
+import bs4
 
 from .Node import Node
 
@@ -10,7 +10,7 @@ log = logging.getLogger("Thug")
 
 class DocumentFragment(Node):
     def __init__(self, doc):
-        self.tag = BeautifulSoup.Tag(parser = doc, name = 'documentfragment')
+        self.tag = bs4.Tag(parser = doc, name = 'documentfragment')
         Node.__init__(self, doc)
         self.__init_personality()
 

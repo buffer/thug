@@ -27,7 +27,7 @@ import datetime
 # import types
 import random
 import six
-import bs4 as BeautifulSoup
+import bs4
 import six.moves.urllib_parse as urllib
 
 from thug.ActiveX.ActiveX import _ActiveXObject
@@ -108,7 +108,7 @@ class Window(JSClass):
                  width = 800, height = 600, left = 0, top = None, **kwds):
 
         self.url = url
-        self.doc = w3c.getDOMImplementation(dom_or_doc, **kwds) if isinstance(dom_or_doc, BeautifulSoup.BeautifulSoup) else dom_or_doc
+        self.doc = w3c.getDOMImplementation(dom_or_doc, **kwds) if isinstance(dom_or_doc, bs4.BeautifulSoup) else dom_or_doc
 
         self.doc.window        = self
         self.doc.contentWindow = self
@@ -1104,7 +1104,7 @@ class Window(JSClass):
             html = ''
             kwds = {}
 
-        dom = BeautifulSoup.BeautifulSoup(html, "html5lib")
+        dom = bs4.BeautifulSoup(html, "html5lib")
 
         for spec in specs.split(','):
             spec = [s.strip() for s in spec.split('=')]

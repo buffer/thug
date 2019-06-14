@@ -22,7 +22,7 @@ import logging
 import six.moves.urllib.parse as urlparse
 
 import cchardet
-from bs4 import BeautifulSoup
+import bs4
 from lxml.html import tostring
 from lxml.html import builder as E
 from zope.interface import implementer
@@ -411,7 +411,7 @@ class ThugAPI(object):
             if not content.lstrip().startswith('<script'):
                 html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(content.decode(encoding['encoding'])))))
             else:
-                soup = BeautifulSoup(content, "html.parser")
+                soup = bs4.BeautifulSoup(content, "html.parser")
 
                 try:
                     soup.html.unwrap()
