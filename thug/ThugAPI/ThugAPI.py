@@ -63,7 +63,7 @@ log.setLevel(logging.WARN)
 class ThugAPI(object):
     def __init__(self, configuration_path = thug.__configuration_path__):
         self.__init_conf(configuration_path)
-        self.__init_jslocker()
+        # self.__init_jslocker()
         self.__init_core()
         self.__init_classifiers()
         self.__init_pyhooks()
@@ -74,8 +74,8 @@ class ThugAPI(object):
         log.configuration_path = configuration_path
         log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
 
-    def __init_jslocker(self):
-        self.JSLocker = JSLocker().jslocker
+    # def __init_jslocker(self):
+    #    self.JSLocker = JSLocker().jslocker
 
     def __init_core(self):
         log.ThugOpts        = ThugOpts()
