@@ -54,11 +54,22 @@ import thug
 log = logging.getLogger("Thug")
 
 
+class DummyJSLocker(object): # pragma: no cover
+    def __init__(self, dummy = None):
+        self.dummy = dummy
+
+    def __enter__(self):
+        return self.dummy
+
+    def __exit__(self, *args):
+        pass
+
 
 class JSEngine(object):
     def __init__(self, window = None):
         self.init_config()
         self.init_engine()
+        self.init_jslocker()
         self.init_context(window)
         self.init_scripts()
         self.init_symbols()
@@ -92,6 +103,20 @@ class JSEngine(object):
         m = getattr(self, "init_{}_context".format(self.engine), None)
         if m:
             m(window)
+
+    def init_v8_jslocker(self):
+        self._jslocker = PyV8.JSLocker
+
+    def init_dummy_jslocker(self): # pragma: no cover
+        self._jslocker = DummyJSLocker
+
+    def init_jslocker(self):
+        m = getattr(self, 'init_{}_jslocker'.format(self.engine), self.init_dummy_jslocker)
+        m()
+
+    @property
+    def JSLocker(self):
+        return self._jslocker
 
     def init_scripts_thug(self, ctxt):
         thug_js = os.path.join(thug.__configuration_path__, 'scripts', "thug.js")

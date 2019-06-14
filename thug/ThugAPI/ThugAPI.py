@@ -42,7 +42,7 @@ from thug.Logging.ThugLogging import ThugLogging
 from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
 from .Watchdog import Watchdog
-from .JSLocker import JSLocker
+# from .JSLocker import JSLocker
 from .OpaqueFilter import OpaqueFilter
 from .abstractmethod import abstractmethod
 from .ThugVulnModules import ThugVulnModules
@@ -389,7 +389,7 @@ class ThugAPI(object):
         if log.Trace: # pragma: no cover
             sys.settrace(log.Trace)
 
-        with self.JSLocker():
+        with log.JSEngine.JSLocker():
             with Watchdog(log.ThugOpts.timeout, callback = self.watchdog_cb):
                 dft = DFT(window)
                 dft.run()
