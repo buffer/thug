@@ -11,9 +11,6 @@ class JSClass(object):
     def __str__(self):
         return self.toString()
 
-    def __unicode__(self):
-        return self.toString()
-
     def __getattr__(self, name):
         if name == 'constructor':
             return JSClassConstructor(self.__class__)
