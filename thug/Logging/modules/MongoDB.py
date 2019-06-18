@@ -17,6 +17,7 @@
 # MA  02111-1307  USA
 
 import os
+import six
 import base64
 import logging
 import datetime
@@ -26,7 +27,6 @@ import pymongo
 import gridfs
 from pymongo.errors import DuplicateKeyError
 
-from .compatibility import thug_unicode
 from .ExploitGraph import ExploitGraph
 
 log = logging.getLogger("Thug")
@@ -377,14 +377,9 @@ class MongoDB(object):
         @data  data to encode properly
         """
         if not data:
-            return ""
+            return str()
 
-        try:
-            enc = log.Encoding.detect(data)
-            enc_data = data.decode(enc['encoding'])
-        except Exception:
-            enc_data = thug_unicode(data)
-
+        enc_data = data if isinstance(data, six.string_types) else data.decode()
         return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
 
     def add_code_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):

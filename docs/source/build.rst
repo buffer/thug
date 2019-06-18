@@ -9,9 +9,9 @@ Requirements
 Python
 ^^^^^^
 
-Python 2.7 is required in order to properly run Thug. You may be lucky running it with
-Python 2.6 but please consider this version is not supported so issues related to Python 
-2.6 will be simply ignored. Python source code can be downloaded at http://www.python.org.
+Python 3.6+ is required in order to properly run Thug. You may be lucky running it with
+previous versions but please consider such versions are not supported so issues could
+be ignored. Python source code can be downloaded at http://www.python.org.
 
 
 Boost

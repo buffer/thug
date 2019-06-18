@@ -129,5 +129,9 @@ class BaseClassifier(object):
 
         _etags = [t.strip() for t in etags.split(',')]
         for s in match.strings:
-            if s[1] in _etags and s[2] not in match.tags:
-                match.tags.append(s[2])
+            if s[1] not in _etags:
+                continue
+
+            tag = s[2].decode() if isinstance(s[2], bytes) else s[2]
+            if tag not in match.tags:
+                match.tags.append(tag)

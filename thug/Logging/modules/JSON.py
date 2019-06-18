@@ -25,10 +25,10 @@ import base64
 import logging
 import datetime
 
+import six
 from six import StringIO
 
 from .Mapper import Mapper
-from .compatibility import thug_unicode
 
 log = logging.getLogger("Thug")
 
@@ -103,27 +103,22 @@ class JSON(object):
         @data  data to encode properly
         """
         if not data:
-            return ""
+            return str()
 
-        try:
-            enc = log.Encoding.detect(data)
-            enc_data = data.decode(enc['encoding'])
-        except Exception:
-            enc_data = thug_unicode(data)
-
+        enc_data = data if isinstance(data, six.string_types) else data.decode()
         return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
 
     def set_url(self, url):
         if not self.json_enabled:
             return
 
-        self.data["url"] = self.fix(url)
+        self.data["url"] = url
 
     def add_code_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
         if not self.json_enabled:
             return
 
-        self.data["code"].append({"snippet"      : self.fix(snippet, drop_spaces = False),
+        self.data["code"].append({"snippet"      : self.fix(snippet),
                                   "language"     : self.fix(language),
                                   "relationship" : self.fix(relationship),
                                   "tag"          : self.fix(tag),
@@ -133,7 +128,9 @@ class JSON(object):
         if not self.json_enabled:
             return
 
-        self.data["code"].append({"snippet"      : base64.b64encode(snippet),
+        s = base64.b64encode(snippet.encode())
+
+        self.data["code"].append({"snippet"      : s.decode(),
                                   "language"     : self.fix(language),
                                   "relationship" : self.fix(relationship),
                                   "tag"          : self.fix(tag),
@@ -319,7 +316,7 @@ class JSON(object):
         json.dump(self.data, output, sort_keys = False, indent = 4)
         if log.ThugOpts.json_logging and log.ThugOpts.file_logging:
             logdir = os.path.join(basedir, "analysis", "json")
-            log.ThugLogging.store_content(logdir, 'analysis.json', output.getvalue())
+            log.ThugLogging.store_content(logdir, 'analysis.json', output.getvalue().encode())
 
             m = Mapper(logdir)
             m.add_data(self.data)

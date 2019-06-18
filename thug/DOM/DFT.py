@@ -140,28 +140,26 @@ class DFT(object):
                 i += 1
                 continue
 
-            if s[i] == '%':
-                if (i + 6) <= len(s) and s[i + 1] == 'u':
+            if s[i] in ('%', ) and (i + 1) < len(s) and s[i + 1] == 'u':
+                if (i + 6) <= len(s):
                     currchar = int(s[i + 2: i + 4], 16)
                     nextchar = int(s[i + 4: i + 6], 16)
-                    sc.append(chr(nextchar))
-                    sc.append(chr(currchar))
+                    sc.append(nextchar)
+                    sc.append(currchar)
                     i += 6
-                elif (i + 3) <= len(s) and s[i + 1] == 'u':
+                elif (i + 3) <= len(s):
                     currchar = int(s[i + 2: i + 4], 16)
-                    sc.append(chr(currchar))
+                    sc.append(currchar)
                     i += 3
-                else:
-                    sc.append(s[i])
-                    i += 1
             else:
-                sc.append(s[i])
+                sc.append(ord(s[i]))
+               #  sc.append(s[i])
                 i += 1
 
-        return ''.join(sc)
+        return bytes(sc)
 
     def check_URLDownloadToFile(self, emu, snippet):
-        profile = emu.emu_profile_output
+        profile = emu.emu_profile_output.decode()
 
         while True:
             offset = profile.find('URLDownloadToFile')
@@ -195,7 +193,7 @@ class DFT(object):
             profile = profile[1:]
 
     def check_WinExec(self, emu, snippet):
-        profile = emu.emu_profile_output
+        profile = emu.emu_profile_output.decode()
 
         while True:
             offset = profile.find('WinExec')
@@ -236,42 +234,26 @@ class DFT(object):
         if not shellcode:
             return
 
-        enc = cchardet.detect(shellcode)
-        if enc['encoding']:
-            try:
-                shellcode = shellcode.decode(enc['encoding']).encode('latin1')
-            except Exception:
-                pass
-        else:
-            shellcode = shellcode.encode('latin1')
-
-        try:
-            sc = self.build_shellcode(shellcode)
-        except Exception:
-            sc = shellcode
-
+        sc = self.build_shellcode(shellcode)
         emu = pylibemu.Emulator(enable_hooks = False)
         emu.run(sc)
 
         if emu.emu_profile_output:
-            # try:
-            #    encoded_sc = shellcode.encode('unicode-escape')
-            # except:  # pylint:disable=bare-except
-            #    encoded_sc = "Unable to encode shellcode"
+            profile = emu.emu_profile_output.decode()
 
-            snippet = log.ThugLogging.add_shellcode_snippet(sc,
+            snippet = log.ThugLogging.add_shellcode_snippet(shellcode,
                                                             "Assembly",
                                                             "Shellcode",
                                                             method = "Static Analysis")
 
-            log.ThugLogging.add_behavior_warn(description = "[Shellcode Profile] {}".format(emu.emu_profile_output),
+            log.ThugLogging.add_behavior_warn(description = "[Shellcode Profile] {}".format(profile),
                                               snippet     = snippet,
                                               method      = "Static Analysis")
 
             self.check_URLDownloadToFile(emu, snippet)
             self.check_WinExec(emu, snippet)
 
-        self.check_url(sc, shellcode)
+        # self.check_url(sc, shellcode)
         emu.free()
 
     def check_url(self, sc, shellcode):
@@ -1145,7 +1127,7 @@ class DFT(object):
             return
 
         tag = http_equiv.lower().replace('-', '_')
-        handler = getattr(self, 'handle_meta_%s' % (tag.encode('ascii', 'ignore'), ), None)
+        handler = getattr(self, 'handle_meta_{}'.format(tag), None)
         if handler:
             handler(http_equiv, content)
 

@@ -73,8 +73,9 @@ class Window(JSClass):
 
         def stop(self):
             self.running = False
-            if self.event in sched.queue:
-                sched.cancel(self.event)
+
+            # if self.event in sched.queue:
+            #    sched.cancel(self.event)
 
         def execute(self):
             if not self.running:
@@ -83,18 +84,13 @@ class Window(JSClass):
             with self.window.context as ctx:
                 try:
                     if isinstance(self.code, six.string_types):
-                        return ctx.eval(self.code)
+                        ctx.eval(self.code)
 
                     if log.JSEngine.isJSFunction(self.code):
-                        return self.code()
-
+                        self.code()
+                except Exception as e:
                     log.warning("Error while handling timer callback")
 
-                    if log.ThugOpts.Personality.isIE():
-                        raise TypeError()
-
-                    return None
-                except Exception:
                     if log.ThugOpts.Personality.isIE():
                         raise TypeError()
 
@@ -985,7 +981,7 @@ class Window(JSClass):
 
     def unescape(self, s):
         i  = 0
-        sc = list()
+        sc = str()
 
         if len(s) > 16:
             log.ThugLogging.shellcodes.add(s)
@@ -1000,33 +996,39 @@ class Window(JSClass):
                 i += 1
                 continue
 
-            if s[i] == '%' and (i + 1) < len(s) and s[i + 1] == 'u':
+            if s[i] in ('%', ) and (i + 1) < len(s) and s[i + 1] == 'u':
                 if (i + 6) <= len(s):
                     currchar = int(s[i + 2: i + 4], 16)
                     nextchar = int(s[i + 4: i + 6], 16)
-                    sc.append(chr(nextchar))
-                    sc.append(chr(currchar))
+                    sc += chr(nextchar)
+                    sc += chr(currchar)
                     i += 6
                 elif (i + 3) <= len(s):
                     currchar = int(s[i + 2: i + 4], 16)
-                    sc.append(chr(currchar))
+                    sc += chr(currchar)
                     i += 3
             else:
-                sc.append(s[i])
+                sc += s[i]
                 i += 1
 
-        return ''.join(sc)
+        return sc
 
     def atob(self, s):
         """
         The atob method decodes a base-64 encoded string
         """
+        if isinstance(s, six.string_types):
+            s = s.encode()
+
         return base64.b64decode(s)
 
     def btoa(self, s):
         """
         The btoa method encodes a string in base-64
         """
+        if isinstance(s, six.string_types):
+            s = s.encode()
+
         return base64.b64encode(s)
 
     def decodeURIComponent(self, s):
