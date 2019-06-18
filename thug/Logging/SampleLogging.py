@@ -32,6 +32,8 @@ try:
 except ImportError:  # pragma: no cover
     SSDEEP = False
 
+from thug.Magic.Magic import Magic
+
 log = logging.getLogger("Thug")
 
 
@@ -61,10 +63,17 @@ class SampleLogging(object):
         return pe.get_imphash()
 
     def is_pdf(self, data):
-        return (data[:1024].find('%PDF') != -1)
+        if isinstance(data, str):
+            data = data.encode()
+
+        return (data[:1024].find(b'%PDF') != -1)
 
     def is_jar(self, data):
+        if isinstance(data, str):
+            data = data.encode()
+
         fd, jar = tempfile.mkstemp()
+
         with open(jar, 'wb') as fd:
             fd.write(data)
 
@@ -80,15 +89,21 @@ class SampleLogging(object):
         return False
 
     def is_swf(self, data):
-        return data.startswith('CWS') or data.startswith('FWS')
+        if isinstance(data, str):
+            data = data.encode()
+
+        return data.startswith(b'CWS') or data.startswith(b'FWS')
 
     def is_doc(self, data):
+        if isinstance(data, str):
+            data = data.encode()
+
         doc_mime_types = (
             'application/msword',
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         )
 
-        return magic.from_buffer(data, mime = True) in doc_mime_types
+        return Magic(data).get_mime() in doc_mime_types
 
     def is_rtf(self, data):
         rtf_mime_types = (
@@ -136,5 +151,4 @@ class SampleLogging(object):
             p['url'] = url
 
         p['data'] = base64.b64encode(data)
-
         return p

@@ -107,12 +107,12 @@ class JSInspector(object):
 
         try:
             result = self.ctxt.eval(self.script)
-        except (UnicodeDecodeError, TypeError):
-            try:
-                enc = log.Encoding.detect(self.script)
-                result = self.ctxt.eval(self.script.decode(enc['encoding']))
-            except Exception as e:
-                log.warning("[JSInspector] Error: %s", str(e))
+        except (UnicodeDecodeError, TypeError) as e:
+            if '\\u' in self.script:
+                try:
+                    result = self.ctxt.eval(self.script.replace('\\u', '%u'))
+                except Exception as e:
+                    log.warning("[JSInspector] Error: %s", str(e))
         except Exception as e:
             log.warning("[JSInspector] Error: %s", str(e))
 

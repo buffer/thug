@@ -20,8 +20,7 @@ import os
 import sys
 import logging
 import six.moves.urllib.parse as urlparse
-
-import cchardet
+import six
 import bs4
 from lxml.html import tostring
 from lxml.html import builder as E
@@ -39,13 +38,6 @@ from thug.AST.ASTHandler import ASTHandler
 from thug.Encoding.Encoding import Encoding
 from thug.Logging.ThugLogging import ThugLogging
 
-from .IThugAPI import IThugAPI
-from .ThugOpts import ThugOpts
-from .Watchdog import Watchdog
-from .OpaqueFilter import OpaqueFilter
-from .abstractmethod import abstractmethod
-from .ThugVulnModules import ThugVulnModules
-
 from thug.DOM.JSLocker import JSLocker
 from thug.Classifier.JSClassifier import JSClassifier
 from thug.Classifier.VBSClassifier import VBSClassifier
@@ -54,6 +46,13 @@ from thug.Classifier.HTMLClassifier import HTMLClassifier
 from thug.Classifier.TextClassifier import TextClassifier
 from thug.Classifier.CookieClassifier import CookieClassifier
 from thug.Classifier.SampleClassifier import SampleClassifier
+
+from .IThugAPI import IThugAPI
+from .ThugOpts import ThugOpts
+from .Watchdog import Watchdog
+from .OpaqueFilter import OpaqueFilter
+from .abstractmethod import abstractmethod
+from .ThugVulnModules import ThugVulnModules
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
@@ -403,13 +402,12 @@ class ThugAPI(object):
 
         log.HTTPSession = HTTPSession()
 
-        content   = open(url, 'r').read()
+        content   = open(url, 'r', encoding = "utf-8").read()
         extension = os.path.splitext(url)
-        encoding  = cchardet.detect(content)
 
         if len(extension) > 1 and extension[1].lower() in ('.js', '.jse', ):
             if not content.lstrip().startswith('<script'):
-                html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(content.decode(encoding['encoding'])))))
+                html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(content))))
             else:
                 soup = bs4.BeautifulSoup(content, "html.parser")
 
@@ -434,7 +432,7 @@ class ThugAPI(object):
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.add_characters_count(len(html))
-            log.ThugLogging.Features.add_whitespaces_count(len([a for a in html if a.isspace()]))
+            log.ThugLogging.Features.add_whitespaces_count(len([a for a in html if isinstance(a, six.string_types) and a.isspace()]))
 
         doc    = w3c.parseString(html)
         window = Window('about:blank', doc, personality = log.ThugOpts.useragent)
@@ -450,7 +448,7 @@ class ThugAPI(object):
         try:
             scheme = urlparse.urlparse(url).scheme
         except ValueError as e: # pragma: no cover
-            log.warning("[WARNING] Analysis not performed (%s)", e.message)
+            log.warning("[WARNING] Analysis not performed (%s)", str(e))
             return
 
         if not scheme or not scheme.startswith('http'):
