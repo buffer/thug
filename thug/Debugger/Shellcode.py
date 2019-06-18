@@ -180,20 +180,22 @@ class Shellcode(object):
         self.dump_write()
 
     def run(self):
+        result = None
+
         with log.JSEngine.JSDebugger() as dbg:
             dbg._context = self.ctxt
             # dbg.debugBreak()
 
             try:
                 result = self.ctxt.eval(self.script)
-            except (UnicodeDecodeError, TypeError):
-                try:
-                    enc = log.Encoding.detect(self.script)
-                    result = self.ctxt.eval(self.script.decode(enc['encoding']))
-                except Exception:
-                    self.dump()
-                    log.ThugLogging.log_warning(traceback.format_exc())
-                    return None
+            except (UnicodeDecodeError, TypeError) as e:
+                if '\\u' in self.script:
+                    try:
+                        result = self.ctxt.eval(self.script.replace('\\u', '%u'))
+                    except Exception:
+                        self.dump()
+                        log.ThugLogging.log_warning(traceback.format_exc())
+                        return None
             except Exception:
                 self.dump()
                 log.ThugLogging.log_warning(traceback.format_exc())
@@ -202,6 +204,7 @@ class Shellcode(object):
             self.dump()
 
             names = [p['name'] for p in self.ast.names]
+
             for name in names:
                 # FIXME
                 if not getattr(self.ctxt, "locals", None):
@@ -215,8 +218,8 @@ class Shellcode(object):
                 if not isinstance(s, six.string_types):
                     continue
 
-                log.debug("[Shellcode] Testing variable: %s", name)
-                self.emu.run(s)
+                log.warning("[Shellcode] Testing variable: %s", name)
+                self.emu.run(s.encode())
 
                 if self.emu.emu_profile_output:
                     try:

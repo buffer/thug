@@ -17,22 +17,13 @@
 # MA  02111-1307  USA
 
 
+import six
 import cchardet
 
 
 class Encoding(object):
-    def detect(self, data, safe = False):
-        try:
-            return cchardet.detect(data)
-        except TypeError:
-            # TypeError is usually raised when cchardet expects a string
-            # instead of unicode. Let's give it another last try before
-            # giving up
-            try:
-                return cchardet.detect(str(data))
-            except Exception:
-                raise
-        except Exception:  # pragma: no cover
-            if safe:
-                return None
-            raise
+    def detect(self, data):
+        if isinstance(data, six.string_types):
+            data = data.encode()
+
+        return cchardet.detect(data)
