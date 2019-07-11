@@ -29,6 +29,7 @@ import six
 import six.moves.urllib.parse as urlparse
 import cchardet
 import pylibemu
+
 from cssutils.parse import CSSParser
 
 from thug.ActiveX.ActiveX import _ActiveXObject
@@ -759,8 +760,11 @@ class DFT(object):
             if _id is None:
                 return
 
-            setattr(self.window, _id, axo)
-            setattr(self.window.doc, _id, axo)
+            try:
+                setattr(self.window, _id, axo)
+                setattr(self.window.doc, _id, axo)
+            except TypeError:
+                pass
 
     def _get_script_for_event_params(self, attr_event):
         params = attr_event.split('(')
