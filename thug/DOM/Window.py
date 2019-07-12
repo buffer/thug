@@ -135,8 +135,8 @@ class Window(JSClass):
         self.__init_personality()
 
         self.name          = name
-        self.defaultStatus = ""
-        self.status        = ""
+        # self.defaultStatus = ""
+        # self.status        = ""
         self._left         = left
         self._top          = top if top else self
         self._screen_top   = random.randint(0, 30)
@@ -176,6 +176,12 @@ class Window(JSClass):
         if log.ThugOpts.Personality.isIE():
             if key in self.WScript.__dict__ and callable(self.WScript.__dict__[key]):
                 return self.WScript.__dict__[key]
+
+        if log.ThugOpts.Personality.isIE():
+            xmlhttp = getattr(log, 'XMLHTTP', None)
+
+            if xmlhttp and key in xmlhttp:
+                return xmlhttp[key]
 
         context = self.__class__.__dict__['context'].__get__(self, Window)
 

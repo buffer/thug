@@ -86,8 +86,6 @@ def send(self, varBody = None):
     if response is None:
         return 0
 
-    self.dispatchEvent("readystatechange")
-
     self.status          = response.status_code
     self.responseHeaders = response.headers
     self.responseBody    = response.content
@@ -96,6 +94,12 @@ def send(self, varBody = None):
 
     if getattr(log, 'XMLHTTP', None) is None:
         log.XMLHTTP = dict()
+
+    log.XMLHTTP['status']          = self.status
+    log.XMLHTTP['responseHeaders'] = self.responseHeaders
+    log.XMLHTTP['responseBody']    = self.responseBody
+    log.XMLHTTP['responseText']    = self.responseText
+    log.XMLHTTP['readyState']      = self.readyState
 
     last_bstrUrl    = log.XMLHTTP.get('last_bstrUrl', None)
     last_bstrMethod = log.XMLHTTP.get('last_bstrMethod', None)
@@ -115,6 +119,7 @@ def send(self, varBody = None):
         return 0
 
     self.dispatchEvent("load")
+    self.dispatchEvent("readystatechange")
 
     if 'javascript' in contenttype:
         html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(response.text))))
