@@ -14,6 +14,7 @@ function handler()
 var oReq = XMLHttpRequest();
 if (oReq != null) {
 	oReq.overrideMimeType("application/javascript");
+	oReq.removeEventListener("readystatechange", handler);
 	oReq.addEventListener("readystatechange", handler);
     oReq.open("GET", "https://raw.githubusercontent.com/buffer/thug/master/samples/exploits/qvod.js", true);
 	oReq.send();
