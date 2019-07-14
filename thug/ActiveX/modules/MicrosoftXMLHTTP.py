@@ -86,8 +86,6 @@ def send(self, varBody = None):
     if response is None:
         return 0
 
-    self.dispatchEvent("readystatechange")
-
     self.status          = response.status_code
     self.responseHeaders = response.headers
     self.responseBody    = response.content

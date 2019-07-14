@@ -11,6 +11,10 @@ class TestMiscSamplesIE(object):
     misc_path = os.path.join(thug_path, "thug", "samples/misc")
 
     def do_perform_test(self, caplog, sample, expected, nofetch = False):
+        xmlhttp = getattr(log, 'XMLHTTP', None)
+        if xmlhttp:
+            delattr(log, 'XMLHTTP')
+
         thug = ThugAPI()
 
         thug.set_useragent('win7ie90')
