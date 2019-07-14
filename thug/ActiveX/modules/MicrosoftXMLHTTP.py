@@ -104,7 +104,7 @@ def send(self, varBody = None):
     last_bstrUrl    = log.XMLHTTP.get('last_bstrUrl', None)
     last_bstrMethod = log.XMLHTTP.get('last_bstrMethod', None)
 
-    if last_bstrUrl in (self.bstrUrl, ) and last_bstrMethod in (self.bstrMethod, ):
+    if last_bstrUrl in (self.bstrUrl, ) and last_bstrMethod in (self.bstrMethod, ): # pragma: no cover
         return 0
 
     log.XMLHTTP['last_bstrUrl']    = str(self.bstrUrl)
@@ -115,7 +115,7 @@ def send(self, varBody = None):
     else:
         contenttype = self.responseHeaders.get('content-type', None)
 
-    if contenttype is None:
+    if contenttype is None: # pragma: no cover
         return 0
 
     self.dispatchEvent("load")
