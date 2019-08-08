@@ -1,11 +1,11 @@
 PySocks==1.7.0
-beautifulsoup4==4.7.1
+beautifulsoup4==4.8.0
 cchardet==2.1.4
 cssutils==1.0.2
 elasticsearch==7.0.2
 # esprima==4.0.1
 html5lib==1.0.1
-lxml==4.3.4
+lxml==4.4.0
 networkx==2.2
 pefile==2019.4.18
 pygraphviz==1.5
