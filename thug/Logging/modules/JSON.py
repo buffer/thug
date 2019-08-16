@@ -105,8 +105,11 @@ class JSON(object):
         if not data:
             return str()
 
-        enc_data = data if isinstance(data, six.string_types) else data.decode()
-        return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
+        try:
+            enc_data = data if isinstance(data, six.string_types) else data.decode()
+            return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
+        except UnicodeDecodeError:
+            return str()
 
     def set_url(self, url):
         if not self.json_enabled:
