@@ -45,6 +45,6 @@ class TestWebTracking(object):
         sample = os.path.join(self.misc_path, "testSessionStorage.html")
         self.do_perform_test(caplog, sample, expected, "local")
 
-    def test_google(self, caplog):
-        expected = ['Domain starting with initial dot: .google.com']
-        self.do_perform_test(caplog, "http://www.google.com", expected)
+    def test_bing(self, caplog):
+        expected = ['Domain starting with initial dot: .bing.com']
+        self.do_perform_test(caplog, "https://www.bing.com", expected)
