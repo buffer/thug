@@ -939,13 +939,18 @@ class DFT(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_inline_vbscript_count()
 
+        url = log.ThugLogging.url if log.ThugOpts.local else log.last_url
         text = script.get_text()
         self.increase_script_chars_count('vbscript', 'inline', text)
 
         if log.ThugOpts.code_logging:
             log.ThugLogging.add_code_snippet(text, 'VBScript', 'Contained_Inside')
 
-        log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, text)
+        try:
+            log.ThugLogging.log_file(text, url, sampletype = 'VBS')
+            log.VBSClassifier.classify(url, text)
+        except Exception:
+            pass
 
         try:
             urls = re.findall("(?P<url>https?://[^\s'\"]+)", text)
