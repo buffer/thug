@@ -35,7 +35,7 @@ For instance on Debian/Ubuntu systems you just need to run the following command
     $ sudo apt-get install docker.io
 
 After Docker is properly installed you can proceed with the Thug installation. Get the 
-dockerized Thug from the Honeynet Project's Docker repository at https://registry.hub.docker.com/u/honeynet/thug/
+dockerized Thug from the Honeynet Project's Docker repository at https://hub.docker.com/r/buffer/thug
 
 Thug will be installed in the directory */opt/thug*. To run it just execute *python /opt/thug/src/thug.py [options] URL*.
 
