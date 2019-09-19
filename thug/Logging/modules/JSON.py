@@ -26,7 +26,6 @@ import logging
 import datetime
 
 import six
-from six import StringIO
 
 from .Mapper import Mapper
 
@@ -309,7 +308,7 @@ class JSON(object):
         if not self.json_enabled:
             return
 
-        output = StringIO()
+        output = six.StringIO()
 
         if log.ThugOpts.features_logging and (log.ThugOpts.verbose or log.ThugOpts.debug):
             log.warning(log.ThugLogging.Features.features)
