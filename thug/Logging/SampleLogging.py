@@ -129,6 +129,8 @@ class SampleLogging(object):
 
         if sampletype:
             p['type'] = sampletype
+            if isinstance(data, str):
+                data = data.encode()
         else:
             p['type'] = self.get_sample_type(data)
 
