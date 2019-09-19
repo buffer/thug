@@ -44,27 +44,27 @@ class Navigator(JSClass):
         for p in self._mimeTypes.values():
             self._plugins.append(p['enabledPlugin'])
 
-        self.__init_personality()
+        self.__init_navigator_personality()
         self.filecount = 0
 
-    def __init_personality(self):
+    def __init_navigator_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_navigator_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_navigator_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_navigator_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_navigator_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_navigator_personality_IE(self):
         from .UserProfile import UserProfile
 
         self.mimeTypes       = self._mimeTypes
@@ -79,7 +79,7 @@ class Navigator(JSClass):
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             self.userProfile = UserProfile()
 
-    def __init_personality_Firefox(self):
+    def __init_navigator_personality_Firefox(self):
         self.mimeTypes    = self._mimeTypes
         self.plugins      = self._plugins
         self.taintEnabled = self._taintEnabled
@@ -100,7 +100,7 @@ class Navigator(JSClass):
 
         self.registerProtocolHandler = self._registerProtocolHandler
 
-    def __init_personality_Chrome(self):
+    def __init_navigator_personality_Chrome(self):
         self.mimeTypes    = self._mimeTypes
         self.plugins      = self._plugins
         self.taintEnabled = self._taintEnabled
@@ -110,7 +110,7 @@ class Navigator(JSClass):
         self.vendorSub    = self._vendorSub
         self.language     = self._language
 
-    def __init_personality_Safari(self):
+    def __init_navigator_personality_Safari(self):
         self.mimeTypes    = self._mimeTypes
         self.plugins      = self._plugins
         self.taintEnabled = self._taintEnabled

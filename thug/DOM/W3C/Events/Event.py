@@ -23,26 +23,26 @@ class Event(JSClass):
         self._canBubble          = False
         self._cancelable         = False
 
-        self.__init_personality()
+        self.__init_event_personality()
 
-    def __init_personality(self):
+    def __init_event_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_event_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_event_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_event_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_event_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_event_personality_IE(self):
         # Prior to IE9, IE does not support the stopPropagation() method. Instead,
         # the IE Event object has a property named `cancelBubble'. Setting this
         # property to true prevents any further propagation (IE8 and before do not
@@ -64,17 +64,17 @@ class Event(JSClass):
         if log.ThugOpts.Personality.browserMajorVersion > 8:
             self.defaultPrevented = self._defaultPrevented
 
-    def __init_personality_Firefox(self):
+    def __init_event_personality_Firefox(self):
         # Introduced in DOM Events Level 3
         if log.ThugOpts.Personality.browserMajorVersion > 5:
             self.defaultPrevented = self._defaultPrevented
 
-    def __init_personality_Chrome(self):
+    def __init_event_personality_Chrome(self):
         # Introduced in DOM Events Level 3
         if log.ThugOpts.Personality.browserMajorVersion > 17:
             self.defaultPrevented = self._defaultPrevented
 
-    def __init_personality_Safari(self):
+    def __init_event_personality_Safari(self):
         # Introduced in DOM Events Level 3
         if log.ThugOpts.Personality.browserMajorVersion > 4:
             self.defaultPrevented = self._defaultPrevented

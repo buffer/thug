@@ -27,26 +27,26 @@ class Console(JSClass):
     def __init__(self):
         self._counter = 0
         self._label_counter = dict()
-        self.__init_personality()
+        self.__init_console_personality()
 
-    def __init_personality(self):
+    def __init_console_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_console_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_console_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_console_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_console_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_console_personality_IE(self):
         self.__methods__['assert'] = self._assert
 
         self.clear = self._clear
@@ -67,7 +67,7 @@ class Console(JSClass):
             self.timeEnd        = self._timeEnd
             self.trace          = self._trace
 
-    def __init_personality_Firefox(self):
+    def __init_console_personality_Firefox(self):
         if log.ThugOpts.Personality.browserMajorVersion > 3:
             self.group          = self._group
             self.groupCollapsed = self._groupCollapsed
@@ -92,7 +92,7 @@ class Console(JSClass):
         if log.ThugOpts.Personality.browserMajorVersion > 47: # pragma: no cover
             self.clear = self._clear
 
-    def __init_personality_Chrome(self):
+    def __init_console_personality_Chrome(self):
         self.clear          = self._clear
         self.count          = self._count
         self.group          = self._group
@@ -108,7 +108,7 @@ class Console(JSClass):
         self.__methods__['assert'] = self._assert
         self.__methods__['error']  = self._error
 
-    def __init_personality_Safari(self):
+    def __init_console_personality_Safari(self):
         self.clear = self._clear
         self.count = self._count
         self.info  = self._info

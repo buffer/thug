@@ -131,7 +131,7 @@ class Window(JSClass):
         self._closed = False
 
         self._personality = personality
-        self.__init_personality()
+        self.__init_window_personality()
 
         self.name          = name
         # self.defaultStatus = ""
@@ -792,24 +792,24 @@ class Window(JSClass):
 
         return None
 
-    def __init_personality(self):
+    def __init_window_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_window_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_window_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_window_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_window_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_window_personality_IE(self):
         from .ClipboardData import ClipboardData
         from .Console import Console
         from .External import External
@@ -850,7 +850,7 @@ class Window(JSClass):
 
         log.ThugOpts.activex_ready = True
 
-    def __init_personality_Firefox(self):
+    def __init_window_personality_Firefox(self):
         from .Components import Components
         from .Console import Console
         from .Crypto import Crypto
@@ -886,7 +886,7 @@ class Window(JSClass):
             if log.ThugOpts.Personality.browserMajorVersion <= 4:
                 ctxt.eval("delete Array.isArray;")
 
-    def __init_personality_Chrome(self):
+    def __init_window_personality_Chrome(self):
         from .Chrome import Chrome
         from .Console import Console
         from .External import External
@@ -905,7 +905,7 @@ class Window(JSClass):
         self.sessionStorage      = SessionStorage()
         self.onmousewheel        = None
 
-    def __init_personality_Safari(self):
+    def __init_window_personality_Safari(self):
         from .Console import Console
         from thug.DOM.W3C.DOMParser import DOMParser
 
