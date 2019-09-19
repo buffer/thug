@@ -29,26 +29,26 @@ class Element(Node, ElementCSSInlineStyle):
         Node.__init__(self, doc)
         ElementCSSInlineStyle.__init__(self, doc, tag)
 
-        self.__init_personality()
+        self.__init_element_personality()
 
-    def __init_personality(self):
+    def __init_element_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_element_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_element_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_element_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_element_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_element_personality_IE(self):
         if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.querySelectorAll = self._querySelectorAll
             self.querySelector    = self._querySelector
@@ -57,7 +57,7 @@ class Element(Node, ElementCSSInlineStyle):
             self.getElementsByClassName = self._getElementsByClassName
             self.msMatchesSelector      = self._matches
 
-    def __init_personality_Firefox(self):
+    def __init_element_personality_Firefox(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.mozMatchesSelector     = self._matches
@@ -66,7 +66,7 @@ class Element(Node, ElementCSSInlineStyle):
         if log.ThugOpts.Personality.browserMajorVersion > 33:
             self.matches = self._matches
 
-    def __init_personality_Chrome(self):
+    def __init_element_personality_Chrome(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.webkitMatchesSelector  = self._matches
@@ -75,7 +75,7 @@ class Element(Node, ElementCSSInlineStyle):
         if log.ThugOpts.Personality.browserMajorVersion > 33:
             self.matches = self._matches
 
-    def __init_personality_Safari(self):
+    def __init_element_personality_Safari(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName

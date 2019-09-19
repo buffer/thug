@@ -11,40 +11,40 @@ log = logging.getLogger("Thug")
 # Introduced in DOM Level 2
 class EventTarget(object):
     def __init__(self):
-        self.__init_personality()
+        self.__init_eventtarget_personality()
         self.tag._listeners = list()
 
-    def __init_personality(self):
+    def __init_eventtarget_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_eventtarget_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_eventtarget_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_eventtarget_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_eventtarget_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_eventtarget_personality_IE(self):
         if log.ThugOpts.Personality.browserMajorVersion < 11:
             self.__init_proprietary_ie_event_methods()
 
         if log.ThugOpts.Personality.browserMajorVersion >= 8:
             self.__init_event_methods()
 
-    def __init_personality_Firefox(self):
+    def __init_eventtarget_personality_Firefox(self):
         self.__init_event_methods()
 
-    def __init_personality_Chrome(self):
+    def __init_eventtarget_personality_Chrome(self):
         self.__init_event_methods()
 
-    def __init_personality_Safari(self):
+    def __init_eventtarget_personality_Safari(self):
         self.__init_event_methods()
 
     def __init_proprietary_ie_event_methods(self):

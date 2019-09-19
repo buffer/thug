@@ -34,7 +34,6 @@ from thug.DOM.HTTPSession import HTTPSession
 from thug.DOM.MIMEHandler import MIMEHandler
 from thug.DOM.SchemeHandler import SchemeHandler
 from thug.WebTracking.WebTracking import WebTracking
-from thug.AST.ASTHandler import ASTHandler
 from thug.Encoding.Encoding import Encoding
 from thug.Logging.ThugLogging import ThugLogging
 
@@ -81,7 +80,6 @@ class ThugAPI(object):
         log.ThugVulnModules = ThugVulnModules()
         log.MIMEHandler     = MIMEHandler()
         log.SchemeHandler   = SchemeHandler()
-        log.ASTHandler      = ASTHandler()
         log.Encoding        = Encoding()
         log.WebTracking     = WebTracking()
 

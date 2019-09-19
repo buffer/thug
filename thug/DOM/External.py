@@ -29,17 +29,17 @@ class External(JSClass):
         self._channels  = set()
         self._favorites = set()
 
-        self.__init_personality()
+        self.__init_external_personality()
 
-    def __init_personality(self):
+    def __init_external_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_external_personality_IE()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_external_personality_Chrome()
 
-    def __init_personality_IE(self):
+    def __init_external_personality_IE(self):
         self.frozen               = self._frozen
         self.menuArguments        = self._menuArguments
         self.AddDesktopComponent  = self._AddDesktopComponent
@@ -59,7 +59,7 @@ class External(JSClass):
             self.AddSearchProvider         = self._AddSearchProvider
             self.IsSearchProviderInstalled = self._IsSearchProviderInstalled
 
-    def __init_personality_Chrome(self):
+    def __init_external_personality_Chrome(self):
         self.AddSearchProvider = self._AddSearchProvider
 
     @property

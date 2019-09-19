@@ -10,44 +10,44 @@ log = logging.getLogger("Thug")
 class ClassList(JSClass):
     def __init__(self, tag):
         self.tag = tag
-        self.__init_personality()
+        self.__init_classlist_personality()
         self.__init_class_list()
 
-    def __init_personality(self):
+    def __init_classlist_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_classlist_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_classlist_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_classlist_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_classlist_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_classlist_personality_IE(self):
         self.add = self.__add_ie
         self.remove = self.__remove_ie
         self.toggle = self.__toggle_ie
 
-    def __init_personality_Firefox(self):
+    def __init_classlist_personality_Firefox(self):
         self.add = self.__add
         self.remove = self.__remove
         self.toggle = self.__toggle
         self.replace = self.__replace
 
-    def __init_personality_Chrome(self):
+    def __init_classlist_personality_Chrome(self):
         self.add = self.__add
         self.remove = self.__remove
         self.toggle = self.__toggle
         self.replace = self.__replace
 
-    def __init_personality_Safari(self):
+    def __init_classlist_personality_Safari(self):
         self.add = self.__add
         self.remove = self.__remove
         self.toggle = self.__toggle

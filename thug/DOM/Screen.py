@@ -31,26 +31,26 @@ class Screen(JSClass):
         self._left   = 0
         self._top    = 0
 
-        self.__init_personality()
+        self.__init_screen_personality()
 
-    def __init_personality(self):
+    def __init_screen_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_screen_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_screen_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_screen_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_screen_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_screen_personality_IE(self):
         self.bufferDepth          = property(self._get_bufferDepth, self._set_bufferDepth)
         self.deviceXDPI           = self._deviceXDPI
         self.deviceYDPI           = self._deviceYDPI
@@ -66,19 +66,19 @@ class Screen(JSClass):
         if log.ThugOpts.Personality.browserMajorVersion >= 9:
             self.pixelDepth = self._pixelDepth
 
-    def __init_personality_Firefox(self):
+    def __init_screen_personality_Firefox(self):
         self.availLeft  = self._availLeft
         self.availTop   = self._availTop
         self.left       = self._left
         self.top        = self._top
         self.pixelDepth = self._pixelDepth
 
-    def __init_personality_Chrome(self):
+    def __init_screen_personality_Chrome(self):
         self.availLeft  = self._availLeft
         self.availTop   = self._availTop
         self.pixelDepth = self._pixelDepth
 
-    def __init_personality_Safari(self):
+    def __init_screen_personality_Safari(self):
         self.availLeft  = self._availLeft
         self.availTop   = self._availTop
         self.pixelDepth = self._pixelDepth

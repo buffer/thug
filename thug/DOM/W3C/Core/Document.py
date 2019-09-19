@@ -15,25 +15,25 @@ class Document(Node, DocumentEvent, DocumentView):
         Node.__init__(self, doc)
         DocumentEvent.__init__(self, doc)
         DocumentView.__init__(self, doc)
-        self.__init_personality()
+        self.__init_document_personality()
 
-    def __init_personality(self):
+    def __init_document_personality(self):
         self.__init_characterSet()
 
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_document_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_document_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_document_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_document_personality_Safari()
             return
 
     def __init_characterSet(self):
@@ -42,7 +42,7 @@ class Document(Node, DocumentEvent, DocumentView):
             if 'charset' in meta.attrs:
                 self._characterSet = meta.attrs['charset'].upper()
 
-    def __init_personality_IE(self):
+    def __init_document_personality_IE(self):
         self.defaultCharset = self._defaultCharset
 
         if log.ThugOpts.Personality.browserMajorVersion > 7:
@@ -59,21 +59,21 @@ class Document(Node, DocumentEvent, DocumentView):
         if log.ThugOpts.Personality.browserMajorVersion > 10:
             self.__proto__ = None
 
-    def __init_personality_Firefox(self):
+    def __init_document_personality_Firefox(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
         self.characterSet           = self._characterSet
         self.inputEncoding          = self._inputEncoding
 
-    def __init_personality_Chrome(self):
+    def __init_document_personality_Chrome(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
         self.characterSet           = self._characterSet
         self.inputEncoding          = self._inputEncoding
 
-    def __init_personality_Safari(self):
+    def __init_document_personality_Safari(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName

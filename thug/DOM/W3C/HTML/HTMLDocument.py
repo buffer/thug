@@ -36,26 +36,26 @@ class HTMLDocument(Document):
         self._domain        = urlparse.urlparse(self._win.url).hostname if self._win else ''
         self.current        = None
 
-        self.__init_personality()
+        self.__init_htmldocument_personality()
 
-    def __init_personality(self):
+    def __init_htmldocument_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_htmldocument_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_htmldocument_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_htmldocument_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_htmldocument_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_htmldocument_personality_IE(self):
         from .HTMLDocumentCompatibleInfoCollection import HTMLDocumentCompatibleInfoCollection
 
         if log.ThugOpts.Personality.browserMajorVersion < 8:
@@ -70,14 +70,14 @@ class HTMLDocument(Document):
             self.all = self._all
             self.createStyleSheet = self._createStyleSheet
 
-    def __init_personality_Firefox(self):
+    def __init_htmldocument_personality_Firefox(self):
         self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
 
-    def __init_personality_Chrome(self):
+    def __init_htmldocument_personality_Chrome(self):
         self.all = self._all
         self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
 
-    def __init_personality_Safari(self):
+    def __init_htmldocument_personality_Safari(self):
         self.all = self._all
         self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
 

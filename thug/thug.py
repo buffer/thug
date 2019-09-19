@@ -60,7 +60,6 @@ Synopsis:
         -v, --verbose           \tEnable verbose mode
         -d, --debug             \tEnable debug mode
         -q, --quiet             \tDisable console logging
-        -a, --ast-debug         \tEnable AST debug mode (requires debug mode)
         -g, --http-debug        \tEnable HTTP debug mode
         -t, --threshold         \tMaximum pages to fetch
         -j, --extensive         \tExtensive fetch of linked pages
@@ -134,7 +133,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:myszklxvdqagA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:b:',
+                                          'hViu:e:w:n:o:r:p:myszklxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -155,7 +154,6 @@ Synopsis:
                 'verbose',
                 'debug',
                 'quiet',
-                'ast-debug',
                 'http-debug',
                 'adobepdf=',
                 'no-adobepdf',

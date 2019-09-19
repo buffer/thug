@@ -39,7 +39,6 @@ Let's start our Thug tour by taking a look at the options it provides.
         -v, --verbose                   Enable verbose mode
         -d, --debug                     Enable debug mode
         -q, --quiet                     Disable console logging
-        -a, --ast-debug                 Enable AST debug mode (requires debug mode)
         -g, --http-debug                Enable HTTP debug mode
         -t, --threshold                 Maximum pages to fetch
         -j, --extensive                 Extensive fetch of linked pages

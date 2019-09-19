@@ -32,7 +32,7 @@ class Node(JSClass, EventTarget):
         self.doc = doc
 
         EventTarget.__init__(self)
-        self.__init_personality()
+        self.__init_node_personality()
 
     def __eq__(self, other):
         return hasattr(other, "doc") and self.doc == other.doc
@@ -43,37 +43,37 @@ class Node(JSClass, EventTarget):
     def __hash__(self):
         return id(self)
 
-    def __init_personality(self):
+    def __init_node_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_node_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_node_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_node_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_node_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_node_personality_IE(self):
         self.applyElement = self._applyElement
 
         # Internet Explorer < 9 does not implement compareDocumentPosition
         if log.ThugOpts.Personality.browserMajorVersion >= 9:
             self.compareDocumentPosition = self._compareDocumentPosition
 
-    def __init_personality_Firefox(self):
+    def __init_node_personality_Firefox(self):
         self.compareDocumentPosition = self._compareDocumentPosition
 
-    def __init_personality_Chrome(self):
+    def __init_node_personality_Chrome(self):
         self.compareDocumentPosition = self._compareDocumentPosition
 
-    def __init_personality_Safari(self):
+    def __init_node_personality_Safari(self):
         self.compareDocumentPosition = self._compareDocumentPosition
 
     @property

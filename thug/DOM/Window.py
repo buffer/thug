@@ -31,8 +31,6 @@ import bs4
 import six.moves.urllib_parse as urllib
 
 from thug.ActiveX.ActiveX import _ActiveXObject
-# from thug.AST.AST import AST
-# from thug.Debugger import Shellcode
 from thug.Java.java import java
 
 from thug.DOM.W3C import w3c
@@ -66,6 +64,7 @@ class Window(JSClass):
 
         def start(self):
             self.event = sched.enter(self.delay, 1, self.execute, ())
+
             try:
                 sched.run()
             except Exception as e:
@@ -128,7 +127,7 @@ class Window(JSClass):
         self._closed = False
 
         self._personality = personality
-        self.__init_personality()
+        self.__init_window_personality()
 
         self.name          = name
         # self.defaultStatus = ""
@@ -789,24 +788,24 @@ class Window(JSClass):
 
         return None
 
-    def __init_personality(self):
+    def __init_window_personality(self):
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_window_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_window_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_window_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_window_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_window_personality_IE(self):
         from .ClipboardData import ClipboardData
         from .Console import Console
         from .External import External
@@ -847,7 +846,7 @@ class Window(JSClass):
 
         log.ThugOpts.activex_ready = True
 
-    def __init_personality_Firefox(self):
+    def __init_window_personality_Firefox(self):
         from .Components import Components
         from .Console import Console
         from .Crypto import Crypto
@@ -883,7 +882,7 @@ class Window(JSClass):
             if log.ThugOpts.Personality.browserMajorVersion <= 4:
                 ctxt.eval("delete Array.isArray;")
 
-    def __init_personality_Chrome(self):
+    def __init_window_personality_Chrome(self):
         from .Chrome import Chrome
         from .Console import Console
         from .External import External
@@ -902,7 +901,7 @@ class Window(JSClass):
         self.sessionStorage      = SessionStorage()
         self.onmousewheel        = None
 
-    def __init_personality_Safari(self):
+    def __init_window_personality_Safari(self):
         from .Console import Console
         from thug.DOM.W3C.DOMParser import DOMParser
 
@@ -966,19 +965,10 @@ class Window(JSClass):
                 self.doc.current = self.doc.doc.contents[-1]
 
         with self.context as ctxt:
-            # try:
-            #    ast = AST(script, self)
-            #    ast.walk()
-            # except Exception:
-            #    log.warning(traceback.format_exc())
-            #    return result
-
             if log.ThugOpts.Personality.isIE():
                 cc = CCInterpreter()
                 script = cc.run(script)
 
-            # shellcode = Shellcode.Shellcode(self, ctxt, ast, script)
-            # result    = shellcode.run()
             inspector = JSInspector(self, ctxt, script)
             result = inspector.run()
 

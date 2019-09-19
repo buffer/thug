@@ -30,39 +30,39 @@ class History(JSClass):
         self.urls     = Alexa
         self.pos      = len(self.urls) - 1
 
-        self.__init_personality()
+        self.__init_history_personality()
 
-    def __init_personality(self):
+    def __init_history_personality(self):
         self._navigationMode = "automatic"
 
         if log.ThugOpts.Personality.isIE():
-            self.__init_personality_IE()
+            self.__init_history_personality_IE()
             return
 
         if log.ThugOpts.Personality.isFirefox():
-            self.__init_personality_Firefox()
+            self.__init_history_personality_Firefox()
             return
 
         if log.ThugOpts.Personality.isChrome():
-            self.__init_personality_Chrome()
+            self.__init_history_personality_Chrome()
             return
 
         if log.ThugOpts.Personality.isSafari():
-            self.__init_personality_Safari()
+            self.__init_history_personality_Safari()
             return
 
-    def __init_personality_IE(self):
+    def __init_history_personality_IE(self):
         pass
 
-    def __init_personality_Firefox(self):
+    def __init_history_personality_Firefox(self):
         self.current  = self._current
         self.next     = self._next
         self.previous = self._previous
 
-    def __init_personality_Chrome(self):
+    def __init_history_personality_Chrome(self):
         pass
 
-    def __init_personality_Safari(self):
+    def __init_history_personality_Safari(self):
         pass
 
     @property

@@ -305,15 +305,6 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
-        def set_ast_debug():
-            """
-            set_ast_debug
-
-            Enable Thug AST debug mode
-
-            @return: None
-            """
-
         def set_http_debug():
             """
             set_http_debug
