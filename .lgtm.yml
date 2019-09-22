@@ -1,0 +1,8 @@
+path_classifiers:
+  docs:
+    - exclude: /
+    - docs
+  test:
+    - exclude: /
+    - tests
+    - samples
