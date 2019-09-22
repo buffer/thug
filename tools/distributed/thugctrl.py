@@ -5,12 +5,14 @@ Send commands to Thug
 
 """
 
-import pika
 import json
 import datetime
 import argparse
-import six.moves.urllib.parse as urlparse
+
 import six.moves.configparser as ConfigParser
+import six.moves.urllib.parse as urlparse
+
+import pika
 
 
 class ThugCtrl(object):
@@ -126,7 +128,7 @@ class ThugCollect(object):
         """ Read config from config file
         """
 
-        conf = ConfigParser()
+        conf = ConfigParser.ConfigParser()
         conf.read(self.configfile)
         self.host = conf.get("jobs", "host")
         self.queue = conf.get("jobs", "queue")
