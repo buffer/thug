@@ -6,3 +6,6 @@ path_classifiers:
     - exclude: /
     - tests
     - samples
+  thug:
+    - thug
+    - exclude: thug/ThugAPI/IThugAPI.py
