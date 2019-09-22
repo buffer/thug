@@ -27,7 +27,6 @@ import logging
 import bs4
 import six
 import six.moves.urllib.parse as urlparse
-import cchardet
 import pylibemu
 
 from cssutils.parse import CSSParser
