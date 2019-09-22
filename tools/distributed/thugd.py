@@ -8,17 +8,19 @@ For the iTES project (www.ites-project.org)
 
 import os
 import sys
-import six
 import json
-import pika
 import shutil
 import argparse
 import subprocess
+
 import six.moves.configparser as ConfigParser
+import six
+
+import pika
 
 
 class Thugd(object):
-    """ 
+    """
         A class waiting for jobs, starting thug, returning results
     """
     def __init__(self, configfile, clear = False):
@@ -52,16 +54,16 @@ class Thugd(object):
 
         conf = ConfigParser.ConfigParser()
         conf.read(configfile)
-        self.host   = conf.get("jobs", "host")
-        self.queue  = conf.get("jobs", "queue")
-        self.rhost  = conf.get("results", "host")
+        self.host = conf.get("jobs", "host")
+        self.queue = conf.get("jobs", "queue")
+        self.rhost = conf.get("results", "host")
         self.rqueue = conf.get("results", "queue")
         self.resdir = conf.get("results", "resdir")
-        self.username   = conf.get("credentials", "username")
-        self.password  = conf.get("credentials", "password")
+        self.username = conf.get("credentials", "username")
+        self.password = conf.get("credentials", "password")
 
     def _chdir(self):
-        os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), 
+        os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__),
                                               os.pardir,
                                               os.pardir,
                                               'src')))
@@ -70,7 +72,7 @@ class Thugd(object):
         credentials = pika.PlainCredentials(self.username, self.password)
         parameters = pika.ConnectionParameters(host = self.host, credentials = credentials)
         connection = pika.BlockingConnection(parameters)
-        channel    = connection.channel()
+        channel = connection.channel()
 
         channel.queue_declare(queue = self.queue, durable = True)
         print("[*] Waiting for messages on %s %s (press CTRL+C to exit)" % (self.host, self.queue, ))
@@ -93,7 +95,7 @@ class Thugd(object):
         credentials = pika.PlainCredentials(self.username, self.password)
         parameters = pika.ConnectionParameters(host = self.rhost, credentials = credentials)
         connection = pika.BlockingConnection(parameters)
-        channel    = connection.channel()
+        channel = connection.channel()
 
         channel.queue_declare(queue = self.rqueue, durable = True)
 
