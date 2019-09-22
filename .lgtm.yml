@@ -7,5 +7,4 @@ path_classifiers:
     - tests
     - samples
   thug:
-    - thug
-    - exclude: thug/ThugAPI/IThugAPI.py
+    - thug/ThugAPI/IThugAPI.py
