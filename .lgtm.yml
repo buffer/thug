@@ -8,3 +8,8 @@ path_classifiers:
     - samples
   thug:
     - thug/ThugAPI/IThugAPI.py
+    - thug/Plugins/IPlugin.py
+    - thug/DOM/eval.js
+    - thug/DOM/write.js
+queries:
+  - exclude: py/similar-function
