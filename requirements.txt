@@ -1,9 +1,8 @@
-PySocks==1.7.0
+PySocks==1.7.1
 beautifulsoup4==4.8.0
 cchardet==2.1.4
 cssutils==1.0.2
-elasticsearch==7.0.2
-# esprima==4.0.1
+elasticsearch==7.0.4
 html5lib==1.0.1
 lxml==4.4.1
 networkx==2.2
@@ -12,7 +11,7 @@ pygraphviz==1.5
 pylibemu==0.5.8
 pymongo==3.7.2
 python-magic==0.4.15
-rarfile==3.0
+rarfile==3.1
 requests==2.22.0
 six==1.12.0
 ssdeep==3.2
