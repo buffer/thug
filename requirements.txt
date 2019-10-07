@@ -1,8 +1,8 @@
 PySocks==1.7.1
-beautifulsoup4==4.8.0
+beautifulsoup4==4.8.1
 cchardet==2.1.4
 cssutils==1.0.2
-elasticsearch==7.0.4
+elasticsearch==7.0.5
 html5lib==1.0.1
 lxml==4.4.1
 networkx==2.2
@@ -14,6 +14,6 @@ python-magic==0.4.15
 rarfile==3.1
 requests==2.22.0
 six==1.12.0
-ssdeep==3.2
+ssdeep==3.4
 yara-python==3.10.0
 zope.interface==4.6.0
