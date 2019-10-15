@@ -7,13 +7,12 @@ from six import StringIO
 
 from thug.DOM.W3C.Core.DOMException import DOMException
 from thug.DOM.W3C.Core.Element import Element
-from thug.DOM.W3C.Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 from .attr_property import attr_property
 
 log = logging.getLogger("Thug")
 
 
-class HTMLElement(Element, ElementCSSInlineStyle):
+class HTMLElement(Element):
     id        = attr_property("id")
     title     = attr_property("title")
     lang      = attr_property("lang")
@@ -22,7 +21,6 @@ class HTMLElement(Element, ElementCSSInlineStyle):
 
     def __init__(self, doc, tag):
         Element.__init__(self, doc, tag)
-        ElementCSSInlineStyle.__init__(self, doc, tag)
 
     def __getattr__(self, key):
         if key in log.DFT.handled_on_events:
