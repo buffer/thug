@@ -10,6 +10,7 @@ ignore-paths:
   - thug/ThugAPI/__init__.py
   - thug/Plugins/IPlugin.py
   - thug/ActiveX/modules/MSXML2DOMDocument.py
+  - thug/ActiveX/modules/XMLDOMParseError.py
 
 pylint:
   disable:
