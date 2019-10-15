@@ -117,7 +117,7 @@ class HTTPSession(object):
 
         try:
             url = urlparse.quote(url, safe = "%/:=&?~#+!$,;'@()*[]{}")
-        except KeyError:
+        except KeyError: # pragma: no cover
             pass
 
         _url = urlparse.urlparse(url)
@@ -186,7 +186,7 @@ class HTTPSession(object):
         try:
             certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_SSLv23)
             log.ThugLogging.log_certificate(url, certificate)
-        except Exception as e:
+        except Exception as e: # pragma: no cover
             log.warning("[SSL ERROR] %s", str(e))
 
     def fetch(self, url, method = "GET", window = None, personality = None, headers = None, body = None):
