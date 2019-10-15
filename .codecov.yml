@@ -1,5 +1,5 @@
 comment: off
 ignore:
   - "thug/thug.py"
-  - "thug/AST/"
+  - "thug/ActiveX/modules/XMLDOMParseError.py"
   - "thug/Debugger/"
