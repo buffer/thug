@@ -50,7 +50,7 @@ class MongoUtils(object):
 
         try:
             connection = client(host, int(port))
-        except:
+        except Exception:
             print('[MongoUtils] MongoDB instance not available')
             sys.exit(0)
 
