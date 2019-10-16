@@ -119,11 +119,11 @@ class DFT(object):
             method = six.create_bound_method(_hook, DFT)
             setattr(self, name, method)
 
-    def __enter__(self):
-        return self
+    # def __enter__(self):
+    #    return self
 
-    def __exit__(self, _type, value, traceback):
-        pass
+    # def __exit__(self, _type, value, traceback):
+    #    pass
 
     @property
     def context(self):
