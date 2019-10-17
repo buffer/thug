@@ -53,7 +53,10 @@ RUN apt-get update && \
     autoconf && \
   rm -rf /var/lib/apt/lists/*
 
-RUN easy_install -U setuptools pygraphviz==1.3.1
+# RUN easy_install -U setuptools pygraphviz==1.3.1
+RUN pip install --upgrade pip
+RUN pip install --upgrade setuptools
+RUN pip install pygraphviz==1.3.1
 
 WORKDIR /home
 
