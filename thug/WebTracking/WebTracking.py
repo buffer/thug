@@ -30,7 +30,7 @@ class WebTracking(object):
         self.webstorage = WebStorage()
 
     def inspect_response(self, response):
-        if not log.ThugOpts.web_tracking:
+        if not log.ThugOpts.web_tracking: # pragma: no cover
             return
 
         self.cookies.inspect(response)
