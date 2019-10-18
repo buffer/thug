@@ -42,7 +42,7 @@ class Cookies(object):
                                                                                                                      expires,
                                                                                                                      MAX_COOKIE_EXPIRES_DAYS))
 
-        if self.now > expires:
+        if self.now > expires: # pragma: no cover
             log.ThugLogging.log_warning("[TRACKING] [Cookie #{}] Expired at {}".format(self.cookie_id, expires))
 
     def _inspect_cookie_domain_initial_dot(self, cookie):
@@ -55,7 +55,7 @@ class Cookies(object):
             log.ThugLogging.log_warning("[TRACKING] [Cookie #{}] Path: {}".format(self.cookie_id, cookie.path))
 
     def _inspect_cookie_port(self, cookie):
-        if cookie.port_specified:
+        if cookie.port_specified: # pragma: no cover
             log.ThugLogging.log_warning("[TRACKING] [Cookie #{}] Port: {}".format(self.cookie_id, cookie.port))
 
     def _inspect_cookie_secure(self, cookie):
