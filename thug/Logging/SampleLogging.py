@@ -152,5 +152,5 @@ class SampleLogging(object):
         if url:
             p['url'] = url
 
-        p['data'] = base64.b64encode(data)
+        p['data'] = base64.b64encode(data).decode()
         return p
