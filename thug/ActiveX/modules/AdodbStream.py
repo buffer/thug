@@ -15,7 +15,6 @@ def getSize(self):
 def open(self):  # pylint:disable=redefined-builtin
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] open")
     self.fobject = BytesIO()
-    self.Size = property(self.getSize)
 
 
 def Read(self, length = -1):
