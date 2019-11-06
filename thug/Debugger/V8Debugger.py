@@ -35,7 +35,6 @@ class V8Debugger(PyV8.JSDebugger):
         with self.context as ctxt:
             ctxt.eval(open(script_filename, 'r').read())
 
-        PyV8.JSEngine.collect()
         # self.setEnabled(True)
 
         return PyV8.JSDebugger.__enter__(self)
