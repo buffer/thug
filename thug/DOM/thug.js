@@ -6,6 +6,7 @@
 //this.eval     = window.eval;
 this.unescape = window.unescape;
 this.decodeURIComponent = window.decodeURIComponent;
+this.console = window.console;
 window = this;
 
 Object.defineProperty(window, "location", {
