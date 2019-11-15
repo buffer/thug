@@ -1,7 +1,7 @@
 sudo: required
 language: python
 python:
-  - "3.6"
+  - "3.7"
 before_install:
   - sudo apt-get update
   - sudo apt-get install libboost-python-dev libboost-all-dev systemtap-sdt-dev libfuzzy-dev graphviz
