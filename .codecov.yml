@@ -2,4 +2,3 @@ comment: off
 ignore:
   - "thug/thug.py"
   - "thug/ActiveX/modules/XMLDOMParseError.py"
-  - "thug/Debugger/"
