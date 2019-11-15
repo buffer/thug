@@ -1,7 +1,5 @@
 import collections
 
-# PyV8 code
-
 
 class JSClass(object):
     __properties__  = {}
