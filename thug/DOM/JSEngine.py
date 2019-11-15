@@ -22,34 +22,11 @@ import logging
 import six.moves.configparser as ConfigParser
 
 try:
-    import PyV8
-    V8_MODULE = True
-except ImportError: # pragma: no cover
-    V8_MODULE = False
-
-try: # pragma: no cover
-    import pyduktape2
-    DUKTAPE_MODULE = True
-
-    # FIXME
-    class _DuktapeContext(pyduktape2.DuktapeContext):
-        def __init__(self, *args, **kwargs):
-            pyduktape2.DuktapeContext(self, *args, **kwargs)
-
-        def __enter__(self):
-            return self
-
-        def __exit__(self, *args):
-            pass
-
-        def eval(self, js):
-            return self.eval_js(js)
+    import SoirV8 as V8
 except ImportError:
-    DUKTAPE_MODULE = False
+    import PyV8 as V8
 
 import thug
-# from thug.Debugger.V8Debugger import V8Debugger
-# from thug.Debugger.DuktapeDebugger import DuktapeDebugger
 
 log = logging.getLogger("Thug")
 
@@ -58,9 +35,6 @@ class JSEngine(object):
     def __init__(self, window = None):
         self.init_config()
         self.init_engine()
-        self.init_context(window)
-        self.init_scripts()
-        self.init_symbols()
 
     def init_config(self):
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
@@ -70,24 +44,15 @@ class JSEngine(object):
     def init_engine(self):
         self.engine = self.config.get('jsengine', 'engine')
 
+    @property
+    def JSLocker(self):
+        return V8.JSLocker()
+
     def init_v8_context(self, window):
-        if not V8_MODULE: # pragma: no cover
-            log.critical("PyV8 not installed. Please review Thug dependencies and configuration")
-            sys.exit(1)
+        self._context = V8.JSContext(window, extensions = log.JSExtensions)
+        V8.JSEngine.setStackLimit(1024 * 1024)
 
-        self._context = PyV8.JSContext(window, extensions = log.JSExtensions)
-        PyV8.JSEngine.setStackLimit(10 * 1024 * 1024)
-
-    def init_duktape_context(self, window): # pragma: no cover
-        if not DUKTAPE_MODULE:
-            log.critical("Duktape not installed. Please review Thug dependencies and configuration")
-            sys.exit(1)
-
-        self._context = _DuktapeContext()
-        # FIXME
-        self._context.set_globals(this = window)
-
-    def init_context(self, window):
+    def do_init_context(self, window):
         m = getattr(self, "init_{}_context".format(self.engine), None)
         if m:
             m(window)
@@ -130,26 +95,9 @@ class JSEngine(object):
                 self.init_scripts_date(ctxt)
 
             self.init_hooks(ctxt)
-            self.post_init_scripts()
-
-    def post_init_scripts(self):
-        if self.engine in ("v8", ):
-            PyV8.JSEngine.collect()
 
     def init_v8_symbols(self):
-        # self.JSDebugger = V8Debugger
-        self.collect = PyV8.JSEngine.collect
-        self.terminateAllThreads = PyV8.JSEngine.terminateAllThreads
-        self.setStackLimit = PyV8.JSEngine.setStackLimit
-
-    def passthrough(self, *args, **kwargs): # pragma: no cover
-        pass
-
-    def init_duktape_symbols(self): # pragma: no cover
-        # self.JSDebugger = DuktapeDebugger
-        self.collect = self.passthrough
-        self.terminateAllThreads = self.passthrough
-        self.setStackLimit = self.passthrough
+        self.terminateAllThreads = V8.JSEngine.terminateAllThreads
 
     def init_symbols(self):
         m = getattr(self, "init_{}_symbols".format(self.engine), None)
@@ -160,11 +108,13 @@ class JSEngine(object):
     def context(self):
         return self._context
 
-    def is_v8_jsfunction(self, symbol):
-        return isinstance(symbol, PyV8.JSFunction)
+    def init_context(self, window):
+        self.do_init_context(window)
+        self.init_scripts()
+        self.init_symbols()
 
-    def is_duktape_jsfunction(self, symbol): # pragma: no cover
-        return self._context.eval(symbol) in ('function', )
+    def is_v8_jsfunction(self, symbol):
+        return isinstance(symbol, V8.JSFunction)
 
     def isJSFunction(self, symbol):
         m = getattr(self, "is_{}_jsfunction".format(self.engine), None)
@@ -174,10 +124,7 @@ class JSEngine(object):
         return False
 
     def is_v8_jsobject(self, symbol):
-        return isinstance(symbol, PyV8.JSObject)
-
-    def is_duktape_jsobject(self, symbol): # pragma: no cover
-        return self._context.eval(symbol) in ('object', )
+        return isinstance(symbol, V8.JSObject)
 
     def isJSObject(self, symbol):
         m = getattr(self, "is_{}_jsfunction".format(self.engine), None)

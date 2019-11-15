@@ -931,7 +931,7 @@ class Window(JSClass):
     def context(self):
         # if not hasattr(self, '_context'):
         if '_context' not in self.__dict__:
-            log.JSEngine = JSEngine(self)
+            log.JSEngine.init_context(self)
             self._context = log.JSEngine.context
 
         return self._context
