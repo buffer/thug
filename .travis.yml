@@ -4,13 +4,18 @@ python:
   - "3.7"
 before_install:
   - sudo apt-get update
-  - sudo apt-get install libboost-python-dev libboost-all-dev systemtap-sdt-dev libfuzzy-dev graphviz
+  - sudo apt-get install build-essential libboost-python-dev libboost-all-dev systemtap-sdt-dev libfuzzy-dev graphviz
+  - git clone https://github.com/buffer/libemu.git
+  - cd libemu
+  - autoreconf -v -i
+  - ./configure
+  - sudo make install
+  - cd -
+  - sudo ldconfig
 install:
   - sudo pip install pylibemu
   - pip install tox
 script:
-  - echo "/opt/libemu/lib/" | sudo tee --append /etc/ld.so.conf.d/libemu.conf
-  - sudo ldconfig
   - sudo mkdir -p /etc/thug/{rules,personalities,scripts}
   - sudo cp -R thug/Classifier/rules/* /etc/thug/rules/
   - sudo cp -R thug/DOM/personalities/* /etc/thug/personalities
