@@ -37,7 +37,6 @@ from thug.DOM.W3C import w3c
 from .JSClass import JSClass
 from .JSClass import JSClassConstructor
 from .JSClass import JSClassPrototype
-from .JSEngine import JSEngine
 from .JSInspector import JSInspector
 from .Navigator import Navigator
 from .Location import Location
