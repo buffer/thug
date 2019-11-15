@@ -21,7 +21,7 @@ class HTMLScriptElement(HTMLElement):
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-        self.async = self._async
+        # self.async = self._async
 
     def get_src(self):
         return self._src
