@@ -49,6 +49,6 @@ class TestWebTracking(object):
         expected = ['Domain starting with initial dot: .bing.com']
         self.do_perform_test(caplog, "https://www.bing.com", expected)
 
-    def test_facebook(self, caplog):
+    def test_github(self, caplog):
         expected = ['Secure flag set']
-        self.do_perform_test(caplog, "http://www.facebook.com", expected)
+        self.do_perform_test(caplog, "http://www.github.com", expected)
