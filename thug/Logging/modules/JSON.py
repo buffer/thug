@@ -105,7 +105,12 @@ class JSON(object):
             return str()
 
         try:
-            enc_data = data if isinstance(data, six.string_types) else data.decode()
+            if isinstance(data, six.string_types):
+                enc_data = data
+            else:
+                enc = log.Encoding.detect(data)
+                enc_data = data.decode(enc['encoding'])
+
             return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
         except UnicodeDecodeError:
             return str()
