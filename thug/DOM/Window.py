@@ -72,8 +72,8 @@ class Window(JSClass):
         def stop(self):
             self.running = False
 
-            # if self.event in sched.queue:
-            #    sched.cancel(self.event)
+            if self.event in sched.queue:
+                sched.cancel(self.event)
 
         def execute(self):
             if not self.running:
@@ -81,11 +81,10 @@ class Window(JSClass):
 
             with self.window.context as ctx:
                 try:
-                    if isinstance(self.code, six.string_types):
-                        ctx.eval(self.code)
-
                     if log.JSEngine.isJSFunction(self.code):
                         self.code()
+                    else:
+                        ctx.eval(self.code)
                 except Exception as e:
                     log.warning("Error while handling timer callback")
 
@@ -95,7 +94,7 @@ class Window(JSClass):
                     return None
 
             if self.repeat:
-                self.start()
+                self.event = sched.enter(self.delay, 1, self.execute, ())
 
     def __init__(self, url, dom_or_doc, navigator = None, personality = 'winxpie60', name="",
                  target='_blank', parent = None, opener = None, replace = False, screen = None,
