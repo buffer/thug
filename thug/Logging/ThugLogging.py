@@ -312,6 +312,9 @@ class ThugLogging(BaseLogging, SampleLogging):
         return final
 
     def log_href_redirect(self, referer, url):
+        if not url:
+            return
+
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
         self.log_connection(referer, url, "href")
 
