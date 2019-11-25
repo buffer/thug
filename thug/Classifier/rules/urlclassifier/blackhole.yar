@@ -137,7 +137,7 @@ rule Blackhole_V2_12 : Exploit_Kit
   meta:
     author = "https://twitter.com/malc0de"
   strings:
-    $a = /\.php\?.*\?\:[a-zA-Z0-9\:]{6,}\&.*\?\&/
+    $a = /\.php\?.*?\:[a-zA-Z0-9\:]{6,}?\&.*?\&/
   condition:
     $a
 }
