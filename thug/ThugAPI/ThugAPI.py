@@ -64,6 +64,7 @@ class ThugAPI(object):
         self.__init_jsengine()
         self.__init_core()
         self.__init_classifiers()
+        self.__init_opaque_filter()
         self.__init_pyhooks()
         self.__init_extensions()
         self.__init_trace()
@@ -110,6 +111,9 @@ class ThugAPI(object):
 
     def __init_trace(self):
         log.Trace = None
+
+    def __init_opaque_filter(self):
+        self.opaque_filter = OpaqueFilter()
 
     def __call__(self): # pragma: no cover
         self.analyze()
@@ -295,7 +299,13 @@ class ThugAPI(object):
         root = logging.getLogger()
         for handler in root.handlers:
             if isinstance(handler, logging.StreamHandler):
-                handler.addFilter(OpaqueFilter())
+                handler.addFilter(self.opaque_filter)
+
+    def set_log_verbose(self):
+        root = logging.getLogger()
+        for handler in root.handlers:
+            if isinstance(handler, logging.StreamHandler):
+                handler.removeFilter(self.opaque_filter)
 
     def set_vt_query(self):
         log.ThugOpts.vt_query = True

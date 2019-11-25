@@ -577,6 +577,15 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def set_log_verbose():
+            """
+            set_log_verbose
+
+            Enable console logging
+
+            @return: None
+            """
+
         def set_vt_query():
             """
             set_vt_query
