@@ -53,6 +53,8 @@ log = logging.getLogger("Thug")
 
 class Window(JSClass):
     class Timer(object):
+        max_loops = 3
+
         def __init__(self, window, code, delay, repeat, lang = 'JavaScript'):
             self.window  = window
             self.code    = code
@@ -60,6 +62,16 @@ class Window(JSClass):
             self.repeat  = repeat
             self.lang    = lang
             self.running = True
+            self.loops   = self.__init_loops()
+
+        def __init_loops(self):
+            max_loops = self.max_loops - 1
+
+            if not self.delay:
+                return max_loops
+
+            loops = int(0.1 * log.ThugOpts.timeout / self.delay)
+            return min(loops, max_loops)
 
         def start(self):
             self.event = sched.enter(self.delay, 1, self.execute, ())
@@ -93,7 +105,8 @@ class Window(JSClass):
 
                     return None
 
-            if self.repeat:
+            if self.repeat and self.loops > 0:
+                self.loops -= 1
                 self.event = sched.enter(self.delay, 1, self.execute, ())
 
     def __init__(self, url, dom_or_doc, navigator = None, personality = 'winxpie60', name="",
