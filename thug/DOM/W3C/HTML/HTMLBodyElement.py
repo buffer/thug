@@ -12,12 +12,12 @@ log = logging.getLogger("Thug")
 
 
 class HTMLBodyElement(HTMLElement):
+    aLink      = attr_property("alink")
     background = attr_property("background")
     bgColor    = attr_property("bgcolor")
     link       = attr_property("link")
-    aLink      = attr_property("alink")
-    vLink      = attr_property("vlink")
     text       = attr_property("text")
+    vLink      = attr_property("vlink")
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag if tag else doc)
