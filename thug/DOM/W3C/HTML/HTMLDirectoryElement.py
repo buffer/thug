@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 from .HTMLElement import HTMLElement
-from .attr_property import attr_property
+from .bool_property import bool_property
 
 
 class HTMLDirectoryElement(HTMLElement):
-    compact = attr_property("compact", bool)
+    compact = bool_property("compact")
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
