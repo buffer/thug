@@ -5,8 +5,8 @@ from .attr_property import attr_property
 
 
 class HTMLLinkElement(HTMLElement):
-    disabled = False
     charset  = attr_property("charset", default = "")
+    disabled = False
     href     = attr_property("href")
     hreflang = attr_property("hreflang")
     media    = attr_property("media")
