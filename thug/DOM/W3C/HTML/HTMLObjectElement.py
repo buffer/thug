@@ -4,6 +4,7 @@ import logging
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .bool_property import bool_property
 from .form_property import form_property
 
 log = logging.getLogger("Thug")
@@ -18,7 +19,7 @@ class HTMLObjectElement(HTMLElement):
     codeBase = attr_property("codebase")
     codeType = attr_property("codetype")
     data     = attr_property("data")
-    declare  = attr_property("declare", bool)
+    declare  = bool_property("declare")
     form     = form_property()
     height   = attr_property("height")
     hspace   = attr_property("hspace", int)
