@@ -1253,3 +1253,15 @@ class TestMiscSamplesIE(object):
         expected = []
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testAsync(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAsync.html")
+        expected = ['async: true', 'defer: false']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDefer(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDefer.html")
+        expected = ['async: false', 'defer: true']
+
+        self.do_perform_test(caplog, sample, expected)
