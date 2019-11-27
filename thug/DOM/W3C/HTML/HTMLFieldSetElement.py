@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
 from .HTMLElement import HTMLElement
-from .attr_property import attr_property
+from .bool_property import bool_property
 from .form_property import form_property
 
 
 class HTMLFieldSetElement(HTMLElement):
-    disabled = attr_property("disabled", bool)
+    disabled = bool_property("disabled")
     form     = form_property()
 
     def __init__(self, doc, tag):
