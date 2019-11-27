@@ -4,6 +4,7 @@ import logging
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .bool_property import bool_property
 
 log = logging.getLogger("Thug")
 
@@ -14,7 +15,7 @@ class HTMLImageElement(HTMLElement):
     border   = attr_property("border")
     height   = attr_property("height", int)
     hspace   = attr_property("hspace", int)
-    isMap    = attr_property("ismap", bool)
+    isMap    = bool_property("ismap")
     longDesc = attr_property("longdesc")
     name     = attr_property("name")
     useMap   = attr_property("usemap")
