@@ -2,6 +2,7 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .bool_property import bool_property
 from .text_property import text_property
 from .form_property import form_property
 
@@ -9,10 +10,10 @@ from .form_property import form_property
 class HTMLTextAreaElement(HTMLElement):
     accessKey = attr_property("accesskey")
     cols      = attr_property("cols", int)
-    disabled  = attr_property("disabled", bool)
+    disabled  = bool_property("disabled")
     form      = form_property()
     name      = attr_property("name")
-    readOnly  = attr_property("readonly", bool)
+    readOnly  = bool_property("readonly")
     rows      = attr_property("rows", int)
     tabIndex  = attr_property("tabindex", int)
     value     = text_property()
@@ -20,7 +21,9 @@ class HTMLTextAreaElement(HTMLElement):
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
 
-    defaultValue    = None
+    @property
+    def defaultValue(self):
+        return self.value
 
     @property
     def type(self):
