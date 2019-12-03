@@ -21,7 +21,7 @@ import logging
 import six.moves.configparser as ConfigParser
 
 try:
-    import SoirV8 as V8
+    import SpyV8 as V8
 except ImportError:
     import PyV8 as V8
 
