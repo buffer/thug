@@ -66,7 +66,6 @@ class ThugAPI(object):
         self.__init_classifiers()
         self.__init_opaque_filter()
         self.__init_pyhooks()
-        self.__init_extensions()
         self.__init_trace()
 
     def __init_conf(self, configuration_path):
@@ -105,9 +104,6 @@ class ThugAPI(object):
 
     def __init_pyhooks(self):
         log.PyHooks = dict()
-
-    def __init_extensions(self):
-        log.JSExtensions = list()
 
     def __init_trace(self):
         log.Trace = None
