@@ -795,7 +795,7 @@ class Window(JSClass):
             self.eval(code)
 
         if language.lower().startswith('vbs'):
-            log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, code)
+            log.DFT.handle_vbscript_text(code)
 
         return None
 
