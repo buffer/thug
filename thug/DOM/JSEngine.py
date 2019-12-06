@@ -48,7 +48,7 @@ class JSEngine(object):
         return V8.JSLocker()
 
     def init_v8_context(self, window):
-        self._context = V8.JSContext(window, extensions = log.JSExtensions)
+        self._context = V8.JSContext(window)
         V8.JSEngine.setStackLimit(1024 * 1024)
 
     def do_init_context(self, window):
