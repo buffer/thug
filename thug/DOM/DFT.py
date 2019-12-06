@@ -948,8 +948,7 @@ class DFT(object):
             pass
 
         hook = getattr(self, "do_handle_vbscript_text_hook", None)
-        if hook:
-            hook(text)
+        if hook and hook(text):
             return
 
         try:
