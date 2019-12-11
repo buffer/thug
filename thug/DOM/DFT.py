@@ -112,17 +112,9 @@ class DFT(object):
 
         for label, hook in hooks.items():
             name   = "{}_hook".format(label)
-            # _hook  = hook.im_func if hook.im_self else hook
             _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
-            # method = types.MethodType(_hook, self, DFT)
             method = six.create_bound_method(_hook, DFT)
             setattr(self, name, method)
-
-    # def __enter__(self):
-    #    return self
-
-    # def __exit__(self, _type, value, traceback):
-    #    pass
 
     @property
     def context(self):
@@ -937,8 +929,13 @@ class DFT(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_inline_vbscript_count()
 
-        url = log.ThugLogging.url if log.ThugOpts.local else log.last_url
         text = script.get_text()
+        self.handle_vbscript_text(text)
+
+    def handle_vbscript_text(self, text):
+        log.warning("VBScript parsing not available")
+
+        url = log.ThugLogging.url if log.ThugOpts.local else log.last_url
         self.increase_script_chars_count('vbscript', 'inline', text)
 
         if log.ThugOpts.code_logging:
@@ -950,6 +947,10 @@ class DFT(object):
         except Exception:
             pass
 
+        hook = getattr(self, "do_handle_vbscript_text_hook", None)
+        if hook and hook(text):
+            return
+
         try:
             urls = re.findall("(?P<url>https?://[^\s'\"]+)", text)
 
@@ -960,8 +961,6 @@ class DFT(object):
                 self.window._navigator.fetch(url, redirect_type = "VBS embedded URL")
         except Exception:
             pass
-
-        log.warning("VBScript parsing not available")
 
     def handle_vbs(self, script):
         self.handle_vbscript(script)
