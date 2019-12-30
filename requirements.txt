@@ -1,5 +1,5 @@
 PySocks==1.7.1
-beautifulsoup4==4.8.1
+beautifulsoup4==4.8.2
 cchardet==2.1.5
 cssutils==1.0.2
 elasticsearch==7.1.0
