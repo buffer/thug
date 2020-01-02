@@ -15,10 +15,6 @@ before_install:
   - sudo make install
   - cd -
   - sudo ldconfig
-  - git clone https://github.com/area1/stpyv8.git
-  - cd stpyv8
-  - sudo ./install-ubuntu.sh
-  - cd -
 install:
   - pip3 install pylibemu
   - pip3 install tox
