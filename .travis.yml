@@ -5,7 +5,9 @@ python:
   - "3.7"
 before_install:
   - sudo apt-get update
-  - sudo apt-get install build-essential libboost-python-dev libboost-all-dev systemtap-sdt-dev libfuzzy-dev graphviz
+  - supo apt-get install python python3 python3-venv python3-dev
+  - sudo apt-get install build-essential libboost-python-dev libboost-all-dev systemtap-sdt-dev
+  - sudo apt-get install libfuzzy-dev graphviz
   - git clone https://github.com/buffer/libemu.git
   - cd libemu
   - autoreconf -v -i
@@ -13,6 +15,10 @@ before_install:
   - sudo make install
   - cd -
   - sudo ldconfig
+  - git clone https://github.com/area1/stpyv8.git
+  - cd stpyv8
+  - ./install-ubuntu.sh
+  - cd -
 install:
   - pip3 install pylibemu
   - pip3 install tox
