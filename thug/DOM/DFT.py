@@ -471,7 +471,7 @@ class DFT(object):
             try:
                 handler = getattr(self.context.locals, h, None)
             except Exception:
-                pass
+                handler = None
 
         if not handler:
             return
