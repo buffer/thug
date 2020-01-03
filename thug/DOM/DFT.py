@@ -245,73 +245,7 @@ class DFT(object):
             self.check_URLDownloadToFile(emu, snippet)
             self.check_WinExec(emu, snippet)
 
-        # self.check_url(sc, shellcode)
         emu.free()
-
-    def check_url(self, sc, shellcode):
-        from .Window import Window
-
-        schemes = []
-        for scheme in ('http://', 'https://'):
-            if scheme in sc:
-                schemes.append(scheme)
-
-        for scheme in schemes:
-            offset = sc.find(scheme)
-            if offset == -1:
-                continue
-
-            url = sc[offset:]
-            url = url.split()[0]
-            if url.endswith("'") or url.endswith('"'):
-                url = url[:-1]
-
-            if not url:
-                continue
-
-            i = 0
-
-            while i < len(url):
-                if not url[i] in string.printable:
-                    break
-                i += 1
-
-            url = url[:i]
-
-            if url in log.ThugLogging.retrieved_urls:
-                return
-
-            try:
-                encoded_sc = shellcode.encode('unicode-escape')
-            except Exception:
-                encoded_sc = "Unable to encode shellcode"
-
-            snippet = log.ThugLogging.add_shellcode_snippet(encoded_sc,
-                                                            "Assembly",
-                                                            "Shellcode",
-                                                            method = "Static Analysis")
-
-            log.ThugLogging.add_behavior_warn(description = "[Shellcode Analysis] URL Detected: {}".format(url),
-                                              snippet     = snippet,
-                                              method      = "Static Analysis")
-
-            if url in log.ThugLogging.shellcode_urls:
-                return
-
-            try:
-                response = self.window._navigator.fetch(url, redirect_type = "URL found")
-                log.ThugLogging.shellcode_urls.add(url)
-            except Exception:
-                return
-
-            if response is None or not response.ok:
-                return
-
-            doc    = w3c.parseString(response.content)
-            window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
-
-            dft = DFT(window)
-            dft.run()
 
     def check_shellcodes(self):
         while True:
