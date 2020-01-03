@@ -1505,6 +1505,9 @@ class DFT(object):
             try:
                 value = int(attrs[key].split('px')[0])
             except Exception:
+                value = None
+
+            if not value:
                 continue
 
             if value <= 2:
