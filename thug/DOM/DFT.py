@@ -21,7 +21,6 @@ import re
 import string
 import base64
 import random
-# import types
 import logging
 
 import bs4
@@ -145,7 +144,6 @@ class DFT(object):
                     i += 3
             else:
                 sc.append(ord(s[i]))
-               #  sc.append(s[i])
                 i += 1
 
         return bytes(sc)
