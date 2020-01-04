@@ -117,17 +117,11 @@ class JSEngine(object):
 
     def isJSFunction(self, symbol):
         m = getattr(self, "is_{}_jsfunction".format(self.engine), None)
-        if m:
-            return m(symbol)
-
-        return False
+        return m(symbol) if m else False
 
     def is_v8_jsobject(self, symbol):
         return isinstance(symbol, V8.JSObject)
 
     def isJSObject(self, symbol):
         m = getattr(self, "is_{}_jsfunction".format(self.engine), None)
-        if m:
-            return m(symbol)
-
-        return False
+        return m(symbol) if m else False
