@@ -30,10 +30,7 @@ class HTMLImageElement(HTMLElement):
         return True
 
     def getSrc(self):
-        if 'src' in self.tag.attrs:
-            return str(self.tag.attrs['src'])
-
-        return None
+        return str(self.tag.attrs['src']) if 'src' in self.tag.attrs else None
 
     def setSrc(self, value):
         self.tag.attrs['src'] = str(value)
