@@ -695,3 +695,10 @@ class TestMiscSamplesFirefox(object):
                     '[Console] warn(\'Hello again\')']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testCrypto(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCrypto.html")
+        expected = ['enableSmartCardEvents: false',
+                    'version: 2.4']
+
+        self.do_perform_test(caplog, sample, expected)
