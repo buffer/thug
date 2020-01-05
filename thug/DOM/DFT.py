@@ -22,7 +22,6 @@ import string
 import base64
 import random
 import logging
-
 import bs4
 import six
 import six.moves.urllib.parse as urlparse
@@ -339,9 +338,6 @@ class DFT(object):
                     self.run_event_handler(handler, evtObject)
 
                 count -= 1
-
-        # if not getattr(self.window.doc.tag, '_listeners', None):
-        #    return
 
         if '_listeners' not in self.window.doc.tag.__dict__:
             return
@@ -668,8 +664,8 @@ class DFT(object):
             try:
                 setattr(self.window, _id, axo)
                 setattr(self.window.doc, _id, axo)
-            except TypeError:
-                pass
+            except TypeError as e: # pragma: no cover
+                log.info("[ERROR][handle_object] %s", str(e))
 
     def _get_script_for_event_params(self, attr_event):
         result = list()
