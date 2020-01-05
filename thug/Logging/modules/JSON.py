@@ -112,7 +112,7 @@ class JSON(object):
                 enc_data = data.decode(enc['encoding'])
 
             return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
-        except UnicodeDecodeError:
+        except UnicodeDecodeError: # pragma: no cover
             return str()
 
     def set_url(self, url):
@@ -180,8 +180,8 @@ class JSON(object):
 
         try:
             content = self.fix(data.get("content", "NOT AVAILABLE"))
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][get_content] %s", str(e))
 
         return content
 

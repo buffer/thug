@@ -82,8 +82,8 @@ class SampleLogging(object):
             if [t for t in z.namelist() if t.endswith('.class')]:
                 os.remove(jar)
                 return True
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][is_jar] %s", str(e))
 
         os.remove(jar)
         return False

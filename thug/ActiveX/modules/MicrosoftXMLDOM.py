@@ -23,8 +23,8 @@ class Node(object):
                 return base64.b64decode(self.text)
             elif self._dataType in ('bin.hex', ):
                 return binascii.unhexlify(self.text)
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][getNodeTypedValue] %s", str(e))
 
         return self.text
 
