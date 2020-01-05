@@ -43,7 +43,7 @@ class ThugPlugins(object):
         self.last_low_prio    = FIRST_LOW_PRIO
         self.get_plugins()
 
-    def __call__(self):
+    def __call__(self): # pragma: no cover
         self.run()
 
     def handle_low_prio_plugin(self):
@@ -70,14 +70,14 @@ class ThugPlugins(object):
                 continue
 
             pkg = os.path.join(PLUGINS_PATH, p)
-            if not os.path.isdir(pkg):
+            if not os.path.isdir(pkg): # pragma: no cover
                 continue
 
-            if HANDLER_MODULE not in os.listdir(pkg):
+            if HANDLER_MODULE not in os.listdir(pkg): # pragma: no cover
                 continue
 
             plugin_info = p.split('-')
-            if len(plugin_info) < 2:
+            if len(plugin_info) < 2: # pragma: no cover
                 continue
 
             plugin_name = p
@@ -104,5 +104,5 @@ class ThugPlugins(object):
                 try:
                     verifyObject(IPlugin, p)
                     p.run(self.thug, log)
-                except BrokenImplementation as e:
+                except BrokenImplementation as e: # pragma: no cover
                     log.warning("[%s] %s", source, e)
