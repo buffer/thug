@@ -24,7 +24,6 @@ import base64
 import numbers
 import collections
 import datetime
-# import types
 import random
 import six
 import bs4
@@ -1088,7 +1087,7 @@ class Window(JSClass):
 
             try:
                 log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else url, html)
-            except Exception as e:
+            except Exception as e: # pragma: no cover
                 log.warning("[Window] HTMLClassifier error: %s", str(e))
 
             content_type = response.headers.get('content-type' , None)
