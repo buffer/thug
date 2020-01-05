@@ -466,11 +466,12 @@ class DFT(object):
     def _handle_jnlp(self, data, headers, params):
         try:
             soup = bs4.BeautifulSoup(data, "lxml")
-        except Exception: # pragma: no cover
+        except Exception as e: # pragma: no cover
+            log.info("[ERROR][_handle_jnlp] %s", str(e))
             return
 
         jnlp = soup.find("jnlp")
-        if jnlp is None:
+        if jnlp is None: # pragma: no cover
             return
 
         codebase = jnlp.attrs['codebase'] if 'codebase' in jnlp.attrs else ''
@@ -482,7 +483,7 @@ class DFT(object):
             self._check_jnlp_param(param)
 
         jars = soup.find_all("jar")
-        if not jars:
+        if not jars: # pragma: no cover
             return
 
         headers['User-Agent'] = self.javaWebStartUserAgent
@@ -491,15 +492,15 @@ class DFT(object):
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
                 self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP", params = params)
-            except Exception:
-                pass
+            except Exception as e: # pragma: no cover
+                log.info("[ERROR][_handle_jnlp] %s", str(e))
 
     def do_handle_params(self, _object):
         params = dict()
 
         for child in _object.find_all():
             name = getattr(child, 'name', None)
-            if name is None:
+            if name is None: # pragma: no cover
                 continue
 
             if name.lower() in ('param', ):
@@ -548,8 +549,8 @@ class DFT(object):
                                              headers = headers,
                                              redirect_type = "params",
                                              params = params)
-            except Exception:
-                pass
+            except Exception as e:
+                log.info("[ERROR][do_handle_params] %s", str(e))
 
         for key, value in params.items():
             if key in ('filename', 'movie', 'archive', 'code', 'codebase', 'source', ):
@@ -569,8 +570,8 @@ class DFT(object):
 
                 if response:
                     self._handle_jnlp(response.content, headers, params)
-            except Exception:
-                pass
+            except Exception as e:
+                log.info("[ERROR][do_handle_params] %s", str(e))
 
         for p in ('source', 'data', 'archive' ):
             handler = getattr(self, "do_handle_params_{}".format(p), None)
@@ -588,8 +589,8 @@ class DFT(object):
                                          headers = headers,
                                          redirect_type = "params",
                                          params = params)
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][do_params_fetch] %s", str(e))
 
     def do_handle_params_source(self, params, headers):
         if 'source' not in params:
@@ -637,8 +638,8 @@ class DFT(object):
                 self.window._navigator.fetch(codebase,
                                              redirect_type = "object codebase",
                                              params = params)
-            except Exception: # pragma: no cover
-                pass
+            except Exception as e: # pragma: no cover
+                log.info("[ERROR][handle_object] %s", str(e))
 
         if data and not data.startswith('data:'):
             if log.ThugOpts.features_logging:
@@ -648,17 +649,17 @@ class DFT(object):
                 self.window._navigator.fetch(data,
                                              redirect_type = "object data",
                                              params = params)
-            except Exception:
-                pass
+            except Exception as e:
+                log.info("[ERROR][handle_object] %s", str(e))
 
         if not log.ThugOpts.Personality.isIE():
             return
 
-        # if classid and _id:
         if classid:
             try:
                 axo = _ActiveXObject(self.window, classid, 'id')
-            except TypeError:
+            except TypeError as e: # pragma: no cover
+                log.info("[ERROR][handle_object] %s", str(e))
                 return
 
             if _id is None:
@@ -671,13 +672,14 @@ class DFT(object):
                 pass
 
     def _get_script_for_event_params(self, attr_event):
+        result = list()
         params = attr_event.split('(')
 
         if len(params) > 1:
             params = params[1].split(')')[0]
-            return [p for p in params.split(',') if p]
+            result = [p for p in params.split(',') if p]
 
-        return list()
+        return result
 
     def _handle_script_for_event(self, script):
         attr_for   = script.get("for", None)
@@ -695,8 +697,8 @@ class DFT(object):
                 try:
                     oldState = params.pop()
                     ctx.eval("%s = 3;" % (oldState.strip(), ))
-                except Exception:
-                    pass
+                except Exception as e:
+                    log.info("[ERROR][_handle_script_for_event] %s", str(e))
 
     def get_script_handler(self, script):
         language = script.get('language', None)
@@ -709,14 +711,14 @@ class DFT(object):
         try:
             _language = language.lower().split('/')[-1]
             return getattr(self, "handle_{}".format(_language), None)
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][get_script_handler] %s", str(e))
 
         try:
             _language = language.encode('ascii', 'ignore').lower().split('/')[-1]
             return getattr(self, "handle_{}".format(_language), None)
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][get_script_handler] %s", str(e))
 
         log.warning("[SCRIPT] Unhandled script type: %s", language)
         return None
@@ -744,8 +746,8 @@ class DFT(object):
         try:
             s.text = response.text
             return True
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][handle_external_javascript_text] %s", str(e))
 
         # Last attempt
         # The encoding will be (hopefully) detected through the Encoding class.
@@ -757,8 +759,8 @@ class DFT(object):
         try:
             s.text = js.decode(enc['encoding'])
             return True
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][handle_external_javascript_text] %s", str(e))
 
         log.warning("[handle_external_javascript_text] Encoding failure (URL: %s)", response.url)
         return False
@@ -773,7 +775,8 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = "script src")
-        except Exception:
+        except Exception as e:
+            log.info("[ERROR][handle_external_javascript] %s", str(e))
             return
 
         if response is None or response.status_code in (404, ) or not response.content:
@@ -876,11 +879,11 @@ class DFT(object):
         try:
             log.ThugLogging.log_file(text, url, sampletype = 'VBS')
             log.VBSClassifier.classify(url, text)
-        except Exception:
-            pass
+        except Exception as e: # pragma: no cover
+            log.info("[ERROR][handle_vbscript_text] %s", str(e))
 
         hook = getattr(self, "do_handle_vbscript_text_hook", None)
-        if hook and hook(text):
+        if hook and hook(text): # pragma: no cover
             return
 
         try:
@@ -891,8 +894,8 @@ class DFT(object):
                     log.ThugLogging.Features.increase_url_count()
 
                 self.window._navigator.fetch(url, redirect_type = "VBS embedded URL")
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][handle_vbscript_text] %s", str(e))
 
     def handle_vbs(self, script):
         self.handle_vbscript(script)
@@ -962,7 +965,8 @@ class DFT(object):
                                                     method = method.upper(),
                                                     body = payload,
                                                     redirect_type = "form")
-        except Exception:
+        except Exception as e: # pragma: no cover
+            log.info("[ERROR][do_handle_form] %s", str(e))
             return
 
         if response is None or response.status_code in (404, ):
@@ -1014,8 +1018,8 @@ class DFT(object):
 
         try:
             self.window._navigator.fetch(src, headers = headers, redirect_type = "embed")
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][handle_embed] %s", str(e))
 
     def handle_applet(self, applet):
         log.warning(applet)
@@ -1041,8 +1045,8 @@ class DFT(object):
                                          headers = headers,
                                          redirect_type = "applet",
                                          params = params)
-        except Exception:
-            pass
+        except Exception as e: # pragma: no cover
+            log.info("[ERROR][handle_applet] %s", str(e))
 
     def handle_meta(self, meta):
         log.info(meta)
@@ -1130,7 +1134,8 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(url, redirect_type = "meta")
-        except Exception:
+        except Exception as e:
+            log.info("[ERROR][handle_meta_refresh] %s", str(e))
             return
 
         if response is None or response.status_code in (404, ):
@@ -1164,7 +1169,8 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = redirect_type)
-        except Exception:
+        except Exception as e:
+            log.info("[ERROR][handle_frame] %s", str(e))
             return
 
         if response is None or response.status_code in (404, ):
@@ -1214,7 +1220,8 @@ class DFT(object):
 
             try:
                 self.window._navigator.fetch(url, redirect_type = "font face")
-            except Exception:
+            except Exception as e:
+                log.info("[ERROR][do_handle_font_face_rule] %s", str(e))
                 return
 
     def handle_style(self, style):
@@ -1224,7 +1231,8 @@ class DFT(object):
 
         try:
             sheet = cssparser.parseString(style.text)
-        except Exception:
+        except Exception as e: # pragma: no cover
+            log.info("[ERROR][handle_style] %s", str(e))
             return
 
         for rule in sheet:
@@ -1313,7 +1321,8 @@ class DFT(object):
 
             try:
                 response = self.window._navigator.fetch(href, redirect_type = "anchor")
-            except Exception:
+            except Exception as e: # pragma: no cover
+                log.info("[ERROR][handle_a] %s", str(e))
                 return
 
             if response is None or response.status_code in (404, ):
@@ -1336,7 +1345,8 @@ class DFT(object):
 
         try:
             response = self.window._navigator.fetch(href, redirect_type = "link")
-        except Exception:
+        except Exception as e:
+            log.info("[ERROR][handle_link] %s", str(e))
             return
 
         if response is None or response.status_code in (404, ):
@@ -1458,8 +1468,8 @@ class DFT(object):
     def run_htmlclassifier(self, soup):
         try:
             log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, str(soup))
-        except Exception:
-            pass
+        except Exception as e: # pragma: no cover
+            log.info("[ERROR][run_htmlclassifier] %s", str(e))
 
     def _run(self, soup = None):
         if soup is None:
@@ -1528,21 +1538,21 @@ class DFT(object):
                 self.handle_window_event(evt)
                 self.run_htmlclassifier(soup)
             except Exception:
-                log.warning("[handle_window_event] Event %s not properly handled", evt)
+                log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
             try:
                 self.handle_document_event(evt)
                 self.run_htmlclassifier(soup)
-            except Exception:
-                log.warning("[handle_document_event] Event %s not properly handled", evt)
+            except Exception: # pragma: no cover
+                log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_events:
             try:
                 self.handle_element_event(evt)
                 self.run_htmlclassifier(soup)
-            except Exception:
-                log.warning("[handle_element_event] Event %s not properly handled", evt)
+            except Exception: # pragma: no cover
+                log.warning("[handle_events] Event %s not properly handled", evt)
 
     def run(self):
         with self.context as ctx:  # pylint:disable=unused-variable
