@@ -7,7 +7,7 @@ log = logging.getLogger("Thug")
 
 def ShellExecute(self, sFile, vArguments = "", vDirectory = "", vOperation = "open", vShow = 1):
     cmdLine = "{} {}".format(sFile, vArguments)
-    urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+',
+    urls = re.findall(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+',
                       cmdLine.replace("'", '"'))
 
     log.ThugLogging.add_behavior_warn('[Shell.Application ActiveX] ShellExecute("{}", "{}", "{}", "{}", "{}")'.format(sFile,

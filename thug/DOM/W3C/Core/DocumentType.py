@@ -6,7 +6,7 @@ from .Node import Node
 
 
 class DocumentType(Node):
-    RE_DOCTYPE = re.compile("^(\w+)", re.M + re.S)
+    RE_DOCTYPE = re.compile(r"^(\w+)", re.M + re.S)
 
     def __init__(self, doc, tag):
         self.tag = tag

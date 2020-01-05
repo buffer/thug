@@ -143,10 +143,10 @@ win32_folders = ("c:\\windows",
 win32_files = ("c:\\windows\\system32\\drivers\\etc\\hosts", )
 
 win32_registry = {
-    'hklm\software\microsoft\windows nt\currentversion\systemroot' : 'C:\\Windows',
-    'hklm\software\microsoft\windows\currentversion\explorer\shell folders\common desktop' : '',
+    'hklm\\software\\microsoft\\windows nt\\currentversion\\systemroot' : 'C:\\Windows',
+    'hklm\\software\\microsoft\\windows\\currentversion\\explorer\\shell folders\\common desktop' : '',
 }
 
 win32_registry_map = {
-    'hklm\software\microsoft\windows\currentversion\programfilesdir' : 'ProgramFiles',
+    'hklm\\software\\microsoft\\windows\\currentversion\\programfilesdir' : 'ProgramFiles',
 }
