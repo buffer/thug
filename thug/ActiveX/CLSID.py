@@ -163,9 +163,11 @@ CLSID = [
                             'Position'      : 0,
                             'position'      : 0,
                             '_files'        : dict(),
-                            '_current'      : None},
+                            '_current'      : None,
+                          },
             'funcattrs' : {
                             'position'      : AdodbStream.setPosition,
+                            'Size'          : AdodbStream.getSize
                           },
             'methods'   : {
                             'Open'          : AdodbStream.open,

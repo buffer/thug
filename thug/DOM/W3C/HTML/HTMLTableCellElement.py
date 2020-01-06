@@ -2,6 +2,7 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .bool_property import bool_property
 
 
 class HTMLTableCellElement(HTMLElement):
@@ -14,7 +15,7 @@ class HTMLTableCellElement(HTMLElement):
     colSpan = attr_property("colspan", int)
     headers = attr_property("headers")
     height  = attr_property("height")
-    noWrap  = attr_property("nowrap", bool)
+    noWrap  = bool_property("nowrap")
     rowSpan = attr_property("rowspan", int)
     scope   = attr_property("scope")
     vAlign  = attr_property("valign")

@@ -2,12 +2,13 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .bool_property import bool_property
 from .form_property import form_property
 
 
 class HTMLButtonElement(HTMLElement):
     accessKey = attr_property("accesskey")
-    disabled  = attr_property("disabled", bool)
+    disabled  = bool_property("disabled")
     form      = form_property()
     name      = attr_property("name")
     tabIndex  = attr_property("tabindex", int)

@@ -553,6 +553,15 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def set_log_verbose():
+        """
+        set_log_verbose
+
+        Enable console logging
+
+        @return: None
+        """
+
     def set_vt_query():
         """
         set_vt_query

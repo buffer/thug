@@ -4,24 +4,30 @@ import logging
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .bool_property import bool_property
 from .text_property import text_property
 
 log = logging.getLogger("Thug")
 
 
 class HTMLScriptElement(HTMLElement):
-    _async  = attr_property("async", bool)
+    _async  = bool_property("async")
     text    = text_property()
     htmlFor = None
     event   = None
     charset = attr_property("charset", default = "")
-    defer   = attr_property("defer", bool)
+    defer   = bool_property("defer")
     _src    = attr_property("src", default = "")
     type    = attr_property("type")
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-        self.async = self._async
+
+    def __getattr__(self, name):
+        if name in ("async", ):
+            return self._async
+
+        raise AttributeError
 
     def get_src(self):
         return self._src

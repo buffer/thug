@@ -1,0 +1,10 @@
+<html>
+<body>
+<script src="async.js" id="foo" defer></script>
+<script>
+	var a = document.getElementById("foo");
+	alert("async: " + a.async);
+	alert("defer: " + a.defer);
+</script>
+</body>
+</html>

@@ -72,13 +72,12 @@ class ThugLogging(BaseLogging, SampleLogging):
             setattr(self, '{}_symbol'.format(name), (self.get_random_name(), self.get_random_name(), ))
 
     def __init_config(self):
-        self.modules = dict()
-
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
         if not os.path.exists(conf_file): # pragma: no cover
             log.warning("[CRITICAL] Logging subsystem not initialized (configuration file not found)")
             return
 
+        self.modules = dict()
         config = ConfigParser.ConfigParser()
         config.read(conf_file)
 
@@ -113,7 +112,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.url = url
 
         for m in self.resolve_method('set_url'):
-            m(url.encode('utf8'))
+            m(url)
 
     def add_behavior_warn(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         for m in self.resolve_method('add_behavior_warn'):
@@ -313,6 +312,9 @@ class ThugLogging(BaseLogging, SampleLogging):
         return final
 
     def log_href_redirect(self, referer, url):
+        if not url:
+            return
+
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
         self.log_connection(referer, url, "href")
 
@@ -362,7 +364,10 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         fname = os.path.join(dirname, filename)
 
-        with open(fname, 'wb') as fd:
-            fd.write(content)
+        try:
+            with open(fname, 'wb') as fd:
+                fd.write(content)
+        except Exception as e:
+            log.warning(str(e))
 
         return fname

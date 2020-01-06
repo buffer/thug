@@ -23,16 +23,16 @@ class Node(object):
                 return base64.b64decode(self.text)
             elif self._dataType in ('bin.hex', ):
                 return binascii.unhexlify(self.text)
-        except Exception:
-            pass
+        except Exception as e:
+            log.info("[ERROR][getNodeTypedValue] %s", str(e))
 
         return self.text
 
     def setNodeTypedValue(self, value):
         if self.dataType in ('bin.base64', ):
-            self.text = base64.b64encode(value)
+            self.text = base64.b64encode(value.encode())
         elif self.dataType in ('bin.hex', ):
-            self.text = binascii.hexlify(value)
+            self.text = binascii.hexlify(value.encode())
         else:
             self.text = value
 

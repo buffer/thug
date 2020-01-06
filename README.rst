@@ -1,7 +1,7 @@
 Thug
 ====
 
-|version badge| |travis badge| |landscape badge| |codefactor badge| |codecov badge|
+|version badge| |travis badge| |lgtm badge| |codefactor badge| |codecov badge|
 
 The number of client-side attacks has grown significantly in the past few years
 shifting focus on poorly protected vulnerable clients. Just as the most known
@@ -34,38 +34,6 @@ Thug is open source and we welcome contributions in all forms!
 Thug is free to use for any purpose (even commercial ones). If you use and appreciate Thug, please consider
 supporting the project with a donation using Paypal.
 
-Development Setup
------------------
-
-To setup a development environment, follow the steps:
-
-.. code-block:: bash
-
-    git clone https://github.com/buffer/thug.git
-    cd thug
-    ./dev/dev.sh
-
-
-The *dev* script will create a `virtualenv`_ environment in a directory called "venv"
-and install all the mandatory and optional dependencies into it. Thug is installed as
-a permanent package and the package needs to be installed again executing ``pip install .``
-in order to compile all the changes.
-
-If you want to install Thug as an "editable", please replace line 11 in `dev.sh` by the
-following line and re-run ``dev.sh``
-
-    pip2 install -e .
-
-Installing Thug as an "editable" allows changes to the source in the repository to be reflected
-in the virtualenv.
-
-Make sure that you successfully installed Thug by running the following commands:
-
-.. code-block:: bash
-
-    . venv/bin/activate
-    thug --version
-
 
 Testing
 -------
@@ -83,16 +51,10 @@ Since tox builds and installs dependencies from scratch, using `pytest`_ for fas
     pytest --cov thug
 
 
-Support
--------
-
-Thanks to |JetBrains|_ for free |PyCharm|_ licenses!
-
-
 License information
 -------------------
 
-Copyright (C) 2011-2019 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
+Copyright (C) 2011-2020 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
 
 License: GNU General Public License, version 2
 
@@ -101,9 +63,8 @@ License: GNU General Public License, version 2
    :target: https://pypi.python.org/pypi/thug/
 .. |travis badge| image:: https://img.shields.io/travis/buffer/thug/master.svg
    :target: https://travis-ci.org/buffer/thug
-.. |landscape badge| image:: https://landscape.io/github/buffer/thug/master/landscape.svg
-   :target: https://landscape.io/github/buffer/thug/master
-   :alt: Code Health
+.. |lgtm badge| image:: https://img.shields.io/lgtm/grade/python/g/buffer/thug.svg?logo=lgtm&logoWidth=18
+   :target: https://lgtm.com/projects/g/buffer/thug
 .. |codefactor badge| image:: https://www.codefactor.io/repository/github/buffer/thug/badge
    :target: https://www.codefactor.io/repository/github/buffer/thug
 .. |codecov badge| image:: https://codecov.io/gh/buffer/thug/branch/master/graph/badge.svg
@@ -112,10 +73,6 @@ License: GNU General Public License, version 2
    :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
 .. |donate badge| image:: https://img.shields.io/badge/Donate-PayPal-green.svg
    :target: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XTDF8AHJ28CXY
-.. |JetBrains| image:: /docs/images/pycharm/jetbrains.svg
-.. _JetBrains: https://www.jetbrains.com/?from=thug
-.. |PyCharm| image:: /docs/images/pycharm/pycharm.png
-.. _PyCharm: https://www.jetbrains.com/?from=thug
 .. _virtualenv: https://virtualenv.pypa.io/
 .. _tox: https://tox.readthedocs.io/
 .. _`pytest`: http://pytest.org/

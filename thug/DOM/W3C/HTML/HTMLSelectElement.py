@@ -5,13 +5,14 @@ from thug.DOM.W3C.Core.DOMException import DOMException
 from .HTMLElement import HTMLElement
 from .HTMLOptionsCollection import HTMLOptionsCollection
 from .attr_property import attr_property
+from .bool_property import bool_property
 
 
 class HTMLSelectElement(HTMLElement):
     selectedIndex = 0
     value         = None
-    disabled      = attr_property("disabled", bool)
-    multiple      = attr_property("multiple", bool)
+    disabled      = bool_property("disabled")
+    multiple      = bool_property("multiple")
     name          = attr_property("name")
     size          = attr_property("size", int)
     tabIndex      = attr_property("tabindex", int)

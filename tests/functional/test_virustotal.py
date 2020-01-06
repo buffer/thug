@@ -15,6 +15,7 @@ class TestVirusTotal(object):
         thug.set_vt_submit()
         thug.disable_cert_logging()
         thug.set_features_logging()
+        thug.set_ssl_verify()
         thug.log_init(url)
         thug.run_remote(url)
 

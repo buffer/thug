@@ -54,6 +54,7 @@ class ThugOpts(dict):
         self._features_logging  = False
         self._no_fetch          = False
         self._broken_url        = False
+        self._ssl_verify        = False
         self._vt_query          = False
         self._vt_submit         = False
         self._vt_runtime_apikey = None
@@ -268,6 +269,14 @@ class ThugOpts(dict):
         self._broken_url = mode
 
     broken_url = property(get_broken_url, set_broken_url)
+
+    def get_ssl_verify(self):
+        return self._ssl_verify
+
+    def set_ssl_verify(self, verify):
+        self._ssl_verify = verify
+
+    ssl_verify = property(get_ssl_verify, set_ssl_verify)
 
     def get_vt_query(self):
         return self._vt_query

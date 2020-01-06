@@ -40,6 +40,9 @@ class Node(JSClass, EventTarget):
     def __ne__(self, other):
         return not self.__eq__(other)
 
+    def __hash__(self):
+        return id(self)
+
     def __init_node_personality(self):
         if log.ThugOpts.Personality.isIE():
             self.__init_node_personality_IE()

@@ -15,7 +15,6 @@ def getSize(self):
 def open(self):  # pylint:disable=redefined-builtin
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] open")
     self.fobject = BytesIO()
-    self.Size = property(self.getSize)
 
 
 def Read(self, length = -1):
@@ -32,7 +31,7 @@ def Read(self, length = -1):
 
 def Write(self, s):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Write")
-    self.fobject.write(s)
+    self.fobject.write(s.encode())
 
 
 def SaveToFile(self, filename, opt = 0):
@@ -71,7 +70,7 @@ def ReadText(self, NumChars = -1):
 
 def WriteText(self, data, options = None):
     log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] WriteText(%s)" % (data, ))
-    self.fobject.write(data)
+    self.fobject.write(data.encode())
 
 
 def Close(self):

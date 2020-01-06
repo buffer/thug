@@ -12,6 +12,7 @@ class TestBrokenURL(object):
 
         thug.set_useragent('win7ie90')
         thug.set_broken_url()
+        thug.set_ssl_verify()
         thug.log_init(url)
 
         thug.run_remote(url)

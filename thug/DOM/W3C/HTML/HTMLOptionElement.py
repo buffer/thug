@@ -2,13 +2,14 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .bool_property import bool_property
 from .form_property import form_property
 
 
 class HTMLOptionElement(HTMLElement):
-    defaultSelected = attr_property("selected", bool)
+    defaultSelected = bool_property("selected")
     index           = attr_property("index", int, readonly = True)
-    disabled        = attr_property("disabled", bool)
+    disabled        = bool_property("disabled")
     form            = form_property()
     label           = attr_property("label")
     selected        = False

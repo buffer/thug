@@ -108,6 +108,10 @@ class HTTPSession(object):
         if url.lower().startswith('url=') or url.lower().startswith('data:'):
             return url
 
+        if url.startswith('#'):
+            log.warning("[INFO] Ignoring anchor: {}".format(url))
+            return None
+
         # Check the URL is not broken (i.e. http:/www.google.com) and
         # fix it if the broken URL option is enabled.
         if log.ThugOpts.broken_url:
@@ -213,7 +217,7 @@ class HTTPSession(object):
                                headers = _headers,
                                timeout = log.ThugOpts.connect_timeout,
                                data    = body,
-                               verify  = False)
+                               verify  = log.ThugOpts.ssl_verify)
         except requests.ConnectionError as e:
             log.ThugLogging.log_warning("[HTTPSession] {0}".format(str(e)))
 

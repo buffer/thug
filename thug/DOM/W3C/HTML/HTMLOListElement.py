@@ -2,10 +2,11 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .bool_property import bool_property
 
 
 class HTMLOListElement(HTMLElement):
-    compact = attr_property("compact", bool)
+    compact = bool_property("compact")
     start   = attr_property("start", int)
     type    = attr_property("type")
 

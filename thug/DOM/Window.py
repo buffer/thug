@@ -24,7 +24,6 @@ import base64
 import numbers
 import collections
 import datetime
-# import types
 import random
 import six
 import bs4
@@ -37,7 +36,6 @@ from thug.DOM.W3C import w3c
 from .JSClass import JSClass
 from .JSClass import JSClassConstructor
 from .JSClass import JSClassPrototype
-from .JSEngine import JSEngine
 from .JSInspector import JSInspector
 from .Navigator import Navigator
 from .Location import Location
@@ -54,6 +52,8 @@ log = logging.getLogger("Thug")
 
 class Window(JSClass):
     class Timer(object):
+        max_loops = 3
+
         def __init__(self, window, code, delay, repeat, lang = 'JavaScript'):
             self.window  = window
             self.code    = code
@@ -61,6 +61,16 @@ class Window(JSClass):
             self.repeat  = repeat
             self.lang    = lang
             self.running = True
+            self.loops   = self.__init_loops()
+
+        def __init_loops(self):
+            max_loops = self.max_loops - 1
+
+            if not self.delay:
+                return max_loops
+
+            loops = int(0.1 * log.ThugOpts.timeout / self.delay)
+            return min(loops, max_loops)
 
         def start(self):
             self.event = sched.enter(self.delay, 1, self.execute, ())
@@ -72,6 +82,7 @@ class Window(JSClass):
 
         def stop(self):
             self.running = False
+
             if self.event in sched.queue:
                 sched.cancel(self.event)
 
@@ -81,26 +92,21 @@ class Window(JSClass):
 
             with self.window.context as ctx:
                 try:
-                    if isinstance(self.code, six.string_types):
-                        return ctx.eval(self.code)
-
                     if log.JSEngine.isJSFunction(self.code):
-                        return self.code()
-
+                        self.code()
+                    else:
+                        ctx.eval(self.code)
+                except Exception as e:
                     log.warning("Error while handling timer callback")
 
                     if log.ThugOpts.Personality.isIE():
                         raise TypeError()
 
                     return None
-                except Exception:
-                    if log.ThugOpts.Personality.isIE():
-                        raise TypeError()
 
-                    return None
-
-            if self.repeat:
-                self.start()
+            if self.repeat and self.loops > 0:
+                self.loops -= 1
+                self.event = sched.enter(self.delay, 1, self.execute, ())
 
     def __init__(self, url, dom_or_doc, navigator = None, personality = 'winxpie60', name="",
                  target='_blank', parent = None, opener = None, replace = False, screen = None,
@@ -788,7 +794,7 @@ class Window(JSClass):
             self.eval(code)
 
         if language.lower().startswith('vbs'):
-            log.VBSClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, code)
+            log.DFT.handle_vbscript_text(code)
 
         return None
 
@@ -935,7 +941,7 @@ class Window(JSClass):
     def context(self):
         # if not hasattr(self, '_context'):
         if '_context' not in self.__dict__:
-            log.JSEngine = JSEngine(self)
+            log.JSEngine.init_context(self)
             self._context = log.JSEngine.context
 
         return self._context
@@ -981,7 +987,7 @@ class Window(JSClass):
 
     def unescape(self, s):
         i  = 0
-        sc = list()
+        sc = str()
 
         if len(s) > 16:
             log.ThugLogging.shellcodes.add(s)
@@ -996,33 +1002,39 @@ class Window(JSClass):
                 i += 1
                 continue
 
-            if s[i] == '%' and (i + 1) < len(s) and s[i + 1] == 'u':
+            if s[i] in ('%', ) and (i + 1) < len(s) and s[i + 1] == 'u':
                 if (i + 6) <= len(s):
                     currchar = int(s[i + 2: i + 4], 16)
                     nextchar = int(s[i + 4: i + 6], 16)
-                    sc.append(chr(nextchar))
-                    sc.append(chr(currchar))
+                    sc += chr(nextchar)
+                    sc += chr(currchar)
                     i += 6
                 elif (i + 3) <= len(s):
                     currchar = int(s[i + 2: i + 4], 16)
-                    sc.append(chr(currchar))
+                    sc += chr(currchar)
                     i += 3
             else:
-                sc.append(s[i])
+                sc += s[i]
                 i += 1
 
-        return ''.join(sc)
+        return sc
 
     def atob(self, s):
         """
         The atob method decodes a base-64 encoded string
         """
+        if isinstance(s, six.string_types):
+            s = s.encode()
+
         return base64.b64decode(s)
 
     def btoa(self, s):
         """
         The btoa method encodes a string in base-64
         """
+        if isinstance(s, six.string_types):
+            s = s.encode()
+
         return base64.b64encode(s)
 
     def decodeURIComponent(self, s):
@@ -1075,7 +1087,7 @@ class Window(JSClass):
 
             try:
                 log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else url, html)
-            except Exception as e:
+            except Exception as e: # pragma: no cover
                 log.warning("[Window] HTMLClassifier error: %s", str(e))
 
             content_type = response.headers.get('content-type' , None)

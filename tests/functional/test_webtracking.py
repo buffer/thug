@@ -18,6 +18,7 @@ class TestWebTracking(object):
         thug.set_web_tracking()
         thug.disable_cert_logging()
         thug.set_features_logging()
+        thug.set_ssl_verify()
         thug.log_init(url)
 
         m = getattr(thug, "run_{}".format(type_))
@@ -49,6 +50,6 @@ class TestWebTracking(object):
         expected = ['Domain starting with initial dot: .bing.com']
         self.do_perform_test(caplog, "https://www.bing.com", expected)
 
-    def test_facebook(self, caplog):
+    def test_github(self, caplog):
         expected = ['Secure flag set']
-        self.do_perform_test(caplog, "http://www.facebook.com", expected)
+        self.do_perform_test(caplog, "http://www.github.com", expected)

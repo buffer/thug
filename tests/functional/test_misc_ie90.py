@@ -21,6 +21,7 @@ class TestMiscSamplesIE(object):
         thug.set_events('click,storage')
         thug.set_connect_timeout(2)
         thug.disable_cert_logging()
+        thug.set_ssl_verify()
         thug.set_features_logging()
 
         if nofetch:
@@ -1251,5 +1252,17 @@ class TestMiscSamplesIE(object):
     def test_testHTMLBodyElement2(self, caplog):
         sample   = os.path.join(self.misc_path, "testHTMLBodyElement2.html")
         expected = []
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testAsync(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAsync.html")
+        expected = ['async: true', 'defer: false']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDefer(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDefer.html")
+        expected = ['async: false', 'defer: true']
 
         self.do_perform_test(caplog, sample, expected)

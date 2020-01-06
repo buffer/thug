@@ -2,11 +2,12 @@
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
+from .bool_property import bool_property
 
 
 class HTMLHRElement(HTMLElement):
     align   = attr_property("align")
-    noShade = attr_property("noshade", bool)
+    noShade = bool_property("noshade")
     size    = attr_property("size")
     width   = attr_property("width")
 

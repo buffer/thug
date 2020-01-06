@@ -20,8 +20,7 @@ import os
 import sys
 import logging
 import six.moves.urllib.parse as urlparse
-
-import cchardet
+import six
 import bs4
 from lxml.html import tostring
 from lxml.html import builder as E
@@ -38,14 +37,7 @@ from thug.WebTracking.WebTracking import WebTracking
 from thug.Encoding.Encoding import Encoding
 from thug.Logging.ThugLogging import ThugLogging
 
-from .IThugAPI import IThugAPI
-from .ThugOpts import ThugOpts
-from .Watchdog import Watchdog
-from .OpaqueFilter import OpaqueFilter
-from .abstractmethod import abstractmethod
-from .ThugVulnModules import ThugVulnModules
-
-from thug.DOM.JSLocker import JSLocker
+from thug.DOM.JSEngine import JSEngine
 from thug.Classifier.JSClassifier import JSClassifier
 from thug.Classifier.VBSClassifier import VBSClassifier
 from thug.Classifier.URLClassifier import URLClassifier
@@ -53,6 +45,13 @@ from thug.Classifier.HTMLClassifier import HTMLClassifier
 from thug.Classifier.TextClassifier import TextClassifier
 from thug.Classifier.CookieClassifier import CookieClassifier
 from thug.Classifier.SampleClassifier import SampleClassifier
+
+from .IThugAPI import IThugAPI
+from .ThugOpts import ThugOpts
+from .Watchdog import Watchdog
+from .OpaqueFilter import OpaqueFilter
+from .abstractmethod import abstractmethod
+from .ThugVulnModules import ThugVulnModules
 
 log = logging.getLogger("Thug")
 log.setLevel(logging.WARN)
@@ -62,19 +61,19 @@ log.setLevel(logging.WARN)
 class ThugAPI(object):
     def __init__(self, configuration_path = thug.__configuration_path__):
         self.__init_conf(configuration_path)
-        self.__init_jslocker()
+        self.__init_jsengine()
         self.__init_core()
         self.__init_classifiers()
+        self.__init_opaque_filter()
         self.__init_pyhooks()
-        self.__init_extensions()
         self.__init_trace()
 
     def __init_conf(self, configuration_path):
         log.configuration_path = configuration_path
         log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
 
-    def __init_jslocker(self):
-        self.JSLocker = JSLocker().jslocker
+    def __init_jsengine(self):
+        log.JSEngine = JSEngine()
 
     def __init_core(self):
         log.ThugOpts        = ThugOpts()
@@ -106,11 +105,11 @@ class ThugAPI(object):
     def __init_pyhooks(self):
         log.PyHooks = dict()
 
-    def __init_extensions(self):
-        log.JSExtensions = list()
-
     def __init_trace(self):
         log.Trace = None
+
+    def __init_opaque_filter(self):
+        self.opaque_filter = OpaqueFilter()
 
     def __call__(self): # pragma: no cover
         self.analyze()
@@ -260,6 +259,12 @@ class ThugAPI(object):
     def set_broken_url(self):
         log.ThugOpts.broken_url = True
 
+    def get_ssl_verify(self):
+        return log.ThugOpts.ssl_verify
+
+    def set_ssl_verify(self):
+        log.ThugOpts.ssl_verify = True
+
     def get_web_tracking(self):
         return log.ThugOpts.web_tracking
 
@@ -296,7 +301,13 @@ class ThugAPI(object):
         root = logging.getLogger()
         for handler in root.handlers:
             if isinstance(handler, logging.StreamHandler):
-                handler.addFilter(OpaqueFilter())
+                handler.addFilter(self.opaque_filter)
+
+    def set_log_verbose(self):
+        root = logging.getLogger()
+        for handler in root.handlers:
+            if isinstance(handler, logging.StreamHandler):
+                handler.removeFilter(self.opaque_filter)
 
     def set_vt_query(self):
         log.ThugOpts.vt_query = True
@@ -387,7 +398,7 @@ class ThugAPI(object):
         if log.Trace: # pragma: no cover
             sys.settrace(log.Trace)
 
-        with self.JSLocker():
+        with log.JSEngine.JSLocker:
             with Watchdog(log.ThugOpts.timeout, callback = self.watchdog_cb):
                 dft = DFT(window)
                 dft.run()
@@ -401,13 +412,12 @@ class ThugAPI(object):
 
         log.HTTPSession = HTTPSession()
 
-        content   = open(url, 'r').read()
+        content   = open(url, 'r', encoding = "utf-8").read()
         extension = os.path.splitext(url)
-        encoding  = cchardet.detect(content)
 
         if len(extension) > 1 and extension[1].lower() in ('.js', '.jse', ):
             if not content.lstrip().startswith('<script'):
-                html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(content.decode(encoding['encoding'])))))
+                html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(content))))
             else:
                 soup = bs4.BeautifulSoup(content, "html.parser")
 
@@ -432,7 +442,7 @@ class ThugAPI(object):
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.add_characters_count(len(html))
-            log.ThugLogging.Features.add_whitespaces_count(len([a for a in html if a.isspace()]))
+            log.ThugLogging.Features.add_whitespaces_count(len([a for a in html if isinstance(a, six.string_types) and a.isspace()]))
 
         doc    = w3c.parseString(html)
         window = Window('about:blank', doc, personality = log.ThugOpts.useragent)
@@ -448,7 +458,7 @@ class ThugAPI(object):
         try:
             scheme = urlparse.urlparse(url).scheme
         except ValueError as e: # pragma: no cover
-            log.warning("[WARNING] Analysis not performed (%s)", e.message)
+            log.warning("[WARNING] Analysis not performed (%s)", str(e))
             return
 
         if not scheme or not scheme.startswith('http'):

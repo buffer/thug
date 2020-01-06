@@ -15,7 +15,7 @@ log = logging.getLogger("Thug")
 
 def BuildPath(self, arg0, arg1):
     log.ThugLogging.add_behavior_warn('[Script.FileSystemObject ActiveX] BuildPath("%s", "%s")' % (arg0, arg1, ))
-    return "%s\%s" % (arg0, arg1)
+    return "%s\\%s" % (arg0, arg1)
 
 
 def CopyFile(self, source, destination, overwritefiles = False):

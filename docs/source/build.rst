@@ -9,9 +9,9 @@ Requirements
 Python
 ^^^^^^
 
-Python 2.7 is required in order to properly run Thug. You may be lucky running it with
-Python 2.6 but please consider this version is not supported so issues related to Python 
-2.6 will be simply ignored. Python source code can be downloaded at http://www.python.org.
+Python 3.6+ is required in order to properly run Thug. You may be lucky running it with
+previous versions but please consider such versions are not supported. Please do not
+report issues in such case. Python source code can be downloaded at http://www.python.org.
 
 
 Boost
@@ -23,17 +23,45 @@ located at http://www.boost.org/.
 Packages for most Linux distributions are available.
 
 
-Google V8/PyV8
-^^^^^^^^^^^^^^
-  
-Google V8 is Google's open source JavaScript engine. V8 is written in C++ and is used
-in Google Chrome, the open source browser from Google. V8 implements ECMAScript as 
-specified in ECMA-262, 3rd edition, and runs on Windows XP and Vista, Mac OS X 10.5 
-(Leopard), and Linux systems that use IA-32 or ARM processors. V8 can run standalone, 
-or can be embedded into any C++ application.  
+Google V8
+^^^^^^^^^
 
-PyV8 is a Python wrapper for the Google V8 engine. PyV8 acts as a bridge between the 
-Python and JavaScript objects and supports the Google V8 engine in Python scripts.
+V8 is Google’s open source high-performance JavaScript and WebAssembly engine, written
+in C++. It is used in Chrome and in Node.js, among others. It implements ECMAScript and
+WebAssembly, and runs on Windows 7 or later, macOS 10.12+, and Linux systems that use
+x64, IA-32, ARM, or MIPS processors. V8 can run standalone, or can be embedded into any
+C++ application.
+
+
+**Python 3**
+
+**Thug 0.10.6 is the last version supporting Python 2.7**. More recent versions support
+just Python 3.6+. If you are installing a recent Thug version (and you should really
+do that) you have to install STPyV8 (https://github.com/area1/stpyv8/).
+
+STPyV8 is a Python/C++ wrapper that allows interoperability between Python 3 and
+JavaScript running Google's V8 engine. STPyV8 is a fork of the original PyV8 project,
+with code changed to work with the latest V8 engine and Python 3. STPyV8 links with
+Google V8 built as a static library. Currently the library builds on Linux and MacOS,
+with Windows planned for the future.
+
+GCC/clang or equivalent and Python3 headers are needed to build the main STPyV8 source
+code, as well as Boost-Python and some other Boost dependencies. For a short while,
+Python 2.7 is still needed by Google's toolchain to build a local library version of V8.
+
+A Python 3 virtual environment is recommended. (Google's build tools will establish their
+own Python2 virtual environment during the compilation of V8, but this can be ignored).
+
+Please look at https://github.com/area1/stpyv8/blob/master/docs/source/build.rst for
+detailed building instructions.
+
+
+**Python 2 (DEPRECATED)**
+
+If you have some very good reasons to avoid moving to Python 3 be aware that Thug 0.10.6
+is the last version supporting Python 2.7. In such case you have to install PyV8. Please
+consider that PyV8 is not maintained so you could experience issues. Please do not report
+related issues.
 
 In order to properly install Google V8 and PyV8 please follow the procedure described 
 below.

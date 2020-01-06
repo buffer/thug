@@ -1,8 +1,6 @@
 # coding=utf-8
-import pytest
 
 from thug.Encoding.Encoding import Encoding
-
 encoding = Encoding()
 
 
@@ -20,5 +18,5 @@ class TestEncoding:
         assert result['encoding'] in ('UTF-8-SIG', )
 
     def test_unicode_utf8(self):
-        with pytest.raises(Exception):
-            encoding.detect(u'í')
+        result = encoding.detect(u'í')
+        assert result['encoding'] in ('UTF-8', )
