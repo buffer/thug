@@ -19,6 +19,7 @@ class TestMiscSamplesIE(object):
         thug.disable_cert_logging()
         thug.set_file_logging()
         thug.set_features_logging()
+        thug.set_ssl_verify()
         thug.log_init(sample)
         thug.run_local(sample)
 

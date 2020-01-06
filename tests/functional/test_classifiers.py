@@ -21,6 +21,7 @@ class TestClassifiers(object):
         thug.set_threshold(2)
         thug.disable_cert_logging()
         thug.set_features_logging()
+        thug.set_ssl_verify()
         thug.log_init(url)
 
         thug.add_htmlclassifier(os.path.join(self.signatures_path, "html_signature_12.yar"))

@@ -18,6 +18,7 @@ class TestWebTracking(object):
         thug.set_web_tracking()
         thug.disable_cert_logging()
         thug.set_features_logging()
+        thug.set_ssl_verify()
         thug.log_init(url)
 
         m = getattr(thug, "run_{}".format(type_))

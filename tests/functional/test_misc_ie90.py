@@ -21,6 +21,7 @@ class TestMiscSamplesIE(object):
         thug.set_events('click,storage')
         thug.set_connect_timeout(2)
         thug.disable_cert_logging()
+        thug.set_ssl_verify()
         thug.set_features_logging()
 
         if nofetch:
