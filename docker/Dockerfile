@@ -59,7 +59,6 @@ RUN apt-get update && \
 
 RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
-RUN pip3 install --upgrade ssdeep
 WORKDIR /home
 
 RUN git clone https://github.com/buffer/thug.git && \
