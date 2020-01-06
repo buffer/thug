@@ -883,7 +883,7 @@ class DFT(object):
             return
 
         try:
-            urls = re.findall("(?P<url>https?://[^\s'\"]+)", text)
+            urls = re.findall(r"(?P<url>https?://[^\s'\"]+)", text)
 
             for url in urls:
                 if log.ThugOpts.features_logging:
