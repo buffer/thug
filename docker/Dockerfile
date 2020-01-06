@@ -42,7 +42,7 @@ RUN apt-get update && \
     libboost-dev \
     libboost-python-dev \
     libboost-system-dev \
-    python-pip \
+    python3-pip \
     libxml2-dev \
     libxslt-dev \
     git \
@@ -57,8 +57,8 @@ RUN apt-get update && \
     autoconf && \
   rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
+RUN pip3 install --upgrade pip
+RUN pip3 install --upgrade setuptools
 WORKDIR /home
 
 RUN git clone https://github.com/area1/stpyv8.git && \
@@ -76,7 +76,7 @@ RUN git clone https://github.com/buffer/libemu.git && \
   rm -rf libemu
 
 RUN ldconfig
-RUN pip install thug
+RUN pip3 install thug
 
 RUN groupadd -r thug && \
   useradd -r -g thug -d /home/thug -s /sbin/nologin -c "Thug User" thug && \
