@@ -259,6 +259,12 @@ class ThugAPI(object):
     def set_broken_url(self):
         log.ThugOpts.broken_url = True
 
+    def get_ssl_verify(self):
+        return log.ThugOpts.ssl_verify
+
+    def set_ssl_verify(self):
+        log.ThugOpts.ssl_verify = True
+
     def get_web_tracking(self):
         return log.ThugOpts.web_tracking
 

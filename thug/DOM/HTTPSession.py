@@ -217,7 +217,7 @@ class HTTPSession(object):
                                headers = _headers,
                                timeout = log.ThugOpts.connect_timeout,
                                data    = body,
-                               verify  = False)
+                               verify  = log.ThugOpts.ssl_verify)
         except requests.ConnectionError as e:
             log.ThugLogging.log_warning("[HTTPSession] {0}".format(str(e)))
 
