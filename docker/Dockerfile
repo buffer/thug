@@ -52,7 +52,9 @@ RUN apt-get update && \
     libffi-dev \
     graphviz \
     libfuzzy-dev \
+    libfuzzy2 \
     libjpeg-dev \
+    libffi-dev \
     pkg-config \
     autoconf && \
   rm -rf /var/lib/apt/lists/*
