@@ -38,7 +38,8 @@ RUN apt-get update && \
     python \
     python3 \
     python3-dev \
-    python-setuptools \
+    python3-setuptools \
+    python3-wheel \ 
     libboost-dev \
     libboost-python-dev \
     libboost-system-dev \
