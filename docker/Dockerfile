@@ -27,17 +27,20 @@
 # (https://github.com/PayloadSecurity/VxCommunity/blob/master/bash/thuginstallation.sh)
 #
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Lenny Zeltser (@lennyzeltser, www.zeltser.com)
 
 USER root
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     build-essential \
-    python-dev \
+    python \
+    python3 \
+    python3-dev \
     python-setuptools \
+    libboost-dev \
     libboost-python-dev \
-    libboost-all-dev \
+    libboost-system-dev \
     python-pip \
     libxml2-dev \
     libxslt-dev \
@@ -53,28 +56,31 @@ RUN apt-get update && \
     autoconf && \
   rm -rf /var/lib/apt/lists/*
 
-# RUN easy_install -U setuptools pygraphviz==1.3.1
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-RUN pip install pygraphviz==1.3.1
-
 WORKDIR /home
 
-RUN git clone https://github.com/buffer/pyv8.git && \
-  cd pyv8 && \
-  python setup.py build && \
-  python setup.py install && \
+RUN git clone https://github.com/area1/stpyv8.git && \
+  cd stpyv8 && \
+  ./install-ubuntu.sh && \
   cd .. && \
-  rm -rf pyv8
+  rm -rf stpyv8
 
+RUN git clone https://github.com/buffer/libemu.git && \
+  cd libemu && \
+  autoreconf -v -i && \
+  ./configure && \
+  make install && \
+  cd .. && \
+  rm -rf libemu
+
+RUN ldconfig
 RUN pip install thug
 
 RUN groupadd -r thug && \
   useradd -r -g thug -d /home/thug -s /sbin/nologin -c "Thug User" thug && \
   mkdir -p /home/thug /tmp/thug/logs && \
   chown -R thug:thug /home/thug /tmp/thug/logs
-
-RUN echo "/opt/libemu/lib/" > /etc/ld.so.conf.d/libemu.conf && ldconfig
 
 USER thug
 ENV HOME /home/thug
