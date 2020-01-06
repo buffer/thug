@@ -59,13 +59,12 @@ RUN apt-get update && \
 
 RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
+RUN pip3 install --upgrade ssdeep
 WORKDIR /home
 
-RUN git clone https://github.com/area1/stpyv8.git && \
-  cd stpyv8 && \
-  ./install-ubuntu.sh && \
-  cd .. && \
-  rm -rf stpyv8
+RUN git clone https://github.com/buffer/thug.git && \
+  pip3 install thug/.travis/stpyv8-7.9.317.31-cp36-cp36m-linux_x86_64.whl && \
+  rm -rf thug
 
 RUN git clone https://github.com/buffer/libemu.git && \
   cd libemu && \
