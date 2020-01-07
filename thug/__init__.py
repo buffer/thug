@@ -1,2 +1,2 @@
-__version__            = "0.10.6"
+__version__            = "1.0"
 __configuration_path__ = "/etc/thug"
