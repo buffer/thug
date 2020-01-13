@@ -268,7 +268,7 @@ class MIMEHandler(dict):
 
         try:
             zipdata = zipfile.ZipFile(fp)
-        except Exception as e:
+        except Exception as e: # pragma: no cover
             log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
             return False
 
@@ -279,7 +279,7 @@ class MIMEHandler(dict):
 
             try:
                 data = zipdata.read(filename)
-            except Exception as e:
+            except Exception as e: # pragma: no cover
                 log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
                 continue
 
@@ -293,7 +293,7 @@ class MIMEHandler(dict):
                     try:
                         with window.context as ctxt:
                             ctxt.eval(data)
-                    except Exception as e:
+                    except Exception as e: # pragma: no cover
                         log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
 
                 sample = log.ThugLogging.log_file(data, url, sampletype = 'JS')
@@ -306,7 +306,7 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except Exception as e:
+            except Exception as e: # pragma: no cover
                 log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
                 continue
 
@@ -371,11 +371,11 @@ class MIMEHandler(dict):
 
         try:
             soup = bs4.BeautifulSoup(data, "lxml")
-        except Exception:
+        except Exception: # pragma: no cover
             return
 
         jnlp = soup.find("jnlp")
-        if jnlp is None:
+        if jnlp is None: # pragma: no cover
             return
 
         codebase = jnlp.attrs['codebase'] if 'codebase' in jnlp.attrs else ''
@@ -383,7 +383,7 @@ class MIMEHandler(dict):
         log.ThugLogging.add_behavior_warn(description = '[JNLP Detected]', method = 'Dynamic Analysis')
 
         jars = soup.find_all("jar")
-        if not jars:
+        if not jars: # pragma: no cover
             return
 
         headers['User-Agent'] = self.javaWebStartUserAgent
@@ -392,16 +392,16 @@ class MIMEHandler(dict):
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
                 log.DFT.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
-            except Exception:
+            except Exception: # pragma: no cover
                 pass
 
     def handle_json(self, url, data):
         try:
             content = json.loads(data)
-        except Exception:
+        except Exception: # pragma: no cover
             return False
 
-        if not isinstance(content, dict):
+        if not isinstance(content, dict): # pragma: no cover
             return False
 
         headers = dict()
