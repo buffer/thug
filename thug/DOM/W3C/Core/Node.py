@@ -100,7 +100,7 @@ class Node(JSClass, EventTarget):
         return self.tag.string
 
     def setTextContent(self, value):
-        self.tag.string = value
+        self.tag.string = str(value)
 
     # Introduced in DOM Level 3
     textContent = property(getTextContent, setTextContent)
