@@ -1266,3 +1266,9 @@ class TestMiscSamplesIE(object):
         expected = ['async: false', 'defer: true']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testScriptSrc(self, caplog):
+        sample   = os.path.join(self.misc_path, "testScriptSrc.html")
+        expected = ['Alert Text: #foo']
+
+        self.do_perform_test(caplog, sample, expected)
