@@ -451,7 +451,7 @@ class TestMiscSamplesFirefox(object):
 
     def test_testSetAttribute4(self, caplog):
         sample   = os.path.join(self.misc_path, "testSetAttribute4.html")
-        expected = ['<input id="foo" type="range"/>']
+        expected = ['<input id="foo" style="fontSize:0" type="range"/>']
 
         self.do_perform_test(caplog, sample, expected)
 
