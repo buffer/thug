@@ -140,14 +140,16 @@ class TextStream(object):
         content = '\n'.join(self.stream)
         log.info(content)
 
+        _content = content.encode() if isinstance(content, str) else content
+
         data = {
             'content' : content,
             'status'  : 200,
-            'md5'     : hashlib.md5(content).hexdigest(),
-            'sha256'  : hashlib.sha256(content).hexdigest(),
+            'md5'     : hashlib.md5(_content).hexdigest(),
+            'sha256'  : hashlib.sha256(_content).hexdigest(),
             'fsize'   : len(content),
             'ctype'   : 'textstream',
-            'mtype'   : Magic(content).get_mime(),
+            'mtype'   : Magic(_content).get_mime(),
         }
 
         log.ThugLogging.log_location(log.ThugLogging.url, data)
@@ -171,5 +173,6 @@ class TextStream(object):
             filename = ''.join(random.choice(string.lowercase) for i in range(8))
 
         log_file = os.path.join(log_dir, filename)
-        with open(log_file, 'wb') as fd:
+
+        with open(log_file, 'w') as fd:
             fd.write(content)
