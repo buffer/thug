@@ -1308,7 +1308,7 @@ class DFT(object):
             log.info(anchor)
 
             href = anchor.get('href', None)
-            if not href:
+            if not href: # pragma: no cover
                 return
 
             if self._handle_data_uri(href):
@@ -1320,7 +1320,7 @@ class DFT(object):
                 log.info("[ERROR][handle_a] %s", str(e))
                 return
 
-            if response is None or response.status_code in (404, ):
+            if response is None or not response.ok: # pragma: no cover
                 return
 
         self.anchors.append(anchor)
@@ -1329,7 +1329,7 @@ class DFT(object):
         log.info(link)
 
         href = link.get('href', None)
-        if not href:
+        if not href: # pragma: no cover
             return
 
         if log.ThugOpts.features_logging:
@@ -1429,7 +1429,7 @@ class DFT(object):
             return
 
         attrs = getattr(element, 'attrs', None)
-        if attrs is None:
+        if attrs is None: # pragma: no cover
             return None
 
         attrs_count = 0
