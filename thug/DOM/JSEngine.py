@@ -22,7 +22,7 @@ import six.moves.configparser as ConfigParser
 
 try:
     import STPyV8 as V8
-except ImportError:
+except ImportError: # pragma: no cover
     import PyV8 as V8
 
 import thug
@@ -75,7 +75,7 @@ class JSEngine(object):
         hooks = os.listdir(hooks_folder) if os.path.exists(hooks_folder) else list()
 
         for hook in sorted([h for h in hooks if h.endswith('.js')]):
-            ctxt.eval(open(os.path.join(hooks_folder, hook), 'r').read())
+            ctxt.eval(open(os.path.join(hooks_folder, hook), 'r').read()) # pragma: no cover
 
         for hook in ('eval', 'write'):
             js = os.path.join(thug.__configuration_path__, 'scripts', '{}.js'.format(hook))
