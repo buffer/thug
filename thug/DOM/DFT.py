@@ -18,16 +18,15 @@
 
 import os
 import re
-import string
 import base64
 import random
 import logging
 import bs4
 import six
 import six.moves.urllib.parse as urlparse
-import pylibemu
-
 from cssutils.parse import CSSParser
+
+import pylibemu
 
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.DOM.W3C import w3c
