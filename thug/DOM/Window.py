@@ -140,8 +140,6 @@ class Window(JSClass):
         self.__init_window_personality()
 
         self.name          = name
-        # self.defaultStatus = ""
-        # self.status        = ""
         self._left         = left
         self._top          = top if top else self
         self._screen_top   = random.randint(0, 30)
@@ -205,7 +203,6 @@ class Window(JSClass):
                 _method = symbol.clone()
 
             if _method is None:
-                # _method = types.MethodType(symbol, Window)
                 _method = six.create_bound_method(symbol, Window)
 
             setattr(self, key, _method)
