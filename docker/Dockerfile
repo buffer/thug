@@ -80,11 +80,18 @@ RUN ldconfig
 RUN pip3 install thug
 
 RUN git clone https://github.com/buffer/thug.git && \
-  mkdir -p /etc/thug/{rules,personalities,scripts} && \
-  cp -R thug/Classifier/rules/* /etc/thug/rules/ && \
-  cp -R thug/DOM/personalities/* /etc/thug/personalities && \
-  cp -t /etc/thug/scripts thug/DOM/{thug.js,storage.js,date.js,eval.js,write.js} && \
-  cp -t /etc/thug/ conf/thug.conf && \
+  mkdir /etc/thug && \
+  mkdir /etc/thug/rules && \
+  mkdir /etc/thug/personalities && \
+  mkdir /etc/thug/scripts && \
+  cp -R thug/thug/Classifier/rules/* /etc/thug/rules/ && \
+  cp -R thug/thug/DOM/personalities/* /etc/thug/personalities && \
+  cp thug/thug/DOM/thug.js /etc/thug/scripts && \
+  cp thug/thug/DOM/storage.js /etc/thug/scripts && \
+  cp thug/thug/DOM/date.js /etc/thug/scripts && \
+  cp thug/thug/DOM/eval.js /etc/thug/scripts && \
+  cp thug/thug/DOM/write.js /etc/thug/scripts && \
+  cp thug/conf/thug.conf /etc/thug && \
   rm -rf thug
 
 RUN groupadd -r thug && \
