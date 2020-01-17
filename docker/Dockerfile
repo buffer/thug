@@ -84,6 +84,8 @@ RUN git clone https://github.com/buffer/thug.git && \
   mkdir /etc/thug/rules && \
   mkdir /etc/thug/personalities && \
   mkdir /etc/thug/scripts && \
+  mkdir /etc/thug/plugins && \
+  mkdir /etc/thug/hooks && \
   cp -R thug/thug/Classifier/rules/* /etc/thug/rules/ && \
   cp -R thug/thug/DOM/personalities/* /etc/thug/personalities && \
   cp thug/thug/DOM/thug.js /etc/thug/scripts && \
