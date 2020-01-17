@@ -956,7 +956,7 @@ class Window(JSClass):
 
             if log.ThugOpts.code_logging:
                 log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
-        except Exception as e:
+        except Exception as e: # pragma: no cover
             log.warning("[Window] JSClassifier error: %s", str(e))
 
         if tag:
@@ -1076,7 +1076,7 @@ class Window(JSClass):
             except Exception:
                 return None
 
-            if response is None or not response.ok:
+            if response is None or not response.ok: # pragma: no cover
                 return None
 
             html = response.content
