@@ -1279,3 +1279,9 @@ class TestMiscSamplesIE(object):
                     'Alert Text: 2']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testExecScript(self, caplog):
+        sample   = os.path.join(self.misc_path, "testExecScript.html")
+        expected = ['Alert Text: execScript']
+
+        self.do_perform_test(caplog, sample, expected)
