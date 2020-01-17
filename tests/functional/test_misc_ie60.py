@@ -835,3 +835,9 @@ class TestMiscSamplesIE(object):
         expected = []
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testClearTimeout2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testClearTimeout2.html")
+        expected = ['Alert Text: 0']
+
+        self.do_perform_test(caplog, sample, expected)
