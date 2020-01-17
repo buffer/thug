@@ -77,7 +77,7 @@ class Window(JSClass):
 
             try:
                 sched.run()
-            except Exception as e:
+            except Exception as e: # pragma: no cover
                 log.warning("[Timer] Scheduler error: %s", str(e))
 
         def stop(self):
@@ -96,7 +96,7 @@ class Window(JSClass):
                         self.code()
                     else:
                         ctx.eval(self.code)
-                except Exception as e:
+                except Exception as e: # pragma: no cover
                     log.warning("Error while handling timer callback")
 
                     if log.ThugOpts.Personality.isIE():
