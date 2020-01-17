@@ -1,0 +1,22 @@
+<html>
+<body>
+<script>
+  var c = 0;
+	
+  function timedCount() {
+    c = c + 1;
+    alert(c);
+
+    if (c >= 2) {
+      stopCount();
+    }
+  }
+
+  function stopCount() {
+      clearInterval(0);
+  }
+
+  setInterval(timedCount, 1000);
+</script>
+</body>
+</html>
