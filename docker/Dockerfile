@@ -64,8 +64,8 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
 WORKDIR /home
 
-RUN git clone https://github.com/buffer/thug.git && \
-  pip3 install thug/.travis/stpyv8-7.9.317.31-cp36-cp36m-linux_x86_64.whl && \
+RUN git clone https://github.com/area1/stpyv8 && \
+  pip3 install stpyv8/wheels/ubuntu-18.04/stpyv8-7.9.317.31-cp36-cp36m-linux_x86_64.whl && \
   rm -rf thug
 
 RUN git clone https://github.com/buffer/libemu.git && \
