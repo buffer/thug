@@ -405,7 +405,8 @@ class Window(JSClass):
 
         intervalID is the ID of the specific interval you want to clear.
         """
-        self.timers[intervalID].stop()
+        if intervalID < len(self.timers):
+            self.timers[intervalID].stop()
 
     def clearTimeout(self, timeoutID):
         """
@@ -418,7 +419,8 @@ class Window(JSClass):
 
         timeoutID is the ID of the timeout you wish you clear.
         """
-        self.timers[timeoutID].stop()
+        if timeoutID < len(self.timers):
+            self.timers[timeoutID].stop()
 
     def confirm(self, text):
         """
