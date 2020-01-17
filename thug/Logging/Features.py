@@ -96,7 +96,7 @@ class Features(object):
             if counter in self.counters:
                 return lambda value: self.add(counter, value)
 
-        raise AttributeError
+        raise AttributeError # pragma: no cover
 
     def clear(self):
         self.features = dict()
@@ -118,7 +118,7 @@ class Features(object):
         return url if url else log.DFT.window.url
 
     def increase(self, key):
-        if not log.ThugOpts.features_logging:
+        if not log.ThugOpts.features_logging: # pragma: no cover
             return
 
         url = self.features_url
@@ -126,7 +126,7 @@ class Features(object):
         self.features[url][key] += 1
 
     def add(self, key, value):
-        if not log.ThugOpts.features_logging:
+        if not log.ThugOpts.features_logging: # pragma: no cover
             return
 
         url = self.features_url

@@ -39,14 +39,14 @@ class BaseLogging(object):
             return True
 
         for option in section:
-            if option not in ('enable', ):
+            if option not in ('enable', ): # pragma: no cover
                 continue
 
             enable = config.getboolean(module, option)
             if not enable:
                 return False
 
-        return True
+        return True # pragma: no cover
 
     def set_basedir(self, url):
         if self.baseDir:
@@ -67,7 +67,7 @@ class BaseLogging(object):
         except OSError as e:
             if e.errno == errno.EEXIST:
                 pass
-            else:
+            else: # pragma: no cover
                 raise
 
         thug_csv = os.path.join(base, 'logs', 'thug.csv')

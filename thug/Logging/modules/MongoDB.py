@@ -129,7 +129,7 @@ class MongoDB(object):
         self.graph = ExploitGraph(url)
 
         self.url_id = self.get_url(url)
-        if self.url_id is None:
+        if self.url_id is None: # pragma: no cover
             log.warning('[MongoDB] MongoDB internal error')
             self.enabled = False
             return
@@ -297,7 +297,7 @@ class MongoDB(object):
     def get_url_from_location(self, md5):
         result = self.locations.find_one({'analysis_id' : self.analysis_id,
                                           'md5'         : md5})
-        if not result:
+        if not result: # pragma: no cover
             return None
 
         return result['url_id']
@@ -360,7 +360,7 @@ class MongoDB(object):
         self.log_json(basedir)
 
         G = self.graph.draw()
-        if G is None:
+        if G is None: # pragma: no cover
             return
 
         graph = {
@@ -413,7 +413,7 @@ class MongoDB(object):
         self.codes.insert_one(code)
 
     def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
-        if not self.enabled:
+        if not self.enabled: # pragma: no cover
             return
 
         if not cve and not description:
@@ -455,7 +455,7 @@ class MongoDB(object):
         s = self.samples.find_one({'analysis_id' : self.analysis_id,
                                    'md5'         : sample['md5'],
                                    'sha1'        : sample['sha1']})
-        if not s:
+        if not s: # pragma: no cover
             return
 
         r = {

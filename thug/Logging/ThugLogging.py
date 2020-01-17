@@ -359,7 +359,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         except OSError as e:
             if e.errno == errno.EEXIST:
                 pass
-            else:
+            else: # pragma: no cover
                 raise
 
         fname = os.path.join(dirname, filename)
@@ -367,7 +367,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         try:
             with open(fname, 'wb') as fd:
                 fd.write(content)
-        except Exception as e:
+        except Exception as e: # pragma: no cover
             log.warning(str(e))
 
         return fname

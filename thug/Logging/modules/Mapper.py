@@ -291,7 +291,7 @@ class Mapper(object):
         try:
             self.graph.layout(prog = 'dot')
             self.graph.draw(self.svgfile, format = 'svg')
-        except Exception:
+        except Exception: # pragma: no cover
             pass
 
     def activate(self, conto):
