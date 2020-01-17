@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Build and Install &mdash; Thug 0.10.6 documentation</title>
+  <title>Build and Install &mdash; Thug 1.0.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Thug 0.10.6 documentation" href="index.html"/>
+    <link rel="top" title="Thug 1.0.1 documentation" href="index.html"/>
         <link rel="next" title="Docker" href="docker.html"/>
         <link rel="prev" title="Introduction" href="intro.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.10.6
+                1.0.1
               </div>
             
           
@@ -96,7 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#python">Python</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#boost">Boost</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#google-v8-pyv8">Google V8/PyV8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#google-v8">Google V8</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#graphviz">Graphviz</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mongodb-optional">MongoDB (optional)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rabbitmq-optional">RabbitMQ (optional)</a></li>
@@ -181,9 +181,9 @@
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
-<p>Python 2.7 is required in order to properly run Thug. You may be lucky running it with
-Python 2.6 but please consider this version is not supported so issues related to Python
-2.6 will be simply ignored. Python source code can be downloaded at <a class="reference external" href="http://www.python.org">http://www.python.org</a>.</p>
+<p>Python 3.6+ is required in order to properly run Thug. You may be lucky running it with
+previous versions but please consider such versions are not supported. Please do not
+report issues in such case. Python source code can be downloaded at <a class="reference external" href="http://www.python.org">http://www.python.org</a>.</p>
 </div>
 <div class="section" id="boost">
 <h3>Boost<a class="headerlink" href="#boost" title="Permalink to this headline">¶</a></h3>
@@ -191,15 +191,34 @@ Python 2.6 but please consider this version is not supported so issues related t
 located at <a class="reference external" href="http://www.boost.org/">http://www.boost.org/</a>.</p>
 <p>Packages for most Linux distributions are available.</p>
 </div>
-<div class="section" id="google-v8-pyv8">
-<h3>Google V8/PyV8<a class="headerlink" href="#google-v8-pyv8" title="Permalink to this headline">¶</a></h3>
-<p>Google V8 is Google’s open source JavaScript engine. V8 is written in C++ and is used
-in Google Chrome, the open source browser from Google. V8 implements ECMAScript as
-specified in ECMA-262, 3rd edition, and runs on Windows XP and Vista, Mac OS X 10.5
-(Leopard), and Linux systems that use IA-32 or ARM processors. V8 can run standalone,
-or can be embedded into any C++ application.</p>
-<p>PyV8 is a Python wrapper for the Google V8 engine. PyV8 acts as a bridge between the
-Python and JavaScript objects and supports the Google V8 engine in Python scripts.</p>
+<div class="section" id="google-v8">
+<h3>Google V8<a class="headerlink" href="#google-v8" title="Permalink to this headline">¶</a></h3>
+<p>V8 is Google’s open source high-performance JavaScript and WebAssembly engine, written
+in C++. It is used in Chrome and in Node.js, among others. It implements ECMAScript and
+WebAssembly, and runs on Windows 7 or later, macOS 10.12+, and Linux systems that use
+x64, IA-32, ARM, or MIPS processors. V8 can run standalone, or can be embedded into any
+C++ application.</p>
+<p><strong>Python 3</strong></p>
+<p><strong>Thug 0.10.6 is the last version supporting Python 2.7</strong>. More recent versions support
+just Python 3.6+. If you are installing a recent Thug version (and you should really
+do that) you have to install STPyV8 (<a class="reference external" href="https://github.com/area1/stpyv8/">https://github.com/area1/stpyv8/</a>).</p>
+<p>STPyV8 is a Python/C++ wrapper that allows interoperability between Python 3 and
+JavaScript running Google’s V8 engine. STPyV8 is a fork of the original PyV8 project,
+with code changed to work with the latest V8 engine and Python 3. STPyV8 links with
+Google V8 built as a static library. Currently the library builds on Linux and MacOS,
+with Windows planned for the future.</p>
+<p>GCC/clang or equivalent and Python3 headers are needed to build the main STPyV8 source
+code, as well as Boost-Python and some other Boost dependencies. For a short while,
+Python 2.7 is still needed by Google’s toolchain to build a local library version of V8.</p>
+<p>A Python 3 virtual environment is recommended. (Google’s build tools will establish their
+own Python2 virtual environment during the compilation of V8, but this can be ignored).</p>
+<p>Please look at <a class="reference external" href="https://github.com/area1/stpyv8/blob/master/docs/source/build.rst">https://github.com/area1/stpyv8/blob/master/docs/source/build.rst</a> for
+detailed building instructions.</p>
+<p><strong>Python 2 (DEPRECATED)</strong></p>
+<p>If you have some very good reasons to avoid moving to Python 3 be aware that Thug 0.10.6
+is the last version supporting Python 2.7. In such case you have to install PyV8. Please
+consider that PyV8 is not maintained so you could experience issues. Please do not report
+related issues.</p>
 <p>In order to properly install Google V8 and PyV8 please follow the procedure described
 below.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/buffer/pyv8.git
@@ -270,7 +289,7 @@ should take care of installing them before actually installing Thug.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2011-2019, Angelo Dell&#39;Aera.
+        &copy; Copyright 2011-2020, Angelo Dell&#39;Aera.
 
     </p>
   </div>
@@ -292,7 +311,7 @@ should take care of installing them before actually installing Thug.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.10.6',
+            VERSION:'1.0.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -302,6 +321,7 @@ should take care of installing them before actually installing Thug.</p>
       <script type="text/javascript" src="static/jquery.js"></script>
       <script type="text/javascript" src="static/underscore.js"></script>
       <script type="text/javascript" src="static/doctools.js"></script>
+      <script type="text/javascript" src="static/language_data.js"></script>
 
   
 
