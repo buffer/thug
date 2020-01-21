@@ -27,10 +27,10 @@ class WebStorage(object):
         self.storage = dict()
 
     def inspect_set_item(self, storage, key, value):
-        log.ThugLogging.log_warning("[TRACKING] [{} setItem] {} = {}".format(storage, key, value))
+        log.warning("[TRACKING] [{} setItem] {} = {}".format(storage, key, value))
 
     def inspect_remove_item(self, storage, key):
-        log.ThugLogging.log_warning("[TRACKING] [{} removeItem] {}".format(storage, key))
+        log.warning("[TRACKING] [{} removeItem] {}".format(storage, key))
 
     def inspect_clear(self, storage):
-        log.ThugLogging.log_warning("[TRACKING] [{} clear]".format(storage))
+        log.warning("[TRACKING] [{} clear]".format(storage))

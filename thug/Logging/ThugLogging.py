@@ -87,7 +87,7 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         for m in self.modules.values():
             for fmt in getattr(m, 'formats', tuple()):
-                self.formats.add(fmt)
+                self.formats.add(fmt) # pragma: no cover
 
     def resolve_method(self, name):
         if name in self.methods_cache.keys():
@@ -241,12 +241,6 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_classifier'):
             m(classifier, url, rule, tags)
 
-    def log_warning(self, data):
-        log.warning(data)
-
-        for m in self.resolve_method('log_warning'):
-            m(data)
-
     def log_cookies(self):
         for m in self.resolve_method('log_cookies'):
             m()
@@ -312,7 +306,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         return final
 
     def log_href_redirect(self, referer, url):
-        if not url:
+        if not url: # pragma: no cover
             return
 
         self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))

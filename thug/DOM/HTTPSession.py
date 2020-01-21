@@ -203,7 +203,7 @@ class HTTPSession(object):
 
         fetcher = getattr(self.session, method.lower(), None)
         if fetcher is None:
-            log.ThugLogging.log_warning("Not supported method: %s" % (method, ))
+            log.warning("Not supported method: %s" % (method, ))
             return None
 
         if headers is None:
@@ -219,7 +219,7 @@ class HTTPSession(object):
                                data    = body,
                                verify  = log.ThugOpts.ssl_verify)
         except requests.ConnectionError as e:
-            log.ThugLogging.log_warning("[HTTPSession] {0}".format(str(e)))
+            log.warning("[HTTPSession] {0}".format(str(e)))
 
         if not response.ok:
             return None
