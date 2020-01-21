@@ -89,12 +89,6 @@ class TestThugLogging:
         assert "[SAMPLE Classifier]" in caplog.text
         assert "(Rule: N/A, Classification: None)" in caplog.text
 
-    def test_log_warning(self, caplog):
-        caplog.clear()
-
-        thug_logging.log_warning("sample-text")
-        assert "sample-text" in caplog.text
-
     def test_log_redirect(self, caplog):
         pass
 
