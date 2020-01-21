@@ -315,13 +315,12 @@ class DFT(object):
 
                 handler = getattr(self.window, onevt, None)
                 if handler:
-                    self.run_event_handler(handler, evtObject)
-
                     if onevt in self.window_on_events:
                         if (self.window, onevt[2:], handler) in self.dispatched_events:
                             return
 
                     self.dispatched_events.add((self.window, onevt[2:], handler))
+                    self.run_event_handler(handler, evtObject)
 
                 count -= 1
 
