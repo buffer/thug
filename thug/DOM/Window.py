@@ -52,7 +52,8 @@ log = logging.getLogger("Thug")
 
 class Window(JSClass):
     class Timer(object):
-        max_loops = 3
+        max_loops  = 3
+        max_timers = 16
 
         def __init__(self, window, code, delay, repeat, lang = 'JavaScript'):
             self.window  = window
@@ -87,6 +88,9 @@ class Window(JSClass):
                 sched.cancel(self.event)
 
         def execute(self):
+            if len(self.window.timers) > self.max_timers:
+                self.running = False
+
             if not self.running:
                 return None
 
