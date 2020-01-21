@@ -290,8 +290,8 @@ class DFT(object):
                 if (elem._node, evt) in self.dispatched_events:
                     continue
 
-                elem._node.dispatchEvent(evtObject)
                 self.dispatched_events.add((elem._node, evt))
+                elem._node.dispatchEvent(evtObject)
 
     def handle_window_storage_event(self, onevt, evtObject):
         if onevt in self.handled_on_events:
