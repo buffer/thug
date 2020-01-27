@@ -18,6 +18,9 @@ class Attr(Node):
         self._specified = False
         self._value     = self.getValue()
 
+    def __hash__(self):
+        return id(self)
+
     def __eq__(self, other):
         return hasattr(other, "parent") and self.parent == other.parent and \
                hasattr(other, "attr") and self.attr == other.attr
