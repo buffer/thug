@@ -1,0 +1,12 @@
+<html>
+<body>
+<div id="test" style="height: 50px;background-color: lightblue;">Test Div</div>
+
+<script>
+  var elem = document.getElementById("test");
+  var CSSprop = window.getComputedStyle(elem, null).getPropertyValue("background-color");
+  alert(CSSprop);
+</script>
+
+</body>
+</html>
