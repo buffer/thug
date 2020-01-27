@@ -20,6 +20,7 @@
 import os
 import hashlib
 import logging
+import six
 
 from thug.Magic.Magic import Magic
 
@@ -281,6 +282,9 @@ class Navigator(JSClass):
         return True
 
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None, snippet = None):
+        if url and not isinstance(url, six.string_types):
+            url = str(url)
+
         log.URLClassifier.classify(url)
 
         # The command-line option -x (--local-nofetch) prevents remote

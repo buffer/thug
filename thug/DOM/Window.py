@@ -1071,6 +1071,9 @@ class Window(JSClass):
         return getattr(element, 'style', None)
 
     def open(self, url = None, name = '_blank', specs = '', replace = False):
+        if url and not isinstance(url, six.string_types):
+            url = str(url)
+
         if url and url not in ('about:blank', ):
             if self.url not in ('about:blank', ):
                 log.last_url = url
