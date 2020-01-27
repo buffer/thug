@@ -38,7 +38,7 @@ class Node(JSClass, EventTarget):
         return hasattr(other, "doc") and self.doc == other.doc
 
     def __ne__(self, other):
-        return not self.__eq__(other)
+        return not self == other
 
     def __hash__(self):
         return id(self)

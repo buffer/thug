@@ -25,6 +25,9 @@ class Attr(Node):
         return hasattr(other, "parent") and self.parent == other.parent and \
                hasattr(other, "attr") and self.attr == other.attr
 
+    def __ne__(self, other):
+        return not self == other
+
     @property
     def nodeType(self):
         return Node.ATTRIBUTE_NODE

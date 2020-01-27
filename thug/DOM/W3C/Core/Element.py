@@ -117,6 +117,9 @@ class Element(Node, ElementCSSInlineStyle):
     def __eq__(self, other):
         return Node.__eq__(self, other) and hasattr(other, "tag") and self.tag == other.tag
 
+    def __ne__(self, other):
+        return not self == other
+
     def __hash__(self):
         return id(self)
 
