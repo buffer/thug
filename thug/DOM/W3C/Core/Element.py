@@ -91,7 +91,7 @@ class Element(Node, ElementCSSInlineStyle):
 
         try:
             s = self.tag.select(selectors)
-        except Exception:
+        except Exception: # pragma: no cover
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -114,10 +114,10 @@ class Element(Node, ElementCSSInlineStyle):
 
         return True if s else False
 
-    def __eq__(self, other):
+    def __eq__(self, other): # pragma: no cover
         return Node.__eq__(self, other) and hasattr(other, "tag") and self.tag == other.tag
 
-    def __ne__(self, other):
+    def __ne__(self, other): # pragma: no cover
         return not self == other
 
     def __hash__(self):

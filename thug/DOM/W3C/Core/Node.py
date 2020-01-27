@@ -34,10 +34,10 @@ class Node(JSClass, EventTarget):
         EventTarget.__init__(self)
         self.__init_node_personality()
 
-    def __eq__(self, other):
+    def __eq__(self, other): # pragma: no cover
         return hasattr(other, "doc") and self.doc == other.doc
 
-    def __ne__(self, other):
+    def __ne__(self, other): # pragma: no cover
         return not self == other
 
     def __hash__(self):

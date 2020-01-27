@@ -18,14 +18,14 @@ class Attr(Node):
         self._specified = False
         self._value     = self.getValue()
 
-    def __hash__(self):
+    def __hash__(self): # pragma: no cover
         return id(self)
 
-    def __eq__(self, other):
+    def __eq__(self, other): # pragma: no cover
         return hasattr(other, "parent") and self.parent == other.parent and \
                hasattr(other, "attr") and self.attr == other.attr
 
-    def __ne__(self, other):
+    def __ne__(self, other): # pragma: no cover
         return not self == other
 
     @property
