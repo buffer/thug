@@ -222,7 +222,12 @@ class DFT(object):
         if not shellcode:
             return
 
-        sc = self.build_shellcode(shellcode)
+        try:
+            sc = self.build_shellcode(shellcode)
+        except Exception as e: # pragma: no cover
+            log.info("Shellcode building error (%s)", str(e))
+            return
+
         emu = pylibemu.Emulator(enable_hooks = False)
         emu.run(sc)
 
