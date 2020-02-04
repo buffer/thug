@@ -11,7 +11,7 @@ from .bool_property import bool_property
 class HTMLSelectElement(HTMLElement):
     selectedIndex = 0
     value         = None
-    disabled      = bool_property("disabled")
+    disabled      = bool_property("disabled", readonly = False)
     multiple      = bool_property("multiple")
     name          = attr_property("name")
     size          = attr_property("size", int)
