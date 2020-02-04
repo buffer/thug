@@ -1297,3 +1297,9 @@ class TestMiscSamplesIE(object):
         expected = ['lightblue']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLSelectElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLSelectElement.html")
+        expected = ['True']
+
+        self.do_perform_test(caplog, sample, expected)
