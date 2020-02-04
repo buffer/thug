@@ -11,12 +11,12 @@ log = logging.getLogger("Thug")
 
 
 class HTMLScriptElement(HTMLElement):
-    _async  = bool_property("async")
+    _async  = bool_property("async", readonly = True, novalue = True)
     text    = text_property()
     htmlFor = None
     event   = None
     charset = attr_property("charset", default = "")
-    defer   = bool_property("defer")
+    defer   = bool_property("defer", readonly = True, novalue = True)
     _src    = attr_property("src", default = "")
     type    = attr_property("type")
 
