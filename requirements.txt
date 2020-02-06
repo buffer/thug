@@ -4,7 +4,7 @@ cchardet==2.1.5
 cssutils==1.0.2
 elasticsearch==7.5.1
 html5lib==1.0.1
-lxml==4.4.2
+lxml==4.5.0
 networkx==2.4
 pefile==2019.4.18
 pygraphviz==1.5
@@ -13,7 +13,7 @@ pymongo==3.10.1
 python-magic==0.4.15
 rarfile==3.1
 requests==2.22.0
-six==1.13.0
+six==1.14.0
 ssdeep==3.4
 yara-python==3.11.0
 zope.interface==4.7.1
