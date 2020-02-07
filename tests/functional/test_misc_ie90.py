@@ -284,6 +284,11 @@ class TestMiscSamplesIE(object):
         expected = ["[Window] Alert Text: Hello"]
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testSetInterval2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testSetInterval2.html")
+        expected = ["[Window] Alert Text: Hello"]
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testText(self, caplog):
         sample   = os.path.join(self.misc_path, "testText.html")
         expected = ['<p id="p1">First line of paragraph.<br/> Some text added dynamically. </p>']
