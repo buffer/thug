@@ -84,7 +84,7 @@ class Window(JSClass):
         def stop(self):
             self.running = False
 
-            if self.event in sched.queue:
+            if self.event in sched.queue: # pragma: no cover
                 sched.cancel(self.event)
 
         def execute(self):
@@ -776,7 +776,7 @@ class Window(JSClass):
             log.ThugLogging.Features.increase_removeeventlistener_count()
 
         _listener = getattr(self, 'on%s' % (_type.lower(), ), None)
-        if _listener is None:
+        if _listener is None: # pragma: no cover
             return
 
         if _listener in (listener, ):
@@ -968,13 +968,13 @@ class Window(JSClass):
         else:
             try:
                 body = self.doc.body
-            except Exception:
+            except Exception: # pragma: no cover
                 # This code is for when you are desperate :)
                 body = self.doc.getElementsByTagName('body')[0]
 
             if body and body.tag.contents:
                 self.doc.current = body.tag.contents[-1]
-            else:
+            else: # pragma: no cover
                 self.doc.current = self.doc.doc.contents[-1]
 
         with self.context as ctxt:
@@ -1071,7 +1071,7 @@ class Window(JSClass):
         return getattr(element, 'style', None)
 
     def open(self, url = None, name = '_blank', specs = '', replace = False):
-        if url and not isinstance(url, six.string_types):
+        if url and not isinstance(url, six.string_types): # pragma: no cover
             url = str(url)
 
         if url and url not in ('about:blank', ):
