@@ -69,7 +69,7 @@ class Storage(OrderedDict, JSClass):
 
         log.DFT.handle_window_storage_event('onstorage', evtObject)
 
-    def __delitem__(self, key, dict_delitem = dict.__delitem__):
+    def __delitem__(self, key, dict_delitem = dict.__delitem__): # pragma: no cover
         self.removeItem(key)
 
     def removeItem(self, key):
