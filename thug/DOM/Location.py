@@ -31,7 +31,7 @@ class Location(JSClass):
     def __init__(self, window):
         self._window = window
 
-    def toString(self):
+    def toString(self): # pragma: no cover
         return self._window.url
 
     @property
@@ -44,7 +44,7 @@ class Location(JSClass):
     def set_href(self, url):
         from .Window import Window
 
-        if url.startswith("data:"):
+        if url.startswith("data:"): # pragma: no cover
             log.DFT._handle_data_uri(url)
             return
 
