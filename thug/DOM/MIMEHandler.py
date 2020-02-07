@@ -253,13 +253,13 @@ class MIMEHandler(dict):
             try:
                 if handler(url, content):
                     return True
-            except Exception:
+            except Exception: # pragma: no cover
                 pass
 
         return False
 
     def handle_zip(self, url, content):
-        if len(content) < self.MIN_ZIP_FILE_SIZE:
+        if len(content) < self.MIN_ZIP_FILE_SIZE: # pragma: no cover
             return False
 
         fp = BytesIO(content)
@@ -283,7 +283,7 @@ class MIMEHandler(dict):
                 log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
                 continue
 
-            if not data:
+            if not data: # pragma: no cover
                 continue
 
             if filename.lower().endswith('.js'):
@@ -298,10 +298,10 @@ class MIMEHandler(dict):
 
                 sample = log.ThugLogging.log_file(data, url, sampletype = 'JS')
 
-            if sample is None:
+            if sample is None: # pragma: no cover
                 sample = log.ThugLogging.log_file(data, url)
 
-            if sample is None:
+            if sample is None: # pragma: no cover
                 continue
 
             try:
@@ -316,7 +316,7 @@ class MIMEHandler(dict):
         return True
 
     def handle_rar(self, url, content):
-        if len(content) < self.MIN_RAR_FILE_SIZE:
+        if len(content) < self.MIN_RAR_FILE_SIZE: # pragma: no cover
             return False
 
         fd, rfile = tempfile.mkstemp()
@@ -339,7 +339,7 @@ class MIMEHandler(dict):
                 log.warning("[MIMEHANDLER (RAR)][ERROR] %s", str(e))
                 continue
 
-            if not data:
+            if not data: # pragma: no cover
                 continue
 
             sample = log.ThugLogging.log_file(data, url)
