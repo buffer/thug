@@ -16,7 +16,7 @@ class TestWebTracking(object):
         thug.set_useragent('win7ie90')
         thug.set_events('click,storage')
         thug.set_web_tracking()
-        thug.disable_cert_logging()
+        thug.enable_cert_logging()
         thug.set_features_logging()
         thug.set_log_verbose()
         thug.set_ssl_verify()
