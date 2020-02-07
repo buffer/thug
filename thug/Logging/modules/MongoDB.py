@@ -109,10 +109,7 @@ class MongoDB(object):
 
     def __get_url(self, url):
         entry = self.urls.find_one({'url': url})
-        if entry:
-            return entry['_id']
-
-        return None
+        return entry['_id'] if entry else None
 
     def get_url(self, url):
         try:
