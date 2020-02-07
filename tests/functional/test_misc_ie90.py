@@ -219,6 +219,18 @@ class TestMiscSamplesIE(object):
                     "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testLocation7(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation7.html")
+        expected = ["[window open redirection] about:blank -> https://buffer.antifork.org"]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation8(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation8.html")
+        expected = ["[window open redirection] about:blank -> https://buffer.antifork.org"]
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testMetaXUACompatibleEdge(self, caplog):
         sample   = os.path.join(self.misc_path, "testMetaXUACompatibleEdge.html")
         expected = ["[Window] Alert Text: 9"]
