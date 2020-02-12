@@ -1,23 +1,3 @@
-__all__ = ['Attr',
-           'CDATASection',
-           'CharacterData',
-           'Comment',
-           'DOMException',
-           'DOMImplementation',
-           'Document',
-           'DocumentFragment',
-           'DocumentType',
-           'Element',
-           'Entity',
-           'EntityReference',
-           'NamedNodeMap',
-           'Node',
-           'NodeList',
-           'Notation',
-           'ProcessingInstruction',
-           'Text']
-
-
 from .Attr import Attr
 from .CDATASection import CDATASection
 from .CharacterData import CharacterData

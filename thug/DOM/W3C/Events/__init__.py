@@ -1,15 +1,3 @@
-__all__ = ['DocumentEvent',
-           'Event',
-           'EventException',
-           'EventListener',
-           'EventTarget',
-           'HTMLEvent',
-           'MouseEvent',
-           'MutationEvent',
-           'StorageEvent',
-           'UIEvent']
-
-
 from .DocumentEvent import DocumentEvent
 from .Event import Event
 from .EventException import EventException
