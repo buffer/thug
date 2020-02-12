@@ -313,7 +313,7 @@ class DFT(object):
 
     def handle_window_event(self, onevt):
         if onevt not in self.handled_on_events:
-            return
+            return # pragma: no cover
 
         if onevt in self.window_on_storage_events:
             return
@@ -331,7 +331,7 @@ class DFT(object):
         evtObject = self.get_evtObject(self.window, onevt[2:])
         self.run_event_handler(handler, evtObject)
 
-    def DEPRECATED_handle_window_event(self, onevt):
+    def DEPRECATED_handle_window_event(self, onevt): # pragma: no cover
         if onevt in self.handled_on_events and onevt not in self.window_on_storage_events:
             count = random.randint(30, 50) if onevt in self.on_user_detection_events else 1
 
@@ -349,7 +349,7 @@ class DFT(object):
 
                 count -= 1
 
-    def DEPRECATED_handle_document_event(self, onevt):
+    def DEPRECATED_handle_document_event(self, onevt): # pragma: no cover
         if onevt in self.handled_on_events:
             count = random.randint(30, 50) if onevt in self.on_user_detection_events else 1
 
@@ -378,7 +378,7 @@ class DFT(object):
 
     def handle_document_event(self, onevt):
         if onevt not in self.handled_on_events:
-            return
+            return # pragma: no cover
 
         evtObject = self.get_evtObject(self.window.doc, onevt[2:])
         handler = getattr(self.window.doc, onevt, None)
