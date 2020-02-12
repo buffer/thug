@@ -312,6 +312,26 @@ class DFT(object):
             handler(evtObject)
 
     def handle_window_event(self, onevt):
+        if onevt not in self.handled_on_events:
+            return
+
+        if onevt in self.window_on_storage_events:
+            return
+
+        if onevt in self.window_on_events:
+            if (self.window, onevt[2:], handler) in self.dispatched_events:
+                return
+
+        handler = getattr(self.window, onevt, None)
+        if not handler:
+            return
+
+        self.dispatched_events.add((self.window, onevt[2:], handler))
+
+        evtObject = self.get_evtObject(self.window, onevt[2:])
+        self.run_event_handler(handler, evtObject)
+
+    def DEPRECATED_handle_window_event(self, onevt):
         if onevt in self.handled_on_events and onevt not in self.window_on_storage_events:
             count = random.randint(30, 50) if onevt in self.on_user_detection_events else 1
 
@@ -329,7 +349,7 @@ class DFT(object):
 
                 count -= 1
 
-    def handle_document_event(self, onevt):
+    def DEPRECATED_handle_document_event(self, onevt):
         if onevt in self.handled_on_events:
             count = random.randint(30, 50) if onevt in self.on_user_detection_events else 1
 
@@ -355,6 +375,25 @@ class DFT(object):
                 evtObject = self.get_evtObject(self.window.doc, eventType)
                 self.run_event_handler(listener, evtObject)
                 count -= 1
+
+    def handle_document_event(self, onevt):
+        if onevt not in self.handled_on_events:
+            return
+
+        evtObject = self.get_evtObject(self.window.doc, onevt[2:])
+        handler = getattr(self.window.doc, onevt, None)
+        if handler:
+            self.run_event_handler(handler, evtObject)
+
+        if '_listeners' not in self.window.doc.tag.__dict__:
+            return
+
+        for (eventType, listener, capture) in self.window.doc.tag._listeners:  # pylint:disable=unused-variable
+            if eventType not in (onevt[2:], ):
+                continue
+
+            evtObject = self.get_evtObject(self.window.doc, eventType)
+            self.run_event_handler(listener, evtObject)
 
     def _build_event_handler(self, ctx, h):
         # When an event handler is registered by setting an HTML attribute
