@@ -1473,7 +1473,7 @@ class DFT(object):
 
         attrs = getattr(element, 'attrs', None)
         if attrs is None: # pragma: no cover
-            return None
+            return
 
         attrs_count = 0
         element_area = 1
