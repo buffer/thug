@@ -318,13 +318,13 @@ class DFT(object):
         if onevt in self.window_on_storage_events:
             return
 
-        if onevt in self.window_on_events:
-            if (self.window, onevt[2:], handler) in self.dispatched_events:
-                return
-
         handler = getattr(self.window, onevt, None)
         if not handler:
             return
+
+        if onevt in self.window_on_events:
+            if (self.window, onevt[2:], handler) in self.dispatched_events:
+                return
 
         self.dispatched_events.add((self.window, onevt[2:], handler))
 
