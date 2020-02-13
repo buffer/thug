@@ -235,13 +235,14 @@ class JSON(object):
                                       "cve"         : cve,
                                       "data"        : data})
 
-    def log_classifier(self, classifier, url, rule, tags):
+    def log_classifier(self, classifier, url, rule, tags, meta = None):
         """
         Log classifiers matching for a given url
 
         @classifier     Classifier name
         @url            URL where the rule match occurred
         @rule           Rule name
+        @meta           Rule meta
         @tags           Rule tags
         """
         if not self.json_enabled:
@@ -250,6 +251,7 @@ class JSON(object):
         item = {"classifier" : classifier,
                 "url"        : self.fix(url),
                 "rule"       : rule,
+                "meta"       : meta,
                 "tags"       : tags}
 
         if item not in self.data["classifiers"]:

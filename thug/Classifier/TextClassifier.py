@@ -43,8 +43,9 @@ class TextClassifier(BaseClassifier):
             self.handle_match_etags(match)
 
             rule = match.rule
+            meta = match.meta
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
-            log.ThugLogging.log_classifier("text", url, rule, tags)
+            log.ThugLogging.log_classifier("text", url, rule, tags, meta)
 
         for c in self.custom_classifiers:
             self.custom_classifiers[c](url, text)
@@ -54,8 +55,9 @@ class TextClassifier(BaseClassifier):
 
         for match in self.filters.match(data = html):
             rule = match.rule
+            meta = match.meta
             tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
-            log.ThugLogging.log_classifier("textfilter", url, rule, tags)
+            log.ThugLogging.log_classifier("textfilter", url, rule, tags, meta)
             ret = True
 
         return ret
