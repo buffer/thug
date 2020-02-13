@@ -40,9 +40,10 @@ class JSClassifier(BaseClassifier):
             self.handle_match_etags(match)
 
             rule = match.rule
+            meta = match.meta
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
 
-            log.ThugLogging.log_classifier("js", url, rule, tags)
+            log.ThugLogging.log_classifier("js", url, rule, tags, meta)
 
         for c in self.custom_classifiers:
             self.custom_classifiers[c](url, script)
@@ -52,8 +53,9 @@ class JSClassifier(BaseClassifier):
 
         for match in self.filters.match(data = script):
             rule = match.rule
+            meta = match.meta
             tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
-            log.ThugLogging.log_classifier("jsfilter", url, rule, tags)
+            log.ThugLogging.log_classifier("jsfilter", url, rule, tags, meta)
             ret = True
 
         return ret
