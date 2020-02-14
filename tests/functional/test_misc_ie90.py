@@ -1320,3 +1320,9 @@ class TestMiscSamplesIE(object):
         expected = ['True']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_meta_refresh(self, caplog):
+        sample   = os.path.join(self.misc_path, "meta_refresh.html")
+        expected = ['[meta redirection] about:blank -> https://buffer.github.io/thug/']
+
+        self.do_perform_test(caplog, sample, expected)
