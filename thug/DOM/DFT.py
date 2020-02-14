@@ -331,51 +331,6 @@ class DFT(object):
         evtObject = self.get_evtObject(self.window, onevt[2:])
         self.run_event_handler(handler, evtObject)
 
-    def DEPRECATED_handle_window_event(self, onevt): # pragma: no cover
-        if onevt in self.handled_on_events and onevt not in self.window_on_storage_events:
-            count = random.randint(30, 50) if onevt in self.on_user_detection_events else 1
-
-            while count > 0:
-                evtObject = self.get_evtObject(self.window, onevt[2:])
-
-                handler = getattr(self.window, onevt, None)
-                if handler:
-                    if onevt in self.window_on_events:
-                        if (self.window, onevt[2:], handler) in self.dispatched_events:
-                            return
-
-                    self.dispatched_events.add((self.window, onevt[2:], handler))
-                    self.run_event_handler(handler, evtObject)
-
-                count -= 1
-
-    def DEPRECATED_handle_document_event(self, onevt): # pragma: no cover
-        if onevt in self.handled_on_events:
-            count = random.randint(30, 50) if onevt in self.on_user_detection_events else 1
-
-            while count > 0:
-                evtObject = self.get_evtObject(self.window.doc, onevt[2:])
-
-                handler = getattr(self.window.doc, onevt, None)
-                if handler:
-                    self.run_event_handler(handler, evtObject)
-
-                count -= 1
-
-        if '_listeners' not in self.window.doc.tag.__dict__:
-            return
-
-        for (eventType, listener, capture) in self.window.doc.tag._listeners:  # pylint:disable=unused-variable
-            if eventType not in (onevt[2:], ):
-                continue
-
-            count = random.randint(30, 50) if onevt in self.on_user_detection_events else 1
-
-            while count > 0:
-                evtObject = self.get_evtObject(self.window.doc, eventType)
-                self.run_event_handler(listener, evtObject)
-                count -= 1
-
     def handle_document_event(self, onevt):
         if onevt not in self.handled_on_events:
             return # pragma: no cover
