@@ -237,13 +237,14 @@ class MongoDB(object):
 
         self.exploits.insert_one(exploit)
 
-    def log_classifier(self, classifier, url, rule, tags):
+    def log_classifier(self, classifier, url, rule, tags, meta = None):
         """
         Log classifiers matching for a given url
 
         @classifier     Classifier name
         @url            URL where the rule match occurred
         @rule           Rule name
+        @meta           Rule meta
         @tags           Rule tags
         """
         if not self.enabled:
@@ -254,6 +255,7 @@ class MongoDB(object):
             'url_id'      : self.get_url(url),
             'classifier'  : classifier,
             'rule'        : rule,
+            'meta'        : meta,
             'tags'        : tags
         }
 

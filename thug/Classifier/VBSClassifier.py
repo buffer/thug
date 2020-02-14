@@ -40,8 +40,9 @@ class VBSClassifier(BaseClassifier):
             self.handle_match_etags(match)
 
             rule = match.rule
+            meta = match.meta
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
-            log.ThugLogging.log_classifier("vbs", url, rule, tags)
+            log.ThugLogging.log_classifier("vbs", url, rule, tags, meta)
 
         for c in self.custom_classifiers:
             self.custom_classifiers[c](url, script)
@@ -51,8 +52,9 @@ class VBSClassifier(BaseClassifier):
 
         for match in self.filters.match(data = script):
             rule = match.rule
+            meta = match.meta
             tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
-            log.ThugLogging.log_classifier("vbsfilter", url, rule, tags)
+            log.ThugLogging.log_classifier("vbsfilter", url, rule, tags, meta)
             ret = True
 
         return ret
