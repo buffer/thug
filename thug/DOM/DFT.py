@@ -1136,10 +1136,7 @@ class DFT(object):
     def handle_meta_refresh(self, http_equiv, content):
         from .Window import Window
 
-        if http_equiv.lower() != 'refresh':
-            return
-
-        if 'url' not in content.lower():
+        if http_equiv.lower() not in ('refresh', ) or 'url' not in content.lower():
             return
 
         if log.ThugOpts.features_logging:
