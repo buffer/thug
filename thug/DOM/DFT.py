@@ -157,7 +157,7 @@ class DFT(object):
             profile = profile[offset:]
 
             p = profile.split(';')
-            if len(p) < 2:
+            if len(p) < 2: # pragma: no cover
                 profile = profile[1:]
                 continue
 
@@ -191,12 +191,12 @@ class DFT(object):
             profile = profile[offset:]
 
             p = profile.split(';')
-            if not p:
+            if not p: # pragma: no cover
                 profile = profile[1:]
                 continue
 
             s = p[0].split('"')
-            if len(s) < 2:
+            if len(s) < 2: # pragma: no cover
                 profile = profile[1:]
                 continue
 
