@@ -1115,7 +1115,7 @@ class DFT(object):
         if url.startswith("'") and url.endswith("'"):
             url = url[1:-1]
 
-        if url in log.ThugLogging.meta and log.ThugLogging.meta[url] >= 3:
+        if url in log.ThugLogging.meta and log.ThugLogging.meta[url] >= 3: # pragma: no cover
             return
 
         if data_uri:
