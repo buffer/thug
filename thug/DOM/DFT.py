@@ -1131,10 +1131,10 @@ class DFT(object):
         if response is None or response.status_code in (404, ):
             return
 
-        if url in log.ThugLogging.meta:
-            log.ThugLogging.meta[url] += 1
-        else:
-            log.ThugLogging.meta[url] = 1
+        if url not in log.ThugLogging.meta:
+            log.ThugLogging.meta[url] = 0
+
+        log.ThugLogging.meta[url] += 1
 
         doc    = w3c.parseString(response.content)
         window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
