@@ -1109,7 +1109,7 @@ class DFT(object):
             if s.lower().startswith('url='):
                 url = s[4:]
 
-        if not url:
+        if not url: # pragma: no cover
             return
 
         if url.startswith("'") and url.endswith("'"):
