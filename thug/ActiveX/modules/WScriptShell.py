@@ -19,7 +19,7 @@ class _Environment(object):
     def __init__(self, strType):
         self.strType = strType
 
-    def Item(self, item):
+    def Item(self, item): # pragma: no cover
         log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Getting Environment Item: %s" % (item, ))
         return item
 
@@ -90,11 +90,11 @@ def _doRun(self, p, stage):
 
         try:
             response = self._window._navigator.fetch(url, redirect_type = "doRun")
-        except Exception:
+        except Exception: # pragma: no cover
             continue
 
         if response is None or not response.ok:
-            continue
+            continue # pragma: no cover
 
         md5 = hashlib.md5()
         md5.update(response.content)
