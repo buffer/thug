@@ -60,7 +60,7 @@ def _doRun(self, p, stage):
     if log.ThugOpts.code_logging:
         log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
 
-    log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Code:\n%s" % (stage, p))
+    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Run (Stage %d) Code:\n%s" % (stage, p))
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
                                       "Run",
@@ -89,7 +89,7 @@ def _doRun(self, p, stage):
         url = url.split('"')[0]
         url = url.split("'")[0]
 
-        log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Downloading from URL %s" % (stage, url))
+        log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Run (Stage %d) Downloading from URL %s" % (stage, url))
 
         try:
             response = self._window._navigator.fetch(url, redirect_type = "doRun")
@@ -106,7 +106,7 @@ def _doRun(self, p, stage):
         sha256.update(response.content)
         sha256sum = sha256.hexdigest()
 
-        log.ThugLogging.add_behavior_warn("[Wscript.Shell ActiveX] Run (Stage %d) Saving file %s" % (stage, md5sum, ))
+        log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Run (Stage %d) Saving file %s" % (stage, md5sum, ))
         p = " ".join(s[1:])
 
         data = {
