@@ -48,8 +48,8 @@ def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
 
 
 def _doRun(self, p, stage):
-    if not isinstance(p, six.string_types):
-        return
+    # if not isinstance(p, six.string_types):
+    #    return
 
     try:
         pefile.PE(data = p, fast_load = True)
