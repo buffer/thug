@@ -48,14 +48,14 @@ def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
 
 
 def _doRun(self, p, stage):
-    # if not isinstance(p, six.string_types):
-    #    return
-
     try:
         pefile.PE(data = p, fast_load = True)
-        return # pragma: no cover
+        return
     except Exception:
         pass
+
+    if not isinstance(p, six.string_types):
+        return
 
     if log.ThugOpts.code_logging:
         log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
@@ -190,7 +190,6 @@ def Sleep(self, intTime):
 
 def Quit(self, code):
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Quit(%s)" % code)
-    # log.JSEngine.terminateAllThreads()
 
 
 def Echo(self, text):
