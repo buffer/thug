@@ -55,7 +55,7 @@ def _doRun(self, p, stage):
         pass
 
     if not isinstance(p, six.string_types):
-        return
+        return # pragma: no cover
 
     if log.ThugOpts.code_logging:
         log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
