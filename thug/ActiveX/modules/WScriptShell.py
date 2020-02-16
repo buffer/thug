@@ -70,23 +70,22 @@ def _doRun(self, p, stage):
                                              },
                                       forward = False)
 
+    s = None
+
     while True:
+        if s is not None and len(s) < 2:
+            break
+
         try:
             index = p.index('http')
         except ValueError:
             break
 
-        p = p[index:]
-
-        s = p.split()
-        if len(s) < 2:
-            break
-
-        p = p[1:]
+        p   = p[index:]
+        s   = p.split()
+        p   = p[1:]
         url = s[0]
-        if url.endswith(("'", '"')):
-            url = url[:-1]
-
+        url = url[:-1] if url.endswith(("'", '"')) else url
         url = url.split('"')[0]
         url = url.split("'")[0]
 
