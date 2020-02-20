@@ -115,6 +115,7 @@ Before diving deep into details let's take a look at the available personalities
 		win7safari5           Safari 5.1.7              (Windows 7)
 		win10ie110            Internet Explorer 11.0    (Windows 10)
 		osx10chrome19         Chrome 19.0.1084.54       (MacOS X 10.7.4)
+		osx10chrome80         Chrome 80.0.3987.116      (MacOS X 10.15.3)
 		osx10safari5          Safari 5.1.1              (MacOS X 10.7.2)
 		linuxchrome26         Chrome 26.0.1410.19       (Linux)
 		linuxchrome30         Chrome 30.0.1599.15       (Linux)
