@@ -1265,7 +1265,7 @@ class DFT(object):
         if 'base64' in opts:
             try:
                 data = base64.b64decode(h[1])
-            except TypeError:
+            except Exception:
                 try:
                     data = base64.b64decode(urlparse.unquote(h[1]))
                 except Exception:
