@@ -12,7 +12,7 @@ pylibemu==0.6.1
 pymongo==3.10.1
 python-magic==0.4.15
 rarfile==3.1
-requests==2.22.0
+requests==2.23.0
 six==1.14.0
 ssdeep==3.4
 yara-python==3.11.0
