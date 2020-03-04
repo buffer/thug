@@ -1378,17 +1378,12 @@ class DFT(object):
         if skip and name in ('object', 'applet', ):
             return False
 
-        # FIXME: this workaround should be not necessary once the Python 3
-        # porting will be completed.
         handler = None
 
         try:
             handler = getattr(self, "handle_%s" % (str(name.lower()), ), None)
-        except Exception:
-            try:
-                handler = getattr(self, "handle_%s" % (name.encode('utf-8', 'replace'), ), None)
-            except Exception:
-                pass
+        except Exception as e: # pragma: no cover
+            log.warning("[ERROR][do_handle] %s", str(e))
 
         child._soup = soup
 
@@ -1396,6 +1391,7 @@ class DFT(object):
             handler(child)
             if name in ('script', ):
                 self.run_htmlclassifier(soup)
+
             return True
 
         return False
