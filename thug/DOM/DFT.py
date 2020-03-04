@@ -704,17 +704,9 @@ class DFT(object):
         try:
             _language = language.lower().split('/')[-1]
             return getattr(self, "handle_{}".format(_language), None)
-        except Exception as e:
-            log.info("[ERROR][get_script_handler] %s", str(e))
-
-        try:
-            _language = language.encode('ascii', 'ignore').lower().split('/')[-1]
-            return getattr(self, "handle_{}".format(_language), None)
-        except Exception as e:
-            log.info("[ERROR][get_script_handler] %s", str(e))
-
-        log.warning("[SCRIPT] Unhandled script type: %s", language)
-        return None
+        except Exception: # pragma: no cover
+            log.warning("[SCRIPT] Unhandled script type: %s", language)
+            return None
 
     def handle_script(self, script):
         handler = self.get_script_handler(script)
@@ -739,7 +731,7 @@ class DFT(object):
         try:
             s.text = response.text
             return True
-        except Exception as e:
+        except Exception as e: # pragma: no cover
             log.info("[ERROR][handle_external_javascript_text] %s", str(e))
 
         # Last attempt
@@ -772,7 +764,7 @@ class DFT(object):
             log.info("[ERROR][handle_external_javascript] %s", str(e))
             return
 
-        if response is None or response.status_code in (404, ) or not response.content:
+        if response is None or response.status_code in (404, ) or not response.content: # pragma: no cover
             return
 
         if log.ThugOpts.code_logging:
@@ -922,7 +914,7 @@ class DFT(object):
         log.info(form)
 
         action = form.get('action', None)
-        if action in (None, 'self', ):
+        if action in (None, 'self', ): # pragma: no cover
             last_url = getattr(log, 'last_url', None)
             action = last_url if last_url else self.window.url
 
@@ -930,7 +922,7 @@ class DFT(object):
             log.ThugLogging.Features.increase_url_count()
 
         _action = log.HTTPSession.normalize_url(self.window, action)
-        if _action is None:
+        if _action is None: # pragma: no cover
             return
 
         if _action not in self.forms:
