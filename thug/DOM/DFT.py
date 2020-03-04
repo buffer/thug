@@ -1466,7 +1466,7 @@ class DFT(object):
             self.handle_applet(p)
 
         for child in soup.descendants:
-            if child is None:
+            if child is None: # pragma: no cover
                 continue
 
             self.check_hidden_element(child)
@@ -1515,7 +1515,7 @@ class DFT(object):
             try:
                 self.handle_window_event(evt)
                 self.run_htmlclassifier(soup)
-            except Exception:
+            except Exception: # pragma: no cover
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
