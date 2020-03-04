@@ -109,7 +109,8 @@ class JSON(object):
                 enc_data = data
             else:
                 enc = log.Encoding.detect(data)
-                enc_data = data.decode(enc['encoding'])
+                encoding = enc['encoding'] if enc['encoding'] else 'utf-8'
+                enc_data = data.decode(encoding)
 
             return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
         except UnicodeDecodeError: # pragma: no cover
