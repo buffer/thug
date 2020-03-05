@@ -55,7 +55,8 @@ class MIMEHandler(dict):
     MIN_ZIP_FILE_SIZE = 32
     MIN_RAR_FILE_SIZE = 32
 
-    mimetypes = ("application/download",
+    mimetypes = ("application/atom+xml",
+                 "application/download",
                  "application/envoy",
                  "application/exe",
                  "application/fractals",
@@ -74,6 +75,7 @@ class MIMEHandler(dict):
                  "application/pkix-crl",
                  "application/postscript",
                  "application/rar",
+                 "application/rss+xml",
                  "application/rtf",
                  "application/set-payment-initiation",
                  "application/set-registration-initiation",
@@ -189,6 +191,7 @@ class MIMEHandler(dict):
                  "text/tab-separated-values",
                  "text/vnd.wap.wml",
                  "text/webviewhtml",
+                 "text/xml",
                  "text/x-component",
                  "text/x-setext",
                  "text/x-vcard",
