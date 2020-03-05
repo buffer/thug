@@ -703,10 +703,14 @@ class DFT(object):
 
         try:
             _language = language.lower().split('/')[-1]
-            return getattr(self, "handle_{}".format(_language), None)
         except Exception: # pragma: no cover
             log.warning("[SCRIPT] Unhandled script type: %s", language)
             return None
+
+        if _language in ("script", ): # pragma: no cover
+            _language = "javascript"
+
+        return getattr(self, "handle_{}".format(_language), None)
 
     def handle_script(self, script):
         handler = self.get_script_handler(script)
