@@ -205,7 +205,7 @@ class MIMEHandler(dict):
 
     def __missing__(self, key):
         _key = key.split(';')[0].strip()
-        if _key in self:
+        if _key in self: # pragma: no cover
             return self[_key]
 
         log.warning("[MIMEHandler] Unknown MIME Type: %s", key)
@@ -338,7 +338,7 @@ class MIMEHandler(dict):
         for filename in rardata.namelist():
             try:
                 data = rardata.read(filename)
-            except Exception as e:
+            except Exception as e: # pragma: no cover
                 log.warning("[MIMEHANDLER (RAR)][ERROR] %s", str(e))
                 continue
 
@@ -346,12 +346,12 @@ class MIMEHandler(dict):
                 continue
 
             sample = log.ThugLogging.log_file(data, url)
-            if sample is None:
+            if sample is None: # pragma: no cover
                 continue
 
             try:
                 md5 = sample['md5']
-            except Exception as e:
+            except Exception as e: # pragma: no cover
                 log.warning("[MIMEHANDLER (RAR)][ERROR] %s", str(e))
                 continue
 
