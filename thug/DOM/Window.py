@@ -155,7 +155,7 @@ class Window(JSClass):
         self.java          = java()
 
         self._symbols      = set()
-        # self._methods      = tuple()
+        # self._methods    = tuple()
 
         log.MIMEHandler.window = self
 
@@ -250,7 +250,7 @@ class Window(JSClass):
     def get_top(self):
         return self._top
 
-    def set_top(self, top):
+    def set_top(self, top): # pragma: no cover
         self._top = top
 
     top = property(get_top, set_top)
