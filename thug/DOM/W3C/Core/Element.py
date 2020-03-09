@@ -242,7 +242,7 @@ class Element(Node, ElementCSSInlineStyle):
                 return
 
             ctype = response.headers.get('content-type', None)
-            if ctype is None:
+            if ctype is None: # pragma: no cover
                 return
 
             handler = log.MIMEHandler.get_handler(ctype)
