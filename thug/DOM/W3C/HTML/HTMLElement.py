@@ -44,7 +44,7 @@ class HTMLElement(Element):
         return html.getvalue()
 
     def setInnerHTML(self, html):
-        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, html)
+        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, html)
 
         self.tag.clear()
 

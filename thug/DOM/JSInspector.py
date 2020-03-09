@@ -34,7 +34,7 @@ class JSInspector(object):
         if log.ThugOpts.local:
             return log.ThugLogging.url
 
-        url = getattr(log, 'last_url_fetched', None)
+        url = getattr(log, 'last_url', None)
         return url if url else self.window.url
 
     def dump_eval(self):

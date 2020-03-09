@@ -352,7 +352,7 @@ class Window(JSClass):
 
         text is a string of the text you want displayed in the alert dialog.
         """
-        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, str(text))
+        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, str(text))
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_alert_count()
@@ -439,7 +439,7 @@ class Window(JSClass):
 
         result is a boolean value indicating whether OK or Cancel was selected.
         """
-        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, str(text))
+        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, str(text))
         return True
 
     def dump(self, text):
@@ -453,7 +453,7 @@ class Window(JSClass):
 
         text is a string.
         """
-        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, str(text))
+        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, str(text))
         self.alert(text)
 
     def focus(self):
@@ -553,7 +553,7 @@ class Window(JSClass):
         """
         Returns the text entered by the user in a prompt dialog.
         """
-        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url_fetched, str(text))
+        log.TextClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, str(text))
         return defaultText if defaultText else ""
 
     def releaseEvents(self, eventType):
