@@ -736,23 +736,23 @@ class DFT(object):
             s.text = response.text
             return True
         except Exception as e: # pragma: no cover
-            log.info("[ERROR][handle_external_javascript_text] %s", str(e))
+            log.warning("[ERROR][handle_external_javascript_text] %s", str(e))
 
         # Last attempt
         # The encoding will be (hopefully) detected through the Encoding class.
         js = response.content
+
         enc = log.Encoding.detect(js)
         if enc['encoding'] is None:
             return False
 
         try:
             s.text = js.decode(enc['encoding'])
-            return True
         except Exception as e:
-            log.info("[ERROR][handle_external_javascript_text] %s", str(e))
+            log.warning("[ERROR][handle_external_javascript_text] %s", str(e))
+            return False
 
-        log.warning("[handle_external_javascript_text] Encoding failure (URL: %s)", response.url)
-        return False
+        return True
 
     def handle_external_javascript(self, script):
         src = script.get('src', None)
@@ -768,7 +768,7 @@ class DFT(object):
             log.info("[ERROR][handle_external_javascript] %s", str(e))
             return
 
-        if response is None or response.status_code in (404, ) or not response.content: # pragma: no cover
+        if response is None or not response.ok or not response.content: # pragma: no cover
             return
 
         if log.ThugOpts.code_logging:
@@ -958,7 +958,7 @@ class DFT(object):
             log.info("[ERROR][do_handle_form] %s", str(e))
             return
 
-        if response is None or response.status_code in (404, ):
+        if response is None or not response.ok:
             return
 
         ctype = response.headers.get('content-type', None)
@@ -1124,7 +1124,7 @@ class DFT(object):
             log.info("[ERROR][handle_meta_refresh] %s", str(e))
             return
 
-        if response is None or response.status_code in (404, ):
+        if response is None or not response.ok:
             return
 
         if url not in log.ThugLogging.meta:
@@ -1159,7 +1159,7 @@ class DFT(object):
             log.info("[ERROR][handle_frame] %s", str(e))
             return
 
-        if response is None or response.status_code in (404, ):
+        if response is None or not response.ok: # pragma: no cover
             return
 
         ctype = response.headers.get('content-type', None)
@@ -1335,7 +1335,7 @@ class DFT(object):
             log.info("[ERROR][handle_link] %s", str(e))
             return
 
-        if response is None or response.status_code in (404, ):
+        if response is None or not response.ok:
             return
 
     def check_anchors(self):
