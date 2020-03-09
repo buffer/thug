@@ -123,7 +123,7 @@ class EventTarget(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_attachevent_count()
 
-        if not eventType.startswith('on'):
+        if not eventType.startswith('on'): # pragma: no cover
             log.warning('[WARNING] attachEvent eventType: %s', eventType)
 
         self._addEventListener(eventType[2:], handler, False, prio)
@@ -134,7 +134,7 @@ class EventTarget(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_detachevent_count()
 
-        if not eventType.startswith('on'):
+        if not eventType.startswith('on'): # pragma: no cover
             log.warning('[WARNING] detachEvent eventType: %s', eventType)
 
         self._removeEventListener(eventType[2:], handler)
@@ -173,7 +173,7 @@ class EventTarget(object):
         if not tag.parent._listeners:
             return
 
-        if evtObject._stoppedPropagation:
+        if evtObject._stoppedPropagation: # pragma: no cover
             return
 
         capture_listeners, bubbling_listeners = self._get_listeners(tag.parent, evtType)  # pylint:disable=unused-variable
@@ -183,13 +183,13 @@ class EventTarget(object):
 
     def _dispatchBubblingEvent(self, tag, evtType, evtObject):
         for node in tag.parents:
-            if node is None:
+            if node is None: # pragma: no cover
                 break
 
             if not node._listeners:
                 continue
 
-            if evtObject._stoppedPropagation:
+            if evtObject._stoppedPropagation: # pragma: no cover
                 continue
 
             capture_listeners, bubbling_listeners = self._get_listeners(node, evtType)  # pylint:disable=unused-variable
