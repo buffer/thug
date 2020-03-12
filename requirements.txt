@@ -16,4 +16,4 @@ requests==2.23.0
 six==1.14.0
 ssdeep==3.4
 yara-python==3.11.0
-zope.interface==4.7.1
+zope.interface==4.7.2
