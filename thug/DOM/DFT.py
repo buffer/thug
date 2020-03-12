@@ -754,6 +754,16 @@ class DFT(object):
 
         return True
 
+    def handle_data_javascript(self, script, src):
+        s = self.window.doc.createElement('script')
+
+        for attr in script.attrs:
+            if attr.lower() not in ('src', ):
+                s.setAttribute(attr, script.get(attr))
+
+        data   = self._handle_data_uri(src)
+        s.text = data.decode()
+
     def handle_external_javascript(self, script):
         src = script.get('src', None)
         if src is None:
@@ -761,6 +771,10 @@ class DFT(object):
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_url_count()
+
+        if src.lower().startswith("data:"):
+            self.handle_data_javascript(script, src)
+            return
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = "script src")
@@ -1244,7 +1258,7 @@ class DFT(object):
         base64 token.
         """
         if not uri.lower().startswith("data:"):
-            return False
+            return None
 
         log.URLClassifier.classify(uri)
 
@@ -1253,7 +1267,7 @@ class DFT(object):
 
         h = uri.split(",")
         if len(h) < 2 or not h[1]:
-            return False
+            return None
 
         data = h[1]
         opts = h[0][len("data:"):].split(";")
@@ -1266,7 +1280,7 @@ class DFT(object):
                     data = base64.b64decode(urlparse.unquote(h[1]))
                 except Exception:
                     log.warning("[WARNING] Error while handling data URI: %s", data)
-                    return False
+                    return None
 
             opts.remove('base64')
 
@@ -1274,6 +1288,10 @@ class DFT(object):
             opts = ["text/plain", "charset=US-ASCII"]
 
         mimetype = opts[0]
+
+        handler = log.MIMEHandler.get_handler(mimetype)
+        if handler:
+            handler(self.window.url, data)
 
         if mimetype in ('text/html', ):
             from .Window import Window
@@ -1283,14 +1301,8 @@ class DFT(object):
 
             dft = DFT(window)
             dft.run()
-            return True
 
-        handler = log.MIMEHandler.get_handler(mimetype)
-        if handler:
-            handler(self.window.url, data)
-            return True
-
-        return False
+        return data
 
     def handle_a(self, anchor):
         log.info(anchor)
