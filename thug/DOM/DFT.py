@@ -19,7 +19,6 @@
 import os
 import re
 import base64
-import random
 import logging
 import bs4
 import six
