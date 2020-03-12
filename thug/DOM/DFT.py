@@ -1215,7 +1215,7 @@ class DFT(object):
             if log.ThugOpts.features_logging:
                 log.ThugLogging.Features.increase_url_count()
 
-            if self._handle_data_uri(url):
+            if self._handle_data_uri(url): # pragma: no cover
                 continue
 
             try:
@@ -1266,7 +1266,7 @@ class DFT(object):
             log.ThugLogging.Features.increase_data_uri_count()
 
         h = uri.split(",")
-        if len(h) < 2 or not h[1]:
+        if len(h) < 2 or not h[1]: # pragma: no cover
             return None
 
         data = h[1]
@@ -1275,7 +1275,7 @@ class DFT(object):
         if 'base64' in opts:
             try:
                 data = base64.b64decode(h[1])
-            except Exception:
+            except Exception: # pragma: no cover
                 try:
                     data = base64.b64decode(urlparse.unquote(h[1]))
                 except Exception:
@@ -1338,7 +1338,7 @@ class DFT(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_url_count()
 
-        if self._handle_data_uri(href):
+        if self._handle_data_uri(href): # pragma: no cover
             return
 
         try:
