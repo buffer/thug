@@ -754,14 +754,17 @@ class DFT(object):
         return True
 
     def handle_data_javascript(self, script, src):
+        data = self._handle_data_uri(src)
+        if data is None:
+            return
+
         s = self.window.doc.createElement('script')
 
         for attr in script.attrs:
             if attr.lower() not in ('src', ):
                 s.setAttribute(attr, script.get(attr))
 
-        data   = self._handle_data_uri(src)
-        s.text = data.decode()
+        s.text = data.decode() if isinstance(data, bytes) else data
 
     def handle_external_javascript(self, script):
         src = script.get('src', None)
