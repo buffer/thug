@@ -755,7 +755,7 @@ class DFT(object):
 
     def handle_data_javascript(self, script, src):
         data = self._handle_data_uri(src)
-        if data is None:
+        if data is None: # pragma: no cover
             return
 
         s = self.window.doc.createElement('script')
