@@ -1294,6 +1294,7 @@ class DFT(object):
         handler = log.MIMEHandler.get_handler(mimetype)
         if handler:
             handler(self.window.url, data)
+            return None
 
         if mimetype in ('text/html', ):
             from .Window import Window
