@@ -202,11 +202,11 @@ class HTTPSession(object):
             return None
 
         fetcher = getattr(self.session, method.lower(), None)
-        if fetcher is None:
+        if fetcher is None: # pragma: no cover
             log.warning("Not supported method: %s" % (method, ))
             return None
 
-        if headers is None:
+        if headers is None: # pragma: no cover
             headers = dict()
 
         _headers = self.build_http_headers(window, personality, headers)

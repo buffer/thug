@@ -1363,12 +1363,12 @@ class DFT(object):
         for anchor in clicked_anchors:
             del anchor['_clicked']
 
-            if 'href' not in anchor.attrs:
+            if 'href' not in anchor.attrs: # pragma: no cover
                 continue
 
             href = anchor.attrs['href']
 
-            if 'target' in anchor.attrs and not anchor.attrs['target'] in ('_self', ):
+            if 'target' in anchor.attrs and not anchor.attrs['target'] in ('_self', ): # pragma: no cover
                 pid = os.fork()
                 if pid == 0:
                     self.follow_href(href)
