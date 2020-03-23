@@ -8,7 +8,7 @@ log = logging.getLogger("Thug")
 
 class TestExtensive(object):
     thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    jquery_path = os.path.join(thug_path, "thug", "samples/misc")
+    misc_path = os.path.join(thug_path, "thug", "samples/misc")
 
     def do_perform_test(self, caplog, sample, expected):
         thug = ThugAPI()
@@ -36,43 +36,62 @@ class TestExtensive(object):
         assert matches >= len(expected)
 
     def test_Anchor1(self, caplog):
-        sample   = os.path.join(self.jquery_path, "testAnchor1.html")
+        sample   = os.path.join(self.misc_path, "testAnchor1.html")
         expected = ["[anchor redirection]", ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_Anchor2(self, caplog):
-        sample   = os.path.join(self.jquery_path, "testAnchor2.html")
+        sample   = os.path.join(self.misc_path, "testAnchor2.html")
         expected = ["[anchor redirection]", ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_Anchor3(self, caplog):
-        sample   = os.path.join(self.jquery_path, "testAnchor3.html")
+        sample   = os.path.join(self.misc_path, "testAnchor3.html")
         expected = ["Hello world", ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_Anchor4(self, caplog):
-        sample   = os.path.join(self.jquery_path, "testAnchor4.html")
+        sample   = os.path.join(self.misc_path, "testAnchor4.html")
         expected = ["Hello world", ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_Anchor5(self, caplog):
-        sample   = os.path.join(self.jquery_path, "testAnchor5.html")
+        sample   = os.path.join(self.misc_path, "testAnchor5.html")
         expected = ["testAnchor5 success", ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_Anchor6(self, caplog):
-        sample   = os.path.join(self.jquery_path, "testAnchor6.html")
+        sample   = os.path.join(self.misc_path, "testAnchor6.html")
         expected = ["testAnchor5 success", ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_Anchor7(self, caplog):
-        sample   = os.path.join(self.jquery_path, "testAnchor7.html")
+        sample   = os.path.join(self.misc_path, "testAnchor7.html")
         expected = ["[MIMEHandler] Unknown MIME Type: application/font-woff2", ]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_Anchors1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAnchors1.html")
+        expected = ["[window open redirection] about:blank -> http://www.google.com",
+                    "[document.write] Deobfuscated argument: <a href=\"http://www.google.com\">Google</a>", ]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_Anchors2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAnchors2.html")
+        expected = ["[document.write] Deobfuscated argument: <a>Google</a>", ]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_Anchors3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAnchors3.html")
+        expected = ["[window open redirection] about:blank -> http://www.google.com", ]
 
         self.do_perform_test(caplog, sample, expected)
