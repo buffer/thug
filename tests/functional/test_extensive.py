@@ -90,7 +90,7 @@ class TestExtensive(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_Anchors3(self, caplog):
+    def _test_Anchors3(self, caplog):
         sample   = os.path.join(self.misc_path, "testAnchors3.html")
         expected = ["[window open redirection] about:blank -> http://www.google.com", ]
 
