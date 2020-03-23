@@ -1363,10 +1363,10 @@ class DFT(object):
         for anchor in clicked_anchors:
             del anchor['_clicked']
 
-            if 'href' not in anchor:
+            if 'href' not in anchor.attrs:
                 continue
 
-            href = anchor['href']
+            href = anchor.attrs['href']
 
             if 'target' in anchor.attrs and not anchor.attrs['target'] in ('_self', ):
                 pid = os.fork()
