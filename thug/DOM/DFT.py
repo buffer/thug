@@ -166,7 +166,7 @@ class DFT(object):
                 continue
 
             url = p[1]
-            if url in log.ThugLogging.shellcode_urls:
+            if url in log.ThugLogging.shellcode_urls: # pragma: no cover
                 return
 
             try:
