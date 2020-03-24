@@ -200,18 +200,18 @@ class DFT(object):
                 continue
 
             url = s[1]
-            if not url.startswith("http"):
+            if not url.startswith("\\\\"):
                 profile = profile[1:]
                 continue
 
-            if url in log.ThugLogging.shellcode_urls:
+            if url in log.ThugLogging.shellcode_urls: # pragma: no cover
                 return
 
-            try:
-                if self.window._navigator.fetch(url, redirect_type = "WinExec", snippet = snippet) is None:
-                    log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed', snippet = snippet)
+            log.ThugLogging.shellcode_urls.add(url)
 
-                log.ThugLogging.shellcode_urls.add(url)
+            try:
+                url = url[2:].replace("\\", "/")
+                self.window._navigator.fetch(url, redirect_type = "WinExec", snippet = snippet)
             except Exception:
                 log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed', snippet = snippet)
 
