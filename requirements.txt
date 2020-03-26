@@ -2,7 +2,7 @@ PySocks==1.7.1
 beautifulsoup4==4.8.2
 cchardet==2.1.6
 cssutils==1.0.2
-elasticsearch==7.6.0
+elasticsearch==7.5.1
 html5lib==1.0.1
 lxml==4.5.0
 networkx==2.4
