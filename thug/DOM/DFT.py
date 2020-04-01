@@ -20,9 +20,9 @@ import os
 import re
 import base64
 import logging
-import bs4
-import six
 import six.moves.urllib.parse as urlparse
+import six
+import bs4
 from cssutils.parse import CSSParser
 
 import pylibemu

@@ -25,9 +25,9 @@ import numbers
 import collections
 import datetime
 import random
+import six.moves.urllib_parse as urllib
 import six
 import bs4
-import six.moves.urllib_parse as urllib
 
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.Java.java import java
@@ -92,7 +92,7 @@ class Window(JSClass):
                 self.running = False
 
             if not self.running:
-                return None
+                return
 
             with self.window.context as ctx:
                 try:
@@ -106,7 +106,7 @@ class Window(JSClass):
                     if log.ThugOpts.Personality.isIE():
                         raise TypeError()
 
-                    return None
+                    return
 
             if self.repeat and self.loops > 0:
                 self.loops -= 1

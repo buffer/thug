@@ -109,7 +109,7 @@ class HTTPSession(object):
             return url
 
         if url.startswith('#'):
-            log.warning("[INFO] Ignoring anchor: {}".format(url))
+            log.warning("[INFO] Ignoring anchor: %s", url)
             return None
 
         # Check the URL is not broken (i.e. http:/www.google.com) and
@@ -203,7 +203,7 @@ class HTTPSession(object):
 
         fetcher = getattr(self.session, method.lower(), None)
         if fetcher is None: # pragma: no cover
-            log.warning("Not supported method: %s" % (method, ))
+            log.warning("Not supported method: %s", method)
             return None
 
         if headers is None: # pragma: no cover
@@ -219,7 +219,7 @@ class HTTPSession(object):
                                data    = body,
                                verify  = log.ThugOpts.ssl_verify)
         except requests.ConnectionError as e:
-            log.warning("[HTTPSession] {0}".format(str(e)))
+            log.warning("[HTTPSession] %s", str(e))
 
         if not response.ok:
             return None
