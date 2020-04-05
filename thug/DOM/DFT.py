@@ -1368,14 +1368,15 @@ class DFT(object):
 
             href = anchor.attrs['href']
 
-            if 'target' in anchor.attrs and not anchor.attrs['target'] in ('_self', ): # pragma: no cover
-                pid = os.fork()
-                if pid == 0:
-                    self.follow_href(href)
-                else:
-                    os.waitpid(pid, 0)
-            else:
-                self.follow_href(href)
+            # if 'target' in anchor.attrs and not anchor.attrs['target'] in ('_self', ): # pragma: no cover
+            #    pid = os.fork()
+            #    if pid == 0:
+            #        self.follow_href(href)
+            #    else:
+            #        os.waitpid(pid, 0)
+            # else:
+            #    self.follow_href(href)
+            self.follow_href(href)
 
     def follow_href(self, href):
         from .Window import Window
