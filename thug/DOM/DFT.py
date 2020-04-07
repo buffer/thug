@@ -16,7 +16,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import os
 import re
 import base64
 import logging
@@ -1383,15 +1382,6 @@ class DFT(object):
                 continue
 
             href = anchor.attrs['href']
-
-            # if 'target' in anchor.attrs and not anchor.attrs['target'] in ('_self', ): # pragma: no cover
-            #    pid = os.fork()
-            #    if pid == 0:
-            #        self.follow_href(href)
-            #    else:
-            #        os.waitpid(pid, 0)
-            # else:
-            #    self.follow_href(href)
             self.follow_href(href)
 
     def follow_href(self, href):
