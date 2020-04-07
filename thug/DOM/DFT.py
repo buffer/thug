@@ -1363,6 +1363,15 @@ class DFT(object):
         if self._handle_data_uri(src): # pragma: no cover
             return
 
+        cache = getattr(self, 'img_cache', None)
+        if not cache:
+            self.img_cache = set()
+
+        if src in self.img_cache:
+            return
+
+        self.img_cache.add(src)
+
         try:
             response = self.window._navigator.fetch(src, redirect_type = "img")
         except Exception as e:

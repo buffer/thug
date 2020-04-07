@@ -276,6 +276,9 @@ class MIMEHandler(dict):
         self['application/json'] = self.handle_json
 
     def register_image_handlers(self):
+        if not log.ThugOpts.image_processing:
+            return
+
         hook = getattr(self, "handle_image_hook", None)
 
         self.image_ocr_enabled  = OCR_ENABLED
