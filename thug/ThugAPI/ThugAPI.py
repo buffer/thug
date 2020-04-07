@@ -148,6 +148,9 @@ class ThugAPI(object):
     def set_image_processing(self):
         log.ThugOpts.image_processing = True
 
+    def reset_image_processing(self):
+        log.ThugOpts.image_processing = False
+
     def get_file_logging(self):
         return log.ThugOpts.file_logging
 

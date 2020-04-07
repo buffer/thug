@@ -129,6 +129,15 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def reset_image_processing():
+        """
+        reset_image_processing
+
+        Disable image processing mode
+
+        @return: None
+        """
+
     def get_file_logging():
         """
         get_file_logging
