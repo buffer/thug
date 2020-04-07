@@ -276,9 +276,6 @@ class MIMEHandler(dict):
         self['application/json'] = self.handle_json
 
     def register_image_handlers(self):
-        if not log.ThugOpts.image_processing:
-            return
-
         hook = getattr(self, "handle_image_hook", None)
 
         self.image_ocr_enabled  = OCR_ENABLED
@@ -304,6 +301,12 @@ class MIMEHandler(dict):
         return False
 
     def handle_image(self, url, content):
+        if not log.ThugOpts.image_processing:
+            return False
+
+        if not self.image_ocr_enabled and not self.image_hook_enabled:
+            return False
+
         if len(content) < self.MIN_IMG_FILE_SIZE: # pragma: no cover
             return False
 
@@ -314,6 +317,8 @@ class MIMEHandler(dict):
             hook = getattr(self, "handle_image_hook", None)
             if hook:
                 hook((url, content, ))
+
+        return True
 
     def perform_ocr_analysis(self, url, content):
         try:
