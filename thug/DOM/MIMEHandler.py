@@ -313,10 +313,10 @@ class MIMEHandler(dict):
                 hook((url, content, ))
 
     def perform_ocr_analysis(self, url, content):
-        fp = BytesIO(content)
-
         try:
-            ocr_result = pytesseract.image_to_string(Image.open(fp))
+            fp  = BytesIO(content)
+            img = Image.open(fp)
+            ocr_result = pytesseract.image_to_string(img.convert())
         except Exception as e:
             log.warning("[OCR] Error: %s", str(e))
             return
