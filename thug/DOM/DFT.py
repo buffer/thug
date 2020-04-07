@@ -1348,10 +1348,26 @@ class DFT(object):
             response = self.window._navigator.fetch(href, redirect_type = "link")
         except Exception as e:
             log.info("[ERROR][handle_link] %s", str(e))
+
+    def handle_img(self, img):
+        if not log.ThugOpts.image_processing:
             return
 
-        if response is None or not response.ok:
+        if not log.MIMEHandler.image_ocr_enabled and not log.MIMEHandler.image_hook_enabled:
             return
+
+        log.info(img)
+        src = img.get('src', None)
+        if not src: # pragma: no cover
+            return
+
+        if self._handle_data_uri(src): # pragma: no cover
+            return
+
+        try:
+            response = self.window._navigator.fetch(src, redirect_type = "img")
+        except Exception as e:
+            log.info("[ERROR][handle_img] %s", str(e))
 
     def check_anchors(self):
         clicked_anchors = [a for a in self.anchors if '_clicked' in a.attrs]

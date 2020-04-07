@@ -62,6 +62,7 @@ class ThugOpts(dict):
         self._web_tracking      = False
         self._honeyagent        = True
         self.activex_ready      = True
+        self._image_processing  = False
         self.Personality        = Personality()
 
     def set_verbose(self, verbose):
@@ -163,6 +164,14 @@ class ThugOpts(dict):
         self._attachment = attachment
 
     attachment = property(get_attachment, set_attachment)
+
+    def get_image_processing(self):
+        return self._image_processing
+
+    def set_image_processing(self, image_processing):
+        self._image_processing = image_processing
+
+    image_processing = property(get_image_processing, set_image_processing)
 
     def get_file_logging(self):
         return self._file_logging

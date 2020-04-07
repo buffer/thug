@@ -111,6 +111,24 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def get_image_processing():
+        """
+        get_image_processing
+
+        Return True if the attachment mode is set, False otherwise
+
+        @return: boolean
+        """
+
+    def set_image_processing():
+        """
+        set_image_processing
+
+        Enable image processing mode
+
+        @return: None
+        """
+
     def get_file_logging():
         """
         get_file_logging

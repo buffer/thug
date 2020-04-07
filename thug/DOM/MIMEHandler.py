@@ -26,6 +26,15 @@ import bs4
 import rarfile
 from six import BytesIO
 
+OCR_ENABLED = True
+
+try:
+    from PIL import Image
+    import pytesseract
+except ImportError:
+    OCR_ENABLED = False
+
+
 log = logging.getLogger("Thug")
 
 
@@ -54,6 +63,7 @@ class MIMEHandler(dict):
 
     MIN_ZIP_FILE_SIZE = 32
     MIN_RAR_FILE_SIZE = 32
+    MIN_IMG_FILE_SIZE = 32
 
     mimetypes = ("application/atom+xml",
                  "application/download",
@@ -223,6 +233,20 @@ class MIMEHandler(dict):
         self.register_rar_handlers()
         self.register_java_jnlp_handlers()
         self.register_json_handlers()
+        self.register_image_handlers()
+
+        self._init_pyhooks()
+
+    def _init_pyhooks(self):
+        hooks = log.PyHooks.get("MIMEHandler", None)
+        if hooks is None:
+            return
+
+        for label, hook in hooks.items():
+            name   = "{}_hook".format(label)
+            _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
+            method = six.create_bound_method(_hook, MIMEHandler)
+            setattr(self, name, method)
 
     def register_empty_handlers(self):
         self['application/hta']          = None
@@ -251,6 +275,21 @@ class MIMEHandler(dict):
     def register_json_handlers(self):
         self['application/json'] = self.handle_json
 
+    def register_image_handlers(self):
+        hook = getattr(self, "handle_image_hook", None)
+
+        self.image_ocr_enabled  = OCR_ENABLED
+        self.image_hook_enabled = hook is not None
+
+        if not self.image_ocr_enabled and not self.image_hook_enabled:
+            return
+
+        self["image/bmp"]  = self.handle_image
+        self["image/gif"]  = self.handle_image
+        self["image/jpeg"] = self.handle_image
+        self["image/png"]  = self.handle_image
+        self["image/tiff"] = self.handle_image
+
     def handle_fallback(self, url, content):
         for handler in self.handlers:
             try:
@@ -260,6 +299,27 @@ class MIMEHandler(dict):
                 pass
 
         return False
+
+    def handle_image(self, url, content):
+        if len(content) < self.MIN_IMG_FILE_SIZE: # pragma: no cover
+            return False
+
+        if self.image_ocr_enabled:
+            self.perform_ocr_analysis(url, content)
+
+        if self.image_hook_enabled:
+            hook = getattr(self, "handle_image_hook", None)
+            if hook:
+                hook((url, content, ))
+
+    def perform_ocr_analysis(self, url, content):
+        fp = BytesIO(content)
+
+        try:
+            ocr_result = pytesseract.image_to_string(Image.open(fp))
+            log.ThugLogging.log_image_ocr(url, ocr_result)
+        except Exception as e:
+            log.warning(str(e))
 
     def handle_zip(self, url, content):
         if len(content) < self.MIN_ZIP_FILE_SIZE: # pragma: no cover

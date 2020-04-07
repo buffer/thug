@@ -227,6 +227,20 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_exploit_event'):
             m(url, module, description, cve = cve, data = data)
 
+    def log_image_ocr(self, url, result, forward = True):
+        """
+        Log the results of images OCR-based analysis
+
+        @url            Image URL
+        @result         OCR analysis result
+        @forward        Forward log to log.warning
+        """
+        if forward:
+            log.warning("[OCR] Result: %s (URL: %s)", result, url)
+
+        for m in self.resolve_method('log_image_ocr'):
+            m(url, result)
+
     def log_classifier(self, classifier, url, rule, tags, meta = None):
         """
         Log classifiers matching for a given url

@@ -62,10 +62,10 @@ class ThugAPI(object):
     def __init__(self, configuration_path = thug.__configuration_path__):
         self.__init_conf(configuration_path)
         self.__init_jsengine()
+        self.__init_pyhooks()
         self.__init_core()
         self.__init_classifiers()
         self.__init_opaque_filter()
-        self.__init_pyhooks()
         self.__init_trace()
 
     def __init_conf(self, configuration_path):
@@ -141,6 +141,12 @@ class ThugAPI(object):
 
     def set_attachment(self):
         log.ThugOpts.attachment = True
+
+    def get_image_processing(self):
+        return log.ThugOpts.image_processing
+
+    def set_image_processing(self):
+        log.ThugOpts.image_processing = True
 
     def get_file_logging(self):
         return log.ThugOpts.file_logging

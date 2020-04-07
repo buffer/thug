@@ -90,6 +90,7 @@ class MongoDB(object):
         self.honeyagent   = db.honeyagent
         self.exploits     = db.exploits
         self.classifiers  = db.classifiers
+        self.images       = db.images
         self.codes        = db.codes
         self.cookies      = db.cookies
         self.json         = db.json
@@ -260,6 +261,25 @@ class MongoDB(object):
         }
 
         self.classifiers.insert_one(classification)
+
+    def log_image_ocr(self, url, result):
+        """
+        Log the results of images OCR-based analysis
+
+        @url            Image URL
+        @result         OCR analysis result
+        """
+        if not self.enabled:
+            return
+
+        image = {
+            'analysis_id' : self.analysis_id,
+            'classifier'  : 'OCR',
+            'url_id'      : self.get_url(url),
+            'result'      : result
+        }
+
+        self.images.insert_one(image)
 
     def log_cookies(self):
         attrs = ('comment',

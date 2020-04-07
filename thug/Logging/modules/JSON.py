@@ -82,6 +82,7 @@ class JSON(object):
                         "locations"   : [],
                         "exploits"    : [],
                         "classifiers" : [],
+                        "images"      : []
                     }
 
     @property
@@ -235,6 +236,20 @@ class JSON(object):
                                       "description" : description,
                                       "cve"         : cve,
                                       "data"        : data})
+
+    def log_image_ocr(self, url, result):
+        """
+        Log the results of images OCR-based analysis
+
+        @url            Image URL
+        @result         OCR analysis result
+        """
+        if not self.json_enabled:
+            return
+
+        self.data["images"].append({"url"        : self.fix(url),
+                                    "classifier" : "OCR",
+                                    "result"     : result})
 
     def log_classifier(self, classifier, url, rule, tags, meta = None):
         """
