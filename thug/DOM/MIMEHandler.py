@@ -325,17 +325,27 @@ class MIMEHandler(dict):
 
         return True
 
+    def do_perform_ocr_analysis(self, url, img):
+        try:
+            ocr_result = pytesseract.image_to_string(img)
+            if ocr_result:
+                log.ThugLogging.log_image_ocr(url, ocr_result)
+                return True
+        except Exception as e:
+            log.warning("[OCR] Error: %s", str(e))
+
+        return False
+
     def perform_ocr_analysis(self, url, content):
         try:
             fp  = BytesIO(content)
             img = Image.open(fp)
-            ocr_result = pytesseract.image_to_string(img.convert())
         except Exception as e: # pragma: no cover
             log.warning("[OCR] Error: %s", str(e))
             return
 
-        if ocr_result:
-            log.ThugLogging.log_image_ocr(url, ocr_result)
+        if not self.do_perform_ocr_analysis(url, img):
+            self.do_perform_ocr_analysis(url, img.convert())
 
     def handle_zip(self, url, content):
         if len(content) < self.MIN_ZIP_FILE_SIZE: # pragma: no cover
