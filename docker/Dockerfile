@@ -46,6 +46,7 @@ RUN apt-get update && \
     python3-pip \
     libxml2-dev \
     libxslt-dev \
+    tesseract-ocr \
     git \
     libtool \
     graphviz-dev \
@@ -62,6 +63,7 @@ RUN apt-get update && \
 
 RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
+RUN pip3 install --upgrade pytesseract
 WORKDIR /home
 
 RUN git clone https://github.com/area1/stpyv8 && \
