@@ -11,7 +11,9 @@ class TestImageProcessing(object):
         thug = ThugAPI()
 
         thug.set_useragent('win7ie90')
+        thug.reset_image_processing()
         thug.set_image_processing()
+        thug.get_image_processing()
         thug.register_pyhook("MIMEHandler", "handle_image", self.handle_image_hook)
         thug.set_json_logging()
         thug.log_init(url)
