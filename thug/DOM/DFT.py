@@ -734,20 +734,22 @@ class DFT(object):
             s.text = response.text
             return True
         except Exception as e: # pragma: no cover
-            log.warning("[ERROR][handle_external_javascript_text] %s", str(e))
+            return self.handle_external_javascript_text_last_attempt(s, response)
 
+    def handle_external_javascript_text_last_attempt(self, s, response): # pragma: no cover
         # Last attempt
         # The encoding will be (hopefully) detected through the Encoding class.
         js = response.content
 
         enc = log.Encoding.detect(js)
         if enc['encoding'] is None:
+            log.warning("[ERROR][handle_external_javascript_text_last attempt] Encoding not detected")
             return False
 
         try:
             s.text = js.decode(enc['encoding'])
         except Exception as e:
-            log.warning("[ERROR][handle_external_javascript_text] %s", str(e))
+            log.warning("[ERROR][handle_external_javascript_text_last_attempt] %s", str(e))
             return False
 
         return True
