@@ -135,6 +135,15 @@ class TestMongoDB:
         self.mongo.log_exploit_event(self.url, "ActiveX", self.desc, self.cve)
         assert self.mongo.exploits.count_documents({}) in (1, )
 
+    def test_log_image_ocr(self):
+        self.mongo.enabled = False
+        self.mongo.log_image_ocr(self.url, "Test")
+        assert self.mongo.images.count_documents({}) in (0, )
+
+        self.mongo.enabled = True
+        self.mongo.log_image_ocr(self.url, "Test")
+        assert self.mongo.images.count_documents({}) in (1, )
+
     def test_log_classifier(self):
         self.mongo.enabled = False
         self.mongo.log_classifier("exploit", self.url, self.cve, self.tag)

@@ -97,7 +97,6 @@ class TestJSON:
         assert self.tag in (data["tag"], )
         assert self.method in (data["method"], )
 
-
     def test_add_shellcode_snippet(self):
         json.data["code"] = []
         json.add_shellcode_snippet(self.code_snippet, self.language, self.relationship, self.tag)
@@ -217,6 +216,15 @@ class TestJSON:
         log.ThugOpts.json_logging = False
 
         assert self.base_dir in json.data["files"]
+
+    def test_log_image_ocr(self):
+        json.log_image_ocr("url", "result")
+        assert not json.data["images"]
+
+        log.ThugOpts.json_logging = True
+        json.log_image_ocr("url", "result")
+        assert json.data["images"]
+        log.ThugOpts.json_logging = False
 
     def test_export(self):
         log.ThugOpts.json_logging = True
