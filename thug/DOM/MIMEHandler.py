@@ -24,6 +24,7 @@ import zipfile
 import tempfile
 import bs4
 import rarfile
+import six
 from six import BytesIO
 
 OCR_ENABLED = True
@@ -31,11 +32,15 @@ OCR_ENABLED = True
 try:
     from PIL import Image
     import pytesseract
-except ImportError:
+except ImportError: # pragma: no cover
     OCR_ENABLED = False
 
 
 log = logging.getLogger("Thug")
+
+MIMEHANDLER_PYHOOKS_NONE     = 0
+MIMEHANDLER_PYHOOKS_REQUIRED = 1
+MIMEHANDLER_PYHOOKS_DONE     = 2
 
 
 class MIMEHandler(dict):
@@ -222,6 +227,8 @@ class MIMEHandler(dict):
         return self.passthrough
 
     def __init__(self):
+        self.mimehandler_pyhooks = MIMEHANDLER_PYHOOKS_NONE
+
         for mimetype in self.mimetypes:
             self[mimetype] = self.passthrough
 
@@ -235,9 +242,9 @@ class MIMEHandler(dict):
         self.register_json_handlers()
         self.register_image_handlers()
 
-        self._init_pyhooks()
+    def init_pyhooks(self):
+        self.mimehandler_pyhooks = MIMEHANDLER_PYHOOKS_DONE
 
-    def _init_pyhooks(self):
         hooks = log.PyHooks.get("MIMEHandler", None)
         if hooks is None:
             return
@@ -247,6 +254,9 @@ class MIMEHandler(dict):
             _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
             method = six.create_bound_method(_hook, MIMEHandler)
             setattr(self, name, method)
+
+        hook = getattr(self, "handle_image_hook", None)
+        self.image_hook_enabled = hook is not None
 
     def register_empty_handlers(self):
         self['application/hta']          = None
@@ -276,13 +286,9 @@ class MIMEHandler(dict):
         self['application/json'] = self.handle_json
 
     def register_image_handlers(self):
-        hook = getattr(self, "handle_image_hook", None)
-
-        self.image_ocr_enabled  = OCR_ENABLED
-        self.image_hook_enabled = hook is not None
-
-        if not self.image_ocr_enabled and not self.image_hook_enabled:
-            return
+        self.image_ocr_enabled   = OCR_ENABLED
+        self.image_hook_enabled  = False
+        self.mimehandler_pyhooks = MIMEHANDLER_PYHOOKS_REQUIRED
 
         self["image/bmp"]  = self.handle_image
         self["image/gif"]  = self.handle_image
@@ -304,7 +310,7 @@ class MIMEHandler(dict):
         if not log.ThugOpts.image_processing:
             return False
 
-        if not self.image_ocr_enabled and not self.image_hook_enabled:
+        if not self.image_ocr_enabled and not self.image_hook_enabled: # pragma: no cover
             return False
 
         if len(content) < self.MIN_IMG_FILE_SIZE: # pragma: no cover
@@ -314,9 +320,8 @@ class MIMEHandler(dict):
             self.perform_ocr_analysis(url, content)
 
         if self.image_hook_enabled:
-            hook = getattr(self, "handle_image_hook", None)
-            if hook:
-                hook((url, content, ))
+            hook = getattr(self, "handle_image_hook")
+            hook((url, content, ))
 
         return True
 
@@ -499,4 +504,7 @@ class MIMEHandler(dict):
         return True
 
     def get_handler(self, key):
+        if self.mimehandler_pyhooks in (MIMEHANDLER_PYHOOKS_REQUIRED, ):
+            self.init_pyhooks()
+
         return self[key.split(';')[0]]

@@ -12,6 +12,7 @@ class TestImageProcessing(object):
 
         thug.set_useragent('win7ie90')
         thug.set_image_processing()
+        thug.register_pyhook("MIMEHandler", "handle_image", self.handle_image_hook)
         thug.enable_cert_logging()
         thug.log_init(url)
 
@@ -29,8 +30,12 @@ class TestImageProcessing(object):
 
         assert matches >= len(expected)
 
+    def handle_image_hook(self, args):
+        log.warning("Inside hook")
+
     def test_antifork(self, caplog):
         expected = ['Antifork',
-                    'HACKERS RESEARCH VIRTUAL LAB']
+                    'HACKERS RESEARCH VIRTUAL LAB',
+                    'Inside hook']
 
         self.do_perform_test(caplog, "https://www.antifork.org", expected)
