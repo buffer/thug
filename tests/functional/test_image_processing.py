@@ -13,7 +13,7 @@ class TestImageProcessing(object):
         thug.set_useragent('win7ie90')
         thug.set_image_processing()
         thug.register_pyhook("MIMEHandler", "handle_image", self.handle_image_hook)
-        thug.enable_cert_logging()
+        thug.set_json_logging()
         thug.log_init(url)
 
         m = getattr(thug, "run_{}".format(type_))
