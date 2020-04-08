@@ -330,7 +330,7 @@ class MIMEHandler(dict):
             fp  = BytesIO(content)
             img = Image.open(fp)
             ocr_result = pytesseract.image_to_string(img.convert())
-        except Exception as e:
+        except Exception as e: # pragma: no cover
             log.warning("[OCR] Error: %s", str(e))
             return
 
