@@ -1352,7 +1352,7 @@ class DFT(object):
         if not log.ThugOpts.image_processing:
             return
 
-        if not log.MIMEHandler.image_ocr_enabled and not log.MIMEHandler.image_hook_enabled:
+        if not log.MIMEHandler.image_ocr_enabled and not log.MIMEHandler.image_hook_enabled: # pragma: no cover
             return
 
         log.info(img)
@@ -1367,14 +1367,14 @@ class DFT(object):
         if not cache:
             self.img_cache = set()
 
-        if src in self.img_cache:
+        if src in self.img_cache: # pragma: no cover
             return
 
         self.img_cache.add(src)
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = "img")
-        except Exception as e:
+        except Exception as e: # pragma: no cover
             log.info("[ERROR][handle_img] %s", str(e))
 
     def check_anchors(self):
