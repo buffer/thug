@@ -1,4 +1,4 @@
-rule url_signature_3
+rule url_signature_7
 {
   meta:
     domain_whitelist = "buffer.github.io"
