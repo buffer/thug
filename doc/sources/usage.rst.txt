@@ -50,6 +50,7 @@ Let's start our Thug tour by taking a look at the options it provides.
         -b, --vt-apikey=                VirusTotal API key to be used at runtime
         -z, --web-tracking              Enable web client tracking inspection
         -k, --no-honeyagent             Disable HoneyAgent support
+        -a, --image-processing          Enable image processing analysis
 
         Plugins:
         -A, --adobepdf=                 Specify the Adobe Acrobat Reader version (default: 9.1.0)
@@ -759,6 +760,34 @@ using *socks5://127.0.0.1:9050* as proxy and your real IP address will not be re
         [2012-07-02 19:22:46] [Navigator URL Translation] data/field.swf -->  http://[omitted]/data/field.swf
         [2012-07-02 19:22:49] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)
         [2012-07-02 19:22:49] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)
+
+
+Image processing
+----------------
+
+Image processing analysis (introduced in Thug 1.4) allows to analyze images retrieved during the
+analysis. By default, Thug performs OCR analysis returning extracted strings but the possibility
+exists to include other image processing algorithms through using Thug PyHooks. Be aware that
+*pytesseract* is required to perform OCR analysis but this dependency is not installed by default
+as the required steps could be different based on the Linux distribution. Please look at the section
+*INSTALLATION* at https://github.com/madmaze/pytesseract for additional details.
+
+.. code-block:: sh
+
+    ~ $ thug -u win7ie90 -U -Y --image-processing www.google.com
+    [2020-04-09 12:18:51] [window open redirection] about:blank -> http://www.google.com
+    [2020-04-09 12:18:51] [HTTP Redirection (Status: 302)] Content-Location: http://www.google.com/ --> Location: https://www.google.com/?gws_rd=ssl
+    [2020-04-09 12:18:51] [HTTP] URL: https://www.google.com/?gws_rd=ssl (Status: 200, Referer: None)
+    [2020-04-09 12:18:51] [HTTP] URL: https://www.google.com/?gws_rd=ssl (Content-type: text/html; charset=UTF-8, MD5: 6f1b8888e766930d42eda071cece248a)
+    [2020-04-09 12:18:52] [script src redirection] https://www.google.com/?gws_rd=ssl -> https://ssl.gstatic.com/gb/js/sem_574dafda1e043a99f540fbc649850c73.js
+    [2020-04-09 12:18:52] [HTTP] URL: https://ssl.gstatic.com/gb/js/sem_574dafda1e043a99f540fbc649850c73.js (Status: 200, Referer: https://www.google.com/?gws_rd=ssl)
+    [2020-04-09 12:18:52] [HTTP] URL: https://ssl.gstatic.com/gb/js/sem_574dafda1e043a99f540fbc649850c73.js (Content-type: text/javascript, MD5: f9acfd15f94beb685f01c6d6df397ff6)
+    [2020-04-09 12:18:52] [Navigator URL Translation] /images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png --> https://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png
+    [2020-04-09 12:18:52] [img redirection] https://www.google.com/?gws_rd=ssl -> https://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png
+    [2020-04-09 12:18:52] [HTTP] URL: https://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png (Status: 200, Referer: https://www.google.com/?gws_rd=ssl)
+    [2020-04-09 12:18:52] [HTTP] URL: https://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png (Content-type: image/png, MD5: b593548ac0f25135c059a0aae302ab4d)
+    [2020-04-09 12:18:52] [OCR] Result: Google (URL: https://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png)
+    [..]
 
 
 Local Analysis

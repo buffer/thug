@@ -325,6 +325,22 @@ this collection
     }
 
 
+images
+^^^^^^
+
+The collection *images* is used to store the results of the image processing
+analysis.
+
+.. code-block:: sh
+
+    {
+            "analysis_id"   : Analysis ID
+            "url_id"        : URL url_id
+            "classifier"    : Classifier (possible values: OCR)
+            "result"        : Analysis result
+    }
+
+
 ElasticSearch logging module
 ============================
 
@@ -390,7 +406,8 @@ in a JSON file in the log directory too. The JSON format is shown below.
         "connections" : [],
         "locations"   : [],
         "exploits"    : [],
-        "classifiers" : []
+        "classifiers" : [],
+        "images"      : []
     }
 
 
@@ -484,11 +501,23 @@ classifiers
 .. code-block:: sh
 
         {
-            "classifier"  : Classifier (possible values: html, js, url, sample)
+            'classifier'  : Classifier (possible values: html, js, url, sample)
             'url'         : URL
             'rule'        : Rule name
             'tags'        : Rule tags
         }
+
+images
+------
+
+.. code-block:: sh
+
+        {
+            'url'         : URL
+            'classifier'  : Classifier (possible values: OCR)
+            'result'      : Analysis result
+        }
+
 
 
 File logging mode
