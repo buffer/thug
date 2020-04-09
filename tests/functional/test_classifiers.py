@@ -67,6 +67,7 @@ class TestClassifiers(object):
         thug.add_textclassifier(os.path.join(self.signatures_path, "text_signature_5.yar"))
         thug.add_vbsclassifier(os.path.join(self.signatures_path, "vbs_signature_6.yar"))
         thug.add_urlclassifier(os.path.join(self.signatures_path, "url_signature_7.yar"))
+        thug.add_urlclassifier(os.path.join(self.signatures_path, "url_signature_13.yar"))
 
         thug.run_local(sample)
 
@@ -141,3 +142,9 @@ class TestClassifiers(object):
         expected = ['[discard_meta_domain_whitelist] Whitelisted domain: antifork.org']
 
         self.do_perform_remote_test(caplog, 'buffer.antifork.org', expected)
+
+    def test_url_classifier_13(self, caplog):
+        sample   = os.path.join(self.classifiers_path, "test13.html")
+        expected = ['[URL Classifier] URL: https://www.antifork.org/ (Rule: url_signature_13, Classification: antifork.org)']
+
+        self.do_perform_test(caplog, sample, expected)
