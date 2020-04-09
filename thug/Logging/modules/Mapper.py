@@ -183,12 +183,12 @@ class Mapper(object):
 
                 _s = self.normalize_url(con["source"])
                 source = self.graph.get_node(_s)
-                if not source:
+                if not source: # pragma: no cover
                     source = _s
 
                 _d = self.normalize_url(con["destination"])
                 destination = self.graph.get_node(_d)
-                if not destination:
+                if not destination: # pragma: no cover
                     destination = _d
 
                 self.graph.add_edge(source, destination)
