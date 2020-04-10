@@ -93,7 +93,7 @@ class EventTarget(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_addeventlistener_count()
 
-        if getattr(self.tag, '_listeners', None) is None:
+        if getattr(self.tag, '_listeners', None) is None: # pragma: no cover
             self.tag._listeners = list()
 
         if not (eventType, listener, capture) in self.tag._listeners:
