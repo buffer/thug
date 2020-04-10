@@ -280,10 +280,10 @@ class DFT(object):
         from thug.DOM.W3C.Events.Event import Event
 
         for (elem, eventType, listener, capture) in self.listeners:  # pylint:disable=unused-variable
-            if getattr(elem, 'name', None) is None:
+            if getattr(elem, 'name', None) is None: # pragma: no cover
                 continue
 
-            if elem.name in ('body', ):
+            if elem.name in ('body', ): # pragma: no cover
                 continue
 
             evtObject = Event()
@@ -338,7 +338,7 @@ class DFT(object):
         if handler:
             self.run_event_handler(handler, evtObject)
 
-        if '_listeners' not in self.window.doc.tag.__dict__:
+        if '_listeners' not in self.window.doc.tag.__dict__: # pragma: no cover
             return
 
         for (eventType, listener, capture) in self.window.doc.tag._listeners:  # pylint:disable=unused-variable
