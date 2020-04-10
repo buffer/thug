@@ -330,6 +330,7 @@ class MIMEHandler(dict):
             ocr_result = pytesseract.image_to_string(img)
             if ocr_result:
                 log.ThugLogging.log_image_ocr(url, ocr_result)
+                log.ImageClassifier.classify(url, ocr_result)
                 return True
         except Exception as e:
             log.warning("[OCR] Error: %s", str(e))

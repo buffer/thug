@@ -702,6 +702,17 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def add_imageclassifier(rule):
+        """
+        add_imageclassifier
+
+        Add an additional image classifier rule file
+
+        @param rule: Image classifier rule file
+        @type rule: C{str}
+        @return: None
+        """
+
     def add_urlfilter(filter):
         """
         add_urlfilter
@@ -779,6 +790,17 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def add_imagefilter(filter):
+        """
+        add_imagefilter
+
+        Add an additional image filter file
+
+        @param filter: Image filter file
+        @type filter: C{str}
+        @return: None
+        """
+
     def add_customclassifier(cls_type, method):
         """
         add_customclassifier
@@ -793,6 +815,7 @@ class IThugAPI(zope.interface.Interface):
                 url
                 text
                 sample
+                image
 
         and defines the custom classifier scope.
 
@@ -806,6 +829,7 @@ class IThugAPI(zope.interface.Interface):
                 url     method(url)
                 text    method(url, text)
                 sample  method(sample, md5)
+                image   method(url, text)
 
         @param cls_type: Classifier type
         @param cls_type: C{str}

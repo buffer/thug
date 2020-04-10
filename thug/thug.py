@@ -91,6 +91,7 @@ Synopsis:
         --sampleclassifier=     \tSpecify a list of additional (comma separated) Sample classifier rule files
         --textclassifier=       \tSpecify a list of additional (comma separated) Text classifier rule files
         --cookieclassifier=     \tSpecify a list of additional (comma separated) Cookie classifier rule files
+        --imageclassifier=      \tSpecify a list of additional (comma separated) Image classifier rule files
         --htmlfilter=           \tSpecify a list of additional (comma separated) HTML filter files
         --urlfilter=            \tSpecify a list of additional (comma separated) URL filter files
         --jsfilter=             \tSpecify a list of additional (comma separated) JS filter files
@@ -98,6 +99,7 @@ Synopsis:
         --samplefilter=         \tSpecify a list of additional (comma separated) Sample filter files
         --textfilter=           \tSpecify a list of additional (comma separated) Text filter files
         --cookiefilter=         \tSpecify a list of additional (comma separated) Cookie filter files
+        --imagefilter=          \tSpecify a list of additional (comma separated) Image filter files
 
         Logging:
         -F, --file-logging      \tEnable file logging mode (default: disabled)
@@ -175,6 +177,7 @@ Synopsis:
                 'jsclassifier=',
                 'vbsclassifier=',
                 'sampleclassifier=',
+                'imageclassifier=',
                 'textclassifier=',
                 'cookieclassifier=',
                 'htmlfilter=',
@@ -184,6 +187,7 @@ Synopsis:
                 'samplefilter=',
                 'textfilter=',
                 'cookiefilter=',
+                'imagefilter=',
                 'file-logging',
                 'json-logging',
                 'features-logging',
@@ -292,6 +296,9 @@ Synopsis:
             elif option[0] in ('--cookieclassifier', ):
                 for classifier in option[1].split(','):
                     self.add_cookieclassifier(os.path.abspath(classifier))
+            elif option[0] in ('--imageclassifier', ):
+                for classifier in option[1].split(','):
+                    self.add_imageclassifier(os.path.abspath(classifier))
             elif option[0] in ('--htmlfilter', ):
                 for f in option[1].split(','):
                     self.add_htmlfilter(os.path.abspath(f))
@@ -313,6 +320,9 @@ Synopsis:
             elif option[0] in ('--cookiefilter', ):
                 for f in option[1].split(','):
                     self.add_cookiefilter(os.path.abspath(f))
+            elif option[0] in ('--imagefilter', ):
+                for f in option[1].split(','):
+                    self.add_imagefilter(os.path.abspath(f))
             elif option[0] in ('-c', '--broken-url', ):
                 self.set_broken_url()
             elif option[0] in ('-F', '--file-logging', ):

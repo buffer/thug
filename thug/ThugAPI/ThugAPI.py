@@ -45,6 +45,7 @@ from thug.Classifier.HTMLClassifier import HTMLClassifier
 from thug.Classifier.TextClassifier import TextClassifier
 from thug.Classifier.CookieClassifier import CookieClassifier
 from thug.Classifier.SampleClassifier import SampleClassifier
+from thug.Classifier.ImageClassifier import ImageClassifier
 
 from .IThugAPI import IThugAPI
 from .ThugOpts import ThugOpts
@@ -91,6 +92,7 @@ class ThugAPI(object):
         log.SampleClassifier = SampleClassifier()
         log.TextClassifier   = TextClassifier()
         log.CookieClassifier = CookieClassifier()
+        log.ImageClassifier  = ImageClassifier()
 
         self.classifiers_map = {
             'html'   : log.HTMLClassifier,
@@ -99,7 +101,8 @@ class ThugAPI(object):
             'url'    : log.URLClassifier,
             'sample' : log.SampleClassifier,
             'cookie' : log.CookieClassifier,
-            'text'   : log.TextClassifier
+            'text'   : log.TextClassifier,
+            'image'  : log.ImageClassifier
         }
 
     def __init_pyhooks(self):
@@ -357,6 +360,9 @@ class ThugAPI(object):
     def add_sampleclassifier(self, rule):
         log.SampleClassifier.add_rule(rule)
 
+    def add_imageclassifier(self, rule):
+        log.ImageClassifier.add_rule(rule)
+
     def add_htmlfilter(self, f):
         log.HTMLClassifier.add_filter(f)
 
@@ -377,6 +383,9 @@ class ThugAPI(object):
 
     def add_samplefilter(self, f):
         log.SampleClassifier.add_filter(f)
+
+    def add_imagefilter(self, f):
+        log.ImageClassifier.add_filter(f)
 
     def add_customclassifier(self, cls_type, method):
         classifier_type = cls_type.lower().strip()

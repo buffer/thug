@@ -763,6 +763,17 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def add_imageclassifier(rule):
+            """
+            add_imageclassifier
+
+            Add an additional Image classifier rule file
+
+            @param rule: Image classifier rule file
+            @type rule: C{str}
+            @return: None
+            """
+
         def add_urlfilter(filter):
             """
             add_urlfilter
@@ -840,6 +851,17 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def add_imagefilter(filter):
+            """
+            add_imagefilter
+
+            Add an additional Image filter file
+
+            @param rule: Image filter file
+            @type rule: C{str}
+            @return: None
+            """
+
         def add_customclassifier(cls_type, method):
             """
             add_customclassifier
@@ -854,6 +876,7 @@ Thug API interface definition is reported below for convenience.
                     url
                     text
                     sample
+                    image
 
             and defines the custom classifier scope.
 
@@ -867,6 +890,7 @@ Thug API interface definition is reported below for convenience.
                     url     method(url)
                     text    method(url, text)
                     sample  method(sample, md5)
+                    image   method(url, text)
 
             @param cls_type: Classifier type
             @param cls_type: C{str}

@@ -21,6 +21,7 @@ url_rules_path     = os.path.join(rules_path, "urlclassifier")
 sample_rules_path  = os.path.join(rules_path, "sampleclassifier")
 text_rules_path    = os.path.join(rules_path, "textclassifier")
 cookie_rules_path  = os.path.join(rules_path, "cookieclassifier")
+image_rules_path   = os.path.join(rules_path, "imageclassifier")
 html_filter_path   = os.path.join(rules_path, "htmlfilter")
 js_filter_path     = os.path.join(rules_path, "jsfilter")
 vbs_filter_path    = os.path.join(rules_path, "vbsfilter")
@@ -28,6 +29,7 @@ url_filter_path    = os.path.join(rules_path, "urlfilter")
 sample_filter_path = os.path.join(rules_path, "samplefilter")
 text_filter_path   = os.path.join(rules_path, "textfilter")
 cookie_filter_path = os.path.join(rules_path, "cookiefilter")
+image_filter_path  = os.path.join(rules_path, "imagefilter")
 
 
 setup(
@@ -73,6 +75,7 @@ setup(
         (sample_rules_path          , glob.glob("thug/Classifier/rules/sampleclassifier/*.yar")),
         (text_rules_path            , glob.glob("thug/Classifier/rules/textclassifier/*.yar")),
         (cookie_rules_path          , glob.glob("thug/Classifier/rules/cookieclassifier/*.yar")),
+        (image_rules_path           , glob.glob("thug/Classifier/rules/imageclassifier/*.yar")),
         (html_filter_path           , glob.glob("thug/Classifier/rules/htmlfilter/*.yar")),
         (js_filter_path             , glob.glob("thug/Classifier/rules/jsfilter/*.yar")),
         (vbs_filter_path            , glob.glob("thug/Classifier/rules/vbsfilter/*.yar")),
@@ -80,6 +83,7 @@ setup(
         (sample_filter_path         , glob.glob("thug/Classifier/rules/samplefilter/*.yar")),
         (text_filter_path           , glob.glob("thug/Classifier/rules/textfilter/*.yar")),
         (cookie_filter_path         , glob.glob("thug/Classifier/rules/cookiefilter/*.yar")),
+        (image_filter_path          , glob.glob("thug/Classifier/rules/imagefilter/*.yar")),
     ],
     install_requires = open("requirements.txt").read().splitlines(),
     entry_points = {

@@ -332,6 +332,7 @@ The collection *images* is used to store the results of the image processing
 analysis.
 
 .. code-block:: sh
+
     {
             "analysis_id"   : Analysis ID
             "url_id"        : URL url_id
