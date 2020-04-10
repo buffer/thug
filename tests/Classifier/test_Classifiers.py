@@ -18,6 +18,9 @@ class TestClassifiers:
     def sample_passthrough(self, sample, md5):
         pass
 
+    def image_passthrough(self, url, text):
+        pass
+
     def do_perform_test(self, caplog, sample, expected):
         thug = ThugAPI()
         thug.log_init(sample)
@@ -26,6 +29,7 @@ class TestClassifiers:
         thug.add_textclassifier(os.path.join(self.signatures_path, "text_signature_5.yar"))
         thug.add_cookieclassifier(os.path.join(self.signatures_path, "cookie_signature_8.yar"))
         thug.add_sampleclassifier(os.path.join(self.signatures_path, "sample_signature_10.yar"))
+        thug.add_imageclassifier(os.path.join(self.signatures_path, "image_signature_14.yar"))
 
         thug.add_htmlfilter(os.path.join(self.signatures_path, "html_filter_2.yar"))
         thug.add_jsfilter(os.path.join(self.signatures_path, "js_signature_2.yar"))
@@ -33,12 +37,14 @@ class TestClassifiers:
         thug.add_textfilter(os.path.join(self.signatures_path, "text_signature_5.yar"))
         thug.add_cookiefilter(os.path.join(self.signatures_path, "cookie_filter_9.yar"))
         thug.add_samplefilter(os.path.join(self.signatures_path, "sample_filter_11.yar"))
+        thug.add_imagefilter(os.path.join(self.signatures_path, "image_filter_16.yar"))
 
         thug.add_htmlclassifier(os.path.join(self.signatures_path, "not_existing.yar"))
         thug.add_htmlfilter(os.path.join(self.signatures_path, "not_existing.yar"))
         thug.add_customclassifier('wrong_type', 'wrong_method')
         thug.add_customclassifier('url', 'wrong_method')
         thug.add_customclassifier('sample', self.sample_passthrough)
+        thug.add_customclassifier('image', self.image_passthrough)
 
         with open(os.path.join(self.samples_path, sample), 'rb') as fd:
             data = fd.read()
@@ -49,6 +55,8 @@ class TestClassifiers:
         log.CookieClassifier.classify(os.path.basename(sample), data)
         log.CookieClassifier.classify(os.path.basename(sample), data)
         log.SampleClassifier.classify(data, hashlib.md5(data).hexdigest())
+        log.ImageClassifier.classify('https://buffer.antifork.org/images/antifork.jpg', 'Antifork')
+        log.ImageClassifier.classify('https://buffer.antifork.org/images/antifork.jpg', 'Antifork')
 
         log.HTMLClassifier.filter(os.path.basename(sample), data)
         log.JSClassifier.filter(os.path.basename(sample), data)
@@ -56,6 +64,7 @@ class TestClassifiers:
         log.TextClassifier.filter(os.path.basename(sample), data)
         log.CookieClassifier.filter(os.path.basename(sample), data)
         log.SampleClassifier.filter(data, hashlib.md5(data).hexdigest())
+        log.ImageClassifier.filter('https://buffer.antifork.org/images/antifork.jpg', 'Antifork')
 
         records = [r.message for r in caplog.records]
 

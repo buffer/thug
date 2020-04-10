@@ -37,7 +37,7 @@ class ImageClassifier(BaseClassifier):
 
             self.matches.append((url, match))
 
-            if self.discard_url_match(url, match): # pragma: no cover
+            if self.discard_url_match(url, match):
                 continue
 
             self.handle_match_etags(match)
