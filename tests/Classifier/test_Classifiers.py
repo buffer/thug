@@ -22,14 +22,10 @@ class TestClassifiers:
         thug = ThugAPI()
         thug.log_init(sample)
 
-        thug.set_image_processing()
-
         thug.add_htmlclassifier(os.path.join(self.signatures_path, "html_signature_1.yar"))
         thug.add_textclassifier(os.path.join(self.signatures_path, "text_signature_5.yar"))
         thug.add_cookieclassifier(os.path.join(self.signatures_path, "cookie_signature_8.yar"))
         thug.add_sampleclassifier(os.path.join(self.signatures_path, "sample_signature_10.yar"))
-        thug.add_imageclassifier(os.path.join(self.signatures_path, "image_signature_14.yar"))
-        thug.add_imageclassifier(os.path.join(self.signatures_path, "image_signature_15.yar"))
 
         thug.add_htmlfilter(os.path.join(self.signatures_path, "html_filter_2.yar"))
         thug.add_jsfilter(os.path.join(self.signatures_path, "js_signature_2.yar"))

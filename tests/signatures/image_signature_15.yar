@@ -1,7 +1,7 @@
 rule image_signature_15
 {
   meta:
-    domain_whitelist = "antifork.org"
+    domain_whitelist = "buffer.antifork.org"
     etags = "$brand"
   strings:
     $brand = "Antifork"

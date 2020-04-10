@@ -18,6 +18,7 @@ class TestClassifiers(object):
         thug = ThugAPI()
 
         thug.set_useragent('win7ie90')
+        thug.set_image_processing()
         thug.set_threshold(2)
         thug.disable_cert_logging()
         thug.set_features_logging()
@@ -25,6 +26,8 @@ class TestClassifiers(object):
         thug.log_init(url)
 
         thug.add_htmlclassifier(os.path.join(self.signatures_path, "html_signature_12.yar"))
+        thug.add_imageclassifier(os.path.join(self.signatures_path, "image_signature_14.yar"))
+        thug.add_imageclassifier(os.path.join(self.signatures_path, "image_signature_15.yar"))
 
         thug.run_remote(url)
 
@@ -148,3 +151,9 @@ class TestClassifiers(object):
         expected = ['[URL Classifier] URL: https://www.antifork.org/ (Rule: url_signature_13, Classification: antifork.org)']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_url_classifier_14(self, caplog):
+        expected = ['[IMAGE Classifier] URL: https://buffer.antifork.org/images/antifork.jpg (Rule: image_signature_14, Classification: Antifork)',
+                    '[discard_meta_domain_whitelist] Whitelisted domain: buffer.antifork.org (URL: https://buffer.antifork.org/images/antifork.jpg)']
+
+        self.do_perform_remote_test(caplog, 'buffer.antifork.org', expected)
