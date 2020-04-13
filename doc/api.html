@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Thug API &mdash; Thug 1.4 documentation</title>
+  <title>Thug API &mdash; Thug 1.5 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Thug 1.4 documentation" href="index.html"/>
+    <link rel="top" title="Thug 1.5 documentation" href="index.html"/>
         <link rel="next" title="JS Hooks" href="jshooks.html"/>
         <link rel="prev" title="Usage" href="usage.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.4
+                1.5
               </div>
             
           
@@ -915,6 +915,17 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+    <span class="k">def</span> <span class="nf">add_imageclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_imageclassifier</span>
+
+<span class="sd">        Add an additional Image classifier rule file</span>
+
+<span class="sd">        @param rule: Image classifier rule file</span>
+<span class="sd">        @type rule: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">add_urlfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        add_urlfilter</span>
@@ -992,6 +1003,17 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+    <span class="k">def</span> <span class="nf">add_imagefilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        add_imagefilter</span>
+
+<span class="sd">        Add an additional Image filter file</span>
+
+<span class="sd">        @param rule: Image filter file</span>
+<span class="sd">        @type rule: C{str}</span>
+<span class="sd">        @return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">add_customclassifier</span><span class="p">(</span><span class="n">cls_type</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        add_customclassifier</span>
@@ -1006,6 +1028,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">                url</span>
 <span class="sd">                text</span>
 <span class="sd">                sample</span>
+<span class="sd">                image</span>
 
 <span class="sd">        and defines the custom classifier scope.</span>
 
@@ -1019,6 +1042,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">                url     method(url)</span>
 <span class="sd">                text    method(url, text)</span>
 <span class="sd">                sample  method(sample, md5)</span>
+<span class="sd">                image   method(url, text)</span>
 
 <span class="sd">        @param cls_type: Classifier type</span>
 <span class="sd">        @param cls_type: C{str}</span>
@@ -1123,7 +1147,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.4',
+            VERSION:'1.5',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
