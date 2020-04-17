@@ -49,8 +49,8 @@ class Location(JSClass):
             return
 
         referer = self._window.url
-        if referer == url:
-            log.warning("Detected redirection from %s to %s... skipping", referer, url)
+        if log.HTTPSession.check_equal_urls(url, referer):
+            log.warning("Skipping location redirection from %s to %s", referer, url)
             return
 
         for p in log.ThugOpts.Personality:

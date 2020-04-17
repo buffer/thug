@@ -306,6 +306,11 @@ class Navigator(JSClass):
         if last_url is None:
             last_url = self._window.url
 
+        if redirect_type in ('window open', 'frame', 'iframe', 'http-redirect', 'meta', ):
+            if log.HTTPSession.check_equal_urls(url, last_url):
+                log.ThugLogging.add_behavior_warn("[Skipping {} redirection] {} -> {}".format(redirect_type, last_url, url), snippet = snippet)
+                return None
+
         if redirect_type:
             log.ThugLogging.add_behavior_warn("[{} redirection] {} -> {}".format(redirect_type, last_url, url), snippet = snippet)
             log.ThugLogging.log_connection(last_url, url, redirect_type)

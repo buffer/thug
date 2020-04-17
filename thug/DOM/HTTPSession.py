@@ -156,6 +156,9 @@ class HTTPSession(object):
 
         return url
 
+    def check_equal_urls(self, url, last_url):
+        return urlparse.unquote(url) in (urlparse.unquote(last_url), )
+
     def build_http_headers(self, window, personality, headers):
         http_headers = {
             'Cache-Control'   : 'no-cache',
