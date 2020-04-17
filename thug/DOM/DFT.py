@@ -1346,7 +1346,7 @@ class DFT(object):
             return
 
         try:
-            response = self.window._navigator.fetch(href, redirect_type = "link")
+            self.window._navigator.fetch(href, redirect_type = "link")
         except Exception as e:
             log.info("[ERROR][handle_link] %s", str(e))
 
@@ -1375,7 +1375,7 @@ class DFT(object):
         self.img_cache.add(src)
 
         try:
-            response = self.window._navigator.fetch(src, redirect_type = "img")
+            self.window._navigator.fetch(src, redirect_type = "img")
         except Exception as e: # pragma: no cover
             log.info("[ERROR][handle_img] %s", str(e))
 
