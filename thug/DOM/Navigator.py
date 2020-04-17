@@ -282,7 +282,7 @@ class Navigator(JSClass):
         return True
 
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None, snippet = None):
-        if url and not isinstance(url, six.string_types):
+        if url and not isinstance(url, six.string_types): # pragma: no cover
             url = str(url)
 
         log.URLClassifier.classify(url)
@@ -307,7 +307,7 @@ class Navigator(JSClass):
             last_url = self._window.url
 
         if redirect_type in ('window open', 'frame', 'iframe', 'http-redirect', 'meta', ):
-            if log.HTTPSession.check_equal_urls(url, last_url):
+            if log.HTTPSession.check_equal_urls(url, last_url): # pragma: no cover
                 log.ThugLogging.add_behavior_warn("[Skipping {} redirection] {} -> {}".format(redirect_type, last_url, url), snippet = snippet)
                 return None
 
