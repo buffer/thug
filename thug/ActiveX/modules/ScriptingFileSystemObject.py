@@ -108,7 +108,7 @@ def OpenTextFile(self, sFilePathAndName, ForWriting = True, flag = True):
     stream = TextStream.TextStream()
     stream._filename = sFilePathAndName
 
-    if log.ThugOpts.local and sFilePathAndName in (log.ThugLogging.url, ):
+    if log.ThugOpts.local and sFilePathAndName in (log.ThugLogging.url, ): # pragma: no cover
         with open(sFilePathAndName, 'r') as fd:
             data = fd.read()
 
