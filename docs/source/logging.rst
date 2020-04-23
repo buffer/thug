@@ -348,6 +348,10 @@ The ElasticSearch logging mode allows to store both the analysis results and eac
 downloaded during the analysis in an ElasticSearch instance. Deploying and configuring the
 instance is totally up to you and no images are provided for that. 
 
+Starting from Thug version 1.6 you are required to install Python ElasticSearch Client by
+yourself. The reason behind this choice is that you could be interested in installing a
+specific library version based on the ElasticSearch version you are using.
+
 ElasticSearch logging mode is not enabled by default and you need to enable the option -G 
 (--elasticsearch-logging). The ElasticSearch configuration is saved in the */etc/thug/thug.conf*
 file. Be sure of defining the right URL for connecting to your instance. You may want to
