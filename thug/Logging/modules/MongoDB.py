@@ -361,6 +361,9 @@ class MongoDB(object):
         if p is None:
             return
 
+        self._log_json(basedir, p) # pragma: no cover
+
+    def _log_json(self, basedir, p): # pragma: no cover
         m = getattr(p, 'get_json_data', None)
         if m is None:
             return

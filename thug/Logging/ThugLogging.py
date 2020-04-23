@@ -168,7 +168,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('export'):
             m(self.baseDir)
 
-        for m in self.resolve_method('log_event'):
+        for m in self.resolve_method('log_event'): # pragma: no cover
             m(self.baseDir)
 
         if log.ThugOpts.file_logging:
@@ -275,7 +275,7 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         final = response.url
 
-        while final is None:
+        while final is None: # pragma: no cover
             for h in reversed(response.history):
                 final = h.url
 
@@ -333,7 +333,7 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         self.add_behavior_warn("[Certificate]\n %s" % (certificate, ))
 
-        for m in self.resolve_method('log_certificate'):
+        for m in self.resolve_method('log_certificate'): # pragma: no cover
             m(url, certificate)
 
     def log_analysis_module(self, dirname, sample, report, module, fmt = "json"):
@@ -341,7 +341,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.store_content(dirname, filename, report)
 
         method = "log_%s" % (module, )
-        for m in self.resolve_method(method):
+        for m in self.resolve_method(method): # pragma: no cover
             m(sample, report)
 
     def log_virustotal(self, dirname, sample, report):
