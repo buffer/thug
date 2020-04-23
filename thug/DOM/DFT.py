@@ -396,7 +396,7 @@ class DFT(object):
             except Exception:
                 handler = None
 
-        if not handler:
+        if not handler: # pragma: no cover
             return
 
         if getattr(elem, 'name', None) and elem.name in ('body', ) and evt in self.window_on_events:
