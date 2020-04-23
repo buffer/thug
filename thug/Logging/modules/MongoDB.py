@@ -60,12 +60,13 @@ class MongoDB(object):
         config.read(conf_file)
 
         self.opts['enable'] = config.getboolean('mongodb', 'enable')
-        if not self.opts['enable']:
-            self.enabled = False
-            return False
 
-        self.opts['host'] = config.get('mongodb', 'host')
-        return True
+        if self.opts['enable']: # pragma: no cover
+            self.opts['host'] = config.get('mongodb', 'host')
+            return True
+
+        self.enabled = False
+        return False
 
     def __init_db(self):
         client = getattr(pymongo, 'MongoClient', None)
@@ -338,7 +339,7 @@ class MongoDB(object):
         r['sample_id'] = self.fs.put(data['data'])
         r.pop('data', None)
 
-        if url:
+        if url: # pragma: no cover
             url_id = self.get_url(url)
             r.pop('url', None)
         else:
