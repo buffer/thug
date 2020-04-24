@@ -135,7 +135,7 @@ def send(self, varBody = None):
         tags = ('<html', '<body', '<head', '<script')
 
         if not any(tag in response.text.lower() for tag in tags):
-            html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(response.text))))
+            html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(response.text)))) # pragma: no cover
         else:
             html = response.text
 

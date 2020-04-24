@@ -48,7 +48,7 @@ class TextStream(object):
             if self._currentLine > self._Line:
                 break
 
-            if self._currentLine == self._Line and self._currentColumn > self._Column:
+            if self._currentLine == self._Line and self._currentColumn > self._Column: # pragma: no cover
                 break
 
             line   = self.stream[self._currentLine - 1]
@@ -58,7 +58,7 @@ class TextStream(object):
             result  += eline[:length]
             consume -= length
 
-            if consume > 0:
+            if consume > 0: # pragma: no cover
                 result  += '\n'
                 consume -= 1
 
@@ -124,7 +124,7 @@ class TextStream(object):
             line  = self.stream[self._currentLine - 1]
             eline = line[self._currentColumn - 1:]
 
-            if skip > len(eline) + 1:
+            if skip > len(eline) + 1: # pragma: no cover
                 self._currentLine  += 1
                 self._currentColumn = 1
             else:
@@ -169,7 +169,7 @@ class TextStream(object):
                 raise
 
         filename = self._filename.split('\\')[-1] if '\\' in self._filename else self._filename
-        if not filename:
+        if not filename: # pragma: no cover
             filename = ''.join(random.choice(string.lowercase) for i in range(8))
 
         log_file = os.path.join(log_dir, filename)
