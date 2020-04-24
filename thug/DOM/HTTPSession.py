@@ -57,7 +57,7 @@ class HTTPSession(object):
             if log.ThugOpts.raise_for_proxy:
                 raise ValueError("[CRITICAL] Proxy not available")
 
-            sys.exit(0)
+            sys.exit(0) # pragma: no cover
 
         self.session.proxies = {
             'http'  : proxy,
