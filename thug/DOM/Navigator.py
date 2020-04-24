@@ -379,6 +379,7 @@ class Navigator(JSClass):
         handler = log.MIMEHandler.get_handler(ctype)
         if handler:
             handler(response.url, response.content)
+            response.thug_mimehandler_hit = True
         else:
             if log.ThugOpts.features_logging:
                 log.ThugLogging.Features.add_characters_count(len(response.text))

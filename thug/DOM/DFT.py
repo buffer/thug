@@ -978,11 +978,8 @@ class DFT(object):
         if response is None or not response.ok:
             return
 
-        ctype = response.headers.get('content-type', None)
-        if ctype:
-            handler = log.MIMEHandler.get_handler(ctype)
-            if handler and handler(action, response.content):
-                return
+        if getattr(response, 'thug_mimehandler_hit', False):
+            return
 
         doc    = w3c.parseString(response.content)
         window = Window(_action, doc, personality = log.ThugOpts.useragent)
@@ -1179,11 +1176,8 @@ class DFT(object):
         if response is None or not response.ok: # pragma: no cover
             return
 
-        ctype = response.headers.get('content-type', None)
-        if ctype:
-            handler = log.MIMEHandler.get_handler(ctype)
-            if handler and handler(src, response.content):
-                return
+        if getattr(response, 'thug_mimehandler_hit', False):
+            return
 
         _src = log.HTTPSession.normalize_url(self.window, src)
         if _src:

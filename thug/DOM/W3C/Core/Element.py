@@ -241,16 +241,11 @@ class Element(Node, ElementCSSInlineStyle):
             if response is None or not response.ok:
                 return
 
+            if getattr(response, 'thug_mimehandler_hit', False):
+                return
+
             ctype = response.headers.get('content-type', None)
-            if ctype is None: # pragma: no cover
-                return
-
-            handler = log.MIMEHandler.get_handler(ctype)
-            if handler:
-                handler(self.doc.window.url, response.content)
-                return
-
-            if ctype.startswith(('text/html', )):
+            if ctype and ctype.startswith(('text/html', )):
                 doc = w3c.parseString(response.content)
                 window = Window(response.url, doc, personality = log.ThugOpts.useragent)
                 dft = DFT(window)
