@@ -155,7 +155,6 @@ class Window(JSClass):
         self.java          = java()
 
         self._symbols      = set()
-        # self._methods    = tuple()
 
         log.MIMEHandler.window = self
 
@@ -202,10 +201,6 @@ class Window(JSClass):
 
         if log.JSEngine.isJSFunction(symbol):
             _method = None
-
-            # if symbol in self._methods:
-            #    _method = symbol.clone()
-
             if _method is None:
                 _method = six.create_bound_method(symbol, Window)
 
