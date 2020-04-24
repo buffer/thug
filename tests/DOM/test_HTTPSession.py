@@ -28,3 +28,6 @@ class TestHTTPSession(object):
     def test_invalid_proxy_3(self):
         with pytest.raises(ValueError):
             s = HTTPSession('socks5://127.0.0.1:10000')
+
+    def test_valid_proxy(self):
+        s = HTTPSession(proxy = 'http://antifork.org:443')
