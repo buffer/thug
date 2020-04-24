@@ -50,7 +50,15 @@
 	stream.ReadLine();
 	stream.ReadLine();
 	stream.ReadLine();
-	stream.Read(1000);
+
+	stream.Write("");
+
+	var i = 0;
+	while (i < 1000) {
+		stream.Read(1000);
+		i++;
+	}
+
 	stream.Close();
 </script>
 </body>
