@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Logging &mdash; Thug 1.5.1 documentation</title>
+  <title>Logging &mdash; Thug 1.6 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Thug 1.5.1 documentation" href="index.html"/>
+    <link rel="top" title="Thug 1.6 documentation" href="index.html"/>
         <link rel="next" title="Plugin Framework" href="plugins.html"/>
         <link rel="prev" title="JS Hooks" href="jshooks.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                1.5.1
+                1.6
               </div>
             
           
@@ -499,6 +499,11 @@ analysis.</p>
 <p>The ElasticSearch logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in an ElasticSearch instance. Deploying and configuring the
 instance is totally up to you and no images are provided for that.</p>
+<p>Starting from Thug version 1.6 you are required to install Python ElasticSearch Client by
+yourself. The reason behind this choice is that you could be interested in installing a
+specific library version based on the ElasticSearch version you are using. Please look at
+<a class="reference external" href="https://elasticsearch-py.readthedocs.io/en/master/">Python ElasticSearch Client documentation</a>
+for additional details.</p>
 <p>ElasticSearch logging mode is not enabled by default and you need to enable the option -G
 (–elasticsearch-logging). The ElasticSearch configuration is saved in the <em>/etc/thug/thug.conf</em>
 file. Be sure of defining the right URL for connecting to your instance. You may want to
@@ -756,7 +761,7 @@ you can see in this directory are saved in the database instance as well.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.5.1',
+            VERSION:'1.6',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
