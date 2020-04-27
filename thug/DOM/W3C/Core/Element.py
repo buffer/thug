@@ -58,14 +58,14 @@ class Element(Node, ElementCSSInlineStyle):
             self.msMatchesSelector      = self._matches
 
         if log.ThugOpts.Personality.browserMajorVersion > 9:
-            self.classList = self._classList
+            self.classList = property(self._classList)
 
     def __init_element_personality_Firefox(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.mozMatchesSelector     = self._matches
         self.getElementsByClassName = self._getElementsByClassName
-        self.classList              = self._classList
+        self.classList              = property(self._classList)
 
         if log.ThugOpts.Personality.browserMajorVersion > 33:
             self.matches = self._matches
@@ -75,7 +75,7 @@ class Element(Node, ElementCSSInlineStyle):
         self.querySelector          = self._querySelector
         self.webkitMatchesSelector  = self._matches
         self.getElementsByClassName = self._getElementsByClassName
-        self.classList              = self._classList
+        self.classList              = property(self._classList)
 
         if log.ThugOpts.Personality.browserMajorVersion > 33:
             self.matches = self._matches
@@ -84,7 +84,7 @@ class Element(Node, ElementCSSInlineStyle):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
-        self.classList              = self._classList
+        self.classList              = property(self._classList)
 
         if log.ThugOpts.Personality.browserMajorVersion > 6:
             self.matches = self._matches
@@ -157,7 +157,6 @@ class Element(Node, ElementCSSInlineStyle):
     def scrollHeight(self):
         return random.randint(10, 100)
 
-    @property
     def _classList(self):
         from .ClassList import ClassList
         return ClassList(self.tag)
