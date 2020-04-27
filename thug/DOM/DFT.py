@@ -978,7 +978,7 @@ class DFT(object):
         if response is None or not response.ok:
             return
 
-        if getattr(response, 'thug_mimehandler_hit', False):
+        if getattr(response, 'thug_mimehandler_hit', False): # pragma: no cover
             return
 
         doc    = w3c.parseString(response.content)
@@ -1176,7 +1176,7 @@ class DFT(object):
         if response is None or not response.ok: # pragma: no cover
             return
 
-        if getattr(response, 'thug_mimehandler_hit', False):
+        if getattr(response, 'thug_mimehandler_hit', False): # pragma: no cover
             return
 
         _src = log.HTTPSession.normalize_url(self.window, src)

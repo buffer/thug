@@ -246,7 +246,7 @@ class Element(Node, ElementCSSInlineStyle):
             if response is None or not response.ok:
                 return
 
-            if getattr(response, 'thug_mimehandler_hit', False):
+            if getattr(response, 'thug_mimehandler_hit', False): # pragma: no cover
                 return
 
             ctype = response.headers.get('content-type', None)
