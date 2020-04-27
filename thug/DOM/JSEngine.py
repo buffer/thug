@@ -123,5 +123,5 @@ class JSEngine(object):
         return isinstance(symbol, V8.JSObject)
 
     def isJSObject(self, symbol):
-        m = getattr(self, "is_{}_jsfunction".format(self.engine), None)
+        m = getattr(self, "is_{}_jsobject".format(self.engine), None)
         return m(symbol) if m else False
