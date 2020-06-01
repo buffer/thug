@@ -15,7 +15,7 @@ def SetGeneral_ServerName(self, val):
                                           "Overflow in General_ServerName property",
                                           cve = 'CVE-2007-4474')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474")
         log.DFT.check_shellcode(val)
 
 
@@ -28,7 +28,7 @@ def SetGeneral_JunctionName(self, val):
                                           "Overflow in General_JunctionName property",
                                           cve = 'CVE-2007-4474')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474")
         log.DFT.check_shellcode(val)
 
 
@@ -41,7 +41,7 @@ def SetMail_MailDbPath(self, val):
                                           "Overflow in Mail_MailDbPath property",
                                           cve = 'CVE-2007-4474')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4474")
         log.DFT.check_shellcode(val)
 
 

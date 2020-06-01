@@ -22,6 +22,11 @@ import logging
 import six.moves.urllib.parse as urlparse
 import six
 import bs4
+
+from bs4.element import NavigableString
+from bs4.element import CData
+from bs4.element import Script
+
 from cssutils.parse import CSSParser
 
 import pylibemu
@@ -452,7 +457,7 @@ class DFT(object):
                                               'Java Security Warning Bypass (CVE-2013-2423)',
                                               cve = 'CVE-2013-2423')
 
-            log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2013-2423", None)
+            log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2013-2423")
 
     def _handle_jnlp(self, data, headers, params):
         try:
@@ -846,7 +851,7 @@ class DFT(object):
         self.handle_external_javascript(script)
         self.increase_javascript_count(provenance)
 
-        js = getattr(script, 'text', None)
+        js = script.get_text(types = (NavigableString, CData, Script))
 
         if js:
             if log.ThugOpts.code_logging:
@@ -870,7 +875,7 @@ class DFT(object):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_inline_vbscript_count()
 
-        text = script.get_text()
+        text = script.get_text(types = (NavigableString, CData, Script))
         self.handle_vbscript_text(text)
 
     def handle_vbscript_text(self, text):
@@ -1223,7 +1228,7 @@ class DFT(object):
         cssparser = CSSParser(loglevel = logging.CRITICAL, validate = False)
 
         try:
-            sheet = cssparser.parseString(style.text)
+            sheet = cssparser.parseString(style.encode_contents())
         except Exception as e: # pragma: no cover
             log.info("[ERROR][handle_style] %s", str(e))
             return
@@ -1250,6 +1255,7 @@ class DFT(object):
         Explorer requires that the charset's specification must precede the
         base64 token.
         """
+        uri = uri if isinstance(uri, six.string_types) else str(uri)
         if not uri.lower().startswith("data:"):
             return None
 

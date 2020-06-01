@@ -19,7 +19,7 @@ def LaunchApp(self, prog, args, unk):
                                       }
                                      )
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6331", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6331")
 
 
 def SetRegValue(self, key, section, keyname, value):
@@ -42,7 +42,7 @@ def SetRegValue(self, key, section, keyname, value):
                                       }
                                      )
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6332", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6332")
 
 
 def GetRegValue(self, key, section, keyname):
@@ -63,7 +63,7 @@ def GetRegValue(self, key, section, keyname):
                                       }
                                      )
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6333", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6333")
 
 
 def EvaluateRules(self):

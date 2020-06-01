@@ -13,7 +13,7 @@ def AppendFileToPlayList(self, arg):
                                           "Overflow in AppendFileToPlayList",
                                           cve = 'CVE-2007-6250')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6250", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6250")
         log.DFT.check_shellcode(arg)
 
 
@@ -24,5 +24,5 @@ def ConvertFile(self, *arg):
                                           "Overflow in ConvertFile",
                                           cve = 'CVE-2007-6250')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6250", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6250")
         log.DFT.check_shellcode(arg[0])

@@ -13,7 +13,7 @@ def AddFolder(self, arg):
                                           "Overflow in AddFolder method",
                                           cve = 'CVE-2007-6530')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6530", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6530")
         log.DFT.check_shellcode(arg)
 
 
@@ -24,5 +24,5 @@ def AddFile(self, arg):
                                           "Overflow in AddFile method",
                                           cve = 'CVE-2007-6530')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6530", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6530")
         log.DFT.check_shellcode(arg)

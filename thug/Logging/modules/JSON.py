@@ -251,7 +251,7 @@ class JSON(object):
                                     "classifier" : "OCR",
                                     "result"     : result})
 
-    def log_classifier(self, classifier, url, rule, tags, meta = None):
+    def log_classifier(self, classifier, url, rule, tags = "", meta = dict()):
         """
         Log classifiers matching for a given url
 

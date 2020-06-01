@@ -18,7 +18,7 @@ def DownloadFromMusicStore(self, url, dst, title, artist, album, genere, size, p
                                              },
                                       forward = False)
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4983", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4983")
 
     try:
         self._window._navigator.fetch(url, redirect_type = "JetAudio exploit")

@@ -26,6 +26,10 @@ from lxml.html import tostring
 from lxml.html import builder as E
 from zope.interface import implementer
 
+from bs4.element import NavigableString
+from bs4.element import CData
+from bs4.element import Script
+
 import thug
 from thug.DOM.W3C import w3c
 from thug.DOM.DFT import DFT
@@ -454,7 +458,8 @@ class ThugAPI(object):
                 except AttributeError:
                     pass
 
-                html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(soup.script.get_text()))))
+                code = soup.script.get_text(types = (NavigableString, CData, Script))
+                html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(code))))
         else:
             html = content
 

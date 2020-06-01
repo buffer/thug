@@ -13,5 +13,5 @@ def TraceTarget(self, target):
                                           "Overflow in arg0",
                                           cve = 'CVE-2006-6707')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-6707", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-6707")
         log.DFT.check_shellcode(target)
