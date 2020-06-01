@@ -1179,10 +1179,6 @@ class DFT(object):
         if getattr(response, 'thug_mimehandler_hit', False): # pragma: no cover
             return
 
-        _src = log.HTTPSession.normalize_url(self.window, src)
-        if _src:
-            src = _src
-
         doc    = w3c.parseString(response.content)
         window = Window(response.url, doc, personality = log.ThugOpts.useragent)
 
