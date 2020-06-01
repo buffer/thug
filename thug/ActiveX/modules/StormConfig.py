@@ -13,5 +13,5 @@ def SetAttributeValue(self, arg0, arg1, arg2):
                                           "SetAttributeValue Buffer Overflow",
                                           cve = "CVE-2009-1807")
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1807", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1807")
         log.DFT.check_shellcode(arg0)

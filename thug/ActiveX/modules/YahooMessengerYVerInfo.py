@@ -13,7 +13,7 @@ def fvcom(self, arg0):
                                           "Overflow in fvCom arg0",
                                           cve = 'CVE-2007-4515')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4515", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4515")
         log.DFT.check_shellcode(arg0)
 
 
@@ -24,5 +24,5 @@ def info(self, arg0):
                                           "Overflow in info arg0",
                                           cve = 'CVE-2007-4515')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4515", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4515")
         log.DFT.check_shellcode(arg0)

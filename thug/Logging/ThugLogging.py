@@ -241,7 +241,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_image_ocr'):
             m(url, result)
 
-    def log_classifier(self, classifier, url, rule, tags, meta = None):
+    def log_classifier(self, classifier, url, rule, tags = "", meta = dict()):
         """
         Log classifiers matching for a given url
 

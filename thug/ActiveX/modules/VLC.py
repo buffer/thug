@@ -13,7 +13,7 @@ def getVariable(self, arg):
                                           "getVariable Overflow",
                                           cve = "CVE-2007-6262")
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6262", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6262")
         log.DFT.check_shellcode(arg)
 
 
@@ -24,7 +24,7 @@ def setVariable(self, arg0, arg1):
                                           "setVariable Overflow",
                                           cve = "CVE-2007-6262")
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6262", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6262")
         log.DFT.check_shellcode(arg0)
         log.DFT.check_shellcode(arg1)
 
@@ -36,7 +36,7 @@ def addTarget(self, arg0, arg1, arg2, arg3):
                                           "addTarget Overflow",
                                           cve = "CVE-2007-6262")
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6262", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6262")
         log.DFT.check_shellcode(arg0)
         log.DFT.check_shellcode(arg1)
         log.DFT.check_shellcode(arg2)

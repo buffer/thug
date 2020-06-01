@@ -19,7 +19,7 @@ def OpenWebFile(self, _file):
                                              }
                                      )
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "BID-33243", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "BID-33243")
 
     try:
         self._window._navigator.fetch(_file, redirect_type = "Office OCX Exploit")

@@ -13,7 +13,7 @@ def ProcessRequestEx(self, arg):
                                           "NULL value in ProcessRequestEx",
                                           cve = 'CVE-2007-6492')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6492", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6492")
 
 
 def SetHandler(self, arg):
@@ -23,4 +23,4 @@ def SetHandler(self, arg):
                                           "Overflow in SetHandler",
                                           cve = 'CVE-2007-6493')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6493", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6493")

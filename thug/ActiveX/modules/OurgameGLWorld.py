@@ -13,7 +13,7 @@ def hgs_startGame(self, arg):
                                           "Overflow in hgs_startGame",
                                           cve = 'CVE-2008-0647')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0647", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0647")
         log.DFT.check_shellcode(arg)
 
 
@@ -24,5 +24,5 @@ def hgs_startNotify(self, arg):
                                           "Overflow in hgs_startNotify",
                                           cve = 'CVE-2008-0647')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0647", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0647")
         log.DFT.check_shellcode(arg)

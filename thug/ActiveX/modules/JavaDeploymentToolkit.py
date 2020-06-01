@@ -47,4 +47,4 @@ def launchApp(self, pJNLP, pEmbedded = None, pVmArgs = None):
                                           cve = "CVE-2013-2416",
                                           forward = True)
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2013-2416", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2013-2416")

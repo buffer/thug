@@ -15,5 +15,5 @@ def GetDetailsString(self, arg0, arg1):
                                           "GetDetailsString Method Buffer Overflow",
                                           cve = "CVE-2008-3008")
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-3008", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-3008")
         log.DFT.check_shellcode(arg0)

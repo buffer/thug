@@ -13,5 +13,5 @@ def Setdata(self, val):
                                       "Stack Overflow in data property",
                                       cve = 'CVE-2008-0015')
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0015", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0015")
     log.DFT.check_shellcode(val)

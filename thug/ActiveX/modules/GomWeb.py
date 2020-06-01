@@ -13,5 +13,5 @@ def OpenURL(self, arg):
                                           "Overflow in OpenURL",
                                           cve = "CVE-2007-5779")
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5779", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5779")
         log.DFT.check_shellcode(arg)

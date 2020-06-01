@@ -13,5 +13,5 @@ def DownURL2(self, arg0, *args):
                                           "DownURL2 Method Buffer Overflow",
                                           cve = "CVE-2007-5064")
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5064", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5064")
         log.DFT.check_shellcode(arg0)
