@@ -1259,6 +1259,7 @@ class DFT(object):
         Explorer requires that the charset's specification must precede the
         base64 token.
         """
+        uri = uri if isinstance(uri, six.string_types) else str(uri)
         if not uri.lower().startswith("data:"):
             return None
 
