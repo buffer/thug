@@ -13,5 +13,5 @@ def initx(self, arg):
                                           "InitX overflow",
                                           cve = "CVE-2007-5775")
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5775", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5775")
         log.DFT.check_shellcode(arg)

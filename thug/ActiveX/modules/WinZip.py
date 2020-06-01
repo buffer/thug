@@ -13,5 +13,5 @@ def CreateNewFolderFromName(self, arg):
                                           "CreateNewFolderFromName Overflow",
                                           cve = 'CVE-2006-6884')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-6884", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-6884")
         log.DFT.check_shellcode(arg)

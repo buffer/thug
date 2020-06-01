@@ -13,5 +13,5 @@ def CreateChinagames(self, arg0):
                                           "CreateChinagames Method Buffer Overflow",
                                           cve = 'CVE-2009-1800')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1800", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1800")
         log.DFT.check_shellcode(arg0)

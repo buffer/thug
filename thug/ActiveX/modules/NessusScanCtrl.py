@@ -18,7 +18,7 @@ def deleteReport(self, arg):
                                              },
                                       forward = False)
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4031", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4031")
 
 
 def deleteNessusRC(self, arg):
@@ -33,7 +33,7 @@ def deleteNessusRC(self, arg):
                                              },
                                       forward = False)
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4062", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4062")
 
 
 def saveNessusRC(self, arg):
@@ -48,7 +48,7 @@ def saveNessusRC(self, arg):
                                              },
                                       forward = False)
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4061", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4061")
 
 
 def addsetConfig(self, arg, arg1, arg2):
@@ -65,4 +65,4 @@ def addsetConfig(self, arg, arg1, arg2):
                                              },
                                       forward = False)
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4061", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-4061")

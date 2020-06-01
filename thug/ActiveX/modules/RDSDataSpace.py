@@ -20,5 +20,5 @@ def CreateObject(self, _object, param = ''):
                                              }
                                      )
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-0003", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-0003")
     return ActiveX.ActiveX._ActiveXObject(self._window, _object)

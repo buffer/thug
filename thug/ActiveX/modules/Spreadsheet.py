@@ -12,7 +12,7 @@ def _Evaluate(self, *args):
                                       "Attack in _Evaluate function",
                                       cve = "CVE-2009-1136")
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1136", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1136")
 
 
 def Evaluate(self, *args):
@@ -21,4 +21,4 @@ def Evaluate(self, *args):
                                       "Attack in Evaluate function",
                                       cve = "CVE-2009-1136")
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1136", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1136")

@@ -16,7 +16,7 @@ def installAppMgr(self, url):
                                              }
                                      )
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-4388", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-4388")
     log.ThugLogging.add_behavior_warn("[Symantec AppStream LaunchObj ActiveX] Fetching from URL %s" % (url, ))
 
     try:

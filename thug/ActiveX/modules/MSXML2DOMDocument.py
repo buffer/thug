@@ -10,5 +10,5 @@ def definition(self, arg):
                                       "Microsoft XML Core Services MSXML Uninitialized Memory Corruption",
                                       cve = "CVE-2012-1889")  # pylint:disable=undefined-variable
 
-    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2012-1889", None)
+    log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2012-1889")
     log.DFT.check_shellcode(arg)

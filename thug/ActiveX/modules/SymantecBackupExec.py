@@ -15,7 +15,7 @@ def Set_DOWText0(self, val):
                                           "Overflow in property _DOWText0",
                                           cve = 'CVE-2007-6016')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016")
         log.DFT.check_shellcode(val)
 
 
@@ -28,7 +28,7 @@ def Set_DOWText6(self, val):
                                           "Overflow in property _DOWText6",
                                           cve = 'CVE-2007-6016')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016")
         log.DFT.check_shellcode(val)
 
 
@@ -41,7 +41,7 @@ def Set_MonthText0(self, val):
                                           "Overflow in property _MonthText0",
                                           cve = 'CVE-2007-6016')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016")
         log.DFT.check_shellcode(val)
 
 
@@ -54,7 +54,7 @@ def Set_MonthText11(self, val):
                                           "Overflow in property _MonthText11",
                                           cve = 'CVE-2007-6016')
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016")
         log.DFT.check_shellcode(val)
 
 

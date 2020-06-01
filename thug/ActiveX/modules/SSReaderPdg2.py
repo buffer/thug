@@ -13,7 +13,7 @@ def Register(self, arg0, arg1):
                                           "Register Method Overflow",
                                           cve = "CVE-2007-5892")
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5892", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5892")
         log.DFT.check_shellcode(arg1)
 
 
@@ -24,5 +24,5 @@ def LoadPage(self, arg0, arg1, arg2, arg3):
                                           "LoadPage Method Overflow",
                                           cve = "CVE-2007-5892")
 
-        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5892", None)
+        log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5892")
         log.DFT.check_shellcode(arg0)

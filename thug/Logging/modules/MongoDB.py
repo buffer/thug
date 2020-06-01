@@ -239,7 +239,7 @@ class MongoDB(object):
 
         self.exploits.insert_one(exploit)
 
-    def log_classifier(self, classifier, url, rule, tags, meta = None):
+    def log_classifier(self, classifier, url, rule, tags = "", meta = dict()):
         """
         Log classifiers matching for a given url
 
