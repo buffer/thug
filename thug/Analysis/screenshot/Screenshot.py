@@ -26,7 +26,7 @@ class Screenshot(object):
         if not ctype.startswith(self.content_types):
             return
 
-        soup = bs4.BeautifulSoup(response.text, "lxml")
+        soup = bs4.BeautifulSoup(response.content, "html5lib")
 
         for img in soup.find_all('img'):
             src = img.get('src', None)
@@ -37,5 +37,10 @@ class Screenshot(object):
             if norm_src:
                 img['src'] = norm_src
 
-        screenshot = imgkit.from_string(soup.prettify(formatter = None), False)
+        content = soup.prettify(formatter = None)
+        options = {
+            'quiet' : ''
+        }
+
+        screenshot = imgkit.from_string(content, False, options = options)
         log.ThugLogging.log_screenshot(url, screenshot)
