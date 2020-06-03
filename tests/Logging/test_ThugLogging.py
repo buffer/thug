@@ -93,7 +93,7 @@ class TestThugLogging:
         caplog.clear()
 
         thug_logging.set_basedir("url")
-        thug_logging.log_screenshot("url", self.jar_path)
+        thug_logging.log_screenshot("url", self.content)
 
     def test_log_redirect(self, caplog):
         pass

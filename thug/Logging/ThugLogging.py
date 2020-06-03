@@ -360,7 +360,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         @screenshot Screenshot
         """
         dirname  = os.path.join(self.baseDir, 'analysis', 'screenshots')
-        filename = "{}.jpg".format(hashlib.sha256(content).hexdigest())
+        filename = "{}.jpg".format(hashlib.sha256(screenshot).hexdigest())
         self.store_content(dirname, filename, screenshot)
 
         for m in self.resolve_method('log_screenshot'):
