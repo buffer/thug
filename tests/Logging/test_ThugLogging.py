@@ -89,6 +89,12 @@ class TestThugLogging:
         assert "[SAMPLE Classifier]" in caplog.text
         assert "(Rule: N/A, Classification: None)" in caplog.text
 
+    def test_log_screenshot(self, caplog):
+        caplog.clear()
+
+        thug_logging.set_basedir("url")
+        thug_logging.log_screenshot("url", self.jar_path)
+
     def test_log_redirect(self, caplog):
         pass
 
