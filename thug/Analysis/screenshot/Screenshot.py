@@ -1,11 +1,11 @@
-import platform
+import sys
 import logging
 import bs4
 
 try:
     import imgkit
     IMGKIT_MODULE = True
-except ImportError:
+except ImportError: # pragma: no cover
     IMGKIT_MODULE = False
 
 log = logging.getLogger("Thug")
@@ -40,7 +40,7 @@ class Screenshot(object):
             'quiet' : ''
         }
 
-        if platform.system().lower() in ('linux', ):
+        if sys.platform in ('linux', ):
             options['xvfb'] = ''
 
         screenshot = imgkit.from_string(content, False, options = options)
