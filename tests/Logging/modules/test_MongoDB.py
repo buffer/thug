@@ -183,6 +183,16 @@ class TestMongoDB:
         log.ThugOpts.json_logging = False
         assert self.mongo.json.count_documents({}) in (0, )
 
+    def test_log_screenshot(self):
+        self.mongo.enabled = False
+        self.mongo.log_screenshot(self.url, self.data)
+        assert self.mongo.screenshots.count_documents({}) in (0, )
+
+        # Setting self.mongo.enabled = True
+        self.mongo.enabled = True
+        self.mongo.log_screenshot(self.url, self.data)
+        assert self.mongo.screenshots.count_documents({}) in (1, )
+
     def test_log_event(self):
         self.mongo.enabled = False
         self.mongo.log_event(self.base_dir)

@@ -226,6 +226,15 @@ class TestJSON:
         assert json.data["images"]
         log.ThugOpts.json_logging = False
 
+    def test_log_screenshot(self):
+        json.log_screenshot("url", b"data")
+        assert not json.data["screenshots"]
+
+        log.ThugOpts.json_logging = True
+        json.log_screenshot("url", b"data")
+        assert json.data["screenshots"]
+        log.ThugOpts.json_logging = False
+
     def test_export(self):
         log.ThugOpts.json_logging = True
         log.ThugOpts.file_logging = True
