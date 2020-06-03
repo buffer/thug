@@ -562,6 +562,24 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def enable_screenshot():
+            """
+            enable_screenshot
+
+            Enable screenshot mode
+
+            @return: None
+            """
+
+        def disable_screenshot():
+            """
+            disable_screenshot
+
+            Disable screenshot mode
+
+            @return: None
+            """
+
         def log_init(url):
             """
             log_init

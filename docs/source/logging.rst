@@ -341,6 +341,21 @@ analysis.
     }
 
 
+screenshots
+^^^^^^^^^^^
+
+The collection *screenshots* is used to store base-64 encoded screenshots (JPG format)
+of the analyzed page.
+
+.. code-block:: sh
+
+   {
+            "analysis_id"   : Analysis ID
+            "url_id"        : URL url_id
+            "screenshot"    : URL screenshot
+    }
+
+
 ElasticSearch logging module
 ============================
 
@@ -413,7 +428,8 @@ in a JSON file in the log directory too. The JSON format is shown below.
         "locations"   : [],
         "exploits"    : [],
         "classifiers" : [],
-        "images"      : []
+        "images"      : [],
+        "screenshots" : []
     }
 
 
@@ -524,6 +540,16 @@ images
             'result'      : Analysis result
         }
 
+
+screenshots
+-----------
+
+.. code-block:: sh
+
+        {
+            'url'         : URL
+            'screenshot'  : Base-64 encoded screenshot
+        }
 
 
 File logging mode
