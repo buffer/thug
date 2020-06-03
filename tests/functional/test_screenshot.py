@@ -14,9 +14,11 @@ class TestScreenshot(object):
         thug = ThugAPI()
 
         thug.set_useragent('win7ie90')
+        thug.disable_screenshot()
         thug.enable_screenshot()
         thug.set_file_logging()
         thug.set_json_logging()
+        thug.set_ssl_verify()
         thug.log_init(url)
 
         m = getattr(thug, "run_{}".format(type_))
