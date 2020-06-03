@@ -1,7 +1,7 @@
 import os
-import tempfile
 import logging
 
+import six
 import bs4
 
 try:
@@ -37,8 +37,5 @@ class Screenshot(object):
             if norm_src:
                 img['src'] = norm_src
 
-        fd, path = tempfile.mkstemp(suffix = '.jpg')
-        imgkit.from_string(soup.prettify(formatter = None), path)
-        log.ThugLogging.log_screenshot(url, path)
-
-        os.remove(path)
+        screenshot = imgkit.from_string(soup.prettify(formatter = None), False)
+        log.ThugLogging.log_screenshot(url, screenshot)

@@ -357,17 +357,14 @@ class ThugLogging(BaseLogging, SampleLogging):
         Log the screenshot of the analyzed page
 
         @url        URL
-        @screenshot Screenshot file path
+        @screenshot Screenshot
         """
-        with open(screenshot, 'rb') as fd:
-            content = fd.read()
-
         dirname  = os.path.join(self.baseDir, 'analysis', 'screenshots')
         filename = "{}.jpg".format(hashlib.sha256(content).hexdigest())
-        self.store_content(dirname, filename, content)
+        self.store_content(dirname, filename, screenshot)
 
         for m in self.resolve_method('log_screenshot'):
-            m(url, content)
+            m(url, screenshot)
 
     def store_content(self, dirname, filename, content):
         """
