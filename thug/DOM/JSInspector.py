@@ -112,9 +112,9 @@ class JSInspector(object):
                 try:
                     result = self.ctxt.eval(self.script.replace('\\u', '%u'))
                 except Exception as e:
-                    log.warning("[JSInspector] Error: %s", str(e))
+                    log.warning("[JSInspector] %s", str(e))
         except Exception as e:
-            log.warning("[JSInspector] Error: %s", str(e))
+            log.warning("[JSInspector] %s", str(e))
 
         self.dump()
         return result
