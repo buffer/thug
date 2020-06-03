@@ -38,7 +38,7 @@ class Screenshot(object):
                 img['src'] = norm_src
 
         fd, path = tempfile.mkstemp(suffix = '.jpg')
-        imgkit.from_string(str(soup), path)
+        imgkit.from_string(soup.prettify(formatter = None), path)
         log.ThugLogging.log_screenshot(url, path)
 
         os.remove(path)
