@@ -52,6 +52,7 @@ class ThugOpts(dict):
         self._code_logging      = True
         self._cert_logging      = True
         self._features_logging  = False
+        self._screenshot        = False
         self._no_fetch          = False
         self._broken_url        = False
         self._ssl_verify        = False
@@ -270,6 +271,14 @@ class ThugOpts(dict):
         self._timeout = seconds
 
     timeout = property(get_timeout, set_timeout)
+
+    def get_screenshot(self):
+        return self._screenshot
+
+    def set_screenshot(self, screenshot):
+        self._screenshot = screenshot
+
+    screenshot = property(get_screenshot, set_screenshot)
 
     def get_broken_url(self):
         return self._broken_url

@@ -82,7 +82,8 @@ class JSON(object):
                         "locations"   : [],
                         "exploits"    : [],
                         "classifiers" : [],
-                        "images"      : []
+                        "images"      : [],
+                        "screenshots" : []
                     }
 
     @property
@@ -272,6 +273,21 @@ class JSON(object):
 
         if item not in self.data["classifiers"]:
             self.data["classifiers"].append(item)
+
+    def log_screenshot(self, url, screenshot):
+        """
+        Log the base64-encoded screenshot of the analyzed page
+
+        @url        URL
+        @screenshot URL screenshot
+        """
+        if not self.json_enabled:
+            return
+
+        content = base64.b64encode(screenshot)
+
+        self.data["screenshots"].append({"url"        : self.fix(url),
+                                         "screenshot" : content.decode()})
 
     def log_cookies(self):
         attrs = ('comment',

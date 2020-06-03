@@ -72,6 +72,7 @@ Synopsis:
         -z, --web-tracking      \tEnable web client tracking inspection
         -k, --no-honeyagent     \tDisable HoneyAgent support
         -a, --image-processing  \tEnable image processing analysis
+        -f, --screenshot        \tEnable screenshot capturing
 
         Plugins:
         -A, --adobepdf=         \tSpecify Adobe Acrobat Reader version (default: 9.1.0)
@@ -136,7 +137,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:myszkalxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:b:',
+                                          'hViu:e:w:n:o:r:p:myszkaflxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -153,6 +154,7 @@ Synopsis:
                 'web-tracking',
                 'no-honeyagent',
                 'image-processing',
+                'screenshot',
                 'local',
                 'local-nofetch',
                 'verbose',
@@ -238,6 +240,8 @@ Synopsis:
                 self.disable_honeyagent()
             elif option[0] in ('-a', '--image-processing', ):
                 self.set_image_processing()
+            elif option[0] in ('-f', '--screenshot', ):
+                self.enable_screenshot()
             elif option[0] in ('-l', '--local', ):
                 p = getattr(self, 'run_local')
             elif option[0] in ('-x', '--local-nofetch', ):

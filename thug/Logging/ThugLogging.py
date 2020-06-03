@@ -29,6 +29,7 @@ import six.moves.configparser as ConfigParser
 from thug.Analysis.virustotal.VirusTotal import VirusTotal
 from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
 from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
+from thug.Analysis.screenshot.Screenshot import Screenshot
 from thug.Magic.Magic import Magic
 
 from .BaseLogging import BaseLogging
@@ -51,6 +52,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.HoneyAgent      = HoneyAgent()
         self.Features        = Features()
         self.ContextAnalyzer = ContextAnalyzer()
+        self.Screenshot      = Screenshot()
         self.baseDir         = None
         self.windows         = dict()
         self.shellcodes      = set()
@@ -349,6 +351,23 @@ class ThugLogging(BaseLogging, SampleLogging):
 
     def log_honeyagent(self, dirname, sample, report):
         self.log_analysis_module(dirname, sample, report, "honeyagent")
+
+    def log_screenshot(self, url, screenshot):
+        """
+        Log the screenshot of the analyzed page
+
+        @url        URL
+        @screenshot Screenshot file path
+        """
+        with open(screenshot, 'rb') as fd:
+            content = fd.read()
+
+        dirname  = os.path.join(self.baseDir, 'analysis', 'screenshots')
+        filename = "{}.jpg".format(hashlib.sha256(content).hexdigest())
+        self.store_content(dirname, filename, content)
+
+        for m in self.resolve_method('log_screenshot'):
+            m(url, content)
 
     def store_content(self, dirname, filename, content):
         """

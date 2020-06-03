@@ -92,6 +92,7 @@ class MongoDB(object):
         self.exploits     = db.exploits
         self.classifiers  = db.classifiers
         self.images       = db.images
+        self.screenshots  = db.screenshots
         self.codes        = db.codes
         self.cookies      = db.cookies
         self.json         = db.json
@@ -281,6 +282,26 @@ class MongoDB(object):
         }
 
         self.images.insert_one(image)
+
+    def log_screenshot(self, url, screenshot):
+        """
+        Log the base64-encoded screenshot of the analyzed page
+
+        @url        URL
+        @screenshot URL screenshot
+        """
+        if not self.enabled:
+            return
+
+        content = base64.b64encode(screenshot)
+
+        item = {
+            'analysis_id' : self.analysis_id,
+            'url'         : self.get_url(url),
+            'screenshot'  : content.decode()
+        }
+
+        self.screenshots.insert_one(item)
 
     def log_cookies(self):
         attrs = ('comment',

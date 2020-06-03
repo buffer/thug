@@ -302,6 +302,12 @@ class ThugAPI(object):
     def disable_cert_logging(self):
         log.ThugOpts.cert_logging = False
 
+    def enable_screenshot(self):
+        log.ThugOpts.screenshot = True
+
+    def disable_screenshot(self):
+        log.ThugOpts.screenshot = False
+
     def log_init(self, url):
         log.ThugLogging = ThugLogging(thug.__version__)
         log.ThugLogging.set_basedir(url)

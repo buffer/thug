@@ -376,6 +376,8 @@ class Navigator(JSClass):
 
         log.last_url_fetched = response.url
 
+        log.ThugLogging.Screenshot.run(self._window, url, response, ctype)
+
         handler = log.MIMEHandler.get_handler(ctype)
         if handler:
             handler(response.url, response.content)
