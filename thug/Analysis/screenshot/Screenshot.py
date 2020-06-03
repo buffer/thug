@@ -1,7 +1,4 @@
-import os
 import logging
-
-import six
 import bs4
 
 try:
