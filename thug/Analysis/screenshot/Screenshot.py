@@ -1,3 +1,4 @@
+import platform
 import logging
 import bs4
 
@@ -38,6 +39,9 @@ class Screenshot(object):
         options = {
             'quiet' : ''
         }
+
+        if platform.system().lower() in ('linux', ):
+            options['xvfb'] = ''
 
         screenshot = imgkit.from_string(content, False, options = options)
         log.ThugLogging.log_screenshot(url, screenshot)
