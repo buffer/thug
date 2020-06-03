@@ -33,20 +33,7 @@ class BaseLogging(object):
         if not getattr(log.ThugOpts, "%s_logging" % (module, ), True):
             return False
 
-        try:
-            section = config.options(module)
-        except Exception:
-            return True
-
-        for option in section:
-            if option not in ('enable', ): # pragma: no cover
-                continue
-
-            enable = config.getboolean(module, option)
-            if not enable:
-                return False
-
-        return True # pragma: no cover
+        return config.getboolean(module, option)
 
     def set_basedir(self, url):
         if self.baseDir:
