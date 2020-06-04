@@ -11,6 +11,7 @@ class TestImageProcessing(object):
         thug = ThugAPI()
 
         thug.set_useragent('win7ie90')
+        thug.set_ssl_verify()
         thug.reset_image_processing()
         thug.set_image_processing()
         thug.get_image_processing()
