@@ -43,8 +43,8 @@ class Screenshot(object):
         if sys.platform in ('linux', ):
             options['xvfb'] = ''
 
-        try:
+        try: # pragma: no cover
             screenshot = imgkit.from_string(content, False, options = options)
-            log.ThugLogging.log_screenshot(url, screenshot) # pragma: no cover
+            log.ThugLogging.log_screenshot(url, screenshot)
         except Exception as e:
             log.warning("[SCREENSHOT] Error: %s", str(e))
