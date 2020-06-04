@@ -363,7 +363,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         filename = "{}.jpg".format(hashlib.sha256(screenshot).hexdigest())
         self.store_content(dirname, filename, screenshot)
 
-        for m in self.resolve_method('log_screenshot'):
+        for m in self.resolve_method('log_screenshot'): # pragma: no cover
             m(url, screenshot)
 
     def store_content(self, dirname, filename, content):
