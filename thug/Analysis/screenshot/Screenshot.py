@@ -29,7 +29,7 @@ class Screenshot(object):
         for img in soup.find_all('img'):
             src = img.get('src', None)
             if not src:
-                continue
+                continue # pragma: no cover
 
             norm_src = log.HTTPSession.normalize_url(window, src)
             if norm_src:
@@ -45,6 +45,6 @@ class Screenshot(object):
 
         try:
             screenshot = imgkit.from_string(content, False, options = options)
-            log.ThugLogging.log_screenshot(url, screenshot)
+            log.ThugLogging.log_screenshot(url, screenshot) # pragma: no cover
         except Exception as e:
             log.warning("[SCREENSHOT] Error: %s", str(e))
