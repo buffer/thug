@@ -24,13 +24,7 @@ import zipfile
 import tempfile
 import pefile
 import magic
-
-SSDEEP = True
-
-try:
-    import ssdeep
-except ImportError:  # pragma: no cover
-    SSDEEP = False
+import ssdeep
 
 from thug.Magic.Magic import Magic
 
@@ -38,6 +32,16 @@ log = logging.getLogger("Thug")
 
 
 class SampleLogging(object):
+    doc_mime_types = (
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    )
+
+    rtf_mime_types = (
+        'text/rtf',
+        'application/rtf',
+    )
+
     def __init__(self):
         self.types = ('PE',
                       'PDF',
@@ -63,55 +67,37 @@ class SampleLogging(object):
         return pe.get_imphash()
 
     def is_pdf(self, data):
-        if isinstance(data, str):
-            data = data.encode()
-
+        data = data.encode() if isinstance(data, str) else data
         return (data[:1024].find(b'%PDF') != -1)
 
     def is_jar(self, data):
-        if isinstance(data, str):
-            data = data.encode()
+        data = data.encode() if isinstance(data, str) else data
 
         fd, jar = tempfile.mkstemp()
-
         with open(jar, 'wb') as fd:
             fd.write(data)
 
+        result = False
+
         try:
             z = zipfile.ZipFile(jar)
-            if [t for t in z.namelist() if t.endswith('.class')]:
-                os.remove(jar)
-                return True
-        except Exception as e:
-            log.info("[ERROR][is_jar] %s", str(e))
+            result = any([t.endswith('.class') for t in z.namelist()])
+        except Exception:
+            pass
 
         os.remove(jar)
-        return False
+        return result
 
     def is_swf(self, data):
-        if isinstance(data, str):
-            data = data.encode()
-
+        data = data.encode() if isinstance(data, str) else data
         return data.startswith(b'CWS') or data.startswith(b'FWS')
 
     def is_doc(self, data):
-        if isinstance(data, str):
-            data = data.encode()
-
-        doc_mime_types = (
-            'application/msword',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        )
-
-        return Magic(data).get_mime() in doc_mime_types
+        data = data.encode() if isinstance(data, str) else data
+        return Magic(data).get_mime() in self.doc_mime_types
 
     def is_rtf(self, data):
-        rtf_mime_types = (
-            'text/rtf',
-            'application/rtf',
-        )
-
-        return magic.from_buffer(data, mime = True) in rtf_mime_types
+        return magic.from_buffer(data, mime = True) in self.rtf_mime_types
 
     def get_sample_type(self, data):
         for t in self.types:
@@ -128,9 +114,8 @@ class SampleLogging(object):
         p = dict()
 
         if sampletype:
+            data = data.encode() if isinstance(data, str) else data
             p['type'] = sampletype
-            if isinstance(data, str):
-                data = data.encode()
         else:
             p['type'] = self.get_sample_type(data)
 
@@ -140,9 +125,7 @@ class SampleLogging(object):
         p['md5']    = hashlib.md5(data).hexdigest()
         p['sha1']   = hashlib.sha1(data).hexdigest()
         p['sha256'] = hashlib.sha256(data).hexdigest()
-
-        if SSDEEP:
-            p['ssdeep'] = ssdeep.hash(data)
+        p['ssdeep'] = ssdeep.hash(data)
 
         if p['type'] in ('PE', ):
             imphash = self.get_imphash(data)
