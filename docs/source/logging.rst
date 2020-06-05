@@ -163,6 +163,7 @@ and evaluated content type.
             "content-type"  : Content Type
             "md5"           : MD5 checksum
             "sha256"        : SHA-256 checksum
+            "ssdeep"        : Ssdeep hash
             "flags"         : Flags
             "size"          : Data size
             "mime-type"     : Evaluated content type
@@ -498,6 +499,7 @@ locations
             "content-type"  : Content Type
             "md5"           : MD5 checksum
             "sha256"        : SHA-256 checksum
+            "ssdeep"        : Ssdeep hash
             "flags"         : Flags
             "size"          : Data size
             "mime-type"     : Evaluated content type
