@@ -198,6 +198,7 @@ class JSON(object):
                         - content     Content
                         - md5         MD5 checksum
                         - sha256      SHA-256 checksum
+                        - ssdeep      Ssdeep hash
                         - fsize       Content size
                         - ctype       Content type (whatever the server says it is)
                         - mtype       Calculated MIME type
@@ -216,6 +217,7 @@ class JSON(object):
                                        "content-type" : data.get("ctype", None),
                                        "md5"          : data.get("md5", None),
                                        "sha256"       : data.get("sha256", None),
+                                       "ssdeep"       : data.get("ssdeep", None),
                                        "flags"        : flags,
                                        "size"         : data.get("fsize", None),
                                        "mimetype"     : data.get("mtype", None)})

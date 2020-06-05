@@ -19,6 +19,7 @@
 
 import os
 import hashlib
+import ssdeep
 import logging
 import six
 
@@ -344,6 +345,7 @@ class Navigator(JSClass):
         md5.update(response.content)
         sha256 = hashlib.sha256()
         sha256.update(response.content)
+        ssdeep_hash = ssdeep.hash(response.content)
 
         mtype = Magic(response.content).get_mime()
 
@@ -352,6 +354,7 @@ class Navigator(JSClass):
             "status"  : response.status_code,
             "md5"     : md5.hexdigest(),
             "sha256"  : sha256.hexdigest(),
+            "ssdeep"  : ssdeep_hash,
             "fsize"   : len(response.content),
             "ctype"   : ctype,
             "mtype"   : mtype
