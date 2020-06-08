@@ -53,7 +53,9 @@ A Python 3 virtual environment is recommended. (Google's build tools will establ
 own Python2 virtual environment during the compilation of V8, but this can be ignored).
 
 Please look at https://github.com/area1/stpyv8/blob/master/docs/source/build.rst for
-detailed building instructions.
+detailed building instructions. Moreover be aware that Python wheels are available for
+the Linux platform at https://github.com/area1/stpyv8/releases for different versions
+of Python.
 
 
 **Python 2 (DEPRECATED)**
