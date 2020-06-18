@@ -60,7 +60,6 @@ class TestPyHooks(object):
     def test_hook_2(self, caplog):
         expected = ['Greetings from the hook',
                     'classifier = exploit',
-                    'url = /home/buffer/thug/samples/exploits/22196.html',
                     'rule = CVE-2007-0018']
 
         sample = os.path.join(self.exploits_path, "22196.html")
