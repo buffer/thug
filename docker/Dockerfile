@@ -66,9 +66,7 @@ RUN pip3 install --upgrade setuptools
 RUN pip3 install --upgrade pytesseract
 WORKDIR /home
 
-RUN git clone https://github.com/area1/stpyv8 && \
-  pip3 install stpyv8/wheels/ubuntu-18.04/stpyv8-7.9.317.31-cp36-cp36m-linux_x86_64.whl && \
-  rm -rf thug
+RUN pip3 install https://github.com/area1/stpyv8/releases/download/v8.3.110.9/stpyv8-8.3.110.9-cp36-cp36m-linux_x86_64.whl
 
 RUN git clone https://github.com/buffer/libemu.git && \
   cd libemu && \
