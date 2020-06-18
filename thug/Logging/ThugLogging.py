@@ -24,6 +24,7 @@ import string
 import errno
 import hashlib
 import logging
+import six
 import six.moves.configparser as ConfigParser
 
 from thug.Analysis.virustotal.VirusTotal import VirusTotal
@@ -64,6 +65,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.url             = ""
 
         self.__init_hook_symbols()
+        self.__init_pyhooks()
         self.__init_config()
 
     def get_random_name(self):
@@ -72,6 +74,17 @@ class ThugLogging(BaseLogging, SampleLogging):
     def __init_hook_symbols(self):
         for name in ('eval', 'write', ):
             setattr(self, '{}_symbol'.format(name), (self.get_random_name(), self.get_random_name(), ))
+
+    def __init_pyhooks(self):
+        hooks = log.PyHooks.get('ThugLogging', None)
+        if hooks is None:
+            return
+
+        for label, hook in hooks.items():
+            name   = "{}_hook".format(label)
+            _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
+            method = six.create_bound_method(_hook, ThugLogging)
+            setattr(self, name, method)
 
     def __init_config(self):
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
@@ -258,6 +271,10 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         for m in self.resolve_method('log_classifier'):
             m(classifier, url, rule, tags, meta)
+
+        hook = getattr(self, "log_classifier_hook", None)
+        if hook:
+            hook(classifier, url, rule, tags, meta)
 
     def log_cookies(self):
         for m in self.resolve_method('log_cookies'):
