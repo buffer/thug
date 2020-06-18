@@ -25,6 +25,7 @@ log.ThugLogging        = ThugLogging(thug.__version__)
 log.ThugVulnModules    = ThugVulnModules()
 log.Encoding           = Encoding()
 log.HTTPSession        = HTTPSession()
+log.PyHooks            = dict()
 
 
 class TestMongoDB:

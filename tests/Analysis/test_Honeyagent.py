@@ -14,6 +14,7 @@ log = logging.getLogger("Thug")
 log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
 
 log.ThugOpts = ThugOpts()
+log.PyHooks  = dict()
 
 log.configuration_path = configuration_path
 log.ThugLogging = ThugLogging(thug.__version__)

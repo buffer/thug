@@ -22,6 +22,7 @@ log.configuration_path = configuration_path
 log.ThugLogging        = ThugLogging(thug.__version__)
 log.ThugVulnModules    = ThugVulnModules()
 log.Encoding           = Encoding()
+log.PyHooks            = dict()
 
 json = JSON(thug.__version__)
 

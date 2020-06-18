@@ -14,6 +14,7 @@ log                    = logging.getLogger("Thug")
 log.configuration_path = configuration_path
 log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
 
+log.PyHooks          = dict()
 log.ThugOpts         = ThugOpts()
 log.HTTPSession      = HTTPSession()
 log.URLClassifier    = URLClassifier()

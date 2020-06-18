@@ -14,6 +14,8 @@ log.personalities_path = os.path.join(configuration_path, "personalities") if co
 log.configuration_path = thug.__configuration_path__
 
 log.ThugOpts = ThugOpts()
+log.PyHooks  = dict()
+
 log.ThugLogging = ThugLogging(thug.__version__)
 
 
