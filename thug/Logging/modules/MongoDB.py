@@ -93,6 +93,7 @@ class MongoDB(object):
         self.classifiers  = db.classifiers
         self.images       = db.images
         self.screenshots  = db.screenshots
+        self.awis         = db.awis
         self.codes        = db.codes
         self.cookies      = db.cookies
         self.json         = db.json
@@ -492,6 +493,17 @@ class MongoDB(object):
         }
 
         self.certificates.insert_one(certificate)
+
+    def log_awis(self, report): # pragma: no cover
+        if not self.enabled:
+            return
+
+        awis = {
+            'analysis_id' : self.analysis_id,
+            'report'      : report
+        }
+
+        self.awis.insert_one(awis)
 
     def log_analysis_module(self, collection, sample, report):
         if not self.enabled:

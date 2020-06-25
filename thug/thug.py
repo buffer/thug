@@ -73,6 +73,7 @@ Synopsis:
         -k, --no-honeyagent     \tDisable HoneyAgent support
         -a, --image-processing  \tEnable image processing analysis
         -f, --screenshot        \tEnable screenshot capturing
+        -E, --awis              \tEnable AWS Alexa Web Information Service (AWIS)
 
         Plugins:
         -A, --adobepdf=         \tSpecify Adobe Acrobat Reader version (default: 9.1.0)
@@ -137,7 +138,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:myszkaflxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:b:',
+                                          'hViu:e:w:n:o:r:p:myszkafElxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:b:',
                 ['help',
                 'version',
                 'list-ua',
@@ -155,6 +156,7 @@ Synopsis:
                 'no-honeyagent',
                 'image-processing',
                 'screenshot',
+                'awis',
                 'local',
                 'local-nofetch',
                 'verbose',
@@ -242,6 +244,8 @@ Synopsis:
                 self.set_image_processing()
             elif option[0] in ('-f', '--screenshot', ):
                 self.enable_screenshot()
+            elif option[0] in ('-E', '--awis', ):
+                self.enable_awis()
             elif option[0] in ('-l', '--local', ):
                 p = getattr(self, 'run_local')
             elif option[0] in ('-x', '--local-nofetch', ):

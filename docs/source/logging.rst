@@ -357,6 +357,19 @@ of the analyzed page.
     }
 
 
+awis
+^^^^
+
+The collection *awis* is used to store Alexa Web Information Service (AWIS) reports.
+
+.. code-block:: sh
+
+    {
+            "analysis_id"   : Analysis ID
+            "report"        : AWIS report
+    }
+
+
 ElasticSearch logging module
 ============================
 
@@ -430,6 +443,7 @@ in a JSON file in the log directory too. The JSON format is shown below.
         "exploits"    : [],
         "classifiers" : [],
         "images"      : [],
+        "awis"        : [],
         "screenshots" : []
     }
 
@@ -551,6 +565,16 @@ screenshots
         {
             'url'         : URL
             'screenshot'  : Base-64 encoded screenshot
+        }
+
+
+awis
+----
+
+.. code-block:: sh
+
+        {
+            'awis'       : AWIS reports
         }
 
 

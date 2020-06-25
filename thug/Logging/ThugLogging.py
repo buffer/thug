@@ -31,6 +31,7 @@ from thug.Analysis.virustotal.VirusTotal import VirusTotal
 from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
 from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
 from thug.Analysis.screenshot.Screenshot import Screenshot
+from thug.Analysis.awis.AWIS import AWIS
 from thug.Magic.Magic import Magic
 
 from .BaseLogging import BaseLogging
@@ -54,6 +55,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.Features        = Features()
         self.ContextAnalyzer = ContextAnalyzer()
         self.Screenshot      = Screenshot()
+        self.AWIS            = AWIS()
         self.baseDir         = None
         self.windows         = dict()
         self.shellcodes      = set()
@@ -128,6 +130,14 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         for m in self.resolve_method('set_url'):
             m(url)
+
+        if log.ThugOpts.awis: # pragma: no cover
+            report = log.ThugLogging.AWIS.query(url)
+            if not report:
+                return
+
+            for m in self.resolve_method('log_awis'):
+                m(report)
 
     def add_behavior_warn(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
         for m in self.resolve_method('add_behavior_warn'):
