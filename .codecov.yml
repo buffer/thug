@@ -2,3 +2,4 @@ comment: off
 ignore:
   - "thug/thug.py"
   - "thug/ActiveX/modules/XMLDOMParseError.py"
+  - "thug/Analysis/awis/AWIS.py"
