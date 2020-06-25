@@ -53,6 +53,7 @@ class ThugOpts(dict):
         self._cert_logging      = True
         self._features_logging  = False
         self._screenshot        = False
+        self._awis              = False
         self._no_fetch          = False
         self._broken_url        = False
         self._ssl_verify        = False
@@ -279,6 +280,14 @@ class ThugOpts(dict):
         self._screenshot = screenshot
 
     screenshot = property(get_screenshot, set_screenshot)
+
+    def get_awis(self):
+        return self._awis
+
+    def set_awis(self, awis):
+        self._awis = awis
+
+    awis = property(get_awis, set_awis)
 
     def get_broken_url(self):
         return self._broken_url

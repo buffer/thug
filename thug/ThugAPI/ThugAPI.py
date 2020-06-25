@@ -308,6 +308,12 @@ class ThugAPI(object):
     def disable_screenshot(self):
         log.ThugOpts.screenshot = False
 
+    def enable_awis(self):
+        log.ThugOpts.awis = True
+
+    def disable_awis(self):
+        log.ThugOpts.awis = False
+
     def log_init(self, url):
         log.ThugLogging = ThugLogging(thug.__version__)
         log.ThugLogging.set_basedir(url)

@@ -291,6 +291,9 @@ class JSON(object):
         self.data["screenshots"].append({"url"        : self.fix(url),
                                          "screenshot" : content.decode()})
 
+    def log_awis(self, report):
+        self.data['awis'] = report
+
     def log_cookies(self):
         attrs = ('comment',
                  'comment_url',
