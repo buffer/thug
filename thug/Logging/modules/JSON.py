@@ -83,6 +83,7 @@ class JSON(object):
                         "exploits"    : [],
                         "classifiers" : [],
                         "images"      : [],
+                        "awis"        : [],
                         "screenshots" : []
                     }
 
@@ -292,7 +293,7 @@ class JSON(object):
                                          "screenshot" : content.decode()})
 
     def log_awis(self, report):
-        self.data['awis'] = report # pragma: no cover
+        self.data["awis"].append(report) # pragma: no cover
 
     def log_cookies(self):
         attrs = ('comment',
