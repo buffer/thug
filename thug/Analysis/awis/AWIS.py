@@ -56,7 +56,6 @@ class AWIS(object):
 
     def query(self, url):
         result = dict()
-        result['url'] = url
 
         if not log.ThugOpts.awis:
             return result
@@ -71,6 +70,9 @@ class AWIS(object):
         hostname = p_url.hostname
         if not hostname:
             return result
+
+        result['url'] = url
+        result['hostname'] = hostname
 
         urlinfo = self.awis_api.urlinfo(hostname)
 
