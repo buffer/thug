@@ -210,6 +210,14 @@ class TestThugAPI:
         self.thug_api.disable_honeyagent()
         assert not log.ThugOpts.honeyagent
 
+    def test_awis(self):
+        assert not log.ThugOpts.awis
+
+        self.thug_api.enable_awis()
+        assert log.ThugOpts.awis
+
+        self.thug_api.disable_awis()
+
     def test_code_logging(self):
         self.thug_api.enable_code_logging()
         assert log.ThugOpts.code_logging
