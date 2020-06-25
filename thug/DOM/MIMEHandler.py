@@ -331,7 +331,7 @@ class MIMEHandler(dict):
                 log.ThugLogging.log_image_ocr(url, ocr_result)
                 log.ImageClassifier.classify(url, ocr_result)
                 return True
-        except Exception as e:
+        except Exception as e: # pragma: no cover
             log.warning("[OCR] Error: %s", str(e))
 
         return False
