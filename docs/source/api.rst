@@ -580,6 +580,24 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def enable_awis():
+            """
+            enable_awis
+
+            Enable AWS Alexa Web Information Service (AWIS)
+
+            @return: None
+            """
+
+        def disable_awis():
+            """
+            disable_awis
+
+            Disable AWS Alexa Web Information Service (AWIS)
+
+            @return: None
+            """
+
         def log_init(url):
             """
             log_init
