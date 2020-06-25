@@ -131,7 +131,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('set_url'):
             m(url)
 
-        if log.ThugOpts.awis:
+        if log.ThugOpts.awis: # pragma: no cover
             report = log.ThugLogging.AWIS.query(url)
             if not report:
                 return

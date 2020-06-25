@@ -292,7 +292,7 @@ class JSON(object):
                                          "screenshot" : content.decode()})
 
     def log_awis(self, report):
-        self.data['awis'] = report
+        self.data['awis'] = report # pragma: no cover
 
     def log_cookies(self):
         attrs = ('comment',
