@@ -101,16 +101,16 @@ class _ActiveXObject(object):
             if log.ThugVulnModules.javaplugin_disabled or not cls.endswith(log.ThugVulnModules.javaplugin):
                 log.warning("Unknown ActiveX Object: %s", cls)
                 raise TypeError()
-            else:
-                _cls = 'javaplugin'
+
+            _cls = 'javaplugin'
 
         # JavaWebStart
         if cls.lower().startswith('javawebstart.isinstalled'):
             if log.ThugVulnModules.javaplugin_disabled or not cls.endswith(log.ThugVulnModules.javawebstart_isinstalled):
                 log.warning("Unknown ActiveX Object: %s", cls)
                 raise TypeError()
-            else:
-                _cls = 'javawebstart.isinstalled'
+
+            _cls = 'javawebstart.isinstalled'
 
         if cls in silverlight and log.ThugVulnModules.silverlight_disabled:
             log.warning("Unknown ActiveX Object: %s", cls)
