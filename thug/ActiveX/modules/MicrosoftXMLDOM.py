@@ -21,7 +21,7 @@ class Node(object):
         try:
             if self._dataType in ('bin.base64', ):
                 return base64.b64decode(self.text)
-            elif self._dataType in ('bin.hex', ):
+            if self._dataType in ('bin.hex', ):
                 return binascii.unhexlify(self.text)
         except Exception as e:
             log.info("[ERROR][getNodeTypedValue] %s", str(e))
