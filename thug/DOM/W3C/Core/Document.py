@@ -132,7 +132,7 @@ class Document(Node, DocumentEvent, DocumentView):
 
         tags = [t for t in self.doc if isinstance(t, bs4.Doctype)]
         if not tags:
-            return None
+            return None # pragma: no cover
 
         self._doctype = DocumentType(self.doc, tags[0])
         return self._doctype
