@@ -51,6 +51,7 @@ Let's start our Thug tour by taking a look at the options it provides.
         -z, --web-tracking              Enable web client tracking inspection
         -k, --no-honeyagent             Disable HoneyAgent support
         -a, --image-processing          Enable image processing analysis
+        -E, --awis                      Enable AWS Alexa Web Information Service (AWIS)
 
         Plugins:
         -A, --adobepdf=                 Specify the Adobe Acrobat Reader version (default: 9.1.0)
