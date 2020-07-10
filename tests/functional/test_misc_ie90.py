@@ -1315,3 +1315,11 @@ class TestMiscSamplesIE(object):
         expected = ['[Window] Alert Text: Hello world']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_jscript(self, caplog):
+        sample   = os.path.join(self.misc_path, "testJScript.html")
+        expected = ['Rule: IE=EmulateIE8',
+                    'Rule: JScript.Compact',
+                    'Rule: JScript.Encode']
+
+        self.do_perform_test(caplog, sample, expected)
