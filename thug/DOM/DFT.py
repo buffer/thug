@@ -1096,6 +1096,7 @@ class DFT(object):
         # and the webpage doesn't specify a <!DOCTYPE> directive.
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion >= 8:
             if http_equiv.lower() in ('x-ua-compatible', ):
+                log.ThugLogging.log_classifier("x-ua-compatible", log.ThugLogging.url, content)
                 self.window.doc.compatible = content
 
     def force_handle_meta_x_ua_compatible(self):
