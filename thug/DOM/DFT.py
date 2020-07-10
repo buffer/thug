@@ -704,6 +704,9 @@ class DFT(object):
         if language is None:
             return getattr(self, "handle_javascript")
 
+        if language.lower() in ('jscript.compact', 'jscript.encode', ):
+            language = language.lower().replace('.', '_')
+
         try:
             _language = language.lower().split('/')[-1]
         except Exception: # pragma: no cover
@@ -714,6 +717,13 @@ class DFT(object):
             _language = "javascript"
 
         return getattr(self, "handle_{}".format(_language), None)
+
+    def handle_jscript_compact(self, script):
+        log.ThugLogging.log_classifier("jscript", log.ThugLogging.url, 'JScript.Compact')
+        self.handle_jscript(script)
+
+    def handle_jscript_encode(self, script):
+        log.ThugLogging.log_classifier("jscript", log.ThugLogging.url, 'JScript.Encode')
 
     def handle_script(self, script):
         handler = self.get_script_handler(script)
