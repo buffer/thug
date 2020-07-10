@@ -307,7 +307,7 @@ class Navigator(JSClass):
         if last_url is None:
             last_url = self._window.url
 
-        if redirect_type in ('window open', 'frame', 'iframe', 'http-redirect', 'meta', ):
+        if redirect_type in ('frame', 'iframe', 'http-redirect', 'meta', ):
             if log.HTTPSession.check_equal_urls(url, last_url): # pragma: no cover
                 log.ThugLogging.add_behavior_warn("[Skipping {} redirection] {} -> {}".format(redirect_type, last_url, url), snippet = snippet)
                 return None
