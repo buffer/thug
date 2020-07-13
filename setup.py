@@ -59,6 +59,7 @@ setup(
     packages = find_packages(),
     data_files = [
         (thug.__configuration_path__, ["conf/thug.conf", ]),
+        (thug.__configuration_path__, ["conf/inspector.json", ]),
         (personalities_path         , glob.glob("thug/DOM/personalities/*.json")),
         (rules_path                 , glob.glob("thug/Classifier/rules/*.yar")),
         (scripts_path               , ["thug/DOM/thug.js",

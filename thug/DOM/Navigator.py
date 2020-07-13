@@ -363,13 +363,6 @@ class Navigator(JSClass):
         log.ThugLogging.add_behavior_warn("[HTTP] URL: {} (Content-type: {}, MD5: {})".format(response.url, ctype, data["md5"]), snippet = snippet)
         log.ThugLogging.log_location(url, data)
 
-        if response.history:
-            for h in response.history:
-                location = h.headers.get('location', None)
-
-                if location and redirect_type not in ("URL found", "JNLP", "iframe", ):
-                    self._window.url = log.HTTPSession.normalize_url(self._window, location)
-
         if redirect_type in ("meta", ):
             self._window.url = log.HTTPSession.normalize_url(self._window, url)
 
