@@ -364,9 +364,11 @@ class Navigator(JSClass):
         log.ThugLogging.log_location(url, data)
 
         if response.history:
-            location = response.headers.get('location', None)
-            if location and redirect_type not in ("URL found", "JNLP", "iframe", ):
-                self._window.url = log.HTTPSession.normalize_url(self._window, location)
+            for h in response.history:
+                location = h.headers.get('location', None)
+
+                if location and redirect_type not in ("URL found", "JNLP", "iframe", ):
+                    self._window.url = log.HTTPSession.normalize_url(self._window, location)
 
         if redirect_type in ("meta", ):
             self._window.url = log.HTTPSession.normalize_url(self._window, url)
