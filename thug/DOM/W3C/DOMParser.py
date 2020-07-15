@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-import bs4
+import logging
+
+log = logging.getLogger("Thug")
 
 
 class DOMParser(object):
@@ -8,4 +10,4 @@ class DOMParser(object):
         from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
 
         parser = "lxml" if 'xml' in type_ else "html.parser"
-        return DOMImplementation(bs4.BeautifulSoup(s, parser))
+        return DOMImplementation(log.HTMLInspector.run(s, parser))

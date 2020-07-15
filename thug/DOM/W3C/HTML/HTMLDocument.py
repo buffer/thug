@@ -338,7 +338,7 @@ class HTMLDocument(Document):
         html = "".join(self._html)
         self._html = None
 
-        self.doc = bs4.BeautifulSoup(html, "html5lib")
+        self.doc = log.HTMLInspector.run(html, "html5lib")
 
     def write(self, html):
         if log.ThugOpts.features_logging:
@@ -362,7 +362,9 @@ class HTMLDocument(Document):
         else:
             parent = body if body and tag.parent.name in ('html', ) else tag.parent
 
-        for tag in bs4.BeautifulSoup(html, "html.parser").contents:
+        soup = log.HTMLInspector.run(html, "html.parser")
+
+        for tag in soup.contents:
             if isinstance(tag, bs4.NavigableString):
                 child = list(parent.children)[-1]
 
@@ -390,7 +392,9 @@ class HTMLDocument(Document):
         if html == _html:
             return
 
-        for tag in bs4.BeautifulSoup(_html, "html.parser").contents:
+        soup = log.HTMLInspector.run(html, "html.parser")
+
+        for tag in soup.contents:
             name = getattr(tag, "name", None)
             if name in ("script", None, ):
                 continue

@@ -117,6 +117,7 @@ class Window(JSClass):
                  width = 800, height = 600, left = 0, top = None, **kwds):
 
         self.url = url
+
         self.doc = w3c.getDOMImplementation(dom_or_doc, **kwds) if isinstance(dom_or_doc, bs4.BeautifulSoup) else dom_or_doc
 
         self.doc.window        = self
@@ -1113,7 +1114,7 @@ class Window(JSClass):
             html = ''
             kwds = {}
 
-        dom = bs4.BeautifulSoup(html, "html5lib")
+        dom = log.HTMLInspector.run(html, "html5lib")
 
         for spec in specs.split(','):
             spec = [s.strip() for s in spec.split('=')]

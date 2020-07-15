@@ -35,6 +35,7 @@ from thug.DOM.W3C import w3c
 from thug.DOM.DFT import DFT
 from thug.DOM.Window import Window
 from thug.DOM.HTTPSession import HTTPSession
+from thug.DOM.HTMLInspector import HTMLInspector
 from thug.DOM.MIMEHandler import MIMEHandler
 from thug.DOM.SchemeHandler import SchemeHandler
 from thug.WebTracking.WebTracking import WebTracking
@@ -87,6 +88,7 @@ class ThugAPI(object):
         log.SchemeHandler   = SchemeHandler()
         log.Encoding        = Encoding()
         log.WebTracking     = WebTracking()
+        log.HTMLInspector   = HTMLInspector()
 
     def __init_classifiers(self):
         log.HTMLClassifier   = HTMLClassifier()

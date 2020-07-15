@@ -1,0 +1,5 @@
+{
+	"extract": [
+		"font[style$=\"font-size:0px\"]"
+	]
+}
