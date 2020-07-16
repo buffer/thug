@@ -58,11 +58,9 @@ class HTMLInspector(object):
             for s in self.rules[action]:
                 for p in soup.select(s):
                     m = getattr(p, action, None)
-                    if not m:
-                        continue
-
-                    m()
-                    modified = True
+                    if m:
+                        m()
+                        modified = True
 
         if modified:
             log.ThugLogging.add_behavior_warn(
