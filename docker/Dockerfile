@@ -48,6 +48,7 @@ RUN apt-get update && \
     libxslt-dev \
     tesseract-ocr \
     git \
+    wget \
     libtool \
     graphviz-dev \
     automake \
@@ -66,7 +67,10 @@ RUN pip3 install --upgrade setuptools
 RUN pip3 install --upgrade pytesseract
 WORKDIR /home
 
-RUN pip3 install https://github.com/area1/stpyv8/releases/download/v8.3.110.9/stpyv8-8.3.110.9-cp36-cp36m-linux_x86_64.whl
+RUN pip3 install https://github.com/area1/stpyv8/releases/download/v8.4.371.19/stpyv8-8.4.371.19-cp36-cp36m-linux_x86_64.whl
+RUN wget https://github.com/area1/stpyv8/releases/download/v8.4.371.19/icudtl.dat && \
+    mkdir -p /usr/share/stpyv8 && \
+    mv icudtl.dat /usr/share/stpyv8
 
 RUN git clone https://github.com/buffer/libemu.git && \
   cd libemu && \
