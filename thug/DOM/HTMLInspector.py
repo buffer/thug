@@ -33,7 +33,7 @@ class HTMLInspector(object):
         self.enabled = True
 
         conf_file = os.path.join(log.configuration_path, 'inspector.json')
-        if not os.path.exists(conf_file):
+        if not os.path.exists(conf_file): # pragma: no cover
             self.enabled = False
             return
 
