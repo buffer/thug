@@ -21,9 +21,6 @@ import logging
 import json
 
 import bs4
-from bs4.element import NavigableString
-from bs4.element import CData
-from bs4.element import Script
 
 log = logging.getLogger("Thug")
 
@@ -63,9 +60,14 @@ class HTMLInspector(object):
                         modified = True
 
         if modified:
+            try:
+                snippet = str(soup)
+            except Exception: # pragma: no cover
+                return
+
             log.ThugLogging.add_behavior_warn(
                 description = "[HTMLInspector] Detected potential code obfuscation",
-                snippet     = soup.get_text(types = (NavigableString, CData, Script)),
+                snippet     = snippet,
                 method      = "HTMLInspector deobfuscation")
 
-            log.HTMLClassifier.classify(self.inspect_url, str(soup))
+            log.HTMLClassifier.classify(self.inspect_url, snippet)
