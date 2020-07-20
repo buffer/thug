@@ -1323,3 +1323,9 @@ class TestMiscSamplesIE(object):
                     'Rule: JScript.Encode']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testExecCommand(self, caplog):
+         sample   = os.path.join(self.misc_path, "testExecCommand.html")
+         expected = []
+
+         self.do_perform_test(caplog, sample, expected)
