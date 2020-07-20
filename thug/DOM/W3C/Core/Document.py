@@ -281,4 +281,4 @@ class Document(Node, DocumentEvent, DocumentView):
         return None
 
     def execCommand(self, commandIdentifier, userInterface = False, value = None):
-        pass
+        return False
