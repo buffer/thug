@@ -1,25 +1,25 @@
 {
-    "oscpu": null, 
-    "product": null, 
-    "vendor": null, 
-    "description": "Internet Explorer 8.0\t(Windows 2000)", 
-    "buildID": null, 
-    "appName": "Microsoft Internet Explorer", 
-    "appCodeName": "Mozilla", 
-    "productSub": null, 
-    "appVersion": "5.0 (compatible; MSIE 8.0; Windows NT 5.0; Trident/4.0; rv:8.0; InfoPath.1; SV1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 3.0.04506.30)",
-    "appMinorVersion": ";SP2;", 
-    "platform": "Win32", 
-    "browserTag": "ie80", 
-    "version": "8.0", 
-    "vendorSub": null,
-	"ScriptEngineMajorVersion": 5,
-	"ScriptEngineMinorVersion": 1,
-	"ScriptEngineBuildVersion": 8513,
-    "javaUserAgent": "Mozilla/5.0 (Windows 2000 5.0) Java/%s", 
-    "userAgent": "Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.0; Trident/4.0; rv: 8.0; InfoPath.1; SV1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 3.0.04506.30)",
-    "cc_on": {
-        "_jscript_version": "5.8"
-    }, 
-    "id": 120102
+  "ScriptEngineBuildVersion": 8513,
+  "ScriptEngineMajorVersion": 5,
+  "ScriptEngineMinorVersion": 1,
+  "appCodeName": "Mozilla",
+  "appMinorVersion": ";SP2;",
+  "appName": "Microsoft Internet Explorer",
+  "appVersion": "5.0 (compatible; MSIE 8.0; Windows NT 5.0; Trident/4.0; rv:8.0; InfoPath.1; SV1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 3.0.04506.30)",
+  "browserTag": "ie80",
+  "buildID": null,
+  "cc_on": {
+    "_jscript_version": "5.8"
+  },
+  "description": "Internet Explorer 8.0\t(Windows 2000)",
+  "id": 120102,
+  "javaUserAgent": "Mozilla/5.0 (Windows 2000 5.0) Java/%s",
+  "oscpu": null,
+  "platform": "Win32",
+  "product": null,
+  "productSub": null,
+  "userAgent": "Mozilla/5.0 (compatible; MSIE 8.0; Windows NT 5.0; Trident/4.0; rv: 8.0; InfoPath.1; SV1; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 3.0.04506.30)",
+  "vendor": null,
+  "vendorSub": null,
+  "version": "8.0"
 }

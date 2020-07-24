@@ -1,25 +1,25 @@
 {
-    "oscpu": null, 
-    "product": null, 
-    "vendor": null, 
-    "description": "Internet Explorer 6.0\t(Windows 2000)", 
-    "buildID": null, 
-    "appName": "Microsoft Internet Explorer", 
-    "appCodeName": "Mozilla", 
-    "productSub": null, 
-    "appVersion": "4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)", 
-    "appMinorVersion": ";SP2;", 
-    "platform": "Win32", 
-    "browserTag": "ie60", 
-    "version": "6.0", 
-    "vendorSub": null, 
-    "ScriptEngineMajorVersion": 5,
-    "ScriptEngineMinorVersion": 1,
-    "ScriptEngineBuildVersion": 5907,
-    "javaUserAgent": "Mozilla/4.0 (Windows 2000 5.0) Java/%s", 
-    "userAgent": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)", 
-    "cc_on": {
-        "_jscript_version": "5.6"
-    }, 
-    "id": 120101
+  "ScriptEngineBuildVersion": 5907,
+  "ScriptEngineMajorVersion": 5,
+  "ScriptEngineMinorVersion": 1,
+  "appCodeName": "Mozilla",
+  "appMinorVersion": ";SP2;",
+  "appName": "Microsoft Internet Explorer",
+  "appVersion": "4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
+  "browserTag": "ie60",
+  "buildID": null,
+  "cc_on": {
+    "_jscript_version": "5.6"
+  },
+  "description": "Internet Explorer 6.0\t(Windows 2000)",
+  "id": 120101,
+  "javaUserAgent": "Mozilla/4.0 (Windows 2000 5.0) Java/%s",
+  "oscpu": null,
+  "platform": "Win32",
+  "product": null,
+  "productSub": null,
+  "userAgent": "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
+  "vendor": null,
+  "vendorSub": null,
+  "version": "6.0"
 }
