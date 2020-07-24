@@ -1,0 +1,17 @@
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v2.4.0
+      hooks:
+      - id: trailing-whitespace
+        files: \.py$
+      - id: end-of-file-fixer
+        files: \.py$
+      - id: debug-statements
+        language_version: python3
+        files: \.py$
+      - id: check-yaml
+      - id: check-merge-conflict
+        files: \.py$
+      - id: check-added-large-files
+      - id: check-json
+        exclude: tests/test_files/Mapper/test_error.json
