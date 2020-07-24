@@ -2,16 +2,21 @@ repos:
     - repo: https://github.com/pre-commit/pre-commit-hooks
       rev: v2.4.0
       hooks:
-      - id: trailing-whitespace
+      - id: check-added-large-files
+      - id: check-ast
+      - id: check-json
+        exclude: tests/test_files/Mapper/test_error.json
+      - id: check-merge-conflict
         files: \.py$
-      - id: end-of-file-fixer
-        files: \.py$
+      - id: check-yaml
       - id: debug-statements
         language_version: python3
         files: \.py$
-      - id: check-yaml
-      - id: check-merge-conflict
+      - id: end-of-file-fixer
         files: \.py$
-      - id: check-added-large-files
-      - id: check-json
+      - id: mixed-line-ending
+      - id: pretty-format-json
+        args: ['--autofix', ]
         exclude: tests/test_files/Mapper/test_error.json
+      - id: trailing-whitespace
+        files: \.py$
