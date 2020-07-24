@@ -15,11 +15,11 @@ class TestVirusTotal(object):
     samples_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files")
 
     pe_path = os.path.join(samples_path, "sample.exe")
-    
+
     def build_sample(self):
         with open(self.pe_path, "rb") as fd:
             data = fd.read()
-            
+
         sample = {
             'md5' : '52bfb8491cbf6c39d44d37d3c59ef406'
         }

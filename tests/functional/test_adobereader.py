@@ -17,12 +17,12 @@ class TestAdobeReader(object):
         thug.set_events('click,storage')
         thug.disable_cert_logging()
         thug.set_features_logging()
-        
+
         if adobe in ('disable', ):
             thug.disable_acropdf()
         else:
             thug.set_acropdf_pdf(adobe)
-        
+
         thug.log_init(sample)
         thug.run_local(sample)
 

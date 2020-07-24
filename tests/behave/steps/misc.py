@@ -35,7 +35,7 @@ class Misc(ThugAPI):
 
 @given('set of misc')
 def step_impl(context):
-    global misc 
+    global misc
     misc = Misc(context)
 
 @capture

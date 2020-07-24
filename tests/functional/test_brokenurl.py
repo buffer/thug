@@ -31,7 +31,7 @@ class TestBrokenURL(object):
     def test_broken_1(self, caplog):
         url      = 'https:/buffer.antifork.org'
         expected = ['[window open redirection] about:blank -> https://buffer.antifork.org', ]
-        
+
         self.do_perform_test(caplog, url, expected)
 
     def test_broken_2(self, caplog):

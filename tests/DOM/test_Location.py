@@ -7,7 +7,7 @@ class WindowDict(dict):
 
     def __getitem__(self, key):
         return self[key]
-    
+
 
 class TestLocation(object):
     def testParts(self):
@@ -15,7 +15,7 @@ class TestLocation(object):
         window.url = 'https://www.google.com:1234/search?&q=test'
 
         location = Location(window)
-        
+
         assert location.host == 'www.google.com:1234'
         assert location.hostname == 'www.google.com'
         assert location.pathname == '/search'

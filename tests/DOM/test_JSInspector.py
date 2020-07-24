@@ -14,7 +14,7 @@ log.personalities_path = os.path.join(configuration_path, "personalities") if co
 
 log.ThugOpts = ThugOpts()
 
-last_url = "https://www.google.com" 
+last_url = "https://www.google.com"
 log.last_url = last_url
 
 

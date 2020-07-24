@@ -17,10 +17,10 @@ class TestSilverLight(object):
         thug.set_events('click,storage')
         thug.disable_cert_logging()
         thug.set_features_logging()
-        
+
         if silverlight in ('disable', ):
             thug.disable_silverlight()
-        
+
         thug.log_init(sample)
         thug.run_local(sample)
 

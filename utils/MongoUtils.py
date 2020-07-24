@@ -83,7 +83,7 @@ class MongoUtils(object):
                 continue
 
             url = urls[0]['url']
-            print("%s\t| %s\t| %s" % (analysis['_id'], 
+            print("%s\t| %s\t| %s" % (analysis['_id'],
                                       url,
                                       analysis['timestamp']))
 
@@ -125,7 +125,7 @@ def main(args):
     port = 27017
 
     try:
-        options, args = getopt.getopt(args, 'hlr:M:', 
+        options, args = getopt.getopt(args, 'hlr:M:',
                                       ['help',
                                        'ls',
                                        'rm=',
@@ -147,7 +147,7 @@ def main(args):
     for option in options:
         if option[0] in ('-l', '--ls'):
             mongoutils.list_analyses()
-            
+
     for option in options:
         if option[0] in ('-r', '--rm'):
             analysis = mongoutils.query_analysis_by_id(option[1])

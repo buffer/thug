@@ -17,12 +17,12 @@ class TestShockwave(object):
         thug.set_events('click,storage')
         thug.disable_cert_logging()
         thug.set_features_logging()
-        
+
         if shockwave in ('disable', ):
             thug.disable_shockwave_flash()
         else:
             thug.set_shockwave_flash(shockwave)
-        
+
         thug.log_init(sample)
         thug.run_local(sample)
 
