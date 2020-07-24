@@ -20,3 +20,13 @@ repos:
         exclude: tests/test_files/Mapper/test_error.json
       - id: trailing-whitespace
         files: \.py$
+
+    - repo: https://github.com/PyCQA/bandit
+      rev: 1.6.2
+      hooks:
+      - id: bandit
+        language_version: python3
+        exclude: ^tests/
+        args:
+        - --recursive
+        - thug
