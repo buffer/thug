@@ -1,2 +1,2 @@
 [bandit]
-exclude: tests/,tools/
+exclude: thug/tests,./tests,thug/tools,./tools
