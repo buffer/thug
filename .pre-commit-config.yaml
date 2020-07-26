@@ -29,4 +29,6 @@ repos:
         exclude: (^tests/|^tools/)
         args:
         - --recursive
+        - --skip
+        - B311
         - thug
