@@ -43,7 +43,7 @@ class BaseLogging(object):
         m = hashlib.md5() # nosec
         m.update(url.encode('utf8'))
 
-        base = os.getenv('THUG_LOGBASE', os.pardir if os.access(os.pardir, os.W_OK) else '/tmp/thug')
+        base = os.getenv('THUG_LOGBASE', os.pardir if os.access(os.pardir, os.W_OK) else '/tmp/thug') # nosec
         self.baseDir = os.path.join(base, 'logs', m.hexdigest(), t.strftime("%Y%m%d%H%M%S"))
 
         if not log.ThugOpts.file_logging:
