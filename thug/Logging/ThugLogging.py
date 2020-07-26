@@ -326,7 +326,7 @@ class ThugLogging(BaseLogging, SampleLogging):
 
             ctype = h.headers.get('content-type', 'unknown')
 
-            md5 = hashlib.md5()
+            md5 = hashlib.md5() # nosec
             md5.update(h.content)
             sha256 = hashlib.sha256()
             sha256.update(h.content)

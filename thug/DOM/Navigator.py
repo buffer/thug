@@ -341,7 +341,7 @@ class Navigator(JSClass):
         ctype     = response.headers.get('content-type', 'unknown')
         mime_base = os.path.join(log.ThugLogging.baseDir, ctype)
 
-        md5 = hashlib.md5()
+        md5 = hashlib.md5() # nosec
         md5.update(response.content)
         sha256 = hashlib.sha256()
         sha256.update(response.content)

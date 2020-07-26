@@ -99,7 +99,7 @@ def _doRun(self, p, stage):
         if response is None or not response.ok:
             continue # pragma: no cover
 
-        md5 = hashlib.md5()
+        md5 = hashlib.md5() # nosec
         md5.update(response.content)
         md5sum = md5.hexdigest()
         sha256 = hashlib.sha256()

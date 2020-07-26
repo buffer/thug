@@ -40,7 +40,7 @@ class BaseLogging(object):
             return
 
         t = datetime.datetime.now()
-        m = hashlib.md5()
+        m = hashlib.md5() # nosec
         m.update(url.encode('utf8'))
 
         base = os.getenv('THUG_LOGBASE', os.pardir if os.access(os.pardir, os.W_OK) else '/tmp/thug')

@@ -145,7 +145,7 @@ class TextStream(object):
         data = {
             'content' : content,
             'status'  : 200,
-            'md5'     : hashlib.md5(_content).hexdigest(),
+            'md5'     : hashlib.md5(_content).hexdigest(), # nosec
             'sha256'  : hashlib.sha256(_content).hexdigest(),
             'fsize'   : len(content),
             'ctype'   : 'textstream',
