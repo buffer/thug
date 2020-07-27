@@ -30,5 +30,5 @@ repos:
         args:
         - --recursive
         - --skip
-        - B110,B112,B311
+        - B110,B112,B311,B410
         - thug
