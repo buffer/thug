@@ -8,7 +8,6 @@ repos:
         exclude: tests/test_files/Mapper/test_error.json
       - id: check-merge-conflict
         files: \.py$
-      - id: check-yaml
       - id: debug-statements
         language_version: python3
         files: \.py$
