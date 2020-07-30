@@ -175,6 +175,7 @@ class TestThugAPI:
         assert self.thug_api.get_threshold() in (5, )
 
     def test_extensive(self):
+        self.thug_api.reset_extensive()
         assert not self.thug_api.get_extensive()
 
         self.thug_api.set_extensive()

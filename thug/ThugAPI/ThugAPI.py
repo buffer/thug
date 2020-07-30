@@ -259,6 +259,9 @@ class ThugAPI(object):
     def set_extensive(self):
         log.ThugOpts.extensive = True
 
+    def reset_extensive(self):
+        log.ThugOpts.extensive = False
+
     def get_timeout(self):
         return log.ThugOpts.timeout
 

@@ -459,6 +459,15 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def reset_extensive():
+            """
+            reset_extensive
+
+            Reset the extensive fetch of linked pages mode
+
+            @return: None
+            """
+
         def get_connect_timeout():
             """
             get_connect_timeout
