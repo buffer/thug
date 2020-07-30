@@ -1318,12 +1318,10 @@ class DFT(object):
         return data
 
     def handle_a(self, anchor):
-        self.anchors.append(anchor)
+        log.info(anchor)
 
         if not log.ThugOpts.extensive:
             return
-
-        log.info(anchor)
 
         href = anchor.get('href', None)
         if not href: # pragma: no cover
@@ -1356,6 +1354,9 @@ class DFT(object):
 
                 dft = DFT(window)
                 dft.run()
+                return
+
+        self.anchors.append(anchor)
 
     def handle_link(self, link):
         log.info(link)
