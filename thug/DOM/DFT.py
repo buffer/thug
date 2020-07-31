@@ -1342,7 +1342,7 @@ class DFT(object):
             return
 
         content_type = response.headers.get('content-type', None)
-        if not content_type:
+        if not content_type: # pragma: no cover
             return
 
         handler = log.MIMEHandler.get_handler(content_type)
