@@ -1320,43 +1320,44 @@ class DFT(object):
     def handle_a(self, anchor):
         log.info(anchor)
 
-        if log.ThugOpts.extensive:
-            log.info(anchor)
-
-            href = anchor.get('href', None)
-            if not href: # pragma: no cover
-                return
-
-            if self._handle_data_uri(href):
-                return
-
-            try:
-                response = self.window._navigator.fetch(href, redirect_type = "anchor")
-            except Exception as e: # pragma: no cover
-                log.info("[ERROR][handle_a] %s", str(e))
-                return
-
-            if response is None or not response.ok: # pragma: no cover
-                return
-
-            # content_type = response.headers.get('content-type' , None)
-            # if content_type:
-            #    handler = log.MIMEHandler.get_handler(content_type)
-            #    if handler:
-            #        handler(self.window.url, response.content)
-            #        return
-            #
-            #    if content_type.startswith(('text/html', )):
-            #        from .Window import Window
-            #
-            #        doc    = w3c.parseString(response.content)
-            #        window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
-            #
-            #        dft = DFT(window)
-            #        dft.run()
-            #        return
-
         self.anchors.append(anchor)
+
+        if not log.ThugOpts.extensive:
+            return
+
+        href = anchor.get('href', None)
+        if not href: # pragma: no cover
+            return
+
+        if self._handle_data_uri(href):
+            return
+
+        try:
+            response = self.window._navigator.fetch(href, redirect_type = "anchor")
+        except Exception as e: # pragma: no cover
+            log.info("[ERROR][handle_a] %s", str(e))
+            return
+
+        if response is None or not response.ok: # pragma: no cover
+            return
+
+        content_type = response.headers.get('content-type', None)
+        if not content_type:
+            return
+
+        handler = log.MIMEHandler.get_handler(content_type)
+        if handler:
+            handler(self.window.url, response.content)
+            return
+
+        if content_type.startswith(('text/html', )):
+            from .Window import Window
+
+            doc    = w3c.parseString(response.content)
+            window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+
+            dft = DFT(window)
+            dft.run()
 
     def handle_link(self, link):
         log.info(link)
