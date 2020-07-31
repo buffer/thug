@@ -260,7 +260,7 @@ class TestThugAPI:
         os.remove(self.log_file)
         assert not os.path.isfile(self.log_file)
 
-    def test_log_quiet(self):
+    def _test_log_quiet(self):
         self.thug_api.set_log_quiet()
         handler = logging.getLogger().handlers[0]
         assert isinstance(handler.filters[0], OpaqueFilter)
