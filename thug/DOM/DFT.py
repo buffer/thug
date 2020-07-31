@@ -1321,6 +1321,8 @@ class DFT(object):
         log.info(anchor)
 
         if log.ThugOpts.extensive:
+            log.info(anchor)
+
             href = anchor.get('href', None)
             if not href: # pragma: no cover
                 return
@@ -1337,22 +1339,22 @@ class DFT(object):
             if response is None or not response.ok: # pragma: no cover
                 return
 
-            content_type = response.headers.get('content-type' , None)
-            if content_type:
-                handler = log.MIMEHandler.get_handler(content_type)
-                if handler:
-                    handler(self.window.url, response.content)
-                    return
-
-                if content_type.startswith(('text/html', )):
-                    from .Window import Window
-
-                    doc    = w3c.parseString(response.content)
-                    window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
-
-                    dft = DFT(window)
-                    dft.run()
-                    return
+            # content_type = response.headers.get('content-type' , None)
+            # if content_type:
+            #    handler = log.MIMEHandler.get_handler(content_type)
+            #    if handler:
+            #        handler(self.window.url, response.content)
+            #        return
+            #
+            #    if content_type.startswith(('text/html', )):
+            #        from .Window import Window
+            #
+            #        doc    = w3c.parseString(response.content)
+            #        window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+            #
+            #        dft = DFT(window)
+            #        dft.run()
+            #        return
 
         self.anchors.append(anchor)
 
