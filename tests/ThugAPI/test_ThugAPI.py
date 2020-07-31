@@ -449,8 +449,8 @@ class TestThugAPI:
         shutil.rmtree(self.log_url)
         assert not os.path.isdir(self.log_url)
 
-    def test_run_local(self):
-        pass
+    def test_log_quiet(self):
+        self.thug_api.set_log_quiet()
 
     def test_analyse(self):
         with pytest.raises(NotImplementedError):
