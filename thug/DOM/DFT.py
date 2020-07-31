@@ -1306,7 +1306,7 @@ class DFT(object):
             handler(self.window.url, data)
             return None
 
-        if mimetype in ('text/html', ):
+        if mimetype.startswith(('text/html', )):
             from .Window import Window
 
             doc    = w3c.parseString(data)
