@@ -1345,11 +1345,6 @@ class DFT(object):
         if not content_type: # pragma: no cover
             return
 
-        handler = log.MIMEHandler.get_handler(content_type)
-        if handler:
-            handler(self.window.url, response.content)
-            return
-
         if content_type.startswith(('text/html', )):
             from .Window import Window
 
