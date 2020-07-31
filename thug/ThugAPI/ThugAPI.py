@@ -330,7 +330,7 @@ class ThugAPI(object):
         fh = logging.FileHandler(output)
         log.addHandler(fh)
 
-    def set_log_quiet(self):
+    def set_log_quiet(self): # pragma: no cover
         root = logging.getLogger()
         for handler in root.handlers:
             if isinstance(handler, logging.StreamHandler):
