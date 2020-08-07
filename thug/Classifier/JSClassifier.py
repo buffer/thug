@@ -54,7 +54,7 @@ class JSClassifier(BaseClassifier):
         for match in self.filters.match(data = script):
             rule = match.rule
             meta = match.meta
-            tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("jsfilter", url, rule, tags, meta)
             ret = True
 

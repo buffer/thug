@@ -49,7 +49,7 @@ class URLClassifier(BaseClassifier):
 
             rule = match.rule
             meta = match.meta
-            tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("url", url, rule, tags, meta)
 
         for c in self.custom_classifiers:
@@ -61,7 +61,7 @@ class URLClassifier(BaseClassifier):
         for match in self.filters.match(data = url):
             rule = match.rule
             meta = match.meta
-            tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("urlfilter", url, rule, tags, meta)
             ret = True
 

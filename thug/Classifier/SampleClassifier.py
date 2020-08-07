@@ -46,7 +46,7 @@ class SampleClassifier(BaseClassifier):
 
             rule = match.rule
             meta = match.meta
-            tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("sample", md5, rule, tags, meta)
 
         for c in self.custom_classifiers:
@@ -58,7 +58,7 @@ class SampleClassifier(BaseClassifier):
         for match in self.filters.match(data = sample):
             rule = match.rule
             meta = match.meta
-            tags = ", ".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("samplefilter", md5, rule, tags, meta)
             ret = True
 
