@@ -30,6 +30,7 @@ class TestPyHooks(object):
 
         thug.set_useragent('win7ie90')
         thug.set_features_logging()
+        thug.set_ssl_verify()
         thug.set_connect_timeout(1)
         thug.add_urlclassifier(os.path.join(self.signatures_path, "url_signature_13.yar"))
         thug.register_pyhook("DFT", "do_handle_params", self.do_handle_params_hook)
