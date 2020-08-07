@@ -22,7 +22,7 @@ import logging
 import traceback
 import base64
 import numbers
-import collections
+import collections.abc
 import datetime
 import random
 import six.moves.urllib_parse as urllib
@@ -174,7 +174,7 @@ class Window(JSClass):
 
         prop = self.__dict__.setdefault('__properties__', {}).get(key, None)
 
-        if prop and isinstance(prop[0], collections.Callable):
+        if prop and isinstance(prop[0], collections.abc.Callable):
             return prop[0]()
 
         if log.ThugOpts.Personality.isIE() and key.lower() in ('wscript', 'wsh', ):

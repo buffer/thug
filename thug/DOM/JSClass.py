@@ -1,4 +1,4 @@
-import collections
+import collections.abc
 
 
 class JSClass(object):
@@ -18,11 +18,11 @@ class JSClass(object):
 
         prop = self.__dict__.setdefault('__properties__', {}).get(name, None)
 
-        if prop and isinstance(prop[0], collections.Callable):
+        if prop and isinstance(prop[0], collections.abc.Callable):
             return prop[0]()
 
         method = self.__methods__.get(name, None)
-        if method and isinstance(method, collections.Callable):
+        if method and isinstance(method, collections.abc.Callable):
             return method
 
         raise AttributeError(name)
@@ -30,7 +30,7 @@ class JSClass(object):
     def __setattr__(self, name, value):
         prop = self.__dict__.setdefault('__properties__', {}).get(name, None)
 
-        if prop and isinstance(prop[1], collections.Callable):
+        if prop and isinstance(prop[1], collections.abc.Callable):
             return prop[1](value)
 
         return object.__setattr__(self, name, value)
