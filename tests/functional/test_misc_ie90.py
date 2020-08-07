@@ -1288,7 +1288,7 @@ class TestMiscSamplesIE(object):
 
     def test_testDecodeURIComponent(self, caplog):
         sample   = os.path.join(self.misc_path, "testDecodeURIComponent.html")
-        expected = ['Alert Text: ~!@#$%^&*()=+[]{}\;:\'",/?']
+        expected = ['Alert Text: ~!@#$%^&*()=+[]{}\\;:\'",/?']
 
         self.do_perform_test(caplog, sample, expected)
 
