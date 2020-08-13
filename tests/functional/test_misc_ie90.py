@@ -834,8 +834,8 @@ class TestMiscSamplesIE(object):
     def test_testScriptingFileSystemObject(self, caplog):
         sample   = os.path.join(self.misc_path, "testScriptingFileSystemObject.html")
         expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Scripting.FileSystemObject)',
-                    '[Script.FileSystemObject ActiveX] Returning C:\\WINDOWS for GetSpecialFolder("0")',
-                    '[Script.FileSystemObject ActiveX] Returning C:\\WINDOWS\\system32 for GetSpecialFolder("1")',
+                    '[Scripting.FileSystemObject ActiveX] Returning C:\\WINDOWS for GetSpecialFolder("0")',
+                    '[Scripting.FileSystemObject ActiveX] Returning C:\\WINDOWS\\system32 for GetSpecialFolder("1")',
                     '[WScript.Shell ActiveX] Expanding environment string "%TEMP%"',
                     '[Window] Alert Text: FolderExists(\'C:\\Windows\\System32\'): true',
                     '[Window] Alert Text: FileExists(\'\'): true',
@@ -867,7 +867,7 @@ class TestMiscSamplesIE(object):
     def test_testTextStream(self, caplog):
         sample   = os.path.join(self.misc_path, "testTextStream.html")
         expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Scripting.FileSystemObject)',
-                    '[Script.FileSystemObject ActiveX] CreateTextFile("test.txt", "False", "False")',
+                    '[Scripting.FileSystemObject ActiveX] CreateTextFile("test.txt", "False", "False")',
                     '[After first write] ReadAll: foobar',
                     '[After first write] Line: 1',
                     '[After first write] Column: 7',
@@ -974,13 +974,13 @@ class TestMiscSamplesIE(object):
     def test_testFile(self, caplog):
         sample   = os.path.join(self.misc_path, "testFile.html")
         expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Scripting.FileSystemObject)',
-                    '[Script.FileSystemObject ActiveX] GetFile("D:\\ Program Files\\ Common Files\\test.txt")',
+                    '[Scripting.FileSystemObject ActiveX] GetFile("D:\\ Program Files\\ Common Files\\test.txt")',
                     '[File ActiveX] Path = D:\\ Program Files\\ Common Files\\test.txt, Attributes = 32',
                     'Drive (test.txt): D:',
                     'ShortPath (test.txt): D:\\\\ Progr~1\\\\ Commo~1\\\\test.txt',
                     'ShortName (test.txt): test.txt',
                     'Attributes: 1',
-                    '[Script.FileSystemObject ActiveX] GetFile("test2.txt")',
+                    '[Scripting.FileSystemObject ActiveX] GetFile("test2.txt")',
                     '[File ActiveX] Path = test2.txt, Attributes = 32',
                     'Drive (test2.txt): C:',
                     'ShortPath (test2.txt): test2.txt',

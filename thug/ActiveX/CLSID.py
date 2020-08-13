@@ -1066,6 +1066,7 @@ CLSID = [
                             'BuildPath'         : ScriptingFileSystemObject.BuildPath,
                             'CopyFile'          : ScriptingFileSystemObject.CopyFile,
                             'CreateTextFile'    : ScriptingFileSystemObject.CreateTextFile,
+                            'DeleteFile'        : ScriptingFileSystemObject.DeleteFile,
                             'FileExists'        : ScriptingFileSystemObject.FileExists,
                             'FolderExists'      : ScriptingFileSystemObject.FolderExists,
                             'GetExtensionName'  : ScriptingFileSystemObject.GetExtensionName,
