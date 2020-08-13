@@ -1471,7 +1471,9 @@ CLSID = [
         {
             'id'        : (),
             'name'      : 'wscript.shell',
-            'attrs'     : {},
+            'attrs'     : {
+                            'CurrentDirectory'          : 'C:\\Program Files',
+                          },
             'funcattrs' : {},
             'methods'   :
                           {
