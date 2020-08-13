@@ -1,0 +1,11 @@
+<html>
+<body>
+<script>
+	var obj = document.createElement("object");
+	obj.setAttribute("classid", "clsid:BD96C556-65A3-11D0-983A-00C04FC29E36");
+
+	var F = obj.CreateObject("Scripting.Encoder", "");
+	var data = F.EncodeScriptFile(".js", "alert(\"test\");", 0, "");
+</script>
+</body>
+</html>

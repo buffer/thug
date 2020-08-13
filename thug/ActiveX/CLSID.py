@@ -75,6 +75,7 @@ from .modules import RediffBolDownloaderAttack
 from .modules import RegistryPro
 from .modules import RisingScanner
 from .modules import RtspVaPgCtrl
+from .modules import ScriptingEncoder
 from .modules import ScriptingFileSystemObject
 from .modules import ShellApplication
 from .modules import Shockwave
@@ -1053,6 +1054,17 @@ CLSID = [
                           },
             'methods'   : {
                             'SetMP4Prefix'      : RtspVaPgCtrl.SetMP4Prefix,
+                          }
+        },
+
+        # Scripting.Encoder
+        {
+            'id'        : (),
+            'name'      : ( 'scripting.encoder', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'EncodeScriptFile'  : ScriptingEncoder.EncodeScriptFile,
                           }
         },
 

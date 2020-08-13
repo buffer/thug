@@ -849,6 +849,12 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testScriptingEncoder(self, caplog):
+        sample   = os.path.join(self.misc_path, "testScriptingEncoder.html")
+        expected = ['[Scripting.Encoder ActiveX] EncodeScriptFile(".js", "alert("test");", 0, ""', ]
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testHTMLOptionsCollection(self, caplog):
         sample   = os.path.join(self.misc_path, "testHTMLOptionsCollection.html")
         expected = ['length: 4',
