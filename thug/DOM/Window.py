@@ -997,7 +997,7 @@ class Window(JSClass):
 
         # %uxxxx format
         while i < len(s):
-            if s[i] == '"':
+            if s[i] == '"': # pragma: no cover
                 i += 1
                 continue
 

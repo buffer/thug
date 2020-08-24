@@ -128,7 +128,7 @@ class DFT(object):
         sc = list()
 
         while i < len(s):
-            if s[i] == '"':
+            if s[i] == '"': # pragma: no cover
                 i += 1
                 continue
 
