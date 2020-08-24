@@ -16,6 +16,7 @@ if (oReq != null) {
     oReq.open("GET", "https://buffer.github.io/thug/", true);
     oReq.onreadystatechange = handler;
     oReq.send();
+    oReq.waitForResponse(1);
 
     var contentType = oReq.getResponseHeader('Content-Type');
     oReq.abort();

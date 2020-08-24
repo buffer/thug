@@ -152,6 +152,10 @@ def send(self, varBody = None):
     return 0
 
 
+def waitForResponse(self, timeout):
+    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] waitForResponse(%s)" % (timeout, ))
+
+
 def setRequestHeader(self, bstrHeader, bstrValue):
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] setRequestHeaders('%s', '%s')" % (bstrHeader, bstrValue, ))
     self.requestHeaders[bstrHeader] = bstrValue

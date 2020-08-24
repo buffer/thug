@@ -75,6 +75,7 @@ from .modules import RediffBolDownloaderAttack
 from .modules import RegistryPro
 from .modules import RisingScanner
 from .modules import RtspVaPgCtrl
+from .modules import ScriptingEncoder
 from .modules import ScriptingFileSystemObject
 from .modules import ShellApplication
 from .modules import Shockwave
@@ -707,7 +708,12 @@ CLSID = [
         # MicrosoftXMLHTTP
         {
             'id'        : (),
-            'name'      : ( 'msxml2.xmlhttp', 'microsoft.xmlhttp', 'msxml2.xmlhttp.6.0'),
+            'name'      : (
+                            'msxml2.xmlhttp',
+                            'microsoft.xmlhttp',
+                            'msxml2.xmlhttp.6.0',
+                            'winhttp.winhttprequest.5.1',
+                          ),
             'attrs'     : {
                             'bstrMethod'            : '',
                             'bstrUrl'               : '',
@@ -747,6 +753,7 @@ CLSID = [
                             'addEventListener'      : MicrosoftXMLHTTP.addEventListener,
                             'removeEventListener'   : MicrosoftXMLHTTP.removeEventListener,
                             'dispatchEvent'         : MicrosoftXMLHTTP.dispatchEvent,
+                            'waitForResponse'       : MicrosoftXMLHTTP.waitForResponse
                           }
         },
 
@@ -1056,6 +1063,17 @@ CLSID = [
                           }
         },
 
+        # Scripting.Encoder
+        {
+            'id'        : (),
+            'name'      : ( 'scripting.encoder', ),
+            'attrs'     : {},
+            'funcattrs' : {},
+            'methods'   : {
+                            'EncodeScriptFile'  : ScriptingEncoder.EncodeScriptFile,
+                          }
+        },
+
         # Scripting.FileSystemObject
         {
             'id'        : (),
@@ -1066,6 +1084,7 @@ CLSID = [
                             'BuildPath'         : ScriptingFileSystemObject.BuildPath,
                             'CopyFile'          : ScriptingFileSystemObject.CopyFile,
                             'CreateTextFile'    : ScriptingFileSystemObject.CreateTextFile,
+                            'DeleteFile'        : ScriptingFileSystemObject.DeleteFile,
                             'FileExists'        : ScriptingFileSystemObject.FileExists,
                             'FolderExists'      : ScriptingFileSystemObject.FolderExists,
                             'GetExtensionName'  : ScriptingFileSystemObject.GetExtensionName,
@@ -1470,7 +1489,9 @@ CLSID = [
         {
             'id'        : (),
             'name'      : 'wscript.shell',
-            'attrs'     : {},
+            'attrs'     : {
+                            'CurrentDirectory'          : 'C:\\Program Files',
+                          },
             'funcattrs' : {},
             'methods'   :
                           {
