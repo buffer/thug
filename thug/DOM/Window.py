@@ -209,15 +209,12 @@ class Window(JSClass):
             context.locals[key] = _method
             return _method
 
-        if isinstance(symbol, (six.string_types,
-                               bool,
-                               numbers.Number,
-                               datetime.datetime)):
-            setattr(self, key, symbol)
-            context.locals[key] = symbol
-            return symbol
+        _types = (six.string_types,
+                  bool,
+                  numbers.Number,
+                  datetime.datetime)
 
-        if log.JSEngine.isJSObject(symbol):
+        if isinstance(symbol, _types) or log.JSEngine.isJSObject(symbol):
             setattr(self, key, symbol)
             context.locals[key] = symbol
             return symbol
