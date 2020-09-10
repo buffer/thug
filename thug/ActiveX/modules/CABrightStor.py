@@ -11,4 +11,4 @@ def AddColumn(self, arg0, arg1):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "CA BrightStor ActiveX",
                                           "Overflow in AddColumn")
-        log.DFT.check_shellcode(arg0)
+        log.ThugLogging.Shellcode.check_shellcode(arg0)

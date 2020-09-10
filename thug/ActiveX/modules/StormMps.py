@@ -11,7 +11,7 @@ def advancedOpen(self, arg0, arg1):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "MPS.StormPlayer.1 ActiveX",
                                           "advanceOpen Method Overflow")
-        log.DFT.check_shellcode(arg0)
+        log.ThugLogging.Shellcode.check_shellcode(arg0)
 
 
 def isDVDPath(self, arg0):
@@ -19,7 +19,7 @@ def isDVDPath(self, arg0):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "MPS.StormPlayer.1 ActiveX",
                                           "isDVDPath Method Overflow")
-        log.DFT.check_shellcode(arg0)
+        log.ThugLogging.Shellcode.check_shellcode(arg0)
 
 
 def rawParse(self, arg0):
@@ -27,7 +27,7 @@ def rawParse(self, arg0):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "MPS.StormPlayer.1 ActiveX",
                                           "rawParse Method Overflow")
-        log.DFT.check_shellcode(arg0)
+        log.ThugLogging.Shellcode.check_shellcode(arg0)
 
 
 def OnBeforeVideoDownload(self, arg0):
@@ -35,7 +35,7 @@ def OnBeforeVideoDownload(self, arg0):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "MPS.StormPlayer.1 ActiveX",
                                           "OnBeforeVideoDownload Method Overflow")
-        log.DFT.check_shellcode(arg0)
+        log.ThugLogging.Shellcode.check_shellcode(arg0)
 
 
 def SetURL(self, val):
@@ -45,7 +45,7 @@ def SetURL(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "MPS.StormPlayer.1 ActiveX",
                                           "URL Console Overflow")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)
 
 
 def SetbackImage(self, val):
@@ -55,7 +55,7 @@ def SetbackImage(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "MPS.StormPlayer.1 ActiveX",
                                           "backImage Console Overflow")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)
 
 
 def SettitleImage(self, val):
@@ -65,4 +65,4 @@ def SettitleImage(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "MPS.StormPlayer.1 ActiveX",
                                           "titleImage Console Overflow")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)

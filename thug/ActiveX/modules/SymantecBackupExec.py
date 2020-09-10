@@ -16,7 +16,7 @@ def Set_DOWText0(self, val):
                                           cve = 'CVE-2007-6016')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)
 
 
 def Set_DOWText6(self, val):
@@ -29,7 +29,7 @@ def Set_DOWText6(self, val):
                                           cve = 'CVE-2007-6016')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)
 
 
 def Set_MonthText0(self, val):
@@ -42,7 +42,7 @@ def Set_MonthText0(self, val):
                                           cve = 'CVE-2007-6016')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)
 
 
 def Set_MonthText11(self, val):
@@ -55,7 +55,7 @@ def Set_MonthText11(self, val):
                                           cve = 'CVE-2007-6016')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6016")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)
 
 
 def Save(self, a, b):

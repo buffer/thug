@@ -13,4 +13,4 @@ def SetAction(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Myspace UPloader ActiveX",
                                           "Overflow in Action property")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)

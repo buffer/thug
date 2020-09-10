@@ -11,7 +11,7 @@ def Install(self, arg):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "NamoInstaller ActiveX",
                                           "Overflow in Install method")
-        log.DFT.check_shellcode(arg)
+        log.ThugLogging.Shellcode.check_shellcode(arg)
 
     if str([arg]).find('http') > -1:
         log.ThugLogging.add_behavior_warn('[NamoInstaller ActiveX] Insecure download from URL %s' % (arg, ))

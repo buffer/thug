@@ -11,4 +11,4 @@ def TimeSpanFormat(self, arg0, arg1):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "DVRHOST Web CMS OCX ActiveX",
                                           "Overflow in TimeSpanFormat")
-        log.DFT.check_shellcode(arg1)
+        log.ThugLogging.Shellcode.check_shellcode(arg1)

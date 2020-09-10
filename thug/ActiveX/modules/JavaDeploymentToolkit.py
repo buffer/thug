@@ -34,11 +34,11 @@ def launchApp(self, pJNLP, pEmbedded = None, pVmArgs = None):
     cve_2013_2416 = False
     if len(pJNLP) > 32:
         cve_2013_2416 = True
-        log.DFT.check_shellcode(pJNLP)
+        log.ThugLogging.Shellcode.check_shellcode(pJNLP)
 
     if pEmbedded:
         cve_2013_2416 = True
-        log.DFT.check_shellcode(pEmbedded)
+        log.ThugLogging.Shellcode.check_shellcode(pEmbedded)
 
     if cve_2013_2416:
         log.ThugLogging.log_exploit_event(self._window.url,

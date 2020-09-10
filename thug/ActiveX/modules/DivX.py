@@ -11,4 +11,4 @@ def SetPassword(self, arg0):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "DivX Player ActiveX",
                                           "Overflow in SetPassword")
-        log.DFT.check_shellcode(arg0)
+        log.ThugLogging.Shellcode.check_shellcode(arg0)

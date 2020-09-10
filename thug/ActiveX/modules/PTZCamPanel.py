@@ -11,4 +11,4 @@ def ConnectServer(self, server, user):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "PTZCamPanel ActiveX",
                                           "Overflow in ConnectServer user arg")
-        log.DFT.check_shellcode(user)
+        log.ThugLogging.Shellcode.check_shellcode(user)

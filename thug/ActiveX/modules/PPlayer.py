@@ -10,7 +10,7 @@ def DownURL2(self, arg0, arg1, arg2, arg3):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Xunlei Thunder PPlayer ActiveX",
                                           "DownURL2 Overflow")
-        log.DFT.check_shellcode(arg0)
+        log.ThugLogging.Shellcode.check_shellcode(arg0)
 
 
 def SetFlvPlayerUrl(self, val):
@@ -20,7 +20,7 @@ def SetFlvPlayerUrl(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Xunlei Thunder PPlayer ActiveX",
                                           "FlvPlayerUrl Property Handling Buffer Overflow")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)
 
 
 def SetLogo(self, val):
@@ -30,4 +30,4 @@ def SetLogo(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Xunlei Thunder PPlayer ActiveX",
                                           "Remote Overflow Exploit in Logo property")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)

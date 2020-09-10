@@ -90,6 +90,7 @@ class DFT(object):
         self.forms             = kwds['forms'] if 'forms' in kwds else list()
         self._context          = None
         log.DFT                = self
+
         self._init_events()
         self._init_pyhooks()
 
@@ -122,142 +123,6 @@ class DFT(object):
             self._context = self.window.context
 
         return self._context
-
-    def build_shellcode(self, s):
-        i  = 0
-        sc = list()
-
-        while i < len(s):
-            if s[i] == '"': # pragma: no cover
-                i += 1
-                continue
-
-            if s[i] in ('%', ) and (i + 1) < len(s) and s[i + 1] == 'u':
-                if (i + 6) <= len(s):
-                    currchar = int(s[i + 2: i + 4], 16)
-                    nextchar = int(s[i + 4: i + 6], 16)
-                    sc.append(nextchar)
-                    sc.append(currchar)
-                    i += 6
-                elif (i + 3) <= len(s):
-                    currchar = int(s[i + 2: i + 4], 16)
-                    sc.append(currchar)
-                    i += 3
-            else:
-                sc.append(ord(s[i]))
-                i += 1
-
-        return bytes(sc)
-
-    def check_URLDownloadToFile(self, emu, snippet):
-        profile = emu.emu_profile_output.decode()
-
-        while True:
-            offset = profile.find('URLDownloadToFile')
-            if offset < 0:
-                break
-
-            profile = profile[offset:]
-
-            p = profile.split(';')
-            if len(p) < 2: # pragma: no cover
-                profile = profile[1:]
-                continue
-
-            p = p[1].split('"')
-            if len(p) < 3:
-                profile = profile[1:]
-                continue
-
-            url = p[1]
-            if url in log.ThugLogging.shellcode_urls: # pragma: no cover
-                return
-
-            try:
-                if self.window._navigator.fetch(url, redirect_type = "URLDownloadToFile", snippet = snippet) is None:
-                    log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = snippet)
-
-                log.ThugLogging.shellcode_urls.add(url)
-            except Exception:
-                log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = snippet)
-
-            profile = profile[1:]
-
-    def check_WinExec(self, emu, snippet):
-        profile = emu.emu_profile_output.decode()
-
-        while True:
-            offset = profile.find('WinExec')
-            if offset < 0:
-                break
-
-            profile = profile[offset:]
-
-            p = profile.split(';')
-            if not p: # pragma: no cover
-                profile = profile[1:]
-                continue
-
-            s = p[0].split('"')
-            if len(s) < 2: # pragma: no cover
-                profile = profile[1:]
-                continue
-
-            url = s[1]
-            if not url.startswith("\\\\"):
-                profile = profile[1:]
-                continue
-
-            if url in log.ThugLogging.shellcode_urls: # pragma: no cover
-                return
-
-            log.ThugLogging.shellcode_urls.add(url)
-
-            try:
-                url = url[2:].replace("\\", "/")
-                self.window._navigator.fetch(url, redirect_type = "WinExec", snippet = snippet)
-            except Exception:
-                log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed', snippet = snippet)
-
-            profile = profile[1:]
-
-    def check_shellcode(self, shellcode):
-        if not shellcode:
-            return
-
-        try:
-            sc = self.build_shellcode(shellcode)
-        except Exception as e: # pragma: no cover
-            log.info("Shellcode building error (%s)", str(e))
-            return
-
-        emu = pylibemu.Emulator(enable_hooks = False)
-        emu.run(sc)
-
-        if emu.emu_profile_output:
-            profile = emu.emu_profile_output.decode()
-
-            snippet = log.ThugLogging.add_shellcode_snippet(shellcode,
-                                                            "Assembly",
-                                                            "Shellcode",
-                                                            method = "Static Analysis")
-
-            log.ThugLogging.add_behavior_warn(description = "[Shellcode Profile] {}".format(profile),
-                                              snippet     = snippet,
-                                              method      = "Static Analysis")
-
-            self.check_URLDownloadToFile(emu, snippet)
-            self.check_WinExec(emu, snippet)
-
-        emu.free()
-
-    def check_shellcodes(self):
-        while True:
-            try:
-                shellcode = log.ThugLogging.shellcodes.pop()
-                self.check_shellcode(shellcode)
-            except KeyError:
-                break
 
     def get_evtObject(self, elem, evtType):
         from thug.DOM.W3C.Events.Event import Event
@@ -873,7 +738,7 @@ class DFT(object):
             self.check_strings_in_script(js)
             self.window.evalScript(js, tag = script)
 
-        self.check_shellcodes()
+        log.ThugLogging.Shellcode.check_shellcodes()
         self.check_anchors()
 
     def handle_jscript(self, script):
@@ -1594,4 +1459,4 @@ class DFT(object):
     def run(self):
         with self.context as ctx:  # pylint:disable=unused-variable
             self._run()
-            self.check_shellcodes()
+            log.ThugLogging.Shellcode.check_shellcodes()

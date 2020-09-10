@@ -11,4 +11,4 @@ def UploadLogs(self, url, arg):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Move Networks Quantum Streaming Player Control ActiveX",
                                           "Overflow in UploadLogs method")
-        log.DFT.check_shellcode(url)
+        log.ThugLogging.Shellcode.check_shellcode(url)

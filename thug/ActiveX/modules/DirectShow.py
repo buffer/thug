@@ -14,4 +14,4 @@ def Setdata(self, val):
                                       cve = 'CVE-2008-0015')
 
     log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0015")
-    log.DFT.check_shellcode(val)
+    log.ThugLogging.Shellcode.check_shellcode(val)

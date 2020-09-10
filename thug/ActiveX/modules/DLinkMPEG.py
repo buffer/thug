@@ -12,4 +12,4 @@ def SetUrl(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "D-Link MPEG4 SHM Audio Control ActiveX",
                                           "Overflow in Url property")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)
