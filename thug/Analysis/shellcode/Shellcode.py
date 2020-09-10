@@ -19,14 +19,18 @@
 
 import logging
 
-import pylibemu
+try:
+    import pylibemu
+    PYLIBEMU_MODULE = True
+except ImportError: # pragma: no cover
+    PYLIBEMU_MODULE = False
 
 log = logging.getLogger("Thug")
 
 
 class Shellcode(object):
     def __init__(self):
-        pass
+        self.enabled = any([PYLIBEMU_MODULE, ])
 
     @property
     def window(self):
@@ -130,14 +134,8 @@ class Shellcode(object):
 
         return bytes(sc)
 
-    def check_shellcode(self, shellcode):
-        if not shellcode:
-            return
-
-        try:
-            sc = self.build_shellcode(shellcode)
-        except Exception as e: # pragma: no cover
-            log.info("Shellcode building error (%s)", str(e))
+    def check_shellcode_pylibemu(self, shellcode, sc):
+        if not PYLIBEMU_MODULE: # pragma: no cover
             return
 
         emu = pylibemu.Emulator(enable_hooks = False)
@@ -159,6 +157,21 @@ class Shellcode(object):
             self.check_WinExec(emu, snippet)
 
         emu.free()
+
+    def check_shellcode(self, shellcode):
+        if not self.enabled: # pragma: no cover
+            return
+
+        if not shellcode:
+            return
+
+        try:
+            sc = self.build_shellcode(shellcode)
+        except Exception as e: # pragma: no cover
+            log.info("Shellcode building error (%s)", str(e))
+            return
+
+        self.check_shellcode_pylibemu(shellcode, sc)
 
     def check_shellcodes(self):
         while True:
