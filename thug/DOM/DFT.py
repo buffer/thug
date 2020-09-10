@@ -29,8 +29,6 @@ from bs4.element import Script
 
 from cssutils.parse import CSSParser
 
-import pylibemu
-
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.DOM.W3C import w3c
 
