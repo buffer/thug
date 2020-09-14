@@ -17,6 +17,7 @@ if (oReq != null) {
 	oReq.addEventListener("readystatechange", handler);
     oReq.open("GET", "https://raw.githubusercontent.com/buffer/thug/master/tests/test_files/sample.json", true);
 	oReq.send();
+	alert(responseBody);
 }
 
 </script>
