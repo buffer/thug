@@ -27,6 +27,7 @@ import logging
 import six
 import six.moves.configparser as ConfigParser
 
+from thug.Analysis.shellcode.Shellcode import Shellcode
 from thug.Analysis.virustotal.VirusTotal import VirusTotal
 from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
 from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
@@ -50,6 +51,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         SampleLogging.__init__(self)
 
         self.thug_version    = thug_version
+        self.Shellcode       = Shellcode()
         self.VirusTotal      = VirusTotal()
         self.HoneyAgent      = HoneyAgent()
         self.Features        = Features()

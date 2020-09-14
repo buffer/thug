@@ -13,4 +13,4 @@ def SetHandwriterFilename(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Lycos FileUploader ActiveX",
                                           "Overflow in HandwriterFilename property")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)

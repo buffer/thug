@@ -16,4 +16,4 @@ def GetDetailsString(self, arg0, arg1):
                                           cve = "CVE-2008-3008")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-3008")
-        log.DFT.check_shellcode(arg0)
+        log.ThugLogging.Shellcode.check_shellcode(arg0)

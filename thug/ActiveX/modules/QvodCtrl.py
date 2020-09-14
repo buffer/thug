@@ -14,4 +14,4 @@ def SetURL(self, val):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Qvod Player QvodCtrl Class ActiveX",
                                           "Overflow in URL property")
-        log.DFT.check_shellcode(val)
+        log.ThugLogging.Shellcode.check_shellcode(val)

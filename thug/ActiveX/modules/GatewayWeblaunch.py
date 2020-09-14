@@ -11,7 +11,7 @@ def DoWebLaunch(self, arg0, arg1, arg2, arg3):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Gateway Weblaunch ActiveX",
                                           "Overflow")
-        log.DFT.check_shellcode(arg1)
-        log.DFT.check_shellcode(arg3)
+        log.ThugLogging.Shellcode.check_shellcode(arg1)
+        log.ThugLogging.Shellcode.check_shellcode(arg3)
     else:
         log.ThugLogging.add_behavior_warn('[Gateway Weblaunch ActiveX] Trying to execute ' + arg1 + ' ' + arg2 + ' ' + arg3)

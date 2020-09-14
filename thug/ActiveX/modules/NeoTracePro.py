@@ -14,4 +14,4 @@ def TraceTarget(self, target):
                                           cve = 'CVE-2006-6707')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-6707")
-        log.DFT.check_shellcode(target)
+        log.ThugLogging.Shellcode.check_shellcode(target)

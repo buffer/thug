@@ -11,4 +11,4 @@ def SetUninstallName(self, arg):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Kingsoft AntiVirus ActiveX",
                                           "SetUninstallName Heap Overflow")
-        log.DFT.check_shellcode(arg)
+        log.ThugLogging.Shellcode.check_shellcode(arg)

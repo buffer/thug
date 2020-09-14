@@ -14,7 +14,7 @@ def hgs_startGame(self, arg):
                                           cve = 'CVE-2008-0647')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0647")
-        log.DFT.check_shellcode(arg)
+        log.ThugLogging.Shellcode.check_shellcode(arg)
 
 
 def hgs_startNotify(self, arg):
@@ -25,4 +25,4 @@ def hgs_startNotify(self, arg):
                                           cve = 'CVE-2008-0647')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0647")
-        log.DFT.check_shellcode(arg)
+        log.ThugLogging.Shellcode.check_shellcode(arg)

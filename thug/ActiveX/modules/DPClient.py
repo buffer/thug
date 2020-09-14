@@ -14,4 +14,4 @@ def DownURL2(self, arg0, *args):
                                           cve = "CVE-2007-5064")
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5064")
-        log.DFT.check_shellcode(arg0)
+        log.ThugLogging.Shellcode.check_shellcode(arg0)

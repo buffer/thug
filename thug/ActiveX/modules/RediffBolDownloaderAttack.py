@@ -10,4 +10,4 @@ def Seturl(self, val):
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "RediffBolDownloader ActiveX",
                                       "Overflow in url property")
-    log.DFT.check_shellcode(val)
+    log.ThugLogging.Shellcode.check_shellcode(val)

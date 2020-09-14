@@ -11,4 +11,4 @@ def definition(self, arg):
                                       cve = "CVE-2012-1889")  # pylint:disable=undefined-variable
 
     log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2012-1889")
-    log.DFT.check_shellcode(arg)
+    log.ThugLogging.Shellcode.check_shellcode(arg)

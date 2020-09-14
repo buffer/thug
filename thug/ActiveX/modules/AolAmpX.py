@@ -14,7 +14,7 @@ def AppendFileToPlayList(self, arg):
                                           cve = 'CVE-2007-6250')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6250")
-        log.DFT.check_shellcode(arg)
+        log.ThugLogging.Shellcode.check_shellcode(arg)
 
 
 def ConvertFile(self, *arg):
@@ -25,4 +25,4 @@ def ConvertFile(self, *arg):
                                           cve = 'CVE-2007-6250')
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-6250")
-        log.DFT.check_shellcode(arg[0])
+        log.ThugLogging.Shellcode.check_shellcode(arg[0])

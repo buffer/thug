@@ -10,4 +10,4 @@ def IEStartNative(self, arg0, arg1, arg2):
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Ourgame GLWorld GLIEDown2.dll ActiveX",
                                           "IEStartNative Method Buffer Overflow")
-        log.DFT.check_shellcode(arg0)
+        log.ThugLogging.Shellcode.check_shellcode(arg0)
