@@ -113,7 +113,7 @@ class Shellcode(object):
         sc = list()
 
         while i < len(s):
-            if s[i] == '"':
+            if s[i] == '"': # pragma: no cover
                 i += 1
                 continue
 
@@ -124,7 +124,7 @@ class Shellcode(object):
                     sc.append(nextchar)
                     sc.append(currchar)
                     i += 6
-                elif (i + 3) <= len(s):
+                elif (i + 3) <= len(s): # pragma: no cover
                     currchar = int(s[i + 2: i + 4], 16)
                     sc.append(currchar)
                     i += 3
