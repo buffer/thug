@@ -219,7 +219,7 @@ class Window(JSClass):
             context.locals[key] = symbol
             return symbol
 
-        raise AttributeError(key)
+        raise AttributeError(key) # pragma: no cover
 
     @property
     def closed(self):
