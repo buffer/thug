@@ -388,6 +388,20 @@ class TestMiscSamplesIE(object):
         expected = ["[Window] Alert Text: Request completed"]
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testMicrosoftXMLHTTPEvent8(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent8.html")
+        expected = ['window: [object Window]',
+                    'self: [object Window]',
+                    'top: [object Window]',
+                    'length: 0',
+                    'history: [object History]',
+                    'pageXOffset: 0',
+                    'pageYOffset: 0',
+                    'screen: [object Screen]',
+                    'screenLeft: 0',
+                    'screenX: 0',
+                    'confirm: true']
+
     def test_testCurrentScript(self, caplog):
         sample   = os.path.join(self.misc_path, "testCurrentScript.html")
         expected = ["[Window] Alert Text: This page has scripts",
