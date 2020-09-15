@@ -345,7 +345,7 @@ class MIMEHandler(dict):
             return
 
         if not self.do_perform_ocr_analysis(url, img):
-            self.do_perform_ocr_analysis(url, img.convert())
+            self.do_perform_ocr_analysis(url, img.convert()) # pragma: no cover
 
     def handle_zip(self, url, content):
         if len(content) < self.MIN_ZIP_FILE_SIZE: # pragma: no cover
