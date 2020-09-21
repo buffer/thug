@@ -824,3 +824,9 @@ class TestMiscSamplesIE(object):
         expected = ['Alert Text: 0']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testGetElementById(self, caplog):
+        sample   = os.path.join(self.misc_path, "testGetElementById.html")
+        expected = ['[object HTMLDivElement]']
+
+        self.do_perform_test(caplog, sample, expected)
