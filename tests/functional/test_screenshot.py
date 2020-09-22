@@ -35,10 +35,6 @@ class TestScreenshot(object):
 
         assert matches >= len(expected)
 
-    def test_google(self, caplog):
-        expected = []
-        self.do_perform_test(caplog, "https://www.google.com", expected)
-
     def test_antifork(self, caplog):
         expected = []
         self.do_perform_test(caplog, "https://buffer.antifork.org", expected)
