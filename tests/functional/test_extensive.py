@@ -80,8 +80,8 @@ class TestExtensive(object):
 
     def test_Anchors1(self, caplog):
         sample   = os.path.join(self.misc_path, "testAnchors1.html")
-        expected = ["[window open redirection] about:blank -> http://www.google.com",
-                    "[document.write] Deobfuscated argument: <a href=\"http://www.google.com\">Google</a>", ]
+        expected = ["[window open redirection] about:blank -> https://www.antifork.org",
+                    "[document.write] Deobfuscated argument: <a href=\"https://www.antifork.org\">Antifork Research</a>", ]
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -93,6 +93,6 @@ class TestExtensive(object):
 
     def test_Anchors3(self, caplog):
         sample   = os.path.join(self.misc_path, "testAnchors3.html")
-        expected = ["[window open redirection] about:blank -> http://www.google.com", ]
+        expected = ["[window open redirection] about:blank -> https://www.antifork.org", ]
 
         self.do_perform_test(caplog, sample, expected)
