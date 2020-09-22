@@ -103,7 +103,10 @@ class HTMLDocument(Document):
         _attr = self.getElementsByName(attr)
         if _attr:
             from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-            return DOMImplementation.createHTMLElement(self.doc, _attr[0])
+
+            tag = getattr(_attr[0], 'tag', None)
+            if tag:
+                return DOMImplementation.createHTMLElement(self.doc, tag)
 
         log.info("[HTMLDocument] Undefined: %s", attr)
         raise AttributeError
