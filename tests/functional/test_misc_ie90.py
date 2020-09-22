@@ -1355,3 +1355,9 @@ class TestMiscSamplesIE(object):
         expected = ['[object HTMLDivElement]']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testDomain(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDomain.html")
+        expected = ["document.domain = github.com"]
+
+        self.do_perform_test(caplog, sample, expected)
