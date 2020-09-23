@@ -674,7 +674,7 @@ class DFT(object):
         s = self.window.doc.createElement('script')
 
         for attr in script.attrs:
-            if attr.lower() not in ('src', ):
+            if attr.lower() not in ('src', ) and getattr(s, 'setAttribute', None):
                 s.setAttribute(attr, script.get(attr))
 
         self.handle_external_javascript_text(s, response)
