@@ -88,10 +88,7 @@ class HTTPSession(object):
             return 'http:%s' % (url, )
 
         base_url = urlparse.urlparse(window.url)
-        if not base_url.scheme:
-            return 'http:%s' % (url, )
-
-        return "%s:%s" % (base_url.scheme, url)
+        return "%s:%s" % (base_url.scheme, url) if base_url.scheme else "http:%s" % (url, )
 
     def _is_compatible(self, url, scheme):
         return url.startswith("%s:/" % (scheme, )) and not url.startswith("%s://" % (scheme, ))
