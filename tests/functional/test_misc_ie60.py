@@ -105,6 +105,14 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testCreateStyleSheetNoHead(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCreateStyleSheetNoHead.html")
+
+        expected = ['[Window] Alert Text: [object HTMLStyleElement]',
+                    '[Window] Alert Text: [object HTMLLinkElement]']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testDocumentAll(self, caplog):
         sample   = os.path.join(self.misc_path, "testDocumentAll.html")
         expected = ["http://www.google.com"]
