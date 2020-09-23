@@ -84,7 +84,7 @@ class HTMLDocument(Document):
 
     def __getattr__(self, attr):
         if attr in ('_listeners', ):
-            return self.tag._listeners
+            return self.tag._listeners # pragma: no cover
 
         if attr in ('getBoxObjectFor', ) and not log.ThugOpts.Personality.isFirefox():
             raise AttributeError
@@ -129,7 +129,7 @@ class HTMLDocument(Document):
 
     @property
     def _node(self):
-        return self
+        return self # pragma: no cover
 
     @property
     def parentNode(self):
