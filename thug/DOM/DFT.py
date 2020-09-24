@@ -555,7 +555,7 @@ class DFT(object):
                 ctx.eval("%s = 0;" % (newState.strip(), ))
                 try:
                     oldState = params.pop()
-                    ctx.eval("%s = 3;" % (oldState.strip(), ))
+                    ctx.eval("%s = 3;" % (oldState.strip(), )) # pragma: no cover
                 except Exception as e:
                     log.info("[ERROR][_handle_script_for_event] %s", str(e))
 
