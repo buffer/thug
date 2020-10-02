@@ -186,7 +186,7 @@ class Shellcode(object):
         rv = func(params)
 
         pCaller, szURL, szFileName, dwReserved, lpfnCB = params
-        log.warning(szURL)
+        self.retrieve_URLDownloadToFile(szURL)
 
         return rv
 
@@ -194,7 +194,8 @@ class Shellcode(object):
         rv = func(params)
 
         lpCmdLine, uCmdShow = params
-        log.warning(lpCmdLine)
+        if lpCmdLine.startswith("\\\\"):
+            self.retrieve_WinExec(lpCmdLine)
 
         return rv
 
