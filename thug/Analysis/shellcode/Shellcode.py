@@ -40,12 +40,25 @@ class Shellcode(object):
 
     def __init__(self):
         self.enabled = any([PYLIBEMU_MODULE, SPEAKEASY_MODULE, ])
+        self.snippet = None
 
     @property
     def window(self):
         return log.DFT.window
 
-    def check_URLDownloadToFile(self, emu, snippet):
+    def retrieve_URLDownloadToFile(self, url):
+        if url in log.ThugLogging.shellcode_urls: # pragma: no cover
+            return
+
+        try:
+            if self.window._navigator.fetch(url, redirect_type = "URLDownloadToFile", snippet = self.snippet) is None:
+                log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = self.snippet)
+
+            log.ThugLogging.shellcode_urls.add(url)
+        except Exception:
+            log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = self.snippet)
+
+    def check_URLDownloadToFile(self, emu):
         profile = emu.emu_profile_output.decode()
 
         while True:
@@ -66,20 +79,22 @@ class Shellcode(object):
                 continue
 
             url = p[1]
-            if url in log.ThugLogging.shellcode_urls: # pragma: no cover
-                return
-
-            try:
-                if self.window._navigator.fetch(url, redirect_type = "URLDownloadToFile", snippet = snippet) is None:
-                    log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = snippet)
-
-                log.ThugLogging.shellcode_urls.add(url)
-            except Exception:
-                log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = snippet)
-
+            self.retrieve_URLDownloadToFile(url)
             profile = profile[1:]
 
-    def check_WinExec(self, emu, snippet):
+    def retrieve_WinExec(self, url):
+        if url in log.ThugLogging.shellcode_urls: # pragma: no cover
+            return
+
+        log.ThugLogging.shellcode_urls.add(url)
+
+        try:
+            url = url[2:].replace("\\", "/")
+            self.window._navigator.fetch(url, redirect_type = "WinExec", snippet = self.snippet)
+        except Exception:
+            log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed', snippet = self.snippet)
+
+    def check_WinExec(self, emu):
         profile = emu.emu_profile_output.decode()
 
         while True:
@@ -104,17 +119,7 @@ class Shellcode(object):
                 profile = profile[1:]
                 continue
 
-            if url in log.ThugLogging.shellcode_urls: # pragma: no cover
-                return
-
-            log.ThugLogging.shellcode_urls.add(url)
-
-            try:
-                url = url[2:].replace("\\", "/")
-                self.window._navigator.fetch(url, redirect_type = "WinExec", snippet = snippet)
-            except Exception:
-                log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed', snippet = snippet)
-
+            self.retrieve_WinExec(url)
             profile = profile[1:]
 
     def build_shellcode(self, s):
@@ -150,17 +155,16 @@ class Shellcode(object):
                                                      "Shellcode",
                                                      method = "Static Analysis")
 
-    @staticmethod
-    def log_shellcode_profile(module, profile, snippet):
+    def log_shellcode_profile(self, module, profile):
         description = "[{}][Shellcode Profile] {}".format(module, profile)
 
         log.ThugLogging.add_behavior_warn(description = description,
-                                          snippet     = snippet,
+                                          snippet     = self.snippet,
                                           method      = "Static Analysis")
 
-    def check_shellcode_pylibemu(self, shellcode, sc, snippet):
-        if not PYLIBEMU_MODULE: # pragma: no cover
-            return snippet
+    def check_shellcode_pylibemu(self, shellcode, sc):
+        if not PYLIBEMU_MODULE:
+            return # pragma: no cover
 
         emu = pylibemu.Emulator(enable_hooks = False)
         emu.run(sc)
@@ -168,17 +172,15 @@ class Shellcode(object):
         if emu.emu_profile_output:
             profile = emu.emu_profile_output.decode()
 
-            if snippet is None:
-                snippet = self.build_snippet(shellcode)
+            if self.snippet is None:
+                self.snippet = self.build_snippet(shellcode)
 
-            self.log_shellcode_profile("LIBEMU", profile, snippet)
+            self.log_shellcode_profile("LIBEMU", profile)
 
-            self.check_URLDownloadToFile(emu, snippet)
-            self.check_WinExec(emu, snippet)
+            self.check_URLDownloadToFile(emu)
+            self.check_WinExec(emu)
 
         emu.free()
-
-        return snippet
 
     def hook_URLDownloadToFile(self, emu, api_name, func, params):
         rv = func(params)
@@ -186,15 +188,19 @@ class Shellcode(object):
         pCaller, szURL, szFileName, dwReserved, lpfnCB = params
         log.warning(szURL)
 
+        return rv
+
     def hook_WinExec(self, emu, api_name, func, params):
         rv = func(params)
 
         lpCmdLine, uCmdShow = params
         log.warning(lpCmdLine)
 
-    def check_shellcode_speakeasy(self, shellcode, sc, snippet):
+        return rv
+
+    def check_shellcode_speakeasy(self, shellcode, sc):
         if not SPEAKEASY_MODULE:
-            return snippet # pragma: no cover
+            return # pragma: no cover
 
         se = speakeasy.Speakeasy()
         se.add_api_hook(self.hook_URLDownloadToFile,
@@ -208,22 +214,18 @@ class Shellcode(object):
         address = se.load_shellcode(None, speakeasy.arch.ARCH_X86, data = sc)
         se.run_shellcode(address)
 
-        if snippet is None:
-            snippet = self.build_snippet(shellcode)
+        if self.snippet is None:
+            self.snippet = self.build_snippet(shellcode)
 
-        self.log_shellcode_profile("SPEAKEASY", se.get_report(), snippet)
-        return snippet
+        self.log_shellcode_profile("SPEAKEASY", se.get_report())
 
     def do_check_shellcode(self, shellcode, sc):
-        snippet = None
+        self.snippet = None
 
         for module in self.modules:
             m = getattr(self, "check_shellcode_{}".format(module), None)
-            if m is None:
-                continue # pragma: no cover
-
-            s = m(shellcode, sc, snippet)
-            snippet = s if snippet is None else snippet
+            if m:
+                m(shellcode, sc)
 
     def check_shellcode(self, shellcode):
         if not self.enabled: # pragma: no cover
