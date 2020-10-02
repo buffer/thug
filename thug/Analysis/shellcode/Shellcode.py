@@ -29,7 +29,7 @@ except ImportError: # pragma: no cover
 try:
     import speakeasy
     SPEAKEASY_MODULE = True
-except ImportError:
+except ImportError: # pragma: no cover
     SPEAKEASY_MODULE = False
 
 
@@ -183,7 +183,7 @@ class Shellcode(object):
 
     def check_shellcode_speakeasy(self, shellcode, sc, snippet):
         if not SPEAKEASY_MODULE:
-            return snippet
+            return snippet # pragma: no cover
 
         se = speakeasy.Speakeasy()
 
@@ -202,7 +202,7 @@ class Shellcode(object):
         for module in self.modules:
             m = getattr(self, "check_shellcode_{}".format(module), None)
             if m is None:
-                continue
+                continue # pragma: no cover
 
             s = m(shellcode, sc, snippet)
             snippet = s if snippet is None else snippet
