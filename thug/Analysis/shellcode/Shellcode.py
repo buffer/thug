@@ -17,7 +17,6 @@
 # MA  02111-1307  USA
 
 
-import pprint
 import logging
 
 try:
