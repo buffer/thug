@@ -17,6 +17,7 @@
 # MA  02111-1307  USA
 
 
+import pprint
 import logging
 
 try:
@@ -25,12 +26,21 @@ try:
 except ImportError: # pragma: no cover
     PYLIBEMU_MODULE = False
 
+try:
+    import speakeasy
+    SPEAKEASY_MODULE = True
+except ImportError:
+    SPEAKEASY_MODULE = False
+
+
 log = logging.getLogger("Thug")
 
 
 class Shellcode(object):
+    modules = ('pylibemu', 'speakeasy', )
+
     def __init__(self):
-        self.enabled = any([PYLIBEMU_MODULE, ])
+        self.enabled = any([PYLIBEMU_MODULE, SPEAKEASY_MODULE, ])
 
     @property
     def window(self):
@@ -134,9 +144,24 @@ class Shellcode(object):
 
         return bytes(sc)
 
-    def check_shellcode_pylibemu(self, shellcode, sc):
+    @staticmethod
+    def build_snippet(shellcode):
+        return log.ThugLogging.add_shellcode_snippet(shellcode,
+                                                     "Assembly",
+                                                     "Shellcode",
+                                                     method = "Static Analysis")
+
+    @staticmethod
+    def log_shellcode_profile(module, profile, snippet):
+        description = "[{}][Shellcode Profile] {}".format(module, profile)
+
+        log.ThugLogging.add_behavior_warn(description = description,
+                                          snippet     = snippet,
+                                          method      = "Static Analysis")
+
+    def check_shellcode_pylibemu(self, shellcode, sc, snippet):
         if not PYLIBEMU_MODULE: # pragma: no cover
-            return
+            return snippet
 
         emu = pylibemu.Emulator(enable_hooks = False)
         emu.run(sc)
@@ -144,19 +169,43 @@ class Shellcode(object):
         if emu.emu_profile_output:
             profile = emu.emu_profile_output.decode()
 
-            snippet = log.ThugLogging.add_shellcode_snippet(shellcode,
-                                                            "Assembly",
-                                                            "Shellcode",
-                                                            method = "Static Analysis")
+            if snippet is None:
+                snippet = self.build_snippet(shellcode)
 
-            log.ThugLogging.add_behavior_warn(description = "[Shellcode Profile] {}".format(profile),
-                                              snippet     = snippet,
-                                              method      = "Static Analysis")
+            self.log_shellcode_profile("LIBEMU", profile, snippet)
 
             self.check_URLDownloadToFile(emu, snippet)
             self.check_WinExec(emu, snippet)
 
         emu.free()
+
+        return snippet
+
+    def check_shellcode_speakeasy(self, shellcode, sc, snippet):
+        if not SPEAKEASY_MODULE:
+            return snippet
+
+        se = speakeasy.Speakeasy()
+
+        address = se.load_shellcode(None, speakeasy.arch.ARCH_X86, data = sc)
+        se.run_shellcode(address)
+
+        if snippet is None:
+            snippet = self.build_snippet(shellcode)
+
+        self.log_shellcode_profile("SPEAKEASY", se.get_report(), snippet)
+        return snippet
+
+    def do_check_shellcode(self, shellcode, sc):
+        snippet = None
+
+        for module in self.modules:
+            m = getattr(self, "check_shellcode_{}".format(module), None)
+            if m is None:
+                continue
+
+            s = m(shellcode, sc, snippet)
+            snippet = s if snippet is None else snippet
 
     def check_shellcode(self, shellcode):
         if not self.enabled: # pragma: no cover
@@ -171,7 +220,7 @@ class Shellcode(object):
             log.info("Shellcode building error (%s)", str(e))
             return
 
-        self.check_shellcode_pylibemu(shellcode, sc)
+        self.do_check_shellcode(shellcode, sc)
 
     def check_shellcodes(self):
         while True:
