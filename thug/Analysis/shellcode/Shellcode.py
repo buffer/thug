@@ -180,11 +180,30 @@ class Shellcode(object):
 
         return snippet
 
+    def hook_URLDownloadToFile(self, emu, api_name, func, params):
+        rv = func(params)
+
+        pCaller, szURL, szFileName, dwReserved, lpfnCB = params
+        log.warning(szURL)
+
+    def hook_WinExec(self, emu, api_name, func, params):
+        rv = func(params)
+
+        lpCmdLine, uCmdShow = params
+        log.warning(lpCmdLine)
+
     def check_shellcode_speakeasy(self, shellcode, sc, snippet):
         if not SPEAKEASY_MODULE:
             return snippet # pragma: no cover
 
         se = speakeasy.Speakeasy()
+        se.add_api_hook(self.hook_URLDownloadToFile,
+                        'urlmon',
+                        'URLDownloadToFile*')
+
+        se.add_api_hook(self.hook_WinExec,
+                        'kernel32',
+                        'WinExec')
 
         address = se.load_shellcode(None, speakeasy.arch.ARCH_X86, data = sc)
         se.run_shellcode(address)
