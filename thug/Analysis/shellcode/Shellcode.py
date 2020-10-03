@@ -194,8 +194,10 @@ class Shellcode(object):
         rv = func(params)
 
         lpCmdLine, uCmdShow = params
-        if lpCmdLine.startswith("\\\\"):
-            self.retrieve_WinExec(lpCmdLine)
+
+        uncs = [p.strip('"').strip("'") for p in lpCmdLine.split() if p.startswith("\\\\")]
+        for unc in uncs:
+            self.retrieve_WinExec(unc)
 
         return rv
 
