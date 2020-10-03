@@ -1,5 +1,5 @@
 PySocks==1.7.1
-beautifulsoup4==4.9.2
+beautifulsoup4==4.9.3
 cchardet==2.1.6
 cssutils==1.0.2
 html5lib==1.1
@@ -15,4 +15,4 @@ requests==2.24.0
 six==1.15.0
 ssdeep==3.4
 yara-python==4.0.2
-zope.interface==5.1.0
+zope.interface==5.1.2
