@@ -1055,10 +1055,18 @@ class DFT(object):
             return
 
         if response is None or not response.ok: # pragma: no cover
-            return
+            return # pragma: no cover
 
-        if getattr(response, 'thug_mimehandler_hit', False): # pragma: no cover
-            return
+        if response.url in log.ThugLogging.frames and log.ThugLogging.frames[response.url] >= 3:
+            return # pragma: no cover
+
+        if response.url not in log.ThugLogging.frames:
+            log.ThugLogging.frames[response.url] = 0
+
+        log.ThugLogging.frames[response.url] += 1
+
+        if getattr(response, 'thug_mimehandler_hit', False):
+            return # pragma: no cover
 
         doc    = w3c.parseString(response.content)
         window = Window(response.url, doc, personality = log.ThugOpts.useragent)

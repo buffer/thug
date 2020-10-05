@@ -66,6 +66,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.methods_cache   = dict()
         self.formats         = set()
         self.meta            = dict()
+        self.frames          = dict()
         self.url             = ""
 
         self.__init_hook_symbols()
