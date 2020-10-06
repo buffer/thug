@@ -231,8 +231,8 @@ class Shellcode(object):
                 m(shellcode, sc)
 
     def check_shellcode(self, shellcode):
-        if not self.enabled: # pragma: no cover
-            return
+        if not self.enabled:
+            return # pragma: no cover
 
         if not shellcode:
             return
