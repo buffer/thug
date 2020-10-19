@@ -3,7 +3,7 @@ beautifulsoup4==4.9.3
 cchardet==2.1.6
 cssutils==1.0.2
 html5lib==1.1
-lxml==4.5.2
+lxml==4.6.1
 networkx==2.5
 pefile==2019.4.18
 pygraphviz==1.6
