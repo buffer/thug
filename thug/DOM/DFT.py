@@ -586,7 +586,26 @@ class DFT(object):
         self.handle_jscript(script)
 
     def handle_jscript_encode(self, script):
+        from .JScriptEncode import JScriptEncode
+
         log.ThugLogging.log_classifier("jscript", log.ThugLogging.url, 'JScript.Encode')
+
+        decoder = JScriptEncode()
+        encoded = script.get_text(types = (NavigableString, CData, Script))
+        js = decoder.decode(encoded)
+
+        if not js:
+            return
+
+        if log.ThugOpts.code_logging:
+            log.ThugLogging.add_code_snippet(js, 'Javascript', 'Contained_Inside')
+
+        self.increase_script_chars_count('javascript', 'inline', js)
+        self.check_strings_in_script(js)
+        self.window.evalScript(js, tag = script)
+
+        log.ThugLogging.Shellcode.check_shellcodes()
+        self.check_anchors()
 
     def handle_script(self, script):
         handler = self.get_script_handler(script)
