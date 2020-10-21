@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# This code is derived from the awesome VBE Decoder authored by Didier Stevens 
+# This code is derived from the awesome VBE Decoder authored by Didier Stevens
 # and available at https://github.com/DidierStevens/DidierStevensSuite
 
 import re
