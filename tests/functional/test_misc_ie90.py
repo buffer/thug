@@ -1361,3 +1361,9 @@ class TestMiscSamplesIE(object):
         expected = ["document.domain = github.com"]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testJScriptEncode(self, caplog):
+        sample   = os.path.join(self.misc_path, "testJScriptEncode.html")
+        expected = ["this code should bE kept secret!!!!", ]
+
+        self.do_perform_test(caplog, sample, expected)
