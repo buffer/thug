@@ -67,8 +67,8 @@ RUN pip3 install --upgrade setuptools
 RUN pip3 install --upgrade pytesseract
 WORKDIR /home
 
-RUN pip3 install https://github.com/area1/stpyv8/releases/download/v8.6.395.10/stpyv8-8.6.395.10-cp36-cp36m-linux_x86_64.whl
-RUN wget https://github.com/area1/stpyv8/releases/download/v8.6.395.10/icudtl.dat && \
+RUN pip3 install https://github.com/area1/stpyv8/releases/download/v8.6.395.25/stpyv8-8.6.395.25-cp36-cp36m-linux_x86_64.whl
+RUN wget https://github.com/area1/stpyv8/releases/download/v8.6.395.25/icudtl.dat && \
     mkdir -p /usr/share/stpyv8 && \
     mv icudtl.dat /usr/share/stpyv8
 
