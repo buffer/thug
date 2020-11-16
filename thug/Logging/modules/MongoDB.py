@@ -141,8 +141,10 @@ class MongoDB(object):
             "timestamp"   : str(datetime.datetime.now()),
             "thug"        : {
                                 "version"            : thug.__version__,
-                                "jsengine"           : thug.__jsengine__,
-                                "jsengine_version"   : thug.__jsengine_version__,
+                                "jsengine" : {
+                                    "engine"         : thug.__jsengine__,
+                                    "version"        : thug.__jsengine_version__
+                                },
                                 "personality" : {
                                     "useragent"      : log.ThugOpts.useragent
                                 },
