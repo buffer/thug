@@ -124,7 +124,9 @@ class ThugAPI(object):
         self.analyze()
 
     def version(self):
-        print("Thug %s" % (thug.__version__, ))
+        print("Thug %s (JS Engine: %s v%s)" % (thug.__version__,
+                                               thug.__jsengine__,
+                                               thug.__jsengine_version__))
         sys.exit(0)
 
     def get_useragent(self):
@@ -320,7 +322,7 @@ class ThugAPI(object):
         log.ThugOpts.awis = False
 
     def log_init(self, url):
-        log.ThugLogging = ThugLogging(thug.__version__)
+        log.ThugLogging = ThugLogging()
         log.ThugLogging.set_basedir(url)
 
     def set_log_dir(self, logdir):

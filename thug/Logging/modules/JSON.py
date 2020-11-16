@@ -27,17 +27,19 @@ import datetime
 
 import six
 
+import thug
+
 from .Mapper import Mapper
 
 log = logging.getLogger("Thug")
 
 
 class JSON(object):
-    def __init__(self, thug_version, provider = False):
+    def __init__(self, provider = False):
         self._tools = ({
                         'id'          : 'json-log',
                         'Name'        : 'Thug',
-                        'Version'     : thug_version,
+                        'Version'     : thug.__version__,
                         'Vendor'      : None,
                         'Organization': 'The Honeynet Project',
                        }, )
@@ -53,7 +55,9 @@ class JSON(object):
                         "timestamp"   : str(datetime.datetime.now()),
                         "logtype"     : "json-log",
                         "thug"        : {
-                                        "version"            : thug_version,
+                                        "version"            : thug.__version__,
+                                        "jsengine"           : thug.__jsengine__,
+                                        "jsengine_version"   : thug.__jsengine_version__,
                                         "personality" : {
                                             "useragent"      : log.ThugOpts.useragent
                                             },

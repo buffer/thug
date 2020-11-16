@@ -27,14 +27,15 @@ try:
 except ImportError:  # pragma: no cover
     ELASTICSEARCH_MODULE = False
 
+
 from .JSON import JSON
 
 log = logging.getLogger("Thug")
 
 
 class ElasticSearch(JSON):
-    def __init__(self, thug_version):
-        JSON.__init__(self, thug_version, provider = True)
+    def __init__(self):
+        JSON.__init__(self, provider = True)
 
         self.enabled = False
 
