@@ -20,7 +20,7 @@ log.HTTPSession      = HTTPSession()
 log.URLClassifier    = URLClassifier()
 log.SampleClassifier = SampleClassifier()
 
-thug_logging = ThugLogging(thug.__version__)
+thug_logging = ThugLogging()
 
 
 class TestThugLogging:

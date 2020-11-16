@@ -27,15 +27,16 @@ import pymongo
 import gridfs
 from pymongo.errors import DuplicateKeyError
 
+import thug
+
 from .ExploitGraph import ExploitGraph
 
 log = logging.getLogger("Thug")
 
 
 class MongoDB(object):
-    def __init__(self, thug_version):
-        self.thug_version = thug_version
-        self.enabled      = True
+    def __init__(self):
+        self.enabled = True
 
         if not self.__init_config():
             return
@@ -139,7 +140,11 @@ class MongoDB(object):
             "url_id"      : self.url_id,
             "timestamp"   : str(datetime.datetime.now()),
             "thug"        : {
-                                "version"            : self.thug_version,
+                                "version"            : thug.__version__,
+                                "jsengine" : {
+                                    "engine"         : thug.__jsengine__,
+                                    "version"        : thug.__jsengine_version__
+                                },
                                 "personality" : {
                                     "useragent"      : log.ThugOpts.useragent
                                 },

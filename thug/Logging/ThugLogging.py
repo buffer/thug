@@ -46,11 +46,10 @@ log = logging.getLogger("Thug")
 class ThugLogging(BaseLogging, SampleLogging):
     eval_min_length_logging = 4
 
-    def __init__(self, thug_version):
+    def __init__(self):
         BaseLogging.__init__(self)
         SampleLogging.__init__(self)
 
-        self.thug_version    = thug_version
         self.Shellcode       = Shellcode()
         self.VirusTotal      = VirusTotal()
         self.HoneyAgent      = HoneyAgent()
@@ -103,7 +102,7 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         for name, module in LoggingModules.items():
             if self.check_module(name, config):
-                self.modules[name.strip()] = module(self.thug_version)
+                self.modules[name.strip()] = module()
 
         for m in self.modules.values():
             for fmt in getattr(m, 'formats', tuple()):

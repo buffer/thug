@@ -19,12 +19,12 @@ log = logging.getLogger("Thug")
 log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
 log.ThugOpts           = ThugOpts()
 log.configuration_path = configuration_path
-log.ThugLogging        = ThugLogging(thug.__version__)
+log.ThugLogging        = ThugLogging()
 log.ThugVulnModules    = ThugVulnModules()
 log.Encoding           = Encoding()
 log.PyHooks            = dict()
 
-json = JSON(thug.__version__)
+json = JSON()
 
 
 class TestJSON:

@@ -17,7 +17,7 @@ log.ThugOpts = ThugOpts()
 log.PyHooks  = dict()
 
 log.configuration_path = configuration_path
-log.ThugLogging = ThugLogging(thug.__version__)
+log.ThugLogging = ThugLogging()
 
 HAGENT = HoneyAgent.HoneyAgent()
 

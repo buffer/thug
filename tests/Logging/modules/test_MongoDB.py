@@ -21,7 +21,7 @@ log = logging.getLogger("Thug")
 log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
 log.ThugOpts           = ThugOpts()
 log.configuration_path = configuration_path
-log.ThugLogging        = ThugLogging(thug.__version__)
+log.ThugLogging        = ThugLogging()
 log.ThugVulnModules    = ThugVulnModules()
 log.Encoding           = Encoding()
 log.HTTPSession        = HTTPSession()
@@ -58,14 +58,14 @@ class TestMongoDB:
     with patch(pymongo.__name__ + '.MongoClient', new=mongomock.MongoClient), \
             patch('gridfs.Database', new=mongomock.database.Database):
         log.ThugOpts.mongodb_address = "mongodb://localhost:123"
-        mongo = MongoDB(thug.__version__)
+        mongo = MongoDB()
         log.ThugOpts.mongodb_address = None
 
     @patch(pymongo.__name__ + '.MongoClient', new=mongomock.MongoClient)
     @patch('gridfs.Database', new=mongomock.database.Database)
     def test_address(self):
         log.ThugOpts.mongodb_address = "syntax-error://localhost:123"
-        mongo = MongoDB(thug.__version__)
+        mongo = MongoDB()
         log.ThugOpts.mongodb_address = None
 
         assert not mongo.enabled
@@ -74,7 +74,7 @@ class TestMongoDB:
         """
             Testing for conf file 'thug.conf'
         """
-        mongo = MongoDB(thug.__version__)
+        mongo = MongoDB()
         assert not mongo.enabled
 
     def test_make_counter(self):
