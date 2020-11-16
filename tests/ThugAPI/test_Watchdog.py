@@ -22,7 +22,7 @@ log.ThugOpts         = ThugOpts()
 log.HTTPSession      = HTTPSession()
 log.URLClassifier    = URLClassifier()
 log.SampleClassifier = SampleClassifier()
-log.ThugLogging = ThugLogging(thug.__version__)
+log.ThugLogging      = ThugLogging()
 
 
 @patch('os.kill')
