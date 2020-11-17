@@ -197,7 +197,7 @@ dockerized Thug from the Honeynet Project’s Docker repository at <a class="ref
 </pre></div>
 </div>
 <p>Then mount your host ~/logs dir and enable it to keep the logs on the host</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ docker run -it -v ~/logs:/logs buffer/thug
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ docker run -it -v ~/logs:/logs --entrypoint /bin/bash buffer/thug
 </pre></div>
 </div>
 <p>Test the dockerized Thug inside the container analyzing 20 random samples</p>
