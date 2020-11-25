@@ -395,6 +395,8 @@ class HTMLDocument(Document):
             if handler:
                 handler(tag)
 
+        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.URL, str(self.tag))
+
         _html = "".join(self._html)
         if html == _html:
             return
