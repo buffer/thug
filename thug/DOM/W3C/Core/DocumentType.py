@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
+import logging
 import re
 
 from .Node import Node
+
+log = logging.getLogger("Thug")
 
 
 class DocumentType(Node):
@@ -40,7 +43,7 @@ class DocumentType(Node):
     # Modified in DOM Level 2
     @property
     def ownerDocument(self):
-        return self.doc
+        return log.DFT.window.doc
 
     # Introduced in DOM Level 2
     @property
@@ -55,7 +58,7 @@ class DocumentType(Node):
     # Introduced in DOM Level 2
     @property
     def internalSubset(self):
-        pass
+        return None
 
     # Introduced in DOM Level 3
     @property
