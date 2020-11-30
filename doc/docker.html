@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Docker &mdash; Thug 1.17 documentation</title>
+  <title>Docker &mdash; Thug 1.18 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.17
+                1.18
               </div>
             
           
@@ -197,7 +197,7 @@ dockerized Thug from the Honeynet Project’s Docker repository at <a class="ref
 </pre></div>
 </div>
 <p>Then mount your host ~/logs dir and enable it to keep the logs on the host</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ docker run -it -v ~/logs:/logs --entrypoint /bin/bash buffer/thug
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ docker run -it -v ~/logs:/logs buffer/thug
 </pre></div>
 </div>
 <p>Test the dockerized Thug inside the container analyzing 20 random samples</p>
