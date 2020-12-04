@@ -25,7 +25,6 @@ class TestThugAPI:
             self.thug_api.version()
 
     def test_useragent(self):
-        self.thug_api.set_useragent('winxpie60')
         assert self.thug_api.get_useragent() in ('winxpie60', )
 
         self.thug_api.set_useragent('winxpchrome20')
