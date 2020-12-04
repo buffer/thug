@@ -7,17 +7,18 @@ log = logging.getLogger("Thug")
 
 
 class TestMiscSamplesIE(object):
-    thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    misc_path = os.path.join(thug_path, "thug", "samples/misc")
+    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    misc_path = os.path.join(cwd_path, os.pardir, "samples/misc")
 
     def do_perform_test(self, caplog, sample, expected):
         thug = ThugAPI()
 
-        thug.set_useragent('winxpie70')
-        thug.set_events('click')
+        thug.set_useragent('win10ie110')
+        thug.set_events('click,storage')
         thug.set_connect_timeout(2)
         thug.disable_cert_logging()
         thug.set_features_logging()
+        thug.set_file_logging()
         thug.set_ssl_verify()
         thug.log_init(sample)
         thug.run_local(sample)
@@ -96,24 +97,30 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testCreateStyleSheet(self, caplog):
-        sample   = os.path.join(self.misc_path, "testCreateStyleSheet.html")
-        expected = ['[Window] Alert Text: style1.css',
-                    '[Window] Alert Text: style2.css',
-                    '[Window] Alert Text: style3.css',
-                    '[Window] Alert Text: style4.css']
+    def test_testCreateHTMLDocument(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCreateHTMLDocument.html")
+        expected = ['[object HTMLDocument]',
+                    '[object HTMLBodyElement]',
+                    '<p>This is a new paragraph.</p>']
 
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testDocumentAll(self, caplog):
-        sample   = os.path.join(self.misc_path, "testDocumentAll.html")
-        expected = ["http://www.google.com"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testDocumentWrite1(self, caplog):
         sample   = os.path.join(self.misc_path, "testDocumentWrite1.html")
         expected = ['Foobar',
                     "Google</a><script>alert('foobar');</script><script language=\"VBScript\">alert('Gnam');</script><script>alert('Aieeeeee');</script></body>"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testExternalSidebar(self, caplog):
+        sample   = os.path.join(self.misc_path, "testExternalSidebar.html")
+        expected = ['[Window] Alert Text: Internet Explorer >= 7.0 or Chrome']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testGetElementsByClassName(self, caplog):
+        sample   = os.path.join(self.misc_path, "testGetElementsByClassName.html")
+        expected = ['First',
+                    'Hello World!',
+                    'Second']
         self.do_perform_test(caplog, sample, expected)
 
     def test_testInnerHTML(self, caplog):
@@ -131,6 +138,13 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testLocalStorage(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocalStorage.html")
+        expected = ["Alert Text: Fired",
+                    "Alert Text: bar",
+                    "Alert Text: south"]
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testPlugins(self, caplog):
         sample   = os.path.join(self.misc_path, "testPlugins.html")
         expected = ["Shockwave Flash 10.0.64.0",
@@ -138,19 +152,9 @@ class TestMiscSamplesIE(object):
                     "Adobe Acrobat"]
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testMetaXUACompatibleEdge(self, caplog):
-        sample   = os.path.join(self.misc_path, "testMetaXUACompatibleEdge.html")
-        expected = ["[Window] Alert Text: 7"]
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testMetaXUACompatibleEmulateIE(self, caplog):
         sample   = os.path.join(self.misc_path, "testMetaXUACompatibleEmulateIE.html")
-        expected = ["[Window] Alert Text: 7"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testMetaXUACompatibleIE(self, caplog):
-        sample   = os.path.join(self.misc_path, "testMetaXUACompatibleIE.html")
-        expected = ["[Window] Alert Text: 7"]
+        expected = ["[Window] Alert Text: 8"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testNode(self, caplog):
@@ -165,6 +169,19 @@ class TestMiscSamplesIE(object):
                     "thediv2"]
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testQuerySelector(self, caplog):
+        sample   = os.path.join(self.misc_path, "testQuerySelector.html")
+        expected = ["Alert Text: Have a Good life.",
+                    "CoursesWeb.net"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testQuerySelector2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testQuerySelector2.html")
+        expected = ['CoursesWeb.net',
+                    "MarPlo.net",
+                    'php.net']
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testScope(self, caplog):
         sample   = os.path.join(self.misc_path, "testScope.html")
         expected = ["foobar",
@@ -175,6 +192,14 @@ class TestMiscSamplesIE(object):
                     "2012-10-07 11:13:00",
                     "3.14159265359",
                     "/foo/i"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testSessionStorage(self, caplog):
+        sample   = os.path.join(self.misc_path, "testSessionStorage.html")
+        expected = ["key1",
+                    "key2",
+                    "value1",
+                    "value3"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testSetInterval(self, caplog):
@@ -231,7 +256,7 @@ class TestMiscSamplesIE(object):
 
     def test_testCCInterpreter(self, caplog):
         sample   = os.path.join(self.misc_path, "testCCInterpreter.html")
-        expected = ['JavaScript version: 5.7',
+        expected = ['JavaScript version: 11',
                     'Running on the 32-bit version of Windows']
         self.do_perform_test(caplog, sample, expected)
 
@@ -299,8 +324,8 @@ class TestMiscSamplesIE(object):
         sample   = os.path.join(self.misc_path, "testReplaceChild.html")
         expected = ['firstChild: Old child',
                     'lastChild: Old child',
-                    'innerText: Old child',
-                    '[ERROR] Attempting to replace with a null element',
+                    '[innerText: Old child',
+                    'ERROR] Attempting to replace with a null element',
                     '[ERROR] Attempting to replace a null element',
                     '[ERROR] Attempting to replace with an invalid element',
                     '[ERROR] Attempting to replace an invalid element',
@@ -325,6 +350,29 @@ class TestMiscSamplesIE(object):
     def test_testDocumentFragment2(self, caplog):
         sample   = os.path.join(self.misc_path, "testDocumentFragment2.html")
         expected = ["<div id=\"foobar\"><b>This is B</b></div>", ]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDocumentFragment3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentFragment3.html")
+        expected = ["foo:bar", ]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testClassList1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testClassList1.html")
+        expected = ['[Initial value] <div class="foo"></div>',
+                    '[After remove and add] <div class="anotherclass"></div>',
+                    '[Item] anotherclass',
+                    '[Empty item] null',
+                    '[Toggle visible] true',
+                    '[After toggle] <div class="anotherclass"></div>']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testClassList4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testClassList4.html")
+        expected = ['[After remove and add] <div class="anotherclass"></div>', ]
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -389,12 +437,6 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_createElement(self, caplog):
-        sample   = os.path.join(self.misc_path, "testCreateElement.html")
-        expected = ['[object HTMLParagraphElement]']
-
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testDocumentElement(self, caplog):
         sample   = os.path.join(self.misc_path, "testDocumentElement.html")
         expected = ['<a href="http://www.google.com">Google</a>']
@@ -417,10 +459,11 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testHTMLCollection(self, caplog):
-        sample   = os.path.join(self.misc_path, "testHTMLCollection.html")
-        expected = ['<div id="odiv1">Page one</div>',
-                    '<div name="odiv2">Page two</div>']
+    def test_testCDATASection(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCDATASection.html")
+        expected = ['nodeName: #cdata-section',
+                    'nodeType: 4',
+                    '<xml>&lt;![CDATA[Some &lt;CDATA&gt; data &amp; then some]]&gt;</xml>']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -428,6 +471,16 @@ class TestMiscSamplesIE(object):
         sample   = os.path.join(self.misc_path, "testApplyElement.html")
         expected = ['<div id="outer"><div id="test"><div>Just a sample</div></div></div>',
                     '<div id="outer"><div>Just a div<div id="test"><div>Just a sample</div></div></div></div>']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testProcessingInstruction(self, caplog):
+        sample   = os.path.join(self.misc_path, "testProcessingInstruction.html")
+        expected = ['[object ProcessingInstruction]',
+                    'nodeName: xml-stylesheet',
+                    'nodeType: 7',
+                    'nodeValue: href="mycss.css" type="text/css"',
+                    'target: xml-stylesheet']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -463,8 +516,8 @@ class TestMiscSamplesIE(object):
         sample   = os.path.join(self.misc_path, "testNavigator.html")
         expected = ['window: [object Window]',
                     'appCodeName: Mozilla',
-                    'appName: Microsoft Internet Explorer',
-                    'appVersion: 4.0 (Windows; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)',
+                    'appName: Netscape',
+                    'appVersion: 5.0 (Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; InfoPath.3; rv:11.0) like Gecko',
                     'cookieEnabled: true',
                     'onLine: true',
                     'platform: Win32']
@@ -734,5 +787,23 @@ class TestMiscSamplesIE(object):
         sample   = os.path.join(self.misc_path, "testMSXML2Document.html")
         expected = ['[MSXML2.DOMDocument] Microsoft XML Core Services MSXML Uninitialized Memory Corruption',
                     'CVE-2012-1889']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testConsole(self, caplog):
+        sample   = os.path.join(self.misc_path, "testConsole.html")
+        expected = ['[object Console]',
+                    '[Console] assert(True, \'Test assert\')',
+                    '[Console] count() = 1',
+                    '[Console] count(\'foobar\') = 1',
+                    '[Console] count(\'foobar\') = 2',
+                    '[Console] error(\'Test error\')',
+                    '[Console] log(\'Hello world!\')',
+                    '[Console] group()',
+                    '[Console] log(\'Hello again, this time inside a group!\')',
+                    '[Console] groupEnd()',
+                    '[Console] groupCollapsed()',
+                    '[Console] info(\'Hello again\')',
+                    '[Console] warn(\'Hello again\')']
 
         self.do_perform_test(caplog, sample, expected)

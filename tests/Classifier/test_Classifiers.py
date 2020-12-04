@@ -11,9 +11,9 @@ log = logging.getLogger("Thug")
 
 class TestClassifiers:
     cwd_path        = os.path.dirname(os.path.realpath(__file__))
-    samples_path    = os.path.join(cwd_path, os.pardir, os.pardir, "samples/classifiers")
-    test_files_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files")
-    signatures_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/signatures")
+    samples_path    = os.path.join(cwd_path, os.pardir, "samples/classifiers")
+    test_files_path = os.path.join(cwd_path, os.pardir, "test_files")
+    signatures_path = os.path.join(cwd_path, os.pardir, "signatures")
 
     def sample_passthrough(self, sample, md5):
         pass

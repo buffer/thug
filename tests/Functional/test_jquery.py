@@ -7,8 +7,8 @@ log = logging.getLogger("Thug")
 
 
 class TestJQuerySamples(object):
-    thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    jquery_path = os.path.join(thug_path, "thug", "samples/jQuery")
+    cwd_path    = os.path.dirname(os.path.realpath(__file__))
+    jquery_path = os.path.join(cwd_path, os.pardir, "samples/jQuery")
 
     def do_perform_test(self, caplog, sample, expected):
         thug = ThugAPI()

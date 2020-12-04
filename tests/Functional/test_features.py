@@ -8,9 +8,9 @@ log = logging.getLogger("Thug")
 
 
 class TestFeatures(object):
-    thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    features_path = os.path.join(thug_path, "thug", "samples/features")
-    expected_path = os.path.join(thug_path, "thug/tests/functional/features.json")
+    cwd_path      = os.path.dirname(os.path.realpath(__file__))
+    features_path = os.path.join(cwd_path, os.pardir, "samples/features")
+    expected_path = os.path.join(cwd_path, "features.json")
 
     with open(expected_path) as fd:
         expected = json.load(fd)

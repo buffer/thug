@@ -7,9 +7,6 @@ log = logging.getLogger("Thug")
 
 
 class TestScreenshot(object):
-    thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    misc_path = os.path.join(thug_path, "thug", "samples/misc")
-
     def do_perform_test(self, caplog, url, expected, type_ = "remote"):
         thug = ThugAPI()
 

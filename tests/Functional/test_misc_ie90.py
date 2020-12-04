@@ -7,19 +7,26 @@ log = logging.getLogger("Thug")
 
 
 class TestMiscSamplesIE(object):
-    thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    misc_path = os.path.join(thug_path, "thug", "samples/misc")
+    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    misc_path = os.path.join(cwd_path, os.pardir, "samples/misc")
 
-    def do_perform_test(self, caplog, sample, expected):
+    def do_perform_test(self, caplog, sample, expected, nofetch = False):
+        xmlhttp = getattr(log, 'XMLHTTP', None)
+        if xmlhttp:
+            delattr(log, 'XMLHTTP')
+
         thug = ThugAPI()
 
-        thug.set_useragent('win7ie100')
+        thug.set_useragent('win7ie90')
         thug.set_events('click,storage')
         thug.set_connect_timeout(2)
         thug.disable_cert_logging()
-        thug.set_file_logging()
-        thug.set_features_logging()
         thug.set_ssl_verify()
+        thug.set_features_logging()
+
+        if nofetch:
+            thug.set_no_fetch()
+
         thug.log_init(sample)
         thug.run_local(sample)
 
@@ -64,6 +71,11 @@ class TestMiscSamplesIE(object):
     def test_test3(self, caplog):
         sample   = os.path.join(self.misc_path, "test3.html")
         expected = ['[Window] Alert Text: foo']
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_test4(self, caplog):
+        sample   = os.path.join(self.misc_path, "test4.js")
+        expected = ['[Window] Alert Text: Test']
         self.do_perform_test(caplog, sample, expected)
 
     def test_testAppendChild(self, caplog):
@@ -166,9 +178,62 @@ class TestMiscSamplesIE(object):
                     "Adobe Acrobat"]
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testLocation1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation1.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation1_nofetch(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation1.html")
+        expected = ["Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
+        self.do_perform_test(caplog, sample, expected, nofetch = True)
+
+    def test_testLocation2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation2.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation3.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation4.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation5(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation5.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation6(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation6.html")
+        expected = ["[HREF Redirection (document.location)]",
+                    "Content-Location: about:blank --> Location: https://buffer.github.io/thug/"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation7(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation7.html")
+        expected = ["[window open redirection] about:blank -> https://buffer.antifork.org"]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testLocation8(self, caplog):
+        sample   = os.path.join(self.misc_path, "testLocation8.html")
+        expected = ["[window open redirection] about:blank -> https://buffer.antifork.org"]
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testMetaXUACompatibleEdge(self, caplog):
         sample   = os.path.join(self.misc_path, "testMetaXUACompatibleEdge.html")
-        expected = ["[Window] Alert Text: 10"]
+        expected = ["[Window] Alert Text: 9"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testMetaXUACompatibleEmulateIE(self, caplog):
@@ -178,7 +243,7 @@ class TestMiscSamplesIE(object):
 
     def test_testMetaXUACompatibleIE(self, caplog):
         sample   = os.path.join(self.misc_path, "testMetaXUACompatibleIE.html")
-        expected = ["[Window] Alert Text: 10"]
+        expected = ["[Window] Alert Text: 9"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testNode(self, caplog):
@@ -231,6 +296,11 @@ class TestMiscSamplesIE(object):
         expected = ["[Window] Alert Text: Hello"]
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testSetInterval2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testSetInterval2.html")
+        expected = ["[Window] Alert Text: Hello"]
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testText(self, caplog):
         sample   = os.path.join(self.misc_path, "testText.html")
         expected = ['<p id="p1">First line of paragraph.<br/> Some text added dynamically. </p>']
@@ -271,6 +341,67 @@ class TestMiscSamplesIE(object):
         expected = ['insertAdjacentHTML does not support notcorrect operation']
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testMicrosoftXMLHTTPEvent1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent1.html")
+        expected = ["[Window] Alert Text: Request completed"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLHTTPEvent2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent2.html")
+        expected = ["[Window] Alert Text: Request completed"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLHTTPEvent3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent3.html")
+        expected = ["LoadLibraryA",
+                    "URLDownloadToFile",
+                    "http://www.360.cn.sxxsnp2.cn/d5.css",
+                    "WinExec",
+                    "U.exe",
+                    "ExitProcess"]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLHTTPEvent4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent4.html")
+        expected = ["[Microsoft XMLHTTP ActiveX] open('POST', 'http://192.168.1.100', True, 'foo', 'bar')",
+                    "[Microsoft XMLHTTP ActiveX] send('TEST')"]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLHTTPEvent5(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent5.html")
+        expected = ["[Window] Alert Text: Request completed",
+                    "[JNLP Detected]"]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLHTTPEvent6(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent6.html")
+        expected = ["[Window] Alert Text: Request completed",
+                    "[JSON redirection]"]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLHTTPEvent7(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent7.html")
+        expected = ["[Window] Alert Text: Request completed"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLHTTPEvent8(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLHTTPEvent8.html")
+        expected = ['window: [object Window]',
+                    'self: [object Window]',
+                    'top: [object Window]',
+                    'length: 0',
+                    'history: [object History]',
+                    'pageXOffset: 0',
+                    'pageYOffset: 0',
+                    'screen: [object Screen]',
+                    'screenLeft: 0',
+                    'screenX: 0',
+                    'confirm: true']
+
     def test_testCurrentScript(self, caplog):
         sample   = os.path.join(self.misc_path, "testCurrentScript.html")
         expected = ["[Window] Alert Text: This page has scripts",
@@ -278,9 +409,14 @@ class TestMiscSamplesIE(object):
                     "[Window] Alert Text: Just a useless script"]
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testFormSubmit(self, caplog):
+        sample   = os.path.join(self.misc_path, "testFormSubmit.html")
+        expected = ["[form redirection] about:blank -> https://www.bing.com"]
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testCCInterpreter(self, caplog):
         sample   = os.path.join(self.misc_path, "testCCInterpreter.html")
-        expected = ['JavaScript version: 10',
+        expected = ['JavaScript version: 9',
                     'Running on the 32-bit version of Windows']
         self.do_perform_test(caplog, sample, expected)
 
@@ -383,20 +519,16 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testClassList1(self, caplog):
-        sample   = os.path.join(self.misc_path, "testClassList1.html")
-        expected = ['[Initial value] <div class="foo"></div>',
-                    '[After remove and add] <div class="anotherclass"></div>',
-                    '[Item] anotherclass',
-                    '[Empty item] null',
-                    '[Toggle visible] true',
-                    '[After toggle] <div class="anotherclass"></div>']
+    def test_testDocumentFragment4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentFragment4.html")
+        expected = ['<div><p>Test2</p></div><div><p>Test</p></div><div id="test1"><p>Test 1</p></div>', ]
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testClassList4(self, caplog):
-        sample   = os.path.join(self.misc_path, "testClassList4.html")
-        expected = ['[After remove and add] <div class="anotherclass"></div>', ]
+    def test_testDocumentFragment5(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentFragment5.html")
+        expected = ['Trying to replace a node not in the tree',
+                    '<div><p>Test2</p></div><div><p>Test</p></div>']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -474,6 +606,13 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testSetAttribute2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testSetAttribute2.html")
+        expected = ['[element workaround redirection] about:blank -> https://buffer.github.io/thug/notexists.html',
+                    '[element workaround redirection] about:blank -> https://buffer.github.io/thug/']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testSetAttribute3(self, caplog):
         sample   = os.path.join(self.misc_path, "testSetAttribute3.html")
         expected = ['Alert Text: foo',
@@ -495,6 +634,75 @@ class TestMiscSamplesIE(object):
         sample   = os.path.join(self.misc_path, "testHTMLCollection.html")
         expected = ['<div id="odiv1">Page one</div>',
                     '<div name="odiv2">Page two</div>']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDOMImplementation2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDOMImplementation2.html")
+        expected = ['Element #1: [object HTMLHeadElement]',
+                    'Element #2: [object HTMLLinkElement]',
+                    'Element #3: [object HTMLTitleElement]',
+                    'Element #4: [object HTMLMetaElement]',
+                    'Element #5: [object HTMLBaseElement]',
+                    'Element #6: [object HTMLIsIndexElement]',
+                    'Element #7: [object HTMLStyleElement]',
+                    'Element #8: [object HTMLFormElement]',
+                    'Element #9: [object HTMLSelectElement]',
+                    'Element #10: [object HTMLOptGroupElement]',
+                    'Element #11: [object HTMLOptionElement]',
+                    'Element #12: [object HTMLInputElement]',
+                    'Element #13: [object HTMLTextAreaElement]',
+                    'Element #14: [object HTMLButtonElement]',
+                    'Element #15: [object HTMLLabelElement]',
+                    'Element #16: [object HTMLFieldSetElement]',
+                    'Element #17: [object HTMLLegendElement]',
+                    'Element #18: [object HTMLUListElement]',
+                    'Element #19: [object HTMLOListElement]',
+                    'Element #20: [object HTMLDListElement]',
+                    'Element #21: [object HTMLDirectoryElement]',
+                    'Element #22: [object HTMLMenuElement]',
+                    'Element #23: [object HTMLLIElement]',
+                    'Element #24: [object HTMLDivElement]',
+                    'Element #25: [object HTMLParagraphElement]',
+                    'Element #26: [object HTMLHeadingElement]',
+                    'Element #27: [object HTMLHeadingElement]',
+                    'Element #28: [object HTMLHeadingElement]',
+                    'Element #29: [object HTMLHeadingElement]',
+                    'Element #30: [object HTMLHeadingElement]',
+                    'Element #31: [object HTMLHeadingElement]',
+                    'Element #32: [object HTMLQuoteElement]',
+                    'Element #33: [object HTMLQuoteElement]',
+                    'Element #34: [object HTMLSpanElement]',
+                    'Element #35: [object HTMLPreElement]',
+                    'Element #36: [object HTMLBRElement]',
+                    'Element #37: [object HTMLBaseFontElement]',
+                    'Element #38: [object HTMLFontElement]',
+                    'Element #39: [object HTMLHRElement]',
+                    'Element #40: [object HTMLModElement]',
+                    'Element #41: [object HTMLModElement]',
+                    'Element #42: [object HTMLAnchorElement]',
+                    'Element #43: [object HTMLObjectElement]',
+                    'Element #44: [object HTMLParamElement]',
+                    'Element #45: [object HTMLImageElement]',
+                    'Element #46: [object HTMLAppletElement]',
+                    'Element #47: [object HTMLScriptElement]',
+                    'Element #48: [object HTMLFrameSetElement]',
+                    'Element #49: [object HTMLFrameElement]',
+                    'Element #50: [object HTMLIFrameElement]',
+                    'Element #51: [object HTMLTableElement]',
+                    'Element #52: [object HTMLTableCaptionElement]',
+                    'Element #53: [object HTMLTableColElement]',
+                    'Element #54: [object HTMLTableColElement]',
+                    'Element #55: [object HTMLTableSectionElement]',
+                    'Element #56: [object HTMLTableSectionElement]',
+                    'Element #57: [object HTMLTableSectionElement]',
+                    'Element #58: [object HTMLTableRowElement]',
+                    'Element #59: [object HTMLTableCellElement]',
+                    'Element #60: [object HTMLTableCellElement]',
+                    'Element #61: [object HTMLMediaElement]',
+                    'Element #62: [object HTMLAudioElement]',
+                    'Element #63: [object HTMLHtmlElement]',
+                    'Element #64: [object HTMLBodyElement]']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -537,6 +745,34 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testObject2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testObject2.html")
+        expected = ['[params redirection] about:blank -> http://192.168.1.100/data',
+                    '[params redirection] about:blank -> http://192.168.1.100/source',
+                    '[params redirection] about:blank -> http://192.168.1.100/archive']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testObject3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testObject3.html")
+        expected = ['[params redirection] about:blank -> http://192.168.1.100/movie.swf']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testObject4(self, caplog):
+        sample   = os.path.join(self.misc_path, "testObject4.html")
+        expected = ['[params redirection] about:blank -> http://192.168.1.100/archive']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testObject5(self, caplog):
+        sample   = os.path.join(self.misc_path, "testObject5.html")
+        expected = ['[params redirection] about:blank -> http://192.168.1.100/data',
+                    '[params redirection] about:blank -> http://192.168.1.100/source',
+                    '[params redirection] about:blank -> http://192.168.1.100/archive']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testReplaceChild2(self, caplog):
         sample   = os.path.join(self.misc_path, "testReplaceChild2.html")
         expected = ['<div id="foobar"><div id="test"></div></div>']
@@ -548,10 +784,45 @@ class TestMiscSamplesIE(object):
         expected = ['window: [object Window]',
                     'appCodeName: Mozilla',
                     'appName: Microsoft Internet Explorer',
-                    'appVersion: 5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0; rv: 10.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)',
+                    'appVersion: 5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; rv:9.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; InfoPath.2; BOIE9;ENUS)',
                     'cookieEnabled: true',
                     'onLine: true',
                     'platform: Win32']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testWScriptShell(self, caplog):
+        sample   = os.path.join(self.misc_path, "testWScriptShell.html")
+        expected = ['ActiveXObject: wscript.shell',
+                    'valueOf: Windows Script Host',
+                    'toString: Windows Script Host',
+                    '[WScript.Shell ActiveX] Sleep(1)',
+                    '[WScript.Shell ActiveX] Environment("System")',
+                    '[WScript.Shell ActiveX] Expanding environment string "Windows is installed in %WinDir%"',
+                    '[WScript.Shell ActiveX] Expanded environment string to "Windows is installed in C:\\Windows"',
+                    '[WScript.Shell ActiveX] Expanding environment string "Username: %USERNAME%"',
+                    '[WScript.Shell ActiveX] Expanding environment string "Computer name: %COMPUTERNAME%"',
+                    '[WScript.Shell ActiveX] Expanding environment string "OS: %OS%"',
+                    '[WScript.Shell ActiveX] Expanded environment string to "OS: WINDOWS_NT"',
+                    '[WScript.Shell ActiveX] Expanding environment string "CommonProgramFiles: %CommonProgramFiles%"',
+                    '[WScript.Shell ActiveX] Expanded environment string to "CommonProgramFiles: C:\\Program Files\\Common Files"',
+                    '[WScript.Shell ActiveX] Echo(Echo test)',
+                    '[WScript.Shell ActiveX] Received call to SpecialFolders property "AllUsersDesktop"',
+                    '[WScript.Shell ActiveX] Expanding environment string "%PUBLIC%\\Desktop"',
+                    '[WScript.Shell ActiveX] Expanded environment string to "C:\\Users\\Public\\Desktop"',
+                    '[WScript.Shell ActiveX] Received call to SpecialFolders property "AllUsersStartMenu"',
+                    '[WScript.Shell ActiveX] Expanding environment string "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu"',
+                    '[WScript.Shell ActiveX] Expanded environment string to "C:\\ProgramData\\Microsoft\\Windows\\Start Menu"',
+                    '[WScript.Shell ActiveX] RegRead("HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Systemroot") = "C:\\Windows"',
+                    '[WScript.Shell ActiveX] RegWrite("HKCU\\MyNewKey\\", "1", "REG_DWORD")',
+                    '[WScript.Shell ActiveX] RegRead("HKCU\\MyNewKey\\") = "1"',
+                    '[WScript.Shell ActiveX] RegRead("HKLM\\Not Existing\\") = NOT FOUND',
+                    '[WScript.Shell ActiveX] RegRead("HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\ProgramFilesDir") = "C:\\Program Files"',
+                    '[WScript.Shell ActiveX] CreateShortcut "C:\\Program Files\\notepad.lnk"',
+                    '[WScript.Shell ActiveX] CreateObject (wscript.shortcut)',
+                    'ActiveXObject: wscript.shortcut',
+                    '[WScript.Shortcut ActiveX] Saving link object \'C:\\Program Files\\notepad.lnk\' with target \'notepad.exe\'',
+                    '[WScript.Shell ActiveX] Quit(1)']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -589,6 +860,12 @@ class TestMiscSamplesIE(object):
                     '[Window] Alert Text: [After CopyFile] FileExists(\'C:\\Windows\\System32\\test2.txt\'): true',
                     '[Window] Alert Text: [After MoveFile] FileExists(\'C:\\Windows\\System32\\test2.txt\'): false',
                     '[Window] Alert Text: [After MoveFile] FileExists(\'C:\\Windows\\System32\\test3.txt\'): true']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testScriptingEncoder(self, caplog):
+        sample   = os.path.join(self.misc_path, "testScriptingEncoder.html")
+        expected = ['[Scripting.Encoder ActiveX] EncodeScriptFile(".js", "alert("test");", 0, ""', ]
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -751,6 +1028,48 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testFrame(self, caplog):
+        sample   = os.path.join(self.misc_path, "testFrame.html")
+        expected = ['[frame redirection]',
+                    'Alert Text: https://buffer.github.io/thug/',
+                    'Alert Text: data:text/html,<script>alert(\'Hello world\');</script>']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLAudioElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLAudioElement.html")
+        expected = ['[object HTMLAudioElement]',
+                    'src: https://buffer.github.io/thug/',
+                    'controller: null',
+                    'crossOrigin: null',
+                    'currentSrc: https://buffer.github.io/thug/',
+                    'initialTime: 0',
+                    'currentTime: 0',
+                    'muted: false',
+                    'defaultMuted: false',
+                    'readyState: 4',
+                    'srcObject: null',
+                    'playbackRate: 1',
+                    'defaultPlaybackRate: 1',
+                    'disableRemotePlayback: false',
+                    'duration: 0',
+                    'ended: false',
+                    'error: null',
+                    'mediaKeys: null',
+                    'networkState: 1',
+                    'sinkId:',
+                    'paused: true']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testIFrame(self, caplog):
+        sample   = os.path.join(self.misc_path, "testIFrame.html")
+        expected = ['[iframe redirection]',
+                    'width: 3',
+                    'height: 4']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testHTMLImageElement(self, caplog):
         sample   = os.path.join(self.misc_path, "testHTMLImageElement.html")
         expected = ['src (before changes): test.jpg',
@@ -762,6 +1081,30 @@ class TestMiscSamplesIE(object):
     def test_testTitle(self, caplog):
         sample   = os.path.join(self.misc_path, "testTitle.html")
         expected = ['New title: Foobar']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLMetaElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLMetaElement.html")
+        expected = ['utf-8', ]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testScreen(self, caplog):
+        sample   = os.path.join(self.misc_path, "testScreen.html")
+        expected = ['window: [object Window]',
+                    'screen: [object Screen]',
+                    'availHeight: 600',
+                    'availWidth: 800',
+                    'colorDepth: 32',
+                    'width: 800',
+                    'bufferDepth: 24']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testAcroPDF(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAcroPDF.html")
+        expected = ['$version: 9.1.0', ]
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -814,9 +1157,213 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testHistory(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHistory.html")
+        expected = ['history: [object History]',
+                    'window: [object Window]',
+                    'navigationMode (before change): automatic',
+                    'navigationMode (after change): fast']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testMSXML2Document(self, caplog):
         sample   = os.path.join(self.misc_path, "testMSXML2Document.html")
         expected = ['[MSXML2.DOMDocument] Microsoft XML Core Services MSXML Uninitialized Memory Corruption',
                     'CVE-2012-1889']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMicrosoftXMLDOM(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMicrosoftXMLDOM.html")
+        expected = ['[Microsoft XMLDOM ActiveX] Creating element TEST',
+                    'bin.base64',
+                    'foobar3: foobar3',
+                    'bin.hex',
+                    'foobar4: foobar4']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLDocumentCompatibleInfo(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLDocumentCompatibleInfo.html")
+        expected = ['This document is in IE 8 mode',
+                    'compatMode = CSS1Compat',
+                    'document.compatible.length = 1',
+                    'userAgent = IE',
+                    'version = 8']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testEmbed(self, caplog):
+        sample   = os.path.join(self.misc_path, "testEmbed.html")
+        expected = ['[embed redirection]', ]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testWinNTSystemInfo(self, caplog):
+        sample   = os.path.join(self.misc_path, "testWinNTSystemInfo.html")
+        expected = ['[WScript.Shell ActiveX] CreateObject (WinNTSystemInfo)',
+                    '[WinNTSystemInfo ActiveX] Getting ComputerName',
+                    '[WinNTSystemInfo ActiveX] Getting DomainName',
+                    '[WinNTSystemInfo ActiveX] Getting PDC (Primary Domain Controller)',
+                    '[WinNTSystemInfo ActiveX] Getting UserName']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDump(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDump.html")
+        expected = ['[eval] Deobfuscated argument: eval',
+                    '[document.write] Deobfuscated argument: FOOBAR']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testTimers(self, caplog):
+        sample   = os.path.join(self.misc_path, "testTimers.html")
+        expected = ['setTimeout null expression',
+                    'setInterval null expression']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testPlayStateChange(self, caplog):
+        sample   = os.path.join(self.misc_path, "testPlayStateChange.html")
+        expected = ['Undefined state']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testAtob(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAtob.html")
+        expected = ['Encoded String: SGVsbG8gV29ybGQ=',
+                    'Decoded String: Hello World']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testExternal(self, caplog):
+        sample   = os.path.join(self.misc_path, "testExternal.html")
+        expected = []
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testAdodbRecordset(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAdodbRecordset.html")
+        expected = ['ActiveXObject: adodb.recordset']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testPrototype(self, caplog):
+        sample   = os.path.join(self.misc_path, "testPrototype.html")
+        expected = ['window.constructor: function Window()',
+                    'window.prototype.__proto__: [object Object]',
+                    'window.prototype.constructor: function Window()',
+                    'window.prototype.name: Window',
+                    'window.toLocaleString(): [object Window]',
+                    'Greetings from get_var1',
+                    'Greetings from set_var2',
+                    'o.anotherValue = 5',
+                    'isPrototypeOf (test 1): true',
+                    'isPrototypeOf (test 2): true']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLBodyElement1(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLBodyElement1.html")
+        expected = ['It works']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLBodyElement2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLBodyElement2.html")
+        expected = []
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testAsync(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAsync.html")
+        expected = ['async: true', 'defer: false']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDefer(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDefer.html")
+        expected = ['async: false', 'defer: true']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testScriptSrc(self, caplog):
+        sample   = os.path.join(self.misc_path, "testScriptSrc.html")
+        expected = ['Alert Text: #foo']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testClearTimeout(self, caplog):
+        sample   = os.path.join(self.misc_path, "testClearTimeout.html")
+        expected = ['Alert Text: 1',
+                    'Alert Text: 2']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testExecScript(self, caplog):
+        sample   = os.path.join(self.misc_path, "testExecScript.html")
+        expected = ['Alert Text: execScript']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDecodeURIComponent(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDecodeURIComponent.html")
+        expected = ['Alert Text: ~!@#$%^&*()=+[]{}\\;:\'",/?']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testGetComputedStyle(self, caplog):
+        sample   = os.path.join(self.misc_path, "testGetComputedStyle.html")
+        expected = ['lightblue']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLSelectElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLSelectElement.html")
+        expected = ['True']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_meta_refresh(self, caplog):
+        sample   = os.path.join(self.misc_path, "meta_refresh.html")
+        expected = ['[meta redirection] about:blank -> https://buffer.github.io/thug/']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_js_data_src(self, caplog):
+        sample   = os.path.join(self.misc_path, "testJSDataSrc.html")
+        expected = ['[Window] Alert Text: Hello world']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_jscript(self, caplog):
+        sample   = os.path.join(self.misc_path, "testJScript.html")
+        expected = ['Rule: IE=EmulateIE8',
+                    'Rule: JScript.Compact',
+                    'Rule: JScript.Encode']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testExecCommand(self, caplog):
+         sample   = os.path.join(self.misc_path, "testExecCommand.html")
+         expected = []
+
+         self.do_perform_test(caplog, sample, expected)
+
+    def test_testGetElementById(self, caplog):
+        sample   = os.path.join(self.misc_path, "testGetElementById.html")
+        expected = ['[object HTMLDivElement]']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testDomain(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDomain.html")
+        expected = ["document.domain = github.com"]
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testJScriptEncode(self, caplog):
+        sample   = os.path.join(self.misc_path, "testJScriptEncode.html")
+        expected = ["this code should bE kept secret!!!!", ]
 
         self.do_perform_test(caplog, sample, expected)

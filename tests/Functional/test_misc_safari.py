@@ -6,17 +6,16 @@ from thug.ThugAPI.ThugAPI import ThugAPI
 log = logging.getLogger("Thug")
 
 
-class TestMiscSamplesFirefox(object):
-    thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    misc_path = os.path.join(thug_path, "thug", "samples/misc")
+class TestMiscSamplesSafari(object):
+    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    misc_path = os.path.join(cwd_path, os.pardir, "samples/misc")
 
-    def do_perform_test(self, caplog, sample, expected, useragent = 'linuxfirefox40'):
+    def do_perform_test(self, caplog, sample, expected, useragent = 'osx10safari5'):
         thug = ThugAPI()
 
         thug.set_useragent(useragent)
         thug.set_events('click,storage')
         thug.set_connect_timeout(2)
-        thug.set_delay(500)
         thug.disable_cert_logging()
         thug.set_features_logging()
         thug.set_ssl_verify()
@@ -36,13 +35,15 @@ class TestMiscSamplesFirefox(object):
 
     def test_plugindetect1(self, caplog):
         sample   = os.path.join(self.misc_path, "PluginDetect-0.7.6.html")
-        expected = ['Flash version: 10.0.64.0', ]
+        expected = ['AdobeReader version: 9.1.0.0',
+                    'Flash version: 10.0.64.0']
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_plugindetect2(self, caplog):
         sample   = os.path.join(self.misc_path, "PluginDetect-0.7.8.html")
-        expected = ['Flash version: 10,0,64,0',
+        expected = ['AdobeReader version: 9,1,0,0',
+                    'Flash version: 10,0,64,0',
                     'Java version: 1,6,0,32']
 
         self.do_perform_test(caplog, sample, expected)
@@ -50,7 +51,7 @@ class TestMiscSamplesFirefox(object):
     def test_test1(self, caplog):
         sample   = os.path.join(self.misc_path, "test1.html")
         expected = ['[Window] Alert Text: one']
-        self.do_perform_test(caplog, sample, expected)
+        self.do_perform_test(caplog, sample, expected, useragent = 'ipadsafari9')
 
     def test_test2(self, caplog):
         sample   = os.path.join(self.misc_path, "test2.html")
@@ -61,11 +62,6 @@ class TestMiscSamplesFirefox(object):
         sample   = os.path.join(self.misc_path, "test3.html")
         expected = ['[Window] Alert Text: foo']
         self.do_perform_test(caplog, sample, expected)
-
-    def test_test5(self, caplog):
-        sample   = os.path.join(self.misc_path, "test5.html")
-        expected = []
-        self.do_perform_test(caplog, sample, expected, 'win7firefox3')
 
     def test_testAppendChild(self, caplog):
         sample   = os.path.join(self.misc_path, "testAppendChild.html")
@@ -101,15 +97,15 @@ class TestMiscSamplesFirefox(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testDocumentAll(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDocumentAll.html")
+        expected = ["http://www.google.com"]
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testDocumentWrite1(self, caplog):
         sample   = os.path.join(self.misc_path, "testDocumentWrite1.html")
         expected = ['Foobar',
                     "Google</a><script>alert('foobar');</script><script language=\"VBScript\">alert('Gnam');</script><script>alert('Aieeeeee');</script></body>"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testExternalSidebar(self, caplog):
-        sample   = os.path.join(self.misc_path, "testExternalSidebar.html")
-        expected = ['[Window] Alert Text: Firefox']
         self.do_perform_test(caplog, sample, expected)
 
     def test_testGetElementsByClassName(self, caplog):
@@ -339,8 +335,8 @@ class TestMiscSamplesFirefox(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testClassList2(self, caplog):
-        sample   = os.path.join(self.misc_path, "testClassList2.html")
+    def test_testClassList3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testClassList3.html")
         expected = ['[Initial value] <div class="foo"></div>',
                     '[After remove and add] <div class="anotherclass"></div>',
                     '[Item] anotherclass',
@@ -348,8 +344,7 @@ class TestMiscSamplesFirefox(object):
                     '[Toggle visible] true',
                     '[After multiple adds] <div class="anotherclass visible foo bar baz"></div>',
                     '[After multiple removes] <div class="anotherclass visible"></div>',
-                    '[After replace] <div class="visible justanotherclass"></div>',
-                    '[After toggle] <div class="justanotherclass"></div>']
+                    '[After toggle] <div class="anotherclass"></div>']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -449,17 +444,18 @@ class TestMiscSamplesFirefox(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testSetAttribute4(self, caplog):
-        sample   = os.path.join(self.misc_path, "testSetAttribute4.html")
-        expected = ['<input id="foo" style="fontSize:0" type="range"/>']
-
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testCDATASection(self, caplog):
         sample   = os.path.join(self.misc_path, "testCDATASection.html")
         expected = ['nodeName: #cdata-section',
                     'nodeType: 4',
                     '<xml>&lt;![CDATA[Some &lt;CDATA&gt; data &amp; then some]]&gt;</xml>']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLCollection(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLCollection.html")
+        expected = ['<div id="odiv1">Page one</div>',
+                    '<div name="odiv2">Page two</div>']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -506,12 +502,12 @@ class TestMiscSamplesFirefox(object):
         expected = ['window: [object Window]',
                     'appCodeName: Mozilla',
                     'appName: Netscape',
-                    'appVersion: 5.0 (Windows)',
+                    'appVersion: 5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/534.51.22 (KHTML, like Gecko) Version/5.1.1 Safari/534.51.22',
                     'cookieEnabled: true',
                     'onLine: true',
-                    'platform: Win32']
+                    'platform: MacIntel']
 
-        self.do_perform_test(caplog, sample, expected, 'win7firefox3')
+        self.do_perform_test(caplog, sample, expected)
 
     def test_testHTMLOptionsCollection(self, caplog):
         sample   = os.path.join(self.misc_path, "testHTMLOptionsCollection.html")
@@ -542,6 +538,20 @@ class TestMiscSamplesFirefox(object):
                     'c.host: www.example.com',
                     'c.hostname: www.example.com',
                     'c.port: ']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testHTMLTableElement3(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLTableElement3.html")
+        expected = ['tHead: [object HTMLTableSectionElement]',
+                    'tFoot: [object HTMLTableSectionElement]',
+                    'caption: [object HTMLTableCaptionElement]',
+                    'row: [object HTMLTableRowElement]',
+                    'tBodies: [object HTMLCollection]',
+                    'cell: [object HTMLTableCellElement]',
+                    'cell.innerHTML: New cell 1',
+                    'row.deleteCell(10) failed',
+                    'row.deleteCell(20) failed']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -628,13 +638,6 @@ class TestMiscSamplesFirefox(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testSidebar(self, caplog):
-        sample   = os.path.join(self.misc_path, "testSidebar.html")
-        expected = ['Google: 1',
-                    'Amazon: 0']
-
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testCSSStyleDeclaration(self, caplog):
         sample   = os.path.join(self.misc_path, "testCSSStyleDeclaration.html")
         expected = ['style: [object CSSStyleDeclaration]',
@@ -694,12 +697,5 @@ class TestMiscSamplesFirefox(object):
                     '[Console] groupCollapsed()',
                     '[Console] info(\'Hello again\')',
                     '[Console] warn(\'Hello again\')']
-
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testCrypto(self, caplog):
-        sample   = os.path.join(self.misc_path, "testCrypto.html")
-        expected = ['enableSmartCardEvents: false',
-                    'version: 2.4']
 
         self.do_perform_test(caplog, sample, expected)

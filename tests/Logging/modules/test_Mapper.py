@@ -41,7 +41,7 @@ class TestDictDiffer:
 
 class TestMapper:
     cwd_path  = os.path.dirname(os.path.realpath(__file__))
-    json_path = os.path.join(cwd_path, os.pardir, os.pardir, os.pardir, "tests/test_files/Mapper")
+    json_path = os.path.join(cwd_path, os.pardir, os.pardir, "test_files/Mapper")
 
     data_file  = os.path.join(json_path, "test_data.json")
     error_file = os.path.join(json_path, "test_error.json")

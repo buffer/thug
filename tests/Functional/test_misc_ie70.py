@@ -6,15 +6,15 @@ from thug.ThugAPI.ThugAPI import ThugAPI
 log = logging.getLogger("Thug")
 
 
-class TestMiscSamplesChrome(object):
-    thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    misc_path = os.path.join(thug_path, "thug", "samples/misc")
+class TestMiscSamplesIE(object):
+    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    misc_path = os.path.join(cwd_path, os.pardir, "samples/misc")
 
     def do_perform_test(self, caplog, sample, expected):
         thug = ThugAPI()
 
-        thug.set_useragent('win7chrome49')
-        thug.set_events('click,storage')
+        thug.set_useragent('winxpie70')
+        thug.set_events('click')
         thug.set_connect_timeout(2)
         thug.disable_cert_logging()
         thug.set_features_logging()
@@ -44,7 +44,9 @@ class TestMiscSamplesChrome(object):
         sample   = os.path.join(self.misc_path, "PluginDetect-0.7.8.html")
         expected = ['AdobeReader version: 9,1,0,0',
                     'Flash version: 10,0,64,0',
-                    'Java version: 1,6,0,32']
+                    'Java version: 1,6,0,32',
+                    'ActiveXObject: javawebstart.isinstalled.1.6.0.0',
+                    'ActiveXObject: javaplugin.160_32']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -74,6 +76,11 @@ class TestMiscSamplesChrome(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testClipboardData(self, caplog):
+        sample   = os.path.join(self.misc_path, "testClipboardData.html")
+        expected = ['Test ClipboardData']
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testCloneNode(self, caplog):
         sample   = os.path.join(self.misc_path, "testCloneNode.html")
         expected = ['<div id="cloned"><q>Can you copy <em>everything</em> I say?</q></div>']
@@ -89,35 +96,24 @@ class TestMiscSamplesChrome(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testCreateHTMLDocument(self, caplog):
-        sample   = os.path.join(self.misc_path, "testCreateHTMLDocument.html")
-        expected = ['[object HTMLDocument]',
-                    '[object HTMLBodyElement]',
-                    '<p>This is a new paragraph.</p>']
+    def test_testCreateStyleSheet(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCreateStyleSheet.html")
+        expected = ['[Window] Alert Text: style1.css',
+                    '[Window] Alert Text: style2.css',
+                    '[Window] Alert Text: style3.css',
+                    '[Window] Alert Text: style4.css']
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_testDocumentAll(self, caplog):
         sample   = os.path.join(self.misc_path, "testDocumentAll.html")
-        expected = ['http://www.google.com']
+        expected = ["http://www.google.com"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testDocumentWrite1(self, caplog):
         sample   = os.path.join(self.misc_path, "testDocumentWrite1.html")
         expected = ['Foobar',
                     "Google</a><script>alert('foobar');</script><script language=\"VBScript\">alert('Gnam');</script><script>alert('Aieeeeee');</script></body>"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testExternalSidebar(self, caplog):
-        sample   = os.path.join(self.misc_path, "testExternalSidebar.html")
-        expected = ['[Window] Alert Text: Internet Explorer >= 7.0 or Chrome']
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testGetElementsByClassName(self, caplog):
-        sample   = os.path.join(self.misc_path, "testGetElementsByClassName.html")
-        expected = ['First',
-                    'Hello World!',
-                    'Second']
         self.do_perform_test(caplog, sample, expected)
 
     def test_testInnerHTML(self, caplog):
@@ -132,13 +128,7 @@ class TestMiscSamplesChrome(object):
                     "[ERROR] Attempting to insert an invalid element",
                     "[ERROR] Attempting to insert using an invalid reference element",
                     "[ERROR] Attempting to insert a text node using an invalid reference element"]
-        self.do_perform_test(caplog, sample, expected)
 
-    def test_testLocalStorage(self, caplog):
-        sample   = os.path.join(self.misc_path, "testLocalStorage.html")
-        expected = ["Alert Text: Fired",
-                    "Alert Text: bar",
-                    "Alert Text: south"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testPlugins(self, caplog):
@@ -146,6 +136,21 @@ class TestMiscSamplesChrome(object):
         expected = ["Shockwave Flash 10.0.64.0",
                     "Windows Media Player 7",
                     "Adobe Acrobat"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMetaXUACompatibleEdge(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMetaXUACompatibleEdge.html")
+        expected = ["[Window] Alert Text: 7"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMetaXUACompatibleEmulateIE(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMetaXUACompatibleEmulateIE.html")
+        expected = ["[Window] Alert Text: 7"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testMetaXUACompatibleIE(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMetaXUACompatibleIE.html")
+        expected = ["[Window] Alert Text: 7"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testNode(self, caplog):
@@ -160,19 +165,6 @@ class TestMiscSamplesChrome(object):
                     "thediv2"]
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testQuerySelector(self, caplog):
-        sample   = os.path.join(self.misc_path, "testQuerySelector.html")
-        expected = ["Alert Text: Have a Good life.",
-                    "CoursesWeb.net"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testQuerySelector2(self, caplog):
-        sample   = os.path.join(self.misc_path, "testQuerySelector2.html")
-        expected = ['CoursesWeb.net',
-                    "MarPlo.net",
-                    'php.net']
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testScope(self, caplog):
         sample   = os.path.join(self.misc_path, "testScope.html")
         expected = ["foobar",
@@ -183,14 +175,6 @@ class TestMiscSamplesChrome(object):
                     "2012-10-07 11:13:00",
                     "3.14159265359",
                     "/foo/i"]
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testSessionStorage(self, caplog):
-        sample   = os.path.join(self.misc_path, "testSessionStorage.html")
-        expected = ["key1",
-                    "key2",
-                    "value1",
-                    "value3"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testSetInterval(self, caplog):
@@ -206,6 +190,11 @@ class TestMiscSamplesChrome(object):
     def test_testWindowOnload(self, caplog):
         sample   = os.path.join(self.misc_path, "testWindowOnload.html")
         expected = ["[Window] Alert Text: Fired"]
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_test_click(self, caplog):
+        sample   = os.path.join(self.misc_path, "test_click.html")
+        expected = ["[window open redirection] about:blank -> https://buffer.github.io/thug/"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testInsertAdjacentHTML1(self, caplog):
@@ -240,9 +229,10 @@ class TestMiscSamplesChrome(object):
                     "[Window] Alert Text: Just a useless script"]
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testChrome(self, caplog):
-        sample   = os.path.join(self.misc_path, "testChrome.html")
-        expected = ["[Window] Alert Text: [object Object]", ]
+    def test_testCCInterpreter(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCCInterpreter.html")
+        expected = ['JavaScript version: 5.7',
+                    'Running on the 32-bit version of Windows']
         self.do_perform_test(caplog, sample, expected)
 
     def test_testTextNode(self, caplog):
@@ -307,7 +297,9 @@ class TestMiscSamplesChrome(object):
 
     def test_testReplaceChild(self, caplog):
         sample   = os.path.join(self.misc_path, "testReplaceChild.html")
-        expected = ['innerText: Old child',
+        expected = ['firstChild: Old child',
+                    'lastChild: Old child',
+                    'innerText: Old child',
                     '[ERROR] Attempting to replace with a null element',
                     '[ERROR] Attempting to replace a null element',
                     '[ERROR] Attempting to replace with an invalid element',
@@ -333,32 +325,6 @@ class TestMiscSamplesChrome(object):
     def test_testDocumentFragment2(self, caplog):
         sample   = os.path.join(self.misc_path, "testDocumentFragment2.html")
         expected = ["<div id=\"foobar\"><b>This is B</b></div>", ]
-
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testDocumentFragment3(self, caplog):
-        sample   = os.path.join(self.misc_path, "testDocumentFragment3.html")
-        expected = ["foo:bar", ]
-
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testClassList2(self, caplog):
-        sample   = os.path.join(self.misc_path, "testClassList2.html")
-        expected = ['[Initial value] <div class="foo"></div>',
-                    '[After remove and add] <div class="anotherclass"></div>',
-                    '[Item] anotherclass',
-                    '[Empty item] null',
-                    '[Toggle visible] true',
-                    '[After multiple adds] <div class="anotherclass visible foo bar baz"></div>',
-                    '[After multiple removes] <div class="anotherclass visible"></div>',
-                    '[After replace] <div class="visible justanotherclass"></div>',
-                    '[After toggle] <div class="justanotherclass"></div>']
-
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testClassList4(self, caplog):
-        sample   = os.path.join(self.misc_path, "testClassList4.html")
-        expected = ['[After remove and add] <div class="anotherclass"></div>', ]
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -423,13 +389,9 @@ class TestMiscSamplesChrome(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_getElementsByTagName(self, caplog):
-        sample   = os.path.join(self.misc_path, "testGetElementsByTagName.html")
-        expected = ['[object HTMLHtmlElement]',
-                    '[object HTMLHeadElement]',
-                    '[object HTMLBodyElement]',
-                    '[object HTMLParagraphElement]',
-                    '[object HTMLScriptElement]']
+    def test_createElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testCreateElement.html")
+        expected = ['[object HTMLParagraphElement]']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -446,27 +408,12 @@ class TestMiscSamplesChrome(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testSetAttribute2(self, caplog):
-        sample   = os.path.join(self.misc_path, "testSetAttribute2.html")
-        expected = ['[element workaround redirection] about:blank -> https://buffer.github.io/thug/notexists.html',
-                    '[element workaround redirection] about:blank -> https://buffer.github.io/thug/']
-
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testSetAttribute3(self, caplog):
         sample   = os.path.join(self.misc_path, "testSetAttribute3.html")
         expected = ['Alert Text: foo',
                     'Alert Text: bar',
                     'Alert Text: test',
                     'Alert Text: foobar']
-
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testCDATASection(self, caplog):
-        sample   = os.path.join(self.misc_path, "testCDATASection.html")
-        expected = ['nodeName: #cdata-section',
-                    'nodeType: 4',
-                    '<xml>&lt;![CDATA[Some &lt;CDATA&gt; data &amp; then some]]&gt;</xml>']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -477,14 +424,10 @@ class TestMiscSamplesChrome(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-
-    def test_testProcessingInstruction(self, caplog):
-        sample   = os.path.join(self.misc_path, "testProcessingInstruction.html")
-        expected = ['[object ProcessingInstruction]',
-                    'nodeName: xml-stylesheet',
-                    'nodeType: 7',
-                    'nodeValue: href="mycss.css" type="text/css"',
-                    'target: xml-stylesheet']
+    def test_testApplyElement(self, caplog):
+        sample   = os.path.join(self.misc_path, "testApplyElement.html")
+        expected = ['<div id="outer"><div id="test"><div>Just a sample</div></div></div>',
+                    '<div id="outer"><div>Just a div<div id="test"><div>Just a sample</div></div></div></div>']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -520,11 +463,48 @@ class TestMiscSamplesChrome(object):
         sample   = os.path.join(self.misc_path, "testNavigator.html")
         expected = ['window: [object Window]',
                     'appCodeName: Mozilla',
-                    'appName: Netscape',
-                    'appVersion: 5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36',
+                    'appName: Microsoft Internet Explorer',
+                    'appVersion: 4.0 (Windows; MSIE 7.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)',
                     'cookieEnabled: true',
                     'onLine: true',
                     'platform: Win32']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testAdodbStream(self, caplog):
+        sample   = os.path.join(self.misc_path, "testAdodbStream.html")
+        expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Adodb.Stream)',
+                    '[Window] Alert Text: Stream content: Test',
+                    '[Window] Alert Text: Stream content (first 2 chars): Te',
+                    '[Window] Alert Text: Stream size: 4',
+                    '[Adodb.Stream ActiveX] SaveToFile(test.txt, 2)',
+                    '[Adodb.Stream ActiveX] LoadFromFile(test1234.txt)',
+                    '[Window] Alert Text: Attempting to load from a not existing file',
+                    '[Adodb.Stream ActiveX] LoadFromFile(test.txt)',
+                    '[Window] Alert Text: ReadText: Test',
+                    '[Window] Alert Text: ReadText(3): Tes',
+                    '[Window] Alert Text: ReadText(10): Test',
+                    '[Adodb.Stream ActiveX] Changed position in fileobject to: (2)',
+                    '[Window] Alert Text: stTest2',
+                    '[Adodb.Stream ActiveX] Close']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testScriptingFileSystemObject(self, caplog):
+        sample   = os.path.join(self.misc_path, "testScriptingFileSystemObject.html")
+        expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Scripting.FileSystemObject)',
+                    '[Scripting.FileSystemObject ActiveX] Returning C:\\WINDOWS for GetSpecialFolder("0")',
+                    '[Scripting.FileSystemObject ActiveX] Returning C:\\WINDOWS\\system32 for GetSpecialFolder("1")',
+                    '[WScript.Shell ActiveX] Expanding environment string "%TEMP%"',
+                    '[Window] Alert Text: FolderExists(\'C:\\Windows\\System32\'): true',
+                    '[Window] Alert Text: FileExists(\'\'): true',
+                    '[Window] Alert Text: FileExists(\'C:\\Windows\\System32\\drivers\\etc\\hosts\'): true',
+                    '[Window] Alert Text: FileExists(\'C:\\Windows\\System32\\test.txt\'): true',
+                    '[Window] Alert Text: GetExtensionName("C:\\Windows\\System32\\test.txt"): .txt',
+                    '[Window] Alert Text: FileExists(\'C:\\Windows\\System32\\test.txt\'): true',
+                    '[Window] Alert Text: [After CopyFile] FileExists(\'C:\\Windows\\System32\\test2.txt\'): true',
+                    '[Window] Alert Text: [After MoveFile] FileExists(\'C:\\Windows\\System32\\test2.txt\'): false',
+                    '[Window] Alert Text: [After MoveFile] FileExists(\'C:\\Windows\\System32\\test3.txt\'): true']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -540,6 +520,35 @@ class TestMiscSamplesChrome(object):
                     '[After second add] length: 5',
                     '[After second add] item(3): test1234',
                     'Not found error']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testTextStream(self, caplog):
+        sample   = os.path.join(self.misc_path, "testTextStream.html")
+        expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Scripting.FileSystemObject)',
+                    '[Scripting.FileSystemObject ActiveX] CreateTextFile("test.txt", "False", "False")',
+                    '[After first write] ReadAll: foobar',
+                    '[After first write] Line: 1',
+                    '[After first write] Column: 7',
+                    '[After first write] AtEndOfLine: true',
+                    '[After first write] AtEndOfStream: true',
+                    '[After second write] Line: 2',
+                    '[After second write] Column: 1',
+                    '[After second write] AtEndOfLine: false',
+                    '[After second write] AtEndOfStream: false',
+                    '[After third write] Line: 5',
+                    '[After third write] Column: 16',
+                    '[After third write] AtEndOfLine: false',
+                    '[After third write] AtEndOfStream: false',
+                    '[After fourth write] Line: 6',
+                    '[After fourth write] Column: 1',
+                    '[After fourth write] AtEndOfLine: false',
+                    '[After fourth write] AtEndOfStream: false',
+                    '[After fourth write] First char: s',
+                    '[After fourth write] Second char: o',
+                    '[After fourth write] Third char: m',
+                    '[After fourth write] Line: some other textnext line',
+                    '[After skip] Read(5): ttest']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -621,25 +630,40 @@ class TestMiscSamplesChrome(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testFile(self, caplog):
+        sample   = os.path.join(self.misc_path, "testFile.html")
+        expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Scripting.FileSystemObject)',
+                    '[Scripting.FileSystemObject ActiveX] GetFile("D:\\ Program Files\\ Common Files\\test.txt")',
+                    '[File ActiveX] Path = D:\\ Program Files\\ Common Files\\test.txt, Attributes = 32',
+                    'Drive (test.txt): D:',
+                    'ShortPath (test.txt): D:\\\\ Progr~1\\\\ Commo~1\\\\test.txt',
+                    'ShortName (test.txt): test.txt',
+                    'Attributes: 1',
+                    '[Scripting.FileSystemObject ActiveX] GetFile("test2.txt")',
+                    '[File ActiveX] Path = test2.txt, Attributes = 32',
+                    'Drive (test2.txt): C:',
+                    'ShortPath (test2.txt): test2.txt',
+                    'ShortName (test2.txt): test2.txt',
+                    'Copy(test3.txt, True)',
+                    'Move(test4.txt)',
+                    'Delete(False)',
+                    'OpenAsTextStream(ForReading, 0)']
+
+        self.do_perform_test(caplog, sample, expected)
+
+    def test_testWScriptNetwork(self, caplog):
+        sample   = os.path.join(self.misc_path, "testWScriptNetwork.html")
+        expected = ['[WScript.Network ActiveX] Got request to PrinterConnections',
+                    '[WScript.Network ActiveX] Got request to EnumNetworkDrives',
+                    '[WScript.Shell ActiveX] Expanding environment string "%USERDOMAIN%"',
+                    '[WScript.Shell ActiveX] Expanding environment string "%USERNAME%"',
+                    '[WScript.Shell ActiveX] Expanding environment string "%COMPUTERNAME%"']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testApplet(self, caplog):
         sample   = os.path.join(self.misc_path, "testApplet.html")
         expected = ['[applet redirection]']
-
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testFrame(self, caplog):
-        sample   = os.path.join(self.misc_path, "testFrame.html")
-        expected = ['[frame redirection]',
-                    'Alert Text: https://buffer.github.io/thug/'
-                    'Alert Text: data:text/html,<script>alert(\'Hello world\');</script>']
-
-        self.do_perform_test(caplog, sample, expected)
-
-    def test_testIFrame(self, caplog):
-        sample   = os.path.join(self.misc_path, "testIFrame.html")
-        expected = ['[iframe redirection]',
-                    'width: 3',
-                    'height: 4']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -678,6 +702,13 @@ class TestMiscSamplesChrome(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testVBScript(self, caplog):
+        sample   = os.path.join(self.misc_path, "testVBScript.html")
+        expected = ['[VBS embedded URL redirection]',
+                    'http://192.168.1.100/putty.exe']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testFontFaceRule1(self, caplog):
         sample   = os.path.join(self.misc_path, "testFontFaceRule1.html")
         expected = ['[font face redirection]',
@@ -692,29 +723,16 @@ class TestMiscSamplesChrome(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testHistory(self, caplog):
-        sample   = os.path.join(self.misc_path, "testHistory.html")
-        expected = ['history: [object History]',
-                    'window: [object Window]',
-                    'navigationMode (before change): automatic',
-                    'navigationMode (after change): fast']
+    def test_testSilverLight(self, caplog):
+        sample   = os.path.join(self.misc_path, "testSilverLight.html")
+        expected = ['[SilverLight] isVersionSupported(\'4.0\')',
+                    'Version 4.0 supported: true']
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testConsole(self, caplog):
-        sample   = os.path.join(self.misc_path, "testConsole.html")
-        expected = ['[object Console]',
-                    '[Console] assert(True, \'Test assert\')',
-                    '[Console] count() = 1',
-                    '[Console] count(\'foobar\') = 1',
-                    '[Console] count(\'foobar\') = 2',
-                    '[Console] error(\'Test error\')',
-                    '[Console] log(\'Hello world!\')',
-                    '[Console] group()',
-                    '[Console] log(\'Hello again, this time inside a group!\')',
-                    '[Console] groupEnd()',
-                    '[Console] groupCollapsed()',
-                    '[Console] info(\'Hello again\')',
-                    '[Console] warn(\'Hello again\')']
+    def test_testMSXML2Document(self, caplog):
+        sample   = os.path.join(self.misc_path, "testMSXML2Document.html")
+        expected = ['[MSXML2.DOMDocument] Microsoft XML Core Services MSXML Uninitialized Memory Corruption',
+                    'CVE-2012-1889']
 
         self.do_perform_test(caplog, sample, expected)
