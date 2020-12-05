@@ -50,5 +50,9 @@ jobs:
           sudo cp -t /etc/thug/scripts thug/DOM/{thug.js,storage.js,date.js,eval.js,write.js}
           sudo cp -t /etc/thug/ conf/thug.conf
           sudo cp -t /etc/thug/ conf/inspector.json
+
+      - name: STEP 7. Test Thug
+        run: |
           tox
-          echo "Build done"
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
