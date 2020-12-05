@@ -7,8 +7,8 @@ log = logging.getLogger("Thug")
 
 
 class TestMiscSamplesFirefox(object):
-    thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    misc_path = os.path.join(thug_path, "thug", "samples/misc")
+    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    misc_path = os.path.join(cwd_path, os.pardir, "samples/misc")
 
     def do_perform_test(self, caplog, sample, expected, useragent = 'linuxfirefox40'):
         thug = ThugAPI()

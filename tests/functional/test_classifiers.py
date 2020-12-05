@@ -7,9 +7,9 @@ log = logging.getLogger("Thug")
 
 
 class TestClassifiers(object):
-    thug_path        = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    classifiers_path = os.path.join(thug_path, "thug", "samples/classifiers")
-    signatures_path  = os.path.join(thug_path, "thug", "tests/signatures")
+    cwd_path         = os.path.dirname(os.path.realpath(__file__))
+    classifiers_path = os.path.join(cwd_path, os.pardir, "samples/classifiers")
+    signatures_path  = os.path.join(cwd_path, os.pardir, "signatures")
 
     def catchall(self, url, *args):
         log.warning("[CATCHALL Custom Classifier] URL: %s", url)
@@ -88,14 +88,14 @@ class TestClassifiers(object):
     def test_html_classifier_1(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test1.html")
         expected = ['[HTML Classifier]',
-                    'thug/samples/classifiers/test1.html (Rule: html_signature_1, Classification: strVar)']
+                    'samples/classifiers/test1.html (Rule: html_signature_1, Classification: strVar)']
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_js_classifier_2(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test2.html")
         expected = ['[JS Classifier]',
-                    'thug/samples/classifiers/test2.html (Rule: js_signature_2, Classification: )']
+                    'samples/classifiers/test2.html (Rule: js_signature_2, Classification: )']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -116,14 +116,14 @@ class TestClassifiers(object):
     def test_text_signature_5(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test5.html")
         expected = ['[TEXT Classifier]',
-                    'thug/samples/classifiers/test5.html (Rule: text_signature_5, Classification: )']
+                    'samples/classifiers/test5.html (Rule: text_signature_5, Classification: )']
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_vbs_signature_6(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test6.html")
         expected = ['[VBS Classifier]',
-                    'thug/samples/classifiers/test6.html (Rule: vbs_signature_6, Classification: )']
+                    'samples/classifiers/test6.html (Rule: vbs_signature_6, Classification: )']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -137,7 +137,7 @@ class TestClassifiers(object):
     def test_vbs_signature_8(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test8.html")
         expected = ['[VBS Classifier]',
-                    'thug/samples/classifiers/test8.html (Rule: vbs_signature_6, Classification: )']
+                    'samples/classifiers/test8.html (Rule: vbs_signature_6, Classification: )']
 
         self.do_perform_test(caplog, sample, expected)
 

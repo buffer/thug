@@ -7,9 +7,9 @@ log = logging.getLogger("Thug")
 
 
 class TestInspector(object):
-    thug_path       = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    misc_path       = os.path.join(thug_path, "thug", "samples/misc")
-    signatures_path = os.path.join(thug_path, "thug", "tests/signatures")
+    cwd_path        = os.path.dirname(os.path.realpath(__file__))
+    misc_path       = os.path.join(cwd_path, os.pardir, "samples/misc")
+    signatures_path = os.path.join(cwd_path, os.pardir, "signatures")
 
     def do_perform_test(self, caplog, sample, expected):
         thug = ThugAPI()
@@ -37,6 +37,6 @@ class TestInspector(object):
         sample   = os.path.join(self.misc_path, "testInspector.html")
         expected = ['[HTMLInspector] Detected potential code obfuscation',
                     '[HTML Classifier]',
-                    'thug/samples/misc/testInspector.html (Rule: OnlineID, Classification: )']
+                    'samples/misc/testInspector.html (Rule: OnlineID, Classification: )']
 
         self.do_perform_test(caplog, sample, expected)

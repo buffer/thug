@@ -7,8 +7,8 @@ log = logging.getLogger("Thug")
 
 
 class TestEvents(object):
-    thug_path = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    event_path = os.path.join(thug_path, "thug", "samples/Events")
+    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    event_path = os.path.join(cwd_path, os.pardir, "samples/Events")
 
     def do_perform_test(self, caplog, sample, expected, events = '', useragent = 'win7ie90'):
         thug = ThugAPI()

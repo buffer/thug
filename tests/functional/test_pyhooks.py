@@ -7,10 +7,10 @@ log = logging.getLogger("Thug")
 
 
 class TestPyHooks(object):
-    thug_path       = os.path.dirname(os.path.realpath(__file__)).split("thug")[0]
-    misc_path       = os.path.join(thug_path, "thug", "samples/misc")
-    exploits_path   = os.path.join(thug_path, "thug", "samples/exploits")
-    signatures_path = os.path.join(thug_path, "thug", "tests/signatures")
+    cwd_path        = os.path.dirname(os.path.realpath(__file__))
+    misc_path       = os.path.join(cwd_path, os.pardir, "samples/misc")
+    exploits_path   = os.path.join(cwd_path, os.pardir, "samples/exploits")
+    signatures_path = os.path.join(cwd_path, os.pardir, "signatures")
 
     def do_handle_params_hook(self, params):
         for name, value in params.items():

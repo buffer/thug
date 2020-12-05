@@ -14,7 +14,7 @@ class TestThugAPI:
     thug_api = ThugAPI()
 
     cwd_path     = os.path.dirname(os.path.realpath(__file__))
-    samples_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files")
+    samples_path = os.path.join(cwd_path, os.pardir, "test_files")
 
     yara_file = os.path.join(samples_path, "test_yara")
     log_url   = os.path.join(samples_path, "../log-dir-example")
