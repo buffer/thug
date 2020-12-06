@@ -41,6 +41,10 @@ jobs:
       - name: STEP 5. Install Python dependencies
         run: |
           pip3 install pylibemu tox
+          pip3 install https://github.com/area1/stpyv8/releases/download/v8.6.395.25/stpyv8-8.6.395.25-cp37-cp37m-linux_x86_64.whl
+          wget https://github.com/area1/stpyv8/releases/download/v8.6.395.25/icudtl.dat
+          sudo mkdir -p /usr/share/stpyv8
+          sudo mv icudtl.dat /usr/share/stpyv8
 
       - name: STEP 6. Build Thug
         run: |
