@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Build Thug on ${{ matrix.os }}
+    name: Build and test Thug on ${{ matrix.os }}
     runs-on: ubuntu-18.04
     strategy:
       matrix:
@@ -38,7 +38,7 @@ jobs:
           wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
           sudo dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb
 
-      - name: STEP 5. Install Python dependencies
+      - name: STEP 5. Install Tox
         run: |
           pip3 install tox tox-gh-actions
 
