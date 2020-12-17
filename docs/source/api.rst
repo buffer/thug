@@ -53,7 +53,7 @@ advanced scenarios.
         t.analyze("http://www.google.com")
 
 
-Take a look at how the test suite automation scripts in *samples/steps/* directory make 
+Take a look at how the test suite automation scripts in the *tests* directory make
 use of the Thug API for an example of how to perform a local file analysis.
 
 Thug API interface definition is reported below for convenience.
