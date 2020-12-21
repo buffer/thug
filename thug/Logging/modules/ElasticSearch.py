@@ -85,5 +85,5 @@ class ElasticSearch(JSON):
         if not self.enabled:
             return
 
-        res = self.es.index(index = self.opts['index'], doc_type = "analysis", body = self.data)
-        return res['created']
+        res = self.es.index(index = self.opts['index'], body = self.data)
+        return res['_id']
