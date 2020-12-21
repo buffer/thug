@@ -1069,7 +1069,7 @@ class Window(JSClass):
 
         if url and url not in ('about:blank', ):
             if self.url not in ('about:blank', ):
-                log.last_url = url
+                log.last_url = url # pragma: no cover
 
             try:
                 response = self._navigator.fetch(url, redirect_type = "window open")

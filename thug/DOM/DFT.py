@@ -258,7 +258,7 @@ class DFT(object):
             handler = self.build_event_handler(self.context, h)
         elif log.JSEngine.isJSFunction(h):
             handler = h
-        else:
+        else: # pragma: no cover
             try:
                 handler = getattr(self.context.locals, h, None)
             except Exception:
