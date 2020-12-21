@@ -430,8 +430,17 @@ class MongoDB(object):
         if not data:
             return str()
 
-        enc_data = data if isinstance(data, six.string_types) else data.decode()
-        return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
+        try:
+            if isinstance(data, six.string_types):
+                enc_data = data
+            else:
+                enc = log.Encoding.detect(data)
+                encoding = enc['encoding'] if enc['encoding'] else 'utf-8'
+                enc_data = data.decode(encoding)
+
+            return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
+        except UnicodeDecodeError: # pragma: no cover
+            return str()
 
     def add_code_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
         if not self.enabled:
