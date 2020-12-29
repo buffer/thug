@@ -365,7 +365,7 @@ class HTMLDocument(Document):
         body = self.doc.find('body')
 
         if tag.parent is None:
-            parent = body
+            parent = body # pragma: no cover
         else:
             parent = body if body and tag.parent.name in ('html', ) else tag.parent
 
@@ -446,7 +446,7 @@ class HTMLDocument(Document):
         from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
 
         if self._currentScript:
-            return self._currentScript
+            return self._currentScript # pragma: no cover
 
         return DOMImplementation.createHTMLElement(self.doc, self.current) if self.current else None
 
