@@ -83,7 +83,7 @@ class Shellcode(object):
             profile = profile[1:]
 
     def retrieve_WinExec(self, url):
-        if url in log.ThugLogging.shellcode_urls: # pragma: no cover
+        if url in log.ThugLogging.shellcode_urls:
             return
 
         log.ThugLogging.shellcode_urls.add(url)
@@ -197,7 +197,7 @@ class Shellcode(object):
 
         uncs = [p.strip('"').strip("'") for p in lpCmdLine.split() if p.startswith("\\\\")]
         for unc in uncs:
-            self.retrieve_WinExec(unc)
+            self.retrieve_WinExec(unc) # pragma: no cover
 
         return rv
 
@@ -208,7 +208,7 @@ class Shellcode(object):
         se = speakeasy.Speakeasy()
         se.add_api_hook(self.hook_URLDownloadToFile,
                         'urlmon',
-                        'URLDownloadToFile')
+                        'URLDownloadToFile*')
 
         se.add_api_hook(self.hook_WinExec,
                         'kernel32',
