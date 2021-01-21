@@ -208,7 +208,7 @@ class Shellcode(object):
         se = speakeasy.Speakeasy()
         se.add_api_hook(self.hook_URLDownloadToFile,
                         'urlmon',
-                        'URLDownloadToFile*')
+                        'URLDownloadToFile')
 
         se.add_api_hook(self.hook_WinExec,
                         'kernel32',
