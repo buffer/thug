@@ -142,7 +142,7 @@ class HTMLDocument(Document):
             return last_url
 
         if self._referer:
-            return str(self._referer)
+            return str(self._referer) # pragma: no cover
 
         return ""
 
