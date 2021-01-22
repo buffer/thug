@@ -37,15 +37,10 @@ class HTMLObjectElement(HTMLElement):
 
     def __getattr__(self, name):
         for (key, value) in self.tag.attrs.items():
-            if key != 'id':
-                continue
-
-            _obj = getattr(self.doc.window, value)
-            if _obj:
-                return getattr(_obj, name)
-
-        if name in self.__dict__:
-            return self.__dict__[name]
+            if key.lower() in ('id', ):
+                _obj = getattr(self.doc.window, value)
+                if _obj:
+                    return getattr(_obj, name)
 
         log.info("HTMLObjectElement attribute not found: %s", (name, ))
         raise AttributeError
