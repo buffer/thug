@@ -1434,20 +1434,17 @@ class DFT(object):
             while recur:
                 recur = False
 
-                try:
-                    if tuple(soup.descendants) == tuple(_soup.descendants):
-                        break
-
-                    for _child in set(soup.descendants) - set(_soup.descendants):
-                        if _child not in analyzed:
-                            analyzed.add(_child)
-                            recur = True
-
-                            name = getattr(_child, "name", None)
-                            if name:
-                                self.do_handle(_child, soup, False)
-                except AttributeError:
+                if tuple(soup.descendants) == tuple(_soup.descendants):
                     break
+
+                for _child in set(soup.descendants) - set(_soup.descendants):
+                    if _child not in analyzed:
+                        analyzed.add(_child)
+                        recur = True
+
+                        name = getattr(_child, "name", None)
+                        if name:
+                            self.do_handle(_child, soup, False)
 
             analyzed.clear()
             _soup = soup
