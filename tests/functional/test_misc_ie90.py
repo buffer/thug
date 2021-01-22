@@ -773,6 +773,14 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testObject7(self, caplog):
+        sample   = os.path.join(self.misc_path, "testObject7.html")
+        expected = ['width: 400',
+                    'foo: undefined',
+                    'foo: bar']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testReplaceChild2(self, caplog):
         sample   = os.path.join(self.misc_path, "testReplaceChild2.html")
         expected = ['<div id="foobar"><div id="test"></div></div>']
