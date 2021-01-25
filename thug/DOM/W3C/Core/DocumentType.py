@@ -4,6 +4,7 @@ import logging
 import re
 
 from .Node import Node
+from .NamedNodeMap import NamedNodeMap
 
 log = logging.getLogger("Thug")
 
@@ -14,6 +15,16 @@ class DocumentType(Node):
     def __init__(self, doc, tag):
         self.tag = tag
         Node.__init__(self, doc)
+        self.__init_documenttype_personality()
+
+    def __init_documenttype_personality(self):
+        if log.ThugOpts.Personality.isIE():
+            self.__init_node_personality_IE()
+
+    def __init_node_personality_IE(self):
+        if log.ThugOpts.Personality.browserMajorVersion in (9, ):
+            self.entities = NamedNodeMap(self.doc, self.tag)
+            self.notations = NamedNodeMap(self.doc, self.tag)
 
     @property
     def name(self):
@@ -31,14 +42,6 @@ class DocumentType(Node):
     @property
     def nodeValue(self):
         return None
-
-    @property
-    def entities(self):
-        raise NotImplementedError()
-
-    @property
-    def notations(self):
-        raise NotImplementedError()
 
     # Modified in DOM Level 2
     @property
