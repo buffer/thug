@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Docker &mdash; Thug 2.0 documentation</title>
+  <title>Docker &mdash; Thug 2.1 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.0
+                2.1
               </div>
             
           
@@ -198,7 +198,7 @@ dockerized Thug from the Honeynet Project’s Docker repository at <a class="ref
 </pre></div>
 </div>
 <p>Test the dockerized Thug inside the container analyzing 20 random samples</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="k">for</span> item in <span class="k">$(</span>find /opt/thug/samples/ -type f <span class="p">|</span> xargs shuf -e <span class="p">|</span>tail -n <span class="m">20</span><span class="k">)</span><span class="p">;</span> <span class="k">do</span> python /opt/thug/src/thug.py -l <span class="nv">$item</span><span class="p">;</span> <span class="k">done</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="k">for</span> item <span class="k">in</span> <span class="k">$(</span>find /opt/thug/samples/ -type f <span class="p">|</span> xargs shuf -e <span class="p">|</span>tail -n <span class="m">20</span><span class="k">)</span><span class="p">;</span> <span class="k">do</span> python /opt/thug/src/thug.py -l <span class="nv">$item</span><span class="p">;</span> <span class="k">done</span>
 </pre></div>
 </div>
 <p>If everything works fine just enjoy your new Thug instance!</p>

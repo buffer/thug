@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plugin Framework &mdash; Thug 2.0 documentation</title>
+  <title>Plugin Framework &mdash; Thug 2.1 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.0
+                2.1
               </div>
             
           
@@ -232,8 +232,8 @@ relative order of execution.</p>
 total <span class="m">0</span>
 ~/thug/thug $ thug -l ../samples/exploits/22811_Elazar.html
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:46:21<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:46:21<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:46:21<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
+<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:46:21<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow <span class="k">in</span> Import
+<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:46:21<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow <span class="k">in</span> PlayerProperty
 </pre></div>
 </div>
 <p>Let’s try again after copying one of the test plugin directories provided in the source tree</p>
@@ -244,8 +244,8 @@ drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">41</span> Oct 
 ~/thug/thug $ thug -l ../samples/exploits/22811_Elazar.html
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:48:53<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: PRE_ANALYSIS Priority: <span class="m">999</span>
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:48:53<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:48:53<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:48:53<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
+<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:48:53<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow <span class="k">in</span> Import
+<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:48:53<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow <span class="k">in</span> PlayerProperty
 </pre></div>
 </div>
 <p>As you can see, TestPlugin is executed in pre-analysis stage (priority 999) as expected.</p>
@@ -258,8 +258,8 @@ drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">78</span> Oct 
 ~/thug/thug $ thug -l ../samples/exploits/22811_Elazar.html
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:16<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: PRE_ANALYSIS Priority: <span class="m">999</span>
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:17<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:17<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:17<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
+<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:17<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow <span class="k">in</span> Import
+<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:17<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow <span class="k">in</span> PlayerProperty
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">09</span>:53:17<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: POST_ANALYSIS Priority: <span class="m">999</span>
 </pre></div>
 </div>
@@ -304,8 +304,8 @@ example enabling the debug option in order to see the debug messages</p>
 <span class="o">[</span>..<span class="o">]</span>
 
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> ActiveXObject: ierpctl.ierpctl
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in Import
-<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow in PlayerProperty
+<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow <span class="k">in</span> Import
+<span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> <span class="o">[</span>RealMedia RealPlayer Ierpplug.DLL ActiveX<span class="o">]</span> Overflow <span class="k">in</span> PlayerProperty
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> <span class="o">[</span>PLUGIN<span class="o">][</span>TestPlugin<span class="o">]</span> Phase: POST_ANALYSIS Priority: <span class="m">999</span>
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> &lt;thug.thug.Thug object at 0x7f69b0ca2050&gt;
 <span class="o">[</span><span class="m">2016</span>-10-12 <span class="m">10</span>:02:13<span class="o">]</span> &lt;logging.Logger object at 0x7f69aa85cdd0&gt;
