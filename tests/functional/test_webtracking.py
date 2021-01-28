@@ -48,9 +48,6 @@ class TestWebTracking(object):
         self.do_perform_test(caplog, sample, expected, "local")
 
     def test_bing(self, caplog):
-        expected = ['Domain starting with initial dot: .bing.com']
+        expected = ['Domain starting with initial dot: .bing.com',
+                    'Secure flag set']
         self.do_perform_test(caplog, "https://www.bing.com", expected)
-
-    def test_github(self, caplog):
-        expected = ['Secure flag set']
-        self.do_perform_test(caplog, "http://www.github.com", expected)
