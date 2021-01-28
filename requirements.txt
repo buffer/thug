@@ -14,5 +14,5 @@ rarfile==4.0
 requests==2.25.1
 six==1.15.0
 ssdeep==3.4
-yara-python==4.0.2
+yara-python==4.0.4
 zope.interface==5.2.0
