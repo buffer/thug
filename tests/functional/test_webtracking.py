@@ -50,4 +50,4 @@ class TestWebTracking(object):
     def test_bing(self, caplog):
         expected = ['Domain starting with initial dot: .bing.com',
                     'Secure flag set']
-        self.do_perform_test(caplog, "https://www.bing.com", expected)
+        self.do_perform_test(caplog, "http://www.bing.com", expected)
