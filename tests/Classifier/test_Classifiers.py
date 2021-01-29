@@ -21,6 +21,9 @@ class TestClassifiers:
     def image_passthrough(self, url, text):
         pass
 
+    def cookie_passthrough(self, url, cookie):
+        pass
+
     def do_perform_test(self, caplog, sample, expected):
         thug = ThugAPI()
         thug.log_init(sample)
@@ -45,6 +48,7 @@ class TestClassifiers:
         thug.add_customclassifier('url', 'wrong_method')
         thug.add_customclassifier('sample', self.sample_passthrough)
         thug.add_customclassifier('image', self.image_passthrough)
+        thug.add_customclassifier('cookie', self.cookie_passthrough)
 
         with open(os.path.join(self.samples_path, sample), 'rb') as fd:
             data = fd.read()
