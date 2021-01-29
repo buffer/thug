@@ -30,6 +30,6 @@ class TestVirusTotal(object):
 
         assert matches >= len(expected)
 
-    def test_google(self, caplog):
+    def test_pdf(self, caplog):
         expected = ['[VirusTotal] Sample b3e2a017367a5acd4ad32e2b9b3e6a3a analysis ratio: 0/53', ]
         self.do_perform_test(caplog, "https://buffer.antifork.org/linux/kernel-api.pdf", expected)

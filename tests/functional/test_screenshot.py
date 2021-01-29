@@ -35,7 +35,3 @@ class TestScreenshot(object):
     def test_antifork(self, caplog):
         expected = []
         self.do_perform_test(caplog, "https://buffer.antifork.org", expected)
-
-    def test_youtube(self, caplog):
-        expected = []
-        self.do_perform_test(caplog, "https://www.youtube.com", expected)
