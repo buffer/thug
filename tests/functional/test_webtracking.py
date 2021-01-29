@@ -47,7 +47,11 @@ class TestWebTracking(object):
         sample = os.path.join(self.misc_path, "testSessionStorage.html")
         self.do_perform_test(caplog, sample, expected, "local")
 
-    def test_bing(self, caplog):
+    def test_cookie_1(self, caplog):
         expected = ['Domain starting with initial dot: .bing.com',
                     'Secure flag set']
         self.do_perform_test(caplog, "https://www.bing.com", expected)
+
+    def test_cookie_2(self, caplog):
+        expected = []
+        self.do_perform_test(caplog, "http://www.antifork.org", expected)
