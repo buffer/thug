@@ -21,7 +21,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-class Features(object):
+class Features:
     counters = (
         'activex_count',
         'addeventlistener_count',
