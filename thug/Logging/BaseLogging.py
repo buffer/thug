@@ -25,11 +25,12 @@ import datetime
 log = logging.getLogger("Thug")
 
 
-class BaseLogging(object):
+class BaseLogging:
     def __init__(self):
         self.baseDir = None
 
-    def check_module(self, module, config):
+    @staticmethod
+    def check_module(module, config):
         if not getattr(log.ThugOpts, "%s_logging" % (module, ), True):
             return False
 

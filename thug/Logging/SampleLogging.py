@@ -31,7 +31,7 @@ from thug.Magic.Magic import Magic
 log = logging.getLogger("Thug")
 
 
-class SampleLogging(object):
+class SampleLogging:
     doc_mime_types = (
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -50,7 +50,8 @@ class SampleLogging(object):
                       'DOC',
                       'RTF', )
 
-    def is_pe(self, data):
+    @staticmethod
+    def is_pe(data):
         try:
             pefile.PE(data = data, fast_load = True)
         except Exception:
@@ -58,7 +59,8 @@ class SampleLogging(object):
 
         return True
 
-    def get_imphash(self, data):
+    @staticmethod
+    def get_imphash(data):
         try:
             pe = pefile.PE(data = data)
         except Exception:
@@ -66,11 +68,13 @@ class SampleLogging(object):
 
         return pe.get_imphash()
 
-    def is_pdf(self, data):
+    @staticmethod
+    def is_pdf(data):
         data = data.encode() if isinstance(data, str) else data
-        return (data[:1024].find(b'%PDF') != -1)
+        return data[:1024].find(b'%PDF') != -1
 
-    def is_jar(self, data):
+    @staticmethod
+    def is_jar(data):
         data = data.encode() if isinstance(data, str) else data
 
         fd, jar = tempfile.mkstemp()
@@ -88,7 +92,8 @@ class SampleLogging(object):
         os.remove(jar)
         return result
 
-    def is_swf(self, data):
+    @staticmethod
+    def is_swf(data):
         data = data.encode() if isinstance(data, str) else data
         return data.startswith(b'CWS') or data.startswith(b'FWS')
 

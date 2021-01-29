@@ -34,7 +34,7 @@ from .Mapper import Mapper
 log = logging.getLogger("Thug")
 
 
-class JSON(object):
+class JSON:
     def __init__(self, provider = False):
         self._tools = ({
                         'id'          : 'json-log',
@@ -97,14 +97,16 @@ class JSON(object):
     def json_enabled(self):
         return log.ThugOpts.json_logging or 'json' in log.ThugLogging.formats or self.provider
 
-    def get_vuln_module(self, module):
+    @staticmethod
+    def get_vuln_module(module):
         disabled = getattr(log.ThugVulnModules, "{}_disabled".format(module), True)
         if disabled:
             return "disabled"
 
         return getattr(log.ThugVulnModules, module)
 
-    def fix(self, data, drop_spaces = True):
+    @staticmethod
+    def fix(data, drop_spaces = True):
         """
         Fix data encoding
 
