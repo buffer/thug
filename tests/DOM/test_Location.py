@@ -21,3 +21,4 @@ class TestLocation(object):
         assert location.pathname == '/search'
         assert location.search == '&q=test'
         assert location.port == 1234
+        assert location.hash == ''
