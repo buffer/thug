@@ -24,8 +24,8 @@ import string
 import errno
 import hashlib
 import logging
-import six.moves.configparser as ConfigParser
 import six
+import six.moves.configparser as ConfigParser
 
 from thug.Analysis.shellcode.Shellcode import Shellcode
 from thug.Analysis.virustotal.VirusTotal import VirusTotal
@@ -72,15 +72,12 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.__init_pyhooks()
         self.__init_config()
 
-    @staticmethod
-    def get_random_name():
+    def get_random_name(self):
         return ''.join(random.choice(string.ascii_lowercase) for _ in range(random.randint(10, 32)))
 
     def __init_hook_symbols(self):
         for name in ('eval', 'write', ):
-            setattr(self,
-                    '{}_symbol'.format(name),
-                    (self.get_random_name(), self.get_random_name(), ))
+            setattr(self, '{}_symbol'.format(name), (self.get_random_name(), self.get_random_name(), ))
 
     def __init_pyhooks(self):
         hooks = log.PyHooks.get('ThugLogging', None)
@@ -96,7 +93,7 @@ class ThugLogging(BaseLogging, SampleLogging):
     def __init_config(self):
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
         if not os.path.exists(conf_file): # pragma: no cover
-            log.critical("Logging subsystem not initialized (configuration file not found)")
+            log.warning("[CRITICAL] Logging subsystem not initialized (configuration file not found)")
             return
 
         self.modules = dict()
@@ -282,10 +279,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         @meta           Rule meta
         @tags           Rule tags
         """
-        self.add_behavior_warn("[%s Classifier] URL: %s (Rule: %s, Classification: %s)" % (classifier.upper(),
-                                                                                           url,
-                                                                                           rule,
-                                                                                           tags, ))
+        self.add_behavior_warn("[%s Classifier] URL: %s (Rule: %s, Classification: %s)" % (classifier.upper(), url, rule, tags, ))
 
         for m in self.resolve_method('log_classifier'):
             m(classifier, url, rule, tags, meta)
@@ -402,8 +396,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_screenshot'): # pragma: no cover
             m(url, screenshot)
 
-    @staticmethod
-    def store_content(dirname, filename, content):
+    def store_content(self, dirname, filename, content):
         """
         This method is meant to be used when a content (downloaded
         pages, samples, reports, etc. ) has to be saved in a flat

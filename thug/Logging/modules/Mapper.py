@@ -26,11 +26,11 @@
 import os
 import json
 import fnmatch
-import six.moves.urllib.parse as urlparse
 import pygraphviz
+import six.moves.urllib.parse as urlparse
 
 
-class DictDiffer:
+class DictDiffer(object):
     """
     Calculate the difference between two dictionaries as:
     (1) items added
@@ -58,10 +58,10 @@ class DictDiffer:
         return set(o for o in self.intersect if self.past_dict[o] == self.current_dict[o])
 
     def anychange(self):
-        return self.added() or self.removed() or self.changed()
+        return (self.added() or self.removed() or self.changed())
 
 
-class Mapper:
+class Mapper(object):
     """
         Map URL relationships
     """
@@ -99,8 +99,7 @@ class Mapper:
                                          directed = True,
                                          rankdir  = 'LR')
 
-    @staticmethod
-    def check_content_type(loc, t):
+    def check_content_type(self, loc, t):
         return loc["content-type"] and loc["content-type"].lower().startswith(t)
 
     def check_types(self, loc, _types):
@@ -134,22 +133,19 @@ class Mapper:
 
         return None
 
-    @staticmethod
-    def get_fillcolor(loc):
+    def get_fillcolor(self, loc):
         if "error" in loc["flags"]:
             return "orange"
 
         return None
 
-    @staticmethod
-    def get_color(con):
+    def get_color(self, con):
         if con["method"] in ("iframe", ):
             return "orange"
 
         return None
 
-    @staticmethod
-    def normalize_url(url):
+    def normalize_url(self, url):
         if url.endswith("/"):
             return url[:-1]
 
@@ -343,9 +339,7 @@ class Mapper:
         res = ""
         for con in self.data["connections"]:
             if con["display"]:
-                res += "%s -- %s --> %s \n" % (str(con["source"]),
-                                               str(con["method"]),
-                                               str(con["destination"]))
+                res += "%s -- %s --> %s \n" % (str(con["source"]), str(con["method"]), str(con["destination"]))
         return res
 
 
@@ -375,25 +369,10 @@ if __name__ == "__main__":  # pragma: no cover
     import argparse
 
     parser = argparse.ArgumentParser(description = 'Receives jobs and starts Thug to process them')
-
-    parser.add_argument('--resdir',
-                        help = 'Result dir',
-                        default = ".")
-
-    parser.add_argument('--source',
-                        help = 'Source file or directory',
-                        default = "avlog.json")
-
-    parser.add_argument('--simplify',
-                        help = 'Reduce the URLs to servernames',
-                        default = False,
-                        action = "store_true")
-
-    parser.add_argument('--tracks',
-                        type = str,
-                        nargs='+',
-                        help='URLs to track to',
-                        default = None)
+    parser.add_argument('--resdir', help = 'Result dir', default = ".")
+    parser.add_argument('--source', help = 'Source file or dir', default = "avlog.json")
+    parser.add_argument('--simplify', help = 'Reduce the URLs to servernames', default = False, action = "store_true")
+    parser.add_argument('--tracks', type=str, nargs='+', help='URLs to track to', default = None)
 
     args = parser.parse_args()
 

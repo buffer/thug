@@ -17,11 +17,11 @@
 # MA  02111-1307  USA
 
 import os
+import six
 import base64
 import logging
 import datetime
 import six.moves.configparser as ConfigParser
-import six
 
 import pymongo
 import gridfs
@@ -34,7 +34,7 @@ from .ExploitGraph import ExploitGraph
 log = logging.getLogger("Thug")
 
 
-class MongoDB:
+class MongoDB(object):
     def __init__(self):
         self.enabled = True
 
@@ -106,8 +106,7 @@ class MongoDB:
     def __build_indexes(self):
         self.urls.ensure_index('url', unique = True)
 
-    @staticmethod
-    def make_counter(p):
+    def make_counter(self, p):
         _id = p
         while True:
             yield _id
@@ -171,8 +170,7 @@ class MongoDB:
         self.analysis_id = self.analyses.insert_one(analysis).inserted_id
         log.warning('[MongoDB] Analysis ID: %s', str(self.analysis_id))
 
-    @staticmethod
-    def get_vuln_module(module):
+    def get_vuln_module(self, module):
         disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)
         if disabled:
             return "disabled"
@@ -423,8 +421,7 @@ class MongoDB:
 
         self.graphs.insert_one(graph)
 
-    @staticmethod
-    def fix(data, drop_spaces = True):
+    def fix(self, data, drop_spaces = True):
         """
         Fix data encoding
 
