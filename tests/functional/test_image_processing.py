@@ -43,7 +43,7 @@ class TestImageProcessing(object):
 
         self.do_perform_test(caplog, "https://www.antifork.org", expected)
 
-    def test_github(self, caplog):
+    def _test_github(self, caplog):
         expected = []
 
         self.do_perform_test(caplog, "https://github.com/buffer/thug", expected)
