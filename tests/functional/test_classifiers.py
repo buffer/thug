@@ -101,8 +101,8 @@ class TestClassifiers(object):
 
     def test_url_classifier_3(self, caplog):
         sample   = os.path.join(self.classifiers_path, "test3.html")
-        expected = ['[URL Classifier] URL: https://github.com/buffer/thug/ (Rule: url_signature_3, Classification: )',
-                    '[CATCHALL Custom Classifier] URL: https://github.com/buffer/thug/']
+        expected = ['[URL Classifier] URL: https://antifork.org (Rule: url_signature_3, Classification: )',
+                    '[CATCHALL Custom Classifier] URL: https://antifork.org']
 
         self.do_perform_test(caplog, sample, expected)
 
@@ -156,4 +156,4 @@ class TestClassifiers(object):
         expected = ['[IMAGE Classifier] URL: https://buffer.antifork.org/images/antifork.jpg (Rule: image_signature_14, Classification: Antifork)',
                     '[discard_meta_domain_whitelist] Whitelisted domain: buffer.antifork.org (URL: https://buffer.antifork.org/images/antifork.jpg)']
 
-        self.do_perform_remote_test(caplog, 'buffer.antifork.org', expected)
+        self.do_perform_remote_test(caplog, 'https://buffer.antifork.org', expected)
