@@ -35,3 +35,7 @@ class TestScreenshot(object):
     def test_antifork(self, caplog):
         expected = []
         self.do_perform_test(caplog, "https://buffer.antifork.org", expected)
+
+    def test_invalid_ctype(self, caplog):
+        expected = []
+        self.do_perform_test(caplog, "https://buffer.antifork.org/images/antifork.jpg", expected)
