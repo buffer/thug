@@ -98,7 +98,7 @@ class Mapper:
 
     def __init_graph(self, resdir):
         if not PYGRAPHVIZ_MODULE:
-            return
+            return # pragma: no cover
 
         graphdir     = os.path.abspath(os.path.join(resdir, os.pardir))
         self.svgfile = os.path.join(graphdir, "graph.svg")
@@ -276,7 +276,7 @@ class Mapper:
 
     def add_data(self, data):
         if not PYGRAPHVIZ_MODULE:
-            return
+            return # pragma: no cover
 
         # Add nodes
         if "locations" in data:
@@ -301,7 +301,7 @@ class Mapper:
             Create SVG file
         """
         if not PYGRAPHVIZ_MODULE:
-            return
+            return # pragma: no cover
 
         self.dot_from_data()
 
