@@ -27,7 +27,12 @@ import os
 import json
 import fnmatch
 import six.moves.urllib.parse as urlparse
-import pygraphviz
+
+try:
+    import pygraphviz
+    PYGRAPHVIZ_MODULE = True
+except ImportError: # pragma: no cover
+    PYGRAPHVIZ_MODULE = False
 
 
 class DictDiffer:
@@ -81,7 +86,6 @@ class Mapper:
         @resdir     : Directory to store the result svg in
         @simplify   : Reduce the urls to server names
         """
-
         self.simplify = simplify
 
         self.data = {
@@ -93,6 +97,9 @@ class Mapper:
         self.__init_graph(resdir)
 
     def __init_graph(self, resdir):
+        if not PYGRAPHVIZ_MODULE:
+            return
+
         graphdir     = os.path.abspath(os.path.join(resdir, os.pardir))
         self.svgfile = os.path.join(graphdir, "graph.svg")
         self.graph   = pygraphviz.AGraph(strict   = False,
@@ -100,24 +107,24 @@ class Mapper:
                                          rankdir  = 'LR')
 
     @staticmethod
-    def check_content_type(loc, t):
+    def _check_content_type(loc, t):
         return loc["content-type"] and loc["content-type"].lower().startswith(t)
 
-    def check_types(self, loc, _types):
+    def _check_types(self, loc, _types):
         for t in _types:
-            if self.check_content_type(loc, t):
+            if self._check_content_type(loc, t):
                 return True
 
         return False
 
     def check_markup(self, loc):
-        return self.check_types(loc, self.markup_types)
+        return self._check_types(loc, self.markup_types)
 
     def check_image(self, loc):
-        return self.check_types(loc, self.image_types)
+        return self._check_types(loc, self.image_types)
 
     def check_exec(self, loc):
-        return self.check_types(loc, self.exec_types)
+        return self._check_types(loc, self.exec_types)
 
     def get_shape(self, loc):
         # Markup
@@ -268,6 +275,9 @@ class Mapper:
         self.data["connections"].append(con)
 
     def add_data(self, data):
+        if not PYGRAPHVIZ_MODULE:
+            return
+
         # Add nodes
         if "locations" in data:
             for loc in data["locations"]:
@@ -290,6 +300,9 @@ class Mapper:
         """
             Create SVG file
         """
+        if not PYGRAPHVIZ_MODULE:
+            return
+
         self.dot_from_data()
 
         try:
@@ -339,7 +352,6 @@ class Mapper:
         """
             Return text representation
         """
-
         res = ""
         for con in self.data["connections"]:
             if con["display"]:
