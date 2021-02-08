@@ -19,9 +19,10 @@
 import os
 import sys
 import logging
-from thug.Plugins.IPlugin import IPlugin
 from zope.interface.verify import verifyObject
 from zope.interface.exceptions import BrokenImplementation
+
+from thug.Plugins.IPlugin import IPlugin
 
 log = logging.getLogger("Thug")
 
@@ -35,7 +36,7 @@ POST_ANALYSIS_PLUGINS = 'POST'
 sys.path.append(PLUGINS_PATH)
 
 
-class ThugPlugins(object):
+class ThugPlugins:
     def __init__(self, phase, thug):
         self.phase            = phase
         self.thug             = thug
