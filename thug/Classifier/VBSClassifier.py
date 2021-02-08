@@ -25,7 +25,7 @@ log = logging.getLogger("Thug")
 class VBSClassifier(BaseClassifier):
     default_rule_file   = "rules/vbsclassifier.yar"
     default_filter_file = "rules/vbsfilter.yar"
-    classifier          = "VBS Classifier"
+    _classifier         = "VBS Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)

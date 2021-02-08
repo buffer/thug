@@ -25,7 +25,7 @@ log = logging.getLogger("Thug")
 class HTMLClassifier(BaseClassifier):
     default_rule_file   = "rules/htmlclassifier.yar"
     default_filter_file = "rules/htmlfilter.yar"
-    classifier          = "HTML Classifier"
+    _classifier         = "HTML Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)

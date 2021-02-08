@@ -33,7 +33,7 @@ log = logging.getLogger("Thug")
 class SampleClassifier(BaseClassifier):
     default_rule_file   = "rules/sampleclassifier.yar"
     default_filter_file = "rules/samplefilter.yar"
-    classifier          = "Sample Classifier"
+    _classifier         = "Sample Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)

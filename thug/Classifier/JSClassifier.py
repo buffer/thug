@@ -25,7 +25,7 @@ log = logging.getLogger("Thug")
 class JSClassifier(BaseClassifier):
     default_rule_file   = "rules/jsclassifier.yar"
     default_filter_file = "rules/jsfilter.yar"
-    classifier          = "JS Classifier"
+    _classifier         = "JS Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)

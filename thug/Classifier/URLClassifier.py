@@ -33,7 +33,7 @@ log = logging.getLogger("Thug")
 class URLClassifier(BaseClassifier):
     default_rule_file   = "rules/urlclassifier.yar"
     default_filter_file = "rules/urlfilter.yar"
-    classifier          = "URL Classifier"
+    _classifier         = "URL Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)

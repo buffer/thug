@@ -25,7 +25,7 @@ log = logging.getLogger("Thug")
 class ImageClassifier(BaseClassifier):
     default_rule_file   = "rules/imageclassifier.yar"
     default_filter_file = "rules/imagefilter.yar"
-    classifier          = "Image Classifier"
+    _classifier         = "Image Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)

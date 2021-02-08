@@ -18,19 +18,24 @@
 
 import os
 import logging
-import yara
-import six
 import six.moves.urllib.parse as urlparse
+import six
+
+import yara
 
 log = logging.getLogger("Thug")
 
 
-class BaseClassifier(object):
+class BaseClassifier:
     def __init__(self):
         self.matches = list()
         self.custom_classifiers = dict()
         self.init_rules()
         self.init_filters()
+
+    @property
+    def classifier(self):
+        return getattr(self, '_classifier', '')
 
     def init_rules(self):
         self._rules = dict()

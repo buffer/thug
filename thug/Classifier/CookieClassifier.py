@@ -25,7 +25,7 @@ log = logging.getLogger("Thug")
 class CookieClassifier(BaseClassifier):
     default_rule_file   = "rules/cookieclassifier.yar"
     default_filter_file = "rules/cookiefilter.yar"
-    classifier          = "Cookie Classifier"
+    _classifier         = "Cookie Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)

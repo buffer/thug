@@ -25,7 +25,7 @@ log = logging.getLogger("Thug")
 class TextClassifier(BaseClassifier):
     default_rule_file   = "rules/textclassifier.yar"
     default_filter_file = "rules/textfilter.yar"
-    classifier          = "Text Classifier"
+    _classifier         = "Text Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
