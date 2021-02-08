@@ -65,6 +65,7 @@ RUN apt-get update && \
 RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
 RUN pip3 install --upgrade pytesseract
+RUN pip3 install --upgrade pygraphviz
 WORKDIR /home
 
 RUN pip3 install https://github.com/area1/stpyv8/releases/download/v8.8.278.14/stpyv8-8.8.278.14-cp36-cp36m-linux_x86_64.whl
