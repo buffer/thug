@@ -21,8 +21,9 @@ import six
 import cchardet
 
 
-class Encoding(object):
-    def detect(self, data):
+class Encoding:
+    @staticmethod
+    def detect(data):
         if isinstance(data, six.string_types):
             data = data.encode()
 
