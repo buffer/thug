@@ -76,8 +76,8 @@ below.
         ~/pyv8 $ sudo python setup.py install
 
 
-Graphviz
-^^^^^^^^
+Graphviz/PyGraphviz (optional)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Graphviz homepage is located at http://www.graphviz.org/.
 
@@ -87,6 +87,9 @@ has important applications in networking, bioinformatics, software engineering, 
 and web design, machine learning, and in visual interfaces for other technical domains.
 
 Packages for most Linux distributions are available.
+
+PyGraphviz is needed just if you need analysis network graphs generation otherwise you
+can safely live without it.
 
 
 MongoDB (optional)
