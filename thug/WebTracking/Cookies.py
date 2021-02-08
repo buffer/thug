@@ -24,7 +24,7 @@ log = logging.getLogger("Thug")
 MAX_COOKIE_EXPIRES_DAYS = 365
 
 
-class Cookies(object):
+class Cookies:
     now = datetime.datetime.now()
     cookie_expires_delta = datetime.timedelta(days = MAX_COOKIE_EXPIRES_DAYS)
 
@@ -38,35 +38,35 @@ class Cookies(object):
 
         expires = datetime.datetime.fromtimestamp(cookie.expires)
         if self.now + self.cookie_expires_delta < expires:
-            log.warning("[TRACKING] [Cookie #{}] Expiring at {} (more than {} days from now)".format(self.cookie_id,
-                                                                                                     expires,
-                                                                                                     MAX_COOKIE_EXPIRES_DAYS))
+            log.warning("[TRACKING] [Cookie #%s] Expiring at %s (more than %s days from now)", self.cookie_id,
+                                                                                               expires,
+                                                                                               MAX_COOKIE_EXPIRES_DAYS)
 
         if self.now > expires: # pragma: no cover
-            log.warning("[TRACKING] [Cookie #{}] Expired at {}".format(self.cookie_id, expires))
+            log.warning("[TRACKING] [Cookie #%s] Expired at %s", self.cookie_id, expires)
 
     def _inspect_cookie_domain_initial_dot(self, cookie):
         if cookie.domain_specified and cookie.domain_initial_dot:
-            log.warning("[TRACKING] [Cookie #{}] Domain starting with initial dot: {}".format(self.cookie_id,
-                                                                                              cookie.domain))
+            log.warning("[TRACKING] [Cookie #%s] Domain starting with initial dot: %s", self.cookie_id,
+                                                                                        cookie.domain)
 
     def _inspect_cookie_path(self, cookie):
         if cookie.path_specified:
-            log.warning("[TRACKING] [Cookie #{}] Path: {}".format(self.cookie_id, cookie.path))
+            log.warning("[TRACKING] [Cookie #%s] Path: %s", self.cookie_id, cookie.path)
 
     def _inspect_cookie_port(self, cookie):
         if cookie.port_specified: # pragma: no cover
-            log.warning("[TRACKING] [Cookie #{}] Port: {}".format(self.cookie_id, cookie.port))
+            log.warning("[TRACKING] [Cookie #%s] Port: %s", self.cookie_id, cookie.port)
 
     def _inspect_cookie_secure(self, cookie):
         if cookie.secure:
-            log.warning("[TRACKING] [Cookie #{}] Secure flag set".format(self.cookie_id))
+            log.warning("[TRACKING] [Cookie #%s] Secure flag set", self.cookie_id)
 
     def _do_inspect_cookies(self, response):
         for cookie in response.cookies:
             self.cookies.add(cookie)
 
-            log.warning("[TRACKING] [Cookie #{}] {}".format(self.cookie_id, cookie.value))
+            log.warning("[TRACKING] [Cookie #%s] %s", self.cookie_id, cookie.value)
 
             self._inspect_cookie_expires(cookie)
             self._inspect_cookie_domain_initial_dot(cookie)

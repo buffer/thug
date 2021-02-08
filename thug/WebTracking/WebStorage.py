@@ -22,15 +22,18 @@ import logging
 log = logging.getLogger("Thug")
 
 
-class WebStorage(object):
+class WebStorage:
     def __init__(self):
         self.storage = dict()
 
-    def inspect_set_item(self, storage, key, value):
-        log.warning("[TRACKING] [{} setItem] {} = {}".format(storage, key, value))
+    @staticmethod
+    def inspect_set_item(storage, key, value):
+        log.warning("[TRACKING] [%s setItem] %s = %s", storage, key, value)
 
-    def inspect_remove_item(self, storage, key):
-        log.warning("[TRACKING] [{} removeItem] {}".format(storage, key))
+    @staticmethod
+    def inspect_remove_item(storage, key):
+        log.warning("[TRACKING] [%s removeItem] %s", storage, key)
 
-    def inspect_clear(self, storage):
-        log.warning("[TRACKING] [{} clear]".format(storage))
+    @staticmethod
+    def inspect_clear(storage):
+        log.warning("[TRACKING] [%s clear]", storage)
