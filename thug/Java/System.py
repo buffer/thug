@@ -21,8 +21,9 @@ import logging
 log = logging.getLogger("Thug")
 
 
-class System(object):
-    def getProperty(self, _property):
+class System:
+    @staticmethod
+    def getProperty(_property):
         if _property == "java.version":
             javaplugin = log.ThugVulnModules._javaplugin.split('.')
             last       = javaplugin.pop()

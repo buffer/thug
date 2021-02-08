@@ -19,6 +19,6 @@
 from .lang import lang
 
 
-class java(object):
+class java:
     def __init__(self):
         self.lang = lang()
