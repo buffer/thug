@@ -69,9 +69,9 @@ RUN pip3 install --upgrade pytesseract
 RUN pip3 install --upgrade pygraphviz
 WORKDIR /home
 
-RUN wget https://github.com/area1/stpyv8/releases/download/v8.8.278.15/stpyv8-ubuntu-18.04-python-3.6.zip
+RUN wget https://github.com/area1/stpyv8/releases/download/v8.8.278.17/stpyv8-ubuntu-18.04-python-3.6.zip
 RUN unzip stpyv8-ubuntu-18.04-python-3.6.zip
-RUN pip3 install stpyv8-ubuntu-18.04-3.6/stpyv8-8.8.278.15-cp36-cp36m-linux_x86_64.whl
+RUN pip3 install stpyv8-ubuntu-18.04-3.6/stpyv8-8.8.278.17-cp36-cp36m-linux_x86_64.whl
 RUN mkdir -p /usr/share/stpyv8
 RUN sudo mv stpyv8-ubuntu-18.04-3.6/icudtl.dat /usr/share/stpyv8
 
