@@ -373,6 +373,9 @@ class HTMLDocument(Document):
 
         for tag in soup.contents:
             if isinstance(tag, bs4.NavigableString):
+                if not tag.string.rstrip():
+                    continue
+
                 child = list(parent.children)[-1]
 
                 if isinstance(child, bs4.NavigableString):
@@ -381,7 +384,7 @@ class HTMLDocument(Document):
                     child.append(tag)
 
             if isinstance(tag, bs4.Tag):
-                parent.insert(len(parent.contents), tag)
+                parent.append(tag)
 
             name = getattr(tag, "name", None)
             if name in (None, ):
