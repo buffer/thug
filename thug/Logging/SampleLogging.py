@@ -85,7 +85,7 @@ class SampleLogging:
 
         try:
             z = zipfile.ZipFile(jar)
-            result = any([t.endswith('.class') for t in z.namelist()])
+            result = any(t.endswith('.class') for t in z.namelist())
         except Exception:
             pass
 

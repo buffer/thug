@@ -118,7 +118,7 @@ class Element(Node, ElementCSSInlineStyle):
         except Exception:
             raise DOMException(DOMException.SYNTAX_ERR)
 
-        return True if s else False
+        return bool(s)
 
     def __eq__(self, other): # pragma: no cover
         return Node.__eq__(self, other) and hasattr(other, "tag") and self.tag == other.tag

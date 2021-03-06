@@ -83,7 +83,7 @@ class Event(JSClass):
         return self._stoppedPropagation
 
     def _setPropagationStatus(self, value):
-        self._stoppedPropagation = True if value else False
+        self._stoppedPropagation = bool(value)
 
     def _stopPropagation(self):
         self._stoppedPropagation = True
@@ -92,7 +92,7 @@ class Event(JSClass):
         return self._defaultPrevented
 
     def _setDefaultPrevented(self, value):
-        self._defaultPrevented = True if value else False
+        self._defaultPrevented = bool(value)
 
     def _preventDefault(self):
         self._defaultPrevented = True

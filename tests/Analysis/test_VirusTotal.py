@@ -10,7 +10,7 @@ log.personalities_path = "/etc/thug/personalities"
 log.ThugOpts = ThugOpts()
 
 
-class TestVirusTotal(object):
+class TestVirusTotal():
     cwd_path = os.path.dirname(os.path.realpath(__file__))
     samples_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files")
 

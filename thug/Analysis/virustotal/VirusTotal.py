@@ -27,7 +27,7 @@ import six.moves.configparser as ConfigParser
 log = logging.getLogger("Thug")
 
 
-class VirusTotal(object):
+class VirusTotal():
     def __init__(self):
         self.enabled = True
         self.opts    = dict()

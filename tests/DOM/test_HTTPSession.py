@@ -24,7 +24,7 @@ class WindowDict(dict):
         return self[key]
 
 
-class TestHTTPSession(object):
+class TestHTTPSession():
     def test_invalid_proxy_1(self):
         with pytest.raises(SystemExit):
             s = HTTPSession('invalid')

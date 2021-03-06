@@ -44,7 +44,7 @@ java_deployment_toolkit = ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA',
                             '8AD9C840-044E-11D1-B3E9-00805F499D93', )
 
 
-class _ActiveXObject(object):
+class _ActiveXObject():
     def __init__(self, window, cls, typename = 'name'):
         self.funcattrs = dict()
         self._window   = window
