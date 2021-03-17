@@ -111,9 +111,9 @@ class JSInspector(object):
             if '\\u' in self.script:
                 try:
                     result = self.ctxt.eval(self.script.replace('\\u', '%u'))
-                except Exception as e:
+                except Exception as e: # pragma: no cover
                     log.warning("[JSInspector] %s", str(e))
-        except Exception as e: # pragma: no cover
+        except Exception as e:
             log.warning("[JSInspector] %s", str(e))
 
         self.dump()
