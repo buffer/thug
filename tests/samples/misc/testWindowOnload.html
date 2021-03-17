@@ -6,8 +6,16 @@
 		alert("Fired");
 	}
 
-	window.onload = function () {
+	doitagain = function() {
+		alert("Again");
+	}
+
+	window.onload = function() {
 		doit();
+	}
+
+	window.document.onload = function() {
+		doitagain();
 	}
 	</script>
     </body>

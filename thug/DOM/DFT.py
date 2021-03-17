@@ -204,12 +204,12 @@ class DFT(object):
         evtObject = self.get_evtObject(self.window.doc, onevt[2:])
         handler = getattr(self.window.doc, onevt, None)
         if handler:
-            self.run_event_handler(handler, evtObject) # pragma: no cover
+            self.run_event_handler(handler, evtObject)
 
         if '_listeners' not in self.window.doc.tag.__dict__:
             return # pragma: no cover
 
-        for (eventType, listener, capture) in self.window.doc.tag._listeners:  # pylint:disable=unused-variable
+        for (eventType, listener, capture) in self.window.doc.tag._listeners:  # pragma: no cover
             if eventType not in (onevt[2:], ):
                 continue
 
