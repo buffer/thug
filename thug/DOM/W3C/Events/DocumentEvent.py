@@ -22,7 +22,7 @@ EventMap = {
 
 
 # Introduced in DOM Level 2
-class DocumentEvent(object):
+class DocumentEvent:
     def __init__(self, doc):
         self.doc = doc
 

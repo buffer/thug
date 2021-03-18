@@ -6,7 +6,7 @@ log = logging.getLogger("Thug")
 
 
 # Introduced in DOM Level 2
-class EventListener(object):
+class EventListener:
     def __init__(self): # pragma: no cover
         pass
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 
-class HTMLDocumentCompatibleInfo(object):
+class HTMLDocumentCompatibleInfo:
     """
     IHTMLDocumentCompatibleInfo provides information about the
     compatibity mode specified by the web page. If the web page
