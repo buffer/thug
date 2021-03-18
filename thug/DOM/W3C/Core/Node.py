@@ -5,10 +5,10 @@ import logging
 import bs4
 
 from thug.DOM.JSClass import JSClass
+from thug.DOM.W3C.Events.EventTarget import EventTarget
+
 from .abstractmethod import abstractmethod
 from .DOMException import DOMException
-
-from thug.DOM.W3C.Events.EventTarget import EventTarget
 
 log = logging.getLogger("Thug")
 

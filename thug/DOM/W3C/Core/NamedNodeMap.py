@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from .Attr import Attr
 from thug.DOM.JSClass import JSClass
 
 
@@ -22,6 +21,7 @@ class NamedNodeMap(JSClass):
         if name not in self.tag.attrs:
             return None
 
+        from .Attr import Attr
         attr = Attr(self.doc, None, name)
         attr.nodeValue = self.tag.attrs[name]
         return attr
@@ -33,6 +33,7 @@ class NamedNodeMap(JSClass):
         if oldvalue is None:
             return None
 
+        from .Attr import Attr
         oldattr = Attr(self.doc, None, attr.name)
         oldattr.value = oldvalue
         return oldattr

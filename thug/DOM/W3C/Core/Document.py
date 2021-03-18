@@ -3,9 +3,10 @@
 import logging
 import bs4
 
-from .Node import Node
 from thug.DOM.W3C.Events.DocumentEvent import DocumentEvent
 from thug.DOM.W3C.Views.DocumentView import DocumentView
+
+from .Node import Node
 
 log = logging.getLogger("Thug")
 
