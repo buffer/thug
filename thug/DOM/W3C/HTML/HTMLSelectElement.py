@@ -19,7 +19,7 @@ class HTMLSelectElement(HTMLElement):
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-        self._options = [t for t in self.tag.find_all("option")]
+        self._options = list(self.tag.find_all("option"))
 
     @property
     def type(self):

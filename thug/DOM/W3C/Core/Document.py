@@ -219,8 +219,7 @@ class Document(Node, DocumentEvent, DocumentView):
         from .NodeList import NodeList
 
         if tagname in ('*', ):
-            s = [p for p in self.doc.find_all(text = False)]
-            return NodeList(self.doc, s)
+            return NodeList(self.doc, self.doc.find_all(text = False))
 
         return NodeList(self.doc, self.doc.find_all(tagname.lower()))
 

@@ -157,7 +157,7 @@ class HTMLDocument(Document):
     def applets(self):
         from .HTMLCollection import HTMLCollection
 
-        applets = [f for f in self.doc.find_all('applet')]
+        applets = list(self.doc.find_all('applet'))
         objects = [f for f in self.doc.find_all('object') if 'type' in f.attrs and 'applet' in f.attrs['type']]
         return HTMLCollection(self.doc, applets + objects)
 
@@ -165,14 +165,14 @@ class HTMLDocument(Document):
     def forms(self):
         from .HTMLCollection import HTMLCollection
 
-        nodes = [f for f in self.doc.find_all('form')]
+        nodes = list(self.doc.find_all('form'))
         return HTMLCollection(self.doc, nodes)
 
     @property
     def images(self):
         from .HTMLCollection import HTMLCollection
 
-        nodes = [f for f in self.doc.find_all('img')]
+        nodes = list(self.doc.find_all('img'))
         return HTMLCollection(self.doc, nodes)
 
     @property
@@ -186,7 +186,7 @@ class HTMLDocument(Document):
     def styleSheets(self):
         from .HTMLCollection import HTMLCollection
 
-        nodes = [f for f in self.doc.find_all('style')]
+        nodes = list(self.doc.find_all('style'))
         return HTMLCollection(self.doc, nodes)
 
     def getTitle(self):
@@ -432,14 +432,14 @@ class HTMLDocument(Document):
     def _all(self):
         from .HTMLAllCollection import HTMLAllCollection
 
-        s = [p for p in self.doc.find_all(text = False)]
+        s = list(self.doc.find_all(text = False))
         return HTMLAllCollection(self.doc, s)
 
     @property
     def scripts(self):
         from .HTMLAllCollection import HTMLAllCollection
 
-        s = [p for p in self.current.find_all_previous('script')]
+        s = list(self.current.find_all_previous('script'))
         s.append(self.current)
 
         return HTMLAllCollection(self.doc, s)

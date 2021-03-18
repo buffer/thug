@@ -43,7 +43,7 @@ class NamedNodeMap(JSClass):
             del self.tag.attrs[name]
 
     def item(self, index):
-        names = [name for name in self.tag.attrs]
+        names = list(self.tag.attrs)
 
         if index < 0 or index >= len(names):
             return None

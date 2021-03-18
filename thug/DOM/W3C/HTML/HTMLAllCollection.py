@@ -10,5 +10,5 @@ class HTMLAllCollection(HTMLCollection):
     def tags(self, name):
         from thug.DOM.W3C.Core.NodeList import NodeList
 
-        s = [p for p in self.doc.find_all(name.lower())]
-        return NodeList(self.doc, s)
+        nodes = list(self.doc.find_all(name.lower()))
+        return NodeList(self.doc, nodes)
