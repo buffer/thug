@@ -117,10 +117,10 @@ class Element(Node, ElementCSSInlineStyle):
     def _matches(self, selector):
         try:
             s = self.tag.select(selector)
-        except Exception:
-            raise DOMException(DOMException.SYNTAX_ERR)
+        except Exception as e:
+            raise DOMException(DOMException.SYNTAX_ERR) from e
 
-        return True if s else False
+        return bool(s)
 
     def __eq__(self, other): # pragma: no cover
         return Node.__eq__(self, other) and hasattr(other, "tag") and self.tag == other.tag
