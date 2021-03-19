@@ -1009,7 +1009,7 @@ class DFT(object):
             log.ThugLogging.Features.increase_url_count()
 
         url = None
-        data_uri = True if 'data:' in content else False
+        data_uri = 'data:' in content
 
         for s in content.split(';'):
             if data_uri is True and url is not None:

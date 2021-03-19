@@ -51,11 +51,11 @@ class HTTPSession(object):
 
         try:
             self.__check_proxy_alive(url.hostname, url.port)
-        except Exception:
+        except Exception as e:
             log.critical("[CRITICAL] Proxy not available. Aborting the analysis!")
 
             if log.ThugOpts.raise_for_proxy:
-                raise ValueError("[CRITICAL] Proxy not available")
+                raise ValueError("[CRITICAL] Proxy not available") from e
 
             sys.exit(0) # pragma: no cover
 

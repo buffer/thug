@@ -104,7 +104,7 @@ class Window(JSClass):
                     log.warning("Error while handling timer callback")
 
                     if log.ThugOpts.Personality.isIE():
-                        raise TypeError()
+                        raise TypeError() from e
 
                     return
 
@@ -195,8 +195,8 @@ class Window(JSClass):
         try:
             self._symbols.add(key)
             symbol = context.eval(key)
-        except Exception:
-            raise AttributeError(key)
+        except Exception as e:
+            raise AttributeError(key) from e
         finally:
             self._symbols.discard(key)
 
