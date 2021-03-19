@@ -21,13 +21,13 @@ import os
 import base64
 import tempfile
 import logging
+import configparser
 import requests
-import six.moves.configparser as ConfigParser
 
 log = logging.getLogger("Thug")
 
 
-class HoneyAgent(object):
+class HoneyAgent:
     def __init__(self):
         self.enabled = True
         self.opts    = dict()
@@ -40,7 +40,7 @@ class HoneyAgent(object):
             self.enabled = False
             return
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(conf_file)
 
         self.opts['enable'] = config.getboolean('honeyagent', 'enable')

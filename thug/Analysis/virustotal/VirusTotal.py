@@ -21,13 +21,13 @@ import os
 import json
 import tempfile
 import logging
+import configparser
 import requests
-import six.moves.configparser as ConfigParser
 
 log = logging.getLogger("Thug")
 
 
-class VirusTotal(object):
+class VirusTotal:
     def __init__(self):
         self.enabled = True
         self.opts    = dict()
@@ -41,7 +41,7 @@ class VirusTotal(object):
             self.enabled = False
             return
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(conf_file)
 
         for option in config.options('virustotal'):

@@ -11,7 +11,7 @@ except ImportError: # pragma: no cover
 log = logging.getLogger("Thug")
 
 
-class Screenshot(object):
+class Screenshot:
     content_types = ('text/html', )
 
     def __init__(self):

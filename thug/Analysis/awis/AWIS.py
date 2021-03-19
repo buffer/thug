@@ -2,9 +2,9 @@
 
 import os
 import logging
+import configparser
 
 import six.moves.urllib.parse as urlparse
-import six.moves.configparser as ConfigParser
 
 MYAWIS_MODULE = True
 
@@ -16,7 +16,7 @@ except ImportError:
 log = logging.getLogger("Thug")
 
 
-class AWIS(object):
+class AWIS:
     def __init__(self):
         self.enabled = MYAWIS_MODULE
         self.__init_awis()
@@ -32,7 +32,7 @@ class AWIS(object):
             self.enabled = False
             return
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(conf_file)
 
         enable = config.getboolean('awis', 'enable')

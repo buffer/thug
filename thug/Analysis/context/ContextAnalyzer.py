@@ -23,7 +23,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-class ContextAnalyzer(object):
+class ContextAnalyzer:
     def __init__(self):
         self.__init_checks()
 

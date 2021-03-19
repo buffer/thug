@@ -35,7 +35,7 @@ except ImportError: # pragma: no cover
 log = logging.getLogger("Thug")
 
 
-class Shellcode(object):
+class Shellcode:
     modules = ('pylibemu', 'speakeasy', )
 
     def __init__(self):
