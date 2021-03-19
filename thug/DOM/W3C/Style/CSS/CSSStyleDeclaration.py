@@ -44,6 +44,6 @@ class CSSStyleDeclaration(JSClass):
 
     def __setattr__(self, name, value):
         if name in ('props', ):
-            super(CSSStyleDeclaration, self).__setattr__(name, value)
+            super().__setattr__(name, value)
         else:
             self.props[name] = value

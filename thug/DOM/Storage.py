@@ -26,7 +26,7 @@ log = logging.getLogger("Thug")
 
 class Storage(OrderedDict, JSClass):
     def __init__(self, *args, **kwargs):
-        super(Storage, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def __str__(self):
         return "[object Storage]"
@@ -43,7 +43,7 @@ class Storage(OrderedDict, JSClass):
 
     def getItem(self, key):
         try:
-            return super(Storage, self).__getitem__(key)
+            return super().__getitem__(key)
         except KeyError:
             return None
 
@@ -54,7 +54,7 @@ class Storage(OrderedDict, JSClass):
         from thug.DOM.W3C.Events.StorageEvent import StorageEvent
 
         oldvalue = self[key] if key in self else None
-        super(Storage, self).__setitem__(key, value)
+        super().__setitem__(key, value)
         log.WebTracking.inspect_storage_setitem(self, key, value)
 
         evtObject = StorageEvent()
@@ -76,7 +76,7 @@ class Storage(OrderedDict, JSClass):
         from thug.DOM.W3C.Events.StorageEvent import StorageEvent
 
         oldvalue = self[key] if key in self else None
-        super(Storage, self).__delitem__(key)
+        super().__delitem__(key)
         log.WebTracking.inspect_storage_removeitem(self, key)
 
         evtObject = StorageEvent()
@@ -94,7 +94,7 @@ class Storage(OrderedDict, JSClass):
     def clear(self):
         from thug.DOM.W3C.Events.StorageEvent import StorageEvent
 
-        super(Storage, self).clear()
+        super().clear()
         self.__init__()
         log.WebTracking.inspect_storage_clear(self)
 

@@ -125,10 +125,10 @@ class HTMLTableElement(HTMLElement):
         if newChild.tagName.lower() in ('tbody', ):
             self._tBodies.nodes.append(newChild)
 
-        return super(HTMLTableElement, self).appendChild(newChild)
+        return super().appendChild(newChild)
 
     def removeChild(self, oldChild):
         if oldChild.tagName.lower() in ('tbody', ):
             self._tBodies.nodes.remove(oldChild)
 
-        return super(HTMLTableElement, self).removeChild(oldChild)
+        return super().removeChild(oldChild)
