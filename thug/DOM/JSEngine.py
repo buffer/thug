@@ -18,7 +18,7 @@
 
 import os
 import logging
-import six.moves.configparser as ConfigParser
+import configparser
 
 try:
     import STPyV8 as V8
@@ -37,7 +37,7 @@ class JSEngine(object):
 
     def init_config(self):
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
-        self.config = ConfigParser.ConfigParser()
+        self.config = configparser.ConfigParser()
         self.config.read(conf_file)
 
     def init_engine(self):

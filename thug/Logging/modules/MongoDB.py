@@ -20,9 +20,9 @@ import os
 import base64
 import logging
 import datetime
-import six.moves.configparser as ConfigParser
-import six
+import configparser
 
+import six
 import pymongo
 import gridfs
 from pymongo.errors import DuplicateKeyError
@@ -57,7 +57,7 @@ class MongoDB:
             self.enabled = False
             return False
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(conf_file)
 
         self.opts['enable'] = config.getboolean('mongodb', 'enable')

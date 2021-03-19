@@ -19,7 +19,7 @@
 
 import os
 import logging
-import six.moves.configparser as ConfigParser
+import configparser
 
 try:
     import elasticsearch
@@ -57,7 +57,7 @@ class ElasticSearch(JSON):
         if not os.path.exists(conf_file):
             return False
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(conf_file)
 
         self.opts['enable'] = config.getboolean('elasticsearch', 'enable')

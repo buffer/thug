@@ -24,7 +24,8 @@ import string
 import errno
 import hashlib
 import logging
-import six.moves.configparser as ConfigParser
+import configparser
+
 import six
 
 from thug.Analysis.shellcode.Shellcode import Shellcode
@@ -100,7 +101,7 @@ class ThugLogging(BaseLogging, SampleLogging):
             return
 
         self.modules = dict()
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(conf_file)
 
         for name, module in LoggingModules.items():
