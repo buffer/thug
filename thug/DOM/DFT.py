@@ -630,7 +630,7 @@ class DFT(object):
         try:
             s.text = response.text
             return True
-        except Exception as e: # pragma: no cover
+        except Exception: # pragma: no cover
             return self.handle_external_javascript_text_last_attempt(s, response)
 
     def handle_external_javascript_text_last_attempt(self, s, response): # pragma: no cover

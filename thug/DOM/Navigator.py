@@ -19,8 +19,9 @@
 
 import os
 import hashlib
-import ssdeep
 import logging
+
+import ssdeep
 import six
 
 from thug.Magic.Magic import Magic
@@ -309,11 +310,13 @@ class Navigator(JSClass):
 
         if redirect_type in ('frame', 'iframe', 'http-redirect', 'meta', ):
             if log.HTTPSession.check_equal_urls(url, last_url): # pragma: no cover
-                log.ThugLogging.add_behavior_warn("[Skipping {} redirection] {} -> {}".format(redirect_type, last_url, url), snippet = snippet)
+                log.ThugLogging.add_behavior_warn("[Skipping {} redirection] {} -> {}".format(redirect_type, last_url, url),
+                                                  snippet = snippet)
                 return None
 
         if redirect_type:
-            log.ThugLogging.add_behavior_warn("[{} redirection] {} -> {}".format(redirect_type, last_url, url), snippet = snippet)
+            log.ThugLogging.add_behavior_warn("[{} redirection] {} -> {}".format(redirect_type, last_url, url),
+                                              snippet = snippet)
             log.ThugLogging.log_connection(last_url, url, redirect_type)
         else:
             log.ThugLogging.log_connection(last_url, url, "unknown")
@@ -336,7 +339,8 @@ class Navigator(JSClass):
             url = _url
 
         referer = response.request.headers.get('referer', 'None')
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: {} (Status: {}, Referer: {})".format(url, response.status_code, referer), snippet = snippet)
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: {} (Status: {}, Referer: {})".format(url, response.status_code, referer),
+                                          snippet = snippet)
 
         ctype     = response.headers.get('content-type', 'unknown')
         mime_base = os.path.join(log.ThugLogging.baseDir, ctype)
@@ -360,7 +364,9 @@ class Navigator(JSClass):
             "mtype"   : mtype
         }
 
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: {} (Content-type: {}, MD5: {})".format(response.url, ctype, data["md5"]), snippet = snippet)
+        log.ThugLogging.add_behavior_warn("[HTTP] URL: {} (Content-type: {}, MD5: {})".format(response.url, ctype, data["md5"]),
+                                          snippet = snippet)
+
         log.ThugLogging.log_location(url, data)
         log.ThugLogging.store_content(mime_base, data["md5"], response.content)
         log.ThugLogging.log_file(response.content, response.url, params)

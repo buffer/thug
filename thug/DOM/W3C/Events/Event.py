@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-from thug.DOM.JSClass import JSClass
-
 import logging
+
+from thug.DOM.JSClass import JSClass
 
 log = logging.getLogger("Thug")
 
