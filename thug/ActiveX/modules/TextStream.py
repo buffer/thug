@@ -18,6 +18,7 @@ class TextStream(object):
         self._Column        = 1
         self._currentLine   = 1
         self._currentColumn = 1
+        self._filename      = ""
 
     @property
     def Line(self):
@@ -170,7 +171,7 @@ class TextStream(object):
 
         filename = self._filename.split('\\')[-1] if '\\' in self._filename else self._filename
         if not filename: # pragma: no cover
-            filename = ''.join(random.choice(string.lowercase) for i in range(8))
+            filename = ''.join(random.choice(string.ascii_lowercase) for i in range(8))
 
         log_file = os.path.join(log_dir, filename)
 
