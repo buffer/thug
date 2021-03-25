@@ -16,7 +16,12 @@ def CreateJob(self, name, arg, job_id):
 
 
 def DownloadAndExecute(self, arg0, arg1, arg2, arg3, arg4):
-    log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] DownloadAndExecute("%s", "%s", "%s", "%s", "%s")' % (arg0, arg1, arg2, arg3, arg4))
+    log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] DownloadAndExecute("%s", "%s", "%s", "%s", "%s")' % (arg0,
+                                                                                                                  arg1,
+                                                                                                                  arg2,
+                                                                                                                  arg3,
+                                                                                                                  arg4))
+
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Macrovision ActiveX",
                                       "DownloadAndExecute",

@@ -52,7 +52,9 @@ def saveNessusRC(self, arg):
 
 
 def addsetConfig(self, arg, arg1, arg2):
-    log.ThugLogging.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] addsetConfig(%s, %s, %s)' % (arg, arg1, arg2, ),
+    log.ThugLogging.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] addsetConfig(%s, %s, %s)' % (arg,
+                                                                                                                     arg1,
+                                                                                                                     arg2, ),
                                       'CVE-2007-4061')
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Nessus Vunlnerability Scanner ScanCtrl ActiveX",

@@ -24,11 +24,14 @@ def CopyFile(self, source, destination, overwritefiles = False):
 
 
 def DeleteFile(self, filespec, force = False):
-    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] DeleteFile("%s", %s)' % (filespec, force))
+    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] DeleteFile("%s", %s)' % (filespec,
+                                                                                                     force))
 
 
 def CreateTextFile(self, filename, overwrite = False, _unicode = False):
-    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] CreateTextFile("%s", "%s", "%s")' % (filename, overwrite, _unicode))
+    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] CreateTextFile("%s", "%s", "%s")' % (filename,
+                                                                                                                 overwrite,
+                                                                                                                 _unicode))
     stream = TextStream.TextStream()
     stream._filename = filename
     return stream
@@ -76,7 +79,8 @@ def GetSpecialFolder(self, arg):
     elif arg == 2:
         folder = WScriptShell.ExpandEnvironmentStrings(self, "%TEMP%")
 
-    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] Returning %s for GetSpecialFolder("%s")' % (folder, arg, ))
+    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] Returning %s for GetSpecialFolder("%s")' % (folder,
+                                                                                                                        arg, ))
     return folder
 
 
@@ -86,13 +90,16 @@ def GetTempName(self):
 
 
 def MoveFile(self, source, destination):
-    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] MoveFile("%s", "%s")' % (source, destination))
+    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] MoveFile("%s", "%s")' % (source,
+                                                                                                     destination))
     log.TextFiles[destination] = log.TextFiles[source]
     del log.TextFiles[source]
 
 
 def OpenTextFile(self, sFilePathAndName, ForWriting = True, flag = True):
-    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] OpenTextFile("%s", "%s", "%s")' % (sFilePathAndName, ForWriting, flag))
+    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] OpenTextFile("%s", "%s", "%s")' % (sFilePathAndName,
+                                                                                                               ForWriting,
+                                                                                                               flag))
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Scripting.FileSystemObject ActiveX",
                                       "OpenTextFile",

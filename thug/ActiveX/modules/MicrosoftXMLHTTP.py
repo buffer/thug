@@ -21,7 +21,12 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     # Internet Explorer ignores any \r\n or %0d%0a or whitespace appended to the domain name
     # parsedUrl = urlparse.urlparse(bstrUrl)
     # netloc = parsedUrl.netloc.strip("\r\n\t")
-    # bstrUrl = urlparse.urlunparse((parsedUrl.scheme, netloc, parsedUrl.path, parsedUrl.params, parsedUrl.query, parsedUrl.fragment))
+    # bstrUrl = urlparse.urlunparse((parsedUrl.scheme,
+    #                                netloc,
+    #                                parsedUrl.path,
+    #                                parsedUrl.params,
+    #                                parsedUrl.query,
+    #                                parsedUrl.fragment))
 
     msg = "[Microsoft XMLHTTP ActiveX] open('%s', '%s', %s" % (bstrMethod, bstrUrl, varAsync is True, )
     if varUser:
@@ -57,7 +62,8 @@ def send(self, varBody = None):
         msg = "%s('%s')" % (msg, str(varBody), )
 
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] %s" % (msg, ))
-    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Fetching from URL %s (method: %s)" % (self.bstrUrl, self.bstrMethod, ))
+    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Fetching from URL %s (method: %s)" % (self.bstrUrl,
+                                                                                                         self.bstrMethod, ))
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Microsoft XMLHTTP ActiveX",
                                       "Send",
