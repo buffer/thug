@@ -111,7 +111,7 @@ class BaseClassifier:
     def discard_url_match(self, url, match):
         for key, values in match.meta.items():
             m = getattr(self, "discard_meta_{}".format(key), None)
-            if m and m(url, values):
+            if m and m(url, values): # pylint:disable=not-callable
                 return True
 
         return False

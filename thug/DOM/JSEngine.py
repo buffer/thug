@@ -54,7 +54,7 @@ class JSEngine(object):
     def do_init_context(self, window):
         m = getattr(self, "init_{}_context".format(self.engine), None)
         if m:
-            m(window)
+            m(window) # pylint:disable=not-callable
 
     def init_scripts_thug(self, ctxt):
         thug_js = os.path.join(thug.__configuration_path__, 'scripts', "thug.js")
@@ -101,7 +101,7 @@ class JSEngine(object):
     def init_symbols(self):
         m = getattr(self, "init_{}_symbols".format(self.engine), None)
         if m:
-            m()
+            m() # pylint:disable=not-callable
 
     @property
     def context(self):
@@ -117,11 +117,11 @@ class JSEngine(object):
 
     def isJSFunction(self, symbol):
         m = getattr(self, "is_{}_jsfunction".format(self.engine), None)
-        return m(symbol) if m else False
+        return m(symbol) if m else False # pylint:disable=not-callable
 
     def is_v8_jsobject(self, symbol):
         return isinstance(symbol, V8.JSObject)
 
     def isJSObject(self, symbol):
         m = getattr(self, "is_{}_jsobject".format(self.engine), None)
-        return m(symbol) if m else False
+        return m(symbol) if m else False # pylint:disable=not-callable

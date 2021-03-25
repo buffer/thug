@@ -293,7 +293,7 @@ class ThugLogging(BaseLogging, SampleLogging):
 
         hook = getattr(self, "log_classifier_hook", None)
         if hook:
-            hook(classifier, url, rule, tags, meta)
+            hook(classifier, url, rule, tags, meta) # pylint:disable=not-callable
 
     def log_cookies(self):
         for m in self.resolve_method('log_cookies'):

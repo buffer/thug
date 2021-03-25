@@ -382,7 +382,7 @@ class DFT(object):
 
         hook = getattr(self, "do_handle_params_hook", None)
         if hook:
-            hook(params)
+            hook(params) # pylint:disable=not-callable
 
         headers = dict()
         headers['Connection'] = 'keep-alive'
@@ -440,7 +440,7 @@ class DFT(object):
         for p in ('source', 'data', 'archive' ):
             handler = getattr(self, "do_handle_params_{}".format(p), None)
             if handler:
-                handler(params, headers)
+                handler(params, headers) # pylint:disable=not-callable
 
         return params
 
@@ -791,8 +791,8 @@ class DFT(object):
             log.info("[ERROR][handle_vbscript_text] %s", str(e))
 
         hook = getattr(self, "do_handle_vbscript_text_hook", None)
-        if hook and hook(text): # pragma: no cover
-            return
+        if hook and hook(text): # pylint:disable=not-callable
+            return # pragma: no cover
 
         try:
             urls = re.findall(r"(?P<url>https?://[^\s'\"]+)", text)
@@ -976,7 +976,7 @@ class DFT(object):
         tag = http_equiv.lower().replace('-', '_')
         handler = getattr(self, 'handle_meta_{}'.format(tag), None)
         if handler:
-            handler(http_equiv, content)
+            handler(http_equiv, content) # pylint:disable=not-callable
 
     def handle_meta_x_ua_compatible(self, http_equiv, content):
         # Internet Explorer < 8.0 doesn't support the X-UA-Compatible header

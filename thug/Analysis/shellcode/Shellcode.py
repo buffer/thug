@@ -185,7 +185,7 @@ class Shellcode:
     def hook_URLDownloadToFile(self, emu, api_name, func, params):
         rv = func(params)
 
-        pCaller, szURL, szFileName, dwReserved, lpfnCB = params
+        pCaller, szURL, szFileName, dwReserved, lpfnCB = params # pylint:disable=unused-variable
         self.retrieve_URLDownloadToFile(szURL)
 
         return rv
@@ -193,7 +193,7 @@ class Shellcode:
     def hook_WinExec(self, emu, api_name, func, params):
         rv = func(params)
 
-        lpCmdLine, uCmdShow = params
+        lpCmdLine, uCmdShow = params # pylint:disable=unused-variable
 
         uncs = [p.strip('"').strip("'") for p in lpCmdLine.split() if p.startswith("\\\\")]
         for unc in uncs:
@@ -228,7 +228,7 @@ class Shellcode:
         for module in self.modules:
             m = getattr(self, "check_shellcode_{}".format(module), None)
             if m:
-                m(shellcode, sc)
+                m(shellcode, sc) # pylint:disable=not-callable
 
     def check_shellcode(self, shellcode):
         if not self.enabled:

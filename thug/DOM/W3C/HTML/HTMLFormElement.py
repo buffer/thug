@@ -50,7 +50,7 @@ class HTMLFormElement(HTMLElement):
     def submit(self):
         handler = getattr(log.DFT, 'do_handle_form', None)
         if handler:
-            handler(self.tag)
+            handler(self.tag) # pylint:disable=not-callable
 
     def reset(self):
         log.warning('[HTMLFormElement] reset method not defined')

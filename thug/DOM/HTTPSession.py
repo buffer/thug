@@ -213,7 +213,7 @@ class HTTPSession(object):
         response = None
 
         try:
-            response = fetcher(url,
+            response = fetcher(url, # pylint:disable=not-callable
                                headers = _headers,
                                timeout = log.ThugOpts.connect_timeout,
                                data    = body,
