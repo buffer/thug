@@ -213,6 +213,11 @@ class DFT(object):
             if eventType not in (onevt[2:], ):
                 continue
 
+            if (self.window.doc, onevt[2:], handler) in self.dispatched_events:
+                return
+
+            self.dispatched_events.add((self.window.doc, onevt[2:], handler))
+
             evtObject = self.get_evtObject(self.window.doc, eventType)
             self.run_event_handler(listener, evtObject)
 
