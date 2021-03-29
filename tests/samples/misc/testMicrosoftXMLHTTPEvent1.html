@@ -18,6 +18,7 @@ if (oReq != null) {
     oReq.send();
     oReq.waitForResponse(1);
 
+    oReq.setTimeouts(5 * 1000, 5 * 1000, 15 * 1000, 15 * 1000);
     var contentType = oReq.getResponseHeader('Content-Type');
     oReq.abort();
 }

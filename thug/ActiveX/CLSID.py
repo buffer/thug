@@ -753,7 +753,8 @@ CLSID = [
                             'addEventListener'      : MicrosoftXMLHTTP.addEventListener,
                             'removeEventListener'   : MicrosoftXMLHTTP.removeEventListener,
                             'dispatchEvent'         : MicrosoftXMLHTTP.dispatchEvent,
-                            'waitForResponse'       : MicrosoftXMLHTTP.waitForResponse
+                            'waitForResponse'       : MicrosoftXMLHTTP.waitForResponse,
+                            'setTimeouts'           : MicrosoftXMLHTTP.setTimeouts
                           }
         },
 

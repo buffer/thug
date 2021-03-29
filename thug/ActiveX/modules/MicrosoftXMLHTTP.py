@@ -158,6 +158,15 @@ def send(self, varBody = None):
     return 0
 
 
+def setTimeouts(self, ResolveTimeout, ConnectTimeout, SendTimeout, ReceiveTimeout):
+    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] setTimeouts(%s, %s, %s, %s)" %
+                (ResolveTimeout,
+                 ConnectTimeout,
+                 SendTimeout,
+                 ReceiveTimeout, ))
+
+    return 0
+
 def waitForResponse(self, timeout):
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] waitForResponse(%s)" % (timeout, ))
 
