@@ -177,12 +177,12 @@ class Mapper:
 
                 shape = self.get_shape(loc)
                 if shape:
-                    node.attr['shape'] = shape
+                    node.attr['shape'] = shape # pylint:disable=no-member
 
                 fillcolor = self.get_fillcolor(loc)
                 if fillcolor:
-                    node.attr['style']     = 'filled'
-                    node.attr['fillcolor'] = fillcolor
+                    node.attr['style']     = 'filled' # pylint:disable=no-member
+                    node.attr['fillcolor'] = fillcolor # pylint:disable=no-member
 
         if "connections" in self.data:
             # Add edges
@@ -204,12 +204,12 @@ class Mapper:
 
                 self.graph.add_edge(source, destination)
                 edge = self.graph.get_edge(source, destination)
-                edge.attr['label'] = "[{}] {}".format(count, con['method'])
+                edge.attr['label'] = "[{}] {}".format(count, con['method']) # pylint:disable=no-member
                 count += 1
 
                 color = self.get_color(con)
                 if color:
-                    edge.attr['color'] = color
+                    edge.attr['color'] = color # pylint:disable=no-member
 
     def add_location(self, loc):
         """
