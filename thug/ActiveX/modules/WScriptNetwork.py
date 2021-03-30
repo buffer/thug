@@ -3,19 +3,9 @@ import random
 import string
 
 from thug.ActiveX.modules import WScriptShell
+from thug.ActiveX.modules import WScriptCollection
 
 log = logging.getLogger("Thug")
-
-
-class WshCollection(list):
-    def __getattr__(self, name):
-        if name.lower() == 'length':
-            return len(self)
-
-        raise AttributeError
-
-    def Item(self, pos):
-        return self[pos]
 
 
 def EnumPrinterConnections(self):
@@ -30,12 +20,12 @@ def EnumPrinterConnections(self):
         printerlist.append(['IP_{}'.format(ip), GetRandomShare(ip)])
 
     random.shuffle(printerlist)
-    return WshCollection(sum(printerlist[:2], []))
+    return WScriptCollection.WshCollection(sum(printerlist[:2], []))
 
 
 def EnumNetworkDrives(self):
     log.ThugLogging.add_behavior_warn("[WScript.Network ActiveX] Got request to EnumNetworkDrives")
-    ndrives = WshCollection()
+    ndrives = WScriptCollection.WshCollection()
 
     for _ in range(2):
         drive = "{}:".format(chr(random.choice(range(ord('E'), ord('Z')))))
