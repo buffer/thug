@@ -34,6 +34,15 @@
 	notepad_lnk.TargetPath = 'notepad.exe';
 	notepad_lnk.save();
 
+	var oExe = WshShell.Exec("calc.exe");
+	alert("Exit Code: " + oExe.ExitCode);
+	alert("Process ID: " + oExe.ProcessID);
+	alert("Status: " + oExe.Status);
+	alert(oExe.StdIn.AtEndOfStream);
+	alert(oExe.StdOut.AtEndOfStream);
+	alert(oExe.StdErr.AtEndOfStream);
+	oExe.Terminate();
+
 	WshShell.Popup("Title", 0, "This is a text message", 64);
 	WshShell.Quit(1)
 </script>
