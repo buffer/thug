@@ -1486,6 +1486,25 @@ CLSID = [
                           }
         },
 
+        # WScriptNetwork
+        {
+        'id'        : (),
+        'name'      : ('wscript.network'),
+        'attrs'     : {},
+        'funcattrs' : {
+                        'ComputerName'          : WScriptNetwork.GetComputerName,
+                        'UserDomain'            : WScriptNetwork.GetUserDomain,
+                        'UserName'              : WScriptNetwork.GetUserName,
+        },
+        'methods'   : {
+                        'EnumPrinterConnections': WScriptNetwork.EnumPrinterConnections,
+                        'EnumNetworkDrives'     : WScriptNetwork.EnumNetworkDrives,
+                        'GetComputerName'       : WScriptNetwork.GetComputerName,
+                        'GetUserDomain'         : WScriptNetwork.GetUserDomain,
+                        'GetUserName'           : WScriptNetwork.GetUserName,
+                      }
+        },
+
         # WScriptShell
         {
             'id'        : (),
@@ -1531,25 +1550,6 @@ CLSID = [
         'funcattrs' : {},
         'methods'   : {
                         'save'                  : WScriptShortcut.save,
-                      }
-        },
-
-        # WScriptNetwork
-        {
-        'id'        : (),
-        'name'      : ('wscript.network'),
-        'attrs'     : {},
-        'funcattrs' : {
-                        'ComputerName'          : WScriptNetwork.GetComputerName,
-                        'UserDomain'            : WScriptNetwork.GetUserDomain,
-                        'UserName'              : WScriptNetwork.GetUserName,
-        },
-        'methods'   : {
-                        'EnumPrinterConnections': WScriptNetwork.EnumPrinterConnections,
-                        'EnumNetworkDrives'     : WScriptNetwork.EnumNetworkDrives,
-                        'GetComputerName'       : WScriptNetwork.GetComputerName,
-                        'GetUserDomain'         : WScriptNetwork.GetUserDomain,
-                        'GetUserName'           : WScriptNetwork.GetUserName,
                       }
         },
 
