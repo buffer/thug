@@ -1,0 +1,29 @@
+<html>
+<body>
+<script>
+	var obj = document.createElement("object");
+	obj.setAttribute("classid", "clsid:BD96C556-65A3-11D0-983A-00C04FC29E36");
+
+	var S = obj.CreateObject("Scripting.FileSystemObject", "");
+	var D = S.CreateFolder("D:\\Program Files\\Test");
+	
+	alert("Drive: " + D.Drive);
+	alert("ShortPath: " + D.ShortPath);
+	alert("ShortName: " + D.ShortName);
+
+	D.setAttributes('ReadOnly');
+	alert("Attributes: " + D.getAttributes());
+
+	D.setAttributes('Compressed');
+	
+    D.Copy("D:\\Program Files\\Test2");
+    D.Move("D:\\Program Files\\Test3");
+    D.Delete();
+
+    var E = S.CreateFolder("\\Test");
+    alert("Drive: " + E.Drive);
+    alert("ShortPath: " + E.ShortPath);
+    alert("ShortName: " + E.ShortName);
+</script>
+</body>
+</html>

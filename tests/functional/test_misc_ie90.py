@@ -1020,6 +1020,20 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testFolder(self, caplog):
+        sample   = os.path.join(self.misc_path, "testFolder.html")
+        expected = ['[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject (Scripting.FileSystemObject)',
+                    '[Scripting.FileSystemObject ActiveX] CreateFolder("D:\\Program Files\\Test")',
+                    '[Folder ActiveX] Path = D:\\Program Files\\Test, Attributes = 16',
+                    'Drive: D:',
+                    'ShortPath: D:\\\\Progra~1\\\\Test',
+                    'ShortName: Test',
+                    'Copy(D:\\Program Files\\Test2, True)',
+                    'Move(D:\\Program Files\\Test3)',
+                    'Delete(False)']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testWScriptNetwork(self, caplog):
         sample   = os.path.join(self.misc_path, "testWScriptNetwork.html")
         expected = ['[WScript.Network ActiveX] Got request to PrinterConnections',
