@@ -9,6 +9,7 @@ import six
 import pefile
 
 from thug.Magic.Magic import Magic
+from thug.ActiveX.modules.WScriptExec import WScriptExec
 from thug.OS.Windows import win32_registry
 from thug.OS.Windows import win32_registry_map
 
@@ -190,6 +191,11 @@ def Sleep(self, intTime):
 
 def Quit(self, code):
     log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Quit(%s)" % code)
+
+
+def Exec(self, path):
+    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Exec(%s)" % path)
+    return WScriptExec()
 
 
 def Echo(self, text):
