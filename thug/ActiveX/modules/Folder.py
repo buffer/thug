@@ -41,19 +41,7 @@ class Folder:
         _shortPath = []
 
         for p in self.Path.split('\\'):
-            sp = p.split('.')
-
-            if len(sp) == 1:
-                spfn = p if len(p) <= 8 else "{}~1".format(p[:6])
-            else:
-                spfn = ".".join(sp[:-1])
-                ext  = sp[-1]
-
-                if len(spfn) > 8:
-                    spfn = "{}~1".format(spfn[:6])
-
-                spfn = "{}.{}".format(spfn, ext)
-
+            spfn = p if len(p) <= 8 else "{}~1".format(p[:6])
             _shortPath.append(spfn)
 
         return "\\\\".join(_shortPath)
@@ -62,21 +50,11 @@ class Folder:
     def ShortName(self):
         spath = self.Path.split('\\')
         name  = spath[-1]
-        sp    = name.split('.')
 
-        if len(sp) == 1:
-            if len(name) <= 8:
-                return name
+        if len(name) <= 8:
+            return name
 
-            return "{}~1".format(name[:6])
-
-        spfn = ".".join(sp[:-1])
-        ext = sp[-1]
-
-        if len(spfn) > 8:
-            spfn = "{}~1".format(spfn[:6])
-
-        return "{}.{}".format(spfn, ext)
+        return "{}~1".format(name[:6])
 
     @property
     def Drive(self):
