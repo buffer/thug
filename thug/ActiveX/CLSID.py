@@ -1084,6 +1084,7 @@ CLSID = [
             'methods'   : {
                             'BuildPath'         : ScriptingFileSystemObject.BuildPath,
                             'CopyFile'          : ScriptingFileSystemObject.CopyFile,
+                            'CreateFolder'      : ScriptingFileSystemObject.CreateFolder,
                             'CreateTextFile'    : ScriptingFileSystemObject.CreateTextFile,
                             'DeleteFile'        : ScriptingFileSystemObject.DeleteFile,
                             'FileExists'        : ScriptingFileSystemObject.FileExists,

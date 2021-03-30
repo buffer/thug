@@ -7,6 +7,7 @@ import logging
 from thug.ActiveX.modules import WScriptShell
 from thug.ActiveX.modules import TextStream
 from thug.ActiveX.modules import File
+from thug.ActiveX.modules import Folder
 from thug.OS.Windows import win32_files
 from thug.OS.Windows import win32_folders
 
@@ -35,6 +36,11 @@ def CreateTextFile(self, filename, overwrite = False, _unicode = False):
     stream = TextStream.TextStream()
     stream._filename = filename
     return stream
+
+
+def CreateFolder(self, path):
+    log.ThugLogging.add_behavior_warn('[Scripting.FileSystemObject ActiveX] CreateFolder("%s")' % (path, ))
+    return Folder.Folder(path)
 
 
 def FileExists(self, filespec):
