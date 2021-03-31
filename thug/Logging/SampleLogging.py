@@ -42,6 +42,8 @@ class SampleLogging:
         'application/rtf',
     )
 
+    MAX_JAR_FILE_SIZE = 16 * 1024 * 1024
+
     def __init__(self):
         self.types = ('PE',
                       'PDF',
@@ -73,15 +75,17 @@ class SampleLogging:
         data = data.encode() if isinstance(data, str) else data
         return data[:1024].find(b'%PDF') != -1
 
-    @staticmethod
-    def is_jar(data):
+    def is_jar(self, data):
+        result = False
+
+        if len(data) > self.MAX_JAR_FILE_SIZE:
+            return result # pragma: no cover
+
         data = data.encode() if isinstance(data, str) else data
 
         fd, jar = tempfile.mkstemp()
         with open(jar, 'wb') as fd:
             fd.write(data)
-
-        result = False
 
         try:
             z = zipfile.ZipFile(jar)
