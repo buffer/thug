@@ -758,7 +758,14 @@ class DFT(object):
                 self.increase_script_chars_count('javascript', provenance, js)
 
             self.check_strings_in_script(js)
-            self.window.evalScript(js, tag = script)
+
+            # According to HTML specifications "if the src has a URI value, user
+            # agents must ignore the element's contents and retrieve the script
+            # via the URI" [1]
+            #
+            # [1] https://www.w3.org/TR/REC-html40/interact/scripts.html#h-18.2.1
+            if provenance in ('inline', ):
+                self.window.evalScript(js, tag = script)
 
         log.ThugLogging.Shellcode.check_shellcodes()
         self.check_anchors()
