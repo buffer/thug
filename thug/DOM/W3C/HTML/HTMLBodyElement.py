@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import logging
-import bs4
 
 from six import StringIO
+import bs4
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property

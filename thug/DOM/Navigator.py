@@ -21,8 +21,8 @@ import os
 import hashlib
 import logging
 
-import ssdeep
 import six
+import ssdeep
 
 from thug.Magic.Magic import Magic
 

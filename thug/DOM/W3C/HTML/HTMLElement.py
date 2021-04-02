@@ -2,8 +2,9 @@
 
 import logging
 import random
-import bs4
+
 from six import StringIO
+import bs4
 
 from thug.DOM.W3C.Core.DOMException import DOMException
 from thug.DOM.W3C.Core.Element import Element

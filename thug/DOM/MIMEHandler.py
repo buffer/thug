@@ -22,9 +22,9 @@ import json
 import logging
 import zipfile
 import tempfile
+import six
 import bs4
 import rarfile
-import six
 
 OCR_ENABLED = True
 
