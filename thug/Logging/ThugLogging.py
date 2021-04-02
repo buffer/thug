@@ -273,7 +273,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         for m in self.resolve_method('log_image_ocr'):
             m(url, result)
 
-    def log_classifier(self, classifier, url, rule, tags = "", meta = dict()):
+    def log_classifier(self, classifier, url, rule, tags = "", meta = None):
         """
         Log classifiers matching for a given url
 
@@ -287,6 +287,9 @@ class ThugLogging(BaseLogging, SampleLogging):
                                                                                            url,
                                                                                            rule,
                                                                                            tags, ))
+
+        if meta is None:
+            meta = dict() # pragma: no cover
 
         for m in self.resolve_method('log_classifier'):
             m(classifier, url, rule, tags, meta)
