@@ -3,7 +3,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-class SchemeHandler(object):
+class SchemeHandler:
     def __init__(self):
         pass
 

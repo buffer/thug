@@ -30,7 +30,7 @@ import thug
 log = logging.getLogger("Thug")
 
 
-class JSEngine(object):
+class JSEngine:
     def __init__(self, window = None):
         self.init_config()
         self.init_engine()

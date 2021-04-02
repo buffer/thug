@@ -1,7 +1,7 @@
 import collections.abc
 
 
-class JSClass(object):
+class JSClass:
     __properties__  = {}
     __methods__     = {}
     __watchpoints__ = {}

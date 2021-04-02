@@ -24,7 +24,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-class Watchdog(object):
+class Watchdog:
     def __init__(self, time, callback = None):
         self.time     = time
         self.callback = callback

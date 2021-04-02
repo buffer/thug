@@ -11,7 +11,7 @@ from thug.Magic.Magic import Magic
 log = logging.getLogger("Thug")
 
 
-class TextStream(object):
+class TextStream:
     def __init__(self):
         self.stream         = list()
         self._Line          = 1

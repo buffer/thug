@@ -25,7 +25,7 @@ import bs4
 log = logging.getLogger("Thug")
 
 
-class HTMLInspector(object):
+class HTMLInspector:
     def __init__(self):
         self.enabled = True
 

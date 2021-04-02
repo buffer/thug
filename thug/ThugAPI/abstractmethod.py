@@ -3,7 +3,7 @@
 import sys
 
 
-class abstractmethod(object):
+class abstractmethod:
     def __init__(self, func):
         self.func = func
 

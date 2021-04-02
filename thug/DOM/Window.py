@@ -51,7 +51,7 @@ log = logging.getLogger("Thug")
 
 
 class Window(JSClass):
-    class Timer(object):
+    class Timer:
         max_loops  = 3
         max_timers = 16
 

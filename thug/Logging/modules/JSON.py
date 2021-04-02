@@ -263,7 +263,7 @@ class JSON:
                                     "classifier" : "OCR",
                                     "result"     : result})
 
-    def log_classifier(self, classifier, url, rule, tags = "", meta = dict()):
+    def log_classifier(self, classifier, url, rule, tags = "", meta = None):
         """
         Log classifiers matching for a given url
 
@@ -279,7 +279,7 @@ class JSON:
         item = {"classifier" : classifier,
                 "url"        : self.fix(url),
                 "rule"       : rule,
-                "meta"       : meta,
+                "meta"       : meta if meta else dict(),
                 "tags"       : tags}
 
         if item not in self.data["classifiers"]:
