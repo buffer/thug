@@ -484,7 +484,9 @@ class ThugAPI:
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.add_characters_count(len(html))
-            log.ThugLogging.Features.add_whitespaces_count(len([a for a in html if isinstance(a, six.string_types) and a.isspace()]))
+
+            whitespaces_count = len([a for a in html if isinstance(a, six.string_types) and a.isspace()])
+            log.ThugLogging.Features.add_whitespaces_count(whitespaces_count)
 
         doc    = w3c.parseString(html)
         window = Window('about:blank', doc, personality = log.ThugOpts.useragent)
