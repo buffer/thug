@@ -358,7 +358,7 @@ Synopsis:
             elif option[0] in ('-q', '--quiet', ):
                 self.set_log_quiet()
 
-        if p:
+        if p: # pylint:disable=using-constant-test
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
             p(args[0])
             ThugPlugins(POST_ANALYSIS_PLUGINS, self)()
