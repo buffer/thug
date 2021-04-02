@@ -1,8 +1,6 @@
 
 import logging
 
-from thug.ActiveX.modules import TextStream
-
 log = logging.getLogger("Thug")
 
 

@@ -16,7 +16,7 @@ from thug.OS.Windows import win32_registry_map
 log = logging.getLogger("Thug")
 
 
-class _Environment(object):
+class _Environment:
     def __init__(self, strType):
         self.strType = strType
 

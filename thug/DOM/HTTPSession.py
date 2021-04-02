@@ -29,7 +29,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 log = logging.getLogger("Thug")
 
 
-class HTTPSession(object):
+class HTTPSession:
     def __init__(self, proxy = None):
         if proxy is None:
             proxy = log.ThugOpts.proxy

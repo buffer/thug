@@ -64,7 +64,7 @@ log.setLevel(logging.WARN)
 
 
 @implementer(IThugAPI)
-class ThugAPI(object):
+class ThugAPI:
     def __init__(self, configuration_path = thug.__configuration_path__):
         self.__init_conf(configuration_path)
         self.__init_jsengine()

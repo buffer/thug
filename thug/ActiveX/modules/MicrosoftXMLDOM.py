@@ -10,7 +10,7 @@ from thug.OS.Windows import security_sys
 log = logging.getLogger("Thug")
 
 
-class Node(object):
+class Node:
     def __init__(self, xml, elementName):
         self._nodeTypedValue = None
         self._dataType = None

@@ -19,7 +19,7 @@
 import magic
 
 
-class Magic(object):
+class Magic:
     def __init__(self, data):
         self.data = data
 

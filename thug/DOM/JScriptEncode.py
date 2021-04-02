@@ -194,7 +194,7 @@ DCOMBINATION[62] = 2
 DCOMBINATION[63] = 1
 
 
-class JScriptEncode(object):
+class JScriptEncode:
     subs = (('@&', chr(10)),
             ('@#', chr(13)),
             ('@*', '>'),

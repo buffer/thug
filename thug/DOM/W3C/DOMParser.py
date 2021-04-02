@@ -5,7 +5,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-class DOMParser(object):
+class DOMParser:
     def parseFromString(self, s, type_):
         from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
 

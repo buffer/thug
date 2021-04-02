@@ -19,7 +19,7 @@ ATTRIBUTES = {
 }
 
 
-class File(object):
+class File:
     def __init__(self, filespec):
         self.Path = filespec
         self._Attributes = ATTRIBUTES['Archive']

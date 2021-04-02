@@ -23,7 +23,7 @@ import six
 log = logging.getLogger("Thug")
 
 
-class JSInspector(object):
+class JSInspector:
     def __init__(self, window, ctxt, script):
         self.window  = window
         self.script  = script

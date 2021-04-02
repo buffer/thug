@@ -35,7 +35,7 @@ from thug.DOM.W3C import w3c
 log = logging.getLogger("Thug")
 
 
-class DFT(object):
+class DFT:
     javascript     = ('javascript', )
     vbscript       = ('vbs', 'vbscript', 'visualbasic')
 
