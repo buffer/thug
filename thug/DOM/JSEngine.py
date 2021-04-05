@@ -31,7 +31,7 @@ log = logging.getLogger("Thug")
 
 
 class JSEngine:
-    def __init__(self, window = None):
+    def __init__(self):
         self.init_config()
         self.init_engine()
 
