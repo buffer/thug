@@ -26,6 +26,8 @@ log = logging.getLogger("Thug")
 
 class Personality(dict):
     def __init__(self):
+        super().__init__()
+
         personalities = log.personalities_path
 
         if personalities is None: # pragma: no cover

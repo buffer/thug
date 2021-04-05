@@ -22,6 +22,8 @@ log = logging.getLogger("Thug")
 
 class ThugVulnModules(dict):
     def __init__(self):
+        super().__init__()
+
         self._acropdf_pdf               = '9.1.0'
         self._acropdf_disabled          = False
         self._shockwave_flash           = '10.0.64.0'

@@ -226,6 +226,8 @@ class MIMEHandler(dict):
         return self.passthrough
 
     def __init__(self):
+        super().__init__()
+
         self.mimehandler_pyhooks = MIMEHANDLER_PYHOOKS_NONE
 
         for mimetype in self.mimetypes:

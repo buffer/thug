@@ -25,6 +25,8 @@ log = logging.getLogger("Thug")
 
 class MimeTypes(dict):
     def __init__(self):
+        super().__init__()
+
         if not log.ThugVulnModules.acropdf_disabled:
             self['application/pdf'] = MimeType({
                                             'description'   : 'Adobe Acrobat Plug-In',
