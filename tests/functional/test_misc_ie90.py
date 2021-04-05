@@ -1358,6 +1358,12 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_iframe_srcdoc(self, caplog):
+        sample   = os.path.join(self.misc_path, "testIFrameSrcdoc.html")
+        expected = ['[Window] Alert Text: Hello World']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_jscript(self, caplog):
         sample   = os.path.join(self.misc_path, "testJScript.html")
         expected = ['Rule: IE=EmulateIE8',

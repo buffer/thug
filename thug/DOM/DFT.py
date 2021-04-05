@@ -1064,10 +1064,22 @@ class DFT:
         dft = DFT(window)
         dft.run()
 
-    def handle_frame(self, frame, redirect_type = 'frame'):
+    def do_handle_frame(self, frame, url, content):
         from .Window import Window
 
-        log.warning(frame)
+        doc = w3c.parseString(content)
+        window = Window(url, doc, personality = log.ThugOpts.useragent)
+
+        frame_id = frame.get('id', None)
+        if frame_id:
+            log.ThugLogging.windows[frame_id] = window
+
+        dft = DFT(window)
+        dft.run()
+
+    def handle_frame(self, frame, redirect_type = 'frame'):
+        if redirect_type not in ('iframe', ):
+            log.warning(frame)
 
         src = frame.get('src', None)
         if not src:
@@ -1099,21 +1111,22 @@ class DFT:
         if getattr(response, 'thug_mimehandler_hit', False):
             return # pragma: no cover
 
-        doc    = w3c.parseString(response.content)
-        window = Window(response.url, doc, personality = log.ThugOpts.useragent)
-
-        frame_id = frame.get('id', None)
-        if frame_id:
-            log.ThugLogging.windows[frame_id] = window
-
-        dft = DFT(window)
-        dft.run()
+        self.do_handle_frame(frame, response.url, response.content)
 
     def handle_iframe(self, iframe):
+        log.warning(iframe)
+
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_iframe_count()
 
         self.check_small_element(iframe, 'iframe')
+
+        srcdoc = iframe.get('srcdoc', None)
+        if srcdoc:
+            url = log.ThugLogging.url if log.ThugOpts.local else log.last_url
+            self.do_handle_frame(iframe, url, srcdoc)
+            return
+
         self.handle_frame(iframe, 'iframe')
 
     def do_handle_font_face_rule(self, rule):
