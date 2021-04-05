@@ -4,9 +4,9 @@ import os
 import glob
 from setuptools import setup, find_packages
 
-os.environ['BUILD_LIB'] = '1'
-
 import thug
+
+os.environ['BUILD_LIB'] = '1'
 
 personalities_path = os.path.join(thug.__configuration_path__, "personalities")
 rules_path         = os.path.join(thug.__configuration_path__, "rules")
