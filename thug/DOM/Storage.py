@@ -25,9 +25,6 @@ log = logging.getLogger("Thug")
 
 
 class Storage(OrderedDict, JSClass):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def __str__(self):
         return "[object Storage]"
 
