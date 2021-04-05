@@ -1395,3 +1395,10 @@ class TestMiscSamplesIE(object):
         expected = ["this code should bE kept secret!!!!", ]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testIEVisibility(self, caplog):
+        sample   = os.path.join(self.misc_path, "testIEVisibility.html")
+        expected = ["[Window] Alert Text: document.msHidden: false",
+                    "[Window] Alert Text: document.msVisibilityState: visible"]
+
+        self.do_perform_test(caplog, sample, expected)

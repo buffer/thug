@@ -71,12 +71,21 @@ class HTMLDocument(Document):
             self.all = self._all
             self.createStyleSheet = self._createStyleSheet
 
+        self.msHidden = self.hidden
+        self.msVisibilityState = self.visibilityState
+
     def __init_htmldocument_personality_Firefox(self):
         self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
+
+        self.mozHidden = self.hidden
+        self.mozVisibilityState = self.visibilityState
 
     def __init_htmldocument_personality_Chrome(self):
         self.all = self._all
         self.implementation.createHTMLDocument = self.implementation._createHTMLDocument
+
+        self.webkitHidden = self.hidden
+        self.webkitVisibilityState = self.visibilityState
 
     def __init_htmldocument_personality_Safari(self):
         self.all = self._all
@@ -130,6 +139,14 @@ class HTMLDocument(Document):
     @property
     def _node(self):
         return self # pragma: no cover
+
+    @property
+    def visibilityState(self):
+        return "visible"
+
+    @property
+    def hidden(self):
+        return False
 
     @property
     def parentNode(self):
