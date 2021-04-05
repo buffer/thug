@@ -29,7 +29,8 @@ class ThugOpts(dict):
     proxy_schemes = ('http', 'socks4', 'socks5', )
 
     def __init__(self):
-        super(ThugOpts, self).__init__()
+        super().__init__()
+
         self._verbose           = False
         self._debug             = False
         self._proxy             = None
