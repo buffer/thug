@@ -1462,7 +1462,7 @@ class DFT:
                 if tuple(soup.descendants) == tuple(_soup.descendants):
                     break
 
-                for _child in set(soup.descendants) - set(_soup.descendants):
+                for _child in set(soup.descendants) - set(_soup.descendants): # pragma: no cover
                     if _child not in analyzed:
                         analyzed.add(_child)
                         recur = True
