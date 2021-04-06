@@ -181,6 +181,9 @@ class DFT:
         if onevt not in self.handled_on_events:
             return # pragma: no cover
 
+        if onevt not in self.window_on_events:
+            return
+
         if onevt in self.window_on_storage_events:
             return
 
@@ -188,9 +191,8 @@ class DFT:
         if not handler:
             return
 
-        if onevt in self.window_on_events:
-            if (self.window, onevt[2:], handler) in self.dispatched_events:
-                return
+        if (self.window, onevt[2:], handler) in self.dispatched_events:
+            return
 
         self.dispatched_events.add((self.window, onevt[2:], handler))
 
