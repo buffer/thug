@@ -14,3 +14,5 @@ def GetVariable(self, arg):
             idx += 1
 
         return "WIN %s" % (','.join(version))
+
+    return "" # pragma: no cover
