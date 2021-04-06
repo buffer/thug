@@ -83,7 +83,7 @@ class ElasticSearch(JSON):
 
     def export(self, basedir):
         if not self.enabled:
-            return
+            return None
 
         res = self.es.index(index = self.opts['index'], body = self.data)
         return res['_id']

@@ -31,3 +31,5 @@ class System:
 
         if _property == "java.vendor":
             return 'Sun Microsystems Inc.'
+
+        return '' # pragma: no cover

@@ -37,3 +37,5 @@ def GetVersions(self):
 def GetVariable(self, variable):
     if variable in ('$version', ):
         return log.ThugVulnModules.acropdf_pdf
+
+    return "" # pragma: no cover
