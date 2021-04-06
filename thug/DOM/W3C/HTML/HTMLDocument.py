@@ -343,7 +343,7 @@ class HTMLDocument(Document):
             if mode_version not in (5, 7, 8, 9, 10): # pragma: no cover
                 continue
 
-            if mode_version <= major and mode_version >= engine:
+            if engine <= mode_version <= major:
                 engine = mode_version
 
         if not engine:
