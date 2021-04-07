@@ -24,5 +24,5 @@ class DOMException(RuntimeError, JSClass):
     INVALID_ACCESS_ERR          = 15  # If a parameter or an operation is not supported by the underlying object
 
     def __init__(self, code):
-        super.__init__(code)
+        super().__init__(code)
         self.code = code

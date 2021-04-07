@@ -10,5 +10,5 @@ class EventException(RuntimeError, JSClass):
                                     # string will also trigger this exception.
 
     def __init__(self, code):
-        super.__init__(code)
+        super().__init__(code)
         self.code = code
