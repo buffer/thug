@@ -333,6 +333,7 @@ class ThugLogging(BaseLogging, SampleLogging):
             location = log.HTTPSession.normalize_url(window, location)
             self.log_connection(h.url, location, "http-redirect")
 
+            log.HTMLClassifier.classify(h.url, h.content)
             log.URLClassifier.classify(h.url)
             log.HTTPSession.fetch_ssl_certificate(h.url)
 
