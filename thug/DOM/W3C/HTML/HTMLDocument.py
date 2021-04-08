@@ -378,6 +378,10 @@ class HTMLDocument(Document):
 
         self._html.append(html)
 
+        if self._html.count(html) > 20:
+            log.warning("[WARNING] document.write loop detected")
+            return
+
         tag  = self.current
         body = self.doc.find('body')
 
