@@ -409,6 +409,12 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testGetAttribute2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testGetAttribute2.html")
+        expected = ['[Window] Alert Text: https://buffer.github.io/thug/notexists.html']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testSetAttribute1(self, caplog):
         sample   = os.path.join(self.misc_path, "testSetAttribute1.html")
         expected = ['Attribute: bar',

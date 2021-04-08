@@ -175,6 +175,8 @@ class Element(Node, ElementCSSInlineStyle):
         if not isinstance(name, six.string_types): # pragma: no cover
             name = str(name)
 
+        return_as_url = False
+
         if log.ThugOpts.Personality.isIE():
             if log.ThugOpts.Personality.browserMajorVersion < 8:
                 # flags parameter is only supported in Internet Explorer earlier
@@ -188,15 +190,19 @@ class Element(Node, ElementCSSInlineStyle):
                 # 1   Case-sensitive search
                 # 2   Returns the value as a string
                 # 4   Returns the value as an URL
-
-                # FIXME (flags 2 and 4 not implemented yet)
                 if not flags & 1:
                     name = name.lower()
+
+                if flags & 4:
+                    return_as_url = True
 
         value = self.tag.attrs[name] if name in self.tag.attrs else None
 
         if isinstance(value, list):
             value = " ".join(value)
+
+        if return_as_url:
+            value = log.HTTPSession.normalize_url(self.doc.window, value)
 
         return value
 
