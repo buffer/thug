@@ -182,7 +182,7 @@ class Shellcode:
 
         emu.free()
 
-    def hook_URLDownloadToFile(self, emu, api_name, func, params):
+    def hook_URLDownloadToFile(self, emu, api_name, func, params): # pragma: no cover
         rv = func(params)
 
         pCaller, szURL, szFileName, dwReserved, lpfnCB = params # pylint:disable=unused-variable
