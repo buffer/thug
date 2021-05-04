@@ -41,6 +41,7 @@ jobs:
 
       - name: STEP 5. Install Tox
         run: |
+          pip3 install --upgrade pip
           pip3 install tox tox-gh-actions
 
       - name: STEP 6. Build Thug
