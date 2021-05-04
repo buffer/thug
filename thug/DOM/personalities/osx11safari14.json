@@ -1,0 +1,20 @@
+{
+  "appCodeName": "Mozilla",
+  "appMinorVersion": null,
+  "appName": "Netscape",
+  "appVersion": "5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15",
+  "browserTag": "safari14",
+  "buildID": null,
+  "cc_on": null,
+  "description": "Safari 14.0.3\t\t(MacOS X 11.2.3)",
+  "id": 200402,
+  "javaUserAgent": null,
+  "oscpu": null,
+  "platform": "MacIntel",
+  "product": "Gecko",
+  "productSub": "20030107",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15",
+  "vendor": "Apple Computer, Inc.",
+  "vendorSub": "",
+  "version": "14.0.3"
+}
