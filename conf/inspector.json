@@ -1,5 +1,8 @@
 {
   "extract": [
-    "font[style$=\"font-size:0px\"]"
+    "font[style*=\"font-size:0px\"]",
+    "font[style*=\"font-size: 0px\"]",
+    "span[style*=\"font-size:0%\"]",
+    "span[style*=\"font-size: 0%\"]"
   ]
 }
