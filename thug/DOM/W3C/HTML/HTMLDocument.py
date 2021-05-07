@@ -2,7 +2,6 @@
 
 import logging
 import six.moves.urllib.parse as urlparse
-import six
 import bs4
 
 from lxml.html import builder as E

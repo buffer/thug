@@ -17,6 +17,7 @@
 # MA  02111-1307  USA
 
 import os
+import types
 import copy
 import uuid
 import random
@@ -91,7 +92,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         for label, hook in hooks.items():
             name   = "{}_hook".format(label)
             _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
-            method = six.create_bound_method(_hook, ThugLogging)
+            method = types.MethodType(_hook, ThugLogging)
             setattr(self, name, method)
 
     def __init_config(self):

@@ -26,7 +26,7 @@ import collections.abc
 import datetime
 import random
 import six.moves.urllib_parse as urllib
-import six
+import types
 import bs4
 
 from thug.ActiveX.ActiveX import _ActiveXObject
@@ -203,7 +203,7 @@ class Window(JSClass):
         if log.JSEngine.isJSFunction(symbol):
             _method = None
             if _method is None:
-                _method = six.create_bound_method(symbol, Window)
+                _method = types.MethodType(symbol, Window)
 
             setattr(self, key, _method)
             context.locals[key] = _method

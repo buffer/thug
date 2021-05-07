@@ -19,6 +19,7 @@
 
 import os
 import io
+import types
 import json
 import logging
 import zipfile
@@ -255,7 +256,7 @@ class MIMEHandler(dict):
         for label, hook in hooks.items():
             name   = "{}_hook".format(label)
             _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
-            method = six.create_bound_method(_hook, MIMEHandler)
+            method = types.MethodType(_hook, MIMEHandler)
             setattr(self, name, method)
 
         hook = getattr(self, "handle_image_hook", None)

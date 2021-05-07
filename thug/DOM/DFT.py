@@ -16,6 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import types
 import re
 import base64
 import logging
@@ -112,7 +113,7 @@ class DFT:
         for label, hook in hooks.items():
             name   = "{}_hook".format(label)
             _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
-            method = six.create_bound_method(_hook, DFT)
+            method = types.MethodType(_hook, DFT)
             setattr(self, name, method)
 
     @property
