@@ -20,12 +20,11 @@
 #           (developed for the iTES Project http://ites-project.org)
 
 import os
+import io
 import json
 import base64
 import logging
 import datetime
-
-import six
 
 import thug
 
@@ -361,7 +360,7 @@ class JSON:
         if not self.json_enabled:
             return
 
-        output = six.StringIO()
+        output = io.StringIO()
 
         if log.ThugOpts.features_logging and (log.ThugOpts.verbose or log.ThugOpts.debug):
             log.warning(log.ThugLogging.Features.features)

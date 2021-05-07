@@ -3,7 +3,7 @@
 import logging
 import random
 
-from six import StringIO
+import io
 import bs4
 
 from thug.DOM.W3C.Core.DOMException import DOMException
@@ -37,7 +37,7 @@ class HTMLElement(Element):
         if not self.hasChildNodes():
             return ""
 
-        html = StringIO()
+        html = io.StringIO()
 
         for tag in self.tag.contents:
             html.write(str(tag))

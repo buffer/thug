@@ -18,13 +18,15 @@
 
 
 import os
+import io
 import json
 import logging
 import zipfile
 import tempfile
-import six
 import bs4
 import rarfile
+
+import six
 
 OCR_ENABLED = True
 
@@ -340,7 +342,7 @@ class MIMEHandler(dict):
 
     def perform_ocr_analysis(self, url, content):
         try:
-            fp  = six.BytesIO(content)
+            fp  = io.BytesIO(content)
             img = Image.open(fp)
         except Exception as e: # pragma: no cover
             log.warning("[OCR] Error: %s", str(e))
@@ -353,7 +355,7 @@ class MIMEHandler(dict):
         if len(content) < self.MIN_ZIP_FILE_SIZE: # pragma: no cover
             return False
 
-        fp = six.BytesIO(content)
+        fp = io.BytesIO(content)
         if not zipfile.is_zipfile(fp):
             return False
 
