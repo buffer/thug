@@ -24,7 +24,7 @@ log.ThugOpts = ThugOpts()
 
 log.ThugOpts.useragent = 'winxpie60'
 
-config = ConfigParser.ConfigParser()
+config = configparser.ConfigParser()
 conf_file = os.path.join(log.configuration_path, 'thug.conf')
 config.read(conf_file)
 
