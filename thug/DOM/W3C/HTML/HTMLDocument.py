@@ -368,7 +368,7 @@ class HTMLDocument(Document):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_document_write_count()
 
-        if isinstance(html, six.integer_types):
+        if isinstance(html, int):
             html = str(html)
 
         log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.URL, html)
