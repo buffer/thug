@@ -11,7 +11,6 @@ pymongo==3.11.4
 python-magic==0.4.22
 rarfile==4.0
 requests==2.25.1
-six==1.15.0
 ssdeep==3.4
 yara-python==4.1.0
 zope.interface==5.4.0
