@@ -371,7 +371,7 @@ def main():
     if not os.getenv('THUG_PROFILE', None):
         Thug(sys.argv[1:])()
     else:
-        from six import StringIO
+        import io
         import cProfile
         import pstats
 
@@ -380,7 +380,7 @@ def main():
         Thug(sys.argv[1:])()
         profiler.disable()
 
-        s  = StringIO()
+        s  = io.StringIO()
         ps = pstats.Stats(profiler, stream = s).sort_stats('cumulative')
         ps.print_stats()
         with open('/tmp/thug-profiler.log', 'w') as fd: # nosec
