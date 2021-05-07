@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import six
+import sys
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
@@ -18,7 +18,7 @@ class HTMLInputElement(HTMLElement):
     defaultValue   = bool_property("value")
     disabled       = bool_property("disabled")
     form           = form_property()
-    maxLength      = attr_property("maxlength", int, default = six.MAXSIZE)
+    maxLength      = attr_property("maxlength", int, default = sys.maxsize)
     name           = attr_property("name")
     readOnly       = bool_property("readonly")
     size           = attr_property("size", int)
