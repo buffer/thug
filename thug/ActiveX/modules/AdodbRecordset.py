@@ -1,5 +1,4 @@
 import collections
-import six
 
 from thug.DOM.JSClass import JSClass
 
@@ -13,7 +12,7 @@ class Fields(JSClass):
         return len(self.items)
 
     def item(self, key):
-        if isinstance(key, six.string_types):
+        if isinstance(key, str):
             return getattr(self.items, key, None)
 
         try:

@@ -17,6 +17,8 @@
 # MA  02111-1307  USA
 
 import os
+import operator
+import types
 import copy
 import uuid
 import random
@@ -25,8 +27,6 @@ import errno
 import hashlib
 import logging
 import configparser
-
-import six
 
 from thug.Analysis.shellcode.Shellcode import Shellcode
 from thug.Analysis.virustotal.VirusTotal import VirusTotal
@@ -88,10 +88,13 @@ class ThugLogging(BaseLogging, SampleLogging):
         if hooks is None:
             return
 
+        get_method_function = operator.attrgetter("__func__")
+        get_method_self = operator.attrgetter("__self__")
+
         for label, hook in hooks.items():
             name   = "{}_hook".format(label)
-            _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
-            method = six.create_bound_method(_hook, ThugLogging)
+            _hook = get_method_function(hook) if get_method_self(hook) else hook
+            method = types.MethodType(_hook, ThugLogging)
             setattr(self, name, method)
 
     def __init_config(self):

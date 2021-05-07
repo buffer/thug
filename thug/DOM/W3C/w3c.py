@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# import six
-
 import logging
 import bs4
 
@@ -19,11 +17,3 @@ def parseString(html, **kwds):
 
     soup = log.HTMLInspector.run(html, "html.parser")
     return DOMImplementation(soup, **kwds)
-
-
-# def parse(_file, **kwds):
-#    if isinstance(_file, six.string_types):
-#        with open(_file, 'r') as f:
-#            return parseString(f.read())
-#
-#    return parseString(_file.read(), **kwds)

@@ -1,7 +1,8 @@
 # Microsoft XMLHTTP
 
 import logging
-# import six.moves.urllib.parse as urlparse
+# from urllib.parse import urlparse
+# from urllib.parse import urlunparse
 
 from lxml.html import builder as E
 from lxml.html import tostring
@@ -19,14 +20,14 @@ def abort(self):
 
 def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword = None):  # pylint:disable=redefined-builtin
     # Internet Explorer ignores any \r\n or %0d%0a or whitespace appended to the domain name
-    # parsedUrl = urlparse.urlparse(bstrUrl)
+    # parsedUrl = urlparse(bstrUrl)
     # netloc = parsedUrl.netloc.strip("\r\n\t")
-    # bstrUrl = urlparse.urlunparse((parsedUrl.scheme,
-    #                                netloc,
-    #                                parsedUrl.path,
-    #                                parsedUrl.params,
-    #                                parsedUrl.query,
-    #                                parsedUrl.fragment))
+    # bstrUrl = urlunparse((parsedUrl.scheme,
+    #                       netloc,
+    #                       parsedUrl.path,
+    #                       parsedUrl.params,
+    #                       parsedUrl.query,
+    #                       parsedUrl.fragment))
 
     msg = "[Microsoft XMLHTTP ActiveX] open('%s', '%s', %s" % (bstrMethod, bstrUrl, varAsync is True, )
     if varUser:

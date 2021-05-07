@@ -25,9 +25,10 @@ import numbers
 import collections.abc
 import datetime
 import random
-import six.moves.urllib_parse as urllib
-import six
+import types
 import bs4
+
+from urllib.parse import unquote
 
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.Java.java import java
@@ -203,13 +204,13 @@ class Window(JSClass):
         if log.JSEngine.isJSFunction(symbol):
             _method = None
             if _method is None:
-                _method = six.create_bound_method(symbol, Window)
+                _method = types.MethodType(symbol, Window)
 
             setattr(self, key, _method)
             context.locals[key] = _method
             return _method
 
-        _types = (six.string_types,
+        _types = (str,
                   bool,
                   numbers.Number,
                   datetime.datetime)
@@ -990,7 +991,7 @@ class Window(JSClass):
 
         # %xx format
         if '%' in s and '%u' not in s:
-            return urllib.unquote(s)
+            return unquote(s)
 
         # %uxxxx format
         while i < len(s):
@@ -1019,7 +1020,7 @@ class Window(JSClass):
         """
         The atob method decodes a base-64 encoded string
         """
-        if isinstance(s, six.string_types):
+        if isinstance(s, str):
             s = s.encode()
 
         return base64.b64decode(s)
@@ -1028,13 +1029,13 @@ class Window(JSClass):
         """
         The btoa method encodes a string in base-64
         """
-        if isinstance(s, six.string_types):
+        if isinstance(s, str):
             s = s.encode()
 
         return base64.b64encode(s)
 
     def decodeURIComponent(self, s):
-        return urllib.unquote(s) if s else ""
+        return unquote(s) if s else ""
 
     def Image(self, width = 800, height = 600):
         return self.doc.createElement('img')
@@ -1064,7 +1065,7 @@ class Window(JSClass):
         return getattr(element, 'style', None)
 
     def open(self, url = None, name = '_blank', specs = '', replace = False):
-        if url and not isinstance(url, six.string_types): # pragma: no cover
+        if url and not isinstance(url, str): # pragma: no cover
             url = str(url)
 
         if url and url not in ('about:blank', ):

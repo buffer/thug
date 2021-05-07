@@ -2,7 +2,7 @@
 
 import logging
 
-from six import StringIO
+import io
 import bs4
 
 from .HTMLElement import HTMLElement
@@ -26,7 +26,7 @@ class HTMLBodyElement(HTMLElement):
         return "[object HTMLBodyElement]"
 
     def getInnerHTML(self):
-        html = StringIO()
+        html = io.StringIO()
 
         for tag in self.tag.contents:
             html.write(str(tag))

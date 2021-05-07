@@ -4,7 +4,7 @@ import os
 import logging
 import configparser
 
-import six.moves.urllib.parse as urlparse
+from urllib.parse import urlparse
 
 MYAWIS_MODULE = True
 
@@ -66,7 +66,7 @@ class AWIS:
         if not self.awis_api:
             return result
 
-        p_url = urlparse.urlparse(url)
+        p_url = urlparse(url)
         hostname = p_url.hostname
         if not hostname:
             return result

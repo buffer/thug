@@ -20,7 +20,12 @@ import logging
 import sys
 import socket
 import ssl
-import six.moves.urllib.parse as urlparse
+
+from urllib.parse import urlparse
+from urllib.parse import urljoin
+from urllib.parse import quote
+from urllib.parse import unquote
+
 import requests
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -42,7 +47,7 @@ class HTTPSession:
         s.close()
 
     def __do_init_proxy(self, proxy):
-        url = urlparse.urlparse(proxy)
+        url = urlparse(proxy)
         if not url.scheme:
             return False
 
@@ -87,7 +92,7 @@ class HTTPSession:
         if window.url in ('about:blank', ):
             return 'http:%s' % (url, )
 
-        base_url = urlparse.urlparse(window.url)
+        base_url = urlparse(window.url)
         return "%s:%s" % (base_url.scheme, url) if base_url.scheme else "http:%s" % (url, )
 
     def _is_compatible(self, url, scheme):
@@ -117,11 +122,11 @@ class HTTPSession:
         url = self._normalize_protocol_relative_url(window, url)
 
         try:
-            url = urlparse.quote(url, safe = "%/:=&?~#+!$,;'@()*[]{}")
+            url = quote(url, safe = "%/:=&?~#+!$,;'@()*[]{}")
         except KeyError: # pragma: no cover
             pass
 
-        _url = urlparse.urlparse(url)
+        _url = urlparse(url)
 
         base_url = None
         last_url = getattr(log, 'last_url', None)
@@ -131,7 +136,7 @@ class HTTPSession:
                 continue
 
             base_url = _base_url
-            p_base_url = urlparse.urlparse(base_url)
+            p_base_url = urlparse(base_url)
             if p_base_url.scheme:
                 break
 
@@ -147,14 +152,14 @@ class HTTPSession:
             return None
 
         if not _url.netloc and base_url:
-            _url = urlparse.urljoin(base_url, url)
+            _url = urljoin(base_url, url)
             log.warning("[Navigator URL Translation] %s --> %s", url, _url)
             return _url
 
         return url
 
     def check_equal_urls(self, url, last_url):
-        return urlparse.unquote(url) in (urlparse.unquote(last_url), )
+        return unquote(url) in (unquote(last_url), )
 
     def build_http_headers(self, window, personality, headers):
         http_headers = {
@@ -181,7 +186,7 @@ class HTTPSession:
         if not log.ThugOpts.cert_logging:
             return
 
-        _url = urlparse.urlparse(url)
+        _url = urlparse(url)
         if _url.scheme not in ('https', ):
             return
 

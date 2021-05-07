@@ -17,7 +17,7 @@
 # MA  02111-1307  USA
 
 import logging
-import six.moves.urllib.parse as urlparse
+from urllib.parse import urlparse
 
 from thug.DOM.W3C import w3c
 
@@ -36,7 +36,7 @@ class Location(JSClass):
 
     @property
     def parts(self):
-        return urlparse.urlparse(self._window.url)
+        return urlparse(self._window.url)
 
     def get_href(self):
         return self._window.url

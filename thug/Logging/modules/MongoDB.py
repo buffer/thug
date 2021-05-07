@@ -22,7 +22,6 @@ import logging
 import datetime
 import configparser
 
-import six
 import pymongo
 import gridfs
 from pymongo.errors import DuplicateKeyError
@@ -434,7 +433,7 @@ class MongoDB:
             return str()
 
         try:
-            if isinstance(data, six.string_types):
+            if isinstance(data, str):
                 enc_data = data
             else:
                 enc = log.Encoding.detect(data)

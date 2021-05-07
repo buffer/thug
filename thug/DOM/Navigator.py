@@ -21,7 +21,6 @@ import os
 import hashlib
 import logging
 
-import six
 import ssdeep
 
 from thug.Magic.Magic import Magic
@@ -284,7 +283,7 @@ class Navigator(JSClass):
         return True
 
     def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None, snippet = None):
-        if url and not isinstance(url, six.string_types): # pragma: no cover
+        if url and not isinstance(url, str): # pragma: no cover
             url = str(url)
 
         log.URLClassifier.classify(url)

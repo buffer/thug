@@ -3,8 +3,7 @@
 import logging
 import random
 
-import six.moves.urllib.parse as urlparse
-import six
+from urllib.parse import urlsplit
 
 from thug.DOM.W3C.Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 
@@ -172,7 +171,7 @@ class Element(Node, ElementCSSInlineStyle):
         return self.tag.name.upper()
 
     def getAttribute(self, name, flags = 0):
-        if not isinstance(name, six.string_types): # pragma: no cover
+        if not isinstance(name, str): # pragma: no cover
             name = str(name)
 
         return_as_url = False
@@ -214,7 +213,7 @@ class Element(Node, ElementCSSInlineStyle):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_setattribute_count()
 
-        if not isinstance(name, six.string_types): # pragma: no cover
+        if not isinstance(name, str): # pragma: no cover
             name = str(name)
 
         if log.ThugOpts.Personality.isFirefox():
@@ -239,7 +238,7 @@ class Element(Node, ElementCSSInlineStyle):
         self.tag.attrs[name] = value
 
         if name.lower() in ('src', 'archive'):
-            s = urlparse.urlsplit(value)
+            s = urlsplit(value)
 
             handler = getattr(log.SchemeHandler, 'handle_%s' % (s.scheme, ), None)
             if handler:

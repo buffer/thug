@@ -18,7 +18,8 @@
 
 import sys
 import logging
-import six.moves.urllib.parse as urlparse
+
+from urllib.parse import urlparse
 
 from thug.DOM.Personality import Personality
 
@@ -89,7 +90,7 @@ class ThugOpts(dict):
             self._proxy = None
             return
 
-        p = urlparse.urlparse(proxy)
+        p = urlparse(proxy)
 
         if p.scheme.lower() not in self.proxy_schemes:
             log.warning('[ERROR] Invalid proxy scheme (valid schemes: http, socks4, socks5)')

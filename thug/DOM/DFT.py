@@ -16,11 +16,15 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import types
+import operator
 import re
 import base64
 import logging
-import six.moves.urllib.parse as urlparse
-import six
+
+from urllib.parse import urljoin
+from urllib.parse import unquote
+
 import bs4
 
 from bs4.element import NavigableString
@@ -109,10 +113,13 @@ class DFT:
         if hooks is None:
             return
 
+        get_method_function = operator.attrgetter("__func__")
+        get_method_self = operator.attrgetter("__self__")
+
         for label, hook in hooks.items():
             name   = "{}_hook".format(label)
-            _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
-            method = six.create_bound_method(_hook, DFT)
+            _hook = get_method_function(hook) if get_method_self(hook) else hook
+            method = types.MethodType(_hook, DFT)
             setattr(self, name, method)
 
     @property
@@ -261,7 +268,7 @@ class DFT:
     def attach_event(self, elem, evt, h):
         handler = None
 
-        if isinstance(h, six.string_types):
+        if isinstance(h, str):
             handler = self.build_event_handler(self.context, h)
         elif log.JSEngine.isJSFunction(h):
             handler = h
@@ -475,7 +482,7 @@ class DFT:
             return
 
         if 'codebase' in params:
-            archive = urlparse.urljoin(params['codebase'], params['archive'])
+            archive = urljoin(params['codebase'], params['archive'])
         else:
             archive = params['archive']
 
@@ -1185,7 +1192,7 @@ class DFT:
         Explorer requires that the charset's specification must precede the
         base64 token.
         """
-        uri = uri if isinstance(uri, six.string_types) else str(uri)
+        uri = uri if isinstance(uri, str) else str(uri)
         if not uri.lower().startswith("data:"):
             return None
 
@@ -1206,7 +1213,7 @@ class DFT:
                 data = base64.b64decode(h[1])
             except Exception: # pragma: no cover
                 try:
-                    data = base64.b64decode(urlparse.unquote(h[1]))
+                    data = base64.b64decode(unquote(h[1]))
                 except Exception:
                     log.warning("[WARNING] Error while handling data URI: %s", data)
                     return None

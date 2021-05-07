@@ -17,9 +17,10 @@
 # MA  02111-1307  USA
 
 import os
+import operator
 import logging
-import six.moves.urllib.parse as urlparse
-import six
+
+from urllib.parse import urlparse
 
 import yara
 
@@ -92,7 +93,7 @@ class BaseClassifier:
         self.filters = yara.compile(filepaths = self._filters)
 
     def discard_meta_domain_whitelist(self, url, values):
-        p_url  = urlparse.urlparse(url)
+        p_url  = urlparse(url)
         netloc = p_url.netloc.lower()
 
         for value in values.split(','):
@@ -121,7 +122,8 @@ class BaseClassifier:
             log.warning("Skipping non callable custom classifier %s", str(method))
             return
 
-        method_name = six.get_function_code(method).co_name
+        get_function_code = operator.attrgetter("__code__")
+        method_name = get_function_code(method).co_name
         self.custom_classifiers[method_name] = method.__get__(self)
 
     def reset_customclassifiers(self):

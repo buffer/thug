@@ -18,11 +18,13 @@
 
 
 import os
+import io
+import types
+import operator
 import json
 import logging
 import zipfile
 import tempfile
-import six
 import bs4
 import rarfile
 
@@ -250,10 +252,13 @@ class MIMEHandler(dict):
         if hooks is None:
             return
 
+        get_method_function = operator.attrgetter("__func__")
+        get_method_self = operator.attrgetter("__self__")
+
         for label, hook in hooks.items():
             name   = "{}_hook".format(label)
-            _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
-            method = six.create_bound_method(_hook, MIMEHandler)
+            _hook = get_method_function(hook) if get_method_self(hook) else hook
+            method = types.MethodType(_hook, MIMEHandler)
             setattr(self, name, method)
 
         hook = getattr(self, "handle_image_hook", None)
@@ -340,7 +345,7 @@ class MIMEHandler(dict):
 
     def perform_ocr_analysis(self, url, content):
         try:
-            fp  = six.BytesIO(content)
+            fp  = io.BytesIO(content)
             img = Image.open(fp)
         except Exception as e: # pragma: no cover
             log.warning("[OCR] Error: %s", str(e))
@@ -353,7 +358,7 @@ class MIMEHandler(dict):
         if len(content) < self.MIN_ZIP_FILE_SIZE: # pragma: no cover
             return False
 
-        fp = six.BytesIO(content)
+        fp = io.BytesIO(content)
         if not zipfile.is_zipfile(fp):
             return False
 
