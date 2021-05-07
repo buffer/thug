@@ -18,7 +18,9 @@
 
 import os
 import logging
-import six.moves.urllib.parse as urlparse
+
+from urllib.parse import urlparse
+
 import six
 
 import yara
@@ -92,7 +94,7 @@ class BaseClassifier:
         self.filters = yara.compile(filepaths = self._filters)
 
     def discard_meta_domain_whitelist(self, url, values):
-        p_url  = urlparse.urlparse(url)
+        p_url  = urlparse(url)
         netloc = p_url.netloc.lower()
 
         for value in values.split(','):

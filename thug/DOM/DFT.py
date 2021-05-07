@@ -20,7 +20,10 @@ import types
 import re
 import base64
 import logging
-import six.moves.urllib.parse as urlparse
+
+from urllib.parse import urljoin
+from urllib.parse import unquote
+
 import six
 import bs4
 
@@ -476,7 +479,7 @@ class DFT:
             return
 
         if 'codebase' in params:
-            archive = urlparse.urljoin(params['codebase'], params['archive'])
+            archive = urljoin(params['codebase'], params['archive'])
         else:
             archive = params['archive']
 
@@ -1207,7 +1210,7 @@ class DFT:
                 data = base64.b64decode(h[1])
             except Exception: # pragma: no cover
                 try:
-                    data = base64.b64decode(urlparse.unquote(h[1]))
+                    data = base64.b64decode(unquote(h[1]))
                 except Exception:
                     log.warning("[WARNING] Error while handling data URI: %s", data)
                     return None

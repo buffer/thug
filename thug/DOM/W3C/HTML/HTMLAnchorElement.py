@@ -4,7 +4,7 @@ import logging
 import time
 import datetime
 
-import six.moves.urllib.parse as urlparse
+from urllib.parse import urlparse
 
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
@@ -34,7 +34,7 @@ class HTMLAnchorElement(HTMLElement):
         if not self.href:
             return ":"
 
-        o = urlparse.urlparse(self.href)
+        o = urlparse(self.href)
         return "{}:".format(o.scheme) if o.scheme else ":"
 
     @property
@@ -42,7 +42,7 @@ class HTMLAnchorElement(HTMLElement):
         if not self.href:
             return ""
 
-        o = urlparse.urlparse(self.href)
+        o = urlparse(self.href)
         return o.netloc if o.netloc else ""
 
     @property

@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 import logging
-import six.moves.urllib.parse as urlparse
+
+from urllib.parse import urlparse
+
 import bs4
 
 from lxml.html import builder as E
@@ -33,7 +35,7 @@ class HTMLDocument(Document):
         self._head          = None
         self._currentScript = None
         self._readyState    = "loading"
-        self._domain        = urlparse.urlparse(self._win.url).hostname if self._win else ''
+        self._domain        = urlparse(self._win.url).hostname if self._win else ''
         self.current        = None
 
         self.__init_htmldocument_personality()

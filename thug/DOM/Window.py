@@ -25,9 +25,10 @@ import numbers
 import collections.abc
 import datetime
 import random
-import six.moves.urllib_parse as urllib
 import types
 import bs4
+
+from urllib.parse import unquote
 
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.Java.java import java
@@ -990,7 +991,7 @@ class Window(JSClass):
 
         # %xx format
         if '%' in s and '%u' not in s:
-            return urllib.unquote(s)
+            return unquote(s)
 
         # %uxxxx format
         while i < len(s):
@@ -1034,7 +1035,7 @@ class Window(JSClass):
         return base64.b64encode(s)
 
     def decodeURIComponent(self, s):
-        return urllib.unquote(s) if s else ""
+        return unquote(s) if s else ""
 
     def Image(self, width = 800, height = 600):
         return self.doc.createElement('img')

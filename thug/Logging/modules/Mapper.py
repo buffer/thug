@@ -26,7 +26,8 @@
 import os
 import json
 import fnmatch
-import six.moves.urllib.parse as urlparse
+
+from urllib.parse import urlparse
 
 try:
     import pygraphviz
@@ -218,7 +219,7 @@ class Mapper:
         loc["display"] = True
 
         if self.simplify:
-            url = urlparse.urlparse(loc["url"]).netloc
+            url = urlparse(loc["url"]).netloc
             if url:
                 loc["url"] = url
 
@@ -256,11 +257,11 @@ class Mapper:
         con["display"] = True
 
         if self.simplify:
-            url = urlparse.urlparse(con["source"]).netloc
+            url = urlparse(con["source"]).netloc
             if url:
                 con["source"] = url
 
-            url = urlparse.urlparse(con["destination"]).netloc
+            url = urlparse(con["destination"]).netloc
             if url:
                 con["destination"] = url
 

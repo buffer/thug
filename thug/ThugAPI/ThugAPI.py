@@ -19,15 +19,17 @@
 import os
 import sys
 import logging
-import six.moves.urllib.parse as urlparse
+
+from urllib.parse import urlparse
+
 import bs4
-from lxml.html import tostring
-from lxml.html import builder as E
-from zope.interface import implementer
 
 from bs4.element import NavigableString
 from bs4.element import CData
 from bs4.element import Script
+from lxml.html import tostring
+from lxml.html import builder as E
+from zope.interface import implementer
 
 import thug
 from thug.DOM.W3C import w3c
@@ -499,7 +501,7 @@ class ThugAPI:
         log.ThugOpts.local = False
 
         try:
-            scheme = urlparse.urlparse(url).scheme
+            scheme = urlparse(url).scheme
         except ValueError as e: # pragma: no cover
             log.warning("[WARNING] Analysis not performed (%s)", str(e))
             return
