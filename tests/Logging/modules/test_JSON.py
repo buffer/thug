@@ -1,9 +1,8 @@
 # coding=utf-8
 import os
+import io
 import shutil
 import logging
-
-from six import StringIO
 
 import thug
 from thug.ThugAPI.ThugOpts import ThugOpts
@@ -252,7 +251,7 @@ class TestJSON:
         assert not os.path.isdir(self.base_dir)
 
     def test_get_json_data(self):
-        output = StringIO()
+        output = io.StringIO()
         output.write(self.data)
         json.cached_data = output
         data = json.get_json_data(self.base_dir)

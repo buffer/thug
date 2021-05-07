@@ -1,7 +1,8 @@
 import os
 import logging
+import configparser
+
 from mock import patch
-import six.moves.configparser as ConfigParser
 
 from elasticmock import elasticmock
 
@@ -55,7 +56,7 @@ class TestElasticSearch:
         assert not response
         assert not enabled
 
-    @patch('six.moves.configparser.ConfigParser.getboolean', return_value = False)
+    @patch('configparser.ConfigParser.getboolean', return_value = False)
     def test_disable_conf(self, mocked_parser):
         log.ThugOpts.elasticsearch_logging = True
         log.configuration_path = configuration_path

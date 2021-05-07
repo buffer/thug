@@ -1,16 +1,16 @@
 import os
 import shutil
 import logging
+import configparser
 
 import pytest
-import six.moves.configparser as ConfigParser
 
 import thug
 from thug.Logging.BaseLogging import BaseLogging
 from thug.ThugAPI.ThugOpts import ThugOpts
 
 configuration_path = thug.__configuration_path__
-config             = ConfigParser.ConfigParser()
+config             = configparser.ConfigParser()
 conf_file          = os.path.join(configuration_path, 'thug.conf')
 config.read(conf_file)
 
