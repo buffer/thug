@@ -8,9 +8,9 @@ Send commands to Thug
 import json
 import datetime
 import argparse
+import configparser
 
-import six.moves.configparser as ConfigParser
-import six.moves.urllib.parse as urlparse
+from urllib.parse import urlparse
 
 import pika
 
@@ -39,7 +39,7 @@ class ThugCtrl(object):
         """ Read config from config file
         """
 
-        conf = ConfigParser.ConfigParser()
+        conf = configparser.ConfigParser()
         conf.read(self.configfile)
         self.host = conf.get("jobs", "host")
         self.queue = conf.get("jobs", "queue")
@@ -70,7 +70,7 @@ class ThugCtrl(object):
 
         if url.find("://") < 0:
             url = "http://" + url
-        o = urlparse.urlparse(url)
+        o = urlparse(url)
 
         jid = o.netloc + "_" + datetime.datetime.now().strftime(
             "%Y_%m_%d__%H_%M_%S")

@@ -12,9 +12,7 @@ import json
 import shutil
 import argparse
 import subprocess
-
-import six.moves.configparser as ConfigParser
-import six
+import configparser
 
 import pika
 
@@ -52,7 +50,7 @@ class Thugd(object):
         if configfile is None:
             return
 
-        conf = ConfigParser.ConfigParser()
+        conf = configparser.ConfigParser()
         conf.read(configfile)
         self.host = conf.get("jobs", "host")
         self.queue = conf.get("jobs", "queue")
@@ -148,7 +146,7 @@ class Thugd(object):
 
         for line in self.runProcess(command):
             if line.startswith("["):
-                six.print_(line, end = " ")
+                print(line, end = " ")
 
             if line.find("] Saving log analysis at ") >= 0:
                 pathname = line.split(" ")[-1].strip()
