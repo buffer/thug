@@ -26,9 +26,10 @@ import collections.abc
 import datetime
 import random
 import types
-import bs4
 
 from urllib.parse import unquote
+
+import bs4
 
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.Java.java import java
