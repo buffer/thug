@@ -20,14 +20,13 @@
 import os
 import io
 import types
+import operator
 import json
 import logging
 import zipfile
 import tempfile
 import bs4
 import rarfile
-
-import six
 
 OCR_ENABLED = True
 
@@ -253,9 +252,12 @@ class MIMEHandler(dict):
         if hooks is None:
             return
 
+        get_method_function = operator.attrgetter("__func__")
+        get_method_self = operator.attrgetter("__self__")
+
         for label, hook in hooks.items():
             name   = "{}_hook".format(label)
-            _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
+            _hook = get_method_function(hook) if get_method_self(hook) else hook
             method = types.MethodType(_hook, MIMEHandler)
             setattr(self, name, method)
 

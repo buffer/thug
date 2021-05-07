@@ -17,6 +17,7 @@
 # MA  02111-1307  USA
 
 import types
+import operator
 import re
 import base64
 import logging
@@ -24,7 +25,6 @@ import logging
 from urllib.parse import urljoin
 from urllib.parse import unquote
 
-import six
 import bs4
 
 from bs4.element import NavigableString
@@ -113,9 +113,12 @@ class DFT:
         if hooks is None:
             return
 
+        get_method_function = operator.attrgetter("__func__")
+        get_method_self = operator.attrgetter("__self__")
+
         for label, hook in hooks.items():
             name   = "{}_hook".format(label)
-            _hook = six.get_method_function(hook) if six.get_method_self(hook) else hook
+            _hook = get_method_function(hook) if get_method_self(hook) else hook
             method = types.MethodType(_hook, DFT)
             setattr(self, name, method)
 

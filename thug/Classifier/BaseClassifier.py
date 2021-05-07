@@ -17,11 +17,10 @@
 # MA  02111-1307  USA
 
 import os
+import operator
 import logging
 
 from urllib.parse import urlparse
-
-import six
 
 import yara
 
@@ -123,7 +122,8 @@ class BaseClassifier:
             log.warning("Skipping non callable custom classifier %s", str(method))
             return
 
-        method_name = six.get_function_code(method).co_name
+        get_function_code = operator.attrgetter("__code__")
+        method_name = get_function_code(method).co_name
         self.custom_classifiers[method_name] = method.__get__(self)
 
     def reset_customclassifiers(self):
