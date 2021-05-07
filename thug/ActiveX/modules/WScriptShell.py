@@ -5,7 +5,6 @@ import random
 import re
 import logging
 import hashlib
-import six
 import pefile
 
 from thug.Magic.Magic import Magic
@@ -55,7 +54,7 @@ def _doRun(self, p, stage):
     except Exception:
         pass
 
-    if not isinstance(p, six.string_types):
+    if not isinstance(p, str):
         return # pragma: no cover
 
     if log.ThugOpts.code_logging:

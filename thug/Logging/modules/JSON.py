@@ -116,7 +116,7 @@ class JSON:
             return str()
 
         try:
-            if isinstance(data, six.string_types):
+            if isinstance(data, str):
                 enc_data = data
             else:
                 enc = log.Encoding.detect(data)

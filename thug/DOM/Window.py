@@ -209,7 +209,7 @@ class Window(JSClass):
             context.locals[key] = _method
             return _method
 
-        _types = (six.string_types,
+        _types = (str,
                   bool,
                   numbers.Number,
                   datetime.datetime)
@@ -1019,7 +1019,7 @@ class Window(JSClass):
         """
         The atob method decodes a base-64 encoded string
         """
-        if isinstance(s, six.string_types):
+        if isinstance(s, str):
             s = s.encode()
 
         return base64.b64decode(s)
@@ -1028,7 +1028,7 @@ class Window(JSClass):
         """
         The btoa method encodes a string in base-64
         """
-        if isinstance(s, six.string_types):
+        if isinstance(s, str):
             s = s.encode()
 
         return base64.b64encode(s)
@@ -1064,7 +1064,7 @@ class Window(JSClass):
         return getattr(element, 'style', None)
 
     def open(self, url = None, name = '_blank', specs = '', replace = False):
-        if url and not isinstance(url, six.string_types): # pragma: no cover
+        if url and not isinstance(url, str): # pragma: no cover
             url = str(url)
 
         if url and url not in ('about:blank', ):

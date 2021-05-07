@@ -18,8 +18,6 @@
 
 import logging
 
-import six
-
 log = logging.getLogger("Thug")
 
 
@@ -48,7 +46,7 @@ class JSInspector:
             return
 
         for script in scripts:
-            if not isinstance(script, six.string_types):
+            if not isinstance(script, str):
                 continue
 
             if log.ThugOpts.features_logging:
@@ -80,7 +78,7 @@ class JSInspector:
             return
 
         for html in htmls:
-            if not isinstance(html, six.string_types):
+            if not isinstance(html, str):
                 continue
 
             try:

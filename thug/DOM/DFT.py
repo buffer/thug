@@ -261,7 +261,7 @@ class DFT:
     def attach_event(self, elem, evt, h):
         handler = None
 
-        if isinstance(h, six.string_types):
+        if isinstance(h, str):
             handler = self.build_event_handler(self.context, h)
         elif log.JSEngine.isJSFunction(h):
             handler = h
@@ -1185,7 +1185,7 @@ class DFT:
         Explorer requires that the charset's specification must precede the
         base64 token.
         """
-        uri = uri if isinstance(uri, six.string_types) else str(uri)
+        uri = uri if isinstance(uri, str) else str(uri)
         if not uri.lower().startswith("data:"):
             return None
 

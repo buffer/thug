@@ -172,7 +172,7 @@ class Element(Node, ElementCSSInlineStyle):
         return self.tag.name.upper()
 
     def getAttribute(self, name, flags = 0):
-        if not isinstance(name, six.string_types): # pragma: no cover
+        if not isinstance(name, str): # pragma: no cover
             name = str(name)
 
         return_as_url = False
@@ -214,7 +214,7 @@ class Element(Node, ElementCSSInlineStyle):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_setattribute_count()
 
-        if not isinstance(name, six.string_types): # pragma: no cover
+        if not isinstance(name, str): # pragma: no cover
             name = str(name)
 
         if log.ThugOpts.Personality.isFirefox():
