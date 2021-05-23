@@ -229,7 +229,7 @@ class MongoDB:
         """
         Log file information for a given url
 
-        @url            URL where this exploit occured
+        @url            URL where this exploit occurred
         @module         Module/ActiveX Control, ... that gets exploited
         @description    Description of the exploit
         @cve            CVE number (if available)
