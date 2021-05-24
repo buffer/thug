@@ -846,7 +846,7 @@ class IThugAPI(zope.interface.Interface):
 
         and defines the custom classifier scope.
 
-        The parameter `method' is the method (not its name) to be additionaly invoked.
+        The parameter `method' is the method (not its name) to be additionally invoked.
         The method parameters depend on the `cls_type' value and are listed here for
         convenience
 

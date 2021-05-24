@@ -4,7 +4,7 @@
 class HTMLDocumentCompatibleInfo:
     """
     IHTMLDocumentCompatibleInfo provides information about the
-    compatibity mode specified by the web page. If the web page
+    compatibility mode specified by the web page. If the web page
     specifies multiple compatibility modes, they can be retrieved
     using IHTMLDocumentCompatibleInfoCollection.
 
