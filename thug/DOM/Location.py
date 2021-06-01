@@ -18,6 +18,7 @@
 
 import logging
 from urllib.parse import urlparse
+from urllib.parse import urlunparse
 
 from thug.DOM.W3C import w3c
 
@@ -72,33 +73,88 @@ class Location(JSClass):
 
     href = property(get_href, set_href)
 
-    @property
-    def protocol(self):
+    def get_protocol(self):
         return self.parts.scheme
 
-    @property
-    def host(self):
+    def set_protocol(self, protocol):
+        if protocol in (self.parts.scheme, ):
+            return
+
+        self.set_href(urlunparse(self.parts._replace(scheme = protocol)))
+
+    protocol = property(get_protocol, set_protocol)
+
+    def get_host(self):
         return self.parts.netloc
 
-    @property
-    def hostname(self):
+    def set_host(self, host):
+        if host in (self.parts.netloc, ):
+            return
+
+        self.set_href(urlunparse(self.parts._replace(netloc = host)))
+
+    host = property(get_host, set_host)
+
+    def get_hostname(self):
         return self.parts.hostname
 
-    @property
-    def port(self):
+    def set_hostname(self, hostname):
+        snetloc = self.parts.netloc.split(':')
+
+        if len(snetloc) and hostname in (snetloc[0], ):
+            return
+
+        host = "{}:{}".format(hostname, snetloc[1]) if len(snetloc) > 1 else hostname
+        self.set_host(host)
+
+    hostname = property(get_hostname, set_hostname)
+
+    def get_port(self):
         return self.parts.port
 
-    @property
-    def pathname(self):
+    def set_port(self, port):
+        snetloc = self.parts.netloc.split(':')
+
+        if len(snetloc) > 1 and str(port) in (snetloc[1], ):
+            return
+
+        host = "{}:{}".format(snetloc[0], port)
+        self.set_host(host)
+
+    port = property(get_port, set_port)
+
+    def get_pathname(self):
         return self.parts.path
 
-    @property
-    def search(self):
+    def set_pathname(self, pathname):
+        if pathname in (self.parts.path, ):
+            return
+
+        self.set_href(urlunparse(self.parts._replace(path = pathname)))
+
+    pathname = property(get_pathname, set_pathname)
+
+    def get_search(self):
         return self.parts.query
 
-    @property
-    def hash(self):
+    def set_search(self, search):
+        if search in (self.parts.query, ):
+            return
+
+        self.set_href(urlunparse(self.parts._replace(query = search)))
+
+    search = property(get_search, set_search)
+
+    def get_hash(self):
         return self.parts.fragment
+
+    def set_hash(self, fragment):
+        if fragment in (self.parts.fragment, ):
+            return
+
+        self.set_href(urlunparse(self.parts._replace(fragment = fragment)))
+
+    hash = property(get_hash, set_hash)
 
     def assign(self, url):
         """Loads a new HTML document."""
