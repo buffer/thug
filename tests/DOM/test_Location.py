@@ -113,11 +113,11 @@ class TestLocation:
     def testHostname(self, caplog):
         expected = [
             '[HREF Redirection (document.location)]',
-            'Content-Location: https://ww.google.com:1234 --> Location: https://www.google.com:1234'
+            'Content-Location: https://ww.google.com --> Location: https://www.google.com'
         ]
 
         window = WindowDict()
-        window.url = 'https://ww.google.com:1234'
+        window.url = 'https://ww.google.com'
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
@@ -129,7 +129,7 @@ class TestLocation:
     def testPort(self, caplog):
         expected = [
             '[HREF Redirection (document.location)]',
-            'Content-Location: https://www.google.com:1234 --> Location: https://www.google.com:4321'
+            'Content-Location: https://www.google.com:1234 --> Location: https://www.google.com:443'
         ]
 
         window = WindowDict()
@@ -138,18 +138,18 @@ class TestLocation:
 
         location = Location(window)
         location.port = 1234
-        location.port = 4321
+        location.port = 443
 
         self.check_expected(caplog, expected)
 
     def testSearch(self, caplog):
         expected = [
             '[HREF Redirection (document.location)]',
-            'Content-Location: https://www.google.com:1234/search?&q=test --> Location: https://www.google.com:1234/search?&q=test2'
+            'Content-Location: https://www.google.com/search?&q=test --> Location: https://www.google.com/search?&q=test2'
         ]
 
         window = WindowDict()
-        window.url = 'https://www.google.com:1234/search?&q=test'
+        window.url = 'https://www.google.com/search?&q=test'
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
@@ -161,11 +161,11 @@ class TestLocation:
     def testHash(self, caplog):
         expected = [
             '[HREF Redirection (document.location)]',
-            'Content-Location: https://www.google.com:1234/search#foo --> Location: https://www.google.com:1234/search#bar'
+            'Content-Location: https://www.google.com/search#foo --> Location: https://www.google.com/search#bar'
         ]
 
         window = WindowDict()
-        window.url = 'https://www.google.com:1234/search#foo'
+        window.url = 'https://www.google.com/search#foo'
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
