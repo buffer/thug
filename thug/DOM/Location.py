@@ -115,7 +115,7 @@ class Location(JSClass):
     def set_port(self, port):
         snetloc = self.parts.netloc.split(':')
 
-        if len(snetloc) > 1 and port in (snetloc[1], ):
+        if len(snetloc) > 1 and str(port) in (snetloc[1], ):
             return
 
         host = "{}:{}".format(snetloc[0], port)
