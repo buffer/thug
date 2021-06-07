@@ -1402,3 +1402,12 @@ class TestMiscSamplesIE(object):
                     "[Window] Alert Text: document.msVisibilityState: visible"]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testSplitText(self, caplog):
+        sample   = os.path.join(self.misc_path, "testSplitText.html")
+        expected = ["p.childNodes.length before splitText: 1",
+                    "foobar value after splitText: foo",
+                    "bar value: bar",
+                    "p.childNodes.length after splitText: 2"]
+
+        self.do_perform_test(caplog, sample, expected)
