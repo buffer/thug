@@ -1,0 +1,19 @@
+<html>
+<body>
+
+<p>foobar</p>
+
+<script>
+	var p = document.querySelector('p');
+    var foobar = p.firstChild;
+
+    alert("p.childNodes.length before splitText: " + p.childNodes.length);
+
+	const bar = foobar.splitText(3);
+
+	alert("foobar value after splitText: " + foobar.nodeValue);
+	alert("bar value: " + bar.nodeValue);
+    alert("p.childNodes.length after splitText: " + p.childNodes.length);
+</script>
+</body>
+</html>
