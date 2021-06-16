@@ -94,7 +94,7 @@ class BaseClassifier:
 
     def discard_meta_domain_whitelist(self, url, values):
         p_url  = urlparse(url)
-        netloc = p_url.netloc.lower()
+        netloc = p_url.netloc.split(':')[0].lower() # Remove the port from netloc, if present
 
         for value in values.split(','):
             domain = value.lower().strip()
