@@ -149,8 +149,9 @@ class Console(JSClass):
     def debug(self, *args):
         pass
 
-    def _error(self, message):
-        log.warning("[Console] error('%s')", message)
+    def _error(self, *args):
+        for message in args:
+            log.warning("[Console] error('%s')", message)
 
     def _group(self):
         log.warning("[Console] group()")
@@ -161,11 +162,13 @@ class Console(JSClass):
     def _groupEnd(self):
         log.warning("[Console] groupEnd()")
 
-    def _info(self, message):
-        log.warning("[Console] info('%s')", message)
+    def _info(self, *args):
+        for message in args:
+            log.warning("[Console] info('%s')", message)
 
-    def _log(self, message):
-        log.warning("[Console] log('%s')", message)
+    def _log(self, *args):
+        for message in args:
+            log.warning("[Console] log('%s')", message)
 
     def _time(self, label = None):
         pass
@@ -176,5 +179,6 @@ class Console(JSClass):
     def _trace(self, label = None):
         pass
 
-    def _warn(self, message):
-        log.warning("[Console] warn('%s')", message)
+    def _warn(self, *args):
+        for message in args:
+            log.warning("[Console] warn('%s')", message)
