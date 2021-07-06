@@ -25,7 +25,7 @@ try:
 except ImportError: # pragma: no cover
     PYLIBEMU_MODULE = False
 
-try:
+try: # pragma: no cover
     import speakeasy
     SPEAKEASY_MODULE = True
 except ImportError: # pragma: no cover
@@ -190,7 +190,7 @@ class Shellcode:
 
         return rv
 
-    def hook_WinExec(self, emu, api_name, func, params):
+    def hook_WinExec(self, emu, api_name, func, params): # pragma: no cover
         rv = func(params)
 
         lpCmdLine, uCmdShow = params # pylint:disable=unused-variable
@@ -201,7 +201,7 @@ class Shellcode:
 
         return rv
 
-    def check_shellcode_speakeasy(self, shellcode, sc):
+    def check_shellcode_speakeasy(self, shellcode, sc): # pragma: no cover
         if not SPEAKEASY_MODULE:
             return # pragma: no cover
 
