@@ -236,7 +236,7 @@ class HTMLDocument(Document):
         return "; ".join(items)
 
     def setCookie(self, value):
-        item = value.split()[0]
+        item = value.split(';')[0].strip()
         k, v = item.split('=')
         log.HTTPSession.set_cookies(k, v)
 
