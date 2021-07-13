@@ -1080,6 +1080,7 @@ class TestMiscSamplesIE(object):
                     'mediaKeys: null',
                     'networkState: 1',
                     'audioTracks length: 0',
+                    'textTracks length: 0',
                     'sinkId:',
                     'paused: true']
 
