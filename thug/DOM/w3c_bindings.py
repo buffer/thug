@@ -100,6 +100,7 @@ w3c_bindings = {
                 'HTMLTextAreaElement'                  : HTML.HTMLTextAreaElement,
                 'HTMLTitleElement'                     : HTML.HTMLTitleElement,
                 'HTMLUListElement'                     : HTML.HTMLUListElement,
+                'TextTrackList'                        : HTML.TextTrackList,
                 'Event'                                : Events.Event,
                 'EventTarget'                          : Events.EventTarget,
                 'MouseEvent'                           : Events.MouseEvent,

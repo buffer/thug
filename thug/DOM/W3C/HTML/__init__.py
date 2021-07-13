@@ -59,7 +59,8 @@ __all__ = ['AudioTrackList',
            'HTMLTextAreaElement',
            'HTMLTitleElement',
            'HTMLUListElement',
-           'TAnimateColor']
+           'TAnimateColor'
+           'TextTrackList']
 
 
 from .AudioTrackList import AudioTrackList
@@ -124,3 +125,4 @@ from .HTMLTextAreaElement import HTMLTextAreaElement
 from .HTMLTitleElement import HTMLTitleElement
 from .HTMLUListElement import HTMLUListElement
 from .TAnimateColor import TAnimateColor
+from .TextTrackList import TextTrackList
