@@ -5,6 +5,8 @@ import logging
 from .HTMLElement import HTMLElement
 from .AudioTrackList import AudioTrackList
 from .TextTrackList import TextTrackList
+from .TimeRanges import TimeRanges
+
 from .attr_property import attr_property
 
 log = logging.getLogger("Thug")
@@ -41,6 +43,7 @@ class HTMLMediaElement(HTMLElement):
         HTMLElement.__init__(self, doc, tag)
         self._audioTracks = AudioTrackList(doc, list())
         self._textTracks = TextTrackList(doc, list())
+        self._buffered = TimeRanges(doc, list())
         self._paused = False
 
     def get_src(self):
@@ -62,7 +65,7 @@ class HTMLMediaElement(HTMLElement):
 
     @property
     def buffered(self):
-        raise NotImplementedError()
+        return self._buffered
 
     @property
     def controller(self):
