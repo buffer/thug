@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from .CharacterData import CharacterData
-from .DOMException import DOMException
 
 
 class Text(CharacterData):
