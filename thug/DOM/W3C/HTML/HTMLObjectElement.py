@@ -87,4 +87,4 @@ class HTMLObjectElement(HTMLElement):
         return self
 
     def definition(self, value):
-        pass
+        pass # pragma: no cover
