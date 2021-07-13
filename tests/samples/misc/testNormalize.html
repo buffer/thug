@@ -1,0 +1,22 @@
+<html>
+	<body>
+		<script>
+			let wrapper = document.createElement("div");
+
+			wrapper.appendChild(document.createTextNode("Part 1 "));
+			wrapper.appendChild(document.createTextNode("Part 2 "));
+			wrapper.appendChild(document.createTextNode("Part 3 "));
+			wrapper.appendChild(document.createElement("div"));
+            wrapper.appendChild(document.createTextNode("Part 4 "));
+			wrapper.appendChild(document.createTextNode("Part 5 "));
+
+			alert("[Before normalize] wrapper.childNodes.length: " + wrapper.childNodes.length);
+
+			wrapper.normalize();
+
+			alert("[After normalize] wrapper.childNodes.length: " + wrapper.childNodes.length);
+			alert("[After normalize] wrapper.childNodes[0].textContent: " + wrapper.childNodes[0].textContent);
+			alert("[After normalize] wrapper.childNodes[2].textContent: " + wrapper.childNodes[2].textContent);
+		</script>
+	</body>
+</html>

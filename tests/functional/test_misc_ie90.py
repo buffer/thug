@@ -1411,3 +1411,12 @@ class TestMiscSamplesIE(object):
                     "p.childNodes.length after splitText: 2"]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testNormalize(self, caplog):
+        sample   = os.path.join(self.misc_path, "testNormalize.html")
+        expected = ["[Before normalize] wrapper.childNodes.length: 6",
+                    "[After normalize] wrapper.childNodes.length: 3",
+                    "[After normalize] wrapper.childNodes[0].textContent: Part 1 Part 2 Part 3",
+                    "[After normalize] wrapper.childNodes[2].textContent: Part 4 Part 5"]
+
+        self.do_perform_test(caplog, sample, expected)
