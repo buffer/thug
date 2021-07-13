@@ -16,7 +16,7 @@ class TimeRanges(JSClass):
     def start(self, index):
         if index in range(0, len(self.ranges)):
             return self.ranges[0][0] # pragma: no cover
-        
+
         raise DOMException(DOMException.INDEX_SIZE_ERR)
 
     def end(self, index):
