@@ -40,6 +40,7 @@ w3c_bindings = {
                 'NodeList'                             : Core.NodeList,
                 'ProcessingInstruction'                : Core.ProcessingInstruction,
                 'Text'                                 : Core.Text,
+                'AudioTrackList'                       : HTML.AudioTrackList,
                 'HTMLAllCollection'                    : HTML.HTMLAllCollection,
                 'HTMLAnchorElement'                    : HTML.HTMLAnchorElement,
                 'HTMLAppletElement'                    : HTML.HTMLAppletElement,

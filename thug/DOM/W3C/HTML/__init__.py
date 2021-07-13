@@ -1,4 +1,5 @@
-__all__ = ['HTMLAllCollection',
+__all__ = ['AudioTrackList',
+           'HTMLAllCollection',
            'HTMLAnchorElement',
            'HTMLAppletElement',
            'HTMLAudioElement',
@@ -61,6 +62,7 @@ __all__ = ['HTMLAllCollection',
            'TAnimateColor']
 
 
+from .AudioTrackList import AudioTrackList
 from .HTMLAllCollection import HTMLAllCollection
 from .HTMLAnchorElement import HTMLAnchorElement
 from .HTMLAppletElement import HTMLAppletElement
