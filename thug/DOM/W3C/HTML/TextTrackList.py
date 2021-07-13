@@ -7,5 +7,5 @@ class TextTrackList(HTMLCollection):
     def __init__(self, doc, tracks):
         HTMLCollection.__init__(self, doc, tracks)
 
-    def getTrackById(self, id):
+    def getTrackById(self, id_):
         return None
