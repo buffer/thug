@@ -378,7 +378,22 @@ class Node(JSClass, EventTarget):
 
     # Modified in DOM Level 2
     def normalize(self):
-        pass
+        index = 0
+        max_index = self.childNodes.length
+
+        while index < max_index:
+            child = self.childNodes[index]
+            if child is None or child.nodeType not in (Node.TEXT_NODE, ):
+                index += 1
+                continue
+
+            sibling = child.nextSibling
+            if sibling is None or sibling.nodeType not in (Node.TEXT_NODE, ):
+                index += 1
+                continue
+
+            child.tag.string = child.innerText + sibling.innerText
+            self.removeChild(sibling)
 
     # Introduced in DOM Level 2
     def isSupported(self, feature, version): # pragma: no cover
