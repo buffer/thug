@@ -1082,6 +1082,7 @@ class TestMiscSamplesIE(object):
                     'audioTracks length: 0',
                     'textTracks length: 0',
                     'sinkId:',
+                    'buffered length: 0',
                     'paused: true']
 
         self.do_perform_test(caplog, sample, expected)
