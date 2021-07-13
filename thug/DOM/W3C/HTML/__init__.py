@@ -59,7 +59,7 @@ __all__ = ['AudioTrackList',
            'HTMLTextAreaElement',
            'HTMLTitleElement',
            'HTMLUListElement',
-           'TAnimateColor'
+           'TAnimateColor',
            'TextTrackList']
 
 
