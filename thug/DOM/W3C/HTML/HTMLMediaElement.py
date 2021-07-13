@@ -38,7 +38,7 @@ class HTMLMediaElement(HTMLElement):
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-        self._audioTracks = AudioTrackList(doc, tag)
+        self._audioTracks = AudioTrackList(doc, list())
         self._paused = False
 
     def get_src(self):
