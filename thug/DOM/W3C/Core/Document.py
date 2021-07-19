@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
+import copy
 import logging
+
 import bs4
 
 from thug.DOM.W3C.Events.DocumentEvent import DocumentEvent
@@ -271,9 +273,8 @@ class Document(Node, DocumentEvent, DocumentView):
         return None
 
     # Introduced in DOM Level 2
-    def importNode(self, importedNode, deep):
-        # TODO
-        pass
+    def importNode(self, importedNode, deep = False):
+        return copy.copy(importedNode)
 
     # Modified in DOM Level 2
     @property
