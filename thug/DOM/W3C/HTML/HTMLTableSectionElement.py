@@ -18,9 +18,10 @@ class HTMLTableSectionElement(HTMLElement):
     chOff  = attr_property("charoff")
     vAlign = attr_property("valign")
 
-    def __init__(self, doc, tag):
+    def __init__(self, doc, tag, table = None):
         HTMLElement.__init__(self, doc, tag)
-        self._rows = HTMLCollection(doc, list())
+        self._table = table
+        self._rows  = HTMLCollection(doc, list())
 
     @property
     def rows(self):
@@ -40,7 +41,10 @@ class HTMLTableSectionElement(HTMLElement):
             if log.ThugOpts.Personality.isChrome() or log.ThugOpts.Personality.isSafari():
                 index = 0
 
-        row = HTMLTableRowElement(self.doc, bs4.Tag(self.doc, name = 'tr'))
+        row = HTMLTableRowElement(self.doc,
+                                  bs4.Tag(self.doc, name = 'tr'),
+                                  table = self._table,
+                                  section = self)
 
         if index in (-1, len(self._rows), ):
             self.rows.nodes.append(row)

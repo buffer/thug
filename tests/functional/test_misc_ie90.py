@@ -941,8 +941,11 @@ class TestMiscSamplesIE(object):
     def test_testHTMLTableElement3(self, caplog):
         sample   = os.path.join(self.misc_path, "testHTMLTableElement3.html")
         expected = ['tHead: [object HTMLTableSectionElement]',
+                    'tHead row 0 sectionRowIndex: 0',
                     'tFoot: [object HTMLTableSectionElement]',
                     'caption: [object HTMLTableCaptionElement]',
+                    'Row 0 rowIndex = 0',
+                    'Row 1 rowIndex = 1',
                     'row: [object HTMLTableRowElement]',
                     'tBodies: [object HTMLCollection]',
                     'cell: [object HTMLTableCellElement]',

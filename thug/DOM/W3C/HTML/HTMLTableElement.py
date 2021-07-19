@@ -58,7 +58,10 @@ class HTMLTableElement(HTMLElement):
         if self._tHead:
             return self._tHead
 
-        self._tHead = HTMLTableSectionElement(self.doc, bs4.Tag(self.doc, name = 'thead'))
+        self._tHead = HTMLTableSectionElement(self.doc,
+                                              bs4.Tag(self.doc, name = 'thead'),
+                                              table = self)
+
         self.rows.nodes.insert(0, self._tHead)
         return self._tHead
 
@@ -71,7 +74,10 @@ class HTMLTableElement(HTMLElement):
         if self._tFoot:
             return self._tFoot
 
-        self._tFoot = HTMLTableSectionElement(self.doc, bs4.Tag(self.doc, name = 'tfoot'))
+        self._tFoot = HTMLTableSectionElement(self.doc,
+                                              bs4.Tag(self.doc, name = 'tfoot'),
+                                              table = self)
+
         self.rows.nodes.append(self._tFoot)
         return self._tFoot
 
@@ -84,7 +90,9 @@ class HTMLTableElement(HTMLElement):
         if self._caption:
             return self._caption
 
-        self._caption = HTMLTableCaptionElement(self.doc, bs4.Tag(self.doc, name = 'caption'))
+        self._caption = HTMLTableCaptionElement(self.doc,
+                                                bs4.Tag(self.doc, name = 'caption'))
+
         return self._caption
 
     def deleteCaption(self):
@@ -111,7 +119,11 @@ class HTMLTableElement(HTMLElement):
             if log.ThugOpts.Personality.isChrome() or log.ThugOpts.Personality.isSafari():
                 index = 0
 
-        row = HTMLTableRowElement(self.doc, bs4.Tag(self.doc, name = 'tr'))
+        row = HTMLTableRowElement(self.doc,
+                                  bs4.Tag(self.doc, name = 'tr'),
+                                  table = self,
+                                  section = self)
+
         self.rows.nodes.insert(index, row)
         return row
 

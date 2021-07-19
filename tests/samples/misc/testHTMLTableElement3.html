@@ -7,6 +7,10 @@
 	table.deleteTHead();
 	table.createTHead();
 	alert("tHead: " + table.tHead);
+	var row0 = table.tHead.insertRow(0);
+	var row1 = table.tHead.insertRow(1);
+	alert("tHead row 0 sectionRowIndex: " + row0.sectionRowIndex);
+	alert("tHead row 1 sectionRowIndex: " + row1.sectionRowIndex);
 
 	table.createTFoot();
 	table.createTFoot();
@@ -20,8 +24,12 @@
 	table.createCaption();
 	alert("caption: " + table.caption);
 
-	var row = table.insertRow(0);
+	var row0 = table.insertRow(0);
+	var row1 = table.insertRow(1);
+	alert("Row 0 rowIndex = " + row0.rowIndex);
+	alert("Row 1 rowIndex = " + row1.rowIndex);
 	table.deleteRow(0);
+	table.deleteRow(1);
 
 	var row = table.insertRow();
 	alert("row: " + row);
