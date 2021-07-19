@@ -24,3 +24,4 @@ class TestDOMTokenList(object):
         domtokenlist.toggle('fullscreen')
 
         assert domtokenlist.contains('fullscreen')
+        assert domtokenlist.value == 'fullscreen'

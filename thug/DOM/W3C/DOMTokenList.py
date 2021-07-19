@@ -51,3 +51,7 @@ class DOMTokenList:
 
     def supports(self, token):
         return token in self.supported
+
+    @property
+    def value(self):
+        return " ".join(self.tokens)
