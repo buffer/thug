@@ -2,6 +2,8 @@
 
 import logging
 
+from thug.DOM.W3C.DOMTokenList import DOMTokenList
+
 from .HTMLElement import HTMLElement
 from .AudioTrackList import AudioTrackList
 from .TextTrackList import TextTrackList
@@ -46,6 +48,9 @@ class HTMLMediaElement(HTMLElement):
         self._buffered = TimeRanges(doc, list())
         self._paused = False
 
+        if log.ThugOpts.Personality.isChrome() and log.ThugOpts.Personality.browserMajorVersion >= 58:
+            self.controlsList = DOMTokenList(['download', 'fullscreen', 'remoteplayback']) # pragma: no cover
+
     def get_src(self):
         return self._src
 
@@ -70,10 +75,6 @@ class HTMLMediaElement(HTMLElement):
     @property
     def controller(self):
         return None
-
-    @property
-    def controlsList(self):
-        raise NotImplementedError()
 
     @property
     def crossOrigin(self):
