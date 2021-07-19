@@ -37,7 +37,7 @@ class HTMLTableRowElement(HTMLElement):
 
             index += 1
 
-        return None
+        return None # pragma: no cover
 
     # Modified in DOM Level 2
     @property
