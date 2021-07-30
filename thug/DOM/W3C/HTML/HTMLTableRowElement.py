@@ -31,7 +31,7 @@ class HTMLTableRowElement(HTMLElement):
 
         index = 0
 
-        while (index < len(self._table.rows)):
+        while index < len(self._table.rows):
             if id(self._table.rows.item(index)) == id(self):
                 return index
 
@@ -47,7 +47,7 @@ class HTMLTableRowElement(HTMLElement):
 
         index = 0
 
-        while (index < len(self._section.rows)):
+        while index < len(self._section.rows):
             if id(self._section.rows.item(index)) == id(self):
                 return index
 
