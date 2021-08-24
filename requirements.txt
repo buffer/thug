@@ -12,5 +12,5 @@ python-magic==0.4.24
 rarfile==4.0
 requests==2.26.0
 ssdeep==3.4
-yara-python==4.1.0
+yara-python==4.1.2
 zope.interface==5.4.0
