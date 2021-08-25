@@ -103,7 +103,7 @@ class Window(JSClass):
                     else:
                         ctx.eval(self.code)
                 except Exception as e: # pragma: no cover
-                    log.warning("Error while handling timer callback")
+                    log.warning("Error while handling timer callback (%s)", str(e))
 
                     if log.ThugOpts.Personality.isIE():
                         raise TypeError() from e
