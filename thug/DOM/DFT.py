@@ -194,6 +194,17 @@ class DFT:
         if onevt in self.window_on_storage_events:
             return
 
+        with self.context as ctx:
+            htype = ctx.eval("typeof window.%s" % (onevt, ))
+            if htype in ('function', ):
+                handler = ctx.eval("window.%s" % (onevt, ))
+                if (self.window, onevt[2:], handler) in self.dispatched_events:
+                    return
+
+                handler.call()
+                self.dispatched_events.add((self.window, onevt[2:], handler))
+                return
+
         handler = getattr(self.window, onevt, None)
         if not handler:
             return
