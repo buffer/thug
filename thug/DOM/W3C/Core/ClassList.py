@@ -58,7 +58,10 @@ class ClassList(JSClass):
         if 'class' not in self.tag.attrs:
             return
 
-        for c in self.tag.attrs['class'].split():
+        attrs = self.tag.attrs['class']
+        attrs = [attrs, ] if isinstance(attrs, str) else attrs
+
+        for c in attrs:
             if c not in self._class_list:
                 self._class_list.append(c)
 
@@ -67,15 +70,16 @@ class ClassList(JSClass):
             self._class_list.append(c)
 
         if 'class' not in self.tag.attrs:
-            self.tag.attrs['class'] = c
-            return
+            self.tag.attrs['class'] = list()
 
-        attrs = self.tag.attrs['class'].split()
+        attrs = self.tag.attrs['class']
+        attrs = [attrs, ] if isinstance(attrs, str) else attrs
+
         if c in attrs:
             return
 
         attrs.append(c)
-        self.tag.attrs['class'] = " ".join(attrs)
+        self.tag.attrs['class'] = attrs
 
     def __add(self, *args):
         for c in args:
@@ -91,12 +95,14 @@ class ClassList(JSClass):
         if 'class' not in self.tag.attrs:
             return
 
-        attrs = self.tag.attrs['class'].split()
+        attrs = self.tag.attrs['class']
+        attrs = [attrs, ] if isinstance(attrs, str) else attrs
+
         if c not in attrs:
             return
 
         attrs.remove(c)
-        self.tag.attrs['class'] = " ".join(attrs)
+        self.tag.attrs['class'] = attrs
 
     def __remove(self, *args):
         for c in args:
