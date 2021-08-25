@@ -158,7 +158,7 @@ class EventTarget:
             if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
                 listener()
             else:
-                listener(evtObject)
+                listener.apply(evtObject.currentTarget)
 
     def do_dispatch(self, c, evtObject):
         try:

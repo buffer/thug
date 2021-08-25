@@ -175,14 +175,14 @@ class DFT:
         if onevt in self.handled_on_events:
             handler = getattr(self.window, onevt, None)
             if handler:
-                handler(evtObject)
+                handler.apply(evtObject.currentTarget)
 
     def run_event_handler(self, handler, evtObject):
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
             self.window.event = evtObject
             handler()
         else:
-            handler(evtObject)
+            handler.apply(evtObject.currentTarget)
 
     def handle_window_event(self, onevt):
         if onevt not in self.handled_on_events:
