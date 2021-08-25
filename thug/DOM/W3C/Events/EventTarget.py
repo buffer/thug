@@ -88,6 +88,9 @@ class EventTarget:
             self.tag._listeners.append((eventType, listener, capture))
 
     def _addEventListener(self, eventType, listener, capture = False, prio = False):
+        if not isinstance(capture, bool):
+            capture = False
+
         log.debug('_addEventListener(%s, \n%r, \n%s)', eventType, listener, capture)
 
         if log.ThugOpts.features_logging:
