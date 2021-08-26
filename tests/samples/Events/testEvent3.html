@@ -2,22 +2,17 @@
 <body>
 
 <script type="text/javascript">
-function window_onmousemove () {
-	alert(window.event);
-	alert("Window onmousemove detected");
-}
-window.onmousemove = window_onmousemove;
 
-function _onmousemove () {
+function onmousemove_handler () {
 	alert("onmousemove detected");
 }
 
-function _onclick() {
+function onclick_handler() {
 	alert("onclick detected");
 }
 </script>
 
-<img onmousemove="_onmousemove();" onclick="_onclick();" src="smiley.gif" alt="Smiley" /
+<img onmousemove="onmousemove_handler();" onclick="onclick_handler();" src="smiley.gif" alt="Smiley" /
 </body>
 </html>
 
