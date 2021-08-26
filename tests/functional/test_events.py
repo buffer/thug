@@ -192,12 +192,6 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_testMouseMove(self, caplog):
-        sample   = os.path.join(self.event_path, "testMouseMove.html")
-        expected = ['mousemove event detected', ]
-
-        self.do_perform_test(caplog, sample, expected)
-
     def test_testEvent1(self, caplog):
         sample   = os.path.join(self.event_path, "testEvent1.html")
         expected = ['add',
@@ -215,12 +209,25 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testEvent3(self, caplog):
+        sample   = os.path.join(self.event_path, "testEvent3.html")
+        expected = ['onmousemove detected',
+                    'onclick detected']
+
+        self.do_perform_test(caplog, sample, expected, events = 'click')
+
     def test_testEvent4(self, caplog):
         sample   = os.path.join(self.event_path, "testEvent4.html")
         expected = ['add',
                     '[object HTMLParagraphElement]']
 
         self.do_perform_test(caplog, sample, expected, useragent = 'winxpie60')
+
+    def test_testEvent6(self, caplog):
+        sample   = os.path.join(self.event_path, "testEvent6.html")
+        expected = ['Clicked', ]
+
+        self.do_perform_test(caplog, sample, expected, events = 'click')
 
     def test_testEvent7(self, caplog):
         sample   = os.path.join(self.event_path, "testEvent7.html")
@@ -235,10 +242,17 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected, events = 'click')
 
+    def test_testEvent9(self, caplog):
+        sample   = os.path.join(self.event_path, "testEvent9.html")
+        expected = ['[object Event]',
+                    '[object HTMLParagraphElement]', ]
+
+        self.do_perform_test(caplog, sample, expected, events = 'click')
+
     def test_testEvent11(self, caplog):
         sample   = os.path.join(self.event_path, "testEvent11.html")
         expected = ['[object Event]',
-                    '[object Window]',
+                    '[object HTMLParagraphElement]',
                     'clicked',
                     'clicked 2']
 
@@ -251,14 +265,27 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
 
-    def test_testEvent17(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent17.html")
+    def test_testEvent13(self, caplog):
+        sample   = os.path.join(self.event_path, "testEvent13.html")
+        expected = ['You should not see me again',
+                    'First click']
+
+        self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
+
+    def test_testEvent14(self, caplog):
+        sample   = os.path.join(self.event_path, "testEvent14.html")
+        expected = ['Done!', ]
+
+        self.do_perform_test(caplog, sample, expected, events = 'click')
+
+    def test_testEvent15(self, caplog):
+        sample   = os.path.join(self.event_path, "testEvent15.html")
         expected = ['clicked', ]
 
         self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
 
-    def test_testEvent18(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent18.html")
-        expected = ['clicked', ]
+    def test_testEvent16(self, caplog):
+        sample   = os.path.join(self.event_path, "testEvent16.html")
+        expected = ['loaded', ]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click')
+        self.do_perform_test(caplog, sample, expected, useragent = 'winxpie60')
