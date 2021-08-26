@@ -57,9 +57,7 @@ class Element(Node, ElementCSSInlineStyle):
         if log.ThugOpts.Personality.browserMajorVersion > 8:
             self.getElementsByClassName = self._getElementsByClassName
             self.msMatchesSelector      = self._matches
-
-        if log.ThugOpts.Personality.browserMajorVersion > 9:
-            self.classList = property(self._classList)
+            self.classList              = property(self._classList)
 
     def __init_element_personality_Firefox(self):
         self.querySelectorAll       = self._querySelectorAll
