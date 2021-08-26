@@ -66,7 +66,7 @@ class TestPyHooks(object):
         sample = os.path.join(self.exploits_path, "22196.html")
         self.do_perform_test(caplog, sample, expected, "local")
 
-    def test_hook3(self, caplog):
+    def test_hook_3(self, caplog):
         expected = ['Greetings from the hook',
                     'classifier = url',
                     'url = https://buffer.antifork.org',
