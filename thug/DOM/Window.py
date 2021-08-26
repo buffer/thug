@@ -202,7 +202,7 @@ class Window(JSClass):
         finally:
             self._symbols.discard(key)
 
-        if log.JSEngine.isJSFunction(symbol):
+        if log.JSEngine.isJSFunction(symbol): # pragma: no cover
             _method = None
             if _method is None:
                 _method = types.MethodType(symbol, Window)

@@ -195,9 +195,10 @@ class DFT:
             return
 
         with self.context as ctx:
-            htype = ctx.eval("typeof window.%s" % (onevt, ))
-            if htype in ('function', ):
+            handler_type = ctx.eval("typeof window.%s" % (onevt, ))
+            if handler_type in ('function', ):
                 handler = ctx.eval("window.%s" % (onevt, ))
+
                 if (self.window, onevt[2:], handler) in self.dispatched_events:
                     return
 
@@ -206,16 +207,14 @@ class DFT:
                 return
 
         handler = getattr(self.window, onevt, None)
-        if not handler:
-            return
+        if handler: # pragma: no cover
+            if (self.window, onevt[2:], handler) in self.dispatched_events:
+                return
 
-        if (self.window, onevt[2:], handler) in self.dispatched_events:
-            return
+            self.dispatched_events.add((self.window, onevt[2:], handler))
 
-        self.dispatched_events.add((self.window, onevt[2:], handler))
-
-        evtObject = self.get_evtObject(self.window, onevt[2:])
-        self.run_event_handler(handler, evtObject)
+            evtObject = self.get_evtObject(self.window, onevt[2:])
+            self.run_event_handler(handler, evtObject)
 
     def handle_document_event(self, onevt):
         if onevt not in self.handled_on_events:
