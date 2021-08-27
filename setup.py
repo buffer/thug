@@ -53,6 +53,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Topic :: Security",
     ],
+    include_package_data=True,
     package_data = {
            ""       : ["*.js"],
            },
