@@ -9,7 +9,7 @@ Requirements
 Python
 ^^^^^^
 
-Python 3.6+ is required in order to properly run Thug. You may be lucky running it with
+Python 3.7+ is required in order to properly run Thug. You may be lucky running it with
 previous versions but please consider such versions are not supported. Please do not
 report issues in such case. Python source code can be downloaded at http://www.python.org.
 
@@ -35,9 +35,11 @@ C++ application.
 
 **Python 3**
 
-**Thug 0.10.6 is the last version supporting Python 2.7**. More recent versions support
-just Python 3.6+. If you are installing a recent Thug version (and you should really
-do that) you have to install STPyV8 (https://github.com/area1/stpyv8/).
+**Thug 0.10.6 is the last version supporting Python 2.7**
+**Thug 3.1 is the last version supporting Python 3.6**
+
+More recent versions support just Python 3.7+. If you are installing a recent Thug version
+(and you should really do that) you have to install STPyV8 (https://github.com/area1/stpyv8/).
 
 STPyV8 is a Python/C++ wrapper that allows interoperability between Python 3 and
 JavaScript running Google's V8 engine. STPyV8 is a fork of the original PyV8 project,
