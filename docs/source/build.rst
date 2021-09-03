@@ -36,6 +36,7 @@ C++ application.
 **Python 3**
 
 **Thug 0.10.6 is the last version supporting Python 2.7**
+
 **Thug 3.1 is the last version supporting Python 3.6**
 
 More recent versions support just Python 3.7+. If you are installing a recent Thug version
