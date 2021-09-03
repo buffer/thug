@@ -307,6 +307,18 @@ class Navigator(JSClass):
         if last_url is None:
             last_url = self._window.url
 
+        # Redirection loops detection and prevention
+        if redirect_type:
+            item = (url, last_url, )
+
+            if not log.ThugLogging.redirections.get(item, 0):
+                log.ThugLogging.redirections[item] = 0
+
+            log.ThugLogging.redirections[item] += 1
+
+            if log.ThugLogging.redirections[item] > 10:
+                return None
+
         if redirect_type in ('frame', 'iframe', 'http-redirect', 'meta', ):
             if log.HTTPSession.check_equal_urls(url, last_url): # pragma: no cover
                 log.ThugLogging.add_behavior_warn("[Skipping {} redirection] {} -> {}".format(redirect_type, last_url, url),
