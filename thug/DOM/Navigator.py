@@ -317,7 +317,7 @@ class Navigator(JSClass):
             log.ThugLogging.redirections[item] += 1
 
             if log.ThugLogging.redirections[item] > 10:
-                return None
+                return None # pragma: no cover
 
         if redirect_type in ('frame', 'iframe', 'http-redirect', 'meta', ):
             if log.HTTPSession.check_equal_urls(url, last_url): # pragma: no cover
