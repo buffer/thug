@@ -5,7 +5,7 @@ cssutils==2.3.0
 html5lib==1.1
 lxml==4.6.3
 networkx==2.6.2
-pefile==2021.9.2
+pefile==2021.9.3
 pylibemu==0.6.1
 pymongo==3.12.0
 python-magic==0.4.24
