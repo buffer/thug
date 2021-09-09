@@ -194,6 +194,17 @@ class DFT:
         if onevt in self.window_on_storage_events:
             return
 
+        handler = getattr(self.window, onevt, None)
+        if handler:
+            if (self.window, onevt[2:], handler) in self.dispatched_events:
+                return
+
+            self.dispatched_events.add((self.window, onevt[2:], handler))
+
+            evtObject = self.get_evtObject(self.window, onevt[2:])
+            self.run_event_handler(handler, evtObject)
+            return
+
         with self.context as ctx:
             handler_type = ctx.eval("typeof window.%s" % (onevt, ))
             if handler_type in ('function', ):
@@ -204,17 +215,6 @@ class DFT:
 
                 handler.call()
                 self.dispatched_events.add((self.window, onevt[2:], handler))
-                return
-
-        handler = getattr(self.window, onevt, None)
-        if handler: # pragma: no cover
-            if (self.window, onevt[2:], handler) in self.dispatched_events:
-                return
-
-            self.dispatched_events.add((self.window, onevt[2:], handler))
-
-            evtObject = self.get_evtObject(self.window, onevt[2:])
-            self.run_event_handler(handler, evtObject)
 
     def handle_document_event(self, onevt):
         if onevt not in self.handled_on_events:
