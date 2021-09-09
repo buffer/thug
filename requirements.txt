@@ -1,5 +1,5 @@
 PySocks==1.7.1
-beautifulsoup4==4.9.3
+beautifulsoup4==4.10.0
 cchardet==2.1.7
 cssutils==2.3.0
 html5lib==1.1
