@@ -88,7 +88,7 @@ class EventTarget:
             self.tag._listeners.append((eventType, listener, capture))
 
     def _addEventListener(self, eventType, listener, capture = False, prio = False):
-        if not isinstance(capture, bool):
+        if not isinstance(capture, bool): # pragma: no cover
             capture = False
 
         log.debug('_addEventListener(%s, \n%r, \n%s)', eventType, listener, capture)

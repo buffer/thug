@@ -195,6 +195,7 @@ class DFT:
             return
 
         handler = getattr(self.window, onevt, None)
+
         if handler:
             if (self.window, onevt[2:], handler) in self.dispatched_events:
                 return
@@ -207,7 +208,7 @@ class DFT:
 
         with self.context as ctx:
             handler_type = ctx.eval("typeof window.%s" % (onevt, ))
-            if handler_type in ('function', ):
+            if handler_type in ('function', ): # pragma: no cover
                 handler = ctx.eval("window.%s" % (onevt, ))
 
                 if (self.window, onevt[2:], handler) in self.dispatched_events:
