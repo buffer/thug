@@ -334,6 +334,10 @@ class Window(JSClass):
         return self._screen_top
 
     def _do_ActiveXObject(self, cls, typename = 'name'):
+        if cls.lower() in ('htmlfile', ):
+            setattr(self.doc, "Script", self)
+            return self.doc
+
         return _ActiveXObject(self, cls, typename)
 
     def alert(self, text):
