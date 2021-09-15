@@ -50,7 +50,8 @@ class SampleLogging:
                       'JAR',
                       'SWF',
                       'DOC',
-                      'RTF', )
+                      'RTF',
+                      'CAB', )
 
     @staticmethod
     def is_pe(data):
@@ -107,6 +108,11 @@ class SampleLogging:
 
     def is_rtf(self, data):
         return magic.from_buffer(data, mime = True) in self.rtf_mime_types
+
+    @staticmethod
+    def is_cab(data):
+        data = data.encode() if isinstance(data, str) else data
+        return data.startswith(b'MSCF')
 
     def get_sample_type(self, data):
         for t in self.types:
