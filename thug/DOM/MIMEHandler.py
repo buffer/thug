@@ -336,10 +336,7 @@ class MIMEHandler(dict):
         return True
 
     def handle_cab(self, url, content):
-        hook = getattr(self, "handle_cab_hook", None)
-        if hook:
-            hook((url, content, ))
-
+        log.ThugLogging.log_file(content, url, sampletype = 'CAB')
         return True
 
     def do_perform_ocr_analysis(self, url, img):
