@@ -244,6 +244,7 @@ class MIMEHandler(dict):
         self.register_java_jnlp_handlers()
         self.register_json_handlers()
         self.register_image_handlers()
+        self.register_cab_handlers()
 
     def init_pyhooks(self):
         self.mimehandler_pyhooks = MIMEHANDLER_PYHOOKS_DONE
@@ -302,6 +303,9 @@ class MIMEHandler(dict):
         self["image/png"]  = self.handle_image
         self["image/tiff"] = self.handle_image
 
+    def register_cab_handlers(self):
+        self['application/x-cab'] = self.handle_cab
+
     def handle_fallback(self, url, content):
         for handler in self.handlers:
             try:
@@ -327,6 +331,13 @@ class MIMEHandler(dict):
 
         if self.image_hook_enabled:
             hook = getattr(self, "handle_image_hook")
+            hook((url, content, ))
+
+        return True
+
+    def handle_cab(self, url, content):
+        hook = getattr(self, "handle_cab_hook", None)
+        if hook:
             hook((url, content, ))
 
         return True
