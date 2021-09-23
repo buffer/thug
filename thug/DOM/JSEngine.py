@@ -31,9 +31,60 @@ log = logging.getLogger("Thug")
 
 
 class JSEngine:
+    builtins = ('Map', 'Set', 'WeakMap', 'WeakSet', )
+
     def __init__(self):
         self.init_config()
         self.init_engine()
+
+    @property
+    def builtin_map(self):
+        return [
+            {
+                'method'           : log.ThugOpts.Personality.isIE,
+                'min_Map'          : 11,
+                'min_Map_iter'     : 100,
+                'min_Set'          : 11,
+                'min_Set_iter'     : 100,
+                'min_WeakMap'      : 11,
+                'min_WeakMap_iter' : 100,
+                'min_WeakSet'      : 100,
+                'min_WeakSet_iter' : 100,
+            },
+            {
+                'method'           : log.ThugOpts.Personality.isChrome,
+                'min_Map'          : 38,
+                'min_Map_iter'     : 38,
+                'min_Set'          : 38,
+                'min_Set_iter'     : 38,
+                'min_WeakMap'      : 36,
+                'min_WeakMap_iter' : 38,
+                'min_WeakSet'      : 36,
+                'min_WeakSet_iter' : 38,
+            },
+            {
+                'method'           : log.ThugOpts.Personality.isFirefox,
+                'min_Map'          : 13,
+                'min_Map_iter'     : 13,
+                'min_Set'          : 13,
+                'min_Set_iter'     : 13,
+                'min_WeakMap'      : 6,
+                'min_WeakMap_iter' : 36,
+                'min_WeakSet'      : 34,
+                'min_WeakSet_iter' : 34,
+            },
+            {
+                'method'           : log.ThugOpts.Personality.isSafari,
+                'min_Map'          : 8,
+                'min_Map_iter'     : 9,
+                'min_Set'          : 8,
+                'min_Set_iter'     : 9,
+                'min_WeakMap'      : 8,
+                'min_WeakMap_iter' : 9,
+                'min_WeakSet'      : 9,
+                'min_WeakSet_iter' : 9,
+            },
+        ]
 
     def init_config(self):
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
@@ -52,7 +103,7 @@ class JSEngine:
         V8.JSEngine.setStackLimit(1024 * 1024)
 
     def do_init_context(self, window):
-        m = getattr(self, "init_{}_context".format(self.engine), None)
+        m = getattr(self, f"init_{self.engine}_context", None)
         if m:
             m(window) # pylint:disable=not-callable
 
@@ -61,14 +112,41 @@ class JSEngine:
         ctxt.eval(open(thug_js, 'r').read())
 
     def init_scripts_storage(self, ctxt):
+        if not log.ThugOpts.Personality.isIE():
+            return
+
         if log.ThugOpts.Personality.browserMajorVersion < 8:
             storage_js = os.path.join(thug.__configuration_path__, 'scripts', "storage.js")
             ctxt.eval(open(storage_js, 'r').read())
 
     def init_scripts_date(self, ctxt):
+        if not log.ThugOpts.Personality.isIE():
+            return
+
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             date_js = os.path.join(thug.__configuration_path__, 'scripts', "date.js")
             ctxt.eval(open(date_js, 'r').read())
+
+    def undefine_object_iter(self, ctxt, jso):
+        ctxt.eval(f"{jso}.prototype.forEach = undefined")
+
+    def undefine_object(self, ctxt, jso):
+        ctxt.eval(f"{jso} = undefined")
+
+    def do_init_scripts_builtin(self, ctxt, item):
+        for jso in self.builtins:
+            if log.ThugOpts.Personality.browserMajorVersion < item[f"min_{jso}"]:
+                self.undefine_object(ctxt, jso)
+                continue
+
+            if log.ThugOpts.Personality.browserMajorVersion < item[f"min_{jso}_iter"]:
+                self.undefine_object_iter(ctxt, jso)
+
+    def init_scripts_builtin(self, ctxt):
+        for item in self.builtin_map:
+            if item['method']():
+                self.do_init_scripts_builtin(ctxt, item)
+                return
 
     def init_hooks(self, ctxt):
         hooks_folder = os.path.join(thug.__configuration_path__, 'hooks')
@@ -78,20 +156,19 @@ class JSEngine:
             ctxt.eval(open(os.path.join(hooks_folder, hook), 'r').read()) # pragma: no cover
 
         for hook in ('eval', 'write'):
-            js = os.path.join(thug.__configuration_path__, 'scripts', '{}.js'.format(hook))
+            js = os.path.join(thug.__configuration_path__, 'scripts', f'{hook}.js')
             if not os.path.exists(js): # pragma: no cover
                 continue
 
-            symbol = getattr(log.ThugLogging, '{}_symbol'.format(hook))
+            symbol = getattr(log.ThugLogging, f'{hook}_symbol')
             ctxt.eval(open(js, 'r').read() % {'name': symbol[0], 'saved': symbol[1]})
 
     def init_scripts(self):
         with self._context as ctxt:
             self.init_scripts_thug(ctxt)
-
-            if log.ThugOpts.Personality.isIE():
-                self.init_scripts_storage(ctxt)
-                self.init_scripts_date(ctxt)
+            self.init_scripts_storage(ctxt)
+            self.init_scripts_date(ctxt)
+            self.init_scripts_builtin(ctxt)
 
             self.init_hooks(ctxt)
 
@@ -99,7 +176,7 @@ class JSEngine:
         self.terminateAllThreads = V8.JSEngine.terminateAllThreads
 
     def init_symbols(self):
-        m = getattr(self, "init_{}_symbols".format(self.engine), None)
+        m = getattr(self, f"init_{self.engine}_symbols", None)
         if m:
             m() # pylint:disable=not-callable
 
@@ -116,12 +193,12 @@ class JSEngine:
         return isinstance(symbol, V8.JSFunction)
 
     def isJSFunction(self, symbol):
-        m = getattr(self, "is_{}_jsfunction".format(self.engine), None)
+        m = getattr(self, f"is_{self.engine}_jsfunction", None)
         return m(symbol) if m else False # pylint:disable=not-callable
 
     def is_v8_jsobject(self, symbol):
         return isinstance(symbol, V8.JSObject)
 
     def isJSObject(self, symbol):
-        m = getattr(self, "is_{}_jsobject".format(self.engine), None)
+        m = getattr(self, f"is_{self.engine}_jsobject", None)
         return m(symbol) if m else False # pylint:disable=not-callable
