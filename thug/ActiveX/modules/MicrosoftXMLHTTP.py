@@ -62,7 +62,7 @@ def send(self, varBody = None):
     if varBody:
         msg = f"{msg}('{str(varBody)}')"
 
-    log.ThugLogging.add_behavior_warn(f"[Microsoft XMLHTTP ActiveX] {msg}" % (msg, ))
+    log.ThugLogging.add_behavior_warn(f"[Microsoft XMLHTTP ActiveX] {msg}")
     log.ThugLogging.add_behavior_warn(f"[Microsoft XMLHTTP ActiveX] Fetching from URL {self.bstrUrl} (method: {self.bstrMethod})")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Microsoft XMLHTTP ActiveX",
