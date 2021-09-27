@@ -17,7 +17,7 @@ def EnumPrinterConnections(self):
 
     for _ in range(3):
         ip = GetRandomIp()
-        printerlist.append(['IP_{}'.format(ip), GetRandomShare(ip)])
+        printerlist.append([f'IP_{ip}', GetRandomShare(ip)])
 
     random.shuffle(printerlist)
     return WScriptCollection.WshCollection(sum(printerlist[:2], []))
@@ -28,7 +28,7 @@ def EnumNetworkDrives(self):
     ndrives = WScriptCollection.WshCollection()
 
     for _ in range(2):
-        drive = "{}:".format(chr(random.choice(range(ord('E'), ord('Z')))))
+        drive = f"{chr(random.choice(range(ord('E'), ord('Z'))))}:"
         ndrives.extend([drive, GetRandomShare(GetRandomIp())])
 
     return ndrives
@@ -36,7 +36,7 @@ def EnumNetworkDrives(self):
 
 def GetRandomShare(location):
     share = "".join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
-    return "\\\\{}\\{}".format(location, share)
+    return f"\\\\{location}\\{share}"
 
 
 def GetRandomIp():
