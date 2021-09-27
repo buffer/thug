@@ -395,7 +395,7 @@ class Window(JSClass):
 
         eventType is a string
         """
-        self.alert("[Captured Event] %s" % (eventType, ))
+        self.alert(f"[Captured Event] {eventType}")
 
     def clearInterval(self, intervalID):
         """
@@ -566,7 +566,7 @@ class Window(JSClass):
 
         eventType is a string
         """
-        self.alert("[Released Event] %s" % (eventType, ))
+        self.alert(f"[Released Event] {eventType}")
 
     def resizeBy(self, xDelta, yDelta):
         """
@@ -768,18 +768,18 @@ class Window(JSClass):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_addeventlistener_count()
 
-        setattr(self, 'on%s' % (_type.lower(), ), listener)
+        setattr(self, f"on{_type.lower()}", listener)
 
     def _removeEventListener(self, _type, listener, useCapture = False):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_removeeventlistener_count()
 
-        _listener = getattr(self, 'on%s' % (_type.lower(), ), None)
+        _listener = getattr(self, f"on{_type.lower()}", None)
         if _listener is None: # pragma: no cover
             return
 
         if _listener in (listener, ):
-            delattr(self, 'on%s' % (_type.lower(), ))
+            delattr(self, f"on{_type.lower()}")
 
     def _CollectGarbage(self):
         pass
