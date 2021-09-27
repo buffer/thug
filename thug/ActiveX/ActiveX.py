@@ -83,7 +83,7 @@ class _ActiveXObject:
         if cls in self.shockwave_flash:
             if cls in ('shockwaveflash.shockwaveflash', 'shockwaveflash.shockwaveflash.1'):
                 version = self.shockwave_flash[cls]
-                cls = 'shockwaveflash.shockwaveflash.{}'.format(version)
+                cls = f"shockwaveflash.shockwaveflash.{version}"
 
             if self.shockwave not in (self.shockwave_flash[cls], ):
                 log.warning("Unknown ActiveX Object: %s", cls)

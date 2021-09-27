@@ -20,12 +20,12 @@ class _Environment:
         self.strType = strType
 
     def Item(self, item): # pragma: no cover
-        log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Getting Environment Item: %s" % (item, ))
+        log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Getting Environment Item: {item}")
         return item
 
 
 def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
-    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Executing: %s" % (strCommand, ))
+    log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Executing: {strCommand}")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
                                       "Run",
@@ -60,7 +60,7 @@ def _doRun(self, p, stage):
     if log.ThugOpts.code_logging:
         log.ThugLogging.add_code_snippet(p, 'VBScript', 'Contained_Inside')
 
-    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Run (Stage %d) Code:\n%s" % (stage, p))
+    log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Run (Stage {stage}) Code:\n{p}")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
                                       "Run",
@@ -89,7 +89,7 @@ def _doRun(self, p, stage):
         url = url.split('"')[0]
         url = url.split("'")[0]
 
-        log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Run (Stage %d) Downloading from URL %s" % (stage, url))
+        log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Run (Stage {stage}) Downloading from URL {url}")
 
         try:
             response = self._window._navigator.fetch(url, redirect_type = "doRun")
@@ -106,7 +106,7 @@ def _doRun(self, p, stage):
         sha256.update(response.content)
         sha256sum = sha256.hexdigest()
 
-        log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Run (Stage %d) Saving file %s" % (stage, md5sum, ))
+        log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Run (Stage {stage}) Saving file {md5sum}")
         p = " ".join(s[1:])
 
         data = {
@@ -126,7 +126,7 @@ def _doRun(self, p, stage):
 
 
 def Environment(self, strType = None):
-    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Environment("%s")' % (strType, ))
+    log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] Environment("{strType}")')
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
                                       "Environment",
@@ -138,7 +138,7 @@ def Environment(self, strType = None):
 
 
 def ExpandEnvironmentStrings(self, strWshShell):
-    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Expanding environment string "%s"' % (strWshShell, ))
+    log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] Expanding environment string "{strWshShell}"')
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
                                       "ExpandEnvironmentStrings",
@@ -163,14 +163,14 @@ def ExpandEnvironmentStrings(self, strWshShell):
         '{{computername}}',
         ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8)))
 
-    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Expanded environment string to "%s"' % (strWshShell, ))
+    log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] Expanded environment string to "{strWshShell}"')
     return strWshShell
 
 
 def CreateObject(self, strProgID, strPrefix = ""):
     import thug.ActiveX as ActiveX
 
-    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] CreateObject (%s)" % (strProgID))
+    log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] CreateObject ({strProgID})")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
                                       "CreateObject",
@@ -184,21 +184,21 @@ def CreateObject(self, strProgID, strPrefix = ""):
 
 
 def Sleep(self, intTime):
-    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Sleep(%s)" % (intTime))
+    log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Sleep({intTime})")
     time.sleep(intTime * 0.001)
 
 
 def Quit(self, code):
-    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Quit(%s)" % code)
+    log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Quit({code})")
 
 
 def Exec(self, path):
-    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Exec(%s)" % path)
+    log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Exec({path})")
     return WScriptExec()
 
 
 def Echo(self, text):
-    log.ThugLogging.add_behavior_warn("[WScript.Shell ActiveX] Echo(%s)" % (text))
+    log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Echo({text})")
 
 
 def valueOf(self):
@@ -210,15 +210,16 @@ def toString(self):
 
 
 def SpecialFolders(self, strFolderName):
-    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Received call to SpecialFolders property "%s"' % (strFolderName, ))
+    log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] Received call to SpecialFolders property "{strFolderName}"')
     folderPath = log.ThugOpts.Personality.getSpecialFolder(strFolderName)
     if folderPath:
         folderPath = ExpandEnvironmentStrings(self, folderPath)
-    return "{}".format(folderPath)
+
+    return f"{folderPath}"
 
 
 def CreateShortcut(self, strPathname):
-    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] CreateShortcut "%s"' % (strPathname, ))
+    log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] CreateShortcut "{strPathname}"')
     obj = CreateObject(self, "wscript.shortcut")
     obj.FullName = strPathname
     return obj
@@ -227,23 +228,23 @@ def CreateShortcut(self, strPathname):
 def RegRead(self, registry):
     if registry.lower() in win32_registry:
         value = win32_registry[registry.lower()]
-        log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegRead("{}") = "{}"'.format(registry, value))
+        log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] RegRead("{registry}") = "{value}"')
         return value
 
     if registry.lower() in win32_registry_map:
         value = log.ThugOpts.Personality.getShellVariable(win32_registry_map[registry.lower()])
-        log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegRead("{}") = "{}"'.format(registry, value))
+        log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] RegRead("{registry}") = "{value}"')
         return value
 
-    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegRead("{}") = {}'.format(registry, 'NOT FOUND'))
+    log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] RegRead("{registry}") = NOT FOUND')
     return ''
 
 
 def RegWrite(self, registry, value, strType = "REG_SZ"):
-    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] RegWrite("{}", "{}", "{}")'.format(registry, value, strType))
+    log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] RegWrite("{registry}", "{value}", "{strType}")')
     win32_registry[registry.lower()] = value
 
 
 def Popup(self, title = "", timeout = 0, message = "", _type = 0):
-    log.ThugLogging.add_behavior_warn('[WScript.Shell ActiveX] Popup("{}", "{}", "{}")'.format(title, message, _type))
+    log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] Popup("{title}", "{message}", "{_type}")')
     return 0
