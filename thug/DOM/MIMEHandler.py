@@ -273,7 +273,8 @@ class MIMEHandler(dict):
         self['text/javascript']          = None
 
     def register_fallback_handlers(self):
-        self['text/plain'] = self.handle_fallback
+        self['text/plain']               = self.handle_fallback
+        self['application/octet-stream'] = self.handle_fallback
 
     def register_handler(self, mimetype, handler):
         self[mimetype] = handler
