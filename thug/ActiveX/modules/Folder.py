@@ -21,7 +21,7 @@ class Folder:
     def __init__(self, filespec):
         self.Path = filespec
         self._Attributes = ATTRIBUTES['Directory']
-        log.ThugLogging.add_behavior_warn('[Folder ActiveX] Path = %s, Attributes = %s' % (self.Path, self._Attributes, ))
+        log.ThugLogging.add_behavior_warn(f'[Folder ActiveX] Path = {self.Path}, Attributes = {self._Attributes}')
 
     def getAttributes(self):
         return self._Attributes
@@ -39,7 +39,7 @@ class Folder:
         _shortPath = []
 
         for p in self.Path.split('\\'):
-            spfn = p if len(p) <= 8 else "{}~1".format(p[:6])
+            spfn = p if len(p) <= 8 else f"{p[:6]}~1"
             _shortPath.append(spfn)
 
         return "\\\\".join(_shortPath)
@@ -52,7 +52,7 @@ class Folder:
         if len(name) <= 8:
             return name
 
-        return "{}~1".format(name[:6])
+        return f"{name[:6]}~1"
 
     @property
     def Drive(self):
@@ -63,10 +63,10 @@ class Folder:
         return 'C:'
 
     def Copy(self, destination, overwrite = True):
-        log.ThugLogging.add_behavior_warn('[Folder ActiveX] Copy(%s, %s)' % (destination, overwrite, ))
+        log.ThugLogging.add_behavior_warn(f'[Folder ActiveX] Copy({destination}, {overwrite})')
 
     def Move(self, destination):
-        log.ThugLogging.add_behavior_warn('[Folder ActiveX] Move(%s)' % (destination, ))
+        log.ThugLogging.add_behavior_warn(f'[Folder ActiveX] Move({destination})')
 
     def Delete(self, force = False):
-        log.ThugLogging.add_behavior_warn('[Folder ActiveX] Delete(%s)' % (force, ))
+        log.ThugLogging.add_behavior_warn(f'[Folder ActiveX] Delete({force})')

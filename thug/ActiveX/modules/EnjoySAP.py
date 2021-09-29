@@ -26,7 +26,7 @@ def Comp_Download(self, arg0, arg1):
 
     url = arg0
 
-    log.ThugLogging.add_behavior_warn("[EnjoySAP ActiveX] Fetching from URL %s" % (url, ))
+    log.ThugLogging.add_behavior_warn(f"[EnjoySAP ActiveX] Fetching from URL {url}")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "EnjoySAP ActiveX",
                                       "Fetching from URL",
