@@ -7,7 +7,7 @@ log = logging.getLogger("Thug")
 
 
 def deleteReport(self, arg):
-    log.ThugLogging.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] deleteReport(%s)' % (arg, ),
+    log.ThugLogging.add_behavior_warn(f'[Nessus Vunlnerability Scanner ScanCtrl ActiveX] deleteReport({arg})',
                                       'CVE-2007-4031')
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Nessus Vunlnerability Scanner ScanCtrl ActiveX",
@@ -22,7 +22,7 @@ def deleteReport(self, arg):
 
 
 def deleteNessusRC(self, arg):
-    log.ThugLogging.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] deleteNessusRC(%s)' % (arg, ),
+    log.ThugLogging.add_behavior_warn(f'[Nessus Vunlnerability Scanner ScanCtrl ActiveX] deleteNessusRC({arg})',
                                       'CVE-2007-4062')
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Nessus Vunlnerability Scanner ScanCtrl ActiveX",
@@ -37,7 +37,7 @@ def deleteNessusRC(self, arg):
 
 
 def saveNessusRC(self, arg):
-    log.ThugLogging.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] saveNessusRC(%s)' % (arg, ),
+    log.ThugLogging.add_behavior_warn(f'[Nessus Vunlnerability Scanner ScanCtrl ActiveX] saveNessusRC({arg})',
                                       'CVE-2007-4061')
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Nessus Vunlnerability Scanner ScanCtrl ActiveX",
@@ -52,9 +52,7 @@ def saveNessusRC(self, arg):
 
 
 def addsetConfig(self, arg, arg1, arg2):
-    log.ThugLogging.add_behavior_warn('[Nessus Vunlnerability Scanner ScanCtrl ActiveX] addsetConfig(%s, %s, %s)' % (arg,
-                                                                                                                     arg1,
-                                                                                                                     arg2, ),
+    log.ThugLogging.add_behavior_warn(f'[Nessus Vunlnerability Scanner ScanCtrl ActiveX] addsetConfig({arg}, {arg1}, {arg2})',
                                       'CVE-2007-4061')
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Nessus Vunlnerability Scanner ScanCtrl ActiveX",

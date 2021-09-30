@@ -56,12 +56,12 @@ def loadXML(self, bstrXML):
     for p in bstrXML.split('"'):
         if p.startswith("res://"):
             log.URLClassifier.classify(p)
-            log.ThugLogging.add_behavior_warn("[Microsoft XMLDOM ActiveX] Attempting to load %s" % (p, ))
+            log.ThugLogging.add_behavior_warn(f"[Microsoft XMLDOM ActiveX] Attempting to load {p}")
             log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2017-0022")
             if any(sys.lower() in p.lower() for sys in security_sys):
                 self.parseError._errorCode = 0
 
 
 def createElement(self, bstrTagName):
-    log.ThugLogging.add_behavior_warn("[Microsoft XMLDOM ActiveX] Creating element %s" % (bstrTagName, ))
+    log.ThugLogging.add_behavior_warn(f"[Microsoft XMLDOM ActiveX] Creating element {bstrTagName}")
     return Node(self.xml, bstrTagName)

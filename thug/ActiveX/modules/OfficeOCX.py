@@ -9,7 +9,7 @@ log = logging.getLogger("Thug")
 
 def OpenWebFile(self, _file):
     log.ThugLogging.add_behavior_warn('[Office OCX ActiveX] OpenWebFile Arbitrary Program Execution Vulnerability')
-    log.ThugLogging.add_behavior_warn("[Office OCX ActiveX] Fetching from URL %s" % (_file, ))
+    log.ThugLogging.add_behavior_warn(f"[Office OCX ActiveX] Fetching from URL {_file}")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Office OCX ActiveX",
                                       "OpenWebFile Arbitrary Program Execution Vulnerability (BID-33243)",

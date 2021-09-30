@@ -7,7 +7,7 @@ log = logging.getLogger("Thug")
 def CreateObject(self, _object, param = ''):
     import thug.ActiveX as ActiveX
 
-    log.ThugLogging.add_behavior_warn("[VsaIDE.DTE ActiveX] CreateObject (%s)" % (_object))
+    log.ThugLogging.add_behavior_warn(f"[VsaIDE.DTE ActiveX] CreateObject ({_object})")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "VsaIDE.DTE ActiveX",
                                       "CreateObject",
