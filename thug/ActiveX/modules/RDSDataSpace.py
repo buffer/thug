@@ -7,7 +7,7 @@ log = logging.getLogger("Thug")
 
 
 def CreateObject(self, _object, param = ''):
-    import thug.ActiveX as ActiveX
+    from thug import ActiveX
 
     log.ThugLogging.add_behavior_warn(f"[Microsoft MDAC RDS.Dataspace ActiveX] CreateObject ({_object})")
     log.ThugLogging.log_exploit_event(self._window.url,

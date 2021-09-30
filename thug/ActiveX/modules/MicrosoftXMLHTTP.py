@@ -7,7 +7,7 @@ import logging
 from lxml.html import builder as E
 from lxml.html import tostring
 
-import thug.DOM as DOM
+from thug import DOM
 
 log = logging.getLogger("Thug")
 
