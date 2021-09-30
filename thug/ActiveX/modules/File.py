@@ -23,7 +23,7 @@ class File:
     def __init__(self, filespec):
         self.Path = filespec
         self._Attributes = ATTRIBUTES['Archive']
-        log.ThugLogging.add_behavior_warn('[File ActiveX] Path = %s, Attributes = %s' % (self.Path, self._Attributes, ))
+        log.ThugLogging.add_behavior_warn(f'[File ActiveX] Path = {self.Path}, Attributes = {self._Attributes}')
 
     def getAttributes(self):
         return self._Attributes
@@ -44,15 +44,15 @@ class File:
             sp = p.split('.')
 
             if len(sp) == 1:
-                spfn = p if len(p) <= 8 else "{}~1".format(p[:6])
+                spfn = p if len(p) <= 8 else f"{p[:6]}~1"
             else:
                 spfn = ".".join(sp[:-1])
                 ext  = sp[-1]
 
                 if len(spfn) > 8:
-                    spfn = "{}~1".format(spfn[:6])
+                    spfn = f"{spfn[:6]}~1"
 
-                spfn = "{}.{}".format(spfn, ext)
+                spfn = f"{spfn}.{ext}"
 
             _shortPath.append(spfn)
 
@@ -68,15 +68,15 @@ class File:
             if len(name) <= 8:
                 return name
 
-            return "{}~1".format(name[:6])
+            return f"{name[:6]}~1"
 
         spfn = ".".join(sp[:-1])
         ext = sp[-1]
 
         if len(spfn) > 8:
-            spfn = "{}~1".format(spfn[:6])
+            spfn = f"{spfn[:6]}~1"
 
-        return "{}.{}".format(spfn, ext)
+        return f"{spfn}.{ext}"
 
     @property
     def Drive(self):
@@ -87,16 +87,16 @@ class File:
         return 'C:'
 
     def Copy(self, destination, overwrite = True):
-        log.ThugLogging.add_behavior_warn('[File ActiveX] Copy(%s, %s)' % (destination, overwrite, ))
+        log.ThugLogging.add_behavior_warn(f'[File ActiveX] Copy({destination}, {overwrite})')
 
     def Move(self, destination):
-        log.ThugLogging.add_behavior_warn('[File ActiveX] Move(%s)' % (destination, ))
+        log.ThugLogging.add_behavior_warn(f'[File ActiveX] Move({destination})')
 
     def Delete(self, force = False):
-        log.ThugLogging.add_behavior_warn('[File ActiveX] Delete(%s)' % (force, ))
+        log.ThugLogging.add_behavior_warn(f'[File ActiveX] Delete({force})')
 
     def OpenAsTextStream(self, iomode = 'ForReading', _format = 0):
-        log.ThugLogging.add_behavior_warn('[File ActiveX] OpenAsTextStream(%s, %s)' % (iomode, _format, ))
+        log.ThugLogging.add_behavior_warn(f'[File ActiveX] OpenAsTextStream({iomode}, {_format})')
         stream = TextStream.TextStream()
         stream._filename = self.Path  # pylint:disable=undefined-variable
         return stream

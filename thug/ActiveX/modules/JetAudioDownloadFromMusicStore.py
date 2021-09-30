@@ -7,7 +7,7 @@ log = logging.getLogger("Thug")
 
 
 def DownloadFromMusicStore(self, url, dst, title, artist, album, genere, size, param1, param2):
-    log.ThugLogging.add_behavior_warn('[JetAudio ActiveX] Downloading from URL %s (saving locally as %s)' % (url, dst, ))
+    log.ThugLogging.add_behavior_warn(f'[JetAudio ActiveX] Downloading from URL {url} (saving locally as {dst})')
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "JetAudio ActiveX",
                                       "Downloading from URL",
