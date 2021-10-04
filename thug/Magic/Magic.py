@@ -27,14 +27,14 @@ class Magic:
         try:
             # This works with python-magic >= 0.4.6 from pypi
             mtype = magic.from_buffer(self.data, mime = True)
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             try:
                 # Ubuntu workaround
                 # This works with python-magic >= 5.22 from Ubuntu (apt)
                 ms = magic.open(magic.MAGIC_MIME) # pylint:disable=no-member
                 ms.load()
                 mtype = ms.buffer(self.data).split(';')[0]
-            except Exception:
+            except Exception: # pylint:disable=broad-except
                 # Filemagic workaround
                 # This works with filemagic >= 1.6 from pypi
                 with magic.Magic(flags = magic.MAGIC_MIME_TYPE) as m:  # pylint:disable=unexpected-keyword-arg,not-context-manager

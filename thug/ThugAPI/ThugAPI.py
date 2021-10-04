@@ -455,7 +455,9 @@ class ThugAPI:
 
         log.HTTPSession = HTTPSession()
 
-        content   = open(url, 'r', encoding = "utf-8").read()
+        with open(url, 'r', encoding = "utf-8") as fd:
+            content = fd.read()
+
         extension = os.path.splitext(url)
 
         if len(extension) > 1 and extension[1].lower() in ('.js', '.jse', ):

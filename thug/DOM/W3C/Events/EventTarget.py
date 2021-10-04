@@ -117,7 +117,7 @@ class EventTarget:
 
         try:
             self.tag._listeners.remove((eventType, listener, capture))
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             pass
 
     def _attachEvent(self, eventType, handler, prio = False):
@@ -163,7 +163,7 @@ class EventTarget:
     def do_dispatch(self, c, evtObject):
         try:
             self._do_dispatch(c, evtObject)
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             eventType, listener, capture = c  # pylint:disable=unused-variable
             log.warning("[WARNING] Error while dispatching %s event (%s)", eventType, str(e))
 

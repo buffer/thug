@@ -53,7 +53,7 @@ class DocumentFragment(Node):
 
         try:
             s = self.tag.select(selectors)
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -63,7 +63,7 @@ class DocumentFragment(Node):
 
         try:
             s = self.tag.select(selectors)
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             return None
 
         return DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
