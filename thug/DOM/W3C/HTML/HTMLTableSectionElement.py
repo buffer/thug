@@ -21,7 +21,7 @@ class HTMLTableSectionElement(HTMLElement):
     def __init__(self, doc, tag, table = None):
         HTMLElement.__init__(self, doc, tag)
         self._table = table
-        self._rows  = HTMLCollection(doc, list())
+        self._rows  = HTMLCollection(doc, [])
 
     @property
     def rows(self):

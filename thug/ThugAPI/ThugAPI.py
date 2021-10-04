@@ -113,7 +113,7 @@ class ThugAPI:
         }
 
     def __init_pyhooks(self):
-        log.PyHooks = dict()
+        log.PyHooks = {}
 
     def __init_trace(self):
         log.Trace = None
@@ -427,7 +427,7 @@ class ThugAPI:
 
     def register_pyhook(self, module, method, hook):
         if module not in log.PyHooks:
-            log.PyHooks[module] = dict()
+            log.PyHooks[module] = {}
 
         log.PyHooks[module][method] = hook
 

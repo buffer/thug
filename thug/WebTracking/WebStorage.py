@@ -24,7 +24,7 @@ log = logging.getLogger("Thug")
 
 class WebStorage:
     def __init__(self):
-        self.storage = dict()
+        self.storage = {}
 
     @staticmethod
     def inspect_set_item(storage, key, value):

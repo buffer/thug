@@ -45,7 +45,7 @@ class ThugOpts(dict):
         self.http_debug         = 0
         self._useragent         = 'winxpie60'
         self._referer           = 'about:blank'
-        self._events            = list()
+        self._events            = []
         self._delay             = 0
         self._attachment        = False
         self._file_logging      = False
@@ -136,7 +136,7 @@ class ThugOpts(dict):
 
     def set_events(self, events):
         if not events:
-            self._events = list()
+            self._events = []
             return
 
         for e in events.split(","):

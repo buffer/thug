@@ -40,7 +40,7 @@ class ThugPlugins:
     def __init__(self, phase, thug):
         self.phase            = phase
         self.thug             = thug
-        self.plugins          = dict()
+        self.plugins          = {}
         self.last_low_prio    = FIRST_LOW_PRIO
         self.get_plugins()
 
@@ -64,7 +64,7 @@ class ThugPlugins:
         return plugin_prio
 
     def get_plugins(self):
-        plugins = dict()
+        plugins = {}
 
         for p in os.listdir(PLUGINS_PATH):
             if not p.startswith(self.phase):
