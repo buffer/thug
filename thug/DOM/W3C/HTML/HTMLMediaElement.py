@@ -43,9 +43,9 @@ class HTMLMediaElement(HTMLElement):
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
-        self._audioTracks = AudioTrackList(doc, list())
-        self._textTracks = TextTrackList(doc, list())
-        self._buffered = TimeRanges(doc, list())
+        self._audioTracks = AudioTrackList(doc, [])
+        self._textTracks = TextTrackList(doc, [])
+        self._buffered = TimeRanges(doc, [])
         self._paused = False
 
         if log.ThugOpts.Personality.isChrome() and log.ThugOpts.Personality.browserMajorVersion >= 58:

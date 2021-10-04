@@ -30,7 +30,7 @@ log = logging.getLogger("Thug")
 class VirusTotal:
     def __init__(self):
         self.enabled = True
-        self.opts    = dict()
+        self.opts    = {}
 
         self.__init_config()
 

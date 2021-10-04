@@ -81,7 +81,7 @@ class Features:
     )
 
     def __init__(self):
-        self.features = dict()
+        self.features = {}
 
     def __getattr__(self, key):
         if key.startswith('increase_'):
@@ -99,13 +99,13 @@ class Features:
         raise AttributeError # pragma: no cover
 
     def clear(self):
-        self.features = dict()
+        self.features = {}
 
     def init_features(self, url):
         if url in self.features:
             return
 
-        self.features[url] = dict()
+        self.features[url] = {}
         for counter in self.counters:
             self.features[url][counter] = 0
 

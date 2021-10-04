@@ -124,7 +124,7 @@ class Shellcode:
 
     def build_shellcode(self, s):
         i  = 0
-        sc = list()
+        sc = []
 
         while i < len(s):
             if s[i] == '"': # pragma: no cover

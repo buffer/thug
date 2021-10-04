@@ -163,7 +163,7 @@ CLSID = [
                             'Mode'          : 3,
                             'Position'      : 0,
                             'position'      : 0,
-                            '_files'        : dict(),
+                            '_files'        : {},
                             '_current'      : None,
                           },
             'funcattrs' : {

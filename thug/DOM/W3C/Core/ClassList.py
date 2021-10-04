@@ -53,7 +53,7 @@ class ClassList(JSClass):
         self.toggle = self.__toggle
 
     def __init_class_list(self):
-        self._class_list = list()
+        self._class_list = []
 
         if 'class' not in self.tag.attrs:
             return
@@ -70,7 +70,7 @@ class ClassList(JSClass):
             self._class_list.append(c)
 
         if 'class' not in self.tag.attrs:
-            self.tag.attrs['class'] = list()
+            self.tag.attrs['class'] = []
 
         attrs = self.tag.attrs['class']
         attrs = [attrs, ] if isinstance(attrs, str) else attrs

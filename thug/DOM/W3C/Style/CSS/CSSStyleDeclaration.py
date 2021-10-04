@@ -9,7 +9,7 @@ log = logging.getLogger("Thug")
 
 class CSSStyleDeclaration(JSClass):
     def __init__(self, style):
-        self.props = dict()
+        self.props = {}
 
         for prop in [p for p in style.split(';') if p]:
             k, v = prop.strip().split(':')

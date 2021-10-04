@@ -291,7 +291,7 @@ class HTMLDocument(Document):
         from .HTMLDocumentCompatibleInfo import HTMLDocumentCompatibleInfo
         from .HTMLDocumentCompatibleInfoCollection import HTMLDocumentCompatibleInfoCollection
 
-        _compatibles = list()
+        _compatibles = []
 
         if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion >= 8:
             for s in compatible.split(';'):
@@ -375,7 +375,7 @@ class HTMLDocument(Document):
         log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.URL, html)
 
         if self._html is None:
-            self._html = list()
+            self._html = []
 
         self._html.append(html)
 

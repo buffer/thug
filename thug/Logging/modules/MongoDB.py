@@ -44,7 +44,7 @@ class MongoDB:
         self.chain_id = self.make_counter(0)
 
     def __init_config(self):
-        self.opts = dict()
+        self.opts = {}
 
         if log.ThugOpts.mongodb_address:
             self.opts['host'] = log.ThugOpts.mongodb_address
@@ -183,7 +183,7 @@ class MongoDB:
             return
 
         if flags is None:
-            flags = dict()
+            flags = {}
 
         content    = data.get("content", None)
         content_id = self.fs.put(content,
@@ -211,7 +211,7 @@ class MongoDB:
             return
 
         if flags is None:
-            flags = dict()
+            flags = {}
 
         connection = {
             'analysis_id'    : self.analysis_id,
@@ -266,7 +266,7 @@ class MongoDB:
             'url_id'      : self.get_url(url),
             'classifier'  : classifier,
             'rule'        : rule,
-            'meta'        : meta if meta else dict(),
+            'meta'        : meta if meta else {},
             'tags'        : tags
         }
 

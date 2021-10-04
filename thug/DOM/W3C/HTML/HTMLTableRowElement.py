@@ -21,7 +21,7 @@ class HTMLTableRowElement(HTMLElement):
         HTMLElement.__init__(self, doc, tag)
         self._table   = table
         self._section = section
-        self._cells   = HTMLCollection(doc, list())
+        self._cells   = HTMLCollection(doc, [])
 
     # Modified in DOM Level 2
     @property

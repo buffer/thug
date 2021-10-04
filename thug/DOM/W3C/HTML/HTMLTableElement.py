@@ -31,8 +31,8 @@ class HTMLTableElement(HTMLElement):
         self._caption = None
         self._tHead   = None
         self._tFoot   = None
-        self._rows    = HTMLCollection(doc, list())
-        self._tBodies = HTMLCollection(doc, list())
+        self._rows    = HTMLCollection(doc, [])
+        self._tBodies = HTMLCollection(doc, [])
 
     @property
     def caption(self):

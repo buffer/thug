@@ -29,8 +29,8 @@ log = logging.getLogger("Thug")
 
 class BaseClassifier:
     def __init__(self):
-        self.matches = list()
-        self.custom_classifiers = dict()
+        self.matches = []
+        self.custom_classifiers = {}
         self.init_rules()
         self.init_filters()
 
@@ -39,7 +39,7 @@ class BaseClassifier:
         return getattr(self, '_classifier', '')
 
     def init_rules(self):
-        self._rules = dict()
+        self._rules = {}
         self.rules_namespace_id = 1
 
         p = getattr(self, 'default_rule_file', None)
@@ -57,7 +57,7 @@ class BaseClassifier:
         self.rules = yara.compile(filepaths = self._rules)
 
     def init_filters(self):
-        self._filters = dict()
+        self._filters = {}
         self.filters_namespace_id = 1
 
         p = getattr(self, 'default_filter_file', None)
@@ -127,7 +127,7 @@ class BaseClassifier:
         self.custom_classifiers[method_name] = method.__get__(self)
 
     def reset_customclassifiers(self):
-        self.custom_classifiers = dict()
+        self.custom_classifiers = {}
 
     def handle_match_etags(self, match):
         etags = match.meta.get('etags', None)

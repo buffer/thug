@@ -51,7 +51,7 @@ class ElasticSearch(JSON):
         self.enabled = True
 
     def __init_config(self):
-        self.opts = dict()
+        self.opts = {}
 
         conf_file = os.path.join(log.configuration_path, 'thug.conf')
         if not os.path.exists(conf_file):

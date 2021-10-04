@@ -28,7 +28,7 @@ class ContextAnalyzer:
         self.__init_checks()
 
     def __init_checks(self):
-        self.checks = list()
+        self.checks = []
 
         for (name, method) in inspect.getmembers(self, predicate = inspect.ismethod):
             if name.startswith('context_analyzer_check'):

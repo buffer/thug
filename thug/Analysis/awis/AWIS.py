@@ -55,7 +55,7 @@ class AWIS:
         return self._awis_api
 
     def query(self, url):
-        result = dict()
+        result = {}
 
         if not log.ThugOpts.awis:
             return result

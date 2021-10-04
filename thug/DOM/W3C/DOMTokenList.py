@@ -6,11 +6,11 @@ log = logging.getLogger("Thug")
 
 class DOMTokenList:
     def __init__(self, supported, tokens = None):
-        self.tokens = list() if tokens is None else tokens
+        self.tokens = [] if tokens is None else tokens
         self.__init_supported(supported)
 
     def __init_supported(self, supported):
-        self.supported = list()
+        self.supported = []
 
         for support in supported:
             if support not in self.supported:

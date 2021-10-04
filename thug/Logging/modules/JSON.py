@@ -45,7 +45,7 @@ class JSON:
 
         self.associated_code = None
         self.object_pool     = None
-        self.signatures      = list()
+        self.signatures      = []
         self.cached_data     = None
         self.provider        = provider
 
@@ -167,7 +167,7 @@ class JSON:
             return
 
         if flags is None:
-            flags = dict()
+            flags = {}
 
         if "exploit" in flags and flags["exploit"]:
             self.add_behavior_warn("[Exploit]  {} -- {} --> {}".format(source,
@@ -217,7 +217,7 @@ class JSON:
             return
 
         if flags is None:
-            flags = dict()
+            flags = {}
 
         self.data["locations"].append({"url"          : self.fix(url),
                                        "content"      : self.get_content(data),
@@ -278,7 +278,7 @@ class JSON:
         item = {"classifier" : classifier,
                 "url"        : self.fix(url),
                 "rule"       : rule,
-                "meta"       : meta if meta else dict(),
+                "meta"       : meta if meta else {},
                 "tags"       : tags}
 
         if item not in self.data["classifiers"]:
@@ -321,7 +321,7 @@ class JSON:
                  'version')
 
         for cookie in log.HTTPSession.cookies:
-            item = dict()
+            item = {}
 
             for attr in attrs:
                 value = getattr(cookie, attr, None)

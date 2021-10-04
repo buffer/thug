@@ -30,7 +30,7 @@ log = logging.getLogger("Thug")
 class HoneyAgent:
     def __init__(self):
         self.enabled = True
-        self.opts    = dict()
+        self.opts    = {}
 
         self.__init_config()
 
@@ -111,7 +111,7 @@ class HoneyAgent:
             return
 
         if params is None:
-            params = dict()
+            params = {}
 
         response = self.submit(data, sample, params)
         self.save_report(response, basedir, sample)
