@@ -126,7 +126,7 @@ class SampleLogging:
         if not data:
             return None
 
-        p = dict()
+        p = {}
 
         if sampletype:
             data = data.encode() if isinstance(data, str) else data

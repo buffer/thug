@@ -46,10 +46,10 @@ java_deployment_toolkit = ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA',
 
 class _ActiveXObject:
     def __init__(self, window, cls, typename = 'name'):
-        self.funcattrs = dict()
+        self.funcattrs = {}
         self._window   = window
         obj            = None
-        methods        = dict()
+        methods        = {}
         self.cls       = cls
 
         self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
@@ -169,8 +169,8 @@ class _ActiveXObject:
 
 
 def register_object(s, clsid):
-    funcattrs = dict()  # pylint:disable=unused-variable
-    methods   = dict()
+    funcattrs = {}  # pylint:disable=unused-variable
+    methods   = {}
     obj       = None
 
     if not clsid.startswith('clsid:'):
@@ -219,6 +219,6 @@ def register_object(s, clsid):
     # PLEASE REVIEW ME!
     for attr_name, attr_value in obj['funcattrs'].items():
         if 'funcattrs' not in s.__dict__:
-            s.__dict__['funcattrs'] = dict()
+            s.__dict__['funcattrs'] = {}
 
         s.__dict__['funcattrs'][attr_name] = methods[attr_value]

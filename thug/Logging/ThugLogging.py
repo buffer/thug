@@ -59,15 +59,15 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.Screenshot      = Screenshot()
         self.AWIS            = AWIS()
         self.baseDir         = None
-        self.windows         = dict()
+        self.windows         = {}
         self.shellcodes      = set()
         self.shellcode_urls  = set()
         self.retrieved_urls  = set()
-        self.methods_cache   = dict()
+        self.methods_cache   = {}
         self.formats         = set()
-        self.meta            = dict()
-        self.frames          = dict()
-        self.redirections    = dict()
+        self.meta            = {}
+        self.frames          = {}
+        self.redirections    = {}
         self.url             = ""
 
         self.__init_hook_symbols()
@@ -104,7 +104,7 @@ class ThugLogging(BaseLogging, SampleLogging):
             log.critical("Logging subsystem not initialized (configuration file not found)")
             return
 
-        self.modules = dict()
+        self.modules = {}
         config = configparser.ConfigParser()
         config.read(conf_file)
 
@@ -219,7 +219,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         @flags          Additional information flags. Existing are: "exploit"
         """
         if flags is None:
-            flags = dict()
+            flags = {}
 
         for m in self.resolve_method('log_connection'):
             m(source, destination, method, flags)
@@ -242,7 +242,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         @flags  Additional information flags
         """
         if flags is None:
-            flags = dict()
+            flags = {}
 
         for m in self.resolve_method('log_location'):
             m(url, data, flags = flags)
@@ -293,7 +293,7 @@ class ThugLogging(BaseLogging, SampleLogging):
                                                                                            tags, ))
 
         if meta is None:
-            meta = dict() # pragma: no cover
+            meta = {} # pragma: no cover
 
         for m in self.resolve_method('log_classifier'):
             m(classifier, url, rule, tags, meta)

@@ -12,7 +12,7 @@ log = logging.getLogger("Thug")
 class EventTarget:
     def __init__(self):
         self.__init_eventtarget_personality()
-        self.tag._listeners = list()
+        self.tag._listeners = []
 
     def __init_eventtarget_personality(self):
         if log.ThugOpts.Personality.isIE():
@@ -97,7 +97,7 @@ class EventTarget:
             log.ThugLogging.Features.increase_addeventlistener_count()
 
         if getattr(self.tag, '_listeners', None) is None: # pragma: no cover
-            self.tag._listeners = list()
+            self.tag._listeners = []
 
         if not (eventType, listener, capture) in self.tag._listeners:
             self.__insert_listener(eventType, listener, capture, prio)
