@@ -29,5 +29,5 @@ def ShellExecute(self, sFile, vArguments = "", vDirectory = "", vOperation = "op
 
         try:
             self._window._navigator.fetch(url, redirect_type = "ShellExecute")
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             pass

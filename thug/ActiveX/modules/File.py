@@ -86,13 +86,13 @@ class File:
 
         return 'C:'
 
-    def Copy(self, destination, overwrite = True):
+    def Copy(self, destination, overwrite = True): # pylint:disable=no-self-use
         log.ThugLogging.add_behavior_warn(f'[File ActiveX] Copy({destination}, {overwrite})')
 
-    def Move(self, destination):
+    def Move(self, destination): # pylint:disable=no-self-use
         log.ThugLogging.add_behavior_warn(f'[File ActiveX] Move({destination})')
 
-    def Delete(self, force = False):
+    def Delete(self, force = False): # pylint:disable=no-self-use
         log.ThugLogging.add_behavior_warn(f'[File ActiveX] Delete({force})')
 
     def OpenAsTextStream(self, iomode = 'ForReading', _format = 0):

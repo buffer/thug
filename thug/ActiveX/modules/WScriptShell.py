@@ -19,7 +19,7 @@ class _Environment:
     def __init__(self, strType):
         self.strType = strType
 
-    def Item(self, item): # pragma: no cover
+    def Item(self, item): # pragma: no cover,pylint:disable=no-self-use
         log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Getting Environment Item: {item}")
         return item
 
@@ -51,7 +51,7 @@ def _doRun(self, p, stage):
     try:
         pefile.PE(data = p, fast_load = True)
         return
-    except Exception:
+    except Exception: # pylint:disable=broad-except
         pass
 
     if not isinstance(p, str):
@@ -93,7 +93,7 @@ def _doRun(self, p, stage):
 
         try:
             response = self._window._navigator.fetch(url, redirect_type = "doRun")
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             continue
 
         if response is None or not response.ok:

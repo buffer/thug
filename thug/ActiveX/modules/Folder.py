@@ -62,11 +62,11 @@ class Folder:
 
         return 'C:'
 
-    def Copy(self, destination, overwrite = True):
+    def Copy(self, destination, overwrite = True): # pylint:disable=no-self-use
         log.ThugLogging.add_behavior_warn(f'[Folder ActiveX] Copy({destination}, {overwrite})')
 
-    def Move(self, destination):
+    def Move(self, destination): # pylint:disable=no-self-use
         log.ThugLogging.add_behavior_warn(f'[Folder ActiveX] Move({destination})')
 
-    def Delete(self, force = False):
+    def Delete(self, force = False): # pylint:disable=no-self-use
         log.ThugLogging.add_behavior_warn(f'[Folder ActiveX] Delete({force})')

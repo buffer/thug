@@ -22,5 +22,5 @@ def DownloadFromMusicStore(self, url, dst, title, artist, album, genere, size, p
 
     try:
         self._window._navigator.fetch(url, redirect_type = "JetAudio exploit")
-    except Exception:
+    except Exception: # pylint:disable=broad-except
         log.ThugLogging.add_behavior_warn('[JetAudio ActiveX] Fetch failed')

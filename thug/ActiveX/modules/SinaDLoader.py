@@ -18,5 +18,5 @@ def DownloadAndInstall(self, url):
 
     try:
         self._window._navigator.fetch(url, redirect_type = "SinaDLoader Exploit")
-    except Exception:
+    except Exception: # pylint:disable=broad-except
         log.ThugLogging.add_behavior_warn('[SinaDLoader Downloader ActiveX] Fetch failed')

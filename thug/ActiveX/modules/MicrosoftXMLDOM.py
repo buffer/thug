@@ -23,7 +23,7 @@ class Node:
                 return base64.b64decode(self.text)
             if self._dataType in ('bin.hex', ):
                 return binascii.unhexlify(self.text)
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.info("[ERROR][getNodeTypedValue] %s", str(e))
 
         return self.text

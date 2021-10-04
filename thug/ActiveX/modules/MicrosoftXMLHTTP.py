@@ -84,7 +84,7 @@ def send(self, varBody = None):
                                                  headers       = self.requestHeaders,
                                                  body          = varBody,
                                                  redirect_type = "Microsoft XMLHTTP")
-    except Exception:
+    except Exception: # pylint:disable=broad-except
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
         self.dispatchEvent("timeout")
         self.dispatchEvent("error")
