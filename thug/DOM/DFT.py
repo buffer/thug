@@ -207,9 +207,9 @@ class DFT:
             return
 
         with self.context as ctx:
-            handler_type = ctx.eval("typeof window.%s" % (onevt, ))
+            handler_type = ctx.eval(f"typeof window.{onevt}")
             if handler_type in ('function', ): # pragma: no cover
-                handler = ctx.eval("window.%s" % (onevt, ))
+                handler = ctx.eval(f"window.{onevt}")
 
                 if (self.window, onevt[2:], handler) in self.dispatched_events:
                     return
@@ -229,7 +229,7 @@ class DFT:
         if '_listeners' not in self.window.doc.tag.__dict__:
             return # pragma: no cover
 
-        for (eventType, listener, capture) in self.window.doc.tag._listeners:  # pragma: no cover
+        for (eventType, listener, capture) in self.window.doc.tag._listeners:  # pragma: no cover,pylint:disable=unused-variable
             if eventType not in (onevt[2:], ):
                 continue
 
@@ -321,15 +321,15 @@ class DFT:
     def javaUserAgent(self):
         javaplugin = log.ThugVulnModules._javaplugin.split('.')
         last = javaplugin.pop()
-        version = '%s_%s' % ('.'.join(javaplugin), last)
+        version = f"{'.'.join(javaplugin)}_{last}"
         return log.ThugOpts.Personality.javaUserAgent % (version, )
 
     @property
     def javaWebStartUserAgent(self):
         javaplugin = log.ThugVulnModules._javaplugin.split('.')
         last = javaplugin.pop()
-        version = '%s_%s' % ('.'.join(javaplugin), last)
-        return "JNLP/6.0 javaws/%s (b04) Java/%s" % (version, version, )
+        version = f"{'.'.join(javaplugin)}_{last}"
+        return f"JNLP/6.0 javaws/{version} (b04) Java/{version}"
 
     @property
     def shockwaveFlash(self):
@@ -363,7 +363,7 @@ class DFT:
         log.ThugLogging.add_behavior_warn(description = '[JNLP Detected]', method = 'Dynamic Analysis')
 
         for param in soup.find_all('param'):
-            log.ThugLogging.add_behavior_warn(description = '[JNLP] %s' % (param, ), method = 'Dynamic Analysis')
+            log.ThugLogging.add_behavior_warn(description = f'[JNLP] {param}', method = 'Dynamic Analysis')
             self._check_jnlp_param(param)
 
         jars = soup.find_all("jar")
@@ -374,7 +374,7 @@ class DFT:
 
         for jar in jars:
             try:
-                url = "%s%s" % (codebase, jar.attrs['href'], )
+                url = f"{codebase}{jar.attrs['href']}"
                 self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP", params = params)
             except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.info("[ERROR][_handle_jnlp] %s", str(e))
@@ -458,7 +458,7 @@ class DFT:
                 log.info("[ERROR][do_handle_params] %s", str(e))
 
         for p in ('source', 'data', 'archive' ):
-            handler = getattr(self, "do_handle_params_{}".format(p), None)
+            handler = getattr(self, f"do_handle_params_{p}", None)
             if handler:
                 handler(params, headers) # pylint:disable=not-callable
 
@@ -577,10 +577,10 @@ class DFT:
         if 'playstatechange' in attr_event.lower() and params:
             with self.context as ctx:
                 newState = params.pop()
-                ctx.eval("%s = 0;" % (newState.strip(), ))
+                ctx.eval(f"{newState.strip()} = 0;")
                 try:
                     oldState = params.pop()
-                    ctx.eval("%s = 3;" % (oldState.strip(), )) # pragma: no cover
+                    ctx.eval(f"{oldState.strip()} = 3;") # pragma: no cover
                 except Exception as e: # pylint:disable=broad-except
                     log.info("[ERROR][_handle_script_for_event] %s", str(e))
 
@@ -604,7 +604,7 @@ class DFT:
         if _language in ("script", ): # pragma: no cover
             _language = "javascript"
 
-        return getattr(self, "handle_{}".format(_language), None)
+        return getattr(self, f"handle_{_language}", None)
 
     def handle_jscript_compact(self, script):
         log.ThugLogging.log_classifier("jscript", log.ThugLogging.url, 'JScript.Compact')
@@ -727,7 +727,7 @@ class DFT:
         if not log.ThugOpts.features_logging:
             return
 
-        m = getattr(log.ThugLogging.Features, "increase_{}_javascript_count".format(provenance), None)
+        m = getattr(log.ThugLogging.Features, f"increase_{provenance}_javascript_count", None)
         if m:
             m()
 
@@ -735,11 +735,11 @@ class DFT:
         if not log.ThugOpts.features_logging:
             return
 
-        m = getattr(log.ThugLogging.Features, "add_{}_{}_characters_count".format(provenance, type_), None)
+        m = getattr(log.ThugLogging.Features, f"add_{provenance}_{type_}_characters_count", None)
         if m:
             m(len(code))
 
-        m = getattr(log.ThugLogging.Features, "add_{}_{}_whitespaces_count".format(provenance, type_), None)
+        m = getattr(log.ThugLogging.Features, f"add_{provenance}_{type_}_whitespaces_count", None)
         if m:
             m(len([a for a in code if a.isspace()]))
 
@@ -753,7 +753,7 @@ class DFT:
             if not count:
                 continue
 
-            m = getattr(log.ThugLogging.Features, "add_{}_string_count".format(s), None)
+            m = getattr(log.ThugLogging.Features, f"add_{s}_string_count", None)
             if m:
                 m(count)
 
@@ -987,7 +987,7 @@ class DFT:
         if name and name.lower() in ('generator', ):
             content = meta.get('content', None)
             if content:
-                log.ThugLogging.add_behavior_warn("[Meta] Generator: %s" % (content, ))
+                log.ThugLogging.add_behavior_warn(f"[Meta] Generator: {content}")
 
         self.handle_meta_http_equiv(meta)
 
@@ -1001,7 +1001,7 @@ class DFT:
             return
 
         tag = http_equiv.lower().replace('-', '_')
-        handler = getattr(self, 'handle_meta_{}'.format(tag), None)
+        handler = getattr(self, f'handle_meta_{tag}', None)
         if handler:
             handler(http_equiv, content) # pylint:disable=not-callable
 
@@ -1045,7 +1045,7 @@ class DFT:
 
         for s in content.split(';'):
             if data_uri is True and url is not None:
-                url = "{};{}".format(url, s)
+                url = f"{url};{s}"
 
             s = s.strip()
             if s.lower().startswith('url='):
@@ -1375,8 +1375,8 @@ class DFT:
         handler = None
 
         try:
-            handler = getattr(self, "handle_%s" % (str(name.lower()), ), None)
-        except Exception as e: # pragma: no cover
+            handler = getattr(self, f"handle_{str(name.lower())}", None)
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning("[ERROR][do_handle] %s", str(e))
 
         child._soup = soup
@@ -1425,7 +1425,7 @@ class DFT:
                 continue
 
             if value <= 2:
-                m = getattr(log.ThugLogging.Features, 'increase_{}_small_{}_count'.format(tagname, key), None)
+                m = getattr(log.ThugLogging.Features, f'increase_{tagname}_small_{key}_count', None)
                 if m:
                     m()
 
