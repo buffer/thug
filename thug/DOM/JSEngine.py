@@ -109,7 +109,10 @@ class JSEngine:
 
     def init_scripts_thug(self, ctxt):
         thug_js = os.path.join(thug.__configuration_path__, 'scripts', "thug.js")
-        ctxt.eval(open(thug_js, 'r').read())
+        with open(thug_js, 'r') as fd:
+            thug_js_code = fd.read()
+
+        ctxt.eval(thug_js_code)
 
     def init_scripts_storage(self, ctxt):
         if not log.ThugOpts.Personality.isIE():
@@ -117,7 +120,10 @@ class JSEngine:
 
         if log.ThugOpts.Personality.browserMajorVersion < 8:
             storage_js = os.path.join(thug.__configuration_path__, 'scripts', "storage.js")
-            ctxt.eval(open(storage_js, 'r').read())
+            with open(storage_js, 'r') as fd:
+                storage_js_code = fd.read()
+
+            ctxt.eval(storage_js_code)
 
     def init_scripts_date(self, ctxt):
         if not log.ThugOpts.Personality.isIE():
@@ -125,7 +131,10 @@ class JSEngine:
 
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             date_js = os.path.join(thug.__configuration_path__, 'scripts', "date.js")
-            ctxt.eval(open(date_js, 'r').read())
+            with open(date_js, 'r') as fd:
+                date_js_code = fd.read()
+
+            ctxt.eval(date_js_code)
 
     def undefine_object_iter(self, ctxt, jso):
         ctxt.eval(f"{jso}.prototype.forEach = undefined")
