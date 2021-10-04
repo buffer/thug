@@ -17,7 +17,7 @@ class CSSStyleDeclaration(JSClass):
 
     @property
     def cssText(self):
-        css_text = '; '.join(["%s: %s" % (k, v) for k, v in self.props.items()])
+        css_text = '; '.join([f"{k}: {v}" for k, v in self.props.items()])
         return css_text + ';' if css_text else ''
 
     def getPropertyValue(self, name):

@@ -321,12 +321,12 @@ class Navigator(JSClass):
 
         if redirect_type in ('frame', 'iframe', 'http-redirect', 'meta', ):
             if log.HTTPSession.check_equal_urls(url, last_url): # pragma: no cover
-                log.ThugLogging.add_behavior_warn("[Skipping {} redirection] {} -> {}".format(redirect_type, last_url, url),
+                log.ThugLogging.add_behavior_warn(f"[Skipping {redirect_type} redirection] {last_url} -> {url}",
                                                   snippet = snippet)
                 return None
 
         if redirect_type:
-            log.ThugLogging.add_behavior_warn("[{} redirection] {} -> {}".format(redirect_type, last_url, url),
+            log.ThugLogging.add_behavior_warn(f"[{redirect_type} redirection] {last_url} -> {url}",
                                               snippet = snippet)
             log.ThugLogging.log_connection(last_url, url, redirect_type)
         else:
@@ -350,7 +350,7 @@ class Navigator(JSClass):
             url = _url
 
         referer = response.request.headers.get('referer', 'None')
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: {} (Status: {}, Referer: {})".format(url, response.status_code, referer),
+        log.ThugLogging.add_behavior_warn(f"[HTTP] URL: {url} (Status: {response.status_code}, Referer: {referer})",
                                           snippet = snippet)
 
         ctype     = response.headers.get('content-type', 'unknown')
@@ -375,7 +375,7 @@ class Navigator(JSClass):
             "mtype"   : mtype
         }
 
-        log.ThugLogging.add_behavior_warn("[HTTP] URL: {} (Content-type: {}, MD5: {})".format(response.url, ctype, data["md5"]),
+        log.ThugLogging.add_behavior_warn(f"[HTTP] URL: {response.url} (Content-type: {ctype}, MD5: {data['md5']})",
                                           snippet = snippet)
 
         log.ThugLogging.log_location(url, data)

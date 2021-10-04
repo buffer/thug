@@ -205,7 +205,7 @@ class Mapper:
 
                 self.graph.add_edge(source, destination)
                 edge = self.graph.get_edge(source, destination)
-                edge.attr['label'] = "[{}] {}".format(count, con['method']) # pylint:disable=no-member
+                edge.attr['label'] = f"[{count}] {con['method']}" # pylint:disable=no-member
                 count += 1
 
                 color = self.get_color(con)

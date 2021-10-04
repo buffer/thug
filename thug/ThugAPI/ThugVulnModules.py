@@ -85,7 +85,7 @@ class ThugVulnModules(dict):
     def get_javaplugin(self):
         javaplugin = self._javaplugin.split('.')
         last       = javaplugin.pop()
-        return '%s_%s' % (''.join(javaplugin), last)
+        return f"{''.join(javaplugin)}_{last}"
 
     def set_javaplugin(self, version):
         if self.invalid_version(version):
@@ -97,7 +97,7 @@ class ThugVulnModules(dict):
             _version.append('0')
 
         if len(_version[3]) == 1:
-            _version[3] = '0%s' % (_version[3], )
+            _version[3] = f'0{_version[3]}'
 
         self._javaplugin = '.'.join(_version)
 
@@ -114,7 +114,7 @@ class ThugVulnModules(dict):
     def javawebstart_isinstalled(self):
         javawebstart = self._javaplugin.split('.')
         last         = javawebstart.pop()  # pylint:disable=unused-variable
-        return '%s.%s' % ('.'.join(javawebstart), '0')
+        return f"{'.'.join(javawebstart)}.0"
 
     def get_silverlight(self):
         return self._silverlight

@@ -125,9 +125,10 @@ class ThugAPI:
         self.analyze()
 
     def version(self):
-        print("Thug %s (JS Engine: %s v%s)" % (thug.__version__,
-                                               thug.__jsengine__,
-                                               thug.__jsengine_version__))
+        print(f"Thug "
+              f"{thug.__version__} "
+              f"(JS Engine: {thug.__jsengine__} v{thug.__jsengine_version__})")
+
         sys.exit(0)
 
     def get_useragent(self):
@@ -507,7 +508,7 @@ class ThugAPI:
             return
 
         if not scheme or not scheme.startswith('http'):
-            url = 'http://%s' % (url, )
+            url = f'http://{url}'
 
         log.ThugLogging.set_url(url)
 

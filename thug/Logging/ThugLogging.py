@@ -81,7 +81,7 @@ class ThugLogging(BaseLogging, SampleLogging):
     def __init_hook_symbols(self):
         for name in ('eval', 'write', ):
             setattr(self,
-                    '{}_symbol'.format(name),
+                    f'{name}_symbol',
                     (self.get_random_name(), self.get_random_name(), ))
 
     def __init_pyhooks(self):
@@ -93,7 +93,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         get_method_self = operator.attrgetter("__self__")
 
         for label, hook in hooks.items():
-            name   = "{}_hook".format(label)
+            name   = f"{label}_hook"
             _hook = get_method_function(hook) if get_method_self(hook) else hook
             method = types.MethodType(_hook, ThugLogging)
             setattr(self, name, method)
@@ -258,7 +258,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         @forward        Forward log to add_behavior_warn
         """
         if forward:
-            self.add_behavior_warn("[%s] %s" % (module, description, ), cve = cve)
+            self.add_behavior_warn(f"[{module}] {description}", cve = cve)
 
         for m in self.resolve_method('log_exploit_event'):
             m(url, module, description, cve = cve, data = data)
@@ -287,10 +287,8 @@ class ThugLogging(BaseLogging, SampleLogging):
         @meta           Rule meta
         @tags           Rule tags
         """
-        self.add_behavior_warn("[%s Classifier] URL: %s (Rule: %s, Classification: %s)" % (classifier.upper(),
-                                                                                           url,
-                                                                                           rule,
-                                                                                           tags, ))
+        self.add_behavior_warn(f"[{classifier.upper()} Classifier] URL: {url} "
+                               f"(Rule: {rule}, Classification: {tags})")
 
         if meta is None:
             meta = {} # pragma: no cover
@@ -331,9 +329,9 @@ class ThugLogging(BaseLogging, SampleLogging):
 
             location = h.headers.get('location', None)
 
-            self.add_behavior_warn("[HTTP Redirection (Status: %s)] Content-Location: %s --> Location: %s" % (h.status_code,
-                                                                                                              h.url,
-                                                                                                              location))
+            self.add_behavior_warn(f"[HTTP Redirection (Status: {h.status_code})] "
+                                   f"Content-Location: {h.url} --> Location: {location}")
+
             location = log.HTTPSession.normalize_url(window, location)
             self.log_connection(h.url, location, "http-redirect")
 
@@ -371,7 +369,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         if not url: # pragma: no cover
             return
 
-        self.add_behavior_warn("[HREF Redirection (document.location)] Content-Location: %s --> Location: %s" % (referer, url, ))
+        self.add_behavior_warn(f"[HREF Redirection (document.location)] Content-Location: {referer} --> Location: {url}")
         self.log_connection(referer, url, "href")
 
     def log_certificate(self, url, certificate):
@@ -384,10 +382,10 @@ class ThugLogging(BaseLogging, SampleLogging):
             m(url, certificate)
 
     def log_analysis_module(self, dirname, sample, report, module, fmt = "json"):
-        filename = "%s.%s" % (sample['md5'], fmt, )
+        filename = f"{sample['md5']}.{fmt}"
         self.store_content(dirname, filename, report)
 
-        method = "log_%s" % (module, )
+        method = f"log_{module}"
         for m in self.resolve_method(method): # pragma: no cover
             m(sample, report)
 
@@ -405,7 +403,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         @screenshot Screenshot
         """
         dirname  = os.path.join(self.baseDir, 'analysis', 'screenshots')
-        filename = "{}.jpg".format(hashlib.sha256(screenshot).hexdigest())
+        filename = f"{hashlib.sha256(screenshot).hexdigest()}.jpg"
         self.store_content(dirname, filename, screenshot)
 
         for m in self.resolve_method('log_screenshot'): # pragma: no cover

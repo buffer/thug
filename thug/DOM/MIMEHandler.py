@@ -256,7 +256,7 @@ class MIMEHandler(dict):
         get_method_self = operator.attrgetter("__self__")
 
         for label, hook in hooks.items():
-            name   = "{}_hook".format(label)
+            name   = f"{label}_hook"
             _hook = get_method_function(hook) if get_method_self(hook) else hook
             method = types.MethodType(_hook, MIMEHandler)
             setattr(self, name, method)
@@ -459,8 +459,8 @@ class MIMEHandler(dict):
     def javaWebStartUserAgent(self):
         javaplugin = log.ThugVulnModules._javaplugin.split('.')
         last = javaplugin.pop()
-        version = '%s_%s' % ('.'.join(javaplugin), last)
-        return "JNLP/6.0 javaws/%s (b04) Java/%s" % (version, version, )
+        version = f"{'.'.join(javaplugin)}_{last}"
+        return f"JNLP/6.0 javaws/{version} (b04) Java/{version}"
 
     def handle_java_jnlp(self, url, data):
         headers = {}
@@ -487,7 +487,7 @@ class MIMEHandler(dict):
 
         for jar in jars:
             try:
-                url = "%s%s" % (codebase, jar.attrs['href'], )
+                url = f"{codebase}{jar.attrs['href']}"
                 log.DFT.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 pass

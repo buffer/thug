@@ -31,7 +31,7 @@ class BaseLogging:
 
     @staticmethod
     def check_module(module, config):
-        if not getattr(log.ThugOpts, "%s_logging" % (module, ), True):
+        if not getattr(log.ThugOpts, f"{module}_logging", True):
             return False
 
         return config.getboolean(module, 'enable')
@@ -59,7 +59,7 @@ class BaseLogging:
                 raise
 
         thug_csv = os.path.join(base, 'logs', 'thug.csv')
-        csv_line = '{},{}\n'.format(m.hexdigest(), url)
+        csv_line = f'{m.hexdigest()},{url}\n'
 
         if os.path.exists(thug_csv):
             with open(thug_csv, 'r') as fd:

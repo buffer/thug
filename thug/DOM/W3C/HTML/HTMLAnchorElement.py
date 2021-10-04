@@ -35,7 +35,7 @@ class HTMLAnchorElement(HTMLElement):
             return ":"
 
         o = urlparse(self.href)
-        return "{}:".format(o.scheme) if o.scheme else ":"
+        return f"{o.scheme}:" if o.scheme else ":"
 
     @property
     def host(self):

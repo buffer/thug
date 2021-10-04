@@ -28,7 +28,7 @@ log = logging.getLogger("Thug")
 
 PLUGINS_PATH          = "/etc/thug/plugins"
 HANDLER_NAME          = "Handler"
-HANDLER_MODULE        = "%s.py" % (HANDLER_NAME, )
+HANDLER_MODULE        = f"{HANDLER_NAME}.py"
 FIRST_LOW_PRIO        = 1000
 PRE_ANALYSIS_PLUGINS  = 'PRE'
 POST_ANALYSIS_PLUGINS = 'POST'
@@ -91,7 +91,7 @@ class ThugPlugins:
     def run(self):
         for plugin in self.plugins:
             name, prio = plugin
-            source = "%s.%s" % (name, HANDLER_NAME)
+            source = f"{name}.{HANDLER_NAME}"
 
             module = __import__(source)
             components = source.split('.')[1:]

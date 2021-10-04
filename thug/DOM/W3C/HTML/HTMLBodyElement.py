@@ -45,7 +45,7 @@ class HTMLBodyElement(HTMLElement):
             if name is None:
                 continue
 
-            handler = getattr(log.DFT, 'handle_%s' % (name, ), None)
+            handler = getattr(log.DFT, f'handle_{name}', None)
             if handler:
                 handler(node)
 
