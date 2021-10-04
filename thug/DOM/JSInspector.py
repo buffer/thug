@@ -53,7 +53,7 @@ class JSInspector:
                 log.ThugLogging.Features.increase_eval_count()
 
             try:
-                log.ThugLogging.add_behavior_warn("[eval] Deobfuscated argument: {}".format(script))
+                log.ThugLogging.add_behavior_warn(f"[eval] Deobfuscated argument: {script}")
             except Exception as e: # pragma: no cover
                 log.warning("[JSInspector] dump_eval warning: %s", str(e))
 
@@ -82,7 +82,7 @@ class JSInspector:
                 continue
 
             try:
-                log.ThugLogging.add_behavior_warn("[document.write] Deobfuscated argument: {}".format(html))
+                log.ThugLogging.add_behavior_warn(f"[document.write] Deobfuscated argument: {html}")
             except Exception as e: # pragma: no cover
                 log.warning("[JSInspector] dump_write warning: %s", str(e))
 
