@@ -7,7 +7,7 @@ log = logging.getLogger("Thug")
 
 
 def DownloadAndInstall(self, url):
-    log.ThugLogging.add_behavior_warn("[SinaDLoader Downloader ActiveX] Fetching from URL %s" % (url, ))
+    log.ThugLogging.add_behavior_warn(f"[SinaDLoader Downloader ActiveX] Fetching from URL {url}")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "SinaDLoader Downloader ActiveX",
                                       "Fetching from URL",
@@ -18,5 +18,5 @@ def DownloadAndInstall(self, url):
 
     try:
         self._window._navigator.fetch(url, redirect_type = "SinaDLoader Exploit")
-    except Exception:
+    except Exception: # pylint:disable=broad-except
         log.ThugLogging.add_behavior_warn('[SinaDLoader Downloader ActiveX] Fetch failed')

@@ -35,7 +35,7 @@ def Write(self, s):
 
 
 def SaveToFile(self, filename, opt = 0):
-    log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] SaveToFile(%s, %s)" % (filename, opt, ))
+    log.ThugLogging.add_behavior_warn(f"[Adodb.Stream ActiveX] SaveToFile({filename}, {opt})")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Adodb.Stream ActiveX",
                                       "SaveToFile",
@@ -52,7 +52,7 @@ def SaveToFile(self, filename, opt = 0):
 
 
 def LoadFromFile(self, filename):
-    log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] LoadFromFile(%s)" % (filename, ))
+    log.ThugLogging.add_behavior_warn(f"[Adodb.Stream ActiveX] LoadFromFile({filename})")
     if filename not in self._files:
         raise TypeError()
 
@@ -69,7 +69,7 @@ def ReadText(self, NumChars = -1):
 
 
 def WriteText(self, data, options = None):
-    log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] WriteText(%s)" % (data, ))
+    log.ThugLogging.add_behavior_warn(f"[Adodb.Stream ActiveX] WriteText({data})")
     self.fobject.write(data.encode())
 
 
@@ -79,6 +79,6 @@ def Close(self):
 
 
 def setPosition(self, pos):
-    log.ThugLogging.add_behavior_warn("[Adodb.Stream ActiveX] Changed position in fileobject to: (%s)" % (pos, ))
+    log.ThugLogging.add_behavior_warn(f"[Adodb.Stream ActiveX] Changed position in fileobject to: ({pos})")
     self.__dict__['position'] = pos
     self.fobject.seek(pos)

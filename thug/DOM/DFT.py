@@ -117,7 +117,7 @@ class DFT:
         get_method_self = operator.attrgetter("__self__")
 
         for label, hook in hooks.items():
-            name   = "{}_hook".format(label)
+            name   = f"{label}_hook"
             _hook = get_method_function(hook) if get_method_self(hook) else hook
             method = types.MethodType(_hook, DFT)
             setattr(self, name, method)

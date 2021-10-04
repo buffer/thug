@@ -7,7 +7,7 @@ import logging
 from lxml.html import builder as E
 from lxml.html import tostring
 
-import thug.DOM as DOM
+from thug import DOM
 
 log = logging.getLogger("Thug")
 
@@ -29,12 +29,12 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     #                       parsedUrl.query,
     #                       parsedUrl.fragment))
 
-    msg = "[Microsoft XMLHTTP ActiveX] open('%s', '%s', %s" % (bstrMethod, bstrUrl, varAsync is True, )
+    msg = f"[Microsoft XMLHTTP ActiveX] open('{bstrMethod}', '{bstrUrl}', {varAsync is True}"
     if varUser:
-        msg = "%s, '%s'" % (msg, varUser, )
+        msg = f"{msg}, '{varUser}'"
     if varPassword:
-        msg = "%s, '%s'" % (msg, varPassword, )
-    msg = "%s)" % (msg, )
+        msg = f"{msg}, '{varPassword}'"
+    msg = f"{msg})"
 
     log.ThugLogging.add_behavior_warn(msg)
     log.ThugLogging.log_exploit_event(self._window.url,
@@ -60,11 +60,10 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
 def send(self, varBody = None):
     msg = "send"
     if varBody:
-        msg = "%s('%s')" % (msg, str(varBody), )
+        msg = f"{msg}('{str(varBody)}')"
 
-    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] %s" % (msg, ))
-    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] Fetching from URL %s (method: %s)" % (self.bstrUrl,
-                                                                                                         self.bstrMethod, ))
+    log.ThugLogging.add_behavior_warn(f"[Microsoft XMLHTTP ActiveX] {msg}")
+    log.ThugLogging.add_behavior_warn(f"[Microsoft XMLHTTP ActiveX] Fetching from URL {self.bstrUrl} (method: {self.bstrMethod})")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "Microsoft XMLHTTP ActiveX",
                                       "Send",
@@ -85,7 +84,7 @@ def send(self, varBody = None):
                                                  headers       = self.requestHeaders,
                                                  body          = varBody,
                                                  redirect_type = "Microsoft XMLHTTP")
-    except Exception:
+    except Exception: # pylint:disable=broad-except
         log.ThugLogging.add_behavior_warn('[Microsoft XMLHTTP ActiveX] Fetch failed')
         self.dispatchEvent("timeout")
         self.dispatchEvent("error")
@@ -160,20 +159,20 @@ def send(self, varBody = None):
 
 
 def setTimeouts(self, ResolveTimeout, ConnectTimeout, SendTimeout, ReceiveTimeout):
-    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] setTimeouts(%s, %s, %s, %s)" %
-                (ResolveTimeout,
-                 ConnectTimeout,
-                 SendTimeout,
-                 ReceiveTimeout, ))
+    log.ThugLogging.add_behavior_warn(f"[Microsoft XMLHTTP ActiveX] setTimeouts("
+                                      f"{ResolveTimeout}, "
+                                      f"{ConnectTimeout}, "
+                                      f"{SendTimeout}, "
+                                      f"{ReceiveTimeout}")
 
     return 0
 
 def waitForResponse(self, timeout):
-    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] waitForResponse(%s)" % (timeout, ))
+    log.ThugLogging.add_behavior_warn(f"[Microsoft XMLHTTP ActiveX] waitForResponse({timeout})")
 
 
 def setRequestHeader(self, bstrHeader, bstrValue):
-    log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] setRequestHeaders('%s', '%s')" % (bstrHeader, bstrValue, ))
+    log.ThugLogging.add_behavior_warn(f"[Microsoft XMLHTTP ActiveX] setRequestHeaders('{bstrHeader}', '{bstrValue}')")
     self.requestHeaders[bstrHeader] = bstrValue
     return 0
 
@@ -185,7 +184,7 @@ def getResponseHeader(self, header):
 def getAllResponseHeaders(self):
     output = ""
     for k, v in self.responseHeaders.items():
-        output += "%s: %s\r\n" % (k, v, )
+        output += f"{k}: {v}\r\n"
 
     return output
 
@@ -198,26 +197,26 @@ def addEventListener(self, _type, listener, useCapture = False):
     if log.ThugOpts.features_logging:
         log.ThugLogging.Features.increase_addeventlistener_count()
 
-    setattr(self, 'on%s' % (_type.lower(), ), listener)
+    setattr(self, f'on{_type.lower()}', listener)
 
 
 def removeEventListener(self, _type, listener, useCapture = False):
     if log.ThugOpts.features_logging:
         log.ThugLogging.Features.increase_removeeventlistener_count()
 
-    _listener = getattr(self, 'on%s' % (_type.lower(), ), None)
+    _listener = getattr(self, f'on{_type.lower()}', None)
     if _listener is None:
         return
 
     if _listener in (listener, ):
-        delattr(self, 'on%s' % (_type.lower(), ))
+        delattr(self, f'on{_type.lower()}')
 
 
 def dispatchEvent(self, evt, pfResult = True):
     if log.ThugOpts.features_logging:
         log.ThugLogging.Features.increase_dispatchevent_count()
 
-    listener = getattr(self, 'on%s' % (evt.lower(), ), None)
+    listener = getattr(self, f'on{evt.lower()}', None)
     if listener is None:
         return
 

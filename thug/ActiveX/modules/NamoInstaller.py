@@ -14,7 +14,7 @@ def Install(self, arg):
         log.ThugLogging.Shellcode.check_shellcode(arg)
 
     if str([arg]).find('http') > -1:
-        log.ThugLogging.add_behavior_warn('[NamoInstaller ActiveX] Insecure download from URL %s' % (arg, ))
+        log.ThugLogging.add_behavior_warn(f'[NamoInstaller ActiveX] Insecure download from URL {arg}')
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "NamoInstaller ActiveX",
                                           "Insecure download from URL",
@@ -25,5 +25,5 @@ def Install(self, arg):
                                          )
         try:
             self._window._navigator.fetch(arg, redirect_type = "NamoInstaller Exploit")
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             log.ThugLogging.add_behavior_warn('[NamoInstaller ActiveX] Fetch failed')

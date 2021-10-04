@@ -5,7 +5,7 @@ log = logging.getLogger("Thug")
 
 
 def launch(self, arg):
-    log.ThugLogging.add_behavior_warn("[Java Deployment Toolkit ActiveX] Launching: %s" % (arg, ))
+    log.ThugLogging.add_behavior_warn(f"[Java Deployment Toolkit ActiveX] Launching: {arg}")
 
     tokens = arg.split(' ')
     if tokens[0].lower() != 'http:':
@@ -15,7 +15,7 @@ def launch(self, arg):
         if not token.lower().startswith('http'):
             continue
 
-        log.ThugLogging.add_behavior_warn("[Java Deployment Toolkit ActiveX] Fetching from URL %s" % (token, ))
+        log.ThugLogging.add_behavior_warn(f"[Java Deployment Toolkit ActiveX] Fetching from URL {token}")
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Java Deployment Toolkit ActiveX",
                                           "Fetching from URL",
@@ -26,7 +26,7 @@ def launch(self, arg):
 
         try:
             self._window._navigator.fetch(token, redirect_type = "Java Deployment Toolkit Exploit")
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             log.ThugLogging.add_behavior_warn("[Java Deployment Toolkit ActiveX] Fetch Failed")
 
 

@@ -13,6 +13,6 @@ def GetVariable(self, arg):
             version[idx] = p
             idx += 1
 
-        return "WIN %s" % (','.join(version))
+        return f"WIN {','.join(version)}"
 
     return "" # pragma: no cover

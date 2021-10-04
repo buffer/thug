@@ -4,5 +4,5 @@ log = logging.getLogger("Thug")
 
 
 def isVersionSupported(self, version):
-    log.ThugLogging.add_behavior_warn("[SilverLight] isVersionSupported('%s')" % (version, ))
+    log.ThugLogging.add_behavior_warn(f"[SilverLight] isVersionSupported('{version}')")
     return log.ThugVulnModules.silverlight.startswith(version)

@@ -17,9 +17,9 @@ def DownloadAgent(self, url):
                                      )
 
     log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-5650")
-    log.ThugLogging.add_behavior_warn('[AOL ICQ ActiveX] Fetching from URL: %s' % (url, ))
+    log.ThugLogging.add_behavior_warn(f'[AOL ICQ ActiveX] Fetching from URL: {url}')
 
     try:
         self._window._navigator.fetch(url, redirect_type = "AOL ICQ Exploit")
-    except Exception:
+    except Exception: # pylint:disable=broad-except
         log.ThugLogging.add_behavior_warn('[AOL ICQ ActiveX] Fetch failed')

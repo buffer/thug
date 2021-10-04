@@ -37,7 +37,7 @@ class JSClass:
 
     def toString(self):
         """Returns a string representation of an object"""
-        return "[object %s]" % self.__class__.__name__
+        return f"[object {self.__class__.__name__}]"
 
     def toLocaleString(self):
         """Returns a value as a string value appropriate to the host environment's current locale"""

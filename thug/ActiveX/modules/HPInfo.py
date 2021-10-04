@@ -7,7 +7,7 @@ log = logging.getLogger("Thug")
 
 
 def LaunchApp(self, prog, args, unk):
-    log.ThugLogging.add_behavior_warn("[HP Info Center ActiveX] LaunchApp called to run: %s %s" % (prog, args, ), "CVE-2007-6331")
+    log.ThugLogging.add_behavior_warn(f"[HP Info Center ActiveX] LaunchApp called to run: {prog} {args}", "CVE-2007-6331")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "HP Info Center ActiveX",
                                       "LaunchApp called to run",
@@ -23,10 +23,8 @@ def LaunchApp(self, prog, args, unk):
 
 
 def SetRegValue(self, key, section, keyname, value):
-    log.ThugLogging.add_behavior_warn("[HP Info Center ActiveX] SetRegValue: %s/%s/%s set to %s" % (str(key),
-                                                                                                    str(section),
-                                                                                                    str(keyname),
-                                                                                                    str(value), ),
+    log.ThugLogging.add_behavior_warn(f"[HP Info Center ActiveX] SetRegValue: {str(key)}/{str(section)}/{str(keyname)} "
+                                      f"set to {str(value)}",
                                       "CVE-2007-6332")
 
     log.ThugLogging.log_exploit_event(self._window.url,
@@ -46,9 +44,8 @@ def SetRegValue(self, key, section, keyname, value):
 
 
 def GetRegValue(self, key, section, keyname):
-    log.ThugLogging.add_behavior_warn("[HP Info Center ActiveX] GetRegValue, reading: %s/%s/%s" % (str(key),
-                                                                                                   str(section),
-                                                                                                   str(keyname), ),
+    log.ThugLogging.add_behavior_warn(f"[HP Info Center ActiveX] GetRegValue, reading: "
+                                      f"{str(key)}/{str(section)}/{str(keyname)}",
                                       "CVE-2007-6333")
 
     log.ThugLogging.log_exploit_event(self._window.url,
@@ -71,7 +68,7 @@ def EvaluateRules(self):
 
 
 def SaveToFile(self, path):
-    log.ThugLogging.add_behavior_warn("[HP Info Center ActiveX] SaveToFile(), writes to %s" % (path, ))
+    log.ThugLogging.add_behavior_warn(f"[HP Info Center ActiveX] SaveToFile(), writes to {path}")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "HP Info Center ActiveX",
                                       "SaveToFile",
@@ -82,7 +79,7 @@ def SaveToFile(self, path):
 
 
 def ProcessRegistryData(self, parm):
-    log.ThugLogging.add_behavior_warn("[HP Info Center ActiveX] ProcessRegistryData: %s " % (parm, ))
+    log.ThugLogging.add_behavior_warn(f"[HP Info Center ActiveX] ProcessRegistryData: {parm} ")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "HP Info Center ActiveX",
                                       "ProcessRegistryData",

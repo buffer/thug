@@ -26,7 +26,7 @@ def Comp_Download(self, arg0, arg1):
 
     url = arg0
 
-    log.ThugLogging.add_behavior_warn("[EnjoySAP ActiveX] Fetching from URL %s" % (url, ))
+    log.ThugLogging.add_behavior_warn(f"[EnjoySAP ActiveX] Fetching from URL {url}")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "EnjoySAP ActiveX",
                                       "Fetching from URL",
@@ -37,5 +37,5 @@ def Comp_Download(self, arg0, arg1):
 
     try:
         self._window._navigator.fetch(url, redirect_type = "EnjoySAP Exploit")
-    except Exception:
+    except Exception: # pylint:disable=broad-except
         log.ThugLogging.add_behavior_warn('[EnjoySAP ActiveX] Fetch failed')
