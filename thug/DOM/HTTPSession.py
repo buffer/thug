@@ -90,18 +90,18 @@ class HTTPSession:
             return url
 
         if window.url in ('about:blank', ):
-            return 'http:%s' % (url, )
+            return f'http:{url}'
 
         base_url = urlparse(window.url)
-        return "%s:%s" % (base_url.scheme, url) if base_url.scheme else "http:%s" % (url, )
+        return f"{base_url.scheme}:{url}" if base_url.scheme else f"http:{url}"
 
     def _is_compatible(self, url, scheme):
-        return url.startswith("%s:/" % (scheme, )) and not url.startswith("%s://" % (scheme, ))
+        return url.startswith(f"{scheme}:/") and not url.startswith(f"{scheme}://")
 
     def _check_compatibility(self, url):
         for scheme in ("http", "https", ):
             if self._is_compatible(url, scheme):
-                return "%s://%s" % (scheme, url.split("%s:/" % (scheme, ))[1], )
+                return f"{scheme}://{url.split(f'{scheme}:/')[1]}"
 
         return url
 
@@ -146,7 +146,7 @@ class HTTPSession:
         # analyzing specific schemes the proper way to go is to define
         # a method named handle_<scheme> in the SchemeHandler and put
         # the logic within such method.
-        handler = getattr(log.SchemeHandler, 'handle_%s' % (_url.scheme, ), None)
+        handler = getattr(log.SchemeHandler, f'handle_{_url.scheme}', None)
         if handler:
             handler(window, url)
             return None
@@ -170,7 +170,7 @@ class HTTPSession:
         }
 
         if window and window.url not in ('about:blank', ):
-            referer = window.url if window.url.startswith('http') else 'http://{}'.format(window.url)
+            referer = window.url if window.url.startswith('http') else f'http://{window.url}'
             http_headers['Referer'] = referer
 
         # REVIEW ME!
