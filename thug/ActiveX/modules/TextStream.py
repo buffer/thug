@@ -13,7 +13,7 @@ log = logging.getLogger("Thug")
 
 class TextStream:
     def __init__(self):
-        self.stream         = list()
+        self.stream         = []
         self._Line          = 1
         self._Column        = 1
         self._currentLine   = 1

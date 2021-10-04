@@ -88,8 +88,8 @@ class DFT:
     def __init__(self, window, **kwds):
         self.window            = window
         self.window.doc.DFT    = self
-        self.anchors           = list()
-        self.forms             = kwds['forms'] if 'forms' in kwds else list()
+        self.anchors           = []
+        self.forms             = kwds['forms'] if 'forms' in kwds else []
         self._context          = None
         log.DFT                = self
 
@@ -97,7 +97,7 @@ class DFT:
         self._init_pyhooks()
 
     def _init_events(self):
-        self.listeners = list()
+        self.listeners = []
 
         # Events are handled in the same order they are inserted in this list
         self.handled_events = ['load', 'mousemove']
@@ -380,7 +380,7 @@ class DFT:
                 log.info("[ERROR][_handle_jnlp] %s", str(e))
 
     def do_handle_params(self, _object):
-        params = dict()
+        params = {}
 
         for child in _object.find_all():
             name = getattr(child, 'name', None)
@@ -404,7 +404,7 @@ class DFT:
         if hook:
             hook(params) # pylint:disable=not-callable
 
-        headers = dict()
+        headers = {}
         headers['Connection'] = 'keep-alive'
 
         if 'type' in params:
@@ -556,7 +556,7 @@ class DFT:
                 log.info("[ERROR][handle_object] %s", str(e))
 
     def _get_script_for_event_params(self, attr_event):
-        result = list()
+        result = []
         params = attr_event.split('(')
 
         if len(params) > 1:
@@ -886,12 +886,12 @@ class DFT:
 
             if name.lower() in ('input', ):
                 if payload is None:
-                    payload = dict()
+                    payload = {}
 
                 if all(p in child.attrs for p in ('name', 'value', )):
                     payload[child.attrs['name']] = child.attrs['value']
 
-        headers = dict()
+        headers = {}
         headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
         try:
@@ -935,7 +935,7 @@ class DFT:
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_url_count()
 
-        headers = dict()
+        headers = {}
 
         embed_type = embed.get('type', None)
         if embed_type:
@@ -965,7 +965,7 @@ class DFT:
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_url_count()
 
-        headers = dict()
+        headers = {}
         headers['Connection']   = 'keep-alive'
         headers['Content-type'] = 'application/x-java-archive'
 

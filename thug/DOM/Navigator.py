@@ -339,7 +339,7 @@ class Navigator(JSClass):
             raise ThresholdExpired
 
         if headers is None:
-            headers = dict()
+            headers = {}
 
         response = log.HTTPSession.fetch(url, method, self._window, self.userAgent, headers, body)
         if response is None:

@@ -21,7 +21,7 @@ from .JSClass import JSClass
 
 class ClipboardData(JSClass):
     def __init__(self):
-        self._data = dict()
+        self._data = {}
 
     def getData(self, dataFormat):
         if dataFormat in self._data:

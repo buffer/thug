@@ -6,7 +6,7 @@
 import re
 
 
-DDECODE     = dict()
+DDECODE     = {}
 DDECODE[9]  = '\x57\x6E\x7B'
 DDECODE[10] = '\x4A\x4C\x41'
 DDECODE[11] = '\x0B\x0B\x0B'
@@ -127,7 +127,7 @@ DDECODE[125] = '\x51\x4F\x5A'
 DDECODE[126] = '\x20\x42\x2C'
 DDECODE[127] = '\x36\x65\x57'
 
-DCOMBINATION    = dict()
+DCOMBINATION     = {}
 DCOMBINATION[0]  = 0
 DCOMBINATION[1]  = 1
 DCOMBINATION[2]  = 2

@@ -150,7 +150,7 @@ class JSEngine:
 
     def init_hooks(self, ctxt):
         hooks_folder = os.path.join(thug.__configuration_path__, 'hooks')
-        hooks = os.listdir(hooks_folder) if os.path.exists(hooks_folder) else list()
+        hooks = os.listdir(hooks_folder) if os.path.exists(hooks_folder) else []
 
         for hook in sorted([h for h in hooks if h.endswith('.js')]):
             ctxt.eval(open(os.path.join(hooks_folder, hook), 'r').read()) # pragma: no cover

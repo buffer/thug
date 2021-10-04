@@ -99,7 +99,7 @@ def send(self, varBody = None):
     self.readyState      = 4
 
     if getattr(log, 'XMLHTTP', None) is None:
-        log.XMLHTTP = dict()
+        log.XMLHTTP = {}
 
     log.XMLHTTP['status']          = self.status
     log.XMLHTTP['responseHeaders'] = self.responseHeaders

@@ -22,7 +22,7 @@ from .JSClass import JSClass
 
 class Plugin(JSClass):
     def __init__(self, init = None):
-        self._plugin = dict()
+        self._plugin = {}
 
         if init is None:
             return

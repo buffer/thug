@@ -26,7 +26,7 @@ log = logging.getLogger("Thug")
 class Console(JSClass):
     def __init__(self):
         self._counter = 0
-        self._label_counter = dict()
+        self._label_counter = {}
         self.__init_console_personality()
 
     def __init_console_personality(self):

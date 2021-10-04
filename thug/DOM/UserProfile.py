@@ -51,8 +51,8 @@ class UserProfile(JSClass):
                     "vCard.Pager")
 
     def __init__(self):
-        self._vCard = dict()
-        self._queue = list()
+        self._vCard = {}
+        self._queue = []
 
     def addReadRequest(self, vCardName, reserved = None):
         for schema in self.vCardSchemas:

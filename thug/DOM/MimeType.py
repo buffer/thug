@@ -22,7 +22,7 @@ from .JSClass import JSClass
 
 class MimeType(JSClass):
     def __init__(self, init = None):
-        self._mimetype = dict()
+        self._mimetype = {}
 
         if init is None:
             return

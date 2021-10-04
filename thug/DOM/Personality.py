@@ -45,17 +45,17 @@ class Personality(dict):
 
                 # Shell variables are case insensitive, will process them
                 # to make sure all keys in the dict are lowercase.
-                for k, v in self[name].pop('shellVariables', dict()).items():
+                for k, v in self[name].pop('shellVariables', {}).items():
                     if 'shellVariables' not in self[name]:
-                        self[name]['shellVariables'] = dict()
+                        self[name]['shellVariables'] = {}
 
                     self[name]['shellVariables'][k.lower()] = v
 
                 # Special folder names are case insensitive, will process them
                 # to make sure all keys in the dict are lowercase.
-                for k, v in self[name].pop('specialFolders', dict()).items():
+                for k, v in self[name].pop('specialFolders', {}).items():
                     if 'specialFolders' not in self[name]:
-                        self[name]['specialFolders'] = dict()
+                        self[name]['specialFolders'] = {}
 
                     self[name]['specialFolders'][k.lower()] = v
 
@@ -111,7 +111,7 @@ class Personality(dict):
         return self[log.ThugOpts.useragent]['ScriptEngineBuildVersion']
 
     def getShellVariable(self, variableName):
-        return self[log.ThugOpts.useragent].get('shellVariables', dict()).get(variableName.strip("%").lower(), '')
+        return self[log.ThugOpts.useragent].get('shellVariables', {}).get(variableName.strip("%").lower(), '')
 
     def getSpecialFolder(self, folderName):
-        return self[log.ThugOpts.useragent].get('specialFolders', dict()).get(folderName.lower(), '')
+        return self[log.ThugOpts.useragent].get('specialFolders', {}).get(folderName.lower(), '')

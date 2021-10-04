@@ -235,7 +235,7 @@ class MIMEHandler(dict):
         for mimetype in self.mimetypes:
             self[mimetype] = self.passthrough
 
-        self.handlers = list()
+        self.handlers = []
 
         self.register_empty_handlers()
         self.register_fallback_handlers()
@@ -463,7 +463,7 @@ class MIMEHandler(dict):
         return "JNLP/6.0 javaws/%s (b04) Java/%s" % (version, version, )
 
     def handle_java_jnlp(self, url, data):
-        headers = dict()
+        headers = {}
         headers['Connection'] = 'keep-alive'
 
         try:
@@ -501,7 +501,7 @@ class MIMEHandler(dict):
         if not isinstance(content, dict): # pragma: no cover
             return False
 
-        headers = dict()
+        headers = {}
         headers['Connection'] = 'keep-alive'
 
         for key in content.keys():

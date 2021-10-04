@@ -212,7 +212,7 @@ class HTTPSession:
             return None
 
         if headers is None: # pragma: no cover
-            headers = dict()
+            headers = {}
 
         _headers = self.build_http_headers(window, personality, headers)
         response = None
