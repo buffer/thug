@@ -264,7 +264,7 @@ class DFT:
     def set_event_handler_attributes(self, elem):
         try:
             attrs = elem.attrs
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             return
 
         if 'language' in list(attrs.keys()) and not attrs['language'].lower() in ('javascript', ):
@@ -286,7 +286,7 @@ class DFT:
         else: # pragma: no cover
             try:
                 handler = getattr(self.context.locals, h, None)
-            except Exception:
+            except Exception: # pylint:disable=broad-except
                 handler = None
 
         if not handler: # pragma: no cover
@@ -350,7 +350,7 @@ class DFT:
     def _handle_jnlp(self, data, headers, params):
         try:
             soup = bs4.BeautifulSoup(data, "lxml")
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][_handle_jnlp] %s", str(e))
             return
 
@@ -376,7 +376,7 @@ class DFT:
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
                 self.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP", params = params)
-            except Exception as e: # pragma: no cover
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.info("[ERROR][_handle_jnlp] %s", str(e))
 
     def do_handle_params(self, _object):
@@ -433,7 +433,7 @@ class DFT:
                                              headers = headers,
                                              redirect_type = "params",
                                              params = params)
-            except Exception as e:
+            except Exception as e: # pylint:disable=broad-except
                 log.info("[ERROR][do_handle_params] %s", str(e))
 
         for key, value in params.items():
@@ -454,7 +454,7 @@ class DFT:
 
                 if response:
                     self._handle_jnlp(response.content, headers, params)
-            except Exception as e:
+            except Exception as e: # pylint:disable=broad-except
                 log.info("[ERROR][do_handle_params] %s", str(e))
 
         for p in ('source', 'data', 'archive' ):
@@ -473,7 +473,7 @@ class DFT:
                                          headers = headers,
                                          redirect_type = "params",
                                          params = params)
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.info("[ERROR][do_params_fetch] %s", str(e))
 
     def do_handle_params_source(self, params, headers):
@@ -522,7 +522,7 @@ class DFT:
                 self.window._navigator.fetch(codebase,
                                              redirect_type = "object codebase",
                                              params = params)
-            except Exception as e: # pragma: no cover
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.info("[ERROR][handle_object] %s", str(e))
 
         if data and not data.startswith('data:'):
@@ -533,7 +533,7 @@ class DFT:
                 self.window._navigator.fetch(data,
                                              redirect_type = "object data",
                                              params = params)
-            except Exception as e:
+            except Exception as e: # pylint:disable=broad-except
                 log.info("[ERROR][handle_object] %s", str(e))
 
         if not log.ThugOpts.Personality.isIE():
@@ -581,7 +581,7 @@ class DFT:
                 try:
                     oldState = params.pop()
                     ctx.eval("%s = 3;" % (oldState.strip(), )) # pragma: no cover
-                except Exception as e:
+                except Exception as e: # pylint:disable=broad-except
                     log.info("[ERROR][_handle_script_for_event] %s", str(e))
 
     def get_script_handler(self, script):
@@ -597,7 +597,7 @@ class DFT:
 
         try:
             _language = language.lower().split('/')[-1]
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             log.warning("[SCRIPT] Unhandled script type: %s", language)
             return None
 
@@ -655,7 +655,7 @@ class DFT:
         try:
             s.text = response.text
             return True
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             return self.handle_external_javascript_text_last_attempt(s, response)
 
     def handle_external_javascript_text_last_attempt(self, s, response): # pragma: no cover
@@ -670,7 +670,7 @@ class DFT:
 
         try:
             s.text = js.decode(enc['encoding'])
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.warning("[ERROR][handle_external_javascript_text_last_attempt] %s", str(e))
             return False
 
@@ -703,7 +703,7 @@ class DFT:
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = "script src")
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.info("[ERROR][handle_external_javascript] %s", str(e))
             return
 
@@ -814,7 +814,7 @@ class DFT:
         try:
             log.ThugLogging.log_file(text, url, sampletype = 'VBS')
             log.VBSClassifier.classify(url, text)
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][handle_vbscript_text] %s", str(e))
 
         hook = getattr(self, "do_handle_vbscript_text_hook", None)
@@ -829,7 +829,7 @@ class DFT:
                     log.ThugLogging.Features.increase_url_count()
 
                 self.window._navigator.fetch(url, redirect_type = "VBS embedded URL")
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.info("[ERROR][handle_vbscript_text] %s", str(e))
 
     def handle_vbs(self, script):
@@ -900,7 +900,7 @@ class DFT:
                                                     method = method.upper(),
                                                     body = payload,
                                                     redirect_type = "form")
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][do_handle_form] %s", str(e))
             return
 
@@ -950,7 +950,7 @@ class DFT:
 
         try:
             self.window._navigator.fetch(src, headers = headers, redirect_type = "embed")
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.info("[ERROR][handle_embed] %s", str(e))
 
     def handle_applet(self, applet):
@@ -977,7 +977,7 @@ class DFT:
                                          headers = headers,
                                          redirect_type = "applet",
                                          params = params)
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][handle_applet] %s", str(e))
 
     def handle_meta(self, meta):
@@ -1066,7 +1066,7 @@ class DFT:
 
         try:
             response = self.window._navigator.fetch(url, redirect_type = "meta")
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.info("[ERROR][handle_meta_refresh] %s", str(e))
             return
 
@@ -1113,7 +1113,7 @@ class DFT:
 
         try:
             response = self.window._navigator.fetch(src, redirect_type = redirect_type)
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.info("[ERROR][handle_frame] %s", str(e))
             return
 
@@ -1166,7 +1166,7 @@ class DFT:
 
             try:
                 self.window._navigator.fetch(url, redirect_type = "font face")
-            except Exception as e:
+            except Exception as e: # pylint:disable=broad-except
                 log.info("[ERROR][do_handle_font_face_rule] %s", str(e))
                 return
 
@@ -1177,7 +1177,7 @@ class DFT:
 
         try:
             sheet = cssparser.parseString(style.encode_contents())
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][handle_style] %s", str(e))
             return
 
@@ -1222,10 +1222,10 @@ class DFT:
         if 'base64' in opts:
             try:
                 data = base64.b64decode(h[1])
-            except Exception: # pragma: no cover
+            except Exception: # pragma: no cover,pylint:disable=broad-except
                 try:
                     data = base64.b64decode(unquote(h[1]))
-                except Exception:
+                except Exception: # pylint:disable=broad-except
                     log.warning("[WARNING] Error while handling data URI: %s", data)
                     return None
 
@@ -1269,7 +1269,7 @@ class DFT:
 
         try:
             response = self.window._navigator.fetch(href, redirect_type = "anchor")
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][handle_a] %s", str(e))
             return
 
@@ -1304,7 +1304,7 @@ class DFT:
 
         try:
             self.window._navigator.fetch(href, redirect_type = "link")
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.info("[ERROR][handle_link] %s", str(e))
 
     def handle_img(self, img):
@@ -1333,7 +1333,7 @@ class DFT:
 
         try:
             self.window._navigator.fetch(src, redirect_type = "img")
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][handle_img] %s", str(e))
 
     def check_anchors(self):
@@ -1418,7 +1418,7 @@ class DFT:
 
             try:
                 value = int(attrs[key].split('px')[0])
-            except Exception:
+            except Exception: # pylint:disable=broad-except
                 value = None
 
             if not value:
@@ -1433,14 +1433,14 @@ class DFT:
             element_area *= value
 
         if attrs_count > 1 and element_area < 30:
-            m = getattr(log.ThugLogging.Features, 'increase_{}_small_area_count'.format(tagname), None)
+            m = getattr(log.ThugLogging.Features, f'increase_{tagname}_small_area_count', None)
             if m:
                 m()
 
     def run_htmlclassifier(self, soup):
         try:
             log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, str(soup))
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][run_htmlclassifier] %s", str(e))
 
     def _run(self, soup = None):
@@ -1506,21 +1506,21 @@ class DFT:
             try:
                 self.handle_window_event(evt)
                 self.run_htmlclassifier(soup)
-            except Exception: # pragma: no cover
+            except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
             try:
                 self.handle_document_event(evt)
                 self.run_htmlclassifier(soup)
-            except Exception: # pragma: no cover
+            except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_events:
             try:
                 self.handle_element_event(evt)
                 self.run_htmlclassifier(soup)
-            except Exception: # pragma: no cover
+            except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
     def run(self):
