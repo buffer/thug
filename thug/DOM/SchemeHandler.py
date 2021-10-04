@@ -35,5 +35,5 @@ class SchemeHandler:
 
         try:
             log.URLClassifier.classify(url)
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             pass

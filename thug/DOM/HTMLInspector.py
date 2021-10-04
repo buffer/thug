@@ -62,7 +62,7 @@ class HTMLInspector:
         if modified:
             try:
                 snippet = str(soup)
-            except Exception: # pragma: no cover
+            except Exception: # pragma: no cover,pylint:disable=broad-except
                 return
 
             log.ThugLogging.add_behavior_warn(

@@ -54,7 +54,7 @@ class JSInspector:
 
             try:
                 log.ThugLogging.add_behavior_warn(f"[eval] Deobfuscated argument: {script}")
-            except Exception as e: # pragma: no cover
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[JSInspector] dump_eval warning: %s", str(e))
 
             log.JSClassifier.classify(self.dump_url, script)
@@ -83,7 +83,7 @@ class JSInspector:
 
             try:
                 log.ThugLogging.add_behavior_warn(f"[document.write] Deobfuscated argument: {html}")
-            except Exception as e: # pragma: no cover
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[JSInspector] dump_write warning: %s", str(e))
 
             log.HTMLClassifier.classify(self.dump_url, html)
@@ -109,9 +109,9 @@ class JSInspector:
             if '\\u' in self.script:
                 try:
                     result = self.ctxt.eval(self.script.replace('\\u', '%u'))
-                except Exception as e: # pragma: no cover
+                except Exception as e: # pragma: no cover,pylint:disable=broad-except
                     log.warning("[JSInspector] %s", str(e))
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.warning("[JSInspector] %s", str(e))
 
         self.dump()

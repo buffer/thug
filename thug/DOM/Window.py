@@ -80,7 +80,7 @@ class Window(JSClass):
 
             try:
                 sched.run()
-            except Exception as e: # pragma: no cover
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[Timer] Scheduler error: %s", str(e))
 
         def stop(self):
@@ -102,7 +102,7 @@ class Window(JSClass):
                         self.code()
                     else:
                         ctx.eval(self.code)
-                except Exception as e: # pragma: no cover
+                except Exception as e: # pragma: no cover,pylint:disable=broad-except
                     log.warning("Error while handling timer callback (%s)", str(e))
 
                     if log.ThugOpts.Personality.isIE():
@@ -959,7 +959,7 @@ class Window(JSClass):
 
             if log.ThugOpts.code_logging:
                 log.ThugLogging.add_code_snippet(script, 'Javascript', 'Contained_Inside')
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning("[Window] JSClassifier error: %s", str(e))
 
         if tag:
@@ -967,7 +967,7 @@ class Window(JSClass):
         else:
             try:
                 body = self.doc.body
-            except Exception: # pragma: no cover
+            except Exception: # pragma: no cover,pylint:disable=broad-except
                 # This code is for when you are desperate :)
                 body = self.doc.getElementsByTagName('body')[0]
 
@@ -1060,7 +1060,7 @@ class Window(JSClass):
 
             try:
                 self._navigator.fetch(rootFolder, redirect_type = "Sharepoint")
-            except Exception:
+            except Exception: # pylint:disable=broad-except
                 log.warning(traceback.format_exc())
 
     def getComputedStyle(self, element, pseudoelt = None):
@@ -1079,7 +1079,7 @@ class Window(JSClass):
 
             try:
                 response = self._navigator.fetch(url, redirect_type = "window open")
-            except Exception:
+            except Exception: # pylint:disable=broad-except
                 return None
 
             if response is None or not response.ok: # pragma: no cover
@@ -1092,7 +1092,7 @@ class Window(JSClass):
 
             try:
                 log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else url, html)
-            except Exception as e: # pragma: no cover
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[Window] HTMLClassifier error: %s", str(e))
 
             content_type = response.headers.get('content-type' , None)

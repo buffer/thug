@@ -308,7 +308,7 @@ class MIMEHandler(dict):
             try:
                 if handler(url, content):
                     return True
-            except Exception: # pragma: no cover
+            except Exception: # pragma: no cover,pylint:disable=broad-except
                 pass
 
         return False
@@ -338,7 +338,7 @@ class MIMEHandler(dict):
             if ocr_result:
                 log.ThugLogging.log_image_ocr(url, ocr_result)
                 log.ImageClassifier.classify(url, ocr_result)
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning("[OCR] Error: %s", str(e))
             return False
 
@@ -348,7 +348,7 @@ class MIMEHandler(dict):
         try:
             fp  = io.BytesIO(content)
             img = Image.open(fp)
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning("[OCR] Error: %s", str(e))
             return
 
@@ -365,7 +365,7 @@ class MIMEHandler(dict):
 
         try:
             zipdata = zipfile.ZipFile(fp)
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
             return False
 
@@ -376,7 +376,7 @@ class MIMEHandler(dict):
 
             try:
                 data = zipdata.read(filename)
-            except Exception as e: # pragma: no cover
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
                 continue
 
@@ -390,7 +390,7 @@ class MIMEHandler(dict):
                     try:
                         with window.context as ctxt:
                             ctxt.eval(data)
-                    except Exception as e: # pragma: no cover
+                    except Exception as e: # pragma: no cover,pylint:disable=broad-except
                         log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
 
                 sample = log.ThugLogging.log_file(data, url, sampletype = 'JS')
@@ -403,7 +403,7 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except Exception as e: # pragma: no cover
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
                 continue
 
@@ -422,7 +422,7 @@ class MIMEHandler(dict):
 
         try:
             rardata = rarfile.RarFile(rfile)
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.warning("[MIMEHANDLER (RAR)][ERROR] %s", str(e))
             os.remove(rfile)
             return False
@@ -432,7 +432,7 @@ class MIMEHandler(dict):
         for filename in rardata.namelist():
             try:
                 data = rardata.read(filename)
-            except Exception as e: # pragma: no cover
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[MIMEHANDLER (RAR)][ERROR] %s", str(e))
                 continue
 
@@ -445,7 +445,7 @@ class MIMEHandler(dict):
 
             try:
                 md5 = sample['md5']
-            except Exception as e: # pragma: no cover
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[MIMEHANDLER (RAR)][ERROR] %s", str(e))
                 continue
 
@@ -468,7 +468,7 @@ class MIMEHandler(dict):
 
         try:
             soup = bs4.BeautifulSoup(data, "lxml")
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             return
 
         jnlp = soup.find("jnlp")
@@ -489,13 +489,13 @@ class MIMEHandler(dict):
             try:
                 url = "%s%s" % (codebase, jar.attrs['href'], )
                 log.DFT.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
-            except Exception: # pragma: no cover
+            except Exception: # pragma: no cover,pylint:disable=broad-except
                 pass
 
     def handle_json(self, url, data):
         try:
             content = json.loads(data)
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             return False
 
         if not isinstance(content, dict): # pragma: no cover
@@ -508,7 +508,7 @@ class MIMEHandler(dict):
             if key.lower() in ('@content.downloadurl', ):
                 try:
                     log.DFT.window._navigator.fetch(content[key], headers = headers, redirect_type = "JSON")
-                except Exception:
+                except Exception: # pylint:disable=broad-except
                     pass
 
         return True

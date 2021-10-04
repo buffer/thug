@@ -56,7 +56,7 @@ class HTTPSession:
 
         try:
             self.__check_proxy_alive(url.hostname, url.port)
-        except Exception as e:
+        except Exception as e: # pylint:disable=broad-except
             log.critical("[CRITICAL] Proxy not available. Aborting the analysis!")
 
             if log.ThugOpts.raise_for_proxy:
@@ -195,7 +195,7 @@ class HTTPSession:
         try:
             certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_SSLv23)
             log.ThugLogging.log_certificate(url, certificate)
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning("[SSL ERROR] %s", str(e))
 
     def fetch(self, url, method = "GET", window = None, personality = None, headers = None, body = None):
