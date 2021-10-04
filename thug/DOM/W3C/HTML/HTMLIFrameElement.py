@@ -2,7 +2,7 @@
 
 import logging
 
-import thug.DOM.W3C as W3C
+from thug.DOM import W3C
 from .HTMLElement import HTMLElement
 from .attr_property import attr_property
 

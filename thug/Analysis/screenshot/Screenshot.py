@@ -46,5 +46,5 @@ class Screenshot:
         try:
             screenshot = imgkit.from_string(content, False, options = options)
             log.ThugLogging.log_screenshot(url, screenshot)
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning("[SCREENSHOT] Error: %s", str(e))

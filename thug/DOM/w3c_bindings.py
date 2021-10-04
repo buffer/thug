@@ -17,10 +17,9 @@
 # MA  02111-1307  USA
 
 
-import thug.DOM.W3C.Core as Core
-import thug.DOM.W3C.HTML as HTML
-import thug.DOM.W3C.Events as Events
-
+from thug.DOM.W3C import Core
+from thug.DOM.W3C import HTML
+from thug.DOM.W3C import Events
 from thug.DOM.W3C.Style.CSS.CSSStyleDeclaration import CSSStyleDeclaration
 
 

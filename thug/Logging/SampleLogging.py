@@ -23,8 +23,8 @@ import hashlib
 import zipfile
 import tempfile
 import pefile
-import magic
 import ssdeep
+import magic
 
 from thug.Magic.Magic import Magic
 
@@ -57,7 +57,7 @@ class SampleLogging:
     def is_pe(data):
         try:
             pefile.PE(data = data, fast_load = True)
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             return False
 
         return True
@@ -66,7 +66,7 @@ class SampleLogging:
     def get_imphash(data):
         try:
             pe = pefile.PE(data = data)
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             return None
 
         return pe.get_imphash()
@@ -91,7 +91,7 @@ class SampleLogging:
         try:
             z = zipfile.ZipFile(jar)
             result = any(t.endswith('.class') for t in z.namelist())
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             pass
 
         os.remove(jar)

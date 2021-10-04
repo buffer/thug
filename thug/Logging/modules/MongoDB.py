@@ -73,7 +73,7 @@ class MongoDB:
 
         try:
             connection = client(self.opts['host'])
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             log.warning('[MongoDB] MongoDB instance not available')
             self.enabled = False
             return

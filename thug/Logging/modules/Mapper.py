@@ -309,7 +309,7 @@ class Mapper:
         try:
             self.graph.layout(prog = 'dot')
             self.graph.draw(self.svgfile, format = 'svg')
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             pass
 
     def activate(self, conto):

@@ -438,7 +438,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         try:
             with open(fname, 'wb') as fd:
                 fd.write(content)
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning(str(e))
 
         return fname

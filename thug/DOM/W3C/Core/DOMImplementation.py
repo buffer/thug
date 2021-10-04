@@ -6,7 +6,7 @@ import bs4
 from lxml.html import builder as E
 from lxml.html import tostring
 
-import thug.DOM.W3C.HTML as HTML
+from thug.DOM.W3C import HTML
 
 log = logging.getLogger("Thug")
 

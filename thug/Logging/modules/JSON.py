@@ -191,7 +191,7 @@ class JSON:
 
         try:
             content = self.fix(data.get("content", "NOT AVAILABLE"))
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][get_content] %s", str(e))
 
         return content

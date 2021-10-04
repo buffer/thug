@@ -59,7 +59,7 @@ class HTMLMediaElement(HTMLElement):
 
         try:
             self.doc.window._navigator.fetch(src)
-        except Exception: # pragma: no cover
+        except Exception: # pragma: no cover,pylint:disable=broad-except
             return
 
     src = property(get_src, set_src)

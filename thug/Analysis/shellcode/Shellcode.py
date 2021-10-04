@@ -55,7 +55,7 @@ class Shellcode:
                 log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = self.snippet)
 
             log.ThugLogging.shellcode_urls.add(url)
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = self.snippet)
 
     def check_URLDownloadToFile(self, emu):
@@ -91,7 +91,7 @@ class Shellcode:
         try:
             url = url[2:].replace("\\", "/")
             self.window._navigator.fetch(url, redirect_type = "WinExec", snippet = self.snippet)
-        except Exception:
+        except Exception: # pylint:disable=broad-except
             log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed', snippet = self.snippet)
 
     def check_WinExec(self, emu):
@@ -239,7 +239,7 @@ class Shellcode:
 
         try:
             sc = self.build_shellcode(shellcode)
-        except Exception as e: # pragma: no cover
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("Shellcode building error (%s)", str(e))
             return
 
