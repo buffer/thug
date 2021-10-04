@@ -104,7 +104,7 @@ class Location(JSClass):
         if len(snetloc) and hostname in (snetloc[0], ):
             return
 
-        host = "{}:{}".format(hostname, snetloc[1]) if len(snetloc) > 1 else hostname
+        host = f"{hostname}:{snetloc[1]}" if len(snetloc) > 1 else hostname
         self.set_host(host)
 
     hostname = property(get_hostname, set_hostname)
@@ -118,7 +118,7 @@ class Location(JSClass):
         if len(snetloc) > 1 and str(port) in (snetloc[1], ):
             return
 
-        host = "{}:{}".format(snetloc[0], port)
+        host = f"{snetloc[0]}:{port}"
         self.set_host(host)
 
     port = property(get_port, set_port)

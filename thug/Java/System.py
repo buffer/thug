@@ -27,7 +27,7 @@ class System:
         if _property == "java.version":
             javaplugin = log.ThugVulnModules._javaplugin.split('.')
             last       = javaplugin.pop()
-            return '%s_%s' % ('.'.join(javaplugin), last)
+            return f"{'.'.join(javaplugin)}_{last}"
 
         if _property == "java.vendor":
             return 'Sun Microsystems Inc.'

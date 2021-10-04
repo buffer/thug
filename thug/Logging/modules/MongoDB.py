@@ -172,7 +172,7 @@ class MongoDB:
 
     @staticmethod
     def get_vuln_module(module):
-        disabled = getattr(log.ThugVulnModules, "%s_disabled" % (module, ), True)
+        disabled = getattr(log.ThugVulnModules, f"{module}_disabled", True)
         if disabled:
             return "disabled"
 

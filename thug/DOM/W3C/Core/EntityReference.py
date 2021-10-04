@@ -7,7 +7,7 @@ from .Node import Node
 
 class EntityReference(Node):
     def __init__(self, doc, name):
-        self.tag = bs4.BeautifulSoup("&{};".format(name), "lxml")
+        self.tag = bs4.BeautifulSoup(f"&{name};", "lxml")
         Node.__init__(self, doc)
 
     @property

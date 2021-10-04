@@ -156,7 +156,7 @@ class Shellcode:
                                                      method = "Static Analysis")
 
     def log_shellcode_profile(self, module, profile):
-        description = "[{}][Shellcode Profile] {}".format(module, profile)
+        description = f"[{module}][Shellcode Profile] {profile}"
 
         log.ThugLogging.add_behavior_warn(description = description,
                                           snippet     = self.snippet,
@@ -226,7 +226,7 @@ class Shellcode:
         self.snippet = None
 
         for module in self.modules:
-            m = getattr(self, "check_shellcode_{}".format(module), None)
+            m = getattr(self, f"check_shellcode_{module}", None)
             if m:
                 m(shellcode, sc) # pylint:disable=not-callable
 

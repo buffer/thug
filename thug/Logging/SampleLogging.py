@@ -116,7 +116,7 @@ class SampleLogging:
 
     def get_sample_type(self, data):
         for t in self.types:
-            p = getattr(self, 'is_%s' % (t.lower(), ), None)
+            p = getattr(self, f'is_{t.lower()}', None)
             if p and p(data):
                 return t
 

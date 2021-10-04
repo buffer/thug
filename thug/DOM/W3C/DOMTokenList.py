@@ -16,7 +16,7 @@ class DOMTokenList:
             if support not in self.supported:
                 self.supported.append(support)
 
-            nosupport = "no{}".format(support)
+            nosupport = f"no{support}"
             if nosupport not in self.supported:
                 self.supported.append(nosupport)
 

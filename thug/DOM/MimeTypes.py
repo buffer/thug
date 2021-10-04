@@ -34,7 +34,7 @@ class MimeTypes(dict):
                                             'filename'      : 'npctrl.dll',
                                             'type'          : 'application/pdf',
                                             'enabledPlugin' : Plugin({'name'        : 'Adobe Acrobat',
-                                                                      'version'     : '%s' % (log.ThugVulnModules.acropdf_pdf, ),
+                                                                      'version'     : f'{log.ThugVulnModules.acropdf_pdf}',
                                                                       'description' : 'Adobe Acrobat Plug-In'}),
                                             'enabled'       : True})
 
@@ -42,11 +42,15 @@ class MimeTypes(dict):
             self['application/x-shockwave-flash'] = MimeType({
                                             'description'   : 'Shockwave Flash',
                                             'suffixes'      : 'swf',
-                                            'filename'      : 'Flash32_%s.ocx' % ('_'.join(log.ThugVulnModules.shockwave_flash.split('.')), ),
+                                            'filename'      : f'Flash32_'
+                                                              f'{"_".join(log.ThugVulnModules.shockwave_flash.split("."))}.ocx',
                                             'type'          : 'application/x-shockwave-flash',
-                                            'enabledPlugin' : Plugin({'name'        : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ),
-                                                                      'version'     : '%s' % (log.ThugVulnModules.shockwave_flash, ),
-                                                                      'description' : 'Shockwave Flash %s' % (log.ThugVulnModules.shockwave_flash, ), }),
+                                            'enabledPlugin' : Plugin({'name'        : f'Shockwave Flash '
+                                                                                      f'{log.ThugVulnModules.shockwave_flash}',
+                                                                      'version'     : f'{log.ThugVulnModules.shockwave_flash}',
+                                                                      'description' : f'Shockwave Flash '
+                                                                                      f'{log.ThugVulnModules.shockwave_flash}',
+                                                                      }),
                                             'enabled'       : True})
 
         if not log.ThugVulnModules.javaplugin_disabled:
@@ -54,9 +58,10 @@ class MimeTypes(dict):
                                             'description'   : 'Java Applet',
                                             'suffixes'      : 'jar',
                                             'filename'      : 'npjp2.dll',
-                                            'type'          : 'application/x-java-applet;jpi-version=%s' % (log.ThugVulnModules._javaplugin, ),
-                                            'enabledPlugin' : Plugin({'name'        : 'Java %s' % (log.ThugVulnModules._javaplugin, ),
-                                                                      'version'     : '%s' % (log.ThugVulnModules._javaplugin, ),
+                                            'type'          : f'application/x-java-applet;jpi-version='
+                                                              f'{log.ThugVulnModules._javaplugin}',
+                                            'enabledPlugin' : Plugin({'name'        : f'Java {log.ThugVulnModules._javaplugin}',
+                                                                      'version'     : f'{log.ThugVulnModules._javaplugin}',
                                                                       'description' : 'Java'}),
                                             'enabled'       : True})
 

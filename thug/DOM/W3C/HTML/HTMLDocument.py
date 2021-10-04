@@ -232,7 +232,7 @@ class HTMLDocument(Document):
         if not log.HTTPSession or not log.HTTPSession.cookies:
             return self._cookie
 
-        items = ["{}={}".format(n, v) for n, v in log.HTTPSession.cookies.items()]
+        items = [f"{n}={v}" for n, v in log.HTTPSession.cookies.items()]
         return "; ".join(items)
 
     def setCookie(self, value):
@@ -413,9 +413,9 @@ class HTMLDocument(Document):
                 continue
 
             try:
-                handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
-            except Exception: # pragma: no cover
-                handler = getattr(log.DFT, "handle_%s" % (name, ), None)
+                handler = getattr(self._win.doc.DFT, f"handle_{name}", None)
+            except Exception: # pragma: no cover,pylint:disable=broad-except
+                handler = getattr(log.DFT, f"handle_{name}", None)
 
             if handler:
                 handler(tag)
@@ -434,9 +434,9 @@ class HTMLDocument(Document):
                 continue
 
             try:
-                handler = getattr(self._win.doc.DFT, "handle_%s" % (name, ), None)
-            except Exception: # pragma: no cover
-                handler = getattr(log.DFT, "handle_%s" % (name, ), None)
+                handler = getattr(self._win.doc.DFT, f"handle_{name}", None)
+            except Exception: # pragma: no cover,pylint:disable=broad-except
+                handler = getattr(log.DFT, f"handle_{name}", None)
 
             if handler:
                 handler(tag)

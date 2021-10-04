@@ -98,7 +98,7 @@ class JSON:
 
     @staticmethod
     def get_vuln_module(module):
-        disabled = getattr(log.ThugVulnModules, "{}_disabled".format(module), True)
+        disabled = getattr(log.ThugVulnModules, f"{module}_disabled", True)
         if disabled:
             return "disabled"
 

@@ -79,7 +79,7 @@ class BaseClassifier:
             log.warning("[%s] Skipping not existing classification rule file %s", self.classifier, rule_file)
             return
 
-        self._rules["namespace{}".format(self.rules_namespace_id)] = rule_file
+        self._rules[f"namespace{self.rules_namespace_id}"] = rule_file
         self.rules_namespace_id += 1
         self.rules = yara.compile(filepaths = self._rules)
 
@@ -88,7 +88,7 @@ class BaseClassifier:
             log.warning("[%s] Skipping not existing filter file %s", self.classifier, filter_file)
             return
 
-        self._filters["namespace{}".format(self.filters_namespace_id)] = filter_file
+        self._filters[f"namespace{self.filters_namespace_id}"] = filter_file
         self.filters_namespace_id += 1
         self.filters = yara.compile(filepaths = self._filters)
 
@@ -103,7 +103,7 @@ class BaseClassifier:
 
             prefix = "" if domain.startswith(".") else "."
 
-            if netloc in (domain, ) or netloc.endswith("{}{}".format(prefix, domain)):
+            if netloc in (domain, ) or netloc.endswith(f"{prefix}{domain}"):
                 log.warning("[discard_meta_domain_whitelist] Whitelisted domain: %s (URL: %s)", domain, url)
                 return True
 
@@ -111,7 +111,7 @@ class BaseClassifier:
 
     def discard_url_match(self, url, match):
         for key, values in match.meta.items():
-            m = getattr(self, "discard_meta_{}".format(key), None)
+            m = getattr(self, f"discard_meta_{key}", None)
             if m and m(url, values): # pylint:disable=not-callable
                 return True
 
