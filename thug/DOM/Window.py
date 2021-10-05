@@ -369,7 +369,7 @@ class Window(JSClass):
 
         None.
         """
-        pass
+        log.warning('[Window] back()')
 
     def blur(self):
         """
@@ -382,7 +382,7 @@ class Window(JSClass):
 
         None.
         """
-        pass
+        log.warning('[Window] blur()')
 
     def captureEvents(self, eventType):
         """
@@ -466,7 +466,7 @@ class Window(JSClass):
 
         None.
         """
-        pass
+        log.warning('[Window] focus()')
 
     def forward(self):
         """
@@ -492,9 +492,9 @@ class Window(JSClass):
 
         None.
         """
-        pass
+        log.warning('[Window] GetAttention()')
 
-    def getSelection(self):
+    def getSelection(self): # pylint:disable=useless-return
         """
         Returns the selection (generally text).
         Syntax
@@ -505,6 +505,7 @@ class Window(JSClass):
 
         selection is a selection object.
         """
+        log.warning('[Window] getSelection()')
         return None
 
     def home(self):
@@ -532,7 +533,7 @@ class Window(JSClass):
         deltaX is the amount of pixels to move the window horizontally.
         deltaY is the amount of pixels to move the window vertically.
         """
-        pass
+        log.warning('[Window] moveBy(%s, %s)', deltaX, deltaY)
 
     def moveTo(self, x, y):
         """
@@ -546,7 +547,7 @@ class Window(JSClass):
         x is the horizontal coordinate to be moved to.
         y is the vertical coordinate to be moved to.
         """
-        pass
+        log.warning('[Window] moveTo(%s, %s)', x, y)
 
     def prompt(self, text, defaultText = None):
         """
@@ -580,7 +581,7 @@ class Window(JSClass):
         xDelta is the number of pixels to grow the window horizontally.
         yDelta is the number of pixels to grow the window vertically.
         """
-        pass
+        log.warning('[Window] resizeBy(%s, %s)', xDelta, yDelta)
 
     def resizeTo(self, iWidth, iHeight):
         """
@@ -594,7 +595,7 @@ class Window(JSClass):
         iWidth is an integer representing the new width in pixels.
         iHeight is an integer value representing the new height in pixels.
         """
-        pass
+        log.warning('[Window] resizeTo(%s, %s)', iWidth, iHeight)
 
     def scroll(self, x, y):
         """
@@ -610,7 +611,7 @@ class Window(JSClass):
         y-coord is the pixel along the vertical axis of the document that you
         want displayed in the upper left.
         """
-        pass
+        log.warning('[Window] scroll(%s, %s)', x, y)
 
     def scrollBy(self, xDelta, yDelta):
         """
@@ -625,7 +626,7 @@ class Window(JSClass):
 
         yDelta is the amount of pixels to scroll vertically.
         """
-        pass
+        log.warning('[Window] scrollBy(%s, %s)', xDelta, yDelta)
 
     def scrollByLines(self, lines):
         """
@@ -638,7 +639,7 @@ class Window(JSClass):
 
         lines is the number of lines.
         """
-        pass
+        log.warning('[Window] scrollByLines(%s)', lines)
 
     def scrollByPages(self, pages):
         """
@@ -651,7 +652,7 @@ class Window(JSClass):
 
         pages is the number of pages to scroll.
         """
-        pass
+        log.warning('[Window] scrollByPages(%s)', pages)
 
     def scrollTo(self, x, y):
         """
@@ -668,7 +669,7 @@ class Window(JSClass):
         y-coord is the pixel along the vertical axis of the document that you
         want displayed in the upper left.
         """
-        pass
+        log.warning('[Window] scrollTo(%s, %s)', x, y)
 
     def setInterval(self, f, delay, lang = 'JavaScript'):
         """
@@ -745,7 +746,7 @@ class Window(JSClass):
 
         None.
         """
-        pass
+        log.warning('[Window] stop()')
 
     def _attachEvent(self, sEvent, fpNotify, useCapture = False):
         if log.ThugOpts.features_logging:
