@@ -293,7 +293,8 @@ class Mapper:
             Add data file
         """
         try:
-            self.add_data(json.load(open(filename, "r")))
+            with open(filename, encoding = 'utf-8', mode = 'r') as fd:
+                self.add_data(json.load(fd))
         except ValueError:
             pass
 

@@ -175,5 +175,5 @@ class TextStream:
 
         log_file = os.path.join(log_dir, filename)
 
-        with open(log_file, 'w') as fd:
+        with open(log_file, encoding = 'utf-8', mode = 'w') as fd:
             fd.write(content)

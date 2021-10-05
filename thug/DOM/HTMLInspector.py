@@ -34,7 +34,7 @@ class HTMLInspector:
             self.enabled = False
             return
 
-        with open(conf_file) as fd:
+        with open(conf_file, encoding = 'utf-8', mode = 'r') as fd:
             self.rules = json.load(fd)
 
     def run(self, html, parser = "html.parser"):

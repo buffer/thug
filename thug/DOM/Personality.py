@@ -40,7 +40,7 @@ class Personality(dict):
                     continue
 
                 name = f.split(".json")[0]
-                with open(os.path.join(root, f)) as personality:
+                with open(os.path.join(root, f), encoding = 'utf-8', mode = 'r') as personality:
                     self[name] = json.load(personality)
 
                 # Shell variables are case insensitive, will process them

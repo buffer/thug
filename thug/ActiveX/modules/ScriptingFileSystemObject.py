@@ -124,7 +124,7 @@ def OpenTextFile(self, sFilePathAndName, ForWriting = True, flag = True):
     stream._filename = sFilePathAndName
 
     if log.ThugOpts.local and sFilePathAndName in (log.ThugLogging.url, ): # pragma: no cover
-        with open(sFilePathAndName, 'r') as fd:
+        with open(sFilePathAndName, encoding = 'utf-8', mode = 'r') as fd:
             data = fd.read()
 
         stream.Write(data)

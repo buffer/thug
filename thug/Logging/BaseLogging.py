@@ -62,12 +62,12 @@ class BaseLogging:
         csv_line = f'{m.hexdigest()},{url}\n'
 
         if os.path.exists(thug_csv):
-            with open(thug_csv, 'r') as fd:
+            with open(thug_csv, encoding = 'utf-8', mode = 'r') as fd:
                 for line in fd.readlines():
                     if line == csv_line:
                         return
 
-        with open(thug_csv, 'at+') as fd:
+        with open(thug_csv, encoding = 'utf-8', mode = 'at+') as fd:
             fd.write(csv_line)
 
     def set_absbasedir(self, basedir):

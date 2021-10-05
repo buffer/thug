@@ -109,7 +109,7 @@ class JSEngine:
 
     def init_scripts_thug(self, ctxt):
         thug_js = os.path.join(thug.__configuration_path__, 'scripts', "thug.js")
-        with open(thug_js, 'r') as fd:
+        with open(thug_js, encoding = 'utf-8', mode = 'r') as fd:
             thug_js_code = fd.read()
 
         ctxt.eval(thug_js_code)
@@ -120,7 +120,7 @@ class JSEngine:
 
         if log.ThugOpts.Personality.browserMajorVersion < 8:
             storage_js = os.path.join(thug.__configuration_path__, 'scripts', "storage.js")
-            with open(storage_js, 'r') as fd:
+            with open(storage_js, encoding = 'utf-8', mode = 'r') as fd:
                 storage_js_code = fd.read()
 
             ctxt.eval(storage_js_code)
@@ -131,7 +131,7 @@ class JSEngine:
 
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             date_js = os.path.join(thug.__configuration_path__, 'scripts', "date.js")
-            with open(date_js, 'r') as fd:
+            with open(date_js, encoding = 'utf-8', mode = 'r') as fd:
                 date_js_code = fd.read()
 
             ctxt.eval(date_js_code)
@@ -162,7 +162,9 @@ class JSEngine:
         hooks = os.listdir(hooks_folder) if os.path.exists(hooks_folder) else []
 
         for hook in sorted([h for h in hooks if h.endswith('.js')]):
-            ctxt.eval(open(os.path.join(hooks_folder, hook), 'r').read()) # pragma: no cover
+            with open(os.path.join(hooks_folder, hook), encoding = 'utf-8', mode = 'r') as fd: # pragma: no cover
+                hook_code = fd.read()
+                ctxt.eval(hook_code)
 
         for hook in ('eval', 'write'):
             js = os.path.join(thug.__configuration_path__, 'scripts', f'{hook}.js')
@@ -170,7 +172,9 @@ class JSEngine:
                 continue
 
             symbol = getattr(log.ThugLogging, f'{hook}_symbol')
-            ctxt.eval(open(js, 'r').read() % {'name': symbol[0], 'saved': symbol[1]})
+            with open(js, encoding = 'utf-8', mode = 'r') as fd:
+                js_code = fd.read()
+                ctxt.eval(js_code % {'name': symbol[0], 'saved': symbol[1]})
 
     def init_scripts(self):
         with self._context as ctxt:
