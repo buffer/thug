@@ -117,7 +117,7 @@ class ThugLogging(BaseLogging, SampleLogging):
                 self.formats.add(fmt) # pragma: no cover
 
     def resolve_method(self, name):
-        if name in self.methods_cache.keys():
+        if name in self.methods_cache:
             return self.methods_cache[name]
 
         methods = []

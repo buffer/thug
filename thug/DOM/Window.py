@@ -789,7 +789,7 @@ class Window(JSClass):
         self.location = location
         return 0
 
-    def _execScript(self, code, language = "JScript"):
+    def _execScript(self, code, language = "JScript"): # pylint:disable=useless-return
         if log.ThugOpts.code_logging:
             log.ThugLogging.add_code_snippet(code, language, 'Contained_Inside')
 

@@ -89,8 +89,8 @@ class SampleLogging:
             fd.write(data)
 
         try:
-            z = zipfile.ZipFile(jar)
-            result = any(t.endswith('.class') for t in z.namelist())
+            with zipfile.ZipFile(jar) as z:
+                result = any(t.endswith('.class') for t in z.namelist())
         except Exception: # pylint:disable=broad-except
             pass
 
