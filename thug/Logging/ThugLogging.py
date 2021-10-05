@@ -376,7 +376,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         if not log.ThugOpts.cert_logging:
             return
 
-        self.add_behavior_warn("[Certificate]\n %s" % (certificate, ))
+        self.add_behavior_warn(f"[Certificate]{os.linesep} {certificate}")
 
         for m in self.resolve_method('log_certificate'): # pragma: no cover
             m(url, certificate)

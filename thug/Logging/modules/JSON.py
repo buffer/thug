@@ -170,13 +170,9 @@ class JSON:
             flags = {}
 
         if "exploit" in flags and flags["exploit"]:
-            self.add_behavior_warn("[Exploit]  {} -- {} --> {}".format(source,
-                                                                   method,
-                                                                   destination, ))
+            self.add_behavior_warn(f"[Exploit] {source} -- {method} --> {destination}")
         else:
-            self.add_behavior_warn("{} -- {} --> {}".format(source,
-                                                        method,
-                                                        destination,))
+            self.add_behavior_warn(f"{source} -- {method} --> {destination}")
 
         self.data["connections"].append({"source"       : self.fix(source),
                                          "destination"  : self.fix(destination),

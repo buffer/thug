@@ -220,7 +220,7 @@ class Element(Node, ElementCSSInlineStyle):
 
                 _value = svalue[0]
                 if len(svalue) > 1:
-                    _value = '{}{}'.format(_value, ''.join([s.capitalize() for s in svalue[1:]]))
+                    _value = f"{_value}{''.join([s.capitalize() for s in svalue[1:]])}"
 
                 for css in [p for p in FF_STYLES if log.ThugOpts.Personality.browserMajorVersion >= p[0]]:
                     if css[1] in value:
@@ -238,7 +238,7 @@ class Element(Node, ElementCSSInlineStyle):
         if name.lower() in ('src', 'archive'):
             s = urlsplit(value)
 
-            handler = getattr(log.SchemeHandler, 'handle_%s' % (s.scheme, ), None)
+            handler = getattr(log.SchemeHandler, f'handle_{s.scheme}', None)
             if handler:
                 handler(self.doc.window, value)
                 return

@@ -128,7 +128,7 @@ class TestJSON:
         assert "source1 -- link --> destination1" in (json.data["behavior"][0]["description"], )
 
         json.log_connection("source1", "destination1", "link", {"exploit": "EXC"})
-        assert "[Exploit]  source1 -- link --> destination1" in (json.data["behavior"][1]["description"],)
+        assert "[Exploit] source1 -- link --> destination1" in (json.data["behavior"][1]["description"],)
 
         log.ThugOpts.json_logging = False
 

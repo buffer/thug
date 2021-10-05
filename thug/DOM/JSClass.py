@@ -1,3 +1,4 @@
+import os
 import collections.abc
 
 
@@ -89,7 +90,7 @@ class JSClassConstructor(JSClass):
         return self.cls.__name__
 
     def toString(self):
-        return "function %s() {\n  [native code]\n}" % self.name
+        return f"function {self.name}() {{{os.linesep}  [native code]{os.linesep}}}"
 
     def __call__(self, *args, **kwds):
         return self.cls(*args, **kwds)
