@@ -68,7 +68,7 @@ def ReadText(self, NumChars = -1):
     return self._files[self._current][self.position:self.position + NumChars]
 
 
-def WriteText(self, data, options = None):
+def WriteText(self, data, options = None): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f"[Adodb.Stream ActiveX] WriteText({data})")
     self.fobject.write(data.encode())
 

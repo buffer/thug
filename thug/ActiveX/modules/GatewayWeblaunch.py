@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def DoWebLaunch(self, arg0, arg1, arg2, arg3):
+def DoWebLaunch(self, arg0, arg1, arg2, arg3): # pylint:disable=unused-argument
     if len(arg1) > 512 or len(arg3) > 512:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Gateway Weblaunch ActiveX",

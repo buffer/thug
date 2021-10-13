@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def GetComputerName(self):
+def GetComputerName(self): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn("[WinNTSystemInfo ActiveX] Getting ComputerName")
 
     nlen = random.randint(6, 10)
@@ -17,7 +17,7 @@ def GetComputerName(self):
     return computerName
 
 
-def GetDomainName(self):
+def GetDomainName(self): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn("[WinNTSystemInfo ActiveX] Getting DomainName")
 
     nlen = random.randint(6, 10)
@@ -28,7 +28,7 @@ def GetDomainName(self):
     return domainName
 
 
-def GetPDC(self):
+def GetPDC(self): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn("[WinNTSystemInfo ActiveX] Getting PDC (Primary Domain Controller)")
 
     nlen = random.randint(6, 10)
@@ -39,7 +39,7 @@ def GetPDC(self):
     return pdc
 
 
-def GetUserName(self):
+def GetUserName(self): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn("[WinNTSystemInfo ActiveX] Getting UserName")
 
     nlen = random.randint(6, 10)

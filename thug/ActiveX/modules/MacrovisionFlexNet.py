@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def Initialize(self, *args):
+def Initialize(self, *args): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] Initialize')
 
 
@@ -49,11 +49,11 @@ def DownloadAndExecute(self, arg0, arg1, arg2, arg3, arg4):
         log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] Fetch failed')
 
 
-def DownloadAndInstall(self, *args):
+def DownloadAndInstall(self, *args): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] DownloadAndInstall')
 
 
-def AddFileEx(self, arg0, arg1, arg2, arg3, arg4, arg5, arg6):
+def AddFileEx(self, arg0, arg1, arg2, arg3, arg4, arg5, arg6): # pylint:disable=unused-argument
     if len(arg2) > 512:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Macrovision ActiveX",
@@ -86,13 +86,13 @@ def AddFile(self, arg0, arg1):
         log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] Fetch failed')
 
 
-def SetPriority(self, priority):
+def SetPriority(self, priority): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f'[Macrovision ActiveX] SetPriority({priority})')
 
 
-def SetNotifyFlags(self, flags):
+def SetNotifyFlags(self, flags): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f'[Macrovision ActiveX] SetNotifyFlags({flags})')
 
 
-def RunScheduledJobs(self):
+def RunScheduledJobs(self): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn('[Macrovision ActiveX] RunScheduledJobs()')

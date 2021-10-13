@@ -24,7 +24,7 @@ class _Environment:
         return item
 
 
-def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False):
+def Run(self, strCommand, intWindowStyle = 1, bWaitOnReturn = False): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Executing: {strCommand}")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "WScript.Shell ActiveX",
@@ -183,29 +183,29 @@ def CreateObject(self, strProgID, strPrefix = ""):
     return ActiveX.ActiveX._ActiveXObject(self._window, strProgID)
 
 
-def Sleep(self, intTime):
+def Sleep(self, intTime): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Sleep({intTime})")
     time.sleep(intTime * 0.001)
 
 
-def Quit(self, code):
+def Quit(self, code): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Quit({code})")
 
 
-def Exec(self, path):
+def Exec(self, path): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Exec({path})")
     return WScriptExec()
 
 
-def Echo(self, text):
+def Echo(self, text): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Echo({text})")
 
 
-def valueOf(self):
+def valueOf(self): # pylint:disable=unused-argument
     return "Windows Script Host"
 
 
-def toString(self):
+def toString(self): # pylint:disable=unused-argument
     return "Windows Script Host"
 
 
@@ -225,7 +225,7 @@ def CreateShortcut(self, strPathname):
     return obj
 
 
-def RegRead(self, registry):
+def RegRead(self, registry): # pylint:disable=unused-argument
     if registry.lower() in win32_registry:
         value = win32_registry[registry.lower()]
         log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] RegRead("{registry}") = "{value}"')
@@ -240,11 +240,11 @@ def RegRead(self, registry):
     return ''
 
 
-def RegWrite(self, registry, value, strType = "REG_SZ"):
+def RegWrite(self, registry, value, strType = "REG_SZ"): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] RegWrite("{registry}", "{value}", "{strType}")')
     win32_registry[registry.lower()] = value
 
 
-def Popup(self, title = "", timeout = 0, message = "", _type = 0):
+def Popup(self, title = "", timeout = 0, message = "", _type = 0): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f'[WScript.Shell ActiveX] Popup("{title}", "{message}", "{_type}")')
     return 0

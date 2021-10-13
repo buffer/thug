@@ -28,13 +28,13 @@ def GetComponentVersion(self, arg):
     log.ThugLogging.Shellcode.check_shellcode(arg)
 
 
-def initialize(self):
+def initialize(self): # pylint:disable=unused-argument
     return
 
 
-def send(self):
+def send(self): # pylint:disable=unused-argument
     return
 
 
-def receive(self):
+def receive(self): # pylint:disable=unused-argument
     return

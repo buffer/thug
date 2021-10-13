@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def _Evaluate(self, *args):
+def _Evaluate(self, *args): # pylint:disable=unused-argument
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "OWC 10/11.Spreadsheet ActiveX",
                                       "Attack in _Evaluate function",
@@ -15,7 +15,7 @@ def _Evaluate(self, *args):
     log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2009-1136")
 
 
-def Evaluate(self, *args):
+def Evaluate(self, *args): # pylint:disable=unused-argument
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "OWC 10/11.Spreadsheet ActiveX",
                                       "Attack in Evaluate function",

@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def SetAttributeValue(self, arg0, arg1, arg2):
+def SetAttributeValue(self, arg0, arg1, arg2): # pylint:disable=unused-argument
     if len(arg0) > 260:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "BaoFeng Storm ActiveX Control",

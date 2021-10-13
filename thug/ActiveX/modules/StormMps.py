@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def advancedOpen(self, arg0, arg1):
+def advancedOpen(self, arg0, arg1): # pylint:disable=unused-argument
     if len(arg0) > 259:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "MPS.StormPlayer.1 ActiveX",

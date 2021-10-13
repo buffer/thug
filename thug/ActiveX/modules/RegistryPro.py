@@ -18,5 +18,5 @@ def DeleteKey(self, arg0, arg1):
                                           })
 
 
-def About(self):
+def About(self): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn('[RegistryPro ActiveX] About called')

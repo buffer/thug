@@ -45,5 +45,5 @@ def SetMail_MailDbPath(self, val):
         log.ThugLogging.Shellcode.check_shellcode(val)
 
 
-def InstallBrowserHelperDll(self):
+def InstallBrowserHelperDll(self): # pylint:disable=unused-argument
     pass

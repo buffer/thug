@@ -4,7 +4,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def GetVersions(self):
+def GetVersions(self): # pylint:disable=unused-argument
     versions = ""
     for feature in ('Accessibility',
                     'AcroForm',
@@ -34,7 +34,7 @@ def GetVersions(self):
     return versions
 
 
-def GetVariable(self, variable):
+def GetVariable(self, variable): # pylint:disable=unused-argument
     if variable in ('$version', ):
         return log.ThugVulnModules.acropdf_pdf
 

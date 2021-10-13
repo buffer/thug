@@ -4,7 +4,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def GetVariable(self, arg):
+def GetVariable(self, arg): # pylint:disable=unused-argument
     if arg in ("$version", ):
         version = ['0', '0', '0', '0']
         idx     = 0

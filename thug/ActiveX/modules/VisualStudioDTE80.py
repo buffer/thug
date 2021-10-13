@@ -4,7 +4,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def CreateObject(self, _object, param = ''):
+def CreateObject(self, _object, param = ''): # pylint:disable=unused-argument
     from thug import ActiveX
 
     log.ThugLogging.add_behavior_warn(f"[VisualStudio.DTE.8.0 ActiveX] CreateObject ({_object})")

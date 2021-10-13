@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def LaunchApp(self, prog, args, unk):
+def LaunchApp(self, prog, args, unk): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f"[HP Info Center ActiveX] LaunchApp called to run: {prog} {args}", "CVE-2007-6331")
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "HP Info Center ActiveX",

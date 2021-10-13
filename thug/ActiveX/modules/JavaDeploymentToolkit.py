@@ -30,7 +30,7 @@ def launch(self, arg):
             log.ThugLogging.add_behavior_warn("[Java Deployment Toolkit ActiveX] Fetch Failed")
 
 
-def launchApp(self, pJNLP, pEmbedded = None, pVmArgs = None):
+def launchApp(self, pJNLP, pEmbedded = None, pVmArgs = None): # pylint:disable=unused-argument
     cve_2013_2416 = False
     if len(pJNLP) > 32:
         cve_2013_2416 = True

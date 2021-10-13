@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def DoAutoUpdateRequest(self, arg0, arg1, arg2):
+def DoAutoUpdateRequest(self, arg0, arg1, arg2): # pylint:disable=unused-argument
     if len(arg0) >= 32 or len(arg1) >= 32:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "RealMedia RealPlayer Ierpplug.DLL ActiveX",
@@ -18,7 +18,7 @@ def DoAutoUpdateRequest(self, arg0, arg1, arg2):
         log.ThugLogging.Shellcode.check_shellcode(arg1)
 
 
-def PlayerProperty(self, arg):
+def PlayerProperty(self, arg): # pylint:disable=unused-argument
     if arg == 'PRODUCTVERSION':
         return '6.0.14.552'
 
@@ -31,6 +31,7 @@ def PlayerProperty(self, arg):
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2007-5601")
         log.ThugLogging.Shellcode.check_shellcode(arg)
 
+    return "" # pragma: no cover
 
 def Import(self, arg):
     if len(arg) > 0x8000:

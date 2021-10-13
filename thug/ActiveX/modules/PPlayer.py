@@ -5,7 +5,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def DownURL2(self, arg0, arg1, arg2, arg3):
+def DownURL2(self, arg0, arg1, arg2, arg3): # pylint:disable=unused-argument
     if len(arg0) > 1024:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Xunlei Thunder PPlayer ActiveX",

@@ -158,7 +158,7 @@ def send(self, varBody = None):
     return 0
 
 
-def setTimeouts(self, ResolveTimeout, ConnectTimeout, SendTimeout, ReceiveTimeout):
+def setTimeouts(self, ResolveTimeout, ConnectTimeout, SendTimeout, ReceiveTimeout): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f"[Microsoft XMLHTTP ActiveX] setTimeouts("
                                       f"{ResolveTimeout}, "
                                       f"{ConnectTimeout}, "
@@ -167,7 +167,7 @@ def setTimeouts(self, ResolveTimeout, ConnectTimeout, SendTimeout, ReceiveTimeou
 
     return 0
 
-def waitForResponse(self, timeout):
+def waitForResponse(self, timeout): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f"[Microsoft XMLHTTP ActiveX] waitForResponse({timeout})")
 
 
@@ -193,14 +193,14 @@ def overrideMimeType(self, mimetype):
     self.mimeType = mimetype
 
 
-def addEventListener(self, _type, listener, useCapture = False):
+def addEventListener(self, _type, listener, useCapture = False): # pylint:disable=unused-argument
     if log.ThugOpts.features_logging:
         log.ThugLogging.Features.increase_addeventlistener_count()
 
     setattr(self, f'on{_type.lower()}', listener)
 
 
-def removeEventListener(self, _type, listener, useCapture = False):
+def removeEventListener(self, _type, listener, useCapture = False): # pylint:disable=unused-argument
     if log.ThugOpts.features_logging:
         log.ThugLogging.Features.increase_removeeventlistener_count()
 
@@ -212,7 +212,7 @@ def removeEventListener(self, _type, listener, useCapture = False):
         delattr(self, f'on{_type.lower()}')
 
 
-def dispatchEvent(self, evt, pfResult = True):
+def dispatchEvent(self, evt, pfResult = True): # pylint:disable=unused-argument
     if log.ThugOpts.features_logging:
         log.ThugLogging.Features.increase_dispatchevent_count()
 

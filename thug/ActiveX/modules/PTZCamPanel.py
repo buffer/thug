@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def ConnectServer(self, server, user):
+def ConnectServer(self, server, user): # pylint:disable=unused-argument
     if len(user) > 1024:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "PTZCamPanel ActiveX",

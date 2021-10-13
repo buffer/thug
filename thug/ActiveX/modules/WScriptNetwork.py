@@ -8,7 +8,7 @@ from thug.ActiveX.modules import WScriptCollection
 log = logging.getLogger("Thug")
 
 
-def EnumPrinterConnections(self):
+def EnumPrinterConnections(self): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn("[WScript.Network ActiveX] Got request to PrinterConnections")
 
     printerlist = [['nul:', 'Send To OneNote 2010'],
@@ -23,7 +23,7 @@ def EnumPrinterConnections(self):
     return WScriptCollection.WshCollection(sum(printerlist[:2], []))
 
 
-def EnumNetworkDrives(self):
+def EnumNetworkDrives(self): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn("[WScript.Network ActiveX] Got request to EnumNetworkDrives")
     ndrives = WScriptCollection.WshCollection()
 

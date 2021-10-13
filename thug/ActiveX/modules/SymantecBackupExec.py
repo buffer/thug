@@ -58,5 +58,5 @@ def Set_MonthText11(self, val):
         log.ThugLogging.Shellcode.check_shellcode(val)
 
 
-def Save(self, a, b):
+def Save(self, a, b): # pylint:disable=unused-argument
     return

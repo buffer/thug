@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def AddBitmap(self, arg0, arg1, arg2, arg3, arg4, arg5):
+def AddBitmap(self, arg0, arg1, arg2, arg3, arg4, arg5): # pylint:disable=unused-argument
     if len(arg1) > 256:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Yahoo! Music Jukebox ActiveX",
@@ -14,7 +14,7 @@ def AddBitmap(self, arg0, arg1, arg2, arg3, arg4, arg5):
         log.ThugLogging.Shellcode.check_shellcode(arg1)
 
 
-def AddButton(self, arg0, arg1):
+def AddButton(self, arg0, arg1): # pylint:disable=unused-argument
     if len(arg0) > 256:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Yahoo! Music Jukebox ActiveX",
@@ -22,7 +22,7 @@ def AddButton(self, arg0, arg1):
         log.ThugLogging.Shellcode.check_shellcode(arg0)
 
 
-def AddImage(self, arg0, arg1):
+def AddImage(self, arg0, arg1): # pylint:disable=unused-argument
     if len(arg0) > 256:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "Yahoo! Music Jukebox ActiveX",

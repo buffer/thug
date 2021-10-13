@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def Update(self, *args):
+def Update(self, *args): # pylint:disable=unused-argument
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "UUsee UUPgrade ActiveX",
                                       "Attack in Update Method")

@@ -4,7 +4,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def LaunchGui(self, arg0, arg1, arg2):
+def LaunchGui(self, arg0, arg1, arg2): # pylint:disable=unused-argument
     if len(arg0) > 1500:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "EnjoySAP ActiveX",

@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def DownloadFromMusicStore(self, url, dst, title, artist, album, genere, size, param1, param2):
+def DownloadFromMusicStore(self, url, dst, title, artist, album, genere, size, param1, param2): # pylint:disable=unused-argument
     log.ThugLogging.add_behavior_warn(f'[JetAudio ActiveX] Downloading from URL {url} (saving locally as {dst})')
     log.ThugLogging.log_exploit_event(self._window.url,
                                       "JetAudio ActiveX",

@@ -169,7 +169,7 @@ class TextStream:
             else:
                 raise
 
-        filename = self._filename.split('\\')[-1] if '\\' in self._filename else self._filename
+        filename = self._filename.split('\\')[-1] if '\\' in self._filename else self._filename # pylint:disable=use-maxsplit-arg
         if not filename: # pragma: no cover
             filename = ''.join(random.choice(string.ascii_lowercase) for i in range(8))
 

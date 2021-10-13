@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def ConnectAndEnterRoom(self, arg0, arg1, arg2, arg3, arg4, arg5):
+def ConnectAndEnterRoom(self, arg0, arg1, arg2, arg3, arg4, arg5): # pylint:disable=unused-argument
     if len(arg0) > 172:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "GlobalLink ConnectAndEnterRoom ActiveX",

@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def GetDetailsString(self, arg0, arg1):
+def GetDetailsString(self, arg0, arg1): # pylint:disable=unused-argument
     if len(arg0) > 1023:
         log.ThugLogging.add_behavior_warn(
             "[Microsoft Windows Media Encoder WMEX.DLL ActiveX] GetDetailsString Method Buffer Overflow",

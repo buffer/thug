@@ -16,6 +16,7 @@ class Node:
         self._dataType = None
         self._xml = xml
         self._node = xml.createElement(elementName)
+        self.text = ""
 
     def getNodeTypedValue(self):
         try:

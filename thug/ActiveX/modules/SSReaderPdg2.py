@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def Register(self, arg0, arg1):
+def Register(self, arg0, arg1): # pylint:disable=unused-argument
     if len(arg1) > 255:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "SSReader Pdg2 ActiveX",
@@ -17,7 +17,7 @@ def Register(self, arg0, arg1):
         log.ThugLogging.Shellcode.check_shellcode(arg1)
 
 
-def LoadPage(self, arg0, arg1, arg2, arg3):
+def LoadPage(self, arg0, arg1, arg2, arg3): # pylint:disable=unused-argument
     if len(arg0) > 255:
         log.ThugLogging.log_exploit_event(self._window.url,
                                           "SSReader Pdg2 ActiveX",
