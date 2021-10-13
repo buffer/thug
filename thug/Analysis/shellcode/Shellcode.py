@@ -182,7 +182,7 @@ class Shellcode:
 
         emu.free()
 
-    def hook_URLDownloadToFile(self, emu, api_name, func, params): # pragma: no cover
+    def hook_URLDownloadToFile(self, emu, api_name, func, params): # pragma: no cover,pylint:disable=unused-argument
         rv = func(params)
 
         pCaller, szURL, szFileName, dwReserved, lpfnCB = params # pylint:disable=unused-variable
@@ -190,7 +190,7 @@ class Shellcode:
 
         return rv
 
-    def hook_WinExec(self, emu, api_name, func, params): # pragma: no cover
+    def hook_WinExec(self, emu, api_name, func, params): # pragma: no cover,pylint:disable=unused-argument
         rv = func(params)
 
         lpCmdLine, uCmdShow = params # pylint:disable=unused-variable
