@@ -352,7 +352,7 @@ class HTMLDocument(Document):
 
         return engine
 
-    def open(self, mimetype = 'text/html', historyPosition = "replace"):
+    def open(self, mimetype = 'text/html', historyPosition = "replace"): # pylint:disable=unused-argument
         self.doc = bs4.BeautifulSoup("", "html5lib")
         return self
 

@@ -30,7 +30,7 @@ class SchemeHandler:
 
         window.evalScript(hcp[0])
 
-    def handle_res(self, window, url):
+    def handle_res(self, window, url): # pylint:disable=unused-argument
         log.warning('Microsoft Internet Explorer RES Scheme Detected')
 
         try:

@@ -492,7 +492,7 @@ class MIMEHandler(dict):
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 pass
 
-    def handle_json(self, url, data):
+    def handle_json(self, url, data): # pylint:disable=unused-argument
         try:
             content = json.loads(data)
         except Exception: # pragma: no cover,pylint:disable=broad-except
@@ -513,7 +513,7 @@ class MIMEHandler(dict):
 
         return True
 
-    def passthrough(self, url, data):
+    def passthrough(self, url, data): # pylint:disable=unused-argument
         """
         The method passthrough is the default handler associated to
         almost all Content-Types with the few exceptions defined in

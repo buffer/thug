@@ -34,7 +34,7 @@ class Crypto(JSClass):
     def disableRightClick(self):
         pass
 
-    def importUserCertificates(self, nickname, cmmfResponse, forceToBackUp):
+    def importUserCertificates(self, nickname, cmmfResponse, forceToBackUp): # pylint:disable=unused-argument
         return ""
 
     def logout(self):

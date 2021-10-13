@@ -252,12 +252,12 @@ class Navigator(JSClass):
         return "en"
 
     # Indicates whether the host browser is Java-enabled or not.
-    def javaEnabled(self, *arg):
+    def javaEnabled(self, *arg): # pylint:disable=unused-argument
         return True
 
     # Lets code check to see if the document at a given URI is
     # available without using the network.
-    def _mozIsLocallyAvailable(self, uri, ifOffline):
+    def _mozIsLocallyAvailable(self, uri, ifOffline): # pylint:disable=unused-argument
         return False
 
     # Sets a user preference.

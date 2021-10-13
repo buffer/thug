@@ -171,7 +171,7 @@ class Document(Node, DocumentEvent, DocumentView):
     def _defaultCharset(self):
         return "Windows-1252"
 
-    def createElement(self, tagname, tagvalue = None):
+    def createElement(self, tagname, tagvalue = None): # pylint:disable=unused-argument
         from .DOMImplementation import DOMImplementation
 
         if log.ThugOpts.features_logging:
@@ -273,7 +273,7 @@ class Document(Node, DocumentEvent, DocumentView):
         return None
 
     # Introduced in DOM Level 2
-    def importNode(self, importedNode, deep = False):
+    def importNode(self, importedNode, deep = False): # pylint:disable=unused-argument
         return copy.copy(importedNode)
 
     # Modified in DOM Level 2
@@ -281,5 +281,5 @@ class Document(Node, DocumentEvent, DocumentView):
     def ownerDocument(self):
         return None
 
-    def execCommand(self, commandIdentifier, userInterface = False, value = None):
+    def execCommand(self, commandIdentifier, userInterface = False, value = None): # pylint:disable=unused-argument
         return False

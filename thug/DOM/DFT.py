@@ -838,23 +838,23 @@ class DFT:
     def handle_visualbasic(self, script):
         self.handle_vbscript(script)
 
-    def handle_noscript(self, script):
+    def handle_noscript(self, script): # pylint:disable=unused-argument
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_noscript_count()
 
-    def handle_html(self, html):
+    def handle_html(self, html): # pylint:disable=unused-argument
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_html_count()
 
-    def handle_head(self, head):
+    def handle_head(self, head): # pylint:disable=unused-argument
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_head_count()
 
-    def handle_title(self, title):
+    def handle_title(self, title): # pylint:disable=unused-argument
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_title_count()
 
-    def handle_body(self, body):
+    def handle_body(self, body): # pylint:disable=unused-argument
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_body_count()
 

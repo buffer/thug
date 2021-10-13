@@ -85,7 +85,7 @@ class External(JSClass):
     def _AutoCompleteSaveForm(self, formElement):
         pass
 
-    def _AutoScan(self, domainPart, defaultURL = None, target = None):
+    def _AutoScan(self, domainPart, defaultURL = None, target = None): # pylint:disable=unused-argument
         # This method does not work in Internet Explorer from version 7
         # and raises an exception.
         if log.ThugOpts.Personality.browserMajorVersion >= 7:
@@ -97,7 +97,7 @@ class External(JSClass):
     def _IsSearchProviderInstalled(self, URL):
         return 1 if URL in self._providers else 0
 
-    def _IsSubscribed(self, URL):
+    def _IsSubscribed(self, URL): # pylint:disable=unused-argument
         return False
 
     def _NavigateAndFind(self, URL, textToFind, findInFrame):

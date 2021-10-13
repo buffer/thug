@@ -405,7 +405,7 @@ class Node(JSClass, EventTarget):
         return self.attributes.length > 0
 
     # Introduced in DOM Level 3
-    def _compareDocumentPosition(self, node):
+    def _compareDocumentPosition(self, node): # pylint:disable=unused-argument
         return None
 
     # @abstractmethod

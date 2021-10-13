@@ -54,7 +54,7 @@ class UserProfile(JSClass):
         self._vCard = {}
         self._queue = []
 
-    def addReadRequest(self, vCardName, reserved = None):
+    def addReadRequest(self, vCardName, reserved = None): # pylint:disable=unused-argument
         for schema in self.vCardSchemas:
             if schema.lower() == vCardName.lower():
                 self._queue.append(vCardName)

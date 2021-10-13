@@ -748,7 +748,7 @@ class Window(JSClass):
         """
         log.warning('[Window] stop()')
 
-    def _attachEvent(self, sEvent, fpNotify, useCapture = False):
+    def _attachEvent(self, sEvent, fpNotify, useCapture = False): # pylint:disable=unused-argument
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_attachevent_count()
 
@@ -765,13 +765,13 @@ class Window(JSClass):
         if notify in (fpNotify, ):
             delattr(self, sEvent.lower())
 
-    def _addEventListener(self, _type, listener, useCapture = False):
+    def _addEventListener(self, _type, listener, useCapture = False): # pylint:disable=unused-argument
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_addeventlistener_count()
 
         setattr(self, f"on{_type.lower()}", listener)
 
-    def _removeEventListener(self, _type, listener, useCapture = False):
+    def _removeEventListener(self, _type, listener, useCapture = False): # pylint:disable=unused-argument
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_removeeventlistener_count()
 
@@ -1043,7 +1043,7 @@ class Window(JSClass):
     def decodeURIComponent(self, s):
         return unquote(s) if s else ""
 
-    def Image(self, width = 800, height = 600):
+    def Image(self, width = 800, height = 600): # pylint:disable=unused-argument
         return self.doc.createElement('img')
 
     def _XMLHttpRequest(self):
@@ -1064,7 +1064,7 @@ class Window(JSClass):
             except Exception: # pylint:disable=broad-except
                 log.warning(traceback.format_exc())
 
-    def getComputedStyle(self, element, pseudoelt = None):
+    def getComputedStyle(self, element, pseudoelt = None): # pylint:disable=unused-argument
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_getcomputedstyle_count()
 
