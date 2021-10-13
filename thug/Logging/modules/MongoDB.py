@@ -351,7 +351,7 @@ class MongoDB:
 
         return result['url_id']
 
-    def log_file(self, data, url = None, params = None):
+    def log_file(self, data, url = None, params = None): # pylint:disable=unused-argument
         if not self.enabled:
             return
 

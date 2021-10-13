@@ -345,14 +345,14 @@ class JSON:
 
         self.add_behavior(description, cve, snippet, method)
 
-    def log_file(self, data, url = None, params = None):
+    def log_file(self, data, url = None, params = None): # pylint:disable=unused-argument
         if not self.json_enabled:
             return
 
         if data not in self.data["files"]:
             self.data["files"].append(data)
 
-    def export(self, basedir):
+    def export(self, basedir): # pylint:disable=unused-argument
         if not self.json_enabled:
             return
 
@@ -374,7 +374,7 @@ class JSON:
 
         self.cached_data = output
 
-    def get_json_data(self, basedir):
+    def get_json_data(self, basedir): # pylint:disable=unused-argument
         if self.cached_data:
             return self.cached_data.getvalue()
 

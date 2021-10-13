@@ -81,7 +81,7 @@ class ElasticSearch(JSON):
         self.es.indices.create(index = self.opts['index'], ignore = 400)  # pylint:disable=unexpected-keyword-arg
         return True
 
-    def export(self, basedir):
+    def export(self, basedir): # pylint:disable=unused-argument
         if not self.enabled:
             return None
 
