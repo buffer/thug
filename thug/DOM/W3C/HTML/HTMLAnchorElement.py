@@ -16,6 +16,7 @@ class HTMLAnchorElement(HTMLElement):
     accessKey = attr_property("accesskey")
     charset   = attr_property("charset", default = "")
     coords    = attr_property("coords")
+    download  = attr_property("download")
     href      = attr_property("href")
     hreflang  = attr_property("hreflang")
     name      = attr_property("name")
