@@ -39,7 +39,7 @@ setup(
     author_email = "angelo.dellaera@honeynet.org",
     description = "Low-interaction honeyclient Thug",
     license = "GPLv2",
-    long_description = open("README.rst").read(),
+    long_description = open("README.rst", encoding = 'utf-8', mode = 'r').read(),
     url = "http://buffer.github.io/thug/",
     download_url = "https://github.com/buffer/thug/",
     platforms = ["Linux", ],
@@ -90,7 +90,7 @@ setup(
         (cookie_filter_path         , glob.glob("thug/Classifier/rules/cookiefilter/*.yar")),
         (image_filter_path          , glob.glob("thug/Classifier/rules/imagefilter/*.yar")),
     ],
-    install_requires = open("requirements.txt").read().splitlines(),
+    install_requires = open("requirements.txt", encoding = 'utf-8', mode = 'r').read().splitlines(),
     entry_points = {
         "console_scripts": [
             "thug = thug.thug:main",
