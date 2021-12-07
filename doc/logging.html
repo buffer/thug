@@ -1,77 +1,36 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Logging &mdash; Thug 3.5 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+  <title>Logging &mdash; Thug 3.6 documentation</title>
+      <link rel="stylesheet" href="static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
         <script src="static/doctools.js"></script>
-    
-    <script type="text/javascript" src="static/js/theme.js"></script>
-
-    
+    <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="JS Hooks" href="jshooks.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> Thug
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
-                3.5
+                3.6
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -79,18 +38,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build.html">Build and Install</a></li>
@@ -144,73 +92,32 @@
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugin Framework</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Thug</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Logging</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="sources/logging.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <div class="section" id="logging">
-<span id="id1"></span><h1>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Logging<a class="headerlink" href="#logging" title="Permalink to this headline"></a></h1>
 <p>Currently different logging modes are available in Thug. Some of them can be combined
 in order to store the result of the analysis in different formats if needed. By default
 Thug attempts storing analysis logs in a MongoDB instance (see later for a detailed
@@ -223,7 +130,7 @@ explanation of the MongoDB collection schema).</p>
 <li><p>File logging mode</p></li>
 </ul>
 <div class="section" id="logging-configuration">
-<h2>Logging configuration<a class="headerlink" href="#logging-configuration" title="Permalink to this headline">¶</a></h2>
+<h2>Logging configuration<a class="headerlink" href="#logging-configuration" title="Permalink to this headline"></a></h2>
 <p>The configuration file <em>/etc/thug/thug.conf</em> defines the way Thug uses to log the results
 of its analyses. The default logging configuration is shown below.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>mongodb<span class="o">]</span>
@@ -241,7 +148,7 @@ index:      thug
 document.</p>
 </div>
 <div class="section" id="mongodb-logging-mode">
-<h2>MongoDB logging mode<a class="headerlink" href="#mongodb-logging-mode" title="Permalink to this headline">¶</a></h2>
+<h2>MongoDB logging mode<a class="headerlink" href="#mongodb-logging-mode" title="Permalink to this headline"></a></h2>
 <p>By default Thug attempts storing the result of its analyses in a MongoDB instance. Be
 aware that if you don’t install MongoDB and pymongo (the Python wrapper) or if the
 MongoDB process is not running, Thug will just emit a warning message and then continue
@@ -265,9 +172,9 @@ example by using the <em>–mongodb-address</em> option from the command line. T
 useful when using the dockerized version of Thug, where storing results in Docker itself would
 mean to lose them as soon as the Docker instance is shut down.</p>
 <div class="section" id="collection-schema">
-<h3>Collection schema<a class="headerlink" href="#collection-schema" title="Permalink to this headline">¶</a></h3>
+<h3>Collection schema<a class="headerlink" href="#collection-schema" title="Permalink to this headline"></a></h3>
 <div class="section" id="urls">
-<h4>urls<a class="headerlink" href="#urls" title="Permalink to this headline">¶</a></h4>
+<h4>urls<a class="headerlink" href="#urls" title="Permalink to this headline"></a></h4>
 <p>The collection <em>urls</em> is used to keep track of the URLs visited during the analysis.
 A URL is always associated a single entry in this collection even if it is visited
 multiple times (during the same analysis or in different analyses). Associating a
@@ -280,7 +187,7 @@ different redirection chains ending up using the same URLs.</p>
 </div>
 </div>
 <div class="section" id="analyses">
-<h4>analyses<a class="headerlink" href="#analyses" title="Permalink to this headline">¶</a></h4>
+<h4>analyses<a class="headerlink" href="#analyses" title="Permalink to this headline"></a></h4>
 <p>The collection <em>analyses</em> is used to keep track of the Thug analyses. The analysis
 options used for the single analysis are stored together with other useful information
 like the used Thug version and the analysis datetime. Moreover the URL ObjectID of the
@@ -315,7 +222,7 @@ initial URL is stored for convenience.</p>
 </div>
 </div>
 <div class="section" id="connections">
-<h4>connections<a class="headerlink" href="#connections" title="Permalink to this headline">¶</a></h4>
+<h4>connections<a class="headerlink" href="#connections" title="Permalink to this headline"></a></h4>
 <p>The collection <em>connections</em> is used to keep track of the redirections which could happen
 during the single analysis. The field <em>chain_id</em> is a counter which is incremented by one at
 every redirection and it’s meant to be used in order to rebuild the redirection chain in the
@@ -332,7 +239,7 @@ right order while analyzing data.</p>
 </div>
 </div>
 <div class="section" id="locations">
-<h4>locations<a class="headerlink" href="#locations" title="Permalink to this headline">¶</a></h4>
+<h4>locations<a class="headerlink" href="#locations" title="Permalink to this headline"></a></h4>
 <p>The collection <em>locations</em> is used to keep track of the content stored at each URL visited
 during the analysis. The content is stored in a MongoDB GridFS and additional metadata are
 saved like MD5 and SHA-256 checksums, content size, content type (as served by the server)
@@ -354,7 +261,7 @@ and evaluated content type.</p>
 </div>
 </div>
 <div class="section" id="samples">
-<h4>samples<a class="headerlink" href="#samples" title="Permalink to this headline">¶</a></h4>
+<h4>samples<a class="headerlink" href="#samples" title="Permalink to this headline"></a></h4>
 <p>The collection <em>samples</em> is used to keep track of the downloaded samples (currently supported
 types: PE, PDF, JAR and SWF). The sample itself is stored in a MongoDB GridFS and additional
 metadata are saved like MD5, SHA-1 and SHA-256 checksums, sample type and imphash (if the sample
@@ -373,7 +280,7 @@ type is PE).</p>
 </div>
 </div>
 <div class="section" id="exploits">
-<h4>exploits<a class="headerlink" href="#exploits" title="Permalink to this headline">¶</a></h4>
+<h4>exploits<a class="headerlink" href="#exploits" title="Permalink to this headline"></a></h4>
 <p>The collection <em>eploits</em> is used to keep track of the exploits which were successfully
 identified during the analysis while visiting the URL referenced by <em>url_id</em>.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
@@ -388,7 +295,7 @@ identified during the analysis while visiting the URL referenced by <em>url_id</
 </div>
 </div>
 <div class="section" id="classifiers">
-<h4>classifiers<a class="headerlink" href="#classifiers" title="Permalink to this headline">¶</a></h4>
+<h4>classifiers<a class="headerlink" href="#classifiers" title="Permalink to this headline"></a></h4>
 <p>The collection <em>classifiers</em> is used to keep track of the Thug classifiers matches that
 fire during the analysis while visiting the URL referenced by <em>url_id</em>.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
@@ -402,7 +309,7 @@ fire during the analysis while visiting the URL referenced by <em>url_id</em>.</
 </div>
 </div>
 <div class="section" id="codes">
-<h4>codes<a class="headerlink" href="#codes" title="Permalink to this headline">¶</a></h4>
+<h4>codes<a class="headerlink" href="#codes" title="Permalink to this headline"></a></h4>
 <p>The collection <em>codes</em> is used to keep track of the (dynamic language) snippets of code
 identified during the analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
@@ -417,7 +324,7 @@ identified during the analysis.</p>
 </div>
 </div>
 <div class="section" id="behaviors">
-<h4>behaviors<a class="headerlink" href="#behaviors" title="Permalink to this headline">¶</a></h4>
+<h4>behaviors<a class="headerlink" href="#behaviors" title="Permalink to this headline"></a></h4>
 <p>The collection <em>behaviors</em> is used to keep track of the suspicious and/or malicious
 behaviors observed during the analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
@@ -432,7 +339,7 @@ behaviors observed during the analysis.</p>
 </div>
 </div>
 <div class="section" id="certificates">
-<h4>certificates<a class="headerlink" href="#certificates" title="Permalink to this headline">¶</a></h4>
+<h4>certificates<a class="headerlink" href="#certificates" title="Permalink to this headline"></a></h4>
 <p>The collection <em>certificates</em> is used to store the SSL certificates collected from
 servers during the analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
@@ -444,7 +351,7 @@ servers during the analysis.</p>
 </div>
 </div>
 <div class="section" id="graphs">
-<h4>graphs<a class="headerlink" href="#graphs" title="Permalink to this headline">¶</a></h4>
+<h4>graphs<a class="headerlink" href="#graphs" title="Permalink to this headline"></a></h4>
 <p>The collection <em>graphs</em> is used to store the analysis JSON exploit graph.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
@@ -454,7 +361,7 @@ servers during the analysis.</p>
 </div>
 </div>
 <div class="section" id="virustotal">
-<h4>virustotal<a class="headerlink" href="#virustotal" title="Permalink to this headline">¶</a></h4>
+<h4>virustotal<a class="headerlink" href="#virustotal" title="Permalink to this headline"></a></h4>
 <p>The collection <em>virustotal</em> is used to store the VirusTotal sample analysis reports.
 The Sample ObjectID references the <em>samples</em> collection.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
@@ -466,7 +373,7 @@ The Sample ObjectID references the <em>samples</em> collection.</p>
 </div>
 </div>
 <div class="section" id="honeyagent">
-<h4>honeyagent<a class="headerlink" href="#honeyagent" title="Permalink to this headline">¶</a></h4>
+<h4>honeyagent<a class="headerlink" href="#honeyagent" title="Permalink to this headline"></a></h4>
 <p>The collection <em>honeyagent</em> is used to store the HoneyAgent Java sandbox sample analysis
 reports. The Sample ObjectID references the <em>samples</em> collection.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
@@ -478,7 +385,7 @@ reports. The Sample ObjectID references the <em>samples</em> collection.</p>
 </div>
 </div>
 <div class="section" id="json">
-<h4>json<a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h4>
+<h4>json<a class="headerlink" href="#json" title="Permalink to this headline"></a></h4>
 <p>The collection <em>json</em> is used to store the Thug analysis reports in JSON format.
 JSON logging mode should be enabled in order to have Thug saving data in
 this collection</p>
@@ -490,7 +397,7 @@ this collection</p>
 </div>
 </div>
 <div class="section" id="images">
-<h4>images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h4>
+<h4>images<a class="headerlink" href="#images" title="Permalink to this headline"></a></h4>
 <p>The collection <em>images</em> is used to store the results of the image processing
 analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
@@ -503,7 +410,7 @@ analysis.</p>
 </div>
 </div>
 <div class="section" id="screenshots">
-<h4>screenshots<a class="headerlink" href="#screenshots" title="Permalink to this headline">¶</a></h4>
+<h4>screenshots<a class="headerlink" href="#screenshots" title="Permalink to this headline"></a></h4>
 <p>The collection <em>screenshots</em> is used to store base-64 encoded screenshots (JPG format)
 of the analyzed page.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
@@ -515,7 +422,7 @@ of the analyzed page.</p>
 </div>
 </div>
 <div class="section" id="awis">
-<h4>awis<a class="headerlink" href="#awis" title="Permalink to this headline">¶</a></h4>
+<h4>awis<a class="headerlink" href="#awis" title="Permalink to this headline"></a></h4>
 <p>The collection <em>awis</em> is used to store Alexa Web Information Service (AWIS) reports.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
         <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
@@ -527,7 +434,7 @@ of the analyzed page.</p>
 </div>
 </div>
 <div class="section" id="elasticsearch-logging-module">
-<h2>ElasticSearch logging module<a class="headerlink" href="#elasticsearch-logging-module" title="Permalink to this headline">¶</a></h2>
+<h2>ElasticSearch logging module<a class="headerlink" href="#elasticsearch-logging-module" title="Permalink to this headline"></a></h2>
 <p>The ElasticSearch logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in an ElasticSearch instance. Deploying and configuring the
 instance is totally up to you and no images are provided for that.</p>
@@ -549,7 +456,7 @@ index:      thug
 </div>
 </div>
 <div class="section" id="json-logging-mode">
-<h2>JSON logging mode<a class="headerlink" href="#json-logging-mode" title="Permalink to this headline">¶</a></h2>
+<h2>JSON logging mode<a class="headerlink" href="#json-logging-mode" title="Permalink to this headline"></a></h2>
 <p>The JSON logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in JSON format. The JSON logging mode was enabled by default
 before Thug 0.5.6 together with the File logging mode. If you are using Thug 0.5.7 (or later)
@@ -598,7 +505,7 @@ in a JSON file in the log directory too. The JSON format is shown below.</p>
 <p>Following the format and additional details about the lists containing the analysis results
 and the resources downloaded during the analysis.</p>
 <div class="section" id="id2">
-<h3>behaviors<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h3>behaviors<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;description&#39;</span> : Observed behavior description
     <span class="s1">&#39;cve&#39;</span>         : CVE number <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
@@ -610,7 +517,7 @@ and the resources downloaded during the analysis.</p>
 </div>
 </div>
 <div class="section" id="id3">
-<h3>codes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3>codes<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;snippet&#39;</span>      : Code snippet
     <span class="s1">&#39;language&#39;</span>     : Code language
@@ -622,12 +529,12 @@ and the resources downloaded during the analysis.</p>
 </div>
 </div>
 <div class="section" id="files">
-<h3>files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h3>
+<h3>files<a class="headerlink" href="#files" title="Permalink to this headline"></a></h3>
 <p>Each content downloaded during the analysis is saved in an entry in the <em>files</em>
 list.</p>
 </div>
 <div class="section" id="id4">
-<h3>connections<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3>connections<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;source&quot;</span>         : Source URL
     <span class="s2">&quot;destination&quot;</span>    : Destination URL
@@ -638,7 +545,7 @@ list.</p>
 </div>
 </div>
 <div class="section" id="id5">
-<h3>locations<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3>locations<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s2">&quot;url&quot;</span>           : URL url
     <span class="s2">&quot;content&quot;</span>       : Content
@@ -655,7 +562,7 @@ list.</p>
 </div>
 </div>
 <div class="section" id="id6">
-<h3>exploits<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3>exploits<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;url&#39;</span>         : URL
     <span class="s1">&#39;module&#39;</span>      : Module/ActiveX Control, etc. that gets exploited
@@ -667,7 +574,7 @@ list.</p>
 </div>
 </div>
 <div class="section" id="id7">
-<h3>classifiers<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3>classifiers<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;classifier&#39;</span>  : Classifier <span class="o">(</span>possible values: html, js, url, sample<span class="o">)</span>
     <span class="s1">&#39;url&#39;</span>         : URL
@@ -678,7 +585,7 @@ list.</p>
 </div>
 </div>
 <div class="section" id="id8">
-<h3>images<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3>images<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;url&#39;</span>         : URL
     <span class="s1">&#39;classifier&#39;</span>  : Classifier <span class="o">(</span>possible values: OCR<span class="o">)</span>
@@ -688,7 +595,7 @@ list.</p>
 </div>
 </div>
 <div class="section" id="id9">
-<h3>screenshots<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3>screenshots<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;url&#39;</span>         : URL
     <span class="s1">&#39;screenshot&#39;</span>  : Base-64 encoded screenshot
@@ -697,7 +604,7 @@ list.</p>
 </div>
 </div>
 <div class="section" id="id10">
-<h3>awis<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h3>awis<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
     <span class="s1">&#39;awis&#39;</span>       : AWIS reports
 <span class="o">}</span>
@@ -706,7 +613,7 @@ list.</p>
 </div>
 </div>
 <div class="section" id="file-logging-mode">
-<h2>File logging mode<a class="headerlink" href="#file-logging-mode" title="Permalink to this headline">¶</a></h2>
+<h2>File logging mode<a class="headerlink" href="#file-logging-mode" title="Permalink to this headline"></a></h2>
 <p>The File logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in flat files. The File logging mode was enabled by default
 before Thug 0.5.6. If you are using Thug 0.5.7 (or later) you have to explicitely enable
@@ -771,50 +678,33 @@ you can see in this directory are saved in the database instance as well.</p>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="plugins.html" class="btn btn-neutral float-right" title="Plugin Framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="jshooks.html" class="btn btn-neutral float-left" title="JS Hooks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plugins.html" class="btn btn-neutral float-right" title="Plugin Framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2011-2021, Angelo Dell&#39;Aera.
-
-    </p>
+    <p>&#169; Copyright 2011-2021, Angelo Dell&#39;Aera.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
