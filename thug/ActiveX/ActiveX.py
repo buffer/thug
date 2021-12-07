@@ -132,7 +132,6 @@ class _ActiveXObject:
             log.ThugLogging.Features.increase_activex_count()
 
         for method_name, method in obj['methods'].items():
-            # _method = new.instancemethod(method, self, _ActiveXObject)
             _method = method.__get__(self, _ActiveXObject)
             setattr(self, method_name, _method)
             methods[method] = _method
@@ -169,9 +168,8 @@ class _ActiveXObject:
 
 
 def register_object(s, clsid):
-    funcattrs = {}  # pylint:disable=unused-variable
-    methods   = {}
-    obj       = None
+    methods = {}
+    obj     = None
 
     if not clsid.startswith('clsid:'):
         log.warning("Unknown ActiveX object: %s", clsid)
@@ -208,7 +206,6 @@ def register_object(s, clsid):
     log.warning("ActiveXObject: %s", clsid)
 
     for method_name, method in obj['methods'].items():
-        # _method = new.instancemethod(method, s, s.__class__)
         _method = method.__get__(s, s.__class__)
         setattr(s, method_name, _method)
         methods[method] = _method
@@ -216,7 +213,6 @@ def register_object(s, clsid):
     for attr_name, attr_value in obj['attrs'].items():
         setattr(s, attr_name, attr_value)
 
-    # PLEASE REVIEW ME!
     for attr_name, attr_value in obj['funcattrs'].items():
         if 'funcattrs' not in s.__dict__:
             s.__dict__['funcattrs'] = {}

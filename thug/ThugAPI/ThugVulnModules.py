@@ -113,7 +113,7 @@ class ThugVulnModules(dict):
     @property
     def javawebstart_isinstalled(self):
         javawebstart = self._javaplugin.split('.')
-        last         = javawebstart.pop()  # pylint:disable=unused-variable
+        javawebstart.pop()
         return f"{'.'.join(javawebstart)}.0"
 
     def get_silverlight(self):
