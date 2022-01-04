@@ -54,7 +54,7 @@ Since tox builds and installs dependencies from scratch, using `pytest`_ for fas
 License information
 -------------------
 
-Copyright (C) 2011-2021 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
+Copyright (C) 2011-2022 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
 
 License: GNU General Public License, version 2
 
