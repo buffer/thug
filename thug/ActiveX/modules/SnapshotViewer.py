@@ -31,5 +31,5 @@ def PrintSnapshot(self, SnapshotPath = '', CompressedPath = ''):
 
     try:
         self._window._navigator.fetch(url, redirect_type = "CVE-2008-2463")
-    except Exception: # pylint:disable=broad-except
+    except Exception: # pragma: no cover,pylint:disable=broad-except
         log.ThugLogging.add_behavior_warn('[Microsoft Access Snapshot Viewer ActiveX] Fetch failed')
