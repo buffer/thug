@@ -1498,6 +1498,8 @@ class DFT:
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
+        self.run_htmlclassifier(soup)
+
     def run(self):
         with self.context as ctx:  # pylint:disable=unused-variable
             self._run()
