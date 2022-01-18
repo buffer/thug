@@ -500,8 +500,6 @@ class DFT:
         self.do_params_fetch(archive, headers, params)
 
     def handle_object(self, _object):
-        log.warning(_object)
-
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_object_count()
 
@@ -762,8 +760,6 @@ class DFT:
         return 'external' if src else 'inline'
 
     def handle_javascript(self, script):
-        log.info(script)
-
         provenance = self.get_javascript_provenance(script)
         self.handle_external_javascript(script)
         self.increase_javascript_count(provenance)
@@ -794,8 +790,6 @@ class DFT:
         self.handle_javascript(script)
 
     def handle_vbscript(self, script):
-        log.info(script)
-
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_inline_vbscript_count()
 
@@ -861,8 +855,6 @@ class DFT:
     def do_handle_form(self, form):
         from .Window import Window
 
-        log.info(form)
-
         action = form.get('action', None)
         if action in (None, 'self', ): # pragma: no cover
             last_url = getattr(log, 'last_url', None)
@@ -916,12 +908,7 @@ class DFT:
         dft = DFT(window, forms = self.forms)
         dft.run()
 
-    def handle_param(self, param):
-        log.info(param)
-
     def handle_embed(self, embed):
-        log.warning(embed)
-
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_embed_count()
 
@@ -954,8 +941,6 @@ class DFT:
             log.info("[ERROR][handle_embed] %s", str(e))
 
     def handle_applet(self, applet):
-        log.warning(applet)
-
         params = self.do_handle_params(applet)
 
         archive = applet.get('archive', None)
@@ -981,8 +966,6 @@ class DFT:
             log.info("[ERROR][handle_applet] %s", str(e))
 
     def handle_meta(self, meta):
-        log.info(meta)
-
         name = meta.get('name', None)
         if name and name.lower() in ('generator', ):
             content = meta.get('content', None)
@@ -1098,9 +1081,6 @@ class DFT:
         dft.run()
 
     def handle_frame(self, frame, redirect_type = 'frame'):
-        if redirect_type not in ('iframe', ):
-            log.warning(frame)
-
         src = frame.get('src', None)
         if not src:
             return
@@ -1171,8 +1151,6 @@ class DFT:
                 return
 
     def handle_style(self, style):
-        log.info(style)
-
         cssparser = CSSParser(loglevel = logging.CRITICAL, validate = False)
 
         try:
@@ -1253,8 +1231,6 @@ class DFT:
         return data
 
     def handle_a(self, anchor):
-        log.info(anchor)
-
         self.anchors.append(anchor)
 
         if not log.ThugOpts.extensive:
@@ -1290,8 +1266,6 @@ class DFT:
             dft.run()
 
     def handle_link(self, link):
-        log.info(link)
-
         href = link.get('href', None)
         if not href: # pragma: no cover
             return
@@ -1314,7 +1288,6 @@ class DFT:
         if not log.MIMEHandler.image_ocr_enabled and not log.MIMEHandler.image_hook_enabled: # pragma: no cover
             return
 
-        log.info(img)
         src = img.get('src', None)
         if not src: # pragma: no cover
             return
