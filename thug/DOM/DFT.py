@@ -151,7 +151,7 @@ class DFT:
         return evtObject
 
     # Events handling
-    def handle_element_event(self, evt):
+    def handle_element_event(self, evt, soup):
         from thug.DOM.W3C.Events.Event import Event
 
         for (elem, eventType, listener, capture) in self.listeners:  # pylint:disable=unused-variable
@@ -170,6 +170,7 @@ class DFT:
 
                 self.dispatched_events.add((elem._node, evt))
                 elem._node.dispatchEvent(evtObject)
+                self.run_htmlclassifier(soup)
 
     def handle_window_storage_event(self, onevt, evtObject):
         if onevt in self.handled_on_events:
@@ -184,7 +185,7 @@ class DFT:
         else:
             handler.apply(evtObject.currentTarget)
 
-    def handle_window_event(self, onevt):
+    def handle_window_event(self, onevt, soup):
         if onevt not in self.handled_on_events:
             return # pragma: no cover
 
@@ -204,6 +205,7 @@ class DFT:
 
             evtObject = self.get_evtObject(self.window, onevt[2:])
             self.run_event_handler(handler, evtObject)
+            self.run_htmlclassifier(soup)
             return
 
         with self.context as ctx:
@@ -216,8 +218,9 @@ class DFT:
 
                 handler.call()
                 self.dispatched_events.add((self.window, onevt[2:], handler))
+                self.run_htmlclassifier(soup)
 
-    def handle_document_event(self, onevt):
+    def handle_document_event(self, onevt, soup):
         if onevt not in self.handled_on_events:
             return # pragma: no cover
 
@@ -225,6 +228,7 @@ class DFT:
         handler = getattr(self.window.doc, onevt, None)
         if handler:
             self.run_event_handler(handler, evtObject)
+            self.run_htmlclassifier(soup)
 
         if '_listeners' not in self.window.doc.tag.__dict__:
             return # pragma: no cover
@@ -240,6 +244,7 @@ class DFT:
 
             evtObject = self.get_evtObject(self.window.doc, eventType)
             self.run_event_handler(listener, evtObject)
+            self.run_htmlclassifier(soup)
 
     def _build_event_handler(self, ctx, h):
         # When an event handler is registered by setting an HTML attribute
@@ -500,8 +505,6 @@ class DFT:
         self.do_params_fetch(archive, headers, params)
 
     def handle_object(self, _object):
-        log.warning(_object)
-
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_object_count()
 
@@ -762,8 +765,6 @@ class DFT:
         return 'external' if src else 'inline'
 
     def handle_javascript(self, script):
-        log.info(script)
-
         provenance = self.get_javascript_provenance(script)
         self.handle_external_javascript(script)
         self.increase_javascript_count(provenance)
@@ -794,8 +795,6 @@ class DFT:
         self.handle_javascript(script)
 
     def handle_vbscript(self, script):
-        log.info(script)
-
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_inline_vbscript_count()
 
@@ -861,8 +860,6 @@ class DFT:
     def do_handle_form(self, form):
         from .Window import Window
 
-        log.info(form)
-
         action = form.get('action', None)
         if action in (None, 'self', ): # pragma: no cover
             last_url = getattr(log, 'last_url', None)
@@ -916,12 +913,7 @@ class DFT:
         dft = DFT(window, forms = self.forms)
         dft.run()
 
-    def handle_param(self, param):
-        log.info(param)
-
     def handle_embed(self, embed):
-        log.warning(embed)
-
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_embed_count()
 
@@ -954,8 +946,6 @@ class DFT:
             log.info("[ERROR][handle_embed] %s", str(e))
 
     def handle_applet(self, applet):
-        log.warning(applet)
-
         params = self.do_handle_params(applet)
 
         archive = applet.get('archive', None)
@@ -981,8 +971,6 @@ class DFT:
             log.info("[ERROR][handle_applet] %s", str(e))
 
     def handle_meta(self, meta):
-        log.info(meta)
-
         name = meta.get('name', None)
         if name and name.lower() in ('generator', ):
             content = meta.get('content', None)
@@ -1098,9 +1086,6 @@ class DFT:
         dft.run()
 
     def handle_frame(self, frame, redirect_type = 'frame'):
-        if redirect_type not in ('iframe', ):
-            log.warning(frame)
-
         src = frame.get('src', None)
         if not src:
             return
@@ -1171,8 +1156,6 @@ class DFT:
                 return
 
     def handle_style(self, style):
-        log.info(style)
-
         cssparser = CSSParser(loglevel = logging.CRITICAL, validate = False)
 
         try:
@@ -1253,8 +1236,6 @@ class DFT:
         return data
 
     def handle_a(self, anchor):
-        log.info(anchor)
-
         self.anchors.append(anchor)
 
         if not log.ThugOpts.extensive:
@@ -1290,8 +1271,6 @@ class DFT:
             dft.run()
 
     def handle_link(self, link):
-        log.info(link)
-
         href = link.get('href', None)
         if not href: # pragma: no cover
             return
@@ -1314,7 +1293,6 @@ class DFT:
         if not log.MIMEHandler.image_ocr_enabled and not log.MIMEHandler.image_hook_enabled: # pragma: no cover
             return
 
-        log.info(img)
         src = img.get('src', None)
         if not src: # pragma: no cover
             return
@@ -1504,22 +1482,19 @@ class DFT:
     def handle_events(self, soup):
         for evt in self.handled_on_events:
             try:
-                self.handle_window_event(evt)
-                self.run_htmlclassifier(soup)
+                self.handle_window_event(evt, soup)
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
             try:
-                self.handle_document_event(evt)
-                self.run_htmlclassifier(soup)
+                self.handle_document_event(evt, soup)
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_events:
             try:
-                self.handle_element_event(evt)
-                self.run_htmlclassifier(soup)
+                self.handle_element_event(evt, soup)
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 

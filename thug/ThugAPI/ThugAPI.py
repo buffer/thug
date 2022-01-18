@@ -90,6 +90,7 @@ class ThugAPI:
         log.Encoding        = Encoding()
         log.WebTracking     = WebTracking()
         log.HTMLInspector   = HTMLInspector()
+        log.SSLCertificates = {}
 
     def __init_classifiers(self):
         log.HTMLClassifier   = HTMLClassifier()
