@@ -68,6 +68,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.meta            = {}
         self.frames          = {}
         self.redirections    = {}
+        self.ssl_certs       = {}
         self.url             = ""
 
         self.__init_hook_symbols()
