@@ -227,6 +227,8 @@ class TestThugAPI:
         assert not log.ThugOpts.code_logging
 
     def test_cert_logging(self):
+        self.thug_api.reset_ssl_certificates()
+
         self.thug_api.enable_cert_logging()
         assert log.ThugOpts.cert_logging
 

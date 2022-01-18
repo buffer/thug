@@ -874,6 +874,15 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def reset_ssl_certificates():
+        """
+        reset_ssl_certificates
+
+        Reset all the SSL certificates
+
+        @return: None
+        """
+
     def log_event():
         """
         log_event

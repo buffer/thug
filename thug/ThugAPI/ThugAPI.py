@@ -70,6 +70,7 @@ class ThugAPI:
         self.__init_conf(configuration_path)
         self.__init_jsengine()
         self.__init_pyhooks()
+        self.__init_ssl_certificates()
         self.__init_core()
         self.__init_classifiers()
         self.__init_opaque_filter()
@@ -90,7 +91,6 @@ class ThugAPI:
         log.Encoding        = Encoding()
         log.WebTracking     = WebTracking()
         log.HTMLInspector   = HTMLInspector()
-        log.SSLCertificates = {}
 
     def __init_classifiers(self):
         log.HTMLClassifier   = HTMLClassifier()
@@ -115,6 +115,9 @@ class ThugAPI:
 
     def __init_pyhooks(self):
         log.PyHooks = {}
+
+    def __init_ssl_certificates(self):
+        log.SSLCertificates = {}
 
     def __init_trace(self):
         log.Trace = None
@@ -431,6 +434,9 @@ class ThugAPI:
             log.PyHooks[module] = {}
 
         log.PyHooks[module][method] = hook
+
+    def reset_ssl_certificates(self):
+        log.SSLCertificates.clear()
 
     def log_event(self):
         log.ThugLogging.log_event()
