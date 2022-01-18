@@ -192,8 +192,13 @@ class HTTPSession:
 
         port = _url.port if _url.port else 443
 
+        certificate = log.SSLCertificates.get((_url.netloc, port), None)
+        if certificate:
+            return
+
         try:
             certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_SSLv23)
+            log.SSLCertificates[(_url.netloc, port)] = certificate
             log.ThugLogging.log_certificate(url, certificate)
         except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning("[SSL ERROR] %s", str(e))
