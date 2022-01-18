@@ -32,7 +32,7 @@ class HTMLClassifier(BaseClassifier):
 
     def classify(self, url, html):
         for match in self.rules.match(data = html):
-            if (url, match) in self.matches:
+            if (url, match) in self.matches: # pragma: no cover
                 continue
 
             self.matches.append((url, match))
