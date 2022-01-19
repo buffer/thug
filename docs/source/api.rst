@@ -944,6 +944,15 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def reset_classifiers():
+            """
+            reset_classifiers
+
+            Reset all the classifiers
+
+            @return: None
+            """
+
         def reset_customclassifiers()
             """
             reset_customclassifiers

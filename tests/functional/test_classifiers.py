@@ -52,6 +52,7 @@ class TestClassifiers(object):
         thug.set_ssl_verify()
         thug.log_init(sample)
 
+        thug.reset_classifiers()
         thug.reset_customclassifiers()
         thug.add_customclassifier('url', self.catchall)
         thug.reset_customclassifiers()
