@@ -1478,25 +1478,23 @@ class DFT:
         for evt in self.handled_on_events:
             try:
                 self.handle_window_event(evt)
-                # self.run_htmlclassifier(soup)
+                self.run_htmlclassifier(soup)
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
             try:
                 self.handle_document_event(evt)
-                # self.run_htmlclassifier(soup)
+                self.run_htmlclassifier(soup)
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_events:
             try:
                 self.handle_element_event(evt)
-                # self.run_htmlclassifier(soup)
+                self.run_htmlclassifier(soup)
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
-
-        self.run_htmlclassifier(soup)
 
     def run(self):
         with self.context as ctx:  # pylint:disable=unused-variable
