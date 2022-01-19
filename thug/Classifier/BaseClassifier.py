@@ -126,6 +126,9 @@ class BaseClassifier:
         method_name = get_function_code(method).co_name
         self.custom_classifiers[method_name] = method.__get__(self)
 
+    def reset_classifier(self):
+        self.matches = []
+
     def reset_customclassifiers(self):
         self.custom_classifiers = {}
 

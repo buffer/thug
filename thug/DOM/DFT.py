@@ -151,7 +151,7 @@ class DFT:
         return evtObject
 
     # Events handling
-    def handle_element_event(self, evt, soup):
+    def handle_element_event(self, evt):
         from thug.DOM.W3C.Events.Event import Event
 
         for (elem, eventType, listener, capture) in self.listeners:  # pylint:disable=unused-variable
@@ -170,7 +170,6 @@ class DFT:
 
                 self.dispatched_events.add((elem._node, evt))
                 elem._node.dispatchEvent(evtObject)
-                self.run_htmlclassifier(soup)
 
     def handle_window_storage_event(self, onevt, evtObject):
         if onevt in self.handled_on_events:
@@ -185,7 +184,7 @@ class DFT:
         else:
             handler.apply(evtObject.currentTarget)
 
-    def handle_window_event(self, onevt, soup):
+    def handle_window_event(self, onevt):
         if onevt not in self.handled_on_events:
             return # pragma: no cover
 
@@ -205,7 +204,6 @@ class DFT:
 
             evtObject = self.get_evtObject(self.window, onevt[2:])
             self.run_event_handler(handler, evtObject)
-            self.run_htmlclassifier(soup)
             return
 
         with self.context as ctx:
@@ -218,9 +216,8 @@ class DFT:
 
                 handler.call()
                 self.dispatched_events.add((self.window, onevt[2:], handler))
-                self.run_htmlclassifier(soup)
 
-    def handle_document_event(self, onevt, soup):
+    def handle_document_event(self, onevt):
         if onevt not in self.handled_on_events:
             return # pragma: no cover
 
@@ -228,7 +225,6 @@ class DFT:
         handler = getattr(self.window.doc, onevt, None)
         if handler:
             self.run_event_handler(handler, evtObject)
-            self.run_htmlclassifier(soup)
 
         if '_listeners' not in self.window.doc.tag.__dict__:
             return # pragma: no cover
@@ -244,7 +240,6 @@ class DFT:
 
             evtObject = self.get_evtObject(self.window.doc, eventType)
             self.run_event_handler(listener, evtObject)
-            self.run_htmlclassifier(soup)
 
     def _build_event_handler(self, ctx, h):
         # When an event handler is registered by setting an HTML attribute
@@ -1482,23 +1477,24 @@ class DFT:
     def handle_events(self, soup):
         for evt in self.handled_on_events:
             try:
-                self.handle_window_event(evt, soup)
+                self.handle_window_event(evt)
+                self.run_htmlclassifier(soup)
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_on_events:
             try:
-                self.handle_document_event(evt, soup)
+                self.handle_document_event(evt)
+                self.run_htmlclassifier(soup)
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
 
         for evt in self.handled_events:
             try:
-                self.handle_element_event(evt, soup)
+                self.handle_element_event(evt)
+                self.run_htmlclassifier(soup)
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[handle_events] Event %s not properly handled", evt)
-
-        self.run_htmlclassifier(soup)
 
     def run(self):
         with self.context as ctx:  # pylint:disable=unused-variable

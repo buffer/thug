@@ -134,7 +134,7 @@ Thug API interface definition is reported below for convenience.
             """
 
         def get_attachment():
-        	"""
+            """
         	get_attachment
 
         	Return True if the attachment mode is set, False otherwise
@@ -142,8 +142,8 @@ Thug API interface definition is reported below for convenience.
         	@return: boolean
         	"""
 
-    	def set_attachment(attachment):
-        	"""
+        def set_attachment(attachment):
+            """
         	set_attachment
 
         	Set the attachment mode to the specified value
@@ -554,7 +554,7 @@ Thug API interface definition is reported below for convenience.
             """
 
         def enable_cert_logging():
-        	"""
+            """
         	enable_cert_logging
 
         	Enable SSL/TLS certificate logging
@@ -941,6 +941,15 @@ Thug API interface definition is reported below for convenience.
             @param cls_type: C{str}
             @param method: Classifier method
             @param method: method
+            @return: None
+            """
+
+        def reset_classifiers():
+            """
+            reset_classifiers
+
+            Reset all the classifiers
+
             @return: None
             """
 
