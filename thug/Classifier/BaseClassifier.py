@@ -129,6 +129,9 @@ class BaseClassifier:
     def reset_customclassifiers(self):
         self.custom_classifiers = {}
 
+    def reset_matches(self):
+        self.matches.clear()
+
     def handle_match_etags(self, match):
         etags = match.meta.get('etags', None)
         if etags is None:

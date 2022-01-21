@@ -437,6 +437,10 @@ class ThugAPI:
     def watchdog_cb(self, signum, frame): # pragma: no cover
         pass
 
+    def __reset_classifiers_matches(self):
+        for c in self.classifiers_map.values():
+            c.reset_matches()
+
     def __run(self, window):
         if log.Trace: # pragma: no cover
             sys.settrace(log.Trace)
@@ -447,6 +451,8 @@ class ThugAPI:
                 dft.run()
 
     def run_local(self, url):
+        self.__reset_classifiers_matches()
+
         log.last_url = None
         log.last_url_fetched = None
 
@@ -498,6 +504,8 @@ class ThugAPI:
         self.__run(window)
 
     def run_remote(self, url):
+        self.__reset_classifiers_matches()
+
         log.last_url = None
         log.last_url_fetched = None
 
