@@ -194,7 +194,6 @@ class HTTPSession:
 
         certificate = log.ThugLogging.ssl_certs.get((_url.netloc, port), None)
         if certificate:
-            log.ThugLogging.log_certificate(url, certificate)
             return
 
         try:
