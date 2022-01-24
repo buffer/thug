@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; Thug 3.6.2 documentation</title>
+  <title>Usage &mdash; Thug 3.7 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -29,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> Thug
           </a>
               <div class="version">
-                3.6.2
+                3.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -87,11 +88,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="usage">
+  <section id="usage">
 <span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<div class="section" id="basic-usage">
+<section id="basic-usage">
 <h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline"></a></h2>
 <p>Let’s start our Thug tour by taking a look at the options it provides.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~ $ thug -h
@@ -369,8 +370,8 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 [..]
 </pre></div>
 </div>
-</div>
-<div class="section" id="browser-personality">
+</section>
+<section id="browser-personality">
 <h2>Browser personality<a class="headerlink" href="#browser-personality" title="Permalink to this headline"></a></h2>
 <p>If no additional option (other than the URL) is provided the emulated browser personality is
 Internet Explorer 6.0 on Windows XP platform. This choice is usually quite interesting for
@@ -442,8 +443,8 @@ W.eXeC <span class="s2">&quot;taskkill /F /IM wm&quot;</span> <span class="p">&a
 </div>
 <p>It’s quite simple to realize that the exploit for the Microsoft Data Access Components (MDAC)
 vulnerability is not served in this case.</p>
-</div>
-<div class="section" id="dom-events-handling">
+</section>
+<section id="dom-events-handling">
 <h2>DOM Events Handling<a class="headerlink" href="#dom-events-handling" title="Permalink to this headline"></a></h2>
 <p>A useful option is the -e (–events) option which allows you to specify which DOM events should
 be handled by Thug. By default <cite>load</cite> and <cite>mousemove</cite> events are always handled but you can add
@@ -454,8 +455,8 @@ a comma-separated list of events to handle as shown below.</p>
 </div>
 <p>In this example, the DOM events <cite>load</cite>, <cite>mousemove</cite>, <cite>click</cite> and <cite>mouseover</cite> will be handled by
 Thug while all the other ones will be ignored.</p>
-</div>
-<div class="section" id="adobe-acrobat-reader">
+</section>
+<section id="adobe-acrobat-reader">
 <h2>Adobe Acrobat Reader<a class="headerlink" href="#adobe-acrobat-reader" title="Permalink to this headline"></a></h2>
 <p>Taking a look at the available options you can see the -A (–adobepdf) option which is quite
 useful for getting different PDF exploits which target different version of Adobe Acrobat
@@ -543,8 +544,8 @@ W.eXeC <span class="s2">&quot;taskkill /F /IM wm&quot;</span> <span class="p">&a
 </pre></div>
 </div>
 <p>it’s easy to realize that a different malicious PDF file was served in this case.</p>
-</div>
-<div class="section" id="shockwave-flash">
+</section>
+<section id="shockwave-flash">
 <h2>Shockwave Flash<a class="headerlink" href="#shockwave-flash" title="Permalink to this headline"></a></h2>
 <p>Taking a look at the available options you can see the -S (–shockwave) option which is quite
 useful for getting different Flash exploits which target differents version of Shockwave Flash.
@@ -618,8 +619,8 @@ PluginDetect (see Local Analysis later for details).</p>
 <span class="o">[</span><span class="m">2012</span>-11-15 <span class="m">17</span>:32:58<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: <span class="m">1</span>,6,0,32
 </pre></div>
 </div>
-</div>
-<div class="section" id="javaplugin-and-javawebstart">
+</section>
+<section id="javaplugin-and-javawebstart">
 <h2>JavaPlugin and JavaWebStart<a class="headerlink" href="#javaplugin-and-javawebstart" title="Permalink to this headline"></a></h2>
 <p>Taking a look at the available options you can see the -J (–javaplugin) option which is quite
 useful for getting different Java exploits which target different versions of Java. Let’s take
@@ -715,8 +716,8 @@ a look at what happens if we locally analyze PluginDetect (see Local Analysis la
 <span class="o">[</span><span class="m">2012</span>-11-15 <span class="m">17</span>:40:56<span class="o">]</span> <span class="o">[</span>Window<span class="o">]</span> Alert Text: Java version: <span class="m">1</span>,7,0,7
 </pre></div>
 </div>
-</div>
-<div class="section" id="proxy-support">
+</section>
+<section id="proxy-support">
 <h2>Proxy support<a class="headerlink" href="#proxy-support" title="Permalink to this headline"></a></h2>
 <p>Another really useful option is <em>-p (–proxy)</em> which allows to specify a proxy. Currently Thug
 supports HTTP, SOCKS4 and SOCKS5 proxy using the following format</p>
@@ -798,8 +799,8 @@ W.eXeC <span class="s2">&quot;taskkill /F /IM wm&quot;</span> <span class="p">&a
 <span class="s2">[2012-07-02 19:22:49] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="image-processing">
+</section>
+<section id="image-processing">
 <h2>Image processing<a class="headerlink" href="#image-processing" title="Permalink to this headline"></a></h2>
 <p>Image processing analysis (introduced in Thug 1.4) allows to analyze images retrieved during the
 analysis. By default, Thug performs OCR analysis returning extracted strings but the possibility
@@ -823,8 +824,8 @@ as the required steps could be different based on the Linux distribution. Please
 <span class="o">[</span>..<span class="o">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="local-analysis">
+</section>
+<section id="local-analysis">
 <h2>Local Analysis<a class="headerlink" href="#local-analysis" title="Permalink to this headline"></a></h2>
 <p>May you need to analyze a locally saved page Thug provides the <em>-l (–local)</em> option to you.
 Using such option is really simple and could turn to be really useful for testing and for
@@ -898,8 +899,8 @@ locally saved page.</p>
 <span class="o">[</span><span class="m">2013</span>-01-08 <span class="m">10</span>:33:01<span class="o">]</span> &lt;iframe <span class="nv">frameborder</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">height</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">marginheight</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">marginwidth</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nv">scrolling</span><span class="o">=</span><span class="s2">&quot;no&quot;</span> <span class="nv">src</span><span class="o">=</span><span class="s2">&quot;http://81.95.149.27/go.php?sid=1&quot;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&quot;border:0px solid gray;&quot;</span> <span class="nv">width</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>&gt;&lt;/iframe&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="other-useful-features">
+</section>
+<section id="other-useful-features">
 <h2>Other useful features<a class="headerlink" href="#other-useful-features" title="Permalink to this headline"></a></h2>
 <p>An interesting feature (introduced in Thug 0.4.13) allows you to define a maximum delay for
 methods like setTimeout and setInterval which set a delay for executing a function. For instance
@@ -914,8 +915,8 @@ option. Simply running Thug this way (please note the interval is expressed in m
 </pre></div>
 </div>
 <p>will force a maximum delay of 2 seconds.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
