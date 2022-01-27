@@ -109,12 +109,15 @@ class TestThugLogging:
     def test_log_certificate(self, caplog):
         caplog.clear()
         log.ThugOpts.cert_logging = False
+        log.ThugOpts.verbose = True
         thug_logging.log_certificate("url", self.cert)
         assert "[Certificate]" not in caplog.text
 
         log.ThugOpts.cert_logging = True
         thug_logging.log_certificate("url", self.cert)
         assert "%s" % (self.cert, ) in caplog.text
+
+        log.ThugOpts.verbose = False
 
     def test_log_virustotal(self):
         log.ThugOpts.file_logging = True
