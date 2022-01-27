@@ -230,6 +230,7 @@ class HTTPSession:
                                verify  = log.ThugOpts.ssl_verify)
         except requests.ConnectionError as e:
             log.warning("[HTTPSession] %s", str(e))
+            return None
 
         if not response.ok:
             return None
