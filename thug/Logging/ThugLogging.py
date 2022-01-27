@@ -150,11 +150,12 @@ class ThugLogging(BaseLogging, SampleLogging):
             for m in self.resolve_method('log_awis'):
                 m(report)
 
-    def add_behavior_warn(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
+    def add_behavior_warn(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis", verbose = True):
         for m in self.resolve_method('add_behavior_warn'):
             m(description, cve, snippet, method)
 
-        log.warning(description)
+        if verbose or log.ThugOpts.verbose or log.ThugOpts.debug:
+            log.warning(description)
 
     def check_snippet(self, s):
         return len(s) < self.eval_min_length_logging
@@ -377,7 +378,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         if not log.ThugOpts.cert_logging:
             return
 
-        self.add_behavior_warn(f"[Certificate]{os.linesep} {certificate}")
+        self.add_behavior_warn(f"[Certificate]{os.linesep} {certificate}", verbose = False)
 
         for m in self.resolve_method('log_certificate'): # pragma: no cover
             m(url, certificate)
