@@ -24,11 +24,6 @@ from urllib.parse import urlparse
 
 import bs4
 
-from bs4.element import NavigableString
-from bs4.element import CData
-from bs4.element import Script
-from lxml.html import tostring
-from lxml.html import builder as E
 from zope.interface import implementer
 
 import thug
@@ -451,6 +446,12 @@ class ThugAPI:
                 dft.run()
 
     def run_local(self, url):
+        from bs4.element import NavigableString
+        from bs4.element import CData
+        from bs4.element import Script
+        from lxml.html import tostring
+        from lxml.html import builder as E
+
         self.__reset_classifiers_matches()
 
         log.last_url = None
