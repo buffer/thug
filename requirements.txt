@@ -7,7 +7,7 @@ lxml==4.7.1
 networkx==2.6.3
 pefile==2021.9.3
 pylibemu==0.7
-pymongo==3.12.1
+pymongo==4.0.1
 python-magic==0.4.24
 rarfile==4.0
 requests==2.27.1
