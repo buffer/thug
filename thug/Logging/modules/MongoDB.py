@@ -103,7 +103,7 @@ class MongoDB:
         self.__build_indexes()
 
     def __build_indexes(self):
-        self.urls.ensure_index('url', unique = True)
+        self.urls.create_index('url', unique = True)
 
     @staticmethod
     def make_counter(p):
