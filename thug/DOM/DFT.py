@@ -1292,6 +1292,20 @@ class DFT:
     def handle_link(self, link):
         log.info(link)
 
+        # When a browser requests a resource from a third party server, that cross-origin’s
+        # domain name must be resolved to an IP address before the browser can issue the
+        # request. This process is known as DNS resolution. While DNS caching can help to
+        # reduce this latency, DNS resolution can add significant latency to requests. For
+        # websites that open connections to many third parties, this latency can significantly
+        # reduce loading performance.
+        #
+        # dns-prefetch helps developers mask DNS resolution latency. The HTML <link> element
+        # offers this functionality by way of a rel attribute value of dns-prefetch. The
+        # cross-origin domain is then specified in the href attribute
+        rel = link.get('rel', None)
+        if rel and any(r in ('dns-prefetch', ) for r in rel):
+            return
+
         href = link.get('href', None)
         if not href: # pragma: no cover
             return
