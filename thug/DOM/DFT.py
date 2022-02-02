@@ -1304,7 +1304,7 @@ class DFT:
         # cross-origin domain is then specified in the href attribute
         rel = link.get('rel', None)
         if rel and any(r in ('dns-prefetch', ) for r in rel):
-            return
+            return # pragma: no cover
 
         href = link.get('href', None)
         if not href: # pragma: no cover
