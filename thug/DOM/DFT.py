@@ -289,8 +289,8 @@ class DFT:
             except Exception: # pylint:disable=broad-except
                 handler = None
 
-        if not handler: # pragma: no cover
-            return
+        if not handler:
+            return # pragma: no cover
 
         if getattr(elem, 'name', None) and elem.name in ('body', ) and evt in self.window_on_events:
             setattr(self.window, evt, handler)
@@ -355,8 +355,8 @@ class DFT:
             return
 
         jnlp = soup.find("jnlp")
-        if jnlp is None: # pragma: no cover
-            return
+        if jnlp is None:
+            return # pragma: no cover
 
         codebase = jnlp.attrs['codebase'] if 'codebase' in jnlp.attrs else ''
 
@@ -367,8 +367,8 @@ class DFT:
             self._check_jnlp_param(param)
 
         jars = soup.find_all("jar")
-        if not jars: # pragma: no cover
-            return
+        if not jars:
+            return # pragma: no cover
 
         headers['User-Agent'] = self.javaWebStartUserAgent
 
@@ -384,8 +384,8 @@ class DFT:
 
         for child in _object.find_all():
             name = getattr(child, 'name', None)
-            if name is None: # pragma: no cover
-                continue
+            if name is None:
+                continue # pragma: no cover
 
             if name.lower() in ('param', ):
                 if all(p in child.attrs for p in ('name', 'value', )):
@@ -601,8 +601,8 @@ class DFT:
             log.warning("[SCRIPT] Unhandled script type: %s", language)
             return None
 
-        if _language in ("script", ): # pragma: no cover
-            _language = "javascript"
+        if _language in ("script", ):
+            _language = "javascript" # pragma: no cover
 
         return getattr(self, f"handle_{_language}", None)
 
@@ -678,8 +678,8 @@ class DFT:
 
     def handle_data_javascript(self, script, src):
         data = self._handle_data_uri(src)
-        if data is None: # pragma: no cover
-            return
+        if data is None:
+            return # pragma: no cover
 
         s = self.window.doc.createElement('script')
 
@@ -707,8 +707,8 @@ class DFT:
             log.info("[ERROR][handle_external_javascript] %s", str(e))
             return
 
-        if response is None or not response.ok or not response.content: # pragma: no cover
-            return
+        if response is None or not response.ok or not response.content:
+            return # pragma: no cover
 
         if log.ThugOpts.code_logging:
             log.ThugLogging.add_code_snippet(response.content, 'Javascript', 'External')
@@ -872,8 +872,8 @@ class DFT:
             log.ThugLogging.Features.increase_url_count()
 
         _action = log.HTTPSession.normalize_url(self.window, action)
-        if _action is None: # pragma: no cover
-            return
+        if _action is None:
+            return # pragma: no cover
 
         if _action not in self.forms:
             self.forms.append(_action)
@@ -907,8 +907,8 @@ class DFT:
         if response is None or not response.ok:
             return
 
-        if getattr(response, 'thug_mimehandler_hit', False): # pragma: no cover
-            return
+        if getattr(response, 'thug_mimehandler_hit', False):
+            return # pragma: no cover
 
         doc    = w3c.parseString(response.content)
         window = Window(_action, doc, personality = log.ThugOpts.useragent)
@@ -1051,14 +1051,14 @@ class DFT:
             if s.lower().startswith('url='):
                 url = s[4:]
 
-        if not url: # pragma: no cover
-            return
+        if not url:
+            return # pragma: no cover
 
         if url.startswith("'") and url.endswith("'"):
             url = url[1:-1]
 
-        if url in log.ThugLogging.meta and log.ThugLogging.meta[url] >= 3: # pragma: no cover
-            return
+        if url in log.ThugLogging.meta and log.ThugLogging.meta[url] >= 3:
+            return # pragma: no cover
 
         if data_uri:
             self._handle_data_uri(url)
@@ -1117,7 +1117,7 @@ class DFT:
             log.info("[ERROR][handle_frame] %s", str(e))
             return
 
-        if response is None or not response.ok: # pragma: no cover
+        if response is None or not response.ok:
             return # pragma: no cover
 
         if response.url in log.ThugLogging.frames and log.ThugLogging.frames[response.url] >= 3:
@@ -1161,8 +1161,8 @@ class DFT:
             if log.ThugOpts.features_logging:
                 log.ThugLogging.Features.increase_url_count()
 
-            if self._handle_data_uri(url): # pragma: no cover
-                continue
+            if self._handle_data_uri(url):
+                continue # pragma: no cover
 
             try:
                 self.window._navigator.fetch(url, redirect_type = "font face")
@@ -1213,8 +1213,8 @@ class DFT:
             log.ThugLogging.Features.increase_data_uri_count()
 
         h = uri.split(",")
-        if len(h) < 2 or not h[1]: # pragma: no cover
-            return None
+        if len(h) < 2 or not h[1]:
+            return None # pragma: no cover
 
         data = h[1]
         opts = h[0][len("data:"):].split(";")
@@ -1261,8 +1261,8 @@ class DFT:
             return
 
         href = anchor.get('href', None)
-        if not href: # pragma: no cover
-            return
+        if not href:
+            return # pragma: no cover
 
         if self._handle_data_uri(href):
             return
@@ -1273,12 +1273,12 @@ class DFT:
             log.info("[ERROR][handle_a] %s", str(e))
             return
 
-        if response is None or not response.ok: # pragma: no cover
-            return
+        if response is None or not response.ok:
+            return # pragma: no cover
 
         content_type = response.headers.get('content-type', None)
-        if not content_type: # pragma: no cover
-            return
+        if not content_type:
+            return # pragma: no cover
 
         if content_type.startswith(('text/html', )):
             from .Window import Window
@@ -1307,14 +1307,14 @@ class DFT:
             return # pragma: no cover
 
         href = link.get('href', None)
-        if not href: # pragma: no cover
-            return
+        if not href:
+            return # pragma: no cover
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_url_count()
 
-        if self._handle_data_uri(href): # pragma: no cover
-            return
+        if self._handle_data_uri(href):
+            return # pragma: no cover
 
         try:
             self.window._navigator.fetch(href, redirect_type = "link")
@@ -1325,23 +1325,23 @@ class DFT:
         if not log.ThugOpts.image_processing:
             return
 
-        if not log.MIMEHandler.image_ocr_enabled and not log.MIMEHandler.image_hook_enabled: # pragma: no cover
-            return
+        if not log.MIMEHandler.image_ocr_enabled and not log.MIMEHandler.image_hook_enabled:
+            return # pragma: no cover
 
         log.info(img)
         src = img.get('src', None)
-        if not src: # pragma: no cover
-            return
+        if not src:
+            return # pragma: no cover
 
-        if self._handle_data_uri(src): # pragma: no cover
-            return
+        if self._handle_data_uri(src):
+            return # pragma: no cover
 
         cache = getattr(self, 'img_cache', None)
         if not cache:
             self.img_cache = set()
 
-        if src in self.img_cache: # pragma: no cover
-            return
+        if src in self.img_cache:
+            return # pragma: no cover
 
         self.img_cache.add(src)
 
@@ -1360,8 +1360,8 @@ class DFT:
         for anchor in clicked_anchors:
             del anchor['_clicked']
 
-            if 'href' not in anchor.attrs: # pragma: no cover
-                continue
+            if 'href' not in anchor.attrs:
+                continue # pragma: no cover
 
             href = anchor.attrs['href']
             self.follow_href(href)
@@ -1420,8 +1420,8 @@ class DFT:
             return
 
         attrs = getattr(element, 'attrs', None)
-        if attrs is None: # pragma: no cover
-            return
+        if attrs is None:
+            return # pragma: no cover
 
         attrs_count = 0
         element_area = 1
@@ -1474,8 +1474,8 @@ class DFT:
             self.handle_applet(p)
 
         for child in soup.descendants:
-            if child is None: # pragma: no cover
-                continue
+            if child is None:
+                continue # pragma: no cover
 
             self.check_hidden_element(child)
 
