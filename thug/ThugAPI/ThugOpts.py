@@ -59,9 +59,6 @@ class ThugOpts(dict):
         self._no_fetch          = False
         self._broken_url        = False
         self._ssl_verify        = False
-        self._vt_query          = False
-        self._vt_submit         = False
-        self._vt_runtime_apikey = None
         self._mongodb_address   = None
         self._web_tracking      = False
         self._honeyagent        = True
@@ -306,30 +303,6 @@ class ThugOpts(dict):
         self._ssl_verify = verify
 
     ssl_verify = property(get_ssl_verify, set_ssl_verify)
-
-    def get_vt_query(self):
-        return self._vt_query
-
-    def set_vt_query(self, value):
-        self._vt_query = value
-
-    vt_query = property(get_vt_query, set_vt_query)
-
-    def get_vt_submit(self):
-        return self._vt_submit
-
-    def set_vt_submit(self, value):
-        self._vt_submit = value
-
-    vt_submit = property(get_vt_submit, set_vt_submit)
-
-    def get_vt_runtime_apikey(self):
-        return self._vt_runtime_apikey
-
-    def set_vt_runtime_apikey(self, vt_apikey):
-        self._vt_runtime_apikey = vt_apikey
-
-    vt_runtime_apikey = property(get_vt_runtime_apikey, set_vt_runtime_apikey)
 
     def get_web_tracking(self):
         return self._web_tracking

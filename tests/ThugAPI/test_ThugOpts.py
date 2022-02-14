@@ -193,28 +193,6 @@ class TestThugOpts:
         self.opts.broken_url = False
         assert not self.opts.broken_url
 
-    def test_vt_query(self):
-        self.opts.vt_query = True
-        assert self.opts.vt_query
-
-        self.opts.vt_query = False
-        assert not self.opts.vt_query
-
-    def test_vt_submit(self):
-        self.opts.vt_submit = True
-        assert self.opts.vt_submit
-
-        self.opts.vt_submit = False
-        assert not self.opts.vt_submit
-
-    def test_vt_runtime_apikey(self):
-        self.opts.vt_runtime_apikey = 'sample-key'
-        key = self.opts.vt_runtime_apikey
-        assert key in ('sample-key', )
-
-        self.opts.vt_runtime_apikey = None
-        assert self.opts.vt_runtime_apikey is None
-
     def test_web_tracking(self):
         self.opts.web_tracking = True
         assert self.opts.web_tracking

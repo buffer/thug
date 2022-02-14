@@ -260,24 +260,6 @@ class TestThugAPI:
         os.remove(self.log_file)
         assert not os.path.isfile(self.log_file)
 
-    def test_vt_query(self):
-        assert not log.ThugOpts.vt_query
-
-        self.thug_api.set_vt_query()
-        assert log.ThugOpts.vt_query
-
-    def test_vt_submit(self):
-        assert not log.ThugOpts.vt_submit
-
-        self.thug_api.set_vt_submit()
-        assert log.ThugOpts.vt_submit
-
-    def test_vt_runtime_apikey(self):
-        assert self.thug_api.get_vt_runtime_apikey() is None
-
-        self.thug_api.set_vt_runtime_apikey('sample-key')
-        assert self.thug_api.get_vt_runtime_apikey() in ('sample-key', )
-
     def test_mongodb_address(self):
         assert self.thug_api.get_mongodb_address() is None
 
