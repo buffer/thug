@@ -119,15 +119,6 @@ class TestThugLogging:
 
         log.ThugOpts.verbose = False
 
-    def test_log_virustotal(self):
-        log.ThugOpts.file_logging = True
-        path = "%s.json" % (self.sample['md5'],)
-        thug_logging.log_virustotal(os.getcwd(), self.sample, self.content)
-        assert self.content in open(path, 'rb').read()
-
-        os.remove(path)
-        log.ThugOpts.file_logging = False
-
     def test_log_honeyagent(self):
         log.ThugOpts.file_logging = True
         path = "%s.json" % (self.sample['md5'], )

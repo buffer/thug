@@ -87,7 +87,6 @@ class MongoDB:
         self.samples      = db.samples
         self.behaviors    = db.behaviors
         self.certificates = db.certificates
-        self.virustotal   = db.virustotal
         self.honeyagent   = db.honeyagent
         self.exploits     = db.exploits
         self.classifiers  = db.classifiers
@@ -523,7 +522,7 @@ class MongoDB:
 
     def log_analysis_module(self, collection, sample, report):
         if not self.enabled:
-            return
+            return # pragma: no cover
 
         s = self.samples.find_one({'analysis_id' : self.analysis_id,
                                    'md5'         : sample['md5'],
@@ -538,9 +537,6 @@ class MongoDB:
         }
 
         collection.insert_one(r)
-
-    def log_virustotal(self, sample, report):
-        self.log_analysis_module(self.virustotal, sample, report)
 
     def log_honeyagent(self, sample, report):
         self.log_analysis_module(self.honeyagent, sample, report)

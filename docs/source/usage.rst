@@ -45,9 +45,6 @@ Let's start our Thug tour by taking a look at the options it provides.
         -O, --connect-timeout           Set the connect timeout (in seconds, default: 10 seconds)
         -T, --timeout=                  Set the analysis timeout (in seconds, default: 600 seconds)
         -c, --broken-url                Set the broken URL mode
-        -y, --vtquery                   Query VirusTotal for samples analysis
-        -s, --vtsubmit                  Submit samples to VirusTotal
-        -b, --vt-apikey=                VirusTotal API key to be used at runtime
         -z, --web-tracking              Enable web client tracking inspection
         -k, --no-honeyagent             Disable HoneyAgent support
         -a, --image-processing          Enable image processing analysis

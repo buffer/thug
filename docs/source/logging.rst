@@ -283,20 +283,6 @@ The collection *graphs* is used to store the analysis JSON exploit graph.
             "graph"         : JSON exploit graph
         }
 
-virustotal
-^^^^^^^^^^
-
-The collection *virustotal* is used to store the VirusTotal sample analysis reports.
-The Sample ObjectID references the *samples* collection.
-
-.. code-block:: sh
-
-        {
-            "analysis_id"   : Analysis ID
-            "sample_id"     : Sample ID
-            "report"        : VirusTotal report (JSON)
-        }
-
 honeyagent
 ^^^^^^^^^^
 

@@ -68,7 +68,6 @@ class MongoUtils(object):
                              db.samples,
                              db.behaviors,
                              db.certificates,
-                             db.virustotal,
                              db.honeyagent,
                              db.exploits,
                              db.codes,

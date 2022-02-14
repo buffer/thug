@@ -341,18 +341,6 @@ class ThugAPI:
             if isinstance(handler, logging.StreamHandler):
                 handler.removeFilter(self.opaque_filter)
 
-    def set_vt_query(self):
-        log.ThugOpts.vt_query = True
-
-    def set_vt_submit(self):
-        log.ThugOpts.vt_submit = True
-
-    def get_vt_runtime_apikey(self):
-        return log.ThugOpts.vt_runtime_apikey
-
-    def set_vt_runtime_apikey(self, vt_runtime_apikey):
-        log.ThugOpts.vt_runtime_apikey = vt_runtime_apikey
-
     def get_mongodb_address(self):
         return log.ThugOpts.mongodb_address
 

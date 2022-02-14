@@ -658,44 +658,6 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
-        def set_vt_query():
-            """
-            set_vt_query
-
-            Enable VirusTotal queries for sample analysis
-
-            @return: None
-            """
-
-        def set_vt_submit():
-            """
-            set_vt_submit
-
-            Enable VirusTotal samples submit
-
-            @return: None
-            """
-
-         def get_vt_runtime_apikey():
-            """
-            get_vt_runtime_apikey
-
-            Get the VirusTotal API key set as runtime parameter (not the one defined in
-            the configuration file)
-
-            @return: string
-            """
-
-        def set_vt_runtime_apikey():
-            """
-            set_vt_runtime_apikey
-
-            Set the key to be used when interacting with VirusTotal APIs, overriding
-            any static value defined in thug.conf
-
-            @return: None
-            """
-
         def get_mongodb_instance():
             """
             get_mongodb_instance
