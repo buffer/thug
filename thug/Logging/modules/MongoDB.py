@@ -522,7 +522,7 @@ class MongoDB:
 
     def log_analysis_module(self, collection, sample, report):
         if not self.enabled:
-            return
+            return # pragma: no cover
 
         s = self.samples.find_one({'analysis_id' : self.analysis_id,
                                    'md5'         : sample['md5'],
