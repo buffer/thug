@@ -253,15 +253,6 @@ class TestMongoDB:
         self.mongo.log_certificate(self.url, self.cert)
         assert self.mongo.certificates.count_documents({}) in (1, )
 
-    def test_log_virustotal(self):
-        self.mongo.enabled = False
-        self.mongo.log_virustotal(self.file_data, "sample-report")
-        assert self.mongo.virustotal.count_documents({}) in (0, )
-
-        self.mongo.enabled = True
-        self.mongo.log_virustotal(self.file_data, "sample-report")
-        assert self.mongo.virustotal.count_documents({}) in (1, )
-
     def test_log_honeyagent(self):
         assert self.mongo.honeyagent.count_documents({}) in (0, )
 

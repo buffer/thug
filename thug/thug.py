@@ -66,9 +66,6 @@ Synopsis:
         -O, --connect-timeout   \tSet the connect timeout (in seconds, default: 10 seconds)
         -T, --timeout=          \tSet the analysis timeout (in seconds, default: 600 seconds)
         -c, --broken-url        \tSet the broken URL mode
-        -y, --vtquery           \tQuery VirusTotal for samples analysis
-        -s, --vtsubmit          \tSubmit samples to VirusTotal
-        -b, --vt-apikey=        \tVirusTotal API key to be used at runtime
         -z, --web-tracking      \tEnable web client tracking inspection
         -k, --no-honeyagent     \tDisable HoneyAgent support
         -a, --image-processing  \tEnable image processing analysis
@@ -138,7 +135,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:myszkafElxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:b:',
+                                          'hViu:e:w:n:o:r:p:mzkafElxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:',
                 ['help',
                 'version',
                 'list-ua',
@@ -150,8 +147,6 @@ Synopsis:
                 'referer=',
                 'proxy=',
                 'attachment',
-                'vtquery',
-                'vtsubmit',
                 'web-tracking',
                 'no-honeyagent',
                 'image-processing',
@@ -199,7 +194,6 @@ Synopsis:
                 'no-code-logging',
                 'no-cert-logging',
                 'mongodb-address=',
-                'vt-apikey=',
                 ])
         except getopt.GetoptError:
             self.usage()
@@ -230,12 +224,6 @@ Synopsis:
                 self.set_proxy(option[1])
             elif option[0] in ('-m', '--attachment', ):
                 self.set_attachment()
-            elif option[0] in ('-y', '--vtquery', ):
-                self.set_vt_query()
-            elif option[0] in ('-s', '--vtsubmit', ):
-                self.set_vt_submit()
-            elif option[0] in ('-b', '--vt-apikey', ):
-                self.set_vt_runtime_apikey(option[1])
             elif option[0] in ('-z', '--web-tracking', ):
                 self.set_web_tracking()
             elif option[0] in ('-k', '--no-honeyagent', ):

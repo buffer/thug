@@ -29,7 +29,6 @@ import logging
 import configparser
 
 from thug.Analysis.shellcode.Shellcode import Shellcode
-from thug.Analysis.virustotal.VirusTotal import VirusTotal
 from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
 from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
 from thug.Analysis.screenshot.Screenshot import Screenshot
@@ -52,7 +51,6 @@ class ThugLogging(BaseLogging, SampleLogging):
         SampleLogging.__init__(self)
 
         self.Shellcode       = Shellcode()
-        self.VirusTotal      = VirusTotal()
         self.HoneyAgent      = HoneyAgent()
         self.Features        = Features()
         self.ContextAnalyzer = ContextAnalyzer()
@@ -192,8 +190,6 @@ class ThugLogging(BaseLogging, SampleLogging):
     def __log_file(self, sample, data, url = None, params = None):
         for m in self.resolve_method('log_file'):
             m(copy.deepcopy(sample), url, params)
-
-        self.VirusTotal.analyze(data, sample, self.baseDir)
 
         if sample['type'] in ('JAR', ):
             self.HoneyAgent.analyze(data, sample, self.baseDir, params)
@@ -390,9 +386,6 @@ class ThugLogging(BaseLogging, SampleLogging):
         method = f"log_{module}"
         for m in self.resolve_method(method): # pragma: no cover
             m(sample, report)
-
-    def log_virustotal(self, dirname, sample, report):
-        self.log_analysis_module(dirname, sample, report, "virustotal")
 
     def log_honeyagent(self, dirname, sample, report):
         self.log_analysis_module(dirname, sample, report, "honeyagent")
