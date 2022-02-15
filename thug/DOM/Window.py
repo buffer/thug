@@ -86,8 +86,8 @@ class Window(JSClass):
         def stop(self):
             self.running = False
 
-            if self.event in sched.queue: # pragma: no cover
-                sched.cancel(self.event)
+            if self.event in sched.queue:
+                sched.cancel(self.event) # pragma: no cover
 
         def execute(self):
             if len(self.window.timers) > self.max_timers:
@@ -776,8 +776,8 @@ class Window(JSClass):
             log.ThugLogging.Features.increase_removeeventlistener_count()
 
         _listener = getattr(self, f"on{_type.lower()}", None)
-        if _listener is None: # pragma: no cover
-            return
+        if _listener is None:
+            return # pragma: no cover
 
         if _listener in (listener, ):
             delattr(self, f"on{_type.lower()}")
@@ -930,8 +930,8 @@ class Window(JSClass):
         self.onmousewheel        = None
 
     def eval(self, script):
-        if not script: # pragma: no cover
-            return None
+        if not script:
+            return None # pragma: no cover
 
         log.ThugLogging.add_code_snippet(script,
                                          language = 'Javascript',
@@ -1071,8 +1071,8 @@ class Window(JSClass):
         return getattr(element, 'style', None)
 
     def open(self, url = None, name = '_blank', specs = '', replace = False):
-        if url and not isinstance(url, str): # pragma: no cover
-            url = str(url)
+        if url and not isinstance(url, str):
+            url = str(url) # pragma: no cover
 
         if url and url not in ('about:blank', ):
             if self.url not in ('about:blank', ):
@@ -1083,8 +1083,8 @@ class Window(JSClass):
             except Exception: # pylint:disable=broad-except
                 return None
 
-            if response is None or not response.ok: # pragma: no cover
-                return None
+            if response is None or not response.ok:
+                return None # pragma: no cover
 
             html = response.content
 
