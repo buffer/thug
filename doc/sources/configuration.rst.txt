@@ -115,27 +115,3 @@ able to automatically analyze applets like shown later.
     ArIBNUkvAi.dat: ASCII text
     IixfXAb.class:  compiled Java class data, version 45.3
     uAzpYJRZ.exe:   PE32 executable (GUI) Intel 80386, for MS Windows
-
-
-VirusTotal (optional)
-^^^^^^^^^^^^^^^^^^^^^
-
-VirusTotal is a free service that analyzes suspicious files and URLs and 
-facilitates the quick detection of viruses, worms, trojans, and all kinds 
-of malware. 
-
-Thug supports VirusTotal and a default API key is now included in the default
-configuration file (many thanks to the VirusTotal team). To change the default 
-VirusTotal key with your own, simply edit */etc/thug/thug.conf* as shown
-later.
-
-.. code-block:: sh
-
-    [virustotal]
-    apikey:                         <enter your API key here>
-    scanurl:                        https://www.virustotal.com/vtapi/v2/file/scan
-    reporturl:                      https://www.virustotal.com/vtapi/v2/file/report
-
-You may also pass a runtime value for the API key parameter by using the --vt-apikey or -b parameter:
-this may come handy when using a dockerized Thug instance where editing the configuration file prior
-to each run may not be that simple.
