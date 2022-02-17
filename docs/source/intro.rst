@@ -13,7 +13,7 @@ Thug makes use of the Google V8 Javascript engine [#f2]_ wrapped through PyV8 [#
 analyze malicious Javascript code and of the Libemu library [#f4]_ wrapped through Pylibemu [#f5]_
 in order to detect and emulate shellcodes.
 
-Currently 10 Internet Explorer (Windows XP, Windows 2000, Windows 7, Windows 10), 22 Chrome (Windows
+Currently 10 Internet Explorer (Windows XP, Windows 2000, Windows 7, Windows 10), 24 Chrome (Windows
 XP, Windows 7, MacOS X, Android 4.0.3, Android 4.0.4, Android 4.1.2, Linux, iOS 7.1, iOS 7.1.1, iOS 
 7.1.2, iOS 8.0.2, iOS 8.1.1, iOS 8.4.1, iOS 9.0.2), 4 Firefox (Windows XP, Windows 7, Linux) and 6 
 Safari (Windows XP, Windows 7, MacOS X, iOS 7.0.4, iOS 8.0.2, iOS 9.1) personalities are emulated 
