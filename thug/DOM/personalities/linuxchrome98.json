@@ -1,0 +1,20 @@
+{
+  "appCodeName": "Mozilla",
+  "appMinorVersion": null,
+  "appName": "Netscape",
+  "appVersion": "5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36",
+  "browserTag": "chrome98",
+  "buildID": null,
+  "cc_on": null,
+  "description": "Chrome 98.0.4758.102\t(Linux)",
+  "id": 300205,
+  "javaUserAgent": null,
+  "oscpu": null,
+  "platform": "Linux x86_64",
+  "product": "Gecko",
+  "productSub": "20030107",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36",
+  "vendor": "Google Inc.",
+  "vendorSub": "",
+  "version": "98.0.4758.102"
+}
