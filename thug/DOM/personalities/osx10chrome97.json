@@ -1,0 +1,20 @@
+{
+  "appCodeName": "Mozilla",
+  "appMinorVersion": null,
+  "appName": "Netscape",
+  "appVersion": "5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36",
+  "browserTag": "chrome97",
+  "buildID": null,
+  "cc_on": null,
+  "description": "Chrome 97.0.4692.99\t(MacOS X 10.15.7)",
+  "id": 200203,
+  "javaUserAgent": null,
+  "oscpu": null,
+  "platform": "MacIntel",
+  "product": "Gecko",
+  "productSub": "20030107",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36",
+  "vendor": "Google Inc.",
+  "vendorSub": "",
+  "version": "97.0.4692.99"
+}
