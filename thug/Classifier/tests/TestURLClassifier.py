@@ -29,7 +29,7 @@ class TestURLClassifier(unittest.TestCase):
         self.rules = yara.compile(self.rule_file)
 
     def test(self):
-        with open(self.test_file) as fd:
+        with open(self.test_file, encoding = 'utf-8', mode = 'r') as fd:
             tests = json.load(fd)
 
         for t in tests['tests']:

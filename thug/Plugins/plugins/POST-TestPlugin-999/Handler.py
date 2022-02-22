@@ -22,7 +22,7 @@ from zope.interface import implementer
 
 
 @implementer(IPlugin)
-class Handler(object):
+class Handler:
     def run(self, thug, log):
         log.debug(thug)
         log.debug(log)
