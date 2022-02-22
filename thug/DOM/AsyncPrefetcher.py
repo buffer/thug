@@ -53,7 +53,7 @@ class AsyncPrefetcher:
             url = str(url) # pragma: no cover
 
         if url.startswith("data:"):
-            return None
+            return None # pragma: no cover
 
         if log.HTTPSession.about_blank(url):
             return None # pragma: no cover
