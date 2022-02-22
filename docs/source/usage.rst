@@ -46,6 +46,7 @@ Let's start our Thug tour by taking a look at the options it provides.
         -T, --timeout=                  Set the analysis timeout (in seconds, default: 600 seconds)
         -c, --broken-url                Set the broken URL mode
         -z, --web-tracking              Enable web client tracking inspection
+        -b, --async-prefetch            Enable async prefetching mode
         -k, --no-honeyagent             Disable HoneyAgent support
         -a, --image-processing          Enable image processing analysis
         -E, --awis                      Enable AWS Alexa Web Information Service (AWIS)
