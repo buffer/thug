@@ -67,6 +67,7 @@ Synopsis:
         -T, --timeout=          \tSet the analysis timeout (in seconds, default: 600 seconds)
         -c, --broken-url        \tSet the broken URL mode
         -z, --web-tracking      \tEnable web client tracking inspection
+        -b, --async-prefetch    \tEnable async prefetching mode
         -k, --no-honeyagent     \tDisable HoneyAgent support
         -a, --image-processing  \tEnable image processing analysis
         -f, --screenshot        \tEnable screenshot capturing
@@ -135,7 +136,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:mzkafElxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:',
+                                          'hViu:e:w:n:o:r:p:mzbkafElxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:',
                 ['help',
                 'version',
                 'list-ua',
@@ -148,6 +149,7 @@ Synopsis:
                 'proxy=',
                 'attachment',
                 'web-tracking',
+                'async-prefetch',
                 'no-honeyagent',
                 'image-processing',
                 'screenshot',
@@ -226,6 +228,8 @@ Synopsis:
                 self.set_attachment()
             elif option[0] in ('-z', '--web-tracking', ):
                 self.set_web_tracking()
+            elif option[0] in ('-b', '--async-prefetch', ):
+                self.set_async_prefetch()
             elif option[0] in ('-k', '--no-honeyagent', ):
                 self.disable_honeyagent()
             elif option[0] in ('-a', '--image-processing', ):

@@ -61,6 +61,7 @@ class ThugOpts(dict):
         self._ssl_verify        = False
         self._mongodb_address   = None
         self._web_tracking      = False
+        self._async_prefetch    = False
         self._honeyagent        = True
         self.activex_ready      = True
         self._image_processing  = False
@@ -311,6 +312,14 @@ class ThugOpts(dict):
         self._web_tracking = enabled
 
     web_tracking = property(get_web_tracking, set_web_tracking)
+
+    def get_async_prefetch(self):
+        return self._async_prefetch
+
+    def set_async_prefetch(self, enabled):
+        self._async_prefetch = enabled
+
+    async_prefetch = property(get_async_prefetch, set_async_prefetch)
 
     def get_honeyagent(self):
         return self._honeyagent

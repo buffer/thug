@@ -1471,7 +1471,8 @@ class DFT:
 
         _soup = soup
 
-        self.async_prefetch(soup)
+        if log.ThugOpts.async_prefetch:
+            self.async_prefetch(soup)
 
         # Dirty hack
         for p in soup.find_all('object'):
