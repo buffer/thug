@@ -58,9 +58,6 @@ class AsyncPrefetcher:
         if log.HTTPSession.about_blank(url):
             return None
 
-        if not isinstance(url, str):
-            url = str(url)
-
         p_url = urlparse(url)
         if not p_url.netloc:
             return None
