@@ -47,16 +47,16 @@ class AsyncPrefetcher:
 
     def normalize_url(self, url):
         if not url:
-            return None
+            return None # pragma: no cover
 
         if not isinstance(url, str):
-            url = str(url)
+            url = str(url) # pragma: no cover
 
         if url.startswith("data:"):
             return None
 
         if log.HTTPSession.about_blank(url):
-            return None
+            return None # pragma: no cover
 
         p_url = urlparse(url)
         if not p_url.netloc:
@@ -77,10 +77,10 @@ class AsyncPrefetcher:
 
     def fetch(self, url, method = "GET"):
         if log.HTTPSession.no_fetch:
-            return
+            return # pragma: no cover
 
         if method.lower() not in ('get', 'post', ):
-            return
+            return # pragma: no cover
 
         _url = self.normalize_url(url)
         if _url is None:
