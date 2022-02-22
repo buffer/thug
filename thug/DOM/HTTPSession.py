@@ -219,18 +219,30 @@ class HTTPSession:
         if headers is None: # pragma: no cover
             headers = {}
 
-        _headers = self.build_http_headers(window, personality, headers)
         response = None
 
         try:
-            response = fetcher(url, # pylint:disable=not-callable
-                               headers = _headers,
-                               timeout = log.ThugOpts.connect_timeout,
-                               data    = body,
-                               verify  = log.ThugOpts.ssl_verify)
-        except requests.ConnectionError as e:
-            log.warning("[HTTPSession] %s", str(e))
-            raise
+            async_prefetcher = getattr(log.DFT, 'async_prefetcher', None)
+        except Exception:
+            async_prefetcher = None
+
+        if async_prefetcher:
+            async_result = async_prefetcher.responses.get(url, None)
+            if async_result:
+                response = async_result.result()
+
+        if response is None:
+            _headers = self.build_http_headers(window, personality, headers)
+
+            try:
+                response = fetcher(url, # pylint:disable=not-callable
+                                   headers = _headers,
+                                   timeout = log.ThugOpts.connect_timeout,
+                                   data    = body,
+                                   verify  = log.ThugOpts.ssl_verify)
+            except requests.ConnectionError as e:
+                log.warning("[HTTPSession] %s", str(e))
+                raise
 
         if not response.ok:
             return None

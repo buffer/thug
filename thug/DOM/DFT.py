@@ -35,6 +35,7 @@ from cssutils.parse import CSSParser
 
 from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.DOM.W3C import w3c
+from thug.DOM.AsyncPrefetcher import AsyncPrefetcher
 
 log = logging.getLogger("Thug")
 
@@ -91,6 +92,7 @@ class DFT:
         self.anchors           = []
         self.forms             = kwds['forms'] if 'forms' in kwds else []
         self._context          = None
+        self.async_prefetcher  = AsyncPrefetcher(window)
         log.DFT                = self
 
         self._init_events()
@@ -1457,11 +1459,19 @@ class DFT:
         except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][run_htmlclassifier] %s", str(e))
 
+    def async_prefetch(self, soup):
+        for script in soup.find_all('script'):
+            src = script.get('src', None)
+            if src:
+                self.async_prefetcher.fetch(src)
+
     def _run(self, soup = None):
         if soup is None:
             soup = self.window.doc.doc
 
         _soup = soup
+
+        self.async_prefetch(soup)
 
         # Dirty hack
         for p in soup.find_all('object'):
