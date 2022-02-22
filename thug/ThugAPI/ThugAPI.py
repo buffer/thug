@@ -291,6 +291,12 @@ class ThugAPI:
     def set_web_tracking(self):
         log.ThugOpts.web_tracking = True
 
+    def get_async_prefetch(self):
+        return log.ThugOpts.async_prefetch
+
+    def set_async_prefetch(self):
+        log.ThugOpts.async_prefetch = True
+
     def disable_honeyagent(self):
         log.ThugOpts.honeyagent = False
 
