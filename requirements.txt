@@ -1,7 +1,7 @@
 PySocks==1.7.1
 beautifulsoup4==4.10.0
 cchardet==2.1.7
-cssutils==2.3.0
+cssutils==2.4.0
 html5lib==1.1
 lxml==4.8.0
 networkx==2.6.3
