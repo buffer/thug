@@ -9,7 +9,7 @@ static/dynamic analysis approach.
 Thug provides a DOM implementation which is (almost) compliant with W3C DOM Core, HTML, Events,
 Views and Style specifications (Level 1, 2 and partially 3). [#f1]_
 
-Thug makes use of the Google V8 Javascript engine [#f2]_ wrapped through PyV8 [#f3]_ in order to
+Thug makes use of the Google V8 Javascript engine [#f2]_ wrapped through STPyV8 [#f3]_ in order to
 analyze malicious Javascript code and of the Libemu library [#f4]_ wrapped through Pylibemu [#f5]_
 in order to detect and emulate shellcodes.
 
@@ -27,7 +27,7 @@ are provided.
          V8 implements ECMAScript as specified in ECMA-262, 3rd edition, and runs on Windows XP and Vista, Mac OS X 10.5 (Leopard), and Linux systems that use IA-32 or ARM processors.
          V8 can run standalone, or can be embedded into any C++ application.
 
-.. [#f3] `PyV8 <http://code.google.com/p/pyv8/>`_ is a Python wrapper for the Google V8 engine. PyV8 acts as a bridge between the Python and JavaScript objects and supports the Google 
+.. [#f3] `STPyV8 <https://github.com/area1/stpyv8/>`_ is a Python wrapper for the Google V8 engine. PyV8 acts as a bridge between the Python and JavaScript objects and supports the Google 
          V8 engine in Python scripts.
 
 .. [#f4] `Libemu <http://libemu.carnivore.it/>`_ is a small library written in C offering basic x86 emulation and shellcode detection using GetPC heuristics. It is designed to be used 
