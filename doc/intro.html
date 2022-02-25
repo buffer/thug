@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Introduction &mdash; Thug 3.8 documentation</title>
+  <title>Introduction &mdash; Thug 3.9 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
             <a href="index.html" class="icon icon-home"> Thug
           </a>
               <div class="version">
-                3.8
+                3.9
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -81,10 +81,10 @@
 static/dynamic analysis approach.</p>
 <p>Thug provides a DOM implementation which is (almost) compliant with W3C DOM Core, HTML, Events,
 Views and Style specifications (Level 1, 2 and partially 3). <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p>
-<p>Thug makes use of the Google V8 Javascript engine <a class="footnote-reference brackets" href="#f2" id="id2">2</a> wrapped through PyV8 <a class="footnote-reference brackets" href="#f3" id="id3">3</a> in order to
+<p>Thug makes use of the Google V8 Javascript engine <a class="footnote-reference brackets" href="#f2" id="id2">2</a> wrapped through STPyV8 <a class="footnote-reference brackets" href="#f3" id="id3">3</a> in order to
 analyze malicious Javascript code and of the Libemu library <a class="footnote-reference brackets" href="#f4" id="id4">4</a> wrapped through Pylibemu <a class="footnote-reference brackets" href="#f5" id="id5">5</a>
 in order to detect and emulate shellcodes.</p>
-<p>Currently 10 Internet Explorer (Windows XP, Windows 2000, Windows 7, Windows 10), 22 Chrome (Windows
+<p>Currently 10 Internet Explorer (Windows XP, Windows 2000, Windows 7, Windows 10), 24 Chrome (Windows
 XP, Windows 7, MacOS X, Android 4.0.3, Android 4.0.4, Android 4.1.2, Linux, iOS 7.1, iOS 7.1.1, iOS
 7.1.2, iOS 8.0.2, iOS 8.1.1, iOS 8.4.1, iOS 9.0.2), 4 Firefox (Windows XP, Windows 7, Linux) and 6
 Safari (Windows XP, Windows 7, MacOS X, iOS 7.0.4, iOS 8.0.2, iOS 9.1) personalities are emulated
@@ -100,7 +100,7 @@ V8 implements ECMAScript as specified in ECMA-262, 3rd edition, and runs on Wind
 V8 can run standalone, or can be embedded into any C++ application.</p>
 </dd>
 <dt class="label" id="f3"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p><a class="reference external" href="http://code.google.com/p/pyv8/">PyV8</a> is a Python wrapper for the Google V8 engine. PyV8 acts as a bridge between the Python and JavaScript objects and supports the Google
+<dd><p><a class="reference external" href="https://github.com/area1/stpyv8/">STPyV8</a> is a Python wrapper for the Google V8 engine. PyV8 acts as a bridge between the Python and JavaScript objects and supports the Google
 V8 engine in Python scripts.</p>
 </dd>
 <dt class="label" id="f4"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
