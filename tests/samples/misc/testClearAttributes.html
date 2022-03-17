@@ -1,0 +1,18 @@
+<html>
+<body>
+    <button id="myMarquee" bgcolor="red" onmouseup="handler();" style="border:2px solid blue;">I am a marquee!</marquee>
+    <script>
+        function handler() {
+            alert("Mouse up detected");
+        }
+
+        var marquee = document.getElementById("myMarquee");
+        marquee.clearAttributes();
+
+        alert('id: ' + marquee.getAttribute('id'));
+        alert('style: ' + marquee.getAttribute('style'));
+        alert('bgcolor: ' + marquee.getAttribute('bgcolor'));
+        alert('onmouseup: ' + marquee.getAttribute('onmouseup'));
+    </script>
+</body>
+</html>

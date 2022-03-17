@@ -50,6 +50,8 @@ class Element(Node, ElementCSSInlineStyle):
             return
 
     def __init_element_personality_IE(self):
+        self.clearAttributes = self._clearAttributes
+
         if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.querySelectorAll = self._querySelectorAll
             self.querySelector    = self._querySelector
@@ -267,6 +269,19 @@ class Element(Node, ElementCSSInlineStyle):
 
         if name in self.tag.attrs:
             del self.tag.attrs[name]
+
+    def _clearAttributes(self):
+        from thug.DOM.W3C.Events.HTMLEvent import HTMLEvent
+        from thug.DOM.W3C.Events.MouseEvent import MouseEvent
+
+        no_clear = {'id', 'name', 'style', 'value', }
+        for events in (HTMLEvent.EventTypes, MouseEvent.EventTypes, ):
+            for e in events:
+                no_clear.add(f'on{e}')
+
+        names = [name for name in self.tag.attrs if name not in no_clear]
+        for name in names:
+            self.removeAttribute(name)
 
     def getAttributeNode(self, name):
         from .Attr import Attr

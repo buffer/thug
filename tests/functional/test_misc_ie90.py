@@ -1431,3 +1431,11 @@ class TestMiscSamplesIE(object):
                     "[After normalize] wrapper.childNodes[2].textContent: Part 4 Part 5"]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testClearAttributes(self, caplog):
+        sample   = os.path.join(self.misc_path, "testClearAttributes.html")
+        expected = ["id: myMarquee",
+                    "style: border:2px solid blue",
+                    "bgcolor: null"]
+
+        self.do_perform_test(caplog, sample, expected)
