@@ -75,6 +75,7 @@ from .modules import RediffBolDownloaderAttack
 from .modules import RegistryPro
 from .modules import RisingScanner
 from .modules import RtspVaPgCtrl
+from .modules import ScriptingDictionary
 from .modules import ScriptingEncoder
 from .modules import ScriptingFileSystemObject
 from .modules import ShellApplication
@@ -1061,6 +1062,25 @@ CLSID = [
                           },
             'methods'   : {
                             'SetMP4Prefix'      : RtspVaPgCtrl.SetMP4Prefix,
+                          }
+        },
+
+        # Scripting.Dictionary
+        {
+            'id'        : (),
+            'name'      : ( 'scripting.dictionary', ),
+            'attrs'     : {
+                            'Count'             : 0,
+                            'dictionary'        : {},
+                          },
+            'funcattrs' : {},
+            'methods'   : {
+                            'Add'               : ScriptingDictionary.Add,
+                            'Exists'            : ScriptingDictionary.Exists,
+                            'Items'             : ScriptingDictionary.Items,
+                            'Keys'              : ScriptingDictionary.Keys,
+                            'Remove'            : ScriptingDictionary.Remove,
+                            'RemoveAll'         : ScriptingDictionary.RemoveAll
                           }
         },
 

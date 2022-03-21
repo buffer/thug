@@ -1439,3 +1439,20 @@ class TestMiscSamplesIE(object):
                     "bgcolor: null"]
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testScriptingDictionary(self, caplog):
+        sample   = os.path.join(self.misc_path, "testScriptingDictionary.html")
+        expected = ["[Scripting.Dictionary ActiveX] Add(\"0\", \"1\")",
+                    "[Scripting.Dictionary ActiveX] Add(\"1\", \"2\")",
+                    "[Window] Alert Text: Count before removal: 2",
+                    "[Window] Alert Text: Key 0 exists before removal: true",
+                    "[Window] Alert Text: Key 1000 exists before removal: false",
+                    "[Scripting.Dictionary ActiveX] Remove(\"0\")",
+                    "[Scripting.Dictionary ActiveX] Remove(\"1000\")",
+                    "[Window] Alert Text: Count after removal: 1",
+                    "[Window] Alert Text: Key 0 exists after removal: false",
+                    "[Window] Alert Text: Key 1000 exists after removal: false",
+                    "[Scripting.Dictionary ActiveX] RemoveAll()",
+                    "[Window] Alert Text: Count after RemoveAll: 0"]
+
+        self.do_perform_test(caplog, sample, expected)
