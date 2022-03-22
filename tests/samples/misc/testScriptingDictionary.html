@@ -1,0 +1,27 @@
+<html>
+  <body>
+    <script>
+      var dic = new ActiveXObject('Scripting.Dictionary');
+      dic.Add(0, 1);
+      dic.Add(1, 2);
+
+      alert('Count before removal: ' + dic.Count);
+      
+      dic.Keys();
+      dic.Items();
+
+      alert('Key 0 exists before removal: ' + dic.Exists(0));
+      alert('Key 1000 exists before removal: ' + dic.Exists(1000));
+
+      dic.Remove(0);
+      dic.Remove(1000);
+
+      alert('Count after removal: ' + dic.Count);
+      alert('Key 0 exists after removal: ' + dic.Exists(0));
+      alert('Key 1000 exists after removal: ' + dic.Exists(1000));
+
+      dic.RemoveAll();
+      alert('Count after RemoveAll: ' + dic.Count);
+	</script>
+  </body>
+</html>
