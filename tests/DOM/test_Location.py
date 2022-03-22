@@ -51,6 +51,8 @@ class TestLocation:
         assert matches >= len(expected)
 
     def testParts(self):
+        log.ThugOpts.ssl_verify = True
+
         window = WindowDict()
         window.url = 'https://www.google.com:1234/search?&q=test'
 
@@ -64,6 +66,8 @@ class TestLocation:
         assert location.hash == ''
 
     def testPathname(self, caplog):
+        log.ThugOpts.ssl_verify = True
+
         expected = [
             '[HREF Redirection (document.location)]',
             'Content-Location: https://www.google.com/search --> Location: https://www.google.com/test']
@@ -79,6 +83,8 @@ class TestLocation:
         self.check_expected(caplog, expected)
 
     def testProtocol(self, caplog):
+        log.ThugOpts.ssl_verify = True
+
         expected = [
             '[HREF Redirection (document.location)]',
             'Content-Location: http://www.google.com --> Location: https://www.google.com'
@@ -95,6 +101,8 @@ class TestLocation:
         self.check_expected(caplog, expected)
 
     def testHost(self, caplog):
+        log.ThugOpts.ssl_verify = True
+
         expected = [
             '[HREF Redirection (document.location)]',
             'Content-Location: https://www.google.com:1234/search?&q=test --> Location: https://www.google.com/search?&q=test'
@@ -111,6 +119,8 @@ class TestLocation:
         self.check_expected(caplog, expected)
 
     def testHostname(self, caplog):
+        log.ThugOpts.ssl_verify = True
+
         expected = [
             '[HREF Redirection (document.location)]',
             'Content-Location: https://ww.google.com --> Location: https://www.google.com'
@@ -127,6 +137,8 @@ class TestLocation:
         self.check_expected(caplog, expected)
 
     def testPort(self, caplog):
+        log.ThugOpts.ssl_verify = True
+
         expected = [
             '[HREF Redirection (document.location)]',
             'Content-Location: https://www.google.com:1234 --> Location: https://www.google.com:443'
@@ -143,6 +155,8 @@ class TestLocation:
         self.check_expected(caplog, expected)
 
     def testSearch(self, caplog):
+        log.ThugOpts.ssl_verify = True
+
         expected = [
             '[HREF Redirection (document.location)]',
             'Content-Location: https://www.google.com/search?&q=test --> Location: https://www.google.com/search?&q=test2'
@@ -159,6 +173,8 @@ class TestLocation:
         self.check_expected(caplog, expected)
 
     def testHash(self, caplog):
+        log.ThugOpts.ssl_verify = True
+
         expected = [
             '[HREF Redirection (document.location)]',
             'Content-Location: https://www.google.com/search#foo --> Location: https://www.google.com/search#bar'
