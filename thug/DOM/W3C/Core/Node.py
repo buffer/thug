@@ -409,7 +409,7 @@ class Node(JSClass, EventTarget):
         return None
 
     # @abstractmethod
-    def cloneNode(self, deep):
+    def cloneNode(self, deep = False):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_clonenode_count()
 
