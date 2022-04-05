@@ -42,6 +42,7 @@ RUN apt-get update && \
     python3-setuptools \
     python3-wheel \ 
     libboost-dev \
+    libboost-iostreams-dev \
     libboost-python-dev \
     libboost-system-dev \
     python3-pip \
@@ -70,9 +71,9 @@ RUN pip3 install --upgrade pytesseract
 RUN pip3 install --upgrade pygraphviz
 WORKDIR /home
 
-RUN wget https://github.com/area1/stpyv8/releases/download/v9.9.115.10/stpyv8-ubuntu-20.04-python-3.8.zip
+RUN wget https://github.com/area1/stpyv8/releases/download/v10.0.139.10/stpyv8-ubuntu-20.04-python-3.8.zip
 RUN unzip stpyv8-ubuntu-20.04-python-3.8.zip
-RUN pip3 install stpyv8-ubuntu-20.04-3.8/stpyv8-9.9.115.10-cp38-cp38-linux_x86_64.whl
+RUN pip3 install stpyv8-ubuntu-20.04-3.8/stpyv8-10.0.139.10-cp38-cp38-linux_x86_64.whl
 RUN mkdir -p /usr/share/stpyv8
 RUN sudo mv stpyv8-ubuntu-20.04-3.8/icudtl.dat /usr/share/stpyv8
 
