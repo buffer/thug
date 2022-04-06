@@ -9,7 +9,7 @@ Requirements
 Python
 ^^^^^^
 
-Python 3.7+ is required in order to properly run Thug. You may be lucky running it with
+Python 3.8+ is required in order to properly run Thug. You may be lucky running it with
 previous versions but please consider such versions are not supported. Please do not
 report issues in such case. Python source code can be downloaded at http://www.python.org.
 
@@ -39,7 +39,9 @@ C++ application.
 
 **Thug 3.1 is the last version supporting Python 3.6**
 
-More recent versions support just Python 3.7+. If you are installing a recent Thug version
+**Thug 3.9 is the last version supporting Python 3.7**
+
+More recent versions support just Python 3.8+. If you are installing a recent Thug version
 (and you should really do that) you have to install STPyV8 (https://github.com/area1/stpyv8/).
 
 STPyV8 is a Python/C++ wrapper that allows interoperability between Python 3 and
@@ -49,11 +51,7 @@ Google V8 built as a static library. Currently the library builds on Linux and M
 with Windows planned for the future.
 
 GCC/clang or equivalent and Python3 headers are needed to build the main STPyV8 source
-code, as well as Boost-Python and some other Boost dependencies. For a short while,
-Python 2.7 is still needed by Google's toolchain to build a local library version of V8.
-
-A Python 3 virtual environment is recommended. (Google's build tools will establish their
-own Python2 virtual environment during the compilation of V8, but this can be ignored).
+code, as well as Boost-Python and some other Boost dependencies.
 
 Please look at https://github.com/area1/stpyv8/blob/master/docs/source/build.rst for
 detailed building instructions. Moreover be aware that Python wheels are available for

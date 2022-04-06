@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Build and Install &mdash; Thug 3.9 documentation</title>
+  <title>Build and Install &mdash; Thug 3.10 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
             <a href="index.html" class="icon icon-home"> Thug
           </a>
               <div class="version">
-                3.9
+                3.10
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -93,7 +93,7 @@
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline"></a></h3>
-<p>Python 3.7+ is required in order to properly run Thug. You may be lucky running it with
+<p>Python 3.8+ is required in order to properly run Thug. You may be lucky running it with
 previous versions but please consider such versions are not supported. Please do not
 report issues in such case. Python source code can be downloaded at <a class="reference external" href="http://www.python.org">http://www.python.org</a>.</p>
 </div>
@@ -113,7 +113,8 @@ C++ application.</p>
 <p><strong>Python 3</strong></p>
 <p><strong>Thug 0.10.6 is the last version supporting Python 2.7</strong></p>
 <p><strong>Thug 3.1 is the last version supporting Python 3.6</strong></p>
-<p>More recent versions support just Python 3.7+. If you are installing a recent Thug version
+<p><strong>Thug 3.9 is the last version supporting Python 3.7</strong></p>
+<p>More recent versions support just Python 3.8+. If you are installing a recent Thug version
 (and you should really do that) you have to install STPyV8 (<a class="reference external" href="https://github.com/area1/stpyv8/">https://github.com/area1/stpyv8/</a>).</p>
 <p>STPyV8 is a Python/C++ wrapper that allows interoperability between Python 3 and
 JavaScript running Google’s V8 engine. STPyV8 is a fork of the original PyV8 project,
@@ -121,10 +122,7 @@ with code changed to work with the latest V8 engine and Python 3. STPyV8 links w
 Google V8 built as a static library. Currently the library builds on Linux and MacOS,
 with Windows planned for the future.</p>
 <p>GCC/clang or equivalent and Python3 headers are needed to build the main STPyV8 source
-code, as well as Boost-Python and some other Boost dependencies. For a short while,
-Python 2.7 is still needed by Google’s toolchain to build a local library version of V8.</p>
-<p>A Python 3 virtual environment is recommended. (Google’s build tools will establish their
-own Python2 virtual environment during the compilation of V8, but this can be ignored).</p>
+code, as well as Boost-Python and some other Boost dependencies.</p>
 <p>Please look at <a class="reference external" href="https://github.com/area1/stpyv8/blob/master/docs/source/build.rst">https://github.com/area1/stpyv8/blob/master/docs/source/build.rst</a> for
 detailed building instructions. Moreover be aware that Python wheels are available for
 the Linux platform at <a class="reference external" href="https://github.com/area1/stpyv8/releases">https://github.com/area1/stpyv8/releases</a> for different versions
