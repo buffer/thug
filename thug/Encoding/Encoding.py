@@ -16,8 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
-import cchardet
-
+import charset_normalizer
 
 class Encoding:
     @staticmethod
@@ -25,4 +24,4 @@ class Encoding:
         if isinstance(data, str):
             data = data.encode()
 
-        return cchardet.detect(data)
+        return charset_normalizer.detect(data)
