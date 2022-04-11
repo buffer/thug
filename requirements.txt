@@ -1,5 +1,5 @@
 PySocks==1.7.1
-beautifulsoup4==4.11.0
+beautifulsoup4==4.11.1
 charset-normalizer==2.0.12
 cssutils==2.4.0
 html5lib==1.1
