@@ -10,6 +10,7 @@ thug.egg-info
 tests/log-dir-example
 .pytest_cache
 venv/*
+switch_repo*
 
 # Generated files
 *.pyc
