@@ -21,6 +21,8 @@ class TestAsyncPrefetch:
         thug.set_log_verbose()
         thug.set_ssl_verify()
         thug.get_async_prefetch()
+        thug.reset_async_prefetch()
+        thug.get_async_prefetch()
         thug.set_async_prefetch()
         thug.log_init(url)
 

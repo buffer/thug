@@ -297,6 +297,9 @@ class ThugAPI:
     def set_async_prefetch(self):
         log.ThugOpts.async_prefetch = True
 
+    def reset_async_prefetch(self):
+        log.ThugOpts.async_prefetch = False
+
     def disable_honeyagent(self):
         log.ThugOpts.honeyagent = False
 

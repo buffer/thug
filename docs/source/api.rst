@@ -711,6 +711,15 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def reset_async_prefetch():
+            """
+            set_async_prefetch
+
+            Disable asynchronous prefetching mode
+
+            @return: None
+            """
+
         def add_urlclassifier(rule):
             """
             add_urlclassifier
