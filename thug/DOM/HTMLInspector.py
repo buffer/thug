@@ -22,6 +22,8 @@ import json
 
 import bs4
 
+from thug.Magic.Magic import Magic
+
 log = logging.getLogger("Thug")
 
 
@@ -37,7 +39,15 @@ class HTMLInspector:
         with open(conf_file, encoding = 'utf-8', mode = 'r') as fd:
             self.rules = json.load(fd)
 
+    @staticmethod
+    def check_passthrough(html):
+        mtype = Magic(html).get_mime()
+        return log.MIMEHandler.get_handler(mtype) == log.MIMEHandler.passthrough
+
     def run(self, html, parser = "html.parser"):
+        if self.check_passthrough(html):
+            return bs4.BeautifulSoup()
+
         if self.enabled and html:
             self.inspect(html, parser)
 
