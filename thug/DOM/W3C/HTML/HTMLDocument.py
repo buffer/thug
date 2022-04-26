@@ -454,7 +454,7 @@ class HTMLDocument(Document):
     def _all(self):
         from .HTMLAllCollection import HTMLAllCollection
 
-        s = list(self.doc.find_all(text = False))
+        s = list(self.doc.find_all(string = False))
         return HTMLAllCollection(self.doc, s)
 
     @property
