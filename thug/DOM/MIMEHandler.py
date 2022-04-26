@@ -116,6 +116,8 @@ class MIMEHandler(dict):
                  "application/x-director",
                  "application/x-dosexec",
                  "application/x-dvi",
+                 "application/x-empty",
+                 "application/x-executable",
                  "application/x-gtar",
                  "application/x-gzip",
                  "application/x-hdf",
