@@ -15,6 +15,7 @@ class TestSampleLogging:
     swf_path = os.path.join(samples_path, "sample.swf")
     doc_path = os.path.join(samples_path, "sample.doc")
     rtf_path = os.path.join(samples_path, "sample.rtf")
+    elf_path = os.path.join(samples_path, "sample.elf")
 
     def test_get_none(self):
         assert not sample_logging.get_sample_type("")
@@ -42,6 +43,10 @@ class TestSampleLogging:
     def test_get_rtf(self):
         file_type = sample_logging.get_sample_type(open(self.rtf_path, 'rb').read())
         assert file_type in ('RTF', )
+
+    def test_get_elf(self):
+        file_type = sample_logging.get_sample_type(open(self.elf_path, 'rb').read())
+        assert file_type in ('ELF', )
 
     def test_get_imphash(self):
         imphash = sample_logging.get_imphash(open(self.pe_path, 'rb').read())
