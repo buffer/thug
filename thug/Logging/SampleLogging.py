@@ -46,12 +46,13 @@ class SampleLogging:
 
     def __init__(self):
         self.types = ('PE',
+                      'ELF',
                       'PDF',
                       'JAR',
                       'SWF',
                       'DOC',
                       'RTF',
-                      'CAB', )
+                      'CAB')
 
     @staticmethod
     def is_pe(data):
@@ -75,6 +76,11 @@ class SampleLogging:
     def is_pdf(data):
         data = data.encode() if isinstance(data, str) else data
         return data[:1024].find(b'%PDF') != -1
+
+    @staticmethod
+    def is_elf(data):
+        data = data.encode() if isinstance(data, str) else data
+        return data.startswith(b'\x7fELF')
 
     def is_jar(self, data):
         result = False
