@@ -116,7 +116,7 @@ class JSInspector:
 
         try:
             self.dump()
-        except Exception as e:
+        except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning("[JSInspector] Dumping failed (%s)", str(e))
 
         return result
