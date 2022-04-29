@@ -96,7 +96,7 @@ class JSInspector:
         delattr(self.ctxt.locals, name)
         delattr(self.ctxt.locals, saved)
 
-    def dump(self, script):
+    def dump(self):
         self.dump_eval()
         self.dump_write()
 
