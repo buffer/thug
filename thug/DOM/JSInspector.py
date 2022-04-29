@@ -97,24 +97,26 @@ class JSInspector:
         delattr(self.ctxt.locals, saved)
 
     def dump(self, script):
-        result = self.ctxt.eval(script)
-
         self.dump_eval()
         self.dump_write()
 
-        return result
-
     def run(self):
+        result = None
+
         try:
-            return self.dump(self.script)
+            result = self.ctxt.eval(self.script)
         except (UnicodeDecodeError, TypeError) as e:
             if '\\u' in self.script:
                 try:
-                    return self.dump(self.script.replace('\\u', '%u'))
+                    result = self.ctxt.eval(self.script.replace('\\u', '%u'))
                 except Exception as e: # pragma: no cover,pylint:disable=broad-except
                     log.warning("[JSInspector] %s", str(e))
         except Exception as e: # pylint:disable=broad-except
             log.warning("[JSInspector] %s", str(e))
 
-        log.warning("[JSInspector] Dumping failed")
-        return None
+        try:
+            self.dump()
+        except Exception as e:
+            log.warning("[JSInspector] Dumping failed (%s)", str(e))
+
+        return result
