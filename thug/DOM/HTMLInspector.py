@@ -40,13 +40,21 @@ class HTMLInspector:
             self.rules = json.load(fd)
 
     @staticmethod
-    def check_empty_handler(html):
+    def check_ignore_handler(html):
+        ignore_handlers = (
+			log.MIMEHandler.passthrough,
+			log.MIMEHandler.handle_zip,
+			log.MIMEHandler.handle_rar,
+			log.MIMEHandler.handle_java_jnlp,
+			log.MIMEHandler.handle_json,
+			log.MIMEHandler.handle_image)
+
         mtype = Magic(html).get_mime()
         handler = log.MIMEHandler.get_handler(mtype)
-        return handler is not None
+        return handler in ignore_handlers
 
     def run(self, html, parser = "html.parser"):
-        if self.check_empty_handler(html):
+        if self.check_ignore_handler(html):
             return bs4.BeautifulSoup()
 
         if self.enabled and html:
