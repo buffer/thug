@@ -106,6 +106,8 @@ class HTTPSession:
         return url
 
     def normalize_url(self, window, url):
+        url = url.strip()
+
         # Do not normalize Data URI scheme
         if url.lower().startswith('url=') or url.lower().startswith('data:'):
             return url
