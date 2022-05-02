@@ -40,12 +40,13 @@ class HTMLInspector:
             self.rules = json.load(fd)
 
     @staticmethod
-    def check_passthrough(html):
+    def check_empty_handler(html):
         mtype = Magic(html).get_mime()
-        return log.MIMEHandler.get_handler(mtype) == log.MIMEHandler.passthrough
+        handler = log.MIMEHandler.get_handler(mtype)
+        return handler is not None
 
     def run(self, html, parser = "html.parser"):
-        if self.check_passthrough(html):
+        if self.check_empty_handler(html):
             return bs4.BeautifulSoup()
 
         if self.enabled and html:
