@@ -124,8 +124,9 @@ def send(self, varBody = None):
     if contenttype is None: # pragma: no cover
         return 0
 
-    self.dispatchEvent("load")
-    self.dispatchEvent("readystatechange")
+    if 'text/css' not in contenttype:
+        self.dispatchEvent("load")
+        self.dispatchEvent("readystatechange")
 
     if 'javascript' in contenttype:
         html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(response.text))))
