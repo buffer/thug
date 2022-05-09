@@ -1,4 +1,4 @@
-__version__            = "3.12.2"
+__version__            = "3.12.3"
 __jsengine__           = ""
 __jsengine_version__   = ""
 __configuration_path__ = "/etc/thug"
