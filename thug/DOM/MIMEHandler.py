@@ -67,8 +67,12 @@ class MIMEHandler(dict):
         application/pdf Content-Type handler.
     """
 
+    MB = 1024 * 1024
+
     MIN_ZIP_FILE_SIZE = 32
+    MAX_ZIP_FILE_SIZE = 32 * MB
     MIN_RAR_FILE_SIZE = 32
+    MAX_RAR_FILE_SIZE = 32 * MB
     MIN_IMG_FILE_SIZE = 32
 
     mimetypes = ("application/atom+xml",
@@ -361,6 +365,9 @@ class MIMEHandler(dict):
         if len(content) < self.MIN_ZIP_FILE_SIZE: # pragma: no cover
             return False
 
+        if len(content) > self.MAX_ZIP_FILE_SIZE: # pragma: no cover
+            return False
+
         fp = io.BytesIO(content)
         if not zipfile.is_zipfile(fp):
             return False
@@ -416,6 +423,9 @@ class MIMEHandler(dict):
 
     def handle_rar(self, url, content):
         if len(content) < self.MIN_RAR_FILE_SIZE: # pragma: no cover
+            return False
+
+        if len(content) > self.MAX_RAR_FILE_SIZE: # pragma: no cover
             return False
 
         fd, rfile = tempfile.mkstemp()
