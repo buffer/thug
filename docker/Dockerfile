@@ -71,9 +71,9 @@ RUN pip3 install --upgrade pytesseract
 RUN pip3 install --upgrade pygraphviz
 WORKDIR /home
 
-RUN wget https://github.com/cloudflare/stpyv8/releases/download/v10.1.124.10/stpyv8-ubuntu-20.04-python-3.8.zip
+RUN wget https://github.com/cloudflare/stpyv8/releases/download/v10.1.124.12/stpyv8-ubuntu-20.04-python-3.8.zip
 RUN unzip stpyv8-ubuntu-20.04-python-3.8.zip
-RUN pip3 install stpyv8-ubuntu-20.04-3.8/stpyv8-10.1.124.10-cp38-cp38-linux_x86_64.whl
+RUN pip3 install stpyv8-ubuntu-20.04-3.8/stpyv8-10.1.124.12-cp38-cp38-linux_x86_64.whl
 RUN mkdir -p /usr/share/stpyv8
 RUN sudo mv stpyv8-ubuntu-20.04-3.8/icudtl.dat /usr/share/stpyv8
 
