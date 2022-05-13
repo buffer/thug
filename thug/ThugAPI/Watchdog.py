@@ -21,27 +21,27 @@ import sys
 import signal
 import logging
 
-log = logging.getLogger("Thug")
-
 
 class Watchdog:
-    def __init__(self, time, callback = None):
-        self.time     = time
+    def __init__(self, timeout, callback = None):
+        self.timeout  = timeout
         self.callback = callback
 
     def __enter__(self):
         signal.signal(signal.SIGALRM, self.handler)
-        signal.alarm(self.time)
+        signal.alarm(self.timeout)
 
     def __exit__(self, exception_type, exception_value, traceback):
         signal.alarm(0)
 
     def handler(self, signum, frame):
-        log.critical("The analysis took more than %d second(s). Aborting!", self.time)
+        thugLog = logging.getLogger("Thug")
+
+        thugLog.critical("The analysis took more than %d second(s). Aborting!", self.timeout)
         if self.callback:
             self.callback(signum, frame)
 
-        log.ThugLogging.log_event()
+        thugLog.ThugLogging.log_event()
 
         pid = os.getpid()
 
