@@ -31,6 +31,9 @@ class HTMLClassifier(BaseClassifier):
         BaseClassifier.__init__(self)
 
     def classify(self, url, html):
+        if not log.HTMLInspector.check_ignore_handler(html):
+            return
+
         for match in self.rules.match(data = html):
             if (url, match) in self.matches:
                 continue
