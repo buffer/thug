@@ -217,6 +217,7 @@ class MIMEHandler(dict):
                  "text/x-component",
                  "text/x-setext",
                  "text/x-vcard",
+                 "video/mp4",
                  "video/mpeg",
                  "video/quicktime",
                  "video/x-la-asf",
