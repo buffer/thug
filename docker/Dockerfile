@@ -95,8 +95,8 @@ RUN git clone https://github.com/buffer/thug.git && \
   mkdir /etc/thug/scripts && \
   mkdir /etc/thug/plugins && \
   mkdir /etc/thug/hooks && \
-  cp -R thug/thug/Classifier/rules/* /etc/thug/rules/ && \
-  cp -R thug/thug/DOM/personalities/* /etc/thug/personalities && \
+  cp -R thug/conf/rules/* /etc/thug/rules/ && \
+  cp -R thug/conf/personalities/* /etc/thug/personalities && \
   cp thug/thug/DOM/thug.js /etc/thug/scripts && \
   cp thug/thug/DOM/storage.js /etc/thug/scripts && \
   cp thug/thug/DOM/date.js /etc/thug/scripts && \
