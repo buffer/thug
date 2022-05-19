@@ -47,8 +47,8 @@ jobs:
       - name: STEP 6. Build Thug
         run: |
           sudo mkdir -p /etc/thug/{rules,personalities,scripts}
-          sudo cp -R thug/Classifier/rules/* /etc/thug/rules/
-          sudo cp -R thug/DOM/personalities/* /etc/thug/personalities
+          sudo cp -R conf/rules/* /etc/thug/rules/
+          sudo cp -R conf/personalities/* /etc/thug/personalities
           sudo cp -t /etc/thug/scripts thug/DOM/{thug.js,storage.js,date.js,eval.js,write.js}
           sudo cp -t /etc/thug/ conf/thug.conf
           sudo cp -t /etc/thug/ conf/inspector.json
