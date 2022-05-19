@@ -12,6 +12,9 @@ window.top = this;
 
 Document.prototype = window.document;
 HTMLElement.prototype = window.document.createElement("p");
+HTMLIFrameElement.prototype = window.document.createElement("iframe");
+HTMLImageElement.prototype = window.document.createElement("img");
+HTMLScriptElement.prototype = window.document.createElement("script");
 XMLHttpRequest.prototype = new XMLHttpRequest;
 
 Object.defineProperty(window, "location", {
