@@ -9,6 +9,7 @@ from thug.DOM.W3C.Style.CSS.ElementCSSInlineStyle import ElementCSSInlineStyle
 
 from .DOMException import DOMException
 from .Node import Node
+from .ClassList import ClassList
 
 log = logging.getLogger("Thug")
 
@@ -59,14 +60,14 @@ class Element(Node, ElementCSSInlineStyle):
         if log.ThugOpts.Personality.browserMajorVersion > 8:
             self.getElementsByClassName = self._getElementsByClassName
             self.msMatchesSelector      = self._matches
-            self.classList              = property(self._classList)
+            self.classList              = ClassList(self.tag)
 
     def __init_element_personality_Firefox(self):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.mozMatchesSelector     = self._matches
         self.getElementsByClassName = self._getElementsByClassName
-        self.classList              = property(self._classList)
+        self.classList              = ClassList(self.tag)
 
         if log.ThugOpts.Personality.browserMajorVersion > 33:
             self.matches = self._matches
@@ -76,7 +77,7 @@ class Element(Node, ElementCSSInlineStyle):
         self.querySelector          = self._querySelector
         self.webkitMatchesSelector  = self._matches
         self.getElementsByClassName = self._getElementsByClassName
-        self.classList              = property(self._classList)
+        self.classList              = ClassList(self.tag)
 
         if log.ThugOpts.Personality.browserMajorVersion > 33:
             self.matches = self._matches
@@ -85,7 +86,7 @@ class Element(Node, ElementCSSInlineStyle):
         self.querySelectorAll       = self._querySelectorAll
         self.querySelector          = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
-        self.classList              = property(self._classList)
+        self.classList              = ClassList(self.tag)
 
         if log.ThugOpts.Personality.browserMajorVersion > 6:
             self.matches = self._matches
@@ -157,10 +158,6 @@ class Element(Node, ElementCSSInlineStyle):
     @property
     def scrollHeight(self):
         return random.randint(10, 100)
-
-    def _classList(self):
-        from .ClassList import ClassList
-        return ClassList(self.tag)
 
     # Introduced in DOM Level 2
     def hasAttribute(self, name):
