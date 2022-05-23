@@ -4,11 +4,11 @@ charset-normalizer==2.0.12
 cssutils==2.4.0
 html5lib==1.1
 lxml==4.8.0
-networkx==2.8
+networkx==2.8.2
 pefile==2021.9.3
 pylibemu==0.7
 pymongo==4.1.1
-python-magic==0.4.25
+python-magic==0.4.26
 rarfile==4.0
 requests==2.27.1
 requests-futures==1.0.0
