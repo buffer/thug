@@ -23,8 +23,6 @@ import logging
 
 import ssdeep
 
-from thug.Magic.Magic import Magic
-
 from .JSClass import JSClass
 from .MimeTypes import MimeTypes
 from .Plugins import Plugins
@@ -362,7 +360,7 @@ class Navigator(JSClass):
         sha256.update(response.content)
         ssdeep_hash = ssdeep.hash(response.content)
 
-        mtype = Magic(response.content).get_mime()
+        mtype = log.Magic.get_mime(response.content)
 
         data = {
             "content" : response.content,

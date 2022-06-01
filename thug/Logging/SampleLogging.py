@@ -26,8 +26,6 @@ import pefile
 import ssdeep
 import magic
 
-from thug.Magic.Magic import Magic
-
 log = logging.getLogger("Thug")
 
 
@@ -110,7 +108,7 @@ class SampleLogging:
 
     def is_doc(self, data):
         data = data.encode() if isinstance(data, str) else data
-        return Magic(data).get_mime() in self.doc_mime_types
+        return log.Magic.get_mime(data) in self.doc_mime_types
 
     def is_rtf(self, data):
         return magic.from_buffer(data, mime = True) in self.rtf_mime_types

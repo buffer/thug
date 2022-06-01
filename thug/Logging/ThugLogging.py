@@ -33,7 +33,6 @@ from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
 from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
 from thug.Analysis.screenshot.Screenshot import Screenshot
 from thug.Analysis.awis.AWIS import AWIS
-from thug.Magic.Magic import Magic
 
 from .BaseLogging import BaseLogging
 from .SampleLogging import SampleLogging
@@ -344,7 +343,7 @@ class ThugLogging(BaseLogging, SampleLogging):
             sha256 = hashlib.sha256()
             sha256.update(h.content)
 
-            mtype = Magic(h.content).get_mime()
+            mtype = log.Magic.get_mime(h.content)
 
             data = {
                 "content" : h.content,

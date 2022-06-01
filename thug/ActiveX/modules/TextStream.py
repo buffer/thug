@@ -6,8 +6,6 @@ import random
 import errno
 import logging
 
-from thug.Magic.Magic import Magic
-
 log = logging.getLogger("Thug")
 
 
@@ -150,7 +148,7 @@ class TextStream:
             'sha256'  : hashlib.sha256(_content).hexdigest(),
             'fsize'   : len(content),
             'ctype'   : 'textstream',
-            'mtype'   : Magic(_content).get_mime(),
+            'mtype'   : log.Magic.get_mime(_content),
         }
 
         log.ThugLogging.log_location(log.ThugLogging.url, data)

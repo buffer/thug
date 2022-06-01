@@ -1,7 +1,6 @@
 from io import BytesIO
 
 import logging
-from thug.Magic.Magic import Magic
 
 log = logging.getLogger("Thug")
 
@@ -45,7 +44,7 @@ def SaveToFile(self, filename, opt = 0):
                                       forward = False)
 
     content = self.fobject.getvalue()
-    mtype   = Magic(content).get_mime()
+    mtype   = log.Magic.get_mime(content)
 
     log.ThugLogging.log_file(content, url = filename, sampletype = mtype)
     self._files[filename] = content

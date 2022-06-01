@@ -36,6 +36,7 @@ from thug.DOM.MIMEHandler import MIMEHandler
 from thug.DOM.SchemeHandler import SchemeHandler
 from thug.WebTracking.WebTracking import WebTracking
 from thug.Encoding.Encoding import Encoding
+from thug.Magic.Magic import Magic
 from thug.Logging.ThugLogging import ThugLogging
 
 from thug.DOM.JSEngine import JSEngine
@@ -83,6 +84,7 @@ class ThugAPI:
         log.MIMEHandler     = MIMEHandler()
         log.SchemeHandler   = SchemeHandler()
         log.Encoding        = Encoding()
+        log.Magic           = Magic()
         log.WebTracking     = WebTracking()
         log.HTMLInspector   = HTMLInspector()
 

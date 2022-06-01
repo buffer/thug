@@ -22,8 +22,6 @@ import json
 
 import bs4
 
-from thug.Magic.Magic import Magic
-
 log = logging.getLogger("Thug")
 
 
@@ -49,7 +47,7 @@ class HTMLInspector:
 			log.MIMEHandler.handle_json,
 			log.MIMEHandler.handle_image)
 
-        mtype = Magic(html).get_mime()
+        mtype = log.Magic.get_mime(html)
         handler = log.MIMEHandler.get_handler(mtype)
         return handler in ignore_handlers
 

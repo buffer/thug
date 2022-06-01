@@ -7,7 +7,6 @@ import logging
 import hashlib
 import pefile
 
-from thug.Magic.Magic import Magic
 from thug.ActiveX.modules.WScriptExec import WScriptExec
 from thug.OS.Windows import win32_registry
 from thug.OS.Windows import win32_registry_map
@@ -116,7 +115,7 @@ def _doRun(self, p, stage):
                 'sha256'  : sha256sum,
                 'fsize'   : len(response.content),
                 'ctype'   : response.headers.get('content-type', 'unknown'),
-                'mtype'   : Magic(response.content).get_mime(),
+                'mtype'   : log.Magic.get_mime(response.content),
         }
 
         log.ThugLogging.log_location(url, data)
