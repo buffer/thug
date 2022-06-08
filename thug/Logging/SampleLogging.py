@@ -40,7 +40,16 @@ class SampleLogging:
         'application/rtf',
     )
 
-    MAX_JAR_FILE_SIZE = 16 * 1024 * 1024
+    MB = 1024 * 1024
+
+    MAX_CAB_FILE_SIZE = 32 * MB
+    MAX_DOC_FILE_SIZE = 32 * MB
+    MAX_ELF_FILE_SIZE = 32 * MB
+    MAX_JAR_FILE_SIZE = 32 * MB
+    MAX_PDF_FILE_SIZE = 32 * MB
+    MAX_PE_FILE_SIZE  = 32 * MB
+    MAX_RTF_FILE_SIZE = 32 * MB
+    MAX_SWF_FILE_SIZE = 32 * MB
 
     def __init__(self):
         self.types = ('PE',
@@ -52,8 +61,10 @@ class SampleLogging:
                       'RTF',
                       'CAB')
 
-    @staticmethod
-    def is_pe(data):
+    def is_pe(self, data):
+        if len(data) > self.MAX_PE_FILE_SIZE:
+            return False # pragma: no cover
+
         try:
             pefile.PE(data = data, fast_load = True)
         except Exception: # pylint:disable=broad-except
@@ -70,13 +81,17 @@ class SampleLogging:
 
         return pe.get_imphash()
 
-    @staticmethod
-    def is_pdf(data):
+    def is_pdf(self, data):
+        if len(data) > self.MAX_PDF_FILE_SIZE:
+            return False # pragma: no cover
+
         data = data.encode() if isinstance(data, str) else data
         return data[:1024].find(b'%PDF') != -1
 
-    @staticmethod
-    def is_elf(data):
+    def is_elf(self, data):
+        if len(data) > self.MAX_ELF_FILE_SIZE:
+            return False # pragma: no cover
+
         data = data.encode() if isinstance(data, str) else data
         return data.startswith(b'\x7fELF')
 
@@ -101,20 +116,30 @@ class SampleLogging:
         os.remove(jar)
         return result
 
-    @staticmethod
-    def is_swf(data):
+    def is_swf(self, data):
+        if len(data) > self.MAX_SWF_FILE_SIZE:
+            return False # pragma: no cover
+
         data = data.encode() if isinstance(data, str) else data
         return data.startswith(b'CWS') or data.startswith(b'FWS')
 
     def is_doc(self, data):
+        if len(data) > self.MAX_DOC_FILE_SIZE:
+            return False # pragma: no cover
+
         data = data.encode() if isinstance(data, str) else data
         return log.Magic.get_mime(data) in self.doc_mime_types
 
     def is_rtf(self, data):
+        if len(data) > self.MAX_RTF_FILE_SIZE:
+            return False # pragma: no cover
+
         return magic.from_buffer(data, mime = True) in self.rtf_mime_types
 
-    @staticmethod
-    def is_cab(data):
+    def is_cab(self, data):
+        if len(data) > self.MAX_CAB_FILE_SIZE:
+            return False # pragma: no cover
+
         data = data.encode() if isinstance(data, str) else data
         return data.startswith(b'MSCF')
 
