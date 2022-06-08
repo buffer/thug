@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JS Hooks &mdash; Thug 3.12.6 documentation</title>
+  <title>JS Hooks &mdash; Thug 3.13 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
             <a href="index.html" class="icon icon-home"> Thug
           </a>
               <div class="version">
-                3.12.6
+                3.13
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -159,21 +159,21 @@ total 12K
 <p>The three scripts are executed again in the right order and the hook defined in 3-hook.js
 overwrites the other ones as expected.</p>
 <p>Let’s try something more advanced now.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">saved_eval</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nb">eval</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">saved_eval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nb">eval</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">this</span><span class="p">.</span><span class="nb">eval</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hook me Captain Hook!&quot;</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nb">eval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Hook me Captain Hook!&quot;</span><span class="p">);</span><span class="w"></span>
 
-    <span class="c1">// Call the original function</span>
-    <span class="nx">returnValue</span> <span class="o">=</span> <span class="nx">saved_eval</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Call the original function</span><span class="w"></span>
+<span class="w">    </span><span class="nx">returnValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">saved_eval</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">arguments</span><span class="p">);</span><span class="w"></span>
 
-    <span class="c1">// Do your own stuff..</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;The original return value is: &quot;</span> <span class="o">+</span> <span class="nx">returnValue</span><span class="p">);</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Is it what you expected?&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// Do your own stuff..</span><span class="w"></span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;The original return value is: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">returnValue</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Is it what you expected?&quot;</span><span class="p">);</span><span class="w"></span>
 
-    <span class="c1">// .. and return whatever you want</span>
-    <span class="k">return</span> <span class="s2">&quot;two&quot;</span><span class="p">;</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="c1">// .. and return whatever you want</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;two&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Let’s take a look at what happens when we run Thug now. Please note that all the files we used in the previous examples

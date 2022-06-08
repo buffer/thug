@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; Thug 3.12.6 documentation</title>
+  <title>Usage &mdash; Thug 3.13 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
             <a href="index.html" class="icon icon-home"> Thug
           </a>
               <div class="version">
-                3.12.6
+                3.13
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -902,7 +902,7 @@ locally saved page.</p>
 <p>An interesting feature (introduced in Thug 0.4.13) allows you to define a maximum delay for
 methods like setTimeout and setInterval which set a delay for executing a function. For instance
 if the original code contains a statement like</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">do_stuff</span><span class="p">,</span> <span class="mf">60000</span><span class="p">);</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">do_stuff</span><span class="p">,</span><span class="w"> </span><span class="mf">60000</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>the code will sleep for 60 seconds before executing the function <cite>do_stuff</cite>. There are situations
