@@ -728,6 +728,7 @@ CLSID = [
                             'responseBody'          : '',
                             'responseText'          : '',
                             'responseType'          : '',
+                            'responseURL'           : '',
                             'responseXML'           : '',
                             'response'              : '',
                             'readyState'            : 4,

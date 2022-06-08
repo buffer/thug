@@ -96,6 +96,7 @@ def send(self, varBody = None):
     self.responseHeaders = response.headers
     self.responseBody    = response.content
     self.responseText    = response.text
+    self.responseURL     = response.url
     self.readyState      = 4
 
     if getattr(log, 'XMLHTTP', None) is None:
@@ -105,6 +106,7 @@ def send(self, varBody = None):
     log.XMLHTTP['responseHeaders'] = self.responseHeaders
     log.XMLHTTP['responseBody']    = self.responseBody
     log.XMLHTTP['responseText']    = self.responseText
+    log.XMLHTTP['responseURL']     = self.responseURL
     log.XMLHTTP['readyState']      = self.readyState
 
     last_bstrUrl    = log.XMLHTTP.get('last_bstrUrl', None)
