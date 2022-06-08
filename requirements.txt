@@ -8,7 +8,7 @@ networkx==2.8.3
 pefile==2022.5.30
 pylibemu==0.7
 pymongo==4.1.1
-python-magic==0.4.26
+python-magic==0.4.27
 rarfile==4.0
 requests==2.27.1
 requests-futures==1.0.0
