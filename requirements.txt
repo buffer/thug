@@ -10,7 +10,7 @@ pylibemu==0.7
 pymongo==4.1.1
 python-magic==0.4.27
 rarfile==4.0
-requests==2.27.1
+requests==2.28.0
 requests-futures==1.0.0
 ssdeep==3.4
 yara-python==4.2.0
