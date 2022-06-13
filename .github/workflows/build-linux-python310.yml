@@ -25,6 +25,7 @@ jobs:
         run: |
           git clone https://github.com/buffer/libemu.git
           cd libemu
+          autoupdate
           autoreconf -v -i
           ./configure
           sudo make install
