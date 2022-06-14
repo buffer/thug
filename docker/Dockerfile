@@ -26,7 +26,7 @@
 # (https://github.com/PayloadSecurity/VxCommunity/blob/master/bash/thuginstallation.sh)
 #
 
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 MAINTAINER Angelo Dell'Aera
 
 USER root
@@ -36,11 +36,11 @@ RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     build-essential \
     sudo \
-    python \
     python3 \
     python3-dev \
     python3-setuptools \
-    python3-wheel \ 
+    python3-wheel \
+    python-is-python3 \
     libboost-dev \
     libboost-iostreams-dev \
     libboost-python-dev \
@@ -72,11 +72,11 @@ RUN pip3 install --upgrade pytesseract
 RUN pip3 install --upgrade pygraphviz
 WORKDIR /home
 
-RUN wget https://github.com/cloudflare/stpyv8/releases/download/v10.2.154.8/stpyv8-ubuntu-20.04-python-3.8.zip
-RUN unzip stpyv8-ubuntu-20.04-python-3.8.zip
-RUN pip3 install stpyv8-ubuntu-20.04-3.8/stpyv8-10.2.154.8-cp38-cp38-linux_x86_64.whl
+RUN wget https://github.com/cloudflare/stpyv8/releases/download/v10.2.154.8/stpyv8-ubuntu-22.04-python-3.10.zip
+RUN unzip stpyv8-ubuntu-22.04-python-3.10.zip
+RUN pip3 install stpyv8-ubuntu-22.04-3.10/stpyv8-10.2.154.8-cp310-cp310-linux_x86_64.whl
 RUN mkdir -p /usr/share/stpyv8
-RUN sudo mv stpyv8-ubuntu-20.04-3.8/icudtl.dat /usr/share/stpyv8
+RUN sudo mv stpyv8-ubuntu-22.04-3.10/icudtl.dat /usr/share/stpyv8
 
 RUN git clone https://github.com/buffer/libemu.git && \
   cd libemu && \
