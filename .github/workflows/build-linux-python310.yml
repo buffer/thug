@@ -21,25 +21,24 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: STEP 3. Install libemu
+      - name: STEP 3. Install dependencies
         run: |
-          sudo apt-get install clang
+          sudo apt-get install python3 python3-dev python-is-python3
+          sudo apt-get install build-essential clang
+          sudo apt-get install libboost-dev libboost-system-dev libboost-iostreams-dev libboost-python-dev systemtap-sdt-dev
+          sudo apt-get install libfuzzy-dev graphviz libgraphviz-dev tesseract-ocr unrar xfonts-base xfonts-75dpi
+          wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_amd64.deb
+          sudo dpkg -i wkhtmltox_0.12.6-1.bionic_amd64.deb
+
+      - name: STEP 4. Install libemu
+        run: |
           git clone https://github.com/buffer/libemu.git
           cd libemu
-          autoupdate
           autoreconf -v -i
           ./configure
           sudo make install
           cd -
           sudo ldconfig
-
-      - name: STEP 4. Install dependencies
-        run: |
-          sudo apt-get install python3 python3-dev python-is-python3
-          sudo apt-get install build-essential libboost-dev libboost-system-dev libboost-iostreams-dev libboost-python-dev systemtap-sdt-dev
-          sudo apt-get install libfuzzy-dev graphviz libgraphviz-dev tesseract-ocr unrar xfonts-base xfonts-75dpi
-          wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_amd64.deb
-          sudo dpkg -i wkhtmltox_0.12.6-1.bionic_amd64.deb
 
       - name: STEP 5. Install Tox
         run: |
