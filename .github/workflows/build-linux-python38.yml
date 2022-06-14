@@ -23,6 +23,7 @@ jobs:
 
       - name: STEP 3. Install libemu
         run: |
+          sudo apt-get install clang
           git clone https://github.com/buffer/libemu.git
           cd libemu
           autoreconf -v -i
