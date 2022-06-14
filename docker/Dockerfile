@@ -62,6 +62,7 @@ RUN apt-get update && \
     libjpeg-dev \
     libffi-dev \
     pkg-config \
+    clang \
     autoconf && \
   rm -rf /var/lib/apt/lists/*
 
