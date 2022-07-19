@@ -4,7 +4,7 @@ charset-normalizer==2.1.0
 cssutils==2.5.0
 html5lib==1.1
 lxml==4.9.1
-networkx==2.8.4
+networkx==2.8.5
 pefile==2022.5.30
 pylibemu==0.7
 pymongo==4.1.1
