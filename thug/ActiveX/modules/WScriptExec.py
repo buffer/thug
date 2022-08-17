@@ -42,5 +42,5 @@ class WScriptExec:
         log.ThugLogging.add_behavior_warn("[WScript.Exec ActiveX] Requesting StdErr")
         return self._StdErr
 
-    def Terminate(self): # pylint:disable=no-self-use
+    def Terminate(self):
         log.ThugLogging.add_behavior_warn("[WScript.Exec ActiveX] Terminate")

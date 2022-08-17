@@ -225,7 +225,7 @@ class HTTPSession:
 
         try:
             async_prefetcher = getattr(log.DFT, 'async_prefetcher', None)
-        except Exception:
+        except Exception: # pylint: disable=broad-except
             async_prefetcher = None
 
         if async_prefetcher:
