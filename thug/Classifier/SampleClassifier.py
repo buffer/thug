@@ -49,7 +49,7 @@ class SampleClassifier(BaseClassifier):
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("sample", md5, rule, tags, meta)
 
-        for c in self.custom_classifiers:
+        for c in self.custom_classifiers: # pylint: disable=consider-using-dict-items
             self.custom_classifiers[c](sample, md5)
 
     def filter(self, sample, md5):
