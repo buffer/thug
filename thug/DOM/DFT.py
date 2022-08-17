@@ -252,9 +252,9 @@ class DFT:
         # `window.event'. In either case, HTML event handlers can refer to
         # the event object as `event'.
         if log.ThugOpts.Personality.isIE():
-            return ctx.eval("(function() { with(document) { with(this.form || {}) { with(this) { event = window.event; %s } } } }) " % (h, ))
+            return ctx.eval(f"(function() {{ with(document) {{ with(this.form || {{}}) {{ with(this) {{ event = window.event; {h} }} }} }} }}) ")
 
-        return ctx.eval("(function(event) { with(document) { with(this.form || {}) { with(this) { %s } } } }) " % (h, ))
+        return ctx.eval(f"(function(event) {{ with(document) {{ with(this.form || {{}}) {{ with(this) {{ {h} }} }} }} }}) ")
 
     def build_event_handler(self, ctx, h):
         try:
