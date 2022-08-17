@@ -105,7 +105,7 @@ class JSInspector:
 
         try:
             result = self.ctxt.eval(self.script)
-        except (UnicodeDecodeError, TypeError) as e:
+        except (UnicodeDecodeError, TypeError):
             if '\\u' in self.script:
                 try:
                     result = self.ctxt.eval(self.script.replace('\\u', '%u'))
