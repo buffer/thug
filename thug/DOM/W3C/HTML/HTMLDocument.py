@@ -24,7 +24,7 @@ class HTMLDocument(Document):
         return "[object HTMLDocument]"
 
     def __init__(self, doc, win = None, referer = None, lastModified = None, cookie = ''):
-        Document.__init__(self, doc)
+        Document.__init__(self, doc, self)
 
         self._win           = win
         self.body           = HTMLBodyElement(self.doc, self.doc.find('body'))
@@ -128,10 +128,6 @@ class HTMLDocument(Document):
         self._win = win
 
     window = property(getWindow, setWindow)
-
-    @property
-    def tag(self):
-        return self
 
     @property
     def _node(self):

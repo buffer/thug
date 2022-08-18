@@ -12,8 +12,9 @@ class Attr(Node):
         self.doc    = doc
         self.parent = parent
         self.attr   = attr
-        self.tag    = bs4.Tag(parser = self.doc, name = 'attr')
-        Node.__init__(self, doc)
+
+        tag = bs4.Tag(parser = self.doc, name = 'attr')
+        Node.__init__(self, doc, tag)
 
         self._specified = False
         self._value     = self.getValue()

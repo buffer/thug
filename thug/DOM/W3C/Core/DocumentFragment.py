@@ -10,8 +10,8 @@ log = logging.getLogger("Thug")
 
 class DocumentFragment(Node):
     def __init__(self, doc):
-        self.tag = bs4.Tag(parser = doc, name = 'documentfragment')
-        Node.__init__(self, doc)
+        tag = bs4.Tag(parser = doc, name = 'documentfragment')
+        Node.__init__(self, doc, tag)
         self.__init_documentfragment_personality()
 
     def __init_documentfragment_personality(self):
