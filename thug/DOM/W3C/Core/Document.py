@@ -14,8 +14,8 @@ log = logging.getLogger("Thug")
 
 
 class Document(Node, DocumentEvent, DocumentView):
-    def __init__(self, doc):
-        Node.__init__(self, doc)
+    def __init__(self, doc, tag):
+        Node.__init__(self, doc, tag)
         DocumentEvent.__init__(self, doc)
         DocumentView.__init__(self, doc)
         self.__init_document_personality()

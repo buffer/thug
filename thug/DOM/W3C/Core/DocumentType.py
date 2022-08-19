@@ -13,8 +13,7 @@ class DocumentType(Node):
     RE_DOCTYPE = re.compile(r"^(\w+)", re.M + re.S)
 
     def __init__(self, doc, tag):
-        self.tag = tag
-        Node.__init__(self, doc)
+        Node.__init__(self, doc, tag)
         self.__init_documenttype_personality()
 
     def __init_documenttype_personality(self):
