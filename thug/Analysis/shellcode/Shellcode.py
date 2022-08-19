@@ -156,8 +156,7 @@ class Shellcode:
                                                      method = "Static Analysis")
 
     def log_shellcode_profile(self, module, profile):
-        description  = f"[{module}][Shellcode Profile] "
-        description += f"{profile if isinstance(profile, str) else profile.decode()}"
+        description = f"[{module}][Shellcode Profile] {profile}"
 
         log.ThugLogging.add_behavior_warn(description = description,
                                           snippet     = self.snippet,
@@ -170,17 +169,16 @@ class Shellcode:
         emu = pylibemu.Emulator(enable_hooks = False)
         emu.run(sc)
 
-        profile = getattr(emu, 'emu_profile_output')
-        if not profile:
-            emu.free()
-            return
+        if emu.emu_profile_output:
+            profile = emu.emu_profile_output.decode()
 
-        if self.snippet is None:
-            self.snippet = self.build_snippet(shellcode)
+            if self.snippet is None:
+                self.snippet = self.build_snippet(shellcode)
 
-        self.log_shellcode_profile("LIBEMU", profile)
-        self.check_URLDownloadToFile(emu)
-        self.check_WinExec(emu)
+            self.log_shellcode_profile("LIBEMU", profile)
+
+            self.check_URLDownloadToFile(emu)
+            self.check_WinExec(emu)
 
         emu.free()
 
