@@ -179,18 +179,19 @@ class Window(JSClass):
         if prop and isinstance(prop[0], collections.abc.Callable):
             return prop[0]()
 
-        if log.ThugOpts.Personality.isIE() and key.lower() in ('wscript', 'wsh', ):
-            return self.WScript
-
         if log.ThugOpts.Personality.isIE():
+            if key.lower() in ('wscript', 'wsh', ):
+                return self.WScript
+
             if key in self.WScript.__dict__ and callable(self.WScript.__dict__[key]):
                 return self.WScript.__dict__[key]
 
-        if log.ThugOpts.Personality.isIE():
             xmlhttp = getattr(log, 'XMLHTTP', None)
 
-            if xmlhttp and key in xmlhttp:
-                return xmlhttp[key]
+            if xmlhttp and isinstance(xmlhttp, dict):
+                value = xmlhttp.get(key, None)
+                if value is not None:
+                    return value
 
         context = self.__class__.__dict__['context'].__get__(self, Window)
 
