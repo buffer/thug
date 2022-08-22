@@ -1209,8 +1209,6 @@ class DFT:
         if not uri.lower().startswith("data:"):
             return None
 
-        log.URLClassifier.classify(uri)
-
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_data_uri_count()
 
