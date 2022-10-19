@@ -35,6 +35,7 @@ from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.Java.java import java
 
 from thug.DOM.W3C import w3c
+from thug.DOM.W3C import URL
 from .JSClass import JSClass
 from .JSClass import JSClassConstructor
 from .JSClass import JSClassPrototype
@@ -881,14 +882,23 @@ class Window(JSClass):
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
 
+        if log.ThugOpts.Personality.browserMajorVersion > 11:
+            self.navigator.mozConnection = mozConnection()
+
+        if log.ThugOpts.Personality.browserMajorVersion > 12:
+            self.Map = Map()
+
+        if log.ThugOpts.Personality.browserMajorVersion > 18:
+            self.URL = URL
+
+        if log.ThugOpts.Personality.browserMajorVersion > 28:
+            self.URLSearchParams = URL.URLSearchParams
+
         if log.ThugOpts.Personality.browserMajorVersion > 32:
             self.RadioNodeList = None
 
         if log.ThugOpts.Personality.browserMajorVersion > 12:
             self.Map = Map()
-
-        if log.ThugOpts.Personality.browserMajorVersion > 11:
-            self.navigator.mozConnection = mozConnection()
 
         with self.context as ctxt:
             if log.ThugOpts.Personality.browserMajorVersion <= 20:
@@ -915,6 +925,12 @@ class Window(JSClass):
         self.sessionStorage      = SessionStorage()
         self.onmousewheel        = None
 
+        if log.ThugOpts.Personality.browserMajorVersion > 18:
+            self.URL = URL.URL
+
+        if log.ThugOpts.Personality.browserMajorVersion > 48:
+            self.URLSearchParams = URL.URLSearchParams
+
     def __init_window_personality_Safari(self):
         from .Console import Console
         from thug.DOM.W3C.DOMParser import DOMParser
@@ -929,6 +945,12 @@ class Window(JSClass):
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
         self.onmousewheel        = None
+
+        if log.ThugOpts.Personality.browserMajorVersion > 9:
+            self.URLSearchParams = URL.URLSearchParams
+
+        if log.ThugOpts.Personality.browserMajorVersion > 13:
+            self.URL = URL
 
     def eval(self, script):
         if not script:
