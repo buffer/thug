@@ -22,9 +22,9 @@
 import logging
 import urllib.parse
 
-from .URLSearchParams import URLSearchParams
-
 from thug.DOM.JSClass import JSClass
+
+from .URLSearchParams import URLSearchParams
 
 log = logging.getLogger("Thug")
 
