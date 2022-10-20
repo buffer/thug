@@ -38,13 +38,14 @@
       url6.search   = "foo=bar";
       url6.username = "username";
       url6.username = "username2";
+      url6.password = "password2";
       alert("URL6 search: " + url6.search);
       alert(url6.searchParams.has('foo'));
       alert("URL6 href: "   + url6.href);
 
       const url7 = new URL("https://username:password@www.example.com:8080");
       url7.username = "username2";
-      url7.password = "password2"
+      url7.password = "password2";
       alert("URL7 username: " + url7.username);
       alert("URL7 password: " + url7.password);
       alert("URL7 href: "     + url7.href);
