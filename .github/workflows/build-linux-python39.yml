@@ -5,12 +5,12 @@ on: [push, pull_request]
 jobs:
   build:
     name: Build and test Thug on ${{ matrix.os }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
         python-version: [3.9]
-        os: [ubuntu-18.04]
+        os: [ubuntu-20.04]
 
     steps:
       - name: STEP 1. Checkout repository
@@ -27,8 +27,8 @@ jobs:
           sudo apt-get install build-essential clang
           sudo apt-get install libboost-dev libboost-system-dev libboost-iostreams-dev libboost-python-dev systemtap-sdt-dev
           sudo apt-get install libfuzzy-dev graphviz libgraphviz-dev tesseract-ocr unrar xfonts-base xfonts-75dpi
-          wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_amd64.deb
-          sudo dpkg -i wkhtmltox_0.12.6-1.bionic_amd64.deb
+          wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+          sudo dpkg -i wkhtmltox_0.12.6-1.focal_amd64.deb
 
       - name: STEP 4. Install libemu
         run: |
