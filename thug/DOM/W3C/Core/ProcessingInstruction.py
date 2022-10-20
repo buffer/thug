@@ -6,10 +6,9 @@ from .Node import Node
 class ProcessingInstruction(Node):
     def __init__(self, doc, target, tag):
         self._target = target
-        self.tag     = tag
         self.data    = str(tag)
 
-        Node.__init__(self, doc)
+        Node.__init__(self, doc, tag)
 
     @property
     def target(self):

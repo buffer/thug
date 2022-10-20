@@ -28,10 +28,11 @@ class Node(JSClass, EventTarget):
     DOCUMENT_FRAGMENT_NODE         = 11
     NOTATION_NODE                  = 12
 
-    def __init__(self, doc):
-        self.doc = doc
+    def __init__(self, doc, tag):
+        self._doc = doc
+        self._tag = tag
 
-        EventTarget.__init__(self)
+        EventTarget.__init__(self, doc, tag)
         self.__init_node_personality()
 
     def __eq__(self, other): # pragma: no cover
@@ -75,6 +76,22 @@ class Node(JSClass, EventTarget):
 
     def __init_node_personality_Safari(self):
         self.compareDocumentPosition = self._compareDocumentPosition
+
+    def get_tag(self):
+        return self._tag
+
+    def set_tag(self, tag):
+        self._tag = tag
+
+    tag = property(get_tag, set_tag)
+
+    def get_doc(self):
+        return self._doc
+
+    def set_doc(self, doc):
+        self._doc = doc
+
+    doc = property(get_doc, set_doc)
 
     @property
     @abstractmethod

@@ -10,8 +10,10 @@ log = logging.getLogger("Thug")
 
 # Introduced in DOM Level 2
 class EventTarget:
-    def __init__(self):
+    def __init__(self, doc, tag):
         self.__init_eventtarget_personality()
+        self.doc = doc
+        self.tag = tag
         self.tag._listeners = []
 
     def __init_eventtarget_personality(self):
