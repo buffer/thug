@@ -18,7 +18,7 @@ class _Environment:
     def __init__(self, strType):
         self.strType = strType
 
-    def Item(self, item): # pragma: no cover,pylint:disable=no-self-use
+    def Item(self, item): # pragma: no cover
         log.ThugLogging.add_behavior_warn(f"[WScript.Shell ActiveX] Getting Environment Item: {item}")
         return item
 
