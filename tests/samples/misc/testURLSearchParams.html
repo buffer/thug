@@ -1,0 +1,46 @@
+<html>
+	<body>
+		<script>
+			const params1 = new URLSearchParams('q=URLUtils.searchParams&topic=api');
+			alert("params1.toString() = " + params1.toString());
+
+			const params2 = new URLSearchParams({key: "730d67"});
+			params2.append("foo", "bar");
+			alert("params2.toString() = " + params2.toString());
+
+			const params3 = new URLSearchParams("p=params3");
+			params3.append("foo", "bar");
+			params3.append("foo", "baz");
+			alert("params3.toString() before set = " + params3.toString());
+			alert('params3.get("p") === "params3": ' + (params3.get("p") === "params3"));
+			alert('params3.get("q") === null: ' + (params3.get("q") === null));
+			alert('params3.has("foo"): ' + params3.has("foo"));
+			alert('params3.get("foo"): ' + params3.get("foo"));
+			alert(params3.getAll("foo"));
+			params3.set("foo", "overwrited");
+			alert("params3.toString() after set = " + params3.toString());
+			alert(params3.getAll("foo"));
+			params3.delete("foo");
+			alert("params3.toString() after delete = " + params3.toString());
+			alert('params3.has("foo") after delete: ' + params3.has("foo"));
+
+			const params4 = new URLSearchParams("?query=value");
+			alert('params4.has("query"): ' + params4.has("query"));
+			alert('params4.get("query"): ' + params4.get("query"));
+
+			const params5 = new URLSearchParams("foo=&bar=baz");
+			alert('params5.has("foo"): ' + params5.has("foo"));
+			alert('params5.get("foo"): ' + params5.get("foo"));
+
+			const params6 = new URLSearchParams("foo&bar=baz");
+			alert('params6.has("foo"): ' + params6.has("foo"));
+			alert('params6.get("foo"): ' + params6.get("foo"));
+
+			const params7 = new URLSearchParams("foo=foz&bar=baz");
+			params7.append("foo", "bar");
+			alert("params7.toString() before sort = " + params7.toString());
+			params7.sort();
+			alert("params7.toString() after sort = " + params7.toString());
+		</script>
+	</body>
+</html>
