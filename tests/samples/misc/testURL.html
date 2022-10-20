@@ -55,6 +55,12 @@
       alert("URL8 href: " + url8.href);
       url8.password = "password2";
       alert("URL8 href: " + url8.href);
+
+      const url9 = new URL("https://example.org:8080");
+      url9.host = "https://example.org:70000";
+      url9.port = "abc";
+      url9.port = "70000";
+      alert("URL9 href: " + url9.href);
 	</script>
   </body>
 </html>
