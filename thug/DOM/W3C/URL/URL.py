@@ -39,6 +39,15 @@ class URL(JSClass):
         self.p_url = urllib.parse.urlparse(url)
         self.p_url = self.p_url._replace(path = urllib.parse.quote(self.p_url.path))
 
+    def __get_port(self, port):
+        if isinstance(port, str):
+            if not port.isnumeric():
+                return None
+
+            port = int(port)
+
+        return port if port in range(1, 65536) else None
+
     def get_hash(self):
         return f"#{self.p_url.fragment}"
 
@@ -51,10 +60,11 @@ class URL(JSClass):
         return self.p_url.netloc
 
     def set_host(self, host):
-        try:
-            self.p_url = self.p_url._replace(netloc = host)
-        except ValueError:
-            pass
+        s_host = host.split(":")
+        if len(s_host) > 1 and self.__get_port(s_host[1]) is None:
+            return
+
+        self.p_url = self.p_url._replace(netloc = host)
 
     host = property(get_host, set_host)
 
@@ -114,8 +124,12 @@ class URL(JSClass):
         return self.p_url.port
 
     def set_port(self, port):
+        _port = self.__get_port(port)
+        if _port is None:
+            return
+
         _netloc = self.p_url.netloc.split(":")[0]
-        self.p_url = self.p_url._replace(netloc = f"{_netloc}:{port}")
+        self.p_url = self.p_url._replace(netloc = f"{_netloc}:{_port}")
 
     port = property(get_port, set_port)
 
