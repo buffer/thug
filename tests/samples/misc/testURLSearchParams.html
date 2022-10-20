@@ -17,6 +17,8 @@
 			alert('params3.has("foo"): ' + params3.has("foo"));
 			alert('params3.get("foo"): ' + params3.get("foo"));
 			alert(params3.getAll("foo"));
+			params3.delete('nonexistent');
+			params3.getAll('nonexistent');
 			params3.set("foo", "overwrited");
 			alert("params3.toString() after set = " + params3.toString());
 			alert(params3.getAll("foo"));
@@ -41,6 +43,8 @@
 			alert("params7.toString() before sort = " + params7.toString());
 			params7.sort();
 			alert("params7.toString() after sort = " + params7.toString());
+
+			const params8 = new URLSearchParams();
 		</script>
 	</body>
 </html>

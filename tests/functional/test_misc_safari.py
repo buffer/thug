@@ -48,10 +48,15 @@ class TestMiscSamplesSafari(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def test_test1(self, caplog):
+    def test_test1a(self, caplog):
         sample   = os.path.join(self.misc_path, "test1.html")
         expected = ['[Window] Alert Text: one']
         self.do_perform_test(caplog, sample, expected, useragent = 'ipadsafari9')
+
+    def test_test1b(self, caplog):
+        sample   = os.path.join(self.misc_path, "test1.html")
+        expected = ['[Window] Alert Text: one']
+        self.do_perform_test(caplog, sample, expected, useragent = 'osx11safari14')
 
     def test_test2(self, caplog):
         sample   = os.path.join(self.misc_path, "test2.html")
