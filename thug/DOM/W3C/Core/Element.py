@@ -26,9 +26,9 @@ FF_INPUTS = (
 
 class Element(Node, ElementCSSInlineStyle):
     def __init__(self, doc, tag):
-        self.tag       = tag
-        self.tag._node = self
-        Node.__init__(self, doc)
+        tag._node = self
+
+        Node.__init__(self, doc, tag)
         ElementCSSInlineStyle.__init__(self, doc, tag)
 
         self.__init_element_personality()

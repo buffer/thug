@@ -6,9 +6,8 @@ from .DOMException import DOMException
 
 class CharacterData(Node):
     def __init__(self, doc, tag):
-        self.tag = tag
-        self.tag._node = self
-        Node.__init__(self, doc)
+        tag._node = self
+        Node.__init__(self, doc, tag)
 
     def getData(self):
         return self._data
