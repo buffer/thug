@@ -464,7 +464,7 @@ class MongoDB:
 
         code = {
             'analysis_id'  : self.analysis_id,
-            'snippet'      : base64.b64encode(snippet),
+            'snippet'      : base64.b64encode(snippet.encode() if isinstance(snippet, str) else snippet),
             'language'     : self.fix(language),
             'relationship' : self.fix(relationship),
             'tag'          : self.fix(tag),
