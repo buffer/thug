@@ -1,0 +1,66 @@
+<html>
+  <body>
+    <script>
+      const url1 = new URL("https://example.org/foo/bar");
+      alert("URL1 pathname: " + url1.pathname);
+      alert("URL1 protocol: " + url1.protocol);
+
+      const url2 = new URL('../cats', 'http://www.example.com:8080/dogs');
+      
+      url2.hash     = "foo";
+      url2.protocol = "https";
+      url2.hostname = "foo:1234";
+
+      alert("URL2 href: "     + url2.href);
+      alert("URL2 host: "     + url2.host);
+      alert("URL2 hostname: " + url2.hostname);
+      alert("URL2 origin: "   + url2.origin);
+      alert("URL2 pathname: " + url2.pathname);
+      alert("URL2 protocol: " + url2.protocol);
+      alert("URL2 port: "     + url2.port); 
+      alert("URL2 hash: "     + url2.hash);
+
+      const url3 = new URL("https://example.org");
+      url3.href  = "https://example.com";
+      alert("URL3 href: "     + url3.href);
+
+      const url4 = new URL("https://example.org");
+      url4.host  = "example.com:8080";
+      url4.port  = 8081
+      alert("URL4 href: " + url4.href);
+
+      const url5 = new URL("https://example.org/cats#foo");
+      url5.hostname = "example.com";
+      url5.pathname = "dogs";
+      alert("URL5 href: " + url5.href);
+
+      const url6 = new URL("https://www.example.com:8080/?q=foo&r=bar");
+      url6.search   = "foo=bar";
+      url6.username = "username";
+      url6.username = "username2";
+      alert("URL6 search: " + url6.search);
+      alert(url6.searchParams.has('foo'));
+      alert("URL6 href: "   + url6.href);
+      url6.password = "password2";
+
+      const url7 = new URL("https://username:password@www.example.com:8080");
+      url7.username = "username2";
+      url7.password = "password2";
+      alert("URL7 username: " + url7.username);
+      alert("URL7 password: " + url7.password);
+      alert("URL7 href: "     + url7.href);
+
+      const url8 = new URL("https://www.example.com");
+      url8.password = "password";
+      alert("URL8 href: " + url8.href);
+      url8.password = "password2";
+      alert("URL8 href: " + url8.href);
+
+      const url9 = new URL("https://example.org:8080");
+      url9.host = "https://example.org:70000";
+      url9.port = "abc";
+      url9.port = "70000";
+      alert("URL9 href: " + url9.href);
+	</script>
+  </body>
+</html>
