@@ -125,7 +125,7 @@ class Window(JSClass):
         self.doc.window        = self
         self.doc.contentWindow = self
 
-        for p in w3c_bindings:
+        for p in w3c_bindings: # pylint: disable=consider-using-dict-items
             setattr(self, p, w3c_bindings[p])
 
         self._navigator = navigator if navigator else Navigator(personality, self)

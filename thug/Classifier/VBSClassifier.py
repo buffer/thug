@@ -44,7 +44,7 @@ class VBSClassifier(BaseClassifier):
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("vbs", url, rule, tags, meta)
 
-        for c in self.custom_classifiers:
+        for c in self.custom_classifiers: # pylint: disable=consider-using-dict-items
             self.custom_classifiers[c](url, script)
 
     def filter(self, url, script):

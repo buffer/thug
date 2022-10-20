@@ -45,7 +45,7 @@ class JSClassifier(BaseClassifier):
 
             log.ThugLogging.log_classifier("js", url, rule, tags, meta)
 
-        for c in self.custom_classifiers:
+        for c in self.custom_classifiers: # pylint: disable=consider-using-dict-items
             self.custom_classifiers[c](url, script)
 
     def filter(self, url, script):

@@ -52,7 +52,7 @@ class URLClassifier(BaseClassifier):
             tags = ",".join([" ".join(t.split('_')) for t in match.tags])
             log.ThugLogging.log_classifier("url", url, rule, tags, meta)
 
-        for c in self.custom_classifiers:
+        for c in self.custom_classifiers: # pylint: disable=consider-using-dict-items
             self.custom_classifiers[c](url)
 
     def filter(self, url):

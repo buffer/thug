@@ -94,7 +94,7 @@ class HoneyAgent:
         with open(sample, "wb") as fd:
             fd.write(data)
 
-        files    = {'file'  : (md5, open(sample, "rb"))}
+        files    = {'file'  : (md5, open(sample, "rb"))} # pylint: disable=consider-using-with
         response = requests.post(self.opts["scanurl"], files = files, params = params)
 
         if response.ok:

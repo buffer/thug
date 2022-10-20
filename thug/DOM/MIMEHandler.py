@@ -359,7 +359,7 @@ class MIMEHandler(dict):
             return False
 
         try:
-            zipdata = zipfile.ZipFile(fp)
+            zipdata = zipfile.ZipFile(fp) # pylint: disable=consider-using-with
         except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.warning("[MIMEHANDLER (ZIP)][ERROR] %s", str(e))
             return False
