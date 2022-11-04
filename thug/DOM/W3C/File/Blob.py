@@ -23,6 +23,7 @@ from promise import Promise
 import STPyV8
 
 from thug.DOM.JSClass import JSClass
+from thug.DOM.W3C.Core.DOMException import DOMException
 
 
 class Blob(JSClass):
@@ -35,7 +36,7 @@ class Blob(JSClass):
         try:
             self.options = dict(options)
         except ValueError:
-            self.options = {}
+            raise DOMException(DOMException.NOT_SUPPORTED_ERR)
 
     @staticmethod
     def __convert(obj):

@@ -36,6 +36,10 @@
 			blob4.text().then(text => {
 				alert("BLOB 4 text: " + text);
 			});
+
+			try {
+				const blob5 = new Blob(['a', 'b', 'c'], 'foobar');
+			} catch (e) {};
 		</script>
 	</body>
 </html>
