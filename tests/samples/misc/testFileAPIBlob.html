@@ -1,0 +1,35 @@
+<html>
+	<body>
+		<script>
+			const obj = { hello: "world" };
+			const blob1 = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json", });
+
+			alert("BLOB 1 type: " + blob1.type);
+			alert("BLOB 1 size: " + blob1.size);
+
+			const blob2 = blob1.slice(5, 10, "text/plain");
+			alert("BLOB 2 type: " + blob2.type);
+			alert("BLOB 2 size: " + blob2.size);
+
+			const blob3 = blob1.slice(4);
+			alert("BLOB 3 type: " + blob3.type);
+			alert("BLOB 3 size: " + blob3.size);
+
+			blob1.text().then(text => {
+				alert("BLOB 1 text: " + text);
+			});
+
+			blob2.text().then(text => {
+				alert("BLOB 2 text: " + text);
+			});
+
+			blob3.text().then(text => {
+				alert("BLOB 3 text: " + text);
+			});
+
+			blob1.arrayBuffer().then(result => {
+				alert("BLOB1 typeof(result): " + typeof result);
+			});
+		</script>
+	</body>
+</html>
