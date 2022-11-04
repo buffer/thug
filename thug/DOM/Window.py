@@ -889,7 +889,7 @@ class Window(JSClass):
             self.Map = Map()
 
         if log.ThugOpts.Personality.browserMajorVersion > 18:
-            self.URL = URL
+            self.URL = URL.URL
 
         if log.ThugOpts.Personality.browserMajorVersion > 28:
             self.URLSearchParams = URL.URLSearchParams
@@ -950,7 +950,7 @@ class Window(JSClass):
             self.URLSearchParams = URL.URLSearchParams
 
         if log.ThugOpts.Personality.browserMajorVersion > 13:
-            self.URL = URL
+            self.URL = URL.URL
 
     def eval(self, script):
         if not script:
