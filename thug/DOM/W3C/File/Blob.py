@@ -29,6 +29,9 @@ class Blob(JSClass):
     def __init__(self, array = None, options = None):
         self.array = STPyV8.JSArray() if array is None else array
 
+        if options is None:
+            options = {}
+
         try:
             self.options = dict(options)
         except ValueError:

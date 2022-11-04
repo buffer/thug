@@ -37,6 +37,7 @@ class TestFileAPI(object):
                     'BLOB 3 size: 18',
                     'BLOB 2 text: hello',
                     'BLOB 3 text: "hello": "world"',
-                    'BLOB1 typeof(result): object']
+                    'BLOB1 typeof(result): object',
+                    'BLOB 4 text: abc']
 
         self.do_perform_test(caplog, sample, expected)

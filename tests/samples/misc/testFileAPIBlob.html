@@ -30,6 +30,12 @@
 			blob1.arrayBuffer().then(result => {
 				alert("BLOB1 typeof(result): " + typeof result);
 			});
+
+			const blob4 = new Blob(['a', 'b', 'c']);
+			alert("BLOB 4 endings: " + blob4.endings);
+			blob4.text().then(text => {
+				alert("BLOB 4 text: " + text);
+			});
 		</script>
 	</body>
 </html>
