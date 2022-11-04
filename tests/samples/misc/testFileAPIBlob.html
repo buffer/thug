@@ -40,6 +40,11 @@
 			try {
 				const blob5 = new Blob(['a', 'b', 'c'], 'foobar');
 			} catch (e) {};
+
+			const blob6 = new Blob([['a'], ['b']]);
+			blob6.text().then(text => {
+				alert("BLOB 6 text: " + text);
+			});
 		</script>
 	</body>
 </html>
