@@ -36,6 +36,7 @@ from thug.Java.java import java
 
 from thug.DOM.W3C import w3c
 from thug.DOM.W3C import URL
+from thug.DOM.W3C import File
 from .JSClass import JSClass
 from .JSClass import JSClassConstructor
 from .JSClass import JSClassPrototype
@@ -881,6 +882,8 @@ class Window(JSClass):
         self.console             = Console()
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
+        self.Blob                = File.Blob
+        self.File                = File.File
 
         if log.ThugOpts.Personality.browserMajorVersion > 11:
             self.navigator.mozConnection = mozConnection()
@@ -924,6 +927,8 @@ class Window(JSClass):
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
         self.onmousewheel        = None
+        self.Blob                = File.Blob
+        self.File                = File.File
 
         if log.ThugOpts.Personality.browserMajorVersion > 18:
             self.URL = URL.URL
@@ -945,6 +950,8 @@ class Window(JSClass):
         self.localStorage        = LocalStorage()
         self.sessionStorage      = SessionStorage()
         self.onmousewheel        = None
+        self.Blob                = File.Blob
+        self.File                = File.File
 
         if log.ThugOpts.Personality.browserMajorVersion > 9:
             self.URLSearchParams = URL.URLSearchParams
