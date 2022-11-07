@@ -41,3 +41,11 @@ class TestFileAPI(object):
                     'BLOB 4 text: abc']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_file(self, caplog):
+         sample   = os.path.join(self.misc_path, "testFileAPIFile.html")
+         expected = [
+                    'File name: sample.zip',
+                    'File type: application/zip']
+
+         self.do_perform_test(caplog, sample, expected)
