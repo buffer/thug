@@ -35,8 +35,8 @@ class File(Blob):
 
     def __handle_zip(self):
         content = bytearray()
-        for bit in self.blob:
-            content.extend(bytearray(bit))
+        for item in self.blob:
+            content.extend(item)
 
         log.ThugLogging.log_file(bytes(content), self.name, sampletype = 'ZIP')
 
