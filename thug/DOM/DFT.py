@@ -937,6 +937,9 @@ class DFT:
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_url_count()
 
+        if self._handle_data_uri(src):
+            return # pragma: no cover
+
         headers = {}
 
         embed_type = embed.get('type', None)

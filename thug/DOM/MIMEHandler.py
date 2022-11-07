@@ -289,11 +289,12 @@ class MIMEHandler(dict):
         self.image_hook_enabled  = False
         self.mimehandler_pyhooks = MIMEHANDLER_PYHOOKS_REQUIRED
 
-        self["image/bmp"]  = self.handle_image
-        self["image/gif"]  = self.handle_image
-        self["image/jpeg"] = self.handle_image
-        self["image/png"]  = self.handle_image
-        self["image/tiff"] = self.handle_image
+        self["image/bmp"]      = self.handle_image
+        self["image/gif"]      = self.handle_image
+        self["image/jpeg"]     = self.handle_image
+        self["image/png"]      = self.handle_image
+        self["image/svg+xml"]  = self.handle_svg_xml
+        self["image/tiff"]     = self.handle_image
 
     def handle_fallback(self, url, content):
         for handler in self.handlers:
@@ -489,6 +490,27 @@ class MIMEHandler(dict):
                 log.DFT.window._navigator.fetch(url, headers = headers, redirect_type = "JNLP")
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 pass
+
+    def handle_svg_xml(self, url, data):
+        try:
+            soup = bs4.BeautifulSoup(data, "xml")
+        except Exception: # pragma: no cover,pylint:disable=broad-except
+            return
+
+        scripts = soup.find_all('script')
+        if not scripts:
+            return # pragma: no cover
+
+        window = getattr(self, 'window', None)
+        if not window:
+            return # pragma: no cover
+
+        for script in scripts:
+            with window.context as ctxt:
+                try:
+                    ctxt.eval(script.text)
+                except Exception as e: # pragma: no cover,pylint:disable=broad-except
+                    log.warning("[MIMEHANDLER (SVG+XML)][ERROR] %s", str(e))
 
     def handle_json(self, url, data): # pylint:disable=unused-argument
         try:
