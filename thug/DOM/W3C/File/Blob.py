@@ -36,7 +36,7 @@ class Blob(JSClass):
         try:
             self.options = dict(options)
         except ValueError:
-            raise DOMException(DOMException.NOT_SUPPORTED_ERR)
+            raise DOMException(DOMException.NOT_SUPPORTED_ERR) # pylint: disable=raise-missing-from
 
     @staticmethod
     def __convert(obj):
