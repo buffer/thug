@@ -1,0 +1,26 @@
+<html>
+	<body>
+		<script>
+		    var hello = 'UEsDBAoAAAAAAFdjZ1UgMDo2BgAAAAYAAAAJABwAaGVsbG8udHh0VVQJAAN162hjdetoY3V4CwABBOgDAAAE6AMAAGhlbGxvClBLAQIeAwoAAAAAAFdjZ1UgMDo2BgAAAAYAAAAJABgAAAAAAAEAAACkgQAAAABoZWxsby50eHRVVAUAA3XraGN1eAsAAQToAwAABOgDAABQSwUGAAAAAAEAAQBPAAAASQAAAAAA';
+			var bstr = atob(hello);
+			var buffer = [];
+
+			for (var i = 0; i < bstr.length; i += 512) {
+				var slice = bstr.slice(i, i + 512);
+				var array = new Array(slice.length);
+
+				for (var j = 0; j < slice.length; j++) {
+					array[j] = slice.charCodeAt(j);
+				}
+
+				var uint8array = new Uint8Array(array);
+				buffer.push(uint8array);
+			}
+
+			var blob = new Blob(buffer, {type: "application/zip"});
+			var file = new File([blob], 'sample.zip', {type: "application/zip"});
+			alert("File name: " + file.name);
+			alert("File type: " + file.type);
+		</script>
+	</body>
+</html>
