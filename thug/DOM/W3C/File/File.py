@@ -43,7 +43,7 @@ class File(Blob):
     def __handle(self):
         _type = self.options.get("type", None)
         if _type is None:
-            return
+            return # pragma: no cover
 
         if _type.lower() in ('application/zip', ):
             self.__handle_zip()
