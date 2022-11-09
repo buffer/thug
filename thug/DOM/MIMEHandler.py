@@ -491,7 +491,7 @@ class MIMEHandler(dict):
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 pass
 
-    def handle_svg_xml(self, url, data):
+    def handle_svg_xml(self, url, data): # pylint:disable=unused-argument
         try:
             soup = bs4.BeautifulSoup(data, "xml")
         except Exception: # pragma: no cover,pylint:disable=broad-except
