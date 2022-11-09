@@ -499,7 +499,7 @@ class MIMEHandler(dict):
 
         scripts = soup.find_all('script')
         if not scripts:
-            return # pragma: no cover
+            return
 
         window = getattr(self, 'window', None)
         if not window:
