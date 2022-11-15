@@ -63,6 +63,14 @@ class HTMLAnchorElement(HTMLElement):
 
         return self.host.split(":")[1]
 
+    @property
+    def pathname(self):
+        if not self.href:
+            return ""
+
+        o = urlparse(self.href)
+        return o.path if o.path else "/"
+
     def blur(self):
         pass
 
