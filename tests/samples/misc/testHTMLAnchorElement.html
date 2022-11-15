@@ -7,6 +7,7 @@
 	alert("a.host: " + a.host);
 	alert("a.hostname: " + a.hostname);
 	alert("a.port: " + a.port);
+	alert("a.pathname: " + a.pathname);
 
 	a.blur();
 	a.focus()
@@ -16,13 +17,27 @@
 	alert("b.host: " + b.host);
 	alert("b.hostname: " + b.hostname);
 	alert("b.port: " + b.port);
+	alert("b.pathname: " + b.pathname);
 
-    var c = document.createElement('a');
-    c.href = 'https://www.example.com';
-    alert("c.protocol: " + c.protocol);
-    alert("c.host: " + c.host);
-    alert("c.hostname: " + c.hostname);
-    alert("c.port: " + c.port);
+	var c = document.createElement('a');
+	c.href = 'https://www.example.com';
+	alert("c.protocol: " + c.protocol);
+	alert("c.host: " + c.host);
+	alert("c.hostname: " + c.hostname);
+	alert("c.port: " + c.port);
+	alert("c.pathname: " + c.pathname);
+
+	var d = document.createElement('a');
+	d.href = 'https://www.example.com/foobar';
+	alert("d.protocol: " + d.protocol);
+	alert("d.host: " + d.host);
+	alert("d.hostname: " + d.hostname);
+	alert("d.port: " + d.port);
+	alert("d.pathname: " + d.pathname);
+
+	var e = document.createElement('a');
+	e.href = '/foo/index.html';
+	alert("e.pathname: " + e.pathname);
 </script>
 </body>
 </html>

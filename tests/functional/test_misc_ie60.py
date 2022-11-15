@@ -648,7 +648,8 @@ class TestMiscSamplesIE(object):
                     'c.protocol: https:',
                     'c.host: www.example.com',
                     'c.hostname: www.example.com',
-                    'c.port: ']
+                    'c.port: ',
+                    'e.pathname: /foo/index.html']
 
         self.do_perform_test(caplog, sample, expected)
 
