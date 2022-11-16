@@ -1056,10 +1056,7 @@ class Window(JSClass):
         """
         The atob method decodes a base-64 encoded string
         """
-        if isinstance(s, str):
-            s = s.encode()
-
-        return base64.b64decode(s)
+        return str(base64.b64decode(s))
 
     def btoa(self, s):
         """
