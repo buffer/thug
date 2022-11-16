@@ -1062,6 +1062,9 @@ class DFT:
         if url.startswith("'") and url.endswith("'"):
             url = url[1:-1]
 
+        if url.startswith("\\'") and url.endswith("\\'"):
+            url = url[2:-2]
+
         if url in log.ThugLogging.meta and log.ThugLogging.meta[url] >= 3:
             return # pragma: no cover
 
