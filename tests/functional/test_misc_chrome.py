@@ -719,3 +719,12 @@ class TestMiscSamplesChrome(object):
                     '[Console] warn(\'Hello again\')']
 
         self.do_perform_test(caplog, sample, expected)
+
+    def test_testDataset(self, caplog):
+        sample   = os.path.join(self.misc_path, "testDataset.html")
+        expected = ['el.id: user',
+                    'el.dataset.id: 1234567890',
+                    'el.dataset.user: carinaanand',
+                    'el.dataset.dateOfBirth: 1960-10-03']
+
+        self.do_perform_test(caplog, sample, expected)
