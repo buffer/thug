@@ -8,6 +8,7 @@ import bs4
 
 from thug.DOM.W3C.Core.DOMException import DOMException
 from thug.DOM.W3C.Core.Element import Element
+from .Dataset import Dataset
 from .attr_property import attr_property
 
 log = logging.getLogger("Thug")
@@ -22,6 +23,40 @@ class HTMLElement(Element):
 
     def __init__(self, doc, tag):
         Element.__init__(self, doc, tag)
+        self.__init_htmlelement_personality()
+
+    def __init_htmlelement_personality(self):
+        if log.ThugOpts.Personality.isIE():
+            self.__init_htmlelement_personality_IE()
+            return
+
+        if log.ThugOpts.Personality.isFirefox():
+            self.__init_htmlelement_personality_Firefox()
+            return
+
+        if log.ThugOpts.Personality.isChrome():
+            self.__init_htmlelement_personality_Chrome()
+            return
+
+        if log.ThugOpts.Personality.isSafari():
+            self.__init_htmlelement_personality_Safari()
+            return
+
+    def __init_htmlelement_personality_IE(self):
+        if log.ThugOpts.Personality.browserMajorVersion > 10:
+            self.dataset = Dataset(self.tag.attrs)
+
+    def __init_htmlelement_personality_Firefox(self):
+        if log.ThugOpts.Personality.browserMajorVersion > 5:
+            self.dataset = Dataset(self.tag.attrs)
+
+    def __init_htmlelement_personality_Chrome(self):
+        if log.ThugOpts.Personality.browserMajorVersion > 7:
+            self.dataset = Dataset(self.tag.attrs)
+
+    def __init_htmlelement_personality_Safari(self):
+        if log.ThugOpts.Personality.browserMajorVersion > 4:
+            self.dataset = Dataset(self.tag.attrs)
 
     def __getattr__(self, key):
         if key in log.DFT.handled_on_events:
