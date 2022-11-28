@@ -7,7 +7,7 @@ lxml==4.9.1
 networkx==2.8.8
 pefile==2022.5.30
 promise==2.3
-pylibemu==0.7
+pylibemu==0.8
 pymongo==4.3.3
 python-magic==0.4.27
 rarfile==4.0
