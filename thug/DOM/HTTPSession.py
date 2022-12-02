@@ -199,7 +199,7 @@ class HTTPSession:
             return
 
         try:
-            certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_TLS)
+            certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_TLS_CLIENT)
             log.ThugLogging.ssl_certs[(_url.netloc, port)] = certificate
             log.ThugLogging.log_certificate(url, certificate)
         except Exception as e: # pragma: no cover,pylint:disable=broad-except
