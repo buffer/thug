@@ -95,7 +95,10 @@ class HoneyAgent:
             fd.write(data)
 
         files    = {'file'  : (md5, open(sample, "rb"))} # pylint: disable=consider-using-with
-        response = requests.post(self.opts["scanurl"], files = files, params = params)
+        response = requests.post(self.opts["scanurl"],
+                                 files   = files,
+                                 params  = params,
+                                 timeout = 10)
 
         if response.ok:
             log.warning("[HoneyAgent][%s] Sample submitted", md5)
