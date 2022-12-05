@@ -27,9 +27,9 @@ from urllib.parse import quote
 from urllib.parse import unquote
 
 import requests
+import urllib3
 
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+urllib3.disable_warnings(category = urllib3.exceptions.InsecureRequestWarning)
 
 log = logging.getLogger("Thug")
 
