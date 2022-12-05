@@ -378,7 +378,7 @@ class HTMLDocument(Document):
         tag  = self.current
         body = self.doc.find('body')
 
-        if tag.parent is None:
+        if tag is None or tag.parent is None:
             parent = body # pragma: no cover
         else:
             parent = body if body and tag.parent.name in ('html', ) else tag.parent
