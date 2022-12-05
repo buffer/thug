@@ -319,6 +319,16 @@ class DFT:
                 if eventType in self.handled_events:
                     self.listeners.append((elem, eventType, listener, capture))
 
+    def _handle_onerror(self, tag):
+        if not 'onerror' in tag.attrs:
+            return
+
+        try:
+            handler = self.build_event_handler(self.context, tag.attrs['onerror'])
+            handler.call()
+        except Exception as e: # pylint:disable=broad-except
+            log.warning("[ERROR][_handle_onerror] %s", str(e))
+
     @property
     def javaUserAgent(self):
         javaplugin = log.ThugVulnModules._javaplugin.split('.')
@@ -1328,12 +1338,6 @@ class DFT:
             log.info("[ERROR][handle_link] %s", str(e))
 
     def handle_img(self, img):
-        if not log.ThugOpts.image_processing:
-            return
-
-        if not log.MIMEHandler.image_ocr_enabled and not log.MIMEHandler.image_hook_enabled:
-            return # pragma: no cover
-
         log.info(img)
         src = img.get('src', None)
         if not src:
@@ -1355,6 +1359,7 @@ class DFT:
             self.window._navigator.fetch(src, redirect_type = "img")
         except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][handle_img] %s", str(e))
+            self._handle_onerror(img)
 
     def check_anchors(self):
         clicked_anchors = [a for a in self.anchors if '_clicked' in a.attrs]
