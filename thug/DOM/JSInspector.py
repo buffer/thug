@@ -16,6 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import ast
 import logging
 
 log = logging.getLogger("Thug")
@@ -111,6 +112,11 @@ class JSInspector:
                     result = self.ctxt.eval(self.script.replace('\\u', '%u'))
                 except Exception as e: # pragma: no cover,pylint:disable=broad-except
                     log.warning("[JSInspector] %s", str(e))
+        except SyntaxError:
+            try:
+                result = self.ctxt.eval(ast.literal_eval(f"'{self.script}'"))
+            except Exception as e: # pragma: no cover,pylint:disable=broad-except
+                log.warning("[JSInspector] %s", str(e))
         except Exception as e: # pylint:disable=broad-except
             log.warning("[JSInspector] %s", str(e))
 
