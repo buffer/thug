@@ -25,7 +25,6 @@
 
 import os
 import json
-import fnmatch
 
 from urllib.parse import urlparse
 
