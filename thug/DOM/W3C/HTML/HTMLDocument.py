@@ -383,9 +383,11 @@ class HTMLDocument(Document):
         else:
             parent = body if body and tag.parent.name in ('html', ) else tag.parent
 
+        html_write = False
+
         soup = log.HTMLInspector.run(html, "html.parser")
 
-        for tag in soup.contents:
+        for tag in list(soup.contents):
             if isinstance(tag, bs4.NavigableString):
                 if not tag.string.rstrip():
                     continue
@@ -404,6 +406,9 @@ class HTMLDocument(Document):
             if name in (None, ):
                 continue
 
+            if name in ('html', ):
+                html_write = True
+
             try:
                 handler = getattr(self._win.doc.DFT, f"handle_{name}", None)
             except Exception: # pragma: no cover,pylint:disable=broad-except
@@ -415,12 +420,12 @@ class HTMLDocument(Document):
         log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.URL, str(self.tag))
 
         _html = "".join(self._html)
-        if html == _html:
+        if not html_write and html == _html:
             return
 
         soup = log.HTMLInspector.run(html, "html.parser")
 
-        for tag in soup.contents:
+        for tag in list(soup.contents):
             name = getattr(tag, "name", None)
             if name in ("script", None, ):
                 continue
