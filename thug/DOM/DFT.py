@@ -263,6 +263,21 @@ class DFT:
             log.info("[SYNTAX ERROR][build_event_handler] %s", str(e))
             return None
 
+    def get_event_handler(self, h):
+        handler = None
+
+        if isinstance(h, str):
+            handler = self.build_event_handler(self.context, h)
+        elif log.JSEngine.isJSFunction(h):
+            handler = h
+        else: # pragma: no cover
+            try:
+                handler = getattr(self.context.locals, h, None)
+            except Exception: # pylint:disable=broad-except
+                handler = None
+
+        return handler
+
     def set_event_handler_attributes(self, elem):
         try:
             attrs = elem.attrs
@@ -279,18 +294,7 @@ class DFT:
             self.attach_event(elem, evt, h)
 
     def attach_event(self, elem, evt, h):
-        handler = None
-
-        if isinstance(h, str):
-            handler = self.build_event_handler(self.context, h)
-        elif log.JSEngine.isJSFunction(h):
-            handler = h
-        else: # pragma: no cover
-            try:
-                handler = getattr(self.context.locals, h, None)
-            except Exception: # pylint:disable=broad-except
-                handler = None
-
+        handler = self.get_event_handler(h)
         if not handler:
             return # pragma: no cover
 
@@ -324,7 +328,7 @@ class DFT:
             return
 
         try:
-            handler = self.build_event_handler(self.context, tag.attrs['onerror'])
+            handler = self.get_event_handler(tag.attrs['onerror'])
             handler.call()
         except Exception as e: # pylint:disable=broad-except
             log.warning("[ERROR][_handle_onerror] %s", str(e))
