@@ -324,8 +324,15 @@ class DFT:
                     self.listeners.append((elem, eventType, listener, capture))
 
     def _handle_onerror(self, tag):
+        from thug.DOM.W3C.Events.Event import Event
+
         if not 'onerror' in tag.attrs:
             return
+
+        if log.ThugOpts.Personality.isIE():
+            evtObject = Event()
+            evtObject._type = 'onerror'
+            self.window.event = evtObject
 
         try:
             handler = self.get_event_handler(tag.attrs['onerror'])
