@@ -1112,6 +1112,13 @@ class TestMiscSamplesIE(object):
 
         self.do_perform_test(caplog, sample, expected)
 
+    def test_testHTMLImageElement2(self, caplog):
+        sample   = os.path.join(self.misc_path, "testHTMLImageElement2.html")
+        expected = ['Alert Text: Inside onerror handler',
+                    '[ERROR][_handle_onerror] ReferenceError: foobar is not defined']
+
+        self.do_perform_test(caplog, sample, expected)
+
     def test_testTitle(self, caplog):
         sample   = os.path.join(self.misc_path, "testTitle.html")
         expected = ['New title: Foobar']
