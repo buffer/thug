@@ -740,7 +740,7 @@ class DFT:
 
         try:
             s = self.window.doc.createElement('script')
-        except TypeError:
+        except TypeError: # pragma: no cover
             self.window.evalScript(response.text, tag = script)
             return
 
