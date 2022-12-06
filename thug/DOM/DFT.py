@@ -738,7 +738,11 @@ class DFT:
 
         self.increase_script_chars_count('javascript', 'external', response.text)
 
-        s = self.window.doc.createElement('script')
+        try:
+            s = self.window.doc.createElement('script')
+        except TypeError:
+            self.window.evalScript(response.text, tag = script)
+            return
 
         for attr in script.attrs:
             if attr.lower() not in ('src', ) and getattr(s, 'setAttribute', None):
