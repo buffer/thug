@@ -1,0 +1,131 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thug"
+description = "Low-interaction honeyclient Thug"
+readme = "README.rst"
+authors = [ 
+	{ name  = "Angelo Dell'Aera", email = "angelo.dellaera@honeynet.org" },
+] 
+maintainers = [
+    { name  = "Angelo Dell'Aera", email = "angelo.dellaera@honeynet.org" },
+]
+requires-python = ">=3.8"
+license = {text = "GPLv2"}
+dynamic = [
+	"version",
+	"entry-points",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Security",
+]
+dependencies = [
+    "PySocks==1.7.1",
+    "beautifulsoup4==4.11.1",
+    "charset-normalizer==2.1.1",
+    "cssutils==2.6.0",
+    "html5lib==1.1",
+    "lxml==4.9.1",
+    "networkx==2.8.8",
+    "pefile==2022.5.30",
+    "promise==2.3",
+    "pylibemu==0.8",
+    "pymongo==4.3.3",
+    "python-magic==0.4.27",
+    "rarfile==4.0",
+    "requests==2.28.1",
+    "requests-futures==1.0.0",
+    "ssdeep==3.4",
+    "yara-python==4.2.3",
+    "zope.interface==5.5.2",
+]
+
+[project.scripts]
+thug = "thug.thug:main"
+
+[project.urls]
+hoempage = "https://github.com/buffer/thug"
+documentation = "https://thug-honeyclient.readthedocs.io/en/latest/"
+bugs = "https://github.com/buffer/thug/issues"
+funding = "https://buffer.github.io/thug/"
+
+[project.optional-dependencies]
+test = [
+    "elasticsearch==7.17.7",
+    "pytesseract",
+    "pygraphviz",
+    "imgkit==1.1.0",
+    "speakeasy-emulator",
+    "codecov",
+    "ElasticMock",
+    "mock",
+    "mongomock",
+    "pre-commit",
+    "safety",
+    "pytest",
+    "pytest-timeout",
+    "pytest-cov",
+    "tox",
+]
+
+[tool.setuptools.packages.find]
+exclude = [
+	"docker*",
+	"docs*",
+	"tests*",
+	"tools*",
+	"utils*",
+]
+
+[tool.setuptools]
+platforms = [
+	"linux",
+	"darwin",
+]
+zip-safe = true
+
+[tool.setuptools.data-files]
+"/etc/thug" = [ "conf/*.conf", "conf/*.json", ]
+"/etc/thug/hooks" = []
+"/etc/thug/personalities" = [ "conf/personalities/*.json", ]
+"/etc/thug/plugins" = []
+"/etc/thug/rules" = [ "conf/rules/*.yar", ]
+"/etc/thug/rules/cookieclassifier" = [ "conf/rules/cookieclassifier/*", ]
+"/etc/thug/rules/cookiefilter" = [ "conf/rules/cookiefilter/*", ]
+"/etc/thug/rules/htmlclassifier" = [ "conf/rules/htmlclassifier/*", ]
+"/etc/thug/rules/htmlfilter" = [ "conf/rules/htmlfilter/*", ]
+"/etc/thug/rules/imageclassifier" = [ "conf/rules/imageclassifier/*", ]
+"/etc/thug/rules/imagefilter" = [ "conf/rules/imagefilter/*", ]
+"/etc/thug/rules/jsclassifier" = [ "conf/rules/jsclassifier/*", ]
+"/etc/thug/rules/jsfilter" = [ "conf/rules/jsfilter/*", ]
+"/etc/thug/rules/sampleclassifier" = [ "conf/rules/sampleclassifier/*", ]
+"/etc/thug/rules/samplefilter" = [ "conf/rules/sampleclassifier/*", ]
+"/etc/thug/rules/textclassifier" = [ "conf/rules/textclassifier/*", ]
+"/etc/thug/rules/textfilter" = [ "conf/rules/textfilter/*", ]
+"/etc/thug/rules/urlclassifier" = [ "conf/rules/urlclassifier/*", ]
+"/etc/thug/rules/urlfilter" = [ "conf/rules/urlfilter/*", ]
+"/etc/thug/rules/vbsclassifier" = [ "conf/rules/vbsclassifier/*", ]
+"/etc/thug/rules/vbsfilter" = [ "conf/rules/vbsfilter/*", ]
+"/etc/thug/scripts" = [ "thug/DOM/scripts/*.js", ]
+
+[tool.setuptools.dynamic]
+version = {attr = "thug.__version__"}
+
+[tool.pytest.ini_options]
+addopts = "--timeout 60 --exitfirst --cov=thug"
+
+[tool.coverage.run]
+omit = [ "thug/Plugins/IPlugin.py", ]
