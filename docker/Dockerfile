@@ -26,7 +26,7 @@
 # (https://github.com/PayloadSecurity/VxCommunity/blob/master/bash/thuginstallation.sh)
 #
 
-FROM ubuntu:22.04
+FROM ubuntu:22.10
 MAINTAINER Angelo Dell'Aera
 
 USER root
