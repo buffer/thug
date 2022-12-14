@@ -12,11 +12,10 @@ authors = [
 maintainers = [
     { name  = "Angelo Dell'Aera", email = "angelo.dellaera@honeynet.org" },
 ]
-requires-python = ">=3.8"
 license = {text = "GPLv2"}
+requires-python = ">=3.8"
 dynamic = [
 	"version",
-	"entry-points",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -38,7 +37,7 @@ dependencies = [
     "charset-normalizer==2.1.1",
     "cssutils==2.6.0",
     "html5lib==1.1",
-    "lxml==4.9.1",
+    "lxml==4.9.2",
     "networkx==2.8.8",
     "pefile==2022.5.30",
     "promise==2.3",
@@ -52,15 +51,12 @@ dependencies = [
     "yara-python==4.2.3",
     "zope.interface==5.5.2",
 ]
-
-[project.scripts]
-thug = "thug.thug:main"
-
-[project.urls]
-hoempage = "https://github.com/buffer/thug"
-documentation = "https://thug-honeyclient.readthedocs.io/en/latest/"
-bugs = "https://github.com/buffer/thug/issues"
-funding = "https://buffer.github.io/thug/"
+keywords = [
+	"honeyclient",
+	"low-interaction",
+	"client-honeypot",
+	"security-tools",
+]
 
 [project.optional-dependencies]
 test = [
@@ -80,6 +76,15 @@ test = [
     "pytest-cov",
     "tox",
 ]
+
+[project.scripts]
+thug = "thug.thug:main"
+
+[project.urls]
+homepage = "https://github.com/buffer/thug"
+documentation = "https://thug-honeyclient.readthedocs.io/en/latest/"
+bugs = "https://github.com/buffer/thug/issues"
+funding = "https://buffer.github.io/thug/"
 
 [tool.setuptools.packages.find]
 exclude = [
