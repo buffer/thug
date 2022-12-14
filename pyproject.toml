@@ -171,4 +171,6 @@ ignore-patterns = [
 ]
 
 [tool.coverage.run]
-omit = [ "thug/Plugins/IPlugin.py", ]
+omit = [
+	"thug/Plugins/IPlugin.py",
+]
