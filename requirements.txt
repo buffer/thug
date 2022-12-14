@@ -3,7 +3,7 @@ beautifulsoup4==4.11.1
 charset-normalizer==2.1.1
 cssutils==2.6.0
 html5lib==1.1
-lxml==4.9.1
+lxml==4.9.2
 networkx==2.8.8
 pefile==2022.5.30
 promise==2.3
