@@ -132,5 +132,43 @@ version = {attr = "thug.__version__"}
 [tool.pytest.ini_options]
 addopts = "--timeout 60 --exitfirst --cov=thug"
 
+[tool.pylint]
+max-line-length = 150
+disable = [
+	"attribute-defined-outside-init",
+	"bad-inline-option",
+	"deprecated-pragma",
+	"duplicate-code",
+	"file-ignored",
+	"import-outside-toplevel",
+	"invalid-name",
+	"locally-disabled",
+	"missing-function-docstring",
+	"missing-module-docstring",
+	"missing-class-docstring",
+	"protected-access",
+	"raw-checker-failed",
+	"suppressed-message",
+	"too-many-instance-attributes",
+	"too-many-public-methods",
+	"too-many-branches",
+	"too-many-arguments",
+	"too-many-locals",
+	"too-many-statements",
+	"too-many-lines",
+	"too-few-public-methods",
+	"unnecessary-dunder-call",
+	"use-symbolic-message-instead",
+	"useless-suppression",
+]
+extension-pkg-whitelist = [
+	"yara",
+	"pylibemu",
+]
+ignore-patterns = [
+	"IThugAPI.py",
+	"IPlugin.py",
+]
+
 [tool.coverage.run]
 omit = [ "thug/Plugins/IPlugin.py", ]
