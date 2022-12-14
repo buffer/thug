@@ -7,7 +7,7 @@ name = "thug"
 description = "Low-interaction honeyclient Thug"
 readme = "README.rst"
 authors = [ 
-	{ name  = "Angelo Dell'Aera", email = "angelo.dellaera@honeynet.org" },
+    { name  = "Angelo Dell'Aera", email = "angelo.dellaera@honeynet.org" },
 ] 
 maintainers = [
     { name  = "Angelo Dell'Aera", email = "angelo.dellaera@honeynet.org" },
@@ -15,7 +15,7 @@ maintainers = [
 license = {text = "GPLv2"}
 requires-python = ">=3.8"
 dynamic = [
-	"version",
+    "version",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -52,10 +52,10 @@ dependencies = [
     "zope.interface==5.5.2",
 ]
 keywords = [
-	"honeyclient",
-	"low-interaction",
-	"client-honeypot",
-	"security-tools",
+    "honeyclient",
+    "low-interaction",
+    "client-honeypot",
+    "security-tools",
 ]
 
 [project.optional-dependencies]
@@ -88,17 +88,17 @@ funding = "https://buffer.github.io/thug/"
 
 [tool.setuptools.packages.find]
 exclude = [
-	"docker*",
-	"docs*",
-	"tests*",
-	"tools*",
-	"utils*",
+    "docker*",
+    "docs*",
+    "tests*",
+    "tools*",
+    "utils*",
 ]
 
 [tool.setuptools]
 platforms = [
-	"linux",
-	"darwin",
+    "linux",
+    "darwin",
 ]
 zip-safe = true
 
@@ -135,42 +135,42 @@ addopts = "--timeout 60 --exitfirst --cov=thug"
 [tool.pylint]
 max-line-length = 150
 disable = [
-	"attribute-defined-outside-init",
-	"bad-inline-option",
-	"deprecated-pragma",
-	"duplicate-code",
-	"file-ignored",
-	"import-outside-toplevel",
-	"invalid-name",
-	"locally-disabled",
-	"missing-function-docstring",
-	"missing-module-docstring",
-	"missing-class-docstring",
-	"protected-access",
-	"raw-checker-failed",
-	"suppressed-message",
-	"too-many-instance-attributes",
-	"too-many-public-methods",
-	"too-many-branches",
-	"too-many-arguments",
-	"too-many-locals",
-	"too-many-statements",
-	"too-many-lines",
-	"too-few-public-methods",
-	"unnecessary-dunder-call",
-	"use-symbolic-message-instead",
-	"useless-suppression",
+    "attribute-defined-outside-init",
+    "bad-inline-option",
+    "deprecated-pragma",
+    "duplicate-code",
+    "file-ignored",
+    "import-outside-toplevel",
+    "invalid-name",
+    "locally-disabled",
+    "missing-function-docstring",
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "protected-access",
+    "raw-checker-failed",
+    "suppressed-message",
+    "too-many-instance-attributes",
+    "too-many-public-methods",
+    "too-many-branches",
+    "too-many-arguments",
+    "too-many-locals",
+    "too-many-statements",
+    "too-many-lines",
+    "too-few-public-methods",
+    "unnecessary-dunder-call",
+    "use-symbolic-message-instead",
+    "useless-suppression",
 ]
 extension-pkg-whitelist = [
-	"yara",
-	"pylibemu",
+    "yara",
+    "pylibemu",
 ]
 ignore-patterns = [
-	"IThugAPI.py",
-	"IPlugin.py",
+    "IThugAPI.py",
+    "IPlugin.py",
 ]
 
 [tool.coverage.run]
 omit = [
-	"thug/Plugins/IPlugin.py",
+    "thug/Plugins/IPlugin.py",
 ]
