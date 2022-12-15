@@ -91,19 +91,7 @@ RUN pip3 install thug
 
 RUN git clone https://github.com/buffer/thug.git && \
   mkdir /etc/thug && \
-  mkdir /etc/thug/rules && \
-  mkdir /etc/thug/personalities && \
-  mkdir /etc/thug/scripts && \
-  mkdir /etc/thug/plugins && \
-  mkdir /etc/thug/hooks && \
-  cp -R thug/conf/rules/* /etc/thug/rules/ && \
-  cp -R thug/conf/personalities/* /etc/thug/personalities && \
-  cp thug/thug/DOM/scripts/thug.js /etc/thug/scripts && \
-  cp thug/thug/DOM/scripts/storage.js /etc/thug/scripts && \
-  cp thug/thug/DOM/scripts/date.js /etc/thug/scripts && \
-  cp thug/thug/DOM/scripts/eval.js /etc/thug/scripts && \
-  cp thug/thug/DOM/scripts/write.js /etc/thug/scripts && \
-  cp thug/conf/thug.conf /etc/thug && \
+  cp -R thug/conf/* /etc/thug && \
   rm -rf thug
 
 RUN groupadd -r thug && \
