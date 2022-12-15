@@ -17,7 +17,7 @@ cwd_path = os.path.dirname(os.path.realpath(__file__))
 configuration_path = os.path.join(cwd_path, os.pardir, os.pardir, "test_files")
 
 log.configuration_path = thug.__configuration_path__
-log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
+log.personalities_path = thug.__personalities_path__ if configuration_path else None
 
 log.ThugVulnModules = ThugVulnModules()
 log.ThugOpts = ThugOpts()

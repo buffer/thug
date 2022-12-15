@@ -12,12 +12,13 @@ from thug.ThugAPI.ThugOpts import ThugOpts
 from thug.ThugAPI.ThugVulnModules import ThugVulnModules
 from thug.DOM.SchemeHandler import SchemeHandler
 from thug.Logging.ThugLogging import ThugLogging
+from thug.Magic.Magic import Magic
 
 configuration_path = thug.__configuration_path__
 
 log = logging.getLogger("Thug")
 log.configuration_path = configuration_path
-log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
+log.personalities_path = thug.__personalities_path__ if configuration_path else None
 
 log.ThugOpts = ThugOpts()
 log.HTMLInspector = HTMLInspector()
@@ -27,6 +28,7 @@ log.ThugVulnModules = ThugVulnModules()
 log.SchemeHandler = SchemeHandler()
 log.PyHooks = dict()
 log.ThugLogging = ThugLogging()
+log.Magic = Magic()
 
 
 class WindowDict(dict):

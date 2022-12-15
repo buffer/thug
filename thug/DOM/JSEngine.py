@@ -108,7 +108,7 @@ class JSEngine:
             m(window) # pylint:disable=not-callable
 
     def init_scripts_thug(self, ctxt):
-        thug_js = os.path.join(thug.__configuration_path__, 'scripts', "thug.js")
+        thug_js = os.path.join(thug.__scripts_path__, "thug.js")
         with open(thug_js, encoding = 'utf-8', mode = 'r') as fd:
             thug_js_code = fd.read()
 
@@ -119,7 +119,7 @@ class JSEngine:
             return
 
         if log.ThugOpts.Personality.browserMajorVersion < 8:
-            storage_js = os.path.join(thug.__configuration_path__, 'scripts', "storage.js")
+            storage_js = os.path.join(thug.__scripts_path__, "storage.js")
             with open(storage_js, encoding = 'utf-8', mode = 'r') as fd:
                 storage_js_code = fd.read()
 
@@ -130,7 +130,7 @@ class JSEngine:
             return
 
         if log.ThugOpts.Personality.browserMajorVersion < 9:
-            date_js = os.path.join(thug.__configuration_path__, 'scripts', "date.js")
+            date_js = os.path.join(thug.__scripts_path__, "date.js")
             with open(date_js, encoding = 'utf-8', mode = 'r') as fd:
                 date_js_code = fd.read()
 
@@ -158,16 +158,15 @@ class JSEngine:
                 return
 
     def init_hooks(self, ctxt):
-        hooks_folder = os.path.join(thug.__configuration_path__, 'hooks')
-        hooks = os.listdir(hooks_folder) if os.path.exists(hooks_folder) else []
+        hooks = os.listdir(thug.__hooks_path__) if os.path.exists(thug.__hooks_path__) else []
 
         for hook in sorted([h for h in hooks if h.endswith('.js')]):
-            with open(os.path.join(hooks_folder, hook), encoding = 'utf-8', mode = 'r') as fd: # pragma: no cover
+            with open(os.path.join(thug.__hooks_path__, hook), encoding = 'utf-8', mode = 'r') as fd: # pragma: no cover
                 hook_code = fd.read()
                 ctxt.eval(hook_code)
 
         for hook in ('eval', 'write'):
-            js = os.path.join(thug.__configuration_path__, 'scripts', f'{hook}.js')
+            js = os.path.join(thug.__scripts_path__, f'{hook}.js')
             if not os.path.exists(js): # pragma: no cover
                 continue
 

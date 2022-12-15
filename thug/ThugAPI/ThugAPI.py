@@ -73,7 +73,7 @@ class ThugAPI:
 
     def __init_conf(self, configuration_path):
         log.configuration_path = configuration_path
-        log.personalities_path = os.path.join(configuration_path, "personalities") if configuration_path else None
+        log.personalities_path = thug.__personalities_path__ if configuration_path else None
 
     def __init_jsengine(self):
         log.JSEngine = JSEngine()

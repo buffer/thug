@@ -22,11 +22,12 @@ import logging
 from zope.interface.verify import verifyObject
 from zope.interface.exceptions import BrokenImplementation
 
+import thug
 from thug.Plugins.IPlugin import IPlugin
 
 log = logging.getLogger("Thug")
 
-PLUGINS_PATH          = "/etc/thug/plugins"
+PLUGINS_PATH          = thug.__plugins_path__
 HANDLER_NAME          = "Handler"
 HANDLER_MODULE        = f"{HANDLER_NAME}.py"
 FIRST_LOW_PRIO        = 1000
