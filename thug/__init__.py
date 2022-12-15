@@ -10,7 +10,7 @@ __global_configuration_path__ = "/etc/thug"
 if os.path.exists(__global_configuration_path__):
     __configuration_path__ = __global_configuration_path__
 else:
-    __configuration_path__ = f"{appdirs.user_config_dir()}/thug"
+    __configuration_path__ = f"{appdirs.user_config_dir()}/thug" # pragma: no cover
 
 __personalities_path__ = os.path.join(__configuration_path__, "personalities")
 __rules_path__         = os.path.join(__configuration_path__, "rules")
