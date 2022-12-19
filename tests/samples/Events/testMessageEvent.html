@@ -1,0 +1,16 @@
+<html>
+    <body>
+        <script>
+            const msg = new MessageEvent('message', {
+                data : 'hello'
+            });
+
+            alert(msg);
+            alert("msg.data: "        + msg.data);
+            alert("msg.origin: "      + msg.origin);
+            alert("msg.lastEventId: " + msg.lastEventId);
+            alert("msg.source: "      + msg.source);
+            alert("msg.ports: "       + msg.ports);
+		</script>
+	</body>
+</html>

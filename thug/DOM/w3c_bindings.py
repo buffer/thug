@@ -103,6 +103,7 @@ w3c_bindings = {
                 'TimeRanges'                           : HTML.TimeRanges,
                 'Event'                                : Events.Event,
                 'EventTarget'                          : Events.EventTarget,
+                'MessageEvent'                         : Events.MessageEvent,
                 'MouseEvent'                           : Events.MouseEvent,
                 'MutationEvent'                        : Events.MutationEvent,
                 'StorageEvent'                         : Events.StorageEvent,
