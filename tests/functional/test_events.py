@@ -41,7 +41,7 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def testMouseEvent_IE60(self, caplog):
+    def test_testMouseEvent_IE60(self, caplog):
         sample   = os.path.join(self.event_path, "testMouseEvent.html")
         expected = ['[object MouseEvent]',
                     'type: click',
@@ -64,7 +64,7 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected, useragent = 'winxpie60')
 
-    def testMouseEvent_IE90(self, caplog):
+    def test_testMouseEvent_IE90(self, caplog):
         sample   = os.path.join(self.event_path, "testMouseEvent.html")
         expected = ['[object MouseEvent]',
                     'type: click',
@@ -87,7 +87,7 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected, useragent = 'win7ie90')
 
-    def testMouseEvent_Chrome(self, caplog):
+    def test_testMouseEvent_Chrome(self, caplog):
         sample   = os.path.join(self.event_path, "testMouseEvent.html")
         expected = ['[object MouseEvent]',
                     'type: click',
@@ -110,7 +110,7 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected, useragent = 'win7chrome49')
 
-    def testMouseEvent_Safari(self, caplog):
+    def test_testMouseEvent_Safari(self, caplog):
         sample   = os.path.join(self.event_path, "testMouseEvent.html")
         expected = ['[object MouseEvent]',
                     'type: click',
@@ -133,7 +133,7 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected, useragent = 'win7safari5')
 
-    def testMouseEvent_Firefox(self, caplog):
+    def test_testMouseEvent_Firefox(self, caplog):
         sample   = os.path.join(self.event_path, "testMouseEvent.html")
         expected = ['[object MouseEvent]',
                     'type: click',
@@ -156,7 +156,7 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected, useragent = 'linuxfirefox40')
 
-    def testStorageEvent(self, caplog):
+    def test_testStorageEvent(self, caplog):
         sample   = os.path.join(self.event_path, "testStorageEvent.html")
         expected = ['[object StorageEvent]',
                     'type: storage',
@@ -171,7 +171,7 @@ class TestEvents(object):
 
         self.do_perform_test(caplog, sample, expected)
 
-    def testMutationEvent(self, caplog):
+    def test_testMutationEvent(self, caplog):
         sample   = os.path.join(self.event_path, "testMutationEvent.html")
         expected = ['[object MutationEvent]',
                     'type: DOMAttrModified',
