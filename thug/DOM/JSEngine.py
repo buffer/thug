@@ -136,6 +136,19 @@ class JSEngine:
 
             ctxt.eval(date_js_code)
 
+    def init_scripts_message_event(self, ctxt):
+        if log.ThugOpts.Personality.isFirefox() and log.ThugOpts.Personality.browserMajorVersion > 26:
+            return
+
+        if not log.ThugOpts.Personality.isIE():
+            return
+
+        message_event_js = os.path.join(thug.__scripts_path__, "message-event.js")
+        with open(message_event_js, encoding = 'utf-8', mode = 'r') as fd:
+            message_event_js_code = fd.read()
+
+        ctxt.eval(message_event_js_code)
+
     def undefine_object_iter(self, ctxt, jso):
         ctxt.eval(f"{jso}.prototype.forEach = undefined")
 
@@ -181,6 +194,7 @@ class JSEngine:
             self.init_scripts_storage(ctxt)
             self.init_scripts_date(ctxt)
             self.init_scripts_builtin(ctxt)
+            self.init_scripts_message_event(ctxt)
 
             self.init_hooks(ctxt)
 

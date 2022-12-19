@@ -192,7 +192,7 @@ class TestEvents(object):
                     "msg.data: hello",
                     "msg.source: null"]
 
-        self.do_perform_test(caplog, sample, expected, useragent = 'win7ie90')
+        self.do_perform_test(caplog, sample, expected, useragent = 'osx10chrome97')
 
     def test_testEventException(self, caplog):
         sample   = os.path.join(self.event_path, "testEventException.html")
