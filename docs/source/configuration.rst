@@ -6,6 +6,36 @@ Configuration
 .. toctree::
    :maxdepth: 2
 
+Configuration files
+^^^^^^^^^^^^^^^^^^^
+
+Thug configuration files are automatically created during the installation
+procedure. Be aware that the folder where such configuration files are
+stored depends on the privileges of the user actually installing Thug.
+
+Thug attempts to use the folder */etc/thug/* at first. If such attempt fails
+(reasonably because of a permission error) Thug reverts to a folder the user
+is granted write permissions to. The folder selection is performed using appdirs
+and these are usually the configuration folders selected on Linux and MacOS X
+
+.. code-block:: sh
+
+    Linux    /home/<user>/.config/thug
+    MacOS X  /Users/<user>/Library/Application Support/thug
+
+If you are not sure about the configuration folder path just run the following
+command in your shell
+
+.. code-block:: sh
+
+    $ python -c "exec(\"import appdirs\nprint(appdirs.user_config_dir())\")"
+    /home/buffer/.config
+
+Be aware that Thug will ignore the user configuration folder if the folder
+*/etc/thug/* exists. The suggestion is to remove the folder */etc/thug/* if it
+already exists and revert to a user configuration folder. Installing Thug as
+root is going to create it again. This could be exactly what you want in some
+cases. If not, just install as a non privileged user.
 
 HoneyAgent (optional)
 ^^^^^^^^^^^^^^^^^^^^^
@@ -45,7 +75,7 @@ Login   : thug
 Password: thug
 
 In order to configure Thug to submit applets for analysis to HoneyAgent
-edit the configuration file */etc/thug/thug.conf* as shown later.
+edit the configuration file *thug.conf* as shown later.
 
 .. code-block:: sh
 

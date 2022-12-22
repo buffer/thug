@@ -19,8 +19,8 @@ The available logging modes are:
 Logging configuration
 =====================
 
-The configuration file */etc/thug/thug.conf* defines the way Thug uses to log the results
-of its analyses. The default logging configuration is shown below.
+The configuration file *thug.conf* defines the way Thug uses to log the results of its
+analyses. The default logging configuration is shown below.
 
 .. code-block:: sh
 
@@ -48,7 +48,7 @@ its analysis silently not storing the results. This could be exactly what you wa
 please consider that if you do not enable any other logging mode you will end up with 
 no logs at all so bear it in mind.
 
-The configuration file */etc/thug/thug.conf* defines the MongoDB instance configuration
+The configuration file *thug.conf* defines the MongoDB instance configuration
 parameters
 
 .. code-block:: sh
@@ -63,9 +63,9 @@ MongoDB on the same host you are supposed to run Thug you should not need changi
 anything in the default configuration.
 
 If you want Thug to store its results to a different MongoDB instance than that defined
-in your */etc/thug/thug.conf* file, you can specify a different address at runtime, for
-example by using the *--mongodb-address* option from the command line. This can be especially
-useful when using the dockerized version of Thug, where storing results in Docker itself would
+in your *thug.conf* file, you can specify a different address at runtime, for example by
+using the *--mongodb-address* option from the command line. This can be especially useful
+when using the dockerized version of Thug, where storing results in Docker itself would
 mean to lose them as soon as the Docker instance is shut down.
 
 
@@ -370,7 +370,7 @@ specific library version based on the ElasticSearch version you are using. Pleas
 for additional details.
 
 ElasticSearch logging mode is not enabled by default and you need to enable the option -G 
-(--elasticsearch-logging). The ElasticSearch configuration is saved in the */etc/thug/thug.conf*
+(--elasticsearch-logging). The ElasticSearch configuration is saved in the *thug.conf*
 file. Be sure of defining the right URL for connecting to your instance. You may want to
 change the index name where data will be stored but this is not really necessary in the most 
 common situations.
