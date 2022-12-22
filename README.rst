@@ -1,7 +1,7 @@
 Thug
 ====
 
-|version badge| |github badge| |lgtm badge| |codefactor badge| |codecov badge| |bandit badge|
+|version badge| |github badge| |codefactor badge| |codecov badge| |bandit badge|
 
 The number of client-side attacks has grown significantly in the past few years
 shifting focus on poorly protected vulnerable clients. Just as the most known
@@ -63,8 +63,6 @@ License: GNU General Public License, version 2
    :target: https://pypi.python.org/pypi/thug/
 .. |github badge| image:: https://github.com/buffer/thug/workflows/Build/badge.svg
    :target: https://github.com/buffer/thug
-.. |lgtm badge| image:: https://img.shields.io/lgtm/grade/python/g/buffer/thug.svg?logo=lgtm&logoWidth=18
-   :target: https://lgtm.com/projects/g/buffer/thug
 .. |codefactor badge| image:: https://www.codefactor.io/repository/github/buffer/thug/badge
    :target: https://www.codefactor.io/repository/github/buffer/thug
 .. |codecov badge| image:: https://codecov.io/gh/buffer/thug/branch/master/graph/badge.svg
