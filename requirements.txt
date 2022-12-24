@@ -17,3 +17,4 @@ requests-futures==1.0.0
 ssdeep==3.4
 yara-python==4.2.3
 zope.interface==5.5.2
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
