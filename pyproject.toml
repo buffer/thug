@@ -1,7 +1,8 @@
 [build-system]
 requires = [
-    "setuptools",
-    "appdirs"
+    "setuptools>=65.5.1",
+    "appdirs",
+    "wheels"
 ]
 build-backend = "setuptools.build_meta"
 
@@ -51,6 +52,7 @@ dependencies = [
     "rarfile==4.0",
     "requests==2.28.1",
     "requests-futures==1.0.0",
+    "setuptools>=65.5.1",
     "ssdeep==3.4",
     "yara-python==4.2.3",
     "zope.interface==5.5.2",
