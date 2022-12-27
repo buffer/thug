@@ -2,7 +2,7 @@
 requires = [
     "setuptools>=65.5.1",
     "appdirs",
-    "wheels"
+    "wheel"
 ]
 build-backend = "setuptools.build_meta"
 
