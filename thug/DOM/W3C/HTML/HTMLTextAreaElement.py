@@ -25,6 +25,10 @@ class HTMLTextAreaElement(HTMLElement):
     def defaultValue(self):
         return self.value
 
+    @defaultValue.setter
+    def defaultValue(self, value):
+        self.value = value
+
     @property
     def type(self):
         return "textarea"
