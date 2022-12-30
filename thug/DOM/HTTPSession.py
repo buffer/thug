@@ -22,9 +22,11 @@ import socket
 import ssl
 
 from urllib.parse import urlparse
+from urllib.parse import urlunparse
 from urllib.parse import urljoin
 from urllib.parse import quote
 from urllib.parse import unquote
+from urllib.parse import parse_qs
 
 import requests
 import urllib3
@@ -159,6 +161,15 @@ class HTTPSession:
             return _url
 
         return url
+
+    @staticmethod
+    def normalize_url_query(url):
+        p_url = urlparse(url)
+
+        p_query = parse_qs(p_url.query, keep_blank_values = True)
+        e_query = '&'.join(f'{k}=' for k in p_query)
+
+        return urlunparse(p_url._replace(query = e_query))
 
     def check_equal_urls(self, url, last_url):
         return unquote(url) in (unquote(last_url), )
