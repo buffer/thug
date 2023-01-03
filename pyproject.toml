@@ -116,6 +116,7 @@ addopts = "--timeout 60 --exitfirst --cov=thug"
 
 [tool.pylint]
 max-line-length = 150
+max-returns = 8
 disable = [
     "attribute-defined-outside-init",
     "bad-inline-option",
