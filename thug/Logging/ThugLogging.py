@@ -63,6 +63,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         self.methods_cache   = {}
         self.formats         = set()
         self.meta            = {}
+        self.meta_refresh    = []
         self.frames          = {}
         self.redirections    = {}
         self.ssl_certs       = {}

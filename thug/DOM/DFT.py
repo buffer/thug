@@ -1060,17 +1060,14 @@ class DFT:
 
             self.handle_meta_x_ua_compatible(http_equiv, content)
 
-    def handle_meta_refresh(self, http_equiv, content):
+    def handle_meta_refresh(self, http_equiv, content, delayed = False):
         from .Window import Window
 
         if http_equiv.lower() not in ('refresh', ) or 'url' not in content.lower():
             return
 
-        if log.ThugOpts.features_logging:
-            log.ThugLogging.Features.increase_meta_refresh_count()
-            log.ThugLogging.Features.increase_url_count()
-
         url = None
+        timeout = 0
         data_uri = 'data:' in content
 
         for s in content.split(';'):
@@ -1080,9 +1077,23 @@ class DFT:
             s = s.strip()
             if s.lower().startswith('url='):
                 url = s[4:]
+                continue
+
+            try:
+                timeout = int(s)
+            except ValueError:
+                pass
 
         if not url:
             return # pragma: no cover
+
+        if not delayed and timeout > 0:
+            log.ThugLogging.meta_refresh.append((http_equiv, content))
+            return
+
+        if log.ThugOpts.features_logging:
+            log.ThugLogging.Features.increase_meta_refresh_count()
+            log.ThugLogging.Features.increase_url_count()
 
         if url.startswith("'") and url.endswith("'"):
             url = url[1:-1]
@@ -1090,7 +1101,9 @@ class DFT:
         if url.startswith("\\'") and url.endswith("\\'"):
             url = url[2:-2]
 
-        if url in log.ThugLogging.meta and log.ThugLogging.meta[url] >= 3:
+        n_url = log.HTTPSession._normalize_query_fragment_url(url)
+
+        if n_url in log.ThugLogging.meta and log.ThugLogging.meta[n_url] >= 3:
             return # pragma: no cover
 
         if data_uri:
@@ -1106,10 +1119,10 @@ class DFT:
         if response is None or not response.ok:
             return
 
-        if url not in log.ThugLogging.meta:
-            log.ThugLogging.meta[url] = 0
+        if n_url not in log.ThugLogging.meta:
+            log.ThugLogging.meta[n_url] = 0
 
-        log.ThugLogging.meta[url] += 1
+        log.ThugLogging.meta[n_url] += 1
 
         doc    = w3c.parseString(response.content)
         window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
@@ -1549,6 +1562,10 @@ class DFT:
             self.set_event_listeners(child)
 
         self.handle_events(soup)
+
+        while log.ThugLogging.meta_refresh:
+            http_equiv, content = log.ThugLogging.meta_refresh.pop()
+            self.handle_meta_refresh(http_equiv, content, True)
 
     def handle_events(self, soup):
         for evt in self.handled_on_events:
