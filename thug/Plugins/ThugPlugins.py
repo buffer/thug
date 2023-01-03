@@ -38,9 +38,9 @@ sys.path.append(PLUGINS_PATH)
 
 
 class ThugPlugins:
-    def __init__(self, phase, thug):
+    def __init__(self, phase, thugObj):
         self.phase            = phase
-        self.thug             = thug
+        self.thugObj          = thugObj
         self.plugins          = {}
         self.last_low_prio    = FIRST_LOW_PRIO
         self.get_plugins()
@@ -105,6 +105,6 @@ class ThugPlugins:
                 p = handler()
                 try:
                     verifyObject(IPlugin, p)
-                    p.run(self.thug, log)
+                    p.run(self.thugObj, log)
                 except BrokenImplementation as e: # pragma: no cover
                     log.warning("[%s] %s", source, e)
