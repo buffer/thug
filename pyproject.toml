@@ -94,6 +94,7 @@ funding = "https://buffer.github.io/thug/"
 
 [tool.setuptools.packages.find]
 exclude = [
+    "build*",
     "docker*",
     "docs*",
     "tests*",

@@ -1,5 +1,5 @@
 recursive-include thug *
-recursive-include conf *
 recursive-exclude thug *.pyc
 recursive-exclude tests *
 include requirements.txt
+global-exclude *.py[cod]

@@ -17,20 +17,20 @@ class thug_install(install):
     def run(self):
         if not os.path.exists(THUG_GLOBAL_CONFIG_DIR):
             try:
-                shutil.copytree("conf",
+                shutil.copytree("thug/conf",
                                 THUG_GLOBAL_CONFIG_DIR,
                                 dirs_exist_ok = True)
             except PermissionError:
                 if not os.path.exists(THUG_USER_CONFIG_DIR):
-                    shutil.copytree("conf",
+                    shutil.copytree("thug/conf",
                                      THUG_USER_CONFIG_DIR,
                                      dirs_exist_ok = True)
 
         for folder in (THUG_GLOBAL_CONFIG_DIR, THUG_USER_CONFIG_DIR, ):
             if os.path.exists(folder) and os.access(folder, os.X_OK | os.W_OK):
-                shutil.copy("conf/inspector.json", f"{folder}/inspector.json")
-                shutil.copytree("conf/personalities", f"{folder}/personalities", dirs_exist_ok = True)
-                shutil.copytree("conf/scripts", f"{folder}/scripts", dirs_exist_ok = True)
+                shutil.copy("thug/conf/inspector.json", f"{folder}/inspector.json")
+                shutil.copytree("thug/conf/personalities", f"{folder}/personalities", dirs_exist_ok = True)
+                shutil.copytree("thug/conf/scripts", f"{folder}/scripts", dirs_exist_ok = True)
 
         install.run(self)
 
