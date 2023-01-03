@@ -49,7 +49,7 @@ jobs:
       - name: STEP 6. Install Thug configuration
         run: |
           sudo mkdir -p /etc/thug/
-          sudo cp -R conf/* /etc/thug/
+          sudo cp -R thug/conf/* /etc/thug/
 
       - name: STEP 7. Test Thug
         run: |
