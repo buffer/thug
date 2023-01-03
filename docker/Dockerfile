@@ -91,7 +91,7 @@ RUN pip3 install thug
 
 RUN git clone https://github.com/buffer/thug.git && \
   mkdir /etc/thug && \
-  cp -R thug/conf/* /etc/thug && \
+  cp -R thug/thug/conf/* /etc/thug && \
   rm -rf thug
 
 RUN groupadd -r thug && \
