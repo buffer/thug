@@ -20,13 +20,7 @@ import logging
 import sys
 import socket
 import ssl
-
-from urllib.parse import urlparse
-from urllib.parse import urlunparse
-from urllib.parse import urljoin
-from urllib.parse import quote
-from urllib.parse import unquote
-from urllib.parse import parse_qs
+import urllib.parse
 
 import requests
 import urllib3
@@ -49,7 +43,7 @@ class HTTPSession:
         s.close()
 
     def __do_init_proxy(self, proxy):
-        url = urlparse(proxy)
+        url = urllib.parse.urlparse(proxy)
         if not url.scheme:
             return False
 
@@ -94,7 +88,7 @@ class HTTPSession:
         if window.url in ('about:blank', ):
             return f'http:{url}'
 
-        base_url = urlparse(window.url)
+        base_url = urllib.parse.urlparse(window.url)
         return f"{base_url.scheme}:{url}" if base_url.scheme else f"http:{url}"
 
     def _is_compatible(self, url, scheme):
@@ -126,11 +120,11 @@ class HTTPSession:
         url = self._normalize_protocol_relative_url(window, url)
 
         try:
-            url = quote(url, safe = "%/:=&?~#+!$,;'@()*[]{}")
+            url = urllib.parse.quote(url, safe = "%/:=&?~#+!$,;'@()*[]{}")
         except KeyError: # pragma: no cover
             pass
 
-        _url = urlparse(url)
+        _url = urllib.parse.urlparse(url)
 
         base_url = None
         last_url = getattr(log, 'last_url', None)
@@ -140,7 +134,7 @@ class HTTPSession:
                 continue
 
             base_url = _base_url
-            p_base_url = urlparse(base_url)
+            p_base_url = urllib.parse.urlparse(base_url)
             if p_base_url.scheme:
                 break
 
@@ -156,23 +150,23 @@ class HTTPSession:
             return None
 
         if not _url.netloc and base_url:
-            _url = urljoin(base_url, url)
+            _url = urllib.parse.urljoin(base_url, url)
             log.warning("[Navigator URL Translation] %s --> %s", url, _url)
             return _url
 
         return url
 
     @staticmethod
-    def normalize_url_query(url):
-        p_url = urlparse(url)
+    def normalize_url_query_fragment(url):
+        p_url = urllib.parse.urlparse(urllib.parse.urldefrag(url)[0])
 
-        p_query = parse_qs(p_url.query, keep_blank_values = True)
-        e_query = '&'.join(f'{k}=' for k in p_query)
+        p_query = urllib.parse.parse_qs(p_url.query, keep_blank_values = True)
+        e_query = p_query.fromkeys(p_query, '')
 
-        return urlunparse(p_url._replace(query = e_query))
+        return p_url._replace(query = e_query).geturl()
 
     def check_equal_urls(self, url, last_url):
-        return unquote(url) in (unquote(last_url), )
+        return urllib.parse.unquote(url) in (urllib.parse.unquote(last_url), )
 
     def build_http_headers(self, window, personality, headers):
         http_headers = {
@@ -199,7 +193,7 @@ class HTTPSession:
         if not log.ThugOpts.cert_logging:
             return
 
-        _url = urlparse(url)
+        _url = urllib.parse.urlparse(url)
         if _url.scheme not in ('https', ):
             return
 
