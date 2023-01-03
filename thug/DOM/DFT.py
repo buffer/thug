@@ -1101,7 +1101,7 @@ class DFT:
         if url.startswith("\\'") and url.endswith("\\'"):
             url = url[2:-2]
 
-        n_url = log.HTTPSession.normalize_url_query_fragment(url)
+        n_url = log.HTTPSession._normalize_query_fragment_url(url)
 
         if n_url in log.ThugLogging.meta and log.ThugLogging.meta[n_url] >= 3:
             return # pragma: no cover

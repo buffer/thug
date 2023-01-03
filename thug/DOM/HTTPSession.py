@@ -91,6 +91,15 @@ class HTTPSession:
         base_url = urllib.parse.urlparse(window.url)
         return f"{base_url.scheme}:{url}" if base_url.scheme else f"http:{url}"
 
+    @staticmethod
+    def _normalize_query_fragment_url(url):
+        p_url = urllib.parse.urlparse(urllib.parse.urldefrag(url)[0])
+
+        p_query = urllib.parse.parse_qs(p_url.query, keep_blank_values = True)
+        e_query = urllib.parse.urlencode(p_query.fromkeys(p_query, ''))
+
+        return p_url._replace(query = e_query).geturl()
+
     def _is_compatible(self, url, scheme):
         return url.startswith(f"{scheme}:/") and not url.startswith(f"{scheme}://")
 
@@ -155,15 +164,6 @@ class HTTPSession:
             return _url
 
         return url
-
-    @staticmethod
-    def normalize_url_query_fragment(url):
-        p_url = urllib.parse.urlparse(urllib.parse.urldefrag(url)[0])
-
-        p_query = urllib.parse.parse_qs(p_url.query, keep_blank_values = True)
-        e_query = p_query.fromkeys(p_query, '')
-
-        return p_url._replace(query = e_query).geturl()
 
     def check_equal_urls(self, url, last_url):
         return urllib.parse.unquote(url) in (urllib.parse.unquote(last_url), )
