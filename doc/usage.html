@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; Thug 4.5 documentation</title>
+  <title>Usage &mdash; Thug 4.7 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -13,7 +13,9 @@
         <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="static/doctools.js"></script>
+        <script src="static/sphinx_highlight.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,7 +31,7 @@
             <a href="index.html" class="icon icon-home"> Thug
           </a>
               <div class="version">
-                4.5
+                4.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -88,11 +90,11 @@
            <div itemprop="articleBody">
              
   <div class="section" id="usage">
-<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
+<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <div class="section" id="basic-usage">
-<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline"></a></h2>
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading"></a></h2>
 <p>Let’s start our Thug tour by taking a look at the options it provides.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~ $ thug -h
 
@@ -369,7 +371,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </div>
 </div>
 <div class="section" id="browser-personality">
-<h2>Browser personality<a class="headerlink" href="#browser-personality" title="Permalink to this headline"></a></h2>
+<h2>Browser personality<a class="headerlink" href="#browser-personality" title="Permalink to this heading"></a></h2>
 <p>If no additional option (other than the URL) is provided the emulated browser personality is
 Internet Explorer 6.0 on Windows XP platform. This choice is usually quite interesting for
 the really simple reason a lot of exploit kits out there try to exploit a vulnerability in Microsoft
@@ -442,7 +444,7 @@ W.eXeC <span class="s2">&quot;taskkill /F /IM wm&quot;</span> <span class="p">&a
 vulnerability is not served in this case.</p>
 </div>
 <div class="section" id="dom-events-handling">
-<h2>DOM Events Handling<a class="headerlink" href="#dom-events-handling" title="Permalink to this headline"></a></h2>
+<h2>DOM Events Handling<a class="headerlink" href="#dom-events-handling" title="Permalink to this heading"></a></h2>
 <p>A useful option is the -e (–events) option which allows you to specify which DOM events should
 be handled by Thug. By default <cite>load</cite> and <cite>mousemove</cite> events are always handled but you can add
 other ones with this option. Using this option is quite simple. All you need to do is to specify
@@ -454,7 +456,7 @@ a comma-separated list of events to handle as shown below.</p>
 Thug while all the other ones will be ignored.</p>
 </div>
 <div class="section" id="adobe-acrobat-reader">
-<h2>Adobe Acrobat Reader<a class="headerlink" href="#adobe-acrobat-reader" title="Permalink to this headline"></a></h2>
+<h2>Adobe Acrobat Reader<a class="headerlink" href="#adobe-acrobat-reader" title="Permalink to this heading"></a></h2>
 <p>Taking a look at the available options you can see the -A (–adobepdf) option which is quite
 useful for getting different PDF exploits which target different version of Adobe Acrobat
 Reader. This happens because exploit kits usually serve PDF files which exploit specific
@@ -543,7 +545,7 @@ W.eXeC <span class="s2">&quot;taskkill /F /IM wm&quot;</span> <span class="p">&a
 <p>it’s easy to realize that a different malicious PDF file was served in this case.</p>
 </div>
 <div class="section" id="shockwave-flash">
-<h2>Shockwave Flash<a class="headerlink" href="#shockwave-flash" title="Permalink to this headline"></a></h2>
+<h2>Shockwave Flash<a class="headerlink" href="#shockwave-flash" title="Permalink to this heading"></a></h2>
 <p>Taking a look at the available options you can see the -S (–shockwave) option which is quite
 useful for getting different Flash exploits which target differents version of Shockwave Flash.
 This happens because exploit kits usually serve Flash files which exploit specific vulnerabilities
@@ -618,7 +620,7 @@ PluginDetect (see Local Analysis later for details).</p>
 </div>
 </div>
 <div class="section" id="javaplugin-and-javawebstart">
-<h2>JavaPlugin and JavaWebStart<a class="headerlink" href="#javaplugin-and-javawebstart" title="Permalink to this headline"></a></h2>
+<h2>JavaPlugin and JavaWebStart<a class="headerlink" href="#javaplugin-and-javawebstart" title="Permalink to this heading"></a></h2>
 <p>Taking a look at the available options you can see the -J (–javaplugin) option which is quite
 useful for getting different Java exploits which target different versions of Java. Let’s take
 a look at what happens if we locally analyze PluginDetect (see Local Analysis later for details).</p>
@@ -715,7 +717,7 @@ a look at what happens if we locally analyze PluginDetect (see Local Analysis la
 </div>
 </div>
 <div class="section" id="proxy-support">
-<h2>Proxy support<a class="headerlink" href="#proxy-support" title="Permalink to this headline"></a></h2>
+<h2>Proxy support<a class="headerlink" href="#proxy-support" title="Permalink to this heading"></a></h2>
 <p>Another really useful option is <em>-p (–proxy)</em> which allows to specify a proxy. Currently Thug
 supports HTTP, SOCKS4 and SOCKS5 proxy using the following format</p>
 <blockquote>
@@ -798,7 +800,7 @@ W.eXeC <span class="s2">&quot;taskkill /F /IM wm&quot;</span> <span class="p">&a
 </div>
 </div>
 <div class="section" id="image-processing">
-<h2>Image processing<a class="headerlink" href="#image-processing" title="Permalink to this headline"></a></h2>
+<h2>Image processing<a class="headerlink" href="#image-processing" title="Permalink to this heading"></a></h2>
 <p>Image processing analysis (introduced in Thug 1.4) allows to analyze images retrieved during the
 analysis. By default, Thug performs OCR analysis returning extracted strings but the possibility
 exists to include other image processing algorithms through using Thug PyHooks. Be aware that
@@ -823,7 +825,7 @@ as the required steps could be different based on the Linux distribution. Please
 </div>
 </div>
 <div class="section" id="local-analysis">
-<h2>Local Analysis<a class="headerlink" href="#local-analysis" title="Permalink to this headline"></a></h2>
+<h2>Local Analysis<a class="headerlink" href="#local-analysis" title="Permalink to this heading"></a></h2>
 <p>May you need to analyze a locally saved page Thug provides the <em>-l (–local)</em> option to you.
 Using such option is really simple and could turn to be really useful for testing and for
 later (manual or automated) analysis (see also <em>Web Cache</em>)</p>
@@ -898,7 +900,7 @@ locally saved page.</p>
 </div>
 </div>
 <div class="section" id="other-useful-features">
-<h2>Other useful features<a class="headerlink" href="#other-useful-features" title="Permalink to this headline"></a></h2>
+<h2>Other useful features<a class="headerlink" href="#other-useful-features" title="Permalink to this heading"></a></h2>
 <p>An interesting feature (introduced in Thug 0.4.13) allows you to define a maximum delay for
 methods like setTimeout and setInterval which set a delay for executing a function. For instance
 if the original code contains a statement like</p>
@@ -926,7 +928,7 @@ option. Simply running Thug this way (please note the interval is expressed in m
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2011-2022, Angelo Dell&#39;Aera.</p>
+    <p>&#169; Copyright 2011-2023, Angelo Dell&#39;Aera.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

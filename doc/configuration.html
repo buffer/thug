@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; Thug 4.5 documentation</title>
+  <title>Configuration &mdash; Thug 4.7 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -13,7 +13,9 @@
         <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
         <script src="static/jquery.js"></script>
         <script src="static/underscore.js"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="static/doctools.js"></script>
+        <script src="static/sphinx_highlight.js"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,7 +31,7 @@
             <a href="index.html" class="icon icon-home"> Thug
           </a>
               <div class="version">
-                4.5
+                4.7
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -44,6 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="build.html">Build and Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-files">Configuration files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#honeyagent-optional">HoneyAgent (optional)</a></li>
 </ul>
 </li>
@@ -79,11 +82,36 @@
            <div itemprop="articleBody">
              
   <div class="section" id="configuration">
-<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h1>
+<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<div class="section" id="configuration-files">
+<h2>Configuration files<a class="headerlink" href="#configuration-files" title="Permalink to this heading"></a></h2>
+<p>Thug configuration files are automatically created during the installation
+procedure. Be aware that the folder where such configuration files are
+stored depends on the privileges of the user actually installing Thug.</p>
+<p>Thug attempts to use the folder <em>/etc/thug/</em> at first. If such attempt fails
+(reasonably because of a permission error) Thug reverts to a folder the user
+is granted write permissions to. The folder selection is performed using appdirs
+and these are usually the configuration folders selected on Linux and MacOS X</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Linux    /home/&lt;user&gt;/.config/thug
+MacOS X  /Users/&lt;user&gt;/Library/Application Support/thug
+</pre></div>
+</div>
+<p>If you are not sure about the configuration folder path just run the following
+command in your shell</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python -c <span class="s2">&quot;exec(\&quot;import appdirs\nprint(appdirs.user_config_dir())\&quot;)&quot;</span>
+/home/buffer/.config
+</pre></div>
+</div>
+<p>Be aware that Thug will ignore the user configuration folder if the folder
+<em>/etc/thug/</em> exists. The suggestion is to remove the folder <em>/etc/thug/</em> if it
+already exists and revert to a user configuration folder. Installing Thug as
+root is going to create it again. This could be exactly what you want in some
+cases. If not, just install as a non privileged user.</p>
+</div>
 <div class="section" id="honeyagent-optional">
-<h2>HoneyAgent (optional)<a class="headerlink" href="#honeyagent-optional" title="Permalink to this headline"></a></h2>
+<h2>HoneyAgent (optional)<a class="headerlink" href="#honeyagent-optional" title="Permalink to this heading"></a></h2>
 <p>HoneyAgent is a Java agent library that creates a sandbox for Java
 applications and applets. It uses the JVMTI as well as the JNI to
 intercept class loading and function calls.</p>
@@ -110,7 +138,7 @@ is available (and already configured) at</p>
 <p>Login   : thug
 Password: thug</p>
 <p>In order to configure Thug to submit applets for analysis to HoneyAgent
-edit the configuration file <em>/etc/thug/thug.conf</em> as shown later.</p>
+edit the configuration file <em>thug.conf</em> as shown later.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>honeyagent<span class="o">]</span>
 scanurl:                        http://192.168.56.101:8000
 </pre></div>
@@ -186,7 +214,7 @@ uAzpYJRZ.exe:   PE32 executable <span class="o">(</span>GUI<span class="o">)</sp
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2011-2022, Angelo Dell&#39;Aera.</p>
+    <p>&#169; Copyright 2011-2023, Angelo Dell&#39;Aera.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
