@@ -1,7 +1,6 @@
 #
 # This Docker image encapsulates Thug, a low-interaction honeyclient,
-# which was created by Angelo Dell'Aera  and is available at
-# https://github.com/buffer/thug.
+# which was created by Angelo Dell'Aera and is available at [1].
 #
 # To run this image after installing Docker, use a command like this:
 #
@@ -16,15 +15,16 @@
 #
 # sudo docker run --rm -it -v ~/logs:/tmp/thug/logs buffer/thug bash
 # 
-# To support distributed operations and MongoDB output, install the folloging
-# packages into the image using "apt-get": mongodb, mongodb-dev, python-pymongo
+# To support MongoDB output, install the folloging packages into the
+# image using "apt-get": mongodb, mongodb-dev, python-pymongo
 #
-# This file was originally based on ideas from Spenser Reinhardt's Dockerfile
-# (https://registry.hub.docker.com/u/sreinhardt/honeynet/dockerfile),
-# on instructions outlined by M. Fields (@shakey_1) and 
-# on the installation script created by Payload Security
-# (https://github.com/PayloadSecurity/VxCommunity/blob/master/bash/thuginstallation.sh)
+# This file was originally based on ideas from Spenser Reinhardt's
+# Dockerfile [2] on instructions outlined by M. Fields (@shakey_1) and
+# on the installation script created by Payload Security [3]
 #
+# [1] https://github.com/buffer/thug
+# [2] https://registry.hub.docker.com/u/sreinhardt/honeynet/dockerfile
+# [3] https://github.com/PayloadSecurity/VxCommunity/blob/master/bash/thuginstallation.sh
 
 FROM ubuntu:22.10
 MAINTAINER Angelo Dell'Aera
@@ -90,7 +90,7 @@ RUN ldconfig
 RUN pip3 install thug
 
 RUN git clone https://github.com/buffer/thug.git && \
-  mkdir /etc/thug && \
+  mkdir -p /etc/thug && \
   cp -R thug/thug/conf/* /etc/thug && \
   rm -rf thug
 
