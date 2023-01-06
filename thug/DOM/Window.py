@@ -1123,7 +1123,7 @@ class Window(JSClass):
             except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.warning("[Window] HTMLClassifier error: %s", str(e))
 
-            content_type = response.headers.get('content-type' , None)
+            content_type = response.headers.get('content-type', log.Magic.get_mime(response.content))
             if content_type:
                 handler = log.MIMEHandler.get_handler(content_type)
 
