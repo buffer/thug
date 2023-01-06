@@ -121,9 +121,9 @@ def send(self, varBody = None):
     if self.mimeType:
         contenttype = self.mimeType
     else:
-        contenttype = self.responseHeaders.get('content-type', None)
+        contenttype = self.responseHeaders.get('content-type', log.Magic.get_mime(response.content))
 
-    if contenttype is None: # pragma: no cover
+    if not contenttype: # pragma: no cover
         return 0
 
     if 'text/css' not in contenttype:

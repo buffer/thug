@@ -390,7 +390,7 @@ class Navigator(JSClass):
 
         log.ThugLogging.Screenshot.run(self._window, url, response, ctype)
 
-        handler = log.MIMEHandler.get_handler(ctype)
+        handler = log.MIMEHandler.get_handler(ctype if ctype not in ('unknown', ) else mtype)
         if handler:
             handler(response.url, response.content)
             response.thug_mimehandler_hit = True
