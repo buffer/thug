@@ -42,7 +42,7 @@ dependencies = [
     "cssutils==2.6.0",
     "html5lib==1.1",
     "lxml==4.9.2",
-    "networkx==2.8.8",
+    "networkx==3.0",
     "pefile==2022.5.30",
     "promise==2.3",
     "pylibemu==0.8",
@@ -66,20 +66,20 @@ keywords = [
 
 [project.optional-dependencies]
 test = [
-    "elasticsearch==7.17.8",
-    "pytesseract",
-    "pygraphviz",
-    "imgkit==1.1.0",
-    "speakeasy-emulator",
     "codecov",
-    "ElasticMock",
+    "elasticmock",
+    "elasticsearch==7.17.8",
+    "imgkit==1.1.0",
     "mock",
     "mongomock",
     "pre-commit",
-    "safety",
+    "pygraphviz",
+    "pytesseract",
     "pytest",
-    "pytest-timeout",
     "pytest-cov",
+    "pytest-timeout",
+    "safety",
+    "speakeasy-emulator",
     "tox",
 ]
 
