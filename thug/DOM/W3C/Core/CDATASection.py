@@ -10,5 +10,5 @@ class CDATASection(Text):
 
     @property
     def nodeType(self):
-        from .Node import Node
-        return Node.CDATA_SECTION_NODE
+        from .NodeType import NodeType
+        return NodeType.CDATA_SECTION_NODE
