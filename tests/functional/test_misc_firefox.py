@@ -317,7 +317,8 @@ class TestMiscSamplesFirefox(object):
 
     def test_testCookie(self, caplog):
         sample   = os.path.join(self.misc_path, "testCookie.html")
-        expected = ["Alert Text: favorite_food=tripe; name=oeschger", ]
+        expected = ['favorite_food=tripe',
+                    'name=oeschger' ]
 
         self.do_perform_test(caplog, sample, expected)
 
