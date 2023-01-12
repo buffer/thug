@@ -107,8 +107,6 @@ class DOMImplementation(HTML.HTMLDocument):
 
     @staticmethod
     def createHTMLElement(doc, tag):
-        # from .Node import Node
-
         if isinstance(tag, bs4.NavigableString):
             return DOMImplementation.wrap(doc, tag)
 
