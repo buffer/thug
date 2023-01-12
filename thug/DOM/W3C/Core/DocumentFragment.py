@@ -59,14 +59,12 @@ class DocumentFragment(Node):
         return NodeList(self.doc, s)
 
     def _querySelector(self, selectors):
-        from .DOMImplementation import DOMImplementation
-
         try:
             s = self.tag.select(selectors)
         except Exception: # pragma: no cover,pylint:disable=broad-except
             return None
 
-        return DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
+        return log.DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
 
     @property
     def nodeName(self):

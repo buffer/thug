@@ -303,8 +303,7 @@ class DFT:
             return
 
         if not getattr(elem, '_node', None):
-            from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-            DOMImplementation.createHTMLElement(self.window.doc, elem)
+            log.DOMImplementation.createHTMLElement(self.window.doc, elem)
 
         elem._node._attachEvent(evt, handler, True)
 

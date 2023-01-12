@@ -415,8 +415,7 @@ class Node(JSClass, EventTarget):
 
     # Introduced in DOM Level 2
     def isSupported(self, feature, version): # pragma: no cover
-        from .DOMImplementation import DOMImplementation
-        return DOMImplementation.hasFeature(feature, version)
+        return log.DOMImplementation.hasFeature(feature, version)
 
     # Introduced in DOM Level 2
     def hasAttributes(self):

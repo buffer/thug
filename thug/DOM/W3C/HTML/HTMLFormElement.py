@@ -27,19 +27,16 @@ class HTMLFormElement(HTMLElement):
                 continue
 
             if 'name' in tag.attrs and tag.attrs['name'] in (key, ):
-                from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-                return DOMImplementation.createHTMLElement(self.doc, tag)
+                return log.DOMImplementation.createHTMLElement(self.doc, tag)
 
         raise AttributeError
 
     @property
     def elements(self):
-        from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-
         nodes = []
         for tag in self.tag.children:
             if getattr(tag, 'name', None) and tag.name not in ('br', ):
-                nodes.append(DOMImplementation.createHTMLElement(self.doc, tag))
+                nodes.append(log.DOMImplementation.createHTMLElement(self.doc, tag))
 
         return HTMLFormControlsCollection(self.doc, nodes)
 

@@ -268,8 +268,7 @@ class Window(JSClass):
         frames = set()
         for frame in self._findAll(['frame', 'iframe']):
             if not getattr(frame, '_node', None):
-                from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-                DOMImplementation.createHTMLElement(self.window.doc, frame)
+                log.DOMImplementation.createHTMLElement(self.window.doc, frame)
 
             frames.add(frame._node)
 
