@@ -201,10 +201,6 @@ class Element(Node, ElementCSSInlineStyle):
         return value
 
     def setAttribute(self, name, value):
-        from thug.DOM.W3C import w3c
-        from thug.DOM.Window import Window
-        from thug.DOM.DFT import DFT
-
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_setattribute_count()
 
@@ -253,10 +249,9 @@ class Element(Node, ElementCSSInlineStyle):
 
             ctype = response.headers.get('content-type', None)
             if ctype and ctype.startswith(('text/html', )):
-                doc = w3c.parseString(response.content)
-                window = Window(response.url, doc, personality = log.ThugOpts.useragent)
-                dft = DFT(window)
-                dft.run()
+                window_open = getattr(log.DFT, 'window_open', None)
+                if window_open:
+                    window_open(response.url, response.content)
 
     def removeAttribute(self, name):
         if log.ThugOpts.features_logging:
