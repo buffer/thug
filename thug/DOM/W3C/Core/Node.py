@@ -2,7 +2,6 @@
 
 import copy
 import logging
-import bs4
 
 from thug.DOM.JSClass import JSClass
 from thug.DOM.W3C.Events.EventTarget import EventTarget
@@ -135,23 +134,23 @@ class Node(JSClass, EventTarget):
 
     @property
     def firstChild(self):
-        return Node.wrap(self.doc, self.tag.contents[0]) if self.tag.contents else None
+        return log.DOMImplementation.wrap(self.doc, self.tag.contents[0]) if self.tag.contents else None
 
     @property
     def lastChild(self):
-        return Node.wrap(self.doc, self.tag.contents[-1]) if self.tag.contents else None
+        return log.DOMImplementation.wrap(self.doc, self.tag.contents[-1]) if self.tag.contents else None
 
     @property
     def nextSibling(self):
-        return Node.wrap(self.doc, self.tag.next_sibling)
+        return log.DOMImplementation.wrap(self.doc, self.tag.next_sibling)
 
     @property
     def previousSibling(self):
-        return Node.wrap(self.doc, self.tag.previous_sibling)
+        return log.DOMImplementation.wrap(self.doc, self.tag.previous_sibling)
 
     @property
     def parentNode(self):
-        return Node.wrap(self.doc, self.tag.parent) if self.tag.parent else None
+        return log.DOMImplementation.wrap(self.doc, self.tag.parent) if self.tag.parent else None
 
     # Introduced in DOM Level 2
     @property
@@ -444,19 +443,19 @@ class Node(JSClass, EventTarget):
 
         return cloned
 
-    @staticmethod
-    def wrap(doc, obj):
-        from .Element import Element
-
-        if obj is None:
-            return None
-
-        if isinstance(obj, bs4.CData): # pragma: no cover
-            from .CDATASection import CDATASection
-            return CDATASection(doc, obj)
-
-        if isinstance(obj, bs4.NavigableString):
-            from .Text import Text
-            return Text(doc, obj)
-
-        return Element(doc, obj)
+   #  @staticmethod
+   #  def wrap(doc, obj):
+   #     from .Element import Element
+   #
+   #     if obj is None:
+   #         return None
+   #
+   #     if isinstance(obj, bs4.CData): # pragma: no cover
+   #         from .CDATASection import CDATASection
+   #         return CDATASection(doc, obj)
+   #
+   #     if isinstance(obj, bs4.NavigableString):
+   #         from .Text import Text
+   #         return Text(doc, obj)
+   #
+   #     return Element(doc, obj)
