@@ -14,7 +14,7 @@ __all__ = ['DocumentEvent',
 # from .DocumentEvent import DocumentEvent
 from .Event import Event
 # from .EventException import EventException
-# from .EventListener import EventListener
+from .EventListener import EventListener
 from .EventTarget import EventTarget
 # from .HTMLEvent import HTMLEvent
 from .MessageEvent import MessageEvent
