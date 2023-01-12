@@ -251,7 +251,7 @@ class Element(Node, ElementCSSInlineStyle):
             if ctype and ctype.startswith(('text/html', )):
                 window_open = getattr(log.DFT, 'window_open', None)
                 if window_open:
-                    window_open(response.url, response.content)
+                    window_open(response.url, response.content) # pylint:disable=not-callable
 
     def removeAttribute(self, name):
         if log.ThugOpts.features_logging:
