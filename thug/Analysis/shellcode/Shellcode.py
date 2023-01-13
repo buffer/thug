@@ -169,8 +169,8 @@ class Shellcode:
         emu = pylibemu.Emulator(enable_hooks = False)
         emu.run(sc)
 
-        if emu.emu_profile_output:
-            profile = emu.emu_profile_output.decode()
+        if emu.emu_profile_output: # pylint:disable=using-constant-test
+            profile = emu.emu_profile_output.decode() # pylint:disable=no-member
 
             if self.snippet is None:
                 self.snippet = self.build_snippet(shellcode)

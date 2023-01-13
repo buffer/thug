@@ -23,7 +23,6 @@ from .CDATASection import CDATASection
 from .CharacterData import CharacterData
 from .Comment import Comment
 from .DOMException import DOMException
-from .DOMImplementation import DOMImplementation
 from .Document import Document
 from .DocumentFragment import DocumentFragment
 from .DocumentType import DocumentType

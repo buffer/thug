@@ -112,11 +112,9 @@ class HTMLDocument(Document):
 
         _attr = self.getElementsByName(attr)
         if _attr:
-            from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-
             tag = getattr(_attr[0], 'tag', None)
             if tag:
-                return DOMImplementation.createHTMLElement(self.doc, tag)
+                return log.DOMImplementation.createHTMLElement(self.doc, tag)
 
         log.info("[HTMLDocument] Undefined: %s", attr)
         raise AttributeError
@@ -465,12 +463,10 @@ class HTMLDocument(Document):
 
     @property
     def currentScript(self):
-        from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-
         if self._currentScript:
             return self._currentScript # pragma: no cover
 
-        return DOMImplementation.createHTMLElement(self.doc, self.current) if self.current else None
+        return log.DOMImplementation.createHTMLElement(self.doc, self.current) if self.current else None
 
     def _createStyleSheet(self, URL = None, index = None):
         # Creates a styleSheet object and inserts it into the current document.

@@ -2,31 +2,31 @@
 
 import copy
 import logging
-import bs4
 
 from thug.DOM.JSClass import JSClass
 from thug.DOM.W3C.Events.EventTarget import EventTarget
 
 from .abstractmethod import abstractmethod
 from .DOMException import DOMException
+from .NodeType import NodeType
 
 log = logging.getLogger("Thug")
 
 
 class Node(JSClass, EventTarget):
     # NodeType
-    ELEMENT_NODE                   = 1
-    ATTRIBUTE_NODE                 = 2
-    TEXT_NODE                      = 3
-    CDATA_SECTION_NODE             = 4
-    ENTITY_REFERENCE_NODE          = 5
-    ENTITY_NODE                    = 6
-    PROCESSING_INSTRUCTION_NODE    = 7
-    COMMENT_NODE                   = 8
-    DOCUMENT_NODE                  = 9
-    DOCUMENT_TYPE_NODE             = 10
-    DOCUMENT_FRAGMENT_NODE         = 11
-    NOTATION_NODE                  = 12
+    ELEMENT_NODE                = NodeType.ELEMENT_NODE
+    ATTRIBUTE_NODE              = NodeType.ATTRIBUTE_NODE
+    TEXT_NODE                   = NodeType.TEXT_NODE
+    CDATA_SECTION_NODE          = NodeType.CDATA_SECTION_NODE
+    ENTITY_REFERENCE_NODE       = NodeType.ENTITY_REFERENCE_NODE
+    ENTITY_NODE                 = NodeType.ENTITY_NODE
+    PROCESSING_INSTRUCTION_NODE = NodeType.PROCESSING_INSTRUCTION_NODE
+    COMMENT_NODE                = NodeType.COMMENT_NODE
+    DOCUMENT_NODE               = NodeType.DOCUMENT_NODE
+    DOCUMENT_TYPE_NODE          = NodeType.DOCUMENT_TYPE_NODE
+    DOCUMENT_FRAGMENT_NODE      = NodeType.DOCUMENT_FRAGMENT_NODE
+    NOTATION_NODE               = NodeType.NOTATION_NODE
 
     def __init__(self, doc, tag):
         self._doc = doc
@@ -134,23 +134,23 @@ class Node(JSClass, EventTarget):
 
     @property
     def firstChild(self):
-        return Node.wrap(self.doc, self.tag.contents[0]) if self.tag.contents else None
+        return log.DOMImplementation.wrap(self.doc, self.tag.contents[0]) if self.tag.contents else None
 
     @property
     def lastChild(self):
-        return Node.wrap(self.doc, self.tag.contents[-1]) if self.tag.contents else None
+        return log.DOMImplementation.wrap(self.doc, self.tag.contents[-1]) if self.tag.contents else None
 
     @property
     def nextSibling(self):
-        return Node.wrap(self.doc, self.tag.next_sibling)
+        return log.DOMImplementation.wrap(self.doc, self.tag.next_sibling)
 
     @property
     def previousSibling(self):
-        return Node.wrap(self.doc, self.tag.previous_sibling)
+        return log.DOMImplementation.wrap(self.doc, self.tag.previous_sibling)
 
     @property
     def parentNode(self):
-        return Node.wrap(self.doc, self.tag.parent) if self.tag.parent else None
+        return log.DOMImplementation.wrap(self.doc, self.tag.parent) if self.tag.parent else None
 
     # Introduced in DOM Level 2
     @property
@@ -414,8 +414,7 @@ class Node(JSClass, EventTarget):
 
     # Introduced in DOM Level 2
     def isSupported(self, feature, version): # pragma: no cover
-        from .DOMImplementation import DOMImplementation
-        return DOMImplementation.hasFeature(feature, version)
+        return log.DOMImplementation.hasFeature(feature, version)
 
     # Introduced in DOM Level 2
     def hasAttributes(self):
@@ -444,19 +443,19 @@ class Node(JSClass, EventTarget):
 
         return cloned
 
-    @staticmethod
-    def wrap(doc, obj):
-        from .Element import Element
-
-        if obj is None:
-            return None
-
-        if isinstance(obj, bs4.CData): # pragma: no cover
-            from .CDATASection import CDATASection
-            return CDATASection(doc, obj)
-
-        if isinstance(obj, bs4.NavigableString):
-            from .Text import Text
-            return Text(doc, obj)
-
-        return Element(doc, obj)
+   #  @staticmethod
+   #  def wrap(doc, obj):
+   #     from .Element import Element
+   #
+   #     if obj is None:
+   #         return None
+   #
+   #     if isinstance(obj, bs4.CData): # pragma: no cover
+   #         from .CDATASection import CDATASection
+   #         return CDATASection(doc, obj)
+   #
+   #     if isinstance(obj, bs4.NavigableString):
+   #         from .Text import Text
+   #         return Text(doc, obj)
+   #
+   #     return Element(doc, obj)

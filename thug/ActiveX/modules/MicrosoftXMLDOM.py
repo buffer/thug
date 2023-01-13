@@ -4,9 +4,6 @@ import logging
 import base64
 import binascii
 
-from thug.DOM.W3C import w3c
-from thug.OS.Windows import security_sys
-
 log = logging.getLogger("Thug")
 
 
@@ -49,6 +46,9 @@ class Node:
 
 
 def loadXML(self, bstrXML):
+    from thug.DOM.W3C import w3c
+    from thug.OS.Windows import security_sys
+
     self.xml = w3c.parseString(bstrXML)
 
     if "res://" not in bstrXML:

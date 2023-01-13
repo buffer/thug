@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 
+import logging
+
 import bs4
 
 from thug.DOM.JSClass import JSClass
+
+log = logging.getLogger("Thug")
 
 
 class HTMLCollection(JSClass):
@@ -27,25 +31,21 @@ class HTMLCollection(JSClass):
         return len(self.nodes)
 
     def item(self, index):
-        from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-
         if index < 0 or index >= self.length:
             return None
 
         if isinstance(self.nodes[index], bs4.element.Tag):
-            return DOMImplementation.createHTMLElement(self.doc, self.nodes[index])
+            return log.DOMImplementation.createHTMLElement(self.doc, self.nodes[index])
 
         return self.nodes[index]
 
     def namedItem(self, name):
-        from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-
         for node in self.nodes:
             if 'id' in node.attrs and node.attrs['id'] in (name, ):
-                return DOMImplementation.createHTMLElement(self.doc, node)
+                return log.DOMImplementation.createHTMLElement(self.doc, node)
 
         for node in self.nodes:
             if 'name' in node.attrs and node.attrs['name'] in (name, ):
-                return DOMImplementation.createHTMLElement(self.doc, node)
+                return log.DOMImplementation.createHTMLElement(self.doc, node)
 
         return None

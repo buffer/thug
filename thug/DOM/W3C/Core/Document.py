@@ -94,14 +94,12 @@ class Document(Node, DocumentEvent, DocumentView):
         return NodeList(self.doc, s)
 
     def _querySelector(self, selectors):
-        from .DOMImplementation import DOMImplementation
-
         try:
             s = self.doc.select(selectors)
         except Exception: # pragma: no cover,pylint:disable=broad-except
             return None
 
-        return DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
+        return log.DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
 
     # Introduced in DOM Level 3
     @property
@@ -144,13 +142,6 @@ class Document(Node, DocumentEvent, DocumentView):
     def implementation(self):
         return self
 
-    @property
-    def documentElement(self): # pragma: no cover
-        from thug.DOM.W3C.HTML.HTMLHtmlElement import HTMLHtmlElement
-
-        html = self.doc.find('html')
-        return HTMLHtmlElement(self, html if html else self.doc)
-
     def getCharacterSet(self):
         return self._character_set
 
@@ -172,8 +163,6 @@ class Document(Node, DocumentEvent, DocumentView):
         return "Windows-1252"
 
     def createElement(self, tagname, tagvalue = None): # pylint:disable=unused-argument
-        from .DOMImplementation import DOMImplementation
-
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_createelement_count()
 
@@ -183,7 +172,7 @@ class Document(Node, DocumentEvent, DocumentView):
             if tagname.startswith('<') and '>' in tagname:
                 tagname = tagname[1:].split('>')[0]
 
-        return DOMImplementation.createHTMLElement(self, bs4.Tag(parser = self.doc, name = tagname))
+        return log.DOMImplementation.createHTMLElement(self, bs4.Tag(parser = self.doc, name = tagname))
 
     def createDocumentFragment(self):
         from .DocumentFragment import DocumentFragment
@@ -237,16 +226,12 @@ class Document(Node, DocumentEvent, DocumentView):
         return self._getElementById(elementId)
 
     def _getElementById(self, elementId):
-        from .DOMImplementation import DOMImplementation
-
         tag = self.doc.find(id = elementId)
-        return DOMImplementation.createHTMLElement(self, tag) if tag else None
+        return log.DOMImplementation.createHTMLElement(self, tag) if tag else None
 
     # Internet Explorer 6 and 7 getElementById is broken and returns
     # elements with 'id' or 'name' attributes equal to elementId
     def _getElementById_IE67(self, elementId):
-        from .DOMImplementation import DOMImplementation
-
         def _match_tag(tag, p):
             return p in tag.attrs and tag.attrs[p] == elementId
 
@@ -264,11 +249,11 @@ class Document(Node, DocumentEvent, DocumentView):
 
         for tag in self.doc.find_all(filter_tags_id):
             if match_tag(tag, 'id'):
-                return DOMImplementation.createHTMLElement(self, tag)
+                return log.DOMImplementation.createHTMLElement(self, tag)
 
         for tag in self.doc.find_all(filter_tags_name):
             if match_tag(tag, 'name'):
-                return DOMImplementation.createHTMLElement(self, tag)
+                return log.DOMImplementation.createHTMLElement(self, tag)
 
         return None
 

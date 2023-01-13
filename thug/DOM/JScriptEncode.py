@@ -220,8 +220,8 @@ class JScriptEncode:
             if byte < 128:
                 index = index + 1
 
-            if (byte == 9 or byte > 31 and byte < 128) and byte != 60 and byte != 62 and byte != 64:
-                char = [c for c in DDECODE[byte]][DCOMBINATION[index % 64]]
+            if (byte == 9 or byte > 31 and byte < 128) and byte != 60 and byte != 62 and byte != 64: # pylint:disable=too-many-boolean-expressions,chained-comparison
+                char = [c for c in DDECODE[byte]][DCOMBINATION[index % 64]] # pylint:disable=unnecessary-comprehension
 
             result += char
 

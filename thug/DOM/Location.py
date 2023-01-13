@@ -22,7 +22,6 @@ from urllib.parse import urlunparse
 
 from thug.DOM.W3C import w3c
 
-from .DFT import DFT
 from .JSClass import JSClass
 
 log = logging.getLogger("Thug")
@@ -43,8 +42,6 @@ class Location(JSClass):
         return self._window.url
 
     def set_href(self, url):
-        from .Window import Window
-
         if url.startswith("data:"): # pragma: no cover
             log.DFT._handle_data_uri(url)
             return
@@ -62,10 +59,12 @@ class Location(JSClass):
         log.ThugLogging.log_href_redirect(referer, url)
 
         doc    = w3c.parseString('')
-        window = Window(referer, doc, personality = p)  # pylint:disable=undefined-loop-variable
+        window = log.Window(referer, doc, personality = p)  # pylint:disable=undefined-loop-variable
         window = window.open(url)
         if not window:
             return
+
+        from .DFT import DFT
 
         # self._window.url = url
         dft = DFT(window)

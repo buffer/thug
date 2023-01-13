@@ -38,6 +38,7 @@ from thug.WebTracking.WebTracking import WebTracking
 from thug.Encoding.Encoding import Encoding
 from thug.Magic.Magic import Magic
 from thug.Logging.ThugLogging import ThugLogging
+from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
 
 from thug.DOM.JSEngine import JSEngine
 from thug.Classifier.JSClassifier import JSClassifier
@@ -67,6 +68,7 @@ class ThugAPI:
         self.__init_jsengine()
         self.__init_pyhooks()
         self.__init_core()
+        self.__init_objcache()
         self.__init_classifiers()
         self.__init_opaque_filter()
         self.__init_trace()
@@ -87,6 +89,10 @@ class ThugAPI:
         log.Magic           = Magic()
         log.WebTracking     = WebTracking()
         log.HTMLInspector   = HTMLInspector()
+
+    def __init_objcache(self):
+        log.Window            = Window
+        log.DOMImplementation = DOMImplementation
 
     def __init_classifiers(self):
         log.HTMLClassifier   = HTMLClassifier()

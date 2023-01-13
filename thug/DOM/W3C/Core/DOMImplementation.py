@@ -107,10 +107,8 @@ class DOMImplementation(HTML.HTMLDocument):
 
     @staticmethod
     def createHTMLElement(doc, tag):
-        from .Node import Node
-
         if isinstance(tag, bs4.NavigableString):
-            return Node.wrap(doc, tag)
+            return DOMImplementation.wrap(doc, tag)
 
         if log.ThugOpts.Personality.isIE():
             if tag.name.lower() in ('t:animatecolor', ):
@@ -132,3 +130,20 @@ class DOMImplementation(HTML.HTMLDocument):
 
         soup = bs4.BeautifulSoup(tostring(html, doctype = '<!doctype html>'), "lxml")
         return DOMImplementation(soup)
+
+    @staticmethod
+    def wrap(doc, obj):
+        from .Element import Element
+
+        if obj is None:
+            return None
+
+        if isinstance(obj, bs4.CData): # pragma: no cover
+            from .CDATASection import CDATASection
+            return CDATASection(doc, obj)
+
+        if isinstance(obj, bs4.NavigableString):
+            from .Text import Text
+            return Text(doc, obj)
+
+        return Element(doc, obj)

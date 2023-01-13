@@ -303,8 +303,7 @@ class DFT:
             return
 
         if not getattr(elem, '_node', None):
-            from thug.DOM.W3C.Core.DOMImplementation import DOMImplementation
-            DOMImplementation.createHTMLElement(self.window.doc, elem)
+            log.DOMImplementation.createHTMLElement(self.window.doc, elem)
 
         elem._node._attachEvent(evt, handler, True)
 
@@ -886,8 +885,6 @@ class DFT:
             log.ThugLogging.Features.increase_body_count()
 
     def do_handle_form(self, form):
-        from .Window import Window
-
         log.info(form)
 
         action = form.get('action', None)
@@ -937,11 +934,8 @@ class DFT:
         if getattr(response, 'thug_mimehandler_hit', False):
             return # pragma: no cover
 
-        doc    = w3c.parseString(response.content)
-        window = Window(_action, doc, personality = log.ThugOpts.useragent)
-
-        dft = DFT(window, forms = self.forms)
-        dft.run()
+        window = self.do_window_open(_action, response.content)
+        self.run_dft(window, forms = self.forms)
 
     def handle_param(self, param):
         log.info(param)
@@ -1061,8 +1055,6 @@ class DFT:
             self.handle_meta_x_ua_compatible(http_equiv, content)
 
     def handle_meta_refresh(self, http_equiv, content, delayed = False):
-        from .Window import Window
-
         if http_equiv.lower() not in ('refresh', ) or 'url' not in content.lower():
             return
 
@@ -1124,24 +1116,16 @@ class DFT:
 
         log.ThugLogging.meta[n_url] += 1
 
-        doc    = w3c.parseString(response.content)
-        window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
-
-        dft = DFT(window)
-        dft.run()
+        self.window_open(self.window.url, response.content)
 
     def do_handle_frame(self, frame, url, content):
-        from .Window import Window
-
-        doc = w3c.parseString(content)
-        window = Window(url, doc, personality = log.ThugOpts.useragent)
+        window = self.do_window_open(url, content)
 
         frame_id = frame.get('id', None)
         if frame_id:
             log.ThugLogging.windows[frame_id] = window
 
-        dft = DFT(window)
-        dft.run()
+        self.run_dft(window)
 
     def handle_frame(self, frame, redirect_type = 'frame'):
         if redirect_type not in ('iframe', ):
@@ -1286,13 +1270,7 @@ class DFT:
             return None
 
         if mimetype.startswith(('text/html', )):
-            from .Window import Window
-
-            doc    = w3c.parseString(data)
-            window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
-
-            dft = DFT(window)
-            dft.run()
+            self.window_open(self.window.url, data)
 
         return data
 
@@ -1325,13 +1303,7 @@ class DFT:
             return # pragma: no cover
 
         if content_type.startswith(('text/html', )):
-            from .Window import Window
-
-            doc    = w3c.parseString(response.content)
-            window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
-
-            dft = DFT(window)
-            dft.run()
+            self.window_open(self.window.url, response.content)
 
     def handle_link(self, link):
         log.info(link)
@@ -1406,15 +1378,11 @@ class DFT:
             self.follow_href(href)
 
     def follow_href(self, href):
-        from .Window import Window
-
-        doc    = w3c.parseString('')
-        window = Window(self.window.url, doc, personality = log.ThugOpts.useragent)
+        window = self.do_window_open(self.window.url, '')
         window = window.open(href)
 
         if window:
-            dft = DFT(window)
-            dft.run()
+            self.run_dft(window)
 
     def do_handle(self, child, soup, skip = True):
         name = getattr(child, "name", None)
@@ -1495,6 +1463,22 @@ class DFT:
             log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else self.window.url, str(soup))
         except Exception as e: # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][run_htmlclassifier] %s", str(e))
+
+    def do_window_open(self, url, content):
+        doc    = w3c.parseString(content)
+        window = log.Window(url, doc, personality = log.ThugOpts.useragent)
+        return window
+
+    def run_dft(self, window, forms = None):
+        if forms is None:
+            forms = []
+
+        dft = DFT(window, forms = forms)
+        dft.run()
+
+    def window_open(self, url, content):
+        window = self.do_window_open(url, content)
+        self.run_dft(window)
 
     def async_prefetch(self, soup):
         for script in soup.find_all('script'):
