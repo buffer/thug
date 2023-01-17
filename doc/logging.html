@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Logging &mdash; Thug 4.7 documentation</title>
+  <title>Logging &mdash; Thug 4.8 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -31,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> Thug
           </a>
               <div class="version">
-                4.7
+                4.8
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -117,7 +118,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="logging">
+  <section id="logging">
 <span id="id1"></span><h1>Logging<a class="headerlink" href="#logging" title="Permalink to this heading"></a></h1>
 <p>Currently different logging modes are available in Thug. Some of them can be combined
 in order to store the result of the analysis in different formats if needed. By default
@@ -130,25 +131,25 @@ explanation of the MongoDB collection schema).</p>
 <li><p>JSON logging mode</p></li>
 <li><p>File logging mode</p></li>
 </ul>
-<div class="section" id="logging-configuration">
+<section id="logging-configuration">
 <h2>Logging configuration<a class="headerlink" href="#logging-configuration" title="Permalink to this heading"></a></h2>
 <p>The configuration file <em>thug.conf</em> defines the way Thug uses to log the results of its
 analyses. The default logging configuration is shown below.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>mongodb<span class="o">]</span>
-enable:     <span class="nb">false</span>
-host:       localhost
-port:       <span class="m">27017</span>
+enable:<span class="w">     </span><span class="nb">false</span>
+host:<span class="w">       </span>localhost
+port:<span class="w">       </span><span class="m">27017</span>
 
 <span class="o">[</span>elasticsearch<span class="o">]</span>
-enable:     <span class="nb">false</span>
-url:        http://192.168.56.101:9200
-index:      thug
+enable:<span class="w">     </span><span class="nb">false</span>
+url:<span class="w">        </span>http://192.168.56.101:9200
+index:<span class="w">      </span>thug
 </pre></div>
 </div>
 <p>The different sections of the configuration files will be explained later in this
 document.</p>
-</div>
-<div class="section" id="mongodb-logging-mode">
+</section>
+<section id="mongodb-logging-mode">
 <h2>MongoDB logging mode<a class="headerlink" href="#mongodb-logging-mode" title="Permalink to this heading"></a></h2>
 <p>By default Thug attempts storing the result of its analyses in a MongoDB instance. Be
 aware that if you don’t install MongoDB and pymongo (the Python wrapper) or if the
@@ -159,9 +160,9 @@ no logs at all so bear it in mind.</p>
 <p>The configuration file <em>thug.conf</em> defines the MongoDB instance configuration
 parameters</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>mongodb<span class="o">]</span>
-enable:     True
-host:       localhost
-port:       <span class="m">27017</span>
+enable:<span class="w">     </span>True
+host:<span class="w">       </span>localhost
+port:<span class="w">       </span><span class="m">27017</span>
 </pre></div>
 </div>
 <p>The parameters should be quite intuitive to understand. By the way if you install
@@ -172,9 +173,9 @@ in your <em>thug.conf</em> file, you can specify a different address at runtime,
 using the <em>–mongodb-address</em> option from the command line. This can be especially useful
 when using the dockerized version of Thug, where storing results in Docker itself would
 mean to lose them as soon as the Docker instance is shut down.</p>
-<div class="section" id="collection-schema">
+<section id="collection-schema">
 <h3>Collection schema<a class="headerlink" href="#collection-schema" title="Permalink to this heading"></a></h3>
-<div class="section" id="urls">
+<section id="urls">
 <h4>urls<a class="headerlink" href="#urls" title="Permalink to this heading"></a></h4>
 <p>The collection <em>urls</em> is used to keep track of the URLs visited during the analysis.
 A URL is always associated a single entry in this collection even if it is visited
@@ -182,247 +183,247 @@ multiple times (during the same analysis or in different analyses). Associating 
 unique ObjectID to a given URL allows to easily spot interesting scenarios like
 different redirection chains ending up using the same URLs.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;url&quot;</span> : URL
+<span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="w"> </span>:<span class="w"> </span>URL
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="analyses">
+</section>
+<section id="analyses">
 <h4>analyses<a class="headerlink" href="#analyses" title="Permalink to this heading"></a></h4>
 <p>The collection <em>analyses</em> is used to keep track of the Thug analyses. The analysis
 options used for the single analysis are stored together with other useful information
 like the used Thug version and the analysis datetime. Moreover the URL ObjectID of the
 initial URL is stored for convenience.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;url_id&quot;</span>      : Initial URL url_id
-    <span class="s2">&quot;timestamp&quot;</span>   : Analysis datetime
-    <span class="s2">&quot;thug&quot;</span>        : <span class="o">{</span>
-                        <span class="s2">&quot;version&quot;</span>            : Thug version
-                        <span class="s2">&quot;personality&quot;</span> : <span class="o">{</span>
-                            <span class="s2">&quot;useragent&quot;</span>      : User Agent
-                        <span class="o">}</span>,
-                        <span class="s2">&quot;plugins&quot;</span> : <span class="o">{</span>
-                            <span class="s2">&quot;acropdf&quot;</span>        : Acrobat Reader version <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>
-                            <span class="s2">&quot;javaplugin&quot;</span>     : JavaPlugin version <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>
-                            <span class="s2">&quot;shockwaveflash&quot;</span> : Shockwave Flash version <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>
-                        <span class="o">}</span>,
-                        <span class="s2">&quot;options&quot;</span> : <span class="o">{</span>
-                            <span class="s2">&quot;local&quot;</span>          : Local analysis
-                            <span class="s2">&quot;nofetch&quot;</span>        : Local no-fetch analysis
-                            <span class="s2">&quot;proxy&quot;</span>          : Proxy <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>
-                            <span class="s2">&quot;events&quot;</span>         : Additional DOM events to be processed
-                            <span class="s2">&quot;delay&quot;</span>          : Maximum setTimeout/setInterval delay value <span class="o">(</span><span class="k">in</span> milliseconds<span class="o">)</span>
-                            <span class="s2">&quot;referer&quot;</span>        : Referer
-                            <span class="s2">&quot;timeout&quot;</span>        : Analysis timeout
-                            <span class="s2">&quot;threshold&quot;</span>      : Maximum pages to fetch
-                            <span class="s2">&quot;extensive&quot;</span>      : Extensive fetch of linked pages
-                        <span class="o">}</span>,
-                    <span class="o">}</span>
+<span class="w">    </span><span class="s2">&quot;url_id&quot;</span><span class="w">      </span>:<span class="w"> </span>Initial<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">&quot;timestamp&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>datetime
+<span class="w">    </span><span class="s2">&quot;thug&quot;</span><span class="w">        </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                        </span><span class="s2">&quot;version&quot;</span><span class="w">            </span>:<span class="w"> </span>Thug<span class="w"> </span>version
+<span class="w">                        </span><span class="s2">&quot;personality&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                            </span><span class="s2">&quot;useragent&quot;</span><span class="w">      </span>:<span class="w"> </span>User<span class="w"> </span>Agent
+<span class="w">                        </span><span class="o">}</span>,
+<span class="w">                        </span><span class="s2">&quot;plugins&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                            </span><span class="s2">&quot;acropdf&quot;</span><span class="w">        </span>:<span class="w"> </span>Acrobat<span class="w"> </span>Reader<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                            </span><span class="s2">&quot;javaplugin&quot;</span><span class="w">     </span>:<span class="w"> </span>JavaPlugin<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                            </span><span class="s2">&quot;shockwaveflash&quot;</span><span class="w"> </span>:<span class="w"> </span>Shockwave<span class="w"> </span>Flash<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                        </span><span class="o">}</span>,
+<span class="w">                        </span><span class="s2">&quot;options&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                            </span><span class="s2">&quot;local&quot;</span><span class="w">          </span>:<span class="w"> </span>Local<span class="w"> </span>analysis
+<span class="w">                            </span><span class="s2">&quot;nofetch&quot;</span><span class="w">        </span>:<span class="w"> </span>Local<span class="w"> </span>no-fetch<span class="w"> </span>analysis
+<span class="w">                            </span><span class="s2">&quot;proxy&quot;</span><span class="w">          </span>:<span class="w"> </span>Proxy<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                            </span><span class="s2">&quot;events&quot;</span><span class="w">         </span>:<span class="w"> </span>Additional<span class="w"> </span>DOM<span class="w"> </span>events<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>processed
+<span class="w">                            </span><span class="s2">&quot;delay&quot;</span><span class="w">          </span>:<span class="w"> </span>Maximum<span class="w"> </span>setTimeout/setInterval<span class="w"> </span>delay<span class="w"> </span>value<span class="w"> </span><span class="o">(</span><span class="k">in</span><span class="w"> </span>milliseconds<span class="o">)</span>
+<span class="w">                            </span><span class="s2">&quot;referer&quot;</span><span class="w">        </span>:<span class="w"> </span>Referer
+<span class="w">                            </span><span class="s2">&quot;timeout&quot;</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>timeout
+<span class="w">                            </span><span class="s2">&quot;threshold&quot;</span><span class="w">      </span>:<span class="w"> </span>Maximum<span class="w"> </span>pages<span class="w"> </span>to<span class="w"> </span>fetch
+<span class="w">                            </span><span class="s2">&quot;extensive&quot;</span><span class="w">      </span>:<span class="w"> </span>Extensive<span class="w"> </span>fetch<span class="w"> </span>of<span class="w"> </span>linked<span class="w"> </span>pages
+<span class="w">                        </span><span class="o">}</span>,
+<span class="w">                    </span><span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="connections">
+</section>
+<section id="connections">
 <h4>connections<a class="headerlink" href="#connections" title="Permalink to this heading"></a></h4>
 <p>The collection <em>connections</em> is used to keep track of the redirections which could happen
 during the single analysis. The field <em>chain_id</em> is a counter which is incremented by one at
 every redirection and it’s meant to be used in order to rebuild the redirection chain in the
 right order while analyzing data.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;analysis_id&quot;</span>    : Analysis ID
-    <span class="s2">&quot;chain_id&quot;</span>       : Chain ID
-    <span class="s2">&quot;source_id&quot;</span>      : Source URL url_id
-    <span class="s2">&quot;destination_id&quot;</span> : Destination URL url_id
-    <span class="s2">&quot;method&quot;</span>         : Method
-    <span class="s2">&quot;flags&quot;</span>          : Flags
+<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">    </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">&quot;chain_id&quot;</span><span class="w">       </span>:<span class="w"> </span>Chain<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">&quot;source_id&quot;</span><span class="w">      </span>:<span class="w"> </span>Source<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">&quot;destination_id&quot;</span><span class="w"> </span>:<span class="w"> </span>Destination<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">&quot;method&quot;</span><span class="w">         </span>:<span class="w"> </span>Method
+<span class="w">    </span><span class="s2">&quot;flags&quot;</span><span class="w">          </span>:<span class="w"> </span>Flags
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="locations">
+</section>
+<section id="locations">
 <h4>locations<a class="headerlink" href="#locations" title="Permalink to this heading"></a></h4>
 <p>The collection <em>locations</em> is used to keep track of the content stored at each URL visited
 during the analysis. The content is stored in a MongoDB GridFS and additional metadata are
 saved like MD5 and SHA-256 checksums, content size, content type (as served by the server)
 and evaluated content type.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-    <span class="s2">&quot;url_id&quot;</span>        : URL url_id
-    <span class="s2">&quot;status&quot;</span>        : HTTP status code
-    <span class="s2">&quot;content_id&quot;</span>    : Content ID <span class="o">(</span>content stored <span class="k">in</span> the GridFS fs<span class="o">)</span>
-    <span class="s2">&quot;content-type&quot;</span>  : Content Type
-    <span class="s2">&quot;md5&quot;</span>           : MD5 checksum
-    <span class="s2">&quot;sha256&quot;</span>        : SHA-256 checksum
-    <span class="s2">&quot;ssdeep&quot;</span>        : Ssdeep <span class="nb">hash</span>
-    <span class="s2">&quot;flags&quot;</span>         : Flags
-    <span class="s2">&quot;size&quot;</span>          : Data size
-    <span class="s2">&quot;mime-type&quot;</span>     : Evaluated content <span class="nb">type</span>
+<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">&quot;status&quot;</span><span class="w">        </span>:<span class="w"> </span>HTTP<span class="w"> </span>status<span class="w"> </span>code
+<span class="w">    </span><span class="s2">&quot;content_id&quot;</span><span class="w">    </span>:<span class="w"> </span>Content<span class="w"> </span>ID<span class="w"> </span><span class="o">(</span>content<span class="w"> </span>stored<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>GridFS<span class="w"> </span>fs<span class="o">)</span>
+<span class="w">    </span><span class="s2">&quot;content-type&quot;</span><span class="w">  </span>:<span class="w"> </span>Content<span class="w"> </span>Type
+<span class="w">    </span><span class="s2">&quot;md5&quot;</span><span class="w">           </span>:<span class="w"> </span>MD5<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">&quot;sha256&quot;</span><span class="w">        </span>:<span class="w"> </span>SHA-256<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">&quot;ssdeep&quot;</span><span class="w">        </span>:<span class="w"> </span>Ssdeep<span class="w"> </span><span class="nb">hash</span>
+<span class="w">    </span><span class="s2">&quot;flags&quot;</span><span class="w">         </span>:<span class="w"> </span>Flags
+<span class="w">    </span><span class="s2">&quot;size&quot;</span><span class="w">          </span>:<span class="w"> </span>Data<span class="w"> </span>size
+<span class="w">    </span><span class="s2">&quot;mime-type&quot;</span><span class="w">     </span>:<span class="w"> </span>Evaluated<span class="w"> </span>content<span class="w"> </span><span class="nb">type</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="samples">
+</section>
+<section id="samples">
 <h4>samples<a class="headerlink" href="#samples" title="Permalink to this heading"></a></h4>
 <p>The collection <em>samples</em> is used to keep track of the downloaded samples (currently supported
 types: PE, PDF, JAR and SWF). The sample itself is stored in a MongoDB GridFS and additional
 metadata are saved like MD5, SHA-1 and SHA-256 checksums, sample type and imphash (if the sample
 type is PE).</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-    <span class="s2">&quot;url_id&quot;</span>        : URL url_id
-    <span class="s2">&quot;sample_id&quot;</span>     : Sample ID <span class="o">(</span>sample stored <span class="k">in</span> the GridFS fs<span class="o">)</span>
-    <span class="s2">&quot;type&quot;</span>          : Sample <span class="nb">type</span>
-    <span class="s2">&quot;md5&quot;</span>           : MD5 checksum
-    <span class="s2">&quot;sha1&quot;</span>          : SHA-1 checksum
-    <span class="s2">&quot;sha256&quot;</span>        : SHA-256 checksum
-    <span class="s2">&quot;imphash&quot;</span>       : Imphash <span class="o">(</span><span class="k">if</span> <span class="nb">type</span> is PE<span class="o">)</span>
+<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">&quot;sample_id&quot;</span><span class="w">     </span>:<span class="w"> </span>Sample<span class="w"> </span>ID<span class="w"> </span><span class="o">(</span>sample<span class="w"> </span>stored<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>GridFS<span class="w"> </span>fs<span class="o">)</span>
+<span class="w">    </span><span class="s2">&quot;type&quot;</span><span class="w">          </span>:<span class="w"> </span>Sample<span class="w"> </span><span class="nb">type</span>
+<span class="w">    </span><span class="s2">&quot;md5&quot;</span><span class="w">           </span>:<span class="w"> </span>MD5<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">&quot;sha1&quot;</span><span class="w">          </span>:<span class="w"> </span>SHA-1<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">&quot;sha256&quot;</span><span class="w">        </span>:<span class="w"> </span>SHA-256<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">&quot;imphash&quot;</span><span class="w">       </span>:<span class="w"> </span>Imphash<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>is<span class="w"> </span>PE<span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="exploits">
+</section>
+<section id="exploits">
 <h4>exploits<a class="headerlink" href="#exploits" title="Permalink to this heading"></a></h4>
 <p>The collection <em>eploits</em> is used to keep track of the exploits which were successfully
 identified during the analysis while visiting the URL referenced by <em>url_id</em>.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;analysis_id&#39;</span> : Analysis ID
-    <span class="s1">&#39;url_id&#39;</span>      : URL url_id
-    <span class="s1">&#39;module&#39;</span>      : Module/ActiveX Control, etc. that gets exploited
-    <span class="s1">&#39;description&#39;</span> : Description of the exploit
-    <span class="s1">&#39;cve&#39;</span>         : CVE number <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
-    <span class="s1">&#39;data&#39;</span>        : Additional information
+<span class="w">    </span><span class="s1">&#39;analysis_id&#39;</span><span class="w"> </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s1">&#39;url_id&#39;</span><span class="w">      </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s1">&#39;module&#39;</span><span class="w">      </span>:<span class="w"> </span>Module/ActiveX<span class="w"> </span>Control,<span class="w"> </span>etc.<span class="w"> </span>that<span class="w"> </span>gets<span class="w"> </span>exploited
+<span class="w">    </span><span class="s1">&#39;description&#39;</span><span class="w"> </span>:<span class="w"> </span>Description<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>exploit
+<span class="w">    </span><span class="s1">&#39;cve&#39;</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;data&#39;</span><span class="w">        </span>:<span class="w"> </span>Additional<span class="w"> </span>information
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="classifiers">
+</section>
+<section id="classifiers">
 <h4>classifiers<a class="headerlink" href="#classifiers" title="Permalink to this heading"></a></h4>
 <p>The collection <em>classifiers</em> is used to keep track of the Thug classifiers matches that
 fire during the analysis while visiting the URL referenced by <em>url_id</em>.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;analysis_id&#39;</span> : Analysis ID
-    <span class="s1">&#39;url_id&#39;</span>      : URL url_id
-    <span class="s1">&#39;classifier&#39;</span>  : Classifier name <span class="o">(</span>possible values: html, js, url, sample<span class="o">)</span>
-    <span class="s1">&#39;rule&#39;</span>        : Rule name
-    <span class="s1">&#39;tags&#39;</span>        : Rule tags
+<span class="w">    </span><span class="s1">&#39;analysis_id&#39;</span><span class="w"> </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s1">&#39;url_id&#39;</span><span class="w">      </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s1">&#39;classifier&#39;</span><span class="w">  </span>:<span class="w"> </span>Classifier<span class="w"> </span>name<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>html,<span class="w"> </span>js,<span class="w"> </span>url,<span class="w"> </span>sample<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;rule&#39;</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>name
+<span class="w">    </span><span class="s1">&#39;tags&#39;</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>tags
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="codes">
+</section>
+<section id="codes">
 <h4>codes<a class="headerlink" href="#codes" title="Permalink to this heading"></a></h4>
 <p>The collection <em>codes</em> is used to keep track of the (dynamic language) snippets of code
 identified during the analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;analysis_id&#39;</span>  : Analysis ID
-    <span class="s1">&#39;snippet&#39;</span>      : Code snippet
-    <span class="s1">&#39;language&#39;</span>     : Code language
-    <span class="s1">&#39;relationship&#39;</span> : Relationship with the page that references the code
-    <span class="s1">&#39;tag&#39;</span>          : Snippet tag <span class="o">(</span>cross-references<span class="o">)</span>
-    <span class="s1">&#39;method&#39;</span>       : Analysis method
+<span class="w">    </span><span class="s1">&#39;analysis_id&#39;</span><span class="w">  </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s1">&#39;snippet&#39;</span><span class="w">      </span>:<span class="w"> </span>Code<span class="w"> </span>snippet
+<span class="w">    </span><span class="s1">&#39;language&#39;</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>language
+<span class="w">    </span><span class="s1">&#39;relationship&#39;</span><span class="w"> </span>:<span class="w"> </span>Relationship<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>page<span class="w"> </span>that<span class="w"> </span>references<span class="w"> </span>the<span class="w"> </span>code
+<span class="w">    </span><span class="s1">&#39;tag&#39;</span><span class="w">          </span>:<span class="w"> </span>Snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span>cross-references<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;method&#39;</span><span class="w">       </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="behaviors">
+</section>
+<section id="behaviors">
 <h4>behaviors<a class="headerlink" href="#behaviors" title="Permalink to this heading"></a></h4>
 <p>The collection <em>behaviors</em> is used to keep track of the suspicious and/or malicious
 behaviors observed during the analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;analysis_id&#39;</span> : Analysis ID
-    <span class="s1">&#39;description&#39;</span> : Observed behavior description
-    <span class="s1">&#39;cve&#39;</span>         : CVE number <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
-    <span class="s1">&#39;snippet&#39;</span>     : Code snippet tag <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
-    <span class="s1">&#39;method&#39;</span>      : Analysis method
-    <span class="s1">&#39;timestamp&#39;</span>   : Timestamp
+<span class="w">    </span><span class="s1">&#39;analysis_id&#39;</span><span class="w"> </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s1">&#39;description&#39;</span><span class="w"> </span>:<span class="w"> </span>Observed<span class="w"> </span>behavior<span class="w"> </span>description
+<span class="w">    </span><span class="s1">&#39;cve&#39;</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;snippet&#39;</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;method&#39;</span><span class="w">      </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
+<span class="w">    </span><span class="s1">&#39;timestamp&#39;</span><span class="w">   </span>:<span class="w"> </span>Timestamp
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="certificates">
+</section>
+<section id="certificates">
 <h4>certificates<a class="headerlink" href="#certificates" title="Permalink to this heading"></a></h4>
 <p>The collection <em>certificates</em> is used to store the SSL certificates collected from
 servers during the analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-    <span class="s2">&quot;url_id&quot;</span>        : URL url_id
-    <span class="s2">&quot;certificate&quot;</span>   : SSL certificate
+<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">&quot;certificate&quot;</span><span class="w">   </span>:<span class="w"> </span>SSL<span class="w"> </span>certificate
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="graphs">
+</section>
+<section id="graphs">
 <h4>graphs<a class="headerlink" href="#graphs" title="Permalink to this heading"></a></h4>
 <p>The collection <em>graphs</em> is used to store the analysis JSON exploit graph.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-    <span class="s2">&quot;graph&quot;</span>         : JSON exploit graph
+<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">&quot;graph&quot;</span><span class="w">         </span>:<span class="w"> </span>JSON<span class="w"> </span>exploit<span class="w"> </span>graph
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="honeyagent">
+</section>
+<section id="honeyagent">
 <h4>honeyagent<a class="headerlink" href="#honeyagent" title="Permalink to this heading"></a></h4>
 <p>The collection <em>honeyagent</em> is used to store the HoneyAgent Java sandbox sample analysis
 reports. The Sample ObjectID references the <em>samples</em> collection.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-    <span class="s2">&quot;sample_id&quot;</span>     : Sample ID
-    <span class="s2">&quot;report&quot;</span>        : HoneyAgent report <span class="o">(</span>JSON<span class="o">)</span>
+<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">&quot;sample_id&quot;</span><span class="w">     </span>:<span class="w"> </span>Sample<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">&quot;report&quot;</span><span class="w">        </span>:<span class="w"> </span>HoneyAgent<span class="w"> </span>report<span class="w"> </span><span class="o">(</span>JSON<span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="json">
+</section>
+<section id="json">
 <h4>json<a class="headerlink" href="#json" title="Permalink to this heading"></a></h4>
 <p>The collection <em>json</em> is used to store the Thug analysis reports in JSON format.
 JSON logging mode should be enabled in order to have Thug saving data in
 this collection</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-        <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-        <span class="s2">&quot;report&quot;</span>        : Analysis report <span class="o">(</span>JSON<span class="o">)</span>
+<span class="w">        </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">        </span><span class="s2">&quot;report&quot;</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>report<span class="w"> </span><span class="o">(</span>JSON<span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="images">
+</section>
+<section id="images">
 <h4>images<a class="headerlink" href="#images" title="Permalink to this heading"></a></h4>
 <p>The collection <em>images</em> is used to store the results of the image processing
 analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-        <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-        <span class="s2">&quot;url_id&quot;</span>        : URL url_id
-        <span class="s2">&quot;classifier&quot;</span>    : Classifier <span class="o">(</span>possible values: OCR<span class="o">)</span>
-        <span class="s2">&quot;result&quot;</span>        : Analysis result
+<span class="w">        </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">        </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">        </span><span class="s2">&quot;classifier&quot;</span><span class="w">    </span>:<span class="w"> </span>Classifier<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>OCR<span class="o">)</span>
+<span class="w">        </span><span class="s2">&quot;result&quot;</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>result
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="screenshots">
+</section>
+<section id="screenshots">
 <h4>screenshots<a class="headerlink" href="#screenshots" title="Permalink to this heading"></a></h4>
 <p>The collection <em>screenshots</em> is used to store base-64 encoded screenshots (JPG format)
 of the analyzed page.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-         <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-         <span class="s2">&quot;url_id&quot;</span>        : URL url_id
-         <span class="s2">&quot;screenshot&quot;</span>    : URL screenshot
- <span class="o">}</span>
+<span class="w">         </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">         </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">         </span><span class="s2">&quot;screenshot&quot;</span><span class="w">    </span>:<span class="w"> </span>URL<span class="w"> </span>screenshot
+<span class="w"> </span><span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="awis">
+</section>
+<section id="awis">
 <h4>awis<a class="headerlink" href="#awis" title="Permalink to this heading"></a></h4>
 <p>The collection <em>awis</em> is used to store Alexa Web Information Service (AWIS) reports.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-        <span class="s2">&quot;analysis_id&quot;</span>   : Analysis ID
-        <span class="s2">&quot;report&quot;</span>        : AWIS report
+<span class="w">        </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">        </span><span class="s2">&quot;report&quot;</span><span class="w">        </span>:<span class="w"> </span>AWIS<span class="w"> </span>report
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="elasticsearch-logging-module">
+</section>
+</section>
+</section>
+<section id="elasticsearch-logging-module">
 <h2>ElasticSearch logging module<a class="headerlink" href="#elasticsearch-logging-module" title="Permalink to this heading"></a></h2>
 <p>The ElasticSearch logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in an ElasticSearch instance. Deploying and configuring the
@@ -438,13 +439,13 @@ file. Be sure of defining the right URL for connecting to your instance. You may
 change the index name where data will be stored but this is not really necessary in the most
 common situations.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>elasticsearch<span class="o">]</span>
-enable:     True
-url:        http://192.168.56.101:9200
-index:      thug
+enable:<span class="w">     </span>True
+url:<span class="w">        </span>http://192.168.56.101:9200
+index:<span class="w">      </span>thug
 </pre></div>
 </div>
-</div>
-<div class="section" id="json-logging-mode">
+</section>
+<section id="json-logging-mode">
 <h2>JSON logging mode<a class="headerlink" href="#json-logging-mode" title="Permalink to this heading"></a></h2>
 <p>The JSON logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in JSON format. The JSON logging mode was enabled by default
@@ -454,154 +455,154 @@ that the JSON log is stored in the MongoDB instance (if available). See the <em>
 mode</em> for details. If the File logging format is enabled too, the JSON log will be stored
 in a JSON file in the log directory too. The JSON format is shown below.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;url&quot;</span>         : Initial URL
-    <span class="s2">&quot;timestamp&quot;</span>   : Analysis datetime
-    <span class="s2">&quot;logtype&quot;</span>     : <span class="s2">&quot;json-log&quot;</span>,
-    <span class="s2">&quot;thug&quot;</span>        : <span class="o">{</span>
-                        <span class="s2">&quot;version&quot;</span>            : Thug version
-                        <span class="s2">&quot;personality&quot;</span> : <span class="o">{</span>
-                                <span class="s2">&quot;useragent&quot;</span>      : User Agent
-                        <span class="o">}</span>,
-                        <span class="s2">&quot;plugins&quot;</span> : <span class="o">{</span>
-                                <span class="s2">&quot;acropdf&quot;</span>        : Acrobat Reader version <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>
-                                <span class="s2">&quot;javaplugin&quot;</span>     : JavaPlugin version <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>,
-                                <span class="s2">&quot;shockwaveflash&quot;</span> : Shockwave Flash version <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>
-                        <span class="o">}</span>,
-                        <span class="s2">&quot;options&quot;</span> : <span class="o">{</span>
-                                <span class="s2">&quot;local&quot;</span>          : Local analysis
-                                <span class="s2">&quot;nofetch&quot;</span>        : Local no-fetch analysis
-                                <span class="s2">&quot;proxy&quot;</span>          : Proxy <span class="o">(</span><span class="k">if</span> any<span class="o">)</span>
-                                <span class="s2">&quot;events&quot;</span>         : Additional DOM events to be processed
-                                <span class="s2">&quot;delay&quot;</span>          : Maximum setTimeout/setInterval delay value <span class="o">(</span><span class="k">in</span> milliseconds<span class="o">)</span>
-                                <span class="s2">&quot;referer&quot;</span>        : Referer
-                                <span class="s2">&quot;timeout&quot;</span>        : Analysis timeout
-                                <span class="s2">&quot;threshold&quot;</span>      : Maximum pages to fetch
-                                <span class="s2">&quot;extensive&quot;</span>      : Extensive fetch of linked pages
-                        <span class="o">}</span>,
-    <span class="s2">&quot;behavior&quot;</span>    : <span class="o">[]</span>,
-    <span class="s2">&quot;code&quot;</span>        : <span class="o">[]</span>,
-    <span class="s2">&quot;files&quot;</span>       : <span class="o">[]</span>,
-    <span class="s2">&quot;connections&quot;</span> : <span class="o">[]</span>,
-    <span class="s2">&quot;locations&quot;</span>   : <span class="o">[]</span>,
-    <span class="s2">&quot;exploits&quot;</span>    : <span class="o">[]</span>,
-    <span class="s2">&quot;classifiers&quot;</span> : <span class="o">[]</span>,
-    <span class="s2">&quot;images&quot;</span>      : <span class="o">[]</span>,
-    <span class="s2">&quot;awis&quot;</span>        : <span class="o">[]</span>,
-    <span class="s2">&quot;screenshots&quot;</span> : <span class="o">[]</span>
+<span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="w">         </span>:<span class="w"> </span>Initial<span class="w"> </span>URL
+<span class="w">    </span><span class="s2">&quot;timestamp&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>datetime
+<span class="w">    </span><span class="s2">&quot;logtype&quot;</span><span class="w">     </span>:<span class="w"> </span><span class="s2">&quot;json-log&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;thug&quot;</span><span class="w">        </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                        </span><span class="s2">&quot;version&quot;</span><span class="w">            </span>:<span class="w"> </span>Thug<span class="w"> </span>version
+<span class="w">                        </span><span class="s2">&quot;personality&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                                </span><span class="s2">&quot;useragent&quot;</span><span class="w">      </span>:<span class="w"> </span>User<span class="w"> </span>Agent
+<span class="w">                        </span><span class="o">}</span>,
+<span class="w">                        </span><span class="s2">&quot;plugins&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                                </span><span class="s2">&quot;acropdf&quot;</span><span class="w">        </span>:<span class="w"> </span>Acrobat<span class="w"> </span>Reader<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                                </span><span class="s2">&quot;javaplugin&quot;</span><span class="w">     </span>:<span class="w"> </span>JavaPlugin<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>,
+<span class="w">                                </span><span class="s2">&quot;shockwaveflash&quot;</span><span class="w"> </span>:<span class="w"> </span>Shockwave<span class="w"> </span>Flash<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                        </span><span class="o">}</span>,
+<span class="w">                        </span><span class="s2">&quot;options&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                                </span><span class="s2">&quot;local&quot;</span><span class="w">          </span>:<span class="w"> </span>Local<span class="w"> </span>analysis
+<span class="w">                                </span><span class="s2">&quot;nofetch&quot;</span><span class="w">        </span>:<span class="w"> </span>Local<span class="w"> </span>no-fetch<span class="w"> </span>analysis
+<span class="w">                                </span><span class="s2">&quot;proxy&quot;</span><span class="w">          </span>:<span class="w"> </span>Proxy<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                                </span><span class="s2">&quot;events&quot;</span><span class="w">         </span>:<span class="w"> </span>Additional<span class="w"> </span>DOM<span class="w"> </span>events<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>processed
+<span class="w">                                </span><span class="s2">&quot;delay&quot;</span><span class="w">          </span>:<span class="w"> </span>Maximum<span class="w"> </span>setTimeout/setInterval<span class="w"> </span>delay<span class="w"> </span>value<span class="w"> </span><span class="o">(</span><span class="k">in</span><span class="w"> </span>milliseconds<span class="o">)</span>
+<span class="w">                                </span><span class="s2">&quot;referer&quot;</span><span class="w">        </span>:<span class="w"> </span>Referer
+<span class="w">                                </span><span class="s2">&quot;timeout&quot;</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>timeout
+<span class="w">                                </span><span class="s2">&quot;threshold&quot;</span><span class="w">      </span>:<span class="w"> </span>Maximum<span class="w"> </span>pages<span class="w"> </span>to<span class="w"> </span>fetch
+<span class="w">                                </span><span class="s2">&quot;extensive&quot;</span><span class="w">      </span>:<span class="w"> </span>Extensive<span class="w"> </span>fetch<span class="w"> </span>of<span class="w"> </span>linked<span class="w"> </span>pages
+<span class="w">                        </span><span class="o">}</span>,
+<span class="w">    </span><span class="s2">&quot;behavior&quot;</span><span class="w">    </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;code&quot;</span><span class="w">        </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;files&quot;</span><span class="w">       </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;connections&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;locations&quot;</span><span class="w">   </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;exploits&quot;</span><span class="w">    </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;classifiers&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;images&quot;</span><span class="w">      </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;awis&quot;</span><span class="w">        </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;screenshots&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">[]</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 <p>Following the format and additional details about the lists containing the analysis results
 and the resources downloaded during the analysis.</p>
-<div class="section" id="id2">
+<section id="id2">
 <h3>behaviors<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;description&#39;</span> : Observed behavior description
-    <span class="s1">&#39;cve&#39;</span>         : CVE number <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
-    <span class="s1">&#39;snippet&#39;</span>     : Code snippet tag <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
-    <span class="s1">&#39;method&#39;</span>      : Analysis method
-    <span class="s1">&#39;timestamp&#39;</span>   : Timestamp
+<span class="w">    </span><span class="s1">&#39;description&#39;</span><span class="w"> </span>:<span class="w"> </span>Observed<span class="w"> </span>behavior<span class="w"> </span>description
+<span class="w">    </span><span class="s1">&#39;cve&#39;</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;snippet&#39;</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;method&#39;</span><span class="w">      </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
+<span class="w">    </span><span class="s1">&#39;timestamp&#39;</span><span class="w">   </span>:<span class="w"> </span>Timestamp
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h3>codes<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;snippet&#39;</span>      : Code snippet
-    <span class="s1">&#39;language&#39;</span>     : Code language
-    <span class="s1">&#39;relationship&#39;</span> : Relationship with the page that references the code
-    <span class="s1">&#39;tag&#39;</span>          : Snippet tag <span class="o">(</span>cross-references<span class="o">)</span>
-    <span class="s1">&#39;method&#39;</span>       : Analysis method
+<span class="w">    </span><span class="s1">&#39;snippet&#39;</span><span class="w">      </span>:<span class="w"> </span>Code<span class="w"> </span>snippet
+<span class="w">    </span><span class="s1">&#39;language&#39;</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>language
+<span class="w">    </span><span class="s1">&#39;relationship&#39;</span><span class="w"> </span>:<span class="w"> </span>Relationship<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>page<span class="w"> </span>that<span class="w"> </span>references<span class="w"> </span>the<span class="w"> </span>code
+<span class="w">    </span><span class="s1">&#39;tag&#39;</span><span class="w">          </span>:<span class="w"> </span>Snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span>cross-references<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;method&#39;</span><span class="w">       </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="files">
+</section>
+<section id="files">
 <h3>files<a class="headerlink" href="#files" title="Permalink to this heading"></a></h3>
 <p>Each content downloaded during the analysis is saved in an entry in the <em>files</em>
 list.</p>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h3>connections<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;source&quot;</span>         : Source URL
-    <span class="s2">&quot;destination&quot;</span>    : Destination URL
-    <span class="s2">&quot;method&quot;</span>         : Method
-    <span class="s2">&quot;flags&quot;</span>          : Flags
+<span class="w">    </span><span class="s2">&quot;source&quot;</span><span class="w">         </span>:<span class="w"> </span>Source<span class="w"> </span>URL
+<span class="w">    </span><span class="s2">&quot;destination&quot;</span><span class="w">    </span>:<span class="w"> </span>Destination<span class="w"> </span>URL
+<span class="w">    </span><span class="s2">&quot;method&quot;</span><span class="w">         </span>:<span class="w"> </span>Method
+<span class="w">    </span><span class="s2">&quot;flags&quot;</span><span class="w">          </span>:<span class="w"> </span>Flags
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id5">
+</section>
+<section id="id5">
 <h3>locations<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s2">&quot;url&quot;</span>           : URL url
-    <span class="s2">&quot;content&quot;</span>       : Content
-    <span class="s2">&quot;status&quot;</span>        : HTTP status code
-    <span class="s2">&quot;content-type&quot;</span>  : Content Type
-    <span class="s2">&quot;md5&quot;</span>           : MD5 checksum
-    <span class="s2">&quot;sha256&quot;</span>        : SHA-256 checksum
-    <span class="s2">&quot;ssdeep&quot;</span>        : Ssdeep <span class="nb">hash</span>
-    <span class="s2">&quot;flags&quot;</span>         : Flags
-    <span class="s2">&quot;size&quot;</span>          : Data size
-    <span class="s2">&quot;mime-type&quot;</span>     : Evaluated content <span class="nb">type</span>
+<span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="w">           </span>:<span class="w"> </span>URL<span class="w"> </span>url
+<span class="w">    </span><span class="s2">&quot;content&quot;</span><span class="w">       </span>:<span class="w"> </span>Content
+<span class="w">    </span><span class="s2">&quot;status&quot;</span><span class="w">        </span>:<span class="w"> </span>HTTP<span class="w"> </span>status<span class="w"> </span>code
+<span class="w">    </span><span class="s2">&quot;content-type&quot;</span><span class="w">  </span>:<span class="w"> </span>Content<span class="w"> </span>Type
+<span class="w">    </span><span class="s2">&quot;md5&quot;</span><span class="w">           </span>:<span class="w"> </span>MD5<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">&quot;sha256&quot;</span><span class="w">        </span>:<span class="w"> </span>SHA-256<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">&quot;ssdeep&quot;</span><span class="w">        </span>:<span class="w"> </span>Ssdeep<span class="w"> </span><span class="nb">hash</span>
+<span class="w">    </span><span class="s2">&quot;flags&quot;</span><span class="w">         </span>:<span class="w"> </span>Flags
+<span class="w">    </span><span class="s2">&quot;size&quot;</span><span class="w">          </span>:<span class="w"> </span>Data<span class="w"> </span>size
+<span class="w">    </span><span class="s2">&quot;mime-type&quot;</span><span class="w">     </span>:<span class="w"> </span>Evaluated<span class="w"> </span>content<span class="w"> </span><span class="nb">type</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h3>exploits<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;url&#39;</span>         : URL
-    <span class="s1">&#39;module&#39;</span>      : Module/ActiveX Control, etc. that gets exploited
-    <span class="s1">&#39;description&#39;</span> : Description of the exploit
-    <span class="s1">&#39;cve&#39;</span>         : CVE number <span class="o">(</span><span class="k">if</span> available<span class="o">)</span>
-    <span class="s1">&#39;data&#39;</span>        : Additional information
+<span class="w">    </span><span class="s1">&#39;url&#39;</span><span class="w">         </span>:<span class="w"> </span>URL
+<span class="w">    </span><span class="s1">&#39;module&#39;</span><span class="w">      </span>:<span class="w"> </span>Module/ActiveX<span class="w"> </span>Control,<span class="w"> </span>etc.<span class="w"> </span>that<span class="w"> </span>gets<span class="w"> </span>exploited
+<span class="w">    </span><span class="s1">&#39;description&#39;</span><span class="w"> </span>:<span class="w"> </span>Description<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>exploit
+<span class="w">    </span><span class="s1">&#39;cve&#39;</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;data&#39;</span><span class="w">        </span>:<span class="w"> </span>Additional<span class="w"> </span>information
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id7">
+</section>
+<section id="id7">
 <h3>classifiers<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;classifier&#39;</span>  : Classifier <span class="o">(</span>possible values: html, js, url, sample<span class="o">)</span>
-    <span class="s1">&#39;url&#39;</span>         : URL
-    <span class="s1">&#39;rule&#39;</span>        : Rule name
-    <span class="s1">&#39;tags&#39;</span>        : Rule tags
+<span class="w">    </span><span class="s1">&#39;classifier&#39;</span><span class="w">  </span>:<span class="w"> </span>Classifier<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>html,<span class="w"> </span>js,<span class="w"> </span>url,<span class="w"> </span>sample<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;url&#39;</span><span class="w">         </span>:<span class="w"> </span>URL
+<span class="w">    </span><span class="s1">&#39;rule&#39;</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>name
+<span class="w">    </span><span class="s1">&#39;tags&#39;</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>tags
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id8">
+</section>
+<section id="id8">
 <h3>images<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;url&#39;</span>         : URL
-    <span class="s1">&#39;classifier&#39;</span>  : Classifier <span class="o">(</span>possible values: OCR<span class="o">)</span>
-    <span class="s1">&#39;result&#39;</span>      : Analysis result
+<span class="w">    </span><span class="s1">&#39;url&#39;</span><span class="w">         </span>:<span class="w"> </span>URL
+<span class="w">    </span><span class="s1">&#39;classifier&#39;</span><span class="w">  </span>:<span class="w"> </span>Classifier<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>OCR<span class="o">)</span>
+<span class="w">    </span><span class="s1">&#39;result&#39;</span><span class="w">      </span>:<span class="w"> </span>Analysis<span class="w"> </span>result
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id9">
+</section>
+<section id="id9">
 <h3>screenshots<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;url&#39;</span>         : URL
-    <span class="s1">&#39;screenshot&#39;</span>  : Base-64 encoded screenshot
+<span class="w">    </span><span class="s1">&#39;url&#39;</span><span class="w">         </span>:<span class="w"> </span>URL
+<span class="w">    </span><span class="s1">&#39;screenshot&#39;</span><span class="w">  </span>:<span class="w"> </span>Base-64<span class="w"> </span>encoded<span class="w"> </span>screenshot
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id10">
+</section>
+<section id="id10">
 <h3>awis<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-    <span class="s1">&#39;awis&#39;</span>       : AWIS reports
+<span class="w">    </span><span class="s1">&#39;awis&#39;</span><span class="w">       </span>:<span class="w"> </span>AWIS<span class="w"> </span>reports
 <span class="o">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="file-logging-mode">
+</section>
+</section>
+<section id="file-logging-mode">
 <h2>File logging mode<a class="headerlink" href="#file-logging-mode" title="Permalink to this heading"></a></h2>
 <p>The File logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in flat files. The File logging mode was enabled by default
@@ -613,48 +614,48 @@ probably thinking about storing results and resources in a database is better th
 such data on your hard drive.</p>
 <p>If you enable the File logging mode the directory which contains the logs for the session
 will appear as shown below</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/thug/src $ <span class="nb">cd</span> ../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
-~/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511 $ ls -lhR
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/thug/src<span class="w"> </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>../logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511
+~/thug/logs/baa880d8d79c3488f2c0557be24cca6b/20120702191511<span class="w"> </span>$<span class="w"> </span>ls<span class="w"> </span>-lhR
 .:
-total 232K
--rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">1008</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 502da89357ca5d7c85dc7a67f8977b21
--rw-r--r-- <span class="m">1</span> buffer buffer  81K Jul  <span class="m">2</span> <span class="m">19</span>:15 analysis.xml
-drwxr-xr-x <span class="m">6</span> buffer buffer  <span class="m">176</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 application
--rwxr-xr-x <span class="m">1</span> buffer buffer  89K Jul  <span class="m">2</span> <span class="m">19</span>:15 d328b5a123bce1c0d20d763ad745303a
--rw-r--r-- <span class="m">1</span> buffer buffer  51K Jul  <span class="m">2</span> <span class="m">19</span>:15 Ryp.jar
-drwxr-xr-x <span class="m">3</span> buffer buffer   <span class="m">72</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 text
+total<span class="w"> </span>232K
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span><span class="m">1008</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>502da89357ca5d7c85dc7a67f8977b21
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w">  </span>81K<span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>analysis.xml
+drwxr-xr-x<span class="w"> </span><span class="m">6</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w">  </span><span class="m">176</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>application
+-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w">  </span>89K<span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>d328b5a123bce1c0d20d763ad745303a
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w">  </span>51K<span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>Ryp.jar
+drwxr-xr-x<span class="w"> </span><span class="m">3</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w">   </span><span class="m">72</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>text
 
 ./application:
-total <span class="m">0</span>
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 java-archive
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 pdf
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 x-msdownload
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">96</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 x-shockwave-flash
+total<span class="w"> </span><span class="m">0</span>
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span><span class="m">96</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>java-archive
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span><span class="m">96</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>pdf
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span><span class="m">96</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>x-msdownload
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span><span class="m">96</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>x-shockwave-flash
 
 ./application/java-archive:
-total 52K
--rw-r--r-- <span class="m">1</span> buffer buffer 51K Jul  <span class="m">2</span> <span class="m">19</span>:15 e3639fde6ddf7fd0182fff9757143ff2
+total<span class="w"> </span>52K
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span>51K<span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>e3639fde6ddf7fd0182fff9757143ff2
 
 ./application/pdf:
-total 16K
--rw-r--r-- <span class="m">1</span> buffer buffer 15K Jul  <span class="m">2</span> <span class="m">19</span>:15 3660fe0e4acd23ac13f3d043eebd2bbc
+total<span class="w"> </span>16K
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span>15K<span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>3660fe0e4acd23ac13f3d043eebd2bbc
 
 ./application/x-msdownload:
-total 92K
--rw-r--r-- <span class="m">1</span> buffer buffer 89K Jul  <span class="m">2</span> <span class="m">19</span>:15 d328b5a123bce1c0d20d763ad745303a
+total<span class="w"> </span>92K
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span>89K<span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>d328b5a123bce1c0d20d763ad745303a
 
 ./application/x-shockwave-flash:
-total <span class="m">4</span>.0K
--rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">1008</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 502da89357ca5d7c85dc7a67f8977b21
+total<span class="w"> </span><span class="m">4</span>.0K
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span><span class="m">1008</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>502da89357ca5d7c85dc7a67f8977b21
 
 ./text:
-total <span class="m">0</span>
-drwxr-xr-x <span class="m">2</span> buffer buffer <span class="m">144</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 html
+total<span class="w"> </span><span class="m">0</span>
+drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span><span class="m">144</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>html
 
 ./text/html:
-total 72K
--rw-r--r-- <span class="m">1</span> buffer buffer 68K Jul  <span class="m">2</span> <span class="m">19</span>:15 95ee609e6e3b69c2d9e68f34ff4a4335
--rw-r--r-- <span class="m">1</span> buffer buffer <span class="m">878</span> Jul  <span class="m">2</span> <span class="m">19</span>:15 d26b9b1a1f667004945d1d000cf4f19e
+total<span class="w"> </span>72K
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span>68K<span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>95ee609e6e3b69c2d9e68f34ff4a4335
+-rw-r--r--<span class="w"> </span><span class="m">1</span><span class="w"> </span>buffer<span class="w"> </span>buffer<span class="w"> </span><span class="m">878</span><span class="w"> </span>Jul<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">19</span>:15<span class="w"> </span>d26b9b1a1f667004945d1d000cf4f19e
 </pre></div>
 </div>
 <p>In this example the MAEC 1.1 logging mode is enabled and the file <em>analysis.xml</em> contains the
@@ -662,8 +663,8 @@ URL analysis results saved in MAEC 1.1 format (MAEC 1.1 logging is no longer sup
 notice that all the resources downloaded during the URL analysis are saved in the log directory
 based on their Content-Type for convenience. Moreover if MongoDB is installed the information
 you can see in this directory are saved in the database instance as well.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

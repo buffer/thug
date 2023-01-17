@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Docker &mdash; Thug 4.7 documentation</title>
+  <title>Docker &mdash; Thug 4.8 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -31,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> Thug
           </a>
               <div class="version">
-                4.7
+                4.8
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -80,7 +81,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="docker">
+  <section id="docker">
 <span id="id1"></span><h1>Docker<a class="headerlink" href="#docker" title="Permalink to this heading"></a></h1>
 <p>If you want to run up a quick instance of Thug on a couple of malicious web sites or try
 it out but just lack the knowledge and/or time to install it, an alternative exists. Thanks
@@ -96,33 +97,33 @@ production as fast as possible.</p>
 technology combined with a work flow for building and containerizing your applications.</p></li>
 <li><p>Docker Hub - a SaaS service for sharing and managing application stacks.</p></li>
 </ul>
-<div class="section" id="installation">
+<section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
 <p>Please refer to <a class="reference external" href="http://docs.docker.com/installation/#installation">http://docs.docker.com/installation/#installation</a> for instructions on how
 to install Docker on your system.</p>
 <p>For instance on Debian/Ubuntu systems you just need to run the following commands</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ sudo apt-get update
-$ sudo apt-get install docker.io
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>docker.io
 </pre></div>
 </div>
 <p>After Docker is properly installed you can proceed with the Thug installation. Get the
-dockerized Thug from the Honeynet Project’s Docker repository at <a class="reference external" href="https://hub.docker.com/r/buffer/thug">https://hub.docker.com/r/buffer/thug</a></p>
+dockerized Thug from the Honeynet Project’s Docker repository at <a class="reference external" href="https://hub.docker.com/r/thughoneyclient/thug">https://hub.docker.com/r/thughoneyclient/thug</a></p>
 <p>Thug will be installed in the directory <em>/opt/thug</em>. To run it just execute <em>python /opt/thug/src/thug.py [options] URL</em>.</p>
 <p>Download the latest stable container</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ docker pull buffer/thug
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>docker<span class="w"> </span>pull<span class="w"> </span>thughoneyclient/thug
 </pre></div>
 </div>
 <p>Then mount your host ~/logs dir and enable it to keep the logs on the host</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ docker run -it -v ~/logs:/logs buffer/thug
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span>~/logs:/logs<span class="w"> </span>buffer/thug
 </pre></div>
 </div>
 <p>Test the dockerized Thug inside the container analyzing 20 random samples</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="k">for</span> item <span class="k">in</span> <span class="k">$(</span>find /opt/thug/samples/ -type f <span class="p">|</span> xargs shuf -e <span class="p">|</span>tail -n <span class="m">20</span><span class="k">)</span><span class="p">;</span> <span class="k">do</span> python /opt/thug/src/thug.py -l <span class="nv">$item</span><span class="p">;</span> <span class="k">done</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="k">for</span><span class="w"> </span>item<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>find<span class="w"> </span>/opt/thug/samples/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>shuf<span class="w"> </span>-e<span class="w"> </span><span class="p">|</span>tail<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>python<span class="w"> </span>/opt/thug/src/thug.py<span class="w"> </span>-l<span class="w"> </span><span class="nv">$item</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
 </pre></div>
 </div>
 <p>If everything works fine just enjoy your new Thug instance!</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

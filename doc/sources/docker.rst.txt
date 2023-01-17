@@ -35,7 +35,7 @@ For instance on Debian/Ubuntu systems you just need to run the following command
     $ sudo apt-get install docker.io
 
 After Docker is properly installed you can proceed with the Thug installation. Get the 
-dockerized Thug from the Honeynet Project's Docker repository at https://hub.docker.com/r/buffer/thug
+dockerized Thug from the Honeynet Project's Docker repository at https://hub.docker.com/r/thughoneyclient/thug
 
 Thug will be installed in the directory */opt/thug*. To run it just execute *python /opt/thug/src/thug.py [options] URL*.
 
@@ -43,7 +43,7 @@ Download the latest stable container
 
 .. code-block:: sh
 
-    $ docker pull buffer/thug
+    $ docker pull thughoneyclient/thug
 
 Then mount your host ~/logs dir and enable it to keep the logs on the host
 
