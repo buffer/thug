@@ -2,7 +2,7 @@ import os
 
 import appdirs
 
-__version__            = "4.8"
+__version__            = "4.8.1"
 __jsengine__           = ""
 __jsengine_version__   = ""
 
