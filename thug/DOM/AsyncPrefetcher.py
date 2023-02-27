@@ -45,29 +45,6 @@ class AsyncPrefetcher:
 
         return http_headers
 
-    def normalize_url(self, url):
-        if not url:
-            return None # pragma: no cover
-
-        if not isinstance(url, str):
-            url = str(url) # pragma: no cover
-
-        if url.startswith("data:"):
-            return None # pragma: no cover
-
-        if log.HTTPSession.about_blank(url):
-            return None # pragma: no cover
-
-        p_url = urlparse(url)
-        if not p_url.netloc:
-            return None
-
-        if url.startswith('//') and not p_url.scheme:
-            base_url = urlparse(self.window.url)
-            return f"{base_url.scheme}:{url}" if base_url.scheme else f"http:{url}"
-
-        return url
-
     def _fetch(self, url, method):
         log.warning("[PREFETCHING] URL: %s", url)
 
@@ -82,7 +59,7 @@ class AsyncPrefetcher:
         if method.lower() not in ('get', 'post', ):
             return # pragma: no cover
 
-        _url = self.normalize_url(url)
+        _url = log.HTTPSession.normalize_url(self.window, url)
         if _url is None:
             return
 
