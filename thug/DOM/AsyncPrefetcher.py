@@ -61,6 +61,6 @@ class AsyncPrefetcher:
 
         _url = log.HTTPSession.normalize_url(self.window, url)
         if _url is None:
-            return
+            return # pragma: no cover
 
         self._fetch(_url, method)
