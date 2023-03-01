@@ -50,7 +50,9 @@ class AsyncPrefetcher:
 
         fetcher = getattr(self.session, method.lower())
         self.responses[url] = fetcher(url,
-                                      headers = self.build_http_headers(self.window))
+                                      headers = self.build_http_headers(self.window),
+                                      timeout = log.ThugOpts.connect_timeout,
+                                      verify  = log.ThugOpts.ssl_verify)
 
     def fetch(self, url, method = "GET"):
         if log.HTTPSession.no_fetch:

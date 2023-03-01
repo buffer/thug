@@ -86,6 +86,8 @@ class DFT:
     user_detection_events = ('mousemove', 'scroll', )
     on_user_detection_events = ['on' + e for e in user_detection_events]
 
+    async_prefetch_tags = ['script', 'img']
+
     def __init__(self, window, **kwds):
         self.window            = window
         self.window.doc.DFT    = self
@@ -1481,8 +1483,8 @@ class DFT:
         self.run_dft(window)
 
     def async_prefetch(self, soup):
-        for script in soup.find_all('script'):
-            src = script.get('src', None)
+        for tag in soup.find_all(self.async_prefetch_tags):
+            src = tag.get('src', None)
             if src:
                 self.async_prefetcher.fetch(src)
 
