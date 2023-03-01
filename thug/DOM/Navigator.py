@@ -355,15 +355,15 @@ class Navigator(JSClass):
 
         log.last_url_fetched = response.url
 
+        _url = log.ThugLogging.log_redirect(response, self._window)
+        if _url:
+            url = _url
+
         ctype = response.headers.get('content-type', 'unknown')
 
         if log.HTTPSession.is_download_prevented(mimetype = ctype):
             response.close()
             return None
-
-        _url = log.ThugLogging.log_redirect(response, self._window)
-        if _url:
-            url = _url
 
         mime_base = os.path.join(log.ThugLogging.baseDir, ctype)
 
