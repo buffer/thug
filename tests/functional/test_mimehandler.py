@@ -13,6 +13,7 @@ class TestMIMEHandler(object):
         thug.set_useragent('win7ie90')
         thug.set_features_logging()
         thug.set_ssl_verify()
+        thug.disable_download_prevent()
         thug.log_init(url)
 
         m = getattr(thug, "run_{}".format(type_))
