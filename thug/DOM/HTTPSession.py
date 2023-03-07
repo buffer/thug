@@ -32,6 +32,8 @@ log = logging.getLogger("Thug")
 
 class HTTPSession:
     def __init__(self, proxy = None):
+        self.__init_download_prevention()
+
         if proxy is None:
             proxy = log.ThugOpts.proxy
 
@@ -81,6 +83,18 @@ class HTTPSession:
         self.session = requests.Session()
         self.__init_proxy(proxy)
 
+    def __init_download_prevention(self):
+        if not log.ThugOpts.download_prevent:
+            self.download_prevented_mimetypes = tuple()
+            return
+
+        mimetypes = ['audio/', 'video/' ]
+
+        if not log.ThugOpts.image_processing:
+            mimetypes.append('image/')
+
+        self.download_prevented_mimetypes = tuple(mimetypes)
+
     def _normalize_protocol_relative_url(self, window, url):
         if not url.startswith('//'):
             return url
@@ -109,6 +123,12 @@ class HTTPSession:
                 return f"{scheme}://{url.split(f'{scheme}:/')[1]}"
 
         return url
+
+    def is_download_prevented(self, mimetype = None):
+        if mimetype and mimetype.startswith(self.download_prevented_mimetypes):
+            return True
+
+        return False
 
     def normalize_url(self, window, url):
         url = url.strip()
@@ -246,7 +266,8 @@ class HTTPSession:
                                    headers = _headers,
                                    timeout = log.ThugOpts.connect_timeout,
                                    data    = body,
-                                   verify  = log.ThugOpts.ssl_verify)
+                                   verify  = log.ThugOpts.ssl_verify,
+                                   stream  = True)
             except requests.ConnectionError as e:
                 log.warning("[HTTPSession] %s", str(e))
                 raise

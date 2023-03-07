@@ -17,6 +17,7 @@ class TestAsyncPrefetch:
         thug.set_events('click,storage')
         thug.set_web_tracking()
         thug.enable_cert_logging()
+        thug.enable_download_prevent()
         thug.set_features_logging()
         thug.set_log_verbose()
         thug.set_ssl_verify()

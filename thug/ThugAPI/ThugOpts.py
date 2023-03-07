@@ -65,6 +65,7 @@ class ThugOpts(dict):
         self._honeyagent        = True
         self.activex_ready      = True
         self._image_processing  = False
+        self._download_prevent  = True
         self.Personality        = Personality()
 
     def set_verbose(self, verbose):
@@ -230,6 +231,14 @@ class ThugOpts(dict):
         self._no_fetch = fetch
 
     no_fetch = property(get_no_fetch, set_no_fetch)
+
+    def get_download_prevent(self):
+        return self._download_prevent
+
+    def set_download_prevent(self, download_prevent):
+        self._download_prevent = download_prevent
+
+    download_prevent = property(get_download_prevent, set_download_prevent)
 
     def get_threshold(self):
         return self._threshold

@@ -72,6 +72,7 @@ Synopsis:
         -a, --image-processing  \tEnable image processing analysis
         -f, --screenshot        \tEnable screenshot capturing
         -E, --awis              \tEnable AWS Alexa Web Information Service (AWIS)
+        -s, --no-down-prevent   \tDisable download prevention mechanism
 
         Plugins:
         -A, --adobepdf=         \tSpecify Adobe Acrobat Reader version (default: 9.1.0)
@@ -136,7 +137,7 @@ Synopsis:
 
         try:
             options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:mzbkafElxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:',
+                                          'hViu:e:w:n:o:r:p:mzbkafEslxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:',
                 ['help',
                 'version',
                 'list-ua',
@@ -154,6 +155,7 @@ Synopsis:
                 'image-processing',
                 'screenshot',
                 'awis',
+                'no-down-prevent',
                 'local',
                 'local-nofetch',
                 'verbose',
@@ -238,6 +240,8 @@ Synopsis:
                 self.enable_screenshot()
             elif option[0] in ('-E', '--awis', ):
                 self.enable_awis()
+            elif option[0] in ('-s', '--no-down-prevent', ):
+                self.disable_download_prevent()
             elif option[0] in ('-l', '--local', ):
                 p = getattr(self, 'run_local')
             elif option[0] in ('-x', '--local-nofetch', ):

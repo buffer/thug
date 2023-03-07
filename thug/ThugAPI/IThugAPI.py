@@ -138,6 +138,24 @@ class IThugAPI(zope.interface.Interface):
         @return: None
         """
 
+    def enable_download_prevent():
+        """
+        set_download_prevent
+
+        Enable download prevention mode
+
+        @return: None
+        """
+
+    def disable_download_prevent():
+        """
+        reset_image_processing
+
+        Disable download prevention mode
+
+        @return: None
+        """
+
     def get_file_logging():
         """
         get_file_logging

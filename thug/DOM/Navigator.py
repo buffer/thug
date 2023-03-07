@@ -343,15 +343,28 @@ class Navigator(JSClass):
         if response is None:
             return None
 
+        referer = response.request.headers.get('referer', 'None')
+        log.ThugLogging.add_behavior_warn(f"[HTTP] URL: {url} (Status: {response.status_code},  Referer: {referer})",
+                                          snippet = snippet)
+
+        if redirect_type in ('window open', 'http-redirect', 'meta', ):
+            self._window.url = log.HTTPSession.normalize_url(self._window, response.url)
+
+        if redirect_type in (None, 'window open', 'iframe', 'http-redirect', 'meta', ):
+            log.last_url = response.url
+
+        log.last_url_fetched = response.url
+
         _url = log.ThugLogging.log_redirect(response, self._window)
         if _url:
             url = _url
 
-        referer = response.request.headers.get('referer', 'None')
-        log.ThugLogging.add_behavior_warn(f"[HTTP] URL: {url} (Status: {response.status_code}, Referer: {referer})",
-                                          snippet = snippet)
+        ctype = response.headers.get('content-type', 'unknown')
 
-        ctype     = response.headers.get('content-type', 'unknown')
+        if log.HTTPSession.is_download_prevented(mimetype = ctype):
+            response.close()
+            return None
+
         mime_base = os.path.join(log.ThugLogging.baseDir, ctype)
 
         md5 = hashlib.md5() # nosec
@@ -379,14 +392,6 @@ class Navigator(JSClass):
         log.ThugLogging.log_location(url, data)
         log.ThugLogging.store_content(mime_base, data["md5"], response.content)
         log.ThugLogging.log_file(response.content, response.url, params)
-
-        if redirect_type in ('window open', 'http-redirect', 'meta', ):
-            self._window.url = log.HTTPSession.normalize_url(self._window, response.url)
-
-        if redirect_type in (None, 'window open', 'iframe', 'http-redirect', 'meta', ):
-            log.last_url = response.url
-
-        log.last_url_fetched = response.url
 
         log.ThugLogging.Screenshot.run(self._window, url, response, ctype)
 

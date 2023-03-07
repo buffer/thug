@@ -22,7 +22,7 @@ class Screenshot:
             return
 
         if not ctype.startswith(self.content_types):
-            return
+            return # pragma: no cover
 
         soup = bs4.BeautifulSoup(response.content, "html5lib")
 
