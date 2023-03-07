@@ -84,6 +84,10 @@ class HTTPSession:
         self.__init_proxy(proxy)
 
     def __init_download_prevention(self):
+        if not log.ThugOpts.download_prevent:
+            self.download_prevented_mimetypes = tuple()
+            return
+
         mimetypes = ['audio/', 'video/' ]
 
         if not log.ThugOpts.image_processing:

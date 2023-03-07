@@ -216,6 +216,12 @@ class ThugAPI:
     def set_no_fetch(self):
         log.ThugOpts.no_fetch = True
 
+    def enable_download_prevent(self):
+        log.ThugOpts.download_prevent = True
+
+    def disable_download_prevent(self):
+        log.ThugOpts.download_prevent = False
+
     def set_verbose(self):
         log.ThugOpts.verbose = True
         log.setLevel(logging.INFO)
