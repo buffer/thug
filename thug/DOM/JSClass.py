@@ -3,9 +3,10 @@ import collections.abc
 
 
 class JSClass:
-    __properties__  = {}
-    __methods__     = {}
-    __watchpoints__ = {}
+    def __init__(self):
+        self.__properties__ = {}
+        self.__methods__ = {}
+        self.__watchpoints__ = {}
 
     def __str__(self):
         return self.toString()
@@ -17,7 +18,7 @@ class JSClass:
         if name == 'prototype':
             return JSClassPrototype(self.__class__)
 
-        prop = self.__dict__.setdefault('__properties__', {}).get(name, None)
+        prop = self.__properties__.get(name, None)
 
         if prop and isinstance(prop[0], collections.abc.Callable):
             return prop[0]()
@@ -29,7 +30,7 @@ class JSClass:
         raise AttributeError(name)
 
     def __setattr__(self, name, value):
-        prop = self.__dict__.setdefault('__properties__', {}).get(name, None)
+        prop = self.__properties__.get(name, None)
 
         if prop and isinstance(prop[1], collections.abc.Callable):
             return prop[1](value)
@@ -51,10 +52,6 @@ class JSClass:
     def hasOwnProperty(self, name):
         """Returns a Boolean value indicating whether an object has a property with the specified name"""
         return hasattr(self, name)
-
-    # def isPrototypeOf(self, obj):
-    #    """Returns a Boolean value indicating whether an object exists in the prototype chain of another object"""
-    #    raise NotImplementedError()
 
     def __defineGetter__(self, name, getter):
         """Binds an object's property to a function to be called when that property is looked up"""
@@ -78,7 +75,7 @@ class JSClass:
 
     def unwatch(self, prop):
         """Removes a watchpoint set with the watch method"""
-        del self.__watchpoints__[prop]
+        self.__watchpoints__.pop(prop, None)
 
 
 class JSClassConstructor(JSClass):
