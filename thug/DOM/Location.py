@@ -51,9 +51,13 @@ class Location(JSClass):
             log.warning("Skipping location redirection from %s to %s", referer, url)
             return
 
+        default_personality = None
         for p in log.ThugOpts.Personality:
             if log.ThugOpts.Personality[p]['userAgent'] == self._window._navigator.userAgent:
                 break
+            default_personality = p
+        else:
+            p = default_personality
 
         url = log.HTTPSession.normalize_url(self._window, url)
         log.ThugLogging.log_href_redirect(referer, url)
