@@ -37,7 +37,7 @@ classifiers = [
 ]
 dependencies = [
     "appdirs==1.4.4",
-    "beautifulsoup4==4.11.2",
+    "beautifulsoup4==4.12.0",
     "charset-normalizer==3.1.0",
     "cssutils==2.6.0",
     "html5lib==1.1",
@@ -55,7 +55,7 @@ dependencies = [
     "setuptools>=65.5.1",
     "ssdeep==3.4",
     "yara-python==4.2.3",
-    "zope.interface==5.5.2",
+    "zope.interface==6.0",
 ]
 keywords = [
     "honeyclient",
