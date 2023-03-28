@@ -18,8 +18,6 @@
 
 import logging
 
-from urllib.parse import urlparse
-
 from requests_futures.sessions import FuturesSession
 
 log = logging.getLogger("Thug")
