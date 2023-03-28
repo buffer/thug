@@ -54,7 +54,7 @@ dependencies = [
     "requests-futures==1.0.0",
     "setuptools>=65.5.1",
     "ssdeep==3.4",
-    "yara-python==4.2.3",
+    "yara-python==4.3.0",
     "zope.interface==6.0",
 ]
 keywords = [

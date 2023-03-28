@@ -138,10 +138,14 @@ class BaseClassifier:
             return
 
         _etags = [t.strip() for t in etags.split(',')]
+
         for s in match.strings:
-            if s[1] not in _etags:
+            if s.identifier not in _etags:
                 continue
 
-            tag = s[2].decode() if isinstance(s[2], bytes) else s[2]
-            if tag not in match.tags:
-                match.tags.append(tag)
+            for instance in s.instances:
+                data = instance.matched_data
+                tag  = data.decode() if isinstance(data, bytes) else data
+
+                if tag not in match.tags:
+                    match.tags.append(tag)
