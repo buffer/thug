@@ -29,7 +29,10 @@ class HTMLBodyElement(HTMLElement):
         html = io.StringIO()
 
         for tag in self.tag.contents:
-            html.write(str(tag))
+            try:
+                html.write(str(tag))
+            except Exception as e:
+                log.warning("[HTMLBodyElement] innerHTML warning: %s", str(e))
 
         return html.getvalue()
 
