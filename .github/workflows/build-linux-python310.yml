@@ -56,3 +56,9 @@ jobs:
           tox
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: STEP 8. Upload coverage report to Codecov
+        uses: codecov/codecov-action@v3
+          with:
+            token: ${{ secrets.CODECOV_TOKEN }}
+            fail_ci_if_error: true
