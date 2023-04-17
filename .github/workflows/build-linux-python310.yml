@@ -54,8 +54,6 @@ jobs:
       - name: STEP 7. Test Thug
         run: |
           tox
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: STEP 8. Upload coverage report to Codecov
         uses: codecov/codecov-action@v3
