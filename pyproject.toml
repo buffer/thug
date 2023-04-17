@@ -66,7 +66,6 @@ keywords = [
 
 [project.optional-dependencies]
 test = [
-    "codecov",
     "elasticmock",
     "elasticsearch==7.17.8",
     "imgkit==1.1.0",
