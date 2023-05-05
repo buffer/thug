@@ -50,7 +50,7 @@ dependencies = [
     "pysocks==1.7.1",
     "python-magic==0.4.27",
     "rarfile==4.0",
-    "requests==2.29.0",
+    "requests==2.30.0",
     "requests-futures==1.0.0",
     "setuptools>=65.5.1",
     "ssdeep==3.4",
@@ -67,7 +67,7 @@ keywords = [
 [project.optional-dependencies]
 test = [
     "elasticmock",
-    "elasticsearch==7.17.8",
+    "elasticsearch==7.17.9",
     "imgkit==1.1.0",
     "mock",
     "mongomock",
