@@ -1,7 +1,7 @@
 appdirs==1.4.4
 beautifulsoup4==4.12.2
 charset-normalizer==3.1.0
-cssutils==2.6.0
+cssutils==2.7.1
 html5lib==1.1
 lxml==4.9.2
 networkx==3.1
