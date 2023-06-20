@@ -51,7 +51,7 @@ dependencies = [
     "python-magic==0.4.27",
     "rarfile==4.0",
     "requests==2.31.0",
-    "requests-futures==1.0.0",
+    "requests-futures==1.0.1",
     "setuptools>=65.5.1",
     "ssdeep==3.4",
     "yara-python==4.3.1",
