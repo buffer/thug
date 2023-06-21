@@ -73,7 +73,12 @@ class ElasticSearch(JSON):
         if not self.__init_config():
             return False
 
-        self.es = elasticsearch.Elasticsearch(self.opts['url'], connection_class = elasticsearch.RequestsHttpConnection)
+        if elasticsearch._major < 8:
+            self.es = elasticsearch.Elasticsearch(self.opts['url'],
+                                                  connection_class = elasticsearch.RequestsHttpConnection)
+        else:
+            self.es = elasticsearch.Elasticsearch(self.opts['url'])
+
         if not self.es.ping():
             log.warning("[WARNING] ElasticSearch instance not properly initialized")
             return False

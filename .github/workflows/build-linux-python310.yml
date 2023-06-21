@@ -51,11 +51,27 @@ jobs:
           sudo mkdir -p /etc/thug/
           sudo cp -R thug/conf/* /etc/thug/
 
-      - name: STEP 7. Test Thug
+      - name: STEP 7. Setup ElasticSearch
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+
+      - uses: getong/elasticsearch-action@v1.2
+        with:
+          elasticsearch version: '8.8.1'
+          host port: 9200
+          container port: 9200
+          host node port: 9300
+          node port: 9300
+          discovery type: 'single-node'
+
+      - name: STEP 8. Test Thug
         run: |
           tox
 
-      - name: STEP 8. Upload coverage report to Codecov
+      - name: STEP 9. Upload coverage report to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

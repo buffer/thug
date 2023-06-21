@@ -4,8 +4,6 @@ import configparser
 
 from mock import patch
 
-from elasticmock import elasticmock
-
 import thug
 from thug.Logging.modules.ElasticSearch import ElasticSearch
 from thug.ThugAPI.ThugVulnModules import ThugVulnModules
@@ -30,14 +28,12 @@ config.read(conf_file)
 
 
 class TestElasticSearch:
-    @elasticmock
     def test_export(self):
         log.ThugOpts.elasticsearch_logging = True
         log.configuration_path = configuration_path
         assert log.ThugOpts.elasticsearch_logging
 
-        with patch('elasticmock.FakeElasticsearch.indices', create=True):
-            elastic_search = ElasticSearch()
+        elastic_search = ElasticSearch()
 
         response = elastic_search.export('sample-dir')
         enabled = elastic_search.enabled
