@@ -75,7 +75,7 @@ class ElasticSearch(JSON):
 
         if elasticsearch._major < 8:
             self.es = elasticsearch.Elasticsearch(self.opts['url'],
-                                                  connection_class = elasticsearch.RequestsHttpConnection)
+                                                  connection_class = elasticsearch.RequestsHttpConnection) # pragma: no cover
         else:
             self.es = elasticsearch.Elasticsearch(self.opts['url'])
 
