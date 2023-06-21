@@ -33,7 +33,7 @@ class TestElasticSearch:
         log.configuration_path = configuration_path
         assert log.ThugOpts.elasticsearch_logging
 
-        elastic_search = ElasticSearch('http://localhost:9200')
+        elastic_search = ElasticSearch()
 
         response = elastic_search.export('sample-dir')
         enabled = elastic_search.enabled
@@ -45,7 +45,7 @@ class TestElasticSearch:
         assert not log.ThugOpts.elasticsearch_logging
 
     def test_disable_opt(self):
-        elastic_search = ElasticSearch('http://localhost:9200')
+        elastic_search = ElasticSearch()
         response = elastic_search.export('sample-dir')
         enabled = elastic_search.enabled
 
@@ -58,7 +58,7 @@ class TestElasticSearch:
         log.configuration_path = configuration_path
         assert log.ThugOpts.elasticsearch_logging
 
-        elastic_search = ElasticSearch('http://localhost:9200')
+        elastic_search = ElasticSearch()
         enabled = elastic_search.enabled
         assert not enabled
 
@@ -75,7 +75,7 @@ class TestElasticSearch:
         log.ThugOpts.elasticsearch_logging = True
         log.configuration_path = configuration_path
 
-        elastic_search = ElasticSearch('http://localhost:9200')
+        elastic_search = ElasticSearch()
         enabled = elastic_search.enabled
         log.ThugOpts.elasticsearch_logging = False
         log.configuration_path = thug.__configuration_path__
@@ -89,7 +89,7 @@ class TestElasticSearch:
         log.configuration_path = 'non/existing/path'
         assert log.ThugOpts.elasticsearch_logging
 
-        elastic_search = ElasticSearch('http://localhost:9200')
+        elastic_search = ElasticSearch()
         enabled = elastic_search.enabled
 
         assert not enabled
