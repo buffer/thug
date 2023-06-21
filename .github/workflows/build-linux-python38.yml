@@ -51,11 +51,23 @@ jobs:
           sudo mkdir -p /etc/thug/
           sudo cp -R thug/conf/* /etc/thug/
 
-      - name: STEP 7. Test Thug
+      - name: STEP 7. Setup environment
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+
+      - name: STEP 8. Setup ElasticSearch
+        uses: getong/elasticsearch-action@v1.2
+        with:
+          elasticsearch version: '8.8.0'
+
+      - name: STEP 9. Test Thug
         run: |
           tox
 
-      - name: STEP 8. Upload coverage report to Codecov
+      - name: STEP 10. Upload coverage report to Codecov
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
