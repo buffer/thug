@@ -28,7 +28,6 @@ config.read(conf_file)
 
 
 class TestElasticSearch:
-    @patch('configparser.ConfigParser.getboolean', return_value = True)
     def test_export(self):
         log.ThugOpts.elasticsearch_logging = True
         log.configuration_path = configuration_path
