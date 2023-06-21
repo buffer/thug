@@ -60,6 +60,8 @@ jobs:
 
       - name: STEP 8. Setup ElasticSearch
         uses: getong/elasticsearch-action@v1.2
+        with:
+          elasticsearch version: '8.8.0'
 
       - name: STEP 9. Test Thug
         run: |
