@@ -39,7 +39,7 @@ class URLClassifier(BaseClassifier):
         BaseClassifier.__init__(self)
 
     def classify(self, url):
-        if url.lower().startswith("data:"):
+        if log.HTTPSession.is_data_uri(url):
             return
 
         for match in self.rules.match(data = url):

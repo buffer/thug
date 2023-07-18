@@ -130,11 +130,21 @@ class HTTPSession:
 
         return False
 
+    @staticmethod
+    def is_data_uri(url):
+        if url.lower().startswith("data:"):
+            return True
+
+        if url.startswith(("'", '"')) and url[1:].lower().startswith("data:"):
+            return True
+
+        return False
+
     def normalize_url(self, window, url):
         url = url.strip()
 
         # Do not normalize Data URI scheme
-        if url.lower().startswith('url=') or url.lower().startswith('data:'):
+        if url.lower().startswith('url=') or self.is_data_uri(url):
             return url
 
         if url.startswith('#'):
@@ -234,7 +244,7 @@ class HTTPSession:
         if log.URLClassifier.filter(url):
             return None
 
-        if url.startswith("data:"):
+        if self.is_data_uri(url):
             log.DFT._handle_data_uri(url)
             return None
 
