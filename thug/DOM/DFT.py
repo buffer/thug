@@ -1062,7 +1062,7 @@ class DFT:
 
         url = None
         timeout = 0
-        data_uri = log.HTTPSession.is_data_uri(content)
+        data_uri = 'data:' in content
 
         for s in content.split(';'):
             if data_uri is True and url is not None:
