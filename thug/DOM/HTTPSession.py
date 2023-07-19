@@ -136,7 +136,7 @@ class HTTPSession:
             return True
 
         if url.startswith(("'", '"')) and url[1:].lower().startswith("data:"):
-            return True
+            return True # pragma: no cover
 
         return False
 
