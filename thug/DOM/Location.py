@@ -42,7 +42,7 @@ class Location(JSClass):
         return self._window.url
 
     def set_href(self, url):
-        if url.startswith("data:"): # pragma: no cover
+        if log.HTTPSession.is_data_uri(url): # pragma: no cover
             log.DFT._handle_data_uri(url)
             return
 

@@ -549,7 +549,7 @@ class DFT:
             except Exception as e: # pragma: no cover,pylint:disable=broad-except
                 log.info("[ERROR][handle_object] %s", str(e))
 
-        if data and not data.startswith('data:'):
+        if data and not log.HTTPSession.is_data_uri(data):
             if log.ThugOpts.features_logging:
                 log.ThugLogging.Features.increase_url_count()
 
@@ -721,7 +721,7 @@ class DFT:
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_url_count()
 
-        if src.lower().startswith("data:"):
+        if log.HTTPSession.is_data_uri(src):
             self.handle_data_javascript(script, src)
             return
 
@@ -1236,7 +1236,7 @@ class DFT:
         base64 token.
         """
         uri = uri if isinstance(uri, str) else str(uri)
-        if not uri.lower().startswith("data:"):
+        if not log.HTTPSession.is_data_uri(uri):
             return None
 
         if log.ThugOpts.features_logging:
