@@ -273,5 +273,5 @@ class TestMongoDB:
         assert self.mongo.favicons.count_documents({}) in (0, )
 
         self.mongo.enabled = True
-        self.mongo.log_certificate(self.url, self.favicon_dhash)
+        self.mongo.log_favicon(self.url, self.favicon_dhash)
         assert self.mongo.favicons.count_documents({}) in (1, )
