@@ -264,10 +264,10 @@ class TestJSON:
     def test_log_favicon(self):
         json.ThugOpts.json_logging = False
         json.log_favicon("https://example.com/favicon.ico", self.favicon_dhash)
-        assert(len(json.data["favicons"]) = 0)
+        assert len(json.data["favicons"]) == 0
 
         json.ThugOpts.json_logging = True
         json.log_favicon("https://example.com/favicon.ico", self.favicon_dhash)
-        assert(len(json.data["favicons"]) = 1)
+        assert len(json.data["favicons"]) == 1
 
         json.ThugOpts.json_logging = False
