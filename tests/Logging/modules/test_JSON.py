@@ -262,12 +262,12 @@ class TestJSON:
         assert not json.get_json_data(self.base_dir)
 
     def test_log_favicon(self):
-        json.ThugOpts.json_logging = False
+        log.ThugOpts.json_logging = False
         json.log_favicon("https://example.com/favicon.ico", self.favicon_dhash)
         assert len(json.data["favicons"]) == 0
 
-        json.ThugOpts.json_logging = True
+        log.ThugOpts.json_logging = True
         json.log_favicon("https://example.com/favicon.ico", self.favicon_dhash)
         assert len(json.data["favicons"]) == 1
 
-        json.ThugOpts.json_logging = False
+        log.ThugOpts.json_logging = False
