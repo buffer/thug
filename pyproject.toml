@@ -40,6 +40,7 @@ dependencies = [
     "beautifulsoup4==4.12.2",
     "charset-normalizer==3.2.0",
     "cssutils==2.7.1",
+    "dhash==1.4",
     "html5lib==1.1",
     "lxml==4.9.3",
     "networkx==3.1",

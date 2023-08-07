@@ -78,26 +78,30 @@ class MongoDB:
             self.enabled = False
             return
 
-        db                = connection.thug
-        self.urls         = db.urls
+        db = connection.thug
+
         self.analyses     = db.analyses
-        self.locations    = db.locations
-        self.connections  = db.connections
-        self.graphs       = db.graphs
-        self.samples      = db.samples
+        self.awis         = db.awis
         self.behaviors    = db.behaviors
         self.certificates = db.certificates
-        self.honeyagent   = db.honeyagent
-        self.exploits     = db.exploits
         self.classifiers  = db.classifiers
-        self.images       = db.images
-        self.screenshots  = db.screenshots
-        self.awis         = db.awis
         self.codes        = db.codes
+        self.connections  = db.connections
         self.cookies      = db.cookies
+        self.exploits     = db.exploits
+        self.favicons     = db.favicons
+        self.graphs       = db.graphs
+        self.honeyagent   = db.honeyagent
+        self.images       = db.images
         self.json         = db.json
-        dbfs              = connection.thugfs
-        self.fs           = gridfs.GridFS(dbfs)
+        self.locations    = db.locations
+        self.samples      = db.samples
+        self.screenshots  = db.screenshots
+        self.urls         = db.urls
+
+        dbfs = connection.thugfs
+
+        self.fs = gridfs.GridFS(dbfs)
 
         self.__build_indexes()
 
@@ -309,6 +313,24 @@ class MongoDB:
         }
 
         self.screenshots.insert_one(item)
+
+    def log_favicon(self, url, dhash):
+        """
+        Log the favicon dhash
+
+        @url        URL
+        @dhash      dhash
+        """
+        if not self.enabled:
+            return
+
+        item = {
+            'analysis_id' : self.analysis_id,
+            'url'         : self.get_url(url),
+            'dhash'       : dhash
+        }
+
+        self.favicons.insert_one(item)
 
     def log_cookies(self):
         attrs = ('comment',
