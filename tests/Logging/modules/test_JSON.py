@@ -44,6 +44,7 @@ class TestJSON:
     base_dir       = "sample-basedir"
     code_snippet   = "var i = 12;"
     base64_snippet = "dmFyIGkgPSAxMjs="
+    favicon_dhash  = "55aa554d2da796165500d755692bbeb6"
     language       = "Javascript"
     relationship   = "Contained_Inside"
     tag            = "Tag"  # TODO: Better tag
@@ -259,3 +260,14 @@ class TestJSON:
 
         json.cached_data = None
         assert not json.get_json_data(self.base_dir)
+
+    def test_log_favicon(self):
+        log.ThugOpts.json_logging = False
+        json.log_favicon("https://example.com/favicon.ico", self.favicon_dhash)
+        assert len(json.data["favicons"]) == 0
+
+        log.ThugOpts.json_logging = True
+        json.log_favicon("https://example.com/favicon.ico", self.favicon_dhash)
+        assert len(json.data["favicons"]) == 1
+
+        log.ThugOpts.json_logging = False

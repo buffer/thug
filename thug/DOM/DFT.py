@@ -1334,10 +1334,21 @@ class DFT:
         if self._handle_data_uri(href):
             return # pragma: no cover
 
+        is_favicon = rel and any(r in ('icon', ) for r in rel)
+
         try:
-            self.window._navigator.fetch(href, redirect_type = "link")
+            response = self.window._navigator.fetch(href,
+                                                    redirect_type = "link",
+                                                    disable_download_prevention = is_favicon)
         except Exception as e: # pylint:disable=broad-except
             log.info("[ERROR][handle_link] %s", str(e))
+            return
+
+        if not response or not response.ok:
+            return
+
+        if is_favicon:
+            log.ThugLogging.log_favicon(response.url, response.content)
 
     def handle_img(self, img):
         log.info(img)

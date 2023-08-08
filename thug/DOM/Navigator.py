@@ -280,7 +280,15 @@ class Navigator(JSClass):
     def _taintEnabled(self):
         return True
 
-    def fetch(self, url, method = "GET", headers = None, body = None, redirect_type = None, params = None, snippet = None):
+    def fetch(self,
+              url,
+              method = "GET",
+              headers = None,
+              body = None,
+              redirect_type = None,
+              params = None,
+              snippet = None,
+              disable_download_prevention = False):
         if url and not isinstance(url, str): # pragma: no cover
             url = str(url)
 
@@ -361,7 +369,7 @@ class Navigator(JSClass):
 
         ctype = response.headers.get('content-type', 'unknown')
 
-        if log.HTTPSession.is_download_prevented(mimetype = ctype):
+        if not disable_download_prevention and log.HTTPSession.is_download_prevented(mimetype = ctype):
             response.close()
             return None
 

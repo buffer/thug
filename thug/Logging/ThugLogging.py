@@ -28,11 +28,12 @@ import hashlib
 import logging
 import configparser
 
-from thug.Analysis.shellcode.Shellcode import Shellcode
-from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
-from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
-from thug.Analysis.screenshot.Screenshot import Screenshot
 from thug.Analysis.awis.AWIS import AWIS
+from thug.Analysis.context.ContextAnalyzer import ContextAnalyzer
+from thug.Analysis.favicon.Favicon import Favicon
+from thug.Analysis.honeyagent.HoneyAgent import HoneyAgent
+from thug.Analysis.screenshot.Screenshot import Screenshot
+from thug.Analysis.shellcode.Shellcode import Shellcode
 
 from .BaseLogging import BaseLogging
 from .SampleLogging import SampleLogging
@@ -49,25 +50,26 @@ class ThugLogging(BaseLogging, SampleLogging):
         BaseLogging.__init__(self)
         SampleLogging.__init__(self)
 
-        self.Shellcode       = Shellcode()
-        self.HoneyAgent      = HoneyAgent()
-        self.Features        = Features()
-        self.ContextAnalyzer = ContextAnalyzer()
-        self.Screenshot      = Screenshot()
         self.AWIS            = AWIS()
+        self.ContextAnalyzer = ContextAnalyzer()
+        self.Favicon         = Favicon()
+        self.Features        = Features()
+        self.HoneyAgent      = HoneyAgent()
+        self.Screenshot      = Screenshot()
+        self.Shellcode       = Shellcode()
         self.baseDir         = None
-        self.windows         = {}
-        self.shellcodes      = set()
-        self.shellcode_urls  = set()
-        self.retrieved_urls  = set()
-        self.methods_cache   = {}
         self.formats         = set()
+        self.frames          = {}
         self.meta            = {}
         self.meta_refresh    = []
-        self.frames          = {}
+        self.methods_cache   = {}
         self.redirections    = {}
+        self.retrieved_urls  = set()
+        self.shellcodes      = set()
+        self.shellcode_urls  = set()
         self.ssl_certs       = {}
         self.url             = ""
+        self.windows         = {}
 
         self.__init_hook_symbols()
         self.__init_pyhooks()
@@ -389,6 +391,14 @@ class ThugLogging(BaseLogging, SampleLogging):
 
     def log_honeyagent(self, dirname, sample, report):
         self.log_analysis_module(dirname, sample, report, "honeyagent")
+
+    def log_favicon(self, url, favicon):
+        dhash = self.Favicon.eval_dhash(favicon)
+
+        self.add_behavior_warn(f"[Favicon] URL: {url} (dhash: {dhash})")
+
+        for m in self.resolve_method('log_favicon'):
+            m(url, dhash)
 
     def log_screenshot(self, url, screenshot):
         """

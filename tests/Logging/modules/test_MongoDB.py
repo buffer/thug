@@ -45,6 +45,7 @@ class TestMongoDB:
     base_dir       = "path/to/sample/basedir"
     code_snippet   = b"var i = 12;"
     base64_snippet = "dmFyIGkgPSAxMjs="
+    favicon_dhash  = "55aa554d2da796165500d755692bbeb6"
     language       = "Javascript"
     relationship   = "Contained_Inside"
     tag            = "Tag"  # TODO: Better tag
@@ -265,3 +266,12 @@ class TestMongoDB:
         log.HTTPSession.cookies.set('domain', 'test.com')
         self.mongo.log_cookies()
         assert self.mongo.honeyagent.count_documents({}) in (1, )
+
+    def test_log_favicon(self):
+        self.mongo.enabled = False
+        self.mongo.log_favicon(self.url, self.favicon_dhash)
+        assert self.mongo.favicons.count_documents({}) in (0, )
+
+        self.mongo.enabled = True
+        self.mongo.log_favicon(self.url, self.favicon_dhash)
+        assert self.mongo.favicons.count_documents({}) in (1, )

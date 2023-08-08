@@ -79,16 +79,17 @@ class JSON:
                                             "extensive"      : log.ThugOpts.extensive,
                                             },
                                         },
-                        "behavior"    : [],
-                        "code"        : [],
-                        "cookies"     : [],
-                        "files"       : [],
-                        "connections" : [],
-                        "locations"   : [],
-                        "exploits"    : [],
-                        "classifiers" : [],
-                        "images"      : [],
                         "awis"        : [],
+                        "behavior"    : [],
+                        "classifiers" : [],
+                        "code"        : [],
+                        "connections" : [],
+                        "cookies"     : [],
+                        "exploits"    : [],
+                        "favicons"    : [],
+                        "files"       : [],
+                        "images"      : [],
+                        "locations"   : [],
                         "screenshots" : []
                     }
 
@@ -294,6 +295,19 @@ class JSON:
 
         self.data["screenshots"].append({"url"        : self.fix(url),
                                          "screenshot" : content.decode()})
+
+    def log_favicon(self, url, dhash):
+        """
+        Log the favicon dhash
+
+        @url        URL
+        @dhash      dhash
+        """
+        if not self.json_enabled:
+            return
+
+        self.data["favicons"].append({"url"   : self.fix(url),
+                                      "dhash" : dhash})
 
     def log_awis(self, report):
         self.data["awis"].append(report) # pragma: no cover
