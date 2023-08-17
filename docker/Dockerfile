@@ -72,9 +72,9 @@ RUN pip3 install --upgrade pytesseract
 RUN pip3 install --upgrade pygraphviz
 WORKDIR /home
 
-RUN wget https://github.com/cloudflare/stpyv8/releases/download/v11.5.150.22/stpyv8-ubuntu-22.04-python-3.10.zip
+RUN wget https://github.com/cloudflare/stpyv8/releases/download/v11.6.189.18/stpyv8-ubuntu-22.04-python-3.10.zip
 RUN unzip stpyv8-ubuntu-22.04-python-3.10.zip
-RUN pip3 install stpyv8-ubuntu-22.04-3.10/stpyv8-11.5.150.22-cp310-cp310-linux_x86_64.whl
+RUN pip3 install stpyv8-ubuntu-22.04-3.10/stpyv8-11.6.189.18-cp310-cp310-linux_x86_64.whl
 RUN mkdir -p /usr/share/stpyv8
 RUN sudo mv stpyv8-ubuntu-22.04-3.10/icudtl.dat /usr/share/stpyv8
 
