@@ -47,7 +47,7 @@ dependencies = [
     "pefile==2023.2.7",
     "promise==2.3",
     "pylibemu==0.8",
-    "pymongo==4.4.1",
+    "pymongo==4.5.0",
     "pysocks==1.7.1",
     "python-magic==0.4.27",
     "rarfile==4.0",
