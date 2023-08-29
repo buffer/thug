@@ -1100,13 +1100,13 @@ class TestMiscSamplesIE(object):
     def test_testHTMLVideoElement(self, caplog):
         sample   = os.path.join(self.misc_path, "testHTMLVideoElement.html")
         expected = ['width: 800',
-					'height: 600',
-					'videoWidth: 800',
-					'videoHeight: 600',
-					'poster:',
-					'playsInline: true']
+                    'height: 600',
+                    'videoWidth: 800',
+                    'videoHeight: 600',
+                    'poster:',
+                    'playsInline: true']
 
-		self.do_perform_test(caplog, sample, expected)
+        self.do_perform_test(caplog, sample, expected)
 
     def test_testIFrame(self, caplog):
         sample   = os.path.join(self.misc_path, "testIFrame.html")
