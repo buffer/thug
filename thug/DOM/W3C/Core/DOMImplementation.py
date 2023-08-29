@@ -103,6 +103,7 @@ class DOMImplementation(HTML.HTMLDocument):
         "td"            : HTML.HTMLTableCellElement,
         "media"         : HTML.HTMLMediaElement,
         "audio"         : HTML.HTMLAudioElement,
+        "video"         : HTML.HTMLVideoElement,
     }
 
     @staticmethod

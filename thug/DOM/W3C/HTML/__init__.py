@@ -59,6 +59,7 @@ __all__ = ['AudioTrackList',
            'HTMLTextAreaElement',
            'HTMLTitleElement',
            'HTMLUListElement',
+           'HTMLVideoElement',
            'TAnimateColor',
            'TextTrackList',
            'TimeRanges']
@@ -125,6 +126,7 @@ from .HTMLTableSectionElement import HTMLTableSectionElement
 from .HTMLTextAreaElement import HTMLTextAreaElement
 from .HTMLTitleElement import HTMLTitleElement
 from .HTMLUListElement import HTMLUListElement
+from .HTMLVideoElement import HTMLVideoElement
 from .TAnimateColor import TAnimateColor
 from .TextTrackList import TextTrackList
 from .TimeRanges import TimeRanges
