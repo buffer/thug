@@ -73,22 +73,19 @@ class ElasticSearch(JSON):
         if not self.__init_config():
             return False
 
-        if elasticsearch._major < 8:
-            self.es = elasticsearch.Elasticsearch(self.opts['url'],
-                                                  connection_class = elasticsearch.RequestsHttpConnection) # pragma: no cover
-        else:
-            self.es = elasticsearch.Elasticsearch(self.opts['url'])
+        self.es = elasticsearch.Elasticsearch(self.opts['url'])
 
         if not self.es.ping():
             log.warning("[WARNING] ElasticSearch instance not properly initialized")
             return False
 
-        self.es.indices.create(index = self.opts['index'], ignore = 400)  # pylint:disable=unexpected-keyword-arg
+        self.es.options(ignore_status = 404).indices.create(index = self.opts['index'])
         return True
 
     def export(self, basedir): # pylint:disable=unused-argument
         if not self.enabled:
             return None
 
-        res = self.es.index(index = self.opts['index'], body = self.data)
+        res = self.es.index(index = self.opts['index'],
+                            document = self.data)
         return res['_id']
