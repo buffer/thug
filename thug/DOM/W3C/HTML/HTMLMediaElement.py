@@ -76,6 +76,9 @@ class HTMLMediaElement(HTMLElement):
     def controller(self):
         return None
 
+    def canPlayType(self, mimetype): # pylint:disable=unused-argument
+        return "maybe"
+
     @property
     def crossOrigin(self):
         return None
