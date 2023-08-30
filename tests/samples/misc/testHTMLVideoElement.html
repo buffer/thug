@@ -1,0 +1,22 @@
+<html>
+<body>
+<script>
+    var video = document.createElement('video');
+
+    video.width = 800;
+    video.height = 600;
+    video.videoWidth = 800;
+    video.videoHeight = 600;
+    video.poster = "";
+    video.playsInline = true;
+
+    alert("width: " + video.width);
+    alert("height: " + video.height);
+    alert("videoWidth: " + video.videoWidth);
+    alert("videoHeight: " + video.videoHeight);
+    alert("poster: " + video.poster);
+    alert("playsInline: " + video.playsInline);
+    alert("canPlayType(\"video/mp4\"): " + video.canPlayType("video/mp4"));
+</script>
+</body>
+</html>
