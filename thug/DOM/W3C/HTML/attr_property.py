@@ -6,8 +6,8 @@ def attr_property(name, attrtype = str, readonly = False, default = None):
         return attrtype(self.tag[name]) if self.tag.has_attr(name) else default
 
     def setter(self, value):
-        if attrtype in (int, ) and value.endswith('px'):
-            value = value.split('px')[0]
+        if attrtype in (int, ) and str(value).endswith('px'):
+            value = int(str(value).split('px')[0])
 
         self.tag[name] = attrtype(value)
 
