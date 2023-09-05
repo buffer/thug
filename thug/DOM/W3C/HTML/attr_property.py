@@ -7,7 +7,7 @@ def attr_property(name, attrtype = str, readonly = False, default = None):
 
     def setter(self, value):
         if attrtype in (int, ) and str(value).endswith('px'):
-            value = int(str(value).split('px')[0])
+            value = int(str(value).split('px', maxsplit = 1)[0])
 
         self.tag[name] = attrtype(value)
 
