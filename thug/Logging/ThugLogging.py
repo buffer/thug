@@ -394,6 +394,8 @@ class ThugLogging(BaseLogging, SampleLogging):
 
     def log_favicon(self, url, favicon):
         dhash = self.Favicon.eval_dhash(favicon)
+        if dhash is None: # pragma: no cover
+            return
 
         self.add_behavior_warn(f"[Favicon] URL: {url} (dhash: {dhash})")
 
