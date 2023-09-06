@@ -1,4 +1,5 @@
 import os
+import importlib.resources
 
 import appdirs
 
@@ -6,11 +7,17 @@ __version__            = "5.4"
 __jsengine__           = ""
 __jsengine_version__   = ""
 
-__global_configuration_path__ = "/etc/thug"
+__global_configuration_path__  = "/etc/thug"
+__user_configuration_path__    = f"{appdirs.user_config_dir()}/thug"
+__package_configuration_path__ = os.path.join(importlib.resources.files('thug'), 'conf')
+
+__configuration_path__ = __package_configuration_path__
+
+if os.path.exists(__user_configuration_path__):
+    __configuration_path__ = __user_configuration_path__ # pragma: no cover
+
 if os.path.exists(__global_configuration_path__):
     __configuration_path__ = __global_configuration_path__
-else:
-    __configuration_path__ = f"{appdirs.user_config_dir()}/thug" # pragma: no cover
 
 __personalities_path__ = os.path.join(__configuration_path__, "personalities")
 __rules_path__         = os.path.join(__configuration_path__, "rules")

@@ -9,100 +9,95 @@ Configuration
 Configuration files
 ^^^^^^^^^^^^^^^^^^^
 
-Thug configuration files are automatically created during the installation
-procedure. Be aware that the folder where such configuration files are
-stored depends on the privileges of the user actually installing Thug.
+Starting from Thug v5.5, configuration files are not automatically created during
+the installation procedure. The default configuration files folder *thug/conf* is
+included in the Thug package. If you don't need to change the default configuration
+files no further action is required on your side.
 
-Thug attempts to use the folder */etc/thug/* at first. If such attempt fails
-(reasonably because of a permission error) Thug reverts to a folder the user
-is granted write permissions to. The folder selection is performed using appdirs
-and these are usually the configuration folders selected on Linux and MacOS X
+If you need to modify the default configuration you have to take care of creating a
+configuration folder, recursively copying the content of the folder *thug/conf*  into
+such folder and modifying the configuration files as you need.
+
+Two options are available for the configuration folder. If you want to create a
+configuration to be used just by a single user use the following folders (folder naming
+is compliant with appdirs)
 
 .. code-block:: sh
 
     Linux    /home/<user>/.config/thug
     MacOS X  /Users/<user>/Library/Application Support/thug
 
-If you are not sure about the configuration folder path just run the following
-command in your shell
+If you want to create a global configuration use the folder */etc/thug/* instead.
 
-.. code-block:: sh
+Be aware that Thug attempts to use the folder */etc/thug/* at first. If such attempt
+fails, Thug reverts to the current user configuration folder. If the current user
+configuration folder does not exist, Thug reverts to the default configuration files
+included in the package.
 
-    $ python -c "exec(\"import appdirs\nprint(appdirs.user_config_dir())\")"
-    /home/buffer/.config
-
-Be aware that Thug will ignore the user configuration folder if the folder
-*/etc/thug/* exists. The suggestion is to remove the folder */etc/thug/* if it
-already exists and revert to a user configuration folder. Installing Thug as
-root is going to create it again. This could be exactly what you want in some
-cases. If not, just install as a non privileged user.
+Be aware that the installation procedure does not overwrite neither the user configuration
+folder nor the global configuration folder so a Thug reinstall/update will not overwrite
+your configuration files, if any.
 
 HoneyAgent (optional)
 ^^^^^^^^^^^^^^^^^^^^^
 
-HoneyAgent is a Java agent library that creates a sandbox for Java 
-applications and applets. It uses the JVMTI as well as the JNI to 
-intercept class loading and function calls.
+HoneyAgent is a Java agent library that creates a sandbox for Java applications and
+applets. It uses the JVMTI as well as the JNI to intercept class loading and function
+calls.
 
-During runtime HoneyAgent traces function calls performed by the 
-analyzed application. It shows which class calls which function 
-with which parameters. Reflected function calls are translated to 
-the original function names for simpler reading.
+During runtime HoneyAgent traces function calls performed by the analyzed application.
+It shows which class calls which function with which parameters. Reflected function calls
+are translated to the original function names for simpler reading.
 
-HoneyAgent provides simple means to hook individual Java functions 
-e.g. to provide fake values to the analyzed application. These hooks 
-are caller sensitive, so that default JRE classes can still function 
-properly. The process of class loading is also intercepted to identify 
-invalid bytecode and optionally make changes to get the class running 
-within the observed environment.
+HoneyAgent provides simple means to hook individual Java functions e.g. to provide fake
+values to the analyzed application. These hooks are caller sensitive, so that default JRE
+classes can still function properly. The process of class loading is also intercepted to
+identify invalid bytecode and optionally make changes to get the class running within the
+observed environment.
 
-To sandbox the application, file accesses are redirected to a jailed 
-environment. Furthermore, Java properties as well as environment 
-variables are faked due to according Java function hooks.
+To sandbox the application, file accesses are redirected to a jailed environment. Furthermore,
+Java properties as well as environment variables are faked due to according Java function hooks.
 
 HoneyAgent source code can be downloaded at
 
 https://bitbucket.org/fkie_cd_dare/honeyagent
 
-It is HIGHLY suggested to run HoneyAgent in a dedicated VM because
-there exists the possibility a sample could circumvent the sandbox
-and compromise the machine. In such case please consider that a OVA
-is available (and already configured) at
+It is HIGHLY suggested to run HoneyAgent in a dedicated VM because there exists the possibility
+a sample could circumvent the sandbox and compromise the machine. In such case please consider
+that a OVA is available (and already configured) at
 
 https://www.dropbox.com/s/qieyfe97qvh7pjp/Honeyagent-r2.ova
 
-Login   : thug 
+Login   : thug
 Password: thug
 
-In order to configure Thug to submit applets for analysis to HoneyAgent
-edit the configuration file *thug.conf* as shown later.
+In order to configure Thug to submit applets for analysis to HoneyAgent edit the configuration
+file *thug.conf* as shown later.
 
 .. code-block:: sh
 
     [honeyagent]
     scanurl:                        http://192.168.56.101:8000
 
-Please note that if the file *thug.conf* does not exists Thug will
-assume you do not want to submit applets to HoneyAgent. Alternatively 
-you can disable the HoneyAgent support through command line even if the
-the *thug.conf* file exists (option -N or --no-honeyagent).
+Please note that if the file *thug.conf* does not exists Thug will assume you do not want to
+submit applets to HoneyAgent. Alternatively you can disable the HoneyAgent support through command
+line even if the file *thug.conf* exists (option -N or --no-honeyagent).
 
-This configuration instructs Thug to send the applet to analyze to the
-server whose IP address is 192.168.56.101 (please verify your network 
-configuration and modify it accordingly) listening on port 8000/tcp.
+This configuration instructs Thug to send the applet to analyze to the server whose IP address is
+192.168.56.101 (please verify your network configuration and modify it accordingly) listening on
+port 8000/tcp.
 
-In order to enable this service run this commands on the HoneyAgent 
-machine
+In order to enable this service run this commands on the HoneyAgent machine
 
 .. code-block:: sh
 
     thug@honeyagent:~$ cd honeyagent/HoneyDaemon/
     thug@honeyagent:~/honeyagent/HoneyDaemon$ python daemon.py run.ini
-    HoneyAgent daemon running on port 8000  
+    HoneyAgent daemon running on port 8000
 
 
-After the service is enabled and properly configured you should be
-able to automatically analyze applets like shown later. 
+After the service is enabled and properly configured you should be able to automatically analyze
+applets like shown later.
 
 .. code-block:: sh
 
@@ -126,20 +121,20 @@ able to automatically analyze applets like shown later.
     [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Yara heuristics rule LocalFileAccess match
     [2014-07-07 23:50:57] [HoneyAgent][1b3354f594522ff32791c278f50f2efa] Yara heuristics rule RestrictedPropertyAccess match
     [2014-07-07 23:50:57] Saving log analysis at /tmp/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053
-    
+
     buffer@rigel ~ $ cd /tmp/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent/
     buffer@rigel /tmp/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent $ ls -lhR
     .:
     total 668K
     -rw-r--r-- 1 buffer buffer 665K Jul  7 23:50 1b3354f594522ff32791c278f50f2efa.json
     drwxr-xr-x 2 buffer buffer   66 Jul  7 23:50 dropped
-    
+
     ./dropped:
     total 92K
     -rw-r--r-- 1 buffer buffer  110 Jul  7 23:50 ArIBNUkvAi.dat
     -rw-r--r-- 1 buffer buffer 9.2K Jul  7 23:50 IixfXAb.class
     -rw-r--r-- 1 buffer buffer  73K Jul  7 23:50 uAzpYJRZ.exe
-    
+
     buffer@rigel /tmp/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent $ cd dropped/
     buffer@rigel /tmp/thug/logs/97ae3a4c476f3efab64b70b26b0f7b57/20140707235053/analysis/honeyagent/dropped $ file *
     ArIBNUkvAi.dat: ASCII text
