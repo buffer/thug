@@ -701,22 +701,6 @@ class DFT:
 
         return True
 
-    def decode_data_javascript(self, data):
-        if not isinstance(data, bytes):
-            return data
-
-        try:
-            return data.decode()
-        except UnicodeDecodeError:
-            pass
-
-        try:
-            return quote(data).decode()
-        except Exception: # pylint:disable=broad-except
-            pass
-
-        return ""
-
     def handle_data_javascript(self, script, src):
         data = self._handle_data_uri(src)
         if data is None:
@@ -728,7 +712,7 @@ class DFT:
             if attr.lower() not in ('src', ):
                 s.setAttribute(attr, script.get(attr))
 
-        s.text = self.decode_data_javascript(data)
+        s.text = data.decode() if isinstance(data, bytes) else data
 
     def handle_external_javascript(self, script):
         src = script.get('src', None)
@@ -1268,7 +1252,7 @@ class DFT:
 
         if 'base64' in opts:
             try:
-                data = base64.b64decode(h[1])
+                data = base64.b64decode(quote(h[1]))
             except Exception: # pragma: no cover,pylint:disable=broad-except
                 try:
                     data = base64.b64decode(unquote(h[1]))
