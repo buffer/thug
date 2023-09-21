@@ -22,6 +22,7 @@ import re
 import base64
 import logging
 
+from urllib.parse import quote
 from urllib.parse import urljoin
 from urllib.parse import unquote
 
@@ -700,6 +701,22 @@ class DFT:
 
         return True
 
+    def decode_data_javascript(self, data):
+        if not isinstance(data, bytes):
+            return data
+
+        try:
+            return data.decode()
+        except UnicodeDecodeError:
+            pass
+
+        try:
+            return quote(data).decode()
+        except Exception: # pylint:disable=broad-except
+            pass
+
+        return ""
+
     def handle_data_javascript(self, script, src):
         data = self._handle_data_uri(src)
         if data is None:
@@ -711,7 +728,7 @@ class DFT:
             if attr.lower() not in ('src', ):
                 s.setAttribute(attr, script.get(attr))
 
-        s.text = data.decode() if isinstance(data, bytes) else data
+        s.text = self.decode_data_javascript(data)
 
     def handle_external_javascript(self, script):
         src = script.get('src', None)
