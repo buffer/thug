@@ -15,7 +15,7 @@ try:
 except AttributeError:
     # Python 3.8 requires the standard library importlib.resources backport available at
     # https://pypi.org/project/importlib-resources/
-    import importlib_resources
+    import importlib_resources # pylint: disable=import-error
     __package_configuration_path__ = os.path.join(importlib_resources.files('thug'), 'conf')
 
 __configuration_path__ = __package_configuration_path__
