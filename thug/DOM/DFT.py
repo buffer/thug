@@ -1252,11 +1252,13 @@ class DFT:
         if 'base64' in opts:
             try:
                 data = base64.b64decode(h[1])
-                data.decode()
+                if opts and opts[0].lower().endswith(('jscript', 'javascript')):
+                    data.decode()
             except Exception: # pylint:disable=broad-except
                 try:
                     data = base64.b64decode(unquote(h[1]).strip())
-                    data.decode()
+                    if opts and opts[0].lower().endswith(('jscript', 'javascript')):
+                        data.decode()
                 except Exception: # pylint:disable=broad-except
                     log.warning("[WARNING] Error while handling data URI: %s", data)
                     return None
