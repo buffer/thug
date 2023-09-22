@@ -127,7 +127,7 @@ class HTMLElement(Element):
         return random.randint(10, 100)
 
     @property
-    def offsetHeigth(self):
+    def offsetHeight(self):
         return random.randint(10, 100)
 
     def insertAdjacentHTML(self, position, text):
