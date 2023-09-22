@@ -1217,6 +1217,14 @@ class DFT:
             if rule.type == rule.FONT_FACE_RULE:
                 self.do_handle_font_face_rule(rule)
 
+    def _check_decode_data_uri(self, data, opts):
+        mimetypes = ('application/javascript',
+                     'application/x-javascript',
+                     'text/javascript')
+
+        if opts and opts[0].lower() in mimetypes:
+            data.decode()
+
     def _handle_data_uri(self, uri):
         """
         Data URI Scheme
@@ -1252,13 +1260,11 @@ class DFT:
         if 'base64' in opts:
             try:
                 data = base64.b64decode(h[1])
-                if opts and opts[0].lower().endswith(('jscript', 'javascript')):
-                    data.decode()
+                self._check_decode_data_uri(data, opts)
             except Exception: # pylint:disable=broad-except
                 try:
                     data = base64.b64decode(unquote(h[1]).strip())
-                    if opts and opts[0].lower().endswith(('jscript', 'javascript')):
-                        data.decode()
+                    self._check_decode_data_uri(data, opts)
                 except Exception: # pylint:disable=broad-except
                     log.warning("[WARNING] Error while handling data URI: %s", data)
                     return None
