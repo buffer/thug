@@ -15,11 +15,12 @@ log = logging.getLogger("Thug")
 
 
 class HTMLElement(Element):
+    className = attr_property("class", default = "")
+    dir       = attr_property("dir")
     id        = attr_property("id")
+    lang      = attr_property("lang")
     title     = attr_property("title")
     lang      = attr_property("lang")
-    dir       = attr_property("dir")
-    className = attr_property("class", default = "")
 
     def __init__(self, doc, tag):
         Element.__init__(self, doc, tag)
@@ -110,12 +111,24 @@ class HTMLElement(Element):
         return None
 
     @property
-    def offsetWidth(self):
-        return random.randint(10, 100)
+    def offsetParent(self):
+        return None
 
     @property
     def offsetTop(self):
         return random.randint(1, 10)
+
+    @property
+    def offsetLeft(self):
+        return random.randint(10, 100)
+
+    @property
+    def offsetWidth(self):
+        return random.randint(10, 100)
+
+    @property
+    def offsetHeigth(self):
+        return random.randint(10, 100)
 
     def insertAdjacentHTML(self, position, text):
         if position not in ('beforebegin', 'afterbegin', 'beforeend', 'afterend', ):

@@ -4,8 +4,11 @@
 <script>
 	var d5 = document.getElementById('five');
 	alert(d5.sourceIndex);
-	alert(d5.offsetWidth);
+	alert(d5.offsetParent);
 	alert(d5.offsetTop);
+	alert(d5.offsetLeft);
+	alert(d5.offsetWidth);
+	alert(d5.offsetHeigth);
 
 	try {
 		d5.insertAdjacentHTML('notcorrect', '<div id="eight">eight</div>');
