@@ -22,9 +22,8 @@ import re
 import base64
 import logging
 
-from urllib.parse import quote
-from urllib.parse import urljoin
 from urllib.parse import unquote
+from urllib.parse import urljoin
 
 import bs4
 
@@ -1252,10 +1251,12 @@ class DFT:
 
         if 'base64' in opts:
             try:
-                data = base64.b64decode(quote(h[1]))
-            except Exception: # pragma: no cover,pylint:disable=broad-except
+                data = base64.b64decode(h[1])
+                data.decode()
+            except Exception: # pylint:disable=broad-except
                 try:
-                    data = base64.b64decode(unquote(h[1]))
+                    data = base64.b64decode(unquote(h[1]).strip())
+                    data.decode()
                 except Exception: # pylint:disable=broad-except
                     log.warning("[WARNING] Error while handling data URI: %s", data)
                     return None
