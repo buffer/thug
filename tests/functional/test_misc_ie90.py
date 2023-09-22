@@ -1385,7 +1385,8 @@ class TestMiscSamplesIE(object):
 
     def test_js_data_src(self, caplog):
         sample   = os.path.join(self.misc_path, "testJSDataSrc.html")
-        expected = ['[Window] Alert Text: Hello world']
+        expected = ['[Window] Alert Text: Hello world',
+                    '[Window] Alert Text: Hello world']
 
         self.do_perform_test(caplog, sample, expected)
 
