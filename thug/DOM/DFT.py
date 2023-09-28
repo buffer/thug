@@ -1265,7 +1265,7 @@ class DFT:
                 try:
                     data = base64.b64decode(unquote(h[1]).strip())
                     self._check_decode_data_uri(data, opts)
-                except Exception: # pylint:disable=broad-except
+                except Exception: # pragma: no cover,pylint:disable=broad-except
                     log.warning("[WARNING] Error while handling data URI: %s", data)
                     return None
 
