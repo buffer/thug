@@ -9,16 +9,8 @@ __jsengine_version__   = ""
 
 __global_configuration_path__  = "/etc/thug"
 __user_configuration_path__    = f"{appdirs.user_config_dir()}/thug"
-
-try:
-    __package_configuration_path__ = os.path.join(importlib.resources.files('thug'), 'conf')
-except AttributeError:
-    # Python 3.8 requires the standard library importlib.resources backport available at
-    # https://pypi.org/project/importlib-resources/
-    import importlib_resources # pylint: disable=import-error
-    __package_configuration_path__ = os.path.join(importlib_resources.files('thug'), 'conf')
-
-__configuration_path__ = __package_configuration_path__
+__package_configuration_path__ = os.path.join(importlib.resources.files('thug'), 'conf')
+__configuration_path__         = __package_configuration_path__
 
 if os.path.exists(__user_configuration_path__):
     __configuration_path__ = __user_configuration_path__ # pragma: no cover

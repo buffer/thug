@@ -9,7 +9,7 @@ Requirements
 Python
 ^^^^^^
 
-Python 3.8+ is required in order to properly run Thug. You may be lucky running it with
+Python 3.9+ is required in order to properly run Thug. You may be lucky running it with
 previous versions but please consider such versions are not supported. Please do not
 report issues in such case. Python source code can be downloaded at http://www.python.org.
 
@@ -18,7 +18,7 @@ Boost
 ^^^^^
 
 Boost provides free peer-reviewed portable C++ source libraries. Boost homepage is
-located at http://www.boost.org/. 
+located at http://www.boost.org/.
 
 Packages for most Linux distributions are available.
 
@@ -41,7 +41,9 @@ C++ application.
 
 **Thug 3.9 is the last version supporting Python 3.7**
 
-More recent versions support just Python 3.8+. If you are installing a recent Thug version
+**Thug 5.7 is the last version supporting Python 3.8**
+
+More recent versions support just Python 3.9+. If you are installing a recent Thug version
 (and you should really do that) you have to install STPyV8 (https://github.com/area1/stpyv8/).
 
 STPyV8 is a Python/C++ wrapper that allows interoperability between Python 3 and
@@ -66,8 +68,7 @@ is the last version supporting Python 2.7. In such case you have to install PyV8
 consider that PyV8 is not maintained so you could experience issues. Please do not report
 related issues.
 
-In order to properly install Google V8 and PyV8 please follow the procedure described 
-below.
+In order to properly install Google V8 and PyV8 please follow the procedure described below.
 
 .. code-block:: sh
 
@@ -115,7 +116,7 @@ Packages for most Linux distributions are available.
 Thug installation
 -----------------
 
-Starting from Thug 0.8.0, Thug is installable through pip with the following procedure 
+Starting from Thug 0.8.0, Thug is installable through pip with the following procedure
 
 .. code-block:: sh
 
@@ -138,5 +139,5 @@ Alternatively you can clone the Thug repository and execute
     $ sudo python setup.py install
 
 
-The procedure will install the dependencies not already mentioned in the previous sections so you 
+The procedure will install the dependencies not already mentioned in the previous sections so you
 should take care of installing them before actually installing Thug.
