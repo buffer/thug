@@ -379,7 +379,11 @@ def main():
         s  = io.StringIO()
         ps = pstats.Stats(profiler, stream = s).sort_stats('cumulative')
         ps.print_stats()
-        with open('/tmp/thug-profiler.log', encoding = 'utf-8', mode = 'w') as fd: # nosec
+
+        def opener(path):
+            return os.open(path, 0o644)
+
+        with open('/tmp/thug-profiler.log', encoding = 'utf-8', mode = 'w', opener = opener) as fd:
             fd.write(s.getvalue())
 
 
