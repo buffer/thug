@@ -46,7 +46,7 @@ dependencies = [
     "pefile==2023.2.7",
     "pillow==10.1.0",
     "promise==2.3",
-    "pylibemu==0.8",
+    "pylibemu==1.0",
     "pymongo==4.6.0",
     "pysocks==1.7.1",
     "python-magic==0.4.27",
