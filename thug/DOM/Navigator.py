@@ -325,6 +325,11 @@ class Navigator(JSClass):
             if log.ThugLogging.redirections[item] > 10:
                 return None # pragma: no cover
 
+            if log.HTTPSession.check_redirection_loop_url_params(url): # pragma: no cover
+                log.ThugLogging.add_behavior_warn(f"[Skipping {redirect_type} redirection] {last_url} -> {url}",
+                                                  snippet = snippet)
+                return None
+
         if redirect_type in ('frame', 'iframe', 'http-redirect', 'meta', ):
             if log.HTTPSession.check_equal_urls(url, last_url): # pragma: no cover
                 log.ThugLogging.add_behavior_warn(f"[Skipping {redirect_type} redirection] {last_url} -> {url}",

@@ -198,6 +198,14 @@ class HTTPSession:
     def check_equal_urls(self, url, last_url):
         return urllib.parse.unquote(url) in (urllib.parse.unquote(last_url), )
 
+    def check_redirection_loop_url_params(self, url):
+        p_url = urllib.parse.urlparse(url)
+
+        qs = urllib.parse.parse_qs(p_url.query)
+        # If the query string contains more than 10 parameters with the
+        # same name we are reasonably experiencing a redirection loop
+        return any(len(v) > 10 for v in qs.values())
+
     def build_http_headers(self, window, personality, headers):
         http_headers = {
             'Cache-Control'   : 'no-cache',
