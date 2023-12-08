@@ -370,6 +370,7 @@ def main():
         import io
         import cProfile
         import pstats
+        import tempfile
 
         profiler = cProfile.Profile()
         profiler.enable()
@@ -379,7 +380,13 @@ def main():
         s  = io.StringIO()
         ps = pstats.Stats(profiler, stream = s).sort_stats('cumulative')
         ps.print_stats()
-        with open('/tmp/thug-profiler.log', encoding = 'utf-8', mode = 'w') as fd: # nosec
+
+        with tempfile.NamedTemporaryFile(mode     = 'w',
+                                         encoding = 'utf-8',
+                                         prefix   = 'thug-profiler-',
+                                         suffix   = '.log',
+                                         delete   = False) as fd:
+            print(f"Saving profiler results to {fd.name}")
             fd.write(s.getvalue())
 
 
