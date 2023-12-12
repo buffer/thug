@@ -1,7 +1,6 @@
 import os
 import logging
 import configparser
-import pytest
 
 from mock import patch
 
@@ -27,11 +26,8 @@ config = configparser.ConfigParser()
 conf_file = os.path.join(log.configuration_path, 'thug.conf')
 config.read(conf_file)
 
-NOT_IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS", None) is None
-
 
 class TestElasticSearch:
-    @pytest.mark.skipif(NOT_IN_GITHUB_ACTIONS, reason="Test works just in Github Actions")
     def test_export(self):
         log.ThugOpts.elasticsearch_logging = True
         log.configuration_path = configuration_path
