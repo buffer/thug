@@ -6,7 +6,7 @@ its efficiency.
 
 ## License information
 
-Copyright (C) 2011-2023 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
+Copyright (C) 2011-2024 Angelo Dell'Aera <angelo.dellaera@honeynet.org>
 
 License: GNU General Public License, version 2; see COPYING.txt
          included in this archive for details.
