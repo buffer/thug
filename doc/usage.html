@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; Thug 5.2 documentation</title>
+  <title>Usage &mdash; Thug 5.9 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
-        <script src="static/jquery.js"></script>
-        <script src="static/underscore.js"></script>
-        <script src="static/doctools.js"></script>
+        <script src="static/jquery.js?v=5d32c60e"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="static/documentation_options.js?v=696bab92"></script>
+        <script src="static/doctools.js?v=888ff710"></script>
+        <script src="static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,7 +35,7 @@
             Thug
           </a>
               <div class="version">
-                5.2
+                5.9
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -91,12 +93,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="usage">
-<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
+  <section id="usage">
+<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<div class="section" id="basic-usage">
-<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline"></a></h2>
+<section id="basic-usage">
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h2>
 <p>Let’s start our Thug tour by taking a look at the options it provides.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~<span class="w"> </span>$<span class="w"> </span>thug<span class="w"> </span>-h
 
@@ -347,33 +349,33 @@ based on their Content-Type for convenience (if the File logging mode is enabled
 <p>Moreover if MongoDB is installed the information you can see in this directory are saved in the
 database instance too. Let’s take a deeper look using pymongo (you can get the same result by
 using the MongoDB client <em>mongo</em>).</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/thug/src $ python
-Python 2.7.3 (default, Jun 12 2012, 10:22:50)
-[GCC 4.5.3] on linux2
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
-&gt;&gt;&gt; import pymongo
-&gt;&gt;&gt; connection = pymongo.Connection()
-&gt;&gt;&gt; db = connection.thug
-&gt;&gt;&gt; url = db.urls.find_one({&#39;url&#39; : &#39;http://[omitted]/main.php?page=8c6c59becaa0da07&#39;})
-&gt;&gt;&gt; url
-{u&#39;url&#39;: u&#39;http://[omitted]/main.php?page=8c6c59becaa0da07&#39;, u&#39;_id&#39;: ObjectId(&#39;4ff1b8efe732795951000000&#39;)}
-&gt;&gt;&gt; for sample in db.samples.find({&#39;url_id&#39;: url[&#39;_id&#39;]}):
-...     print sample
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~/thug/src<span class="w"> </span>$<span class="w"> </span>python
+Python<span class="w"> </span><span class="m">2</span>.7.3<span class="w"> </span><span class="o">(</span>default,<span class="w"> </span>Jun<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="m">2012</span>,<span class="w"> </span><span class="m">10</span>:22:50<span class="o">)</span>
+<span class="o">[</span>GCC<span class="w"> </span><span class="m">4</span>.5.3<span class="o">]</span><span class="w"> </span>on<span class="w"> </span>linux2
+Type<span class="w"> </span><span class="s2">&quot;help&quot;</span>,<span class="w"> </span><span class="s2">&quot;copyright&quot;</span>,<span class="w"> </span><span class="s2">&quot;credits&quot;</span><span class="w"> </span>or<span class="w"> </span><span class="s2">&quot;license&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>more<span class="w"> </span>information.
+&gt;&gt;&gt;<span class="w"> </span>import<span class="w"> </span>pymongo
+&gt;&gt;&gt;<span class="w"> </span><span class="nv">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>pymongo.Connection<span class="o">()</span>
+&gt;&gt;&gt;<span class="w"> </span><span class="nv">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>connection.thug
+&gt;&gt;&gt;<span class="w"> </span><span class="nv">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>db.urls.find_one<span class="o">({</span><span class="s1">&#39;url&#39;</span><span class="w"> </span>:<span class="w"> </span><span class="s1">&#39;http://[omitted]/main.php?page=8c6c59becaa0da07&#39;</span><span class="o">})</span>
+&gt;&gt;&gt;<span class="w"> </span>url
+<span class="o">{</span>u<span class="s1">&#39;url&#39;</span>:<span class="w"> </span>u<span class="s1">&#39;http://[omitted]/main.php?page=8c6c59becaa0da07&#39;</span>,<span class="w"> </span>u<span class="s1">&#39;_id&#39;</span>:<span class="w"> </span>ObjectId<span class="o">(</span><span class="s1">&#39;4ff1b8efe732795951000000&#39;</span><span class="o">)}</span>
+&gt;&gt;&gt;<span class="w"> </span><span class="k">for</span><span class="w"> </span>sample<span class="w"> </span><span class="k">in</span><span class="w"> </span>db.samples.find<span class="o">({</span><span class="s1">&#39;url_id&#39;</span>:<span class="w"> </span>url<span class="o">[</span><span class="s1">&#39;_id&#39;</span><span class="o">]})</span>:
+...<span class="w">     </span>print<span class="w"> </span>sample
 ...
 
-{u&#39;_id&#39;: ObjectId(&#39;4ff1b8f4e732795951000001&#39;), u&#39;url&#39;: u&#39;http://[omitted]/Ryp.jar&#39;, u&#39;type&#39;: u&#39;JAR&#39;, u&#39;sha1&#39;: u&#39;5fffd5cc4a372a6c2a826a850a955cb6a4042272&#39;, u&#39;url_id&#39;: ObjectId(&#39;4ff1b8efe732795951000000&#39;), u&#39;data&#39;: u&#39;[skipped]&#39;, u&#39;md5&#39;: u&#39;e3639fde6ddf7fd0182fff9757143ff2&#39;}
-{u&#39;_id&#39;: ObjectId(&#39;4ff1b8f7e732795951000002&#39;), u&#39;url&#39;: u&#39;http://[omitted]/w.php?f=b081d&amp;e=2&#39;, u&#39;type&#39;: u&#39;PE&#39;, u&#39;sha1&#39;: u&#39;1445e7d338d0d7c20f1d2329f4d653cce1562cc8&#39;, u&#39;url_id&#39;: ObjectId(&#39;4ff1b8efe732795951000000&#39;), u&#39;data&#39;:  u&#39;[skipped]&#39;, u&#39;md5&#39;: u&#39;d328b5a123bce1c0d20d763ad745303a&#39;}
-[..]
-&gt;&gt;&gt; for event in db.events.find({&#39;url_id&#39;: url[&#39;_id&#39;]}):
-...     print event
+<span class="o">{</span>u<span class="s1">&#39;_id&#39;</span>:<span class="w"> </span>ObjectId<span class="o">(</span><span class="s1">&#39;4ff1b8f4e732795951000001&#39;</span><span class="o">)</span>,<span class="w"> </span>u<span class="s1">&#39;url&#39;</span>:<span class="w"> </span>u<span class="s1">&#39;http://[omitted]/Ryp.jar&#39;</span>,<span class="w"> </span>u<span class="s1">&#39;type&#39;</span>:<span class="w"> </span>u<span class="s1">&#39;JAR&#39;</span>,<span class="w"> </span>u<span class="s1">&#39;sha1&#39;</span>:<span class="w"> </span>u<span class="s1">&#39;5fffd5cc4a372a6c2a826a850a955cb6a4042272&#39;</span>,<span class="w"> </span>u<span class="s1">&#39;url_id&#39;</span>:<span class="w"> </span>ObjectId<span class="o">(</span><span class="s1">&#39;4ff1b8efe732795951000000&#39;</span><span class="o">)</span>,<span class="w"> </span>u<span class="s1">&#39;data&#39;</span>:<span class="w"> </span>u<span class="s1">&#39;[skipped]&#39;</span>,<span class="w"> </span>u<span class="s1">&#39;md5&#39;</span>:<span class="w"> </span>u<span class="s1">&#39;e3639fde6ddf7fd0182fff9757143ff2&#39;</span><span class="o">}</span>
+<span class="o">{</span>u<span class="s1">&#39;_id&#39;</span>:<span class="w"> </span>ObjectId<span class="o">(</span><span class="s1">&#39;4ff1b8f7e732795951000002&#39;</span><span class="o">)</span>,<span class="w"> </span>u<span class="s1">&#39;url&#39;</span>:<span class="w"> </span>u<span class="s1">&#39;http://[omitted]/w.php?f=b081d&amp;e=2&#39;</span>,<span class="w"> </span>u<span class="s1">&#39;type&#39;</span>:<span class="w"> </span>u<span class="s1">&#39;PE&#39;</span>,<span class="w"> </span>u<span class="s1">&#39;sha1&#39;</span>:<span class="w"> </span>u<span class="s1">&#39;1445e7d338d0d7c20f1d2329f4d653cce1562cc8&#39;</span>,<span class="w"> </span>u<span class="s1">&#39;url_id&#39;</span>:<span class="w"> </span>ObjectId<span class="o">(</span><span class="s1">&#39;4ff1b8efe732795951000000&#39;</span><span class="o">)</span>,<span class="w"> </span>u<span class="s1">&#39;data&#39;</span>:<span class="w">  </span>u<span class="s1">&#39;[skipped]&#39;</span>,<span class="w"> </span>u<span class="s1">&#39;md5&#39;</span>:<span class="w"> </span>u<span class="s1">&#39;d328b5a123bce1c0d20d763ad745303a&#39;</span><span class="o">}</span>
+<span class="o">[</span>..<span class="o">]</span>
+&gt;&gt;&gt;<span class="w"> </span><span class="k">for</span><span class="w"> </span>event<span class="w"> </span><span class="k">in</span><span class="w"> </span>db.events.find<span class="o">({</span><span class="s1">&#39;url_id&#39;</span>:<span class="w"> </span>url<span class="o">[</span><span class="s1">&#39;_id&#39;</span><span class="o">]})</span>:
+...<span class="w">     </span>print<span class="w"> </span>event
 ...
-{u&#39;MAEC&#39;: u&#39;&lt;MAEC_Bundle xmlns:ns1=&quot;http://xml/metadataSharing.xsd&quot; xmlns=&quot;http://maec.mitre.org/XMLSchema/maec-core-1&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://maec.mitre.org/XMLSchema/maec-core-1 file:MAEC_v1.1.xsd&quot; id=&quot;maec:thug:bnd:1&quot; schema_version=&quot;1.100000&quot;&gt;
-[..]
+<span class="o">{</span>u<span class="s1">&#39;MAEC&#39;</span>:<span class="w"> </span>u<span class="err">&#39;</span>&lt;MAEC_Bundle<span class="w"> </span>xmlns:ns1<span class="o">=</span><span class="s2">&quot;http://xml/metadataSharing.xsd&quot;</span><span class="w"> </span><span class="nv">xmlns</span><span class="o">=</span><span class="s2">&quot;http://maec.mitre.org/XMLSchema/maec-core-1&quot;</span><span class="w"> </span>xmlns:xsi<span class="o">=</span><span class="s2">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><span class="w"> </span>xsi:schemaLocation<span class="o">=</span><span class="s2">&quot;http://maec.mitre.org/XMLSchema/maec-core-1 file:MAEC_v1.1.xsd&quot;</span><span class="w"> </span><span class="nv">id</span><span class="o">=</span><span class="s2">&quot;maec:thug:bnd:1&quot;</span><span class="w"> </span><span class="nv">schema_version</span><span class="o">=</span><span class="s2">&quot;1.100000&quot;</span>&gt;
+<span class="o">[</span>..<span class="o">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="browser-personality">
-<h2>Browser personality<a class="headerlink" href="#browser-personality" title="Permalink to this headline"></a></h2>
+</section>
+<section id="browser-personality">
+<h2>Browser personality<a class="headerlink" href="#browser-personality" title="Link to this heading"></a></h2>
 <p>If no additional option (other than the URL) is provided the emulated browser personality is
 Internet Explorer 6.0 on Windows XP platform. This choice is usually quite interesting for
 the really simple reason a lot of exploit kits out there try to exploit a vulnerability in Microsoft
@@ -444,9 +446,9 @@ W.eXeC<span class="w"> </span><span class="s2">&quot;taskkill /F /IM wm&quot;</s
 </div>
 <p>It’s quite simple to realize that the exploit for the Microsoft Data Access Components (MDAC)
 vulnerability is not served in this case.</p>
-</div>
-<div class="section" id="dom-events-handling">
-<h2>DOM Events Handling<a class="headerlink" href="#dom-events-handling" title="Permalink to this headline"></a></h2>
+</section>
+<section id="dom-events-handling">
+<h2>DOM Events Handling<a class="headerlink" href="#dom-events-handling" title="Link to this heading"></a></h2>
 <p>A useful option is the -e (–events) option which allows you to specify which DOM events should
 be handled by Thug. By default <cite>load</cite> and <cite>mousemove</cite> events are always handled but you can add
 other ones with this option. Using this option is quite simple. All you need to do is to specify
@@ -456,9 +458,9 @@ a comma-separated list of events to handle as shown below.</p>
 </div>
 <p>In this example, the DOM events <cite>load</cite>, <cite>mousemove</cite>, <cite>click</cite> and <cite>mouseover</cite> will be handled by
 Thug while all the other ones will be ignored.</p>
-</div>
-<div class="section" id="adobe-acrobat-reader">
-<h2>Adobe Acrobat Reader<a class="headerlink" href="#adobe-acrobat-reader" title="Permalink to this headline"></a></h2>
+</section>
+<section id="adobe-acrobat-reader">
+<h2>Adobe Acrobat Reader<a class="headerlink" href="#adobe-acrobat-reader" title="Link to this heading"></a></h2>
 <p>Taking a look at the available options you can see the -A (–adobepdf) option which is quite
 useful for getting different PDF exploits which target different version of Adobe Acrobat
 Reader. This happens because exploit kits usually serve PDF files which exploit specific
@@ -545,9 +547,9 @@ W.eXeC<span class="w"> </span><span class="s2">&quot;taskkill /F /IM wm&quot;</s
 </pre></div>
 </div>
 <p>it’s easy to realize that a different malicious PDF file was served in this case.</p>
-</div>
-<div class="section" id="shockwave-flash">
-<h2>Shockwave Flash<a class="headerlink" href="#shockwave-flash" title="Permalink to this headline"></a></h2>
+</section>
+<section id="shockwave-flash">
+<h2>Shockwave Flash<a class="headerlink" href="#shockwave-flash" title="Link to this heading"></a></h2>
 <p>Taking a look at the available options you can see the -S (–shockwave) option which is quite
 useful for getting different Flash exploits which target differents version of Shockwave Flash.
 This happens because exploit kits usually serve Flash files which exploit specific vulnerabilities
@@ -620,9 +622,9 @@ PluginDetect (see Local Analysis later for details).</p>
 <span class="o">[</span><span class="m">2012</span>-11-15<span class="w"> </span><span class="m">17</span>:32:58<span class="o">]</span><span class="w"> </span><span class="o">[</span>Window<span class="o">]</span><span class="w"> </span>Alert<span class="w"> </span>Text:<span class="w"> </span>Java<span class="w"> </span>version:<span class="w"> </span><span class="m">1</span>,6,0,32
 </pre></div>
 </div>
-</div>
-<div class="section" id="javaplugin-and-javawebstart">
-<h2>JavaPlugin and JavaWebStart<a class="headerlink" href="#javaplugin-and-javawebstart" title="Permalink to this headline"></a></h2>
+</section>
+<section id="javaplugin-and-javawebstart">
+<h2>JavaPlugin and JavaWebStart<a class="headerlink" href="#javaplugin-and-javawebstart" title="Link to this heading"></a></h2>
 <p>Taking a look at the available options you can see the -J (–javaplugin) option which is quite
 useful for getting different Java exploits which target different versions of Java. Let’s take
 a look at what happens if we locally analyze PluginDetect (see Local Analysis later for details).</p>
@@ -717,9 +719,9 @@ a look at what happens if we locally analyze PluginDetect (see Local Analysis la
 <span class="o">[</span><span class="m">2012</span>-11-15<span class="w"> </span><span class="m">17</span>:40:56<span class="o">]</span><span class="w"> </span><span class="o">[</span>Window<span class="o">]</span><span class="w"> </span>Alert<span class="w"> </span>Text:<span class="w"> </span>Java<span class="w"> </span>version:<span class="w"> </span><span class="m">1</span>,7,0,7
 </pre></div>
 </div>
-</div>
-<div class="section" id="proxy-support">
-<h2>Proxy support<a class="headerlink" href="#proxy-support" title="Permalink to this headline"></a></h2>
+</section>
+<section id="proxy-support">
+<h2>Proxy support<a class="headerlink" href="#proxy-support" title="Link to this heading"></a></h2>
 <p>Another really useful option is <em>-p (–proxy)</em> which allows to specify a proxy. Currently Thug
 supports HTTP, SOCKS4 and SOCKS5 proxy using the following format</p>
 <blockquote>
@@ -800,9 +802,9 @@ W.eXeC<span class="w"> </span><span class="s2">&quot;taskkill /F /IM wm&quot;</s
 <span class="s2">[2012-07-02 19:22:49] Saving remote content at data/field.swf (MD5: 502da89357ca5d7c85dc7a67f8977b21)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="image-processing">
-<h2>Image processing<a class="headerlink" href="#image-processing" title="Permalink to this headline"></a></h2>
+</section>
+<section id="image-processing">
+<h2>Image processing<a class="headerlink" href="#image-processing" title="Link to this heading"></a></h2>
 <p>Image processing analysis (introduced in Thug 1.4) allows to analyze images retrieved during the
 analysis. By default, Thug performs OCR analysis returning extracted strings but the possibility
 exists to include other image processing algorithms through using Thug PyHooks. Be aware that
@@ -825,9 +827,9 @@ as the required steps could be different based on the Linux distribution. Please
 <span class="o">[</span>..<span class="o">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="local-analysis">
-<h2>Local Analysis<a class="headerlink" href="#local-analysis" title="Permalink to this headline"></a></h2>
+</section>
+<section id="local-analysis">
+<h2>Local Analysis<a class="headerlink" href="#local-analysis" title="Link to this heading"></a></h2>
 <p>May you need to analyze a locally saved page Thug provides the <em>-l (–local)</em> option to you.
 Using such option is really simple and could turn to be really useful for testing and for
 later (manual or automated) analysis (see also <em>Web Cache</em>)</p>
@@ -900,9 +902,9 @@ locally saved page.</p>
 <span class="o">[</span><span class="m">2013</span>-01-08<span class="w"> </span><span class="m">10</span>:33:01<span class="o">]</span><span class="w"> </span>&lt;iframe<span class="w"> </span><span class="nv">frameborder</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="w"> </span><span class="nv">height</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="w"> </span><span class="nv">marginheight</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="w"> </span><span class="nv">marginwidth</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="w"> </span><span class="nv">scrolling</span><span class="o">=</span><span class="s2">&quot;no&quot;</span><span class="w"> </span><span class="nv">src</span><span class="o">=</span><span class="s2">&quot;http://81.95.149.27/go.php?sid=1&quot;</span><span class="w"> </span><span class="nv">style</span><span class="o">=</span><span class="s2">&quot;border:0px solid gray;&quot;</span><span class="w"> </span><span class="nv">width</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>&gt;&lt;/iframe&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="other-useful-features">
-<h2>Other useful features<a class="headerlink" href="#other-useful-features" title="Permalink to this headline"></a></h2>
+</section>
+<section id="other-useful-features">
+<h2>Other useful features<a class="headerlink" href="#other-useful-features" title="Link to this heading"></a></h2>
 <p>An interesting feature (introduced in Thug 0.4.13) allows you to define a maximum delay for
 methods like setTimeout and setInterval which set a delay for executing a function. For instance
 if the original code contains a statement like</p>
@@ -916,8 +918,8 @@ option. Simply running Thug this way (please note the interval is expressed in m
 </pre></div>
 </div>
 <p>will force a maximum delay of 2 seconds.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -930,7 +932,7 @@ option. Simply running Thug this way (please note the interval is expressed in m
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2011-2023, Angelo Dell&#39;Aera.</p>
+    <p>&#169; Copyright 2011-2024, Angelo Dell&#39;Aera.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

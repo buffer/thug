@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JS Hooks &mdash; Thug 5.2 documentation</title>
+  <title>JS Hooks &mdash; Thug 5.9 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
-        <script src="static/jquery.js"></script>
-        <script src="static/underscore.js"></script>
-        <script src="static/doctools.js"></script>
+        <script src="static/jquery.js?v=5d32c60e"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="static/documentation_options.js?v=696bab92"></script>
+        <script src="static/doctools.js?v=888ff710"></script>
+        <script src="static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,7 +35,7 @@
             Thug
           </a>
               <div class="version">
-                5.2
+                5.9
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -79,12 +81,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="js-hooks">
-<span id="jshooks"></span><h1>JS Hooks<a class="headerlink" href="#js-hooks" title="Permalink to this headline"></a></h1>
+  <section id="js-hooks">
+<span id="jshooks"></span><h1>JS Hooks<a class="headerlink" href="#js-hooks" title="Link to this heading"></a></h1>
 <p>Starting from version 0.8.2, Thug features JavaScript hooks. This feature could be quite useful
 if you are required to load your own JavaSript code in a page to be analyzed. For instance, if
 you are interested into scanning JavaScript libraries to detect known vulnerabilities (take a look
-at RetireJS <a class="footnote-reference brackets" href="#f1" id="id1">1</a> for a great example of that) this feature could be quite handy.</p>
+at RetireJS <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> for a great example of that) this feature could be quite handy.</p>
 <p>Defining and using JS hooks is extremely simple.</p>
 <p>If you need to execute just one JavaScript file just drop it in the directory <em>/etc/thug/hooks</em> and
 you are done.</p>
@@ -95,16 +97,16 @@ name with a numerical prefix (and remember that the string ‘10’ is lesser th
 if you have to execute more than nine hooks).</p>
 <p>Let’s take a look at an example. We will make use of the following simple page and overwrite the
 eval method.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;body&gt;
-    &lt;script type=&quot;text/javascript&quot;&gt;
-    strVar = &quot;one&quot;;
-    myVar = eval(&quot;strVar&quot;);
-    alert(myVar);
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;!</span><span class="nx">DOCTYPE</span><span class="w"> </span><span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="nx">script</span><span class="w"> </span><span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="nx">strVar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;one&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">myVar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;strVar&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">alert</span><span class="p">(</span><span class="nx">myVar</span><span class="p">);</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="err">/script&gt;</span>
+<span class="o">&lt;</span><span class="err">/body&gt;</span>
+<span class="o">&lt;</span><span class="err">/html</span>
 </pre></div>
 </div>
 <p>Let’s run Thug against it</p>
@@ -190,13 +192,14 @@ were removed and the folder <em>/etc/thug/hooks</em> contains just the previousl
 </pre></div>
 </div>
 <p>Seems like we actually hooked the eval method. It was not so hard in the end, isn’t it?</p>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/retirejs/retire.js">RetireJS</a> is a scanner detecting the use of JavaScript libraries
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/retirejs/retire.js">RetireJS</a> is a scanner detecting the use of JavaScript libraries
 with known vulnerabilities</p>
-</dd>
-</dl>
-</div>
+</aside>
+</aside>
+</section>
 
 
            </div>
@@ -209,7 +212,7 @@ with known vulnerabilities</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2011-2023, Angelo Dell&#39;Aera.</p>
+    <p>&#169; Copyright 2011-2024, Angelo Dell&#39;Aera.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -35,17 +35,17 @@ analyses. The default logging configuration is shown below.
     index:      thug
 
 
-The different sections of the configuration files will be explained later in this 
+The different sections of the configuration files will be explained later in this
 document.
 
 MongoDB logging mode
 ====================
 
 By default Thug attempts storing the result of its analyses in a MongoDB instance. Be
-aware that if you don't install MongoDB and pymongo (the Python wrapper) or if the 
-MongoDB process is not running, Thug will just emit a warning message and then continue 
-its analysis silently not storing the results. This could be exactly what you want but 
-please consider that if you do not enable any other logging mode you will end up with 
+aware that if you don't install MongoDB and pymongo (the Python wrapper) or if the
+MongoDB process is not running, Thug will just emit a warning message and then continue
+its analysis silently not storing the results. This could be exactly what you want but
+please consider that if you do not enable any other logging mode you will end up with
 no logs at all so bear it in mind.
 
 The configuration file *thug.conf* defines the MongoDB instance configuration
@@ -58,7 +58,7 @@ parameters
     host:       localhost
     port:       27017
 
-The parameters should be quite intuitive to understand. By the way if you install 
+The parameters should be quite intuitive to understand. By the way if you install
 MongoDB on the same host you are supposed to run Thug you should not need changing
 anything in the default configuration.
 
@@ -72,46 +72,31 @@ mean to lose them as soon as the Docker instance is shut down.
 Collection schema
 -----------------
 
-urls
-^^^^
-
-The collection *urls* is used to keep track of the URLs visited during the analysis.
-A URL is always associated a single entry in this collection even if it is visited 
-multiple times (during the same analysis or in different analyses). Associating a 
-unique ObjectID to a given URL allows to easily spot interesting scenarios like 
-different redirection chains ending up using the same URLs. 
-
-.. code-block:: sh
-
-        { 
-            "url" : URL
-        }
-
 analyses
 ^^^^^^^^
 
 The collection *analyses* is used to keep track of the Thug analyses. The analysis
-options used for the single analysis are stored together with other useful information 
-like the used Thug version and the analysis datetime. Moreover the URL ObjectID of the 
+options used for the single analysis are stored together with other useful information
+like the used Thug version and the analysis datetime. Moreover the URL ObjectID of the
 initial URL is stored for convenience.
 
 .. code-block:: sh
 
 
-        { 
+        {
             "url_id"      : Initial URL url_id
             "timestamp"   : Analysis datetime
             "thug"        : {
                                 "version"            : Thug version
-                                "personality" : { 
+                                "personality" : {
                                     "useragent"      : User Agent
                                 },
-                                "plugins" : { 
+                                "plugins" : {
                                     "acropdf"        : Acrobat Reader version (if any)
                                     "javaplugin"     : JavaPlugin version (if any)
                                     "shockwaveflash" : Shockwave Flash version (if any)
                                 },
-                                "options" : { 
+                                "options" : {
                                     "local"          : Local analysis
                                     "nofetch"        : Local no-fetch analysis
                                     "proxy"          : Proxy (if any)
@@ -125,86 +110,47 @@ initial URL is stored for convenience.
                             }
         }
 
-connections
-^^^^^^^^^^^
+awis
+^^^^
 
-The collection *connections* is used to keep track of the redirections which could happen
-during the single analysis. The field *chain_id* is a counter which is incremented by one at 
-every redirection and it's meant to be used in order to rebuild the redirection chain in the 
-right order while analyzing data.
+The collection *awis* is used to store Alexa Web Information Service (AWIS) reports.
 
 .. code-block:: sh
 
-        { 
-            "analysis_id"    : Analysis ID
-            "chain_id"       : Chain ID
-            "source_id"      : Source URL url_id
-            "destination_id" : Destination URL url_id
-            "method"         : Method
-            "flags"          : Flags
-        }
+    {
+            "analysis_id"   : Analysis ID
+            "report"        : AWIS report
+    }
 
-locations
+behaviors
 ^^^^^^^^^
 
-The collection *locations* is used to keep track of the content stored at each URL visited
-during the analysis. The content is stored in a MongoDB GridFS and additional metadata are 
-saved like MD5 and SHA-256 checksums, content size, content type (as served by the server)
-and evaluated content type.
-
-.. code-block:: sh
-
-
-        { 
-            "analysis_id"   : Analysis ID
-            "url_id"        : URL url_id
-            "status"        : HTTP status code
-            "content_id"    : Content ID (content stored in the GridFS fs)
-            "content-type"  : Content Type
-            "md5"           : MD5 checksum
-            "sha256"        : SHA-256 checksum
-            "ssdeep"        : Ssdeep hash
-            "flags"         : Flags
-            "size"          : Data size
-            "mime-type"     : Evaluated content type
-        }
-
-samples
-^^^^^^^
-
-The collection *samples* is used to keep track of the downloaded samples (currently supported 
-types: PE, PDF, JAR and SWF). The sample itself is stored in a MongoDB GridFS and additional 
-metadata are saved like MD5, SHA-1 and SHA-256 checksums, sample type and imphash (if the sample
-type is PE).
-
-.. code-block:: sh
-
-        { 
-            "analysis_id"   : Analysis ID
-            "url_id"        : URL url_id
-            "sample_id"     : Sample ID (sample stored in the GridFS fs)
-            "type"          : Sample type
-            "md5"           : MD5 checksum
-            "sha1"          : SHA-1 checksum
-            "sha256"        : SHA-256 checksum
-            "imphash"       : Imphash (if type is PE)
-        }
-
-exploits
-^^^^^^^^
-
-The collection *eploits* is used to keep track of the exploits which were successfully 
-identified during the analysis while visiting the URL referenced by *url_id*.
+The collection *behaviors* is used to keep track of the suspicious and/or malicious
+behaviors observed during the analysis.
 
 .. code-block:: sh
 
         {
             'analysis_id' : Analysis ID
-            'url_id'      : URL url_id
-            'module'      : Module/ActiveX Control, etc. that gets exploited
-            'description' : Description of the exploit
+            'description' : Observed behavior description
             'cve'         : CVE number (if available)
-            'data'        : Additional information
+            'snippet'     : Code snippet tag (if available)
+            'method'      : Analysis method
+            'timestamp'   : Timestamp
+        }
+
+certificates
+^^^^^^^^^^^^
+
+The collection *certificates* is used to store the SSL certificates collected from
+servers during the analysis.
+
+.. code-block:: sh
+
+        {
+            "analysis_id"   : Analysis ID
+            "url_id"        : URL url_id
+            "certificate"   : SSL certificate
         }
 
 classifiers
@@ -226,7 +172,7 @@ fire during the analysis while visiting the URL referenced by *url_id*.
 codes
 ^^^^^
 
-The collection *codes* is used to keep track of the (dynamic language) snippets of code 
+The collection *codes* is used to keep track of the (dynamic language) snippets of code
 identified during the analysis.
 
 .. code-block:: sh
@@ -240,41 +186,60 @@ identified during the analysis.
             'method'       : Analysis method
         }
 
-behaviors
-^^^^^^^^^
+connections
+^^^^^^^^^^^
 
-The collection *behaviors* is used to keep track of the suspicious and/or malicious 
-behaviors observed during the analysis.
+The collection *connections* is used to keep track of the redirections which could happen
+during the single analysis. The field *chain_id* is a counter which is incremented by one at
+every redirection and it's meant to be used in order to rebuild the redirection chain in the
+right order while analyzing data.
+
+.. code-block:: sh
+
+        {
+            "analysis_id"    : Analysis ID
+            "chain_id"       : Chain ID
+            "source_id"      : Source URL url_id
+            "destination_id" : Destination URL url_id
+            "method"         : Method
+            "flags"          : Flags
+        }
+
+exploits
+^^^^^^^^
+
+The collection *eploits* is used to keep track of the exploits which were successfully
+identified during the analysis while visiting the URL referenced by *url_id*.
 
 .. code-block:: sh
 
         {
             'analysis_id' : Analysis ID
-            'description' : Observed behavior description 
+            'url_id'      : URL url_id
+            'module'      : Module/ActiveX Control, etc. that gets exploited
+            'description' : Description of the exploit
             'cve'         : CVE number (if available)
-            'snippet'     : Code snippet tag (if available)
-            'method'      : Analysis method
-            'timestamp'   : Timestamp
+            'data'        : Additional information
         }
 
-certificates
-^^^^^^^^^^^^
+favicons
+^^^^^^^^
 
-The collection *certificates* is used to store the SSL certificates collected from
-servers during the analysis.
+The collection *favicons* is used to store the dhashes of the favicons collected
+during the analysis.
 
 .. code-block:: sh
 
         {
             "analysis_id"   : Analysis ID
             "url_id"        : URL url_id
-            "certificate"   : SSL certificate
+            "dhash"         : Favicon dhash
         }
 
 graphs
 ^^^^^^
 
-The collection *graphs* is used to store the analysis JSON exploit graph.  
+The collection *graphs* is used to store the analysis JSON exploit graph.
 
 .. code-block:: sh
 
@@ -297,21 +262,6 @@ reports. The Sample ObjectID references the *samples* collection.
             "report"        : HoneyAgent report (JSON)
         }
 
-json
-^^^^
-
-The collection *json* is used to store the Thug analysis reports in JSON format. 
-JSON logging mode should be enabled in order to have Thug saving data in
-this collection
-
-.. code-block:: sh
-
-    {
-            "analysis_id"   : Analysis ID
-            "report"        : Analysis report (JSON)
-    }
-
-
 images
 ^^^^^^
 
@@ -327,6 +277,65 @@ analysis.
             "result"        : Analysis result
     }
 
+json
+^^^^
+
+The collection *json* is used to store the Thug analysis reports in JSON format.
+JSON logging mode should be enabled in order to have Thug saving data in
+this collection
+
+.. code-block:: sh
+
+    {
+            "analysis_id"   : Analysis ID
+            "report"        : Analysis report (JSON)
+    }
+
+locations
+^^^^^^^^^
+
+The collection *locations* is used to keep track of the content stored at each URL visited
+during the analysis. The content is stored in a MongoDB GridFS and additional metadata are
+saved like MD5 and SHA-256 checksums, content size, content type (as served by the server)
+and evaluated content type.
+
+.. code-block:: sh
+
+
+        {
+            "analysis_id"   : Analysis ID
+            "url_id"        : URL url_id
+            "status"        : HTTP status code
+            "content_id"    : Content ID (content stored in the GridFS fs)
+            "content-type"  : Content Type
+            "md5"           : MD5 checksum
+            "sha256"        : SHA-256 checksum
+            "ssdeep"        : Ssdeep hash
+            "flags"         : Flags
+            "size"          : Data size
+            "mime-type"     : Evaluated content type
+        }
+
+samples
+^^^^^^^
+
+The collection *samples* is used to keep track of the downloaded samples (currently supported
+types: PE, PDF, JAR and SWF). The sample itself is stored in a MongoDB GridFS and additional
+metadata are saved like MD5, SHA-1 and SHA-256 checksums, sample type and imphash (if the sample
+type is PE).
+
+.. code-block:: sh
+
+        {
+            "analysis_id"   : Analysis ID
+            "url_id"        : URL url_id
+            "sample_id"     : Sample ID (sample stored in the GridFS fs)
+            "type"          : Sample type
+            "md5"           : MD5 checksum
+            "sha1"          : SHA-1 checksum
+            "sha256"        : SHA-256 checksum
+            "imphash"       : Imphash (if type is PE)
+        }
 
 screenshots
 ^^^^^^^^^^^
@@ -342,18 +351,20 @@ of the analyzed page.
             "screenshot"    : URL screenshot
     }
 
-
-awis
+urls
 ^^^^
 
-The collection *awis* is used to store Alexa Web Information Service (AWIS) reports.
+The collection *urls* is used to keep track of the URLs visited during the analysis.
+A URL is always associated a single entry in this collection even if it is visited
+multiple times (during the same analysis or in different analyses). Associating a
+unique ObjectID to a given URL allows to easily spot interesting scenarios like
+different redirection chains ending up using the same URLs.
 
 .. code-block:: sh
 
-    {
-            "analysis_id"   : Analysis ID
-            "report"        : AWIS report
-    }
+        {
+            "url" : URL
+        }
 
 
 ElasticSearch logging module
@@ -361,7 +372,7 @@ ElasticSearch logging module
 
 The ElasticSearch logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in an ElasticSearch instance. Deploying and configuring the
-instance is totally up to you and no images are provided for that. 
+instance is totally up to you and no images are provided for that.
 
 Starting from Thug version 1.6 you are required to install Python ElasticSearch Client by
 yourself. The reason behind this choice is that you could be interested in installing a
@@ -369,10 +380,10 @@ specific library version based on the ElasticSearch version you are using. Pleas
 `Python ElasticSearch Client documentation <https://elasticsearch-py.readthedocs.io/en/master/>`_
 for additional details.
 
-ElasticSearch logging mode is not enabled by default and you need to enable the option -G 
+ElasticSearch logging mode is not enabled by default and you need to enable the option -G
 (--elasticsearch-logging). The ElasticSearch configuration is saved in the *thug.conf*
 file. Be sure of defining the right URL for connecting to your instance. You may want to
-change the index name where data will be stored but this is not really necessary in the most 
+change the index name where data will be stored but this is not really necessary in the most
 common situations.
 
 .. code-block:: sh
@@ -388,9 +399,9 @@ JSON logging mode
 
 The JSON logging mode allows to store both the analysis results and each resource
 downloaded during the analysis in JSON format. The JSON logging mode was enabled by default
-before Thug 0.5.6 together with the File logging mode. If you are using Thug 0.5.7 (or later) 
-you have to explicitely enable it through the option *-Z* (or *--json-logging*). Please consider 
-that the JSON log is stored in the MongoDB instance (if available). See the *MongoDB logging 
+before Thug 0.5.6 together with the File logging mode. If you are using Thug 0.5.7 (or later)
+you have to explicitely enable it through the option *-Z* (or *--json-logging*). Please consider
+that the JSON log is stored in the MongoDB instance (if available). See the *MongoDB logging
 mode* for details. If the File logging format is enabled too, the JSON log will be stored
 in a JSON file in the log directory too. The JSON format is shown below.
 
@@ -410,7 +421,7 @@ in a JSON file in the log directory too. The JSON format is shown below.
                                     "javaplugin"     : JavaPlugin version (if any),
                                     "shockwaveflash" : Shockwave Flash version (if any)
                             },
-                            "options" : { 
+                            "options" : {
                                     "local"          : Local analysis
                                     "nofetch"        : Local no-fetch analysis
                                     "proxy"          : Proxy (if any)
@@ -421,21 +432,31 @@ in a JSON file in the log directory too. The JSON format is shown below.
                                     "threshold"      : Maximum pages to fetch
                                     "extensive"      : Extensive fetch of linked pages
                             },
-        "behavior"    : [],
-        "code"        : [],
-        "files"       : [],
-        "connections" : [],
-        "locations"   : [],
-        "exploits"    : [],
-        "classifiers" : [],
-        "images"      : [],
         "awis"        : [],
+        "behavior"    : [],
+        "classifiers" : [],
+        "code"        : [],
+        "connections" : [],
+        "exploits"    : [],
+        "favicons"    : [],
+        "files"       : [],
+        "images"      : [],
+        "locations"   : [],
         "screenshots" : []
     }
 
 
 Following the format and additional details about the lists containing the analysis results
-and the resources downloaded during the analysis. 
+and the resources downloaded during the analysis.
+
+awis
+----
+
+.. code-block:: sh
+
+        {
+            'awis'       : AWIS reports
+        }
 
 
 behaviors
@@ -444,7 +465,7 @@ behaviors
 .. code-block:: sh
 
         {
-            'description' : Observed behavior description 
+            'description' : Observed behavior description
             'cve'         : CVE number (if available)
             'snippet'     : Code snippet tag (if available)
             'method'      : Analysis method
@@ -452,8 +473,21 @@ behaviors
         }
 
 
-codes
------
+classifiers
+-----------
+
+.. code-block:: sh
+
+        {
+            'classifier'  : Classifier (possible values: html, js, url, sample)
+            'url'         : URL
+            'rule'        : Rule name
+            'tags'        : Rule tags
+        }
+
+
+code
+----
 
 .. code-block:: sh
 
@@ -466,43 +500,16 @@ codes
         }
 
 
-files
------
-
-Each content downloaded during the analysis is saved in an entry in the *files*
-list.
-
-
 connections
 -----------
 
 .. code-block:: sh
 
-        { 
+        {
             "source"         : Source URL
             "destination"    : Destination URL
             "method"         : Method
             "flags"          : Flags
-        }
-
-
-locations
----------
-
-.. code-block:: sh
-
-
-        { 
-            "url"           : URL url
-            "content"       : Content
-            "status"        : HTTP status code
-            "content-type"  : Content Type
-            "md5"           : MD5 checksum
-            "sha256"        : SHA-256 checksum
-            "ssdeep"        : Ssdeep hash
-            "flags"         : Flags
-            "size"          : Data size
-            "mime-type"     : Evaluated content type
         }
 
 
@@ -519,17 +526,24 @@ exploits
             'data'        : Additional information
         }
 
-classifiers
------------
+
+favicons
+--------
 
 .. code-block:: sh
 
         {
-            'classifier'  : Classifier (possible values: html, js, url, sample)
             'url'         : URL
-            'rule'        : Rule name
-            'tags'        : Rule tags
+            'dhash'       : Favicon dhash
         }
+
+
+files
+-----
+
+Each content downloaded during the analysis is saved in an entry in the *files*
+list.
+
 
 images
 ------
@@ -540,6 +554,26 @@ images
             'url'         : URL
             'classifier'  : Classifier (possible values: OCR)
             'result'      : Analysis result
+        }
+
+
+locations
+---------
+
+.. code-block:: sh
+
+
+        {
+            "url"           : URL url
+            "content"       : Content
+            "status"        : HTTP status code
+            "content-type"  : Content Type
+            "md5"           : MD5 checksum
+            "sha256"        : SHA-256 checksum
+            "ssdeep"        : Ssdeep hash
+            "flags"         : Flags
+            "size"          : Data size
+            "mime-type"     : Evaluated content type
         }
 
 
@@ -554,27 +588,18 @@ screenshots
         }
 
 
-awis
-----
-
-.. code-block:: sh
-
-        {
-            'awis'       : AWIS reports
-        }
-
 
 File logging mode
 =================
 
 The File logging mode allows to store both the analysis results and each resource
-downloaded during the analysis in flat files. The File logging mode was enabled by default 
-before Thug 0.5.6. If you are using Thug 0.5.7 (or later) you have to explicitely enable 
-it through the option *-F* (or *--file-logging*). Please consider that all the information 
-stored in flat files are stored in the MongoDB instance (if available). This option could 
-be convenient in some situations but if you plan to analyze a huge number of URLs per day 
-probably thinking about storing results and resources in a database is better than spread 
-such data on your hard drive. 
+downloaded during the analysis in flat files. The File logging mode was enabled by default
+before Thug 0.5.6. If you are using Thug 0.5.7 (or later) you have to explicitely enable
+it through the option *-F* (or *--file-logging*). Please consider that all the information
+stored in flat files are stored in the MongoDB instance (if available). This option could
+be convenient in some situations but if you plan to analyze a huge number of URLs per day
+probably thinking about storing results and resources in a database is better than spread
+such data on your hard drive.
 
 If you enable the File logging mode the directory which contains the logs for the session
 will appear as shown below
@@ -623,10 +648,10 @@ will appear as shown below
         total 72K
         -rw-r--r-- 1 buffer buffer 68K Jul  2 19:15 95ee609e6e3b69c2d9e68f34ff4a4335
         -rw-r--r-- 1 buffer buffer 878 Jul  2 19:15 d26b9b1a1f667004945d1d000cf4f19e
- 
+
 
 In this example the MAEC 1.1 logging mode is enabled and the file *analysis.xml* contains the
-URL analysis results saved in MAEC 1.1 format (MAEC 1.1 logging is no longer supported). Please 
+URL analysis results saved in MAEC 1.1 format (MAEC 1.1 logging is no longer supported). Please
 notice that all the resources downloaded during the URL analysis are saved in the log directory
 based on their Content-Type for convenience. Moreover if MongoDB is installed the information
 you can see in this directory are saved in the database instance as well.

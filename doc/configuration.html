@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; Thug 5.2 documentation</title>
+  <title>Configuration &mdash; Thug 5.9 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
-        <script src="static/jquery.js"></script>
-        <script src="static/underscore.js"></script>
-        <script src="static/doctools.js"></script>
+        <script src="static/jquery.js?v=5d32c60e"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="static/documentation_options.js?v=696bab92"></script>
+        <script src="static/doctools.js?v=888ff710"></script>
+        <script src="static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,7 +35,7 @@
             Thug
           </a>
               <div class="version">
-                5.2
+                5.9
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -83,84 +85,78 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="configuration">
-<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h1>
+  <section id="configuration">
+<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<div class="section" id="configuration-files">
-<h2>Configuration files<a class="headerlink" href="#configuration-files" title="Permalink to this headline"></a></h2>
-<p>Thug configuration files are automatically created during the installation
-procedure. Be aware that the folder where such configuration files are
-stored depends on the privileges of the user actually installing Thug.</p>
-<p>Thug attempts to use the folder <em>/etc/thug/</em> at first. If such attempt fails
-(reasonably because of a permission error) Thug reverts to a folder the user
-is granted write permissions to. The folder selection is performed using appdirs
-and these are usually the configuration folders selected on Linux and MacOS X</p>
+<section id="configuration-files">
+<h2>Configuration files<a class="headerlink" href="#configuration-files" title="Link to this heading"></a></h2>
+<p>Starting from Thug v5.5, configuration files are not automatically created during
+the installation procedure. The default configuration files folder <em>thug/conf</em> is
+included in the Thug package. If you don’t need to change the default configuration
+files no further action is required on your side.</p>
+<p>If you need to modify the default configuration you have to take care of creating a
+configuration folder, recursively copying the content of the folder <em>thug/conf</em>  into
+such folder and modifying the configuration files as you need.</p>
+<p>Two options are available for the configuration folder. If you want to create a
+configuration to be used just by a single user use the following folders (folder naming
+is compliant with appdirs)</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Linux<span class="w">    </span>/home/&lt;user&gt;/.config/thug
 MacOS<span class="w"> </span>X<span class="w">  </span>/Users/&lt;user&gt;/Library/Application<span class="w"> </span>Support/thug
 </pre></div>
 </div>
-<p>If you are not sure about the configuration folder path just run the following
-command in your shell</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;exec(\&quot;import appdirs\nprint(appdirs.user_config_dir())\&quot;)&quot;</span>
-/home/buffer/.config
-</pre></div>
-</div>
-<p>Be aware that Thug will ignore the user configuration folder if the folder
-<em>/etc/thug/</em> exists. The suggestion is to remove the folder <em>/etc/thug/</em> if it
-already exists and revert to a user configuration folder. Installing Thug as
-root is going to create it again. This could be exactly what you want in some
-cases. If not, just install as a non privileged user.</p>
-</div>
-<div class="section" id="honeyagent-optional">
-<h2>HoneyAgent (optional)<a class="headerlink" href="#honeyagent-optional" title="Permalink to this headline"></a></h2>
-<p>HoneyAgent is a Java agent library that creates a sandbox for Java
-applications and applets. It uses the JVMTI as well as the JNI to
-intercept class loading and function calls.</p>
-<p>During runtime HoneyAgent traces function calls performed by the
-analyzed application. It shows which class calls which function
-with which parameters. Reflected function calls are translated to
-the original function names for simpler reading.</p>
-<p>HoneyAgent provides simple means to hook individual Java functions
-e.g. to provide fake values to the analyzed application. These hooks
-are caller sensitive, so that default JRE classes can still function
-properly. The process of class loading is also intercepted to identify
-invalid bytecode and optionally make changes to get the class running
-within the observed environment.</p>
-<p>To sandbox the application, file accesses are redirected to a jailed
-environment. Furthermore, Java properties as well as environment
-variables are faked due to according Java function hooks.</p>
+<p>If you want to create a global configuration use the folder <em>/etc/thug/</em> instead.</p>
+<p>Be aware that Thug attempts to use the folder <em>/etc/thug/</em> at first. If such attempt
+fails, Thug reverts to the current user configuration folder. If the current user
+configuration folder does not exist, Thug reverts to the default configuration files
+included in the package.</p>
+<p>Be aware that the installation procedure does not overwrite neither the user configuration
+folder nor the global configuration folder so a Thug reinstall/update will not overwrite
+your configuration files, if any.</p>
+</section>
+<section id="honeyagent-optional">
+<h2>HoneyAgent (optional)<a class="headerlink" href="#honeyagent-optional" title="Link to this heading"></a></h2>
+<p>HoneyAgent is a Java agent library that creates a sandbox for Java applications and
+applets. It uses the JVMTI as well as the JNI to intercept class loading and function
+calls.</p>
+<p>During runtime HoneyAgent traces function calls performed by the analyzed application.
+It shows which class calls which function with which parameters. Reflected function calls
+are translated to the original function names for simpler reading.</p>
+<p>HoneyAgent provides simple means to hook individual Java functions e.g. to provide fake
+values to the analyzed application. These hooks are caller sensitive, so that default JRE
+classes can still function properly. The process of class loading is also intercepted to
+identify invalid bytecode and optionally make changes to get the class running within the
+observed environment.</p>
+<p>To sandbox the application, file accesses are redirected to a jailed environment. Furthermore,
+Java properties as well as environment variables are faked due to according Java function hooks.</p>
 <p>HoneyAgent source code can be downloaded at</p>
 <p><a class="reference external" href="https://bitbucket.org/fkie_cd_dare/honeyagent">https://bitbucket.org/fkie_cd_dare/honeyagent</a></p>
-<p>It is HIGHLY suggested to run HoneyAgent in a dedicated VM because
-there exists the possibility a sample could circumvent the sandbox
-and compromise the machine. In such case please consider that a OVA
-is available (and already configured) at</p>
+<p>It is HIGHLY suggested to run HoneyAgent in a dedicated VM because there exists the possibility
+a sample could circumvent the sandbox and compromise the machine. In such case please consider
+that a OVA is available (and already configured) at</p>
 <p><a class="reference external" href="https://www.dropbox.com/s/qieyfe97qvh7pjp/Honeyagent-r2.ova">https://www.dropbox.com/s/qieyfe97qvh7pjp/Honeyagent-r2.ova</a></p>
 <p>Login   : thug
 Password: thug</p>
-<p>In order to configure Thug to submit applets for analysis to HoneyAgent
-edit the configuration file <em>thug.conf</em> as shown later.</p>
+<p>In order to configure Thug to submit applets for analysis to HoneyAgent edit the configuration
+file <em>thug.conf</em> as shown later.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>honeyagent<span class="o">]</span>
 scanurl:<span class="w">                        </span>http://192.168.56.101:8000
 </pre></div>
 </div>
-<p>Please note that if the file <em>thug.conf</em> does not exists Thug will
-assume you do not want to submit applets to HoneyAgent. Alternatively
-you can disable the HoneyAgent support through command line even if the
-the <em>thug.conf</em> file exists (option -N or –no-honeyagent).</p>
-<p>This configuration instructs Thug to send the applet to analyze to the
-server whose IP address is 192.168.56.101 (please verify your network
-configuration and modify it accordingly) listening on port 8000/tcp.</p>
-<p>In order to enable this service run this commands on the HoneyAgent
-machine</p>
+<p>Please note that if the file <em>thug.conf</em> does not exists Thug will assume you do not want to
+submit applets to HoneyAgent. Alternatively you can disable the HoneyAgent support through command
+line even if the file <em>thug.conf</em> exists (option -N or –no-honeyagent).</p>
+<p>This configuration instructs Thug to send the applet to analyze to the server whose IP address is
+192.168.56.101 (please verify your network configuration and modify it accordingly) listening on
+port 8000/tcp.</p>
+<p>In order to enable this service run this commands on the HoneyAgent machine</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>thug@honeyagent:~$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>honeyagent/HoneyDaemon/
 thug@honeyagent:~/honeyagent/HoneyDaemon$<span class="w"> </span>python<span class="w"> </span>daemon.py<span class="w"> </span>run.ini
 HoneyAgent<span class="w"> </span>daemon<span class="w"> </span>running<span class="w"> </span>on<span class="w"> </span>port<span class="w"> </span><span class="m">8000</span>
 </pre></div>
 </div>
-<p>After the service is enabled and properly configured you should be
-able to automatically analyze applets like shown later.</p>
+<p>After the service is enabled and properly configured you should be able to automatically analyze
+applets like shown later.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>buffer@rigel<span class="w"> </span>~<span class="w"> </span>$<span class="w"> </span>thug<span class="w"> </span>http://192.168.0.100:8080/1
 <span class="o">[</span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">23</span>:50:53<span class="o">]</span><span class="w"> </span><span class="o">[</span>window<span class="w"> </span>open<span class="w"> </span>redirection<span class="o">]</span><span class="w"> </span>about:blank<span class="w"> </span>-&gt;<span class="w"> </span>http://192.168.0.100:8080/1
 <span class="o">[</span><span class="m">2014</span>-07-07<span class="w"> </span><span class="m">23</span>:50:53<span class="o">]</span><span class="w"> </span><span class="o">[</span>HTTP<span class="w"> </span>Redirection<span class="w"> </span><span class="o">(</span>Status:<span class="w"> </span><span class="m">302</span><span class="o">)]</span><span class="w"> </span>Content-Location:<span class="w"> </span>http://192.168.0.100:8080/1<span class="w"> </span>--&gt;<span class="w"> </span>Location:<span class="w"> </span>http://192.168.0.100:8080/1/
@@ -202,8 +198,8 @@ IixfXAb.class:<span class="w">  </span>compiled<span class="w"> </span>Java<span
 uAzpYJRZ.exe:<span class="w">   </span>PE32<span class="w"> </span>executable<span class="w"> </span><span class="o">(</span>GUI<span class="o">)</span><span class="w"> </span>Intel<span class="w"> </span><span class="m">80386</span>,<span class="w"> </span><span class="k">for</span><span class="w"> </span>MS<span class="w"> </span>Windows
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
@@ -216,7 +212,7 @@ uAzpYJRZ.exe:<span class="w">   </span>PE32<span class="w"> </span>executable<sp
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2011-2023, Angelo Dell&#39;Aera.</p>
+    <p>&#169; Copyright 2011-2024, Angelo Dell&#39;Aera.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

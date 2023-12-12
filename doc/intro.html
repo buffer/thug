@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Introduction &mdash; Thug 5.2 documentation</title>
+  <title>Introduction &mdash; Thug 5.9 documentation</title>
       <link rel="stylesheet" href="static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="static/documentation_options.js"></script>
-        <script src="static/jquery.js"></script>
-        <script src="static/underscore.js"></script>
-        <script src="static/doctools.js"></script>
+        <script src="static/jquery.js?v=5d32c60e"></script>
+        <script src="static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="static/documentation_options.js?v=696bab92"></script>
+        <script src="static/doctools.js?v=888ff710"></script>
+        <script src="static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,7 +35,7 @@
             Thug
           </a>
               <div class="version">
-                5.2
+                5.9
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -79,14 +81,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="introduction">
-<span id="intro"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
+  <section id="introduction">
+<span id="intro"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
 <p><a class="reference external" href="https://github.com/buffer/thug">Thug</a> is a Python low-interaction honeyclient based on an hybrid
 static/dynamic analysis approach.</p>
 <p>Thug provides a DOM implementation which is (almost) compliant with W3C DOM Core, HTML, Events,
-Views and Style specifications (Level 1, 2 and partially 3). <a class="footnote-reference brackets" href="#f1" id="id1">1</a></p>
-<p>Thug makes use of the Google V8 Javascript engine <a class="footnote-reference brackets" href="#f2" id="id2">2</a> wrapped through STPyV8 <a class="footnote-reference brackets" href="#f3" id="id3">3</a> in order to
-analyze malicious Javascript code and of the Libemu library <a class="footnote-reference brackets" href="#f4" id="id4">4</a> wrapped through Pylibemu <a class="footnote-reference brackets" href="#f5" id="id5">5</a>
+Views and Style specifications (Level 1, 2 and partially 3). <a class="footnote-reference brackets" href="#f1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<p>Thug makes use of the Google V8 Javascript engine <a class="footnote-reference brackets" href="#f2" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> wrapped through STPyV8 <a class="footnote-reference brackets" href="#f3" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> in order to
+analyze malicious Javascript code and of the Libemu library <a class="footnote-reference brackets" href="#f4" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> wrapped through Pylibemu <a class="footnote-reference brackets" href="#f5" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>
 in order to detect and emulate shellcodes.</p>
 <p>Currently 10 Internet Explorer (Windows XP, Windows 2000, Windows 7, Windows 10), 24 Chrome (Windows
 XP, Windows 7, MacOS X, Android 4.0.3, Android 4.0.4, Android 4.1.2, Linux, iOS 7.1, iOS 7.1.1, iOS
@@ -94,28 +96,33 @@ XP, Windows 7, MacOS X, Android 4.0.3, Android 4.0.4, Android 4.1.2, Linux, iOS 
 Safari (Windows XP, Windows 7, MacOS X, iOS 7.0.4, iOS 8.0.2, iOS 9.1) personalities are emulated
 and about 90 vulnerability modules (ActiveX controls, core browser functionalities, browser plugins)
 are provided.</p>
-<dl class="footnote brackets">
-<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p><a class="reference external" href="http://www.w3.org/TR/#tr_DOM">W3C DOM Specifications</a></p>
-</dd>
-<dt class="label" id="f2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
-<dd><p><a class="reference external" href="http://code.google.com/p/v8/">Google V8</a> is Google’s open source JavaScript engine. V8 is written in C++ and is used in Google Chrome, the open source browser from Google.
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="f1" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://www.w3.org/TR/#tr_DOM">W3C DOM Specifications</a></p>
+</aside>
+<aside class="footnote brackets" id="f2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://code.google.com/p/v8/">Google V8</a> is Google’s open source JavaScript engine. V8 is written in C++ and is used in Google Chrome, the open source browser from Google.
 V8 implements ECMAScript as specified in ECMA-262, 3rd edition, and runs on Windows XP and Vista, Mac OS X 10.5 (Leopard), and Linux systems that use IA-32 or ARM processors.
 V8 can run standalone, or can be embedded into any C++ application.</p>
-</dd>
-<dt class="label" id="f3"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/cloudflare/stpyv8/">STPyV8</a> is a Python wrapper for the Google V8 engine. STPyV8 acts as a bridge between the Python and JavaScript objects and supports
+</aside>
+<aside class="footnote brackets" id="f3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/cloudflare/stpyv8/">STPyV8</a> is a Python wrapper for the Google V8 engine. STPyV8 acts as a bridge between the Python and JavaScript objects and supports
 the Google V8 engine in Python scripts.</p>
-</dd>
-<dt class="label" id="f4"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
-<dd><p><a class="reference external" href="http://libemu.carnivore.it/">Libemu</a> is a small library written in C offering basic x86 emulation and shellcode detection using GetPC heuristics. It is designed to be used
+</aside>
+<aside class="footnote brackets" id="f4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://libemu.carnivore.it/">Libemu</a> is a small library written in C offering basic x86 emulation and shellcode detection using GetPC heuristics. It is designed to be used
 within network intrusion/prevention detections and honeypots.</p>
-</dd>
-<dt class="label" id="f5"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
-<dd><p><a class="reference external" href="https://github.com/buffer/pylibemu">Pylibemu</a> is a Libemu Cython wrapper</p>
-</dd>
-</dl>
-</div>
+</aside>
+<aside class="footnote brackets" id="f5" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://github.com/buffer/pylibemu">Pylibemu</a> is a Libemu Cython wrapper</p>
+</aside>
+</aside>
+</section>
 
 
            </div>
@@ -128,7 +135,7 @@ within network intrusion/prevention detections and honeypots.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2011-2023, Angelo Dell&#39;Aera.</p>
+    <p>&#169; Copyright 2011-2024, Angelo Dell&#39;Aera.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
