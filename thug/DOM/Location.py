@@ -38,6 +38,10 @@ class Location(JSClass):
     def parts(self):
         return urlparse(self._window.url)
 
+    @property
+    def origin(self):
+        return f"{self.parts.scheme}://{self.parts.netloc}"
+
     def get_href(self):
         return self._window.url
 

@@ -60,6 +60,7 @@ class TestLocation:
 
         location = Location(window)
 
+        assert location.origin == 'https://www.google.com:1234'
         assert location.host == 'www.google.com:1234'
         assert location.hostname == 'www.google.com'
         assert location.pathname == '/search'
