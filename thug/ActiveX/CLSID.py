@@ -731,7 +731,7 @@ CLSID = [
                             'responseURL'           : '',
                             'responseXML'           : '',
                             'response'              : '',
-                            'readyState'            : 4,
+                            'readyState'            : 0,
                             'timeout'               : 0,
                             'mimeType'              : '',
                             'onerror'               : None,
@@ -743,7 +743,9 @@ CLSID = [
                             'ontimeout'             : None,
                             'withCredentials'       : False,
                           },
-            'funcattrs' : {},
+            'funcattrs' : {
+                            'onreadystatechange'    : MicrosoftXMLHTTP.setOnReadyStateChange,
+                          },
             'methods'   : {
                             'abort'                 : MicrosoftXMLHTTP.abort,
                             'open'                  : MicrosoftXMLHTTP.open,
@@ -756,6 +758,7 @@ CLSID = [
                             'removeEventListener'   : MicrosoftXMLHTTP.removeEventListener,
                             'dispatchEvent'         : MicrosoftXMLHTTP.dispatchEvent,
                             'waitForResponse'       : MicrosoftXMLHTTP.waitForResponse,
+                            'setOnReadyStateChange' : MicrosoftXMLHTTP.setOnReadyStateChange,
                             'setTimeouts'           : MicrosoftXMLHTTP.setTimeouts
                           }
         },

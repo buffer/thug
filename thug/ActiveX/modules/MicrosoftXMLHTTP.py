@@ -11,6 +11,15 @@ from thug import DOM
 
 log = logging.getLogger("Thug")
 
+# XMLHttpRequest.readyState
+#
+# Value   State             Description
+# 0       UNSENT            Client has been created. open() not called yet.
+# 1       OPENED            open() has been called.
+# 2       HEADERS_RECEIVED  send() has been called, and headers and status are available.
+# 3       LOADING           Downloading; responseText holds partial data.
+# 4       DONE              The operation is complete.
+
 
 def abort(self):
     log.ThugLogging.add_behavior_warn("[Microsoft XMLHTTP ActiveX] abort")
@@ -28,6 +37,8 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
     #                       parsedUrl.params,
     #                       parsedUrl.query,
     #                       parsedUrl.fragment))
+
+    self.readyState = 1
 
     msg = f"[Microsoft XMLHTTP ActiveX] open('{bstrMethod}', '{bstrUrl}', {varAsync is True}"
     if varUser:
@@ -48,12 +59,12 @@ def open(self, bstrMethod, bstrUrl, varAsync = True, varUser = None, varPassword
                                              }
                                      )
 
-    self.bstrMethod  = str(bstrMethod)
-    self.bstrUrl     = str(bstrUrl)
-    self.varAsync    = varAsync
-    self.varUser     = varUser
+    self.bstrMethod = str(bstrMethod)
+    self.bstrUrl = str(bstrUrl)
+    self.varAsync = varAsync
+    self.varUser = varUser
     self.varPassword = varPassword
-    self.readyState  = 4
+
     return 0
 
 
@@ -92,12 +103,14 @@ def send(self, varBody = None):
     if response is None:
         return 0
 
-    self.status          = response.status_code
+    self.readyState = 2
+
+    self.status = response.status_code
     self.responseHeaders = response.headers
-    self.responseBody    = response.content
-    self.responseText    = response.text
-    self.responseURL     = response.url
-    self.readyState      = 4
+    self.responseBody = response.content
+    self.responseText = response.text
+    self.responseURL = response.url
+    self.readyState = 4
 
     if getattr(log, 'XMLHTTP', None) is None:
         log.XMLHTTP = {}
@@ -225,3 +238,10 @@ def dispatchEvent(self, evt, pfResult = True): # pylint:disable=unused-argument
 
     with self._window.context:
         listener.__call__()
+
+
+def setOnReadyStateChange(self, val):
+    self.__dict__['onreadystatechange'] = val
+
+    if self.readyState == 4:
+        self.dispatchEvent("readystatechange")
