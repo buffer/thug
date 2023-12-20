@@ -4,6 +4,8 @@ import configparser
 
 from mock import patch
 
+import pytest
+
 import thug
 from thug.Logging.modules.ElasticSearch import ElasticSearch
 from thug.ThugAPI.ThugVulnModules import ThugVulnModules
@@ -26,8 +28,11 @@ config = configparser.ConfigParser()
 conf_file = os.path.join(log.configuration_path, 'thug.conf')
 config.read(conf_file)
 
+IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
+
 
 class TestElasticSearch:
+    @pytest.mark.skipif(not(IN_GITHUB_ACTIONS), reason = "Test works just in Github Actions")
     def test_export(self):
         log.ThugOpts.elasticsearch_logging = True
         log.configuration_path = configuration_path
