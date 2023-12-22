@@ -41,7 +41,7 @@ dependencies = [
     "cssutils==2.9.0",
     "dhash==1.4",
     "html5lib==1.1",
-    "lxml==4.9.3",
+    "lxml==4.9.4",
     "networkx==3.2.1",
     "pefile==2023.2.7",
     "pillow==10.1.0",
