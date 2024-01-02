@@ -98,7 +98,7 @@ class TestLocation:
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
-        location.protocol = 'http'
+        location.protocol = 'http:'
         location.protocol = 'https'
 
         self.check_expected(caplog, expected)

@@ -77,9 +77,12 @@ class Location(JSClass):
     href = property(get_href, set_href)
 
     def get_protocol(self):
-        return self.parts.scheme
+        return f"{self.parts.scheme}:"
 
     def set_protocol(self, protocol):
+        if protocol.endswith(':'):
+            protocol = protocol[:-1]
+
         if protocol in (self.parts.scheme, ):
             return
 
