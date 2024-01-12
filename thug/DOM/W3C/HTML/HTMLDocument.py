@@ -259,8 +259,7 @@ class HTMLDocument(Document):
     def compatMode(self):
         return "CSS1Compat"
 
-    @property
-    def head(self):
+    def getHead(self):
         from .HTMLHeadElement import HTMLHeadElement
 
         if self._head:
@@ -273,6 +272,11 @@ class HTMLDocument(Document):
 
         self._head = HTMLHeadElement(self.doc, tag)
         return self._head
+
+    def setHead(self, head):
+        pass
+
+    head = property(getHead, setHead)
 
     def getCompatible(self):
         return self._compatible
