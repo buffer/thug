@@ -57,7 +57,7 @@ jobs:
 
       - name: Install Tox
         run: |
-          pip3 install --upgrade pip tox tox-gh-actions appdirs
+          pip3 install --upgrade pip setuptools wheel tox tox-gh-actions appdirs
 
       - name: Install Thug configuration
         run: |
