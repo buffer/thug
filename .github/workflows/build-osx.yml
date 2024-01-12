@@ -41,7 +41,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install git autoconf graphviz tesseract wkhtmltox
+          brew install git autoconf graphviz tesseract
+          brew install --cask wkhtmltopdf
 
       - name: Install libemu
         run: |
