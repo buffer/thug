@@ -1,4 +1,4 @@
-name: Build
+name: Linux build/test workflow
 
 on: [push, pull_request]
 

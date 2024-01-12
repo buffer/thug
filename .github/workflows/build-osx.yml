@@ -1,0 +1,49 @@
+name: OSX build/test workflow
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build and test Thug (Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+        os: [macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          brew install git automake autoconf libtool
+          brew install graphviz tesseract libmagic
+          brew install --cask wkhtmltopdf
+          ln -s $(which glibtoolize) /usr/local/bin/libtoolize
+          pip install --upgrade pip setuptools wheel tox tox-gh-actions appdirs
+          BUILD_LIB=1 pip install --use-pep517 ssdeep
+
+      - name: Install libemu
+        run: |
+          git clone https://github.com/buffer/libemu.git
+          cd libemu
+          autoreconf -v -i
+          ./configure
+          sudo make install
+          cd -
+
+      - name: Install Thug configuration
+        run: |
+          sudo mkdir -p /etc/thug/
+          sudo cp -R thug/conf/* /etc/thug/
+
+      - name: Test Thug
+        run: |
+          tox
