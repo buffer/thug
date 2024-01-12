@@ -1,0 +1,73 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  elasticsearch:
+    name: Deploy and run Elasticsearch
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup environment
+        run: |
+          sudo swapoff -a
+          sudo sysctl -w vm.swappiness=1
+          sudo sysctl -w fs.file-max=262144
+          sudo sysctl -w vm.max_map_count=262144
+
+      - name: Setup ElasticSearch
+        uses: getong/elasticsearch-action@v1.2
+        with:
+          elasticsearch version: '8.8.0'
+
+  build:
+    name: Build and test Thug (Python ${{ matrix.python-version }})
+    needs: elasticsearch
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+        os: [macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          brew install git autoconf graphviz tesseract wkhtmltox
+
+      - name: Install libemu
+        run: |
+          git clone https://github.com/buffer/libemu.git
+          cd libemu
+          autoreconf -v -i
+          ./configure
+          sudo make install
+          # cd -
+          # sudo ldconfig
+
+      - name: Install Tox
+        run: |
+          pip3 install --upgrade pip tox tox-gh-actions appdirs
+
+      - name: Install Thug configuration
+        run: |
+          sudo mkdir -p /etc/thug/
+          sudo cp -R thug/conf/* /etc/thug/
+
+      - name: Test Thug
+        run: |
+          tox
+
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
