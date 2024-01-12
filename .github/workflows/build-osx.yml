@@ -41,7 +41,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install git automake autoconf graphviz tesseract
+          brew install git automake autoconf libtool graphviz tesseract
           brew install --cask wkhtmltopdf
 
       - name: Install libemu
