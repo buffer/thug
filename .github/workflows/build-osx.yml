@@ -59,7 +59,7 @@ jobs:
       - name: Install Tox
         run: |
           pip install --upgrade pip setuptools wheel tox tox-gh-actions appdirs
-          BUILD_LIB=1 pip install ssdeep
+          BUILD_LIB=1 pip install --use-pep517 ssdeep
 
       - name: Install Thug configuration
         run: |
