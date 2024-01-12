@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew install git automake autoconf libtool
-          brew install graphviz tesseract libmagic ssdeep
+          brew install graphviz tesseract libmagic
           brew install --cask wkhtmltopdf
           ln -s $(which glibtoolize) /usr/local/bin/libtoolize
 
@@ -58,7 +58,8 @@ jobs:
 
       - name: Install Tox
         run: |
-          pip3 install --upgrade pip setuptools wheel tox tox-gh-actions appdirs
+          pip install --upgrade pip setuptools wheel tox tox-gh-actions appdirs
+          BUILD_LIB=1 pip install ssdeep
 
       - name: Install Thug configuration
         run: |
