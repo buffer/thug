@@ -11,33 +11,33 @@ log = logging.getLogger("Thug")
 
 
 class HTMLObjectElement(HTMLElement):
-    code     = attr_property("code")
-    align    = attr_property("align")
-    archive  = attr_property("archive")
-    border   = attr_property("border")
-    classid  = attr_property("classid")
+    code = attr_property("code")
+    align = attr_property("align")
+    archive = attr_property("archive")
+    border = attr_property("border")
+    classid = attr_property("classid")
     codeBase = attr_property("codebase")
     codeType = attr_property("codetype")
-    data     = attr_property("data")
-    declare  = bool_property("declare")
-    form     = form_property()
-    height   = attr_property("height")
-    hspace   = attr_property("hspace", int)
-    name     = attr_property("name")
-    standBy  = attr_property("standby")
-    tabIndex = attr_property("tabindex", int, default = 0)
-    type     = attr_property("type")
-    useMap   = attr_property("usemap")
-    vspace   = attr_property("vspace", int)
-    width    = attr_property("width")
+    data = attr_property("data")
+    declare = bool_property("declare")
+    form = form_property()
+    height = attr_property("height")
+    hspace = attr_property("hspace", int)
+    name = attr_property("name")
+    standBy = attr_property("standby")
+    tabIndex = attr_property("tabindex", int, default=0)
+    type = attr_property("type")
+    useMap = attr_property("usemap")
+    vspace = attr_property("vspace", int)
+    width = attr_property("width")
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
         self._window = self.doc.window
 
     def __getattr__(self, name):
-        for (key, value) in self.tag.attrs.items():
-            if key.lower() not in ('id', ):
+        for key, value in self.tag.attrs.items():
+            if key.lower() not in ("id",):
                 continue
 
             obj = getattr(self.doc.window, value, None)
@@ -46,21 +46,21 @@ class HTMLObjectElement(HTMLElement):
                 if attr:
                     return attr
 
-        log.info("HTMLObjectElement attribute not found: %s", (name, ))
+        log.info("HTMLObjectElement attribute not found: %s", (name,))
         raise AttributeError
 
     def __setattr__(self, name, value):
-        if name == 'classid':
+        if name == "classid":
             self.setAttribute(name, value)
             return
 
         self.__dict__[name] = value
 
-        if 'funcattrs' not in self.__dict__:
+        if "funcattrs" not in self.__dict__:
             return
 
-        if name in self.__dict__['funcattrs']:
-            self.__dict__['funcattrs'][name](value)
+        if name in self.__dict__["funcattrs"]:
+            self.__dict__["funcattrs"][name](value)
 
     # Introduced in DOM Level 2
     @property
@@ -72,7 +72,7 @@ class HTMLObjectElement(HTMLElement):
             log.ThugLogging.Features.increase_setattribute_count()
 
         # ActiveX registration
-        if name == 'classid':
+        if name == "classid":
             from thug.ActiveX.ActiveX import register_object
 
             try:
@@ -87,4 +87,4 @@ class HTMLObjectElement(HTMLElement):
         return self
 
     def definition(self, value):
-        pass # pragma: no cover
+        pass  # pragma: no cover

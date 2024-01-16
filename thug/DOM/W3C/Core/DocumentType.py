@@ -21,7 +21,7 @@ class DocumentType(Node):
             self.__init_node_personality_IE()
 
     def __init_node_personality_IE(self):
-        if log.ThugOpts.Personality.browserMajorVersion in (9, ):
+        if log.ThugOpts.Personality.browserMajorVersion in (9,):
             self.entities = NamedNodeMap(self.doc, self.tag)
             self.notations = NamedNodeMap(self.doc, self.tag)
 

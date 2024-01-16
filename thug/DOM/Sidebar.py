@@ -25,9 +25,9 @@ log = logging.getLogger("Thug")
 
 class Sidebar(JSClass):
     def __init__(self):
-        self._providers  = set()
-        self._engines    = set()
-        self._favorites  = set()
+        self._providers = set()
+        self._engines = set()
+        self._favorites = set()
         self._generators = set()
 
     def addMicrosummaryGenerator(self, generatorURL):
@@ -47,6 +47,8 @@ class Sidebar(JSClass):
 
     def IsSearchProviderInstalled(self, URL):
         if URL in self._providers:
-            return 1  # A matching search provider is installed, but it is not the default.
+            return (
+                1  # A matching search provider is installed, but it is not the default.
+            )
 
-        return 0    # No installed search provider was found with the specified prefix
+        return 0  # No installed search provider was found with the specified prefix

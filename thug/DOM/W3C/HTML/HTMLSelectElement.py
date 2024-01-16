@@ -10,12 +10,12 @@ from .bool_property import bool_property
 
 class HTMLSelectElement(HTMLElement):
     selectedIndex = 0
-    value         = None
-    disabled      = bool_property("disabled")
-    multiple      = bool_property("multiple")
-    name          = attr_property("name")
-    size          = attr_property("size", int)
-    tabIndex      = attr_property("tabindex", int)
+    value = None
+    disabled = bool_property("disabled")
+    multiple = bool_property("multiple")
+    name = attr_property("name")
+    size = attr_property("size", int)
+    tabIndex = attr_property("tabindex", int)
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
@@ -44,7 +44,7 @@ class HTMLSelectElement(HTMLElement):
 
         index = None
         for opt in self._options:
-            if before.value in (opt.value, ):
+            if before.value in (opt.value,):
                 index = self._options.index(opt)
 
         if index is None:

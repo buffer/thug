@@ -9,15 +9,15 @@ from .UIEvent import UIEvent
 
 
 EventMap = {
-    "HTMLEvent"      : HTMLEvent,
-    "HTMLEvents"     : HTMLEvent,
-    "MouseEvent"     : MouseEvent,
-    "MouseEvents"    : MouseEvent,
-    "MutationEvent"  : MutationEvent,
-    "MutationEvents" : MutationEvent,
-    "StorageEvent"   : StorageEvent,
-    "UIEvent"        : UIEvent,
-    "UIEvents"       : UIEvent
+    "HTMLEvent": HTMLEvent,
+    "HTMLEvents": HTMLEvent,
+    "MouseEvent": MouseEvent,
+    "MouseEvents": MouseEvent,
+    "MutationEvent": MutationEvent,
+    "MutationEvents": MutationEvent,
+    "StorageEvent": StorageEvent,
+    "UIEvent": UIEvent,
+    "UIEvents": UIEvent,
 }
 
 

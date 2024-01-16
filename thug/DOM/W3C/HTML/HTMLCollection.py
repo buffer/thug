@@ -11,7 +11,7 @@ log = logging.getLogger("Thug")
 
 class HTMLCollection(JSClass):
     def __init__(self, doc, nodes):
-        self.doc   = doc
+        self.doc = doc
         self.nodes = nodes
 
     def __len__(self):
@@ -20,7 +20,7 @@ class HTMLCollection(JSClass):
     def __getitem__(self, key):
         return self.item(int(key))
 
-    def __delitem__(self, key): # pragma: no cover
+    def __delitem__(self, key):  # pragma: no cover
         self.nodes.__delitem__(key)
 
     def __getattr__(self, key):
@@ -41,11 +41,11 @@ class HTMLCollection(JSClass):
 
     def namedItem(self, name):
         for node in self.nodes:
-            if 'id' in node.attrs and node.attrs['id'] in (name, ):
+            if "id" in node.attrs and node.attrs["id"] in (name,):
                 return log.DOMImplementation.createHTMLElement(self.doc, node)
 
         for node in self.nodes:
-            if 'name' in node.attrs and node.attrs['name'] in (name, ):
+            if "name" in node.attrs and node.attrs["name"] in (name,):
                 return log.DOMImplementation.createHTMLElement(self.doc, node)
 
         return None

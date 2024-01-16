@@ -27,7 +27,7 @@ log = logging.getLogger("Thug")
 
 
 class File(Blob):
-    def __init__(self, bits, name, options = None):
+    def __init__(self, bits, name, options=None):
         self.name = name
         Blob.__init__(self, bits, options)
 
@@ -38,12 +38,12 @@ class File(Blob):
         for item in self.blob:
             content.extend(item)
 
-        log.ThugLogging.log_file(bytes(content), self.name, sampletype = 'ZIP')
+        log.ThugLogging.log_file(bytes(content), self.name, sampletype="ZIP")
 
     def __handle(self):
         _type = self.options.get("type", None)
         if _type is None:
-            return # pragma: no cover
+            return  # pragma: no cover
 
-        if _type.lower() in ('application/zip', ):
+        if _type.lower() in ("application/zip",):
             self.__handle_zip()

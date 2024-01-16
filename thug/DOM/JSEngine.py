@@ -22,7 +22,7 @@ import configparser
 
 try:
     import STPyV8 as V8
-except ImportError: # pragma: no cover
+except ImportError:  # pragma: no cover
     import PyV8 as V8
 
 import thug
@@ -31,7 +31,12 @@ log = logging.getLogger("Thug")
 
 
 class JSEngine:
-    builtins = ('Map', 'Set', 'WeakMap', 'WeakSet', )
+    builtins = (
+        "Map",
+        "Set",
+        "WeakMap",
+        "WeakSet",
+    )
 
     def __init__(self):
         self.init_config()
@@ -41,58 +46,58 @@ class JSEngine:
     def builtin_map(self):
         return [
             {
-                'method'           : log.ThugOpts.Personality.isIE,
-                'min_Map'          : 11,
-                'min_Map_iter'     : 100,
-                'min_Set'          : 11,
-                'min_Set_iter'     : 100,
-                'min_WeakMap'      : 11,
-                'min_WeakMap_iter' : 100,
-                'min_WeakSet'      : 100,
-                'min_WeakSet_iter' : 100,
+                "method": log.ThugOpts.Personality.isIE,
+                "min_Map": 11,
+                "min_Map_iter": 100,
+                "min_Set": 11,
+                "min_Set_iter": 100,
+                "min_WeakMap": 11,
+                "min_WeakMap_iter": 100,
+                "min_WeakSet": 100,
+                "min_WeakSet_iter": 100,
             },
             {
-                'method'           : log.ThugOpts.Personality.isChrome,
-                'min_Map'          : 38,
-                'min_Map_iter'     : 38,
-                'min_Set'          : 38,
-                'min_Set_iter'     : 38,
-                'min_WeakMap'      : 36,
-                'min_WeakMap_iter' : 38,
-                'min_WeakSet'      : 36,
-                'min_WeakSet_iter' : 38,
+                "method": log.ThugOpts.Personality.isChrome,
+                "min_Map": 38,
+                "min_Map_iter": 38,
+                "min_Set": 38,
+                "min_Set_iter": 38,
+                "min_WeakMap": 36,
+                "min_WeakMap_iter": 38,
+                "min_WeakSet": 36,
+                "min_WeakSet_iter": 38,
             },
             {
-                'method'           : log.ThugOpts.Personality.isFirefox,
-                'min_Map'          : 13,
-                'min_Map_iter'     : 13,
-                'min_Set'          : 13,
-                'min_Set_iter'     : 13,
-                'min_WeakMap'      : 6,
-                'min_WeakMap_iter' : 36,
-                'min_WeakSet'      : 34,
-                'min_WeakSet_iter' : 34,
+                "method": log.ThugOpts.Personality.isFirefox,
+                "min_Map": 13,
+                "min_Map_iter": 13,
+                "min_Set": 13,
+                "min_Set_iter": 13,
+                "min_WeakMap": 6,
+                "min_WeakMap_iter": 36,
+                "min_WeakSet": 34,
+                "min_WeakSet_iter": 34,
             },
             {
-                'method'           : log.ThugOpts.Personality.isSafari,
-                'min_Map'          : 8,
-                'min_Map_iter'     : 9,
-                'min_Set'          : 8,
-                'min_Set_iter'     : 9,
-                'min_WeakMap'      : 8,
-                'min_WeakMap_iter' : 9,
-                'min_WeakSet'      : 9,
-                'min_WeakSet_iter' : 9,
+                "method": log.ThugOpts.Personality.isSafari,
+                "min_Map": 8,
+                "min_Map_iter": 9,
+                "min_Set": 8,
+                "min_Set_iter": 9,
+                "min_WeakMap": 8,
+                "min_WeakMap_iter": 9,
+                "min_WeakSet": 9,
+                "min_WeakSet_iter": 9,
             },
         ]
 
     def init_config(self):
-        conf_file = os.path.join(log.configuration_path, 'thug.conf')
+        conf_file = os.path.join(log.configuration_path, "thug.conf")
         self.config = configparser.ConfigParser()
         self.config.read(conf_file)
 
     def init_engine(self):
-        self.engine = self.config.get('jsengine', 'engine')
+        self.engine = self.config.get("jsengine", "engine")
 
     @property
     def JSLocker(self):
@@ -105,11 +110,11 @@ class JSEngine:
     def do_init_context(self, window):
         m = getattr(self, f"init_{self.engine}_context", None)
         if m:
-            m(window) # pylint:disable=not-callable
+            m(window)  # pylint:disable=not-callable
 
     def init_scripts_thug(self, ctxt):
         thug_js = os.path.join(thug.__scripts_path__, "thug.js")
-        with open(thug_js, encoding = 'utf-8', mode = 'r') as fd:
+        with open(thug_js, encoding="utf-8", mode="r") as fd:
             thug_js_code = fd.read()
 
         ctxt.eval(thug_js_code)
@@ -120,7 +125,7 @@ class JSEngine:
 
         if log.ThugOpts.Personality.browserMajorVersion < 8:
             storage_js = os.path.join(thug.__scripts_path__, "storage.js")
-            with open(storage_js, encoding = 'utf-8', mode = 'r') as fd:
+            with open(storage_js, encoding="utf-8", mode="r") as fd:
                 storage_js_code = fd.read()
 
             ctxt.eval(storage_js_code)
@@ -131,20 +136,23 @@ class JSEngine:
 
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             date_js = os.path.join(thug.__scripts_path__, "date.js")
-            with open(date_js, encoding = 'utf-8', mode = 'r') as fd:
+            with open(date_js, encoding="utf-8", mode="r") as fd:
                 date_js_code = fd.read()
 
             ctxt.eval(date_js_code)
 
     def init_scripts_message_event(self, ctxt):
-        if log.ThugOpts.Personality.isFirefox() and log.ThugOpts.Personality.browserMajorVersion > 26:
+        if (
+            log.ThugOpts.Personality.isFirefox()
+            and log.ThugOpts.Personality.browserMajorVersion > 26
+        ):
             return
 
         if not log.ThugOpts.Personality.isIE():
             return
 
         message_event_js = os.path.join(thug.__scripts_path__, "message-event.js")
-        with open(message_event_js, encoding = 'utf-8', mode = 'r') as fd:
+        with open(message_event_js, encoding="utf-8", mode="r") as fd:
             message_event_js_code = fd.read()
 
         ctxt.eval(message_event_js_code)
@@ -166,27 +174,33 @@ class JSEngine:
 
     def init_scripts_builtin(self, ctxt):
         for item in self.builtin_map:
-            if item['method']():
+            if item["method"]():
                 self.do_init_scripts_builtin(ctxt, item)
                 return
 
     def init_hooks(self, ctxt):
-        hooks = os.listdir(thug.__hooks_path__) if os.path.exists(thug.__hooks_path__) else []
+        hooks = (
+            os.listdir(thug.__hooks_path__)
+            if os.path.exists(thug.__hooks_path__)
+            else []
+        )
 
-        for hook in sorted([h for h in hooks if h.endswith('.js')]):
-            with open(os.path.join(thug.__hooks_path__, hook), encoding = 'utf-8', mode = 'r') as fd: # pragma: no cover
+        for hook in sorted([h for h in hooks if h.endswith(".js")]):
+            with open(
+                os.path.join(thug.__hooks_path__, hook), encoding="utf-8", mode="r"
+            ) as fd:  # pragma: no cover
                 hook_code = fd.read()
                 ctxt.eval(hook_code)
 
-        for hook in ('eval', 'write'):
-            js = os.path.join(thug.__scripts_path__, f'{hook}.js')
-            if not os.path.exists(js): # pragma: no cover
+        for hook in ("eval", "write"):
+            js = os.path.join(thug.__scripts_path__, f"{hook}.js")
+            if not os.path.exists(js):  # pragma: no cover
                 continue
 
-            symbol = getattr(log.ThugLogging, f'{hook}_symbol')
-            with open(js, encoding = 'utf-8', mode = 'r') as fd:
+            symbol = getattr(log.ThugLogging, f"{hook}_symbol")
+            with open(js, encoding="utf-8", mode="r") as fd:
                 js_code = fd.read()
-                ctxt.eval(js_code % {'name': symbol[0], 'saved': symbol[1]})
+                ctxt.eval(js_code % {"name": symbol[0], "saved": symbol[1]})
 
     def init_scripts(self):
         with self._context as ctxt:
@@ -204,7 +218,7 @@ class JSEngine:
     def init_symbols(self):
         m = getattr(self, f"init_{self.engine}_symbols", None)
         if m:
-            m() # pylint:disable=not-callable
+            m()  # pylint:disable=not-callable
 
     @property
     def context(self):
@@ -220,11 +234,11 @@ class JSEngine:
 
     def isJSFunction(self, symbol):
         m = getattr(self, f"is_{self.engine}_jsfunction", None)
-        return m(symbol) if m else False # pylint:disable=not-callable
+        return m(symbol) if m else False  # pylint:disable=not-callable
 
     def is_v8_jsobject(self, symbol):
         return isinstance(symbol, V8.JSObject)
 
     def isJSObject(self, symbol):
         m = getattr(self, f"is_{self.engine}_jsobject", None)
-        return m(symbol) if m else False # pylint:disable=not-callable
+        return m(symbol) if m else False  # pylint:disable=not-callable

@@ -42,53 +42,53 @@ class Document(Node, DocumentEvent, DocumentView):
     def __init_characterSet(self):
         self._character_set = ""
         for meta in self.doc.find_all("meta"):
-            if 'charset' in meta.attrs:
-                self._characterSet = meta.attrs['charset'].upper()
+            if "charset" in meta.attrs:
+                self._characterSet = meta.attrs["charset"].upper()
 
     def __init_document_personality_IE(self):
         self.defaultCharset = self._defaultCharset
 
         if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.querySelectorAll = self._querySelectorAll
-            self.querySelector    = self._querySelector
+            self.querySelector = self._querySelector
 
         if log.ThugOpts.Personality.browserMajorVersion > 8:
             self.getElementsByClassName = self._getElementsByClassName
-            self.characterSet           = self._characterSet
-            self.inputEncoding          = self._inputEncoding
+            self.characterSet = self._characterSet
+            self.inputEncoding = self._inputEncoding
         else:
-            self.charset                = self._characterSet
+            self.charset = self._characterSet
 
         if log.ThugOpts.Personality.browserMajorVersion > 10:
             self.__proto__ = None
 
     def __init_document_personality_Firefox(self):
-        self.querySelectorAll       = self._querySelectorAll
-        self.querySelector          = self._querySelector
+        self.querySelectorAll = self._querySelectorAll
+        self.querySelector = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
-        self.characterSet           = self._characterSet
-        self.inputEncoding          = self._inputEncoding
+        self.characterSet = self._characterSet
+        self.inputEncoding = self._inputEncoding
 
     def __init_document_personality_Chrome(self):
-        self.querySelectorAll       = self._querySelectorAll
-        self.querySelector          = self._querySelector
+        self.querySelectorAll = self._querySelectorAll
+        self.querySelector = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
-        self.characterSet           = self._characterSet
-        self.inputEncoding          = self._inputEncoding
+        self.characterSet = self._characterSet
+        self.inputEncoding = self._inputEncoding
 
     def __init_document_personality_Safari(self):
-        self.querySelectorAll       = self._querySelectorAll
-        self.querySelector          = self._querySelector
+        self.querySelectorAll = self._querySelectorAll
+        self.querySelector = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
-        self.characterSet           = self._characterSet
-        self.inputEncoding          = self._inputEncoding
+        self.characterSet = self._characterSet
+        self.inputEncoding = self._inputEncoding
 
     def _querySelectorAll(self, selectors):
         from .NodeList import NodeList
 
         try:
             s = self.doc.select(selectors)
-        except Exception: # pragma: no cover,pylint:disable=broad-except
+        except Exception:  # pragma: no cover,pylint:disable=broad-except
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -96,10 +96,12 @@ class Document(Node, DocumentEvent, DocumentView):
     def _querySelector(self, selectors):
         try:
             s = self.doc.select(selectors)
-        except Exception: # pragma: no cover,pylint:disable=broad-except
+        except Exception:  # pragma: no cover,pylint:disable=broad-except
             return None
 
-        return log.DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
+        return (
+            log.DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
+        )
 
     # Introduced in DOM Level 3
     @property
@@ -121,19 +123,20 @@ class Document(Node, DocumentEvent, DocumentView):
     @property
     def childNodes(self):
         from .NodeList import NodeList
+
         return NodeList(self.doc, self.doc.contents)
 
     @property
     def doctype(self):
         from .DocumentType import DocumentType
 
-        _doctype = getattr(self, '_doctype', None)
+        _doctype = getattr(self, "_doctype", None)
         if _doctype:
             return _doctype
 
         tags = [t for t in self.doc if isinstance(t, bs4.Doctype)]
         if not tags:
-            return None # pragma: no cover
+            return None  # pragma: no cover
 
         self._doctype = DocumentType(self.doc, tags[0])
         return self._doctype
@@ -153,8 +156,8 @@ class Document(Node, DocumentEvent, DocumentView):
     @property
     def _inputEncoding(self):
         for meta in self.doc.find_all("meta"):
-            if 'charset' in meta.attrs:
-                return meta.attrs['charset'].upper()
+            if "charset" in meta.attrs:
+                return meta.attrs["charset"].upper()
 
         return ""
 
@@ -162,17 +165,22 @@ class Document(Node, DocumentEvent, DocumentView):
     def _defaultCharset(self):
         return "Windows-1252"
 
-    def createElement(self, tagname, tagvalue = None): # pylint:disable=unused-argument
+    def createElement(self, tagname, tagvalue=None):  # pylint:disable=unused-argument
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_createelement_count()
 
         # Internet Explorer 8 and below also support the syntax
         # document.createElement('<P>')
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
-            if tagname.startswith('<') and '>' in tagname:
-                tagname = tagname[1:].split('>')[0]
+        if (
+            log.ThugOpts.Personality.isIE()
+            and log.ThugOpts.Personality.browserMajorVersion < 9
+        ):
+            if tagname.startswith("<") and ">" in tagname:
+                tagname = tagname[1:].split(">")[0]
 
-        return log.DOMImplementation.createHTMLElement(self, bs4.Tag(parser = self.doc, name = tagname))
+        return log.DOMImplementation.createHTMLElement(
+            self, bs4.Tag(parser=self.doc, name=tagname)
+        )
 
     def createDocumentFragment(self):
         from .DocumentFragment import DocumentFragment
@@ -184,49 +192,59 @@ class Document(Node, DocumentEvent, DocumentView):
 
     def createTextNode(self, data):
         from .Text import Text
+
         return Text(self, bs4.NavigableString(data))
 
     def createComment(self, data):
         from .Comment import Comment
+
         return Comment(self, bs4.Comment(data))
 
     def createCDATASection(self, data):
         from .CDATASection import CDATASection
+
         return CDATASection(self, bs4.CData(data))
 
     def createProcessingInstruction(self, target, data):
         from .ProcessingInstruction import ProcessingInstruction
+
         return ProcessingInstruction(self, target, bs4.ProcessingInstruction(data))
 
     def createAttribute(self, name):
         from .Attr import Attr
+
         return Attr(self, None, name)
 
     def createEntityReference(self, name):
         from .EntityReference import EntityReference
+
         return EntityReference(self, name)
 
     def getElementsByTagName(self, tagname):
         from .NodeList import NodeList
 
-        if tagname in ('*', ):
-            return NodeList(self.doc, self.doc.find_all(string = False))
+        if tagname in ("*",):
+            return NodeList(self.doc, self.doc.find_all(string=False))
 
         return NodeList(self.doc, self.doc.find_all(tagname.lower()))
 
     def _getElementsByClassName(self, classname):
         from .NodeList import NodeList
-        return NodeList(self.doc, self.doc.find_all(class_ = classname))
+
+        return NodeList(self.doc, self.doc.find_all(class_=classname))
 
     # Introduced in DOM Level 2
     def getElementById(self, elementId):
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 8:
+        if (
+            log.ThugOpts.Personality.isIE()
+            and log.ThugOpts.Personality.browserMajorVersion < 8
+        ):
             return self._getElementById_IE67(elementId)
 
         return self._getElementById(elementId)
 
     def _getElementById(self, elementId):
-        tag = self.doc.find(id = elementId)
+        tag = self.doc.find(id=elementId)
         return log.DOMImplementation.createHTMLElement(self, tag) if tag else None
 
     # Internet Explorer 6 and 7 getElementById is broken and returns
@@ -242,23 +260,23 @@ class Document(Node, DocumentEvent, DocumentView):
             return False
 
         def filter_tags_id(tag):
-            return tag.has_attr('id')
+            return tag.has_attr("id")
 
         def filter_tags_name(tag):
-            return tag.has_attr('name')
+            return tag.has_attr("name")
 
         for tag in self.doc.find_all(filter_tags_id):
-            if match_tag(tag, 'id'):
+            if match_tag(tag, "id"):
                 return log.DOMImplementation.createHTMLElement(self, tag)
 
         for tag in self.doc.find_all(filter_tags_name):
-            if match_tag(tag, 'name'):
+            if match_tag(tag, "name"):
                 return log.DOMImplementation.createHTMLElement(self, tag)
 
         return None
 
     # Introduced in DOM Level 2
-    def importNode(self, importedNode, deep = False): # pylint:disable=unused-argument
+    def importNode(self, importedNode, deep=False):  # pylint:disable=unused-argument
         return copy.copy(importedNode)
 
     # Modified in DOM Level 2
@@ -266,5 +284,5 @@ class Document(Node, DocumentEvent, DocumentView):
     def ownerDocument(self):
         return None
 
-    def execCommand(self, commandIdentifier, userInterface = False, value = None): # pylint:disable=unused-argument
+    def execCommand(self, commandIdentifier, userInterface=False, value=None):  # pylint:disable=unused-argument
         return False

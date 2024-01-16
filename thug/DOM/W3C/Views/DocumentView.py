@@ -8,4 +8,4 @@ class DocumentView:
 
     @property
     def defaultView(self):
-        return getattr(self, 'window', None)
+        return getattr(self, "window", None)

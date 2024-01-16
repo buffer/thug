@@ -1,3 +1,1 @@
-__all__ = ['w3c',
-           'Core',
-           'HTML']
+__all__ = ["w3c", "Core", "HTML"]

@@ -30,13 +30,13 @@ class ClipboardData(JSClass):
         return None
 
     def setData(self, dataFormat, data):
-        if dataFormat not in ('Text', 'URL'):
+        if dataFormat not in ("Text", "URL"):
             return False
 
         self._data[dataFormat] = data
         return True
 
-    def clearData(self, dataFormat = None):
+    def clearData(self, dataFormat=None):
         if dataFormat is None:
             self._data.clear()
             return

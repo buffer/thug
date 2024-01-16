@@ -3,21 +3,21 @@ import collections.abc
 
 
 class JSClass:
-    __properties__  = {}
-    __methods__     = {}
+    __properties__ = {}
+    __methods__ = {}
     __watchpoints__ = {}
 
     def __str__(self):
         return self.toString()
 
     def __getattr__(self, name):
-        if name == 'constructor':
+        if name == "constructor":
             return JSClassConstructor(self.__class__)
 
-        if name == 'prototype':
+        if name == "prototype":
             return JSClassPrototype(self.__class__)
 
-        prop = self.__dict__.setdefault('__properties__', {}).get(name, None)
+        prop = self.__dict__.setdefault("__properties__", {}).get(name, None)
 
         if prop and isinstance(prop[0], collections.abc.Callable):
             return prop[0]()
@@ -29,7 +29,7 @@ class JSClass:
         raise AttributeError(name)
 
     def __setattr__(self, name, value):
-        prop = self.__dict__.setdefault('__properties__', {}).get(name, None)
+        prop = self.__dict__.setdefault("__properties__", {}).get(name, None)
 
         if prop and isinstance(prop[1], collections.abc.Callable):
             return prop[1](value)

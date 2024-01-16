@@ -35,14 +35,14 @@ log = logging.getLogger("Thug")
 
 
 class Navigator(JSClass):
-    def __init__(self, personality, window = None):
+    def __init__(self, personality, window=None):
         self.personality = log.ThugOpts.Personality[personality]
-        self._plugins    = Plugins()  # An array of the plugins installed in the browser
-        self._mimeTypes  = MimeTypes()
-        self._window     = window
+        self._plugins = Plugins()  # An array of the plugins installed in the browser
+        self._mimeTypes = MimeTypes()
+        self._window = window
 
         for p in self._mimeTypes.values():
-            self._plugins.append(p['enabledPlugin'])
+            self._plugins.append(p["enabledPlugin"])
 
         self.__init_navigator_personality()
         self.filecount = 0
@@ -67,58 +67,58 @@ class Navigator(JSClass):
     def __init_navigator_personality_IE(self):
         from .UserProfile import UserProfile
 
-        self.mimeTypes       = self._mimeTypes
-        self.plugins         = self._plugins
-        self.taintEnabled    = self._taintEnabled
+        self.mimeTypes = self._mimeTypes
+        self.plugins = self._plugins
+        self.taintEnabled = self._taintEnabled
         self.appMinorVersion = self._appMinorVersion
-        self.cpuClass        = self._cpuClass
+        self.cpuClass = self._cpuClass
         self.browserLanguage = self._browserLanguage
-        self.systemLanguage  = self._systemLanguage
-        self.userLanguage    = self._userLanguage
+        self.systemLanguage = self._systemLanguage
+        self.userLanguage = self._userLanguage
 
         if log.ThugOpts.Personality.browserMajorVersion < 9:
             self.userProfile = UserProfile()
 
     def __init_navigator_personality_Firefox(self):
-        self.mimeTypes    = self._mimeTypes
-        self.plugins      = self._plugins
+        self.mimeTypes = self._mimeTypes
+        self.plugins = self._plugins
         self.taintEnabled = self._taintEnabled
-        self.oscpu        = self._oscpu
-        self.buildID      = self._buildID
-        self.product      = self._product
-        self.productSub   = self._productSub
-        self.vendor       = self._vendor
-        self.vendorSub    = self._vendorSub
-        self.language     = self._language
-        self.preference   = self._preference
+        self.oscpu = self._oscpu
+        self.buildID = self._buildID
+        self.product = self._product
+        self.productSub = self._productSub
+        self.vendor = self._vendor
+        self.vendorSub = self._vendorSub
+        self.language = self._language
+        self.preference = self._preference
 
         if log.ThugOpts.Personality.browserMajorVersion < 35:
             self.mozIsLocallyAvailable = self._mozIsLocallyAvailable
 
         if log.ThugOpts.Personality.browserMajorVersion < 62:
-            self.registerContentHandler  = self._registerContentHandler
+            self.registerContentHandler = self._registerContentHandler
 
         self.registerProtocolHandler = self._registerProtocolHandler
 
     def __init_navigator_personality_Chrome(self):
-        self.mimeTypes    = self._mimeTypes
-        self.plugins      = self._plugins
+        self.mimeTypes = self._mimeTypes
+        self.plugins = self._plugins
         self.taintEnabled = self._taintEnabled
-        self.product      = self._product
-        self.productSub   = self._productSub
-        self.vendor       = self._vendor
-        self.vendorSub    = self._vendorSub
-        self.language     = self._language
+        self.product = self._product
+        self.productSub = self._productSub
+        self.vendor = self._vendor
+        self.vendorSub = self._vendorSub
+        self.language = self._language
 
     def __init_navigator_personality_Safari(self):
-        self.mimeTypes    = self._mimeTypes
-        self.plugins      = self._plugins
+        self.mimeTypes = self._mimeTypes
+        self.plugins = self._plugins
         self.taintEnabled = self._taintEnabled
-        self.product      = self._product
-        self.productSub   = self._productSub
-        self.vendor       = self._vendor
-        self.vendorSub    = self._vendorSub
-        self.language     = self._language
+        self.product = self._product
+        self.productSub = self._productSub
+        self.vendor = self._vendor
+        self.vendorSub = self._vendorSub
+        self.language = self._language
 
     @property
     def window(self):
@@ -127,111 +127,111 @@ class Navigator(JSClass):
     @property
     def appCodeName(self):
         """
-            The internal "code" name of the current browser
+        The internal "code" name of the current browser
         """
-        return self.personality['appCodeName']
+        return self.personality["appCodeName"]
 
     @property
     def appName(self):
         """
-            The official name of the browser
+        The official name of the browser
         """
-        return self.personality['appName']
+        return self.personality["appName"]
 
     @property
     def appVersion(self):
         """
-            The version of the browser as a string
+        The version of the browser as a string
         """
-        return self.personality['appVersion']
+        return self.personality["appVersion"]
 
     @property
     def userAgent(self):
         """
-            The user agent string for the current browser
+        The user agent string for the current browser
         """
-        return self.personality['userAgent']
+        return self.personality["userAgent"]
 
     @property
     def _buildID(self):
         """
-            The build identifier of the browser (e.g. "2006090803")
+        The build identifier of the browser (e.g. "2006090803")
         """
-        return self.personality['buildID']
+        return self.personality["buildID"]
 
     @property
     def cookieEnabled(self):
         """
-            A boolean indicating whether cookies are enabled
+        A boolean indicating whether cookies are enabled
         """
         return True
 
     @property
     def _language(self):
         """
-            A string representing the language version of the browser
+        A string representing the language version of the browser
         """
         return "en"
 
     @property
     def onLine(self):
         """
-            A boolean indicating whether the browser is working online
+        A boolean indicating whether the browser is working online
         """
         return True
 
     @property
     def _oscpu(self):
         """
-            A string that represents the current operating system
+        A string that represents the current operating system
         """
-        return self.personality['oscpu']
+        return self.personality["oscpu"]
 
     @property
     def platform(self):
         """
-            A string representing the platform of the browser
+        A string representing the platform of the browser
         """
-        return self.personality['platform']
+        return self.personality["platform"]
 
     @property
     def _product(self):
         """
-            The product name of the current browser (e.g. "Gecko")
+        The product name of the current browser (e.g. "Gecko")
         """
-        return self.personality['product']
+        return self.personality["product"]
 
     @property
     def _productSub(self):
         """
-            The build number of the current browser (e.g. "20060909")
+        The build number of the current browser (e.g. "20060909")
         """
-        return self.personality['productSub']
+        return self.personality["productSub"]
 
     @property
     def securityPolicy(self):
         """
-            An empty string. In Netscape 4.7x, returns "US & CA domestic policy" or "Export policy".
+        An empty string. In Netscape 4.7x, returns "US & CA domestic policy" or "Export policy".
         """
         return ""
 
     @property
     def _vendor(self):
         """
-            The vendor name of the current browser (e.g. "Netscape6")
+        The vendor name of the current browser (e.g. "Netscape6")
         """
-        return self.personality['vendor']
+        return self.personality["vendor"]
 
     @property
     def _vendorSub(self):
         """
-            The vendor name of the current browser (e.g. "Netscape6")
+        The vendor name of the current browser (e.g. "Netscape6")
         """
-        return self.personality['vendorSub']
+        return self.personality["vendorSub"]
 
     @property
     def _appMinorVersion(self):
-        return self.personality['appMinorVersion']
+        return self.personality["appMinorVersion"]
 
     @property
     def _browserLanguage(self):
@@ -250,18 +250,18 @@ class Navigator(JSClass):
         return "en"
 
     # Indicates whether the host browser is Java-enabled or not.
-    def javaEnabled(self, *arg): # pylint:disable=unused-argument
+    def javaEnabled(self, *arg):  # pylint:disable=unused-argument
         return True
 
     # Lets code check to see if the document at a given URI is
     # available without using the network.
-    def _mozIsLocallyAvailable(self, uri, ifOffline): # pylint:disable=unused-argument
+    def _mozIsLocallyAvailable(self, uri, ifOffline):  # pylint:disable=unused-argument
         return False
 
     # Sets a user preference.
     # self method is only available to privileged code, and you
     # should use XPCOM Preferences API instead.
-    def _preference(self, name, value = None):
+    def _preference(self, name, value=None):
         pass
 
     # Allows web sites to register themselves as a possible handler
@@ -280,16 +280,18 @@ class Navigator(JSClass):
     def _taintEnabled(self):
         return True
 
-    def fetch(self,
-              url,
-              method = "GET",
-              headers = None,
-              body = None,
-              redirect_type = None,
-              params = None,
-              snippet = None,
-              disable_download_prevention = False):
-        if url and not isinstance(url, str): # pragma: no cover
+    def fetch(
+        self,
+        url,
+        method="GET",
+        headers=None,
+        body=None,
+        redirect_type=None,
+        params=None,
+        snippet=None,
+        disable_download_prevention=False,
+    ):
+        if url and not isinstance(url, str):  # pragma: no cover
             url = str(url)
 
         log.URLClassifier.classify(url)
@@ -309,13 +311,16 @@ class Navigator(JSClass):
         if url is None:
             raise InvalidUrl
 
-        last_url = getattr(log, 'last_url', None)
+        last_url = getattr(log, "last_url", None)
         if last_url is None:
             last_url = self._window.url
 
         # Redirection loops detection and prevention
         if redirect_type:
-            item = (url, last_url, )
+            item = (
+                url,
+                last_url,
+            )
 
             if not log.ThugLogging.redirections.get(item, 0):
                 log.ThugLogging.redirections[item] = 0
@@ -323,22 +328,34 @@ class Navigator(JSClass):
             log.ThugLogging.redirections[item] += 1
 
             if log.ThugLogging.redirections[item] > 10:
-                return None # pragma: no cover
+                return None  # pragma: no cover
 
-            if log.HTTPSession.check_redirection_loop_url_params(url): # pragma: no cover
-                log.ThugLogging.add_behavior_warn(f"[Skipping {redirect_type} redirection] {last_url} -> {url}",
-                                                  snippet = snippet)
+            if log.HTTPSession.check_redirection_loop_url_params(
+                url
+            ):  # pragma: no cover
+                log.ThugLogging.add_behavior_warn(
+                    f"[Skipping {redirect_type} redirection] {last_url} -> {url}",
+                    snippet=snippet,
+                )
                 return None
 
-        if redirect_type in ('frame', 'iframe', 'http-redirect', 'meta', ):
-            if log.HTTPSession.check_equal_urls(url, last_url): # pragma: no cover
-                log.ThugLogging.add_behavior_warn(f"[Skipping {redirect_type} redirection] {last_url} -> {url}",
-                                                  snippet = snippet)
+        if redirect_type in (
+            "frame",
+            "iframe",
+            "http-redirect",
+            "meta",
+        ):
+            if log.HTTPSession.check_equal_urls(url, last_url):  # pragma: no cover
+                log.ThugLogging.add_behavior_warn(
+                    f"[Skipping {redirect_type} redirection] {last_url} -> {url}",
+                    snippet=snippet,
+                )
                 return None
 
         if redirect_type:
-            log.ThugLogging.add_behavior_warn(f"[{redirect_type} redirection] {last_url} -> {url}",
-                                              snippet = snippet)
+            log.ThugLogging.add_behavior_warn(
+                f"[{redirect_type} redirection] {last_url} -> {url}", snippet=snippet
+            )
             log.ThugLogging.log_connection(last_url, url, redirect_type)
         else:
             log.ThugLogging.log_connection(last_url, url, "unknown")
@@ -352,18 +369,32 @@ class Navigator(JSClass):
         if headers is None:
             headers = {}
 
-        response = log.HTTPSession.fetch(url, method, self._window, self.userAgent, headers, body)
+        response = log.HTTPSession.fetch(
+            url, method, self._window, self.userAgent, headers, body
+        )
         if response is None:
             return None
 
-        referer = response.request.headers.get('referer', 'None')
-        log.ThugLogging.add_behavior_warn(f"[HTTP] URL: {url} (Status: {response.status_code},  Referer: {referer})",
-                                          snippet = snippet)
+        referer = response.request.headers.get("referer", "None")
+        log.ThugLogging.add_behavior_warn(
+            f"[HTTP] URL: {url} (Status: {response.status_code},  Referer: {referer})",
+            snippet=snippet,
+        )
 
-        if redirect_type in ('window open', 'http-redirect', 'meta', ):
+        if redirect_type in (
+            "window open",
+            "http-redirect",
+            "meta",
+        ):
             self._window.url = log.HTTPSession.normalize_url(self._window, response.url)
 
-        if redirect_type in (None, 'window open', 'iframe', 'http-redirect', 'meta', ):
+        if redirect_type in (
+            None,
+            "window open",
+            "iframe",
+            "http-redirect",
+            "meta",
+        ):
             log.last_url = response.url
 
         log.last_url_fetched = response.url
@@ -372,15 +403,17 @@ class Navigator(JSClass):
         if _url:
             url = _url
 
-        ctype = response.headers.get('content-type', 'unknown')
+        ctype = response.headers.get("content-type", "unknown")
 
-        if not disable_download_prevention and log.HTTPSession.is_download_prevented(mimetype = ctype):
+        if not disable_download_prevention and log.HTTPSession.is_download_prevented(
+            mimetype=ctype
+        ):
             response.close()
             return None
 
         mime_base = os.path.join(log.ThugLogging.baseDir, ctype)
 
-        md5 = hashlib.md5() # nosec
+        md5 = hashlib.md5()  # nosec
         md5.update(response.content)
         sha256 = hashlib.sha256()
         sha256.update(response.content)
@@ -389,18 +422,20 @@ class Navigator(JSClass):
         mtype = log.Magic.get_mime(response.content)
 
         data = {
-            "content" : response.content,
-            "status"  : response.status_code,
-            "md5"     : md5.hexdigest(),
-            "sha256"  : sha256.hexdigest(),
-            "ssdeep"  : ssdeep_hash,
-            "fsize"   : len(response.content),
-            "ctype"   : ctype,
-            "mtype"   : mtype
+            "content": response.content,
+            "status": response.status_code,
+            "md5": md5.hexdigest(),
+            "sha256": sha256.hexdigest(),
+            "ssdeep": ssdeep_hash,
+            "fsize": len(response.content),
+            "ctype": ctype,
+            "mtype": mtype,
         }
 
-        log.ThugLogging.add_behavior_warn(f"[HTTP] URL: {response.url} (Content-type: {ctype}, MD5: {data['md5']})",
-                                          snippet = snippet)
+        log.ThugLogging.add_behavior_warn(
+            f"[HTTP] URL: {response.url} (Content-type: {ctype}, MD5: {data['md5']})",
+            snippet=snippet,
+        )
 
         log.ThugLogging.log_location(url, data)
         log.ThugLogging.store_content(mime_base, data["md5"], response.content)
@@ -408,13 +443,17 @@ class Navigator(JSClass):
 
         log.ThugLogging.Screenshot.run(self._window, url, response, ctype)
 
-        handler = log.MIMEHandler.get_handler(ctype if ctype not in ('unknown', ) else mtype)
+        handler = log.MIMEHandler.get_handler(
+            ctype if ctype not in ("unknown",) else mtype
+        )
         if handler:
             handler(response.url, response.content)
             response.thug_mimehandler_hit = True
         else:
             if log.ThugOpts.features_logging:
                 log.ThugLogging.Features.add_characters_count(len(response.text))
-                log.ThugLogging.Features.add_whitespaces_count(len([a for a in response.text if a.isspace()]))
+                log.ThugLogging.Features.add_whitespaces_count(
+                    len([a for a in response.text if a.isspace()])
+                )
 
         return response

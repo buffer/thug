@@ -7,7 +7,7 @@ from .form_property import form_property
 
 class HTMLFieldSetElement(HTMLElement):
     disabled = bool_property("disabled")
-    form     = form_property()
+    form = form_property()
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)

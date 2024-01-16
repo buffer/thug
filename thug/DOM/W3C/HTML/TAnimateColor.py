@@ -20,13 +20,17 @@ class TAnimateColor(HTMLElement):
 
     def set_values(self, values):
         if all(c in string.printable for c in values) is False:
-            log.ThugLogging.log_exploit_event(self.doc.window.url,
-                                              "Microsoft Internet Explorer",
-                                              "Microsoft Internet Explorer CButton Object Use-After-Free Vulnerability (CVE-2012-4792)",
-                                              cve = 'CVE-2012-4792',
-                                              forward = True)
+            log.ThugLogging.log_exploit_event(
+                self.doc.window.url,
+                "Microsoft Internet Explorer",
+                "Microsoft Internet Explorer CButton Object Use-After-Free Vulnerability (CVE-2012-4792)",
+                cve="CVE-2012-4792",
+                forward=True,
+            )
 
-            log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2012-4792")
+            log.ThugLogging.log_classifier(
+                "exploit", log.ThugLogging.url, "CVE-2012-4792"
+            )
 
         log.ThugLogging.Shellcode.check_shellcode(values)
         self._values = values

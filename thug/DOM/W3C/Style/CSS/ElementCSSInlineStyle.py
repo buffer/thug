@@ -12,6 +12,9 @@ class ElementCSSInlineStyle:
     def style(self):
         if self._style is None:
             from .CSSStyleDeclaration import CSSStyleDeclaration
-            self._style = CSSStyleDeclaration(self.tag['style'] if self.tag.has_attr('style') else '')
+
+            self._style = CSSStyleDeclaration(
+                self.tag["style"] if self.tag.has_attr("style") else ""
+            )
 
         return self._style

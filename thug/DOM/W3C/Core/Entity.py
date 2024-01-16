@@ -3,7 +3,7 @@
 from .Node import Node
 
 
-class Entity(Node): # pragma: no cover
+class Entity(Node):  # pragma: no cover
     @property
     def publicId(self):
         return None

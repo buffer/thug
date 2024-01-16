@@ -15,12 +15,12 @@ log = logging.getLogger("Thug")
 
 
 class HTMLElement(Element):
-    className = attr_property("class", default = "")
-    dir       = attr_property("dir")
-    id        = attr_property("id")
-    lang      = attr_property("lang")
-    title     = attr_property("title")
-    lang      = attr_property("lang")
+    className = attr_property("class", default="")
+    dir = attr_property("dir")
+    id = attr_property("id")
+    lang = attr_property("lang")
+    title = attr_property("title")
+    lang = attr_property("lang")
 
     def __init__(self, doc, tag):
         Element.__init__(self, doc, tag)
@@ -81,18 +81,20 @@ class HTMLElement(Element):
         return html.getvalue()
 
     def setInnerHTML(self, html):
-        log.HTMLClassifier.classify(log.ThugLogging.url if log.ThugOpts.local else log.last_url, html)
+        log.HTMLClassifier.classify(
+            log.ThugLogging.url if log.ThugOpts.local else log.last_url, html
+        )
 
         self.tag.clear()
 
         for node in bs4.BeautifulSoup(html, "html.parser").contents:
             self.tag.append(node)
 
-            name = getattr(node, 'name', None)
+            name = getattr(node, "name", None)
             if name is None:
                 continue
 
-            handler = getattr(log.DFT, f'handle_{name}', None)
+            handler = getattr(log.DFT, f"handle_{name}", None)
             if handler:
                 handler(node)
 
@@ -131,21 +133,26 @@ class HTMLElement(Element):
         return random.randint(10, 100)
 
     def insertAdjacentHTML(self, position, text):
-        if position not in ('beforebegin', 'afterbegin', 'beforeend', 'afterend', ):
+        if position not in (
+            "beforebegin",
+            "afterbegin",
+            "beforeend",
+            "afterend",
+        ):
             raise DOMException(DOMException.NOT_SUPPORTED_ERR)
 
-        if position in ('beforebegin', ):
-            target = self.tag.parent if self.tag.parent else self.doc.find('body')
-            pos    = target.index(self.tag) - 1
-        if position in ('afterbegin', ):
+        if position in ("beforebegin",):
+            target = self.tag.parent if self.tag.parent else self.doc.find("body")
+            pos = target.index(self.tag) - 1
+        if position in ("afterbegin",):
             target = self.tag
-            pos    = 0
-        if position in ('beforeend', ):
+            pos = 0
+        if position in ("beforeend",):
             target = self.tag
-            pos    = len(list(self.tag.children))
-        if position in ('afterend', ):
-            target = self.tag.parent if self.tag.parent else self.doc.find('body')
-            pos    = target.index(self.tag) + 1
+            pos = len(list(self.tag.children))
+        if position in ("afterend",):
+            target = self.tag.parent if self.tag.parent else self.doc.find("body")
+            pos = target.index(self.tag) + 1
 
         for node in bs4.BeautifulSoup(text, "html.parser").contents:
             target.insert(pos, node)

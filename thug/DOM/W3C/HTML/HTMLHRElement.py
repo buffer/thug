@@ -6,10 +6,10 @@ from .bool_property import bool_property
 
 
 class HTMLHRElement(HTMLElement):
-    align   = attr_property("align")
+    align = attr_property("align")
     noShade = bool_property("noshade")
-    size    = attr_property("size")
-    width   = attr_property("width")
+    size = attr_property("size")
+    width = attr_property("width")
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)

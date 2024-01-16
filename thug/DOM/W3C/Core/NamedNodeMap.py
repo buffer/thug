@@ -22,6 +22,7 @@ class NamedNodeMap(JSClass):
             return None
 
         from .Attr import Attr
+
         attr = Attr(self.doc, None, name)
         attr.nodeValue = self.tag.attrs[name]
         return attr
@@ -34,6 +35,7 @@ class NamedNodeMap(JSClass):
             return None
 
         from .Attr import Attr
+
         oldattr = Attr(self.doc, None, attr.name)
         oldattr.value = oldvalue
         return oldattr

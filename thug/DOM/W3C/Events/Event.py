@@ -9,19 +9,19 @@ log = logging.getLogger("Thug")
 
 # Introduced in DOM Level 2
 class Event(JSClass):
-    CAPTURING_PHASE     = 1  # The current event phase is the capturing phase.
-    AT_TARGET           = 2  # The event is currently being evaluated at the target EventTarget
-    BUBBLING_PHASE      = 3  # The current event phase is the bubbling phase.
+    CAPTURING_PHASE = 1  # The current event phase is the capturing phase.
+    AT_TARGET = 2  # The event is currently being evaluated at the target EventTarget
+    BUBBLING_PHASE = 3  # The current event phase is the bubbling phase.
 
     def __init__(self):
-        self._type               = None
-        self._target             = None
-        self.currentTarget       = None
-        self.eventPhase          = self.AT_TARGET
+        self._type = None
+        self._target = None
+        self.currentTarget = None
+        self.eventPhase = self.AT_TARGET
         self._stoppedPropagation = False
-        self._defaultPrevented   = False
-        self._canBubble          = False
-        self._cancelable         = False
+        self._defaultPrevented = False
+        self._canBubble = False
+        self._cancelable = False
 
         self.__init_event_personality()
 
@@ -49,14 +49,18 @@ class Event(JSClass):
         # support the capturing phase of event propagation so bubbling is the only
         # kind of propagation to be canceled)
         if log.ThugOpts.Personality.browserMajorVersion < 9:
-            self.cancelBubble = property(self._getPropagationStatus, self._setPropagationStatus)
+            self.cancelBubble = property(
+                self._getPropagationStatus, self._setPropagationStatus
+            )
         else:
             self.stopPropagation = self._stopPropagation
 
         # In IE prior to IE9 the default action can be canceled by setting the
         # `returnValue' of the Event object to false
         if log.ThugOpts.Personality.browserMajorVersion < 9:
-            self.returnValue = property(self._getDefaultPrevented, self._setDefaultPrevented)
+            self.returnValue = property(
+                self._getDefaultPrevented, self._setDefaultPrevented
+            )
         else:
             self.preventDefault = self._preventDefault
 
@@ -118,6 +122,6 @@ class Event(JSClass):
         return 0
 
     def initEvent(self, eventTypeArg, canBubbleArg, cancelableArg):
-        self._type       = eventTypeArg
-        self._canBubble  = canBubbleArg
+        self._type = eventTypeArg
+        self._canBubble = canBubbleArg
         self._cancelable = cancelableArg

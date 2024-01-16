@@ -26,9 +26,9 @@ log = logging.getLogger("Thug")
 
 class History(JSClass):
     def __init__(self, window):
-        self._window  = window
-        self.urls     = Alexa
-        self.pos      = len(self.urls) - 1
+        self._window = window
+        self.urls = Alexa
+        self.pos = len(self.urls) - 1
 
         self.__init_history_personality()
 
@@ -55,8 +55,8 @@ class History(JSClass):
         pass
 
     def __init_history_personality_Firefox(self):
-        self.current  = self._current
-        self.next     = self._next
+        self.current = self._current
+        self.next = self._next
         self.previous = self._previous
 
     def __init_history_personality_Chrome(self):
@@ -79,17 +79,29 @@ class History(JSClass):
 
     @property
     def _next(self):
-        return self.urls[self.pos + 1] if self.length > self.pos + 1 and self.pos > 0 else None
+        return (
+            self.urls[self.pos + 1]
+            if self.length > self.pos + 1 and self.pos > 0
+            else None
+        )
 
     @property
     def _previous(self):
-        return self.urls[self.pos - 1] if self.length > self.pos - 1 and self.pos > 0 else None
+        return (
+            self.urls[self.pos - 1]
+            if self.length > self.pos - 1 and self.pos > 0
+            else None
+        )
 
     def _get_navigationMode(self):
         return self._navigationMode
 
     def _set_navigationMode(self, value):
-        if value in ("automatic", "compatible", "fast", ):
+        if value in (
+            "automatic",
+            "compatible",
+            "fast",
+        ):
             self._navigationMode = value
 
     navigationMode = property(_get_navigationMode, _set_navigationMode)
@@ -117,7 +129,7 @@ class History(JSClass):
         except ValueError:
             self._window.open(num_or_url)
 
-    def update(self, url, replace = False):
+    def update(self, url, replace=False):
         if replace:
             self.urls[self.pos] = url
             return

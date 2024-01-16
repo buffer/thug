@@ -26,7 +26,7 @@ log = logging.getLogger("Thug")
 class External(JSClass):
     def __init__(self):
         self._providers = set()
-        self._channels  = set()
+        self._channels = set()
         self._favorites = set()
 
         self.__init_external_personality()
@@ -40,23 +40,23 @@ class External(JSClass):
             self.__init_external_personality_Chrome()
 
     def __init_external_personality_IE(self):
-        self.frozen               = self._frozen
-        self.menuArguments        = self._menuArguments
-        self.AddDesktopComponent  = self._AddDesktopComponent
-        self.AddFavorite          = self._AddFavorite
+        self.frozen = self._frozen
+        self.menuArguments = self._menuArguments
+        self.AddDesktopComponent = self._AddDesktopComponent
+        self.AddFavorite = self._AddFavorite
         self.AutoCompleteSaveForm = self._AutoCompleteSaveForm
-        self.AutoScan             = self._AutoScan
-        self.bubbleEvent          = self._bubbleEvent
-        self.IsSubscribed         = self._IsSubscribed
-        self.NavigateAndFind      = self._NavigateAndFind
-        self.raiseEvent           = self._raiseEvent
-        self.ShowBrowserUI        = self._ShowBrowserUI
+        self.AutoScan = self._AutoScan
+        self.bubbleEvent = self._bubbleEvent
+        self.IsSubscribed = self._IsSubscribed
+        self.NavigateAndFind = self._NavigateAndFind
+        self.raiseEvent = self._raiseEvent
+        self.ShowBrowserUI = self._ShowBrowserUI
 
         if log.ThugOpts.Personality.browserMajorVersion < 7:
             self.AddChannel = self._AddChannel
 
         if log.ThugOpts.Personality.browserMajorVersion >= 7:
-            self.AddSearchProvider         = self._AddSearchProvider
+            self.AddSearchProvider = self._AddSearchProvider
             self.IsSearchProviderInstalled = self._IsSearchProviderInstalled
 
     def __init_external_personality_Chrome(self):
@@ -73,10 +73,12 @@ class External(JSClass):
     def _AddChannel(self, URL):
         self._channels.add(URL)
 
-    def _AddDesktopComponent(self, URL, type, left = None, top = None, width = None, height = None):  # pylint:disable=redefined-builtin
+    def _AddDesktopComponent(
+        self, URL, type, left=None, top=None, width=None, height=None
+    ):  # pylint:disable=redefined-builtin
         pass
 
-    def _AddFavorite(self, URL, title = None):
+    def _AddFavorite(self, URL, title=None):
         self._favorites.add((URL, title))
 
     def _AddSearchProvider(self, URL):
@@ -85,7 +87,7 @@ class External(JSClass):
     def _AutoCompleteSaveForm(self, formElement):
         pass
 
-    def _AutoScan(self, domainPart, defaultURL = None, target = None): # pylint:disable=unused-argument
+    def _AutoScan(self, domainPart, defaultURL=None, target=None):  # pylint:disable=unused-argument
         # This method does not work in Internet Explorer from version 7
         # and raises an exception.
         if log.ThugOpts.Personality.browserMajorVersion >= 7:
@@ -97,7 +99,7 @@ class External(JSClass):
     def _IsSearchProviderInstalled(self, URL):
         return 1 if URL in self._providers else 0
 
-    def _IsSubscribed(self, URL): # pylint:disable=unused-argument
+    def _IsSubscribed(self, URL):  # pylint:disable=unused-argument
         return False
 
     def _NavigateAndFind(self, URL, textToFind, findInFrame):
@@ -106,5 +108,5 @@ class External(JSClass):
     def _raiseEvent(self, eventName, eventObj):
         pass
 
-    def _ShowBrowserUI(self, dialogBoxType, null = None):
+    def _ShowBrowserUI(self, dialogBoxType, null=None):
         pass

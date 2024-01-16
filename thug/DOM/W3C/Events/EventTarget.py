@@ -52,18 +52,18 @@ class EventTarget:
     def __init_proprietary_ie_event_methods(self):
         self.detachEvent = self._detachEvent
 
-        def attachEvent(self, eventType, handler, prio = False):
+        def attachEvent(self, eventType, handler, prio=False):
             return self._attachEvent(eventType, handler, prio)
 
-        setattr(self.__class__, 'attachEvent', attachEvent)
+        setattr(self.__class__, "attachEvent", attachEvent)
 
     def __init_event_methods(self):
         self.removeEventListener = self._removeEventListener
 
-        def addEventListener(self, eventType, listener, capture = False):
+        def addEventListener(self, eventType, listener, capture=False):
             return self._addEventListener(eventType, listener, capture)
 
-        setattr(self.__class__, 'addEventListener', addEventListener)
+        setattr(self.__class__, "addEventListener", addEventListener)
 
     def __insert_listener(self, eventType, listener, capture, prio):
         # A document element or other object may have more than one event
@@ -89,16 +89,16 @@ class EventTarget:
         else:
             self.tag._listeners.append((eventType, listener, capture))
 
-    def _addEventListener(self, eventType, listener, capture = False, prio = False):
-        if not isinstance(capture, bool): # pragma: no cover
+    def _addEventListener(self, eventType, listener, capture=False, prio=False):
+        if not isinstance(capture, bool):  # pragma: no cover
             capture = False
 
-        log.debug('_addEventListener(%s, \n%r, \n%s)', eventType, listener, capture)
+        log.debug("_addEventListener(%s, \n%r, \n%s)", eventType, listener, capture)
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_addeventlistener_count()
 
-        if getattr(self.tag, '_listeners', None) is None: # pragma: no cover
+        if getattr(self.tag, "_listeners", None) is None:  # pragma: no cover
             self.tag._listeners = []
 
         if (eventType, listener, capture) not in self.tag._listeners:
@@ -108,46 +108,61 @@ class EventTarget:
         # attachEvent() allows the same event handler to be registered more than
         # once. When the event of the specified type occurs, the registered
         # function will be invoked as many times as it was registered
-        if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
+        if (
+            log.ThugOpts.Personality.isIE()
+            and log.ThugOpts.Personality.browserMajorVersion < 9
+        ):
             self.__insert_listener(eventType, listener, capture, prio)
 
-    def _removeEventListener(self, eventType, listener, capture = False):
-        log.debug('_removeEventListener(%s, \n%r, \n%s)', eventType, listener, capture)
+    def _removeEventListener(self, eventType, listener, capture=False):
+        log.debug("_removeEventListener(%s, \n%r, \n%s)", eventType, listener, capture)
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_removeeventlistener_count()
 
         try:
             self.tag._listeners.remove((eventType, listener, capture))
-        except Exception: # pylint:disable=broad-except
+        except Exception:  # pylint:disable=broad-except
             pass
 
-    def _attachEvent(self, eventType, handler, prio = False):
-        log.debug('_attachEvent(%s, \n%r)', eventType, handler)
+    def _attachEvent(self, eventType, handler, prio=False):
+        log.debug("_attachEvent(%s, \n%r)", eventType, handler)
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_attachevent_count()
 
-        if not eventType.startswith('on'): # pragma: no cover
-            log.warning('[WARNING] attachEvent eventType: %s', eventType)
+        if not eventType.startswith("on"):  # pragma: no cover
+            log.warning("[WARNING] attachEvent eventType: %s", eventType)
 
         self._addEventListener(eventType[2:], handler, False, prio)
 
     def _detachEvent(self, eventType, handler):
-        log.debug('_detachEvent(%s, \n%r)', eventType, handler)
+        log.debug("_detachEvent(%s, \n%r)", eventType, handler)
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_detachevent_count()
 
-        if not eventType.startswith('on'): # pragma: no cover
-            log.warning('[WARNING] detachEvent eventType: %s', eventType)
+        if not eventType.startswith("on"):  # pragma: no cover
+            log.warning("[WARNING] detachEvent eventType: %s", eventType)
 
         self._removeEventListener(eventType[2:], handler)
 
     def _get_listeners(self, tag, evtType):
-        _listeners         = [(eventType, listener, capture) for (eventType, listener, capture) in tag._listeners if eventType == evtType]
-        capture_listeners  = [(eventType, listener, capture) for (eventType, listener, capture) in _listeners if capture is True]
-        bubbling_listeners = [(eventType, listener, capture) for (eventType, listener, capture) in _listeners if capture is False]
+        _listeners = [
+            (eventType, listener, capture)
+            for (eventType, listener, capture) in tag._listeners
+            if eventType == evtType
+        ]
+        capture_listeners = [
+            (eventType, listener, capture)
+            for (eventType, listener, capture) in _listeners
+            if capture is True
+        ]
+        bubbling_listeners = [
+            (eventType, listener, capture)
+            for (eventType, listener, capture) in _listeners
+            if capture is False
+        ]
 
         return capture_listeners, bubbling_listeners
 
@@ -157,7 +172,10 @@ class EventTarget:
         self.doc.window.event = evtObject
 
         with self.doc.window.context:
-            if log.ThugOpts.Personality.isIE() and log.ThugOpts.Personality.browserMajorVersion < 9:
+            if (
+                log.ThugOpts.Personality.isIE()
+                and log.ThugOpts.Personality.browserMajorVersion < 9
+            ):
                 listener()
             else:
                 listener.apply(evtObject.currentTarget)
@@ -165,9 +183,11 @@ class EventTarget:
     def do_dispatch(self, c, evtObject):
         try:
             self._do_dispatch(c, evtObject)
-        except Exception as e: # pylint:disable=broad-except
+        except Exception as e:  # pylint:disable=broad-except
             eventType, listener, capture = c  # pylint:disable=unused-variable
-            log.warning("[WARNING] Error while dispatching %s event (%s)", eventType, str(e))
+            log.warning(
+                "[WARNING] Error while dispatching %s event (%s)", eventType, str(e)
+            )
 
     def _dispatchCaptureEvent(self, tag, evtType, evtObject):
         if tag.parent is None:
@@ -178,7 +198,7 @@ class EventTarget:
         if not tag.parent._listeners:
             return
 
-        if evtObject._stoppedPropagation: # pragma: no cover
+        if evtObject._stoppedPropagation:  # pragma: no cover
             return
 
         capture_listeners, bubbling_listeners = self._get_listeners(tag.parent, evtType)  # pylint:disable=unused-variable
@@ -188,13 +208,13 @@ class EventTarget:
 
     def _dispatchBubblingEvent(self, tag, evtType, evtObject):
         for node in tag.parents:
-            if node is None: # pragma: no cover
+            if node is None:  # pragma: no cover
                 break
 
             if not node._listeners:
                 continue
 
-            if evtObject._stoppedPropagation: # pragma: no cover
+            if evtObject._stoppedPropagation:  # pragma: no cover
                 continue
 
             capture_listeners, bubbling_listeners = self._get_listeners(node, evtType)  # pylint:disable=unused-variable
@@ -208,7 +228,7 @@ class EventTarget:
         if not evtType:
             raise EventException(EventException.UNSPECIFIED_EVENT_TYPE_ERR)
 
-        log.info('dispatchEvent(%s)', evtType)
+        log.info("dispatchEvent(%s)", evtType)
 
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_dispatchevent_count()
@@ -219,8 +239,8 @@ class EventTarget:
             evtObject.eventPhase = Event.CAPTURING_PHASE
             self._dispatchCaptureEvent(self.tag, evtType, evtObject)
 
-        evtObject._target       = self
-        evtObject.eventPhase    = Event.AT_TARGET
+        evtObject._target = self
+        evtObject.eventPhase = Event.AT_TARGET
         evtObject.currentTarget = self
 
         if not evtObject._stoppedPropagation:

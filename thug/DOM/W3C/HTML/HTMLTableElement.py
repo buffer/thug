@@ -16,22 +16,22 @@ log = logging.getLogger("Thug")
 
 
 class HTMLTableElement(HTMLElement):
-    align       = attr_property("align")
-    bgColor     = attr_property("bgcolor")
-    border      = attr_property("border")
+    align = attr_property("align")
+    bgColor = attr_property("bgcolor")
+    border = attr_property("border")
     cellPadding = attr_property("cellpadding")
     cellSpacing = attr_property("cellspacing")
-    frame       = attr_property("frame")
-    rules       = attr_property("rules")
-    summary     = attr_property("summary")
-    width       = attr_property("width")
+    frame = attr_property("frame")
+    rules = attr_property("rules")
+    summary = attr_property("summary")
+    width = attr_property("width")
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
         self._caption = None
-        self._tHead   = None
-        self._tFoot   = None
-        self._rows    = HTMLCollection(doc, [])
+        self._tHead = None
+        self._tFoot = None
+        self._rows = HTMLCollection(doc, [])
         self._tBodies = HTMLCollection(doc, [])
 
     @property
@@ -58,9 +58,9 @@ class HTMLTableElement(HTMLElement):
         if self._tHead:
             return self._tHead
 
-        self._tHead = HTMLTableSectionElement(self.doc,
-                                              bs4.Tag(self.doc, name = 'thead'),
-                                              table = self)
+        self._tHead = HTMLTableSectionElement(
+            self.doc, bs4.Tag(self.doc, name="thead"), table=self
+        )
 
         self.rows.nodes.insert(0, self._tHead)
         return self._tHead
@@ -74,9 +74,9 @@ class HTMLTableElement(HTMLElement):
         if self._tFoot:
             return self._tFoot
 
-        self._tFoot = HTMLTableSectionElement(self.doc,
-                                              bs4.Tag(self.doc, name = 'tfoot'),
-                                              table = self)
+        self._tFoot = HTMLTableSectionElement(
+            self.doc, bs4.Tag(self.doc, name="tfoot"), table=self
+        )
 
         self.rows.nodes.append(self._tFoot)
         return self._tFoot
@@ -90,8 +90,9 @@ class HTMLTableElement(HTMLElement):
         if self._caption:
             return self._caption
 
-        self._caption = HTMLTableCaptionElement(self.doc,
-                                                bs4.Tag(self.doc, name = 'caption'))
+        self._caption = HTMLTableCaptionElement(
+            self.doc, bs4.Tag(self.doc, name="caption")
+        )
 
         return self._caption
 
@@ -100,7 +101,7 @@ class HTMLTableElement(HTMLElement):
             self._caption = None
 
     # Modified in DOM Level 2
-    def insertRow(self, index = None):
+    def insertRow(self, index=None):
         # Insert a new empty row in the table. The new row is inserted immediately before
         # and in the same section as the current indexth row in the table. If index is -1
         # or equal to the number of rows, the new row is appended. In addition, when the
@@ -116,13 +117,15 @@ class HTMLTableElement(HTMLElement):
         if index is None:
             if log.ThugOpts.Personality.isIE():
                 index = -1
-            if log.ThugOpts.Personality.isChrome() or log.ThugOpts.Personality.isSafari():
+            if (
+                log.ThugOpts.Personality.isChrome()
+                or log.ThugOpts.Personality.isSafari()
+            ):
                 index = 0
 
-        row = HTMLTableRowElement(self.doc,
-                                  bs4.Tag(self.doc, name = 'tr'),
-                                  table = self,
-                                  section = self)
+        row = HTMLTableRowElement(
+            self.doc, bs4.Tag(self.doc, name="tr"), table=self, section=self
+        )
 
         self.rows.nodes.insert(index, row)
         return row
@@ -134,13 +137,13 @@ class HTMLTableElement(HTMLElement):
         del self.rows.nodes[index]
 
     def appendChild(self, newChild):
-        if newChild.tagName.lower() in ('tbody', ):
+        if newChild.tagName.lower() in ("tbody",):
             self._tBodies.nodes.append(newChild)
 
         return super().appendChild(newChild)
 
     def removeChild(self, oldChild):
-        if oldChild.tagName.lower() in ('tbody', ):
+        if oldChild.tagName.lower() in ("tbody",):
             self._tBodies.nodes.remove(oldChild)
 
         return super().removeChild(oldChild)
