@@ -31,3 +31,11 @@ repos:
         - --skip
         - B110,B112,B311,B410
         - thug
+
+    - repo: https://github.com/astral-sh/ruff-pre-commit
+      rev: v0.1.13
+      hooks:
+        # Run the linter.
+        - id: ruff
+        # Run the formatter.
+        - id: ruff-format
