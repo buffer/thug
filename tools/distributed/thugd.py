@@ -19,9 +19,10 @@ import pika
 
 class Thugd(object):
     """
-        A class waiting for jobs, starting thug, returning results
+    A class waiting for jobs, starting thug, returning results
     """
-    def __init__(self, configfile, clear = False):
+
+    def __init__(self, configfile, clear=False):
         """
         @configfile:    The configuration file to use
         @clear:         Clear the job chain
@@ -42,9 +43,9 @@ class Thugd(object):
 
         @configfile: The configfile to use
         """
-        self.host   = "localhost"
-        self.queue  = "thugctrl"
-        self.rhost  = "localhost"
+        self.host = "localhost"
+        self.queue = "thugctrl"
+        self.rhost = "localhost"
         self.rqueue = "thugres"
 
         if configfile is None:
@@ -61,47 +62,59 @@ class Thugd(object):
         self.password = conf.get("credentials", "password")
 
     def _chdir(self):
-        os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                              os.pardir,
-                                              os.pardir,
-                                              'src')))
+        os.chdir(
+            os.path.abspath(
+                os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "src")
+            )
+        )
 
     def _run_queue(self):
         credentials = pika.PlainCredentials(self.username, self.password)
-        parameters = pika.ConnectionParameters(host = self.host, credentials = credentials)
+        parameters = pika.ConnectionParameters(host=self.host, credentials=credentials)
         connection = pika.BlockingConnection(parameters)
         channel = connection.channel()
 
-        channel.queue_declare(queue = self.queue, durable = True)
-        print("[*] Waiting for messages on %s %s (press CTRL+C to exit)" % (self.host, self.queue, ))
+        channel.queue_declare(queue=self.queue, durable=True)
+        print(
+            "[*] Waiting for messages on %s %s (press CTRL+C to exit)"
+            % (
+                self.host,
+                self.queue,
+            )
+        )
 
-        channel.basic_qos(prefetch_count = 1)
-        channel.basic_consume(lambda c, m, p, b: self.callback(c, m, p, b), queue = self.queue)
+        channel.basic_qos(prefetch_count=1)
+        channel.basic_consume(
+            lambda c, m, p, b: self.callback(c, m, p, b), queue=self.queue
+        )
         channel.start_consuming()
 
     def runProcess(self, exe):
-        p = subprocess.Popen(exe, stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT)
-        while(True):
+        p = subprocess.Popen(exe, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        while True:
             retcode = p.poll()
             line = p.stdout.readline()
             yield line
-            if(retcode is not None):
+            if retcode is not None:
                 break
 
     def send_results(self, data):
         credentials = pika.PlainCredentials(self.username, self.password)
-        parameters = pika.ConnectionParameters(host = self.rhost, credentials = credentials)
+        parameters = pika.ConnectionParameters(host=self.rhost, credentials=credentials)
         connection = pika.BlockingConnection(parameters)
         channel = connection.channel()
 
-        channel.queue_declare(queue = self.rqueue, durable = True)
+        channel.queue_declare(queue=self.rqueue, durable=True)
 
         message = json.dumps(data)
-        channel.basic_publish(exchange    = '',
-                              routing_key = self.rqueue,
-                              body        = message,
-                              properties  = pika.BasicProperties(delivery_mode = 2,))
+        channel.basic_publish(
+            exchange="",
+            routing_key=self.rqueue,
+            body=message,
+            properties=pika.BasicProperties(
+                delivery_mode=2,
+            ),
+        )
 
         print("[x] Sent %r" % (message,))
         connection.close()
@@ -146,19 +159,18 @@ class Thugd(object):
 
         for line in self.runProcess(command):
             if line.startswith("["):
-                print(line, end = " ")
+                print(line, end=" ")
 
             if line.find("] Saving log analysis at ") >= 0:
                 pathname = line.split(" ")[-1].strip()
 
         rpath = self.copy_to_result(pathname, job)
-        res = {"id"     : job["id"],
-               "rpath"  : rpath}
+        res = {"id": job["id"], "rpath": rpath}
 
         self.send_results(res)
 
     def callback(self, ch, method, properties, body):
-        print("[x] Received %r" % (body, ))
+        print("[x] Received %r" % (body,))
 
         if not self.clear:
             self.process(json.loads(body))
@@ -167,10 +179,17 @@ class Thugd(object):
 
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description = 'Receives jobs and starts Thug to process them')
-    parser.add_argument('--config', help = 'Configuration file to use', default = "config.ini")
-    parser.add_argument('--clear', help = 'Clear the job chain', default = False, action = "store_true")
+    parser = argparse.ArgumentParser(
+        description="Receives jobs and starts Thug to process them"
+    )
+    parser.add_argument(
+        "--config", help="Configuration file to use", default="config.ini"
+    )
+    parser.add_argument(
+        "--clear", help="Clear the job chain", default=False, action="store_true"
+    )
     args = parser.parse_args()
 
     try:

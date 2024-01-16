@@ -30,13 +30,13 @@ except ImportError:
 
 
 class MongoUtils(object):
-    def __init__(self, host = "localhost", port = 27017):
+    def __init__(self, host="localhost", port=27017):
         self.__check_mongo_module()
         self.__init_db(host, port)
 
     def __check_mongo_module(self):
         if not MONGO_MODULE:
-            print('[MongoUtils] PyMongo not installed. Please install it and retry.')
+            print("[MongoUtils] PyMongo not installed. Please install it and retry.")
             sys.exit(0)
 
     def __init_db(self, host, port):
@@ -44,57 +44,57 @@ class MongoUtils(object):
         # The following code tries to use the new MongoClient if available and
         # reverts to the old Connection class if not. This code will hopefully
         # disappear in the next future.
-        client = getattr(pymongo, 'MongoClient', None)
+        client = getattr(pymongo, "MongoClient", None)
         if client is None:
-            client = getattr(pymongo, 'Connection', None)
+            client = getattr(pymongo, "Connection", None)
 
         try:
             connection = client(host, int(port))
         except Exception:
-            print('[MongoUtils] MongoDB instance not available')
+            print("[MongoUtils] MongoDB instance not available")
             sys.exit(0)
 
-        db                = connection.thug
-        dbfs              = connection.thugfs
-        self.urls         = db.urls
-        self.analyses     = db.analyses
-        self.thugfs       = gridfs.GridFS(dbfs)
+        db = connection.thug
+        dbfs = connection.thugfs
+        self.urls = db.urls
+        self.analyses = db.analyses
+        self.thugfs = gridfs.GridFS(dbfs)
 
-        self.collections  = (db.urls,
-                             db.analyses,
-                             db.locations,
-                             db.connections,
-                             db.graphs,
-                             db.samples,
-                             db.behaviors,
-                             db.certificates,
-                             db.honeyagent,
-                             db.exploits,
-                             db.codes,
-                             db.json)
+        self.collections = (
+            db.urls,
+            db.analyses,
+            db.locations,
+            db.connections,
+            db.graphs,
+            db.samples,
+            db.behaviors,
+            db.certificates,
+            db.honeyagent,
+            db.exploits,
+            db.codes,
+            db.json,
+        )
 
     def list_analyses(self):
         print("ID\t\t\t\t| URL\t\t\t\t| Analysis datetime\n")
 
         for analysis in self.analyses.find():
-            urls = self.urls.find(_id = analysis['url_id'])
+            urls = self.urls.find(_id=analysis["url_id"])
             if not urls:
                 continue
 
-            url = urls[0]['url']
-            print("%s\t| %s\t| %s" % (analysis['_id'],
-                                      url,
-                                      analysis['timestamp']))
+            url = urls[0]["url"]
+            print("%s\t| %s\t| %s" % (analysis["_id"], url, analysis["timestamp"]))
 
     def remove_analysis(self, analysis):
-        analysis_id = analysis['_id']
+        analysis_id = analysis["_id"]
         for collection in self.collections:
             collection.remove({"_id": analysis_id})
 
         self.thugfs.delete({"_id": analysis_id})
 
     def query_analysis_by_id(self, analysis_id):
-        analysis = self.analyses.find_one({'_id': ObjectId(analysis_id)})
+        analysis = self.analyses.find_one({"_id": ObjectId(analysis_id)})
         if not analysis:
             print("[MongoUtils] Analysis ID not found")
             return None
@@ -119,16 +119,15 @@ Synopsis:
     print(msg)
     sys.exit(0)
 
+
 def main(args):
-    host = 'localhost'
+    host = "localhost"
     port = 27017
 
     try:
-        options, args = getopt.getopt(args, 'hlr:M:',
-                                      ['help',
-                                       'ls',
-                                       'rm=',
-                                       'mongodb-address='])
+        options, args = getopt.getopt(
+            args, "hlr:M:", ["help", "ls", "rm=", "mongodb-address="]
+        )
     except getopt.GetoptError:
         usage()
 
@@ -136,22 +135,23 @@ def main(args):
         usage()
 
     for option in options:
-        if option[0] in ('-h', '--help'):
+        if option[0] in ("-h", "--help"):
             usage()
-        elif option[0] in ('-M', '--mongodb-address'):
+        elif option[0] in ("-M", "--mongodb-address"):
             host, port = option[1].split(":")
 
     mongoutils = MongoUtils(host, port)
 
     for option in options:
-        if option[0] in ('-l', '--ls'):
+        if option[0] in ("-l", "--ls"):
             mongoutils.list_analyses()
 
     for option in options:
-        if option[0] in ('-r', '--rm'):
+        if option[0] in ("-r", "--rm"):
             analysis = mongoutils.query_analysis_by_id(option[1])
             if analysis:
                 mongoutils.remove_analysis(analysis)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main(sys.argv[1:])
