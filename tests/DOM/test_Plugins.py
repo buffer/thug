@@ -7,5 +7,5 @@ class TestPlugins(object):
 
         plugins.refresh()
 
-        assert plugins['foo'] is None
+        assert plugins["foo"] is None
         assert plugins[100] is None

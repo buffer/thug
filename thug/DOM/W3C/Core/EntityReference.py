@@ -12,7 +12,7 @@ class EntityReference(Node):
 
     @property
     def name(self):
-        return self.tag.string.encode('utf8')
+        return self.tag.string.encode("utf8")
 
     @property
     def nodeName(self):

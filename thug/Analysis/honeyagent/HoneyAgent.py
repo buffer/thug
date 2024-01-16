@@ -30,46 +30,48 @@ log = logging.getLogger("Thug")
 class HoneyAgent:
     def __init__(self):
         self.enabled = True
-        self.opts    = {}
+        self.opts = {}
 
         self.__init_config()
 
     def __init_config(self):
-        conf_file = os.path.join(log.configuration_path, 'thug.conf')
-        if not os.path.isfile(conf_file): # pragma: no cover
+        conf_file = os.path.join(log.configuration_path, "thug.conf")
+        if not os.path.isfile(conf_file):  # pragma: no cover
             self.enabled = False
             return
 
         config = configparser.ConfigParser()
         config.read(conf_file)
 
-        self.opts['enable'] = config.getboolean('honeyagent', 'enable')
-        if not self.opts['enable']:
+        self.opts["enable"] = config.getboolean("honeyagent", "enable")
+        if not self.opts["enable"]:
             self.enabled = False
             return
 
-        self.opts['scanurl'] = config.get('honeyagent', 'scanurl') # pragma: no cover
+        self.opts["scanurl"] = config.get("honeyagent", "scanurl")  # pragma: no cover
 
     def save_report(self, response, basedir, sample):
-        log_dir  = os.path.join(basedir, 'analysis', 'honeyagent')
+        log_dir = os.path.join(basedir, "analysis", "honeyagent")
         log.ThugLogging.log_honeyagent(log_dir, sample, response.text)
 
     def save_dropped(self, response, basedir, sample):
         data = response.json()
 
         result = data.get("result", None)
-        if result is None: # pragma: no cover
+        if result is None:  # pragma: no cover
             return None
 
         files = result.get("files", None)
-        if files is None: # pragma: no cover
+        if files is None:  # pragma: no cover
             return result
 
-        md5 = sample['md5']
-        log_dir = os.path.join(basedir, 'analysis', 'honeyagent', 'dropped')
+        md5 = sample["md5"]
+        log_dir = os.path.join(basedir, "analysis", "honeyagent", "dropped")
 
         for filename in files.keys():
-            log.warning("[HoneyAgent][%s] Dropped sample %s", md5, os.path.basename(filename))
+            log.warning(
+                "[HoneyAgent][%s] Dropped sample %s", md5, os.path.basename(filename)
+            )
             data = base64.b64decode(files[filename])
             log.ThugLogging.store_content(log_dir, os.path.basename(filename), data)
             log.ThugLogging.log_file(data)
@@ -78,27 +80,28 @@ class HoneyAgent:
 
     def dump_yara_analysis(self, result, sample):
         yara = result.get("yara", None)
-        if yara is None: # pragma: no cover
+        if yara is None:  # pragma: no cover
             return
 
-        md5 = sample['md5']
+        md5 = sample["md5"]
 
         for key in yara.keys():
             for v in yara[key]:
-                log.warning("[HoneyAgent][%s] Yara %s rule %s match", md5, key, v['rule'])
+                log.warning(
+                    "[HoneyAgent][%s] Yara %s rule %s match", md5, key, v["rule"]
+                )
 
     def submit(self, data, sample, params):
-        md5    = sample['md5']
+        md5 = sample["md5"]
         sample = os.path.join(tempfile.gettempdir(), md5)
 
         with open(sample, "wb") as fd:
             fd.write(data)
 
-        files    = {'file'  : (md5, open(sample, "rb"))} # pylint: disable=consider-using-with
-        response = requests.post(self.opts["scanurl"],
-                                 files   = files,
-                                 params  = params,
-                                 timeout = 10)
+        files = {"file": (md5, open(sample, "rb"))}  # pylint: disable=consider-using-with
+        response = requests.post(
+            self.opts["scanurl"], files=files, params=params, timeout=10
+        )
 
         if response.ok:
             log.warning("[HoneyAgent][%s] Sample submitted", md5)
@@ -110,7 +113,7 @@ class HoneyAgent:
         if not self.enabled:
             return
 
-        if not log.ThugOpts.honeyagent: # pragma: no cover
+        if not log.ThugOpts.honeyagent:  # pragma: no cover
             return
 
         if params is None:

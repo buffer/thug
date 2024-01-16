@@ -6,9 +6,11 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def GetPropertyById(self, arg0, arg1): # pylint:disable=unused-argument
+def GetPropertyById(self, arg0, arg1):  # pylint:disable=unused-argument
     if len(arg1) > 120:
-        log.ThugLogging.log_exploit_event(self._window.url,
-                                          "ICQ Toolbar ActiveX",
-                                          "Buffer overflow in GetPropertyById")
+        log.ThugLogging.log_exploit_event(
+            self._window.url,
+            "ICQ Toolbar ActiveX",
+            "Buffer overflow in GetPropertyById",
+        )
         log.ThugLogging.Shellcode.check_shellcode(arg1)

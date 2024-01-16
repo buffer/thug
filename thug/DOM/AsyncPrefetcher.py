@@ -24,22 +24,24 @@ log = logging.getLogger("Thug")
 
 
 class AsyncPrefetcher:
-    def __init__(self, window = None):
-        self.session   = FuturesSession()
-        self.window    = window
+    def __init__(self, window=None):
+        self.session = FuturesSession()
+        self.window = window
         self.responses = {}
 
     def build_http_headers(self, window):
         http_headers = {
-            'Cache-Control'   : 'no-cache',
-            'Accept-Language' : 'en-US',
-            'Accept'          : '*/*',
-            'User-Agent'      :  log.ThugOpts.useragent
+            "Cache-Control": "no-cache",
+            "Accept-Language": "en-US",
+            "Accept": "*/*",
+            "User-Agent": log.ThugOpts.useragent,
         }
 
-        if window and window.url not in ('about:blank', ):
-            referer = window.url if window.url.startswith('http') else f'http://{window.url}'
-            http_headers['Referer'] = referer
+        if window and window.url not in ("about:blank",):
+            referer = (
+                window.url if window.url.startswith("http") else f"http://{window.url}"
+            )
+            http_headers["Referer"] = referer
 
         return http_headers
 
@@ -47,21 +49,26 @@ class AsyncPrefetcher:
         log.warning("[PREFETCHING] URL: %s", url)
 
         fetcher = getattr(self.session, method.lower())
-        self.responses[url] = fetcher(url,
-                                      headers = self.build_http_headers(self.window),
-                                      timeout = log.ThugOpts.connect_timeout,
-                                      verify  = log.ThugOpts.ssl_verify,
-                                      stream  = True)
+        self.responses[url] = fetcher(
+            url,
+            headers=self.build_http_headers(self.window),
+            timeout=log.ThugOpts.connect_timeout,
+            verify=log.ThugOpts.ssl_verify,
+            stream=True,
+        )
 
-    def fetch(self, url, method = "GET"):
+    def fetch(self, url, method="GET"):
         if log.HTTPSession.no_fetch:
-            return # pragma: no cover
+            return  # pragma: no cover
 
-        if method.lower() not in ('get', 'post', ):
-            return # pragma: no cover
+        if method.lower() not in (
+            "get",
+            "post",
+        ):
+            return  # pragma: no cover
 
         _url = log.HTTPSession.normalize_url(self.window, url)
         if _url is None:
-            return # pragma: no cover
+            return  # pragma: no cover
 
         self._fetch(_url, method)

@@ -32,4 +32,5 @@ class Text(CharacterData):
     @property
     def nodeType(self):
         from .NodeType import NodeType
+
         return NodeType.TEXT_NODE

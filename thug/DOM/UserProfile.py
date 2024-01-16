@@ -20,41 +20,43 @@ from .JSClass import JSClass
 
 
 class UserProfile(JSClass):
-    vCardSchemas = ("vCard.Business.City",
-                    "vCard.Business.Country",
-                    "vCard.Business.Fax",
-                    "vCard.Business.Phone",
-                    "vCard.Business.State",
-                    "vCard.Business.StreetAddress",
-                    "vCard.Business.URL",
-                    "vCard.Business.Zipcode",
-                    "vCard.Cellular",
-                    "vCard.Company",
-                    "vCard.Department",
-                    "vCard.DisplayName",
-                    "vCard.Email",
-                    "vCard.FirstName",
-                    "vCard.Gender",
-                    "vCard.Home.City",
-                    "vCard.Home.Country",
-                    "vCard.Home.Fax",
-                    "vCard.Home.Phone",
-                    "vCard.Home.State",
-                    "vCard.Home.StreetAddress",
-                    "vCard.Home.Zipcode",
-                    "vCard.Homepage",
-                    "vCard.JobTitle",
-                    "vCard.LastName",
-                    "vCard.MiddleName",
-                    "vCard.Notes",
-                    "vCard.Office",
-                    "vCard.Pager")
+    vCardSchemas = (
+        "vCard.Business.City",
+        "vCard.Business.Country",
+        "vCard.Business.Fax",
+        "vCard.Business.Phone",
+        "vCard.Business.State",
+        "vCard.Business.StreetAddress",
+        "vCard.Business.URL",
+        "vCard.Business.Zipcode",
+        "vCard.Cellular",
+        "vCard.Company",
+        "vCard.Department",
+        "vCard.DisplayName",
+        "vCard.Email",
+        "vCard.FirstName",
+        "vCard.Gender",
+        "vCard.Home.City",
+        "vCard.Home.Country",
+        "vCard.Home.Fax",
+        "vCard.Home.Phone",
+        "vCard.Home.State",
+        "vCard.Home.StreetAddress",
+        "vCard.Home.Zipcode",
+        "vCard.Homepage",
+        "vCard.JobTitle",
+        "vCard.LastName",
+        "vCard.MiddleName",
+        "vCard.Notes",
+        "vCard.Office",
+        "vCard.Pager",
+    )
 
     def __init__(self):
         self._vCard = {}
         self._queue = []
 
-    def addReadRequest(self, vCardName, reserved = None): # pylint:disable=unused-argument
+    def addReadRequest(self, vCardName, reserved=None):  # pylint:disable=unused-argument
         for schema in self.vCardSchemas:
             if schema.lower() == vCardName.lower():
                 self._queue.append(vCardName)
@@ -62,12 +64,15 @@ class UserProfile(JSClass):
 
         return False
 
-    def doReadRequest(self, usageCode,
-                            displayName = None,
-                            domain = None,
-                            path = None,
-                            expiration = None,
-                            reserved = None):
+    def doReadRequest(
+        self,
+        usageCode,
+        displayName=None,
+        domain=None,
+        path=None,
+        expiration=None,
+        reserved=None,
+    ):
         pass
 
     def clearRequest(self):
@@ -82,7 +87,7 @@ class UserProfile(JSClass):
 
         return self._vCard[vCardName]
 
-    def setAttribute(self, vCardName, vCardValue, caseSens = 1):
+    def setAttribute(self, vCardName, vCardValue, caseSens=1):
         if caseSens:
             if vCardName not in self.vCardSchemas:
                 return

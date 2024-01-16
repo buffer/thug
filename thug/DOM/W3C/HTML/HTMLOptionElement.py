@@ -8,12 +8,12 @@ from .form_property import form_property
 
 class HTMLOptionElement(HTMLElement):
     defaultSelected = bool_property("selected")
-    index           = attr_property("index", int, readonly = True)
-    disabled        = bool_property("disabled")
-    form            = form_property()
-    label           = attr_property("label")
-    selected        = False
-    value           = attr_property("value")
+    index = attr_property("index", int, readonly=True)
+    disabled = bool_property("disabled")
+    form = form_property()
+    label = attr_property("label")
+    selected = False
+    value = attr_property("value")
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)

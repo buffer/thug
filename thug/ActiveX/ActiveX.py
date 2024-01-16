@@ -22,52 +22,60 @@ from .CLSID import CLSID
 
 log = logging.getLogger("Thug")
 
-acropdf   = ( 'acropdf.pdf',
-              'pdf.pdfctrl',
-              'CA8A9780-280D-11CF-A24D-444553540000', )
+acropdf = (
+    "acropdf.pdf",
+    "pdf.pdfctrl",
+    "CA8A9780-280D-11CF-A24D-444553540000",
+)
 
 
-shockwave = ( 'shockwaveflash.shockwaveflash',
-              'shockwaveflash.shockwaveflash.1',
-              'shockwaveflash.shockwaveflash.9',
-              'shockwaveflash.shockwaveflash.10',
-              'shockwaveflash.shockwaveflash.11',
-              'shockwaveflash.shockwaveflash.12',
-              'swctl.swctl',
-              'swctl.swctl.8',
-              '233C1507-6A77-46A4-9443-F871F945D258', )
+shockwave = (
+    "shockwaveflash.shockwaveflash",
+    "shockwaveflash.shockwaveflash.1",
+    "shockwaveflash.shockwaveflash.9",
+    "shockwaveflash.shockwaveflash.10",
+    "shockwaveflash.shockwaveflash.11",
+    "shockwaveflash.shockwaveflash.12",
+    "swctl.swctl",
+    "swctl.swctl.8",
+    "233C1507-6A77-46A4-9443-F871F945D258",
+)
 
 
-silverlight = ( 'agcontrol.agcontrol', )
+silverlight = ("agcontrol.agcontrol",)
 
-java_deployment_toolkit = ( 'CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA',
-                            '8AD9C840-044E-11D1-B3E9-00805F499D93', )
+java_deployment_toolkit = (
+    "CAFEEFAC-DEC7-0000-0000-ABCDEFFEDCBA",
+    "8AD9C840-044E-11D1-B3E9-00805F499D93",
+)
 
 
 class _ActiveXObject:
-    def __init__(self, window, cls, typename = 'name'):
+    def __init__(self, window, cls, typename="name"):
         self.funcattrs = {}
-        self._window   = window
-        obj            = None
-        methods        = {}
-        self.cls       = cls
+        self._window = window
+        obj = None
+        methods = {}
+        self.cls = cls
 
-        self.shockwave = log.ThugVulnModules.shockwave_flash.split('.')[0]
-        self.shockwave_flash = { 'shockwaveflash.shockwaveflash'    : self.shockwave,
-                                 'shockwaveflash.shockwaveflash.1'  : self.shockwave,
-                                 'shockwaveflash.shockwaveflash.9'  : '9' ,
-                                 'shockwaveflash.shockwaveflash.10' : '10',
-                                 'shockwaveflash.shockwaveflash.11' : '11',
-                                 'shockwaveflash.shockwaveflash.12' : '12' }
+        self.shockwave = log.ThugVulnModules.shockwave_flash.split(".")[0]
+        self.shockwave_flash = {
+            "shockwaveflash.shockwaveflash": self.shockwave,
+            "shockwaveflash.shockwaveflash.1": self.shockwave,
+            "shockwaveflash.shockwaveflash.9": "9",
+            "shockwaveflash.shockwaveflash.10": "10",
+            "shockwaveflash.shockwaveflash.11": "11",
+            "shockwaveflash.shockwaveflash.12": "12",
+        }
 
-        if typename == 'id':
-            if len(cls) > 5 and cls[:6].lower() == 'clsid:':
+        if typename == "id":
+            if len(cls) > 5 and cls[:6].lower() == "clsid:":
                 cls = cls[6:].upper()
 
-            if cls.startswith('{') and cls.endswith('}'):
+            if cls.startswith("{") and cls.endswith("}"):
                 cls = cls[1:-1]
 
-        if typename == 'name':
+        if typename == "name":
             cls = cls.lower()
 
         # Adobe Acrobat Reader
@@ -81,11 +89,14 @@ class _ActiveXObject:
             raise TypeError()
 
         if cls in self.shockwave_flash:
-            if cls in ('shockwaveflash.shockwaveflash', 'shockwaveflash.shockwaveflash.1'):
+            if cls in (
+                "shockwaveflash.shockwaveflash",
+                "shockwaveflash.shockwaveflash.1",
+            ):
                 version = self.shockwave_flash[cls]
                 cls = f"shockwaveflash.shockwaveflash.{version}"
 
-            if self.shockwave not in (self.shockwave_flash[cls], ):
+            if self.shockwave not in (self.shockwave_flash[cls],):
                 log.warning("Unknown ActiveX Object: %s", cls)
                 raise TypeError()
 
@@ -97,20 +108,24 @@ class _ActiveXObject:
             raise TypeError()
 
         # JavaPlugin
-        if cls.lower().startswith('javaplugin'):
-            if log.ThugVulnModules.javaplugin_disabled or not cls.endswith(log.ThugVulnModules.javaplugin):
+        if cls.lower().startswith("javaplugin"):
+            if log.ThugVulnModules.javaplugin_disabled or not cls.endswith(
+                log.ThugVulnModules.javaplugin
+            ):
                 log.warning("Unknown ActiveX Object: %s", cls)
                 raise TypeError()
 
-            _cls = 'javaplugin'
+            _cls = "javaplugin"
 
         # JavaWebStart
-        if cls.lower().startswith('javawebstart.isinstalled'):
-            if log.ThugVulnModules.javaplugin_disabled or not cls.endswith(log.ThugVulnModules.javawebstart_isinstalled):
+        if cls.lower().startswith("javawebstart.isinstalled"):
+            if log.ThugVulnModules.javaplugin_disabled or not cls.endswith(
+                log.ThugVulnModules.javawebstart_isinstalled
+            ):
                 log.warning("Unknown ActiveX Object: %s", cls)
                 raise TypeError()
 
-            _cls = 'javawebstart.isinstalled'
+            _cls = "javawebstart.isinstalled"
 
         if cls in silverlight and log.ThugVulnModules.silverlight_disabled:
             log.warning("Unknown ActiveX Object: %s", cls)
@@ -131,19 +146,19 @@ class _ActiveXObject:
         if log.ThugOpts.features_logging and log.ThugOpts.activex_ready:
             log.ThugLogging.Features.increase_activex_count()
 
-        for method_name, method in obj['methods'].items():
+        for method_name, method in obj["methods"].items():
             _method = method.__get__(self, _ActiveXObject)
             setattr(self, method_name, _method)
             methods[method] = _method
 
-        for attr_name, attr_value in obj['attrs'].items():
+        for attr_name, attr_value in obj["attrs"].items():
             setattr(self, attr_name, attr_value)
 
-        for attr_name, attr_value in obj['funcattrs'].items():
+        for attr_name, attr_value in obj["funcattrs"].items():
             self.funcattrs[attr_name] = methods[attr_value]
 
-        if cls.lower() in ('wscript.shell', ):
-            self.scriptFullName = log.ThugLogging.url if log.ThugOpts.local else ''
+        if cls.lower() in ("wscript.shell",):
+            self.scriptFullName = log.ThugLogging.url if log.ThugOpts.local else ""
 
     def __setattr__(self, name, value):
         self.__dict__[name] = value
@@ -161,7 +176,7 @@ class _ActiveXObject:
             self.__dict__[name] = value
             return value
 
-        if name not in ('__watchpoints__', ):
+        if name not in ("__watchpoints__",):
             log.warning("Unknown ActiveX Object (%s) attribute: %s", self.cls, name)
 
         raise AttributeError
@@ -169,14 +184,14 @@ class _ActiveXObject:
 
 def register_object(s, clsid):
     methods = {}
-    obj     = None
+    obj = None
 
-    if not clsid.startswith('clsid:'):
+    if not clsid.startswith("clsid:"):
         log.warning("Unknown ActiveX object: %s", clsid)
         return
 
     clsid = clsid[6:].upper()
-    if clsid.startswith('{') and clsid.endswith('}'):
+    if clsid.startswith("{") and clsid.endswith("}"):
         clsid = clsid[1:-1]
 
     # Adobe Acrobat Reader
@@ -195,7 +210,7 @@ def register_object(s, clsid):
         raise TypeError()
 
     for c in CLSID:
-        if clsid in c['id']:
+        if clsid in c["id"]:
             obj = c
             break
 
@@ -205,16 +220,16 @@ def register_object(s, clsid):
 
     log.warning("ActiveXObject: %s", clsid)
 
-    for method_name, method in obj['methods'].items():
+    for method_name, method in obj["methods"].items():
         _method = method.__get__(s, s.__class__)
         setattr(s, method_name, _method)
         methods[method] = _method
 
-    for attr_name, attr_value in obj['attrs'].items():
+    for attr_name, attr_value in obj["attrs"].items():
         setattr(s, attr_name, attr_value)
 
-    for attr_name, attr_value in obj['funcattrs'].items():
-        if 'funcattrs' not in s.__dict__:
-            s.__dict__['funcattrs'] = {}
+    for attr_name, attr_value in obj["funcattrs"].items():
+        if "funcattrs" not in s.__dict__:
+            s.__dict__["funcattrs"] = {}
 
-        s.__dict__['funcattrs'][attr_name] = methods[attr_value]
+        s.__dict__["funcattrs"][attr_name] = methods[attr_value]

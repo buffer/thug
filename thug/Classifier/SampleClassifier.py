@@ -31,34 +31,34 @@ log = logging.getLogger("Thug")
 
 
 class SampleClassifier(BaseClassifier):
-    default_rule_file   = "rules/sampleclassifier.yar"
+    default_rule_file = "rules/sampleclassifier.yar"
     default_filter_file = "rules/samplefilter.yar"
-    _classifier         = "Sample Classifier"
+    _classifier = "Sample Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
 
     def classify(self, sample, md5):
-        for match in self.rules.match(data = sample):
+        for match in self.rules.match(data=sample):
             self.matches.append((sample, match))
 
             self.handle_match_etags(match)
 
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("sample", md5, rule, tags, meta)
 
-        for c in self.custom_classifiers: # pylint: disable=consider-using-dict-items
+        for c in self.custom_classifiers:  # pylint: disable=consider-using-dict-items
             self.custom_classifiers[c](sample, md5)
 
     def filter(self, sample, md5):
         ret = False
 
-        for match in self.filters.match(data = sample):
+        for match in self.filters.match(data=sample):
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("samplefilter", md5, rule, tags, meta)
             ret = True
 

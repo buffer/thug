@@ -8,7 +8,7 @@ log = logging.getLogger("Thug")
 
 def SetPassword(self, arg0):
     if len(arg0) > 128:
-        log.ThugLogging.log_exploit_event(self._window.url,
-                                          "DivX Player ActiveX",
-                                          "Overflow in SetPassword")
+        log.ThugLogging.log_exploit_event(
+            self._window.url, "DivX Player ActiveX", "Overflow in SetPassword"
+        )
         log.ThugLogging.Shellcode.check_shellcode(arg0)

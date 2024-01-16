@@ -7,10 +7,12 @@ log = logging.getLogger("Thug")
 
 
 class TestEvents(object):
-    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    cwd_path = os.path.dirname(os.path.realpath(__file__))
     event_path = os.path.join(cwd_path, os.pardir, "samples/Events")
 
-    def do_perform_test(self, caplog, sample, expected, events = '', useragent = 'win7ie90'):
+    def do_perform_test(
+        self, caplog, sample, expected, events="", useragent="win7ie90"
+    ):
         thug = ThugAPI()
 
         thug.set_useragent(useragent)
@@ -32,268 +34,303 @@ class TestEvents(object):
         assert matches >= len(expected)
 
     def test_testDocumentEvent(self, caplog):
-        sample   = os.path.join(self.event_path, "testDocumentEvent.html")
-        expected = ['[object HTMLEvent]',
-                    '[object MouseEvent]',
-                    '[object MutationEvent]',
-                    '[object StorageEvent]',
-                    '[object UIEvent]']
+        sample = os.path.join(self.event_path, "testDocumentEvent.html")
+        expected = [
+            "[object HTMLEvent]",
+            "[object MouseEvent]",
+            "[object MutationEvent]",
+            "[object StorageEvent]",
+            "[object UIEvent]",
+        ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_testMouseEvent_IE60(self, caplog):
-        sample   = os.path.join(self.event_path, "testMouseEvent.html")
-        expected = ['[object MouseEvent]',
-                    'type: click',
-                    'target: null',
-                    'bubbles: false',
-                    'cancelable: false',
-                    'screenX: 0',
-                    'screenY: 0',
-                    'clientX: 0',
-                    'clientY: 0',
-                    'ctlrKey: false',
-                    'altKey: false',
-                    'shiftKey: false',
-                    'metaKey: false',
-                    'button: 0',
-                    'relatedTarget: null',
-                    'detail: 0',
-                    'view: [object Window]',
-                    'defaultPrevented: undefined']
+        sample = os.path.join(self.event_path, "testMouseEvent.html")
+        expected = [
+            "[object MouseEvent]",
+            "type: click",
+            "target: null",
+            "bubbles: false",
+            "cancelable: false",
+            "screenX: 0",
+            "screenY: 0",
+            "clientX: 0",
+            "clientY: 0",
+            "ctlrKey: false",
+            "altKey: false",
+            "shiftKey: false",
+            "metaKey: false",
+            "button: 0",
+            "relatedTarget: null",
+            "detail: 0",
+            "view: [object Window]",
+            "defaultPrevented: undefined",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, useragent = 'winxpie60')
+        self.do_perform_test(caplog, sample, expected, useragent="winxpie60")
 
     def test_testMouseEvent_IE90(self, caplog):
-        sample   = os.path.join(self.event_path, "testMouseEvent.html")
-        expected = ['[object MouseEvent]',
-                    'type: click',
-                    'target: null',
-                    'bubbles: false',
-                    'cancelable: false',
-                    'screenX: 0',
-                    'screenY: 0',
-                    'clientX: 0',
-                    'clientY: 0',
-                    'ctlrKey: false',
-                    'altKey: false',
-                    'shiftKey: false',
-                    'metaKey: false',
-                    'button: 0',
-                    'relatedTarget: null',
-                    'detail: 0',
-                    'view: [object Window]',
-                    'defaultPrevented: false']
+        sample = os.path.join(self.event_path, "testMouseEvent.html")
+        expected = [
+            "[object MouseEvent]",
+            "type: click",
+            "target: null",
+            "bubbles: false",
+            "cancelable: false",
+            "screenX: 0",
+            "screenY: 0",
+            "clientX: 0",
+            "clientY: 0",
+            "ctlrKey: false",
+            "altKey: false",
+            "shiftKey: false",
+            "metaKey: false",
+            "button: 0",
+            "relatedTarget: null",
+            "detail: 0",
+            "view: [object Window]",
+            "defaultPrevented: false",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, useragent = 'win7ie90')
+        self.do_perform_test(caplog, sample, expected, useragent="win7ie90")
 
     def test_testMouseEvent_Chrome(self, caplog):
-        sample   = os.path.join(self.event_path, "testMouseEvent.html")
-        expected = ['[object MouseEvent]',
-                    'type: click',
-                    'target: null',
-                    'bubbles: false',
-                    'cancelable: false',
-                    'screenX: 0',
-                    'screenY: 0',
-                    'clientX: 0',
-                    'clientY: 0',
-                    'ctlrKey: false',
-                    'altKey: false',
-                    'shiftKey: false',
-                    'metaKey: false',
-                    'button: 0',
-                    'relatedTarget: null',
-                    'detail: 0',
-                    'view: [object Window]',
-                    'defaultPrevented: false']
+        sample = os.path.join(self.event_path, "testMouseEvent.html")
+        expected = [
+            "[object MouseEvent]",
+            "type: click",
+            "target: null",
+            "bubbles: false",
+            "cancelable: false",
+            "screenX: 0",
+            "screenY: 0",
+            "clientX: 0",
+            "clientY: 0",
+            "ctlrKey: false",
+            "altKey: false",
+            "shiftKey: false",
+            "metaKey: false",
+            "button: 0",
+            "relatedTarget: null",
+            "detail: 0",
+            "view: [object Window]",
+            "defaultPrevented: false",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, useragent = 'win7chrome49')
+        self.do_perform_test(caplog, sample, expected, useragent="win7chrome49")
 
     def test_testMouseEvent_Safari(self, caplog):
-        sample   = os.path.join(self.event_path, "testMouseEvent.html")
-        expected = ['[object MouseEvent]',
-                    'type: click',
-                    'target: null',
-                    'bubbles: false',
-                    'cancelable: false',
-                    'screenX: 0',
-                    'screenY: 0',
-                    'clientX: 0',
-                    'clientY: 0',
-                    'ctlrKey: false',
-                    'altKey: false',
-                    'shiftKey: false',
-                    'metaKey: false',
-                    'button: 0',
-                    'relatedTarget: null',
-                    'detail: 0',
-                    'view: [object Window]',
-                    'defaultPrevented: false']
+        sample = os.path.join(self.event_path, "testMouseEvent.html")
+        expected = [
+            "[object MouseEvent]",
+            "type: click",
+            "target: null",
+            "bubbles: false",
+            "cancelable: false",
+            "screenX: 0",
+            "screenY: 0",
+            "clientX: 0",
+            "clientY: 0",
+            "ctlrKey: false",
+            "altKey: false",
+            "shiftKey: false",
+            "metaKey: false",
+            "button: 0",
+            "relatedTarget: null",
+            "detail: 0",
+            "view: [object Window]",
+            "defaultPrevented: false",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, useragent = 'win7safari5')
+        self.do_perform_test(caplog, sample, expected, useragent="win7safari5")
 
     def test_testMouseEvent_Firefox(self, caplog):
-        sample   = os.path.join(self.event_path, "testMouseEvent.html")
-        expected = ['[object MouseEvent]',
-                    'type: click',
-                    'target: null',
-                    'bubbles: false',
-                    'cancelable: false',
-                    'screenX: 0',
-                    'screenY: 0',
-                    'clientX: 0',
-                    'clientY: 0',
-                    'ctlrKey: false',
-                    'altKey: false',
-                    'shiftKey: false',
-                    'metaKey: false',
-                    'button: 0',
-                    'relatedTarget: null',
-                    'detail: 0',
-                    'view: [object Window]',
-                    'defaultPrevented: false']
+        sample = os.path.join(self.event_path, "testMouseEvent.html")
+        expected = [
+            "[object MouseEvent]",
+            "type: click",
+            "target: null",
+            "bubbles: false",
+            "cancelable: false",
+            "screenX: 0",
+            "screenY: 0",
+            "clientX: 0",
+            "clientY: 0",
+            "ctlrKey: false",
+            "altKey: false",
+            "shiftKey: false",
+            "metaKey: false",
+            "button: 0",
+            "relatedTarget: null",
+            "detail: 0",
+            "view: [object Window]",
+            "defaultPrevented: false",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, useragent = 'linuxfirefox40')
+        self.do_perform_test(caplog, sample, expected, useragent="linuxfirefox40")
 
     def test_testStorageEvent(self, caplog):
-        sample   = os.path.join(self.event_path, "testStorageEvent.html")
-        expected = ['[object StorageEvent]',
-                    'type: storage',
-                    'target: null',
-                    'bubbles: false',
-                    'cancelable: false',
-                    'key: key',
-                    'oldValue: oldValue',
-                    'newValue: newValue',
-                    'url: http://www.example.com',
-                    'storageArea: [object SessionStorage]']
+        sample = os.path.join(self.event_path, "testStorageEvent.html")
+        expected = [
+            "[object StorageEvent]",
+            "type: storage",
+            "target: null",
+            "bubbles: false",
+            "cancelable: false",
+            "key: key",
+            "oldValue: oldValue",
+            "newValue: newValue",
+            "url: http://www.example.com",
+            "storageArea: [object SessionStorage]",
+        ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_testMutationEvent(self, caplog):
-        sample   = os.path.join(self.event_path, "testMutationEvent.html")
-        expected = ['[object MutationEvent]',
-                    'type: DOMAttrModified',
-                    'target: null',
-                    'bubbles: true',
-                    'cancelable: true',
-                    'relatedNode: [object Attr]',
-                    'prevValue: null',
-                    'newValue: foobar',
-                    'attrName: value',
-                    'attrChange: 1']
+        sample = os.path.join(self.event_path, "testMutationEvent.html")
+        expected = [
+            "[object MutationEvent]",
+            "type: DOMAttrModified",
+            "target: null",
+            "bubbles: true",
+            "cancelable: true",
+            "relatedNode: [object Attr]",
+            "prevValue: null",
+            "newValue: foobar",
+            "attrName: value",
+            "attrChange: 1",
+        ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_testMessageEvent(self, caplog):
-        sample   = os.path.join(self.event_path, "testMessageEvent.html")
-        expected = ["[object MessageEvent]",
-                    "msg.data: hello",
-                    "msg.source: null"]
+        sample = os.path.join(self.event_path, "testMessageEvent.html")
+        expected = ["[object MessageEvent]", "msg.data: hello", "msg.source: null"]
 
-        self.do_perform_test(caplog, sample, expected, useragent = 'osx10chrome97')
+        self.do_perform_test(caplog, sample, expected, useragent="osx10chrome97")
 
     def test_testEventException(self, caplog):
-        sample   = os.path.join(self.event_path, "testEventException.html")
-        expected = ['Error', ]
+        sample = os.path.join(self.event_path, "testEventException.html")
+        expected = [
+            "Error",
+        ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_testEvent1(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent1.html")
-        expected = ['add',
-                    '[object HTMLParagraphElement]']
+        sample = os.path.join(self.event_path, "testEvent1.html")
+        expected = ["add", "[object HTMLParagraphElement]"]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_testEvent2(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent2.html")
-        expected = ['1. Div capture ran',
-                    'Link capture ran - browser does not follow the specification',
-                    '2. Link bubble ran (first listener)',
-                    '2. Link bubble ran (second listener)',
-                    '3. Div bubble ran']
+        sample = os.path.join(self.event_path, "testEvent2.html")
+        expected = [
+            "1. Div capture ran",
+            "Link capture ran - browser does not follow the specification",
+            "2. Link bubble ran (first listener)",
+            "2. Link bubble ran (second listener)",
+            "3. Div bubble ran",
+        ]
 
         self.do_perform_test(caplog, sample, expected)
 
     def test_testEvent3(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent3.html")
-        expected = ['onmousemove detected',
-                    'onclick detected']
+        sample = os.path.join(self.event_path, "testEvent3.html")
+        expected = ["onmousemove detected", "onclick detected"]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click')
+        self.do_perform_test(caplog, sample, expected, events="click")
 
     def test_testEvent4(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent4.html")
-        expected = ['add',
-                    '[object HTMLParagraphElement]']
+        sample = os.path.join(self.event_path, "testEvent4.html")
+        expected = ["add", "[object HTMLParagraphElement]"]
 
-        self.do_perform_test(caplog, sample, expected, useragent = 'winxpie60')
+        self.do_perform_test(caplog, sample, expected, useragent="winxpie60")
 
     def test_testEvent6(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent6.html")
-        expected = ['Clicked', ]
+        sample = os.path.join(self.event_path, "testEvent6.html")
+        expected = [
+            "Clicked",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click')
+        self.do_perform_test(caplog, sample, expected, events="click")
 
     def test_testEvent7(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent7.html")
-        expected = ['foobar', ]
+        sample = os.path.join(self.event_path, "testEvent7.html")
+        expected = [
+            "foobar",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click')
+        self.do_perform_test(caplog, sample, expected, events="click")
 
     def test_testEvent8(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent8.html")
-        expected = ['Clicked',
-                    'foobar', ]
+        sample = os.path.join(self.event_path, "testEvent8.html")
+        expected = [
+            "Clicked",
+            "foobar",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click')
+        self.do_perform_test(caplog, sample, expected, events="click")
 
     def test_testEvent9(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent9.html")
-        expected = ['[object Event]',
-                    '[object HTMLParagraphElement]', ]
+        sample = os.path.join(self.event_path, "testEvent9.html")
+        expected = [
+            "[object Event]",
+            "[object HTMLParagraphElement]",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click')
+        self.do_perform_test(caplog, sample, expected, events="click")
 
     def test_testEvent11(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent11.html")
-        expected = ['[object Event]',
-                    '[object HTMLParagraphElement]',
-                    'clicked',
-                    'clicked 2']
+        sample = os.path.join(self.event_path, "testEvent11.html")
+        expected = [
+            "[object Event]",
+            "[object HTMLParagraphElement]",
+            "clicked",
+            "clicked 2",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click')
+        self.do_perform_test(caplog, sample, expected, events="click")
 
     def test_testEvent12(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent12.html")
-        expected = ['You should see me two times',
-                    'First click']
+        sample = os.path.join(self.event_path, "testEvent12.html")
+        expected = ["You should see me two times", "First click"]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
+        self.do_perform_test(
+            caplog, sample, expected, events="click", useragent="winxpie60"
+        )
 
     def test_testEvent13(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent13.html")
-        expected = ['You should not see me again',
-                    'First click']
+        sample = os.path.join(self.event_path, "testEvent13.html")
+        expected = ["You should not see me again", "First click"]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
+        self.do_perform_test(
+            caplog, sample, expected, events="click", useragent="winxpie60"
+        )
 
     def test_testEvent14(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent14.html")
-        expected = ['Done!', ]
+        sample = os.path.join(self.event_path, "testEvent14.html")
+        expected = [
+            "Done!",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click')
+        self.do_perform_test(caplog, sample, expected, events="click")
 
     def test_testEvent15(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent15.html")
-        expected = ['clicked', ]
+        sample = os.path.join(self.event_path, "testEvent15.html")
+        expected = [
+            "clicked",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, events = 'click', useragent = 'winxpie60')
+        self.do_perform_test(
+            caplog, sample, expected, events="click", useragent="winxpie60"
+        )
 
     def test_testEvent16(self, caplog):
-        sample   = os.path.join(self.event_path, "testEvent16.html")
-        expected = ['loaded', ]
+        sample = os.path.join(self.event_path, "testEvent16.html")
+        expected = [
+            "loaded",
+        ]
 
-        self.do_perform_test(caplog, sample, expected, useragent = 'winxpie60')
+        self.do_perform_test(caplog, sample, expected, useragent="winxpie60")

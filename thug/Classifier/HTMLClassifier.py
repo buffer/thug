@@ -23,9 +23,9 @@ log = logging.getLogger("Thug")
 
 
 class HTMLClassifier(BaseClassifier):
-    default_rule_file   = "rules/htmlclassifier.yar"
+    default_rule_file = "rules/htmlclassifier.yar"
     default_filter_file = "rules/htmlfilter.yar"
-    _classifier         = "HTML Classifier"
+    _classifier = "HTML Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
@@ -34,32 +34,32 @@ class HTMLClassifier(BaseClassifier):
         if log.HTMLInspector.check_ignore_handler(html):
             return
 
-        for match in self.rules.match(data = html):
+        for match in self.rules.match(data=html):
             if (url, match) in self.matches:
                 continue
 
             self.matches.append((url, match))
 
-            if self.discard_url_match(url, match): # pragma: no cover
+            if self.discard_url_match(url, match):  # pragma: no cover
                 continue
 
             self.handle_match_etags(match)
 
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("html", url, rule, tags, meta)
 
-        for c in self.custom_classifiers: # pylint: disable=consider-using-dict-items
+        for c in self.custom_classifiers:  # pylint: disable=consider-using-dict-items
             self.custom_classifiers[c](url, html)
 
     def filter(self, url, html):
         ret = False
 
-        for match in self.filters.match(data = html):
+        for match in self.filters.match(data=html):
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("htmlfilter", url, rule, tags, meta)
             ret = True
 

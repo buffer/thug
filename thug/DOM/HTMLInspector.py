@@ -29,29 +29,30 @@ class HTMLInspector:
     def __init__(self):
         self.enabled = True
 
-        conf_file = os.path.join(log.configuration_path, 'inspector.json')
-        if not os.path.exists(conf_file): # pragma: no cover
+        conf_file = os.path.join(log.configuration_path, "inspector.json")
+        if not os.path.exists(conf_file):  # pragma: no cover
             self.enabled = False
             return
 
-        with open(conf_file, encoding = 'utf-8', mode = 'r') as fd:
+        with open(conf_file, encoding="utf-8", mode="r") as fd:
             self.rules = json.load(fd)
 
     @staticmethod
     def check_ignore_handler(html):
         ignore_handlers = (
-			log.MIMEHandler.passthrough,
-			log.MIMEHandler.handle_zip,
-			log.MIMEHandler.handle_rar,
-			log.MIMEHandler.handle_java_jnlp,
-			log.MIMEHandler.handle_json,
-			log.MIMEHandler.handle_image)
+            log.MIMEHandler.passthrough,
+            log.MIMEHandler.handle_zip,
+            log.MIMEHandler.handle_rar,
+            log.MIMEHandler.handle_java_jnlp,
+            log.MIMEHandler.handle_json,
+            log.MIMEHandler.handle_image,
+        )
 
         mtype = log.Magic.get_mime(html)
         handler = log.MIMEHandler.get_handler(mtype)
         return handler in ignore_handlers
 
-    def run(self, html, parser = "html.parser"):
+    def run(self, html, parser="html.parser"):
         if self.check_ignore_handler(html):
             return bs4.BeautifulSoup()
 
@@ -65,7 +66,7 @@ class HTMLInspector:
         return log.ThugLogging.url if log.ThugOpts.local else log.last_url
 
     def inspect(self, html, parser):
-        soup     = bs4.BeautifulSoup(html, parser)
+        soup = bs4.BeautifulSoup(html, parser)
         modified = False
 
         for action in self.rules:
@@ -79,12 +80,13 @@ class HTMLInspector:
         if modified:
             try:
                 snippet = str(soup)
-            except Exception: # pragma: no cover,pylint:disable=broad-except
+            except Exception:  # pragma: no cover,pylint:disable=broad-except
                 return
 
             log.ThugLogging.add_behavior_warn(
-                description = "[HTMLInspector] Detected potential code obfuscation",
-                snippet     = snippet,
-                method      = "HTMLInspector deobfuscation")
+                description="[HTMLInspector] Detected potential code obfuscation",
+                snippet=snippet,
+                method="HTMLInspector deobfuscation",
+            )
 
             log.HTMLClassifier.classify(self.inspect_url, snippet)

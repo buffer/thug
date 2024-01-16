@@ -10,13 +10,13 @@ from thug.Logging.BaseLogging import BaseLogging
 from thug.ThugAPI.ThugOpts import ThugOpts
 
 configuration_path = thug.__configuration_path__
-config             = configparser.ConfigParser()
-conf_file          = os.path.join(configuration_path, 'thug.conf')
+config = configparser.ConfigParser()
+conf_file = os.path.join(configuration_path, "thug.conf")
 config.read(conf_file)
 
-log                    = logging.getLogger("Thug")
+log = logging.getLogger("Thug")
 log.personalities_path = thug.__personalities_path__ if configuration_path else None
-log.ThugOpts           = ThugOpts()
+log.ThugOpts = ThugOpts()
 
 base_logging = BaseLogging()
 
@@ -27,10 +27,12 @@ class TestBaseLogging:
         base_logging.set_basedir(url)
         assert not os.path.isdir(base_logging.baseDir)
 
-        base_logging.baseDir      = ""
+        base_logging.baseDir = ""
         log.ThugOpts.file_logging = True
         base_logging.set_basedir(url)
-        log_path = os.path.dirname(os.path.dirname(base_logging.baseDir))  # TODO: Make this neat
+        log_path = os.path.dirname(
+            os.path.dirname(base_logging.baseDir)
+        )  # TODO: Make this neat
         assert os.path.isdir(base_logging.baseDir)
 
         # Testing the self.baseDir variable
@@ -63,13 +65,13 @@ class TestBaseLogging:
 
     def test_json_module(self):
         log.ThugOpts.json_logging = True
-        assert base_logging.check_module('json', config)
+        assert base_logging.check_module("json", config)
 
         log.ThugOpts.json_logging = False
-        assert not base_logging.check_module('json', config)
+        assert not base_logging.check_module("json", config)
 
     def test_mongodb_module(self):
-        assert not base_logging.check_module('mongodb', config)
+        assert not base_logging.check_module("mongodb", config)
 
     def test_elasticsearch_module(self):
-        assert not base_logging.check_module('elasticsearch', config)
+        assert not base_logging.check_module("elasticsearch", config)

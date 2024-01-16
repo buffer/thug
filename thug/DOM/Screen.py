@@ -24,12 +24,12 @@ log = logging.getLogger("Thug")
 
 
 class Screen(JSClass):
-    def __init__(self, width = 800, height = 600, depth = 32):
-        self._width  = width
+    def __init__(self, width=800, height=600, depth=32):
+        self._width = width
         self._height = height
-        self._depth  = depth
-        self._left   = 0
-        self._top    = 0
+        self._depth = depth
+        self._left = 0
+        self._top = 0
 
         self.__init_screen_personality()
 
@@ -51,13 +51,13 @@ class Screen(JSClass):
             return
 
     def __init_screen_personality_IE(self):
-        self.bufferDepth          = property(self._get_bufferDepth, self._set_bufferDepth)
-        self.deviceXDPI           = self._deviceXDPI
-        self.deviceYDPI           = self._deviceYDPI
-        self.logicalXDPI          = self._logicalXDPI
-        self.logicalYDPI          = self._logicalYDPI
+        self.bufferDepth = property(self._get_bufferDepth, self._set_bufferDepth)
+        self.deviceXDPI = self._deviceXDPI
+        self.deviceYDPI = self._deviceYDPI
+        self.logicalXDPI = self._logicalXDPI
+        self.logicalYDPI = self._logicalYDPI
         self.fontSmoothingEnabled = self._fontSmoothingEnabled
-        self.updateInterval       = self._updateInterval
+        self.updateInterval = self._updateInterval
 
         if log.ThugOpts.Personality.browserMajorVersion >= 8:
             self.systemXDPI = self._systemXDPI
@@ -67,41 +67,41 @@ class Screen(JSClass):
             self.pixelDepth = self._pixelDepth
 
     def __init_screen_personality_Firefox(self):
-        self.availLeft  = self._availLeft
-        self.availTop   = self._availTop
-        self.left       = self._left
-        self.top        = self._top
+        self.availLeft = self._availLeft
+        self.availTop = self._availTop
+        self.left = self._left
+        self.top = self._top
         self.pixelDepth = self._pixelDepth
 
     def __init_screen_personality_Chrome(self):
-        self.availLeft  = self._availLeft
-        self.availTop   = self._availTop
+        self.availLeft = self._availLeft
+        self.availTop = self._availTop
         self.pixelDepth = self._pixelDepth
 
     def __init_screen_personality_Safari(self):
-        self.availLeft  = self._availLeft
-        self.availTop   = self._availTop
+        self.availLeft = self._availLeft
+        self.availTop = self._availTop
         self.pixelDepth = self._pixelDepth
 
     @property
     def availHeight(self):
         """
-            The height of the screen (excluding the Windows Taskbar)
+        The height of the screen (excluding the Windows Taskbar)
         """
         return self._height
 
     @property
     def availWidth(self):
         """
-            The width of the screen (excluding the Windows Taskbar)
+        The width of the screen (excluding the Windows Taskbar)
         """
         return self._width
 
     @property
     def colorDepth(self):
         """
-            The bit depth of the color palette for displaying images/
-            The color resolution (in bits per pixel) of the screen
+        The bit depth of the color palette for displaying images/
+        The color resolution (in bits per pixel) of the screen
 
         """
         return self._depth
@@ -109,14 +109,14 @@ class Screen(JSClass):
     @property
     def height(self):
         """
-            The total height of the screen
+        The total height of the screen
         """
         return self._height
 
     @property
     def _pixelDepth(self):
         """
-            The color resolution (in bits per pixel) of the screen
+        The color resolution (in bits per pixel) of the screen
         """
         return self._depth
 
@@ -132,86 +132,86 @@ class Screen(JSClass):
     @property
     def width(self):
         """
-            The total width of the screen
+        The total width of the screen
         """
         return self._width
 
     @property
     def _availLeft(self):
         """
-            The first available pixel available from the left side
-            of the screen
+        The first available pixel available from the left side
+        of the screen
         """
         return self._left + 1
 
     @property
     def _availTop(self):
         """
-            The first available pixel from the top of the screen
-            available to the browser
+        The first available pixel from the top of the screen
+        available to the browser
         """
         return self._top + 1
 
     @property
     def _deviceXDPI(self):
         """
-            Returns the current number of dots per inch (DPI) of
-            the document's viewport along the horizontal (x) axis.
+        Returns the current number of dots per inch (DPI) of
+        the document's viewport along the horizontal (x) axis.
         """
         return 120
 
     @property
     def _deviceYDPI(self):
         """
-            Returns the current number of dots per inch (DPI) of
-            the document's viewport along the vertical (y) axis.
+        Returns the current number of dots per inch (DPI) of
+        the document's viewport along the vertical (y) axis.
         """
         return 120
 
     @property
     def _logicalXDPI(self):
         """
-            Returns the number of dots per inch (DPI) of the document's
-            viewport along the horizontal (x) axis at normal zoom level.
+        Returns the number of dots per inch (DPI) of the document's
+        viewport along the horizontal (x) axis at normal zoom level.
         """
         return 96
 
     @property
     def _logicalYDPI(self):
         """
-            Returns the number of dots per inch (DPI) of the document's
-            viewport along the vertical (y) axis at normal zoom level.
+        Returns the number of dots per inch (DPI) of the document's
+        viewport along the vertical (y) axis at normal zoom level.
         """
         return 96
 
     @property
     def _systemXDPI(self):
         """
-            Returns the number of dots per inch (DPI) of the display
-            screen along the horizontal (x) axis at normal zoom level.
+        Returns the number of dots per inch (DPI) of the display
+        screen along the horizontal (x) axis at normal zoom level.
         """
         return 120
 
     @property
     def _systemYDPI(self):
         """
-            Returns the number of dots per inch (DPI) of the display
-            screen along the vertical (y) axis at normal zoom level.
+        Returns the number of dots per inch (DPI) of the display
+        screen along the vertical (y) axis at normal zoom level.
         """
         return 120
 
     @property
     def _fontSmoothingEnabled(self):
         """
-            Returns a Boolean value that indicates whether font
-            smoothing is enabled.
+        Returns a Boolean value that indicates whether font
+        smoothing is enabled.
         """
         return False
 
     @property
     def _updateInterval(self):
         """
-            Specifies or returns the time interval (in milliseconds)
-            between screen updates.
+        Specifies or returns the time interval (in milliseconds)
+        between screen updates.
         """
         return 0

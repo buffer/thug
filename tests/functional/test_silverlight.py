@@ -7,18 +7,18 @@ log = logging.getLogger("Thug")
 
 
 class TestSilverLight(object):
-    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    cwd_path = os.path.dirname(os.path.realpath(__file__))
     misc_path = os.path.join(cwd_path, os.pardir, "samples/misc")
 
     def do_perform_test(self, caplog, sample, silverlight, expected):
         thug = ThugAPI()
 
-        thug.set_useragent('win7ie90')
-        thug.set_events('click,storage')
+        thug.set_useragent("win7ie90")
+        thug.set_events("click,storage")
         thug.disable_cert_logging()
         thug.set_features_logging()
 
-        if silverlight in ('disable', ):
+        if silverlight in ("disable",):
             thug.disable_silverlight()
 
         thug.log_init(sample)
@@ -36,7 +36,9 @@ class TestSilverLight(object):
         assert matches >= len(expected)
 
     def test_silverlight1(self, caplog):
-        sample   = os.path.join(self.misc_path, "testSilverLight.html")
-        expected = ['Unknown ActiveX Object: agcontrol.agcontrol', ]
+        sample = os.path.join(self.misc_path, "testSilverLight.html")
+        expected = [
+            "Unknown ActiveX Object: agcontrol.agcontrol",
+        ]
 
-        self.do_perform_test(caplog, sample, 'disable', expected)
+        self.do_perform_test(caplog, sample, "disable", expected)

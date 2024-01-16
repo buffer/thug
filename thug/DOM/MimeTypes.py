@@ -28,53 +28,80 @@ class MimeTypes(dict):
         super().__init__()
 
         if not log.ThugVulnModules.acropdf_disabled:
-            self['application/pdf'] = MimeType({
-                                            'description'   : 'Adobe Acrobat Plug-In',
-                                            'suffixes'      : 'pdf',
-                                            'filename'      : 'npctrl.dll',
-                                            'type'          : 'application/pdf',
-                                            'enabledPlugin' : Plugin({'name'        : 'Adobe Acrobat',
-                                                                      'version'     : f'{log.ThugVulnModules.acropdf_pdf}',
-                                                                      'description' : 'Adobe Acrobat Plug-In'}),
-                                            'enabled'       : True})
+            self["application/pdf"] = MimeType(
+                {
+                    "description": "Adobe Acrobat Plug-In",
+                    "suffixes": "pdf",
+                    "filename": "npctrl.dll",
+                    "type": "application/pdf",
+                    "enabledPlugin": Plugin(
+                        {
+                            "name": "Adobe Acrobat",
+                            "version": f"{log.ThugVulnModules.acropdf_pdf}",
+                            "description": "Adobe Acrobat Plug-In",
+                        }
+                    ),
+                    "enabled": True,
+                }
+            )
 
         if not log.ThugVulnModules.shockwave_flash_disabled:
-            self['application/x-shockwave-flash'] = MimeType({
-                                            'description'   : 'Shockwave Flash',
-                                            'suffixes'      : 'swf',
-                                            'filename'      : f'Flash32_'
-                                                              f'{"_".join(log.ThugVulnModules.shockwave_flash.split("."))}.ocx',
-                                            'type'          : 'application/x-shockwave-flash',
-                                            'enabledPlugin' : Plugin({'name'        : f'Shockwave Flash '
-                                                                                      f'{log.ThugVulnModules.shockwave_flash}',
-                                                                      'version'     : f'{log.ThugVulnModules.shockwave_flash}',
-                                                                      'description' : f'Shockwave Flash '
-                                                                                      f'{log.ThugVulnModules.shockwave_flash}',
-                                                                      }),
-                                            'enabled'       : True})
+            self["application/x-shockwave-flash"] = MimeType(
+                {
+                    "description": "Shockwave Flash",
+                    "suffixes": "swf",
+                    "filename": f'Flash32_'
+                    f'{"_".join(log.ThugVulnModules.shockwave_flash.split("."))}.ocx',
+                    "type": "application/x-shockwave-flash",
+                    "enabledPlugin": Plugin(
+                        {
+                            "name": f"Shockwave Flash "
+                            f"{log.ThugVulnModules.shockwave_flash}",
+                            "version": f"{log.ThugVulnModules.shockwave_flash}",
+                            "description": f"Shockwave Flash "
+                            f"{log.ThugVulnModules.shockwave_flash}",
+                        }
+                    ),
+                    "enabled": True,
+                }
+            )
 
         if not log.ThugVulnModules.javaplugin_disabled:
-            self['application/x-java-applet'] = MimeType({
-                                            'description'   : 'Java Applet',
-                                            'suffixes'      : 'jar',
-                                            'filename'      : 'npjp2.dll',
-                                            'type'          : f'application/x-java-applet;jpi-version='
-                                                              f'{log.ThugVulnModules._javaplugin}',
-                                            'enabledPlugin' : Plugin({'name'        : f'Java {log.ThugVulnModules._javaplugin}',
-                                                                      'version'     : f'{log.ThugVulnModules._javaplugin}',
-                                                                      'description' : 'Java'}),
-                                            'enabled'       : True})
+            self["application/x-java-applet"] = MimeType(
+                {
+                    "description": "Java Applet",
+                    "suffixes": "jar",
+                    "filename": "npjp2.dll",
+                    "type": f"application/x-java-applet;jpi-version="
+                    f"{log.ThugVulnModules._javaplugin}",
+                    "enabledPlugin": Plugin(
+                        {
+                            "name": f"Java {log.ThugVulnModules._javaplugin}",
+                            "version": f"{log.ThugVulnModules._javaplugin}",
+                            "description": "Java",
+                        }
+                    ),
+                    "enabled": True,
+                }
+            )
 
         if log.ThugOpts.Personality.isWindows():
-            self['application/x-ms-wmz'] = MimeType({
-                                            'description'   : 'Windows Media Player',
-                                            'suffixes'      : 'wmz',
-                                            'filename'      : 'npdsplay.dll',
-                                            'type'          : 'application/x-ms-wmz',
-                                            'enabledPlugin' : Plugin({'name'        : 'Windows Media Player 7',
-                                                                      'version'     : '7',
-                                                                      'description' : 'Windows Media Player 7', }),
-                                            'enabled'       : True})
+            self["application/x-ms-wmz"] = MimeType(
+                {
+                    "description": "Windows Media Player",
+                    "suffixes": "wmz",
+                    "filename": "npdsplay.dll",
+                    "type": "application/x-ms-wmz",
+                    "enabledPlugin": Plugin(
+                        {
+                            "name": "Windows Media Player 7",
+                            "version": "7",
+                            "description": "Windows Media Player 7",
+                        }
+                    ),
+                    "enabled": True,
+                }
+            )
 
     def __getitem__(self, key):
         try:

@@ -26,7 +26,7 @@ MAX_COOKIE_EXPIRES_DAYS = 365
 
 class Cookies:
     now = datetime.datetime.now()
-    cookie_expires_delta = datetime.timedelta(days = MAX_COOKIE_EXPIRES_DAYS)
+    cookie_expires_delta = datetime.timedelta(days=MAX_COOKIE_EXPIRES_DAYS)
 
     def __init__(self):
         self.cookie_id = 1
@@ -38,24 +38,32 @@ class Cookies:
 
         expires = datetime.datetime.fromtimestamp(cookie.expires)
         if self.now + self.cookie_expires_delta < expires:
-            log.warning("[TRACKING] [Cookie #%s] Expiring at %s (more than %s days from now)", self.cookie_id,
-                                                                                               expires,
-                                                                                               MAX_COOKIE_EXPIRES_DAYS)
+            log.warning(
+                "[TRACKING] [Cookie #%s] Expiring at %s (more than %s days from now)",
+                self.cookie_id,
+                expires,
+                MAX_COOKIE_EXPIRES_DAYS,
+            )
 
-        if self.now > expires: # pragma: no cover
-            log.warning("[TRACKING] [Cookie #%s] Expired at %s", self.cookie_id, expires)
+        if self.now > expires:  # pragma: no cover
+            log.warning(
+                "[TRACKING] [Cookie #%s] Expired at %s", self.cookie_id, expires
+            )
 
     def _inspect_cookie_domain_initial_dot(self, cookie):
         if cookie.domain_specified and cookie.domain_initial_dot:
-            log.warning("[TRACKING] [Cookie #%s] Domain starting with initial dot: %s", self.cookie_id,
-                                                                                        cookie.domain)
+            log.warning(
+                "[TRACKING] [Cookie #%s] Domain starting with initial dot: %s",
+                self.cookie_id,
+                cookie.domain,
+            )
 
     def _inspect_cookie_path(self, cookie):
         if cookie.path_specified:
             log.warning("[TRACKING] [Cookie #%s] Path: %s", self.cookie_id, cookie.path)
 
     def _inspect_cookie_port(self, cookie):
-        if cookie.port_specified: # pragma: no cover
+        if cookie.port_specified:  # pragma: no cover
             log.warning("[TRACKING] [Cookie #%s] Port: %s", self.cookie_id, cookie.port)
 
     def _inspect_cookie_secure(self, cookie):

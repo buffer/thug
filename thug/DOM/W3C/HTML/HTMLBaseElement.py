@@ -5,7 +5,7 @@ from .attr_property import attr_property
 
 
 class HTMLBaseElement(HTMLElement):
-    href   = attr_property("href")
+    href = attr_property("href")
     target = attr_property("target")
 
     def __init__(self, doc, tag):

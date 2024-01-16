@@ -23,38 +23,38 @@ log = logging.getLogger("Thug")
 
 
 class JSClassifier(BaseClassifier):
-    default_rule_file   = "rules/jsclassifier.yar"
+    default_rule_file = "rules/jsclassifier.yar"
     default_filter_file = "rules/jsfilter.yar"
-    _classifier         = "JS Classifier"
+    _classifier = "JS Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
 
     def classify(self, url, script):
-        for match in self.rules.match(data = script):
+        for match in self.rules.match(data=script):
             self.matches.append((url, match))
 
-            if self.discard_url_match(url, match): # pragma: no cover
+            if self.discard_url_match(url, match):  # pragma: no cover
                 continue
 
             self.handle_match_etags(match)
 
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
 
             log.ThugLogging.log_classifier("js", url, rule, tags, meta)
 
-        for c in self.custom_classifiers: # pylint: disable=consider-using-dict-items
+        for c in self.custom_classifiers:  # pylint: disable=consider-using-dict-items
             self.custom_classifiers[c](url, script)
 
     def filter(self, url, script):
         ret = False
 
-        for match in self.filters.match(data = script):
+        for match in self.filters.match(data=script):
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("jsfilter", url, rule, tags, meta)
             ret = True
 

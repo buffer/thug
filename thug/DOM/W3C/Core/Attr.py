@@ -9,24 +9,28 @@ class Attr(Node):
     _value = ""
 
     def __init__(self, doc, parent, attr):
-        self.doc    = doc
+        self.doc = doc
         self.parent = parent
-        self.attr   = attr
+        self.attr = attr
 
-        tag = bs4.Tag(parser = self.doc, name = 'attr')
+        tag = bs4.Tag(parser=self.doc, name="attr")
         Node.__init__(self, doc, tag)
 
         self._specified = False
-        self._value     = self.getValue()
+        self._value = self.getValue()
 
-    def __hash__(self): # pragma: no cover
+    def __hash__(self):  # pragma: no cover
         return id(self)
 
-    def __eq__(self, other): # pragma: no cover
-        return hasattr(other, "parent") and self.parent == other.parent and \
-               hasattr(other, "attr") and self.attr == other.attr
+    def __eq__(self, other):  # pragma: no cover
+        return (
+            hasattr(other, "parent")
+            and self.parent == other.parent
+            and hasattr(other, "attr")
+            and self.attr == other.attr
+        )
 
-    def __ne__(self, other): # pragma: no cover
+    def __ne__(self, other):  # pragma: no cover
         return not self == other
 
     @property
@@ -48,6 +52,7 @@ class Attr(Node):
     @property
     def childNodes(self):
         from .NodeList import NodeList
+
         return NodeList(self.doc, [])
 
     @property

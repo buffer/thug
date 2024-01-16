@@ -1,4 +1,3 @@
-import os
 import logging
 import time
 
@@ -14,18 +13,18 @@ from thug.Classifier.SampleClassifier import SampleClassifier
 
 configuration_path = thug.__configuration_path__
 
-log                    = logging.getLogger("Thug")
+log = logging.getLogger("Thug")
 log.configuration_path = configuration_path
 log.personalities_path = thug.__personalities_path__ if configuration_path else None
 
-log.ThugOpts         = ThugOpts()
-log.HTTPSession      = HTTPSession()
-log.URLClassifier    = URLClassifier()
+log.ThugOpts = ThugOpts()
+log.HTTPSession = HTTPSession()
+log.URLClassifier = URLClassifier()
 log.SampleClassifier = SampleClassifier()
-log.ThugLogging      = ThugLogging()
+log.ThugLogging = ThugLogging()
 
 
-@patch('os.kill')
+@patch("os.kill")
 class TestWatchDog:
     def callback(self, signum, frame):
         log.warning("Signal no. is {}".format(signum))

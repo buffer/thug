@@ -7,14 +7,14 @@ log = logging.getLogger("Thug")
 
 
 class TestWebTracking(object):
-    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    cwd_path = os.path.dirname(os.path.realpath(__file__))
     misc_path = os.path.join(cwd_path, os.pardir, "samples/misc")
 
-    def do_perform_test(self, caplog, url, expected, type_ = "remote"):
+    def do_perform_test(self, caplog, url, expected, type_="remote"):
         thug = ThugAPI()
 
-        thug.set_useragent('win7ie90')
-        thug.set_events('click,storage')
+        thug.set_useragent("win7ie90")
+        thug.set_events("click,storage")
         thug.set_web_tracking()
         thug.enable_cert_logging()
         thug.set_features_logging()
@@ -37,19 +37,20 @@ class TestWebTracking(object):
         assert matches >= len(expected)
 
     def test_sessionstorage(self, caplog):
-        expected = ['[TRACKING] [[object Storage] setItem] key1 = value1',
-                    '[TRACKING] [[object Storage] setItem] key2 = value2',
-                    '[TRACKING] [[object Storage] setItem] key2 = value3',
-                    '[TRACKING] [[object Storage] clear]',
-                    '[TRACKING] [[object Storage] setItem] key123 = value123',
-                    '[TRACKING] [[object Storage] removeItem] key123']
+        expected = [
+            "[TRACKING] [[object Storage] setItem] key1 = value1",
+            "[TRACKING] [[object Storage] setItem] key2 = value2",
+            "[TRACKING] [[object Storage] setItem] key2 = value3",
+            "[TRACKING] [[object Storage] clear]",
+            "[TRACKING] [[object Storage] setItem] key123 = value123",
+            "[TRACKING] [[object Storage] removeItem] key123",
+        ]
 
         sample = os.path.join(self.misc_path, "testSessionStorage.html")
         self.do_perform_test(caplog, sample, expected, "local")
 
     def test_cookie_1(self, caplog):
-        expected = ['Domain starting with initial dot: .bing.com',
-                    'Secure flag set']
+        expected = ["Domain starting with initial dot: .bing.com", "Secure flag set"]
         self.do_perform_test(caplog, "https://www.bing.com", expected)
 
     def test_cookie_2(self, caplog):

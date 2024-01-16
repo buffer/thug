@@ -31,7 +31,7 @@ class Location(JSClass):
     def __init__(self, window):
         self._window = window
 
-    def toString(self): # pragma: no cover
+    def toString(self):  # pragma: no cover
         return self._window.url
 
     @property
@@ -46,7 +46,7 @@ class Location(JSClass):
         return self._window.url
 
     def set_href(self, url):
-        if log.HTTPSession.is_data_uri(url): # pragma: no cover
+        if log.HTTPSession.is_data_uri(url):  # pragma: no cover
             log.DFT._handle_data_uri(url)
             return
 
@@ -56,14 +56,17 @@ class Location(JSClass):
             return
 
         for p in log.ThugOpts.Personality:
-            if log.ThugOpts.Personality[p]['userAgent'] == self._window._navigator.userAgent:
+            if (
+                log.ThugOpts.Personality[p]["userAgent"]
+                == self._window._navigator.userAgent
+            ):
                 break
 
         url = log.HTTPSession.normalize_url(self._window, url)
         log.ThugLogging.log_href_redirect(referer, url)
 
-        doc    = w3c.parseString('')
-        window = log.Window(referer, doc, personality = p)  # pylint:disable=undefined-loop-variable
+        doc = w3c.parseString("")
+        window = log.Window(referer, doc, personality=p)  # pylint:disable=undefined-loop-variable
         window = window.open(url)
         if not window:
             return
@@ -80,13 +83,13 @@ class Location(JSClass):
         return f"{self.parts.scheme}:"
 
     def set_protocol(self, protocol):
-        if protocol.endswith(':'):
+        if protocol.endswith(":"):
             protocol = protocol[:-1]
 
-        if protocol in (self.parts.scheme, ):
+        if protocol in (self.parts.scheme,):
             return
 
-        self.set_href(urlunparse(self.parts._replace(scheme = protocol)))
+        self.set_href(urlunparse(self.parts._replace(scheme=protocol)))
 
     protocol = property(get_protocol, set_protocol)
 
@@ -94,10 +97,10 @@ class Location(JSClass):
         return self.parts.netloc
 
     def set_host(self, host):
-        if host in (self.parts.netloc, ):
+        if host in (self.parts.netloc,):
             return
 
-        self.set_href(urlunparse(self.parts._replace(netloc = host)))
+        self.set_href(urlunparse(self.parts._replace(netloc=host)))
 
     host = property(get_host, set_host)
 
@@ -105,9 +108,9 @@ class Location(JSClass):
         return self.parts.hostname
 
     def set_hostname(self, hostname):
-        snetloc = self.parts.netloc.split(':')
+        snetloc = self.parts.netloc.split(":")
 
-        if len(snetloc) and hostname in (snetloc[0], ):
+        if len(snetloc) and hostname in (snetloc[0],):
             return
 
         host = f"{hostname}:{snetloc[1]}" if len(snetloc) > 1 else hostname
@@ -119,9 +122,9 @@ class Location(JSClass):
         return self.parts.port
 
     def set_port(self, port):
-        snetloc = self.parts.netloc.split(':')
+        snetloc = self.parts.netloc.split(":")
 
-        if len(snetloc) > 1 and str(port) in (snetloc[1], ):
+        if len(snetloc) > 1 and str(port) in (snetloc[1],):
             return
 
         host = f"{snetloc[0]}:{port}"
@@ -133,10 +136,10 @@ class Location(JSClass):
         return self.parts.path
 
     def set_pathname(self, pathname):
-        if pathname in (self.parts.path, ):
+        if pathname in (self.parts.path,):
             return
 
-        self.set_href(urlunparse(self.parts._replace(path = pathname)))
+        self.set_href(urlunparse(self.parts._replace(path=pathname)))
 
     pathname = property(get_pathname, set_pathname)
 
@@ -144,10 +147,10 @@ class Location(JSClass):
         return self.parts.query
 
     def set_search(self, search):
-        if search in (self.parts.query, ):
+        if search in (self.parts.query,):
             return
 
-        self.set_href(urlunparse(self.parts._replace(query = search)))
+        self.set_href(urlunparse(self.parts._replace(query=search)))
 
     search = property(get_search, set_search)
 
@@ -155,10 +158,10 @@ class Location(JSClass):
         return self.parts.fragment
 
     def set_hash(self, fragment):
-        if fragment in (self.parts.fragment, ):
+        if fragment in (self.parts.fragment,):
             return
 
-        self.set_href(urlunparse(self.parts._replace(fragment = fragment)))
+        self.set_href(urlunparse(self.parts._replace(fragment=fragment)))
 
     hash = property(get_hash, set_hash)
 
@@ -166,7 +169,7 @@ class Location(JSClass):
         """Loads a new HTML document."""
         self._window.open(url)
 
-    def reload(self, force = False): # pylint:disable=unused-argument
+    def reload(self, force=False):  # pylint:disable=unused-argument
         """Reloads the current page."""
         self._window.open(self._window.url)
 

@@ -1,4 +1,3 @@
-import os
 import logging
 
 from thug.ThugAPI.ThugAPI import ThugAPI
@@ -7,10 +6,10 @@ log = logging.getLogger("Thug")
 
 
 class TestScreenshot(object):
-    def do_perform_test(self, caplog, url, expected, type_ = "remote"):
+    def do_perform_test(self, caplog, url, expected, type_="remote"):
         thug = ThugAPI()
 
-        thug.set_useragent('win7ie90')
+        thug.set_useragent("win7ie90")
         thug.disable_screenshot()
         thug.enable_screenshot()
         thug.set_file_logging()
@@ -38,4 +37,6 @@ class TestScreenshot(object):
 
     def test_invalid_ctype(self, caplog):
         expected = []
-        self.do_perform_test(caplog, "https://buffer.antifork.org/images/antifork.jpg", expected)
+        self.do_perform_test(
+            caplog, "https://buffer.antifork.org/images/antifork.jpg", expected
+        )

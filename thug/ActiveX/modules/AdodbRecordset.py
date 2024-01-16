@@ -4,7 +4,7 @@ from thug.DOM.JSClass import JSClass
 
 
 class Fields(JSClass):
-    def __init__(self, items = None):
+    def __init__(self, items=None):
         self.items = collections.OrderedDict() if items is None else items
 
     @property
@@ -17,10 +17,10 @@ class Fields(JSClass):
 
         try:
             index = int(key)
-        except ValueError: # pragma: no cover
+        except ValueError:  # pragma: no cover
             return None
 
         if index < 0 or index > self.count - 1:
             return None
 
-        return self.items[index] # pragma: no cover
+        return self.items[index]  # pragma: no cover

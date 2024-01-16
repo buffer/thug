@@ -27,7 +27,7 @@ log = logging.getLogger("Thug")
 
 
 class URLSearchParams(JSClass):
-    def __init__(self, params = None):
+    def __init__(self, params=None):
         self.search_params = {}
         if params is None:
             return
@@ -46,8 +46,8 @@ class URLSearchParams(JSClass):
 
         for item in params.split("&"):
             sitem = item.split("=")
-            name  = sitem[0].strip()
-            value = '' if len(sitem) < 2 else sitem[1].strip()
+            name = sitem[0].strip()
+            value = "" if len(sitem) < 2 else sitem[1].strip()
 
             if name not in self.search_params:
                 self.search_params[name] = []
@@ -90,7 +90,9 @@ class URLSearchParams(JSClass):
         return name in self.search_params
 
     def set(self, name, value):
-        self.search_params[name] = [value, ]
+        self.search_params[name] = [
+            value,
+        ]
 
     def sort(self):
         self.search_params = dict(sorted(self.search_params.items()))

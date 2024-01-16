@@ -15,13 +15,11 @@ log = logging.getLogger("Thug")
 
 
 FF_STYLES = (
-                (27, 'cursor'),
-                (19, 'font-size'),
-            )
+    (27, "cursor"),
+    (19, "font-size"),
+)
 
-FF_INPUTS = (
-                (23, 'range'),
-            )
+FF_INPUTS = ((23, "range"),)
 
 
 class Element(Node, ElementCSSInlineStyle):
@@ -55,38 +53,38 @@ class Element(Node, ElementCSSInlineStyle):
 
         if log.ThugOpts.Personality.browserMajorVersion > 7:
             self.querySelectorAll = self._querySelectorAll
-            self.querySelector    = self._querySelector
+            self.querySelector = self._querySelector
 
         if log.ThugOpts.Personality.browserMajorVersion > 8:
             self.getElementsByClassName = self._getElementsByClassName
-            self.msMatchesSelector      = self._matches
-            self.classList              = ClassList(self.tag)
+            self.msMatchesSelector = self._matches
+            self.classList = ClassList(self.tag)
 
     def __init_element_personality_Firefox(self):
-        self.querySelectorAll       = self._querySelectorAll
-        self.querySelector          = self._querySelector
-        self.mozMatchesSelector     = self._matches
+        self.querySelectorAll = self._querySelectorAll
+        self.querySelector = self._querySelector
+        self.mozMatchesSelector = self._matches
         self.getElementsByClassName = self._getElementsByClassName
-        self.classList              = ClassList(self.tag)
+        self.classList = ClassList(self.tag)
 
         if log.ThugOpts.Personality.browserMajorVersion > 33:
             self.matches = self._matches
 
     def __init_element_personality_Chrome(self):
-        self.querySelectorAll       = self._querySelectorAll
-        self.querySelector          = self._querySelector
-        self.webkitMatchesSelector  = self._matches
+        self.querySelectorAll = self._querySelectorAll
+        self.querySelector = self._querySelector
+        self.webkitMatchesSelector = self._matches
         self.getElementsByClassName = self._getElementsByClassName
-        self.classList              = ClassList(self.tag)
+        self.classList = ClassList(self.tag)
 
         if log.ThugOpts.Personality.browserMajorVersion > 33:
             self.matches = self._matches
 
     def __init_element_personality_Safari(self):
-        self.querySelectorAll       = self._querySelectorAll
-        self.querySelector          = self._querySelector
+        self.querySelectorAll = self._querySelectorAll
+        self.querySelector = self._querySelector
         self.getElementsByClassName = self._getElementsByClassName
-        self.classList              = ClassList(self.tag)
+        self.classList = ClassList(self.tag)
 
         if log.ThugOpts.Personality.browserMajorVersion > 6:
             self.matches = self._matches
@@ -99,7 +97,7 @@ class Element(Node, ElementCSSInlineStyle):
 
         try:
             s = self.tag.select(selectors)
-        except Exception: # pragma: no cover,pylint:disable=broad-except
+        except Exception:  # pragma: no cover,pylint:disable=broad-except
             return NodeList(self.doc, [])
 
         return NodeList(self.doc, s)
@@ -107,10 +105,12 @@ class Element(Node, ElementCSSInlineStyle):
     def _querySelector(self, selectors):
         try:
             s = self.tag.select(selectors)
-        except Exception: # pragma: no cover,pylint:disable=broad-except
+        except Exception:  # pragma: no cover,pylint:disable=broad-except
             return None
 
-        return log.DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
+        return (
+            log.DOMImplementation.createHTMLElement(self, s[0]) if s and s[0] else None
+        )
 
     def _matches(self, selector):
         try:
@@ -120,10 +120,12 @@ class Element(Node, ElementCSSInlineStyle):
 
         return bool(s)
 
-    def __eq__(self, other): # pragma: no cover
-        return Node.__eq__(self, other) and hasattr(other, "tag") and self.tag == other.tag
+    def __eq__(self, other):  # pragma: no cover
+        return (
+            Node.__eq__(self, other) and hasattr(other, "tag") and self.tag == other.tag
+        )
 
-    def __ne__(self, other): # pragma: no cover
+    def __ne__(self, other):  # pragma: no cover
         return not self == other
 
     def __hash__(self):
@@ -165,8 +167,8 @@ class Element(Node, ElementCSSInlineStyle):
     def tagName(self):
         return self.tag.name.upper()
 
-    def getAttribute(self, name, flags = 0):
-        if not isinstance(name, str): # pragma: no cover
+    def getAttribute(self, name, flags=0):
+        if not isinstance(name, str):  # pragma: no cover
             name = str(name)
 
         return_as_url = False
@@ -204,54 +206,64 @@ class Element(Node, ElementCSSInlineStyle):
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.increase_setattribute_count()
 
-        if not isinstance(name, str): # pragma: no cover
+        if not isinstance(name, str):  # pragma: no cover
             name = str(name)
 
         if log.ThugOpts.Personality.isFirefox():
-            if name in ('style', ):
-                svalue = value.split('-')
+            if name in ("style",):
+                svalue = value.split("-")
 
                 _value = svalue[0]
                 if len(svalue) > 1:
                     _value = f"{_value}{''.join([s.capitalize() for s in svalue[1:]])}"
 
-                for css in [p for p in FF_STYLES if log.ThugOpts.Personality.browserMajorVersion >= p[0]]:
+                for css in [
+                    p
+                    for p in FF_STYLES
+                    if log.ThugOpts.Personality.browserMajorVersion >= p[0]
+                ]:
                     if css[1] in value:
                         self.tag.attrs[name] = _value
                 return
 
-            if name in ('type', ):
-                for _input in [p for p in FF_INPUTS if log.ThugOpts.Personality.browserMajorVersion > p[0]]:
+            if name in ("type",):
+                for _input in [
+                    p
+                    for p in FF_INPUTS
+                    if log.ThugOpts.Personality.browserMajorVersion > p[0]
+                ]:
                     if _input[1] in value:
                         self.tag.attrs[name] = value
                 return
 
         self.tag.attrs[name] = value
 
-        if name.lower() in ('src', 'archive'):
+        if name.lower() in ("src", "archive"):
             s = urlsplit(value)
 
-            handler = getattr(log.SchemeHandler, f'handle_{s.scheme}', None)
+            handler = getattr(log.SchemeHandler, f"handle_{s.scheme}", None)
             if handler:
                 handler(self.doc.window, value)
                 return
 
             try:
-                response = self.doc.window._navigator.fetch(value, redirect_type = "element workaround")
-            except Exception: # pylint:disable=broad-except
+                response = self.doc.window._navigator.fetch(
+                    value, redirect_type="element workaround"
+                )
+            except Exception:  # pylint:disable=broad-except
                 return
 
             if response is None or not response.ok:
                 return
 
-            if getattr(response, 'thug_mimehandler_hit', False): # pragma: no cover
+            if getattr(response, "thug_mimehandler_hit", False):  # pragma: no cover
                 return
 
-            ctype = response.headers.get('content-type', None)
-            if ctype and ctype.startswith(('text/html', )):
-                window_open = getattr(log.DFT, 'window_open', None)
+            ctype = response.headers.get("content-type", None)
+            if ctype and ctype.startswith(("text/html",)):
+                window_open = getattr(log.DFT, "window_open", None)
                 if window_open:
-                    window_open(response.url, response.content) # pylint:disable=not-callable
+                    window_open(response.url, response.content)  # pylint:disable=not-callable
 
     def removeAttribute(self, name):
         if log.ThugOpts.features_logging:
@@ -264,10 +276,18 @@ class Element(Node, ElementCSSInlineStyle):
         from thug.DOM.W3C.Events.HTMLEvent import HTMLEvent
         from thug.DOM.W3C.Events.MouseEvent import MouseEvent
 
-        no_clear = {'id', 'name', 'style', 'value', }
-        for events in (HTMLEvent.EventTypes, MouseEvent.EventTypes, ):
+        no_clear = {
+            "id",
+            "name",
+            "style",
+            "value",
+        }
+        for events in (
+            HTMLEvent.EventTypes,
+            MouseEvent.EventTypes,
+        ):
             for e in events:
-                no_clear.add(f'on{e}')
+                no_clear.add(f"on{e}")
 
         names = [name for name in self.tag.attrs if name not in no_clear]
         for name in names:
@@ -275,6 +295,7 @@ class Element(Node, ElementCSSInlineStyle):
 
     def getAttributeNode(self, name):
         from .Attr import Attr
+
         return Attr(self.doc, self, name) if name in self.tag.attrs else None
 
     def setAttributeNode(self, attr):
@@ -286,8 +307,10 @@ class Element(Node, ElementCSSInlineStyle):
 
     def getElementsByTagName(self, tagname):
         from .NodeList import NodeList
+
         return NodeList(self.doc, self.tag.find_all(tagname))
 
     def _getElementsByClassName(self, classname):
         from .NodeList import NodeList
-        return NodeList(self.doc, self.tag.find_all(class_ = classname))
+
+        return NodeList(self.doc, self.tag.find_all(class_=classname))

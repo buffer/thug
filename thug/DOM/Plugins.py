@@ -46,12 +46,12 @@ class Plugins(list):
 
         while index < self.length:
             p = self.item(index)
-            if p['name'] == name:
+            if p["name"] == name:
                 return p
 
             index += 1
 
         return None
 
-    def refresh(self, reloadDocuments = False):
+    def refresh(self, reloadDocuments=False):
         pass

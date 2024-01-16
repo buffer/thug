@@ -5,7 +5,6 @@ import logging
 import pytest
 
 from thug.ThugAPI.ThugAPI import ThugAPI
-from thug.ThugAPI.OpaqueFilter import OpaqueFilter
 
 log = logging.getLogger("Thug")
 
@@ -13,28 +12,28 @@ log = logging.getLogger("Thug")
 class TestThugAPI:
     thug_api = ThugAPI()
 
-    cwd_path     = os.path.dirname(os.path.realpath(__file__))
+    cwd_path = os.path.dirname(os.path.realpath(__file__))
     samples_path = os.path.join(cwd_path, os.pardir, "test_files")
 
     yara_file = os.path.join(samples_path, "test_yara")
-    log_url   = os.path.join(samples_path, "../log-dir-example")
-    log_file  = os.path.join(samples_path, "test-filehandler")
+    log_url = os.path.join(samples_path, "../log-dir-example")
+    log_file = os.path.join(samples_path, "test-filehandler")
 
     def test_version(self):
         with pytest.raises(SystemExit):  # TODO: Needs assert statement by mocking print
             self.thug_api.version()
 
     def test_useragent(self):
-        assert self.thug_api.get_useragent() in ('winxpie60', )
+        assert self.thug_api.get_useragent() in ("winxpie60",)
 
-        self.thug_api.set_useragent('winxpchrome20')
-        assert self.thug_api.get_useragent() in ('winxpchrome20', )
+        self.thug_api.set_useragent("winxpchrome20")
+        assert self.thug_api.get_useragent() in ("winxpchrome20",)
 
     def test_events(self):
-        assert self.thug_api.get_events() in ([], )
+        assert self.thug_api.get_events() in ([],)
 
-        self.thug_api.set_events('event1,event2,event2,event3')
-        assert self.thug_api.get_events() in (['event1', 'event2', 'event3'], )
+        self.thug_api.set_events("event1,event2,event2,event3")
+        assert self.thug_api.get_events() in (["event1", "event2", "event3"],)
 
     def test_delay(self):
         assert self.thug_api.get_delay() in (0,)
@@ -65,19 +64,21 @@ class TestThugAPI:
 
         self.thug_api.set_elasticsearch_logging()
         assert self.thug_api.get_elasticsearch_logging()
-        assert logging.getLogger("elasticsearch").getEffectiveLevel() in (logging.ERROR, )
+        assert logging.getLogger("elasticsearch").getEffectiveLevel() in (
+            logging.ERROR,
+        )
 
     def test_referer(self):
-        assert self.thug_api.get_referer() in ('about:blank', )
+        assert self.thug_api.get_referer() in ("about:blank",)
 
-        self.thug_api.set_referer('https://www.example.com')
-        assert self.thug_api.get_referer() in ('https://www.example.com', )
+        self.thug_api.set_referer("https://www.example.com")
+        assert self.thug_api.get_referer() in ("https://www.example.com",)
 
     def test_proxy(self):
         assert self.thug_api.get_proxy() is None
 
-        self.thug_api.set_proxy('http://www.example.com')
-        assert self.thug_api.get_proxy() in ('http://www.example.com', )
+        self.thug_api.set_proxy("http://www.example.com")
+        assert self.thug_api.get_proxy() in ("http://www.example.com",)
 
     def test_raise_for_proxy(self):
         assert self.thug_api.get_raise_for_proxy()
@@ -96,7 +97,7 @@ class TestThugAPI:
 
         self.thug_api.set_verbose()
         assert log.ThugOpts.verbose
-        assert log.getEffectiveLevel() in (logging.INFO, )
+        assert log.getEffectiveLevel() in (logging.INFO,)
 
     def test_debug(self):
         assert not log.ThugOpts.debug
@@ -112,19 +113,21 @@ class TestThugAPI:
         assert log.ThugOpts.ast_debug
 
     def test_http_debug(self):
-        assert log.ThugOpts.http_debug in (0, )
+        assert log.ThugOpts.http_debug in (0,)
 
         self.thug_api.set_http_debug()
-        assert log.ThugOpts.http_debug in (1, )
+        assert log.ThugOpts.http_debug in (1,)
 
         self.thug_api.set_http_debug()
-        assert log.ThugOpts.http_debug in (2, )
+        assert log.ThugOpts.http_debug in (2,)
 
     def test_acropdf_pdf(self):
-        assert log.ThugVulnModules.acropdf_pdf in ('9.1.0', )
+        assert log.ThugVulnModules.acropdf_pdf in ("9.1.0",)
 
-        self.thug_api.set_acropdf_pdf('1.0.0', )
-        assert log.ThugVulnModules.acropdf_pdf in ('1.0.0',)
+        self.thug_api.set_acropdf_pdf(
+            "1.0.0",
+        )
+        assert log.ThugVulnModules.acropdf_pdf in ("1.0.0",)
 
     def test_disable_acropdf(self):
         assert not log.ThugVulnModules.acropdf_disabled
@@ -133,10 +136,12 @@ class TestThugAPI:
         assert log.ThugVulnModules.acropdf_disabled
 
     def test_shockwave_flash(self):
-        assert log.ThugVulnModules.shockwave_flash in ('10.0.64.0', )
+        assert log.ThugVulnModules.shockwave_flash in ("10.0.64.0",)
 
-        self.thug_api.set_shockwave_flash('8.0', )
-        assert log.ThugVulnModules.shockwave_flash in ('8.0',)
+        self.thug_api.set_shockwave_flash(
+            "8.0",
+        )
+        assert log.ThugVulnModules.shockwave_flash in ("8.0",)
 
     def test_disable_shockwave_flash(self):
         assert not log.ThugVulnModules.shockwave_flash_disabled
@@ -145,10 +150,12 @@ class TestThugAPI:
         assert log.ThugVulnModules.shockwave_flash_disabled
 
     def test_javaplugin(self):
-        assert log.ThugVulnModules.javaplugin in ('160_32', )
+        assert log.ThugVulnModules.javaplugin in ("160_32",)
 
-        self.thug_api.set_javaplugin('1.0', )
-        assert log.ThugVulnModules.javaplugin in ('100_00',)
+        self.thug_api.set_javaplugin(
+            "1.0",
+        )
+        assert log.ThugVulnModules.javaplugin in ("100_00",)
 
     def test_disable_javaplugin(self):
         assert not log.ThugVulnModules.javaplugin_disabled
@@ -157,10 +164,12 @@ class TestThugAPI:
         assert log.ThugVulnModules.javaplugin_disabled
 
     def test_silverlight(self):
-        assert log.ThugVulnModules.silverlight in ('4.0.50826.0', )
+        assert log.ThugVulnModules.silverlight in ("4.0.50826.0",)
 
-        self.thug_api.set_silverlight('1.0', )
-        assert log.ThugVulnModules.silverlight in ('1.0',)
+        self.thug_api.set_silverlight(
+            "1.0",
+        )
+        assert log.ThugVulnModules.silverlight in ("1.0",)
 
     def test_disable_silverlight(self):
         assert not log.ThugVulnModules.silverlight_disabled
@@ -169,10 +178,10 @@ class TestThugAPI:
         assert log.ThugVulnModules.silverlight_disabled
 
     def test_threshold(self):
-        assert self.thug_api.get_threshold() in (0, )
+        assert self.thug_api.get_threshold() in (0,)
 
         self.thug_api.set_threshold(5)
-        assert self.thug_api.get_threshold() in (5, )
+        assert self.thug_api.get_threshold() in (5,)
 
     def test_extensive(self):
         self.thug_api.reset_extensive()
@@ -182,16 +191,16 @@ class TestThugAPI:
         assert self.thug_api.get_extensive()
 
     def test_timeout(self):
-        assert self.thug_api.get_timeout() in (600, )
+        assert self.thug_api.get_timeout() in (600,)
 
         self.thug_api.set_timeout(300)
-        assert self.thug_api.get_timeout() in (300, )
+        assert self.thug_api.get_timeout() in (300,)
 
     def test_connect_timeout(self):
-        assert self.thug_api.get_connect_timeout() in (10, )
+        assert self.thug_api.get_connect_timeout() in (10,)
 
         self.thug_api.set_connect_timeout(20)
-        assert self.thug_api.get_connect_timeout() in (20, )
+        assert self.thug_api.get_connect_timeout() in (20,)
 
     def test_broken_url(self):
         assert not self.thug_api.get_broken_url()
@@ -263,8 +272,8 @@ class TestThugAPI:
     def test_mongodb_address(self):
         assert self.thug_api.get_mongodb_address() is None
 
-        self.thug_api.set_mongodb_address('127.0.0.1:27017')
-        assert self.thug_api.get_mongodb_address() in ('127.0.0.1:27017', )
+        self.thug_api.set_mongodb_address("127.0.0.1:27017")
+        assert self.thug_api.get_mongodb_address() in ("127.0.0.1:27017",)
 
     def test_add_htmlclassifier(self):
         self.thug_api.add_htmlclassifier(self.yara_file)
@@ -425,7 +434,7 @@ class TestThugAPI:
         log.ThugOpts.file_logging = True
 
         self.thug_api.log_event()
-        assert 'Thug analysis logs saved' in caplog.text
+        assert "Thug analysis logs saved" in caplog.text
         assert os.path.isdir(self.log_url)
 
         shutil.rmtree(self.log_url)

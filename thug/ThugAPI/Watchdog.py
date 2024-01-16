@@ -23,8 +23,8 @@ import logging
 
 
 class Watchdog:
-    def __init__(self, timeout, callback = None):
-        self.timeout  = timeout
+    def __init__(self, timeout, callback=None):
+        self.timeout = timeout
         self.callback = callback
 
     def __enter__(self):
@@ -37,7 +37,9 @@ class Watchdog:
     def handler(self, signum, frame):
         thugLog = logging.getLogger("Thug")
 
-        thugLog.critical("The analysis took more than %d second(s). Aborting!", self.timeout)
+        thugLog.critical(
+            "The analysis took more than %d second(s). Aborting!", self.timeout
+        )
         if self.callback:
             self.callback(signum, frame)
 
@@ -47,7 +49,7 @@ class Watchdog:
 
         # If Thug is running in a Docker container it is assigned PID 1
         # and Docker apparently ignores SIGTERM signals to PID 1
-        if pid in (1, ): # pragma: no cover
+        if pid in (1,):  # pragma: no cover
             sys.exit(1)
         else:
             os.kill(pid, signal.SIGTERM)

@@ -21,14 +21,16 @@ import logging
 
 try:
     import pylibemu
+
     PYLIBEMU_MODULE = True
-except ImportError: # pragma: no cover
+except ImportError:  # pragma: no cover
     PYLIBEMU_MODULE = False
 
-try: # pragma: no cover
+try:  # pragma: no cover
     import speakeasy
+
     SPEAKEASY_MODULE = True
-except ImportError: # pragma: no cover
+except ImportError:  # pragma: no cover
     SPEAKEASY_MODULE = False
 
 
@@ -36,10 +38,18 @@ log = logging.getLogger("Thug")
 
 
 class Shellcode:
-    modules = ('pylibemu', 'speakeasy', )
+    modules = (
+        "pylibemu",
+        "speakeasy",
+    )
 
     def __init__(self):
-        self.enabled = any([PYLIBEMU_MODULE, SPEAKEASY_MODULE, ])
+        self.enabled = any(
+            [
+                PYLIBEMU_MODULE,
+                SPEAKEASY_MODULE,
+            ]
+        )
         self.snippet = None
 
     @property
@@ -47,29 +57,38 @@ class Shellcode:
         return log.DFT.window
 
     def retrieve_URLDownloadToFile(self, url):
-        if url in log.ThugLogging.shellcode_urls: # pragma: no cover
+        if url in log.ThugLogging.shellcode_urls:  # pragma: no cover
             return
 
         try:
-            if self.window._navigator.fetch(url, redirect_type = "URLDownloadToFile", snippet = self.snippet) is None:
-                log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = self.snippet)
+            if (
+                self.window._navigator.fetch(
+                    url, redirect_type="URLDownloadToFile", snippet=self.snippet
+                )
+                is None
+            ):
+                log.ThugLogging.add_behavior_warn(
+                    "[URLDownloadToFile] Fetch failed", snippet=self.snippet
+                )
 
             log.ThugLogging.shellcode_urls.add(url)
-        except Exception: # pylint:disable=broad-except
-            log.ThugLogging.add_behavior_warn('[URLDownloadToFile] Fetch failed', snippet = self.snippet)
+        except Exception:  # pylint:disable=broad-except
+            log.ThugLogging.add_behavior_warn(
+                "[URLDownloadToFile] Fetch failed", snippet=self.snippet
+            )
 
     def check_URLDownloadToFile(self, emu):
         profile = emu.emu_profile_output.decode()
 
         while True:
-            offset = profile.find('URLDownloadToFile')
+            offset = profile.find("URLDownloadToFile")
             if offset < 0:
                 break
 
             profile = profile[offset:]
 
-            p = profile.split(';')
-            if len(p) < 2: # pragma: no cover
+            p = profile.split(";")
+            if len(p) < 2:  # pragma: no cover
                 profile = profile[1:]
                 continue
 
@@ -90,27 +109,31 @@ class Shellcode:
 
         try:
             url = url[2:].replace("\\", "/")
-            self.window._navigator.fetch(url, redirect_type = "WinExec", snippet = self.snippet)
-        except Exception: # pylint:disable=broad-except
-            log.ThugLogging.add_behavior_warn('[WinExec] Fetch failed', snippet = self.snippet)
+            self.window._navigator.fetch(
+                url, redirect_type="WinExec", snippet=self.snippet
+            )
+        except Exception:  # pylint:disable=broad-except
+            log.ThugLogging.add_behavior_warn(
+                "[WinExec] Fetch failed", snippet=self.snippet
+            )
 
     def check_WinExec(self, emu):
         profile = emu.emu_profile_output.decode()
 
         while True:
-            offset = profile.find('WinExec')
+            offset = profile.find("WinExec")
             if offset < 0:
                 break
 
             profile = profile[offset:]
 
-            p = profile.split(';')
-            if not p: # pragma: no cover
+            p = profile.split(";")
+            if not p:  # pragma: no cover
                 profile = profile[1:]
                 continue
 
             s = p[0].split('"')
-            if len(s) < 2: # pragma: no cover
+            if len(s) < 2:  # pragma: no cover
                 profile = profile[1:]
                 continue
 
@@ -123,23 +146,23 @@ class Shellcode:
             profile = profile[1:]
 
     def build_shellcode(self, s):
-        i  = 0
+        i = 0
         sc = []
 
         while i < len(s):
-            if s[i] == '"': # pragma: no cover
+            if s[i] == '"':  # pragma: no cover
                 i += 1
                 continue
 
-            if s[i] in ('%', ) and (i + 1) < len(s) and s[i + 1] == 'u':
+            if s[i] in ("%",) and (i + 1) < len(s) and s[i + 1] == "u":
                 if (i + 6) <= len(s):
-                    currchar = int(s[i + 2: i + 4], 16)
-                    nextchar = int(s[i + 4: i + 6], 16)
+                    currchar = int(s[i + 2 : i + 4], 16)
+                    nextchar = int(s[i + 4 : i + 6], 16)
                     sc.append(nextchar)
                     sc.append(currchar)
                     i += 6
-                elif (i + 3) <= len(s): # pragma: no cover
-                    currchar = int(s[i + 2: i + 4], 16)
+                elif (i + 3) <= len(s):  # pragma: no cover
+                    currchar = int(s[i + 2 : i + 4], 16)
                     sc.append(currchar)
                     i += 3
             else:
@@ -150,27 +173,26 @@ class Shellcode:
 
     @staticmethod
     def build_snippet(shellcode):
-        return log.ThugLogging.add_shellcode_snippet(shellcode,
-                                                     "Assembly",
-                                                     "Shellcode",
-                                                     method = "Static Analysis")
+        return log.ThugLogging.add_shellcode_snippet(
+            shellcode, "Assembly", "Shellcode", method="Static Analysis"
+        )
 
     def log_shellcode_profile(self, module, profile):
         description = f"[{module}][Shellcode Profile] {profile}"
 
-        log.ThugLogging.add_behavior_warn(description = description,
-                                          snippet     = self.snippet,
-                                          method      = "Static Analysis")
+        log.ThugLogging.add_behavior_warn(
+            description=description, snippet=self.snippet, method="Static Analysis"
+        )
 
     def check_shellcode_pylibemu(self, shellcode, sc):
         if not PYLIBEMU_MODULE:
-            return # pragma: no cover
+            return  # pragma: no cover
 
-        emu = pylibemu.Emulator(enable_hooks = False)
+        emu = pylibemu.Emulator(enable_hooks=False)
         emu.run(sc)
 
-        if emu.emu_profile_output: # pylint:disable=using-constant-test
-            profile = emu.emu_profile_output.decode() # pylint:disable=no-member
+        if emu.emu_profile_output:  # pylint:disable=using-constant-test
+            profile = emu.emu_profile_output.decode()  # pylint:disable=no-member
 
             if self.snippet is None:
                 self.snippet = self.build_snippet(shellcode)
@@ -182,39 +204,41 @@ class Shellcode:
 
         emu.free()
 
-    def hook_URLDownloadToFile(self, emu, api_name, func, params): # pragma: no cover,pylint:disable=unused-argument
+    def hook_URLDownloadToFile(
+        self, emu, api_name, func, params
+    ):  # pragma: no cover,pylint:disable=unused-argument
         rv = func(params)
 
-        pCaller, szURL, szFileName, dwReserved, lpfnCB = params # pylint:disable=unused-variable
+        pCaller, szURL, szFileName, dwReserved, lpfnCB = params  # pylint:disable=unused-variable
         self.retrieve_URLDownloadToFile(szURL)
 
         return rv
 
-    def hook_WinExec(self, emu, api_name, func, params): # pragma: no cover,pylint:disable=unused-argument
+    def hook_WinExec(
+        self, emu, api_name, func, params
+    ):  # pragma: no cover,pylint:disable=unused-argument
         rv = func(params)
 
-        lpCmdLine, uCmdShow = params # pylint:disable=unused-variable
+        lpCmdLine, uCmdShow = params  # pylint:disable=unused-variable
 
-        uncs = [p.strip('"').strip("'") for p in lpCmdLine.split() if p.startswith("\\\\")]
+        uncs = [
+            p.strip('"').strip("'") for p in lpCmdLine.split() if p.startswith("\\\\")
+        ]
         for unc in uncs:
-            self.retrieve_WinExec(unc) # pragma: no cover
+            self.retrieve_WinExec(unc)  # pragma: no cover
 
         return rv
 
-    def check_shellcode_speakeasy(self, shellcode, sc): # pragma: no cover
+    def check_shellcode_speakeasy(self, shellcode, sc):  # pragma: no cover
         if not SPEAKEASY_MODULE:
-            return # pragma: no cover
+            return  # pragma: no cover
 
         se = speakeasy.Speakeasy()
-        se.add_api_hook(self.hook_URLDownloadToFile,
-                        'urlmon',
-                        'URLDownloadToFile*')
+        se.add_api_hook(self.hook_URLDownloadToFile, "urlmon", "URLDownloadToFile*")
 
-        se.add_api_hook(self.hook_WinExec,
-                        'kernel32',
-                        'WinExec')
+        se.add_api_hook(self.hook_WinExec, "kernel32", "WinExec")
 
-        address = se.load_shellcode(None, speakeasy.arch.ARCH_X86, data = sc)
+        address = se.load_shellcode(None, speakeasy.arch.ARCH_X86, data=sc)
         se.run_shellcode(address)
 
         if self.snippet is None:
@@ -228,18 +252,18 @@ class Shellcode:
         for module in self.modules:
             m = getattr(self, f"check_shellcode_{module}", None)
             if m:
-                m(shellcode, sc) # pylint:disable=not-callable
+                m(shellcode, sc)  # pylint:disable=not-callable
 
     def check_shellcode(self, shellcode):
         if not self.enabled:
-            return # pragma: no cover
+            return  # pragma: no cover
 
         if not shellcode:
             return
 
         try:
             sc = self.build_shellcode(shellcode)
-        except Exception as e: # pragma: no cover,pylint:disable=broad-except
+        except Exception as e:  # pragma: no cover,pylint:disable=broad-except
             log.info("Shellcode building error (%s)", str(e))
             return
 

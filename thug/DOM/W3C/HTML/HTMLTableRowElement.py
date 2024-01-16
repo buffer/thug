@@ -11,23 +11,23 @@ log = logging.getLogger("Thug")
 
 
 class HTMLTableRowElement(HTMLElement):
-    align   = attr_property("align")
+    align = attr_property("align")
     bgColor = attr_property("bgcolor")
-    ch      = attr_property("char")
-    chOff   = attr_property("charoff")
-    vAlign  = attr_property("valign")
+    ch = attr_property("char")
+    chOff = attr_property("charoff")
+    vAlign = attr_property("valign")
 
-    def __init__(self, doc, tag, table = None, section = None):
+    def __init__(self, doc, tag, table=None, section=None):
         HTMLElement.__init__(self, doc, tag)
-        self._table   = table
+        self._table = table
         self._section = section
-        self._cells   = HTMLCollection(doc, [])
+        self._cells = HTMLCollection(doc, [])
 
     # Modified in DOM Level 2
     @property
     def rowIndex(self):
         if not self._table:
-            return None # pragma: no cover
+            return None  # pragma: no cover
 
         index = 0
 
@@ -37,13 +37,13 @@ class HTMLTableRowElement(HTMLElement):
 
             index += 1
 
-        return None # pragma: no cover
+        return None  # pragma: no cover
 
     # Modified in DOM Level 2
     @property
     def sectionRowIndex(self):
         if not self._section:
-            return 0 # pragma: no cover
+            return 0  # pragma: no cover
 
         index = 0
 
@@ -53,7 +53,7 @@ class HTMLTableRowElement(HTMLElement):
 
             index += 1
 
-        return None # pragma: no cover
+        return None  # pragma: no cover
 
     # Modified in DOM Level 2
     @property
@@ -61,7 +61,7 @@ class HTMLTableRowElement(HTMLElement):
         return self._cells
 
     # Modified in DOM Level 2
-    def insertCell(self, index = None):
+    def insertCell(self, index=None):
         # `index' specifies the position of the row to insert (starts at 0).
         # The value of -1 can also be used; which result in that the new row
         # will be inserted at the last position. This parameter is required
@@ -72,12 +72,18 @@ class HTMLTableRowElement(HTMLElement):
         if index is None:
             if log.ThugOpts.Personality.isIE():
                 index = -1
-            if log.ThugOpts.Personality.isChrome() or log.ThugOpts.Personality.isSafari():
+            if (
+                log.ThugOpts.Personality.isChrome()
+                or log.ThugOpts.Personality.isSafari()
+            ):
                 index = 0
 
         cell = HTMLTableCellElement(self.doc, self.tag, index)
 
-        if index in (-1, len(self._cells), ):
+        if index in (
+            -1,
+            len(self._cells),
+        ):
             self.cells.nodes.append(cell)
         else:
             self.cells.nodes.insert(index, cell)

@@ -16,30 +16,32 @@ log = logging.getLogger("Thug")
 
 # HTMLMediaElement.networkState possible values
 
-NETWORK_EMPTY     = 0   # There is no data yet. Also, readyState is HAVE_NOTHING.
-NETWORK_IDLE      = 1   # HTMLMediaElement is active and has selected a resource, but is not using the network.
-NETWORK_LOADING   = 2   # The browser is downloading HTMLMediaElement data.
-NETWORK_NO_SOURCE = 3   # No HTMLMediaElement src found.
+NETWORK_EMPTY = 0  # There is no data yet. Also, readyState is HAVE_NOTHING.
+NETWORK_IDLE = 1  # HTMLMediaElement is active and has selected a resource, but is not using the network.
+NETWORK_LOADING = 2  # The browser is downloading HTMLMediaElement data.
+NETWORK_NO_SOURCE = 3  # No HTMLMediaElement src found.
 
 # HTMLMediaElement.readyState possible values
 
-HAVE_NOTHING      = 0   # No information is available about the media resource.
-HAVE_METADATA     = 1   # Enough of the media resource has been retrieved that the metadata attributes are
-                        # initialized. Seeking will no longer raise an exception.
-HAVE_CURRENT_DATA = 2   # Data is available for the current playback position, but not enough to actually
-                        # play more than one frame.
-HAVE_FUTURE_DATA  = 3   # Data for the current playback position as well as for at least a little bit of time
-                        # into the future is available (in other words, at least two frames of video, for example).
-HAVE_ENOUGH_DATA  = 4   # Enough data is available - and the download rate is high enough - that the media can be
-                        # played through to the end without interruption.
+HAVE_NOTHING = 0  # No information is available about the media resource.
+HAVE_METADATA = 1  # Enough of the media resource has been retrieved that the metadata attributes are
+# initialized. Seeking will no longer raise an exception.
+HAVE_CURRENT_DATA = (
+    2  # Data is available for the current playback position, but not enough to actually
+)
+# play more than one frame.
+HAVE_FUTURE_DATA = 3  # Data for the current playback position as well as for at least a little bit of time
+# into the future is available (in other words, at least two frames of video, for example).
+HAVE_ENOUGH_DATA = 4  # Enough data is available - and the download rate is high enough - that the media can be
+# played through to the end without interruption.
 
 
 class HTMLMediaElement(HTMLElement):
-    autoplay   = attr_property("autoplay", bool)
-    controls   = attr_property("console", bool, readonly = True, default = False)
-    loop       = attr_property("loop", bool, default = False)
+    autoplay = attr_property("autoplay", bool)
+    controls = attr_property("console", bool, readonly=True, default=False)
+    loop = attr_property("loop", bool, default=False)
     mediaGroup = attr_property("mediagroup")
-    _src       = attr_property("src", default = "")
+    _src = attr_property("src", default="")
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
@@ -48,8 +50,13 @@ class HTMLMediaElement(HTMLElement):
         self._buffered = TimeRanges(doc, [])
         self._paused = False
 
-        if log.ThugOpts.Personality.isChrome() and log.ThugOpts.Personality.browserMajorVersion >= 58:
-            self.controlsList = DOMTokenList(['download', 'fullscreen', 'remoteplayback']) # pragma: no cover
+        if (
+            log.ThugOpts.Personality.isChrome()
+            and log.ThugOpts.Personality.browserMajorVersion >= 58
+        ):
+            self.controlsList = DOMTokenList(
+                ["download", "fullscreen", "remoteplayback"]
+            )  # pragma: no cover
 
     def get_src(self):
         return self._src
@@ -59,7 +66,7 @@ class HTMLMediaElement(HTMLElement):
 
         try:
             self.doc.window._navigator.fetch(src)
-        except Exception: # pragma: no cover,pylint:disable=broad-except
+        except Exception:  # pragma: no cover,pylint:disable=broad-except
             return
 
     src = property(get_src, set_src)
@@ -76,7 +83,7 @@ class HTMLMediaElement(HTMLElement):
     def controller(self):
         return None
 
-    def canPlayType(self, mimetype): # pylint:disable=unused-argument
+    def canPlayType(self, mimetype):  # pylint:disable=unused-argument
         return "maybe"
 
     @property

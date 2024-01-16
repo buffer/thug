@@ -23,6 +23,7 @@ import configparser
 
 try:
     import elasticsearch
+
     ELASTICSEARCH_MODULE = True
 except ImportError:  # pragma: no cover
     ELASTICSEARCH_MODULE = False
@@ -35,7 +36,7 @@ log = logging.getLogger("Thug")
 
 class ElasticSearch(JSON):
     def __init__(self):
-        JSON.__init__(self, provider = True)
+        JSON.__init__(self, provider=True)
 
         self.enabled = False
 
@@ -53,19 +54,19 @@ class ElasticSearch(JSON):
     def __init_config(self):
         self.opts = {}
 
-        conf_file = os.path.join(log.configuration_path, 'thug.conf')
+        conf_file = os.path.join(log.configuration_path, "thug.conf")
         if not os.path.exists(conf_file):
             return False
 
         config = configparser.ConfigParser()
         config.read(conf_file)
 
-        self.opts['enable'] = config.getboolean('elasticsearch', 'enable')
-        if not self.opts['enable']:
+        self.opts["enable"] = config.getboolean("elasticsearch", "enable")
+        if not self.opts["enable"]:
             return False
 
-        self.opts['url'] = config.get('elasticsearch', 'url')
-        self.opts['index'] = config.get('elasticsearch', 'index')
+        self.opts["url"] = config.get("elasticsearch", "url")
+        self.opts["index"] = config.get("elasticsearch", "index")
 
         return True
 
@@ -73,19 +74,18 @@ class ElasticSearch(JSON):
         if not self.__init_config():
             return False
 
-        self.es = elasticsearch.Elasticsearch(self.opts['url'])
+        self.es = elasticsearch.Elasticsearch(self.opts["url"])
 
         if not self.es.ping():
             log.warning("[WARNING] ElasticSearch instance not properly initialized")
             return False
 
-        self.es.options(ignore_status = 404).indices.create(index = self.opts['index'])
+        self.es.options(ignore_status=404).indices.create(index=self.opts["index"])
         return True
 
-    def export(self, basedir): # pylint:disable=unused-argument
+    def export(self, basedir):  # pylint:disable=unused-argument
         if not self.enabled:
             return None
 
-        res = self.es.index(index = self.opts['index'],
-                            document = self.data)
-        return res['_id']
+        res = self.es.index(index=self.opts["index"], document=self.data)
+        return res["_id"]

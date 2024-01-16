@@ -10,23 +10,23 @@ log = logging.getLogger("Thug")
 
 
 class HTMLFormElement(HTMLElement):
-    name          = attr_property("name")
-    acceptCharset = attr_property("accept-charset", default = "")
-    action        = attr_property("action")
-    enctype       = attr_property("enctype", default = "application/x-www-form-urlencoded")
-    encoding      = attr_property("enctype", default = "application/x-www-form-urlencoded")
-    method        = attr_property("method", default = "get")
-    target        = attr_property("target", default = "")
+    name = attr_property("name")
+    acceptCharset = attr_property("accept-charset", default="")
+    action = attr_property("action")
+    enctype = attr_property("enctype", default="application/x-www-form-urlencoded")
+    encoding = attr_property("enctype", default="application/x-www-form-urlencoded")
+    method = attr_property("method", default="get")
+    target = attr_property("target", default="")
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
 
     def __getattr__(self, key):
         for tag in self.tag.children:
-            if tag.name not in ('input', ):
+            if tag.name not in ("input",):
                 continue
 
-            if 'name' in tag.attrs and tag.attrs['name'] in (key, ):
+            if "name" in tag.attrs and tag.attrs["name"] in (key,):
                 return log.DOMImplementation.createHTMLElement(self.doc, tag)
 
         raise AttributeError
@@ -35,7 +35,7 @@ class HTMLFormElement(HTMLElement):
     def elements(self):
         nodes = []
         for tag in self.tag.children:
-            if getattr(tag, 'name', None) and tag.name not in ('br', ):
+            if getattr(tag, "name", None) and tag.name not in ("br",):
                 nodes.append(log.DOMImplementation.createHTMLElement(self.doc, tag))
 
         return HTMLFormControlsCollection(self.doc, nodes)
@@ -45,9 +45,9 @@ class HTMLFormElement(HTMLElement):
         return len(self.elements)
 
     def submit(self):
-        handler = getattr(log.DFT, 'do_handle_form', None)
+        handler = getattr(log.DFT, "do_handle_form", None)
         if handler:
-            handler(self.tag) # pylint:disable=not-callable
+            handler(self.tag)  # pylint:disable=not-callable
 
     def reset(self):
-        log.warning('[HTMLFormElement] reset method not defined')
+        log.warning("[HTMLFormElement] reset method not defined")

@@ -5,4 +5,4 @@ class TestOpaqueFilter:
     opaque_filter = OpaqueFilter()
 
     def test_filter(self):
-        assert not self.opaque_filter.filter('sample-record')
+        assert not self.opaque_filter.filter("sample-record")

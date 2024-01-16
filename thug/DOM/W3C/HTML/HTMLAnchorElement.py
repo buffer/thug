@@ -14,18 +14,18 @@ log = logging.getLogger("Thug")
 
 class HTMLAnchorElement(HTMLElement):
     accessKey = attr_property("accesskey")
-    charset   = attr_property("charset", default = "")
-    coords    = attr_property("coords")
-    download  = attr_property("download")
-    href      = attr_property("href")
-    hreflang  = attr_property("hreflang")
-    name      = attr_property("name")
-    rel       = attr_property("rel")
-    rev       = attr_property("rev")
-    shape     = attr_property("shape")
-    tabIndex  = attr_property("tabindex", int)
-    target    = attr_property("target")
-    type      = attr_property("type")
+    charset = attr_property("charset", default="")
+    coords = attr_property("coords")
+    download = attr_property("download")
+    href = attr_property("href")
+    hreflang = attr_property("hreflang")
+    name = attr_property("name")
+    rel = attr_property("rel")
+    rev = attr_property("rev")
+    shape = attr_property("shape")
+    tabIndex = attr_property("tabindex", int)
+    target = attr_property("target")
+    type = attr_property("type")
 
     def __init__(self, doc, tag):
         HTMLElement.__init__(self, doc, tag)
@@ -79,6 +79,6 @@ class HTMLAnchorElement(HTMLElement):
 
     def click(self):
         now = datetime.datetime.now()
-        self.tag['_clicked'] = time.mktime(now.timetuple())
+        self.tag["_clicked"] = time.mktime(now.timetuple())
         if self.href:
             log.DFT.follow_href(self.href)

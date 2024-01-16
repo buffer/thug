@@ -126,79 +126,85 @@ Synopsis:
     Available User-Agents:
 """
 
-        for key, value in sorted(iter(log.ThugOpts.Personality.items()), key = lambda k_v: (k_v[1]['id'], k_v[0])):
-            msg += "\t\033[1m{:<22}\033[0m{}\n".format(key, value['description']) # pylint: disable=consider-using-f-string
+        for key, value in sorted(
+            iter(log.ThugOpts.Personality.items()),
+            key=lambda k_v: (k_v[1]["id"], k_v[0]),
+        ):
+            msg += "\t\033[1m{:<22}\033[0m{}\n".format(key, value["description"])  # pylint: disable=consider-using-f-string
 
         print(msg)
         sys.exit(0)
 
     def analyze(self):
-        p = getattr(self, 'run_remote', None)
+        p = getattr(self, "run_remote", None)
 
         try:
-            options, args = getopt.getopt(self.args,
-                                          'hViu:e:w:n:o:r:p:mzbkafEslxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:',
-                ['help',
-                'version',
-                'list-ua',
-                'useragent=',
-                'events=',
-                'delay=',
-                'logdir=',
-                'output=',
-                'referer=',
-                'proxy=',
-                'attachment',
-                'web-tracking',
-                'async-prefetch',
-                'no-honeyagent',
-                'image-processing',
-                'screenshot',
-                'awis',
-                'no-down-prevent',
-                'local',
-                'local-nofetch',
-                'verbose',
-                'debug',
-                'quiet',
-                'http-debug',
-                'adobepdf=',
-                'no-adobepdf',
-                'shockwave=',
-                'no-shockwave',
-                'javaplugin=',
-                'no-javaplugin',
-                'silverlight=',
-                'no-silverlight',
-                'threshold=',
-                'extensive',
-                'connect-timeout=',
-                'timeout=',
-                'broken-url',
-                'htmlclassifier=',
-                'urlclassifier=',
-                'jsclassifier=',
-                'vbsclassifier=',
-                'sampleclassifier=',
-                'imageclassifier=',
-                'textclassifier=',
-                'cookieclassifier=',
-                'htmlfilter=',
-                'urlfilter=',
-                'jsfilter=',
-                'vbsfilter=',
-                'samplefilter=',
-                'textfilter=',
-                'cookiefilter=',
-                'imagefilter=',
-                'file-logging',
-                'json-logging',
-                'features-logging',
-                'elasticsearch-logging',
-                'no-code-logging',
-                'no-cert-logging',
-                'mongodb-address=',
-                ])
+            options, args = getopt.getopt(
+                self.args,
+                "hViu:e:w:n:o:r:p:mzbkafEslxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:",
+                [
+                    "help",
+                    "version",
+                    "list-ua",
+                    "useragent=",
+                    "events=",
+                    "delay=",
+                    "logdir=",
+                    "output=",
+                    "referer=",
+                    "proxy=",
+                    "attachment",
+                    "web-tracking",
+                    "async-prefetch",
+                    "no-honeyagent",
+                    "image-processing",
+                    "screenshot",
+                    "awis",
+                    "no-down-prevent",
+                    "local",
+                    "local-nofetch",
+                    "verbose",
+                    "debug",
+                    "quiet",
+                    "http-debug",
+                    "adobepdf=",
+                    "no-adobepdf",
+                    "shockwave=",
+                    "no-shockwave",
+                    "javaplugin=",
+                    "no-javaplugin",
+                    "silverlight=",
+                    "no-silverlight",
+                    "threshold=",
+                    "extensive",
+                    "connect-timeout=",
+                    "timeout=",
+                    "broken-url",
+                    "htmlclassifier=",
+                    "urlclassifier=",
+                    "jsclassifier=",
+                    "vbsclassifier=",
+                    "sampleclassifier=",
+                    "imageclassifier=",
+                    "textclassifier=",
+                    "cookieclassifier=",
+                    "htmlfilter=",
+                    "urlfilter=",
+                    "jsfilter=",
+                    "vbsfilter=",
+                    "samplefilter=",
+                    "textfilter=",
+                    "cookiefilter=",
+                    "imagefilter=",
+                    "file-logging",
+                    "json-logging",
+                    "features-logging",
+                    "elasticsearch-logging",
+                    "no-code-logging",
+                    "no-cert-logging",
+                    "mongodb-address=",
+                ],
+            )
         except getopt.GetoptError:
             self.usage()
 
@@ -206,155 +212,272 @@ Synopsis:
             self.usage()
 
         for option in options:
-            if option[0] in ('-h', '--help'):
+            if option[0] in ("-h", "--help"):
                 self.usage()
-            elif option[0] in ('-V', '--version'):
+            elif option[0] in ("-V", "--version"):
                 self.version()
-            elif option[0] in ('-i', '--list-ua'):
+            elif option[0] in ("-i", "--list-ua"):
                 self.list_ua()
 
         self.set_raise_for_proxy(False)
 
         for option in options:
-            if option[0] in ('-u', '--useragent', ):
+            if option[0] in (
+                "-u",
+                "--useragent",
+            ):
                 self.set_useragent(option[1])
-            elif option[0] in ('-e', '--events'):
+            elif option[0] in ("-e", "--events"):
                 self.set_events(option[1])
-            elif option[0] in ('-w', '--delay'):
+            elif option[0] in ("-w", "--delay"):
                 self.set_delay(option[1])
-            elif option[0] in ('-r', '--referer', ):
+            elif option[0] in (
+                "-r",
+                "--referer",
+            ):
                 self.set_referer(option[1])
-            elif option[0] in ('-p', '--proxy', ):
+            elif option[0] in (
+                "-p",
+                "--proxy",
+            ):
                 self.set_proxy(option[1])
-            elif option[0] in ('-m', '--attachment', ):
+            elif option[0] in (
+                "-m",
+                "--attachment",
+            ):
                 self.set_attachment()
-            elif option[0] in ('-z', '--web-tracking', ):
+            elif option[0] in (
+                "-z",
+                "--web-tracking",
+            ):
                 self.set_web_tracking()
-            elif option[0] in ('-b', '--async-prefetch', ):
+            elif option[0] in (
+                "-b",
+                "--async-prefetch",
+            ):
                 self.set_async_prefetch()
-            elif option[0] in ('-k', '--no-honeyagent', ):
+            elif option[0] in (
+                "-k",
+                "--no-honeyagent",
+            ):
                 self.disable_honeyagent()
-            elif option[0] in ('-a', '--image-processing', ):
+            elif option[0] in (
+                "-a",
+                "--image-processing",
+            ):
                 self.set_image_processing()
-            elif option[0] in ('-f', '--screenshot', ):
+            elif option[0] in (
+                "-f",
+                "--screenshot",
+            ):
                 self.enable_screenshot()
-            elif option[0] in ('-E', '--awis', ):
+            elif option[0] in (
+                "-E",
+                "--awis",
+            ):
                 self.enable_awis()
-            elif option[0] in ('-s', '--no-down-prevent', ):
+            elif option[0] in (
+                "-s",
+                "--no-down-prevent",
+            ):
                 self.disable_download_prevent()
-            elif option[0] in ('-l', '--local', ):
-                p = getattr(self, 'run_local')
-            elif option[0] in ('-x', '--local-nofetch', ):
-                p = getattr(self, 'run_local')
+            elif option[0] in (
+                "-l",
+                "--local",
+            ):
+                p = getattr(self, "run_local")
+            elif option[0] in (
+                "-x",
+                "--local-nofetch",
+            ):
+                p = getattr(self, "run_local")
                 self.set_no_fetch()
-            elif option[0] in ('-v', '--verbose', ):
+            elif option[0] in (
+                "-v",
+                "--verbose",
+            ):
                 self.set_verbose()
-            elif option[0] in ('-d', '--debug', ):
+            elif option[0] in (
+                "-d",
+                "--debug",
+            ):
                 self.set_debug()
-            elif option[0] in ('-a', '--ast-debug', ):
+            elif option[0] in (
+                "-a",
+                "--ast-debug",
+            ):
                 self.set_ast_debug()
-            elif option[0] in ('-g', '--http-debug', ):
+            elif option[0] in (
+                "-g",
+                "--http-debug",
+            ):
                 self.set_http_debug()
-            elif option[0] in ('-A', '--adobepdf', ):
+            elif option[0] in (
+                "-A",
+                "--adobepdf",
+            ):
                 self.set_acropdf_pdf(option[1])
-            elif option[0] in ('-P', '--no-adobepdf', ):
+            elif option[0] in (
+                "-P",
+                "--no-adobepdf",
+            ):
                 self.disable_acropdf()
-            elif option[0] in ('-S', '--shockwave', ):
+            elif option[0] in (
+                "-S",
+                "--shockwave",
+            ):
                 self.set_shockwave_flash(option[1])
-            elif option[0] in ('-R', '--no-shockwave', ):
+            elif option[0] in (
+                "-R",
+                "--no-shockwave",
+            ):
                 self.disable_shockwave_flash()
-            elif option[0] in ('-J', '--javaplugin', ):
+            elif option[0] in (
+                "-J",
+                "--javaplugin",
+            ):
                 self.set_javaplugin(option[1])
-            elif option[0] in ('-K', '--no-javaplugin', ):
+            elif option[0] in (
+                "-K",
+                "--no-javaplugin",
+            ):
                 self.disable_javaplugin()
-            elif option[0] in ('-L', '--silverlight', ):
+            elif option[0] in (
+                "-L",
+                "--silverlight",
+            ):
                 self.set_silverlight(option[1])
-            elif option[0] in ('-N', '--no-silverlight', ):
+            elif option[0] in (
+                "-N",
+                "--no-silverlight",
+            ):
                 self.disable_silverlight()
-            elif option[0] in ('-t', '--threshold', ):
+            elif option[0] in (
+                "-t",
+                "--threshold",
+            ):
                 self.set_threshold(option[1])
-            elif option[0] in ('-j', '--extensive', ):
+            elif option[0] in (
+                "-j",
+                "--extensive",
+            ):
                 self.set_extensive()
-            elif option[0] in ('-O', '--connect-timeout', ):
+            elif option[0] in (
+                "-O",
+                "--connect-timeout",
+            ):
                 self.set_connect_timeout(option[1])
-            elif option[0] in ('-T', '--timeout', ):
+            elif option[0] in (
+                "-T",
+                "--timeout",
+            ):
                 self.set_timeout(option[1])
-            elif option[0] in ('--htmlclassifier', ):
-                for classifier in option[1].split(','):
+            elif option[0] in ("--htmlclassifier",):
+                for classifier in option[1].split(","):
                     self.add_htmlclassifier(os.path.abspath(classifier))
-            elif option[0] in ('--urlclassifier', ):
-                for classifier in option[1].split(','):
+            elif option[0] in ("--urlclassifier",):
+                for classifier in option[1].split(","):
                     self.add_urlclassifier(os.path.abspath(classifier))
-            elif option[0] in ('--jsclassifier', ):
-                for classifier in option[1].split(','):
+            elif option[0] in ("--jsclassifier",):
+                for classifier in option[1].split(","):
                     self.add_jsclassifier(os.path.abspath(classifier))
-            elif option[0] in ('--vbsclassifier', ):
-                for classifier in option[1].split(','):
+            elif option[0] in ("--vbsclassifier",):
+                for classifier in option[1].split(","):
                     self.add_vbsclassifier(os.path.abspath(classifier))
-            elif option[0] in ('--sampleclassifier', ):
-                for classifier in option[1].split(','):
+            elif option[0] in ("--sampleclassifier",):
+                for classifier in option[1].split(","):
                     self.add_sampleclassifier(os.path.abspath(classifier))
-            elif option[0] in ('--textclassifier', ):
-                for classifier in option[1].split(','):
+            elif option[0] in ("--textclassifier",):
+                for classifier in option[1].split(","):
                     self.add_textclassifier(os.path.abspath(classifier))
-            elif option[0] in ('--cookieclassifier', ):
-                for classifier in option[1].split(','):
+            elif option[0] in ("--cookieclassifier",):
+                for classifier in option[1].split(","):
                     self.add_cookieclassifier(os.path.abspath(classifier))
-            elif option[0] in ('--imageclassifier', ):
-                for classifier in option[1].split(','):
+            elif option[0] in ("--imageclassifier",):
+                for classifier in option[1].split(","):
                     self.add_imageclassifier(os.path.abspath(classifier))
-            elif option[0] in ('--htmlfilter', ):
-                for f in option[1].split(','):
+            elif option[0] in ("--htmlfilter",):
+                for f in option[1].split(","):
                     self.add_htmlfilter(os.path.abspath(f))
-            elif option[0] in ('--urlfilter', ):
-                for f in option[1].split(','):
+            elif option[0] in ("--urlfilter",):
+                for f in option[1].split(","):
                     self.add_urlfilter(os.path.abspath(f))
-            elif option[0] in ('--jsfilter', ):
-                for f in option[1].split(','):
+            elif option[0] in ("--jsfilter",):
+                for f in option[1].split(","):
                     self.add_jsfilter(os.path.abspath(f))
-            elif option[0] in ('--vbsfilter', ):
-                for f in option[1].split(','):
+            elif option[0] in ("--vbsfilter",):
+                for f in option[1].split(","):
                     self.add_vbsfilter(os.path.abspath(f))
-            elif option[0] in ('--samplefilter', ):
-                for f in option[1].split(','):
+            elif option[0] in ("--samplefilter",):
+                for f in option[1].split(","):
                     self.add_samplefilter(os.path.abspath(f))
-            elif option[0] in ('--textfilter', ):
-                for f in option[1].split(','):
+            elif option[0] in ("--textfilter",):
+                for f in option[1].split(","):
                     self.add_textfilter(os.path.abspath(f))
-            elif option[0] in ('--cookiefilter', ):
-                for f in option[1].split(','):
+            elif option[0] in ("--cookiefilter",):
+                for f in option[1].split(","):
                     self.add_cookiefilter(os.path.abspath(f))
-            elif option[0] in ('--imagefilter', ):
-                for f in option[1].split(','):
+            elif option[0] in ("--imagefilter",):
+                for f in option[1].split(","):
                     self.add_imagefilter(os.path.abspath(f))
-            elif option[0] in ('-c', '--broken-url', ):
+            elif option[0] in (
+                "-c",
+                "--broken-url",
+            ):
                 self.set_broken_url()
-            elif option[0] in ('-F', '--file-logging', ):
+            elif option[0] in (
+                "-F",
+                "--file-logging",
+            ):
                 self.set_file_logging()
-            elif option[0] in ('-Z', '--json-logging', ):
+            elif option[0] in (
+                "-Z",
+                "--json-logging",
+            ):
                 self.set_json_logging()
-            elif option[0] in ('-W', '--features-logging', ):
+            elif option[0] in (
+                "-W",
+                "--features-logging",
+            ):
                 self.set_features_logging()
-            elif option[0] in ('-G', '--elasticsearch-logging', ):
+            elif option[0] in (
+                "-G",
+                "--elasticsearch-logging",
+            ):
                 self.set_elasticsearch_logging()
-            elif option[0] in ('-Y', '--no-code-logging', ):
+            elif option[0] in (
+                "-Y",
+                "--no-code-logging",
+            ):
                 self.disable_code_logging()
-            elif option[0] in ('-U', '--no-cert-logging', ):
+            elif option[0] in (
+                "-U",
+                "--no-cert-logging",
+            ):
                 self.disable_cert_logging()
-            elif option[0] in ('-D', '--mongodb-address', ):
+            elif option[0] in (
+                "-D",
+                "--mongodb-address",
+            ):
                 self.set_mongodb_address(option[1])
 
         self.log_init(args[0])
 
         for option in options:
-            if option[0] in ('-n', '--logdir'):
+            if option[0] in ("-n", "--logdir"):
                 self.set_log_dir(option[1])
-            elif option[0] in ('-o', '--output', ):
+            elif option[0] in (
+                "-o",
+                "--output",
+            ):
                 self.set_log_output(option[1])
-            elif option[0] in ('-q', '--quiet', ):
+            elif option[0] in (
+                "-q",
+                "--quiet",
+            ):
                 self.set_log_quiet()
 
-        if p: # pylint:disable=using-constant-test
+        if p:  # pylint:disable=using-constant-test
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
             p(args[0])
             ThugPlugins(POST_ANALYSIS_PLUGINS, self)()
@@ -364,7 +487,7 @@ Synopsis:
 
 
 def main():
-    if not os.getenv('THUG_PROFILE', None):
+    if not os.getenv("THUG_PROFILE", None):
         Thug(sys.argv[1:])()
     else:
         import io
@@ -377,15 +500,17 @@ def main():
         Thug(sys.argv[1:])()
         profiler.disable()
 
-        s  = io.StringIO()
-        ps = pstats.Stats(profiler, stream = s).sort_stats('cumulative')
+        s = io.StringIO()
+        ps = pstats.Stats(profiler, stream=s).sort_stats("cumulative")
         ps.print_stats()
 
-        with tempfile.NamedTemporaryFile(mode     = 'w',
-                                         encoding = 'utf-8',
-                                         prefix   = 'thug-profiler-',
-                                         suffix   = '.log',
-                                         delete   = False) as fd:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            prefix="thug-profiler-",
+            suffix=".log",
+            delete=False,
+        ) as fd:
             print(f"Saving profiler results to {fd.name}")
             fd.write(s.getvalue())
 

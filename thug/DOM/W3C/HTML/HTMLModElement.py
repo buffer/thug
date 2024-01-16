@@ -5,7 +5,7 @@ from .attr_property import attr_property
 
 
 class HTMLModElement(HTMLElement):
-    cite     = attr_property("cite")
+    cite = attr_property("cite")
     dateTime = attr_property("datetime")
 
     def __init__(self, doc, tag):

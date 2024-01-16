@@ -30,14 +30,18 @@ log = logging.getLogger("Thug")
 
 
 class URL(JSClass):
-    protocols = ('http', 'https', 'ftp', )
+    protocols = (
+        "http",
+        "https",
+        "ftp",
+    )
 
-    def __init__(self, url, base = None):
+    def __init__(self, url, base=None):
         self.init_url(url if base is None else urllib.parse.urljoin(base, url))
 
     def init_url(self, url):
         self.p_url = urllib.parse.urlparse(url)
-        self.p_url = self.p_url._replace(path = urllib.parse.quote(self.p_url.path))
+        self.p_url = self.p_url._replace(path=urllib.parse.quote(self.p_url.path))
 
     def __get_port(self, port):
         if isinstance(port, str):
@@ -52,7 +56,7 @@ class URL(JSClass):
         return f"#{self.p_url.fragment}"
 
     def set_hash(self, fragment):
-        self.p_url = self.p_url._replace(fragment = fragment)
+        self.p_url = self.p_url._replace(fragment=fragment)
 
     hash = property(get_hash, set_hash)
 
@@ -64,13 +68,13 @@ class URL(JSClass):
         if len(s_host) > 1 and self.__get_port(s_host[1]) is None:
             return
 
-        self.p_url = self.p_url._replace(netloc = host)
+        self.p_url = self.p_url._replace(netloc=host)
 
     host = property(get_host, set_host)
 
     def get_hostname(self):
-        s_netloc = self.p_url.netloc.split(':')
-        return s_netloc[0] if len(s_netloc) > 0 else ''
+        s_netloc = self.p_url.netloc.split(":")
+        return s_netloc[0] if len(s_netloc) > 0 else ""
 
     def set_hostname(self, hostname):
         if ":" in hostname:
@@ -100,7 +104,7 @@ class URL(JSClass):
 
         if len(s_netloc) < 2:
             _netloc = f":{password}@{self.p_url.netloc}"
-            self.p_url = self.p_url._replace(netloc = _netloc)
+            self.p_url = self.p_url._replace(netloc=_netloc)
             return
 
         if ":" not in s_netloc[0]:
@@ -108,7 +112,7 @@ class URL(JSClass):
         else:
             s_netloc[0] = f"{s_netloc[0].split(':')[0]}:{password}"
 
-        self.p_url = self.p_url._replace(netloc = "@".join(s_netloc))
+        self.p_url = self.p_url._replace(netloc="@".join(s_netloc))
 
     password = property(get_password, set_password)
 
@@ -116,7 +120,7 @@ class URL(JSClass):
         return self.p_url.path
 
     def set_pathname(self, pathname):
-        self.p_url = self.p_url._replace(path = pathname)
+        self.p_url = self.p_url._replace(path=pathname)
 
     pathname = property(get_pathname, set_pathname)
 
@@ -129,7 +133,7 @@ class URL(JSClass):
             return
 
         _netloc = self.p_url.netloc.split(":")[0]
-        self.p_url = self.p_url._replace(netloc = f"{_netloc}:{_port}")
+        self.p_url = self.p_url._replace(netloc=f"{_netloc}:{_port}")
 
     port = property(get_port, set_port)
 
@@ -138,7 +142,7 @@ class URL(JSClass):
 
     def set_protocol(self, protocol):
         if protocol in self.protocols:
-            self.p_url = self.p_url._replace(scheme = protocol)
+            self.p_url = self.p_url._replace(scheme=protocol)
 
     protocol = property(get_protocol, set_protocol)
 
@@ -146,7 +150,7 @@ class URL(JSClass):
         return self.p_url.query
 
     def set_search(self, search):
-        self.p_url = self.p_url._replace(query = search)
+        self.p_url = self.p_url._replace(query=search)
 
     search = property(get_search, set_search)
 
@@ -162,7 +166,7 @@ class URL(JSClass):
 
         if len(s_netloc) < 2:
             _netloc = f"{username}@{self.p_url.netloc}"
-            self.p_url = self.p_url._replace(netloc = _netloc)
+            self.p_url = self.p_url._replace(netloc=_netloc)
             return
 
         if ":" not in s_netloc[0]:
@@ -170,6 +174,6 @@ class URL(JSClass):
         else:
             s_netloc[0] = f"{username}:{s_netloc[0].split(':')[1]}"
 
-        self.p_url = self.p_url._replace(netloc = "@".join(s_netloc))
+        self.p_url = self.p_url._replace(netloc="@".join(s_netloc))
 
     username = property(get_username, set_username)

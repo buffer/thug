@@ -55,11 +55,17 @@ class ClassList(JSClass):
     def __init_class_list(self):
         self._class_list = []
 
-        if 'class' not in self.tag.attrs:
+        if "class" not in self.tag.attrs:
             return
 
-        attrs = self.tag.attrs['class']
-        attrs = [attrs, ] if isinstance(attrs, str) else attrs
+        attrs = self.tag.attrs["class"]
+        attrs = (
+            [
+                attrs,
+            ]
+            if isinstance(attrs, str)
+            else attrs
+        )
 
         for c in attrs:
             if c not in self._class_list:
@@ -69,17 +75,23 @@ class ClassList(JSClass):
         if c not in self._class_list:
             self._class_list.append(c)
 
-        if 'class' not in self.tag.attrs:
-            self.tag.attrs['class'] = []
+        if "class" not in self.tag.attrs:
+            self.tag.attrs["class"] = []
 
-        attrs = self.tag.attrs['class']
-        attrs = [attrs, ] if isinstance(attrs, str) else attrs
+        attrs = self.tag.attrs["class"]
+        attrs = (
+            [
+                attrs,
+            ]
+            if isinstance(attrs, str)
+            else attrs
+        )
 
         if c in attrs:
             return
 
         attrs.append(c)
-        self.tag.attrs['class'] = attrs
+        self.tag.attrs["class"] = attrs
 
     def __add(self, *args):
         for c in args:
@@ -92,17 +104,23 @@ class ClassList(JSClass):
         if c in self._class_list:
             self._class_list.remove(c)
 
-        if 'class' not in self.tag.attrs:
+        if "class" not in self.tag.attrs:
             return
 
-        attrs = self.tag.attrs['class']
-        attrs = [attrs, ] if isinstance(attrs, str) else attrs
+        attrs = self.tag.attrs["class"]
+        attrs = (
+            [
+                attrs,
+            ]
+            if isinstance(attrs, str)
+            else attrs
+        )
 
         if c not in attrs:
             return
 
         attrs.remove(c)
-        self.tag.attrs['class'] = attrs
+        self.tag.attrs["class"] = attrs
 
     def __remove(self, *args):
         for c in args:
@@ -117,7 +135,7 @@ class ClassList(JSClass):
 
         return self._class_list[index]
 
-    def __toggle(self, c, force = None):
+    def __toggle(self, c, force=None):
         if force is False or c in self._class_list:
             self.remove(c)
             return False

@@ -12,20 +12,24 @@ def Add(self, key, item):
 
     self.dictionary[key] = item
 
+
 def Exists(self, key):
     return key in self.dictionary
 
+
 def Items(self):
-    msg = '[Scripting.Dictionary ActiveX] Items()'
+    msg = "[Scripting.Dictionary ActiveX] Items()"
     log.ThugLogging.add_behavior_warn(msg)
 
     return list(self.dictionary.values())
 
+
 def Keys(self):
-    msg = '[Scripting.Dictionary ActiveX] Keys()'
+    msg = "[Scripting.Dictionary ActiveX] Keys()"
     log.ThugLogging.add_behavior_warn(msg)
 
     return list(self.dictionary.keys())
+
 
 def Remove(self, key):
     msg = f'[Scripting.Dictionary ActiveX] Remove("{key}")'
@@ -35,8 +39,9 @@ def Remove(self, key):
         del self.dictionary[key]
         self.Count -= 1
 
+
 def RemoveAll(self):
-    msg = '[Scripting.Dictionary ActiveX] RemoveAll()'
+    msg = "[Scripting.Dictionary ActiveX] RemoveAll()"
     log.ThugLogging.add_behavior_warn(msg)
 
     self.dictionary.clear()

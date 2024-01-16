@@ -1,4 +1,3 @@
-import os
 import logging
 
 import thug
@@ -15,19 +14,19 @@ log.personalities_path = thug.__personalities_path__ if configuration_path else 
 log.ThugVulnModules = ThugVulnModules()
 log.ThugOpts = ThugOpts()
 
-log.ThugOpts.useragent = 'winxpie60'
+log.ThugOpts.useragent = "winxpie60"
 
 
 class TestPersonality(object):
     def test_personality(self):
         personality = Personality()
 
-        assert 'Windows NT 5.1' in personality.userAgent
-        assert 'Mozilla/4.0 (Windows XP 5.1) Java' in personality.javaUserAgent
-        assert '6.0' in personality.browserVersion
-        assert 'Win32' in personality.platform
+        assert "Windows NT 5.1" in personality.userAgent
+        assert "Mozilla/4.0 (Windows XP 5.1) Java" in personality.javaUserAgent
+        assert "6.0" in personality.browserVersion
+        assert "Win32" in personality.platform
         assert personality.browserMajorVersion == 6
-        assert '5.6' in personality.cc_on['_jscript_version']
+        assert "5.6" in personality.cc_on["_jscript_version"]
         assert personality.isIE() is True
         assert personality.isEdge() is False
         assert personality.isWindows() is True

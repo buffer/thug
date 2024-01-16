@@ -1,14 +1,16 @@
-__all__ = ['DocumentEvent',
-           'Event',
-           'EventException',
-           'EventListener',
-           'EventTarget',
-           'HTMLEvent',
-           'MessageEvent',
-           'MouseEvent',
-           'MutationEvent',
-           'StorageEvent',
-           'UIEvent']
+__all__ = [
+    "DocumentEvent",
+    "Event",
+    "EventException",
+    "EventListener",
+    "EventTarget",
+    "HTMLEvent",
+    "MessageEvent",
+    "MouseEvent",
+    "MutationEvent",
+    "StorageEvent",
+    "UIEvent",
+]
 
 
 # from .DocumentEvent import DocumentEvent

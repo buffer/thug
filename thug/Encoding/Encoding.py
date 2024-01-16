@@ -18,6 +18,7 @@
 
 import charset_normalizer
 
+
 class Encoding:
     @staticmethod
     def detect(data):

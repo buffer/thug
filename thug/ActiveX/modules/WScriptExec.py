@@ -8,7 +8,7 @@ log = logging.getLogger("Thug")
 
 class WScriptExec:
     def __init__(self):
-        self._StdIn  = TextStream()
+        self._StdIn = TextStream()
         self._StdOut = TextStream()
         self._StdErr = TextStream()
 

@@ -25,13 +25,13 @@ import urllib.parse
 import requests
 import urllib3
 
-urllib3.disable_warnings(category = urllib3.exceptions.InsecureRequestWarning)
+urllib3.disable_warnings(category=urllib3.exceptions.InsecureRequestWarning)
 
 log = logging.getLogger("Thug")
 
 
 class HTTPSession:
-    def __init__(self, proxy = None):
+    def __init__(self, proxy=None):
         self.__init_download_prevention()
 
         if proxy is None:
@@ -49,23 +49,20 @@ class HTTPSession:
         if not url.scheme:
             return False
 
-        if not url.scheme.lower().startswith(('http', 'socks4', 'socks5')):
+        if not url.scheme.lower().startswith(("http", "socks4", "socks5")):
             return False
 
         try:
             self.__check_proxy_alive(url.hostname, url.port)
-        except Exception as e: # pylint:disable=broad-except
+        except Exception as e:  # pylint:disable=broad-except
             log.critical("[CRITICAL] Proxy not available. Aborting the analysis!")
 
             if log.ThugOpts.raise_for_proxy:
                 raise ValueError("[CRITICAL] Proxy not available") from e
 
-            sys.exit(0) # pragma: no cover
+            sys.exit(0)  # pragma: no cover
 
-        self.session.proxies = {
-            'http'  : proxy,
-            'https' : proxy
-        }
+        self.session.proxies = {"http": proxy, "https": proxy}
 
         return True
 
@@ -88,19 +85,19 @@ class HTTPSession:
             self.download_prevented_mimetypes = tuple()
             return
 
-        mimetypes = ['audio/', 'video/' ]
+        mimetypes = ["audio/", "video/"]
 
         if not log.ThugOpts.image_processing:
-            mimetypes.append('image/')
+            mimetypes.append("image/")
 
         self.download_prevented_mimetypes = tuple(mimetypes)
 
     def _normalize_protocol_relative_url(self, window, url):
-        if not url.startswith('//'):
+        if not url.startswith("//"):
             return url
 
-        if window.url in ('about:blank', ):
-            return f'http:{url}'
+        if window.url in ("about:blank",):
+            return f"http:{url}"
 
         base_url = urllib.parse.urlparse(window.url)
         return f"{base_url.scheme}:{url}" if base_url.scheme else f"http:{url}"
@@ -109,22 +106,25 @@ class HTTPSession:
     def _normalize_query_fragment_url(url):
         p_url = urllib.parse.urlparse(urllib.parse.urldefrag(url)[0])
 
-        p_query = urllib.parse.parse_qs(p_url.query, keep_blank_values = True)
-        e_query = urllib.parse.urlencode(p_query.fromkeys(p_query, ''))
+        p_query = urllib.parse.parse_qs(p_url.query, keep_blank_values=True)
+        e_query = urllib.parse.urlencode(p_query.fromkeys(p_query, ""))
 
-        return p_url._replace(query = e_query).geturl()
+        return p_url._replace(query=e_query).geturl()
 
     def _is_compatible(self, url, scheme):
         return url.startswith(f"{scheme}:/") and not url.startswith(f"{scheme}://")
 
     def _check_compatibility(self, url):
-        for scheme in ("http", "https", ):
+        for scheme in (
+            "http",
+            "https",
+        ):
             if self._is_compatible(url, scheme):
                 return f"{scheme}://{url.split(f'{scheme}:/')[1]}"
 
         return url
 
-    def is_download_prevented(self, mimetype = None):
+    def is_download_prevented(self, mimetype=None):
         if mimetype and mimetype.startswith(self.download_prevented_mimetypes):
             return True
 
@@ -136,7 +136,7 @@ class HTTPSession:
             return True
 
         if url.startswith(("'", '"')) and url[1:].lower().startswith("data:"):
-            return True # pragma: no cover
+            return True  # pragma: no cover
 
         return False
 
@@ -144,10 +144,10 @@ class HTTPSession:
         url = url.strip()
 
         # Do not normalize Data URI scheme
-        if url.lower().startswith('url=') or self.is_data_uri(url):
+        if url.lower().startswith("url=") or self.is_data_uri(url):
             return url
 
-        if url.startswith('#'):
+        if url.startswith("#"):
             log.warning("[INFO] Ignoring anchor: %s", url)
             return None
 
@@ -159,16 +159,19 @@ class HTTPSession:
         url = self._normalize_protocol_relative_url(window, url)
 
         try:
-            url = urllib.parse.quote(url, safe = "%/:=&?~#+!$,;'@()*[]{}")
-        except KeyError: # pragma: no cover
+            url = urllib.parse.quote(url, safe="%/:=&?~#+!$,;'@()*[]{}")
+        except KeyError:  # pragma: no cover
             pass
 
         _url = urllib.parse.urlparse(url)
 
         base_url = None
-        last_url = getattr(log, 'last_url', None)
+        last_url = getattr(log, "last_url", None)
 
-        for _base_url in (last_url, window.url, ):
+        for _base_url in (
+            last_url,
+            window.url,
+        ):
             if not _base_url:
                 continue
 
@@ -183,7 +186,7 @@ class HTTPSession:
         # analyzing specific schemes the proper way to go is to define
         # a method named handle_<scheme> in the SchemeHandler and put
         # the logic within such method.
-        handler = getattr(log.SchemeHandler, f'handle_{_url.scheme}', None)
+        handler = getattr(log.SchemeHandler, f"handle_{_url.scheme}", None)
         if handler:
             handler(window, url)
             return None
@@ -196,7 +199,7 @@ class HTTPSession:
         return url
 
     def check_equal_urls(self, url, last_url):
-        return urllib.parse.unquote(url) in (urllib.parse.unquote(last_url), )
+        return urllib.parse.unquote(url) in (urllib.parse.unquote(last_url),)
 
     def check_redirection_loop_url_params(self, url):
         p_url = urllib.parse.urlparse(url)
@@ -208,15 +211,17 @@ class HTTPSession:
 
     def build_http_headers(self, window, personality, headers):
         http_headers = {
-            'Cache-Control'   : 'no-cache',
-            'Accept-Language' : 'en-US',
-            'Accept'          : '*/*',
-            'User-Agent'      :  personality
+            "Cache-Control": "no-cache",
+            "Accept-Language": "en-US",
+            "Accept": "*/*",
+            "User-Agent": personality,
         }
 
-        if window and window.url not in ('about:blank', ):
-            referer = window.url if window.url.startswith('http') else f'http://{window.url}'
-            http_headers['Referer'] = referer
+        if window and window.url not in ("about:blank",):
+            referer = (
+                window.url if window.url.startswith("http") else f"http://{window.url}"
+            )
+            http_headers["Referer"] = referer
 
         # REVIEW ME!
         # if window and window.doc.cookie:
@@ -232,7 +237,7 @@ class HTTPSession:
             return
 
         _url = urllib.parse.urlparse(url)
-        if _url.scheme not in ('https', ):
+        if _url.scheme not in ("https",):
             return
 
         port = _url.port if _url.port else 443
@@ -242,13 +247,17 @@ class HTTPSession:
             return
 
         try:
-            certificate = ssl.get_server_certificate((_url.netloc, port), ssl_version = ssl.PROTOCOL_TLS_CLIENT)
+            certificate = ssl.get_server_certificate(
+                (_url.netloc, port), ssl_version=ssl.PROTOCOL_TLS_CLIENT
+            )
             log.ThugLogging.ssl_certs[(_url.netloc, port)] = certificate
             log.ThugLogging.log_certificate(url, certificate)
-        except Exception as e: # pragma: no cover,pylint:disable=broad-except
+        except Exception as e:  # pragma: no cover,pylint:disable=broad-except
             log.warning("[SSL ERROR] %s", str(e))
 
-    def fetch(self, url, method = "GET", window = None, personality = None, headers = None, body = None):
+    def fetch(
+        self, url, method="GET", window=None, personality=None, headers=None, body=None
+    ):
         if log.URLClassifier.filter(url):
             return None
 
@@ -257,18 +266,18 @@ class HTTPSession:
             return None
 
         fetcher = getattr(self.session, method.lower(), None)
-        if fetcher is None: # pragma: no cover
+        if fetcher is None:  # pragma: no cover
             log.warning("Not supported method: %s", method)
             return None
 
-        if headers is None: # pragma: no cover
+        if headers is None:  # pragma: no cover
             headers = {}
 
         response = None
 
         try:
-            async_prefetcher = getattr(log.DFT, 'async_prefetcher', None)
-        except Exception: # pylint: disable=broad-except
+            async_prefetcher = getattr(log.DFT, "async_prefetcher", None)
+        except Exception:  # pylint: disable=broad-except
             async_prefetcher = None
 
         if async_prefetcher:
@@ -280,12 +289,14 @@ class HTTPSession:
             _headers = self.build_http_headers(window, personality, headers)
 
             try:
-                response = fetcher(url, # pylint:disable=not-callable
-                                   headers = _headers,
-                                   timeout = log.ThugOpts.connect_timeout,
-                                   data    = body,
-                                   verify  = log.ThugOpts.ssl_verify,
-                                   stream  = True)
+                response = fetcher(
+                    url,  # pylint:disable=not-callable
+                    headers=_headers,
+                    timeout=log.ThugOpts.connect_timeout,
+                    data=body,
+                    verify=log.ThugOpts.ssl_verify,
+                    stream=True,
+                )
             except requests.ConnectionError as e:
                 log.warning("[HTTPSession] %s", str(e))
                 raise
@@ -307,7 +318,9 @@ class HTTPSession:
             return False
 
         if self.filecount >= log.ThugOpts.threshold:
-            log.ThugLogging.log_location(url, None, flags = {"error" : "Threshold Exceeded"})
+            log.ThugLogging.log_location(
+                url, None, flags={"error": "Threshold Exceeded"}
+            )
             return True
 
         return False
@@ -317,7 +330,7 @@ class HTTPSession:
         return log.ThugOpts.no_fetch
 
     def about_blank(self, url):
-        return url.lower() in ('about:blank', )
+        return url.lower() in ("about:blank",)
 
     def get_cookies(self):
         return self.session.cookies

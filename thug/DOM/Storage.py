@@ -44,7 +44,7 @@ class Storage(OrderedDict, JSClass):
         except KeyError:
             return None
 
-    def __setitem__(self, key, value, dict_setitem = dict.__setitem__):
+    def __setitem__(self, key, value, dict_setitem=dict.__setitem__):
         self.setItem(key, value)
 
     def setItem(self, key, value):
@@ -55,18 +55,13 @@ class Storage(OrderedDict, JSClass):
         log.WebTracking.inspect_storage_setitem(self, key, value)
 
         evtObject = StorageEvent()
-        evtObject.initStorageEvent('storage',
-                                   False,
-                                   False,
-                                   key,
-                                   oldvalue,
-                                   value,
-                                   log.DFT.window.url,
-                                   self)
+        evtObject.initStorageEvent(
+            "storage", False, False, key, oldvalue, value, log.DFT.window.url, self
+        )
 
-        log.DFT.handle_window_storage_event('onstorage', evtObject)
+        log.DFT.handle_window_storage_event("onstorage", evtObject)
 
-    def __delitem__(self, key, dict_delitem = dict.__delitem__): # pragma: no cover
+    def __delitem__(self, key, dict_delitem=dict.__delitem__):  # pragma: no cover
         self.removeItem(key)
 
     def removeItem(self, key):
@@ -77,16 +72,11 @@ class Storage(OrderedDict, JSClass):
         log.WebTracking.inspect_storage_removeitem(self, key)
 
         evtObject = StorageEvent()
-        evtObject.initStorageEvent('storage',
-                                   False,
-                                   False,
-                                   key,
-                                   oldvalue,
-                                   None,
-                                   log.DFT.window.url,
-                                   self)
+        evtObject.initStorageEvent(
+            "storage", False, False, key, oldvalue, None, log.DFT.window.url, self
+        )
 
-        log.DFT.handle_window_storage_event('onstorage', evtObject)
+        log.DFT.handle_window_storage_event("onstorage", evtObject)
 
     def clear(self):
         from thug.DOM.W3C.Events.StorageEvent import StorageEvent
@@ -96,13 +86,8 @@ class Storage(OrderedDict, JSClass):
         log.WebTracking.inspect_storage_clear(self)
 
         evtObject = StorageEvent()
-        evtObject.initStorageEvent('storage',
-                                   False,
-                                   False,
-                                   None,
-                                   None,
-                                   None,
-                                   log.DFT.window.url,
-                                   self)
+        evtObject.initStorageEvent(
+            "storage", False, False, None, None, None, log.DFT.window.url, self
+        )
 
-        log.DFT.handle_window_storage_event('onstorage', evtObject)
+        log.DFT.handle_window_storage_event("onstorage", evtObject)

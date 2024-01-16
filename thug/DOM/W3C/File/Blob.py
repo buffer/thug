@@ -27,7 +27,7 @@ from thug.DOM.W3C.Core.DOMException import DOMException
 
 
 class Blob(JSClass):
-    def __init__(self, array = None, options = None):
+    def __init__(self, array=None, options=None):
         self.array = STPyV8.JSArray() if array is None else array
 
         if options is None:
@@ -36,7 +36,7 @@ class Blob(JSClass):
         try:
             self.options = dict(options)
         except ValueError:
-            raise DOMException(DOMException.NOT_SUPPORTED_ERR) # pylint: disable=raise-missing-from
+            raise DOMException(DOMException.NOT_SUPPORTED_ERR)  # pylint: disable=raise-missing-from
 
     @staticmethod
     def __convert(obj):
@@ -68,16 +68,12 @@ class Blob(JSClass):
         return self.options.get("endings", "transparent").lower()
 
     def text(self):
-        return Promise(
-            lambda resolve, reject: resolve(''.join(self.blob))
-        )
+        return Promise(lambda resolve, reject: resolve("".join(self.blob)))
 
     def arrayBuffer(self):
-        return Promise(
-            lambda resolve, reject: resolve(self.array)
-        )
+        return Promise(lambda resolve, reject: resolve(self.array))
 
-    def slice(self, start = 0, end = None, contentType = ""):
+    def slice(self, start=0, end=None, contentType=""):
         options = {}
         options["type"] = contentType
 

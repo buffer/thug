@@ -8,7 +8,7 @@ log = logging.getLogger("Thug")
 
 
 class TestFeatures(object):
-    cwd_path      = os.path.dirname(os.path.realpath(__file__))
+    cwd_path = os.path.dirname(os.path.realpath(__file__))
     features_path = os.path.join(cwd_path, os.pardir, "samples/features")
     expected_path = os.path.join(cwd_path, "features.json")
 
@@ -20,7 +20,7 @@ class TestFeatures(object):
 
         thug.log_init(sample)
 
-        thug.set_useragent('win7ie90')
+        thug.set_useragent("win7ie90")
         thug.set_verbose()
         thug.set_json_logging()
 

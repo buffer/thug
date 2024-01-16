@@ -12,14 +12,15 @@ class HTMLDocumentCompatibleInfo:
 
     There are no standards that apply here.
     """
-    def __init__(self, useragent = '', version = ''):
+
+    def __init__(self, useragent="", version=""):
         self._userAgent = useragent
-        self._version   = version
+        self._version = version
 
     def getUserAgent(self):
         return self._userAgent
 
-    def setUserAgent(self, useragent): # pragma: no cover
+    def setUserAgent(self, useragent):  # pragma: no cover
         self._userAgent = useragent
 
     userAgent = property(getUserAgent, setUserAgent)
@@ -27,7 +28,7 @@ class HTMLDocumentCompatibleInfo:
     def getVersion(self):
         return self._version
 
-    def setVersion(self, version): # pragma: no cover
+    def setVersion(self, version):  # pragma: no cover
         self._version = version
 
     version = property(getVersion, setVersion)

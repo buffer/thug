@@ -1,4 +1,3 @@
-import os
 import logging
 
 import thug
@@ -56,32 +55,33 @@ class TestLocation:
         log.ThugOpts.ssl_verify = True
 
         window = WindowDict()
-        window.url = 'https://www.google.com:1234/search?&q=test'
+        window.url = "https://www.google.com:1234/search?&q=test"
 
         location = Location(window)
 
-        assert location.origin == 'https://www.google.com:1234'
-        assert location.host == 'www.google.com:1234'
-        assert location.hostname == 'www.google.com'
-        assert location.pathname == '/search'
-        assert location.search == '&q=test'
+        assert location.origin == "https://www.google.com:1234"
+        assert location.host == "www.google.com:1234"
+        assert location.hostname == "www.google.com"
+        assert location.pathname == "/search"
+        assert location.search == "&q=test"
         assert location.port == 1234
-        assert location.hash == ''
+        assert location.hash == ""
 
     def testPathname(self, caplog):
         log.ThugOpts.ssl_verify = True
 
         expected = [
-            '[HREF Redirection (document.location)]',
-            'Content-Location: https://www.google.com/search --> Location: https://www.google.com/test']
+            "[HREF Redirection (document.location)]",
+            "Content-Location: https://www.google.com/search --> Location: https://www.google.com/test",
+        ]
 
         window = WindowDict()
-        window.url = 'https://www.google.com/search'
+        window.url = "https://www.google.com/search"
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
-        location.pathname = '/search'
-        location.pathname = '/test'
+        location.pathname = "/search"
+        location.pathname = "/test"
 
         self.check_expected(caplog, expected)
 
@@ -89,17 +89,17 @@ class TestLocation:
         log.ThugOpts.ssl_verify = True
 
         expected = [
-            '[HREF Redirection (document.location)]',
-            'Content-Location: http://www.google.com --> Location: https://www.google.com'
+            "[HREF Redirection (document.location)]",
+            "Content-Location: http://www.google.com --> Location: https://www.google.com",
         ]
 
         window = WindowDict()
-        window.url = 'http://www.google.com'
+        window.url = "http://www.google.com"
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
-        location.protocol = 'http:'
-        location.protocol = 'https'
+        location.protocol = "http:"
+        location.protocol = "https"
 
         self.check_expected(caplog, expected)
 
@@ -107,17 +107,17 @@ class TestLocation:
         log.ThugOpts.ssl_verify = True
 
         expected = [
-            '[HREF Redirection (document.location)]',
-            'Content-Location: https://www.google.com:1234/search?&q=test --> Location: https://www.google.com/search?&q=test'
+            "[HREF Redirection (document.location)]",
+            "Content-Location: https://www.google.com:1234/search?&q=test --> Location: https://www.google.com/search?&q=test",
         ]
 
         window = WindowDict()
-        window.url = 'https://www.google.com:1234/search?&q=test'
+        window.url = "https://www.google.com:1234/search?&q=test"
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
-        location.host = 'www.google.com:1234'
-        location.host = 'www.google.com'
+        location.host = "www.google.com:1234"
+        location.host = "www.google.com"
 
         self.check_expected(caplog, expected)
 
@@ -125,17 +125,17 @@ class TestLocation:
         log.ThugOpts.ssl_verify = True
 
         expected = [
-            '[HREF Redirection (document.location)]',
-            'Content-Location: https://ww.google.com --> Location: https://www.google.com'
+            "[HREF Redirection (document.location)]",
+            "Content-Location: https://ww.google.com --> Location: https://www.google.com",
         ]
 
         window = WindowDict()
-        window.url = 'https://ww.google.com'
+        window.url = "https://ww.google.com"
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
-        location.hostname = 'ww.google.com'
-        location.hostname = 'www.google.com'
+        location.hostname = "ww.google.com"
+        location.hostname = "www.google.com"
 
         self.check_expected(caplog, expected)
 
@@ -143,12 +143,12 @@ class TestLocation:
         log.ThugOpts.ssl_verify = True
 
         expected = [
-            '[HREF Redirection (document.location)]',
-            'Content-Location: https://www.google.com:1234 --> Location: https://www.google.com:443'
+            "[HREF Redirection (document.location)]",
+            "Content-Location: https://www.google.com:1234 --> Location: https://www.google.com:443",
         ]
 
         window = WindowDict()
-        window.url = 'https://www.google.com:1234'
+        window.url = "https://www.google.com:1234"
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
@@ -161,17 +161,17 @@ class TestLocation:
         log.ThugOpts.ssl_verify = True
 
         expected = [
-            '[HREF Redirection (document.location)]',
-            'Content-Location: https://www.google.com/search?&q=test --> Location: https://www.google.com/search?&q=test2'
+            "[HREF Redirection (document.location)]",
+            "Content-Location: https://www.google.com/search?&q=test --> Location: https://www.google.com/search?&q=test2",
         ]
 
         window = WindowDict()
-        window.url = 'https://www.google.com/search?&q=test'
+        window.url = "https://www.google.com/search?&q=test"
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
-        location.search = '&q=test'
-        location.search = '&q=test2'
+        location.search = "&q=test"
+        location.search = "&q=test2"
 
         self.check_expected(caplog, expected)
 
@@ -179,16 +179,16 @@ class TestLocation:
         log.ThugOpts.ssl_verify = True
 
         expected = [
-            '[HREF Redirection (document.location)]',
-            'Content-Location: https://www.google.com/search#foo --> Location: https://www.google.com/search#bar'
+            "[HREF Redirection (document.location)]",
+            "Content-Location: https://www.google.com/search#foo --> Location: https://www.google.com/search#bar",
         ]
 
         window = WindowDict()
-        window.url = 'https://www.google.com/search#foo'
+        window.url = "https://www.google.com/search#foo"
         window._navigator = Navigator("winxpie60")
 
         location = Location(window)
-        location.hash = 'foo'
-        location.hash = 'bar'
+        location.hash = "foo"
+        location.hash = "bar"
 
         self.check_expected(caplog, expected)

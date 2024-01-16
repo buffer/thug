@@ -17,6 +17,7 @@
 # MA  02111-1307  USA
 
 import logging
+
 log = logging.getLogger("Thug")
 
 
@@ -24,17 +25,17 @@ class ThugVulnModules(dict):
     def __init__(self):
         super().__init__()
 
-        self._acropdf_pdf               = '9.1.0'
-        self._acropdf_disabled          = False
-        self._shockwave_flash           = '10.0.64.0'
-        self._shockwave_flash_disabled  = False
-        self._javaplugin                = '1.6.0.32'
-        self._javaplugin_disabled       = False
-        self._silverlight               = '4.0.50826.0'
-        self._silverlight_disabled      = False
+        self._acropdf_pdf = "9.1.0"
+        self._acropdf_disabled = False
+        self._shockwave_flash = "10.0.64.0"
+        self._shockwave_flash_disabled = False
+        self._javaplugin = "1.6.0.32"
+        self._javaplugin_disabled = False
+        self._silverlight = "4.0.50826.0"
+        self._silverlight_disabled = False
 
     def invalid_version(self, version):
-        for p in version.split('.'):
+        for p in version.split("."):
             if not p.isdigit():
                 return True
 
@@ -49,7 +50,9 @@ class ThugVulnModules(dict):
 
     def set_acropdf_pdf(self, version):
         if self.invalid_version(version):
-            log.warning('[WARNING] Invalid Adobe Acrobat Reader version provided (using default one)')
+            log.warning(
+                "[WARNING] Invalid Adobe Acrobat Reader version provided (using default one)"
+            )
             return
 
         self._acropdf_pdf = version
@@ -67,8 +70,16 @@ class ThugVulnModules(dict):
         return self._shockwave_flash
 
     def set_shockwave_flash(self, version):
-        if version.split('.')[0] not in ('8', '9', '10', '11', '12', ) or self.invalid_version(version):
-            log.warning('[WARNING] Invalid Shockwave Flash version provided (using default one)')
+        if version.split(".")[0] not in (
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+        ) or self.invalid_version(version):
+            log.warning(
+                "[WARNING] Invalid Shockwave Flash version provided (using default one)"
+            )
             return
 
         self._shockwave_flash = version
@@ -83,23 +94,25 @@ class ThugVulnModules(dict):
         return self._shockwave_flash_disabled
 
     def get_javaplugin(self):
-        javaplugin = self._javaplugin.split('.')
-        last       = javaplugin.pop()
+        javaplugin = self._javaplugin.split(".")
+        last = javaplugin.pop()
         return f"{''.join(javaplugin)}_{last}"
 
     def set_javaplugin(self, version):
         if self.invalid_version(version):
-            log.warning('[WARNING] Invalid JavaPlugin version provided (using default one)')
+            log.warning(
+                "[WARNING] Invalid JavaPlugin version provided (using default one)"
+            )
             return
 
-        _version = version.split('.')
+        _version = version.split(".")
         while len(_version) < 4:
-            _version.append('0')
+            _version.append("0")
 
         if len(_version[3]) == 1:
-            _version[3] = f'0{_version[3]}'
+            _version[3] = f"0{_version[3]}"
 
-        self._javaplugin = '.'.join(_version)
+        self._javaplugin = ".".join(_version)
 
     javaplugin = property(get_javaplugin, set_javaplugin)
 
@@ -112,7 +125,7 @@ class ThugVulnModules(dict):
 
     @property
     def javawebstart_isinstalled(self):
-        javawebstart = self._javaplugin.split('.')
+        javawebstart = self._javaplugin.split(".")
         javawebstart.pop()
         return f"{'.'.join(javawebstart)}.0"
 
@@ -120,8 +133,16 @@ class ThugVulnModules(dict):
         return self._silverlight
 
     def set_silverlight(self, version):
-        if version.split('.')[0] not in ('1', '2', '3', '4', '5', ) or self.invalid_version(version):
-            log.warning('[WARNING] Invalid Silverlight version provided (using default one)')
+        if version.split(".")[0] not in (
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+        ) or self.invalid_version(version):
+            log.warning(
+                "[WARNING] Invalid Silverlight version provided (using default one)"
+            )
             return
 
         self._silverlight = version

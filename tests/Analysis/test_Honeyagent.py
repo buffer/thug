@@ -14,7 +14,7 @@ log = logging.getLogger("Thug")
 log.personalities_path = thug.__personalities_path__ if configuration_path else None
 
 log.ThugOpts = ThugOpts()
-log.PyHooks  = dict()
+log.PyHooks = dict()
 
 log.configuration_path = configuration_path
 log.ThugLogging = ThugLogging()
@@ -23,16 +23,14 @@ HAGENT = HoneyAgent.HoneyAgent()
 
 
 class mock_cls:
-    """Mock class for other required methods in log
-    """
+    """Mock class for other required methods in log"""
 
     def __getattr__(self, attr):
         return lambda *args: None
 
 
-class mock_log():
-    """Mock class for log
-    """
+class mock_log:
+    """Mock class for log"""
 
     def __init__(self):
         self.data = []
@@ -48,21 +46,26 @@ class TestHoneyAgent:
     samples_path = os.path.join(cwd_path, os.pardir, os.pardir, "tests/test_files")
 
     # Mock requests POST method
-    @patch('requests.post')
+    @patch("requests.post")
     def test_analyze(self, mocked_post):
-        expected = [('d4be8fbeb3a219ec8c6c26ffe4033a16',),
-                    ('d4be8fbeb3a219ec8c6c26ffe4033a16', 'file'),
-                    ('d4be8fbeb3a219ec8c6c26ffe4033a16', 'heuristics', 'LocalFileAccess')]
+        expected = [
+            ("d4be8fbeb3a219ec8c6c26ffe4033a16",),
+            ("d4be8fbeb3a219ec8c6c26ffe4033a16", "file"),
+            ("d4be8fbeb3a219ec8c6c26ffe4033a16", "heuristics", "LocalFileAccess"),
+        ]
 
-        sample = {'type': 'JAR', 'md5': 'd4be8fbeb3a219ec8c6c26ffe4033a16'}
+        sample = {"type": "JAR", "md5": "d4be8fbeb3a219ec8c6c26ffe4033a16"}
 
         jar_path = os.path.join(self.samples_path, "sample.jar")
-        with open(jar_path, 'rb') as f:
+        with open(jar_path, "rb") as f:
             data = f.read()
 
-        json_data = lambda: {"result": {"files": {"file": "test"},
-                                            "yara": {"heuristics":
-                                                     [{"rule": "LocalFileAccess"}]}}}
+        json_data = lambda: {  # noqa: E731
+            "result": {
+                "files": {"file": "test"},
+                "yara": {"heuristics": [{"rule": "LocalFileAccess"}]},
+            }
+        }
 
         mocked_post.return_value = Mock(json=json_data)
 
@@ -70,11 +73,11 @@ class TestHoneyAgent:
         HoneyAgent.log = mock_log()
 
         HAGENT.enabled = True
-        HAGENT.opts = {'enable': True, 'scanurl': 'http://test.com'}
+        HAGENT.opts = {"enable": True, "scanurl": "http://test.com"}
 
         HAGENT.analyze(data, sample, self.samples_path, None)
 
-        mock_data = [dat[1:]for dat in HoneyAgent.log.data]
+        mock_data = [dat[1:] for dat in HoneyAgent.log.data]
         assert mock_data == expected
 
         HoneyAgent.log = _log

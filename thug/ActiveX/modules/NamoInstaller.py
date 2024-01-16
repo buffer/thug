@@ -8,22 +8,23 @@ log = logging.getLogger("Thug")
 
 def Install(self, arg):
     if len(arg) > 1024:
-        log.ThugLogging.log_exploit_event(self._window.url,
-                                          "NamoInstaller ActiveX",
-                                          "Overflow in Install method")
+        log.ThugLogging.log_exploit_event(
+            self._window.url, "NamoInstaller ActiveX", "Overflow in Install method"
+        )
         log.ThugLogging.Shellcode.check_shellcode(arg)
 
-    if str([arg]).find('http') > -1:
-        log.ThugLogging.add_behavior_warn(f'[NamoInstaller ActiveX] Insecure download from URL {arg}')
-        log.ThugLogging.log_exploit_event(self._window.url,
-                                          "NamoInstaller ActiveX",
-                                          "Insecure download from URL",
-                                          forward = False,
-                                          data = {
-                                                    "url": arg
-                                                 }
-                                         )
+    if str([arg]).find("http") > -1:
+        log.ThugLogging.add_behavior_warn(
+            f"[NamoInstaller ActiveX] Insecure download from URL {arg}"
+        )
+        log.ThugLogging.log_exploit_event(
+            self._window.url,
+            "NamoInstaller ActiveX",
+            "Insecure download from URL",
+            forward=False,
+            data={"url": arg},
+        )
         try:
-            self._window._navigator.fetch(arg, redirect_type = "NamoInstaller Exploit")
-        except Exception: # pylint:disable=broad-except
-            log.ThugLogging.add_behavior_warn('[NamoInstaller ActiveX] Fetch failed')
+            self._window._navigator.fetch(arg, redirect_type="NamoInstaller Exploit")
+        except Exception:  # pylint:disable=broad-except
+            log.ThugLogging.add_behavior_warn("[NamoInstaller ActiveX] Fetch failed")

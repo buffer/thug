@@ -17,19 +17,19 @@ class Node:
 
     def getNodeTypedValue(self):
         try:
-            if self._dataType in ('bin.base64', ):
+            if self._dataType in ("bin.base64",):
                 return base64.b64decode(self.text)
-            if self._dataType in ('bin.hex', ):
+            if self._dataType in ("bin.hex",):
                 return binascii.unhexlify(self.text)
-        except Exception as e: # pylint:disable=broad-except
+        except Exception as e:  # pylint:disable=broad-except
             log.info("[ERROR][getNodeTypedValue] %s", str(e))
 
         return self.text
 
     def setNodeTypedValue(self, value):
-        if self.dataType in ('bin.base64', ):
+        if self.dataType in ("bin.base64",):
             self.text = base64.b64encode(value.encode())
-        elif self.dataType in ('bin.hex', ):
+        elif self.dataType in ("bin.hex",):
             self.text = binascii.hexlify(value.encode())
         else:
             self.text = value
@@ -57,12 +57,18 @@ def loadXML(self, bstrXML):
     for p in bstrXML.split('"'):
         if p.startswith("res://"):
             log.URLClassifier.classify(p)
-            log.ThugLogging.add_behavior_warn(f"[Microsoft XMLDOM ActiveX] Attempting to load {p}")
-            log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2017-0022")
+            log.ThugLogging.add_behavior_warn(
+                f"[Microsoft XMLDOM ActiveX] Attempting to load {p}"
+            )
+            log.ThugLogging.log_classifier(
+                "exploit", log.ThugLogging.url, "CVE-2017-0022"
+            )
             if any(sys.lower() in p.lower() for sys in security_sys):
                 self.parseError._errorCode = 0
 
 
 def createElement(self, bstrTagName):
-    log.ThugLogging.add_behavior_warn(f"[Microsoft XMLDOM ActiveX] Creating element {bstrTagName}")
+    log.ThugLogging.add_behavior_warn(
+        f"[Microsoft XMLDOM ActiveX] Creating element {bstrTagName}"
+    )
     return Node(self.xml, bstrTagName)

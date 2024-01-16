@@ -4,8 +4,9 @@ import logging
 
 log = logging.getLogger("Thug")
 
+
 class DOMTokenList:
-    def __init__(self, supported, tokens = None):
+    def __init__(self, supported, tokens=None):
         self.tokens = [] if tokens is None else tokens
         self.__init_supported(supported)
 
