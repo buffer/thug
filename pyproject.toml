@@ -162,3 +162,6 @@ ignore-patterns = [
 omit = [
     "thug/Plugins/IPlugin.py",
 ]
+
+[tool.ruff]
+exclude = ["docs"]
