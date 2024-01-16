@@ -3,49 +3,49 @@ import importlib.resources
 
 import appdirs
 
-__version__            = "5.10"
-__jsengine__           = ""
-__jsengine_version__   = ""
+__version__ = "5.10"
+__jsengine__ = ""
+__jsengine_version__ = ""
 
-__global_configuration_path__  = "/etc/thug"
-__user_configuration_path__    = f"{appdirs.user_config_dir()}/thug"
-__package_configuration_path__ = os.path.join(importlib.resources.files('thug'), 'conf')
-__configuration_path__         = __package_configuration_path__
+__global_configuration_path__ = "/etc/thug"
+__user_configuration_path__ = f"{appdirs.user_config_dir()}/thug"
+__package_configuration_path__ = os.path.join(importlib.resources.files("thug"), "conf")
+__configuration_path__ = __package_configuration_path__
 
 if os.path.exists(__user_configuration_path__):
-    __configuration_path__ = __user_configuration_path__ # pragma: no cover
+    __configuration_path__ = __user_configuration_path__  # pragma: no cover
 
 if os.path.exists(__global_configuration_path__):
     __configuration_path__ = __global_configuration_path__
 
 __personalities_path__ = os.path.join(__configuration_path__, "personalities")
-__rules_path__         = os.path.join(__configuration_path__, "rules")
-__scripts_path__       = os.path.join(__configuration_path__, "scripts")
-__plugins_path__       = os.path.join(__configuration_path__, "plugins")
-__hooks_path__         = os.path.join(__configuration_path__, "hooks")
+__rules_path__ = os.path.join(__configuration_path__, "rules")
+__scripts_path__ = os.path.join(__configuration_path__, "scripts")
+__plugins_path__ = os.path.join(__configuration_path__, "plugins")
+__hooks_path__ = os.path.join(__configuration_path__, "hooks")
 
-__html_rules_path__    = os.path.join(__rules_path__, "htmlclassifier")
-__js_rules_path__      = os.path.join(__rules_path__, "jsclassifier")
-__vbs_rules_path__     = os.path.join(__rules_path__, "vbsclassifier")
-__url_rules_path__     = os.path.join(__rules_path__, "urlclassifier")
-__sample_rules_path__  = os.path.join(__rules_path__, "sampleclassifier")
-__text_rules_path__    = os.path.join(__rules_path__, "textclassifier")
-__cookie_rules_path__  = os.path.join(__rules_path__, "cookieclassifier")
-__image_rules_path__   = os.path.join(__rules_path__, "imageclassifier")
-__html_filter_path__   = os.path.join(__rules_path__, "htmlfilter")
-__js_filter_path__     = os.path.join(__rules_path__, "jsfilter")
-__vbs_filter_path__    = os.path.join(__rules_path__, "vbsfilter")
-__url_filter_path__    = os.path.join(__rules_path__, "urlfilter")
+__html_rules_path__ = os.path.join(__rules_path__, "htmlclassifier")
+__js_rules_path__ = os.path.join(__rules_path__, "jsclassifier")
+__vbs_rules_path__ = os.path.join(__rules_path__, "vbsclassifier")
+__url_rules_path__ = os.path.join(__rules_path__, "urlclassifier")
+__sample_rules_path__ = os.path.join(__rules_path__, "sampleclassifier")
+__text_rules_path__ = os.path.join(__rules_path__, "textclassifier")
+__cookie_rules_path__ = os.path.join(__rules_path__, "cookieclassifier")
+__image_rules_path__ = os.path.join(__rules_path__, "imageclassifier")
+__html_filter_path__ = os.path.join(__rules_path__, "htmlfilter")
+__js_filter_path__ = os.path.join(__rules_path__, "jsfilter")
+__vbs_filter_path__ = os.path.join(__rules_path__, "vbsfilter")
+__url_filter_path__ = os.path.join(__rules_path__, "urlfilter")
 __sample_filter_path__ = os.path.join(__rules_path__, "samplefilter")
-__text_filter_path__   = os.path.join(__rules_path__, "textfilter")
+__text_filter_path__ = os.path.join(__rules_path__, "textfilter")
 __cookie_filter_path__ = os.path.join(__rules_path__, "cookiefilter")
-__image_filter_path__  = os.path.join(__rules_path__, "imagefilter")
+__image_filter_path__ = os.path.join(__rules_path__, "imagefilter")
 
 
 try:
     import STPyV8
 
-    __jsengine__         = "Google V8"
+    __jsengine__ = "Google V8"
     __jsengine_version__ = getattr(STPyV8, "__version__", "")
-except ImportError: # pragma: no cover
+except ImportError:  # pragma: no cover
     pass
