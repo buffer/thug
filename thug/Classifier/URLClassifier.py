@@ -31,9 +31,9 @@ log = logging.getLogger("Thug")
 
 
 class URLClassifier(BaseClassifier):
-    default_rule_file   = "rules/urlclassifier.yar"
+    default_rule_file = "rules/urlclassifier.yar"
     default_filter_file = "rules/urlfilter.yar"
-    _classifier         = "URL Classifier"
+    _classifier = "URL Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
@@ -42,7 +42,7 @@ class URLClassifier(BaseClassifier):
         if log.HTTPSession.is_data_uri(url):
             return
 
-        for match in self.rules.match(data = url):
+        for match in self.rules.match(data=url):
             self.matches.append((url, match))
 
             if self.discard_url_match(url, match):
@@ -52,19 +52,19 @@ class URLClassifier(BaseClassifier):
 
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("url", url, rule, tags, meta)
 
-        for c in self.custom_classifiers: # pylint: disable=consider-using-dict-items
+        for c in self.custom_classifiers:  # pylint: disable=consider-using-dict-items
             self.custom_classifiers[c](url)
 
     def filter(self, url):
         ret = False
 
-        for match in self.filters.match(data = url):
+        for match in self.filters.match(data=url):
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("urlfilter", url, rule, tags, meta)
             ret = True
 

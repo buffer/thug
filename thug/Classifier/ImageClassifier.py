@@ -23,15 +23,15 @@ log = logging.getLogger("Thug")
 
 
 class ImageClassifier(BaseClassifier):
-    default_rule_file   = "rules/imageclassifier.yar"
+    default_rule_file = "rules/imageclassifier.yar"
     default_filter_file = "rules/imagefilter.yar"
-    _classifier         = "Image Classifier"
+    _classifier = "Image Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
 
     def classify(self, url, text):
-        for match in self.rules.match(data = text):
+        for match in self.rules.match(data=text):
             if (url, match) in self.matches:
                 continue
 
@@ -44,19 +44,19 @@ class ImageClassifier(BaseClassifier):
 
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("image", url, rule, tags, meta)
 
-        for c in self.custom_classifiers: # pylint: disable=consider-using-dict-items
+        for c in self.custom_classifiers:  # pylint: disable=consider-using-dict-items
             self.custom_classifiers[c](url, text)
 
     def filter(self, url, text):
         ret = False
 
-        for match in self.filters.match(data = text):
+        for match in self.filters.match(data=text):
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("imagefilter", url, rule, tags, meta)
             ret = True
 

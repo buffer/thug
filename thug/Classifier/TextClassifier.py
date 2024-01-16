@@ -23,40 +23,40 @@ log = logging.getLogger("Thug")
 
 
 class TextClassifier(BaseClassifier):
-    default_rule_file   = "rules/textclassifier.yar"
+    default_rule_file = "rules/textclassifier.yar"
     default_filter_file = "rules/textfilter.yar"
-    _classifier         = "Text Classifier"
+    _classifier = "Text Classifier"
 
     def __init__(self):
         BaseClassifier.__init__(self)
 
     def classify(self, url, text):
-        for match in self.rules.match(data = text):
+        for match in self.rules.match(data=text):
             if (url, match) in self.matches:
                 continue
 
             self.matches.append((url, match))
 
-            if self.discard_url_match(url, match): # pragma: no cover
+            if self.discard_url_match(url, match):  # pragma: no cover
                 continue
 
             self.handle_match_etags(match)
 
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("text", url, rule, tags, meta)
 
-        for c in self.custom_classifiers: # pylint: disable=consider-using-dict-items
+        for c in self.custom_classifiers:  # pylint: disable=consider-using-dict-items
             self.custom_classifiers[c](url, text)
 
     def filter(self, url, html):
         ret = False
 
-        for match in self.filters.match(data = html):
+        for match in self.filters.match(data=html):
             rule = match.rule
             meta = match.meta
-            tags = ",".join([" ".join(t.split('_')) for t in match.tags])
+            tags = ",".join([" ".join(t.split("_")) for t in match.tags])
             log.ThugLogging.log_classifier("textfilter", url, rule, tags, meta)
             ret = True
 

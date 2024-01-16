@@ -36,75 +36,99 @@ class BaseClassifier:
 
     @property
     def classifier(self):
-        return getattr(self, '_classifier', '')
+        return getattr(self, "_classifier", "")
 
     def init_rules(self):
         self._rules = {}
         self.rules_namespace_id = 1
 
-        p = getattr(self, 'default_rule_file', None)
-        if p is None: # pragma: no cover
-            log.warning("[%s] Skipping not existing default classification rule file", self.classifier)
+        p = getattr(self, "default_rule_file", None)
+        if p is None:  # pragma: no cover
+            log.warning(
+                "[%s] Skipping not existing default classification rule file",
+                self.classifier,
+            )
             return
 
         r = os.path.join(log.configuration_path, p)
 
-        if not os.path.exists(r): # pragma: no cover
-            log.warning("[%s] Skipping not existing default classification rule file", self.classifier)
+        if not os.path.exists(r):  # pragma: no cover
+            log.warning(
+                "[%s] Skipping not existing default classification rule file",
+                self.classifier,
+            )
             return
 
-        self._rules['namespace0'] = r
-        self.rules = yara.compile(filepaths = self._rules)
+        self._rules["namespace0"] = r
+        self.rules = yara.compile(filepaths=self._rules)
 
     def init_filters(self):
         self._filters = {}
         self.filters_namespace_id = 1
 
-        p = getattr(self, 'default_filter_file', None)
-        if p is None: # pragma: no cover
-            log.warning("[%s] Skipping not existing default filter file", self.classifier)
+        p = getattr(self, "default_filter_file", None)
+        if p is None:  # pragma: no cover
+            log.warning(
+                "[%s] Skipping not existing default filter file", self.classifier
+            )
             return
 
         r = os.path.join(log.configuration_path, p)
 
-        if not os.path.exists(r): # pragma: no cover
-            log.warning("[%s] Skipping not existing default filter file", self.classifier)
+        if not os.path.exists(r):  # pragma: no cover
+            log.warning(
+                "[%s] Skipping not existing default filter file", self.classifier
+            )
             return
 
-        self._filters['namespace0'] = r
-        self.filters = yara.compile(filepaths = self._filters)
+        self._filters["namespace0"] = r
+        self.filters = yara.compile(filepaths=self._filters)
 
     def add_rule(self, rule_file):
         if not os.path.exists(rule_file):
-            log.warning("[%s] Skipping not existing classification rule file %s", self.classifier, rule_file)
+            log.warning(
+                "[%s] Skipping not existing classification rule file %s",
+                self.classifier,
+                rule_file,
+            )
             return
 
         self._rules[f"namespace{self.rules_namespace_id}"] = rule_file
         self.rules_namespace_id += 1
-        self.rules = yara.compile(filepaths = self._rules)
+        self.rules = yara.compile(filepaths=self._rules)
 
     def add_filter(self, filter_file):
         if not os.path.exists(filter_file):
-            log.warning("[%s] Skipping not existing filter file %s", self.classifier, filter_file)
+            log.warning(
+                "[%s] Skipping not existing filter file %s",
+                self.classifier,
+                filter_file,
+            )
             return
 
         self._filters[f"namespace{self.filters_namespace_id}"] = filter_file
         self.filters_namespace_id += 1
-        self.filters = yara.compile(filepaths = self._filters)
+        self.filters = yara.compile(filepaths=self._filters)
 
     def discard_meta_domain_whitelist(self, url, values):
-        p_url  = urlparse(url)
-        netloc = p_url.netloc.split(':')[0].lower() # Remove the port from netloc, if present
+        p_url = urlparse(url)
+        netloc = p_url.netloc.split(":")[
+            0
+        ].lower()  # Remove the port from netloc, if present
 
-        for value in values.split(','):
+        for value in values.split(","):
             domain = value.lower().strip()
-            if not domain: # pragma: no cover
+            if not domain:  # pragma: no cover
                 continue
 
             prefix = "" if domain.startswith(".") else "."
 
-            if netloc in (domain, ) or netloc.endswith(f"{prefix}{domain}"):
-                log.warning("[discard_meta_domain_whitelist] Whitelisted domain: %s (URL: %s)", domain, url)
+            if netloc in (domain,) or netloc.endswith(f"{prefix}{domain}"):
+                log.warning(
+                    "[discard_meta_domain_whitelist] Whitelisted domain: %s (URL: %s)",
+                    domain,
+                    url,
+                )
                 return True
 
         return False
@@ -112,7 +136,7 @@ class BaseClassifier:
     def discard_url_match(self, url, match):
         for key, values in match.meta.items():
             m = getattr(self, f"discard_meta_{key}", None)
-            if m and m(url, values): # pylint:disable=not-callable
+            if m and m(url, values):  # pylint:disable=not-callable
                 return True
 
         return False
@@ -133,11 +157,11 @@ class BaseClassifier:
         self.matches.clear()
 
     def handle_match_etags(self, match):
-        etags = match.meta.get('etags', None)
+        etags = match.meta.get("etags", None)
         if etags is None:
             return
 
-        _etags = [t.strip() for t in etags.split(',')]
+        _etags = [t.strip() for t in etags.split(",")]
 
         for s in match.strings:
             if s.identifier not in _etags:
@@ -145,7 +169,7 @@ class BaseClassifier:
 
             for instance in s.instances:
                 data = instance.matched_data
-                tag  = data.decode() if isinstance(data, bytes) else data
+                tag = data.decode() if isinstance(data, bytes) else data
 
                 if tag not in match.tags:
                     match.tags.append(tag)
