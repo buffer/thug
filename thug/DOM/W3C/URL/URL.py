@@ -103,7 +103,7 @@ class URL(JSClass):
             self.p_url = self.p_url._replace(netloc = _netloc)
             return
 
-        if not ":" in s_netloc[0]:
+        if ":" not in s_netloc[0]:
             s_netloc[0] = f"{s_netloc[0]}:{password}"
         else:
             s_netloc[0] = f"{s_netloc[0].split(':')[0]}:{password}"
@@ -165,7 +165,7 @@ class URL(JSClass):
             self.p_url = self.p_url._replace(netloc = _netloc)
             return
 
-        if not ":" in s_netloc[0]:
+        if ":" not in s_netloc[0]:
             s_netloc[0] = username
         else:
             s_netloc[0] = f"{username}:{s_netloc[0].split(':')[1]}"

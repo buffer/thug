@@ -7,7 +7,7 @@ log = logging.getLogger("Thug")
 
 def form_property(default = None):
     def getter(self):
-        if not self.tag.parent.name.lower() in ('form', ):
+        if self.tag.parent.name.lower() not in ('form', ):
             return default
 
         _form = getattr(self, '_form', None)

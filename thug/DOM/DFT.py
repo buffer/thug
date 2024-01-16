@@ -286,7 +286,7 @@ class DFT:
         except Exception: # pylint:disable=broad-except
             return
 
-        if 'language' in list(attrs.keys()) and not attrs['language'].lower() in ('javascript', ):
+        if 'language' in list(attrs.keys()) and attrs['language'].lower() not in ('javascript', ):
             return
 
         for evt, h in attrs.items():
@@ -327,7 +327,7 @@ class DFT:
     def _handle_onerror(self, tag):
         from thug.DOM.W3C.Events.Event import Event
 
-        if not 'onerror' in tag.attrs:
+        if 'onerror' not in tag.attrs:
             return
 
         if log.ThugOpts.Personality.isIE():
@@ -1047,7 +1047,7 @@ class DFT:
             if http_equiv is None:
                 continue
 
-            if not http_equiv.lower() in ('x-ua-compatible', ):
+            if http_equiv.lower() not in ('x-ua-compatible', ):
                 continue
 
             content = meta.get('content', None)
@@ -1596,6 +1596,6 @@ class DFT:
         self.run_htmlclassifier(soup)
 
     def run(self):
-        with self.context as ctx:  # pylint:disable=unused-variable
+        with self.context:
             self._run()
             log.ThugLogging.Shellcode.check_shellcodes()

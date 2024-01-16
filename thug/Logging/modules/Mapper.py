@@ -234,8 +234,8 @@ class Mapper:
         Generate a weak location for the given url.
         """
 
-        for l in self.data["locations"]:
-            if l["url"] == url:
+        for location in self.data["locations"]:
+            if location["url"] == url:
                 return
 
         loc = {'mimetype'       : '',
@@ -319,17 +319,17 @@ class Mapper:
 
         tofix = []
 
-        for c in self.data["connections"]:
-            if c["display"] is False and c["destination"] == conto:
-                c["display"] = True
-                tofix.append(c["source"])
+        for connection in self.data["connections"]:
+            if connection["display"] is False and connection["destination"] == conto:
+                connection["display"] = True
+                tofix.append(connection["source"])
 
-        for l in self.data["locations"]:
-            if l["url"] == conto or l["url"] in tofix:
-                l["display"] = True
+        for location in self.data["locations"]:
+            if location["url"] == conto or location["url"] in tofix:
+                location["display"] = True
 
-        for t in tofix:
-            self.activate(t)
+        for elem in tofix:
+            self.activate(elem)
 
     def follow_track(self, end):
         """

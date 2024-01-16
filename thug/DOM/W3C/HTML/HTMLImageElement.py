@@ -39,7 +39,7 @@ class HTMLImageElement(HTMLElement):
             onerror = getattr(self, 'onerror', None)
 
             if log.JSEngine.isJSFunction(onerror):
-                with self.doc.window.context as ctx:  # pylint:disable=unused-variable
+                with self.doc.window.context:
                     onerror.__call__()
 
     src = property(getSrc, setSrc)

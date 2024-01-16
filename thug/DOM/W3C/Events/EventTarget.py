@@ -101,7 +101,7 @@ class EventTarget:
         if getattr(self.tag, '_listeners', None) is None: # pragma: no cover
             self.tag._listeners = []
 
-        if not (eventType, listener, capture) in self.tag._listeners:
+        if (eventType, listener, capture) not in self.tag._listeners:
             self.__insert_listener(eventType, listener, capture, prio)
             return
 

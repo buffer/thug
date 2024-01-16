@@ -317,7 +317,7 @@ class HTMLDocument(Document):
 
         for index in range(self.compatible.length):
             item = self.compatible.item(index)
-            if not item.userAgent.lower() in ("ie", ):
+            if item.userAgent.lower() not in ("ie", ):
                 continue
 
             _version = item.version.lower()

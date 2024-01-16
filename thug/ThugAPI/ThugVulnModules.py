@@ -67,7 +67,7 @@ class ThugVulnModules(dict):
         return self._shockwave_flash
 
     def set_shockwave_flash(self, version):
-        if not version.split('.')[0] in ('8', '9', '10', '11', '12', ) or self.invalid_version(version):
+        if version.split('.')[0] not in ('8', '9', '10', '11', '12', ) or self.invalid_version(version):
             log.warning('[WARNING] Invalid Shockwave Flash version provided (using default one)')
             return
 
@@ -120,7 +120,7 @@ class ThugVulnModules(dict):
         return self._silverlight
 
     def set_silverlight(self, version):
-        if not version.split('.')[0] in ('1', '2', '3', '4', '5', ) or self.invalid_version(version):
+        if version.split('.')[0] not in ('1', '2', '3', '4', '5', ) or self.invalid_version(version):
             log.warning('[WARNING] Invalid Silverlight version provided (using default one)')
             return
 
