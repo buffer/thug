@@ -1,10 +1,8 @@
 import os
-import shutil
 import hashlib
 import logging
 
 from thug.ThugAPI.ThugAPI import ThugAPI
-from thug.Logging.ThugLogging import ThugLogging
 
 log = logging.getLogger("Thug")
 

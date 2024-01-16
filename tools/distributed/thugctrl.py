@@ -136,7 +136,7 @@ class ThugCollect(object):
     def read_config(self):
         """Read config from config file"""
 
-        conf = ConfigParser.ConfigParser()
+        conf = configparser.ConfigParser()
         conf.read(self.configfile)
         self.host = conf.get("jobs", "host")
         self.queue = conf.get("jobs", "queue")

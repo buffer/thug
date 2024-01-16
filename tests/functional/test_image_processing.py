@@ -1,4 +1,3 @@
-import os
 import logging
 
 from thug.ThugAPI.ThugAPI import ThugAPI

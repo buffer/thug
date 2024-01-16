@@ -60,7 +60,7 @@ class TestHoneyAgent:
         with open(jar_path, "rb") as f:
             data = f.read()
 
-        json_data = lambda: {
+        json_data = lambda: {  # noqa: E731
             "result": {
                 "files": {"file": "test"},
                 "yara": {"heuristics": [{"rule": "LocalFileAccess"}]},

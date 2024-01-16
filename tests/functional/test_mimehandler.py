@@ -42,4 +42,4 @@ class TestMIMEHandler(object):
         sample = os.path.join(self.misc_path, "testSVGXMLHandler.html")
 
         expected = ["[Window] Alert Text: Hello from SVG Javascript"]
-        self.do_perform_test(caplog, sample, "local")
+        self.do_perform_test(caplog, sample, expected, "local")

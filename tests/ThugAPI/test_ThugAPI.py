@@ -5,7 +5,6 @@ import logging
 import pytest
 
 from thug.ThugAPI.ThugAPI import ThugAPI
-from thug.ThugAPI.OpaqueFilter import OpaqueFilter
 
 log = logging.getLogger("Thug")
 
