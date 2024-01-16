@@ -30,14 +30,18 @@ class ContextAnalyzer:
     def __init_checks(self):
         self.checks = []
 
-        for (name, method) in inspect.getmembers(self, predicate = inspect.ismethod):
-            if name.startswith('context_analyzer_check'):
+        for name, method in inspect.getmembers(self, predicate=inspect.ismethod):
+            if name.startswith("context_analyzer_check"):
                 self.checks.append(method)
 
     def context_analyzer_check_sharepoint_is_anonymous_user(self, window):
-        spPageContextInfo = getattr(window, '_spPageContextInfo', None)
-        if spPageContextInfo and 'isAnonymousGuestUser' in spPageContextInfo: # pragma: no cover
-            log.ThugLogging.log_classifier("sharepoint", log.ThugLogging.url, "SharePointAnonymousGuestUser")
+        spPageContextInfo = getattr(window, "_spPageContextInfo", None)
+        if (
+            spPageContextInfo and "isAnonymousGuestUser" in spPageContextInfo
+        ):  # pragma: no cover
+            log.ThugLogging.log_classifier(
+                "sharepoint", log.ThugLogging.url, "SharePointAnonymousGuestUser"
+            )
 
     def analyze(self, window):
         for m in self.checks:
