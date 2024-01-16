@@ -7,14 +7,14 @@ log = logging.getLogger("Thug")
 
 
 class TestAsyncPrefetch:
-    cwd_path  = os.path.dirname(os.path.realpath(__file__))
+    cwd_path = os.path.dirname(os.path.realpath(__file__))
     misc_path = os.path.join(cwd_path, os.pardir, "samples/misc")
 
-    def do_perform_test(self, caplog, url, expected, type_ = "remote"):
+    def do_perform_test(self, caplog, url, expected, type_="remote"):
         thug = ThugAPI()
 
-        thug.set_useragent('win7ie90')
-        thug.set_events('click,storage')
+        thug.set_useragent("win7ie90")
+        thug.set_events("click,storage")
         thug.set_web_tracking()
         thug.enable_cert_logging()
         thug.enable_download_prevent()
@@ -42,5 +42,7 @@ class TestAsyncPrefetch:
         assert matches >= len(expected)
 
     def test_async_prefetch_1(self, caplog):
-        expected = ["PREFETCHING", ]
+        expected = [
+            "PREFETCHING",
+        ]
         self.do_perform_test(caplog, "https://www.verizon.com", expected)

@@ -16,39 +16,40 @@ configuration_path = thug.__configuration_path__
 log = logging.getLogger("Thug")
 
 log.personalities_path = thug.__personalities_path__ if configuration_path else None
-log.ThugOpts           = ThugOpts()
+log.ThugOpts = ThugOpts()
 log.configuration_path = configuration_path
-log.ThugLogging        = ThugLogging()
-log.ThugVulnModules    = ThugVulnModules()
-log.Encoding           = Encoding()
-log.PyHooks            = dict()
+log.ThugLogging = ThugLogging()
+log.ThugVulnModules = ThugVulnModules()
+log.Encoding = Encoding()
+log.PyHooks = dict()
 
 json = JSON()
 
 
 class TestJSON:
-    cve  = "CVE-XXXX"
-    url  = "sample-url"
+    cve = "CVE-XXXX"
+    url = "sample-url"
     data = "sample-data"
     desc = "sample-desc"
 
-    file_data = {'content': data,
-                 'status' : 200,
-                 'md5'    : 'ba4ba63ec75693aedfebc7299a4f7661',
-                 'sha256' : 'c45df724cba87ac84892bf3eeb910393d69d163e9ad96cac2e2074487eaa907b',
-                 'fsize'  : 11,  # len(data)
-                 'ctype'  : 'text/plain',
-                 'mtype'  : 'text/plain',
-                }
+    file_data = {
+        "content": data,
+        "status": 200,
+        "md5": "ba4ba63ec75693aedfebc7299a4f7661",
+        "sha256": "c45df724cba87ac84892bf3eeb910393d69d163e9ad96cac2e2074487eaa907b",
+        "fsize": 11,  # len(data)
+        "ctype": "text/plain",
+        "mtype": "text/plain",
+    }
 
-    base_dir       = "sample-basedir"
-    code_snippet   = "var i = 12;"
+    base_dir = "sample-basedir"
+    code_snippet = "var i = 12;"
     base64_snippet = "dmFyIGkgPSAxMjs="
-    favicon_dhash  = "55aa554d2da796165500d755692bbeb6"
-    language       = "Javascript"
-    relationship   = "Contained_Inside"
-    tag            = "Tag"  # TODO: Better tag
-    method         = "Dynamic Analysis"
+    favicon_dhash = "55aa554d2da796165500d755692bbeb6"
+    language = "Javascript"
+    relationship = "Contained_Inside"
+    tag = "Tag"  # TODO: Better tag
+    method = "Dynamic Analysis"
 
     def test_json_enabled(self):
         log.ThugOpts.json_logging = True
@@ -59,19 +60,19 @@ class TestJSON:
 
     def test_get_vuln_module(self):
         acropdf = json.get_vuln_module("acropdf")
-        assert acropdf in ("9.1.0", )
+        assert acropdf in ("9.1.0",)
 
         assert "disabled" in json.get_vuln_module("unknown")
 
     def test_fix(self):
         encoded_data = json.fix("")
-        assert "" in (encoded_data, )
+        assert "" in (encoded_data,)
 
         encoded_data = json.fix("sample\n-\ncontent")
-        assert "sample-content" in (encoded_data, )
+        assert "sample-content" in (encoded_data,)
 
-        encoded_data = json.fix(u"sample\n-\ncontent(í)", drop_spaces=False)
-        assert u"sample\n-\ncontent(í)" in (encoded_data, )
+        encoded_data = json.fix("sample\n-\ncontent(í)", drop_spaces=False)
+        assert "sample\n-\ncontent(í)" in (encoded_data,)
 
     def test_set_url(self):
         json.set_url(self.url)
@@ -80,40 +81,48 @@ class TestJSON:
         log.ThugOpts.json_logging = True
         json.set_url(self.url)
         log.ThugOpts.json_logging = False
-        assert self.url in (json.data["url"], )
+        assert self.url in (json.data["url"],)
 
     def test_add_code_snippet(self):
-        json.add_code_snippet(self.code_snippet, self.language, self.relationship, self.tag)
+        json.add_code_snippet(
+            self.code_snippet, self.language, self.relationship, self.tag
+        )
         assert not json.data["code"]
 
         log.ThugOpts.json_logging = True
-        json.add_code_snippet(self.code_snippet, self.language, self.relationship, self.tag)
+        json.add_code_snippet(
+            self.code_snippet, self.language, self.relationship, self.tag
+        )
         data = json.data["code"][0]
 
         log.ThugOpts.json_logging = False
 
-        assert self.code_snippet in (data["snippet"], )
-        assert self.language in (data["language"], )
-        assert self.relationship in (data["relationship"], )
-        assert self.tag in (data["tag"], )
-        assert self.method in (data["method"], )
+        assert self.code_snippet in (data["snippet"],)
+        assert self.language in (data["language"],)
+        assert self.relationship in (data["relationship"],)
+        assert self.tag in (data["tag"],)
+        assert self.method in (data["method"],)
 
     def test_add_shellcode_snippet(self):
         json.data["code"] = []
-        json.add_shellcode_snippet(self.code_snippet, self.language, self.relationship, self.tag)
+        json.add_shellcode_snippet(
+            self.code_snippet, self.language, self.relationship, self.tag
+        )
         assert not json.data["code"]
 
         log.ThugOpts.json_logging = True
-        json.add_shellcode_snippet(self.code_snippet, self.language, self.relationship, self.tag)
+        json.add_shellcode_snippet(
+            self.code_snippet, self.language, self.relationship, self.tag
+        )
         data = json.data["code"][0]
 
         log.ThugOpts.json_logging = False
 
-        assert self.base64_snippet in (data["snippet"], )
-        assert self.language in (data["language"], )
-        assert self.relationship in (data["relationship"], )
-        assert self.tag in (data["tag"], )
-        assert self.method in (data["method"], )
+        assert self.base64_snippet in (data["snippet"],)
+        assert self.language in (data["language"],)
+        assert self.relationship in (data["relationship"],)
+        assert self.tag in (data["tag"],)
+        assert self.method in (data["method"],)
 
     def test_log_connection(self):
         json.log_connection("source", "destination", "link")
@@ -123,25 +132,29 @@ class TestJSON:
         json.log_connection("source1", "destination1", "link")
         connections = json.data["connections"][0]
 
-        assert "source1" in (connections["source"], )
-        assert "destination1" in (connections["destination"], )
-        assert "link" in (connections["method"], )
-        assert "source1 -- link --> destination1" in (json.data["behavior"][0]["description"], )
+        assert "source1" in (connections["source"],)
+        assert "destination1" in (connections["destination"],)
+        assert "link" in (connections["method"],)
+        assert "source1 -- link --> destination1" in (
+            json.data["behavior"][0]["description"],
+        )
 
         json.log_connection("source1", "destination1", "link", {"exploit": "EXC"})
-        assert "[Exploit] source1 -- link --> destination1" in (json.data["behavior"][1]["description"],)
+        assert "[Exploit] source1 -- link --> destination1" in (
+            json.data["behavior"][1]["description"],
+        )
 
         log.ThugOpts.json_logging = False
 
     def test_get_content(self):
         content = json.get_content(self.file_data)
-        assert self.data in (content, )
+        assert self.data in (content,)
 
         log.ThugOpts.code_logging = False
         content = json.get_content(self.file_data)
         log.ThugOpts.code_logging = True
 
-        assert "NOT AVAILABLE" in (content, )
+        assert "NOT AVAILABLE" in (content,)
 
     def test_log_location(self):
         json.log_location(self.url, self.file_data)
@@ -152,11 +165,11 @@ class TestJSON:
         locations_json = json.data["locations"][0]
         log.ThugOpts.json_logging = False
 
-        assert self.url in (locations_json["url"], )
-        assert self.file_data["content"] in (locations_json["content"], )
-        assert self.file_data["status"] in (locations_json["status"], )
-        assert self.file_data["ctype"] in (locations_json["content-type"], )
-        assert self.file_data["md5"] in (locations_json["md5"], )
+        assert self.url in (locations_json["url"],)
+        assert self.file_data["content"] in (locations_json["content"],)
+        assert self.file_data["status"] in (locations_json["status"],)
+        assert self.file_data["ctype"] in (locations_json["content-type"],)
+        assert self.file_data["md5"] in (locations_json["md5"],)
         assert self.file_data["sha256"] in (locations_json["sha256"],)
         assert self.file_data["fsize"] in (locations_json["size"],)
         assert self.file_data["mtype"] in (locations_json["mimetype"],)
@@ -170,11 +183,11 @@ class TestJSON:
         exploit_json = json.data["exploits"][0]
         log.ThugOpts.json_logging = False
 
-        assert self.url in (exploit_json["url"], )
-        assert "ActiveX" in (exploit_json["module"], )
-        assert self.desc in (exploit_json["description"], )
-        assert self.cve in (exploit_json["cve"], )
-        assert self.data in (exploit_json["data"], )
+        assert self.url in (exploit_json["url"],)
+        assert "ActiveX" in (exploit_json["module"],)
+        assert self.desc in (exploit_json["description"],)
+        assert self.cve in (exploit_json["cve"],)
+        assert self.data in (exploit_json["data"],)
 
     def test_log_classifier(self):
         json.log_classifier("exploit", self.url, self.cve, None)
@@ -185,9 +198,9 @@ class TestJSON:
         classifier_json = json.data["classifiers"][0]
         log.ThugOpts.json_logging = False
 
-        assert "exploit" in (classifier_json["classifier"], )
-        assert self.url in (classifier_json["url"], )
-        assert self.cve in (classifier_json["rule"], )
+        assert "exploit" in (classifier_json["classifier"],)
+        assert self.url in (classifier_json["url"],)
+        assert self.cve in (classifier_json["rule"],)
         assert not classifier_json["tags"]
 
     def test_add_behaviour_warn(self):
@@ -203,10 +216,10 @@ class TestJSON:
         behaviour_json = json.data["behavior"][0]
         log.ThugOpts.json_logging = False
 
-        assert self.desc in (behaviour_json["description"], )
-        assert self.cve in (behaviour_json["cve"], )
-        assert self.code_snippet in (behaviour_json["snippet"], )
-        assert self.method in (behaviour_json["method"], )
+        assert self.desc in (behaviour_json["description"],)
+        assert self.cve in (behaviour_json["cve"],)
+        assert self.code_snippet in (behaviour_json["snippet"],)
+        assert self.method in (behaviour_json["method"],)
 
     def test_log_file(self):
         json.log_file(self.base_dir)
@@ -256,7 +269,7 @@ class TestJSON:
         output.write(self.data)
         json.cached_data = output
         data = json.get_json_data(self.base_dir)
-        assert self.data in (data, )
+        assert self.data in (data,)
 
         json.cached_data = None
         assert not json.get_json_data(self.base_dir)

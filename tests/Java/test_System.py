@@ -12,8 +12,8 @@ class TestSystem:
 
     def test_version(self):
         version = self.system.getProperty("java.version")
-        assert version in ('1.6.0_32', )
+        assert version in ("1.6.0_32",)
 
     def test_vendor(self):
         vendor = self.system.getProperty("java.vendor")
-        assert vendor in ('Sun Microsystems Inc.', )
+        assert vendor in ("Sun Microsystems Inc.",)

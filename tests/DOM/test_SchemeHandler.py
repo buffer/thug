@@ -14,7 +14,7 @@ log.personalities_path = thug.__personalities_path__ if configuration_path else 
 log.configuration_path = thug.__configuration_path__
 
 log.ThugOpts = ThugOpts()
-log.PyHooks  = dict()
+log.PyHooks = dict()
 
 log.ThugLogging = ThugLogging()
 

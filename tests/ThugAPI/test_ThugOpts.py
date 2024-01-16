@@ -7,7 +7,7 @@ from thug.ThugAPI.ThugOpts import ThugOpts
 
 configuration_path = thug.__configuration_path__
 
-log                    = logging.getLogger("Thug")
+log = logging.getLogger("Thug")
 log.configuration_path = configuration_path
 log.personalities_path = thug.__personalities_path__ if configuration_path else None
 
@@ -30,12 +30,12 @@ class TestThugOpts:
         assert not self.opts.debug
 
     def test_proxy(self):
-        self.opts.proxy = ''
+        self.opts.proxy = ""
         assert self.opts.proxy is None
 
-        self.opts.proxy = 'http://www.example.com'
+        self.opts.proxy = "http://www.example.com"
         addr = self.opts.proxy
-        assert addr in ('http://www.example.com', )
+        assert addr in ("http://www.example.com",)
 
         self.opts.proxy = None
         assert self.opts.proxy is None
@@ -44,8 +44,8 @@ class TestThugOpts:
         caplog.clear()
 
         with pytest.raises(SystemExit):
-            self.opts.proxy = 'ftp://www.example.com'
-        assert '[ERROR] Invalid proxy scheme' in caplog.text
+            self.opts.proxy = "ftp://www.example.com"
+        assert "[ERROR] Invalid proxy scheme" in caplog.text
 
     def test_raise_for_proxy(self):
         self.opts.raise_for_proxy = False
@@ -55,48 +55,48 @@ class TestThugOpts:
         assert self.opts.raise_for_proxy
 
     def test_useragent(self):
-        assert self.opts.useragent in ('winxpie60', )
+        assert self.opts.useragent in ("winxpie60",)
 
-        self.opts.useragent = 'linuxchrome26'
+        self.opts.useragent = "linuxchrome26"
         ua = self.opts.useragent
-        assert ua in ('linuxchrome26', )
+        assert ua in ("linuxchrome26",)
 
     def test_warning_useragent(self, caplog):
         caplog.clear()
 
-        self.opts.useragent = 'nonexistent-ua'
-        assert '[WARNING] Invalid User Agent provided' in caplog.text
+        self.opts.useragent = "nonexistent-ua"
+        assert "[WARNING] Invalid User Agent provided" in caplog.text
 
     def test_referer(self):
-        assert self.opts.referer in ('about:blank', )
+        assert self.opts.referer in ("about:blank",)
 
-        self.opts.referer = 'https://www.example.com'
+        self.opts.referer = "https://www.example.com"
         referer = self.opts.referer
-        assert referer in ('https://www.example.com', )
+        assert referer in ("https://www.example.com",)
 
     def test_events(self):
-        sample_events = 'event1,event2,event2,event3'
-        assert self.opts.events in ([], )
+        sample_events = "event1,event2,event2,event3"
+        assert self.opts.events in ([],)
 
-        self.opts.events = ''
-        assert self.opts.events in ([], )
+        self.opts.events = ""
+        assert self.opts.events in ([],)
 
         self.opts.events = sample_events
         event_list = self.opts.events
-        assert event_list in (['event1', 'event2', 'event3'], )
+        assert event_list in (["event1", "event2", "event3"],)
 
     def test_delay(self):
-        assert self.opts.delay in (0, )
+        assert self.opts.delay in (0,)
 
         self.opts.delay = 10
         time = self.opts.delay
-        assert time in (10, )
+        assert time in (10,)
 
     def test_warning_delay(self, caplog):
         caplog.clear()
 
-        self.opts.delay = 'a'
-        assert '[WARNING] Ignoring invalid delay value' in caplog.text
+        self.opts.delay = "a"
+        assert "[WARNING] Ignoring invalid delay value" in caplog.text
 
     def test_attachment(self):
         self.opts.attachment = True
@@ -148,43 +148,43 @@ class TestThugOpts:
         assert not self.opts.no_fetch
 
     def test_threshold(self):
-        assert self.opts.threshold in (0, )
+        assert self.opts.threshold in (0,)
 
         self.opts.threshold = 5
         pages = self.opts.threshold
-        assert pages in (5, )
+        assert pages in (5,)
 
     def test_warning_threshold(self, caplog):
         caplog.clear()
 
-        self.opts.threshold = 'a'
-        assert '[WARNING] Ignoring invalid threshold value' in caplog.text
+        self.opts.threshold = "a"
+        assert "[WARNING] Ignoring invalid threshold value" in caplog.text
 
     def test_connect_timeout(self):
-        assert self.opts.connect_timeout in (10, )
+        assert self.opts.connect_timeout in (10,)
 
         self.opts.connect_timeout = 20
         time = self.opts.connect_timeout
-        assert time in (20, )
+        assert time in (20,)
 
     def test_warning_connect_timeout(self, caplog):
         caplog.clear()
 
-        self.opts.connect_timeout = 'a'
-        assert '[WARNING] Ignoring invalid connect timeout value' in caplog.text
+        self.opts.connect_timeout = "a"
+        assert "[WARNING] Ignoring invalid connect timeout value" in caplog.text
 
     def test_timeout(self):
-        assert self.opts.timeout in (600, )
+        assert self.opts.timeout in (600,)
 
         self.opts.timeout = 300
         time = self.opts.timeout
-        assert time in (300, )
+        assert time in (300,)
 
     def test_warning_timeout(self, caplog):
         caplog.clear()
 
-        self.opts.timeout = 'a'
-        assert '[WARNING] Ignoring invalid timeout value' in caplog.text
+        self.opts.timeout = "a"
+        assert "[WARNING] Ignoring invalid timeout value" in caplog.text
 
     def test_broken_url(self):
         self.opts.broken_url = True
@@ -210,6 +210,6 @@ class TestThugOpts:
     def test_mongodb_address(self):
         assert self.opts.mongodb_address is None
 
-        self.opts.mongodb_address = '127.0.0.1:27017'
+        self.opts.mongodb_address = "127.0.0.1:27017"
         addr = self.opts.mongodb_address
-        assert addr in ('127.0.0.1:27017', )
+        assert addr in ("127.0.0.1:27017",)

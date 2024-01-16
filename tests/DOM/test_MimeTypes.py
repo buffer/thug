@@ -20,6 +20,10 @@ class TestMimeTypes(object):
     def test_items(self):
         mimetypes = MimeTypes()
 
-        assert mimetypes[100]['description'] is None
-        assert mimetypes['application/x-ms-wmz']['description'] in ('Windows Media Player', )
-        assert mimetypes.namedItem('application/x-ms-wmz')['description'] in ('Windows Media Player', )
+        assert mimetypes[100]["description"] is None
+        assert mimetypes["application/x-ms-wmz"]["description"] in (
+            "Windows Media Player",
+        )
+        assert mimetypes.namedItem("application/x-ms-wmz")["description"] in (
+            "Windows Media Player",
+        )

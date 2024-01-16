@@ -7,10 +7,10 @@ log = logging.getLogger("Thug")
 
 
 class TestImageProcessing(object):
-    def do_perform_test(self, caplog, url, expected, type_ = "remote"):
+    def do_perform_test(self, caplog, url, expected, type_="remote"):
         thug = ThugAPI()
 
-        thug.set_useragent('win7ie90')
+        thug.set_useragent("win7ie90")
         thug.set_ssl_verify()
         thug.reset_image_processing()
         thug.set_image_processing()
@@ -37,8 +37,6 @@ class TestImageProcessing(object):
         log.warning("Inside hook")
 
     def test_antifork(self, caplog):
-        expected = ['Antifork',
-                    'HACKERS RESEARCH VIRTUAL LAB',
-                    'Inside hook']
+        expected = ["Antifork", "HACKERS RESEARCH VIRTUAL LAB", "Inside hook"]
 
         self.do_perform_test(caplog, "https://www.antifork.org", expected)

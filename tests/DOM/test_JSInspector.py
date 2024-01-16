@@ -31,5 +31,5 @@ class TestJSInspector(object):
         window = WindowDict()
         window.url = last_url
 
-        inspector = JSInspector(window, object(), '')
+        inspector = JSInspector(window, object(), "")
         assert inspector.dump_url == last_url
