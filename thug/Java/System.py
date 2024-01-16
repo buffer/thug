@@ -25,11 +25,11 @@ class System:
     @staticmethod
     def getProperty(_property):
         if _property == "java.version":
-            javaplugin = log.ThugVulnModules._javaplugin.split('.')
-            last       = javaplugin.pop()
+            javaplugin = log.ThugVulnModules._javaplugin.split(".")
+            last = javaplugin.pop()
             return f"{'.'.join(javaplugin)}_{last}"
 
         if _property == "java.vendor":
-            return 'Sun Microsystems Inc.'
+            return "Sun Microsystems Inc."
 
-        return '' # pragma: no cover
+        return ""  # pragma: no cover

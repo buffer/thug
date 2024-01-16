@@ -27,46 +27,50 @@ log = logging.getLogger("Thug")
 
 
 class ThugOpts(dict):
-    proxy_schemes = ('http', 'socks4', 'socks5', )
+    proxy_schemes = (
+        "http",
+        "socks4",
+        "socks5",
+    )
 
     def __init__(self):
         super().__init__()
 
-        self._verbose           = False
-        self._debug             = False
-        self._proxy             = None
-        self._raise_for_proxy   = True
-        self.local              = False
-        self.extensive          = False
-        self._threshold         = 0
-        self._connect_timeout   = 10
-        self._timeout           = 600
-        self.ast_debug          = False
-        self.http_debug         = 0
-        self._useragent         = 'winxpie60'
-        self._referer           = 'about:blank'
-        self._events            = []
-        self._delay             = 0
-        self._attachment        = False
-        self._file_logging      = False
-        self._json_logging      = False
-        self._es_logging        = False
-        self._code_logging      = True
-        self._cert_logging      = True
-        self._features_logging  = False
-        self._screenshot        = False
-        self._awis              = False
-        self._no_fetch          = False
-        self._broken_url        = False
-        self._ssl_verify        = False
-        self._mongodb_address   = None
-        self._web_tracking      = False
-        self._async_prefetch    = False
-        self._honeyagent        = True
-        self.activex_ready      = True
-        self._image_processing  = False
-        self._download_prevent  = True
-        self.Personality        = Personality()
+        self._verbose = False
+        self._debug = False
+        self._proxy = None
+        self._raise_for_proxy = True
+        self.local = False
+        self.extensive = False
+        self._threshold = 0
+        self._connect_timeout = 10
+        self._timeout = 600
+        self.ast_debug = False
+        self.http_debug = 0
+        self._useragent = "winxpie60"
+        self._referer = "about:blank"
+        self._events = []
+        self._delay = 0
+        self._attachment = False
+        self._file_logging = False
+        self._json_logging = False
+        self._es_logging = False
+        self._code_logging = True
+        self._cert_logging = True
+        self._features_logging = False
+        self._screenshot = False
+        self._awis = False
+        self._no_fetch = False
+        self._broken_url = False
+        self._ssl_verify = False
+        self._mongodb_address = None
+        self._web_tracking = False
+        self._async_prefetch = False
+        self._honeyagent = True
+        self.activex_ready = True
+        self._image_processing = False
+        self._download_prevent = True
+        self.Personality = Personality()
 
     def set_verbose(self, verbose):
         self._verbose = verbose
@@ -92,7 +96,9 @@ class ThugOpts(dict):
         p = urlparse(proxy)
 
         if p.scheme.lower() not in self.proxy_schemes:
-            log.warning('[ERROR] Invalid proxy scheme (valid schemes: http, socks4, socks5)')
+            log.warning(
+                "[ERROR] Invalid proxy scheme (valid schemes: http, socks4, socks5)"
+            )
             sys.exit(0)
 
         self._proxy = proxy
@@ -115,7 +121,10 @@ class ThugOpts(dict):
 
     def set_useragent(self, useragent):
         if useragent not in self.Personality:
-            log.warning('[WARNING] Invalid User Agent provided (using default "%s")', self._useragent)
+            log.warning(
+                '[WARNING] Invalid User Agent provided (using default "%s")',
+                self._useragent,
+            )
             return
 
         self._useragent = useragent
@@ -153,7 +162,7 @@ class ThugOpts(dict):
         try:
             _timeout = int(timeout)
         except ValueError:
-            log.warning('[WARNING] Ignoring invalid delay value (should be an integer)')
+            log.warning("[WARNING] Ignoring invalid delay value (should be an integer)")
             return
 
         self._delay = abs(_timeout)
@@ -247,7 +256,9 @@ class ThugOpts(dict):
         try:
             value = int(threshold)
         except ValueError:
-            log.warning('[WARNING] Ignoring invalid threshold value (should be an integer)')
+            log.warning(
+                "[WARNING] Ignoring invalid threshold value (should be an integer)"
+            )
             return
 
         self._threshold = value
@@ -261,7 +272,9 @@ class ThugOpts(dict):
         try:
             seconds = int(timeout)
         except ValueError:
-            log.warning('[WARNING] Ignoring invalid connect timeout value (should be an integer)')
+            log.warning(
+                "[WARNING] Ignoring invalid connect timeout value (should be an integer)"
+            )
             return
 
         self._connect_timeout = seconds
@@ -275,7 +288,9 @@ class ThugOpts(dict):
         try:
             seconds = int(timeout)
         except ValueError:
-            log.warning('[WARNING] Ignoring invalid timeout value (should be an integer)')
+            log.warning(
+                "[WARNING] Ignoring invalid timeout value (should be an integer)"
+            )
             return
 
         self._timeout = seconds

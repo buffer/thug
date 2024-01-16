@@ -23,80 +23,80 @@ log = logging.getLogger("Thug")
 
 class Features:
     counters = (
-        'activex_count',
-        'addeventlistener_count',
-        'alert_count',
-        'appendchild_count',
-        'attachevent_count',
-        'body_count',
-        'characters_count',
-        'clonenode_count',
-        'createdocumentfragment_count',
-        'createelement_count',
-        'data_uri_count',
-        'detachevent_count',
-        'dispatchevent_count',
-        'document_write_count',
-        'embed_count',
-        'embed_string_count',
-        'eval_count',
-        'external_javascript_count',
-        'external_javascript_characters_count',
-        'external_javascript_whitespaces_count',
-        'form_string_count',
-        'frame_string_count',
-        'getcomputedstyle_count',
-        'head_count',
-        'hidden_count',
-        'html_count',
-        'iframe_count',
-        'iframe_small_width_count',
-        'iframe_small_height_count',
-        'iframe_small_area_count',
-        'iframe_string_count',
-        'inline_javascript_count',
-        'inline_javascript_characters_count',
-        'inline_javascript_whitespaces_count',
-        'inline_vbscript_count',
-        'inline_vbscript_characters_count',
-        'inline_vbscript_whitespaces_count',
-        'insertbefore_count',
-        'meta_refresh_count',
-        'noscript_count',
-        'object_count',
-        'object_small_width_count',
-        'object_small_height_count',
-        'object_small_area_count',
-        'object_string_count',
-        'removeattribute_count',
-        'removechild_count',
-        'removeeventlistener_count',
-        'replacechild_count',
-        'setattribute_count',
-        'setinterval_count',
-        'settimeout_count',
-        'title_count',
-        'url_count',
-        'whitespaces_count'
+        "activex_count",
+        "addeventlistener_count",
+        "alert_count",
+        "appendchild_count",
+        "attachevent_count",
+        "body_count",
+        "characters_count",
+        "clonenode_count",
+        "createdocumentfragment_count",
+        "createelement_count",
+        "data_uri_count",
+        "detachevent_count",
+        "dispatchevent_count",
+        "document_write_count",
+        "embed_count",
+        "embed_string_count",
+        "eval_count",
+        "external_javascript_count",
+        "external_javascript_characters_count",
+        "external_javascript_whitespaces_count",
+        "form_string_count",
+        "frame_string_count",
+        "getcomputedstyle_count",
+        "head_count",
+        "hidden_count",
+        "html_count",
+        "iframe_count",
+        "iframe_small_width_count",
+        "iframe_small_height_count",
+        "iframe_small_area_count",
+        "iframe_string_count",
+        "inline_javascript_count",
+        "inline_javascript_characters_count",
+        "inline_javascript_whitespaces_count",
+        "inline_vbscript_count",
+        "inline_vbscript_characters_count",
+        "inline_vbscript_whitespaces_count",
+        "insertbefore_count",
+        "meta_refresh_count",
+        "noscript_count",
+        "object_count",
+        "object_small_width_count",
+        "object_small_height_count",
+        "object_small_area_count",
+        "object_string_count",
+        "removeattribute_count",
+        "removechild_count",
+        "removeeventlistener_count",
+        "replacechild_count",
+        "setattribute_count",
+        "setinterval_count",
+        "settimeout_count",
+        "title_count",
+        "url_count",
+        "whitespaces_count",
     )
 
     def __init__(self):
         self.features = {}
 
     def __getattr__(self, key):
-        if key.startswith('increase_'):
-            counter = key.split('increase_')[1]
+        if key.startswith("increase_"):
+            counter = key.split("increase_")[1]
 
             if counter in self.counters:
                 return lambda: self.increase(counter)
 
-        if key.startswith('add_'):
-            counter = key.split('add_')[1]
+        if key.startswith("add_"):
+            counter = key.split("add_")[1]
 
             if counter in self.counters:
                 return lambda value: self.add(counter, value)
 
-        raise AttributeError # pragma: no cover
+        raise AttributeError  # pragma: no cover
 
     def clear(self):
         self.features = {}
@@ -114,11 +114,11 @@ class Features:
         if log.ThugOpts.local:
             return log.ThugLogging.url
 
-        url = getattr(log, 'last_url', None)
+        url = getattr(log, "last_url", None)
         return url if url else log.DFT.window.url
 
     def increase(self, key):
-        if not log.ThugOpts.features_logging: # pragma: no cover
+        if not log.ThugOpts.features_logging:  # pragma: no cover
             return
 
         url = self.features_url
@@ -126,7 +126,7 @@ class Features:
         self.features[url][key] += 1
 
     def add(self, key, value):
-        if not log.ThugOpts.features_logging: # pragma: no cover
+        if not log.ThugOpts.features_logging:  # pragma: no cover
             return
 
         url = self.features_url

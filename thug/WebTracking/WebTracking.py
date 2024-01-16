@@ -26,11 +26,11 @@ log = logging.getLogger("Thug")
 
 class WebTracking:
     def __init__(self):
-        self.cookies    = Cookies()
+        self.cookies = Cookies()
         self.webstorage = WebStorage()
 
     def inspect_response(self, response):
-        if not log.ThugOpts.web_tracking: # pragma: no cover
+        if not log.ThugOpts.web_tracking:  # pragma: no cover
             return
 
         self.cookies.inspect(response)

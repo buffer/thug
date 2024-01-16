@@ -34,68 +34,72 @@ log = logging.getLogger("Thug")
 
 
 class JSON:
-    def __init__(self, provider = False):
-        self._tools = ({
-                        'id'          : 'json-log',
-                        'Name'        : 'Thug',
-                        'Version'     : thug.__version__,
-                        'Vendor'      : None,
-                        'Organization': 'The Honeynet Project',
-                       }, )
+    def __init__(self, provider=False):
+        self._tools = (
+            {
+                "id": "json-log",
+                "Name": "Thug",
+                "Version": thug.__version__,
+                "Vendor": None,
+                "Organization": "The Honeynet Project",
+            },
+        )
 
         self.associated_code = None
-        self.object_pool     = None
-        self.signatures      = []
-        self.cached_data     = None
-        self.provider        = provider
+        self.object_pool = None
+        self.signatures = []
+        self.cached_data = None
+        self.provider = provider
 
         self.data = {
-                        "url"         : None,
-                        "timestamp"   : str(datetime.datetime.now()),
-                        "logtype"     : "json-log",
-                        "thug"        : {
-                                        "version"            : thug.__version__,
-                                        "jsengine" : {
-                                            "engine"         : thug.__jsengine__,
-                                            "version"        : thug.__jsengine_version__
-                                        },
-                                        "personality" : {
-                                            "useragent"      : log.ThugOpts.useragent
-                                            },
-                                        "plugins" : {
-                                            "acropdf"        : self.get_vuln_module("acropdf"),
-                                            "javaplugin"     : self.get_vuln_module("_javaplugin"),
-                                            "shockwaveflash" : self.get_vuln_module("shockwave_flash")
-                                            },
-                                        "options" : {
-                                            "local"          : log.ThugOpts.local,
-                                            "nofetch"        : log.ThugOpts.no_fetch,
-                                            "proxy"          : log.ThugOpts._proxy,
-                                            "events"         : log.ThugOpts.events,
-                                            "delay"          : log.ThugOpts.delay,
-                                            "referer"        : log.ThugOpts.referer,
-                                            "timeout"        : log.ThugOpts.timeout,
-                                            "threshold"      : log.ThugOpts.threshold,
-                                            "extensive"      : log.ThugOpts.extensive,
-                                            },
-                                        },
-                        "awis"        : [],
-                        "behavior"    : [],
-                        "classifiers" : [],
-                        "code"        : [],
-                        "connections" : [],
-                        "cookies"     : [],
-                        "exploits"    : [],
-                        "favicons"    : [],
-                        "files"       : [],
-                        "images"      : [],
-                        "locations"   : [],
-                        "screenshots" : []
-                    }
+            "url": None,
+            "timestamp": str(datetime.datetime.now()),
+            "logtype": "json-log",
+            "thug": {
+                "version": thug.__version__,
+                "jsengine": {
+                    "engine": thug.__jsengine__,
+                    "version": thug.__jsengine_version__,
+                },
+                "personality": {"useragent": log.ThugOpts.useragent},
+                "plugins": {
+                    "acropdf": self.get_vuln_module("acropdf"),
+                    "javaplugin": self.get_vuln_module("_javaplugin"),
+                    "shockwaveflash": self.get_vuln_module("shockwave_flash"),
+                },
+                "options": {
+                    "local": log.ThugOpts.local,
+                    "nofetch": log.ThugOpts.no_fetch,
+                    "proxy": log.ThugOpts._proxy,
+                    "events": log.ThugOpts.events,
+                    "delay": log.ThugOpts.delay,
+                    "referer": log.ThugOpts.referer,
+                    "timeout": log.ThugOpts.timeout,
+                    "threshold": log.ThugOpts.threshold,
+                    "extensive": log.ThugOpts.extensive,
+                },
+            },
+            "awis": [],
+            "behavior": [],
+            "classifiers": [],
+            "code": [],
+            "connections": [],
+            "cookies": [],
+            "exploits": [],
+            "favicons": [],
+            "files": [],
+            "images": [],
+            "locations": [],
+            "screenshots": [],
+        }
 
     @property
     def json_enabled(self):
-        return log.ThugOpts.json_logging or 'json' in log.ThugLogging.formats or self.provider
+        return (
+            log.ThugOpts.json_logging
+            or "json" in log.ThugLogging.formats
+            or self.provider
+        )
 
     @staticmethod
     def get_vuln_module(module):
@@ -106,7 +110,7 @@ class JSON:
         return getattr(log.ThugVulnModules, module)
 
     @staticmethod
-    def fix(data, drop_spaces = True):
+    def fix(data, drop_spaces=True):
         """
         Fix data encoding
 
@@ -120,11 +124,11 @@ class JSON:
                 enc_data = data
             else:
                 enc = log.Encoding.detect(data)
-                encoding = enc['encoding'] if enc['encoding'] else 'utf-8'
+                encoding = enc["encoding"] if enc["encoding"] else "utf-8"
                 enc_data = data.decode(encoding)
 
             return enc_data.replace("\n", "").strip() if drop_spaces else enc_data
-        except UnicodeDecodeError: # pragma: no cover
+        except UnicodeDecodeError:  # pragma: no cover
             return str()
 
     def set_url(self, url):
@@ -133,29 +137,41 @@ class JSON:
 
         self.data["url"] = url
 
-    def add_code_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
+    def add_code_snippet(
+        self, snippet, language, relationship, tag, method="Dynamic Analysis"
+    ):
         if not self.json_enabled:
             return
 
-        self.data["code"].append({"snippet"      : self.fix(snippet),
-                                  "language"     : self.fix(language),
-                                  "relationship" : self.fix(relationship),
-                                  "tag"          : self.fix(tag),
-                                  "method"       : self.fix(method)})
+        self.data["code"].append(
+            {
+                "snippet": self.fix(snippet),
+                "language": self.fix(language),
+                "relationship": self.fix(relationship),
+                "tag": self.fix(tag),
+                "method": self.fix(method),
+            }
+        )
 
-    def add_shellcode_snippet(self, snippet, language, relationship, tag, method = "Dynamic Analysis"):
+    def add_shellcode_snippet(
+        self, snippet, language, relationship, tag, method="Dynamic Analysis"
+    ):
         if not self.json_enabled:
             return
 
         s = base64.b64encode(snippet.encode())
 
-        self.data["code"].append({"snippet"      : s.decode(),
-                                  "language"     : self.fix(language),
-                                  "relationship" : self.fix(relationship),
-                                  "tag"          : self.fix(tag),
-                                  "method"       : self.fix(method)})
+        self.data["code"].append(
+            {
+                "snippet": s.decode(),
+                "language": self.fix(language),
+                "relationship": self.fix(relationship),
+                "tag": self.fix(tag),
+                "method": self.fix(method),
+            }
+        )
 
-    def log_connection(self, source, destination, method, flags = None):
+    def log_connection(self, source, destination, method, flags=None):
         """
         Log the connection (redirection, link) between two pages
 
@@ -175,10 +191,14 @@ class JSON:
         else:
             self.add_behavior_warn(f"{source} -- {method} --> {destination}")
 
-        self.data["connections"].append({"source"       : self.fix(source),
-                                         "destination"  : self.fix(destination),
-                                         "method"       : method,
-                                         "flags"        : flags})
+        self.data["connections"].append(
+            {
+                "source": self.fix(source),
+                "destination": self.fix(destination),
+                "method": method,
+                "flags": flags,
+            }
+        )
 
     def get_content(self, data):
         content = "NOT AVAILABLE"
@@ -188,12 +208,12 @@ class JSON:
 
         try:
             content = self.fix(data.get("content", "NOT AVAILABLE"))
-        except Exception as e: # pragma: no cover,pylint:disable=broad-except
+        except Exception as e:  # pragma: no cover,pylint:disable=broad-except
             log.info("[ERROR][get_content] %s", str(e))
 
         return content
 
-    def log_location(self, url, data, flags = None):
+    def log_location(self, url, data, flags=None):
         """
         Log file information for a given url
 
@@ -216,18 +236,22 @@ class JSON:
         if flags is None:
             flags = {}
 
-        self.data["locations"].append({"url"          : self.fix(url),
-                                       "content"      : self.get_content(data),
-                                       "status"       : data.get("status", None),
-                                       "content-type" : data.get("ctype", None),
-                                       "md5"          : data.get("md5", None),
-                                       "sha256"       : data.get("sha256", None),
-                                       "ssdeep"       : data.get("ssdeep", None),
-                                       "flags"        : flags,
-                                       "size"         : data.get("fsize", None),
-                                       "mimetype"     : data.get("mtype", None)})
+        self.data["locations"].append(
+            {
+                "url": self.fix(url),
+                "content": self.get_content(data),
+                "status": data.get("status", None),
+                "content-type": data.get("ctype", None),
+                "md5": data.get("md5", None),
+                "sha256": data.get("sha256", None),
+                "ssdeep": data.get("ssdeep", None),
+                "flags": flags,
+                "size": data.get("fsize", None),
+                "mimetype": data.get("mtype", None),
+            }
+        )
 
-    def log_exploit_event(self, url, module, description, cve = None, data = None):
+    def log_exploit_event(self, url, module, description, cve=None, data=None):
         """
         Log file information for a given url
 
@@ -239,11 +263,15 @@ class JSON:
         if not self.json_enabled:
             return
 
-        self.data["exploits"].append({"url"         : self.fix(url),
-                                      "module"      : module,
-                                      "description" : description,
-                                      "cve"         : cve,
-                                      "data"        : data})
+        self.data["exploits"].append(
+            {
+                "url": self.fix(url),
+                "module": module,
+                "description": description,
+                "cve": cve,
+                "data": data,
+            }
+        )
 
     def log_image_ocr(self, url, result):
         """
@@ -255,11 +283,11 @@ class JSON:
         if not self.json_enabled:
             return
 
-        self.data["images"].append({"url"        : self.fix(url),
-                                    "classifier" : "OCR",
-                                    "result"     : result})
+        self.data["images"].append(
+            {"url": self.fix(url), "classifier": "OCR", "result": result}
+        )
 
-    def log_classifier(self, classifier, url, rule, tags = "", meta = None):
+    def log_classifier(self, classifier, url, rule, tags="", meta=None):
         """
         Log classifiers matching for a given url
 
@@ -272,11 +300,13 @@ class JSON:
         if not self.json_enabled:
             return
 
-        item = {"classifier" : classifier,
-                "url"        : self.fix(url),
-                "rule"       : rule,
-                "meta"       : meta if meta else {},
-                "tags"       : tags}
+        item = {
+            "classifier": classifier,
+            "url": self.fix(url),
+            "rule": rule,
+            "meta": meta if meta else {},
+            "tags": tags,
+        }
 
         if item not in self.data["classifiers"]:
             self.data["classifiers"].append(item)
@@ -293,8 +323,9 @@ class JSON:
 
         content = base64.b64encode(screenshot)
 
-        self.data["screenshots"].append({"url"        : self.fix(url),
-                                         "screenshot" : content.decode()})
+        self.data["screenshots"].append(
+            {"url": self.fix(url), "screenshot": content.decode()}
+        )
 
     def log_favicon(self, url, dhash):
         """
@@ -306,29 +337,30 @@ class JSON:
         if not self.json_enabled:
             return
 
-        self.data["favicons"].append({"url"   : self.fix(url),
-                                      "dhash" : dhash})
+        self.data["favicons"].append({"url": self.fix(url), "dhash": dhash})
 
     def log_awis(self, report):
-        self.data["awis"].append(report) # pragma: no cover
+        self.data["awis"].append(report)  # pragma: no cover
 
     def log_cookies(self):
-        attrs = ('comment',
-                 'comment_url',
-                 'discard',
-                 'domain',
-                 'domain_initial_dot',
-                 'domain_specified',
-                 'expires',
-                 'name',
-                 'path',
-                 'path_specified',
-                 'port',
-                 'port_specified',
-                 'rfc2109',
-                 'secure',
-                 'value',
-                 'version')
+        attrs = (
+            "comment",
+            "comment_url",
+            "discard",
+            "domain",
+            "domain_initial_dot",
+            "domain_specified",
+            "expires",
+            "name",
+            "path",
+            "path_specified",
+            "port",
+            "port_specified",
+            "rfc2109",
+            "secure",
+            "value",
+            "version",
+        )
 
         for cookie in log.HTTPSession.cookies:
             item = {}
@@ -343,44 +375,56 @@ class JSON:
             if item not in self.data["cookies"]:
                 self.data["cookies"].append(item)
 
-    def add_behavior(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
+    def add_behavior(
+        self, description=None, cve=None, snippet=None, method="Dynamic Analysis"
+    ):
         if not cve and not description:
             return
 
-        self.data["behavior"].append({"description" : self.fix(description),
-                                      "cve"         : self.fix(cve),
-                                      "snippet"     : self.fix(snippet, drop_spaces = False),
-                                      "method"      : self.fix(method),
-                                      "timestamp"   : str(datetime.datetime.now())})
+        self.data["behavior"].append(
+            {
+                "description": self.fix(description),
+                "cve": self.fix(cve),
+                "snippet": self.fix(snippet, drop_spaces=False),
+                "method": self.fix(method),
+                "timestamp": str(datetime.datetime.now()),
+            }
+        )
 
-    def add_behavior_warn(self, description = None, cve = None, snippet = None, method = "Dynamic Analysis"):
+    def add_behavior_warn(
+        self, description=None, cve=None, snippet=None, method="Dynamic Analysis"
+    ):
         if not self.json_enabled:
             return
 
         self.add_behavior(description, cve, snippet, method)
 
-    def log_file(self, data, url = None, params = None): # pylint:disable=unused-argument
+    def log_file(self, data, url=None, params=None):  # pylint:disable=unused-argument
         if not self.json_enabled:
             return
 
         if data not in self.data["files"]:
             self.data["files"].append(data)
 
-    def export(self, basedir): # pylint:disable=unused-argument
+    def export(self, basedir):  # pylint:disable=unused-argument
         if not self.json_enabled:
             return
 
         output = io.StringIO()
 
-        if log.ThugOpts.features_logging and (log.ThugOpts.verbose or log.ThugOpts.debug):
+        if log.ThugOpts.features_logging and (
+            log.ThugOpts.verbose or log.ThugOpts.debug
+        ):
             log.warning(log.ThugLogging.Features.features)
 
-        self.data['features'] = log.ThugLogging.Features.features
+        self.data["features"] = log.ThugLogging.Features.features
 
-        json.dump(self.data, output, sort_keys = False, indent = 4)
+        json.dump(self.data, output, sort_keys=False, indent=4)
         if log.ThugOpts.json_logging and log.ThugOpts.file_logging:
             logdir = os.path.join(basedir, "analysis", "json")
-            log.ThugLogging.store_content(logdir, 'analysis.json', output.getvalue().encode())
+            log.ThugLogging.store_content(
+                logdir, "analysis.json", output.getvalue().encode()
+            )
 
             m = Mapper(logdir)
             m.add_data(self.data)
@@ -388,7 +432,7 @@ class JSON:
 
         self.cached_data = output
 
-    def get_json_data(self, basedir): # pylint:disable=unused-argument
+    def get_json_data(self, basedir):  # pylint:disable=unused-argument
         if self.cached_data:
             return self.cached_data.getvalue()
 

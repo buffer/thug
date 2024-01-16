@@ -1,4 +1,1 @@
-__all__ = [ 'MongoDB',
-            'JSON',
-            'ElasticSearch'
-          ]
+__all__ = ["MongoDB", "JSON", "ElasticSearch"]

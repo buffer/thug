@@ -21,7 +21,7 @@ from .modules import MongoDB
 from .modules import ElasticSearch
 
 LoggingModules = {
-    'json'          : JSON.JSON,
-    'mongodb'       : MongoDB.MongoDB,
-    'elasticsearch' : ElasticSearch.ElasticSearch,
+    "json": JSON.JSON,
+    "mongodb": MongoDB.MongoDB,
+    "elasticsearch": ElasticSearch.ElasticSearch,
 }

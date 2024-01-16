@@ -63,7 +63,7 @@ log.setLevel(logging.WARN)
 
 @implementer(IThugAPI)
 class ThugAPI:
-    def __init__(self, configuration_path = thug.__configuration_path__):
+    def __init__(self, configuration_path=thug.__configuration_path__):
         self.__init_conf(configuration_path)
         self.__init_jsengine()
         self.__init_pyhooks()
@@ -75,44 +75,46 @@ class ThugAPI:
 
     def __init_conf(self, configuration_path):
         log.configuration_path = configuration_path
-        log.personalities_path = thug.__personalities_path__ if configuration_path else None
+        log.personalities_path = (
+            thug.__personalities_path__ if configuration_path else None
+        )
 
     def __init_jsengine(self):
         log.JSEngine = JSEngine()
 
     def __init_core(self):
-        log.ThugOpts        = ThugOpts()
+        log.ThugOpts = ThugOpts()
         log.ThugVulnModules = ThugVulnModules()
-        log.MIMEHandler     = MIMEHandler()
-        log.SchemeHandler   = SchemeHandler()
-        log.Encoding        = Encoding()
-        log.Magic           = Magic()
-        log.WebTracking     = WebTracking()
-        log.HTMLInspector   = HTMLInspector()
+        log.MIMEHandler = MIMEHandler()
+        log.SchemeHandler = SchemeHandler()
+        log.Encoding = Encoding()
+        log.Magic = Magic()
+        log.WebTracking = WebTracking()
+        log.HTMLInspector = HTMLInspector()
 
     def __init_objcache(self):
-        log.Window            = Window
+        log.Window = Window
         log.DOMImplementation = DOMImplementation
 
     def __init_classifiers(self):
-        log.HTMLClassifier   = HTMLClassifier()
-        log.JSClassifier     = JSClassifier()
-        log.VBSClassifier    = VBSClassifier()
-        log.URLClassifier    = URLClassifier()
+        log.HTMLClassifier = HTMLClassifier()
+        log.JSClassifier = JSClassifier()
+        log.VBSClassifier = VBSClassifier()
+        log.URLClassifier = URLClassifier()
         log.SampleClassifier = SampleClassifier()
-        log.TextClassifier   = TextClassifier()
+        log.TextClassifier = TextClassifier()
         log.CookieClassifier = CookieClassifier()
-        log.ImageClassifier  = ImageClassifier()
+        log.ImageClassifier = ImageClassifier()
 
         self.classifiers_map = {
-            'html'   : log.HTMLClassifier,
-            'js'     : log.JSClassifier,
-            'vbs'    : log.VBSClassifier,
-            'url'    : log.URLClassifier,
-            'sample' : log.SampleClassifier,
-            'cookie' : log.CookieClassifier,
-            'text'   : log.TextClassifier,
-            'image'  : log.ImageClassifier
+            "html": log.HTMLClassifier,
+            "js": log.JSClassifier,
+            "vbs": log.VBSClassifier,
+            "url": log.URLClassifier,
+            "sample": log.SampleClassifier,
+            "cookie": log.CookieClassifier,
+            "text": log.TextClassifier,
+            "image": log.ImageClassifier,
         }
 
     def __init_pyhooks(self):
@@ -124,13 +126,15 @@ class ThugAPI:
     def __init_opaque_filter(self):
         self.opaque_filter = OpaqueFilter()
 
-    def __call__(self): # pragma: no cover
+    def __call__(self):  # pragma: no cover
         self.analyze()
 
     def version(self):
-        print(f"Thug "
-              f"{thug.__version__} "
-              f"(JS Engine: {thug.__jsengine__} v{thug.__jsengine_version__})")
+        print(
+            f"Thug "
+            f"{thug.__version__} "
+            f"(JS Engine: {thug.__jsengine__} v{thug.__jsengine_version__})"
+        )
 
         sys.exit(0)
 
@@ -352,7 +356,7 @@ class ThugAPI:
         fh = logging.FileHandler(output)
         log.addHandler(fh)
 
-    def set_log_quiet(self): # pragma: no cover
+    def set_log_quiet(self):  # pragma: no cover
         root = logging.getLogger()
         for handler in root.handlers:
             if isinstance(handler, logging.StreamHandler):
@@ -440,7 +444,7 @@ class ThugAPI:
     def log_event(self):
         log.ThugLogging.log_event()
 
-    def watchdog_cb(self, signum, frame): # pragma: no cover
+    def watchdog_cb(self, signum, frame):  # pragma: no cover
         pass
 
     def __reset_classifiers_matches(self):
@@ -448,11 +452,11 @@ class ThugAPI:
             c.reset_matches()
 
     def __run(self, window):
-        if log.Trace: # pragma: no cover
+        if log.Trace:  # pragma: no cover
             sys.settrace(log.Trace)
 
         with log.JSEngine.JSLocker:
-            with Watchdog(log.ThugOpts.timeout, callback = self.watchdog_cb):
+            with Watchdog(log.ThugOpts.timeout, callback=self.watchdog_cb):
                 dft = DFT(window)
                 dft.run()
 
@@ -473,13 +477,16 @@ class ThugAPI:
 
         log.HTTPSession = HTTPSession()
 
-        with open(url, 'r', encoding = "utf-8") as fd:
+        with open(url, "r", encoding="utf-8") as fd:
             content = fd.read()
 
         extension = os.path.splitext(url)
 
-        if len(extension) > 1 and extension[1].lower() in ('.js', '.jse', ):
-            if not content.lstrip().startswith('<script'):
+        if len(extension) > 1 and extension[1].lower() in (
+            ".js",
+            ".jse",
+        ):
+            if not content.lstrip().startswith("<script"):
                 html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(content))))
             else:
                 soup = bs4.BeautifulSoup(content, "html.parser")
@@ -499,7 +506,7 @@ class ThugAPI:
                 except AttributeError:
                     pass
 
-                code = soup.script.get_text(types = (NavigableString, CData, Script))
+                code = soup.script.get_text(types=(NavigableString, CData, Script))
                 html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(code))))
         else:
             html = content
@@ -507,11 +514,13 @@ class ThugAPI:
         if log.ThugOpts.features_logging:
             log.ThugLogging.Features.add_characters_count(len(html))
 
-            whitespaces_count = len([a for a in html if isinstance(a, str) and a.isspace()])
+            whitespaces_count = len(
+                [a for a in html if isinstance(a, str) and a.isspace()]
+            )
             log.ThugLogging.Features.add_whitespaces_count(whitespaces_count)
 
-        doc    = w3c.parseString(html)
-        window = Window('about:blank', doc, personality = log.ThugOpts.useragent)
+        doc = w3c.parseString(html)
+        window = Window("about:blank", doc, personality=log.ThugOpts.useragent)
         window.open()
         self.__run(window)
 
@@ -525,23 +534,23 @@ class ThugAPI:
 
         try:
             scheme = urlparse(url).scheme
-        except ValueError as e: # pragma: no cover
+        except ValueError as e:  # pragma: no cover
             log.warning("[WARNING] Analysis not performed (%s)", str(e))
             return
 
-        if not scheme or not scheme.startswith('http'):
-            url = f'http://{url}'
+        if not scheme or not scheme.startswith("http"):
+            url = f"http://{url}"
 
         log.ThugLogging.set_url(url)
 
         log.HTTPSession = HTTPSession()
 
-        doc    = w3c.parseString('')
-        window = Window(log.ThugOpts.referer, doc, personality = log.ThugOpts.useragent)
+        doc = w3c.parseString("")
+        window = Window(log.ThugOpts.referer, doc, personality=log.ThugOpts.useragent)
         window = window.open(url)
         if window:
             self.__run(window)
 
     @abstractmethod
-    def analyze(self): # pragma: no cover
+    def analyze(self):  # pragma: no cover
         pass
