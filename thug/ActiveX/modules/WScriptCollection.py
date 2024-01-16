@@ -5,7 +5,7 @@ log = logging.getLogger("Thug")
 
 class WshCollection(list):
     def __getattr__(self, name):
-        if name.lower() == 'length':
+        if name.lower() == "length":
             return len(self)
 
         raise AttributeError

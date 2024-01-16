@@ -6,9 +6,11 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def InternalTuneIn(self, arg0, arg1, arg2, arg3, arg4): # pylint:disable=unused-argument
+def InternalTuneIn(self, arg0, arg1, arg2, arg3, arg4):  # pylint:disable=unused-argument
     if len(arg0) > 248:
-        log.ThugLogging.log_exploit_event(self._window.url,
-                                          "StreamAudio ChainCast VMR Client Proxy ActiveX",
-                                          "Buffer overflow in arg0")
+        log.ThugLogging.log_exploit_event(
+            self._window.url,
+            "StreamAudio ChainCast VMR Client Proxy ActiveX",
+            "Buffer overflow in arg0",
+        )
         log.ThugLogging.Shellcode.check_shellcode(arg0)

@@ -6,12 +6,19 @@ import logging
 log = logging.getLogger("Thug")
 
 
-def DoWebLaunch(self, arg0, arg1, arg2, arg3): # pylint:disable=unused-argument
+def DoWebLaunch(self, arg0, arg1, arg2, arg3):  # pylint:disable=unused-argument
     if len(arg1) > 512 or len(arg3) > 512:
-        log.ThugLogging.log_exploit_event(self._window.url,
-                                          "Gateway Weblaunch ActiveX",
-                                          "Overflow")
+        log.ThugLogging.log_exploit_event(
+            self._window.url, "Gateway Weblaunch ActiveX", "Overflow"
+        )
         log.ThugLogging.Shellcode.check_shellcode(arg1)
         log.ThugLogging.Shellcode.check_shellcode(arg3)
     else:
-        log.ThugLogging.add_behavior_warn('[Gateway Weblaunch ActiveX] Trying to execute ' + arg1 + ' ' + arg2 + ' ' + arg3)
+        log.ThugLogging.add_behavior_warn(
+            "[Gateway Weblaunch ActiveX] Trying to execute "
+            + arg1
+            + " "
+            + arg2
+            + " "
+            + arg3
+        )

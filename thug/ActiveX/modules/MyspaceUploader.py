@@ -7,10 +7,10 @@ log = logging.getLogger("Thug")
 
 
 def SetAction(self, val):
-    self.__dict__['Action'] = val
+    self.__dict__["Action"] = val
 
     if len(val) > 512:
-        log.ThugLogging.log_exploit_event(self._window.url,
-                                          "Myspace UPloader ActiveX",
-                                          "Overflow in Action property")
+        log.ThugLogging.log_exploit_event(
+            self._window.url, "Myspace UPloader ActiveX", "Overflow in Action property"
+        )
         log.ThugLogging.Shellcode.check_shellcode(val)

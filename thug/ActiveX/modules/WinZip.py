@@ -8,10 +8,12 @@ log = logging.getLogger("Thug")
 
 def CreateNewFolderFromName(self, arg):
     if len(arg) > 230:
-        log.ThugLogging.log_exploit_event(self._window.url,
-                                          "WinZip ActiveX",
-                                          "CreateNewFolderFromName Overflow",
-                                          cve = 'CVE-2006-6884')
+        log.ThugLogging.log_exploit_event(
+            self._window.url,
+            "WinZip ActiveX",
+            "CreateNewFolderFromName Overflow",
+            cve="CVE-2006-6884",
+        )
 
         log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2006-6884")
         log.ThugLogging.Shellcode.check_shellcode(arg)

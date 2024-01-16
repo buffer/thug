@@ -7,11 +7,13 @@ log = logging.getLogger("Thug")
 
 
 def Setdata(self, val):
-    self.__dict__['data'] = val
-    log.ThugLogging.log_exploit_event(self._window.url,
-                                      "Microsoft DirectShow MPEG2TuneRequest ActiveX",
-                                      "Stack Overflow in data property",
-                                      cve = 'CVE-2008-0015')
+    self.__dict__["data"] = val
+    log.ThugLogging.log_exploit_event(
+        self._window.url,
+        "Microsoft DirectShow MPEG2TuneRequest ActiveX",
+        "Stack Overflow in data property",
+        cve="CVE-2008-0015",
+    )
 
     log.ThugLogging.log_classifier("exploit", log.ThugLogging.url, "CVE-2008-0015")
     log.ThugLogging.Shellcode.check_shellcode(val)

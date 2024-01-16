@@ -8,23 +8,29 @@ from thug.ActiveX.modules import WScriptCollection
 log = logging.getLogger("Thug")
 
 
-def EnumPrinterConnections(self): # pylint:disable=unused-argument
-    log.ThugLogging.add_behavior_warn("[WScript.Network ActiveX] Got request to PrinterConnections")
+def EnumPrinterConnections(self):  # pylint:disable=unused-argument
+    log.ThugLogging.add_behavior_warn(
+        "[WScript.Network ActiveX] Got request to PrinterConnections"
+    )
 
-    printerlist = [['nul:', 'Send To OneNote 2010'],
-                   ['XPSPort:', 'Microsoft XPS Document Writer'],
-                   ['SHRFAX:', 'Fax']]
+    printerlist = [
+        ["nul:", "Send To OneNote 2010"],
+        ["XPSPort:", "Microsoft XPS Document Writer"],
+        ["SHRFAX:", "Fax"],
+    ]
 
     for _ in range(3):
         ip = GetRandomIp()
-        printerlist.append([f'IP_{ip}', GetRandomShare(ip)])
+        printerlist.append([f"IP_{ip}", GetRandomShare(ip)])
 
     random.shuffle(printerlist)
     return WScriptCollection.WshCollection(sum(printerlist[:2], []))
 
 
-def EnumNetworkDrives(self): # pylint:disable=unused-argument
-    log.ThugLogging.add_behavior_warn("[WScript.Network ActiveX] Got request to EnumNetworkDrives")
+def EnumNetworkDrives(self):  # pylint:disable=unused-argument
+    log.ThugLogging.add_behavior_warn(
+        "[WScript.Network ActiveX] Got request to EnumNetworkDrives"
+    )
     ndrives = WScriptCollection.WshCollection()
 
     for _ in range(2):
@@ -35,7 +41,9 @@ def EnumNetworkDrives(self): # pylint:disable=unused-argument
 
 
 def GetRandomShare(location):
-    share = "".join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
+    share = "".join(
+        random.choice(string.ascii_lowercase + string.digits) for _ in range(8)
+    )
     return f"\\\\{location}\\{share}"
 
 
