@@ -69,8 +69,8 @@ License: GNU General Public License, version 2
    :target: https://codecov.io/gh/buffer/thug
 .. |bandit badge| image:: https://img.shields.io/badge/security-bandit-yellow.svg
    :target: https://github.com/PyCQA/bandit
-.. |docs badge| image:: https://readthedocs.org/projects/thug-honeyclient/badge/?version=latest
-   :target: http://thug-honeyclient.readthedocs.io/en/latest/?badge=latest
+.. |docs badge| image:: https://readthedocs.com/projects/thug-honeyclient-thug/badge/?version=latest
+   :target: https://thug-honeyclient-thug.readthedocs-hosted.com/en/latest/?badge=latest
 .. |donate badge| image:: https://img.shields.io/badge/Donate-PayPal-green.svg
    :target: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XTDF8AHJ28CXY
 .. _virtualenv: https://virtualenv.pypa.io/
