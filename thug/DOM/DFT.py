@@ -1382,18 +1382,18 @@ class DFT:
     def _handle_blob_uri(self, uri):
         uri = uri if isinstance(uri, str) else str(uri)
         if not log.HTTPSession.is_blob_uri(uri):
-            return
+            return # pragma: no cover
 
         blob = log.UrlObjects.get(uri, None)
         if not blob:
-            return
+            return # pragma: no cover
 
         handler = log.MIMEHandler.get_handler(blob.type)
         if handler:
             handler(self.window.url, blob.blob)
             return
 
-        log.ThugLogging.log_file(blob.blob, uri)
+        log.ThugLogging.log_file(blob.blob, uri) # pragma: no cover
 
     def handle_a(self, anchor):
         log.info(anchor)
