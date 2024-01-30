@@ -20,7 +20,6 @@ import sched
 import time
 import logging
 import traceback
-import base64
 import numbers
 import collections.abc
 import datetime
