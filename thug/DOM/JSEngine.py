@@ -119,6 +119,20 @@ class JSEngine:
 
         ctxt.eval(thug_js_code)
 
+    def init_scripts_atob(self, ctxt):
+        atob_js = os.path.join(thug.__scripts_path__, "atob.js")
+        with open(atob_js, encoding="utf-8", mode="r") as fd:
+            atob_js_code = fd.read()
+
+        ctxt.eval(atob_js_code)
+
+    def init_scripts_btoa(self, ctxt):
+        btoa_js = os.path.join(thug.__scripts_path__, "btoa.js")
+        with open(btoa_js, encoding="utf-8", mode="r") as fd:
+            btoa_js_code = fd.read()
+
+        ctxt.eval(btoa_js_code)
+
     def init_scripts_storage(self, ctxt):
         if not log.ThugOpts.Personality.isIE():
             return
@@ -205,6 +219,8 @@ class JSEngine:
     def init_scripts(self):
         with self._context as ctxt:
             self.init_scripts_thug(ctxt)
+            self.init_scripts_atob(ctxt)
+            self.init_scripts_btoa(ctxt)
             self.init_scripts_storage(ctxt)
             self.init_scripts_date(ctxt)
             self.init_scripts_builtin(ctxt)

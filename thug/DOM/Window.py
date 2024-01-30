@@ -1105,21 +1105,6 @@ class Window(JSClass):
 
         return sc
 
-    def atob(self, s):
-        """
-        The atob method decodes a base-64 encoded string
-        """
-        return str(base64.b64decode(s))
-
-    def btoa(self, s):
-        """
-        The btoa method encodes a string in base-64
-        """
-        if isinstance(s, str):
-            s = s.encode()
-
-        return base64.b64encode(s)
-
     def decodeURIComponent(self, s):
         return unquote(s) if s else ""
 
