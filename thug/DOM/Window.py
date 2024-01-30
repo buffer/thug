@@ -35,8 +35,8 @@ from thug.ActiveX.ActiveX import _ActiveXObject
 from thug.Java.java import java
 
 from thug.DOM.W3C import w3c
-from thug.DOM.W3C import URL
 from thug.DOM.W3C import File
+from thug.DOM.W3C import URL
 from .JSClass import JSClass
 from .JSClass import JSClassConstructor
 from .JSClass import JSClassPrototype
@@ -925,6 +925,13 @@ class Window(JSClass):
         if log.ThugOpts.Personality.browserMajorVersion > 18:
             self.URL = URL.URL
 
+            with self.context as ctxt:
+                ctxt.eval("""
+                    var objurl = new URL(window.url);
+                    window.URL.createObjectURL = objurl.createObjectURL;
+                    window.URL.revokeObjectURL = objurl.revokeObjectURL;
+                """)
+
         if log.ThugOpts.Personality.browserMajorVersion > 28:
             self.URLSearchParams = URL.URLSearchParams
 
@@ -963,6 +970,12 @@ class Window(JSClass):
 
         if log.ThugOpts.Personality.browserMajorVersion > 18:
             self.URL = URL.URL
+            with self.context as ctxt:
+                ctxt.eval("""
+                    var objurl = new URL(window.url);
+                    window.URL.createObjectURL = objurl.createObjectURL;
+                    window.URL.revokeObjectURL = objurl.revokeObjectURL;
+                """)
 
         if log.ThugOpts.Personality.browserMajorVersion > 48:
             self.URLSearchParams = URL.URLSearchParams
@@ -989,6 +1002,12 @@ class Window(JSClass):
 
         if log.ThugOpts.Personality.browserMajorVersion > 13:
             self.URL = URL.URL
+            with self.context as ctxt:
+                ctxt.eval("""
+                    var objurl = new URL(window.url);
+                    window.URL.createObjectURL = objurl.createObjectURL;
+                    window.URL.revokeObjectURL = objurl.revokeObjectURL;
+                """)
 
     def eval(self, script):
         if not script:

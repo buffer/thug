@@ -21,6 +21,7 @@
 
 import logging
 import urllib.parse
+import uuid
 
 from thug.DOM.JSClass import JSClass
 
@@ -40,6 +41,7 @@ class URL(JSClass):
         self.init_url(url if base is None else urllib.parse.urljoin(base, url))
 
     def init_url(self, url):
+        self.b_url = url if url else 'about:blank'
         self.p_url = urllib.parse.urlparse(url)
         self.p_url = self.p_url._replace(path=urllib.parse.quote(self.p_url.path))
 
@@ -177,3 +179,11 @@ class URL(JSClass):
         self.p_url = self.p_url._replace(netloc="@".join(s_netloc))
 
     username = property(get_username, set_username)
+
+    def createObjectURL(self, obj):
+        objurl = f"blob://{self.b_url}/{str(uuid.uuid4())}"
+        log.UrlObjects[objurl] = obj
+        return objurl
+
+    def revokeObjectURL(self, urlobj):
+        log.UrlObjects.pop(urlobj, None)
