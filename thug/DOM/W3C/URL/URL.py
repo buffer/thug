@@ -41,7 +41,7 @@ class URL(JSClass):
         self.init_url(url if base is None else urllib.parse.urljoin(base, url))
 
     def init_url(self, url):
-        self.b_url = url if url else 'about:blank'
+        self.b_url = url if url else "about:blank"
         self.p_url = urllib.parse.urlparse(url)
         self.p_url = self.p_url._replace(path=urllib.parse.quote(self.p_url.path))
 

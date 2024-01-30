@@ -154,7 +154,11 @@ class HTTPSession:
         url = url.strip()
 
         # Do not normalize Data and Blob URI scheme
-        if url.lower().startswith("url=") or self.is_data_uri(url) or self.is_blob_uri(url):
+        if (
+            url.lower().startswith("url=")
+            or self.is_data_uri(url)
+            or self.is_blob_uri(url)
+        ):
             return url
 
         if url.startswith("#"):

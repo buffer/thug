@@ -925,11 +925,13 @@ class Window(JSClass):
             self.URL = URL.URL
 
             with self.context as ctxt:
-                ctxt.eval("""
+                ctxt.eval(
+                    """
                     var objurl = new URL(window.url);
                     window.URL.createObjectURL = objurl.createObjectURL;
                     window.URL.revokeObjectURL = objurl.revokeObjectURL;
-                """)
+                """
+                )
 
         if log.ThugOpts.Personality.browserMajorVersion > 28:
             self.URLSearchParams = URL.URLSearchParams
@@ -970,11 +972,13 @@ class Window(JSClass):
         if log.ThugOpts.Personality.browserMajorVersion > 18:
             self.URL = URL.URL
             with self.context as ctxt:
-                ctxt.eval("""
+                ctxt.eval(
+                    """
                     var objurl = new URL(window.url);
                     window.URL.createObjectURL = objurl.createObjectURL;
                     window.URL.revokeObjectURL = objurl.revokeObjectURL;
-                """)
+                """
+                )
 
         if log.ThugOpts.Personality.browserMajorVersion > 48:
             self.URLSearchParams = URL.URLSearchParams
@@ -1002,11 +1006,13 @@ class Window(JSClass):
         if log.ThugOpts.Personality.browserMajorVersion > 13:
             self.URL = URL.URL
             with self.context as ctxt:
-                ctxt.eval("""
+                ctxt.eval(
+                    """
                     var objurl = new URL(window.url);
                     window.URL.createObjectURL = objurl.createObjectURL;
                     window.URL.revokeObjectURL = objurl.revokeObjectURL;
-                """)
+                """
+                )
 
     def eval(self, script):
         if not script:
