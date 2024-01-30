@@ -140,11 +140,25 @@ class HTTPSession:
 
         return False
 
+    @staticmethod
+    def is_blob_uri(url):
+        if url.lower().startswith("blob:"):
+            return True
+
+        if url.startswith(("'", '"')) and url[1:].lower().startswith("blob:"):
+            return True  # pragma: no cover
+
+        return False
+
     def normalize_url(self, window, url):
         url = url.strip()
 
-        # Do not normalize Data URI scheme
-        if url.lower().startswith("url=") or self.is_data_uri(url):
+        # Do not normalize Data and Blob URI scheme
+        if (
+            url.lower().startswith("url=")
+            or self.is_data_uri(url)
+            or self.is_blob_uri(url)
+        ):
             return url
 
         if url.startswith("#"):
@@ -263,6 +277,10 @@ class HTTPSession:
 
         if self.is_data_uri(url):
             log.DFT._handle_data_uri(url)
+            return None
+
+        if self.is_blob_uri(url):
+            log.DFT._handle_blob_uri(url)
             return None
 
         fetcher = getattr(self.session, method.lower(), None)

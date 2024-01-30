@@ -210,7 +210,11 @@ class ThugLogging(BaseLogging, SampleLogging):
         return tag.hex
 
     def log_file(self, data, url=None, params=None, sampletype=None):
+        if isinstance(data, bytearray):
+            data = bytes(data)
+
         sample = self.build_sample(data, url, sampletype)
+
         if sample is None:
             return None
 

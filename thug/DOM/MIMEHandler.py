@@ -358,6 +358,9 @@ class MIMEHandler(dict):
             self.do_perform_ocr_analysis(url, img.convert())  # pragma: no cover
 
     def handle_zip(self, url, content):
+        if isinstance(content, list):
+            content = bytearray(content)
+
         if len(content) < self.MIN_ZIP_FILE_SIZE:  # pragma: no cover
             return False
 
@@ -366,6 +369,7 @@ class MIMEHandler(dict):
 
         fp = io.BytesIO(content)
         if not zipfile.is_zipfile(fp):
+            log.warning("[MIMEHANDLER (ZIP)][ERROR] Invalid ZIP file")
             return False
 
         try:

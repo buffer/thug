@@ -69,6 +69,7 @@ class ThugAPI:
         self.__init_pyhooks()
         self.__init_core()
         self.__init_objcache()
+        self.__init_urlobjects()
         self.__init_classifiers()
         self.__init_opaque_filter()
         self.__init_trace()
@@ -91,6 +92,9 @@ class ThugAPI:
         log.Magic = Magic()
         log.WebTracking = WebTracking()
         log.HTMLInspector = HTMLInspector()
+
+    def __init_urlobjects(self):
+        log.UrlObjects = {}
 
     def __init_objcache(self):
         log.Window = Window
