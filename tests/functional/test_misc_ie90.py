@@ -1433,7 +1433,7 @@ class TestMiscSamplesIE(object):
         sample = os.path.join(self.misc_path, "testAtob.html")
         expected = [
             "Encoded String: SGVsbG8gV29ybGQ=",
-            "Decoded String: b'Hello World'",
+            "Decoded String: Hello World",
         ]
 
         self.do_perform_test(caplog, sample, expected)
