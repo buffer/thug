@@ -1,53 +1,14 @@
-#
-# This Docker image encapsulates Thug, a low-interaction honeyclient,
-# which was created by Angelo Dell'Aera and is available at [1].
-#
-# To run this image after installing Docker, use a command like this:
-#
-# sudo docker run --rm -it buffer/thug bash
-#
-# then run "thug" with the desired parameters (such as -F to enable
-# file logging).
-#
-# To share the "logs" directory between your host and the container,
-# create a "logs" directory on your host and make it world-accessible
-# (e.g., "chmod a+xwr ~/logs"). Then run the tool like this:
-#
-# sudo docker run --rm -it -v ~/logs:/tmp/thug/logs buffer/thug bash
-# 
-# To support MongoDB output, install the folloging packages into the
-# image using "apt-get": mongodb, mongodb-dev, python-pymongo
-#
-# This file was originally based on ideas from Spenser Reinhardt's
-# Dockerfile [2] on instructions outlined by M. Fields (@shakey_1) and
-# on the installation script created by Payload Security [3]
-#
-# [1] https://github.com/buffer/thug
-# [2] https://registry.hub.docker.com/u/sreinhardt/honeynet/dockerfile
-# [3] https://github.com/PayloadSecurity/VxCommunity/blob/master/bash/thuginstallation.sh
-
-FROM ubuntu:22.10
-MAINTAINER Angelo Dell'Aera
-
-USER root
-ENV DEBIAN_FRONTEND=noninteractive
+FROM python:3.11 as builder
+MAINTAINER "Angelo Dell'Aera"
+WORKDIR /home
 
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     build-essential \
-    sudo \
-    python3 \
-    python3-dev \
-    python3-setuptools \
-    python3-wheel \
-    python-is-python3 \
-    python3-pip \
     libxml2-dev \
     libxslt-dev \
     tesseract-ocr \
     git \
-    wget \
-    unzip \
     libtool \
     graphviz-dev \
     automake \
@@ -59,35 +20,43 @@ RUN apt-get update && \
     libffi-dev \
     pkg-config \
     clang \
-    autoconf && \
-  rm -rf /var/lib/apt/lists/*
-
-RUN pip3 install --upgrade pip
-RUN pip3 install --upgrade setuptools
-RUN pip3 install --upgrade pytesseract
-RUN pip3 install --upgrade pygraphviz
-WORKDIR /home
-
+    autoconf \
+    libssl-dev
+RUN pip install -U pip setuptools
 RUN git clone https://github.com/buffer/libemu.git && \
   cd libemu && \
   autoreconf -v -i && \
   ./configure && \
   make install && \
-  cd .. && \
-  rm -rf libemu
+  cd ..
+RUN git clone https://github.com/buffer/thug.git
+RUN pip wheel --no-cache-dir --wheel-dir /tmp/wheels thug pytesseract pygraphviz
 
-RUN ldconfig
-RUN pip3 install thug
+# HACK: this is to have the pylibemu wheel package statically linked with the libemu library
+RUN apt-get install patchelf
+RUN pip install -U auditwheel
+RUN auditwheel repair --plat linux_x86_64 -w /tmp/wheelhouse /tmp/wheels/*pylibemu*
+RUN rm /tmp/wheels/*pylibemu*
+RUN mv /tmp/wheelhouse/* /tmp/wheels/
 
-RUN git clone https://github.com/buffer/thug.git && \
-  mkdir -p /etc/thug && \
-  cp -R thug/thug/conf/* /etc/thug && \
-  rm -rf thug
+FROM python:3.11-slim
+MAINTAINER "Angelo Dell'Aera"
 
 RUN groupadd -r thug && \
   useradd -r -g thug -d /home/thug -s /sbin/nologin -c "Thug User" thug && \
   mkdir -p /home/thug /tmp/thug/logs && \
-  chown -R thug:thug /home/thug /tmp/thug/logs
+  chown -R thug:thug /home/thug /tmp/thug
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends \
+    tesseract-ocr \
+    wget \
+    unzip \
+    graphviz \
+    libfuzzy2 \
+    file
+RUN --mount=type=bind,from=builder,src=/home/thug,dst=/tmp/thug mkdir -p /etc/thug && \
+  cp -R /tmp/thug/thug/conf/* /etc/thug
+RUN --mount=type=bind,from=builder,src=/tmp/wheels,dst=/tmp/wheels pip install --no-cache-dir --no-deps /tmp/wheels/*
 
 USER thug
 ENV HOME /home/thug
