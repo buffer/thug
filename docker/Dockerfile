@@ -7,15 +7,12 @@ RUN apt-get update && \
     build-essential \
     libxml2-dev \
     libxslt-dev \
-    tesseract-ocr \
     git \
     libtool \
     graphviz-dev \
     automake \
     libffi-dev \
-    graphviz \
     libfuzzy-dev \
-    libfuzzy2 \
     libjpeg-dev \
     libffi-dev \
     pkg-config \
@@ -29,7 +26,7 @@ RUN git clone https://github.com/buffer/libemu.git && \
   ./configure && \
   make install && \
   cd ..
-RUN git clone https://github.com/buffer/thug.git
+COPY thug/conf thug/conf
 RUN pip wheel --no-cache-dir --wheel-dir /tmp/wheels thug pytesseract pygraphviz
 
 # HACK: this is to have the pylibemu wheel package statically linked with the libemu library
@@ -44,18 +41,15 @@ MAINTAINER "Angelo Dell'Aera"
 
 RUN groupadd -r thug && \
   useradd -r -g thug -d /home/thug -s /sbin/nologin -c "Thug User" thug && \
-  mkdir -p /home/thug /tmp/thug/logs && \
+  mkdir -p /home/thug /tmp/thug/logs /etc/thug && \
   chown -R thug:thug /home/thug /tmp/thug
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
     tesseract-ocr \
-    wget \
-    unzip \
     graphviz \
     libfuzzy2 \
     file
-RUN --mount=type=bind,from=builder,src=/home/thug,dst=/tmp/thug mkdir -p /etc/thug && \
-  cp -R /tmp/thug/thug/conf/* /etc/thug
+RUN --mount=type=bind,from=builder,src=/home/thug/conf,dst=/tmp/thug/conf cp -R /tmp/thug/conf/* /etc/thug
 RUN --mount=type=bind,from=builder,src=/tmp/wheels,dst=/tmp/wheels pip install --no-cache-dir --no-deps /tmp/wheels/*
 
 USER thug
