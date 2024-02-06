@@ -48,9 +48,9 @@ RUN apt-get update && \
     tesseract-ocr \
     graphviz \
     libfuzzy2 \
-    file
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    file && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN --mount=type=bind,from=builder,src=/home/thug/conf,dst=/tmp/thug/conf cp -R /tmp/thug/conf/* /etc/thug
 RUN --mount=type=bind,from=builder,src=/tmp/wheels,dst=/tmp/wheels pip install --no-cache-dir --no-deps /tmp/wheels/*
