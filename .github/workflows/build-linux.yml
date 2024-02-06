@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: STEP 1. Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: STEP 2. Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -67,7 +67,7 @@ jobs:
           tox
 
       - name: STEP 10. Upload coverage report to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
