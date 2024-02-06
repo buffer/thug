@@ -26,11 +26,12 @@ RUN git clone https://github.com/buffer/libemu.git && \
   ./configure && \
   make install && \
   cd ..
+RUN git clone https://github.com/buffer/thug.git
 COPY thug/conf thug/conf
 RUN pip wheel --no-cache-dir --wheel-dir /tmp/wheels thug pytesseract pygraphviz
 
 # HACK: this is to have the pylibemu wheel package statically linked with the libemu library
-RUN apt-get install patchelf
+RUN apt-get install -y patchelf
 RUN pip install -U auditwheel
 RUN auditwheel repair --plat linux_x86_64 -w /tmp/wheelhouse /tmp/wheels/*pylibemu*
 RUN rm /tmp/wheels/*pylibemu*
