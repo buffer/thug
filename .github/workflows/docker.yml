@@ -34,4 +34,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: thughoneyclient/thug:thug-${{ github.ref_name }}
+          tags: thughoneyclient/thug:${{ github.ref_name }}
