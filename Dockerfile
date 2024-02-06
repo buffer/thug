@@ -37,7 +37,7 @@ RUN rm /tmp/wheels/*pylibemu*
 RUN mv /tmp/wheelhouse/* /tmp/wheels/
 
 FROM python:3.11-slim
-MAINTAINER "Angelo Dell'Aera"
+LABEL maintainer="Angelo Dell'Aera"
 
 RUN groupadd -r thug && \
   useradd -r -g thug -d /home/thug -s /sbin/nologin -c "Thug User" thug && \
