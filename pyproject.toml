@@ -89,10 +89,7 @@ shellcode = [
 ]
 
 test = [
-    "thug[elasticsearch]",
-    "thug[exploitgraph]",
-    "thug[image]",
-    "thug[shellcode]",
+    "thug[elasticsearch,exploitgraph,image,shellcode]",
     "mock",
     "mongomock",
     "pre-commit",
