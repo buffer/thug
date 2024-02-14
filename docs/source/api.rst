@@ -506,6 +506,26 @@ Thug API interface definition is reported below for convenience.
             @return: None
             """
 
+        def get_proxy_connect_timeout():
+            """
+            get_proxy_connect_timeout
+
+            Get the proxy connect timeout (in seconds)
+
+            @return: the proxy connect timeout (in seconds)
+            """
+
+        def set_proxy_connect_timeout(timeout):
+            """
+            set_proxy_connect_timeout
+
+            Set the proxy connect timeout (in seconds)
+
+            @param timeout: the proxy connect timeout (in seconds)
+            @type timeout: C{int}
+            @return: None
+            """
+
         def get_timeout():
             """
             get_timeout

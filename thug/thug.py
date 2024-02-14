@@ -44,72 +44,73 @@ Synopsis:
         thug [ options ] url
 
     Options:
-        -h, --help              \tDisplay this help information
-        -V, --version           \tDisplay Thug version
-        -i, --list-ua           \tDisplay available user agents
-        -u, --useragent=        \tSelect a user agent (use option -b for values, default: winxpie60)
-        -e, --events=           \tEnable comma-separated specified DOM events handling
-        -w, --delay=            \tSet a maximum setTimeout/setInterval delay value (in milliseconds)
-        -n, --logdir=           \tSet the log output directory
-        -o, --output=           \tLog to a specified file
-        -r, --referer           \tSpecify a referer
-        -p, --proxy=            \tSpecify a proxy (see below for format and supported schemes)
-        -m, --attachment        \tSet the attachment mode
-        -l, --local             \tAnalyze a locally saved page
-        -x, --local-nofetch     \tAnalyze a locally saved page and prevent remote content fetching
-        -v, --verbose           \tEnable verbose mode
-        -d, --debug             \tEnable debug mode
-        -q, --quiet             \tDisable console logging
-        -g, --http-debug        \tEnable HTTP debug mode
-        -t, --threshold         \tMaximum pages to fetch
-        -j, --extensive         \tExtensive fetch of linked pages
-        -O, --connect-timeout   \tSet the connect timeout (in seconds, default: 10 seconds)
-        -T, --timeout=          \tSet the analysis timeout (in seconds, default: 600 seconds)
-        -c, --broken-url        \tSet the broken URL mode
-        -z, --web-tracking      \tEnable web client tracking inspection
-        -b, --async-prefetch    \tEnable async prefetching mode
-        -k, --no-honeyagent     \tDisable HoneyAgent support
-        -a, --image-processing  \tEnable image processing analysis
-        -f, --screenshot        \tEnable screenshot capturing
-        -E, --awis              \tEnable AWS Alexa Web Information Service (AWIS)
-        -s, --no-down-prevent   \tDisable download prevention mechanism
+        -h, --help                  \tDisplay this help information
+        -V, --version               \tDisplay Thug version
+        -i, --list-ua               \tDisplay available user agents
+        -u, --useragent=            \tSelect a user agent (use option -b for values, default: winxpie60)
+        -e, --events=               \tEnable comma-separated specified DOM events handling
+        -w, --delay=                \tSet a maximum setTimeout/setInterval delay value (in milliseconds)
+        -n, --logdir=               \tSet the log output directory
+        -o, --output=               \tLog to a specified file
+        -r, --referer               \tSpecify a referer
+        -p, --proxy=                \tSpecify a proxy (see below for format and supported schemes)
+        -m, --attachment            \tSet the attachment mode
+        -l, --local                 \tAnalyze a locally saved page
+        -x, --local-nofetch         \tAnalyze a locally saved page and prevent remote content fetching
+        -v, --verbose               \tEnable verbose mode
+        -d, --debug                 \tEnable debug mode
+        -q, --quiet                 \tDisable console logging
+        -g, --http-debug            \tEnable HTTP debug mode
+        -t, --threshold             \tMaximum pages to fetch
+        -j, --extensive             \tExtensive fetch of linked pages
+        -O, --connect-timeout       \tSet the connect timeout (in seconds, default: 10 seconds)
+        -Y, --proxy-connect-timeout \tSet the proxy connect timeout (in seconds, default: 5 seconds)
+        -T, --timeout=              \tSet the analysis timeout (in seconds, default: 600 seconds)
+        -c, --broken-url            \tSet the broken URL mode
+        -z, --web-tracking          \tEnable web client tracking inspection
+        -b, --async-prefetch        \tEnable async prefetching mode
+        -k, --no-honeyagent         \tDisable HoneyAgent support
+        -a, --image-processing      \tEnable image processing analysis
+        -f, --screenshot            \tEnable screenshot capturing
+        -E, --awis                  \tEnable AWS Alexa Web Information Service (AWIS)
+        -s, --no-down-prevent       \tDisable download prevention mechanism
 
         Plugins:
-        -A, --adobepdf=         \tSpecify Adobe Acrobat Reader version (default: 9.1.0)
-        -P, --no-adobepdf       \tDisable Adobe Acrobat Reader plugin
-        -S, --shockwave=        \tSpecify Shockwave Flash version (default: 10.0.64.0)
-        -R, --no-shockwave      \tDisable Shockwave Flash plugin
-        -J, --javaplugin=       \tSpecify JavaPlugin version (default: 1.6.0.32)
-        -K, --no-javaplugin     \tDisable Java plugin
-        -L, --silverlight       \tSpecify SilverLight version (default: 4.0.50826.0)
-        -N, --no-silverlight    \tDisable SilverLight plugin
+        -A, --adobepdf=             \tSpecify Adobe Acrobat Reader version (default: 9.1.0)
+        -P, --no-adobepdf           \tDisable Adobe Acrobat Reader plugin
+        -S, --shockwave=            \tSpecify Shockwave Flash version (default: 10.0.64.0)
+        -R, --no-shockwave          \tDisable Shockwave Flash plugin
+        -J, --javaplugin=           \tSpecify JavaPlugin version (default: 1.6.0.32)
+        -K, --no-javaplugin         \tDisable Java plugin
+        -L, --silverlight           \tSpecify SilverLight version (default: 4.0.50826.0)
+        -N, --no-silverlight        \tDisable SilverLight plugin
 
         Classifiers:
-        --htmlclassifier=       \tSpecify a list of additional (comma separated) HTML classifier rule files
-        --urlclassifier=        \tSpecify a list of additional (comma separated) URL classifier rule files
-        --jsclassifier=         \tSpecify a list of additional (comma separated) JS classifier rule files
-        --vbsclassifier=        \tSpecify a list of additional (comma separated) VBS classifier rule files
-        --sampleclassifier=     \tSpecify a list of additional (comma separated) Sample classifier rule files
-        --textclassifier=       \tSpecify a list of additional (comma separated) Text classifier rule files
-        --cookieclassifier=     \tSpecify a list of additional (comma separated) Cookie classifier rule files
-        --imageclassifier=      \tSpecify a list of additional (comma separated) Image classifier rule files
-        --htmlfilter=           \tSpecify a list of additional (comma separated) HTML filter files
-        --urlfilter=            \tSpecify a list of additional (comma separated) URL filter files
-        --jsfilter=             \tSpecify a list of additional (comma separated) JS filter files
-        --vbsfilter=            \tSpecify a list of additional (comma separated) VBS filter files
-        --samplefilter=         \tSpecify a list of additional (comma separated) Sample filter files
-        --textfilter=           \tSpecify a list of additional (comma separated) Text filter files
-        --cookiefilter=         \tSpecify a list of additional (comma separated) Cookie filter files
-        --imagefilter=          \tSpecify a list of additional (comma separated) Image filter files
+        --htmlclassifier=           \tSpecify a list of additional (comma separated) HTML classifier rule files
+        --urlclassifier=            \tSpecify a list of additional (comma separated) URL classifier rule files
+        --jsclassifier=             \tSpecify a list of additional (comma separated) JS classifier rule files
+        --vbsclassifier=            \tSpecify a list of additional (comma separated) VBS classifier rule files
+        --sampleclassifier=         \tSpecify a list of additional (comma separated) Sample classifier rule files
+        --textclassifier=           \tSpecify a list of additional (comma separated) Text classifier rule files
+        --cookieclassifier=         \tSpecify a list of additional (comma separated) Cookie classifier rule files
+        --imageclassifier=          \tSpecify a list of additional (comma separated) Image classifier rule files
+        --htmlfilter=               \tSpecify a list of additional (comma separated) HTML filter files
+        --urlfilter=                \tSpecify a list of additional (comma separated) URL filter files
+        --jsfilter=                 \tSpecify a list of additional (comma separated) JS filter files
+        --vbsfilter=                \tSpecify a list of additional (comma separated) VBS filter files
+        --samplefilter=             \tSpecify a list of additional (comma separated) Sample filter files
+        --textfilter=               \tSpecify a list of additional (comma separated) Text filter files
+        --cookiefilter=             \tSpecify a list of additional (comma separated) Cookie filter files
+        --imagefilter=              \tSpecify a list of additional (comma separated) Image filter files
 
         Logging:
-        -F, --file-logging      \tEnable file logging mode (default: disabled)
-        -Z, --json-logging      \tEnable JSON logging mode (default: disabled)
-        -W, --features-logging  \tEnable features logging mode (default: disabled)
-        -G, --elasticsearch-logging\tEnable ElasticSearch logging mode (default: disabled)
-        -D, --mongodb-address=  \tSpecify address and port of the MongoDB instance (format: host:port)
-        -Y, --no-code-logging   \tDisable code logging
-        -U, --no-cert-logging   \tDisable SSL/TLS certificate logging
+        -F, --file-logging          \tEnable file logging mode (default: disabled)
+        -Z, --json-logging          \tEnable JSON logging mode (default: disabled)
+        -W, --features-logging      \tEnable features logging mode (default: disabled)
+        -G, --elasticsearch-logging \tEnable ElasticSearch logging mode (default: disabled)
+        -D, --mongodb-address=      \tSpecify address and port of the MongoDB instance (format: host:port)
+        -Y, --no-code-logging       \tDisable code logging
+        -U, --no-cert-logging       \tDisable SSL/TLS certificate logging
 
     Proxy Format:
         scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
@@ -141,7 +142,7 @@ Synopsis:
         try:
             options, args = getopt.getopt(
                 self.args,
-                "hViu:e:w:n:o:r:p:mzbkafEslxvdqgA:PS:RJ:KL:Nt:jO:T:cFZWGYUD:",
+                "hViu:e:w:n:o:r:p:mzbkafEslxvdqgA:PS:RJ:KL:Nt:jO:Y:T:cFZWGYUD:",
                 [
                     "help",
                     "version",
@@ -178,6 +179,7 @@ Synopsis:
                     "threshold=",
                     "extensive",
                     "connect-timeout=",
+                    "proxy-connect-timeout=",
                     "timeout=",
                     "broken-url",
                     "htmlclassifier=",
@@ -367,6 +369,11 @@ Synopsis:
                 "--connect-timeout",
             ):
                 self.set_connect_timeout(option[1])
+            elif option[0] in (
+                "-Y",
+                "--proxy-connect-timeout",
+            ):
+                self.set_proxy_connect_timeout(option[1])
             elif option[0] in (
                 "-T",
                 "--timeout",

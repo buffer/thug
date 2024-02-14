@@ -41,7 +41,9 @@ class HTTPSession:
         self.filecount = 0
 
     def __check_proxy_alive(self, hostname, port):
-        s = socket.create_connection((hostname, port), 5.0)
+        s = socket.create_connection(
+            (hostname, port), timeout=log.ThugOpts.proxy_connect_timeout
+        )
         s.close()
 
     def __do_init_proxy(self, proxy):
