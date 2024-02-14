@@ -202,6 +202,12 @@ class TestThugAPI:
         self.thug_api.set_connect_timeout(20)
         assert self.thug_api.get_connect_timeout() in (20,)
 
+    def test_proxy_connect_timeout(self):
+        assert self.thug_api.get_proxy_connect_timeout() in (5,)
+
+        self.thug_api.set_proxy_connect_timeout(10)
+        assert self.thug_api.get_proxy_connect_timeout() in (10,)
+
     def test_broken_url(self):
         assert not self.thug_api.get_broken_url()
 

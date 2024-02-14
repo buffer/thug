@@ -44,6 +44,7 @@ class ThugOpts(dict):
         self.extensive = False
         self._threshold = 0
         self._connect_timeout = 10
+        self._proxy_connect_timeout = 5
         self._timeout = 600
         self.ast_debug = False
         self.http_debug = 0
@@ -280,6 +281,24 @@ class ThugOpts(dict):
         self._connect_timeout = seconds
 
     connect_timeout = property(get_connect_timeout, set_connect_timeout)
+
+    def get_proxy_connect_timeout(self):
+        return self._proxy_connect_timeout
+
+    def set_proxy_connect_timeout(self, timeout):
+        try:
+            seconds = int(timeout)
+        except ValueError:
+            log.warning(
+                "[WARNING] Ignoring invalid proxy connect timeout value (should be an integer)"
+            )
+            return
+
+        self._proxy_connect_timeout = seconds
+
+    proxy_connect_timeout = property(
+        get_proxy_connect_timeout, set_proxy_connect_timeout
+    )
 
     def get_timeout(self):
         return self._timeout
