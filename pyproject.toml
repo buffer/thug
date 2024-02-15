@@ -57,7 +57,7 @@ dependencies = [
     "setuptools>=65.5.1",
     "ssdeep==3.4",
     "stpyv8==12.1.285.28",
-    "yara-python==4.4.0",
+    "yara-python==4.5.0",
     "zope.interface==6.1",
 
     # Conditional
