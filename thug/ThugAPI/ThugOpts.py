@@ -31,6 +31,7 @@ class ThugOpts(dict):
         "http",
         "socks4",
         "socks5",
+        "socks5h",
     )
 
     def __init__(self):
@@ -98,7 +99,7 @@ class ThugOpts(dict):
 
         if p.scheme.lower() not in self.proxy_schemes:
             log.warning(
-                "[ERROR] Invalid proxy scheme (valid schemes: http, socks4, socks5)"
+                "[ERROR] Invalid proxy scheme (valid schemes: http, socks4, socks5, socks5h)"
             )
             sys.exit(0)
 

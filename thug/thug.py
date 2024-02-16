@@ -113,7 +113,7 @@ Synopsis:
         -U, --no-cert-logging       \tDisable SSL/TLS certificate logging
 
     Proxy Format:
-        scheme://[username:password@]host:port (supported schemes: http, socks4, socks5)
+        scheme://[username:password@]host:port (supported schemes: http, socks4, socks5, socks5h)
 """
 
         print(msg)
