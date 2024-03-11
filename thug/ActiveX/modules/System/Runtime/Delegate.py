@@ -10,5 +10,5 @@ class Delegate:
         self.code = code
 
     def DynamicInvoke(self, args):
-        log.warning(self.code.decode())
+        # log.warning(self.code.decode())
         return Activator(self)
