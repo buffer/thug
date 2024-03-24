@@ -16,6 +16,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
 
+import io
+
 from .modules import AcroPDF
 from .modules import AdodbRecordset
 from .modules import AdodbStream
@@ -94,6 +96,7 @@ from .modules import StormConfig
 from .modules import StormMps
 from .modules import SymantecAppStream
 from .modules import SymantecBackupExec
+from .modules import System
 from .modules import StreamAudioChainCast
 from .modules import Toshiba
 from .modules import UniversalUpload
@@ -1286,6 +1289,63 @@ CLSID = [
             "Set_DOWText6": SymantecBackupExec.Set_DOWText6,
             "Set_MonthText0": SymantecBackupExec.Set_MonthText0,
             "Set_MonthText11": SymantecBackupExec.Set_MonthText11,
+        },
+    },
+    # System.Collections.ArrayList
+    {
+        "id": (),
+        "name": ("system.collections.arraylist",),
+        "attrs": {
+            "arraylist": [],
+        },
+        "funcattrs": {},
+        "methods": {
+            "Add": System.Collections.ArrayList.Add,
+            "ToArray": System.Collections.ArrayList.ToArray,
+        },
+    },
+    # System.IO.MemoryStream
+    {
+        "id": (),
+        "name": ("system.io.memorystream",),
+        "attrs": {
+            "stream": io.BytesIO(),
+            "Position": 0,
+        },
+        "funcattrs": {},
+        "methods": {
+            "Write": System.IO.MemoryStream.Write,
+        },
+    },
+    # System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+    {
+        "id": (),
+        "name": ("system.runtime.serialization.formatters.binary.binaryformatter",),
+        "attrs": {},
+        "funcattrs": {},
+        "methods": {
+            "Deserialize_2": System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize_2,
+        },
+    },
+    # System.Security.Cryptography.FromBase64Transform
+    {
+        "id": (),
+        "name": ("system.security.cryptography.frombase64transform",),
+        "attrs": {},
+        "funcattrs": {},
+        "methods": {
+            "TransformFinalBlock": System.Security.Cryptography.FromBase64Transform.TransformFinalBlock,
+        },
+    },
+    # System.Text.ASCIIEncoding
+    {
+        "id": (),
+        "name": ("system.text.asciiencoding",),
+        "attrs": {},
+        "funcattrs": {},
+        "methods": {
+            "GetByteCount_2": System.Text.ASCIIEncoding.GetByteCount_2,
+            "GetBytes_4": System.Text.ASCIIEncoding.GetBytes_4,
         },
     },
     # StreamAudioChainCast
