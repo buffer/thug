@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" Thug Control
+"""Thug Control
 
 Send commands to Thug
 
