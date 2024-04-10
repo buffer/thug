@@ -108,24 +108,22 @@ Starting from Thug 0.8.0, Thug is installable through pip with the following pro
 
 .. code-block:: sh
 
-	# pip install thug
+	pip install thug
 
 If you experience issues related to ssdeep while installing Thug as shown before, try
 the following command before reporting the issue
 
 .. code-block:: sh
 
-     # export BUILD_LIB=1
-     # pip install thug
+     export BUILD_LIB=1
+     pip install thug
 
 Alternatively you can clone the Thug repository and execute
 
 .. code-block:: sh
 
     $ cd thug
-    $ python setup.py build
-    $ sudo python setup.py install
-
+    $ pip install .
 
 The procedure will install the dependencies not already mentioned in the previous sections so you
 should take care of installing them before actually installing Thug.
