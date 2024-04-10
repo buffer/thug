@@ -15,7 +15,7 @@ class TestEncoding:
         assert result["encoding"] in ("ascii",)
 
     def test_utf8_bom(self):
-        result = encoding.detect(b"\xEF\xBB\xBF")
+        result = encoding.detect(b"\xef\xbb\xbf")
         assert result["encoding"] in ("UTF-8-SIG",)
 
     def test_unicode_utf8(self):

@@ -57,8 +57,9 @@ class TestMongoDB:
     con_method = "iframe"
 
     # Creating a MongoDB object for all the test methods.
-    with patch(pymongo.__name__ + ".MongoClient", new=mongomock.MongoClient), patch(
-        "gridfs.Database", new=mongomock.database.Database
+    with (
+        patch(pymongo.__name__ + ".MongoClient", new=mongomock.MongoClient),
+        patch("gridfs.Database", new=mongomock.database.Database),
     ):
         log.ThugOpts.mongodb_address = "mongodb://localhost:123"
         mongo = MongoDB()
