@@ -5,6 +5,8 @@ log = logging.getLogger("Thug")
 
 
 def Write(self, buffer, offset=0, count=-1):
+    log.ThugLogging.add_behavior_warn("[System.IO.MemoryStream] Write")
+
     buflen = count if count > -1 else len(buffer)
     bufdat = buffer[: buflen - 1]
 
