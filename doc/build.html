@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Build and Install &mdash; Thug 6.0 documentation</title>
+  <title>Build and Install &mdash; Thug 6.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="static/jquery.js?v=5d32c60e"></script>
         <script src="static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="static/documentation_options.js?v=7cffc26f"></script>
+        <script src="static/documentation_options.js?v=24f65cd1"></script>
         <script src="static/doctools.js?v=888ff710"></script>
         <script src="static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="static/js/theme.js"></script>
@@ -37,7 +37,7 @@
             Thug
           </a>
               <div class="version">
-                6.0
+                6.5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -52,7 +52,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Build and Install</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#python">Python</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#boost">Boost</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#google-v8">Google V8</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#graphviz-pygraphviz-optional">Graphviz/PyGraphviz (optional)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mongodb-optional">MongoDB (optional)</a></li>
@@ -104,12 +103,11 @@
 <p>Python 3.9+ is required in order to properly run Thug. You may be lucky running it with
 previous versions but please consider such versions are not supported. Please do not
 report issues in such case. Python source code can be downloaded at <a class="reference external" href="http://www.python.org">http://www.python.org</a>.</p>
-</section>
-<section id="boost">
-<h3>Boost<a class="headerlink" href="#boost" title="Link to this heading"></a></h3>
-<p>Boost provides free peer-reviewed portable C++ source libraries. Boost homepage is
-located at <a class="reference external" href="http://www.boost.org/">http://www.boost.org/</a>.</p>
-<p>Packages for most Linux distributions are available.</p>
+<p><strong>Python support</strong></p>
+<p><strong>Thug 0.10.6 is the last version supporting Python 2.7</strong></p>
+<p><strong>Thug 3.1 is the last version supporting Python 3.6</strong></p>
+<p><strong>Thug 3.9 is the last version supporting Python 3.7</strong></p>
+<p><strong>Thug 5.7 is the last version supporting Python 3.8</strong></p>
 </section>
 <section id="google-v8">
 <h3>Google V8<a class="headerlink" href="#google-v8" title="Link to this heading"></a></h3>
@@ -118,24 +116,14 @@ in C++. It is used in Chrome and in Node.js, among others. It implements ECMAScr
 WebAssembly, and runs on Windows 7 or later, macOS 10.12+, and Linux systems that use
 x64, IA-32, ARM, or MIPS processors. V8 can run standalone, or can be embedded into any
 C++ application.</p>
-<p><strong>Python 3</strong></p>
-<p><strong>Thug 0.10.6 is the last version supporting Python 2.7</strong></p>
-<p><strong>Thug 3.1 is the last version supporting Python 3.6</strong></p>
-<p><strong>Thug 3.9 is the last version supporting Python 3.7</strong></p>
-<p><strong>Thug 5.7 is the last version supporting Python 3.8</strong></p>
-<p>More recent versions support just Python 3.9+. If you are installing a recent Thug version
-(and you should really do that) you have to install STPyV8 (<a class="reference external" href="https://github.com/area1/stpyv8/">https://github.com/area1/stpyv8/</a>).</p>
-<p>STPyV8 is a Python/C++ wrapper that allows interoperability between Python 3 and
-JavaScript running Google’s V8 engine. STPyV8 is a fork of the original PyV8 project,
-with code changed to work with the latest V8 engine and Python 3. STPyV8 links with
-Google V8 built as a static library. Currently the library builds on Linux and MacOS,
-with Windows planned for the future.</p>
-<p>GCC/clang or equivalent and Python3 headers are needed to build the main STPyV8 source
-code, as well as Boost-Python and some other Boost dependencies.</p>
-<p>Please look at <a class="reference external" href="https://github.com/area1/stpyv8/blob/master/docs/source/build.rst">https://github.com/area1/stpyv8/blob/master/docs/source/build.rst</a> for
-detailed building instructions. Moreover be aware that Python wheels are available for
-the Linux platform at <a class="reference external" href="https://github.com/area1/stpyv8/releases">https://github.com/area1/stpyv8/releases</a> for different versions
-of Python.</p>
+<p>STPyV8 (<a class="reference external" href="https://github.com/cloudflare/stpyv8/">https://github.com/cloudflare/stpyv8/</a>) is a Python/C++ wrapper that allows
+interoperability between Python 3 and JavaScript running Google’s V8 engine. STPyV8 is a
+fork of the original PyV8 project, with code changed to work with the latest V8 engine and
+Python 3. STPyV8 links with Google V8 built as a static library. Currently the library
+builds on Linux, MacOS and Microsoft Windows.</p>
+<p>Recent Thug versions support just Python 3.9+. If you are installing a recent Thug version
+(and you should really do that) you’ll end up installing STPyV8 with no further action
+required.</p>
 <p><strong>Python 2 (DEPRECATED)</strong></p>
 <p>If you have some very good reasons to avoid moving to Python 3 be aware that Thug 0.10.6
 is the last version supporting Python 2.7. In such case you have to install PyV8. Please
@@ -158,7 +146,10 @@ has important applications in networking, bioinformatics, software engineering, 
 and web design, machine learning, and in visual interfaces for other technical domains.</p>
 <p>Packages for most Linux distributions are available.</p>
 <p>PyGraphviz is needed just if you need analysis network graphs generation otherwise you
-can safely live without it.</p>
+can safely live without it. In order to install PyGraphviz just run</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;thug[exploitgraph]&#39;</span>
+</pre></div>
+</div>
 </section>
 <section id="mongodb-optional">
 <h3>MongoDB (optional)<a class="headerlink" href="#mongodb-optional" title="Link to this heading"></a></h3>
@@ -176,19 +167,18 @@ with Thug distributed mode.</p>
 <section id="thug-installation">
 <h2>Thug installation<a class="headerlink" href="#thug-installation" title="Link to this heading"></a></h2>
 <p>Starting from Thug 0.8.0, Thug is installable through pip with the following procedure</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># pip install thug</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>thug
 </pre></div>
 </div>
 <p>If you experience issues related to ssdeep while installing Thug as shown before, try
 the following command before reporting the issue</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># export BUILD_LIB=1</span>
-<span class="c1"># pip install thug</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">BUILD_LIB</span><span class="o">=</span><span class="m">1</span>
+pip<span class="w"> </span>install<span class="w"> </span>thug
 </pre></div>
 </div>
 <p>Alternatively you can clone the Thug repository and execute</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>thug
-$<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span>build
-$<span class="w"> </span>sudo<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span>install
+$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
 <p>The procedure will install the dependencies not already mentioned in the previous sections so you

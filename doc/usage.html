@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; Thug 6.0 documentation</title>
+  <title>Usage &mdash; Thug 6.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="static/jquery.js?v=5d32c60e"></script>
         <script src="static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="static/documentation_options.js?v=7cffc26f"></script>
+        <script src="static/documentation_options.js?v=24f65cd1"></script>
         <script src="static/doctools.js?v=888ff710"></script>
         <script src="static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="static/js/theme.js"></script>
@@ -37,7 +37,7 @@
             Thug
           </a>
               <div class="version">
-                6.0
+                6.5
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -170,7 +170,7 @@ Options:
 <span class="w">    </span>-U,<span class="w"> </span>--no-cert-logging<span class="w">           </span>Disable<span class="w"> </span>SSL/TLS<span class="w"> </span>certificate<span class="w"> </span>logging
 
 Proxy<span class="w"> </span>Format:
-<span class="w">    </span>scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port<span class="w"> </span><span class="o">(</span>supported<span class="w"> </span>schemes:<span class="w"> </span>http,<span class="w"> </span>socks4,<span class="w"> </span>socks5<span class="o">)</span>
+<span class="w">    </span>scheme://<span class="o">[</span>username:password@<span class="o">]</span>host:port<span class="w"> </span><span class="o">(</span>supported<span class="w"> </span>schemes:<span class="w"> </span>http,<span class="w"> </span>socks4,<span class="w"> </span>socks5,<span class="w"> </span>socks5h<span class="o">)</span>
 </pre></div>
 </div>
 <p>Before diving deep into details let’s take a look at the available personalities</p>
@@ -725,10 +725,10 @@ a look at what happens if we locally analyze PluginDetect (see Local Analysis la
 <section id="proxy-support">
 <h2>Proxy support<a class="headerlink" href="#proxy-support" title="Link to this heading"></a></h2>
 <p>Another really useful option is <em>-p (–proxy)</em> which allows to specify a proxy. Currently Thug
-supports HTTP, SOCKS4 and SOCKS5 proxy using the following format</p>
+supports HTTP, SOCKS4, SOCKS5 and SOCKS5H proxy using the following format</p>
 <blockquote>
 <div><p>scheme://[username:password&#64;]host:port
-(supported schemes: http, socks4, socks5)</p>
+(supported schemes: http, socks4, socks5, socks5h)</p>
 </div></blockquote>
 <p>This option allows Thug to make use of Tor in order to anonymize the access to a malicious
 page. The trick is quite simple and requires a Tor instance up and running. Simply run Thug

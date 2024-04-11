@@ -13,14 +13,15 @@ Python 3.9+ is required in order to properly run Thug. You may be lucky running 
 previous versions but please consider such versions are not supported. Please do not
 report issues in such case. Python source code can be downloaded at http://www.python.org.
 
+**Python support**
 
-Boost
-^^^^^
+**Thug 0.10.6 is the last version supporting Python 2.7**
 
-Boost provides free peer-reviewed portable C++ source libraries. Boost homepage is
-located at http://www.boost.org/.
+**Thug 3.1 is the last version supporting Python 3.6**
 
-Packages for most Linux distributions are available.
+**Thug 3.9 is the last version supporting Python 3.7**
+
+**Thug 5.7 is the last version supporting Python 3.8**
 
 
 Google V8
@@ -32,33 +33,15 @@ WebAssembly, and runs on Windows 7 or later, macOS 10.12+, and Linux systems tha
 x64, IA-32, ARM, or MIPS processors. V8 can run standalone, or can be embedded into any
 C++ application.
 
+STPyV8 (https://github.com/cloudflare/stpyv8/) is a Python/C++ wrapper that allows
+interoperability between Python 3 and JavaScript running Google's V8 engine. STPyV8 is a
+fork of the original PyV8 project, with code changed to work with the latest V8 engine and
+Python 3. STPyV8 links with Google V8 built as a static library. Currently the library
+builds on Linux, MacOS and Microsoft Windows.
 
-**Python 3**
-
-**Thug 0.10.6 is the last version supporting Python 2.7**
-
-**Thug 3.1 is the last version supporting Python 3.6**
-
-**Thug 3.9 is the last version supporting Python 3.7**
-
-**Thug 5.7 is the last version supporting Python 3.8**
-
-More recent versions support just Python 3.9+. If you are installing a recent Thug version
-(and you should really do that) you have to install STPyV8 (https://github.com/area1/stpyv8/).
-
-STPyV8 is a Python/C++ wrapper that allows interoperability between Python 3 and
-JavaScript running Google's V8 engine. STPyV8 is a fork of the original PyV8 project,
-with code changed to work with the latest V8 engine and Python 3. STPyV8 links with
-Google V8 built as a static library. Currently the library builds on Linux and MacOS,
-with Windows planned for the future.
-
-GCC/clang or equivalent and Python3 headers are needed to build the main STPyV8 source
-code, as well as Boost-Python and some other Boost dependencies.
-
-Please look at https://github.com/area1/stpyv8/blob/master/docs/source/build.rst for
-detailed building instructions. Moreover be aware that Python wheels are available for
-the Linux platform at https://github.com/area1/stpyv8/releases for different versions
-of Python.
+Recent Thug versions support just Python 3.9+. If you are installing a recent Thug version
+(and you should really do that) you'll end up installing STPyV8 with no further action
+required.
 
 
 **Python 2 (DEPRECATED)**
@@ -91,7 +74,12 @@ and web design, machine learning, and in visual interfaces for other technical d
 Packages for most Linux distributions are available.
 
 PyGraphviz is needed just if you need analysis network graphs generation otherwise you
-can safely live without it.
+can safely live without it. In order to install PyGraphviz just run
+
+
+.. code-block:: sh
+
+        $ pip install 'thug[exploitgraph]'
 
 
 MongoDB (optional)
@@ -120,24 +108,22 @@ Starting from Thug 0.8.0, Thug is installable through pip with the following pro
 
 .. code-block:: sh
 
-	# pip install thug
+	pip install thug
 
 If you experience issues related to ssdeep while installing Thug as shown before, try
 the following command before reporting the issue
 
 .. code-block:: sh
 
-     # export BUILD_LIB=1
-     # pip install thug
+     export BUILD_LIB=1
+     pip install thug
 
 Alternatively you can clone the Thug repository and execute
 
 .. code-block:: sh
 
     $ cd thug
-    $ python setup.py build
-    $ sudo python setup.py install
-
+    $ pip install .
 
 The procedure will install the dependencies not already mentioned in the previous sections so you
 should take care of installing them before actually installing Thug.
