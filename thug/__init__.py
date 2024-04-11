@@ -3,7 +3,7 @@ import importlib.resources
 
 import appdirs
 
-__version__ = "6.4"
+__version__ = "6.5"
 __jsengine__ = ""
 __jsengine_version__ = ""
 
