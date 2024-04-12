@@ -3,8 +3,6 @@ name: Publish Python distribution to PyPI
 on:
   release:
     types: [published]
-    branches:
-      - master
 
 jobs:
   build:
