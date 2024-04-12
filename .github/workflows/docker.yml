@@ -1,11 +1,8 @@
 name: Docker
 
 on:
-  push:
   release:
     types: [published]
-    branches:
-      - master
 
 jobs:
   docker-build:
