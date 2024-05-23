@@ -60,7 +60,7 @@ dependencies = [
     "ssdeep==3.4",
     "stpyv8==12.5.227.8",
     "yara-python==4.5.0",
-    "zope.interface==6.4.post0",
+    "zope.interface==6.4.post1",
 ]
 keywords = [
     "honeyclient",
