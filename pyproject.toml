@@ -54,7 +54,7 @@ dependencies = [
     "pysocks==1.7.1",
     "python-magic==0.4.27",
     "rarfile==4.2",
-    "requests==2.32.2",
+    "requests==2.32.3",
     "requests-futures==1.0.1",
     "setuptools>=65.5.1",
     "ssdeep==3.4",
