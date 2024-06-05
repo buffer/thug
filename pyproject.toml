@@ -39,7 +39,7 @@ dependencies = [
     "appdirs==1.4.4",
     "beautifulsoup4==4.12.3",
     "charset-normalizer==3.3.2",
-    "cssutils==2.11.0",
+    "cssutils==2.11.1",
     "dhash==1.4",
     "html5lib==1.1",
     "importlib-resources==6.0.1; python_version < '3.9'",
