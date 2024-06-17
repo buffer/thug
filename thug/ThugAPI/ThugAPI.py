@@ -499,7 +499,7 @@ class ThugAPI:
             if not content.lstrip().startswith("<script"):
                 html = tostring(E.HTML(E.HEAD(), E.BODY(E.SCRIPT(content))))
             else:
-                soup = bs4.BeautifulSoup(content, "html.parser")
+                soup = bs4.BeautifulSoup(content, "html5lib")
 
                 try:
                     soup.html.unwrap()
