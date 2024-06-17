@@ -45,4 +45,4 @@ class TestAsyncPrefetch:
         expected = [
             "PREFETCHING",
         ]
-        self.do_perform_test(caplog, "https://www.verizon.com", expected)
+        self.do_perform_test(caplog, "https://buffer.antifork.org", expected)
