@@ -20,7 +20,7 @@ class TestAsyncPrefetch:
         thug.enable_download_prevent()
         thug.set_features_logging()
         thug.set_log_verbose()
-        # thug.set_ssl_verify()
+        thug.set_ssl_verify()
         thug.get_async_prefetch()
         thug.reset_async_prefetch()
         thug.get_async_prefetch()

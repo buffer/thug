@@ -24,9 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew install git automake autoconf libtool
-          # Graphviz installation is temporarily disabled because
-          # of some of its dependencies breaking the workflow
-          # brew install graphviz 
+          brew install graphviz
           brew install tesseract libmagic
           brew install --cask wkhtmltopdf
           ln -s $(which glibtoolize) /usr/local/bin/libtoolize
