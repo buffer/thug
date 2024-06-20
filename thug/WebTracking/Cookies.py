@@ -38,7 +38,7 @@ class Cookies:
 
         expires = datetime.datetime.fromtimestamp(cookie.expires)
         if self.now + self.cookie_expires_delta < expires:
-            log.warning(
+            log.warning( # pragma: no cover
                 "[TRACKING] [Cookie #%s] Expiring at %s (more than %s days from now)",
                 self.cookie_id,
                 expires,

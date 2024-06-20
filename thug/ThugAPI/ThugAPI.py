@@ -503,17 +503,17 @@ class ThugAPI:
 
                 try:
                     soup.html.unwrap()
-                except AttributeError:
+                except AttributeError: # pragma: no cover
                     pass
 
                 try:
                     soup.head.unwrap()
-                except AttributeError:
+                except AttributeError: # pragma: no cover
                     pass
 
                 try:
                     soup.body.unwrap()
-                except AttributeError:
+                except AttributeError: # pragma: no cover
                     pass
 
                 code = soup.script.get_text(types=(NavigableString, CData, Script))
