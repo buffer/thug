@@ -458,7 +458,7 @@ class TestMiscSamplesIE(object):
 
     def test_testFormSubmit(self, caplog):
         sample = os.path.join(self.misc_path, "testFormSubmit.html")
-        expected = ["[form redirection] about:blank -> https://www.bing.com"]
+        expected = ["[form redirection] about:blank -> https://www.antifork.org"]
         self.do_perform_test(caplog, sample, expected)
 
     def test_testCCInterpreter(self, caplog):
