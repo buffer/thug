@@ -50,8 +50,8 @@ class TestWebTracking(object):
         self.do_perform_test(caplog, sample, expected, "local")
 
     def test_cookie_1(self, caplog):
-        expected = ["Domain starting with initial dot: .bing.com", "Secure flag set"]
-        self.do_perform_test(caplog, "https://www.bing.com", expected)
+        expected = ["Domain starting with initial dot: .youtube.com", "Secure flag set"]
+        self.do_perform_test(caplog, "https://www.youtube.com", expected)
 
     def test_cookie_2(self, caplog):
         expected = []
