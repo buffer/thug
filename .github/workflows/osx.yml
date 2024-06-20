@@ -24,8 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew install git automake autoconf libtool
-          brew install graphviz
-          brew install tesseract libmagic
+          brew install graphviz tesseract libmagic
           brew install --cask wkhtmltopdf
           ln -s $(which glibtoolize) /usr/local/bin/libtoolize
           pip install --upgrade pip setuptools wheel tox tox-gh-actions appdirs
