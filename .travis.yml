@@ -1,0 +1,54 @@
+language: python
+dist: focal
+os: linux
+
+jobs:
+  include:
+    - name: "Build and test Thug (Python 3.9)"
+      python: 3.9
+    - name: "Build and test Thug (Python 3.10)"
+      python: 3.10
+    - name: "Build and test Thug (Python 3.11)"
+      python: 3.11
+    - name: "Build and test Thug (Python 3.12)"
+      python: 3.12
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y python3 python3-dev python-is-python3
+  - sudo apt-get install -y build-essential clang systemtap-sdt-dev
+  - sudo apt-get install -y libfuzzy-dev graphviz libgraphviz-dev tesseract-ocr unrar xfonts-base xfonts-75dpi
+  - wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.bionic_amd64.deb
+  - sudo dpkg -i wkhtmltox_0.12.6-1.bionic_amd64.deb
+
+install:
+  - git clone https://github.com/buffer/libemu.git
+  - cd libemu
+  - autoreconf -v -i
+  - ./configure
+  - sudo make install
+  - cd -
+  - sudo ldconfig
+
+  - pip install --upgrade pip
+  - pip install tox tox-gh-actions
+  - pip install appdirs
+
+  - sudo mkdir -p /etc/thug/
+  - sudo cp -R thug/conf/* /etc/thug/
+
+before_script:
+  - sudo swapoff -a
+  - sudo sysctl -w vm.swappiness=1
+  - sudo sysctl -w fs.file-max=262144
+  - sudo sysctl -w vm.max_map_count=262144
+
+  - wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.8.0-linux-x86_64.tar.gz
+  - tar -xzf elasticsearch-8.8.0-linux-x86_64.tar.gz
+  - elasticsearch-8.8.0/bin/elasticsearch -d
+
+script:
+  - tox
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
