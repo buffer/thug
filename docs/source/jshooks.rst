@@ -22,7 +22,7 @@ if you have to execute more than nine hooks).
 Let's take a look at an example. We will make use of the following simple page and overwrite the 
 eval method. 
 
-.. code-block:: javascript
+.. code-block:: html
 
     <!DOCTYPE html>
     <html>
@@ -33,7 +33,7 @@ eval method.
         alert(myVar);
         </script>
     </body>
-    </html
+    </html>
 
 
 Let's run Thug against it

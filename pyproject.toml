@@ -87,6 +87,11 @@ shellcode = [
     "speakeasy-emulator",
 ]
 
+documentation = [
+    "sphinx",
+    "python-docs-theme",
+]
+
 test = [
     "thug[elasticsearch,exploitgraph,image,shellcode]",
     "mock",
