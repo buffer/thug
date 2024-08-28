@@ -46,7 +46,7 @@ dependencies = [
     "lxml==5.3.0",
     "networkx==3.2.1; python_version < '3.10'",
     "networkx==3.3; python_version > '3.9'",
-    "pefile==2023.2.7",
+    "pefile==2024.8.26",
     "pillow==10.4.0",
     "promise==2.3",
     "pylibemu==1.0",
@@ -60,7 +60,7 @@ dependencies = [
     "ssdeep==3.4",
     "stpyv8==12.7.224.18",
     "yara-python==4.5.1",
-    "zope.interface==7.0.1",
+    "zope.interface==7.0.3",
 ]
 keywords = [
     "honeyclient",
