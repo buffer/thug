@@ -38,14 +38,14 @@ classifiers = [
 dependencies = [
     "appdirs==1.4.4",
     "beautifulsoup4==4.12.3",
-    "charset-normalizer==3.3.2",
+    "charset-normalizer==3.4.0",
     "cssutils==2.11.1",
     "dhash==1.4",
     "html5lib==1.1",
     "importlib-resources==6.0.1; python_version < '3.9'",
     "lxml==5.3.0",
     "networkx==3.2.1; python_version < '3.10'",
-    "networkx==3.3; python_version > '3.9'",
+    "networkx==3.4; python_version > '3.9'",
     "pefile==2024.8.26",
     "pillow==10.4.0",
     "promise==2.3",
@@ -60,7 +60,7 @@ dependencies = [
     "ssdeep==3.4",
     "stpyv8==12.7.224.18",
     "yara-python==4.5.1",
-    "zope.interface==7.0.3",
+    "zope.interface==7.1.0",
 ]
 keywords = [
     "honeyclient",
