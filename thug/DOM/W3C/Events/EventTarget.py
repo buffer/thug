@@ -178,7 +178,7 @@ class EventTarget:
             ):
                 listener()
             else:
-                listener(evtObject.currentTarget)
+                listener.apply(evtObject.currentTarget)
 
     def do_dispatch(self, c, evtObject):
         try:
