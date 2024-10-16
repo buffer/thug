@@ -194,7 +194,7 @@ class DFT:
             self.window.event = evtObject
             handler()
         else:
-            handler.apply(evtObject.currentTarget)
+            handler(evtObject.currentTarget)
 
     def handle_window_event(self, onevt):
         if onevt not in self.handled_on_events:
