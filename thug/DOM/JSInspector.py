@@ -115,10 +115,10 @@ class JSInspector:
         try:
             result = self.ctxt.eval(self.script)
         except (UnicodeDecodeError, TypeError):
-            if "\\u" in self.script:
+            if "\\u" in self.script:  # pragma: no cover
                 try:
                     result = self.ctxt.eval(self.script.replace("\\u", "%u"))
-                except Exception as e:  # pragma: no cover,pylint:disable=broad-except
+                except Exception as e:  # pylint:disable=broad-except
                     log.warning("[JSInspector] %s", str(e))
         except SyntaxError:
             try:
