@@ -123,7 +123,7 @@ class JSInspector:
         except SyntaxError:
             try:
                 result = self.ctxt.eval(ast.literal_eval(f"'{self.script}'"))
-            except Exception as e:  # pragma: no cover,pylint:disable=broad-except
+            except Exception as e:  # pylint:disable=broad-except
                 log.warning("[JSInspector] %s", str(e))
         except Exception as e:  # pragma: no cover,pylint:disable=broad-except
             log.warning("[JSInspector] %s", str(e))
