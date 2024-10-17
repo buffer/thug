@@ -96,7 +96,7 @@ class SampleLogging:
 
         data = data.encode() if isinstance(data, str) else data
 
-        fd, jar = tempfile.mkstemp()
+        _, jar = tempfile.mkstemp()
         with open(jar, "wb") as fd:
             fd.write(data)
 
