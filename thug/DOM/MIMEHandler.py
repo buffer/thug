@@ -310,15 +310,13 @@ class MIMEHandler(dict):
 
     def handle_image(self, url, content):
         if not log.ThugOpts.image_processing:
-            return False
+            return False  # pragma: no cover
 
-        if (
-            not self.image_ocr_enabled and not self.image_hook_enabled
-        ):  # pragma: no cover
-            return False
+        if not self.image_ocr_enabled and not self.image_hook_enabled:
+            return False  # pragma: no cover
 
-        if len(content) < self.MIN_IMG_FILE_SIZE:  # pragma: no cover
-            return False
+        if len(content) < self.MIN_IMG_FILE_SIZE:
+            return False  # pragma: no cover
 
         if self.image_ocr_enabled:
             self.perform_ocr_analysis(url, content)
@@ -430,7 +428,7 @@ class MIMEHandler(dict):
         if len(content) > self.MAX_RAR_FILE_SIZE:  # pragma: no cover
             return False
 
-        fd, rfile = tempfile.mkstemp()
+        _, rfile = tempfile.mkstemp()
         with open(rfile, "wb") as fd:
             fd.write(content)
 
