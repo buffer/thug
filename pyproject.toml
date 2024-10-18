@@ -33,6 +33,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Security",
 ]
 dependencies = [
@@ -58,7 +59,7 @@ dependencies = [
     "requests-futures==1.0.1",
     "setuptools>=65.5.1",
     "ssdeep==3.4",
-    "stpyv8==12.9.202.27",
+    "stpyv8==13.0.245.16",
     "yara-python==4.5.1",
     "zope.interface==7.1.0",
 ]
