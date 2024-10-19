@@ -21,6 +21,7 @@ import errno
 import hashlib
 import logging
 import datetime
+import tempfile
 
 log = logging.getLogger("Thug")
 
@@ -44,11 +45,15 @@ class BaseLogging:
         m = hashlib.md5()  # nosec
         m.update(url.encode("utf8"))
 
+        cwd = os.getcwd()
+
         base = os.getenv(
-            "THUG_LOGBASE", os.pardir if os.access(os.pardir, os.W_OK) else "/tmp/thug"
-        )  # nosec
+            "THUG_LOGBASE",
+            cwd if os.access(cwd, os.W_OK) else tempfile.mkdtemp(),
+        )
+
         self.baseDir = os.path.join(
-            base, "logs", m.hexdigest(), t.strftime("%Y%m%d%H%M%S")
+            base, "thug-logs", m.hexdigest(), t.strftime("%Y%m%d%H%M%S")
         )
 
         if not log.ThugOpts.file_logging:
