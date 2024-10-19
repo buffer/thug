@@ -67,7 +67,7 @@ class BaseLogging:
             else:  # pragma: no cover
                 raise
 
-        thug_csv = os.path.join(base, "logs", "thug.csv")
+        thug_csv = os.path.join(base, "thug-logs", "thug.csv")
         csv_line = f"{m.hexdigest()},{url}\n"
 
         if os.path.exists(thug_csv):
