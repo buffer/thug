@@ -54,6 +54,8 @@ log = logging.getLogger("Thug")
 
 
 class Window(JSClass):
+    __symbols__ = set()
+
     class Timer:
         max_loops = 3
         max_timers = 16
@@ -133,6 +135,8 @@ class Window(JSClass):
         top=None,
         **kwds,
     ):
+        self._top = top if top else self
+
         self.url = url
 
         self.doc = (
@@ -167,7 +171,6 @@ class Window(JSClass):
 
         self.name = name
         self._left = left
-        self._top = top if top else self
         self._screen_top = random.randint(0, 30)
         self.innerWidth = width
         self.innerHeight = height
@@ -176,15 +179,13 @@ class Window(JSClass):
         self.timers = []
         self.java = java()
 
-        self._symbols = set()
-
         log.MIMEHandler.window = self
 
     def __getattr__(self, key):
-        if key in self._symbols:
+        if key in ("__members__", "__methods__", "__symbols__"):
             raise AttributeError(key)
 
-        if key in ("__members__", "__methods__"):
+        if key in self.__symbols__:
             raise AttributeError(key)
 
         if key == "constructor":
@@ -218,12 +219,12 @@ class Window(JSClass):
         context = self.__class__.__dict__["context"].__get__(self, Window)
 
         try:
-            self._symbols.add(key)
+            self.__symbols__.add(key)
             symbol = context.eval(key)
         except Exception as e:
             raise AttributeError(key) from e
         finally:
-            self._symbols.discard(key)
+            self.__symbols__.discard(key)
 
         if log.JSEngine.isJSFunction(symbol):  # pragma: no cover
             _method = None
