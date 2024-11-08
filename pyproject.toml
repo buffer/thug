@@ -51,7 +51,7 @@ dependencies = [
     "pillow==11.0.0",
     "promise==2.3",
     "pylibemu==1.0",
-    "pymongo==4.8.0",
+    "pymongo==4.10.1",
     "pysocks==1.7.1",
     "python-magic==0.4.27",
     "rarfile==4.2",
@@ -96,7 +96,6 @@ documentation = [
 test = [
     "thug[elasticsearch,exploitgraph,image,shellcode]",
     "mock",
-    "mongomock",
     "pydantic>=2.9.2",
     "pre-commit",
     "pytest",

@@ -62,11 +62,14 @@ jobs:
         with:
           elasticsearch version: '8.8.0'
 
-      - name: STEP 9. Test Thug
+      - name: STEP 9. Setup MongoDB
+        uses: DigiPie/mongo-action@v2.0.1
+
+      - name: STEP 10. Test Thug
         run: |
           tox
 
-      - name: STEP 10. Upload coverage report to Codecov
+      - name: STEP 11. Upload coverage report to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

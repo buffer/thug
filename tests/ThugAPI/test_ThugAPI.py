@@ -279,6 +279,7 @@ class TestThugAPI:
         assert not os.path.isfile(self.log_file)
 
     def test_mongodb_address(self):
+        log.ThugOpts.mongodb_address = None
         assert self.thug_api.get_mongodb_address() is None
 
         self.thug_api.set_mongodb_address("127.0.0.1:27017")

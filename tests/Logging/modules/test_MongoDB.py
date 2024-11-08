@@ -1,9 +1,8 @@
 # coding=utf-8
+import os
 import logging
-import pymongo
-from mock import patch
 
-import mongomock
+import pytest
 
 import thug
 from thug.ThugAPI.ThugOpts import ThugOpts
@@ -25,6 +24,11 @@ log.ThugVulnModules = ThugVulnModules()
 log.Encoding = Encoding()
 log.HTTPSession = HTTPSession()
 log.PyHooks = dict()
+
+
+IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true" and os.getenv(
+    "RUNNER_OS"
+) in ("Linux",)
 
 
 class TestMongoDB:
@@ -56,24 +60,19 @@ class TestMongoDB:
     dest = "www.ex2.com"
     con_method = "iframe"
 
-    # Creating a MongoDB object for all the test methods.
-    with (
-        patch(pymongo.__name__ + ".MongoClient", new=mongomock.MongoClient),
-        patch("gridfs.Database", new=mongomock.database.Database),
-    ):
-        log.ThugOpts.mongodb_address = "mongodb://localhost:123"
-        mongo = MongoDB()
-        log.ThugOpts.mongodb_address = None
-
-    @patch(pymongo.__name__ + ".MongoClient", new=mongomock.MongoClient)
-    @patch("gridfs.Database", new=mongomock.database.Database)
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_address(self):
-        log.ThugOpts.mongodb_address = "syntax-error://localhost:123"
+        log.ThugOpts.mongodb_address = "syntax-error://localhost:27017"
         mongo = MongoDB()
         log.ThugOpts.mongodb_address = None
 
         assert not mongo.enabled
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_init(self):
         """
         Testing for conf file 'thug.conf'
@@ -81,210 +80,365 @@ class TestMongoDB:
         mongo = MongoDB()
         assert not mongo.enabled
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_make_counter(self):
-        counter = self.mongo.make_counter(2)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
+
+        counter = mongo.make_counter(2)
         assert next(counter) in (2,)
         assert next(counter) in (3,)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_get_url(self):
-        assert self.mongo.urls.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.get_url(self.url)
-        assert self.mongo.urls.count_documents({}) in (1,)
+        assert mongo.urls.count_documents({}) in (0,)
+
+        mongo.get_url(self.url)
+        assert mongo.urls.count_documents({}) in (1,)
 
         # Testing for Duplicate entry
-        self.mongo.get_url(self.url)
-        assert self.mongo.urls.count_documents({}) in (1,)
+        mongo.get_url(self.url)
+        assert mongo.urls.count_documents({}) in (1,)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_set_url(self):
-        self.mongo.enabled = False
-        self.mongo.set_url(self.url)
-        assert self.mongo.analyses.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        assert mongo.analyses.count_documents({}) in (0,)
+
+        mongo.enabled = True
         log.ThugVulnModules.disable_acropdf()
-        self.mongo.set_url(self.url)
+        mongo.set_url(self.url)
         log.ThugVulnModules._acropdf_disabled = (
             False  # TODO: Have enable_acropdf() function?
         )
-        analysis = self.mongo.analyses.find_one({"thug.plugins.acropdf": "disabled"})
+        analysis = mongo.analyses.find_one({"thug.plugins.acropdf": "disabled"})
         assert analysis
-        assert self.mongo.analyses.count_documents({}) in (1,)
+        assert mongo.analyses.count_documents({}) in (1,)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_location(self):
-        self.mongo.enabled = False
-        self.mongo.log_location(self.url, self.file_data)
-        assert self.mongo.locations.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
-        self.mongo.log_location(self.url, self.file_data)
-        assert self.mongo.locations.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_location(self.url, self.file_data)
+        assert mongo.locations.count_documents({}) in (0,)
 
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_location(self.url, self.file_data)
+        assert mongo.locations.count_documents({}) in (1,)
+
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_connection(self):
-        self.mongo.enabled = False
-        self.mongo.log_connection(self.source, self.dest, self.con_method)
-        assert self.mongo.connections.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
-        self.mongo.log_connection(self.source, self.dest, self.con_method)
-        assert self.mongo.connections.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_connection(self.source, self.dest, self.con_method)
+        assert mongo.connections.count_documents({}) in (0,)
 
-        nodes = self.mongo.graph.G.nodes
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_connection(self.source, self.dest, self.con_method)
+        assert mongo.connections.count_documents({}) in (1,)
+
+        nodes = mongo.graph.G.nodes
         assert self.source in nodes
         assert self.dest in nodes
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_exploit_event(self):
-        self.mongo.enabled = False
-        self.mongo.log_exploit_event(self.url, "ActiveX", self.desc, self.cve)
-        assert self.mongo.exploits.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
-        self.mongo.log_exploit_event(self.url, "ActiveX", self.desc, self.cve)
-        assert self.mongo.exploits.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_exploit_event(self.url, "ActiveX", self.desc, self.cve)
+        assert mongo.exploits.count_documents({}) in (0,)
 
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_exploit_event(self.url, "ActiveX", self.desc, self.cve)
+        assert mongo.exploits.count_documents({}) in (1,)
+
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_image_ocr(self):
-        self.mongo.enabled = False
-        self.mongo.log_image_ocr(self.url, "Test")
-        assert self.mongo.images.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
-        self.mongo.log_image_ocr(self.url, "Test")
-        assert self.mongo.images.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_image_ocr(self.url, "Test")
+        assert mongo.images.count_documents({}) in (0,)
 
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_image_ocr(self.url, "Test")
+        assert mongo.images.count_documents({}) in (1,)
+
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_classifier(self):
-        self.mongo.enabled = False
-        self.mongo.log_classifier("exploit", self.url, self.cve, self.tag)
-        assert self.mongo.classifiers.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
-        self.mongo.log_classifier("exploit", self.url, self.cve, self.tag)
-        assert self.mongo.classifiers.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_classifier("exploit", self.url, self.cve, self.tag)
+        assert mongo.classifiers.count_documents({}) in (0,)
 
-    @patch("gridfs.grid_file.Collection", new=mongomock.collection.Collection)
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_classifier("exploit", self.url, self.cve, self.tag)
+        assert mongo.classifiers.count_documents({}) in (1,)
+
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_file(self):
-        self.mongo.enabled = False
-        self.mongo.log_file(self.file_data)
-        assert self.mongo.samples.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
-        self.mongo.log_file(self.file_data)
-        assert self.mongo.samples.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_file(self.file_data)
+        assert mongo.samples.count_documents({}) in (0,)
+
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_file(self.file_data)
+        assert mongo.samples.count_documents({}) in (1,)
 
         # Testing for duplicate entry
-        self.mongo.log_file(self.file_data)
-        assert self.mongo.samples.count_documents({}) in (1,)
+        mongo.log_file(self.file_data)
+        assert mongo.samples.count_documents({}) in (1,)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_json(self):
-        self.mongo.enabled = False
-        self.mongo.log_json(self.base_dir)
-        assert self.mongo.json.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        # Setting self.mongo.enabled = True
-        self.mongo.enabled = True
-        self.mongo.log_json(self.base_dir)
-        assert self.mongo.json.count_documents({}) in (0,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_json(self.base_dir)
+        assert mongo.json.count_documents({}) in (0,)
+
+        # Setting mongo.enabled = True
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_json(self.base_dir)
+        assert mongo.json.count_documents({}) in (0,)
 
         # Enabling json_logging
         log.ThugOpts.json_logging = True
-        self.mongo.log_json(self.base_dir)
+        mongo.set_url(self.url)
+        mongo.log_json(self.base_dir)
         log.ThugOpts.json_logging = False
-        assert self.mongo.json.count_documents({}) in (0,)
+        assert mongo.json.count_documents({}) in (0,)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_screenshot(self):
-        self.mongo.enabled = False
-        self.mongo.log_screenshot(self.url, self.data)
-        assert self.mongo.screenshots.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        # Setting self.mongo.enabled = True
-        self.mongo.enabled = True
-        self.mongo.log_screenshot(self.url, self.data)
-        assert self.mongo.screenshots.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_screenshot(self.url, self.data)
+        assert mongo.screenshots.count_documents({}) in (0,)
 
+        # Setting mongo.enabled = True
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_screenshot(self.url, self.data)
+        assert mongo.screenshots.count_documents({}) in (1,)
+
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_event(self):
-        self.mongo.enabled = False
-        self.mongo.log_event(self.base_dir)
-        assert self.mongo.graphs.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
-        self.mongo.log_event(self.base_dir)
-        assert self.mongo.graphs.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_event(self.base_dir)
+        assert mongo.graphs.count_documents({}) in (0,)
 
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_event(self.base_dir)
+        assert mongo.graphs.count_documents({}) in (1,)
+
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_fix(self):
-        encoded_data = self.mongo.fix("")
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
+
+        encoded_data = mongo.fix("")
         assert "" in (encoded_data,)
 
-        encoded_data = self.mongo.fix("sample\n-\ncontent")
+        encoded_data = mongo.fix("sample\n-\ncontent")
         assert "sample-content" in (encoded_data,)
 
-        encoded_data = self.mongo.fix("sample\n-\ncontent(í)", drop_spaces=False)
+        encoded_data = mongo.fix("sample\n-\ncontent(í)", drop_spaces=False)
         assert "sample\n-\ncontent(í)" in (encoded_data,)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_add_code_snippet(self):
-        self.mongo.enabled = False
-        self.mongo.add_code_snippet(
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
+
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.add_code_snippet(
             self.code_snippet, self.language, self.relationship, self.tag
         )
-        assert self.mongo.codes.count_documents({}) in (0,)
+        assert mongo.codes.count_documents({}) in (0,)
 
-        self.mongo.enabled = True
-        self.mongo.add_code_snippet(
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.add_code_snippet(
             self.code_snippet, self.language, self.relationship, self.tag
         )
-        assert self.mongo.codes.count_documents({}) in (1,)
+        assert mongo.codes.count_documents({}) in (1,)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_add_shellcode_snippet(self):
-        self.mongo.codes.delete_many({})
-        self.mongo.enabled = False
-        self.mongo.add_shellcode_snippet(
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
+
+        mongo.codes.delete_many({})
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.add_shellcode_snippet(
             self.code_snippet, self.language, self.relationship, self.tag
         )
-        assert self.mongo.codes.count_documents({}) in (0,)
+        assert mongo.codes.count_documents({}) in (0,)
 
-        self.mongo.enabled = True
-        self.mongo.add_shellcode_snippet(
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.add_shellcode_snippet(
             self.code_snippet, self.language, self.relationship, self.tag
         )
-        assert self.mongo.codes.count_documents({}) in (1,)
+        assert mongo.codes.count_documents({}) in (1,)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_add_behaviour_warn(self):
-        self.mongo.enabled = False
-        self.mongo.add_behavior_warn(self.desc, self.cve, self.code_snippet)
-        assert self.mongo.behaviors.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
-        self.mongo.add_behavior_warn(self.desc, self.cve, self.code_snippet)
-        assert self.mongo.behaviors.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.add_behavior_warn(self.desc, self.cve, self.code_snippet)
+        assert mongo.behaviors.count_documents({}) in (0,)
 
-        self.mongo.add_behavior_warn()
-        assert self.mongo.behaviors.count_documents({}) in (1,)
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.add_behavior_warn(self.desc, self.cve, self.code_snippet)
+        assert mongo.behaviors.count_documents({}) in (1,)
 
+        mongo.add_behavior_warn()
+        assert mongo.behaviors.count_documents({}) in (1,)
+
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_certificate(self):
-        self.mongo.enabled = False
-        self.mongo.log_certificate(self.url, self.cert)
-        assert self.mongo.certificates.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
-        self.mongo.log_certificate(self.url, self.cert)
-        assert self.mongo.certificates.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_certificate(self.url, self.cert)
+        assert mongo.certificates.count_documents({}) in (0,)
 
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_certificate(self.url, self.cert)
+        assert mongo.certificates.count_documents({}) in (1,)
+
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_honeyagent(self):
-        assert self.mongo.honeyagent.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.log_honeyagent(self.file_data, "sample-report")
-        assert self.mongo.honeyagent.count_documents({}) in (1,)
+        assert mongo.honeyagent.count_documents({}) in (0,)
 
+        mongo.set_url(self.url)
+        mongo.log_location(self.url, self.file_data)
+        mongo.log_file(self.file_data)
+        mongo.log_honeyagent(self.file_data, "sample-report")
+        assert mongo.honeyagent.count_documents({}) in (1,)
+
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_cookies(self):
-        assert self.mongo.cookies.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        assert mongo.cookies.count_documents({}) in (0,)
+
+        mongo.enabled = True
+        mongo.set_url(self.url)
         log.HTTPSession.cookies.set("domain", "test.com")
-        self.mongo.log_cookies()
-        assert self.mongo.honeyagent.count_documents({}) in (1,)
+        mongo.log_cookies()
+        assert mongo.honeyagent.count_documents({}) in (1,)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_log_favicon(self):
-        self.mongo.enabled = False
-        self.mongo.log_favicon(self.url, self.favicon_dhash)
-        assert self.mongo.favicons.count_documents({}) in (0,)
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
+        mongo = MongoDB()
 
-        self.mongo.enabled = True
-        self.mongo.log_favicon(self.url, self.favicon_dhash)
-        assert self.mongo.favicons.count_documents({}) in (1,)
+        mongo.enabled = False
+        mongo.set_url(self.url)
+        mongo.log_favicon(self.url, self.favicon_dhash)
+        assert mongo.favicons.count_documents({}) in (0,)
+
+        mongo.enabled = True
+        mongo.set_url(self.url)
+        mongo.log_favicon(self.url, self.favicon_dhash)
+        assert mongo.favicons.count_documents({}) in (1,)
