@@ -136,10 +136,12 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_location(self.url, self.file_data)
         assert mongo.locations.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_location(self.url, self.file_data)
         assert mongo.locations.count_documents({}) in (1,)
 
@@ -149,12 +151,14 @@ class TestMongoDB:
     def test_log_connection(self):
         log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
-        mongo.enabled = False
 
+        mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_connection(self.source, self.dest, self.con_method)
         assert mongo.connections.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_connection(self.source, self.dest, self.con_method)
         assert mongo.connections.count_documents({}) in (1,)
 
@@ -170,10 +174,12 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_exploit_event(self.url, "ActiveX", self.desc, self.cve)
         assert mongo.exploits.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_exploit_event(self.url, "ActiveX", self.desc, self.cve)
         assert mongo.exploits.count_documents({}) in (1,)
 
@@ -185,10 +191,12 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_image_ocr(self.url, "Test")
         assert mongo.images.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_image_ocr(self.url, "Test")
         assert mongo.images.count_documents({}) in (1,)
 
@@ -200,10 +208,12 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_classifier("exploit", self.url, self.cve, self.tag)
         assert mongo.classifiers.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_classifier("exploit", self.url, self.cve, self.tag)
         assert mongo.classifiers.count_documents({}) in (1,)
 
@@ -215,10 +225,12 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_file(self.file_data)
         assert mongo.samples.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_file(self.file_data)
         assert mongo.samples.count_documents({}) in (1,)
 
@@ -234,16 +246,19 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_json(self.base_dir)
         assert mongo.json.count_documents({}) in (0,)
 
         # Setting mongo.enabled = True
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_json(self.base_dir)
         assert mongo.json.count_documents({}) in (0,)
 
         # Enabling json_logging
         log.ThugOpts.json_logging = True
+        mongo.set_url(self.url)
         mongo.log_json(self.base_dir)
         log.ThugOpts.json_logging = False
         assert mongo.json.count_documents({}) in (0,)
@@ -256,11 +271,13 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_screenshot(self.url, self.data)
         assert mongo.screenshots.count_documents({}) in (0,)
 
         # Setting mongo.enabled = True
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_screenshot(self.url, self.data)
         assert mongo.screenshots.count_documents({}) in (1,)
 
@@ -272,10 +289,12 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_event(self.base_dir)
         assert mongo.graphs.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_event(self.base_dir)
         assert mongo.graphs.count_documents({}) in (1,)
 
@@ -303,12 +322,14 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.add_code_snippet(
             self.code_snippet, self.language, self.relationship, self.tag
         )
         assert mongo.codes.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.add_code_snippet(
             self.code_snippet, self.language, self.relationship, self.tag
         )
@@ -323,12 +344,14 @@ class TestMongoDB:
 
         mongo.codes.delete_many({})
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.add_shellcode_snippet(
             self.code_snippet, self.language, self.relationship, self.tag
         )
         assert mongo.codes.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.add_shellcode_snippet(
             self.code_snippet, self.language, self.relationship, self.tag
         )
@@ -342,10 +365,12 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.add_behavior_warn(self.desc, self.cve, self.code_snippet)
         assert mongo.behaviors.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.add_behavior_warn(self.desc, self.cve, self.code_snippet)
         assert mongo.behaviors.count_documents({}) in (1,)
 
@@ -360,10 +385,12 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_certificate(self.url, self.cert)
         assert mongo.certificates.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_certificate(self.url, self.cert)
         assert mongo.certificates.count_documents({}) in (1,)
 
@@ -373,6 +400,7 @@ class TestMongoDB:
     def test_log_honeyagent(self):
         log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+        mongo.set_url(self.url)
 
         assert mongo.honeyagent.count_documents({}) in (0,)
 
@@ -385,6 +413,7 @@ class TestMongoDB:
     def test_log_cookies(self):
         log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+        mongo.set_url(self.url)
 
         assert mongo.cookies.count_documents({}) in (0,)
 
@@ -400,9 +429,11 @@ class TestMongoDB:
         mongo = MongoDB()
 
         mongo.enabled = False
+        mongo.set_url(self.url)
         mongo.log_favicon(self.url, self.favicon_dhash)
         assert mongo.favicons.count_documents({}) in (0,)
 
         mongo.enabled = True
+        mongo.set_url(self.url)
         mongo.log_favicon(self.url, self.favicon_dhash)
         assert mongo.favicons.count_documents({}) in (1,)
