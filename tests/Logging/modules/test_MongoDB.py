@@ -413,7 +413,6 @@ class TestMongoDB:
     def test_log_cookies(self):
         log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
-        mongo.set_url(self.url)
 
         assert mongo.cookies.count_documents({}) in (0,)
 
