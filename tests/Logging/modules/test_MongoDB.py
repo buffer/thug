@@ -404,6 +404,8 @@ class TestMongoDB:
         assert mongo.honeyagent.count_documents({}) in (0,)
 
         mongo.set_url(self.url)
+        mongo.log_location(self.url, self.file_data)
+        mongo.log_file(self.file_data)
         mongo.log_honeyagent(self.file_data, "sample-report")
         assert mongo.honeyagent.count_documents({}) in (1,)
 
