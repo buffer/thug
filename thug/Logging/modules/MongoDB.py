@@ -557,7 +557,7 @@ class MongoDB:
                 "sha1": sample["sha1"],
             }
         )
-        if s:  # pragma: no cover
+        if not s:  # pragma: no cover
             return
 
         r = {"analysis_id": self.analysis_id, "sample_id": s["_id"], "report": report}
