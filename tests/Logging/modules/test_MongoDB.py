@@ -401,10 +401,8 @@ class TestMongoDB:
         log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
 
-        mongo.enabled = False
         assert mongo.honeyagent.count_documents({}) in (0,)
 
-        mongo.enabled = True
         mongo.set_url(self.url)
         mongo.log_honeyagent(self.file_data, "sample-report")
         assert mongo.honeyagent.count_documents({}) in (1,)
