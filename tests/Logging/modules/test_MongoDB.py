@@ -84,7 +84,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_make_counter(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         counter = mongo.make_counter(2)
         assert next(counter) in (2,)
         assert next(counter) in (3,)
@@ -93,7 +95,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_get_url(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         assert mongo.urls.count_documents({}) in (0,)
 
         mongo.get_url(self.url)
@@ -107,7 +111,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_set_url(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.set_url(self.url)
         assert mongo.analyses.count_documents({}) in (0,)
@@ -126,7 +132,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_location(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.log_location(self.url, self.file_data)
         assert mongo.locations.count_documents({}) in (0,)
@@ -139,8 +147,10 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_connection(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
         mongo.enabled = False
+
         mongo.log_connection(self.source, self.dest, self.con_method)
         assert mongo.connections.count_documents({}) in (0,)
 
@@ -156,7 +166,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_exploit_event(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.log_exploit_event(self.url, "ActiveX", self.desc, self.cve)
         assert mongo.exploits.count_documents({}) in (0,)
@@ -169,7 +181,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_image_ocr(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.log_image_ocr(self.url, "Test")
         assert mongo.images.count_documents({}) in (0,)
@@ -182,7 +196,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_classifier(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.log_classifier("exploit", self.url, self.cve, self.tag)
         assert mongo.classifiers.count_documents({}) in (0,)
@@ -195,7 +211,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_file(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.log_file(self.file_data)
         assert mongo.samples.count_documents({}) in (0,)
@@ -212,7 +230,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_json(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.log_json(self.base_dir)
         assert mongo.json.count_documents({}) in (0,)
@@ -232,7 +252,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_screenshot(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.log_screenshot(self.url, self.data)
         assert mongo.screenshots.count_documents({}) in (0,)
@@ -246,7 +268,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_event(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.log_event(self.base_dir)
         assert mongo.graphs.count_documents({}) in (0,)
@@ -259,7 +283,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_fix(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         encoded_data = mongo.fix("")
         assert "" in (encoded_data,)
 
@@ -273,7 +299,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_add_code_snippet(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.add_code_snippet(
             self.code_snippet, self.language, self.relationship, self.tag
@@ -290,7 +318,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_add_shellcode_snippet(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.codes.delete_many({})
         mongo.enabled = False
         mongo.add_shellcode_snippet(
@@ -308,7 +338,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_add_behaviour_warn(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.add_behavior_warn(self.desc, self.cve, self.code_snippet)
         assert mongo.behaviors.count_documents({}) in (0,)
@@ -324,7 +356,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_certificate(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.log_certificate(self.url, self.cert)
         assert mongo.certificates.count_documents({}) in (0,)
@@ -337,7 +371,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_honeyagent(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         assert mongo.honeyagent.count_documents({}) in (0,)
 
         mongo.log_honeyagent(self.file_data, "sample-report")
@@ -347,7 +383,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_cookies(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         assert mongo.cookies.count_documents({}) in (0,)
 
         log.HTTPSession.cookies.set("domain", "test.com")
@@ -358,7 +396,9 @@ class TestMongoDB:
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_log_favicon(self):
+        log.ThugOpts.mongodb_address = "mongodb://localhost:27017"
         mongo = MongoDB()
+
         mongo.enabled = False
         mongo.log_favicon(self.url, self.favicon_dhash)
         assert mongo.favicons.count_documents({}) in (0,)
