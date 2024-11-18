@@ -56,7 +56,7 @@ dependencies = [
     "python-magic==0.4.27",
     "rarfile==4.2",
     "requests==2.32.3",
-    "requests-futures==1.0.1",
+    "requests-futures==1.0.2",
     "setuptools>=65.5.1",
     "ssdeep==3.4",
     "stpyv8==13.0.245.18",
