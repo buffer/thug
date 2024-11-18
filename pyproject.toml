@@ -80,7 +80,7 @@ exploitgraph = [
 ]
 
 image = [
-    "imgkit==1.1.0",
+    "imgkit==1.2.3",
     "pytesseract",
 ]
 
