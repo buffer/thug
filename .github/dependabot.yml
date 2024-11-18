@@ -6,3 +6,5 @@ updates:
       interval: "daily"
     commit-message:
       prefix: "Update requirements"
+    ignore:
+      - dependency-name: "imgkit"
