@@ -1,8 +1,15 @@
+import os
 import logging
+
+import pytest
 
 from thug.ThugAPI.ThugAPI import ThugAPI
 
 log = logging.getLogger("Thug")
+
+IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true" and os.getenv(
+    "RUNNER_OS"
+) in ("Linux",)
 
 
 class TestScreenshot(object):
@@ -31,10 +38,16 @@ class TestScreenshot(object):
 
         assert matches >= len(expected)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_antifork(self, caplog):
         expected = []
         self.do_perform_test(caplog, "https://buffer.antifork.org", expected)
 
+    @pytest.mark.skipif(
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
+    )
     def test_invalid_ctype(self, caplog):
         expected = []
         self.do_perform_test(
