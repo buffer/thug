@@ -52,12 +52,15 @@ class Thug(ThugAPI):
             if self.args.local or self.args.local_nofetch
             else getattr(self, "run_remote")
         )
+
         self.set_raise_for_proxy(False)
 
         for arg_name, arg_value in vars(self.args).items():
             if arg_name in ("url", "local", "local_nofetch"):
                 continue
-            if m := getattr(self, arg_name):
+
+            m = getattr(self, arg_name)
+            if m:
                 if (
                     arg_name.startswith("add_")
                     and isinstance(arg_value, list)
@@ -95,44 +98,74 @@ def parse_args() -> argparse.Namespace:
         formatter_class=argparse.RawTextHelpFormatter,
         epilog="""Proxy Format:\n\tscheme://[username:password@]host:port (supported schemes: http, socks4, socks5, socks5h)""",
     )
-    parser.add_argument("url", help="URL to be analyzed", nargs="?")
+
     parser.add_argument(
-        "-V", "--version", help="Display Thug version", action="store_true"
-    )
+        "url",
+        help="URL to be analyzed",
+        nargs="?")
+
     parser.add_argument(
-        "-i", "--list-ua", help="Display available user agents", action="store_true"
+        "-V",
+        "--version",
+        help="Display Thug version",
+        action="store_true"
     )
+
+    parser.add_argument(
+        "-i",
+        "--list-ua",
+        help="Display available user agents",
+        action="store_true"
+    )
+
     parser.add_argument(
         "-u",
         "--useragent",
         help="Select a user agent (use option -b for values, default: winxpie60)",
         dest="set_useragent",
     )
+
     parser.add_argument(
         "-e",
         "--events",
         help="Enable comma-separated specified DOM events handling",
         dest="set_events",
     )
+
     parser.add_argument(
         "-w",
         "--delay",
         help="Set a maximum setTimeout/setInterval delay value (in milliseconds)",
         dest="set_delay",
     )
+
     parser.add_argument(
-        "-n", "--logdir", help="Set the log output directory", dest="set_log_dir"
+        "-n",
+        "--logdir",
+        help="Set the log output directory",
+        dest="set_log_dir"
     )
+
     parser.add_argument(
-        "-o", "--output", help="Log to a specified file", dest="set_log_output"
+        "-o",
+        "--output",
+        help="Log to a specified file",
+        dest="set_log_output"
     )
-    parser.add_argument("-r", "--referer", help="Specify a referer", dest="set_referer")
+
+    parser.add_argument(
+        "-r",
+        "--referer",
+        help="Specify a referer",
+        dest="set_referer")
+
     parser.add_argument(
         "-p",
         "--proxy",
         help="Specify a proxy (see below for format and supported schemes)",
         dest="set_proxy",
     )
+
     parser.add_argument(
         "-m",
         "--attachment",
@@ -140,6 +173,7 @@ def parse_args() -> argparse.Namespace:
         dest="set_attachment",
         action="store_true",
     )
+
     parser.add_argument(
         "-z",
         "--web-tracking",
@@ -147,6 +181,7 @@ def parse_args() -> argparse.Namespace:
         dest="set_web_tracking",
         action="store_true",
     )
+
     parser.add_argument(
         "-b",
         "--async-prefetch",
@@ -154,6 +189,7 @@ def parse_args() -> argparse.Namespace:
         dest="set_async_prefetch",
         action="store_true",
     )
+
     parser.add_argument(
         "-k",
         "--no-honeyagent",
@@ -161,6 +197,7 @@ def parse_args() -> argparse.Namespace:
         dest="disable_honeyagent",
         action="store_true",
     )
+
     parser.add_argument(
         "-a",
         "--image-processing",
@@ -168,6 +205,7 @@ def parse_args() -> argparse.Namespace:
         dest="set_image_processing",
         action="store_true",
     )
+
     parser.add_argument(
         "-f",
         "--screenshot",
@@ -175,6 +213,7 @@ def parse_args() -> argparse.Namespace:
         dest="enable_screenshot",
         action="store_true",
     )
+
     parser.add_argument(
         "-E",
         "--awis",
@@ -182,6 +221,7 @@ def parse_args() -> argparse.Namespace:
         dest="enable_awis",
         action="store_true",
     )
+
     parser.add_argument(
         "-s",
         "--no-down-prevent",
@@ -189,15 +229,21 @@ def parse_args() -> argparse.Namespace:
         dest="disable_download_prevent",
         action="store_true",
     )
+
     parser.add_argument(
-        "-l", "--local", help="Analyze a locally saved page", action="store_true"
+        "-l",
+        "--local",
+        help="Analyze a locally saved page",
+        action="store_true"
     )
+
     parser.add_argument(
         "-x",
         "--local-nofetch",
         help="Analyze a locally saved page and prevent remote content fetching",
         action="store_true",
     )
+
     parser.add_argument(
         "-v",
         "--verbose",
@@ -205,10 +251,15 @@ def parse_args() -> argparse.Namespace:
         dest="set_verbose",
         action="store_true",
     )
+
     parser.add_argument(
-        "-d", "--debug", help="Enable debug mode", dest="set_debug", action="store_true"
+        "-d",
+        "--debug",
+        help="Enable debug mode",
+        dest="set_debug",
+        action="store_true"
     )
-    # parser.add_argument("-a", "--ast-debug", help="Enable ast debug mode", dest='st_ast_debug, action='store_true')
+
     parser.add_argument(
         "-q",
         "--quiet",
@@ -216,6 +267,7 @@ def parse_args() -> argparse.Namespace:
         dest="set_log_quiet",
         action="store_true",
     )
+
     parser.add_argument(
         "-g",
         "--http-debug",
@@ -223,12 +275,14 @@ def parse_args() -> argparse.Namespace:
         dest="set_http_debug",
         action="store_true",
     )
+
     parser.add_argument(
         "-A",
         "--adobepdf",
         help="Specify Adobe Acrobat Reader version (default: 9.1.0",
         dest="set_acropdf_pdf",
     )
+
     parser.add_argument(
         "-P",
         "--no-adobepdf",
@@ -236,12 +290,14 @@ def parse_args() -> argparse.Namespace:
         dest="disable_acropdf",
         action="store_true",
     )
+
     parser.add_argument(
         "-S",
         "--shockwave",
         help="Specify Shockwave Flash version (default: 10.0.64.0)",
         dest="set_shockwave_flash",
     )
+
     parser.add_argument(
         "-R",
         "--no-shockwave",
@@ -249,12 +305,14 @@ def parse_args() -> argparse.Namespace:
         dest="disable_shockwave_flash",
         action="store_true",
     )
+
     parser.add_argument(
         "-J",
         "--javaplugin",
         help="Specify JavaPlugin version (default: 1.6.0.32)",
         dest="set_javaplugin",
     )
+
     parser.add_argument(
         "-K",
         "--no-javaplugin",
@@ -262,12 +320,14 @@ def parse_args() -> argparse.Namespace:
         dest="disable_javaplugin",
         action="store_true",
     )
+
     parser.add_argument(
         "-L",
         "--silverlight",
         help="Specify SilverLight version (default: 4.0.50826.0)",
         dest="set_silverlight",
     )
+
     parser.add_argument(
         "-N",
         "--no-silverlight",
@@ -275,9 +335,14 @@ def parse_args() -> argparse.Namespace:
         dest="disable_silverlight",
         action="store_true",
     )
+
     parser.add_argument(
-        "-t", "--threshold", help="Maximum pages to fetch", dest="set_threshold"
+        "-t",
+        "--threshold",
+        help="Maximum pages to fetch",
+        dest="set_threshold"
     )
+
     parser.add_argument(
         "-j",
         "--extensive",
@@ -285,24 +350,28 @@ def parse_args() -> argparse.Namespace:
         dest="set_extensive",
         action="store_true",
     )
+
     parser.add_argument(
         "-O",
         "--connect-timeout",
         help="Set the connect timeout (in seconds, default: 10 seconds)",
         dest="set_connect_timeout",
     )
+
     parser.add_argument(
         "-B",
         "--proxy-connect-timeout",
         help="Set the proxy connect timeout (in seconds, default: 5 seconds)",
         dest="set_proxy_connect_timeout",
     )
+
     parser.add_argument(
         "-T",
         "--timeout",
         help="Set the analysis timeout (in seconds, default: 600 seconds)",
         dest="set_timeout",
     )
+
     parser.add_argument(
         "-c",
         "--broken-url",
@@ -310,102 +379,119 @@ def parse_args() -> argparse.Namespace:
         dest="set_broken_url",
         action="store_true",
     )
+
     parser.add_argument(
         "--htmlclassifier",
         help="Specify a list of additional (comma separated) HTML classifier rule files",
         type=rules_list,
         dest="add_htmlclassifier",
     )
+
     parser.add_argument(
         "--urlclassifier",
         help="Specify a list of additional (comma separated) URL classifier rule files",
         type=rules_list,
         dest="add_urlclassifier",
     )
+
     parser.add_argument(
         "--jsclassifier",
         help="Specify a list of additional (comma separated) JS classifier rule files",
         type=rules_list,
         dest="add_jsclassifier",
     )
+
     parser.add_argument(
         "--vbsclassifier",
         help="Specify a list of additional (comma separated) VBS classifier rule files",
         type=rules_list,
         dest="add_vbsclassifier",
     )
+
     parser.add_argument(
         "--sampleclassifier",
         help="Specify a list of additional (comma separated) Sample classifier rule files",
         type=rules_list,
         dest="add_sampleclassifier",
     )
+
     parser.add_argument(
         "--textclassifier",
         help="Specify a list of additional (comma separated) Text classifier rule files",
         type=rules_list,
         dest="add_textclassifier",
     )
+
     parser.add_argument(
         "--cookieclassifier",
         help="Specify a list of additional (comma separated) Cookie classifier rule files",
         type=rules_list,
         dest="add_cookieclassifier",
     )
+
     parser.add_argument(
         "--imageclassifier",
         help="Specify a list of additional (comma separated) Image classifier rule files",
         type=rules_list,
         dest="add_imageclassifier",
     )
+
     parser.add_argument(
         "--htmlfilter",
         help="Specify a list of additional (comma separated) HTML filter files",
         type=rules_list,
         dest="add_htmlfilter",
     )
+
     parser.add_argument(
         "--urlfilter",
         help="Specify a list of additional (comma separated) URL filter files",
         type=rules_list,
         dest="add_urlfilter",
     )
+
     parser.add_argument(
         "--jsfilter",
         help="Specify a list of additional (comma separated) JS filter files",
         type=rules_list,
         dest="add_jsfilter",
     )
+
     parser.add_argument(
         "--vbsfilter",
         help="Specify a list of additional (comma separated) VBS filter files",
         type=rules_list,
         dest="add_vbsfilter",
     )
+
     parser.add_argument(
         "--samplefilter",
         help="Specify a list of additional (comma separated) Sample filter files",
         type=rules_list,
         dest="add_samplefilter",
     )
+
     parser.add_argument(
         "--textfilter",
         help="Specify a list of additional (comma separated) Text filter files",
         type=rules_list,
         dest="add_textfilter",
     )
+
     parser.add_argument(
         "--cookiefilter",
         help="Specify a list of additional (comma separated) Cookie filter files",
         type=rules_list,
         dest="add_cookiefilter",
     )
+
     parser.add_argument(
         "--imagefilter",
         help="Specify a list of additional (comma separated) Image filter files",
         type=rules_list,
         dest="add_imagefilter",
     )
+
     parser.add_argument(
         "-F",
         "--file-logging",
@@ -413,6 +499,7 @@ def parse_args() -> argparse.Namespace:
         dest="set_file_logging",
         action="store_true",
     )
+
     parser.add_argument(
         "-Z",
         "--json-logging",
@@ -420,6 +507,7 @@ def parse_args() -> argparse.Namespace:
         dest="set_json_logging",
         action="store_true",
     )
+
     parser.add_argument(
         "-W",
         "--features-logging",
@@ -427,6 +515,7 @@ def parse_args() -> argparse.Namespace:
         dest="set_features_logging",
         action="store_true",
     )
+
     parser.add_argument(
         "-G",
         "--elasticsearch-logging",
@@ -434,12 +523,14 @@ def parse_args() -> argparse.Namespace:
         dest="set_elasticsearch_logging",
         action="store_true",
     )
+
     parser.add_argument(
         "-D",
         "--mongodb-address",
         help="Specify address and port of the MongoDB instance (format: host:port)",
         dest="set_mongodb_address",
     )
+
     parser.add_argument(
         "-Y",
         "--no-code-logging",
@@ -447,6 +538,7 @@ def parse_args() -> argparse.Namespace:
         dest="disable_code_logging",
         action="store_true",
     )
+
     parser.add_argument(
         "-U",
         "--no-cert-logging",
@@ -454,10 +546,13 @@ def parse_args() -> argparse.Namespace:
         dest="disable_cert_logging",
         action="store_true",
     )
+
     args = parser.parse_args()
+
     if not any([args.url, args.local, args.local_nofetch, args.version, args.list_ua]):
         parser.print_help()
-        parser.exit(1, "Missing required argument(s)!")
+        parser.exit()
+
     return args
 
 
