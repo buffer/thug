@@ -363,6 +363,6 @@ class Mapper:
         res = ""
         for con in self.data["connections"]:
             if con["display"]:
-                res += f'{str(con["source"])} -- {str(con["method"])} --> {str(con["destination"])} {os.linesep}'
+                res += f"{str(con['source'])} -- {str(con['method'])} --> {str(con['destination'])} {os.linesep}"
 
         return res

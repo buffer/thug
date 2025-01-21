@@ -50,8 +50,8 @@ class MimeTypes(dict):
                 {
                     "description": "Shockwave Flash",
                     "suffixes": "swf",
-                    "filename": f'Flash32_'
-                    f'{"_".join(log.ThugVulnModules.shockwave_flash.split("."))}.ocx',
+                    "filename": f"Flash32_"
+                    f"{'_'.join(log.ThugVulnModules.shockwave_flash.split('.'))}.ocx",
                     "type": "application/x-shockwave-flash",
                     "enabledPlugin": Plugin(
                         {
