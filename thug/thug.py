@@ -99,23 +99,14 @@ def parse_args() -> argparse.Namespace:
         epilog="""Proxy Format:\n\tscheme://[username:password@]host:port (supported schemes: http, socks4, socks5, socks5h)""",
     )
 
-    parser.add_argument(
-        "url",
-        help="URL to be analyzed",
-        nargs="?")
+    parser.add_argument("url", help="URL to be analyzed", nargs="?")
 
     parser.add_argument(
-        "-V",
-        "--version",
-        help="Display Thug version",
-        action="store_true"
+        "-V", "--version", help="Display Thug version", action="store_true"
     )
 
     parser.add_argument(
-        "-i",
-        "--list-ua",
-        help="Display available user agents",
-        action="store_true"
+        "-i", "--list-ua", help="Display available user agents", action="store_true"
     )
 
     parser.add_argument(
@@ -140,24 +131,14 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "-n",
-        "--logdir",
-        help="Set the log output directory",
-        dest="set_log_dir"
+        "-n", "--logdir", help="Set the log output directory", dest="set_log_dir"
     )
 
     parser.add_argument(
-        "-o",
-        "--output",
-        help="Log to a specified file",
-        dest="set_log_output"
+        "-o", "--output", help="Log to a specified file", dest="set_log_output"
     )
 
-    parser.add_argument(
-        "-r",
-        "--referer",
-        help="Specify a referer",
-        dest="set_referer")
+    parser.add_argument("-r", "--referer", help="Specify a referer", dest="set_referer")
 
     parser.add_argument(
         "-p",
@@ -231,10 +212,7 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "-l",
-        "--local",
-        help="Analyze a locally saved page",
-        action="store_true"
+        "-l", "--local", help="Analyze a locally saved page", action="store_true"
     )
 
     parser.add_argument(
@@ -253,11 +231,7 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "-d",
-        "--debug",
-        help="Enable debug mode",
-        dest="set_debug",
-        action="store_true"
+        "-d", "--debug", help="Enable debug mode", dest="set_debug", action="store_true"
     )
 
     parser.add_argument(
@@ -337,10 +311,7 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "-t",
-        "--threshold",
-        help="Maximum pages to fetch",
-        dest="set_threshold"
+        "-t", "--threshold", help="Maximum pages to fetch", dest="set_threshold"
     )
 
     parser.add_argument(
