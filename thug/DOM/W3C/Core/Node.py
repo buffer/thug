@@ -117,7 +117,7 @@ class Node(JSClass, EventTarget):
         return str(self.tag.string)
 
     def setTextContent(self, value):
-        self.tag.string.replace_with(str(value))
+        self.tag.string = str(value)
 
     # Introduced in DOM Level 3
     textContent = property(getTextContent, setTextContent)
@@ -459,7 +459,7 @@ class Node(JSClass, EventTarget):
         # this method does not copy any text it contains unless it is a
         # deep clone, since the Text is contained in a child Text node.
         if cloned.nodeType in (Node.ELEMENT_NODE,) and deep is False:
-            cloned.tag.string.replace_with("")
+            cloned.tag.string = ""
 
         return cloned
 
