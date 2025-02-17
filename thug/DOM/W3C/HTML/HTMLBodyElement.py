@@ -31,7 +31,7 @@ class HTMLBodyElement(HTMLElement):
         for tag in self.tag.contents:
             try:
                 html.write(str(tag))
-            except Exception as e:  # pylint:disable=broad-except
+            except Exception as e:  # pragma: no cover,pylint:disable=broad-except
                 log.warning("[HTMLBodyElement] innerHTML warning: %s", str(e))
 
         return html.getvalue()

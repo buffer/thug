@@ -1574,7 +1574,7 @@ class DFT:
 
             try:
                 value = int(attrs[key].split("px")[0])
-            except Exception:  # pylint:disable=broad-except
+            except Exception:  # pragma: no cover,pylint:disable=broad-except
                 value = None
 
             if not value:
