@@ -114,7 +114,7 @@ class Node(JSClass, EventTarget):
     nodeValue = property(getNodeValue, setNodeValue)
 
     def getTextContent(self):
-        return self.tag.string
+        return str(self.tag.string)
 
     def setTextContent(self, value):
         self.tag.string = str(value)
@@ -429,7 +429,7 @@ class Node(JSClass, EventTarget):
                 index += 1
                 continue
 
-            child.tag.string = child.innerText + sibling.innerText
+            child.tag.string.replace_with(child.innerText + sibling.innerText)
             self.removeChild(sibling)
 
     # Introduced in DOM Level 2
