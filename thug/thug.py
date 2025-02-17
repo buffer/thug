@@ -47,6 +47,13 @@ class Thug(ThugAPI):
         sys.exit(0)
 
     def analyze(self):
+        # commands to print some information and exit
+        if self.args.version:
+            self.version()
+        if self.args.list_ua:
+            self.list_ua()
+
+        # if we reach this point then let's bootstrap thug to properly deal with an analysis
         p = (
             getattr(self, "run_local")
             if self.args.local or self.args.local_nofetch
@@ -54,9 +61,10 @@ class Thug(ThugAPI):
         )
 
         self.set_raise_for_proxy(False)
+        self.log_init(self.args.url)
 
         for arg_name, arg_value in vars(self.args).items():
-            if arg_name in ("url", "local", "local_nofetch"):
+            if arg_name in ("url", "local", "local_nofetch", "version", "list_ua"):
                 continue
 
             m = getattr(self, arg_name)
@@ -76,8 +84,6 @@ class Thug(ThugAPI):
                 raise RuntimeError(
                     f"Unable to handle the argument {arg_name} with value {arg_value}"
                 )
-
-        self.log_init(self.args.url)
 
         if p:  # pylint:disable=using-constant-test
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
