@@ -54,6 +54,7 @@ class Thug(ThugAPI):
         )
 
         self.set_raise_for_proxy(False)
+        self.log_init(self.args.url)
 
         for arg_name, arg_value in vars(self.args).items():
             if arg_name in ("url", "local", "local_nofetch"):
@@ -76,8 +77,6 @@ class Thug(ThugAPI):
                 raise RuntimeError(
                     f"Unable to handle the argument {arg_name} with value {arg_value}"
                 )
-
-        self.log_init(self.args.url)
 
         if p:  # pylint:disable=using-constant-test
             ThugPlugins(PRE_ANALYSIS_PLUGINS, self)()
