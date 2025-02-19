@@ -13,6 +13,6 @@ Documentation is available [here](https://buffer.github.io/thug/doc/)
 License information
 ===================
 
-Copyright (C) 2011-2024 Angelo Dell'Aera
+Copyright (C) 2011-2025 Angelo Dell'Aera
 
 License: GNU General Public License, version 2
