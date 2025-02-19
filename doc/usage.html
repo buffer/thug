@@ -1,106 +1,147 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
-<head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; Thug 6.8 documentation</title>
-      <link rel="stylesheet" type="text/css" href="static/pygments.css?v=fa44fd50" />
-      <link rel="stylesheet" type="text/css" href="static/css/theme.css?v=19f00094" />
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  
-  <!--[if lt IE 9]>
-    <script src="static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="static/jquery.js?v=5d32c60e"></script>
-        <script src="static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="static/documentation_options.js?v=5f6cf160"></script>
-        <script src="static/doctools.js?v=9a2dae69"></script>
-        <script src="static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="static/js/theme.js"></script>
+    <title>Usage &#8212; Thug 6.12 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="static/pydoctheme.css?v=41b4f12d" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="static/pygments_dark.css?v=b20cc3f5" />
+    
+    <script src="static/documentation_options.js?v=51001561"></script>
+    <script src="static/doctools.js?v=9a2dae69"></script>
+    <script src="static/sphinx_highlight.js?v=dc90522c"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Thug API" href="api.html" />
-    <link rel="prev" title="Configuration" href="configuration.html" /> 
-</head>
-
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            Thug
-          </a>
-              <div class="version">
-                6.8
-              </div>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="build.html">Build and Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#browser-personality">Browser personality</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dom-events-handling">DOM Events Handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#adobe-acrobat-reader">Adobe Acrobat Reader</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#shockwave-flash">Shockwave Flash</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#javaplugin-and-javawebstart">JavaPlugin and JavaWebStart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#proxy-support">Proxy support</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#image-processing">Image processing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#local-analysis">Local Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#other-useful-features">Other useful features</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">Thug API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="jshooks.html">JS Hooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugin Framework</a></li>
-</ul>
-
-        </div>
-      </div>
+    <link rel="prev" title="Configuration" href="configuration.html" /><link rel="stylesheet" href="static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
+    <link rel="shortcut icon" type="image/png" href="static/py.svg" />
+            <script type="text/javascript" src="static/copybutton.js"></script>
+            <script type="text/javascript" src="static/menu.js"></script>
+            <script type="text/javascript" src="static/search-focus.js"></script>
+            <script type="text/javascript" src="static/themetoggle.js"></script> 
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <nav class="nav-content" role="navigation">
+        <label for="menuToggler" class="toggler__label">
+            <span></span>
+        </label>
+        <span class="nav-items-wrapper">
+            <a href="https://www.python.org/" class="nav-logo">
+                <img src="static/py.svg" alt="Python logo"/>
+            </a>
+            <span class="version_switcher_placeholder"></span>
+            <form role="search" class="search" action="search.html" method="get">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                    <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                </svg>
+                <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" />
+                <input type="submit" value="Go"/>
+            </form>
+        </span>
     </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Thug</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Usage</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="sources/usage.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+            
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="configuration.html"
+                          title="previous chapter">Configuration</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="api.html"
+                          title="next chapter">Thug API</a></p>
+  </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </nav>
+    </div>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="api.html" title="Thug API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             accesskey="P">previous</a> |</li>
+          <li><img src="static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="index.html">Thug 6.12 documentation</a> &#187;
+              
+          </li>
+        <li class="nav-item nav-item-this"><a href="">Usage</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box" />
+          <input type="submit" value="Go" />
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
   <section id="usage">
-<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <section id="basic-usage">
-<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h2>
+<h2>Basic usage<a class="headerlink" href="#basic-usage" title="Link to this heading">¶</a></h2>
 <p>Let’s start our Thug tour by taking a look at the options it provides.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>~<span class="w"> </span>$<span class="w"> </span>thug<span class="w"> </span>-h
 
@@ -377,7 +418,7 @@ Type<span class="w"> </span><span class="s2">&quot;help&quot;</span>,<span class
 </div>
 </section>
 <section id="browser-personality">
-<h2>Browser personality<a class="headerlink" href="#browser-personality" title="Link to this heading"></a></h2>
+<h2>Browser personality<a class="headerlink" href="#browser-personality" title="Link to this heading">¶</a></h2>
 <p>If no additional option (other than the URL) is provided the emulated browser personality is
 Internet Explorer 6.0 on Windows XP platform. This choice is usually quite interesting for
 the really simple reason a lot of exploit kits out there try to exploit a vulnerability in Microsoft
@@ -450,7 +491,7 @@ W.eXeC<span class="w"> </span><span class="s2">&quot;taskkill /F /IM wm&quot;</s
 vulnerability is not served in this case.</p>
 </section>
 <section id="dom-events-handling">
-<h2>DOM Events Handling<a class="headerlink" href="#dom-events-handling" title="Link to this heading"></a></h2>
+<h2>DOM Events Handling<a class="headerlink" href="#dom-events-handling" title="Link to this heading">¶</a></h2>
 <p>A useful option is the -e (–events) option which allows you to specify which DOM events should
 be handled by Thug. By default <cite>load</cite> and <cite>mousemove</cite> events are always handled but you can add
 other ones with this option. Using this option is quite simple. All you need to do is to specify
@@ -462,7 +503,7 @@ a comma-separated list of events to handle as shown below.</p>
 Thug while all the other ones will be ignored.</p>
 </section>
 <section id="adobe-acrobat-reader">
-<h2>Adobe Acrobat Reader<a class="headerlink" href="#adobe-acrobat-reader" title="Link to this heading"></a></h2>
+<h2>Adobe Acrobat Reader<a class="headerlink" href="#adobe-acrobat-reader" title="Link to this heading">¶</a></h2>
 <p>Taking a look at the available options you can see the -A (–adobepdf) option which is quite
 useful for getting different PDF exploits which target different version of Adobe Acrobat
 Reader. This happens because exploit kits usually serve PDF files which exploit specific
@@ -551,7 +592,7 @@ W.eXeC<span class="w"> </span><span class="s2">&quot;taskkill /F /IM wm&quot;</s
 <p>it’s easy to realize that a different malicious PDF file was served in this case.</p>
 </section>
 <section id="shockwave-flash">
-<h2>Shockwave Flash<a class="headerlink" href="#shockwave-flash" title="Link to this heading"></a></h2>
+<h2>Shockwave Flash<a class="headerlink" href="#shockwave-flash" title="Link to this heading">¶</a></h2>
 <p>Taking a look at the available options you can see the -S (–shockwave) option which is quite
 useful for getting different Flash exploits which target differents version of Shockwave Flash.
 This happens because exploit kits usually serve Flash files which exploit specific vulnerabilities
@@ -626,7 +667,7 @@ PluginDetect (see Local Analysis later for details).</p>
 </div>
 </section>
 <section id="javaplugin-and-javawebstart">
-<h2>JavaPlugin and JavaWebStart<a class="headerlink" href="#javaplugin-and-javawebstart" title="Link to this heading"></a></h2>
+<h2>JavaPlugin and JavaWebStart<a class="headerlink" href="#javaplugin-and-javawebstart" title="Link to this heading">¶</a></h2>
 <p>Taking a look at the available options you can see the -J (–javaplugin) option which is quite
 useful for getting different Java exploits which target different versions of Java. Let’s take
 a look at what happens if we locally analyze PluginDetect (see Local Analysis later for details).</p>
@@ -723,7 +764,7 @@ a look at what happens if we locally analyze PluginDetect (see Local Analysis la
 </div>
 </section>
 <section id="proxy-support">
-<h2>Proxy support<a class="headerlink" href="#proxy-support" title="Link to this heading"></a></h2>
+<h2>Proxy support<a class="headerlink" href="#proxy-support" title="Link to this heading">¶</a></h2>
 <p>Another really useful option is <em>-p (–proxy)</em> which allows to specify a proxy. Currently Thug
 supports HTTP, SOCKS4, SOCKS5 and SOCKS5H proxy using the following format</p>
 <blockquote>
@@ -806,7 +847,7 @@ W.eXeC<span class="w"> </span><span class="s2">&quot;taskkill /F /IM wm&quot;</s
 </div>
 </section>
 <section id="image-processing">
-<h2>Image processing<a class="headerlink" href="#image-processing" title="Link to this heading"></a></h2>
+<h2>Image processing<a class="headerlink" href="#image-processing" title="Link to this heading">¶</a></h2>
 <p>Image processing analysis (introduced in Thug 1.4) allows to analyze images retrieved during the
 analysis. By default, Thug performs OCR analysis returning extracted strings but the possibility
 exists to include other image processing algorithms through using Thug PyHooks. Be aware that
@@ -831,7 +872,7 @@ as the required steps could be different based on the Linux distribution. Please
 </div>
 </section>
 <section id="local-analysis">
-<h2>Local Analysis<a class="headerlink" href="#local-analysis" title="Link to this heading"></a></h2>
+<h2>Local Analysis<a class="headerlink" href="#local-analysis" title="Link to this heading">¶</a></h2>
 <p>May you need to analyze a locally saved page Thug provides the <em>-l (–local)</em> option to you.
 Using such option is really simple and could turn to be really useful for testing and for
 later (manual or automated) analysis (see also <em>Web Cache</em>)</p>
@@ -906,7 +947,7 @@ locally saved page.</p>
 </div>
 </section>
 <section id="other-useful-features">
-<h2>Other useful features<a class="headerlink" href="#other-useful-features" title="Link to this heading"></a></h2>
+<h2>Other useful features<a class="headerlink" href="#other-useful-features" title="Link to this heading">¶</a></h2>
 <p>An interesting feature (introduced in Thug 0.4.13) allows you to define a maximum delay for
 methods like setTimeout and setInterval which set a delay for executing a function. For instance
 if the original code contains a statement like</p>
@@ -924,34 +965,105 @@ option. Simply running Thug this way (please note the interval is expressed in m
 </section>
 
 
-           </div>
+            <div class="clearer"></div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="api.html" class="btn btn-neutral float-right" title="Thug API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2011-2024, Angelo Dell&#39;Aera.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
         </div>
       </div>
-    </section>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="configuration.html"
+                          title="previous chapter">Configuration</a></p>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="api.html"
+                          title="next chapter">Thug API</a></p>
+  </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="api.html" title="Thug API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             >previous</a> |</li>
+          <li><img src="static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="index.html">Thug 6.12 documentation</a> &#187;
+              
+          </li>
+        <li class="nav-item nav-item-this"><a href="">Usage</a></li>
+                <li class="right">
+                    
 
-</body>
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box" />
+          <input type="submit" value="Go" />
+        </form>
+    </div>
+                     |
+                </li>
+            <li class="right">
+<label class="theme-selector-label">
+    Theme
+    <select class="theme-selector" oninput="activateTheme(this.value)">
+        <option value="auto" selected>Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+</label> |</li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; 
+    Copyright
+     2011-2025, Angelo Dell&#39;Aera.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    
+    
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+    
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    </div>
+
+  </body>
 </html>
