@@ -58,9 +58,9 @@ jobs:
           sudo sysctl -w vm.max_map_count=262144
 
       - name: STEP 8. Setup ElasticSearch
-        uses: getong/elasticsearch-action@v1.2
+        uses: getong/elasticsearch-action@v1.3
         with:
-          elasticsearch version: '8.8.0'
+          elasticsearch version: '8.11.0'
 
       - name: STEP 9. Setup MongoDB
         uses: DigiPie/mongo-action@v2.0.1
