@@ -28,9 +28,11 @@ config = configparser.ConfigParser()
 conf_file = os.path.join(log.configuration_path, "thug.conf")
 config.read(conf_file)
 
-IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true" and os.getenv(
-    "RUNNER_OS"
-) in ("Linux",)
+# IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true" and os.getenv(
+#    "RUNNER_OS"
+# ) in ("Linux",)
+
+IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
 
 
 class TestElasticSearch:
