@@ -58,14 +58,9 @@ jobs:
           sudo sysctl -w vm.max_map_count=262144
 
       - name: STEP 8. Setup ElasticSearch
-        uses: getong/elasticsearch-action@v1.2
+        uses: elastic/elastic-github-actions/elasticsearch@master
         with:
-          elasticsearch version: '8.11.0'
-          host port: 9200
-          container port: 9200
-          host node port: 9300
-          node port: 9300
-          discovery type: 'single-node'
+          stack-version: 8.11.0
 
       - name: STEP 9. Setup MongoDB
         uses: DigiPie/mongo-action@v2.0.1
