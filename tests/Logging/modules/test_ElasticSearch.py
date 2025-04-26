@@ -28,18 +28,14 @@ config = configparser.ConfigParser()
 conf_file = os.path.join(log.configuration_path, "thug.conf")
 config.read(conf_file)
 
-# IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true" and os.getenv(
-#    "RUNNER_OS"
-# ) in ("Linux",)
-
-IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
+IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true" and os.getenv(
+    "RUNNER_OS"
+) in ("Linux",)
 
 
 class TestElasticSearch:
     @pytest.mark.skipif(
-        # not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
-        IN_GITHUB_ACTIONS,
-        reason="Test disabled",
+        not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
     def test_export(self):
         log.ThugOpts.elasticsearch_logging = True
