@@ -58,7 +58,7 @@ jobs:
           sudo sysctl -w vm.max_map_count=262144
 
       - name: STEP 8. Setup ElasticSearch
-        uses: getong/elasticsearch-action@v1.3
+        uses: getong/elasticsearch-action@v1.2
         with:
           elasticsearch version: '8.11.0'
           host port: 9200
