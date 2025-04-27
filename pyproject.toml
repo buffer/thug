@@ -135,7 +135,7 @@ zip-safe = true
 version = {attr = "thug.__version__"}
 
 [tool.pytest.ini_options]
-addopts = "--timeout 60 --exitfirst --cov=thug"
+addopts = "-vv --timeout 60 --exitfirst --cov=thug"
 
 [tool.pylint]
 max-line-length = 150

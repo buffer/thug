@@ -60,7 +60,7 @@ jobs:
       - name: STEP 8. Setup ElasticSearch
         uses: elastic/elastic-github-actions/elasticsearch@master
         with:
-          stack-version: 8.11.0
+          stack-version: 8.18.0
           security-enabled: false
 
       - name: STEP 9. Setup MongoDB
