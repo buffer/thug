@@ -46,10 +46,7 @@ class ElasticSearch(JSON):
         if not log.ThugOpts.elasticsearch_logging:
             return
 
-        if not self.__init_elasticsearch():
-            return
-
-        self.enabled = True
+        self.enabled = self.__init_elasticsearch()
 
     def __init_config(self):
         self.opts = {}
@@ -76,16 +73,16 @@ class ElasticSearch(JSON):
 
         self.es = elasticsearch.Elasticsearch(self.opts["url"])
 
-        if not self.es.ping():
-            log.warning("[WARNING] ElasticSearch instance not properly initialized")
-            return False
+        if self.es.ping():  # pragma: no cover
+            self.es.options(ignore_status=404).indices.create(index=self.opts["index"])
+            return True
 
-        self.es.options(ignore_status=404).indices.create(index=self.opts["index"])
-        return True
+        log.warning("[WARNING] ElasticSearch instance not properly initialized")
+        return False
 
     def export(self, basedir):  # pylint:disable=unused-argument
-        if not self.enabled:
-            return None
+        if self.enabled:  # pragma: no cover
+            res = self.es.index(index=self.opts["index"], document=self.data)
+            return res["_id"]
 
-        res = self.es.index(index=self.opts["index"], document=self.data)
-        return res["_id"]
+        return None
