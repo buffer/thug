@@ -1,18 +1,18 @@
 <html>
 <body>
-<textarea id="testtext" cols="100" rows="25">
-<script>
-	var t = document.getElementById("testtext");
-	alert("type: " + t.type);
-	alert("cols: " + t.cols);
-	alert("rows: " + t.rows);
-	alert("defaultValue: " + t.defaultValue);
+	<textarea id="testtext" cols="100" rows="25"></textarea>
+	<script>
+		var t = document.getElementById("testtext");
+		alert("type: " + t.type);
+		alert("cols: " + t.cols);
+		alert("rows: " + t.rows);
+		alert("defaultValue: " + t.defaultValue);
 
-	t.defaultValue = "test";
-	alert("defaultValue: " + t.defaultValue);
-	t.focus();
-	t.blur();
-	t.select();
-</script>
+		t.defaultValue = "test";
+		alert("defaultValue: " + t.defaultValue);
+		t.focus();
+		t.blur();
+		t.select();
+	</script>
 </body>
 </html>
