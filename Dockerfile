@@ -1,4 +1,4 @@
-FROM python:3.11 as builder
+FROM python:3.13 AS builder
 LABEL maintainer="Angelo Dell'Aera"
 WORKDIR /home
 
@@ -27,16 +27,17 @@ RUN git clone https://github.com/buffer/libemu.git && \
   make install && \
   cd ..
 COPY thug/conf thug/conf
-RUN pip wheel --no-cache-dir --wheel-dir /tmp/wheels thug pytesseract pygraphviz
+RUN pip install --no-cache-dir -U cffi
+RUN BUILD_LIB=1 pip wheel --no-cache-dir --wheel-dir /tmp/wheels thug pytesseract pygraphviz
 
 # HACK: this is to have the pylibemu wheel package statically linked with the libemu library
 RUN apt-get install -y patchelf
 RUN pip install --no-cache-dir -U auditwheel
-RUN auditwheel repair --plat linux_x86_64 -w /tmp/wheelhouse /tmp/wheels/*pylibemu*
+RUN auditwheel repair --plat auto -w /tmp/wheelhouse /tmp/wheels/*pylibemu*
 RUN rm /tmp/wheels/*pylibemu*
 RUN mv /tmp/wheelhouse/* /tmp/wheels/
 
-FROM python:3.11-slim
+FROM python:3.13-slim
 LABEL maintainer="Angelo Dell'Aera"
 
 RUN groupadd -r thug && \
@@ -56,8 +57,8 @@ RUN --mount=type=bind,from=builder,src=/home/thug/conf,dst=/tmp/thug/conf cp -R 
 RUN --mount=type=bind,from=builder,src=/tmp/wheels,dst=/tmp/wheels pip install --no-cache-dir --no-deps /tmp/wheels/*
 
 USER thug
-ENV HOME /home/thug
-ENV USER thug
+ENV HOME=/home/thug
+ENV USER=thug
 WORKDIR /home/thug
 VOLUME ["/tmp/thug/logs"]
 CMD ["thug"]
