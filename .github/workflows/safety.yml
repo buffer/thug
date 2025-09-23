@@ -3,6 +3,7 @@ on: push
 jobs:
   safety:
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
     steps:
       - uses: actions/checkout@main
       - name: Run Safety CLI to check for vulnerabilities
