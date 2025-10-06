@@ -1,13 +1,13 @@
-import sys
+import io
 import logging
 import bs4
 
 try:
-    import imgkit
+    import weasyprint
 
-    IMGKIT_MODULE = True
+    WEASYPRINT_MODULE = True
 except ImportError:  # pragma: no cover
-    IMGKIT_MODULE = False
+    WEASYPRINT_MODULE = False
 
 log = logging.getLogger("Thug")
 
@@ -16,7 +16,7 @@ class Screenshot:
     content_types = ("text/html",)
 
     def __init__(self):
-        self.enable = IMGKIT_MODULE
+        self.enable = WEASYPRINT_MODULE
 
     def run(self, window, url, response, ctype):
         if not self.enable or not log.ThugOpts.screenshot:
@@ -37,13 +37,14 @@ class Screenshot:
                 img["src"] = norm_src
 
         content = soup.prettify(formatter=None)
-        options = {"quiet": ""}
-
-        if sys.platform in ("linux",):
-            options["xvfb"] = ""
 
         try:
-            screenshot = imgkit.from_string(content, False, options=options)
-            log.ThugLogging.log_screenshot(url, screenshot)
+            html = weasyprint.HTML(string=content)
+            document = html.render()
+
+            with io.BytesIO() as screenshot:
+                document.write_pdf(screenshot)
+                screenshot.seek(0)
+                log.ThugLogging.log_screenshot(url, screenshot.read())
         except Exception as e:  # pragma: no cover,pylint:disable=broad-except
             log.warning("[SCREENSHOT] Error: %s", str(e))
