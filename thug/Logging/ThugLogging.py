@@ -453,7 +453,7 @@ class ThugLogging(BaseLogging, SampleLogging):
         @screenshot Screenshot
         """
         dirname = os.path.join(self.baseDir, "analysis", "screenshots")
-        filename = f"{hashlib.sha256(screenshot).hexdigest()}.jpg"
+        filename = f"{hashlib.sha256(screenshot).hexdigest()}.pdf"
         self.store_content(dirname, filename, screenshot)
 
         for m in self.resolve_method("log_screenshot"):  # pragma: no cover

@@ -340,7 +340,7 @@ type is PE).
 screenshots
 ^^^^^^^^^^^
 
-The collection *screenshots* is used to store base-64 encoded screenshots (JPG format)
+The collection *screenshots* is used to store base-64 encoded screenshots (PDF format)
 of the analyzed page.
 
 .. code-block:: sh
