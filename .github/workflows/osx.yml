@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew reinstall git autoconf libtool
-          brew install automake graphviz tesseract libmagic weasyprint
+          brew install automake graphviz tesseract libmagic glib
           ln -s $(which glibtoolize) /usr/local/bin/libtoolize
           pip install --upgrade pip setuptools wheel tox tox-gh-actions appdirs
           BUILD_LIB=1 pip install --use-pep517 ssdeep
