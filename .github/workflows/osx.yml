@@ -26,6 +26,11 @@ jobs:
           brew reinstall git autoconf libtool
           brew install automake graphviz tesseract libmagic pango libffi
           ln -s $(which glibtoolize) /usr/local/bin/libtoolize
+          ln -s /opt/homebrew/opt/glib/lib/libgobject-2.0.0.dylib /usr/local/lib/gobject-2.0
+          ln -s /opt/homebrew/opt/pango/lib/libpango-1.0.dylib /usr/local/lib/pango-1.0
+          ln -s /opt/homebrew/opt/harfbuzz/lib/libharfbuzz.dylib /usr/local/lib/harfbuzz
+          ln -s /opt/homebrew/opt/fontconfig/lib/libfontconfig.1.dylib /usr/local/lib/fontconfig-1
+          ln -s /opt/homebrew/opt/pango/lib/libpangoft2-1.0.dylib /usr/local/lib/pangoft2-1.0
           pip install --upgrade pip setuptools wheel tox tox-gh-actions appdirs
           BUILD_LIB=1 pip install --use-pep517 ssdeep
           pip install --config-settings="--global-option=build_ext" --config-settings="--global-option=-I$(brew --prefix graphviz)/include/" --config-settings="--global-option=-L$(brew --prefix graphviz)/lib/" pygraphviz
@@ -46,4 +51,4 @@ jobs:
 
       - name: Test Thug
         run: |
-          DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_FALLBACK_LIBRARY_PATH tox
+          tox
