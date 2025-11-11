@@ -28,6 +28,7 @@ jobs:
           ln -s $(which glibtoolize) /usr/local/bin/libtoolize
           pip install --upgrade pip setuptools wheel tox tox-gh-actions appdirs
           BUILD_LIB=1 pip install --use-pep517 ssdeep
+          pip install --config-settings="--global-option=build_ext" --config-settings="--global-option=-I$(brew --prefix graphviz)/include/" --config-settings="--global-option=-L$(brew --prefix graphviz)/lib/" pygraphviz
 
       - name: Install libemu
         run: |
