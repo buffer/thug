@@ -54,7 +54,7 @@ dependencies = [
     "pillow==12.0.0; python_version > '3.9'",
     "promise==2.3",
     "pylibemu==1.0",
-    "pymongo==4.15.3",
+    "pymongo==4.15.4",
     "pysocks==1.7.1",
     "python-magic==0.4.27",
     "rarfile==4.2",
