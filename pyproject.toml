@@ -98,7 +98,7 @@ documentation = [
 ]
 
 test = [
-    "thug[elasticsearch,exploitgraph,image,shellcode]",
+    "thug[elasticsearch,exploitgraph,image]",
     "mock",
     "pydantic>=2.9.2",
     "pre-commit",
