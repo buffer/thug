@@ -40,7 +40,7 @@ log = logging.getLogger("Thug")
 class Shellcode:
     modules = (
         "pylibemu",
-        "speakeasy",
+        # "speakeasy",
     )
 
     def __init__(self):
