@@ -17,7 +17,7 @@ maintainers = [
     { name  = "Angelo Dell'Aera", email = "angelo.dellaera@honeynet.org" },
 ]
 license = {text = "GPLv2"}
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dynamic = [
     "version",
 ]
@@ -29,7 +29,6 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Operating System :: MacOS :: MacOS X",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -44,14 +43,11 @@ dependencies = [
     "cssutils==2.11.1",
     "dhash==1.4",
     "html5lib==1.1",
-    "importlib-resources==6.0.1; python_version < '3.9'",
     "lxml==6.0.2",
-    "networkx==3.2.1; python_version < '3.10'",
     "networkx==3.4.2; python_version == '3.10'",
     "networkx==3.5; python_version > '3.10'",
     "pefile==2024.8.26",
-    "pillow==11.3.0; python_version < '3.10'",
-    "pillow==12.0.0; python_version > '3.9'",
+    "pillow==12.0.0",
     "promise==2.3",
     "pylibemu==1.0",
     "pymongo==4.15.4",
@@ -64,8 +60,7 @@ dependencies = [
     "ssdeep==3.4",
     "stpyv8==13.1.201.22",
     "yara-python==4.5.4",
-    "zope.interface==8.0.1; python_version < '3.10'",
-    "zope.interface==8.1; python_version > '3.9'",
+    "zope.interface==8.1",
 ]
 keywords = [
     "honeyclient",

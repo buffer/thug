@@ -9,7 +9,7 @@ Requirements
 Python
 ^^^^^^
 
-Python 3.9+ is required in order to properly run Thug. You may be lucky running it with
+Python 3.10+ is required in order to properly run Thug. You may be lucky running it with
 previous versions but please consider such versions are not supported. Please do not
 report issues in such case. Python source code can be downloaded at http://www.python.org.
 
@@ -22,6 +22,8 @@ report issues in such case. Python source code can be downloaded at http://www.p
 **Thug 3.9 is the last version supporting Python 3.7**
 
 **Thug 5.7 is the last version supporting Python 3.8**
+
+**Thug 6.18 is the last version supporting Python 3.9**
 
 
 Google V8
@@ -39,7 +41,7 @@ fork of the original PyV8 project, with code changed to work with the latest V8 
 Python 3. STPyV8 links with Google V8 built as a static library. Currently the library
 builds on Linux, MacOS and Microsoft Windows.
 
-Recent Thug versions support just Python 3.9+. If you are installing a recent Thug version
+Recent Thug versions support just Python 3.10+. If you are installing a recent Thug version
 (and you should really do that) you'll end up installing STPyV8 with no further action
 required.
 
