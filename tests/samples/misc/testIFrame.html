@@ -8,7 +8,13 @@
 
 <script>
 	var f = document.getElementById("frame0");
-	alert("width: " + f.contentWindow.document.getElementById("frame0").width);
-	alert("height: " + f.contentDocument.getElementById("frame0").height);
+
+	if (f.contentWindow) {
+		alert("width: " + f.contentWindow.document.getElementById("frame0").width);
+	}
+
+	if (f.contentDocument) {
+		alert("height: " + f.contentDocument.getElementById("frame0").height);
+	}
 </script>
 </html>
