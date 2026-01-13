@@ -47,7 +47,7 @@ dependencies = [
     "networkx==3.4.2; python_version == '3.10'",
     "networkx==3.6; python_version > '3.10'",
     "pefile==2024.8.26",
-    "pillow==12.0.0",
+    "pillow==12.1.0",
     "promise==2.3",
     "pylibemu==1.0",
     "pymongo==4.15.5",
