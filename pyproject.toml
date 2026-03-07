@@ -1,6 +1,6 @@
 [build-system]
 requires = [
-    "setuptools>=65.5.1",
+    "setuptools<82.0.0",
     "appdirs",
     "wheel"
 ]
