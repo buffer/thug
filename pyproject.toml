@@ -39,7 +39,7 @@ classifiers = [
 dependencies = [
     "appdirs==1.4.4",
     "beautifulsoup4==4.14.3",
-    "charset-normalizer==3.4.4",
+    "charset-normalizer==3.4.6",
     "cssutils==2.11.1",
     "dhash==1.4",
     "html5lib==1.1",
@@ -47,7 +47,7 @@ dependencies = [
     "networkx==3.4.2; python_version == '3.10'",
     "networkx==3.6.1; python_version > '3.10'",
     "pefile==2024.8.26",
-    "pillow==12.1.0",
+    "pillow==12.1.1",
     "promise==2.3",
     "pylibemu==1.0",
     "pymongo==4.16.0",
