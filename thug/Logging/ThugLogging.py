@@ -265,7 +265,6 @@ class ThugLogging(BaseLogging, SampleLogging):
                         - content     Content
                         - md5         MD5 checksum
                         - sha256      SHA-256 checksum
-                        - ssdeep      Ssdeep hash
                         - fsize       Content size
                         - ctype       Content type (whatever the server says it is)
                         - mtype       Calculated MIME type

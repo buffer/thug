@@ -57,7 +57,6 @@ dependencies = [
     "requests==2.32.5",
     "requests-futures==1.0.2",
     "setuptools>=65.5.1",
-    "ssdeep==3.4",
     "stpyv8==13.1.201.22",
     "yara-python==4.5.4",
     "zope.interface==8.2",

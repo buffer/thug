@@ -23,7 +23,6 @@ import hashlib
 import zipfile
 import tempfile
 import pefile
-import ssdeep
 import magic
 
 log = logging.getLogger("Thug")
@@ -162,7 +161,6 @@ class SampleLogging:
         p["md5"] = hashlib.md5(data).hexdigest()  # nosec
         p["sha1"] = hashlib.sha1(data).hexdigest()  # nosec
         p["sha256"] = hashlib.sha256(data).hexdigest()
-        p["ssdeep"] = ssdeep.hash(data)
 
         if p["type"] in ("PE",):
             imphash = self.get_imphash(data)

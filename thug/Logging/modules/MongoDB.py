@@ -199,7 +199,6 @@ class MongoDB:
             "content-type": data.get("ctype", None),
             "md5": data.get("md5", None),
             "sha256": data.get("sha256", None),
-            "ssdeep": data.get("ssdeep", None),
             "flags": flags,
             "size": data.get("fsize", None),
             "mime-type": data.get("mtype", None),

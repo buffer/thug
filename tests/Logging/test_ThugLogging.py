@@ -31,7 +31,6 @@ class TestThugLogging:
     jar_path = os.path.join(cwd_path, os.pardir, "test_files/sample.jar")
     sample = {
         "sha1": "b13d13733c4c9406fd0e01485bc4a34170b7d326",
-        "ssdeep": "24:9EGtDqSyDVHNkCq4LOmvmuS+MfTAPxokCOB:97tG5DjQ4LDs+sTAPxLT",
         "sha256": "459bf0aeda19633c8e757c05ee06b8121a51217cea69ce60819bb34092a296a0",
         "type": "JAR",
         "md5": "d4be8fbeb3a219ec8c6c26ffe4033a16",
