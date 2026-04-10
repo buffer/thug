@@ -59,7 +59,7 @@ dependencies = [
     "setuptools>=65.5.1",
     "stpyv8==13.1.201.22",
     "yara-python==4.5.4",
-    "zope.interface==8.2",
+    "zope.interface==8.3",
 ]
 keywords = [
     "honeyclient",
