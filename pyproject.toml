@@ -38,7 +38,7 @@ classifiers = [
 ]
 dependencies = [
     "appdirs==1.4.4",
-    "beautifulsoup4==4.14.3",
+    "beautifulsoup4==4.15.0",
     "charset-normalizer==3.4.7",
     "cssutils==2.15.0",
     "dhash==1.4",
