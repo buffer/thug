@@ -79,7 +79,7 @@ exploitgraph = [
 
 image = [
     "pytesseract",
-    "weasyprint",
+    "weasyprint==68.1",
 ]
 
 shellcode = [
