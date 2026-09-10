@@ -41,14 +41,14 @@ class TestScreenshot(object):
     @pytest.mark.skipif(
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
-    def _test_antifork(self, caplog):
+    def test_antifork(self, caplog):
         expected = []
         self.do_perform_test(caplog, "https://buffer.antifork.org", expected)
 
     @pytest.mark.skipif(
         not (IN_GITHUB_ACTIONS), reason="Test works just in Github Actions (Linux)"
     )
-    def _test_invalid_ctype(self, caplog):
+    def test_invalid_ctype(self, caplog):
         expected = []
         self.do_perform_test(
             caplog, "https://buffer.antifork.org/images/antifork.jpg", expected
