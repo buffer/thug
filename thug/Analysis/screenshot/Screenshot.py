@@ -4,6 +4,7 @@ import bs4
 
 try:
     from playwright.sync_api import sync_playwright
+
     PLAYWRIGHT_MODULE = True
 except ImportError:  # pragma: no cover
     PLAYWRIGHT_MODULE = False
@@ -11,6 +12,7 @@ except ImportError:  # pragma: no cover
 
 try:
     import weasyprint
+
     WEASYPRINT_MODULE = True
 except ImportError:  # pragma: no cover
     WEASYPRINT_MODULE = False
