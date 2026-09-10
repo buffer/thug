@@ -1,5 +1,4 @@
 import io
-import base64
 import logging
 import bs4
 
