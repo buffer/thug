@@ -23,7 +23,7 @@ class Screenshot:
             return
 
         if not ctype.startswith(self.content_types):
-            return
+            return  # pragma: no cover
 
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
@@ -39,8 +39,14 @@ class Screenshot:
 
             try:
                 page.set_content(response.text)
+
+                # Scroll down to enable downloading lazy-loaded images and wait
+                # for all the resources to be loaded
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                page.wait_for_load_state("networkidle")
+
                 screenshot = page.screenshot(type="png", full_page=True)
                 browser.close()
                 log.ThugLogging.log_screenshot(url, screenshot)
             except Exception as e:
-                log.warning("[SCREENSHOT] Error: %s", str(e))
+                log.warning("[SCREENSHOT] Error: %s", str(e))  # pragma: no cover
