@@ -102,6 +102,18 @@ with Thug distributed mode.
 Packages for most Linux distributions are available.
 
 
+Screenshot (optional)
+^^^^^^^^^^^^^^^^^^^^^
+
+Starting from Thug 6.2.2, screenshots are taken using Playwright, a framework for web
+automation and testing (https://playwright.dev/). In order to enable this feature just
+run
+
+.. code-block:: sh
+
+    $ pip install 'thug[image]'
+    $ playwright install chromium
+
 
 Thug installation
 -----------------
