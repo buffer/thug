@@ -1,22 +1,22 @@
-import io
 import logging
-import bs4
 
 try:
-    import weasyprint
+    from playwright.sync_api import sync_playwright
 
-    WEASYPRINT_MODULE = True
+    PLAYWRIGHT_MODULE = True
 except ImportError:  # pragma: no cover
-    WEASYPRINT_MODULE = False
+    PLAYWRIGHT_MODULE = False
+
 
 log = logging.getLogger("Thug")
 
 
 class Screenshot:
     content_types = ("text/html",)
+    resource_types = ("image", "stylesheet")
 
     def __init__(self):
-        self.enable = WEASYPRINT_MODULE
+        self.enable = PLAYWRIGHT_MODULE
 
     def run(self, window, url, response, ctype):
         if not self.enable or not log.ThugOpts.screenshot:
@@ -25,26 +25,28 @@ class Screenshot:
         if not ctype.startswith(self.content_types):
             return  # pragma: no cover
 
-        soup = bs4.BeautifulSoup(response.content, "html5lib")
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page()
 
-        for img in soup.find_all("img"):
-            src = img.get("src", None)
-            if not src:
-                continue  # pragma: no cover
+            def block_resource_type(route):  # pragma: no cover
+                if route.request.resource_type in self.resource_types:
+                    route.continue_()
+                else:
+                    route.abort()
 
-            norm_src = log.HTTPSession.normalize_url(window, src)
-            if norm_src:
-                img["src"] = norm_src
+            page.route("**/*", block_resource_type)
 
-        content = soup.prettify(formatter=None)
+            try:
+                page.set_content(response.text)
 
-        try:
-            html = weasyprint.HTML(string=content)
-            document = html.render()
+                # Scroll down to enable downloading lazy-loaded images and wait
+                # for all the resources to be loaded
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                page.wait_for_load_state("networkidle")
 
-            with io.BytesIO() as screenshot:
-                document.write_pdf(screenshot)
-                screenshot.seek(0)
-                log.ThugLogging.log_screenshot(url, screenshot.read())
-        except Exception as e:  # pragma: no cover,pylint:disable=broad-except
-            log.warning("[SCREENSHOT] Error: %s", str(e))
+                screenshot = page.screenshot(type="png", full_page=True)
+                browser.close()
+                log.ThugLogging.log_screenshot(url, screenshot)
+            except Exception as e:  # pragma: no cover
+                log.warning("[SCREENSHOT] Error: %s", str(e))
