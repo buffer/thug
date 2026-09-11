@@ -1,5 +1,3 @@
-@import url('classic.css');
-
 /* Common colours */
 :root {
     --good-color: rgb(41 100 51);
@@ -125,7 +123,9 @@ form.inline-search input {
 }
 
 form.inline-search input[type='submit'] {
-    width: 40px;
+    /* In some languages, more than 40px is required */
+    width: auto;
+    min-width: 40px;
 }
 
 div.document {
@@ -140,6 +140,8 @@ span.pre {
 }
 
 div.sphinxsidebar {
+    display: flex;
+    width: min(25vw, 350px);
     float: none;
     position: sticky;
     top: 0;
@@ -156,13 +158,17 @@ div.sphinxsidebar h4 {
     margin-top: 1.5em;
 }
 
+div.bodywrapper {
+    margin-left: min(25vw, 350px);
+}
+
 div.sphinxsidebarwrapper {
-    width: 217px;
     box-sizing: border-box;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    float: left;
+    float: none;
+    flex-grow: 1;
 }
 
 div.sphinxsidebarwrapper > h3:first-child {
@@ -191,26 +197,13 @@ div.sphinxsidebar input[type='text'] {
 }
 
 #sidebarbutton {
-    /* Sphinx 4.x and earlier compat */
-    height: 100%;
-    background-color: #CCCCCC;
-    margin-left: 0;
-    color: #444444;
-    font-size: 1.2em;
-    cursor: pointer;
-    padding-top: 1px;
-    float: right;
-    display: table;
-    /* after Sphinx 4.x and earlier is dropped, only the below is needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 12px;
+    min-width: 12px;
     border-radius: 0 5px 5px 0;
     border-left: none;
-}
-
-#sidebarbutton span {
-    /* Sphinx 4.x and earlier compat */
-    display: table-cell;
-    vertical-align: middle;
 }
 
 #sidebarbutton:hover {
@@ -230,6 +223,9 @@ div.body h1, div.body h2, div.body h3, div.body h4, div.body h5, div.body h6 {
     border: 0;
     padding: 0.3em 0;
 }
+div.body dl.field-list > dt {
+    line-height: 1.6;
+}
 
 div.body hr {
     border: 0;
@@ -240,6 +236,37 @@ div.body hr {
 div.body pre {
     border-radius: 3px;
     border: 1px solid #ac9;
+}
+
+div.body {
+    .good pre {
+        border-left: 3px solid var(--good-border);
+    }
+    .bad pre {
+        border-left: 3px solid var(--bad-border);
+    }
+    .maybe pre {
+        border-left: 3px solid var(--middle-border);
+    }
+}
+
+div.code-block-caption {
+    background-color: #eee;
+    border: 1px solid #ac9;
+    border-bottom: none;
+    border-radius: 3px 3px 0 0;
+    padding: 0.3em 0.6em;
+    font-size: 90%;
+    color: #333;
+
+    & + div pre {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+    }
+
+    & + div .copybutton {
+        border-top-right-radius: 0 !important;
+    }
 }
 
 /* Admonitions */
@@ -337,6 +364,10 @@ tt, code, pre {
     font-size: 96.5%;
 }
 
+div.body pre {
+    line-height: 120%;
+}
+
 div.body tt,
 div.body code {
     border-radius: 3px;
@@ -416,6 +447,36 @@ div.footer a:hover {
     color: #229;
 }
 
+/* C API thread safety annotations */
+:root {
+    --threadsafety-incompatible: var(--bad-color);
+    --threadsafety-compatible: var(--middle-color);
+    --threadsafety-distinct: var(--middle-color);
+    --threadsafety-shared: var(--good-color);
+    --threadsafety-atomic: var(--good-color);
+}
+
+.threadsafety.threadsafety-incompatible {
+    color: var(--threadsafety-incompatible);
+}
+
+.threadsafety.threadsafety-compatible {
+    color: var(--threadsafety-compatible);
+}
+
+.threadsafety.threadsafety-distinct {
+    color: var(--threadsafety-distinct);
+}
+
+.threadsafety.threadsafety-shared {
+    color: var(--threadsafety-shared);
+}
+
+.threadsafety.threadsafety-atomic {
+    color: var(--threadsafety-atomic);
+}
+
+
 dl > dt span ~ em,
 .sig {
     font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
@@ -447,17 +508,32 @@ div.genindex-jumpbox a {
     top: 0;
     right: 0;
     font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
-    padding-left: 0.2em;
-    padding-right: 0.2em;
+    font-size: 80%;
+    padding-left: .5em;
+    padding-right: .5em;
+    height: 100%;
+    max-height: min(100%, 2.4em);
     border-radius: 0 3px 0 0;
-    color: #ac9; /* follows div.body pre */
-    border-color: #ac9; /* follows div.body pre */
-    border-style: solid; /* follows div.body pre */
-    border-width: 1px; /* follows div.body pre */
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ac9; /* follows div.body pre */
+    display: none;
 }
 
-.copybutton[data-hidden='true'] {
-    text-decoration: line-through;
+.copybutton:hover {
+    background-color: #eee;
+}
+
+.copybutton:active {
+    background-color: #ddd;
+}
+
+.highlight:active .copybutton {
+    display: block;
+}
+
+.highlight:hover .copybutton {
+    display: block;
 }
 
 @media (max-width: 1023px) {
@@ -489,7 +565,7 @@ div.genindex-jumpbox a {
         margin-inline-end: 0;
     }
     /* Remove sidebar and top related bar */
-    div.related, .sphinxsidebar {
+    div.related, div.sphinxsidebar {
         display: none;
     }
     /* Anchorlinks are not hidden by fixed-positioned navbar when scrolled to */
@@ -713,10 +789,12 @@ div.genindex-jumpbox a {
     --versionadded: var(--good-color);
     --versionchanged: var(--middle-color);
     --deprecated: var(--bad-color);
+    --soft-deprecated: rgb(175, 0, 255);
 
     --versionadded-border: var(--good-border);
     --versionchanged-border: var(--middle-border);
     --deprecated-border: var(--bad-border);
+    --soft-deprecated-border: rgb(175, 0, 255);
 }
 
 div.versionadded,
@@ -741,6 +819,10 @@ div.versionremoved {
     border-left-color: var(--deprecated-border);
 }
 
+div.soft-deprecated {
+    border-left-color: var(--soft-deprecated-border);
+}
+
 div.versionadded .versionmodified {
     color: var(--versionadded);
 }
@@ -753,4 +835,15 @@ div.deprecated .versionmodified,
 div.deprecated-removed .versionmodified,
 div.versionremoved .versionmodified {
     color: var(--deprecated);
+}
+
+div.soft-deprecated .versionmodified {
+    color: var(--soft-deprecated);
+}
+
+/* Hide header when printing */
+@media print {
+    div.mobile-nav {
+        display: none;
+    }
 }

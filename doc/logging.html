@@ -5,21 +5,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Logging &#8212; Thug 6.12 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logging &#8212; Thug 6.22 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" type="text/css" href="static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="static/pydoctheme.css?v=41b4f12d" />
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="static/pygments_dark.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="static/pygments.css?v=03e43079" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="static/pygments_dark.css?v=0fc419ee" />
+    <link rel="stylesheet" type="text/css" href="static/classic.css?v=67a6116b" />
+    <link rel="stylesheet" type="text/css" href="static/pydoctheme.css?v=4365c8fe" />
     
-    <script src="static/documentation_options.js?v=51001561"></script>
-    <script src="static/doctools.js?v=9a2dae69"></script>
-    <script src="static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="static/documentation_options.js?v=fc5065ad"></script>
+    <script src="static/doctools.js?v=fd6eb6e6"></script>
+    <script src="static/sphinx_highlight.js?v=6ffebe34"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Plugin Framework" href="plugins.html" />
     <link rel="prev" title="JS Hooks" href="jshooks.html" /><link rel="stylesheet" href="static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
-    <link rel="shortcut icon" type="image/png" href="static/py.svg" />
+    <link rel="shortcut icon" type="image/png" href="static/py.svg">
             <script type="text/javascript" src="static/copybutton.js"></script>
             <script type="text/javascript" src="static/menu.js"></script>
             <script type="text/javascript" src="static/search-focus.js"></script>
@@ -28,22 +29,22 @@
 <body>
 <div class="mobile-nav">
     <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
-           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
     <nav class="nav-content" role="navigation">
         <label for="menuToggler" class="toggler__label">
             <span></span>
         </label>
         <span class="nav-items-wrapper">
             <a href="https://www.python.org/" class="nav-logo">
-                <img src="static/py.svg" alt="Python logo"/>
+                <img src="static/py.svg" alt="Python logo">
             </a>
             <span class="version_switcher_placeholder"></span>
             <form role="search" class="search" action="search.html" method="get">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
                     <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
                 </svg>
-                <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" />
-                <input type="submit" value="Go"/>
+                <input placeholder="Quick search" aria-label="Quick search" type="search" name="q">
+                <input type="submit" value="Go">
             </form>
         </span>
     </nav>
@@ -95,7 +96,7 @@
         <li class="right" >
           <a href="jshooks.html" title="JS Hooks"
              accesskey="P">previous</a> |</li>
-          <li><img src="static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><img src="static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
           <li><a href="https://www.python.org/">Python</a> &#187;</li>
           <li class="switchers">
             <div class="language_switcher_placeholder"></div>
@@ -103,7 +104,7 @@
           </li>
           <li>
               
-              <a href="index.html">Thug 6.12 documentation</a> &#187;
+              <a href="index.html">Thug 6.22 documentation</a> &#187;
               
           </li>
         <li class="nav-item nav-item-this"><a href="">Logging</a></li>
@@ -112,8 +113,8 @@
 
     <div class="inline-search" role="search">
         <form class="inline-search" action="search.html" method="get">
-          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box" />
-          <input type="submit" value="Go" />
+          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box">
+          <input type="submit" value="Go">
         </form>
     </div>
                      |
@@ -200,28 +201,28 @@ options used for the single analysis are stored together with other useful infor
 like the used Thug version and the analysis datetime. Moreover the URL ObjectID of the
 initial URL is stored for convenience.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;url_id&quot;</span><span class="w">      </span>:<span class="w"> </span>Initial<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">    </span><span class="s2">&quot;timestamp&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>datetime
-<span class="w">    </span><span class="s2">&quot;thug&quot;</span><span class="w">        </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">                        </span><span class="s2">&quot;version&quot;</span><span class="w">            </span>:<span class="w"> </span>Thug<span class="w"> </span>version
-<span class="w">                        </span><span class="s2">&quot;personality&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">                            </span><span class="s2">&quot;useragent&quot;</span><span class="w">      </span>:<span class="w"> </span>User<span class="w"> </span>Agent
+<span class="w">    </span><span class="s2">"url_id"</span><span class="w">      </span>:<span class="w"> </span>Initial<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">"timestamp"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>datetime
+<span class="w">    </span><span class="s2">"thug"</span><span class="w">        </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                        </span><span class="s2">"version"</span><span class="w">            </span>:<span class="w"> </span>Thug<span class="w"> </span>version
+<span class="w">                        </span><span class="s2">"personality"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                            </span><span class="s2">"useragent"</span><span class="w">      </span>:<span class="w"> </span>User<span class="w"> </span>Agent
 <span class="w">                        </span><span class="o">}</span>,
-<span class="w">                        </span><span class="s2">&quot;plugins&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">                            </span><span class="s2">&quot;acropdf&quot;</span><span class="w">        </span>:<span class="w"> </span>Acrobat<span class="w"> </span>Reader<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
-<span class="w">                            </span><span class="s2">&quot;javaplugin&quot;</span><span class="w">     </span>:<span class="w"> </span>JavaPlugin<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
-<span class="w">                            </span><span class="s2">&quot;shockwaveflash&quot;</span><span class="w"> </span>:<span class="w"> </span>Shockwave<span class="w"> </span>Flash<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                        </span><span class="s2">"plugins"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                            </span><span class="s2">"acropdf"</span><span class="w">        </span>:<span class="w"> </span>Acrobat<span class="w"> </span>Reader<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                            </span><span class="s2">"javaplugin"</span><span class="w">     </span>:<span class="w"> </span>JavaPlugin<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                            </span><span class="s2">"shockwaveflash"</span><span class="w"> </span>:<span class="w"> </span>Shockwave<span class="w"> </span>Flash<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
 <span class="w">                        </span><span class="o">}</span>,
-<span class="w">                        </span><span class="s2">&quot;options&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">                            </span><span class="s2">&quot;local&quot;</span><span class="w">          </span>:<span class="w"> </span>Local<span class="w"> </span>analysis
-<span class="w">                            </span><span class="s2">&quot;nofetch&quot;</span><span class="w">        </span>:<span class="w"> </span>Local<span class="w"> </span>no-fetch<span class="w"> </span>analysis
-<span class="w">                            </span><span class="s2">&quot;proxy&quot;</span><span class="w">          </span>:<span class="w"> </span>Proxy<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
-<span class="w">                            </span><span class="s2">&quot;events&quot;</span><span class="w">         </span>:<span class="w"> </span>Additional<span class="w"> </span>DOM<span class="w"> </span>events<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>processed
-<span class="w">                            </span><span class="s2">&quot;delay&quot;</span><span class="w">          </span>:<span class="w"> </span>Maximum<span class="w"> </span>setTimeout/setInterval<span class="w"> </span>delay<span class="w"> </span>value<span class="w"> </span><span class="o">(</span><span class="k">in</span><span class="w"> </span>milliseconds<span class="o">)</span>
-<span class="w">                            </span><span class="s2">&quot;referer&quot;</span><span class="w">        </span>:<span class="w"> </span>Referer
-<span class="w">                            </span><span class="s2">&quot;timeout&quot;</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>timeout
-<span class="w">                            </span><span class="s2">&quot;threshold&quot;</span><span class="w">      </span>:<span class="w"> </span>Maximum<span class="w"> </span>pages<span class="w"> </span>to<span class="w"> </span>fetch
-<span class="w">                            </span><span class="s2">&quot;extensive&quot;</span><span class="w">      </span>:<span class="w"> </span>Extensive<span class="w"> </span>fetch<span class="w"> </span>of<span class="w"> </span>linked<span class="w"> </span>pages
+<span class="w">                        </span><span class="s2">"options"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                            </span><span class="s2">"local"</span><span class="w">          </span>:<span class="w"> </span>Local<span class="w"> </span>analysis
+<span class="w">                            </span><span class="s2">"nofetch"</span><span class="w">        </span>:<span class="w"> </span>Local<span class="w"> </span>no-fetch<span class="w"> </span>analysis
+<span class="w">                            </span><span class="s2">"proxy"</span><span class="w">          </span>:<span class="w"> </span>Proxy<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                            </span><span class="s2">"events"</span><span class="w">         </span>:<span class="w"> </span>Additional<span class="w"> </span>DOM<span class="w"> </span>events<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>processed
+<span class="w">                            </span><span class="s2">"delay"</span><span class="w">          </span>:<span class="w"> </span>Maximum<span class="w"> </span>setTimeout/setInterval<span class="w"> </span>delay<span class="w"> </span>value<span class="w"> </span><span class="o">(</span><span class="k">in</span><span class="w"> </span>milliseconds<span class="o">)</span>
+<span class="w">                            </span><span class="s2">"referer"</span><span class="w">        </span>:<span class="w"> </span>Referer
+<span class="w">                            </span><span class="s2">"timeout"</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>timeout
+<span class="w">                            </span><span class="s2">"threshold"</span><span class="w">      </span>:<span class="w"> </span>Maximum<span class="w"> </span>pages<span class="w"> </span>to<span class="w"> </span>fetch
+<span class="w">                            </span><span class="s2">"extensive"</span><span class="w">      </span>:<span class="w"> </span>Extensive<span class="w"> </span>fetch<span class="w"> </span>of<span class="w"> </span>linked<span class="w"> </span>pages
 <span class="w">                        </span><span class="o">}</span>,
 <span class="w">                    </span><span class="o">}</span>
 <span class="o">}</span>
@@ -232,8 +233,8 @@ initial URL is stored for convenience.</p>
 <h4>awis<a class="headerlink" href="#awis" title="Link to this heading">¶</a></h4>
 <p>The collection <em>awis</em> is used to store Alexa Web Information Service (AWIS) reports.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">        </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">        </span><span class="s2">&quot;report&quot;</span><span class="w">        </span>:<span class="w"> </span>AWIS<span class="w"> </span>report
+<span class="w">        </span><span class="s2">"analysis_id"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">        </span><span class="s2">"report"</span><span class="w">        </span>:<span class="w"> </span>AWIS<span class="w"> </span>report
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -243,12 +244,12 @@ initial URL is stored for convenience.</p>
 <p>The collection <em>behaviors</em> is used to keep track of the suspicious and/or malicious
 behaviors observed during the analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;analysis_id&#39;</span><span class="w"> </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s1">&#39;description&#39;</span><span class="w"> </span>:<span class="w"> </span>Observed<span class="w"> </span>behavior<span class="w"> </span>description
-<span class="w">    </span><span class="s1">&#39;cve&#39;</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;snippet&#39;</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;method&#39;</span><span class="w">      </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
-<span class="w">    </span><span class="s1">&#39;timestamp&#39;</span><span class="w">   </span>:<span class="w"> </span>Timestamp
+<span class="w">    </span><span class="s1">'analysis_id'</span><span class="w"> </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s1">'description'</span><span class="w"> </span>:<span class="w"> </span>Observed<span class="w"> </span>behavior<span class="w"> </span>description
+<span class="w">    </span><span class="s1">'cve'</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">'snippet'</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">'method'</span><span class="w">      </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
+<span class="w">    </span><span class="s1">'timestamp'</span><span class="w">   </span>:<span class="w"> </span>Timestamp
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -258,9 +259,9 @@ behaviors observed during the analysis.</p>
 <p>The collection <em>certificates</em> is used to store the SSL certificates collected from
 servers during the analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">    </span><span class="s2">&quot;certificate&quot;</span><span class="w">   </span>:<span class="w"> </span>SSL<span class="w"> </span>certificate
+<span class="w">    </span><span class="s2">"analysis_id"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">"url_id"</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">"certificate"</span><span class="w">   </span>:<span class="w"> </span>SSL<span class="w"> </span>certificate
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -270,11 +271,11 @@ servers during the analysis.</p>
 <p>The collection <em>classifiers</em> is used to keep track of the Thug classifiers matches that
 fire during the analysis while visiting the URL referenced by <em>url_id</em>.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;analysis_id&#39;</span><span class="w"> </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s1">&#39;url_id&#39;</span><span class="w">      </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">    </span><span class="s1">&#39;classifier&#39;</span><span class="w">  </span>:<span class="w"> </span>Classifier<span class="w"> </span>name<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>html,<span class="w"> </span>js,<span class="w"> </span>url,<span class="w"> </span>sample<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;rule&#39;</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>name
-<span class="w">    </span><span class="s1">&#39;tags&#39;</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>tags
+<span class="w">    </span><span class="s1">'analysis_id'</span><span class="w"> </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s1">'url_id'</span><span class="w">      </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s1">'classifier'</span><span class="w">  </span>:<span class="w"> </span>Classifier<span class="w"> </span>name<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>html,<span class="w"> </span>js,<span class="w"> </span>url,<span class="w"> </span>sample<span class="o">)</span>
+<span class="w">    </span><span class="s1">'rule'</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>name
+<span class="w">    </span><span class="s1">'tags'</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>tags
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -284,12 +285,12 @@ fire during the analysis while visiting the URL referenced by <em>url_id</em>.</
 <p>The collection <em>codes</em> is used to keep track of the (dynamic language) snippets of code
 identified during the analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;analysis_id&#39;</span><span class="w">  </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s1">&#39;snippet&#39;</span><span class="w">      </span>:<span class="w"> </span>Code<span class="w"> </span>snippet
-<span class="w">    </span><span class="s1">&#39;language&#39;</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>language
-<span class="w">    </span><span class="s1">&#39;relationship&#39;</span><span class="w"> </span>:<span class="w"> </span>Relationship<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>page<span class="w"> </span>that<span class="w"> </span>references<span class="w"> </span>the<span class="w"> </span>code
-<span class="w">    </span><span class="s1">&#39;tag&#39;</span><span class="w">          </span>:<span class="w"> </span>Snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span>cross-references<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;method&#39;</span><span class="w">       </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
+<span class="w">    </span><span class="s1">'analysis_id'</span><span class="w">  </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s1">'snippet'</span><span class="w">      </span>:<span class="w"> </span>Code<span class="w"> </span>snippet
+<span class="w">    </span><span class="s1">'language'</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>language
+<span class="w">    </span><span class="s1">'relationship'</span><span class="w"> </span>:<span class="w"> </span>Relationship<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>page<span class="w"> </span>that<span class="w"> </span>references<span class="w"> </span>the<span class="w"> </span>code
+<span class="w">    </span><span class="s1">'tag'</span><span class="w">          </span>:<span class="w"> </span>Snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span>cross-references<span class="o">)</span>
+<span class="w">    </span><span class="s1">'method'</span><span class="w">       </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -301,12 +302,12 @@ during the single analysis. The field <em>chain_id</em> is a counter which is in
 every redirection and it’s meant to be used in order to rebuild the redirection chain in the
 right order while analyzing data.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">    </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s2">&quot;chain_id&quot;</span><span class="w">       </span>:<span class="w"> </span>Chain<span class="w"> </span>ID
-<span class="w">    </span><span class="s2">&quot;source_id&quot;</span><span class="w">      </span>:<span class="w"> </span>Source<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">    </span><span class="s2">&quot;destination_id&quot;</span><span class="w"> </span>:<span class="w"> </span>Destination<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">    </span><span class="s2">&quot;method&quot;</span><span class="w">         </span>:<span class="w"> </span>Method
-<span class="w">    </span><span class="s2">&quot;flags&quot;</span><span class="w">          </span>:<span class="w"> </span>Flags
+<span class="w">    </span><span class="s2">"analysis_id"</span><span class="w">    </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">"chain_id"</span><span class="w">       </span>:<span class="w"> </span>Chain<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">"source_id"</span><span class="w">      </span>:<span class="w"> </span>Source<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">"destination_id"</span><span class="w"> </span>:<span class="w"> </span>Destination<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">"method"</span><span class="w">         </span>:<span class="w"> </span>Method
+<span class="w">    </span><span class="s2">"flags"</span><span class="w">          </span>:<span class="w"> </span>Flags
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -316,12 +317,12 @@ right order while analyzing data.</p>
 <p>The collection <em>eploits</em> is used to keep track of the exploits which were successfully
 identified during the analysis while visiting the URL referenced by <em>url_id</em>.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;analysis_id&#39;</span><span class="w"> </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s1">&#39;url_id&#39;</span><span class="w">      </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">    </span><span class="s1">&#39;module&#39;</span><span class="w">      </span>:<span class="w"> </span>Module/ActiveX<span class="w"> </span>Control,<span class="w"> </span>etc.<span class="w"> </span>that<span class="w"> </span>gets<span class="w"> </span>exploited
-<span class="w">    </span><span class="s1">&#39;description&#39;</span><span class="w"> </span>:<span class="w"> </span>Description<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>exploit
-<span class="w">    </span><span class="s1">&#39;cve&#39;</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;data&#39;</span><span class="w">        </span>:<span class="w"> </span>Additional<span class="w"> </span>information
+<span class="w">    </span><span class="s1">'analysis_id'</span><span class="w"> </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s1">'url_id'</span><span class="w">      </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s1">'module'</span><span class="w">      </span>:<span class="w"> </span>Module/ActiveX<span class="w"> </span>Control,<span class="w"> </span>etc.<span class="w"> </span>that<span class="w"> </span>gets<span class="w"> </span>exploited
+<span class="w">    </span><span class="s1">'description'</span><span class="w"> </span>:<span class="w"> </span>Description<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>exploit
+<span class="w">    </span><span class="s1">'cve'</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">'data'</span><span class="w">        </span>:<span class="w"> </span>Additional<span class="w"> </span>information
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -331,9 +332,9 @@ identified during the analysis while visiting the URL referenced by <em>url_id</
 <p>The collection <em>favicons</em> is used to store the dhashes of the favicons collected
 during the analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">    </span><span class="s2">&quot;dhash&quot;</span><span class="w">         </span>:<span class="w"> </span>Favicon<span class="w"> </span>dhash
+<span class="w">    </span><span class="s2">"analysis_id"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">"url_id"</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">"dhash"</span><span class="w">         </span>:<span class="w"> </span>Favicon<span class="w"> </span>dhash
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -342,8 +343,8 @@ during the analysis.</p>
 <h4>graphs<a class="headerlink" href="#graphs" title="Link to this heading">¶</a></h4>
 <p>The collection <em>graphs</em> is used to store the analysis JSON exploit graph.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s2">&quot;graph&quot;</span><span class="w">         </span>:<span class="w"> </span>JSON<span class="w"> </span>exploit<span class="w"> </span>graph
+<span class="w">    </span><span class="s2">"analysis_id"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">"graph"</span><span class="w">         </span>:<span class="w"> </span>JSON<span class="w"> </span>exploit<span class="w"> </span>graph
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -353,9 +354,9 @@ during the analysis.</p>
 <p>The collection <em>honeyagent</em> is used to store the HoneyAgent Java sandbox sample analysis
 reports. The Sample ObjectID references the <em>samples</em> collection.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s2">&quot;sample_id&quot;</span><span class="w">     </span>:<span class="w"> </span>Sample<span class="w"> </span>ID
-<span class="w">    </span><span class="s2">&quot;report&quot;</span><span class="w">        </span>:<span class="w"> </span>HoneyAgent<span class="w"> </span>report<span class="w"> </span><span class="o">(</span>JSON<span class="o">)</span>
+<span class="w">    </span><span class="s2">"analysis_id"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">"sample_id"</span><span class="w">     </span>:<span class="w"> </span>Sample<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">"report"</span><span class="w">        </span>:<span class="w"> </span>HoneyAgent<span class="w"> </span>report<span class="w"> </span><span class="o">(</span>JSON<span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -365,10 +366,10 @@ reports. The Sample ObjectID references the <em>samples</em> collection.</p>
 <p>The collection <em>images</em> is used to store the results of the image processing
 analysis.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">        </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">        </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">        </span><span class="s2">&quot;classifier&quot;</span><span class="w">    </span>:<span class="w"> </span>Classifier<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>OCR<span class="o">)</span>
-<span class="w">        </span><span class="s2">&quot;result&quot;</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>result
+<span class="w">        </span><span class="s2">"analysis_id"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">        </span><span class="s2">"url_id"</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">        </span><span class="s2">"classifier"</span><span class="w">    </span>:<span class="w"> </span>Classifier<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>OCR<span class="o">)</span>
+<span class="w">        </span><span class="s2">"result"</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>result
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -379,8 +380,8 @@ analysis.</p>
 JSON logging mode should be enabled in order to have Thug saving data in
 this collection</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">        </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">        </span><span class="s2">&quot;report&quot;</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>report<span class="w"> </span><span class="o">(</span>JSON<span class="o">)</span>
+<span class="w">        </span><span class="s2">"analysis_id"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">        </span><span class="s2">"report"</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>report<span class="w"> </span><span class="o">(</span>JSON<span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -392,17 +393,16 @@ during the analysis. The content is stored in a MongoDB GridFS and additional me
 saved like MD5 and SHA-256 checksums, content size, content type (as served by the server)
 and evaluated content type.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">    </span><span class="s2">&quot;status&quot;</span><span class="w">        </span>:<span class="w"> </span>HTTP<span class="w"> </span>status<span class="w"> </span>code
-<span class="w">    </span><span class="s2">&quot;content_id&quot;</span><span class="w">    </span>:<span class="w"> </span>Content<span class="w"> </span>ID<span class="w"> </span><span class="o">(</span>content<span class="w"> </span>stored<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>GridFS<span class="w"> </span>fs<span class="o">)</span>
-<span class="w">    </span><span class="s2">&quot;content-type&quot;</span><span class="w">  </span>:<span class="w"> </span>Content<span class="w"> </span>Type
-<span class="w">    </span><span class="s2">&quot;md5&quot;</span><span class="w">           </span>:<span class="w"> </span>MD5<span class="w"> </span>checksum
-<span class="w">    </span><span class="s2">&quot;sha256&quot;</span><span class="w">        </span>:<span class="w"> </span>SHA-256<span class="w"> </span>checksum
-<span class="w">    </span><span class="s2">&quot;ssdeep&quot;</span><span class="w">        </span>:<span class="w"> </span>Ssdeep<span class="w"> </span><span class="nb">hash</span>
-<span class="w">    </span><span class="s2">&quot;flags&quot;</span><span class="w">         </span>:<span class="w"> </span>Flags
-<span class="w">    </span><span class="s2">&quot;size&quot;</span><span class="w">          </span>:<span class="w"> </span>Data<span class="w"> </span>size
-<span class="w">    </span><span class="s2">&quot;mime-type&quot;</span><span class="w">     </span>:<span class="w"> </span>Evaluated<span class="w"> </span>content<span class="w"> </span><span class="nb">type</span>
+<span class="w">    </span><span class="s2">"analysis_id"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">"url_id"</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">"status"</span><span class="w">        </span>:<span class="w"> </span>HTTP<span class="w"> </span>status<span class="w"> </span>code
+<span class="w">    </span><span class="s2">"content_id"</span><span class="w">    </span>:<span class="w"> </span>Content<span class="w"> </span>ID<span class="w"> </span><span class="o">(</span>content<span class="w"> </span>stored<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>GridFS<span class="w"> </span>fs<span class="o">)</span>
+<span class="w">    </span><span class="s2">"content-type"</span><span class="w">  </span>:<span class="w"> </span>Content<span class="w"> </span>Type
+<span class="w">    </span><span class="s2">"md5"</span><span class="w">           </span>:<span class="w"> </span>MD5<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">"sha256"</span><span class="w">        </span>:<span class="w"> </span>SHA-256<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">"flags"</span><span class="w">         </span>:<span class="w"> </span>Flags
+<span class="w">    </span><span class="s2">"size"</span><span class="w">          </span>:<span class="w"> </span>Data<span class="w"> </span>size
+<span class="w">    </span><span class="s2">"mime-type"</span><span class="w">     </span>:<span class="w"> </span>Evaluated<span class="w"> </span>content<span class="w"> </span><span class="nb">type</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -414,26 +414,26 @@ types: PE, PDF, JAR and SWF). The sample itself is stored in a MongoDB GridFS an
 metadata are saved like MD5, SHA-1 and SHA-256 checksums, sample type and imphash (if the sample
 type is PE).</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">    </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">    </span><span class="s2">&quot;sample_id&quot;</span><span class="w">     </span>:<span class="w"> </span>Sample<span class="w"> </span>ID<span class="w"> </span><span class="o">(</span>sample<span class="w"> </span>stored<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>GridFS<span class="w"> </span>fs<span class="o">)</span>
-<span class="w">    </span><span class="s2">&quot;type&quot;</span><span class="w">          </span>:<span class="w"> </span>Sample<span class="w"> </span><span class="nb">type</span>
-<span class="w">    </span><span class="s2">&quot;md5&quot;</span><span class="w">           </span>:<span class="w"> </span>MD5<span class="w"> </span>checksum
-<span class="w">    </span><span class="s2">&quot;sha1&quot;</span><span class="w">          </span>:<span class="w"> </span>SHA-1<span class="w"> </span>checksum
-<span class="w">    </span><span class="s2">&quot;sha256&quot;</span><span class="w">        </span>:<span class="w"> </span>SHA-256<span class="w"> </span>checksum
-<span class="w">    </span><span class="s2">&quot;imphash&quot;</span><span class="w">       </span>:<span class="w"> </span>Imphash<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>is<span class="w"> </span>PE<span class="o">)</span>
+<span class="w">    </span><span class="s2">"analysis_id"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">    </span><span class="s2">"url_id"</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">    </span><span class="s2">"sample_id"</span><span class="w">     </span>:<span class="w"> </span>Sample<span class="w"> </span>ID<span class="w"> </span><span class="o">(</span>sample<span class="w"> </span>stored<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>GridFS<span class="w"> </span>fs<span class="o">)</span>
+<span class="w">    </span><span class="s2">"type"</span><span class="w">          </span>:<span class="w"> </span>Sample<span class="w"> </span><span class="nb">type</span>
+<span class="w">    </span><span class="s2">"md5"</span><span class="w">           </span>:<span class="w"> </span>MD5<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">"sha1"</span><span class="w">          </span>:<span class="w"> </span>SHA-1<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">"sha256"</span><span class="w">        </span>:<span class="w"> </span>SHA-256<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">"imphash"</span><span class="w">       </span>:<span class="w"> </span>Imphash<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>is<span class="w"> </span>PE<span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
 </div>
 </section>
 <section id="screenshots">
 <h4>screenshots<a class="headerlink" href="#screenshots" title="Link to this heading">¶</a></h4>
-<p>The collection <em>screenshots</em> is used to store base-64 encoded screenshots (JPG format)
+<p>The collection <em>screenshots</em> is used to store base-64 encoded screenshots (PDF format)
 of the analyzed page.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">         </span><span class="s2">&quot;analysis_id&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
-<span class="w">         </span><span class="s2">&quot;url_id&quot;</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
-<span class="w">         </span><span class="s2">&quot;screenshot&quot;</span><span class="w">    </span>:<span class="w"> </span>URL<span class="w"> </span>screenshot
+<span class="w">         </span><span class="s2">"analysis_id"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>ID
+<span class="w">         </span><span class="s2">"url_id"</span><span class="w">        </span>:<span class="w"> </span>URL<span class="w"> </span>url_id
+<span class="w">         </span><span class="s2">"screenshot"</span><span class="w">    </span>:<span class="w"> </span>URL<span class="w"> </span>screenshot
 <span class="w"> </span><span class="o">}</span>
 </pre></div>
 </div>
@@ -446,7 +446,7 @@ multiple times (during the same analysis or in different analyses). Associating 
 unique ObjectID to a given URL allows to easily spot interesting scenarios like
 different redirection chains ending up using the same URLs.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="w"> </span>:<span class="w"> </span>URL
+<span class="w">    </span><span class="s2">"url"</span><span class="w"> </span>:<span class="w"> </span>URL
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -485,41 +485,41 @@ that the JSON log is stored in the MongoDB instance (if available). See the <em>
 mode</em> for details. If the File logging format is enabled too, the JSON log will be stored
 in a JSON file in the log directory too. The JSON format is shown below.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="w">         </span>:<span class="w"> </span>Initial<span class="w"> </span>URL
-<span class="w">    </span><span class="s2">&quot;timestamp&quot;</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>datetime
-<span class="w">    </span><span class="s2">&quot;logtype&quot;</span><span class="w">     </span>:<span class="w"> </span><span class="s2">&quot;json-log&quot;</span>,
-<span class="w">    </span><span class="s2">&quot;thug&quot;</span><span class="w">        </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">                        </span><span class="s2">&quot;version&quot;</span><span class="w">            </span>:<span class="w"> </span>Thug<span class="w"> </span>version
-<span class="w">                        </span><span class="s2">&quot;personality&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">                                </span><span class="s2">&quot;useragent&quot;</span><span class="w">      </span>:<span class="w"> </span>User<span class="w"> </span>Agent
+<span class="w">    </span><span class="s2">"url"</span><span class="w">         </span>:<span class="w"> </span>Initial<span class="w"> </span>URL
+<span class="w">    </span><span class="s2">"timestamp"</span><span class="w">   </span>:<span class="w"> </span>Analysis<span class="w"> </span>datetime
+<span class="w">    </span><span class="s2">"logtype"</span><span class="w">     </span>:<span class="w"> </span><span class="s2">"json-log"</span>,
+<span class="w">    </span><span class="s2">"thug"</span><span class="w">        </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                        </span><span class="s2">"version"</span><span class="w">            </span>:<span class="w"> </span>Thug<span class="w"> </span>version
+<span class="w">                        </span><span class="s2">"personality"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                                </span><span class="s2">"useragent"</span><span class="w">      </span>:<span class="w"> </span>User<span class="w"> </span>Agent
 <span class="w">                        </span><span class="o">}</span>,
-<span class="w">                        </span><span class="s2">&quot;plugins&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">                                </span><span class="s2">&quot;acropdf&quot;</span><span class="w">        </span>:<span class="w"> </span>Acrobat<span class="w"> </span>Reader<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
-<span class="w">                                </span><span class="s2">&quot;javaplugin&quot;</span><span class="w">     </span>:<span class="w"> </span>JavaPlugin<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>,
-<span class="w">                                </span><span class="s2">&quot;shockwaveflash&quot;</span><span class="w"> </span>:<span class="w"> </span>Shockwave<span class="w"> </span>Flash<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                        </span><span class="s2">"plugins"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                                </span><span class="s2">"acropdf"</span><span class="w">        </span>:<span class="w"> </span>Acrobat<span class="w"> </span>Reader<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                                </span><span class="s2">"javaplugin"</span><span class="w">     </span>:<span class="w"> </span>JavaPlugin<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>,
+<span class="w">                                </span><span class="s2">"shockwaveflash"</span><span class="w"> </span>:<span class="w"> </span>Shockwave<span class="w"> </span>Flash<span class="w"> </span>version<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
 <span class="w">                        </span><span class="o">}</span>,
-<span class="w">                        </span><span class="s2">&quot;options&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
-<span class="w">                                </span><span class="s2">&quot;local&quot;</span><span class="w">          </span>:<span class="w"> </span>Local<span class="w"> </span>analysis
-<span class="w">                                </span><span class="s2">&quot;nofetch&quot;</span><span class="w">        </span>:<span class="w"> </span>Local<span class="w"> </span>no-fetch<span class="w"> </span>analysis
-<span class="w">                                </span><span class="s2">&quot;proxy&quot;</span><span class="w">          </span>:<span class="w"> </span>Proxy<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
-<span class="w">                                </span><span class="s2">&quot;events&quot;</span><span class="w">         </span>:<span class="w"> </span>Additional<span class="w"> </span>DOM<span class="w"> </span>events<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>processed
-<span class="w">                                </span><span class="s2">&quot;delay&quot;</span><span class="w">          </span>:<span class="w"> </span>Maximum<span class="w"> </span>setTimeout/setInterval<span class="w"> </span>delay<span class="w"> </span>value<span class="w"> </span><span class="o">(</span><span class="k">in</span><span class="w"> </span>milliseconds<span class="o">)</span>
-<span class="w">                                </span><span class="s2">&quot;referer&quot;</span><span class="w">        </span>:<span class="w"> </span>Referer
-<span class="w">                                </span><span class="s2">&quot;timeout&quot;</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>timeout
-<span class="w">                                </span><span class="s2">&quot;threshold&quot;</span><span class="w">      </span>:<span class="w"> </span>Maximum<span class="w"> </span>pages<span class="w"> </span>to<span class="w"> </span>fetch
-<span class="w">                                </span><span class="s2">&quot;extensive&quot;</span><span class="w">      </span>:<span class="w"> </span>Extensive<span class="w"> </span>fetch<span class="w"> </span>of<span class="w"> </span>linked<span class="w"> </span>pages
+<span class="w">                        </span><span class="s2">"options"</span><span class="w"> </span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">                                </span><span class="s2">"local"</span><span class="w">          </span>:<span class="w"> </span>Local<span class="w"> </span>analysis
+<span class="w">                                </span><span class="s2">"nofetch"</span><span class="w">        </span>:<span class="w"> </span>Local<span class="w"> </span>no-fetch<span class="w"> </span>analysis
+<span class="w">                                </span><span class="s2">"proxy"</span><span class="w">          </span>:<span class="w"> </span>Proxy<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>any<span class="o">)</span>
+<span class="w">                                </span><span class="s2">"events"</span><span class="w">         </span>:<span class="w"> </span>Additional<span class="w"> </span>DOM<span class="w"> </span>events<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>processed
+<span class="w">                                </span><span class="s2">"delay"</span><span class="w">          </span>:<span class="w"> </span>Maximum<span class="w"> </span>setTimeout/setInterval<span class="w"> </span>delay<span class="w"> </span>value<span class="w"> </span><span class="o">(</span><span class="k">in</span><span class="w"> </span>milliseconds<span class="o">)</span>
+<span class="w">                                </span><span class="s2">"referer"</span><span class="w">        </span>:<span class="w"> </span>Referer
+<span class="w">                                </span><span class="s2">"timeout"</span><span class="w">        </span>:<span class="w"> </span>Analysis<span class="w"> </span>timeout
+<span class="w">                                </span><span class="s2">"threshold"</span><span class="w">      </span>:<span class="w"> </span>Maximum<span class="w"> </span>pages<span class="w"> </span>to<span class="w"> </span>fetch
+<span class="w">                                </span><span class="s2">"extensive"</span><span class="w">      </span>:<span class="w"> </span>Extensive<span class="w"> </span>fetch<span class="w"> </span>of<span class="w"> </span>linked<span class="w"> </span>pages
 <span class="w">                        </span><span class="o">}</span>,
-<span class="w">    </span><span class="s2">&quot;awis&quot;</span><span class="w">        </span>:<span class="w"> </span><span class="o">[]</span>,
-<span class="w">    </span><span class="s2">&quot;behavior&quot;</span><span class="w">    </span>:<span class="w"> </span><span class="o">[]</span>,
-<span class="w">    </span><span class="s2">&quot;classifiers&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">[]</span>,
-<span class="w">    </span><span class="s2">&quot;code&quot;</span><span class="w">        </span>:<span class="w"> </span><span class="o">[]</span>,
-<span class="w">    </span><span class="s2">&quot;connections&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">[]</span>,
-<span class="w">    </span><span class="s2">&quot;exploits&quot;</span><span class="w">    </span>:<span class="w"> </span><span class="o">[]</span>,
-<span class="w">    </span><span class="s2">&quot;favicons&quot;</span><span class="w">    </span>:<span class="w"> </span><span class="o">[]</span>,
-<span class="w">    </span><span class="s2">&quot;files&quot;</span><span class="w">       </span>:<span class="w"> </span><span class="o">[]</span>,
-<span class="w">    </span><span class="s2">&quot;images&quot;</span><span class="w">      </span>:<span class="w"> </span><span class="o">[]</span>,
-<span class="w">    </span><span class="s2">&quot;locations&quot;</span><span class="w">   </span>:<span class="w"> </span><span class="o">[]</span>,
-<span class="w">    </span><span class="s2">&quot;screenshots&quot;</span><span class="w"> </span>:<span class="w"> </span><span class="o">[]</span>
+<span class="w">    </span><span class="s2">"awis"</span><span class="w">        </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">"behavior"</span><span class="w">    </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">"classifiers"</span><span class="w"> </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">"code"</span><span class="w">        </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">"connections"</span><span class="w"> </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">"exploits"</span><span class="w">    </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">"favicons"</span><span class="w">    </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">"files"</span><span class="w">       </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">"images"</span><span class="w">      </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">"locations"</span><span class="w">   </span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">"screenshots"</span><span class="w"> </span>:<span class="w"> </span><span class="o">[]</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -528,7 +528,7 @@ and the resources downloaded during the analysis.</p>
 <section id="id2">
 <h3>awis<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;awis&#39;</span><span class="w">       </span>:<span class="w"> </span>AWIS<span class="w"> </span>reports
+<span class="w">    </span><span class="s1">'awis'</span><span class="w">       </span>:<span class="w"> </span>AWIS<span class="w"> </span>reports
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -536,11 +536,11 @@ and the resources downloaded during the analysis.</p>
 <section id="id3">
 <h3>behaviors<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;description&#39;</span><span class="w"> </span>:<span class="w"> </span>Observed<span class="w"> </span>behavior<span class="w"> </span>description
-<span class="w">    </span><span class="s1">&#39;cve&#39;</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;snippet&#39;</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;method&#39;</span><span class="w">      </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
-<span class="w">    </span><span class="s1">&#39;timestamp&#39;</span><span class="w">   </span>:<span class="w"> </span>Timestamp
+<span class="w">    </span><span class="s1">'description'</span><span class="w"> </span>:<span class="w"> </span>Observed<span class="w"> </span>behavior<span class="w"> </span>description
+<span class="w">    </span><span class="s1">'cve'</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">'snippet'</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">'method'</span><span class="w">      </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
+<span class="w">    </span><span class="s1">'timestamp'</span><span class="w">   </span>:<span class="w"> </span>Timestamp
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -548,10 +548,10 @@ and the resources downloaded during the analysis.</p>
 <section id="id4">
 <h3>classifiers<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;classifier&#39;</span><span class="w">  </span>:<span class="w"> </span>Classifier<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>html,<span class="w"> </span>js,<span class="w"> </span>url,<span class="w"> </span>sample<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;url&#39;</span><span class="w">         </span>:<span class="w"> </span>URL
-<span class="w">    </span><span class="s1">&#39;rule&#39;</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>name
-<span class="w">    </span><span class="s1">&#39;tags&#39;</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>tags
+<span class="w">    </span><span class="s1">'classifier'</span><span class="w">  </span>:<span class="w"> </span>Classifier<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>html,<span class="w"> </span>js,<span class="w"> </span>url,<span class="w"> </span>sample<span class="o">)</span>
+<span class="w">    </span><span class="s1">'url'</span><span class="w">         </span>:<span class="w"> </span>URL
+<span class="w">    </span><span class="s1">'rule'</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>name
+<span class="w">    </span><span class="s1">'tags'</span><span class="w">        </span>:<span class="w"> </span>Rule<span class="w"> </span>tags
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -559,11 +559,11 @@ and the resources downloaded during the analysis.</p>
 <section id="code">
 <h3>code<a class="headerlink" href="#code" title="Link to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;snippet&#39;</span><span class="w">      </span>:<span class="w"> </span>Code<span class="w"> </span>snippet
-<span class="w">    </span><span class="s1">&#39;language&#39;</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>language
-<span class="w">    </span><span class="s1">&#39;relationship&#39;</span><span class="w"> </span>:<span class="w"> </span>Relationship<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>page<span class="w"> </span>that<span class="w"> </span>references<span class="w"> </span>the<span class="w"> </span>code
-<span class="w">    </span><span class="s1">&#39;tag&#39;</span><span class="w">          </span>:<span class="w"> </span>Snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span>cross-references<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;method&#39;</span><span class="w">       </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
+<span class="w">    </span><span class="s1">'snippet'</span><span class="w">      </span>:<span class="w"> </span>Code<span class="w"> </span>snippet
+<span class="w">    </span><span class="s1">'language'</span><span class="w">     </span>:<span class="w"> </span>Code<span class="w"> </span>language
+<span class="w">    </span><span class="s1">'relationship'</span><span class="w"> </span>:<span class="w"> </span>Relationship<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span>page<span class="w"> </span>that<span class="w"> </span>references<span class="w"> </span>the<span class="w"> </span>code
+<span class="w">    </span><span class="s1">'tag'</span><span class="w">          </span>:<span class="w"> </span>Snippet<span class="w"> </span>tag<span class="w"> </span><span class="o">(</span>cross-references<span class="o">)</span>
+<span class="w">    </span><span class="s1">'method'</span><span class="w">       </span>:<span class="w"> </span>Analysis<span class="w"> </span>method
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -571,10 +571,10 @@ and the resources downloaded during the analysis.</p>
 <section id="id5">
 <h3>connections<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;source&quot;</span><span class="w">         </span>:<span class="w"> </span>Source<span class="w"> </span>URL
-<span class="w">    </span><span class="s2">&quot;destination&quot;</span><span class="w">    </span>:<span class="w"> </span>Destination<span class="w"> </span>URL
-<span class="w">    </span><span class="s2">&quot;method&quot;</span><span class="w">         </span>:<span class="w"> </span>Method
-<span class="w">    </span><span class="s2">&quot;flags&quot;</span><span class="w">          </span>:<span class="w"> </span>Flags
+<span class="w">    </span><span class="s2">"source"</span><span class="w">         </span>:<span class="w"> </span>Source<span class="w"> </span>URL
+<span class="w">    </span><span class="s2">"destination"</span><span class="w">    </span>:<span class="w"> </span>Destination<span class="w"> </span>URL
+<span class="w">    </span><span class="s2">"method"</span><span class="w">         </span>:<span class="w"> </span>Method
+<span class="w">    </span><span class="s2">"flags"</span><span class="w">          </span>:<span class="w"> </span>Flags
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -582,11 +582,11 @@ and the resources downloaded during the analysis.</p>
 <section id="id6">
 <h3>exploits<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;url&#39;</span><span class="w">         </span>:<span class="w"> </span>URL
-<span class="w">    </span><span class="s1">&#39;module&#39;</span><span class="w">      </span>:<span class="w"> </span>Module/ActiveX<span class="w"> </span>Control,<span class="w"> </span>etc.<span class="w"> </span>that<span class="w"> </span>gets<span class="w"> </span>exploited
-<span class="w">    </span><span class="s1">&#39;description&#39;</span><span class="w"> </span>:<span class="w"> </span>Description<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>exploit
-<span class="w">    </span><span class="s1">&#39;cve&#39;</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;data&#39;</span><span class="w">        </span>:<span class="w"> </span>Additional<span class="w"> </span>information
+<span class="w">    </span><span class="s1">'url'</span><span class="w">         </span>:<span class="w"> </span>URL
+<span class="w">    </span><span class="s1">'module'</span><span class="w">      </span>:<span class="w"> </span>Module/ActiveX<span class="w"> </span>Control,<span class="w"> </span>etc.<span class="w"> </span>that<span class="w"> </span>gets<span class="w"> </span>exploited
+<span class="w">    </span><span class="s1">'description'</span><span class="w"> </span>:<span class="w"> </span>Description<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>exploit
+<span class="w">    </span><span class="s1">'cve'</span><span class="w">         </span>:<span class="w"> </span>CVE<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>available<span class="o">)</span>
+<span class="w">    </span><span class="s1">'data'</span><span class="w">        </span>:<span class="w"> </span>Additional<span class="w"> </span>information
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -594,8 +594,8 @@ and the resources downloaded during the analysis.</p>
 <section id="id7">
 <h3>favicons<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;url&#39;</span><span class="w">         </span>:<span class="w"> </span>URL
-<span class="w">    </span><span class="s1">&#39;dhash&#39;</span><span class="w">       </span>:<span class="w"> </span>Favicon<span class="w"> </span>dhash
+<span class="w">    </span><span class="s1">'url'</span><span class="w">         </span>:<span class="w"> </span>URL
+<span class="w">    </span><span class="s1">'dhash'</span><span class="w">       </span>:<span class="w"> </span>Favicon<span class="w"> </span>dhash
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -608,9 +608,9 @@ list.</p>
 <section id="id8">
 <h3>images<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;url&#39;</span><span class="w">         </span>:<span class="w"> </span>URL
-<span class="w">    </span><span class="s1">&#39;classifier&#39;</span><span class="w">  </span>:<span class="w"> </span>Classifier<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>OCR<span class="o">)</span>
-<span class="w">    </span><span class="s1">&#39;result&#39;</span><span class="w">      </span>:<span class="w"> </span>Analysis<span class="w"> </span>result
+<span class="w">    </span><span class="s1">'url'</span><span class="w">         </span>:<span class="w"> </span>URL
+<span class="w">    </span><span class="s1">'classifier'</span><span class="w">  </span>:<span class="w"> </span>Classifier<span class="w"> </span><span class="o">(</span>possible<span class="w"> </span>values:<span class="w"> </span>OCR<span class="o">)</span>
+<span class="w">    </span><span class="s1">'result'</span><span class="w">      </span>:<span class="w"> </span>Analysis<span class="w"> </span>result
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -618,16 +618,15 @@ list.</p>
 <section id="id9">
 <h3>locations<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s2">&quot;url&quot;</span><span class="w">           </span>:<span class="w"> </span>URL<span class="w"> </span>url
-<span class="w">    </span><span class="s2">&quot;content&quot;</span><span class="w">       </span>:<span class="w"> </span>Content
-<span class="w">    </span><span class="s2">&quot;status&quot;</span><span class="w">        </span>:<span class="w"> </span>HTTP<span class="w"> </span>status<span class="w"> </span>code
-<span class="w">    </span><span class="s2">&quot;content-type&quot;</span><span class="w">  </span>:<span class="w"> </span>Content<span class="w"> </span>Type
-<span class="w">    </span><span class="s2">&quot;md5&quot;</span><span class="w">           </span>:<span class="w"> </span>MD5<span class="w"> </span>checksum
-<span class="w">    </span><span class="s2">&quot;sha256&quot;</span><span class="w">        </span>:<span class="w"> </span>SHA-256<span class="w"> </span>checksum
-<span class="w">    </span><span class="s2">&quot;ssdeep&quot;</span><span class="w">        </span>:<span class="w"> </span>Ssdeep<span class="w"> </span><span class="nb">hash</span>
-<span class="w">    </span><span class="s2">&quot;flags&quot;</span><span class="w">         </span>:<span class="w"> </span>Flags
-<span class="w">    </span><span class="s2">&quot;size&quot;</span><span class="w">          </span>:<span class="w"> </span>Data<span class="w"> </span>size
-<span class="w">    </span><span class="s2">&quot;mime-type&quot;</span><span class="w">     </span>:<span class="w"> </span>Evaluated<span class="w"> </span>content<span class="w"> </span><span class="nb">type</span>
+<span class="w">    </span><span class="s2">"url"</span><span class="w">           </span>:<span class="w"> </span>URL<span class="w"> </span>url
+<span class="w">    </span><span class="s2">"content"</span><span class="w">       </span>:<span class="w"> </span>Content
+<span class="w">    </span><span class="s2">"status"</span><span class="w">        </span>:<span class="w"> </span>HTTP<span class="w"> </span>status<span class="w"> </span>code
+<span class="w">    </span><span class="s2">"content-type"</span><span class="w">  </span>:<span class="w"> </span>Content<span class="w"> </span>Type
+<span class="w">    </span><span class="s2">"md5"</span><span class="w">           </span>:<span class="w"> </span>MD5<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">"sha256"</span><span class="w">        </span>:<span class="w"> </span>SHA-256<span class="w"> </span>checksum
+<span class="w">    </span><span class="s2">"flags"</span><span class="w">         </span>:<span class="w"> </span>Flags
+<span class="w">    </span><span class="s2">"size"</span><span class="w">          </span>:<span class="w"> </span>Data<span class="w"> </span>size
+<span class="w">    </span><span class="s2">"mime-type"</span><span class="w">     </span>:<span class="w"> </span>Evaluated<span class="w"> </span>content<span class="w"> </span><span class="nb">type</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -635,8 +634,8 @@ list.</p>
 <section id="id10">
 <h3>screenshots<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">{</span>
-<span class="w">    </span><span class="s1">&#39;url&#39;</span><span class="w">         </span>:<span class="w"> </span>URL
-<span class="w">    </span><span class="s1">&#39;screenshot&#39;</span><span class="w">  </span>:<span class="w"> </span>Base-64<span class="w"> </span>encoded<span class="w"> </span>screenshot
+<span class="w">    </span><span class="s1">'url'</span><span class="w">         </span>:<span class="w"> </span>URL
+<span class="w">    </span><span class="s1">'screenshot'</span><span class="w">  </span>:<span class="w"> </span>Base-64<span class="w"> </span>encoded<span class="w"> </span>screenshot
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -749,7 +748,7 @@ you can see in this directory are saved in the database instance as well.</p>
         <li class="right" >
           <a href="jshooks.html" title="JS Hooks"
              >previous</a> |</li>
-          <li><img src="static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><img src="static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
           <li><a href="https://www.python.org/">Python</a> &#187;</li>
           <li class="switchers">
             <div class="language_switcher_placeholder"></div>
@@ -757,7 +756,7 @@ you can see in this directory are saved in the database instance as well.</p>
           </li>
           <li>
               
-              <a href="index.html">Thug 6.12 documentation</a> &#187;
+              <a href="index.html">Thug 6.22 documentation</a> &#187;
               
           </li>
         <li class="nav-item nav-item-this"><a href="">Logging</a></li>
@@ -766,8 +765,8 @@ you can see in this directory are saved in the database instance as well.</p>
 
     <div class="inline-search" role="search">
         <form class="inline-search" action="search.html" method="get">
-          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box" />
-          <input type="submit" value="Go" />
+          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box">
+          <input type="submit" value="Go">
         </form>
     </div>
                      |
@@ -785,26 +784,24 @@ you can see in this directory are saved in the database instance as well.</p>
       </ul>
     </div>  
     <div class="footer">
-    &copy; 
-    Copyright
-     2011-2025, Angelo Dell&#39;Aera.
-    <br />
+    &copy; Copyright 2011-2026, Angelo Dell&#39;Aera.
+    <br>
     This page is licensed under the Python Software Foundation License Version 2.
-    <br />
+    <br>
     Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
-    <br />
+    <br>
     
     
-    <br />
+    <br>
 
     The Python Software Foundation is a non-profit corporation.
 <a href="https://www.python.org/psf/donations/">Please donate.</a>
-<br />
-    <br />
+<br>
+    <br>
     
-    <br />
+    <br>
 
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
 
   </body>

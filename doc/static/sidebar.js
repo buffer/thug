@@ -1,15 +1,8 @@
 /*
- * sidebar.js
- * ~~~~~~~~~~
- *
- * This file is functionally identical to "sidebar.js" in Sphinx 5.0.
- * When support for Sphinx 4 and earlier is dropped from the theme,
- * this file can be removed.
- *
  * This script makes the Sphinx sidebar collapsible.
  *
  * .sphinxsidebar contains .sphinxsidebarwrapper.  This script adds
- * in .sphinxsidebar, after .sphinxsidebarwrapper, the #sidebarbutton
+ * in .sphixsidebar, after .sphinxsidebarwrapper, the #sidebarbutton
  * used to collapse and expand the sidebar.
  *
  * When the sidebar is collapsed the .sphinxsidebarwrapper is hidden
@@ -20,34 +13,31 @@
  * Once the browser is closed the cookie is deleted and the position
  * reset to the default (expanded).
  *
- * :copyright: Copyright 2007-2022 by the Sphinx team, see AUTHORS.
- * :license: BSD, see LICENSE for details.
- *
  */
 
 const initialiseSidebar = () => {
+  
+    
+  
+
   // global elements used by the functions.
   const bodyWrapper = document.getElementsByClassName("bodywrapper")[0]
   const sidebar = document.getElementsByClassName("sphinxsidebar")[0]
-  const sidebarWrapper = document.getElementsByClassName("sphinxsidebarwrapper")[0]
-
-  // exit early if the document has no sidebar for some reason
-  if (typeof sidebar === "undefined") {
-    return
-  }
-
-
-
+  const sidebarWrapper = document.getElementsByClassName('sphinxsidebarwrapper')[0]
   const sidebarButton = document.getElementById("sidebarbutton")
   const sidebarArrow = sidebarButton.querySelector('span')
 
+  // for some reason, the document has no sidebar; do not run into errors
+  if (typeof sidebar === "undefined") return;
+
+  const flipArrow = element => element.innerText = (element.innerText === "»") ? "«" : "»"
 
   const collapse_sidebar = () => {
-    bodyWrapper.style.marginLeft = ".8em"
+    bodyWrapper.style.marginLeft = ".8em";
     sidebar.style.width = ".8em"
     sidebarWrapper.style.display = "none"
-    sidebarArrow.innerText = "»"
-    sidebarButton.title = _("Expand sidebar")
+    flipArrow(sidebarArrow)
+    sidebarButton.title = _('Expand sidebar')
     window.localStorage.setItem("sidebar", "collapsed")
   }
 
@@ -55,8 +45,8 @@ const initialiseSidebar = () => {
     bodyWrapper.style.marginLeft = ""
     sidebar.style.removeProperty("width")
     sidebarWrapper.style.display = ""
-    sidebarArrow.innerText = "«"
-    sidebarButton.title = _("Collapse sidebar")
+    flipArrow(sidebarArrow)
+    sidebarButton.title = _('Collapse sidebar')
     window.localStorage.setItem("sidebar", "expanded")
   }
 
@@ -64,18 +54,11 @@ const initialiseSidebar = () => {
     (sidebarWrapper.style.display === "none") ? expand_sidebar() : collapse_sidebar()
   })
 
-  const sidebar_state = window.localStorage.getItem("sidebar")
-  if (sidebar_state === "collapsed") {
-    collapse_sidebar()
-  }
-  else if (sidebar_state === "expanded") {
-    expand_sidebar()
-  }
+  if (!window.localStorage.getItem("sidebar")) return
+  const value = window.localStorage.getItem("sidebar")
+  if (value === "collapsed") collapse_sidebar();
+  else if (value === "expanded") expand_sidebar();
 }
 
-if (document.readyState !== "loading") {
-  initialiseSidebar()
-}
-else {
-  document.addEventListener("DOMContentLoaded", initialiseSidebar)
-}
+if (document.readyState !== "loading") initialiseSidebar()
+else document.addEventListener("DOMContentLoaded", initialiseSidebar)

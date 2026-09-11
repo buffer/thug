@@ -5,21 +5,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Thug API &#8212; Thug 6.12 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thug API &#8212; Thug 6.22 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" type="text/css" href="static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="static/pydoctheme.css?v=41b4f12d" />
-    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="static/pygments_dark.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="static/pygments.css?v=03e43079" />
+    <link id="pygments_dark_css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css" href="static/pygments_dark.css?v=0fc419ee" />
+    <link rel="stylesheet" type="text/css" href="static/classic.css?v=67a6116b" />
+    <link rel="stylesheet" type="text/css" href="static/pydoctheme.css?v=4365c8fe" />
     
-    <script src="static/documentation_options.js?v=51001561"></script>
-    <script src="static/doctools.js?v=9a2dae69"></script>
-    <script src="static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="static/documentation_options.js?v=fc5065ad"></script>
+    <script src="static/doctools.js?v=fd6eb6e6"></script>
+    <script src="static/sphinx_highlight.js?v=6ffebe34"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="JS Hooks" href="jshooks.html" />
     <link rel="prev" title="Usage" href="usage.html" /><link rel="stylesheet" href="static/pydoctheme_dark.css" media="(prefers-color-scheme: dark)" id="pydoctheme_dark_css">
-    <link rel="shortcut icon" type="image/png" href="static/py.svg" />
+    <link rel="shortcut icon" type="image/png" href="static/py.svg">
             <script type="text/javascript" src="static/copybutton.js"></script>
             <script type="text/javascript" src="static/menu.js"></script>
             <script type="text/javascript" src="static/search-focus.js"></script>
@@ -28,22 +29,22 @@
 <body>
 <div class="mobile-nav">
     <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
-           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu">
     <nav class="nav-content" role="navigation">
         <label for="menuToggler" class="toggler__label">
             <span></span>
         </label>
         <span class="nav-items-wrapper">
             <a href="https://www.python.org/" class="nav-logo">
-                <img src="static/py.svg" alt="Python logo"/>
+                <img src="static/py.svg" alt="Python logo">
             </a>
             <span class="version_switcher_placeholder"></span>
             <form role="search" class="search" action="search.html" method="get">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
                     <path fill-rule="nonzero" fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
                 </svg>
-                <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" />
-                <input type="submit" value="Go"/>
+                <input placeholder="Quick search" aria-label="Quick search" type="search" name="q">
+                <input type="submit" value="Go">
             </form>
         </span>
     </nav>
@@ -95,7 +96,7 @@
         <li class="right" >
           <a href="usage.html" title="Usage"
              accesskey="P">previous</a> |</li>
-          <li><img src="static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><img src="static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
           <li><a href="https://www.python.org/">Python</a> &#187;</li>
           <li class="switchers">
             <div class="language_switcher_placeholder"></div>
@@ -103,7 +104,7 @@
           </li>
           <li>
               
-              <a href="index.html">Thug 6.12 documentation</a> &#187;
+              <a href="index.html">Thug 6.22 documentation</a> &#187;
               
           </li>
         <li class="nav-item nav-item-this"><a href="">Thug API</a></li>
@@ -112,8 +113,8 @@
 
     <div class="inline-search" role="search">
         <form class="inline-search" action="search.html" method="get">
-          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box" />
-          <input type="submit" value="Go" />
+          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box">
+          <input type="submit" value="Go">
         </form>
     </div>
                      |
@@ -146,18 +147,18 @@ be needed in almost every scenario.</p>
 <p>Using Thug API is really straightforward and the following example explains how to properly
 make a basic use of the Thug API. Take a look at the interface definition below for more
 advanced scenarios.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">thug.ThugAPI</span> <span class="kn">import</span> <span class="n">ThugAPI</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">thug.ThugAPI</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThugAPI</span>
 
-<span class="k">class</span> <span class="nc">TestAPI</span><span class="p">(</span><span class="n">ThugAPI</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestAPI</span><span class="p">(</span><span class="n">ThugAPI</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ThugAPI</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
         <span class="c1"># Set useragent to Internet Explorer 9.0 (Windows 7)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_useragent</span><span class="p">(</span><span class="s1">&#39;win7ie90&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_useragent</span><span class="p">(</span><span class="s1">'win7ie90'</span><span class="p">)</span>
 
         <span class="c1"># Set referer to http://www.honeynet.org</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_referer</span><span class="p">(</span><span class="s1">&#39;http://www.honeynet.org&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_referer</span><span class="p">(</span><span class="s1">'http://www.honeynet.org'</span><span class="p">)</span>
 
         <span class="c1"># Enable file logging mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_file_logging</span><span class="p">()</span>
@@ -178,33 +179,33 @@ advanced scenarios.</p>
         <span class="c1"># Log analysis results</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">log_event</span><span class="p">()</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">TestAPI</span><span class="p">()</span>
-    <span class="n">t</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="s2">&quot;http://www.google.com&quot;</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="s2">"http://www.google.com"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Take a look at how the test suite automation scripts in the <em>tests</em> directory make
 use of the Thug API for an example of how to perform a local file analysis.</p>
 <p>Thug API interface definition is reported below for convenience.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IThugAPI</span><span class="p">(</span><span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Interface</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">version</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">IThugAPI</span><span class="p">(</span><span class="n">zope</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Interface</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">version</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Print Thug version and exit</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_useragent</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_useragent</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_useragent</span>
 
 <span class="sd">        Return the emulated user agent</span>
 
 <span class="sd">        @return: user agent string</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_useragent</span><span class="p">(</span><span class="n">useragent</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_useragent</span><span class="p">(</span><span class="n">useragent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_useragent</span>
 
 <span class="sd">        Set the user agent to emulate</span>
@@ -212,10 +213,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param useragent: the user agent to emulate</span>
 <span class="sd">        @type useragent: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_events</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_events</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_events</span>
 
 <span class="sd">        Return the DOM events to emulate</span>
@@ -223,10 +224,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        the returned list</span>
 
 <span class="sd">        @return: List of the DOM events to emulate</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_events</span><span class="p">(</span><span class="n">events</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_events</span><span class="p">(</span><span class="n">events</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_events</span>
 
 <span class="sd">        Set the DOM events to emulate</span>
@@ -236,19 +237,19 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param events: comma separated list of DOM events to emulate</span>
 <span class="sd">        @type events: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_delay</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_delay</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_delay</span>
 
 <span class="sd">        Return the maximum setTimeout/setInterval delay value (in milliseconds)</span>
 
 <span class="sd">        @return: maximum delay value (in milliseconds)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_delay</span><span class="p">(</span><span class="n">delay</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_delay</span><span class="p">(</span><span class="n">delay</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_delay</span>
 
 <span class="sd">        Set a maximum setTimeout/setInterval delay value (in milliseconds)</span>
@@ -256,19 +257,19 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param delay: maximum delay value (in milliseconds)</span>
 <span class="sd">        @type delay: C{int}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_attachment</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_attachment</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">            get_attachment</span>
 
 <span class="sd">            Return True if the attachment mode is set, False otherwise</span>
 
 <span class="sd">            @return: boolean</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
 
-    <span class="k">def</span> <span class="nf">set_attachment</span><span class="p">(</span><span class="n">attachment</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_attachment</span><span class="p">(</span><span class="n">attachment</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">            set_attachment</span>
 
 <span class="sd">            Set the attachment mode to the specified value</span>
@@ -276,127 +277,127 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">            @param attachment: enable/disable attachment mode</span>
 <span class="sd">            @type delay: C{bool}</span>
 <span class="sd">            @return: None</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
 
-    <span class="k">def</span> <span class="nf">get_image_processing</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_image_processing</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_image_processing</span>
 
 <span class="sd">        Return True if the attachment mode is set, False otherwise</span>
 
 <span class="sd">        @return: boolean</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_image_processing</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_image_processing</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_image_processing</span>
 
 <span class="sd">        Enable image processing mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">reset_image_processing</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_image_processing</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        reset_image_processing</span>
 
 <span class="sd">        Disable image processing mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">enable_download_prevent</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enable_download_prevent</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_download_prevent</span>
 
 <span class="sd">        Enable download prevention mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">disable_download_prevent</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_download_prevent</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        reset_image_processing</span>
 
 <span class="sd">        Disable download prevention mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_file_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_file_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_file_logging</span>
 
 <span class="sd">        Return True if file logging mode is enabled, False otherwise.</span>
 
 <span class="sd">        @return: boolean</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_file_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_file_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_file_logging</span>
 
 <span class="sd">        Enable file logging mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_json_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_json_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_json_logging</span>
 
 <span class="sd">        Return True if JSON logging mode is enabled, False otherwise.</span>
 
 <span class="sd">        @return: boolean</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_json_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_json_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_JSON_logging</span>
 
 <span class="sd">        Enable JSON logging mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_features_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_features_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_features_logging</span>
 
 <span class="sd">        Return True if features logging mode is enabled, False otherwise.</span>
 
 <span class="sd">        @return: boolean</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_features_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_features_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_features_logging</span>
 
 <span class="sd">        Enable features logging mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">reset_features_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_features_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        reset_features_logging</span>
 
 <span class="sd">        Reset features logging mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_referer</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_referer</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_referer</span>
 
 <span class="sd">        Return the emulated referer</span>
 
 <span class="sd">        @return: referer value</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_referer</span><span class="p">(</span><span class="n">referer</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_referer</span><span class="p">(</span><span class="n">referer</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_referer</span>
 
 <span class="sd">        Set the referer to be emulated</span>
@@ -404,19 +405,19 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param referer: referer</span>
 <span class="sd">        @type referer: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_proxy</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_proxy</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_proxy</span>
 
 <span class="sd">        Get the proxy server to be used for estabilishing the connection</span>
 
 <span class="sd">        @return: proxy server</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_proxy</span><span class="p">(</span><span class="n">proxy</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_proxy</span><span class="p">(</span><span class="n">proxy</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_proxy</span>
 
 <span class="sd">        Set the proxy server to be used for estabilishing the connection</span>
@@ -424,20 +425,20 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param proxy: proxy server</span>
 <span class="sd">        @type proxy: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_raise_for_proxy</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_raise_for_proxy</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_raise_for_proxy</span>
 
 <span class="sd">        Get the raise_for_proxy flag. If the flag is True (default) a ValueError exception</span>
 <span class="sd">        is raised if the specified proxy is not available.</span>
 
 <span class="sd">        @return: boolean</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_raise_for_proxy</span><span class="p">(</span><span class="n">raise_for_proxy</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_raise_for_proxy</span><span class="p">(</span><span class="n">raise_for_proxy</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_raise_for_proxy</span>
 
 <span class="sd">        Set the raise_for_proxy flag. If the flag is True (default) a ValueError exception</span>
@@ -446,46 +447,46 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param raise_for_proxy: raise_for_proxy flag</span>
 <span class="sd">        @type: raise_for_proxy: boolean</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_no_fetch</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_no_fetch</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_no_fetch</span>
 
 <span class="sd">        Prevent remote content fetching in any case</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_verbose</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_verbose</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_verbose</span>
 
 <span class="sd">        Enable Thug verbose mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_debug</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_debug</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_debug</span>
 
 <span class="sd">        Enable Thug debug mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_http_debug</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_http_debug</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_http_debug</span>
 
 <span class="sd">        Enable Thug HTTP debug mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_acropdf_pdf</span><span class="p">(</span><span class="n">acropdf_pdf</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_acropdf_pdf</span><span class="p">(</span><span class="n">acropdf_pdf</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_acropdf_pdf</span>
 
 <span class="sd">        Set the Adobe Acrobat Reader version</span>
@@ -493,19 +494,19 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param acropdf_pdf: Adobe Acrobat Reader version</span>
 <span class="sd">        @type acropdf_pdf: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">disable_acropdf</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_acropdf</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        disable_acropdf</span>
 
 <span class="sd">        Disable Adobe Acrobat Reader</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_shockwave_flash</span><span class="p">(</span><span class="n">shockwave</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_shockwave_flash</span><span class="p">(</span><span class="n">shockwave</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_shockwave_flash</span>
 
 <span class="sd">        Set the Shockwave Flash version (supported versions: 8, 9, 10, 11, 12)</span>
@@ -513,19 +514,19 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param shockwave: Shockwave Flash version</span>
 <span class="sd">        @type shockwave: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">disable_shockwave_flash</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_shockwave_flash</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        disable_shockwave_flash</span>
 
 <span class="sd">        Disable Shockwave Flash</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_javaplugin</span><span class="p">(</span><span class="n">javaplugin</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_javaplugin</span><span class="p">(</span><span class="n">javaplugin</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_javaplugin</span>
 
 <span class="sd">        Set the Java plugin version</span>
@@ -533,19 +534,19 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param javaplugin: Java plugin version</span>
 <span class="sd">        @type javaplugin: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">disable_javaplugin</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_javaplugin</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        disable_javaplugin</span>
 
 <span class="sd">        Disable Java plugin</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_silverlight</span><span class="p">(</span><span class="n">silverlight</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_silverlight</span><span class="p">(</span><span class="n">silverlight</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_silverlight</span>
 
 <span class="sd">        Set the SilverLight version</span>
@@ -553,28 +554,28 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param silverlight: SilverLight version</span>
 <span class="sd">        @type silverlight: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">disable_silverlight</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_silverlight</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        disable_silverlight</span>
 
 <span class="sd">        Disable SilverLight</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_threshold</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_threshold</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_threshold</span>
 
 <span class="sd">        Get the maximum number of pages to fetch</span>
 
 <span class="sd">        @return: the maximum number of pages to fetch</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_threshold</span><span class="p">(</span><span class="n">threshold</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_threshold</span><span class="p">(</span><span class="n">threshold</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_threshold</span>
 
 <span class="sd">        Set the maximum number of pages to fetch</span>
@@ -582,46 +583,46 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param threshold: the maximum number of pages to fetch</span>
 <span class="sd">        @type threshold: C{int}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_extensive</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_extensive</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_extensive</span>
 
 <span class="sd">        Get the current extensive fetch of linked pages mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_extensive</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_extensive</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_extensive</span>
 
 <span class="sd">        Set the extensive fetch of linked pages mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">reset_extensive</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_extensive</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        reset_extensive</span>
 
 <span class="sd">        Reset the extensive fetch of linked pages mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_connect_timeout</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_connect_timeout</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_connect_timeout</span>
 
 <span class="sd">        Get the connect timeout (in seconds)</span>
 
 <span class="sd">        @return: the connect timeout (in seconds)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_connect_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_connect_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_connect_timeout</span>
 
 <span class="sd">        Set the connect timeout (in seconds)</span>
@@ -629,19 +630,19 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param timeout: the connect timeout (in seconds)</span>
 <span class="sd">        @type timeout: C{int}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_proxy_connect_timeout</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_proxy_connect_timeout</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_proxy_connect_timeout</span>
 
 <span class="sd">        Get the proxy connect timeout (in seconds)</span>
 
 <span class="sd">        @return: the proxy connect timeout (in seconds)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_proxy_connect_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_proxy_connect_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_proxy_connect_timeout</span>
 
 <span class="sd">        Set the proxy connect timeout (in seconds)</span>
@@ -649,19 +650,19 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param timeout: the proxy connect timeout (in seconds)</span>
 <span class="sd">        @type timeout: C{int}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_timeout</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_timeout</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_timeout</span>
 
 <span class="sd">        Get the analysis timeout (in seconds)</span>
 
 <span class="sd">        @return: the analysis timeout (in seconds)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_timeout</span>
 
 <span class="sd">        Set the analysis timeout (in seconds)</span>
@@ -669,109 +670,109 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param timeout: the analysis timeout (in seconds)</span>
 <span class="sd">        @type timeout: C{int}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_broken_url</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_broken_url</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_broken_url</span>
 
 <span class="sd">        Get the broken URL mode</span>
 
 <span class="sd">        @return mode: broken URL mode</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_broken_url</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_broken_url</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_broken_url</span>
 
 <span class="sd">        Set the broken URL mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">disable_honeyagent</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_honeyagent</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        disable_honeyagent</span>
 
 <span class="sd">        Disable HoneyAgent Java sandbox analysis</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">enable_code_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enable_code_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">            enable_code_logging</span>
 
 <span class="sd">            Enable code logging</span>
 
 <span class="sd">            @return: None</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
 
-    <span class="k">def</span> <span class="nf">disable_code_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_code_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        disable_code_logging</span>
 
 <span class="sd">        Disable code logging</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">enable_cert_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enable_cert_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">            enable_cert_logging</span>
 
 <span class="sd">            Enable SSL/TLS certificate logging</span>
 
 <span class="sd">            @return: None</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
 
-    <span class="k">def</span> <span class="nf">disable_cert_logging</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_cert_logging</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        disable_cert_logging</span>
 
 <span class="sd">        Disable SSL/TLS certificate logging</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">enable_screenshot</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enable_screenshot</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        enable_screenshot</span>
 
 <span class="sd">        Enable screenshot mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">disable_screenshot</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_screenshot</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        disable_screenshot</span>
 
 <span class="sd">        Disable screenshot mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">enable_awis</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enable_awis</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        enable_awis</span>
 
 <span class="sd">        Enable AWS Alexa Web Information Service (AWIS)</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">disable_awis</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_awis</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        disable_awis</span>
 
 <span class="sd">        Disable AWS Alexa Web Information Service (AWIS)</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">log_init</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_init</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        log_init</span>
 
 <span class="sd">        Initialize logging subsystem</span>
@@ -779,10 +780,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param url: URL to analyze</span>
 <span class="sd">        @type url: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_log_dir</span><span class="p">(</span><span class="n">logdir</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_log_dir</span><span class="p">(</span><span class="n">logdir</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_log_dir</span>
 
 <span class="sd">        Set the log output directory</span>
@@ -790,10 +791,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param logdir: the log output directory</span>
 <span class="sd">        @type logdir: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_log_output</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_log_output</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_log_output</span>
 
 <span class="sd">        Set the log output file</span>
@@ -801,90 +802,90 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param output: the log output file</span>
 <span class="sd">        @type output: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_log_quiet</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_log_quiet</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_log_quiet</span>
 
 <span class="sd">        Disable console logging</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_log_verbose</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_log_verbose</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_log_verbose</span>
 
 <span class="sd">        Enable console logging</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_mongodb_instance</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_mongodb_instance</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_mongodb_instance</span>
 
-<span class="sd">        Get the address (&quot;host:port&quot;) of the MongoDB instance specified at runtime</span>
+<span class="sd">        Get the address ("host:port") of the MongoDB instance specified at runtime</span>
 <span class="sd">        (not the one from the thug.conf file)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_mongodb_instance</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_mongodb_instance</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_mongodb_instance</span>
 
-<span class="sd">        Set the address (&quot;host:port&quot;) of a running MongoDB instance to be used at runtime</span>
+<span class="sd">        Set the address ("host:port") of a running MongoDB instance to be used at runtime</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_web_tracking</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_web_tracking</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_web_tracking</span>
 
 <span class="sd">        Return True if web client tracking inspection is enabled, False otherwise.</span>
 
 <span class="sd">        @return: bool</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_web_tracking</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_web_tracking</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_web_tracking</span>
 
 <span class="sd">        Enable web client tracking inspection</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">get_async_prefetch</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_async_prefetch</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        get_async_prefetch</span>
 
 <span class="sd">        Return True if asynchronous prefetching mode is enabled, False otherwise.</span>
 
 <span class="sd">        @return: bool</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">set_async_prefetch</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_async_prefetch</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_async_prefetch</span>
 
 <span class="sd">        Enable asynchronous prefetching mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">reset_async_prefetch</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_async_prefetch</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        set_async_prefetch</span>
 
 <span class="sd">        Disable asynchronous prefetching mode</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_urlclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_urlclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_urlclassifier</span>
 
 <span class="sd">        Add an additional URL classifier rule file</span>
@@ -892,10 +893,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param rule: URL classifier rule file</span>
 <span class="sd">        @type rule: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_htmlclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_htmlclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_htmlclassifier</span>
 
 <span class="sd">        Add an additional HTML classifier rule file</span>
@@ -903,10 +904,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param rule: HTML classifier rule file</span>
 <span class="sd">        @type rule: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_jsclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_jsclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_jsclassifier</span>
 
 <span class="sd">        Add an additional JS classifier rule file</span>
@@ -914,10 +915,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param rule: JS classifier rule file</span>
 <span class="sd">        @type rule: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_vbsclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_vbsclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_vbsclassifier</span>
 
 <span class="sd">        Add an additional VBS classifier rule file</span>
@@ -925,10 +926,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param rule: VBS classifier rule file</span>
 <span class="sd">        @type rule: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_sampleclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_sampleclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_sampleclassifier</span>
 
 <span class="sd">        Add an additional Sample classifier rule file</span>
@@ -936,10 +937,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param rule: Sample classifier rule file</span>
 <span class="sd">        @type rule: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_textclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_textclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_textclassifier</span>
 
 <span class="sd">        Add an additional Text classifier rule file</span>
@@ -947,10 +948,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param rule: Text classifier rule file</span>
 <span class="sd">        @type rule: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_cookieclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_cookieclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_cookieclassifier</span>
 
 <span class="sd">        Add an additional Cookie classifier rule file</span>
@@ -958,10 +959,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param rule: Cookie classifier rule file</span>
 <span class="sd">        @type rule: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_imageclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_imageclassifier</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_imageclassifier</span>
 
 <span class="sd">        Add an additional Image classifier rule file</span>
@@ -969,10 +970,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param rule: Image classifier rule file</span>
 <span class="sd">        @type rule: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_urlfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_urlfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_urlfilter</span>
 
 <span class="sd">        Add an additional URL filter file</span>
@@ -980,10 +981,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param filter: URL filter file</span>
 <span class="sd">        @type filter: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_htmlfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_htmlfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_htmlfilter</span>
 
 <span class="sd">        Add an additional HTML filter file</span>
@@ -991,10 +992,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param filter: HTML filter file</span>
 <span class="sd">        @type filter: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_jsfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_jsfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_jsfilter</span>
 
 <span class="sd">        Add an additional JS filter file</span>
@@ -1002,10 +1003,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param filter: JS filter file</span>
 <span class="sd">        @type filter: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_vbsfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_vbsfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_vbsfilter</span>
 
 <span class="sd">        Add an additional VBS filter file</span>
@@ -1013,10 +1014,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param filter: VBS filter file</span>
 <span class="sd">        @type filter: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_samplefilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_samplefilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_samplefilter</span>
 
 <span class="sd">        Add an additional Sample filter file</span>
@@ -1024,10 +1025,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param filter: Sample filter file</span>
 <span class="sd">        @type filter: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_textfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_textfilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_textfilter</span>
 
 <span class="sd">        Add an additional Text filter file</span>
@@ -1035,10 +1036,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param filter: Text filter file</span>
 <span class="sd">        @type filter: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_cookiefilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_cookiefilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_cookiefilter</span>
 
 <span class="sd">        Add an additional Cookie filter file</span>
@@ -1046,10 +1047,10 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param filter: Cookie filter file</span>
 <span class="sd">        @type filter: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_imagefilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_imagefilter</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_imagefilter</span>
 
 <span class="sd">        Add an additional Image filter file</span>
@@ -1057,15 +1058,15 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param rule: Image filter file</span>
 <span class="sd">        @type rule: C{str}</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">add_customclassifier</span><span class="p">(</span><span class="n">cls_type</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_customclassifier</span><span class="p">(</span><span class="n">cls_type</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        add_customclassifier</span>
 
 <span class="sd">        Add a custom classifier.</span>
 
-<span class="sd">        The parameter `cls_type&#39; can assume the values</span>
+<span class="sd">        The parameter `cls_type' can assume the values</span>
 
 <span class="sd">                html</span>
 <span class="sd">                js</span>
@@ -1077,8 +1078,8 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 
 <span class="sd">        and defines the custom classifier scope.</span>
 
-<span class="sd">        The parameter `method&#39; is the method (not its name) to be additionaly invoked.</span>
-<span class="sd">        The method parameters depend on the `cls_type&#39; value and are listed here for</span>
+<span class="sd">        The parameter `method' is the method (not its name) to be additionaly invoked.</span>
+<span class="sd">        The method parameters depend on the `cls_type' value and are listed here for</span>
 <span class="sd">        convenience</span>
 
 <span class="sd">                html    method(url, html)</span>
@@ -1094,54 +1095,54 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 <span class="sd">        @param method: Classifier method</span>
 <span class="sd">        @param method: method</span>
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">reset_customclassifiers</span><span class="p">()</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_customclassifiers</span><span class="p">()</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        reset_customclassifiers</span>
 
 <span class="sd">        Reset all the custom classifiers</span>
 
 <span class="sd">        @return: None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">log_event</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        """</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_event</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        log_event</span>
 
 <span class="sd">        Log the URL analysis results</span>
 
 <span class="sd">        @return None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">run_local</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_local</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        run_local</span>
 
-<span class="sd">        This method should be invoked by &#39;analyze&#39; method for local file analysis</span>
+<span class="sd">        This method should be invoked by 'analyze' method for local file analysis</span>
 
 <span class="sd">        @param url: URL to analyze</span>
 <span class="sd">        @type url: C{str}</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">run_remote</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_remote</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        run_remote</span>
 
-<span class="sd">        This method should be invoked by &#39;analyze&#39; method for URL analysis</span>
+<span class="sd">        This method should be invoked by 'analyze' method for URL analysis</span>
 
 <span class="sd">        @param url: URL to analyze</span>
 <span class="sd">        @type url: C{str}</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-    <span class="k">def</span> <span class="nf">analyze</span><span class="p">():</span>
-        <span class="s2">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">():</span>
+        <span class="s2">"""</span>
 <span class="s2">        analyze</span>
 
 <span class="s2">        This method is implicitely called when the ThugAPI instance is directly called</span>
 <span class="s2">        (take a look at thug/thug.py for an example). It is a good practice to implement</span>
 <span class="s2">        this method in any case as entry point and invoke it directly or by calling the</span>
 <span class="s2">        instance (in such case implementing it is mandatory) on your requirements. This</span>
-<span class="s2">        method can reference just  the (optional) &#39;args&#39; attribute. Returning something</span>
+<span class="s2">        method can reference just  the (optional) 'args' attribute. Returning something</span>
 <span class="s2">        from this method is up to you if needed.</span>
 </pre></div>
 </div>
@@ -1190,7 +1191,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
         <li class="right" >
           <a href="usage.html" title="Usage"
              >previous</a> |</li>
-          <li><img src="static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><img src="static/py.svg" alt="Python logo" style="vertical-align: middle; margin-top: -1px"></li>
           <li><a href="https://www.python.org/">Python</a> &#187;</li>
           <li class="switchers">
             <div class="language_switcher_placeholder"></div>
@@ -1198,7 +1199,7 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
           </li>
           <li>
               
-              <a href="index.html">Thug 6.12 documentation</a> &#187;
+              <a href="index.html">Thug 6.22 documentation</a> &#187;
               
           </li>
         <li class="nav-item nav-item-this"><a href="">Thug API</a></li>
@@ -1207,8 +1208,8 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
 
     <div class="inline-search" role="search">
         <form class="inline-search" action="search.html" method="get">
-          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box" />
-          <input type="submit" value="Go" />
+          <input placeholder="Quick search" aria-label="Quick search" type="search" name="q" id="search-box">
+          <input type="submit" value="Go">
         </form>
     </div>
                      |
@@ -1226,26 +1227,24 @@ use of the Thug API for an example of how to perform a local file analysis.</p>
       </ul>
     </div>  
     <div class="footer">
-    &copy; 
-    Copyright
-     2011-2025, Angelo Dell&#39;Aera.
-    <br />
+    &copy; Copyright 2011-2026, Angelo Dell&#39;Aera.
+    <br>
     This page is licensed under the Python Software Foundation License Version 2.
-    <br />
+    <br>
     Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
-    <br />
+    <br>
     
     
-    <br />
+    <br>
 
     The Python Software Foundation is a non-profit corporation.
 <a href="https://www.python.org/psf/donations/">Please donate.</a>
-<br />
-    <br />
+<br>
+    <br>
     
-    <br />
+    <br>
 
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
     </div>
 
   </body>
