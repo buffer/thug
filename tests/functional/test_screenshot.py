@@ -1,7 +1,5 @@
-import os
 import logging
 
-import pytest
 
 from thug.ThugAPI.ThugAPI import ThugAPI
 
