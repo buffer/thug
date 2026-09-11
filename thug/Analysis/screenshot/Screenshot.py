@@ -29,7 +29,7 @@ class Screenshot:
             browser = p.chromium.launch(headless=True)
             page = browser.new_page()
 
-            def block_resource_type(route):
+            def block_resource_type(route):  # pragma: no cover
                 if route.request.resource_type in self.resource_types:
                     route.continue_()
                 else:
@@ -48,5 +48,5 @@ class Screenshot:
                 screenshot = page.screenshot(type="png", full_page=True)
                 browser.close()
                 log.ThugLogging.log_screenshot(url, screenshot)
-            except Exception as e:
-                log.warning("[SCREENSHOT] Error: %s", str(e))  # pragma: no cover
+            except Exception as e:  # pragma: no cover
+                log.warning("[SCREENSHOT] Error: %s", str(e))
