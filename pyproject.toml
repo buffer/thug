@@ -99,7 +99,7 @@ test = [
     "pytest-cov",
     "pytest-timeout",
     "safety",
-    "tox",
+    "tox==4.67.13",
 ]
 
 [project.scripts]
