@@ -40,7 +40,7 @@ jobs:
       - name: STEP 5. Install Tox
         run: |
           pip3 install --upgrade pip
-          pip3 install tox tox-gh-actions
+          pip3 install tox==4.67.13 tox-gh-actions
           pip3 install appdirs
 
       - name: STEP 6. Install Thug configuration

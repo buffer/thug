@@ -26,7 +26,7 @@ jobs:
           brew reinstall git autoconf libtool
           brew install automake graphviz tesseract libmagic
           ln -s $(which glibtoolize) /usr/local/bin/libtoolize
-          pip install --upgrade pip setuptools wheel tox tox-gh-actions appdirs
+          pip install --upgrade pip setuptools wheel tox==4.67.13 tox-gh-actions appdirs
           pip install --config-settings="--global-option=build_ext" --config-settings="--global-option=-I$(brew --prefix graphviz)/include/" --config-settings="--global-option=-L$(brew --prefix graphviz)/lib/" pygraphviz
 
       - name: Install libemu
